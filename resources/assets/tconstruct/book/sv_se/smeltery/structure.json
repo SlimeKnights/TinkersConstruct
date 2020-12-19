@@ -1,0 +1,12 @@
+{
+  "title":"",
+  "text": [
+    {
+      "text": "Smältverket kan vara i alla storlekar mellan 3x3 och 11x11, samt en valfri höjd på minst 2. Större strukturer ökar både antalet föremålen som kan smältas och vätskekapaciteten. Strukturen kräver ett golv, men behöver inte ett tak eller ram."
+    },
+    {
+      "text": "Smältverket kan byggas med en valfri kombination av brända block, glas, tankar och avtappningar men golvet får endast vara gjord av brända block. Det kräver minst en bränsletank, men fler ökar bränslemängden. Kranar kan fästas på avtappningarna för att kunna hälla vätskor i avgjutningsbänkar och -kar. Vätskerör från andra moddar kan pumpa in och ut vätskor från avtappningarna",
+	  "paragraph": true
+    }
+  ]
+}

@@ -14,6 +14,7 @@ import javax.annotation.Nonnull;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 
 public class SmeltingRecipeWrapper implements IRecipeWrapper {
@@ -47,7 +48,7 @@ public class SmeltingRecipeWrapper implements IRecipeWrapper {
 
   @Override
   public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-    String tmpStr = String.valueOf(temperature) + "\u00B0";
+    String tmpStr = Util.temperatureString(temperature);
     int x = 80 - minecraft.fontRenderer.getStringWidth(tmpStr) / 2;
     minecraft.fontRenderer.drawString(tmpStr, x, 10, Color.gray.getRGB());
   }

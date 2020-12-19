@@ -1,0 +1,1041 @@
+################
+#    Blocks    #
+################
+
+tile.tconstruct.tooltables.craftingstation.name=Tillverkningsstation
+tile.tconstruct.tooltables.stenciltable.name=Stencilbänk
+tile.tconstruct.tooltables.partbuilder.name=Delbyggare
+tile.tconstruct.tooltables.toolstation.name=Verktygsstation
+tile.tconstruct.tooltables.patternchest.name=Mönsterkista
+tile.tconstruct.tooltables.patternchest.tooltip=Håller antingen mönster eller avgjutningar
+tile.tconstruct.tooltables.partchest.name=Delkista
+tile.tconstruct.tooltables.partchest.tooltip=Kan hålla i en stor mängd verktygsdelar
+tile.tconstruct.toolforge.name=Verktygssmedja
+
+tile.tconstruct.soil.grout.name=Grout
+tile.tconstruct.soil.grout.tooltip=Jag är Grout!
+tile.tconstruct.soil.slimy_mud_green.name=Grön slemmig gyttja
+tile.tconstruct.soil.slimy_mud_green.tooltip=Saktar ned dig, men låter dig hoppa högre
+tile.tconstruct.soil.slimy_mud_blue.name=Blå slemmig gyttja
+tile.tconstruct.soil.slimy_mud_blue.tooltip=tile.tconstruct.soil.slimy_mud_green.tooltip
+tile.tconstruct.soil.slimy_mud_magma.name=Slemmig magmagyttja
+tile.tconstruct.soil.slimy_mud_magma.tooltip=tile.tconstruct.soil.slimy_mud_green.tooltip
+tile.tconstruct.soil.graveyard.name=Kyrkogårdsjord
+tile.tconstruct.soil.graveyard.tooltip=Läker odöda
+tile.tconstruct.soil.consecrated.name=Välsignad jord
+tile.tconstruct.soil.consecrated.tooltip=Skadar odöda
+
+tile.tconstruct.deco_ground.mudbrick.name=Gyttjetegel
+tile.tconstruct.deco_ground_slab.mudbrick.name=Gyttjetegelplatta
+tile.tconstruct.mudbrick_stairs.name=Gyttjetegeltrappa
+
+tile.tconstruct.ore.cobalt.name=Koboltmalm
+tile.tconstruct.ore.ardite.name=Arditemalm
+
+tile.tconstruct.metal.tooltip=Kan användas som grund till en fyr
+tile.tconstruct.metal.cobalt.name=Koboltblock
+tile.tconstruct.metal.ardite.name=Arditeblock
+tile.tconstruct.metal.manyullyn.name=Manyullynblock
+tile.tconstruct.metal.knightslime.name=Riddarslemsblock
+tile.tconstruct.metal.pigiron.name=Grisjärnsblock
+tile.tconstruct.metal.alubrass.name=Aluminiummässingsblock
+tile.tconstruct.metal.silky_jewel.name=Silkesjuvelblock
+
+tile.tconstruct.firewood.lavawood.name=Lavaträ
+tile.tconstruct.firewood.firewood.name=Eldträ
+tile.tconstruct.firewood_slab.lavawood.name=Lavaträplatta
+tile.tconstruct.firewood_slab.firewood.name=Eldträplatta
+tile.tconstruct.lavawood_stairs.name=Lavaträtrappa
+tile.tconstruct.firewood_stairs.name=Eldträtrappa
+
+tile.tconstruct.clear_glass.name=Genomskinligt glas
+tile.tconstruct.clear_stained_glass.white.name=Genomskinligt vitfärgat glas
+tile.tconstruct.clear_stained_glass.orange.name=Genomskinligt orangefärgat glas
+tile.tconstruct.clear_stained_glass.magenta.name=Genomskinligt ljuslilafärgat glas
+tile.tconstruct.clear_stained_glass.light_blue.name=Genomskinligt ljusblåfärgat glas
+tile.tconstruct.clear_stained_glass.yellow.name=Genomskinligt gulfärgat glas
+tile.tconstruct.clear_stained_glass.lime.name=Genomskinligt ljusgrönfärgat glas
+tile.tconstruct.clear_stained_glass.pink.name=Genomskinligt rosafärgat glas
+tile.tconstruct.clear_stained_glass.gray.name=Genomskinligt gråfärgat glas
+tile.tconstruct.clear_stained_glass.silver.name=Genomskinligt ljusgråfärgat glas
+tile.tconstruct.clear_stained_glass.cyan.name=Genomskinligt turkosfärgat glas
+tile.tconstruct.clear_stained_glass.purple.name=Genomskinligt lilafärgat glas
+tile.tconstruct.clear_stained_glass.blue.name=Genomskinligt blåfärgat glas
+tile.tconstruct.clear_stained_glass.brown.name=Genomskinligt brunfärgat glas
+tile.tconstruct.clear_stained_glass.green.name=Genomskinligt grönfärgat glas
+tile.tconstruct.clear_stained_glass.red.name=Genomskinligt rödfärgat glas
+tile.tconstruct.clear_stained_glass.black.name=Genomskinligt svartfärgat glas
+
+tile.tconstruct.slime.green.name=Grönt slemblock
+tile.tconstruct.slime.blue.name=Blått slemblock
+tile.tconstruct.slime.purple.name=Lila slemblock
+tile.tconstruct.slime.blood.name=Blodslemblock
+tile.tconstruct.slime.magma.name=Magmaslemblock
+tile.tconstruct.slime.tooltip=Fungerar med kolvar!
+
+tile.tconstruct.slime_congealed.green.name=Koagulerat grönt slemblock
+tile.tconstruct.slime_congealed.blue.name=Koagulerat blått slemblock
+tile.tconstruct.slime_congealed.purple.name=Koagulerat lila slemblock
+tile.tconstruct.slime_congealed.blood.name=Koagulerat blodslemblock
+tile.tconstruct.slime_congealed.magma.name=Koagulerat magmaslemblock
+tile.tconstruct.slime_congealed.tooltip=Låter dig hoppa riktigt högt
+
+tile.tconstruct.slime_dirt.green.name=Grön slemmig jord
+tile.tconstruct.slime_dirt.blue.name=Blå slemmig jord
+tile.tconstruct.slime_dirt.purple.name=Lila slemmig jord
+tile.tconstruct.slime_dirt.blood.name=Blod slemmig jord
+tile.tconstruct.slime_dirt.magma.name=Magma slemmig jord
+tile.tconstruct.slime_dirt.tooltip=Slemmig, men låter dig hoppa högre
+
+tile.tconstruct.slime_grass.vanilla.name=Slemmigt gräs
+tile.tconstruct.slime_grass.green.name=Grönt slemmigt gräs
+tile.tconstruct.slime_grass.blue.name=Blått slemmigt gräs
+tile.tconstruct.slime_grass.purple.name=Lila slemmigt gräs
+tile.tconstruct.slime_grass.blood.name=Blodslemmigt gräs
+tile.tconstruct.slime_grass.magma.name=Magma slemmigt gräs
+tile.tconstruct.slime_grass.tooltip=Så mjukt! Låter dig hoppa högre
+
+tile.tconstruct.slime_leaves.blue.name=Slemmigt löv
+tile.tconstruct.slime_leaves.purple.name=Slemmigt löv
+tile.tconstruct.slime_leaves.orange.name=Slemmigt löv
+
+tile.tconstruct.slime_grass_tall.tall_grass.name=Högt slemmigt gräs
+tile.tconstruct.slime_grass_tall.fern.name=Slemmig ormbunke
+
+tile.tconstruct.slime_sapling.blue.name=Blå slemplanta
+tile.tconstruct.slime_sapling.purple.name=Lila slemplanta
+tile.tconstruct.slime_sapling.orange.name=Magmaslemplanta
+tile.tconstruct.slime_sapling.tooltip=Växer endast på slemmig jord/gräs
+
+tile.tconstruct.slime_vine_blue.name=Blått slemmig klätterväxt
+tile.tconstruct.slime_vine_blue_mid.name=Blått slemmig klätterväxt
+tile.tconstruct.slime_vine_blue_end.name=Blått slemmig klätterväxt
+tile.tconstruct.slime_vine_purple.name=Lila slemmig klätterväxt
+tile.tconstruct.slime_vine_purple_mid.name=Lila slemmig klätterväxt
+tile.tconstruct.slime_vine_purple_end.name=Lila slemmig klätterväxt
+
+tile.tconstruct.seared.stone.name=Bränd sten
+tile.tconstruct.seared.cobble.name=Bränd kullersten
+tile.tconstruct.seared.paver.name=Bränd gatsten
+tile.tconstruct.seared.brick.name=Bränt tegel
+tile.tconstruct.seared.brick_cracked.name=Sprucket bränt tegel
+tile.tconstruct.seared.brick_fancy.name=Snyggt bränt tegel
+tile.tconstruct.seared.brick_square.name=Bränt tegel med fyrkantsmönster
+tile.tconstruct.seared.brick_triangle.name=Bränt tegel med triangelmönster
+tile.tconstruct.seared.brick_small.name=Bränt litet tegel
+tile.tconstruct.seared.road.name=Brända fyrkantiga stenar
+tile.tconstruct.seared.tile.name=Bränt kakel
+tile.tconstruct.seared.creeper.name=Bränd gatsten med creepermönster
+tile.tconstruct.seared.tooltip=Smältverksdel. Kan användas som dekoration.
+
+tile.tconstruct.seared_slab.stone.name=Bränd stenplatta
+tile.tconstruct.seared_slab.cobble.name=Bränd kullerstensplatta
+tile.tconstruct.seared_slab.paver.name=Bränd gatstensplatta
+tile.tconstruct.seared_slab.brick.name=Bränd tegelplatta
+tile.tconstruct.seared_slab.brick_cracked.name=Sprucken bränd tegelplatta
+tile.tconstruct.seared_slab.brick_fancy.name=Snygg bränd tegelplatta
+tile.tconstruct.seared_slab.brick_square.name=Bränd tegelplatta med fyrkantsmönster
+tile.tconstruct.seared_slab.road.name=Bränd platta med fyrkantiga stenar
+tile.tconstruct.seared_slab2.creeper.name=Bränd platta med creepermönster
+tile.tconstruct.seared_slab2.brick_triangle.name=Bränd tegelplatta med triangelmönster
+tile.tconstruct.seared_slab2.brick_small.name=Bränd platta med litet tegel
+tile.tconstruct.seared_slab2.tile.name=Bränd kakelplatta
+
+tile.tconstruct.seared_stairs_stone.name=Bränd stentrappa
+tile.tconstruct.seared_stairs_cobble.name=Bränd kullerstenstrappa
+tile.tconstruct.seared_stairs_paver.name=Bränd gatstenstrappa
+tile.tconstruct.seared_stairs_brick.name=Bränd tegeltrappa
+tile.tconstruct.seared_stairs_brick_cracked.name=Sprucken bränd tegeltrappa
+tile.tconstruct.seared_stairs_brick_fancy.name=Snygg bränd tegeltrappa
+tile.tconstruct.seared_stairs_brick_square.name=Bränd tegeltrappa med fyrkantsmönster
+tile.tconstruct.seared_stairs_brick_triangle.name=Bränd tegeltrappa med triangelmönster
+tile.tconstruct.seared_stairs_brick_small.name=Bränd trappa med litet tegel
+tile.tconstruct.seared_stairs_road.name=Bränd trappa med fyrkantiga stenar
+tile.tconstruct.seared_stairs_tile.name=Bränd kakeltrappa
+tile.tconstruct.seared_stairs_creeper.name=Bränd trappa med creepermönster
+
+tile.tconstruct.smeltery_controller.name=Kontroll för smältverk
+tile.tconstruct.smeltery_controller.tooltip=Smältverkets hjärna
+tile.tconstruct.smeltery_io.drain.name=Smältverksavtappning
+tile.tconstruct.smeltery_io.drain.tooltip=In- och utmatning av vätska för smältverk
+tile.tconstruct.casting.table.name=Avgjutningsbänk
+tile.tconstruct.casting.basin.name=Avgjutningskar
+tile.tconstruct.casting.tooltip=Avgjuter föremål med hjälp av nedsmälta metaller från ett smältverk
+tile.tconstruct.faucet.name=Kran
+tile.tconstruct.faucet.tooltip=Tappar smältverk och andra saker på vätskor
+tile.tconstruct.channel.name=Avgjutningskanal
+tile.tconstruct.channel.tooltip=Fylls med kranar för att flytta vätskor för avgjutning
+tile.tconstruct.seared_tank.tank.name=Bränd tank
+tile.tconstruct.seared_tank.gauge.name=Bränd mätare
+tile.tconstruct.seared_tank.window.name=Bränt fönster
+tile.tconstruct.seared_tank.tooltip=Smältverkets hjärta\nBehåller vätska när den förstörs.
+tile.tconstruct.seared_glass.glass.name=Bränt glas
+tile.tconstruct.seared_glass.glass.tooltip=Smältverksdel. Kan användas som dekoration.\nKan inte lagra vätskor.
+
+tile.tconstruct.seared_furnace_controller.name=Kontroll för bränd ugn
+tile.tconstruct.tinker_tank_controller.name=Kontroll för tinkertank
+
+tile.tconstruct.stone_torch.name=Stenfackla
+tile.tconstruct.stone_ladder.name=Stenstege
+tile.tconstruct.wood_rail.name=Träräls
+tile.tconstruct.wood_rail_trapdoor.name=Träräls med fallucka
+tile.tconstruct.wood_rail_trapdoor.tooltip=Gruvvagnar med en tratt kan\ninfoga föremål i block som är under
+tile.tconstruct.wooden_hopper.name=Trätratt
+item.tconstruct.wooden_hopper.tooltip=Långsammare och billigare trattvariant
+tile.tconstruct.punji.name=Punjipinnar
+tile.tconstruct.punji.tooltip=Vassa! Kan även fästas på väggar.
+tile.tconstruct.glow.name=Glöd
+tile.tconstruct.rack.item.name=Föremålsställning
+tile.tconstruct.rack.item.tooltip=Endast för dekorationssyften
+tile.tconstruct.rack.drying.name=Torkställning
+tile.tconstruct.rack.drying.tooltip=Används för att torka saker
+
+tile.tconstruct.slime_channel.green.name=Grön slemkanal
+tile.tconstruct.slime_channel.blue.name=Blå slemkanal
+tile.tconstruct.slime_channel.purple.name=Lila slemkanal
+tile.tconstruct.slime_channel.magma.name=Magmaslemkanal
+tile.tconstruct.slime_channel.blood.name=Blodkanal
+tile.tconstruct.slime_channel.tooltip=Flödar som vatten, känns som gelatin
+
+tile.tconstruct.dried_clay.clay.name=Torkad lera
+tile.tconstruct.dried_clay.brick.name=Torkat tegel
+tile.tconstruct.dried_clay_slab.clay.name=Torkad lerplatta
+tile.tconstruct.dried_clay_slab.brick.name=Torkad tegelplatta
+tile.tconstruct.dried_clay_stairs.name=Torkad lertrappa
+tile.tconstruct.dried_brick_stairs.name=Torkad tegeltrappa
+
+tile.tconstruct.brownstone.smooth.name=Len brunsten
+tile.tconstruct.brownstone.rough.name=Grov brunsten
+tile.tconstruct.brownstone.paver.name=Brunstengatsten
+tile.tconstruct.brownstone.brick.name=Brunstenstegel
+tile.tconstruct.brownstone.brick_cracked.name=Sprucket brunstenstegel
+tile.tconstruct.brownstone.brick_fancy.name=Snyggt brunstenstegel
+tile.tconstruct.brownstone.brick_square.name=Brunstenstegel med fyrkantsmönster
+tile.tconstruct.brownstone.brick_triangle.name=Brunstenstegel med triangelmönster
+tile.tconstruct.brownstone.brick_small.name=Brunsten med litet tegel
+tile.tconstruct.brownstone.road.name=Brunsten med fyrkantiga stenar
+tile.tconstruct.brownstone.tile.name=Brunstenskakel
+tile.tconstruct.brownstone.creeper.name=Brunsten med creepermönster
+tile.tconstruct.brownstone.tooltip=Du rör dig lite snabbare på den här
+
+tile.tconstruct.brownstone_slab.smooth.name=Len brunstensplatta
+tile.tconstruct.brownstone_slab.rough.name=Grov brunstensplatta
+tile.tconstruct.brownstone_slab.paver.name=Brunstensgatstensplatta
+tile.tconstruct.brownstone_slab.brick.name=Brunstenstegelplatta
+tile.tconstruct.brownstone_slab.brick_cracked.name=Sprucken brunstenstegelplatta
+tile.tconstruct.brownstone_slab.brick_fancy.name=Snygg brunstenstegelplatta
+tile.tconstruct.brownstone_slab.brick_square.name=Brunstenstegelplatta med fyrkantsmönster
+tile.tconstruct.brownstone_slab.road.name=Brunstensplatta med fyrkantiga stenar
+tile.tconstruct.brownstone_slab2.creeper.name=Brunstensplatta med creepermönster
+tile.tconstruct.brownstone_slab2.brick_triangle.name=Brunstenstegelplatta med triangelmönster
+tile.tconstruct.brownstone_slab2.brick_small.name=Brunstensplatta med litet tegel
+tile.tconstruct.brownstone_slab2.tile.name=Brunstenskakelplatta
+
+tile.tconstruct.brownstone_stairs_smooth.name=Len brunstenstrappa
+tile.tconstruct.brownstone_stairs_rough.name=Grov brunstenstrappa
+tile.tconstruct.brownstone_stairs_paver.name=Brunstensgatstenstrappa
+tile.tconstruct.brownstone_stairs_brick.name=Brunstenstegeltrappa
+tile.tconstruct.brownstone_stairs_brick_cracked.name=Sprucken brunstenstegeltrappa
+tile.tconstruct.brownstone_stairs_brick_fancy.name=Snygg brunstenstegeltrappa
+tile.tconstruct.brownstone_stairs_brick_square.name=Brunstenstegeltrappa med fyrkantsmönster
+tile.tconstruct.brownstone_stairs_brick_triangle.name=Brunstenstegeltrappa med triangelmönster
+tile.tconstruct.brownstone_stairs_brick_small.name=Brunstenstrappa med litet tegel
+tile.tconstruct.brownstone_stairs_road.name=Brunstenstrappa med fyrkantiga stenar
+tile.tconstruct.brownstone_stairs_tile.name=Brunstenskakeltrappa
+tile.tconstruct.brownstone_stairs_creeper.name=Brunstenstrappa med creepermönster
+
+################
+#    Items     #
+################
+
+# General Items
+item.tconstruct.book.name=Materialen och du
+item.tconstruct.book.tooltip=Boken som varje Tinker-fantast behöver\nav Skyla
+
+item.tconstruct.edible.bacon.name=Bacon
+item.tconstruct.edible.slimeball_blue.name=Slemboll
+item.tconstruct.edible.slimeball_purple.name=Slemboll
+item.tconstruct.edible.slimeball_blood.name=Koagulerat blod
+item.tconstruct.edible.slimeball_magma.name=Slemboll
+item.tconstruct.edible.jerky_beef.name=Torkat kött
+item.tconstruct.edible.jerky_chicken.name=Torkad kyckling
+item.tconstruct.edible.jerky_pork.name=Torkat bacon
+item.tconstruct.edible.jerky_mutton.name=Torkat fårkött
+item.tconstruct.edible.jerky_rabbit.name=Torkad kanin
+item.tconstruct.edible.jerky_fish.name=Torkad torsk
+item.tconstruct.edible.jerky_salmon.name=Torkad lax
+item.tconstruct.edible.jerky_clownfish.name=Torkad clownfisk
+item.tconstruct.edible.jerky_pufferfish.name=Fugu
+item.tconstruct.edible.jerky_monster.name=Torkat monsterkött
+item.tconstruct.edible.slimedrop_green.name=Gelatinartad slemdroppe
+item.tconstruct.edible.slimedrop_blue.name=Gelatinartad slemdroppe
+item.tconstruct.edible.slimedrop_purple.name=Gelatinartad slemdroppe
+item.tconstruct.edible.slimedrop_blood.name=Koagulerad bloddroppe
+item.tconstruct.edible.slimedrop_magma.name=Gelatinartad slemdroppe
+
+item.tconstruct.materials.seared_brick.name=Bränt tegel
+item.tconstruct.materials.mud_brick.name=Gyttjetegel
+item.tconstruct.materials.mud_brick.tooltip=Byggblock för stora och små
+item.tconstruct.materials.dried_brick.name=Torkat tegel
+item.tconstruct.materials.slimecrystal_green.name=Grön slemkristall
+item.tconstruct.materials.slimecrystal_green.tooltip=Används för att tillverka slemverktyg
+item.tconstruct.materials.slimecrystal_blue.name=Blå slemkristall
+item.tconstruct.materials.slimecrystal_blue.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
+item.tconstruct.materials.slimecrystal_magma.name=Magmaslemkristall
+item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
+item.tconstruct.materials.expander_w.name=Utvidgare (horisontalt)
+item.tconstruct.materials.expander_w.tooltip=Expanderar åt sidan.
+item.tconstruct.materials.expander_h.name=Utvidgare (vertikalt)
+item.tconstruct.materials.expander_h.tooltip=Expanderar uppåt och nedåt.
+item.tconstruct.materials.reinforcement.name=Förstärkning
+item.tconstruct.materials.reinforcement.tooltip=Modifierare för förstärkning
+item.tconstruct.materials.silky_cloth.name=Silkestyg
+item.tconstruct.materials.silky_jewel.name=Silkesjuvel
+item.tconstruct.materials.silky_jewel.tooltip=Modifierare för silkesvante
+item.tconstruct.materials.necrotic_bone.name=Nekrotiskt ben
+item.tconstruct.materials.necrotic_bone.tooltip=Modifierare för nekrotiskt
+item.tconstruct.materials.moss.name=Mossboll
+item.tconstruct.materials.moss.tooltip=Högerklicka på en bokhylla med detta\nför att omvandla den till en lagningsmossa.\n§oKonsumerar 10 nivåer
+item.tconstruct.materials.mending_moss.name=Lagningsmossa
+item.tconstruct.materials.mending_moss.tooltip=Modifierare för lagningsmossa
+item.tconstruct.materials.creative_modifier.name=Kreativ modifierare
+item.tconstruct.materials.creative_modifier.tooltip=Lägger till en ytterligare modifierare
+
+item.tconstruct.ingots.cobalt.name=Kobolttacka
+item.tconstruct.ingots.ardite.name=Arditetacka
+item.tconstruct.ingots.manyullyn.name=Manyullyntacka
+item.tconstruct.ingots.knightslime.name=Riddarslemstacka
+item.tconstruct.ingots.knightslime.tooltip=Slemmigt fast metalliskt men även sten? Fascinerande!
+item.tconstruct.ingots.pigiron.name=Grisjärntacka
+item.tconstruct.ingots.pigiron.tooltip=Nöff!
+item.tconstruct.ingots.alubrass.name=Aluminummässingstacka
+
+item.tconstruct.nuggets.cobalt.name=Koboltklimp
+item.tconstruct.nuggets.ardite.name=Arditeklimp
+item.tconstruct.nuggets.manyullyn.name=Manyullynklimp
+item.tconstruct.nuggets.knightslime.name=Riddarslemsklimp
+item.tconstruct.nuggets.pigiron.name=Grisjärnsklimp
+item.tconstruct.nuggets.alubrass.name=Aluminummässingsklimp
+
+item.tconstruct.pattern.blank=Blankt mönster
+item.tconstruct.pattern.name=%smönster
+item.tconstruct.cast.blank=Blank avgjutning
+item.tconstruct.cast.name=%savgjutning
+item.tconstruct.clay_cast.name=%savgjutning av lera
+item.tconstruct.cast_custom.ingot.name=Tackavgjutning
+item.tconstruct.cast_custom.nugget.name=Klimpavgjutning
+item.tconstruct.cast_custom.gem.name=Ädestensavgjutning
+item.tconstruct.cast_custom.plate.name=Plåtavgjutning
+item.tconstruct.cast_custom.gear.name=Rustningsavgjutning
+
+item.tconstruct.sharpening_kit.name=Slipredskap
+item.tconstruct.sharpening_kit.tooltip=Kombineras med en flinta\nUppgraderar ditt verktyg till materialets grävnivå.
+
+item.forge.bucketFilled.blood=Blodhink
+
+# Tools
+item.tconstruct.pickaxe.name=Hacka
+item.tconstruct.shovel.name=Spade
+item.tconstruct.hatchet.name=Handyxa
+item.tconstruct.mattock.name=Jordhacka 
+item.tconstruct.kama.name=Kama
+
+item.tconstruct.hammer.name=Hammare
+item.tconstruct.excavator.name=Utgrävare
+item.tconstruct.lumberaxe.name=Skogshuggaryxa
+item.tconstruct.scythe.name=Lie
+
+# Melee Weapons
+
+item.tconstruct.frypan.name=Stekpanna
+item.tconstruct.battlesign.name=Stridsskylt
+item.tconstruct.dagger.name=Dolk
+item.tconstruct.broadsword.name=Bredsvärd
+item.tconstruct.longsword.name=Långsvärd
+item.tconstruct.rapier.name=Värja
+item.tconstruct.cutlass.name=Huggare
+
+item.tconstruct.cleaver.name=Köttyxa
+item.tconstruct.battleaxe.name=Stridsyxa
+
+# Ranged Weapons & Ammo
+
+item.tconstruct.shortbow.name=Kortbåge
+item.tconstruct.longbow.name=Långbåge
+item.tconstruct.crossbow.name=Armborst
+
+item.tconstruct.arrow.name=Pil
+item.tconstruct.bolt.name=Armborstpil
+
+item.tconstruct.shuriken.name=Kaststjärna
+
+# Tool Parts
+item.tconstruct.shard.name=Skärva
+
+item.tconstruct.pick_head.name=Hackhuvud
+item.tconstruct.shovel_head.name=Spadhuvud
+item.tconstruct.axe_head.name=Yxhuvud
+item.tconstruct.kama_head.name=Kamablad
+item.tconstruct.pan_head.name=Panna
+item.tconstruct.sign_head.name=Skyltplåt
+item.tconstruct.binding.name=Bindning
+item.tconstruct.tool_rod.name=Verktygsstav
+item.tconstruct.knife_blade.name=Knivblad
+item.tconstruct.sword_blade.name=Svärdsklinga
+item.tconstruct.wide_guard.name=Bred parerstång
+item.tconstruct.cross_guard.name=Korsad parerstång
+item.tconstruct.hand_guard.name=Handskyddande parerstång
+item.tconstruct.full_guard.name=Full parerstång
+
+# Large Tool Parts
+item.tconstruct.hammer_head.name=Hammarhuvud
+item.tconstruct.excavator_head.name=Utgrävarhuvud
+item.tconstruct.broad_axe_head.name=Bredyxhuvud
+item.tconstruct.large_plate.name=Stor plåt
+item.tconstruct.tough_binding.name=Tuff bindning
+item.tconstruct.tough_tool_rod.name=Tuff verktygsstav
+item.tconstruct.scythe_head.name=Lieblad
+item.tconstruct.large_sword_blade.name=Stor svärdsklinga
+
+# Bow & Arrow Parts
+
+item.tconstruct.bow_limb.name=Pilbågsstock
+item.tconstruct.bow_string.name=Bågsträng
+
+item.tconstruct.arrow_head.name=Pilhuvud
+item.tconstruct.arrow_shaft.name=Pilskaft
+item.tconstruct.fletching.name=Styrfjäder
+
+item.tconstruct.bolt_core.name=Armborstpilkärna
+
+# Material specific tools and toolparts
+# item.tconstruct.<tool>.<material>
+# item.tconstruct.pickaxe.wood=Wooden Pickaxe
+
+# Gadgets
+item.tconstruct.slime_boots.green.name=Slemstövlar
+item.tconstruct.slime_boots.blue.name=Slemstövlar
+item.tconstruct.slime_boots.purple.name=Slemstövlar
+item.tconstruct.slime_boots.blood.name=Koagulerade blodstövlar
+item.tconstruct.slime_boots.magma.name=Slemstövlar
+item.tconstruct.slime_boots.tooltip=Får dig att studsa när du landar
+item.tconstruct.slimesling.green.name=Slemslunga
+item.tconstruct.slimesling.blue.name=Slemslunga
+item.tconstruct.slimesling.purple.name=Slemslunga
+item.tconstruct.slimesling.blood.name=Koagulerad blodslunga
+item.tconstruct.slimesling.magma.name=Slemslunga
+item.tconstruct.slimesling.tooltip=Ladda, sikta lågt, börja slunga!\nAnvänd slemstövlar om du värderar ditt liv!
+item.tconstruct.piggybackpack.name=Bärsele
+item.tconstruct.piggybackpack.tooltip=Högerklicka på varelser för att plocka upp dem
+item.tconstruct.stone_stick.name=Stenstav
+
+item.tconstruct.fancy_frame.jewel.name=Snygg föremålsram
+item.tconstruct.fancy_frame.alubrass.name=Föremålsram av aluminiummässing
+item.tconstruct.fancy_frame.cobalt.name=Föremålsram av kobolt
+item.tconstruct.fancy_frame.ardite.name=Föremålsram av ardite
+item.tconstruct.fancy_frame.manyullyn.name=Föremålsram av manyullyn
+item.tconstruct.fancy_frame.gold.name=Föremålsram av guld
+item.tconstruct.fancy_frame.clear.name=Genomskinlig föremålsram
+
+item.tconstruct.throwball.glow.name=Glödboll
+item.tconstruct.throwball.glow.tooltip=Inte lämplig att förtäras.
+item.tconstruct.throwball.efln.name=EFLN
+item.tconstruct.throwball.efln.tooltip=Exploderar! Kan används för att bryta block
+
+###################
+# Mom's Spaghetti #
+###################
+
+item.tconstruct.moms_spaghetti.name=Mammas spaghetti
+item.tconstruct.moms_spaghetti.desc=Utsökt!
+item.tconstruct.moms_spaghetti.tooltip1=§oJag antar att den går att äta... men den är ändå inte densamma.\nDen behöver definitivt lite sås och den måste vara röd.
+item.tconstruct.moms_spaghetti.tooltip2=§oDet är någonting som saknas... kanske lite kött. Mamma brukade alltid använda ALLA köttsorter.\nJag borde skaffa minst tre olika typer av kött.
+item.tconstruct.moms_spaghetti.tooltip3=§oPrecis som den som mamma gjorde.
+stat.spaghetti.uses.name=Smaskens
+stat.spaghetti.nourishment.name=Näring
+stat.spaghetti.saturation.name=Mättnad
+modifier.spaghetti_sauce.name=med sås
+modifier.spaghetti_sauce.desc=§oMed mammas rödbetor§r\nÖkar mättnaden
+modifier.spaghetti_meat.name=med kött
+modifier.spaghetti_meat.desc=§oAllt kött!§r\nÖkar näringsvärdet
+
+item.tconstruct.spaghetti.hard.name=Omöjligt hårda vetepinnar
+item.tconstruct.spaghetti.hard.tooltip=Fullständigt oätliga.\nDe behöver mjukas upp, men dina svettiga handflator räcker inte.\nFörmodligen bör de blötas ned med vatten ett tag.
+item.tconstruct.spaghetti.soggy.name=Vattniga nudlar
+item.tconstruct.spaghetti.soggy.tooltip=Nu är de så blöta att även dina spaghettiarmar kan böja dem.\nHäng upp dem och låt dem torka.
+item.tconstruct.spaghetti.cold.name=Kalla torra nudlar
+item.tconstruct.spaghetti.cold.tooltip=Nåväl, nu är det bättre, men de smakar fortfarande pyton.\nDe borde bli ätbara om man värmer dem.\nNu är de kanske tillräckligt bra för att ge dig styrkan tillbaka.
+
+#################
+#   Entities    #
+#################
+
+entity.tconstruct.blueslime.name=Blått slem
+
+#################
+#    Liquids    #
+#################
+
+fluid.tconstruct.stone.name=Bränd sten
+fluid.tconstruct.obsidian.name=Nedsmält obsidian
+fluid.tconstruct.clay.name=Nedsmält gyttja
+fluid.tconstruct.dirt.name=Flytande jord
+fluid.tconstruct.iron.name=Nedsmält järn
+fluid.tconstruct.gold.name=Nedsmält guld
+fluid.tconstruct.pigiron.name=Nedsmält grisjärn
+fluid.tconstruct.cobalt.name=Nedsmält kobolt
+fluid.tconstruct.ardite.name=Nedsmält ardite
+fluid.tconstruct.manyullyn.name=Nedsmält manyullyn
+fluid.tconstruct.knightslime.name=Nedsmält riddarslem
+fluid.tconstruct.emerald.name=Nedsmält smaragd
+fluid.tconstruct.glass.name=Nedsmält glas
+fluid.tconstruct.blood.name=Blod
+fluid.tconstruct.milk.name=Mjölk
+fluid.tconstruct.blueslime.name=Flytande blått slem
+fluid.tconstruct.purpleslime.name=Flytande lila slem
+fluid.tconstruct.brass.name=Nedsmält mässing
+fluid.tconstruct.copper.name=Nedsmält koppar
+fluid.tconstruct.tin.name=Nedsmält tenn
+fluid.tconstruct.bronze.name=Nedsmält brons
+fluid.tconstruct.zinc.name=Nedsmält zink
+fluid.tconstruct.lead.name=Nedsmält bly
+fluid.tconstruct.nickel.name=Nedsmält nickel
+fluid.tconstruct.silver.name=Nedsmält silver
+fluid.tconstruct.electrum.name=Nedsmält elektrum
+fluid.tconstruct.steel.name=Nedsmält stål
+fluid.tconstruct.aluminum.name=Nedsmält aluminium
+fluid.tconstruct.alubrass.name=Nedsmält aluminiummässing
+
+#################
+#    Potions    #
+#################
+
+potion.carry=Snålskjuts
+
+#################
+#   Materials   #
+#################
+# material.<identifier>.name
+# material.<identifier>.prefix
+# material.wood.prefix=Wooden %s - Used för stuff like "Wooden Pickaxe" if no specific name is given
+
+material.wood.name=Trä
+material.wood.prefix=%s av trä
+material.stone.name=Sten
+material.stone.prefix=%s av sten
+material.flint.name=Flinta
+material.flint.prefix=%s av flinta
+material.cactus.name=Kaktus
+material.cactus.prefix=%s av kaktus
+material.obsidian.name=Obsidian
+material.obsidian.prefix=%s av obsidian
+material.prismarine.name=Prismarin
+material.prismarine.prefix=%s av prismarin
+material.netherrack.name=Netherrack
+material.netherrack.prefix=%s av netherrack
+material.endstone.name=Endsten
+material.endstone.prefix=%s av endsten
+material.bone.name=Ben
+material.bone.prefix=%s av ben
+material.paper.name=Papper
+material.paper.prefix=%s av papper
+material.sponge.name=Svamp
+material.sponge.prefix=%s av svamp
+material.firewood.name=Eldträ
+material.firewood.prefix=%s av eldträ
+material.slime.name=Slem
+material.slime.prefix=%s av slem
+material.blueslime.name=Blått slem
+material.blueslime.prefix=%s av slem
+material.knightslime.name=Riddarslem
+material.knightslime.prefix=%s av riddarslem
+material.magmaslime.name=Magmaslem
+material.magmaslime.prefix=%s av magmaslem
+material.ardite.name=Ardite
+material.ardite.prefix=%s av ardite
+material.cobalt.name=Kobolt
+material.cobalt.prefix=%s av kobolt
+material.manyullyn.name=Manyullyn
+material.manyullyn.prefix=%s av manyullyn
+material.iron.name=Järn
+material.iron.prefix=%s av järn
+material.pigiron.name=Grisjärn
+material.pigiron.prefix=%s av grisjärn
+material.copper.name=Koppar
+material.copper.prefix=%s av koppar
+material.bronze.name=Brons
+material.bronze.prefix=%s av brons
+material.lead.name=Bly
+material.lead.prefix=%s av bly
+material.silver.name=Silver
+material.silver.prefix=%s av silver
+material.electrum.name=Elektrum
+material.electrum.prefix=%s av elektrum
+material.steel.name=Stål
+material.steel.prefix=%s av stål
+
+material.string.name=Tråd
+material.string.prefix=%s av tråd
+material.vine.name=Klätterväxter
+material.vine.prefix=%s av klätterväxter
+material.slimevine_blue.name=Slemklätterväxt
+material.slimevine_blue.prefix=%s av slemklätterväxter
+material.slimevine_orange.name=Slemklätterväxt
+material.slimevine_orange.prefix=%s av slemklätterväxter
+material.slimevine_purple.name=Slemklätterväxt
+material.slimevine_purple.prefix=%s av slemklätterväxter
+
+material.blaze.name=Brännstav
+material.blaze.prefix=%s av brännstav
+material.reed.name=Sockerrör
+material.reed.prefix=%s av sockerrör
+material.ice.name=Is
+material.ice.prefix=%s av is
+material.endrod.name=Endstav
+material.endrod.prefix=%s av endstav
+
+material.feather.name=Fjäder
+material.feather.prefix=%s av fjäder
+material.leaf.name=Löv
+material.leaf.prefix=%s av löv
+material.slimeleaf_blue.name=Slemlöv
+material.slimeleaf_blue.prefix=%s av slemlöv
+material.slimeleaf_orange.name=Slemlöv
+material.slimeleaf_orange.prefix=%s av slemlöv
+material.slimeleaf_purple.name=Slemlöv
+material.slimeleaf_purple.prefix=%s av slemlöv
+
+
+#############
+#   Stats   #
+#############
+stat.head.name=Huvud
+stat.head.durability.name=Hållbarhet
+stat.head.durability.desc=Grundvärdet för att beräkna hållbarheten.\nVanligtvis en väsentlig del för ett verktygs generella hållbarhet.
+stat.head.miningspeed.name=Grävhastighet
+stat.head.miningspeed.desc=Hur snabbt ett verktyg med ett verktygshuvud av detta material kan bryta block.\nKan påverkas av andra verktygsdelar.
+stat.head.harvestlevel.name=Grävnivå
+stat.head.harvestlevel.desc=Vilka block ett verktyg med ett verktygshuvud av detta material kan bryta.
+stat.head.attack.name=Attack
+stat.head.attack.desc=Grundvärde för att beräkna attacker.\nSlutresultatet beror på själva verktyget och de andra komponenterna som används.
+
+stat.handle.name=Skaft
+stat.handle.modifier.name=Modifierare
+stat.handle.modifier.desc=Hur lämpligt verktygets material är som ett skaft.\nVerktygets totala hållbarhet kommer att multipliceras med detta.
+stat.handle.durability.name=stat.head.durability.name
+stat.handle.durability.desc=Hur länge materialet håller.\nVerktygets hållbarhet ändras med denna mängd.
+
+stat.extra.name=Extra
+stat.extra.durability.name=stat.head.durability.name
+stat.extra.durability.desc=Hur mycket hållbarhet denna del bidrar när den används som en accessoar.
+
+stat.mattock.axelevel.name=Yxnivå
+stat.mattock.shovellevel.name=Spadnivå
+
+stat.bow.name=Pilbåge
+stat.bow.drawspeed.name=Spännhastighet
+stat.bow.drawspeed.desc=Hur snabbt du kan spänna pilbågen.
+stat.bow.range.name=Räckviddsmultiplikator
+stat.bow.range.desc=Hur långt projektilen kan skjutas.
+stat.bow.damage.name=Bonusskada
+stat.bow.damage.desc=Bonusskada som utdelas vid träff.\nPilens styrka.
+
+stat.bowstring.name=Bågsträng
+stat.bowstring.modifier.name=Modifierare
+stat.bowstring.modifier.desc=Verktygets hållbarhet kommer att multipliceras med detta.
+
+stat.shaft.name=Pilskaft
+stat.shaft.modifier.name=Modifierare
+stat.shaft.modifier.desc=Varje pil behöver en passande kärna. Den bestämmer hur mycket den håller.\nVerktygets totala ammunitionsmängd kommer att multipliceras med detta.
+stat.shaft.ammo.name=Bonusammunition
+stat.shaft.ammo.desc=Hur många pilar du kan få ut från den.\nSå här mycket ammunition kommer läggas till.
+
+stat.fletching.name=Styrfjäder
+stat.fletching.accuracy.name=Precision
+stat.fletching.accuracy.desc=Hur stabil flygsträckan kommer att vara med denna styrfjäder.\nPåverkar projektilens generella precision.
+stat.fletching.modifier.name=Modifierare
+stat.fletching.modifier.desc=Hur många pilar du kan tillverka med detta.\nProjektilammunitionen kommer att multipliceras med detta.
+
+stat.projectile.name=Projektil
+stat.projectile.ammo.name=Ammunition
+
+##############
+#   Traits   #
+##############
+
+# traits are also modifiers, they use the same prefix so they don't have to be localized twice
+modifier.alien.name=Utomjordisk
+modifier.alien.desc=§oAlla värden ser konstiga ut...§r\n...som om de förändras! Kanske det blir bättre med tiden?
+modifier.aquadynamic.name=Hydrodynamisk
+modifier.aquadynamic.desc=§oDet börjar bli blött här inne!§r\nVerktyget stoppas inte av vatten och älskar regniga kvällar.
+modifier.aridiculous.name=Värmeanpassad
+modifier.aridiculous.desc=§oVrid på värmen!§r\nVerktyget fungerar bättre i varma miljöer.
+modifier.autosmelt.name=Autosmältning
+modifier.autosmelt.desc=§oEn ugn i verktygsform!§r\nBlock som skördas kommer att smältas.
+modifier.baconlicious.name=Bacon
+modifier.baconlicious.desc=§oBACON!§r\nDu får bacon ibland när du slår på saker.
+modifier.cheap.name=Billig
+modifier.cheap.desc=§oMer för pengarna!§r\nÖkar hållbarheten som fås när verktyget repareras.
+modifier.cheapskate.name=Snåljåp
+modifier.cheapskate.desc=§oSå fräckt!§r\nSten är dåligt. Ditt verktyg har mindre hållbarhet.
+modifier.coldblooded.name=Kallblodig
+modifier.coldblooded.desc=§oSkoningslöst!§r\nUtdela mer skada till mål som har full hälsa.
+modifier.crude.name=Ociviliserad
+modifier.crude.desc=§oRustning är för fegisar!§r\nBonusskada mot mål utan rustning
+modifier.crude.extra=Mot rustningslösa: +%s
+modifier.crumbling.name=Sönderfallande
+modifier.crumbling.desc=§oSe så allting smulas sönder§r\nVerktyget bryter mjuka block som inte behöver ett snabbare verktyg.
+modifier.dense.name=Kompakt
+modifier.dense.desc=§oHård...are.§r\nDina verktyg varar längre när det har mindre hållbarhet.
+modifier.duritos.name=Duritae
+modifier.duritos.desc=§oSmakar inte lika gott som det låter.§r\nDitt verktyg varar längre... för det mesta.
+modifier.ecological.name=Ekologisk
+modifier.ecological.desc=§oGrön energi!§r\nFörnyelsebara resurser är så bra att de regenererar självmant!
+modifier.enderference.name=Enderstörning
+modifier.enderference.desc=§oAntiteleportering!§r\nFörhindrar endermän från att teleportera omkring en liten stund.
+modifier.established.name=Väletablerad
+modifier.established.desc=§oGratis bonuserfarenhet!§r\nDu får ytterligare erfarenhetspoäng.
+modifier.flammable.name=Lättantändlig
+modifier.flammable.desc=§oMan kan inte ha för lite eld!§r\nEldskada blockeras när du blockerar och anfallaren antänds när du tar skada.
+modifier.fractured.name=Knäckt
+modifier.fractured.desc=§oSmärta!§r\nDin verktygsskada ökar.
+modifier.heavy.name=Tung
+modifier.heavy.desc=§oLyfter du skrot?§r\nFörhindrar knuffar.
+modifier.hellish.name=Infernalisk
+modifier.hellish.desc=§oFrån det nedre riket!§r\nUtdela bonusskada till varelser som inte kommer från nether.
+modifier.hellish.extra=Mot icke-nethervarelser: +%s
+modifier.holy.name=Helig
+modifier.holy.desc=§oGnistrande!§r\nUtdela bonusskada till odöda fiender.
+modifier.holy.extra=modifier.smite.extra
+modifier.insatiable.name=Omättlig
+modifier.insatiable.desc=§oSlukande!§r\nUnder strid utdelar du mer och mer skada konsumerar även mer och mer hållbarhet.
+modifier.jagged.name=Sågtandad
+modifier.jagged.desc=§oYtan är skrovlig och ojämn!§r\nVarje förlorat hållbarhetspoäng ökar skadan.
+modifier.jagged.extra=Sågtandad skada: +%s
+modifier.lightweight.name=Lättviktare
+modifier.lightweight.desc=§oLätt som en fjäder!§r\nÖkar den generella hastigheten på dina verktyg när du gräver och attackerar.
+modifier.lightweight.extra=Bonushastighet: +%s
+modifier.magnetic.name=Magnetisk
+modifier.magnetic.desc=§oHur fungerar detta?!§r\nSlå på saker för att dra till saker i närheten?!
+modifier.momentum.name=Tempo
+modifier.momentum.desc=§oSnabbare, kom igen!§r\nDin grävhastighet ökar så länge du fortsätter gräva.
+modifier.petramor.name=Stenälskare
+modifier.petramor.desc=§oSå mycket sten, måste se allting!§r\nDitt verktyg älskar sten att det bokstavligen vill absorbera den (för hållbarhet).
+modifier.poisonous.name=Giftig
+modifier.poisonous.desc=§oInte helt och hållet blyfritt!§r\nFörgiftar fiender som du träffar.
+modifier.prickly.name=Taggig
+modifier.prickly.desc=§oAj!§r\nIngen är säker från dessa törnar, de gör alltid ont.
+modifier.sharp.name=Skarp
+modifier.sharp.desc=§oKan t.o.m. skära igenom ord!§r\nFiender som du slår börjar blöda en liten stund.
+modifier.shocking.name=Chockande
+modifier.shocking.desc=§oBzzzzz!§r\nDitt verktyg laddas upp när du springer omkring och förstör block eller slår på saker. Den laddas ur när du slår en fiende, vilket utdelar skada och ger ökar hastighet. Den laddas ur när du gräver ett block, vilket ger dig ökad grävhastighet.
+modifier.slimey.name=Slemmig
+modifier.slimey.desc=§oUsch, vad klibbigt!§r\nDet försvinner i tvätten.
+modifier.spiky.name=Spetsig
+modifier.spiky.desc=§o200 % häftigare med spikar!§r\nAngriparen skadas när du blockerar eller tar skada.
+modifier.splintering.name=Splitter
+modifier.splintering.desc=§oEn souvenir till dina fiender!§r\nSlå dem mera för att utdela mer skada.
+modifier.splinters.name=Flisor
+modifier.splinters.desc=§oAj!§r\nVar försiktig så du inte får en flisa i dig!
+modifier.squeaky.name=Leksaksaktig
+modifier.squeaky.desc=§oSå puttenuttigt.§r\nDitt verktyg är så mjukt att det fick silkesvante, men utdelar ingen skada.
+modifier.stiff.name=Stel
+modifier.stiff.desc=§oOrörlig!§r\nSkada reduceras ännu mer när du blockerar.
+modifier.stonebound.name=Stenbunden
+modifier.stonebound.desc=§oDitt verktyg är fullkomligt förälskad i sten!§r\nVerktyget gräver snabbare alltefter den slits ut, men utdelar mindre skada.
+modifier.stonebound.extra=Hastighet för stenbunden: +%s
+modifier.superheat.name=Superhetta
+modifier.superheat.desc=§oVrid på värmen!§r\nUtdela bonusskada mot brinnande fiender.
+modifier.superheat.extra=Mot eldvarelser: +%s
+modifier.unnatural.name=Onaturlig
+modifier.unnatural.desc=§oBortom denna värld.§r\nVerktyget gräver snabbare ju högre dess grävnivå är över det nödvändiga.
+modifier.tasty.name=Läcker
+modifier.tasty.desc=§oMums, mums§r\nDet luktar så gott att du äter hellre upp verktyget än att svälta.
+modifier.writable.name=Skrivbar
+modifier.writable.desc=§oIntellektuellt!§r\nFler ord. Fler modifierare. Det är bara logiskt!
+
+modifier.breakable.name=Förstörbar
+modifier.breakable.desc=§oDenna sida upp!§r\nProjektiler har en chans på 50 % att gå sönder vid träff.
+modifier.endspeed.name=Endhastighet
+modifier.endspeed.desc=§oKvanthastighet!§r\nProjektiler färdas direkt till sin destination.
+modifier.freezing.name=Frysande
+modifier.freezing.desc=§oVintern kommer§r\nDu saktar ned ditt mål mer och mer när du träffar det.
+modifier.hovering.name=Flygande
+modifier.hovering.desc=§oFri som en fågel§r\nProjektiler färdas långsammare men bryr sig inte om gravitationen speciellt mycket.
+modifier.splitting.name=Klyvande
+modifier.splitting.desc=§oTvå för en!§r\nDen plötsliga accelerationen som uppstår när du släpper en pil kan få den att delas itu.
+
+#################
+#   Modifiers   #
+#################
+
+modifier.bane_of_arthopods.name=Leddjurens skräck
+modifier.bane_of_arthopods.desc=§oEffektivt mot spindlar!§r\nUtdela mycket skada till spindlar.
+modifier.bane_of_arthopods.extra=Mot spindlar: +%s
+modifier.beheading.name=Halshuggande
+modifier.beheading.desc=§oAv med huvudet!§r\nVarje nivå lägger till en chans på 10 % att du får huvudet från fiender du dödar.
+modifier.blasting.name=Sprängande
+modifier.blasting.desc=§oKaboom!§r\nDu kan bryta icke-effektiva block som om de vore vanliga block, men de kan förstöras.
+modifier.blasting.extra=Sprängkraft: %s
+modifier.diamond.name=Diamant
+modifier.diamond.desc=§oSkinande!§r\nÖkad hållbarhet!
+modifier.emerald.name=Smaragd
+modifier.emerald.desc=§oTjusigt!§r\nÖkar hållbarhet beroende på dess grundvärden!
+modifier.extratrait.name=Prägling
+modifier.extratrait.desc=§oSom magi, fast bättre!§r\nPräglad med kraften hos %s och får några av dess attribut.
+modifier.fiery.name=Brännhet
+modifier.fiery.desc=§oSå varmt!§r\nBonuseldskada, antänder dina fiender.
+modifier.fiery.extra=Eldskada: +%s
+modifier.fiery.extra2=Brinntid: %ss
+modifier.fins.name=Fenor
+modifier.fins.desc=§oSimma lugnt!§r\nFäster fenor på projektiler för att få dem att färdas som vanligt under vatten.
+modifier.fortify.name=Befästat
+modifier.fortify.desc=§oHårdare, bättre, snabbare, starkare!§r\nGrävnivån ökas till samma nivå som %s.
+modifier.glowing.name=Glödande
+modifier.glowing.desc=§oSkiner som solen§r\nNär det blir för mörkt kommer ditt verktyg offra en del av sig själv för att lysa upp din väg.
+modifier.harvestwidth.name=Bredd++
+modifier.harvestwidth.desc=§oExpandera!§r\nÖkar bredden för verktygets påverkade område. Effekten varierar för alla verktyg.
+modifier.harvestheight.name=Höjd++
+modifier.harvestheight.desc=§oExpandera!§r\nÖkar höjden för verktygets påverkade område. Effekten varierar för alla verktyg.
+modifier.haste.name=Skyndsamhet
+modifier.haste.name2=Skyndsamhetigare
+modifier.haste.name3=Skyndsamhetigaste
+modifier.haste.name4=Skyndsamhetigastare
+modifier.haste.name5=Skyndsamhetigastaste
+modifier.haste.desc=§oTjohoooooo!§r\nNär ditt verktyg används motiverar en redstoneimpuls ditt verktyg att röra sig ännu snabbare.
+modifier.haste.extra=Bonushastighet: +%s
+modifier.knockback.name=Knuff
+modifier.knockback.desc=§oFrivarv!§r\nFå saker att flyga - på det häftiga sättet.
+modifier.luck.name=Tur
+modifier.luck.desc=§oGlänsande!§r\nDu får alla fina saker. I stora lass.
+modifier.mending_moss.name=Lagningsmossa
+modifier.mending_moss.desc=§oDet lever!§r\nUpplockad erfarenhet lagras i verktyget. Det kommer långsamt använda upp erfarenheten för att regenerera hållbarhet.
+modifier.mending_moss.extra=Lagrad erfarenhet: %d
+modifier.necrotic.name=Nekrotisk
+modifier.necrotic.desc=§oJag känner mig så levande!!§r\nDu får tillbaka hälsa när du slår fiender beroende på den utdelade skadan.
+modifier.necrotic.extra=Livstöld: +%s
+modifier.reinforced.name=Förstärkning
+modifier.reinforced.unbreakable=Oförstörbar
+modifier.reinforced.desc=§oSå stark!§r\nVarje nivå lägger till en chans på %s att inte använda hållbarhet.
+modifier.reinforced.extra=Förstärkning: %s
+modifier.sharpness.name=Skärpa
+modifier.sharpness.name2=Skärpigare
+modifier.sharpness.name3=Skärpigaste
+modifier.sharpness.name4=Skärpigastare
+modifier.sharpness.name5=Skärpigastaste
+modifier.sharpness.desc=§oAj!§r\nSå vasst att det gör ont att bara titta på det.
+modifier.shulking.name=Shulkerfasoner
+modifier.shulking.desc=§oUpp, upp och iväg!§r\nSlå fiender för att få dem att sväva iväg.
+modifier.shulking.extra=Svävandelängd: %ss
+modifier.silktouch.name=Silkesvante
+modifier.silktouch.desc=§oLent som silke!§r\nBrutna block släpps som sig själv istället för det vanliga föremålet.
+modifier.smite.name=Heligt
+modifier.smite.desc=§oFör rättvisan!§r\nUtdelar massiv skada till odöda.
+modifier.smite.extra=Mot odöda: +%s
+modifier.soulbound.name=Själbunden
+modifier.soulbound.desc=§oEtt kärt par.§r\nDu älskar ditt verktyg. Inte ens döden kan skilja er åt.
+modifier.webbed.name=Intrasslad
+modifier.webbed.desc=§oUsch!§r\nTrassla in dina fiender i spindelnät som saktar ned dem.
+
+#################
+#   Tool Info   #
+#################
+item.tconstruct.pickaxe.desc=Hackan är ett ensidigt grävverktyg. Den är effektivt på sten och malm.\nDen bryter block, hajar du?
+item.tconstruct.shovel.desc=Spaden gräver upp jord. Den är effektiv på jord, sand, grus och snö.\nGräv bara inte din egen grav!
+item.tconstruct.hatchet.desc=Handyxan hugger trä och tar hand om löv. Det fungerar också som ett lämpligt vapen.\nHugg, hugg!
+item.tconstruct.mattock.desc=Jordhackan är ett mångsidigt jordbruksverktyg. Det är effektivt på trä, jord och plantor. Den duger även som vapen.\nHögerklick: Luckra upp marken
+item.tconstruct.kama.desc=Kama är ett ensidigt skördeverktyg som klipper ned plantor och klipper djur.\nHögerklick: Skörda och plantera grödor
+item.tconstruct.broadsword.desc=Bredsvärdet är ett universalvapen. Svepande attacker håller fiendehorder på avstånd.\nDet är även bra mot spindelnät!
+item.tconstruct.longsword.desc=Långsvärdet är ett offensivt vapen. Det används ofta när man ska kasta sig in i strider i full hastighet.\nHögerklick: Hoppa framåt
+item.tconstruct.rapier.desc=Värjan är ett speciellt vapen som förlitar sig på snabba stötar för att besegra fiender.\nHögerklick: Hoppa bakåt
+item.tconstruct.frypan.desc=Stekpannan är ett tungt vapen som kan knuffa tillbaka fiender för att hålla dem på avstånd. Den ger ifrån sig ett KLÅNK!\nHögerklick: Tungt slag
+item.tconstruct.battlesign.desc=Stridsskylten är det ultimata försvarsvapnet. Ett steg framåt i vapenteknologin.\nKan även användas som en sköld och kan även reflektera projektiler.
+item.tconstruct.hammer.desc=Hammaren är ett mångsidigt grävverktyg. Det skördar block i ett brett område.\nDen är även effektiv mot odöda.
+item.tconstruct.lumberaxe.desc=Skogshuggaryxan är ett mångsidigt huggverktyg. Det kan fälla hela träd i ett svep eller samla in trä i ett brett område.\nSe upp för fallande träd!
+item.tconstruct.excavator.desc=Utgrävaren är ett mångsidigt grävverktyg. Den gräver upp större områden av jord och snö i ett brett område.\nTerraformering!
+item.tconstruct.cleaver.desc=Köttyxan är ett tungt offensivt vapen. Den utdelar kraftfulla slag, men är svår att bära.\nKöttyxor har fördelen att utdela hög skada.\nLångsam och kräver två händer!
+item.tconstruct.battleaxe.desc=Stridsyxan är ett tungt offensivt vapen som väcker bärsärkaren i dig. Den är kapabel att ta ned mindre träd och kan få fiender att flyga.\nHögerklick: Bärsärk
+item.tconstruct.scythe.desc=Lien är ett mångsidigt skördeverktyg som slår ned både plantor och fiender.\nHar en områdesattack.\nHögerklick: Skördar och planterar grödor
+item.tconstruct.shuriken.desc=Kaststjärnan är ett snabbt kastvapen för korta distanser. Den kommer i stora kvantiteter men utdelar lite skada.\nKan kastas med den sekundära handen.
+item.tconstruct.shortbow.desc=Kortbågen är ett snabbt och lättrörligt vapen. Den gör det möjligt att röra sig lätt medan man avfyrar flera pilar i snabb följd.\nAnvänder Tinkers pilar.
+item.tconstruct.longbow.desc=Långbågen är ett kraftfullt långdistansvapen. Den utdelar hög skada men är inte lika smidig att hantera än sin lillebror.\nAnvänder Tinkers pilar.
+item.tconstruct.arrow.desc=Pilar är ammunition som Tinkers pilbågar använder. En föremålsgrupp håller många projektiler och de kan modifieras som ett verktyg.
+item.tconstruct.crossbow.desc=Armborsten är ett långsamt men riktigt kraftfullt vapen. Det måste först laddas genom att hålla ned högerklick, men kan avfyras närsomhelst efteråt.\nAnvänder Tinkers armborstpilar.
+item.tconstruct.bolt.desc=Armborstpilar är ammunition som Tinkers armborst använder. En föremålsgrupp har många skott och de kan modifieras som ett verktyg.\nKan delvis penetrera fienderustningar.
+
+
+################
+#   Tooltips   #
+################
+tooltip.tool.modifiers=Modifierare
+tooltip.tool.broken=Trasig
+tooltip.tool.empty=Tom
+tooltip.tool.holdShift=Håll ned §e§oShift§r§7 för värden
+tooltip.tool.holdCtrl=Håll ned §e§bCtrl§r§7 för mer
+
+tooltip.part.material_added_by=Materialet lades till av %s
+tooltip.part.missing_material=Material som saknas: %s
+tooltip.part.missing_stats=Material som saknar nödvändiga värden:\n%s
+tooltip.part.missing_info=Delen har ingen data
+
+tooltip.pattern.cost=Materialkostnad: %d
+
+tooltip.chest.has_items=Innehåller %d föremål
+tooltip.patternchest.holds_patterns=Innehåller %d mönster
+tooltip.patternchest.holds_casts=Innehåller %d avgjutningar
+
+tooltip.tank.fluid=%s
+tooltip.tank.amount=%d mB
+tooltip.tank.holdShift=Håll ned §e§oShift§r§7 för hinkmängd
+
+##################
+#   UI Strings   #
+##################
+# general strings used in GUIs, tooltips and other display stuff
+
+ui.mininglevel.stone=Sten
+ui.mininglevel.iron=Järn
+#ui.mininglevel.redstone=Redstone # replaced with diamond
+ui.mininglevel.diamond=Diamant
+ui.mininglevel.obsidian=Obsidian
+ui.mininglevel.cobalt=Kobolt
+
+# Death messages
+death.attack.smeltery=%s försökte smälta spelare
+death.attack.splinter=%s fick en flisa i sig som måste ha varit enorm
+death.attack.bleed=%1$s blödde ihjäl från %2$ss attack
+death.attack.bleed.item=%1$s blödde ihjäl från %2$ss attack med %3$s
+
+message.mending_moss.not_enough_levels=Lagningsmossan kräver minst %s nivåer
+tconstruct.channel.connected.in=Ändrade sidan till att flöda inåt
+tconstruct.channel.connected.out=Ändrade sidan till att flöda utåt
+tconstruct.channel.connected.none=Flöde åt sidan tillåts inte
+tconstruct.channel.connected_down.allow=Nedåtriktat flöde tillåts
+tconstruct.channel.connected_down.disallow=Nedåtriktat flöde tillåts inte
+
+######################
+# GUI Error messages #
+######################
+
+gui.error=FEL
+gui.warning=VARNING
+# GUI Errors from the different Tinker Tables
+gui.error.invalid_pattern=Mönstret innehåller inte en giltig verktygsdel!
+gui.error.useless_tool_part=Denna del kan inte användas för att tillverka ett verktyg!\nAntingen saknar materialet %s lite information eller så använder inget verktyg %s i din tillverkning.
+gui.error.wrong_material_part=En eller flera föremål har ett material som inte stöds för detta verktyg.
+gui.error.not_enough_durability=Inte tillräckligt mycket hållbarhet för att ersätta delar!\nBehöver %d mer hållbarhet.
+gui.error.craftevent.tool.default=En annan mod förhindrar att detta föremål tillverkas.
+gui.error.craftevent.modifier.default=En annan mod förhindrar att detta verktyg modifieras med dessa föremål.
+gui.error.craftevent.toolpart.default=En annan mod förhindrar att denna verktygsdel tillverkas.
+gui.error.craftevent.replace.default=En annan mod förhindrar att denna verktygsdel ersätts.
+# GUI Errors from modifiers
+gui.error.not_enough_modifiers=Inte tillräckligt många modifierare. (%d behövs)
+gui.error.single_modifier=%s kan endast tillämpas en gång.
+gui.error.max_level_modifier=Den maximala nivån för %s är redan nådd.
+gui.error.no_modifier_for_item=Ingen modifierare hittades för %s.
+gui.error.already_has_extratrait=Verktyget har redan en prägling och kan bara ha en.
+gui.error.incompatible_modifiers=Modifierarna %s och %s kan inte tillämpas tillsammans
+gui.error.incompatible_trait=Modifieraren %s kan inte användas tillsammans med attributen %s
+gui.error.incompatible_enchantments=Modifieraren %s kan inte kombineras med förtrollningen %s
+gui.error.no_rename=Detta verktyg kan inte byta namn
+
+################
+#     GUIs     #
+################
+
+# General things used in multiple GUIs
+gui.general.hover=Lägg musen över uppslagen för mer information
+gui.general.temperature.celsius=%s°C
+gui.general.temperature.kelvin=%s K
+
+# Creative Tabs
+itemGroup.TinkerGeneral=Tinkers allmänna föremål
+itemGroup.TinkerTools=Tinkers verktyg
+itemGroup.TinkerToolParts=Tinkers verktygsdelar
+itemGroup.TinkerSmeltery=Tinkers smältning
+itemGroup.TinkerWorld=Tinkers värld
+itemGroup.TinkerGadgets=Tinkers manicker
+
+# Crafting Station
+gui.craftingstation.name=Tillverkningsstation
+
+# Stencil Table
+gui.stenciltable.name=Stencilbänk
+
+# PartBuilder
+gui.partbuilder.name=Delbyggare
+gui.partcrafter.name=Deltillverkare
+gui.partbuilder.info=Här kan du tillverka verktygsdelar för att tillfredsställa dina knåpande fantasier.\n\nFör att tillverka en del genom att lägga dess mönster i den vänstra platsen. De två återstående platserna håller i materialet du vill tillverka din del utav.
+gui.partbuilder.material_value=Materialvärde: %s %s
+
+# Tool Station/Forge
+gui.toolstation.name=Vrktgsstat.
+gui.toolforge.name=Vrktgssmdj.
+gui.toolstation.repair=Reparera och modifiera
+gui.toolstation.traits=Attribut
+gui.toolstation.components=Komponenter
+gui.toolstation.info=Det primära sättet att reparera eller ändra dina verktyg. Placera ett verktyg och ett material till vänster för att komma igång.
+gui.toolstation.noTraits=Ingenting :[
+
+# Pattern Chest
+gui.patternchest.name=Mönsterkista
+gui.castchest.name=Avgjutningskista
+
+# Part Chest
+gui.partchest.name=Delkista
+
+# Smeltery
+gui.smeltery.name=Smältverk
+gui.smeltery.progress.no_recipe=Föremålet kan inte smältas
+gui.smeltery.progress.no_heat=Inte tillräckligt mycket hetta för att smälta detta föremål
+gui.smeltery.progress.no_space=Inte tillräckligt mycket ledigt utrymme i smältverket
+gui.smeltery.fuel=Bränsle
+gui.smeltery.fuel.empty=Inget bränsle hittades
+gui.smeltery.fuel.invalid=§4%s är inte ett giltigt smältverksbränsle!
+gui.smeltery.fuel.heat=Temperatur: %d
+gui.smeltery.capacity=Kapacitet:
+gui.smeltery.capacity_available=Ledigt:
+gui.smeltery.capacity_used=Används:
+gui.smeltery.liquid.kilobucket=kB
+gui.smeltery.liquid.bucket=B
+gui.smeltery.liquid.millibucket=mB
+gui.smeltery.liquid.ingot=tackor
+gui.smeltery.liquid.nugget=klimpar
+gui.smeltery.liquid.block=block
+gui.smeltery.liquid.gem=ädelstenar
+
+# Seared Furnace
+gui.searedfurnace.name=Bränd ugn
+gui.searedfurnace.progress.complete=Föremålet har smultits färdigt
+gui.searedfurnace.progress.no_recipe=Föremålet kan inte tillagas
+gui.searedfurnace.progress.no_space=Resulterande föremålsgrupp är för stor för platsen
+
+# Tinker Tank
+gui.tinkertank.name=Tinkertank
+
+# These GUIs don't appear in game, but the titles can be viewed using the crafting station
+gui.itemrack.name=Föremålsställning
+gui.dryingrack.name=Torkställning
+
+# JEI Plugin
+gui.jei.smelting.title=Smältning
+gui.jei.alloy.title=Legering
+gui.jei.casting.title=Avgjutning
+gui.jei.casting.consume=Avgjutningen konsumeras!
+gui.jei.drying.title=Torkning
+
+# WAILA Plugin
+gui.waila.tank.fluid=Vätska: %s
+gui.waila.tank.amount=Mängd: %d / %d mB
+gui.waila.tank.empty=Tom
+gui.waila.casting.progress=Förlopp: %s
+gui.waila.casting.recipe=Recept: %s
+
+option.tconstruct.tank=Tankvätska
+option.tconstruct.casting=Avgjutningsrecept
+option.tconstruct.progress=Receptförlopp
+
+
+# Config
+config.synced.restart=Din konfiguration har uppdaterats för att stämma överens med servern. Starta om Minecraft.
+config.synced.ok=Konfigurationen synkroniseras med servern.

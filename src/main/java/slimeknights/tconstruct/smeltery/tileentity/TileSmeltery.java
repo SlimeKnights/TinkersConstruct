@@ -18,13 +18,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.apache.logging.log4j.Logger;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -44,6 +38,10 @@ import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockSmeltery;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmeltery> implements ITickable, IInventoryGui,
                                                                           ISmelteryTankHandler {
@@ -178,6 +176,13 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
   // melt stuff
   @Override
   protected boolean onItemFinishedHeating(ItemStack stack, int slot) {
+    // skip if full, as there is no case where we can melt an item into a full smeltery
+    // TODO: might be better to instead cache the amount of space needed per slot, so for a less than full smeltery we don't need to find the recipe again if still full
+    if (liquids.getFluidAmount() >= liquids.getCapacity()) {
+      // set error state for the UI
+      itemTemperatures[slot] = itemTempRequired[slot] * 2 + 1;
+      return false;
+    }
     MeltingRecipe recipe = TinkerRegistry.getMelting(stack);
 
     if(recipe == null) {
@@ -257,6 +262,9 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
 
   // check for alloys and create them
   protected void alloyAlloys() {
+    if (liquids.getFluidAmount() > liquids.getCapacity()) {
+      return;
+    }
     for(AlloyRecipe recipe : TinkerRegistry.getAlloys()) {
       if(!recipe.isValid()) {
         continue;
@@ -274,7 +282,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
           // error logging
           assert drained != null;
           if(!drained.isFluidEqual(toDrain) || drained.amount != toDrain.amount) {
-            log.error("Smeltery alloy creation drained incorrect amount: was %s:%d, should be %s:%d", drained
+            log.error("Smeltery alloy creation drained incorrect amount: was {}:{}, should be {}:{}", drained
                 .getUnlocalizedName(), drained.amount, toDrain.getUnlocalizedName(), toDrain.amount);
           }
         }
@@ -283,8 +291,9 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
         FluidStack toFill = FluidUtil.getValidFluidStackOrNull(recipe.getResult().copy());
         int filled = liquids.fill(toFill, true);
         if(filled != recipe.getResult().amount) {
-          log.error("Smeltery alloy creation filled incorrect amount: was %d, should be %d (%s)", filled,
+          log.error("Smeltery alloy creation filled incorrect amount: was {}, should be {} ({})", filled,
                     recipe.getResult().amount * matched, recipe.getResult().getUnlocalizedName());
+          break;
         }
         matched -= filled;
       }
@@ -312,8 +321,9 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
 
   /* Fluid handling */
   @Override
+  @Nullable
   public SmelteryTank getTank() {
-    return liquids;
+    return isActive() ? liquids : null;
   }
 
   /* GUI */
@@ -360,6 +370,8 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
     if(isServerWorld()) {
       TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
     }
+    // tell the chunk the tank changed
+    this.markDirtyFast();
   }
 
   @Nonnull

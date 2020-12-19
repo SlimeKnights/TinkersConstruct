@@ -18,7 +18,7 @@ tile.tconstruct.soil.slimy_mud_green.name=초록색 점토
 tile.tconstruct.soil.slimy_mud_green.tooltip=느리지만 더욱 높게 도약할 수 있습니다.
 tile.tconstruct.soil.slimy_mud_blue.name=파란색 점토
 tile.tconstruct.soil.slimy_mud_blue.tooltip=tile.tconstruct.soil.slimy_mud_green.tooltip
-tile.tconstruct.soil.slimy_mud_magma.name=마그마 점토
+tile.tconstruct.soil.slimy_mud_magma.name=마그마슬라임 진흙
 tile.tconstruct.soil.slimy_mud_magma.tooltip=tile.tconstruct.soil.slimy_mud_green.tooltip
 tile.tconstruct.soil.graveyard.name=오염된 흙
 tile.tconstruct.soil.graveyard.tooltip=언데드가 회복을 받습니다.
@@ -39,7 +39,7 @@ tile.tconstruct.metal.manyullyn.name=마뉼린 블록
 tile.tconstruct.metal.knightslime.name=나이트슬라임 블록
 tile.tconstruct.metal.pigiron.name=선철 블록
 tile.tconstruct.metal.alubrass.name=알루미늄 황동 블록
-tile.tconstruct.metal.silky_jewel.name=부드러운 보석 블록
+tile.tconstruct.metal.silky_jewel.name=섬세한 보석 블록
 
 tile.tconstruct.firewood.lavawood.name=라바우드
 tile.tconstruct.firewood.firewood.name=파이어우드
@@ -250,7 +250,7 @@ tile.tconstruct.brownstone_stairs_creeper.name=브라운스톤 크리퍼 계단
 
 # General Items
 item.tconstruct.book.name=재료의 정석
-item.tconstruct.book.tooltip=수리공의 필독서\n Skyla 씀
+item.tconstruct.book.tooltip=대장장이의 필독서\n Skyla 씀
 
 item.tconstruct.edible.bacon.name=베이컨
 item.tconstruct.edible.slimeball_blue.name=파란 슬라임볼
@@ -288,18 +288,18 @@ item.tconstruct.materials.expander_w.tooltip=면적 확장
 item.tconstruct.materials.expander_h.name=수직 확장기
 item.tconstruct.materials.expander_h.tooltip=높이 확장
 item.tconstruct.materials.reinforcement.name=강화
-item.tconstruct.materials.reinforcement.tooltip=강화 수식어
-item.tconstruct.materials.silky_cloth.name=부드러운 천
-item.tconstruct.materials.silky_jewel.name=부드러운 보석
-item.tconstruct.materials.silky_jewel.tooltip=섬세한손길 수식어
-item.tconstruct.materials.necrotic_bone.name=죽음의 뼈
-item.tconstruct.materials.necrotic_bone.tooltip=죽음의 뼈 수식어
+item.tconstruct.materials.reinforcement.tooltip=강화 업그레이드
+item.tconstruct.materials.silky_cloth.name=섬세한 천
+item.tconstruct.materials.silky_jewel.name=섬세한 보석
+item.tconstruct.materials.silky_jewel.tooltip=섬세한 손길 업그레이드
+item.tconstruct.materials.necrotic_bone.name=네크로틱 뼈
+item.tconstruct.materials.necrotic_bone.tooltip=네크로틱 업그레이드
 item.tconstruct.materials.moss.name=이끼 공
 item.tconstruct.materials.moss.tooltip=이끼 공으로 책장을 우클릭하면 수선된 이끼로 변환.\n§o10 레벨 소모
 item.tconstruct.materials.mending_moss.name=수선된 이끼
-item.tconstruct.materials.mending_moss.tooltip=수선된 이끼 수식어
-item.tconstruct.materials.creative_modifier.name=크리에이티브 수식어
-item.tconstruct.materials.creative_modifier.tooltip=수식어 추가
+item.tconstruct.materials.mending_moss.tooltip=수선된 이끼 업그레이드
+item.tconstruct.materials.creative_modifier.name=크리에이티브 업그레이드
+item.tconstruct.materials.creative_modifier.tooltip=업그레이드 추가
 
 item.tconstruct.ingots.cobalt.name=코발트 주괴
 item.tconstruct.ingots.ardite.name=아르다이트 주괴
@@ -314,7 +314,7 @@ item.tconstruct.nuggets.cobalt.name=코발트 조각
 item.tconstruct.nuggets.ardite.name=아르다이트 조각
 item.tconstruct.nuggets.manyullyn.name=마뉼린 조각
 item.tconstruct.nuggets.knightslime.name=나이트슬라임 조각
-item.tconstruct.nuggets.pigiron.name=선철 조각
+item.tconstruct.nuggets.pigiron.name=돼지선철 조각
 item.tconstruct.nuggets.alubrass.name=알루미늄 황동 조각
 
 item.tconstruct.pattern.blank=빈 틀
@@ -353,9 +353,9 @@ item.tconstruct.dagger.name=단검
 item.tconstruct.broadsword.name=대검
 item.tconstruct.longsword.name=장검
 item.tconstruct.rapier.name=레이피어
-item.tconstruct.cutlass.name=커틀러스
+item.tconstruct.cutlass.name=단도
 
-item.tconstruct.cleaver.name=클리버
+item.tconstruct.cleaver.name=대검
 item.tconstruct.battleaxe.name=전투도끼
 
 # Ranged Weapons & Ammo
@@ -370,7 +370,7 @@ item.tconstruct.bolt.name=볼트
 item.tconstruct.shuriken.name=수리검
 
 # Tool Parts
-item.tconstruct.shard.name=조각
+item.tconstruct.shard.name=파편
 
 item.tconstruct.pick_head.name=곡괭이 머리
 item.tconstruct.shovel_head.name=삽 머리
@@ -576,13 +576,13 @@ stat.head.attack.name=공격력
 stat.head.attack.desc=도구의 기본 공격력 값.\n도구에 사용된 다른 구성 요소에 따라 최종 공격력이 달라집니다.
 
 stat.handle.name=손잡이
-stat.handle.modifier.name=수식어
+stat.handle.modifier.name=배율
 stat.handle.modifier.desc=도구의 총 내구도에 이 값을 곱합니다.
-stat.handle.durability.name=stat.head.durability.name
+stat.handle.durability.name=내구도 상수
 stat.handle.durability.desc=도구 내구도는 이 값만큼 변경됩니다.
 
 stat.extra.name=부속품
-stat.extra.durability.name=stat.head.durability.name
+stat.extra.durability.name=내구도 상수
 stat.extra.durability.desc=도구에 사용할 경우 내구성에 기여하는 값
 
 stat.mattock.axelevel.name=도끼 레벨
@@ -597,11 +597,11 @@ stat.bow.damage.name=추가 피해량
 stat.bow.damage.desc=공격의 추가 피해량.\n화살에 의한 피해량
 
 stat.bowstring.name=활시위
-stat.bowstring.modifier.name=수식어
+stat.bowstring.modifier.name=배율
 stat.bowstring.modifier.desc=도구의 내구도에 이 값을 곱합니다.
 
 stat.shaft.name=화살대
-stat.shaft.modifier.name=수식어
+stat.shaft.modifier.name=배율
 stat.shaft.modifier.desc=각 화살은 서브 코어가 필요합니다.\n도구의 총 화살 개수에 이 값을 곱합니다.
 stat.shaft.ammo.name=추가 화살
 stat.shaft.ammo.desc=추가할 수 있는 화살 개수를 결정합니다.\n이 값만큼 화살 개수가 늘어납니다.
@@ -609,7 +609,7 @@ stat.shaft.ammo.desc=추가할 수 있는 화살 개수를 결정합니다.\n이
 stat.fletching.name=화살깃
 stat.fletching.accuracy.name=정확도
 stat.fletching.accuracy.desc=화살의 비행 안정성을 결정합니다.\n화살의 전체적인 정확도에 영향을 미칩니다.
-stat.fletching.modifier.name=수식어
+stat.fletching.modifier.name=배율
 stat.fletching.modifier.desc=제작할 수 있는 화살 개수를 결정합니다.\n화살 개수에 이 값을 곱합니다.
 
 stat.projectile.name=화살 개수
@@ -635,7 +635,7 @@ modifier.cheap.desc=§o착한 가격!§r\n도구를 수리할 때 내구도 보�
 modifier.cheapskate.name=싸구려
 modifier.cheapskate.desc=§o돌이라니, 좋은 재료 좀 쓰지 그러셨나요.§r\n내구도가 하향 조정됩니다.
 modifier.coldblooded.name=냉혈
-modifier.coldblooded.desc=§o잔인하구나!§r\n체력이 최대인 상대에게 추가 피해를 줍니다.
+modifier.coldblooded.desc=§o피도 눈물도 없어!§r\n체력이 최대인 상대에게 추가 피해를 줍니다.
 modifier.crude.name=무모함
 modifier.crude.desc=§o비겁하게 방패 뒤에 숨지 마라!§r\n방어구가 없는 상대에게 추가 피해를 줍니다.
 modifier.crude.extra=방어구가 없는 상대에게: +%s
@@ -700,7 +700,7 @@ modifier.stiff.desc=§o참을 인!§r\n방어 시 피해가 경감됩니다.
 modifier.stonebound.name=석화
 modifier.stonebound.desc=§o돌을 너무나 사랑하는 도구가 있다?§r\n내구도가 낮으면 채굴 속도가 올라가지만, 공격 피해는 줄어듭니다.
 modifier.stonebound.extra=석화 속도: +%s
-modifier.superheat.name=슈퍼히트
+modifier.superheat.name=과열
 modifier.superheat.desc=§o불놀이야!§r\n불타고 있는 상대에게 추가 피해를 줍니다.
 modifier.superheat.extra=불타고 있는 상대에게: +%s
 modifier.unnatural.name=부자연스러움
@@ -708,7 +708,7 @@ modifier.unnatural.desc=§o뭔가가 잘못돼 가고 있어...§r\n블록을 �
 modifier.tasty.name=비상 식량
 modifier.tasty.desc=§o그게 뭐야, 먹는 건가?§r\n맛있는 냄새가 납니다. 배고플 때 뜯어먹을 수도 있을 것만 같습니다.
 modifier.writable.name=기록 가능
-modifier.writable.desc=§o이것이 스마트 세계다!§r\n더 많은 수식어를 붙일 수 있습니다.
+modifier.writable.desc=§o이것이 스마트 세계다!§r\n더 많은 업그레이드를 붙일 수 있습니다.
 
 modifier.breakable.name=물렁함
 modifier.breakable.desc=§o방향 주의!§r\n발사체가 충격 시 50% 확률로 파괴됩니다.
@@ -764,6 +764,7 @@ modifier.knockback.name=넉백
 modifier.knockback.desc=§o홈런!§r\n상대를 시원하게 날려 보냅니다.
 modifier.luck.name=행운
 modifier.luck.desc=§o운수가 대박이야!§r\n더 좋은 아이템이 더 많이 들어옵니다.
+# 바닐라 마법 부여의 '수선'(Mending)과 구분할 필요가 있습니다.
 modifier.mending_moss.name=수선된 이끼
 modifier.mending_moss.desc=§o난 살아있다!§r\n경험치를 도구 안에 저장합니다. 저장된 경험치는 도구가 스스로 조금씩 회복하는 데 사용됩니다.
 modifier.mending_moss.extra=축적된 경험치: %d
@@ -823,7 +824,7 @@ item.tconstruct.bolt.desc=팅커 석궁에 사용되는 §l볼트§r입니다.\n
 ################
 #   Tooltips   #
 ################
-tooltip.tool.modifiers=수식어
+tooltip.tool.modifiers=남은 업그레이드 횟수
 tooltip.tool.broken=망가짐
 tooltip.tool.empty=모두 소모함
 tooltip.tool.holdShift=스탯 정보 Hold §e§oShift§r§7
@@ -857,10 +858,10 @@ ui.mininglevel.obsidian=흑요석
 ui.mininglevel.cobalt=코발트
 
 # Death messages
-death.attack.smeltery=%s 은(는) 융해된 플레이어를 만들려고 시도했습니다.
-death.attack.splinter=%s 은(는) 난폭하게 찢겼습니다.
-death.attack.bleed=%1$s 이(가) %2$s 에게 당했습니다.
-death.attack.bleed.item=%1$s 이(가) %3$s 을(를) 든 %2$s 에게 당했습니다.
+death.attack.smeltery=%s 은(는) 녹은 사람을 만들려고 했습니다.
+death.attack.splinter=%s 은(는) 가시에 찔렸습니다. 겨우 그걸로?
+death.attack.bleed=%1$s 이(가) %2$s 에게 살해당했습니다.
+death.attack.bleed.item=%1$s 이(가) %3$s 을(를) 든 %2$s 에게 살해당했습니다.
 
 message.mending_moss.not_enough_levels=수선된 이끼는 %s 레벨이 필요합니다.
 tconstruct.channel.connected.in=측면이 안쪽으로 흐르도록 합니다
@@ -885,14 +886,14 @@ gui.error.craftevent.modifier.default=다른 모드와 충돌이 일어나 도�
 gui.error.craftevent.toolpart.default=다른 모드와 충돌이 일어나 부품 제작이 불가능합니다.
 gui.error.craftevent.replace.default=다른 모드와 충돌이 일어나 부품 대체가 불가능합니다.
 # GUI Errors from modifiers
-gui.error.not_enough_modifiers=수식어가 부족합니다. (%d 필요)
-gui.error.single_modifier=%s 수식어는 한 번만 적용할 수 있습니다.
-gui.error.max_level_modifier=%s 수식어는 이미 최대 레벨에 도달했습니다.
-gui.error.no_modifier_for_item=%s수식어를 찾을 수 없습니다.
+gui.error.not_enough_modifiers=남은 업그레이드 횟수가 부족합니다. (%d 필요)
+gui.error.single_modifier=%s 업그레이드는 한 번만 적용할 수 있습니다.
+gui.error.max_level_modifier=%s 업그레이드는 이미 최대 레벨에 도달했습니다.
+gui.error.no_modifier_for_item=%s업그레이드를 찾을 수 없습니다.
 gui.error.already_has_extratrait=그 도구는 이미 "부조" 특성이 있습니다.
-gui.error.incompatible_modifiers=%s 수식어와 %s 수식어는 같이 적용될 수 없습니다.
-gui.error.incompatible_trait=%s 수식어와 %s 특성은 같이 적용될 수 없습니다. 
-gui.error.incompatible_enchantments=%s 수식어와 %s 인챈트는 같이 적용될 수 없습니다.
+gui.error.incompatible_modifiers=%s 업그레이드와 %s 업그레이드는 같이 적용될 수 없습니다.
+gui.error.incompatible_trait=%s 업그레이드와 %s 특성은 같이 적용될 수 없습니다. 
+gui.error.incompatible_enchantments=%s 업그레이드와 %s 인챈트는 같이 적용될 수 없습니다.
 gui.error.no_rename=이 도구의 이름을 바꿀 수 없습니다.
 
 ################
@@ -925,7 +926,7 @@ gui.partbuilder.material_value=재료 값: %s %s
 # Tool Station/Forge
 gui.toolstation.name=도구 조립대
 gui.toolforge.name=도구 조립소
-gui.toolstation.repair=수리 & 수정
+gui.toolstation.repair=수리 & 업글
 gui.toolstation.traits=특성
 gui.toolstation.components=요소
 gui.toolstation.info=도구를 수리하거나 수정할 수 있습니다. 시작하려면 도구와 재료를 배치하십시오.

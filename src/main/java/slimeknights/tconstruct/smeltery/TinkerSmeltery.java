@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.eventbus.Subscribe;
-
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.monster.EntityEvoker;
 import net.minecraft.entity.monster.EntityIllusionIllager;
 import net.minecraft.entity.monster.EntityIronGolem;
@@ -21,6 +21,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fluids.Fluid;
@@ -31,21 +32,17 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Logger;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.TinkerIntegration;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
@@ -90,6 +87,11 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 import slimeknights.tconstruct.smeltery.tileentity.TileTinkerTank;
 import slimeknights.tconstruct.tools.TinkerMaterials;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it")
 public class TinkerSmeltery extends TinkerPulse {
@@ -344,6 +346,8 @@ public class TinkerSmeltery extends TinkerPulse {
   }
 
   private void registerMeltingCasting() {
+    // used in several places to register fluids for the crafting recipe scan
+    ImmutableSet.Builder<Pair<String, Integer>> builder;
     int bucket = Fluid.BUCKET_VOLUME;
 
     // bucket casting
@@ -382,19 +386,26 @@ public class TinkerSmeltery extends TinkerPulse {
     registerToolpartMeltingCasting(TinkerMaterials.obsidian);
     TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.OBSIDIAN), ItemStack.EMPTY, TinkerFluids.obsidian, Material.VALUE_Ore());
 
-    // gold is melt and castable too, but no tools. Remaining materials are done directly in the MaterialIntegration
     // gold is integrated via MaterialIntegration in TinkerIntegration now
 
     // special melting
     TinkerRegistry.registerMelting(Items.IRON_HORSE_ARMOR, TinkerFluids.iron, Material.VALUE_Ingot * 4);
     TinkerRegistry.registerMelting(Items.GOLDEN_HORSE_ARMOR, TinkerFluids.gold, Material.VALUE_Ingot * 4);
 
+    // rails, some of these are caught through registerOredictMelting, but for consistency all are just registered here
+    TinkerRegistry.registerMelting(Blocks.RAIL, TinkerFluids.iron, Material.VALUE_Ingot * 6 / 16);
+    TinkerRegistry.registerMelting(Blocks.ACTIVATOR_RAIL, TinkerFluids.iron, Material.VALUE_Ingot);
+    TinkerRegistry.registerMelting(Blocks.DETECTOR_RAIL, TinkerFluids.iron, Material.VALUE_Ingot);
+    TinkerRegistry.registerMelting(Blocks.GOLDEN_RAIL, TinkerFluids.gold, Material.VALUE_Ingot);
+
     // register stone toolpart melting
     for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
       if(toolPart.canBeCasted()) {
         if(toolPart instanceof MaterialItem) {
           ItemStack stack = toolPart.getItemstackWithMaterial(TinkerMaterials.stone);
-          TinkerRegistry.registerMelting(stack, TinkerFluids.searedStone, (toolPart.getCost() * Material.VALUE_SearedMaterial) / Material.VALUE_Ingot);
+          TinkerRegistry.registerMelting(MeltingRecipe.forAmount(
+              RecipeMatch.ofNBT(stack, (toolPart.getCost() * Material.VALUE_SearedMaterial) / Material.VALUE_Ingot),
+              TinkerFluids.searedStone, (int)(toolPart.getCost() * Config.oreToIngotRatio)));
         }
       }
     }
@@ -435,8 +446,11 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerMelting(TinkerCommons.mudBrickBlock, TinkerFluids.dirt, Material.VALUE_BrickBlock);
 
     // hardened clay
-    TinkerRegistry.registerMelting(Items.CLAY_BALL, TinkerFluids.clay, Material.VALUE_Ingot);
-    TinkerRegistry.registerMelting(Blocks.CLAY, TinkerFluids.clay, Material.VALUE_BrickBlock);
+    builder = ImmutableSet.builder();
+    builder.add(Pair.of("clay", Material.VALUE_Ingot));
+    builder.add(Pair.of("blockClay", Material.VALUE_BrickBlock));
+    addKnownOreFluid(TinkerFluids.clay, builder.build());
+
     // decided against support for melting hardened clay. Once it's hardened, it stays hard. Same for bricks.
     //TinkerRegistry.registerMelting(Blocks.hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
     //TinkerRegistry.registerMelting(Blocks.stained_hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
@@ -455,16 +469,22 @@ public class TinkerSmeltery extends TinkerPulse {
     }
 
     // emerald melting and casting
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("gemEmerald", Material.VALUE_Gem), TinkerFluids.emerald));
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("oreEmerald", (int) (Material.VALUE_Gem * Config.oreToIngotRatio)), TinkerFluids.emerald));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("blockEmerald", Material.VALUE_Gem * 9), TinkerFluids.emerald));
+    builder = ImmutableSet.builder();
+    builder.add(Pair.of("gemEmerald", Material.VALUE_Gem));
+    builder.add(Pair.of("blockEmerald", Material.VALUE_Gem * 9));
+    addKnownOreFluid(TinkerFluids.emerald, builder.build());
+
     TinkerRegistry.registerTableCasting(new ItemStack(Items.EMERALD), castGem, TinkerFluids.emerald, Material.VALUE_Gem);
     TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.EMERALD_BLOCK), ItemStack.EMPTY, TinkerFluids.emerald, Material.VALUE_Gem * 9);
 
     // glass melting and casting
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("sand", Material.VALUE_Glass), TinkerFluids.glass));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("blockGlass", Material.VALUE_Glass), TinkerFluids.glass));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("paneGlass", Material.VALUE_Glass * 6 / 16), TinkerFluids.glass));
+    builder = ImmutableSet.builder();
+    builder.add(Pair.of("blockGlass", Material.VALUE_Glass));
+    builder.add(Pair.of("paneGlass", Material.VALUE_Glass * 6 / 16));
+    addKnownOreFluid(TinkerFluids.glass, builder.build());
+
     TinkerRegistry.registerTableCasting(new CastingRecipe(new ItemStack(Blocks.GLASS_PANE), null, TinkerFluids.glass, Material.VALUE_Glass * 6 / 16, 50));
     TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(TinkerCommons.blockClearGlass), null, TinkerFluids.glass, Material.VALUE_Glass, 120));
 
@@ -667,9 +687,7 @@ public class TinkerSmeltery extends TinkerPulse {
     Set<Pair<String, Integer>> knownOres = builder.build();
 
     // register oredicts
-    for(Pair<String, Integer> pair : knownOres) {
-      TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(pair.getLeft(), pair.getRight()), fluid));
-    }
+    addKnownOreFluid(fluid, knownOres);
 
     // register oredict castings!
     // ingot casting
@@ -705,8 +723,18 @@ public class TinkerSmeltery extends TinkerPulse {
       TinkerRegistry.registerTableCasting(new CastingRecipe(castPlate, RecipeMatch.of(plateOre.getLeft()), fs, true, true));
       TinkerRegistry.registerTableCasting(new CastingRecipe(castGear, RecipeMatch.of(gearOre.getLeft()), fs, true, true));
     }
+  }
 
-    // used for recipe detection
+  /**
+   * Adds a fluid to the knownOreFluids list, adding recipes for each combination
+   * @param fluid      Fluid recipes belong to
+   * @param knownOres  Set of pairs of an oredict name to a integer fluid amount
+   */
+  private static void addKnownOreFluid(Fluid fluid, Set<Pair<String, Integer>> knownOres) {
+    for(Pair<String, Integer> pair : knownOres) {
+      TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(pair.getLeft(), pair.getRight()), fluid));
+    }
+
     knownOreFluids.put(fluid, knownOres);
   }
 
@@ -719,20 +747,69 @@ public class TinkerSmeltery extends TinkerPulse {
     if(!isSmelteryLoaded()) {
       return;
     }
-    // we go through all recipies, and if it's an ore recipe we go through its contents and check if it
-    // only consists of one of our known oredict entries
+
+    log.info("Started adding oredict melting recipes");
+    long start = System.nanoTime();
+
+    // parse the ignore list from the config
+    RecipeMatchRegistry oredictMeltingIgnore = new RecipeMatchRegistry();
+    for(String ignore : Config.oredictMeltingIgnore) {
+      // skip comments and empty lines
+      if(ignore.isEmpty() || ignore.startsWith("#")) {
+        continue;
+      }
+
+      // if it has a colon, assume item stack
+      if(ignore.contains(":")) {
+        String[] parts = ignore.split(":");
+        int meta = OreDictionary.WILDCARD_VALUE;
+
+        // try parsing meta if given
+        if(parts.length > 2) {
+          try {
+            meta = Integer.parseInt(parts[2]);
+          } catch(NumberFormatException e) {
+            log.error("Invalid oredict melting ignore {}, metadata must be a number", ignore);
+            continue;
+          }
+          if(meta < 0) {
+            log.error("Invalid oredict melting ignore {}, metadata must be non-negative", ignore);
+            continue;
+          }
+        }
+
+        // find the item
+        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parts[0], parts[1]));
+        if(item == null || item == Items.AIR) {
+          log.error("Invalid oredict melting ignore {}, unknown item", ignore);
+          continue;
+        }
+
+        // add the override
+        oredictMeltingIgnore.addItem(new ItemStack(item, 1, meta), 1, 1);
+      } else {
+        oredictMeltingIgnore.addItem(ignore);
+      }
+    }
+
+    // we go through all recipes, and check if it only consists of one of our known oredict entries
+    recipes:
     for(IRecipe irecipe : CraftingManager.REGISTRY) {
+      // empty?
+      ItemStack output = irecipe.getRecipeOutput();
+      if(output.isEmpty()) {
+        continue;
+      }
+
       // blacklisted?
-      boolean blacklisted = false;
       for(ItemStack blacklistItem : meltingBlacklist) {
-        if(OreDictionary.itemMatches(blacklistItem, irecipe.getRecipeOutput(), false)) {
-          blacklisted = true;
-          break;
+        if(OreDictionary.itemMatches(blacklistItem, output, false)) {
+          continue recipes;
         }
       }
 
       // recipe already has a melting recipe?
-      if(blacklisted || TinkerRegistry.getMelting(irecipe.getRecipeOutput()) != null) {
+      if(TinkerRegistry.getMelting(output) != null) {
         continue;
       }
 
@@ -746,13 +823,21 @@ public class TinkerSmeltery extends TinkerPulse {
         if(ingredient.getMatchingStacks().length == 0) {
           continue;
         }
+
+        // process skippable items, such as sticks
+        if(Arrays.stream(ingredient.getMatchingStacks()).anyMatch((stack) -> oredictMeltingIgnore.matches(stack).isPresent())) {
+          continue;
+        }
+
+        // try and find a match from the oredict list
         boolean found = false;
+        knownOres:
         for(Map.Entry<Fluid, Set<Pair<String, Integer>>> entry : knownOreFluids.entrySet()) {
           // check if it's a known oredict (all oredict lists are equal if they match the same oredict)
           // OR if it's an itemstack contained in one of our oredicts
           for(Pair<String, Integer> pair : entry.getValue()) {
             for(ItemStack itemStack : OreDictionary.getOres(pair.getLeft(), false)) {
-              if(ingredient.apply(itemStack)) {
+              if(ingredientMatches(ingredient, itemStack)) {
                 // matches! Update fluid amount known
                 Integer amount = known.get(entry.getKey()); // what we found for the liquid so far
                 if(amount == null) {
@@ -762,38 +847,43 @@ public class TinkerSmeltery extends TinkerPulse {
                 amount += pair.getRight();
                 known.put(entry.getKey(), amount);
                 found = true;
-                break;
+                break knownOres;
               }
             }
-            if(found) {
-              break;
-            }
-          }
-          if(found) {
-            break;
           }
         }
         // not a recipe we can process, contains an item that can't melt
         if(!found) {
-          known.clear();
-          break;
+          continue recipes;
         }
       }
 
       // add a melting recipe for it
-      // we only support single-liquid recipies currently :I
+      // we only support single-liquid recipes currently :I
       if(known.keySet().size() == 1) {
         Fluid fluid = known.keySet().iterator().next();
-        ItemStack output = irecipe.getRecipeOutput().copy();
-        if(!output.isEmpty()) {
-          int amount = known.get(fluid) / output.getCount();
-          output.setCount(1);
-          TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(output, amount), fluid));
-          log.trace("Added automatic melting recipe for {} ({} {})", irecipe.getRecipeOutput().toString(), amount, fluid
-              .getName());
-        }
+        output = output.copy();
+        int amount = known.get(fluid) / output.getCount();
+        output.setCount(1);
+        TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(output, amount), fluid));
+        log.trace("Added automatic melting recipe for {} ({} {})", output.toString(), amount, fluid
+            .getName());
       }
     }
+    // how fast were we?
+    log.info("Oredict melting recipes finished in {} ms", (System.nanoTime() - start) / 1000000D);
+  }
+
+  /**
+   * Ingredients do not handle the passed in item stack having wildcard metadata, so handle using getSubItems
+   */
+  private static boolean ingredientMatches(Ingredient ingredient, ItemStack stack) {
+    if (stack.getMetadata() != OreDictionary.WILDCARD_VALUE) {
+      return ingredient.apply(stack);
+    }
+    NonNullList<ItemStack> stacks = NonNullList.create();
+    stack.getItem().getSubItems(CreativeTabs.SEARCH, stacks);
+    return stacks.stream().anyMatch(ingredient::apply);
   }
 
   protected static <E extends Enum<E> & EnumBlock.IEnumMeta & IStringSerializable> BlockSearedStairs registerBlockSearedStairsFrom(IForgeRegistry<Block> registry, EnumBlock<E> block, E value, String name) {

@@ -84,7 +84,7 @@ public class TinkerTankRenderer extends SmelteryTankRenderer<TileTinkerTank> {
       // transparent liquids should render solid textured
       // otherwise it would look bad as our backface is so dark
       GlStateManager.disableBlend();
-      RenderUtil.putTexturedQuad(renderer, sprite, d, d, d, d2, d2 - 0.3f, d2, face, color, brightness, false);
+      RenderUtil.putATexturedQuad(renderer, sprite, d, d, d, d2, d2 - 0.3f, d2, face, color, brightness, false);
       tessellator.draw();
       RenderUtil.post();
     }

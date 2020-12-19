@@ -191,4 +191,35 @@ public class Util {
         && aabb.minZ <= hitZ && hitZ <= aabb.maxZ;
   }
 
+  private static boolean celsiusPref = false;
+
+  /**
+   * Sets the preference from the config. For internal use only
+   * @param celsius  true for celsius, false for kelvin
+   */
+  public static void setTemperaturePref(boolean celsius) {
+    celsiusPref = celsius;
+  }
+
+  /**
+   * Formats the given temperature as a string using the config preference
+   * @param temperature  Temperature in kelvin
+   * @return  Formatted string
+   */
+  public static String temperatureString(int temperature) {
+    return temperatureString(temperature, celsiusPref);
+  }
+
+  /**
+   * Formats the given temperature as a string
+   * @param temperature  Temperature in kelvin
+   * @param celsius      If true, displays a celsius, false kelvin
+   * @return  Formatted string
+   */
+  public static String temperatureString(int temperature, boolean celsius) {
+    if(celsius) {
+      return translateFormatted("gui.general.temperature.celsius", temperature - 300);
+    }
+    return translateFormatted("gui.general.temperature.kelvin", temperature);
+  }
 }

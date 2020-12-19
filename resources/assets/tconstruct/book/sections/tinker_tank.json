@@ -13,8 +13,5 @@
     "name": "structure",
     "type": "structure",
     "data": "tinker_tank/multiblock.json"
-  },
-  {
-    "type": "blank"
   }
 ]

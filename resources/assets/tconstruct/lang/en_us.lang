@@ -66,18 +66,20 @@ tile.tconstruct.clear_stained_glass.green.name=Clear Green Stained Glass
 tile.tconstruct.clear_stained_glass.red.name=Clear Red Stained Glass
 tile.tconstruct.clear_stained_glass.black.name=Clear Black Stained Glass
 
-tile.tconstruct.slime.green.name=Green Slime Block
-tile.tconstruct.slime.blue.name=Blue Slime Block
-tile.tconstruct.slime.purple.name=Purple Slime Block
+tile.tconstruct.slime.green.name=Slime Block
+tile.tconstruct.slime.blue.name=Slime Block
+tile.tconstruct.slime.purple.name=Slime Block
 tile.tconstruct.slime.blood.name=Blood Slime Block
-tile.tconstruct.slime.magma.name=Magma Slime Block
+tile.tconstruct.slime.magma.name=Slime Block
+tile.tconstruct.slime.pink.name=Slime Block
 tile.tconstruct.slime.tooltip=Works with pistons!
 
-tile.tconstruct.slime_congealed.green.name=Congealed Green Slime Block
-tile.tconstruct.slime_congealed.blue.name=Congealed Blue Slime Block
-tile.tconstruct.slime_congealed.purple.name=Congealed Purple Slime Block
-tile.tconstruct.slime_congealed.blood.name=Congealed Blood Slime Block
-tile.tconstruct.slime_congealed.magma.name=Congealed Magma Slime Block
+tile.tconstruct.slime_congealed.green.name=Congealed Slime Block
+tile.tconstruct.slime_congealed.blue.name=Congealed Slime Block
+tile.tconstruct.slime_congealed.purple.name=Congealed Slime Block
+tile.tconstruct.slime_congealed.blood.name=Congealed Bloodblock
+tile.tconstruct.slime_congealed.magma.name=Congealed Slime Block
+tile.tconstruct.slime_congealed.pink.name=Congealed Slime Block
 tile.tconstruct.slime_congealed.tooltip=Lets you jump really high
 
 tile.tconstruct.slime_dirt.green.name=Green Slimy Dirt
@@ -156,13 +158,13 @@ tile.tconstruct.seared_stairs_creeper.name=Seared Creeperface Stairs
 
 tile.tconstruct.smeltery_controller.name=Smeltery Controller
 tile.tconstruct.smeltery_controller.tooltip=Brain of the Smeltery
-tile.tconstruct.smeltery_io.drain.name=Smeltery Drain
-tile.tconstruct.smeltery_io.drain.tooltip=Fluid in- and output for the Smeltery
+tile.tconstruct.smeltery_io.drain.name=Seared Drain
+tile.tconstruct.smeltery_io.drain.tooltip=Fluid in- and output for the Smeltery and Tinker Tank
 tile.tconstruct.casting.table.name=Casting Table
 tile.tconstruct.casting.basin.name=Casting Basin
-tile.tconstruct.casting.tooltip=Cast items using molten metals from a smeltery
-tile.tconstruct.faucet.name=Faucet
-tile.tconstruct.faucet.tooltip=Drains liquids from Smelteries and other things
+tile.tconstruct.casting.tooltip=Cast items using molten metals from a Smeltery
+tile.tconstruct.faucet.name=Seared Faucet
+tile.tconstruct.faucet.tooltip=Drains liquids from Smelteries and Tanks
 tile.tconstruct.channel.name=Casting Channel
 tile.tconstruct.channel.tooltip=Filled with faucets to move liquids for casting
 tile.tconstruct.seared_tank.tank.name=Seared Tank
@@ -190,11 +192,12 @@ tile.tconstruct.rack.item.tooltip=For decoration purpose only
 tile.tconstruct.rack.drying.name=Drying Rack
 tile.tconstruct.rack.drying.tooltip=Used to dry items
 
-tile.tconstruct.slime_channel.green.name=Green Slime Channel
-tile.tconstruct.slime_channel.blue.name=Blue Slime Channel
-tile.tconstruct.slime_channel.purple.name=Purple Slime Channel
-tile.tconstruct.slime_channel.magma.name=Magma Slime Channel
+tile.tconstruct.slime_channel.green.name=Slime Channel
+tile.tconstruct.slime_channel.blue.name=Slime Channel
+tile.tconstruct.slime_channel.purple.name=Slime Channel
+tile.tconstruct.slime_channel.magma.name=Slime Channel
 tile.tconstruct.slime_channel.blood.name=Blood Channel
+tile.tconstruct.slime_channel.pink.name=Slime Channel
 tile.tconstruct.slime_channel.tooltip=Flows like water, feels like gelatin
 
 tile.tconstruct.dried_clay.clay.name=Dried Clay
@@ -253,10 +256,11 @@ item.tconstruct.book.name=Materials and You
 item.tconstruct.book.tooltip=The book every Tinker needs\nby Skyla
 
 item.tconstruct.edible.bacon.name=Bacon
-item.tconstruct.edible.slimeball_blue.name=Slime Ball
-item.tconstruct.edible.slimeball_purple.name=Slime Ball
+item.tconstruct.edible.slimeball_blue.name=Slimeball
+item.tconstruct.edible.slimeball_purple.name=Slimeball
 item.tconstruct.edible.slimeball_blood.name=Coagulated Blood
-item.tconstruct.edible.slimeball_magma.name=Slime Ball
+item.tconstruct.edible.slimeball_magma.name=Slimeball
+item.tconstruct.edible.slimeball_pink.name=Slimeball
 item.tconstruct.edible.jerky_beef.name=Beef Jerky
 item.tconstruct.edible.jerky_chicken.name=Chicken Jerky
 item.tconstruct.edible.jerky_pork.name=Bacon Jerky
@@ -418,12 +422,14 @@ item.tconstruct.slime_boots.blue.name=Slime Boots
 item.tconstruct.slime_boots.purple.name=Slime Boots
 item.tconstruct.slime_boots.blood.name=Congealed Blood Boots
 item.tconstruct.slime_boots.magma.name=Slime Boots
+item.tconstruct.slime_boots.pink.name=Slime Boots
 item.tconstruct.slime_boots.tooltip=Makes you bounce when landing
 item.tconstruct.slimesling.green.name=Slimesling
 item.tconstruct.slimesling.blue.name=Slimesling
 item.tconstruct.slimesling.purple.name=Slimesling
 item.tconstruct.slimesling.blood.name=Congealed Bloodsling
 item.tconstruct.slimesling.magma.name=Slimesling
+item.tconstruct.slimesling.pink.name=Slimesling
 item.tconstruct.slimesling.tooltip=Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!
 item.tconstruct.piggybackpack.name=Piggybackpack
 item.tconstruct.piggybackpack.tooltip=Right-click mobs to pick them up
@@ -867,6 +873,7 @@ death.attack.bleed=%1$s bled to death from %2$s attack
 death.attack.bleed.item=%1$s bled to death from %2$s attack with %3$s
 
 message.mending_moss.not_enough_levels=Mending moss requires at least %s levels
+message.piggybackpack.cannot_pick_up=Mob cannot be picked up
 tconstruct.channel.connected.in=Set side to flow inwards
 tconstruct.channel.connected.out=Set side to flow outwards
 tconstruct.channel.connected.none=Disallowed flowing on side
@@ -905,6 +912,8 @@ gui.error.no_rename=This tool cannot be renamed
 
 # General things used in multiple GUIs
 gui.general.hover=Hover over the entries for more info
+gui.general.temperature.celsius=%s°C
+gui.general.temperature.kelvin=%sK
 
 # Creative Tabs
 itemGroup.TinkerGeneral=Tinkers' General Items
@@ -945,6 +954,7 @@ gui.partchest.name=Part Chest
 # Smeltery
 gui.smeltery.name=Smeltery
 gui.smeltery.progress.no_recipe=Item can't be molten
+gui.smeltery.progress.no_fuel=No valid fuel in smeltery
 gui.smeltery.progress.no_heat=Not enough heat to melt this item
 gui.smeltery.progress.no_space=Not enough free space in the smeltery
 gui.smeltery.fuel=Fuel
@@ -965,7 +975,9 @@ gui.smeltery.liquid.gem=Gems
 # Seared Furnace
 gui.searedfurnace.name=Seared Furnace
 gui.searedfurnace.progress.complete=Item is finished smelting
-gui.searedfurnace.progress.no_recipe=Item can't be cooked
+gui.searedfurnace.progress.no_recipe=Item can't be smelted
+gui.searedfurnace.progress.no_fuel=No valid fuel in seared furnace
+gui.searedfurnace.progress.no_heat=Not enough heat to smelt this item
 gui.searedfurnace.progress.no_space=Resulting stack is too large for the slot
 
 # Tinker Tank

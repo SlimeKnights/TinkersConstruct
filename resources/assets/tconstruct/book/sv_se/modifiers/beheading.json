@@ -1,0 +1,18 @@
+{
+  "modifier": "beheading",
+  "text": [
+    {
+      "text": "När man behandlar ett vapen med en enderpärla och lite obsidian får det den märkvärdiga effekten att kunna separera målets huvud från dess kropp. Kanske lite överdrivet?"
+    }
+  ],
+  "effects": [
+    "Fiender tappar sina huvuden",
+    "Halshuggningschansen ökar när mer obsidian och enderpärlor läggs till",
+    "Flera nivåer"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
+  ]
+}

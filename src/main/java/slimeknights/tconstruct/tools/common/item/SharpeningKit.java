@@ -2,16 +2,9 @@ package slimeknights.tconstruct.tools.common.item;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -20,6 +13,9 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tools.ToolPart;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class SharpeningKit extends ToolPart {
 
@@ -38,7 +34,7 @@ public class SharpeningKit extends ToolPart {
       // this adds a variant of each material to the creative menu
       for(Material mat : TinkerRegistry.getAllMaterialsWithStats(MaterialTypes.HEAD)) {
         subItems.add(getItemstackWithMaterial(mat));
-        if(!Config.listAllMaterials) {
+        if(!Config.listAllPartMaterials) {
           break;
         }
       }

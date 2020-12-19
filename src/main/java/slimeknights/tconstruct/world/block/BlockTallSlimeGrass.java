@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.world.block;
 
 import com.google.common.collect.Lists;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.SoundType;
@@ -22,17 +21,15 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
@@ -44,7 +41,6 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
     this.setSoundType(SoundType.PLANT);
   }
 
-  @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(SlimePlantType type : SlimePlantType.values()) {

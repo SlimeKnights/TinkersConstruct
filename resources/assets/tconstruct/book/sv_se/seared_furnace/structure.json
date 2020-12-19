@@ -1,0 +1,12 @@
+{
+  "title":"",
+  "text": [
+    {
+      "text": "Den brända ugnen kan vara i alla storlekar mellan 3x3 och 11x11, samt ha en valfri höjd på minst 3. Större strukturer ökar antalet föremål som kan smältas samtidigt. För att det ska vara en giltig struktur krävs ett golv och tak, tillsammans med en runtomkring sidorna (ramar runtomkring taket och golvet är valfritt)"
+    },
+    {
+      "text": "Strukturen kan byggas med brända block av valfri sort med en enda kontroll. Minst en bränsletank måste placeras i den yttre kanten på strukturen (se bilden). Taket kan bytas ut mot plattor eller trappor, annars stöds samma block som resten av strukturen.",
+	  "paragraph": true
+    }
+  ]
+}

@@ -2,21 +2,18 @@ package slimeknights.tconstruct.tools.modifiers;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityWitherSkeleton;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTUtil;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.capability.projectile.ITinkerProjectile;
@@ -25,7 +22,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
-// todo: make some kind of class->head registry that can be expanded via IMC for the lookup
 public class ModBeheading extends ToolModifier {
 
   private static String BEHEADING_ID = "beheading";
@@ -70,63 +66,71 @@ public class ModBeheading extends ToolModifier {
     }
   }
 
+  private int getBeheadingLevel(DamageSource source) {
+    if (!(source.getTrueSource() instanceof EntityLivingBase)) {
+      return 0;
+    }
+    ItemStack item = CapabilityTinkerProjectile.getTinkerProjectile(source)
+        .map(ITinkerProjectile::getItemStack)
+        .orElse(((EntityLivingBase)source.getTrueSource()).getHeldItem(EnumHand.MAIN_HAND));
+
+    if (item.isEmpty()) {
+      return 0;
+    }
+
+    NBTTagCompound tag = TinkerUtil.getModifierTag(item, getIdentifier());
+    int level = ModifierNBT.readTag(tag).level;
+
+    if(level == 0) {
+      tag = TinkerUtil.getModifierTag(item, CLEAVER_MODIFIER_ID);
+      level = ModifierNBT.readTag(tag).level;
+    }
+
+    return level;
+  }
+
   @SubscribeEvent
   public void onLivingDrops(LivingDropsEvent event) {
-    if(event.getSource().getTrueSource() instanceof EntityPlayer) {
-      ItemStack item = CapabilityTinkerProjectile.getTinkerProjectile(event.getSource())
-                                                 .map(ITinkerProjectile::getItemStack)
-                                                 .orElse(((EntityPlayer) event.getSource().getTrueSource()).getHeldItem(EnumHand.MAIN_HAND));
-
-      NBTTagCompound tag = TinkerUtil.getModifierTag(item, getIdentifier());
-      int level = ModifierNBT.readTag(tag).level;
-
-      if(level == 0) {
-        tag = TinkerUtil.getModifierTag(item, CLEAVER_MODIFIER_ID);
-        level = ModifierNBT.readTag(tag).level;
+    // has beheading
+    int level = getBeheadingLevel(event.getSource());
+    if(shouldDropHead(level)) {
+      ItemStack head = TinkerRegistry.getHeadDrop(event.getEntityLiving());
+      if(!head.isEmpty() && !alreadyContainsDrop(event, head)) {
+        EntityItem entityitem = new EntityItem(event.getEntityLiving().getEntityWorld(), event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, head);
+        entityitem.setDefaultPickupDelay();
+        event.getDrops().add(entityitem);
       }
+    }
+  }
 
-      // has beheading
-      if(level > 0) {
-        ItemStack head = getHeadDrop(event.getEntityLiving());
-        if(head != null && !head.isEmpty() && level > random.nextInt(10) && !alreadyContainsDrop(event, head)) {
-          EntityItem entityitem = new EntityItem(event.getEntityLiving().getEntityWorld(), event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, head);
-          entityitem.setDefaultPickupDelay();
-          event.getDrops().add(entityitem);
+  @SubscribeEvent(priority = EventPriority.LOWEST)
+  public void playerDrop(LivingDeathEvent event) {
+    // if keepInventory is true, players do not fire the living drops event
+    EntityLivingBase entity = event.getEntityLiving();
+    if(entity.world.getGameRules().getBoolean("keepInventory") && entity instanceof EntityPlayerMP) {
+      int level = getBeheadingLevel(event.getSource());
+
+      if(shouldDropHead(level)) {
+        ItemStack head = TinkerRegistry.getHeadDrop(entity);
+        if(!head.isEmpty()) {
+          ((EntityPlayerMP) entity).dropItem(head, true);
         }
       }
     }
   }
 
-  private boolean alreadyContainsDrop(LivingDropsEvent event, ItemStack head) {
-    return event.getDrops().stream().map(EntityItem::getItem).anyMatch(drop -> ItemStack.areItemStacksEqual(drop, head));
+  private boolean shouldDropHead(int level) {
+    return level > 0 && level > random.nextInt(10);
   }
 
-  private ItemStack getHeadDrop(EntityLivingBase entity) {
-    // meta 0: skeleton
-    if(entity instanceof EntitySkeleton) {
-      return new ItemStack(Items.SKULL, 1, 0);
+  private boolean alreadyContainsDrop(LivingDropsEvent event, ItemStack head) {
+    // special case players: we want to add a new head drop even if they have their own head in their inventory
+    if(event.getEntityLiving() instanceof EntityPlayerMP) {
+      return false;
     }
-    // meta 1: wither skelly
-    else if(entity instanceof EntityWitherSkeleton) {
-      return new ItemStack(Items.SKULL, 1, 1);
-    }
-    // meta 2: zombie
-    else if(entity instanceof EntityZombie) {
-      return new ItemStack(Items.SKULL, 1, 2);
-    }
-    // meta 4: creeper
-    else if(entity instanceof EntityCreeper) {
-      return new ItemStack(Items.SKULL, 1, 4);
-    }
-    // meta 3: player
-    else if(entity instanceof EntityPlayer) {
-      ItemStack head = new ItemStack(Items.SKULL, 1, 3);
-      NBTUtil.writeGameProfile(head.getOrCreateSubCompound("SkullOwner"), ((EntityPlayer) entity).getGameProfile());
-      return head;
-    }
-
-    // no head
-    return null;
+    return event.getDrops().stream()
+                .map(EntityItem::getItem)
+                .anyMatch(drop -> ItemStack.areItemStacksEqual(drop, head));
   }
 
   private static class ModBeheadingCleaver extends ModBeheading {

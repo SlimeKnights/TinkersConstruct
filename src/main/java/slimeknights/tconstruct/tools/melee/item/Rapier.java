@@ -10,11 +10,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
@@ -23,6 +18,10 @@ import slimeknights.tconstruct.library.tools.SwordCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class Rapier extends SwordCore {
 
@@ -108,7 +107,14 @@ public class Rapier extends SwordCore {
       playerIn.motionZ = -MathHelper.cos(playerIn.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float) Math.PI) * f;
       playerIn.getCooldownTracker().setCooldown(itemStackIn.getItem(), 4);
     }
-    return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
+    EnumActionResult result = EnumActionResult.SUCCESS;
+    if (hand == EnumHand.MAIN_HAND) {
+      ItemStack offhand = playerIn.getHeldItemOffhand();
+      if (!offhand.isEmpty() && (offhand.getItem() == TinkerMeleeWeapons.battleSign || offhand.getItem().isShield(offhand, playerIn))) {
+        result = EnumActionResult.PASS;
+      }
+    }
+    return ActionResult.newResult(result, itemStackIn);
   }
 
   @Override

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.gadgets.item;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +15,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
@@ -22,12 +24,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.item.ItemArmorTooltip;
 import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
@@ -35,6 +35,8 @@ import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
 import slimeknights.tconstruct.library.capability.piggyback.TinkerPiggybackSerializer;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
+
+import javax.annotation.Nonnull;
 
 public class ItemPiggybackPack extends ItemArmorTooltip {
 
@@ -94,6 +96,13 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
     if(player.getEntityWorld().isRemote) {
       return false;
     }
+
+    // if limited, we can only pick up living mobs who can be leashed or players
+    if (Config.limitPiggybackpack && !(target instanceof EntityPlayer) && !(target instanceof EntityLiving && ((EntityLiving)target).canBeLeashedTo(player))) {
+      player.sendStatusMessage(new TextComponentTranslation("message.piggybackpack.cannot_pick_up"), true);
+      return false;
+    }
+
     // silly players, clicking on entities they're already carrying or riding
     if(target.getRidingEntity() == player || player.getRidingEntity() == target) {
       return false;
@@ -186,10 +195,10 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
     @Override
     public void performEffect(@Nonnull EntityLivingBase entityLivingBaseIn, int p_76394_2_) {
       ItemStack chestArmor = entityLivingBaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-      if(chestArmor.isEmpty()) {
+      if(chestArmor.isEmpty() || chestArmor.getItem() != TinkerGadgets.piggybackPack) {
         TinkerGadgets.piggybackPack.matchCarriedEntitiesToCount(entityLivingBaseIn, 0);
       }
-      else if(chestArmor.getItem() == TinkerGadgets.piggybackPack) {
+      else {
         TinkerGadgets.piggybackPack.matchCarriedEntitiesToCount(entityLivingBaseIn, chestArmor.getCount());
         if(!entityLivingBaseIn.getEntityWorld().isRemote) {
           if(entityLivingBaseIn.hasCapability(CapabilityTinkerPiggyback.PIGGYBACK, null)) {

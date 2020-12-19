@@ -42,7 +42,7 @@ public class GuiUtil {
   protected static Minecraft mc = Minecraft.getMinecraft();
 
   /** Renders the given texture tiled into a GUI */
-  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
+  public static void renderTiledTexture(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
     Tessellator tessellator = Tessellator.getInstance();
     BufferBuilder worldrenderer = tessellator.getBuffer();
     worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
@@ -56,7 +56,7 @@ public class GuiUtil {
   public static void renderTiledFluid(int x, int y, int width, int height, float depth, FluidStack fluidStack) {
     TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fluidStack.getFluid().getStill(fluidStack).toString());
     RenderUtil.setColorRGBA(fluidStack.getFluid().getColor(fluidStack));
-    renderTiledTextureAtlas(x, y, width, height, depth, fluidSprite, fluidStack.getFluid().isGaseous(fluidStack));
+    renderTiledTexture(x, y, width, height, depth, fluidSprite, fluidStack.getFluid().isGaseous(fluidStack));
   }
 
   /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
@@ -352,5 +352,17 @@ public class GuiUtil {
     public String getText() {
       return Util.translate(unlocName);
     }
+  }
+
+  /*
+   * VANILLA FIX ANTI-HACK SECTION
+   * Basically vanillafix changes the method content, which causes crashes.
+   * So we renamed the methods since the author is MIA for many months now.
+   * These methods are only here to let vanillafix think their hacks still work, since the game wont start otherwise.
+   */
+
+  @Deprecated
+  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
+
   }
 }

@@ -1,0 +1,17 @@
+{
+  "modifier": "fortify",
+  "text": [
+    {
+      "text": "Hårdare, bättre, snabbare, starkare! Tillämpar samma grävnivå för materialet som används i verktyget."
+    }
+  ],
+  "effects": [
+    "Ökar grävhastighet",
+    "Grävnivån beror på materialet som används",
+    "Kan också nedgradera en nivå",
+    "Kräver ingen modifierare"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe"
+  ]
+}

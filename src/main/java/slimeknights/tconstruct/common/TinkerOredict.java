@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.common;
 
 import com.google.common.collect.ImmutableSet;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.init.Blocks;
@@ -11,12 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.Set;
-
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.tconstruct.shared.block.BlockSlime;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
+
+import java.util.Set;
 
 import static slimeknights.tconstruct.gadgets.TinkerGadgets.stoneStick;
 import static slimeknights.tconstruct.gadgets.TinkerGadgets.stoneTorch;
@@ -40,6 +39,7 @@ import static slimeknights.tconstruct.shared.TinkerCommons.matNecroticBone;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallBlood;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallBlue;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallMagma;
+import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallPink;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallPurple;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalBlue;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalGreen;
@@ -140,6 +140,10 @@ public class TinkerOredict {
 
     oredict(Blocks.TRAPDOOR, "trapdoorWood");
 
+    // clay melting
+    oredict(Items.CLAY_BALL, "clay");
+    oredict(Blocks.CLAY, "blockClay");
+
     // vanilla cooked meat
     // compatibility with pams harvestcraft
     for(Item meat : COOKED_MEAT) {
@@ -157,6 +161,7 @@ public class TinkerOredict {
     oredict(matSlimeBallPurple, dict, dict + "Purple");
     oredict(matSlimeBallBlood, dict, dict + "Blood");
     oredict(matSlimeBallMagma, dict, dict + "Magma");
+    oredict(matSlimeBallPink, dict);
 
     oredictNIB(nuggetCobalt, ingotCobalt, blockCobalt, "Cobalt");
     oredictNIB(nuggetArdite, ingotArdite, blockArdite, "Ardite");
@@ -217,6 +222,11 @@ public class TinkerOredict {
   private static void registerWorld() {
     oredict(slimeSapling, "treeSapling");
     oredict(blockSlime, "blockSlime");
+    // quark compat
+    oredict(blockSlime, BlockSlime.SlimeType.GREEN.meta, "blockSlimeGreen");
+    oredict(blockSlime, BlockSlime.SlimeType.BLUE.meta, "blockSlimeBlue");
+    oredict(blockSlime, BlockSlime.SlimeType.BLOOD.meta, "blockSlimeRed");
+
     oredict(blockSlimeCongealed, "blockSlimeCongealed");
     oredict(slimeDirt, "blockSlimeDirt");
     oredict(slimeGrass, "blockSlimeGrass");
