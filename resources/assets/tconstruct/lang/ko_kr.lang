@@ -578,11 +578,11 @@ stat.head.attack.desc=도구의 기본 공격력 값.\n도구에 사용된 다�
 stat.handle.name=손잡이
 stat.handle.modifier.name=배율
 stat.handle.modifier.desc=도구의 총 내구도에 이 값을 곱합니다.
-stat.handle.durability.name=내구도 상수
+stat.handle.durability.name=stat.head.durability.name
 stat.handle.durability.desc=도구 내구도는 이 값만큼 변경됩니다.
 
 stat.extra.name=부속품
-stat.extra.durability.name=내구도 상수
+stat.extra.durability.name=stat.head.durability.name
 stat.extra.durability.desc=도구에 사용할 경우 내구성에 기여하는 값
 
 stat.mattock.axelevel.name=도끼 레벨
