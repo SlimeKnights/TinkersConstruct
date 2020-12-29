@@ -9,9 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -30,6 +28,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("deprecation")
@@ -105,6 +104,15 @@ public class Util {
    */
   public static String makeTranslationKey(String base, String name) {
     return net.minecraft.util.Util.makeTranslationKey(base, getResource(name));
+  }
+
+
+  /**
+   * Same as {@link net.minecraft.util.Util#make(Object, Consumer)}
+   */
+  public static <T> T make(T object, Consumer<T> consumer) {
+    consumer.accept(object);
+    return object;
   }
 
   /**

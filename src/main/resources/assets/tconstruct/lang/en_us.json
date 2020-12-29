@@ -484,6 +484,14 @@
     "block.tconstruct.casting_basin.tooltip": "Cast items using molten metals from a Smeltery",
     "block.tconstruct.casting_table": "Casting Table",
     "block.tconstruct.casting_table.tooltip": "Cast items using molten metals from a Smeltery",
+   
+    "block.tconstruct.channel": "Seared Channel",
+    "block.tconstruct.channel.tooltip": "Distributes fluids poured from a faucet above.",
+    "block.tconstruct.channel.side.in": "Set side to flow inwards",
+    "block.tconstruct.channel.side.out": "Set side to flow outwards",
+    "block.tconstruct.channel.side.none": "Disallowed flowing on side",
+    "block.tconstruct.channel.down.out": "Allowed flowing down",
+    "block.tconstruct.channel.down.none": "Disallowed flowing down",
 
     "block.tconstruct.melter": "Seared Melter",
     "block.tconstruct.melter.tooltip": "First Smeltery.\nPlace above a seared tank to fuel.",

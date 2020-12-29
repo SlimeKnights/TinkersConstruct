@@ -33,6 +33,7 @@ public final class RenderUtils {
     TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
     TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
     boolean isGas = attributes.isGaseous(fluid);
+    light = FluidRenderer.withBlockLight(light, attributes.getLuminosity(fluid));
 
     // add in fluid opacity if given
     int color = attributes.getColor(fluid);
