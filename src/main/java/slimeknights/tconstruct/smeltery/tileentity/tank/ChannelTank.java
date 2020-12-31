@@ -20,7 +20,7 @@ public class ChannelTank extends FluidTank {
 	private final ChannelTileEntity parent;
 
 	public ChannelTank(int capacity, ChannelTileEntity parent) {
-		super(capacity);
+		super(capacity, fluid -> !fluid.getFluid().getAttributes().isGaseous(fluid));
 		this.parent = parent;
 	}
 
