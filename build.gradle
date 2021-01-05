@@ -225,6 +225,8 @@ def buildPaths = [
 
 // task to add mods.toml to all relevant folders
 task replaceResources {
+    // ensure directory exists, first build likes to fail
+    new File("${processResources.destinationDir}/META-INF").mkdirs()
     // copy for gradle
     copy {
         outputs.upToDateWhen { false }
