@@ -1,0 +1,27 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "parts": {
+    "head": {
+      "loader": "tconstruct:material",
+      "index": 0,
+      "textures": {
+          "texture": "tconstruct:item/tool/broadsword/blade"
+      }
+    },
+    "handle": {
+      "loader": "tconstruct:material",
+      "index": 1,
+      "textures": {
+        "texture": "tconstruct:item/tool/broadsword/handle"
+      }
+    },
+    "binding": {
+      "loader": "tconstruct:material",
+      "index": 2,
+      "textures": {
+        "texture": "tconstruct:item/tool/broadsword/guard"
+      }
+    }
+  }
+}

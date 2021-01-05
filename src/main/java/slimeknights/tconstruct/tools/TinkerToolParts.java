@@ -35,6 +35,7 @@ public final class TinkerToolParts extends TinkerModule {
   public static final ItemObject<ToolPartItem> axeHead = ITEMS.register("axe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> kamaHead = ITEMS.register("kama_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> swordBlade = ITEMS.register("sword_blade", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
+  public static final ItemObject<ToolPartItem> largeSwordBlade = ITEMS.register("large_sword_blade", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> smallBinding = ITEMS.register("small_binding", () -> new ToolPartItem(PARTS_PROPS, ExtraMaterialStats.ID));
   public static final ItemObject<ToolPartItem> toughBinding = ITEMS.register("tough_binding", () -> new ToolPartItem(PARTS_PROPS, ExtraMaterialStats.ID));
   public static final ItemObject<ToolPartItem> wideGuard = ITEMS.register("wide_guard", () -> new ToolPartItem(PARTS_PROPS, ExtraMaterialStats.ID));

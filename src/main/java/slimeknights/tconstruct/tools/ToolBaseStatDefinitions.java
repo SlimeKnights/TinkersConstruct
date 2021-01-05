@@ -16,6 +16,8 @@ public final class ToolBaseStatDefinitions {
 
   static final ToolBaseStatDefinition BROADSWORD = new ToolBaseStatDefinition.Builder().setDamageModifier(1).setAttackSpeed(1.6).setMiningSpeedModifer(0.5f).build();
 
+  static final ToolBaseStatDefinition CLEAVER = new ToolBaseStatDefinition.Builder().setDamageModifier(1).setAttackSpeed(0.7).setMiningSpeedModifer(0.5f).build();
+
   private ToolBaseStatDefinitions() {
   }
 }

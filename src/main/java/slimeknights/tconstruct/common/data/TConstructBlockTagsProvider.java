@@ -10,7 +10,9 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -21,13 +23,14 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.function.Consumer;
 
 public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
-  public TConstructBlockTagsProvider(DataGenerator generatorIn) {
-    super(generatorIn);
+  public TConstructBlockTagsProvider(DataGenerator generatorIn, @Nullable ExistingFileHelper existingFileHelper) {
+    super(generatorIn, TConstruct.modID, existingFileHelper);
   }
 
   @Override

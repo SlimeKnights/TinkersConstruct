@@ -64,11 +64,13 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL, ToolDefinitions.KAMA));
 
   public static final ItemObject<BroadSword> broadSword = ITEMS.register("broad_sword", () -> new BroadSword(TOOL, ToolDefinitions.BROADSWORD));
+  public static final ItemObject<BroadSword> cleaver = ITEMS.register("cleaver", () -> new BroadSword(TOOL, ToolDefinitions.CLEAVER));
 
   /*
    * Particles
    */
   public static final RegistryObject<BasicParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new BasicParticleType(false));
+
   public static final RegistryObject<BasicParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new BasicParticleType(false));
 
   /*

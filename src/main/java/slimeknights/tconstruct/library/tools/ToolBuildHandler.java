@@ -6,6 +6,7 @@ import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModifierExtrasListNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierListNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
@@ -50,7 +51,8 @@ public final class ToolBuildHandler {
       new ToolItemNBT(tool),
       new MaterialNBT(materials),
       stats,
-      new ModifierListNBT(Collections.emptyList())
+      new ModifierListNBT(Collections.emptyList()),
+      new ModifierExtrasListNBT(Collections.emptyList())
     );
 
     ItemStack output = new ItemStack(tool);

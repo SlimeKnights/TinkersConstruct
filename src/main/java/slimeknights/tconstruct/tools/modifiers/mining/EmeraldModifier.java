@@ -2,10 +2,15 @@ package slimeknights.tconstruct.tools.modifiers.mining;
 
 import slimeknights.tconstruct.library.modifiers.ModifiedToolStatsBuilder;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.aspects.MultiAspect;
 import slimeknights.tconstruct.library.modifiers.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 public class EmeraldModifier extends Modifier {
+
+  public EmeraldModifier() {
+    addAspects(new MultiAspect(this, 1, 1));
+  }
 
   @Override
   public void applyStats(ModifiedToolStatsBuilder statsBuilder, ModifierNBT modifierNBT) {

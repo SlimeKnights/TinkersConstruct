@@ -24,6 +24,7 @@ public class ToolData {
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
   protected static final String TAG_MODIFIERS = "tic_modifiers";
+  protected static final String TAG_MODIFIER_EXTRAS = "tic_modifier_extras";
 
   // tool so we don't need categories and original stats?
   private final ToolItemNBT toolItem;
@@ -34,6 +35,9 @@ public class ToolData {
   // modifiers
   @With(AccessLevel.PRIVATE)
   private final ModifierListNBT modifiers;
+  // modifier extra data
+  @With(AccessLevel.PRIVATE)
+  private final ModifierExtrasListNBT modifierExtras;
 
   public ToolCore getToolItem() {
     return toolItem.getToolItem();
@@ -46,7 +50,7 @@ public class ToolData {
   /**
    * Gets the material at the given index
    * @param index  Index
-   * @return  Material, or unknown if index is invalid
+   * @return Material, or unknown if index is invalid
    */
   public IMaterial getMaterial(int index) {
     return materials.getMaterial(index);
@@ -58,6 +62,10 @@ public class ToolData {
 
   public ModifierListNBT getModifiers() {
     return modifiers;
+  }
+
+  public ModifierExtrasListNBT getModifierExtras() {
+    return modifierExtras;
   }
 
   public ToolData createNewDataWithFreeModifiers(int freeModifiers) {
@@ -74,8 +82,8 @@ public class ToolData {
     return this.withStats(newStats);
   }
 
-  public ToolData createNewDataWithStatsAndModifiers(StatsNBT newStats, ModifierListNBT newModifiers) {
-    return this.withStats(newStats).withModifiers(newModifiers);
+  public ToolData createNewDataWithStatsAndModifiers(StatsNBT newStats, ModifierListNBT newModifiers, ModifierExtrasListNBT newModifierExtras) {
+    return this.withStats(newStats).withModifiers(newModifiers).withModifierExtras(newModifierExtras);
   }
 
   public void updateStack(ItemStack stack) {
@@ -97,8 +105,9 @@ public class ToolData {
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(nbt.get(TAG_MATERIALS));
     StatsNBT statsNBT = StatsNBT.readFromNBT(nbt.get(TAG_STATS));
     ModifierListNBT modifierListNBT = ModifierListNBT.readFromNBT(nbt.get(TAG_MODIFIERS));
+    ModifierExtrasListNBT modifierExtrasListNBT = ModifierExtrasListNBT.readFromNBT(nbt.get(TAG_MODIFIER_EXTRAS));
 
-    return new ToolData(toolCore, materialNBT, statsNBT, modifierListNBT);
+    return new ToolData(toolCore, materialNBT, statsNBT, modifierListNBT, modifierExtrasListNBT);
   }
 
   public CompoundNBT serializeToNBT() {
@@ -108,6 +117,7 @@ public class ToolData {
     nbt.put(TAG_MATERIALS, materials.serializeToNBT());
     nbt.put(TAG_STATS, stats.serializeToNBT());
     nbt.put(TAG_MODIFIERS, modifiers.serializeToNBT());
+    nbt.put(TAG_MODIFIER_EXTRAS, modifierExtras.serializeToNBT());
 
     return nbt;
   }

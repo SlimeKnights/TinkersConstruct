@@ -2,13 +2,17 @@ package slimeknights.tconstruct.common.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.FluidTagsProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 
+import javax.annotation.Nullable;
+
 public class TConstructFluidTagsProvider extends FluidTagsProvider {
 
-  public TConstructFluidTagsProvider(DataGenerator generatorIn) {
-    super(generatorIn);
+  public TConstructFluidTagsProvider(DataGenerator generatorIn, @Nullable ExistingFileHelper existingFileHelper) {
+    super(generatorIn, TConstruct.modID, existingFileHelper);
   }
 
   @Override

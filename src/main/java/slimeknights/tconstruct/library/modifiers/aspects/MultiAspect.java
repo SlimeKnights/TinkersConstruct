@@ -6,22 +6,32 @@ import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.nbt.ModifierAndExtraPair;
 import slimeknights.tconstruct.library.modifiers.nbt.ModifierNBT;
 
-public class LevelAspect extends ModifierAspect {
+public class MultiAspect extends ModifierAspect {
 
-  private final int maxLevel;
+  protected final int countPerLevel;
 
-  public LevelAspect(IModifier parent, int maxLevel) {
+  protected LevelAspect levelAspect;
+
+  public MultiAspect(IModifier parent, int maxLevel, int countPerLevel) {
     super(parent);
-    this.maxLevel = maxLevel;
+
+    this.countPerLevel = countPerLevel;
+
+    levelAspect = new LevelAspect(parent, maxLevel);
   }
 
   @Override
   public boolean canApply(ItemStack stack, ItemStack original) {
-    return true;
+    return false;
+  }
+
+  protected int getMaxForLevel(int level) {
+    return countPerLevel * level;
   }
 
   @Override
   public ModifierAndExtraPair editNbt(ModifierNBT modifierNBT, CompoundNBT extraNBT) {
-    return super.editNbt(modifierNBT.withLevel(modifierNBT.level + 1), extraNBT);
+    System.out.println("hi: " + modifierNBT + " bye: " + extraNBT);
+    return super.editNbt(modifierNBT, extraNBT);
   }
 }

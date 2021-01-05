@@ -51,6 +51,11 @@ public final class ToolDefinitions {
     requirements(TinkerToolParts.swordBlade, TinkerToolParts.toolRod, TinkerToolParts.toolRod),
     ImmutableSet.of(Category.WEAPON));
 
+  public static final ToolDefinition CLEAVER = new ToolDefinition(
+    ToolBaseStatDefinitions.CLEAVER,
+    requirements(TinkerToolParts.largeSwordBlade, TinkerToolParts.largePlate, TinkerToolParts.toughToolRod, TinkerToolParts.toughToolRod),
+    ImmutableSet.of(Category.WEAPON));
+
   /** Creates a requirements supplier from a list */
   private static Supplier<List<IToolPart>> requirements(List<Supplier<? extends IToolPart>> parts) {
     return () -> parts.stream().map(Supplier::get).collect(Collectors.toList());

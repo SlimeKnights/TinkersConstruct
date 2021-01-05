@@ -138,6 +138,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Item> toughToolRodCast = ITEMS.register("tough_tool_rod_cast", SMELTERY_PROPS);
   public static final ItemObject<Item> largePlateCast = ITEMS.register("large_plate_cast", SMELTERY_PROPS);
   public static final ItemObject<Item> swordBladeCast = ITEMS.register("sword_blade_cast", SMELTERY_PROPS);
+  public static final ItemObject<Item> largeSwordBladeCast = ITEMS.register("large_sword_blade_cast", SMELTERY_PROPS);
   public static final ItemObject<Item> hammerHeadCast = ITEMS.register("hammer_head_cast", SMELTERY_PROPS);
   public static final ItemObject<Item> wideGuardCast = ITEMS.register("wide_guard_cast", SMELTERY_PROPS);
   public static final ItemObject<Item> shovelHeadCast = ITEMS.register("shovel_head_cast", SMELTERY_PROPS);
@@ -147,7 +148,6 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Item> excavatorHeadCast = ITEMS.register("excavator_head_cast", SMELTERY_PROPS);
 //  public static final ItemObject<Item> scytheHeadCast = ITEMS.register("scythe_head_cast", SMELTERY_PROPS);
 //  public static final ItemObject<Item> sharpeningKitCast = ITEMS.register("sharpening_kit_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> largeSwordBladeCast = ITEMS.register("large_sword_blade_cast", SMELTERY_PROPS);
 //  public static final ItemObject<Item> knifeBladeCast = ITEMS.register("knife_blade_cast", SMELTERY_PROPS);
 //  public static final ItemObject<Item> bowLimbCast = ITEMS.register("bow_limb_cast", SMELTERY_PROPS);
 //  public static final ItemObject<Item> handGuardCast = ITEMS.register("hand_guard_cast", SMELTERY_PROPS);

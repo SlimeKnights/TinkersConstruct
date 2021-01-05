@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
@@ -12,8 +13,10 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.GameData;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.aspects.ModifierAspect;
+import slimeknights.tconstruct.library.modifiers.nbt.ModifierAndExtraPair;
 import slimeknights.tconstruct.library.modifiers.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.nbt.ModifierExtrasListNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierListNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
@@ -50,17 +53,24 @@ public abstract class Modifier implements IModifier {
 
     ModifierNBT modifierNBT = toolData.getModifiers().getOrCreateModifier(new ModifierId(this.getRegistryName()));
 
+    CompoundNBT compoundNBT = toolData.getModifierExtras().getOrCreateExtraData(new ModifierId(this.getRegistryName()));
+
     // update NBT through aspects
     for (ModifierAspect aspect : aspects) {
       aspect.editStats(builder);
-      modifierNBT = aspect.editNBT(modifierNBT);
+
+      ModifierAndExtraPair pair = aspect.editNbt(modifierNBT, compoundNBT);
+      modifierNBT = pair.getModifierNBT();
+      compoundNBT = pair.getCompoundNBT();
     }
 
     applyStats(builder, modifierNBT);
 
     ModifierListNBT modifierListNBT = toolData.getModifiers().addOrReplaceModifier(modifierNBT);
 
-    toolData.createNewDataWithStatsAndModifiers(builder.buildNewStats(), modifierListNBT).updateStack(stack);
+    ModifierExtrasListNBT modifierExtrasListNBT = toolData.getModifierExtras().addOrReplaceExtraData(compoundNBT);
+
+    toolData.createNewDataWithStatsAndModifiers(builder.buildNewStats(), modifierListNBT, modifierExtrasListNBT).updateStack(stack);
 
     return stack;
   }
