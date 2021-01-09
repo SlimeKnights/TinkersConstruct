@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.recipe.alloying;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
@@ -26,11 +26,12 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Base class for alloying recipes
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   @Getter
   private final ResourceLocation id;
@@ -41,7 +42,21 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
    */
   private final List<FluidIngredient> inputs;
   /** Recipe output */
+  @Getter
   private final FluidStack output;
+  /** Cache of recipe input list */
+  private List<List<FluidStack>> displayInputs;
+
+  /**
+   * Gets the list of inputs for display in JEI
+   * @return  List of input list for each "slot"
+   */
+  public List<List<FluidStack>> getDisplayInputs() {
+    if (displayInputs == null) {
+      displayInputs = inputs.stream().map(FluidIngredient::getFluids).collect(Collectors.toList());
+    }
+    return displayInputs;
+  }
 
   @Override
   public boolean matches(IAlloyTank inv, World worldIn) {

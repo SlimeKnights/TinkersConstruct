@@ -13,6 +13,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
@@ -21,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Shared logic for each module's recipe provider
@@ -73,6 +75,17 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    */
   protected static ResourceLocation prefix(IItemProvider item, String prefix) {
     ResourceLocation loc = Objects.requireNonNull(item.asItem().getRegistryName());
+    return location(prefix + loc.getPath());
+  }
+
+  /**
+   * Prefixes the resource location path with the given value
+   * @param entry   Entry registry name to use
+   * @param prefix  Prefix value
+   * @return  Resource location path
+   */
+  protected static ResourceLocation prefixR(Supplier<? extends IForgeRegistryEntry<?>> entry, String prefix) {
+    ResourceLocation loc = Objects.requireNonNull(entry.get().getRegistryName());
     return location(prefix + loc.getPath());
   }
 
@@ -155,8 +168,7 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
     }
   }
 
-
-    // Forge constructor is private, not sure if there is a public place for this
+  // Forge constructor is private, not sure if there is a public place for this
   protected static class CompoundIngredient extends net.minecraftforge.common.crafting.CompoundIngredient {
     public CompoundIngredient(List<Ingredient> children) {
       super(children);

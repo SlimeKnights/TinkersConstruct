@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
@@ -30,6 +31,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
   @Override
@@ -43,6 +45,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new CastingBasinCategory(guiHelper));
     registry.addRecipeCategories(new CastingTableCategory(guiHelper));
     registry.addRecipeCategories(new MeltingCategory(guiHelper));
+    registry.addRecipeCategories(new AlloyRecipeCategory(guiHelper));
   }
 
   @Override
@@ -59,6 +62,10 @@ public class JEIPlugin implements IModPlugin {
     List<MeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.MELTING, MeltingRecipe.class);
     register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.melting);
     MeltingFuelHandler.setMeltngFuels(RecipeHelper.getRecipes(manager, RecipeTypes.FUEL, MeltingFuel.class));
+
+    // alloying
+    List<AlloyRecipe> alloyRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.ALLOYING, AlloyRecipe.class);
+    register.addRecipes(alloyRecipes, TConstructRecipeCategoryUid.alloy);
   }
 
   @Override
@@ -66,6 +73,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingBasin), TConstructRecipeCategoryUid.castingBasin);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingTable), TConstructRecipeCategoryUid.castingTable);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructRecipeCategoryUid.melting);
+    // TODO: alloy recipe catalyst
   }
 
   @Override

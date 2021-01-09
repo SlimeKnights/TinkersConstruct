@@ -23,6 +23,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ContainerFillingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
@@ -53,6 +54,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addBaseRecipes(consumer);
     this.addMeltingRecipes(consumer);
     this.addCastingRecipes(consumer);
+    this.addAlloyRecipes(consumer);
   }
 
   private void addBaseRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -402,6 +404,25 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     MeltingFuelBuilder.fuel(new FluidStack(Fluids.LAVA, 50), 100)
                       .addCriterion("has_item", hasItem(Items.LAVA_BUCKET))
                       .build(consumer, location(folder + "fuel/lava"));
+  }
+
+  private void addAlloyRecipes(Consumer<IFinishedRecipe> consumer) {
+    String folder = "smeltery/alloys/";
+    // TODO: knightslime
+    // TODO: manyullyn
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenRoseGold.get(), MaterialValues.VALUE_Nugget * 4)
+                      .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.VALUE_Nugget * 3)
+                      .addInput(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Nugget)
+                      .addCriterion("has_copper", hasItem(TinkerMaterials.copperNugget))
+                      .addCriterion("has_gold", hasItem(Items.GOLD_NUGGET))
+                      .build(consumer, prefixR(TinkerFluids.moltenRoseGold, folder));
+    // TODO: rate
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenPigIron.get(), MaterialValues.VALUE_Ingot * 2)
+                      .addInput(TinkerFluids.moltenIron.get(), MaterialValues.VALUE_Ingot)
+                      .addInput(TinkerFluids.blood.get(), MaterialValues.VALUE_SlimeBall)
+                      .addInput(TinkerFluids.moltenGlass.get(), MaterialValues.VALUE_Glass / 4)
+                      .addCriterion("has_iron", hasItem(Items.IRON_NUGGET))
+                      .build(consumer, prefixR(TinkerFluids.moltenPigIron, folder));
   }
 
 

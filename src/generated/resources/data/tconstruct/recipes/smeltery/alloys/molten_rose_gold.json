@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:alloy",
+  "output": {
+    "fluid": "tconstruct:molten_rose_gold",
+    "amount": 64
+  },
+  "inputs": [
+    {
+      "name": "tconstruct:molten_copper",
+      "amount": 48
+    },
+    {
+      "name": "tconstruct:molten_gold",
+      "amount": 16
+    }
+  ]
+}
