@@ -1,102 +1,146 @@
 package slimeknights.tconstruct.library.smeltery;
 
-public class SmelteryTank {/*implements IFluidTank, IFluidHandler {
+import com.google.common.collect.Lists;
+import lombok.Getter;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
-  protected final ISmelteryTankHandler parent;
-  protected List<FluidStack> liquids; // currently, contained liquids in the smeltery
-  protected int maxCapacity;
+import java.util.List;
+import java.util.ListIterator;
+
+/**
+ * Fluid handler implementation for the smeltery
+ */
+public class SmelteryTank implements IFluidHandler {
+  private final ISmelteryTankHandler parent;
+  /** Fluids actually contained in the tank */
+  @Getter
+  private final List<FluidStack> fluids;
+  /** Maximum capacity of the smeltery */
+  private int capacity;
+  /** Current amount of fluid in the tank */
+  private int contained;
 
   public SmelteryTank(ISmelteryTankHandler parent) {
-    liquids = Lists.newArrayList();
-    maxCapacity = 0;
+    fluids = Lists.newArrayList();
+    capacity = 0;
+    contained = 0;
     this.parent = parent;
   }
 
+
+  /* Capacity and space */
+
+  /**
+   * Updates the maximum tank capacity
+   * @param maxCapacity  New max capacity
+   */
   public void setCapacity(int maxCapacity) {
-    this.maxCapacity = maxCapacity;
+    this.capacity = maxCapacity;
   }
 
-  public List<FluidStack> getFluids() {
-    return liquids;
-  }
-
-  public void setFluids(List<FluidStack> fluids) {
-    this.liquids = fluids;
-    parent.onTankChanged(liquids, null);
-  }
-
-  @Override
-  public FluidStack getFluid() {
-    return liquids.size() > 0 ? liquids.get(0) : FluidStack.EMPTY;
-  }
-
-  @Override
-  public int getFluidAmount() {
-    int cap = 0;
-    for (FluidStack liquid : liquids) {
-      cap += liquid.getAmount();
-    }
-
-    return cap;
-  }
-
-  @Override
+  /**
+   * Gets the maximum amount of space in the smeltery tank
+   * @return  Tank capacity
+   */
   public int getCapacity() {
-    return maxCapacity;
+    return capacity;
+  }
+
+  /**
+   * Gets the amount of empty space in the tank
+   * @return  Remaining space in the tank
+   */
+  public int getRemainingSpace() {
+    if (contained >= capacity) {
+      return 0;
+    }
+    return capacity - contained;
+  }
+
+
+  /* Fluids */
+
+  @Override
+  public boolean isFluidValid(int tank, FluidStack stack) {
+    return true;
   }
 
   @Override
-  public boolean isFluidValid(FluidStack stack) {
-    return false;
+  public int getTanks() {
+    if (contained < capacity) {
+      return fluids.size() + 1;
+    }
+    return fluids.size();
   }
 
   @Override
-  public IFluidTankProperties[] getTankProperties() {
-    // if the size is 0 (no fluids) simply return an empty properties
-    // some other mods expect having at least 1 value here
-    if (liquids.size() == 0) {
-      return new IFluidTankProperties[]{new FluidTankProperties(null, maxCapacity, true, true)};
+  public FluidStack getFluidInTank(int tank) {
+    if (tank < 0 || tank >= fluids.size()) {
+      return FluidStack.EMPTY;
     }
-
-    IFluidTankProperties[] properties = new IFluidTankProperties[liquids.size()];
-    for (int i = 0; i < liquids.size(); i++) {
-      boolean first = i == 0;
-      int capacity = liquids.get(i).amount;
-      if (first) {
-        capacity += getCapacity() - getFluidAmount();
-      }
-      properties[i] = new FluidTankProperties(liquids.get(i), capacity, first, first);
-    }
-
-    return properties;
+    return fluids.get(tank);
   }
+
+  @Override
+  public int getTankCapacity(int tank) {
+    if (tank < 0) {
+      return 0;
+    }
+    // index of the tank size means the "empty" segment
+    int remaining = capacity - contained;
+    if (tank == fluids.size()) {
+      return remaining;
+    }
+    // any valid index, return the amount contained and the extra space
+    return fluids.get(tank).getAmount() + remaining;
+  }
+
+  /**
+   * Moves the fluid with the passed index to the beginning/bottom of the fluid tank stack
+   * @param index  Index to move
+   */
+  public void moveFluidToBottom(int index) {
+    if (index < fluids.size()) {
+      FluidStack fluid = fluids.get(index);
+      fluids.remove(index);
+      fluids.add(0, fluid);
+    }
+  }
+
+
+  /* Filling and draining */
 
   @Override
   public int fill(FluidStack resource, FluidAction action) {
-    // Safety check, it sometimes seems it can happen that something creates an invalid fluidstack?
-    // does some mod register a fluid with an empty string as name..?
-    if (StringUtils.isNullOrEmpty(resource.getFluid().getRegistryName().toString())) {
+    // if full or nothing being filled, do nothing
+    if (contained >= capacity || resource.isEmpty()) {
       return 0;
     }
 
-    // check how much space is left in the smeltery
-    int used = getFluidAmount();
-
-    int usable = Math.min(maxCapacity - used, resource.getAmount());
+    // determine how much we can fill
+    int usable = Math.min(capacity - contained, resource.getAmount());
     // could be negative if the smeltery size changes then you try filling it
     if (usable <= 0) {
       return 0;
     }
+
+    // done here if just simulating
     if (action.simulate()) {
       return usable;
     }
 
+    // add contained fluid amount
+    contained += usable;
+
     // check if we already have the given liquid
-    for (FluidStack liquid : liquids) {
+    for (FluidStack liquid : fluids) {
       if (liquid.isFluidEqual(resource)) {
         // yup. add it
         liquid.grow(usable);
-        parent.onTankChanged(liquids, liquid);
+        parent.onTankChanged(fluids, liquid);
         return usable;
       }
     }
@@ -104,46 +148,64 @@ public class SmelteryTank {/*implements IFluidTank, IFluidHandler {
     // not present yet, add it
     resource = resource.copy();
     resource.setAmount(usable);
-    liquids.add(resource);
-    parent.onTankChanged(liquids, resource);
+    fluids.add(resource);
+    parent.onTankChanged(fluids, resource);
     return usable;
   }
 
   @Override
   public FluidStack drain(int maxDrain, FluidAction action) {
-    if (liquids.isEmpty()) {
+    if (fluids.isEmpty()) {
       return FluidStack.EMPTY;
     }
 
-    FluidStack liquid = new FluidStack(liquids.get(0), maxDrain);
-    return drain(liquid, action);
+    // simply drain the first one
+    FluidStack fluid = fluids.get(0);
+    int drainable = Math.min(maxDrain, fluid.getAmount());
+
+    // copy contained fluid to return for accuracy
+    FluidStack ret = fluid.copy();
+    ret.setAmount(drainable);
+
+    // remove the fluid from the tank
+    if (action.execute()) {
+      fluid.shrink(drainable);
+      // if now empty, remove from the list
+      if (fluid.getAmount() <= 0) {
+        fluids.remove(fluid);
+      }
+      parent.onTankChanged(fluids, fluid);
+    }
+
+    // return drained fluid
+    return ret;
   }
 
   @Override
-  public FluidStack drain(FluidStack resource, FluidAction action) {
+  public FluidStack drain(FluidStack toDrain, FluidAction action) {
     // search for the resource
-    ListIterator<FluidStack> iter = liquids.listIterator();
-
+    ListIterator<FluidStack> iter = fluids.listIterator();
     while (iter.hasNext()) {
-      FluidStack liquid = iter.next();
+      FluidStack fluid = iter.next();
+      if (fluid.isFluidEqual(toDrain)) {
+        // if found, determine how much we can drain
+        int drainable = Math.min(toDrain.getAmount(), fluid.getAmount());
 
-      if (liquid.isFluidEqual(resource)) {
-        int drainable = Math.min(resource.getAmount(), liquid.getAmount());
+        // copy contained fluid to return for accuracy
+        FluidStack ret = fluid.copy();
+        ret.setAmount(drainable);
 
+        // update tank if executing
         if (action.execute()) {
-          liquid.shrink(drainable);
-
-          if (liquid.getAmount() <= 0) {
+          fluid.shrink(drainable);
+          // if now empty, remove from the list
+          if (fluid.getAmount() <= 0) {
             iter.remove();
           }
-
-          parent.onTankChanged(liquids, liquid);
+          parent.onTankChanged(fluids, fluid);
         }
 
-        // return drained amount
-        resource = resource.copy();
-        resource.setAmount(drainable);
-        return resource;
+        return ret;
       }
     }
 
@@ -151,56 +213,46 @@ public class SmelteryTank {/*implements IFluidTank, IFluidHandler {
     return FluidStack.EMPTY;
   }
 
-  /* Saving and loading *
+  /* Saving and loading */
 
-  public CompoundNBT writeToNBT(CompoundNBT nbt) {
-    ListNBT taglist = new ListNBT();
+  private static final String TAG_FLUIDS = "fluids";
+  private static final String TAG_CAPACITY = "capacity";
 
-    for (FluidStack liquid : liquids) {
-      if (liquid.getFluid().getRegistryName() == null) {
-        TinkerSmeltery.log.error("Error trying to save fluids inside smeltery! Invalid Liquid found! Smeltery contents:");
-        for (FluidStack liquid2 : liquids) {
-          TinkerSmeltery.log.error("  " + liquid2.getTranslationKey() + "/" + liquid2.getAmount() + "mb");
-        }
-        continue;
-      }
+  /**
+   * Updates fluids in the tank, typically from a packet
+   * @param fluids  List of fluids
+   */
+  public void setFluids(List<FluidStack> fluids) {
+    this.fluids.clear();
+    this.fluids.addAll(fluids);
+  }
 
+  /** Writes the tank to NBT */
+  public CompoundNBT write(CompoundNBT nbt) {
+    ListNBT list = new ListNBT();
+    for (FluidStack liquid : fluids) {
       CompoundNBT fluidTag = new CompoundNBT();
       liquid.writeToNBT(fluidTag);
-      taglist.add(fluidTag);
+      list.add(fluidTag);
     }
-
-    nbt.put("Liquids", taglist);
-    nbt.putInt("LiquidCapacity", maxCapacity);
-
+    nbt.put(TAG_FLUIDS, list);
+    nbt.putInt(TAG_CAPACITY, capacity);
     return nbt;
   }
 
-  public void readFromNBT(CompoundNBT tag) {
-    ListNBT taglist = tag.getList("Liquids", 10);
-
-    liquids.clear();
-    for (int i = 0; i < taglist.size(); i++) {
-      CompoundNBT fluidTag = taglist.getCompound(i);
-
-      FluidStack liquid = FluidStack.loadFluidStackFromNBT(fluidTag);
-
-      if (liquid != null) {
-        liquids.add(liquid);
+  /** Reads the tank from NBT */
+  public void read(CompoundNBT tag) {
+    ListNBT list = tag.getList(TAG_FLUIDS, 10);
+    fluids.clear();
+    contained = 0;
+    for (int i = 0; i < list.size(); i++) {
+      CompoundNBT fluidTag = list.getCompound(i);
+      FluidStack fluid = FluidStack.loadFluidStackFromNBT(fluidTag);
+      if (!fluid.isEmpty()) {
+        fluids.add(fluid);
+        contained += fluid.getAmount();
       }
     }
-
-    maxCapacity = tag.getInt("LiquidCapacity");
+    capacity = tag.getInt(TAG_CAPACITY);
   }
-
-  /**
-   * Moves the fluid with the passed index to the beginning/bottom of the fluid tank stack
-   *
-  public void moveFluidToBottom(int index) {
-    if (index < liquids.size()) {
-      FluidStack fluid = liquids.get(index);
-      liquids.remove(index);
-      liquids.add(0, fluid);
-    }
-  }*/
 }
