@@ -2,13 +2,12 @@ package slimeknights.tconstruct.library.recipe.casting;
 
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -20,8 +19,7 @@ import javax.annotation.Nullable;
  * @param <T>  Recipe class type
  */
 @AllArgsConstructor
-public class MaterialCastingRecipeSerializer<T extends MaterialCastingRecipe> extends ForgeRegistryEntry<IRecipeSerializer<?>>
-  implements IRecipeSerializer<T> {
+public class MaterialCastingRecipeSerializer<T extends MaterialCastingRecipe> extends RecipeSerializer<T> {
   private final MaterialCastingRecipeSerializer.IFactory<T> factory;
 
   @Override

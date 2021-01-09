@@ -12,9 +12,9 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -82,7 +82,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   /**
    * Serializer for {@link MaterialMeltingRecipe}
    */
-  public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MaterialMeltingRecipe> {
+  public static class Serializer extends RecipeSerializer<MaterialMeltingRecipe> {
     @Override
     public MaterialMeltingRecipe read(ResourceLocation id, JsonObject json) {
       String group = JSONUtils.getString(json, "group", "");

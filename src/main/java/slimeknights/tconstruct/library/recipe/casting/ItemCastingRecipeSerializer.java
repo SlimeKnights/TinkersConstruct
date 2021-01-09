@@ -4,14 +4,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.mantle.recipe.FluidIngredient;
+import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 
@@ -23,8 +22,7 @@ import javax.annotation.Nullable;
  * @param <T>  Casting recipe class type
  */
 @AllArgsConstructor
-public class ItemCastingRecipeSerializer<T extends ItemCastingRecipe> extends ForgeRegistryEntry<IRecipeSerializer<?>>
-  implements IRecipeSerializer<T> {
+public class ItemCastingRecipeSerializer<T extends ItemCastingRecipe> extends RecipeSerializer<T> {
 
   private final IFactory<T> factory;
 

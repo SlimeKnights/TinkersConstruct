@@ -12,8 +12,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -62,7 +62,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   /**
    * Serializer for {@link MeltingRecipe}
    */
-  public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MeltingRecipe> {
+  public static class Serializer extends RecipeSerializer<MeltingRecipe> {
     @Override
     public MeltingRecipe read(ResourceLocation id, JsonObject json) {
       String group = JSONUtils.getString(json, "group", "");

@@ -2,12 +2,11 @@ package slimeknights.tconstruct.library.recipe.material;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -17,7 +16,7 @@ import javax.annotation.Nullable;
 /**
  * Serialiser for {@link MaterialRecipe}
  */
-public class MaterialRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MaterialRecipe> {
+public class MaterialRecipeSerializer extends RecipeSerializer<MaterialRecipe> {
   @Override
   public MaterialRecipe read(ResourceLocation recipeId, JsonObject json) {
     String group = JSONUtils.getString(json, "group", "");

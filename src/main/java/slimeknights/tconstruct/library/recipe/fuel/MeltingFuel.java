@@ -11,9 +11,9 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
@@ -80,7 +80,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
   /**
    * Serializer for {@link MeltingFuel}
    */
-  public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MeltingFuel> {
+  public static class Serializer extends RecipeSerializer<MeltingFuel> {
     @Override
     public MeltingFuel read(ResourceLocation id, JsonObject json) {
       String group = JSONUtils.getString(json, "group", "");
