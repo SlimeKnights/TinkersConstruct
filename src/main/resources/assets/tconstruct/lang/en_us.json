@@ -499,6 +499,9 @@
     "gui.tconstruct.melting.capacity": "Capacity:",
     "gui.tconstruct.melting.available": "Free:",
     "gui.tconstruct.melting.used": "Used:",
+    
+    "block.tconstruct.smeltery_controller": "Smeltery Controller",
+    "block.tconstruct.smeltery_controller.tooltip": "Heart of the smeltery.",
 
     "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
     "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",

@@ -1,41 +1,43 @@
 package slimeknights.tconstruct.common.multiblock;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import slimeknights.mantle.multiblock.IMasterLogic;
+import net.minecraftforge.common.extensions.IForgeTileEntity;
+
+import javax.annotation.Nullable;
 
 // TODO: move back to Mantle after smeltery is updated
-public interface IServantLogic {
-
-  BlockPos getMasterPosition();
-
-  /** The block should already have a valid master */
-  void notifyMasterOfChange();
+public interface IServantLogic extends IForgeTileEntity {
+  /**
+   * Gets the position of the master block
+   * @return  Master position, null if none is set
+   */
+  @Nullable
+  BlockPos getMasterPos();
 
   /**
-   * Checks if this block can be tied to this master
-   *
-   * @param world the world of master
-   * @param pos   position of master
-   * @return whether the servant can be tied to this master
+   * Notifies the master that something changed
+   * @param pos    Position that changed. May or may not be this servant
+   * @param state  State that changed. May or may not be this servant
    */
-
-  boolean setPotentialMaster(slimeknights.mantle.multiblock.IMasterLogic master, World world, BlockPos pos);
+  void notifyMasterOfChange(BlockPos pos, BlockState state);
 
   /**
-   * Used to set and verify that this is the block's master
-   *
-   * @param pos position of master
-   * @return Is this block tied to this master?
+   * Checks if the given master is valid for this servant. Should consider the servants current state
+   * @param master  Master to check
+   * @return  True if the master is a valid master
    */
-
-  boolean verifyMaster(slimeknights.mantle.multiblock.IMasterLogic master, World world, BlockPos pos);
+  boolean isValidMaster(IMasterLogic master);
 
   /**
-   * Exactly what it says on the tin
-   *
-   * @param pos position of master
+   * Sets a master to this slave, assuming it is valid
+   * @param master  Master to set
    */
+  void setPotentialMaster(IMasterLogic master);
 
-  void invalidateMaster(IMasterLogic master, World world, BlockPos pos);
+  /**
+   * Removes this master from the given servant
+   * @param master  Master to remove
+   */
+	void removeMaster(IMasterLogic master);
 }

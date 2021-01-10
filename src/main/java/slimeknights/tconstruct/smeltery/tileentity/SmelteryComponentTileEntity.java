@@ -6,13 +6,14 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import slimeknights.tconstruct.common.multiblock.MultiServantLogic;
+import net.minecraft.util.math.BlockPos;
+import slimeknights.tconstruct.common.multiblock.ServantTileEntity;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 
-public class SmelteryComponentTileEntity extends MultiServantLogic {
+public class SmelteryComponentTileEntity extends ServantTileEntity {
 
   public SmelteryComponentTileEntity() {
     this(TinkerSmeltery.smelteryComponent.get());
@@ -24,6 +25,7 @@ public class SmelteryComponentTileEntity extends MultiServantLogic {
   }
 
   // we send all our info to the client on load
+  // TODO: should we?
   @Override
   public SUpdateTileEntityPacket getUpdatePacket() {
     CompoundNBT tag = this.write(new CompoundNBT());
@@ -54,8 +56,9 @@ public class SmelteryComponentTileEntity extends MultiServantLogic {
    */
   @Nullable
   protected ISmelteryTankHandler getSmelteryTankHandler() {
-    if (this.getHasMaster() && this.world != null) {
-      TileEntity te = this.world.getTileEntity(this.getMasterPosition());
+    BlockPos master = this.getMasterPos();
+    if (master != null && this.world != null) {
+      TileEntity te = this.world.getTileEntity(master);
       if (te instanceof ISmelteryTankHandler) {
         return (ISmelteryTankHandler) te;
       }

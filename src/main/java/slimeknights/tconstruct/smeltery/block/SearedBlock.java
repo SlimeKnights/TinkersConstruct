@@ -9,8 +9,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import slimeknights.mantle.multiblock.IMasterLogic;
-import slimeknights.mantle.multiblock.IServantLogic;
+import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.tconstruct.common.multiblock.IMasterLogic;
+import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
@@ -34,10 +35,7 @@ public class SearedBlock extends Block {
   @Override
   @Deprecated
   public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    TileEntity tileEntity = worldIn.getTileEntity(pos);
-    if (tileEntity instanceof SmelteryComponentTileEntity) {
-      ((SmelteryComponentTileEntity) tileEntity).notifyMasterOfChange();
-    }
+    TileEntityHelper.getTile(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     super.onReplaced(state, worldIn, pos, newState, isMoving);
   }
 
@@ -51,14 +49,14 @@ public class SearedBlock extends Block {
         TileEntity servant = worldIn.getTileEntity(pos);
 
         if (servant instanceof IServantLogic) {
-          ((IMasterLogic) tileEntity).notifyChange((IServantLogic) servant, pos);
+          ((IMasterLogic) tileEntity).notifyChange((IServantLogic) servant, pos, state);
           break;
         }
       } else if (tileEntity instanceof SmelteryComponentTileEntity) {
         SmelteryComponentTileEntity componentTileEntity = (SmelteryComponentTileEntity) tileEntity;
 
-        if (componentTileEntity.hasValidMaster()) {
-          componentTileEntity.notifyMasterOfChange();
+        if (componentTileEntity.hasMaster()) {
+          componentTileEntity.notifyMasterOfChange(pos, state);
           break;
         }
       }

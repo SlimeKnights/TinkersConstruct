@@ -36,6 +36,15 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Block> SEARED_BRICKS = tag("seared_bricks");
 
+    /** Blocks valid as a smeltery tank, required for fuel */
+    public static final IOptionalNamedTag<Block> MELTER_TANKS = tag("melter_tanks");
+    /** Blocks valid as a smeltery tank, required for fuel */
+    public static final IOptionalNamedTag<Block> SMELTERY_TANKS = tag("smeltery/tanks");
+    /** Blocks valid as a smeltery floor */
+    public static final IOptionalNamedTag<Block> SMELTERY_FLOOR = tag("smeltery/floor");
+    /** Blocks valid in any area of the smeltery */
+    public static final IOptionalNamedTag<Block> SMELTERY_WALL = tag("smeltery/wall");
+
 
     private static IOptionalNamedTag<Block> tag(String name) {
       return BlockTags.createOptional(Util.getResource(name));

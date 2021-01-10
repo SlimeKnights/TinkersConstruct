@@ -37,7 +37,7 @@ public class SearedSlabBlock extends SlabBlock {
     TileEntity tileEntity = worldIn.getTileEntity(pos);
 
     if (tileEntity instanceof SmelteryComponentTileEntity) {
-      ((SmelteryComponentTileEntity) tileEntity).notifyMasterOfChange();
+      ((SmelteryComponentTileEntity) tileEntity).notifyMasterOfChange(pos, newState);
     }
 
     super.onReplaced(state, worldIn, pos, newState, isMoving);
@@ -49,7 +49,6 @@ public class SearedSlabBlock extends SlabBlock {
     // look for a smeltery (controller directly or through another smeltery block) and notify it that we exist
     for (Direction direction : Direction.values()) {
       TileEntity tileEntity = worldIn.getTileEntity(pos.offset(direction));
-
       if (tileEntity instanceof IMasterLogic) {
         TileEntity servant = worldIn.getTileEntity(pos);
 
@@ -59,9 +58,8 @@ public class SearedSlabBlock extends SlabBlock {
         }
       } else if (tileEntity instanceof SmelteryComponentTileEntity) {
         SmelteryComponentTileEntity componentTileEntity = (SmelteryComponentTileEntity) tileEntity;
-
-        if (componentTileEntity.hasValidMaster()) {
-          componentTileEntity.notifyMasterOfChange();
+        if (componentTileEntity.hasMaster()) {
+          componentTileEntity.notifyMasterOfChange(pos, state);
           break;
         }
       }

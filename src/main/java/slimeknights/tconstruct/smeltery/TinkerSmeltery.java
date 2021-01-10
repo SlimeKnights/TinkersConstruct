@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery;
 
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,7 +14,6 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
@@ -41,12 +39,14 @@ import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
 import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
+import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.SearedBlock;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.block.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
@@ -55,9 +55,9 @@ import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -109,8 +109,9 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<CastingTableBlock> castingTable = BLOCKS.register("casting_table", () -> new CastingTableBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
 
   // controllers
-  private static final Block.Properties MELTER = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).setLightLevel(s -> s.get(MelterBlock.ACTIVE) ? 13 : 0).notSolid();
-  public static final ItemObject<MelterBlock> searedMelter = BLOCKS.register("melter", () -> new MelterBlock(MELTER), TOOLTIP_BLOCK_ITEM);
+  private static final Supplier<Block.Properties> CONTROLLER = () -> builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).setLightLevel(s -> s.get(ControllerBlock.ACTIVE) ? 13 : 0);;
+  public static final ItemObject<MelterBlock> searedMelter = BLOCKS.register("melter", () -> new MelterBlock(CONTROLLER.get().notSolid()), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SmelteryControllerBlock> smelteryController = BLOCKS.register("smeltery_controller", () -> new SmelteryControllerBlock(CONTROLLER.get()), TOOLTIP_BLOCK_ITEM);
 
   /*
    * Tile entities
@@ -128,6 +129,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> basin = TILE_ENTITIES.register("basin", AbstractCastingTileEntity.Basin::new, castingBasin);
   public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> table = TILE_ENTITIES.register("table", AbstractCastingTileEntity.Table::new, castingTable);
   public static final RegistryObject<TileEntityType<MelterTileEntity>> melter = TILE_ENTITIES.register("melter", MelterTileEntity::new, searedMelter);
+  public static final RegistryObject<TileEntityType<SmelteryTileEntity>> smeltery = TILE_ENTITIES.register("smeltery", SmelteryTileEntity::new, smelteryController);
 
   /*
    * Items
@@ -185,53 +187,6 @@ public final class TinkerSmeltery extends TinkerModule {
    * Inventory
    */
   public static final RegistryObject<ContainerType<MelterContainer>> melterContainer = CONTAINERS.register("melter", MelterContainer::new);
-
-  /*
-   * Smeltery block lists
-   */
-  public static Set<Block> validSmelteryBlocks;
-  public static Set<Block> searedStairsSlabs;
-  public static Set<Block> validTinkerTankBlocks;
-  public static Set<Block> validTinkerTankFloorBlocks;
-  @SubscribeEvent
-  void registerBlockLists(final FMLCommonSetupEvent event) {
-    ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
-    builder.add(TinkerSmeltery.searedStone.get());
-    builder.add(TinkerSmeltery.searedCobble.get());
-    builder.add(TinkerSmeltery.searedBricks.get());
-    builder.add(TinkerSmeltery.searedCrackedBricks.get());
-    builder.add(TinkerSmeltery.searedFancyBricks.get());
-    builder.add(TinkerSmeltery.searedTriangleBricks.get());
-    builder.add(TinkerSmeltery.searedPaver.get());
-    ImmutableSet<Block> searedBlocks = builder.build();
-
-    // smeltery adds in tank, glass and drains
-    builder = ImmutableSet.builder();
-    builder.addAll(searedBlocks);
-    builder.addAll(TinkerSmeltery.searedTank.values());
-    //builder.add(smelteryIO);
-    builder.add(TinkerSmeltery.searedGlass.get());
-
-    // same blocks right now for smeltery and tinker tank
-    validSmelteryBlocks = builder.build();
-    validTinkerTankBlocks = builder.build();
-    // tinker tank floor disallows tanks
-    builder = ImmutableSet.builder();
-    builder.addAll(searedBlocks);
-    builder.add(TinkerSmeltery.searedGlass.get());
-    //builder.add(smelteryIO);
-    validTinkerTankFloorBlocks = builder.build();
-
-    // seared furnace ceiling blocks, no smelteryIO or seared glass
-    // does not affect sides, those are forced to use seared blocks/tanks where relevant
-    builder = ImmutableSet.builder();
-    builder.addAll(TinkerSmeltery.searedStone.values());
-    builder.addAll(TinkerSmeltery.searedCobble.values());
-    builder.addAll(TinkerSmeltery.searedBricks.values());
-    builder.add(searedCrackedBricks.get(), searedFancyBricks.get(), searedTriangleBricks.get());
-    builder.addAll(TinkerSmeltery.searedPaver.values());
-    searedStairsSlabs = builder.build();
-  }
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {

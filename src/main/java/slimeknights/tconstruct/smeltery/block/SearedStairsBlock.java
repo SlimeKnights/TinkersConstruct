@@ -11,6 +11,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.IServantLogic;
+import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
@@ -35,14 +36,8 @@ public class SearedStairsBlock extends StairsBlock {
   @Override
   @Deprecated
   public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    TileEntity tileEntity = worldIn.getTileEntity(pos);
-
-    if (tileEntity instanceof SmelteryComponentTileEntity) {
-      ((SmelteryComponentTileEntity) tileEntity).notifyMasterOfChange();
-    }
-
+    TileEntityHelper.getTile(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     super.onReplaced(state, worldIn, pos, newState, isMoving);
-    worldIn.removeTileEntity(pos);
   }
 
   @Override
@@ -61,8 +56,8 @@ public class SearedStairsBlock extends StairsBlock {
       } else if (tileEntity instanceof SmelteryComponentTileEntity) {
         SmelteryComponentTileEntity componentTileEntity = (SmelteryComponentTileEntity) tileEntity;
 
-        if (componentTileEntity.hasValidMaster()) {
-          componentTileEntity.notifyMasterOfChange();
+        if (componentTileEntity.hasMaster()) {
+          componentTileEntity.notifyMasterOfChange(pos, state);
           break;
         }
       }
