@@ -8,6 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -112,13 +113,23 @@ public class MultiblockSmeltery extends MultiblockCuboid {
   @Override
   @Nullable
   public StructureData readFromNBT(CompoundNBT nbt) {
-    Set<BlockPos> positions = readPosList(nbt, MultiblockStructureData.TAG_POSITIONS, ImmutableSet::builder);
-    if (!positions.isEmpty()) {
-      List<BlockPos> tanks = readPosList(nbt, TAG_TANKS, ImmutableList::builder);
-      if (!tanks.isEmpty()) {
-        StructureData structure = new StructureData(positions, hasFloor, hasCeiling, tanks);
-        structure.insideCheck = TagUtil.readPos(nbt, TAG_INSIDE_CHECK);
-        return structure;
+    // TODO: not sure how to clean this up for better inheritance right now
+    if (nbt.contains(MultiblockStructureData.TAG_POSITIONS, NBT.TAG_LIST)) {
+      Set<BlockPos> positions = readPosList(nbt, MultiblockStructureData.TAG_POSITIONS, ImmutableSet::builder);
+      if (!positions.isEmpty()) {
+        List<BlockPos> tanks = readPosList(nbt, TAG_TANKS, ImmutableList::builder);
+        if (!tanks.isEmpty()) {
+          StructureData structure = new StructureData(positions, hasFloor, hasCeiling, tanks);
+          structure.insideCheck = TagUtil.readPos(nbt, TAG_INSIDE_CHECK);
+          return structure;
+        }
+      }
+    } else {
+      // client side gets just min and max
+      BlockPos minPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MIN);
+      BlockPos maxPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MAX);
+      if (minPos != null && maxPos != null) {
+        return new StructureData(ImmutableSet.of(), minPos, maxPos, hasFloor, hasCeiling, ImmutableList.of());
       }
     }
 
@@ -133,6 +144,11 @@ public class MultiblockSmeltery extends MultiblockCuboid {
     private BlockPos insideCheck;
     public StructureData(Set<BlockPos> positions, boolean hasFloor, boolean hasCeiling, List<BlockPos> tanks) {
       super(positions, hasFloor, hasCeiling);
+      this.tanks = tanks;
+    }
+
+    public StructureData(Set<BlockPos> positions, BlockPos minPos, BlockPos maxPos, boolean hasFloor, boolean hasCeiling, List<BlockPos> tanks) {
+      super(positions, minPos, maxPos, hasFloor, hasCeiling);
       this.tanks = tanks;
     }
 

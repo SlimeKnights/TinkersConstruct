@@ -1,11 +1,17 @@
-package slimeknights.tconstruct.library.smeltery;
+package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.smeltery.network.SmelteryTankUpdatePacket;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -21,6 +27,7 @@ public class SmelteryTank implements IFluidHandler {
   /** Maximum capacity of the smeltery */
   private int capacity;
   /** Current amount of fluid in the tank */
+  @Getter
   private int contained;
 
   public SmelteryTank(ISmelteryTankHandler parent) {
@@ -28,6 +35,18 @@ public class SmelteryTank implements IFluidHandler {
     capacity = 0;
     contained = 0;
     this.parent = parent;
+  }
+
+  /**
+   * Called when the fluids change to sync to client
+   */
+  private void syncFluids() {
+    TileEntity te = parent.getTileEntity();
+    World world = te.getWorld();
+    if (world != null && !world.isRemote) {
+      BlockPos pos = te.getPos();
+      TinkerNetwork.getInstance().sendToClientsAround(new SmelteryTankUpdatePacket(pos, fluids), world, pos);
+    }
   }
 
 
@@ -107,6 +126,7 @@ public class SmelteryTank implements IFluidHandler {
       FluidStack fluid = fluids.get(index);
       fluids.remove(index);
       fluids.add(0, fluid);
+      syncFluids();
     }
   }
 
@@ -140,7 +160,7 @@ public class SmelteryTank implements IFluidHandler {
       if (liquid.isFluidEqual(resource)) {
         // yup. add it
         liquid.grow(usable);
-        parent.onTankChanged(fluids, liquid);
+        syncFluids();
         return usable;
       }
     }
@@ -149,7 +169,7 @@ public class SmelteryTank implements IFluidHandler {
     resource = resource.copy();
     resource.setAmount(usable);
     fluids.add(resource);
-    parent.onTankChanged(fluids, resource);
+    syncFluids();
     return usable;
   }
 
@@ -174,7 +194,7 @@ public class SmelteryTank implements IFluidHandler {
       if (fluid.getAmount() <= 0) {
         fluids.remove(fluid);
       }
-      parent.onTankChanged(fluids, fluid);
+      syncFluids();
     }
 
     // return drained fluid
@@ -202,7 +222,7 @@ public class SmelteryTank implements IFluidHandler {
           if (fluid.getAmount() <= 0) {
             iter.remove();
           }
-          parent.onTankChanged(fluids, fluid);
+          syncFluids();
         }
 
         return ret;
@@ -225,6 +245,7 @@ public class SmelteryTank implements IFluidHandler {
   public void setFluids(List<FluidStack> fluids) {
     this.fluids.clear();
     this.fluids.addAll(fluids);
+    contained = fluids.stream().mapToInt(FluidStack::getAmount).reduce(0, Integer::sum);
   }
 
   /** Writes the tank to NBT */
@@ -242,7 +263,7 @@ public class SmelteryTank implements IFluidHandler {
 
   /** Reads the tank from NBT */
   public void read(CompoundNBT tag) {
-    ListNBT list = tag.getList(TAG_FLUIDS, 10);
+    ListNBT list = tag.getList(TAG_FLUIDS, NBT.TAG_COMPOUND);
     fluids.clear();
     contained = 0;
     for (int i = 0; i < list.size(); i++) {

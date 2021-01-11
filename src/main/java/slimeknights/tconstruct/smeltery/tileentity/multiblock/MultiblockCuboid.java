@@ -345,11 +345,22 @@ public abstract class MultiblockCuboid {
    */
   @Nullable
   public MultiblockStructureData readFromNBT(CompoundNBT nbt) {
-    Set<BlockPos> set = readPosList(nbt, MultiblockStructureData.TAG_POSITIONS, ImmutableSet::builder);
-    if (set.isEmpty()) {
-      return null;
+    // serverside gets a tag list
+    if (nbt.contains(MultiblockStructureData.TAG_POSITIONS, NBT.TAG_LIST)) {
+      Set<BlockPos> set = readPosList(nbt, MultiblockStructureData.TAG_POSITIONS, ImmutableSet::builder);
+      if (!set.isEmpty()) {
+        return new MultiblockStructureData(set, hasFloor, hasCeiling);
+      }
+    } else {
+      // client side gets just min and max
+      BlockPos minPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MIN);
+      BlockPos maxPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MAX);
+      if (minPos != null && maxPos != null) {
+        return new MultiblockStructureData(ImmutableSet.of(), minPos, maxPos, hasFloor, hasCeiling);
+      }
     }
-    return new MultiblockStructureData(set, hasFloor, hasCeiling);
+
+    return null;
   }
 
   /**

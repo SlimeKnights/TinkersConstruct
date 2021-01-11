@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.smeltery;
+package slimeknights.tconstruct.common.inventory;
 
 import mcp.MethodsReturnNonnullByDefault;
 

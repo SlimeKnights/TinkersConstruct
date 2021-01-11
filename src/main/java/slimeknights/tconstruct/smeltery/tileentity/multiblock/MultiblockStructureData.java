@@ -20,6 +20,8 @@ import java.util.function.Predicate;
  */
 public class MultiblockStructureData {
   public static final String TAG_POSITIONS = "positions";
+  public static final String TAG_MIN = "min";
+  public static final String TAG_MAX = "max";
 
   /** Smallest block position in the structure */
   @Getter
@@ -31,9 +33,10 @@ public class MultiblockStructureData {
   /** Contains all positions currently part of the structure */
   protected final Set<BlockPos> positions;
 
-  /** Size of the structure in each direction */
-  @Getter
-  private final int dx, dy, dz;
+  // TODO: needed?
+//  /** Size of the structure in each direction */
+//  @Getter
+//  private final int dx, dy, dz;
 
   /**
    * Smallest position inside the structure walls
@@ -45,33 +48,60 @@ public class MultiblockStructureData {
    */
   @Getter
   private final BlockPos insideMax;
-  public MultiblockStructureData(Set<BlockPos> positions, boolean hasFloor, boolean hasCeiling) {
-    this.positions = positions;
 
+  /** Size of the inside of the structure */
+  @Getter
+  private final int internalSize;
+
+  /**
+   * Gets the min position based on the set
+   * @param positions  Position set
+   * @return  Min position
+   */
+  private static BlockPos getMinPos(Set<BlockPos> positions) {
     int minX = Integer.MAX_VALUE;
-    int maxX = Integer.MIN_VALUE;
     int minY = Integer.MAX_VALUE;
-    int maxY = Integer.MIN_VALUE;
     int minZ = Integer.MAX_VALUE;
-    int maxZ = Integer.MIN_VALUE;
     for(BlockPos pos : positions) {
       if(pos.getX() < minX) minX = pos.getX();
-      if(pos.getX() > maxX) maxX = pos.getX();
       if(pos.getY() < minY) minY = pos.getY();
-      if(pos.getY() > maxY) maxY = pos.getY();
       if(pos.getZ() < minZ) minZ = pos.getZ();
+    }
+    return new BlockPos(minX, minY, minZ);
+  }
+
+  /**
+   * Gets the max position based on the set
+   * @param positions  Position set
+   * @return  Max position
+   */
+  private static BlockPos getMaxPos(Set<BlockPos> positions) {
+    int maxX = Integer.MIN_VALUE;
+    int maxY = Integer.MIN_VALUE;
+    int maxZ = Integer.MIN_VALUE;
+    for(BlockPos pos : positions) {
+      if(pos.getX() > maxX) maxX = pos.getX();
+      if(pos.getY() > maxY) maxY = pos.getY();
       if(pos.getZ() > maxZ) maxZ = pos.getZ();
     }
+    return new BlockPos(maxX, maxY, maxZ);
+  }
 
-    minPos = new BlockPos(minX, minY, minZ);
-    maxPos = new BlockPos(maxX, maxY, maxZ);
-    dx = maxX - minX + 1;
-    dy = maxY - minY + 1;
-    dz = maxZ - minZ + 1;
+  public MultiblockStructureData(Set<BlockPos> positions, BlockPos minPos, BlockPos maxPos, boolean hasFloor, boolean hasCeiling) {
+    this.positions = positions;
+    this.minPos = minPos;
+    this.maxPos = maxPos;
 
     // inner positions
     insideMin = minPos.add(1, hasFloor ? 1 : 0, 1);
     insideMax = maxPos.add(-1, hasCeiling ? -1 : 0, -1);
+    internalSize = (insideMax.getX() - insideMin.getX() + 1)
+                   * (insideMax.getY() - insideMin.getY() + 1)
+                   * (insideMax.getZ() - insideMin.getZ() + 1);
+  }
+
+  public MultiblockStructureData(Set<BlockPos> positions, boolean hasFloor, boolean hasCeiling) {
+    this(positions, getMinPos(positions), getMaxPos(positions), hasFloor, hasCeiling);
   }
 
   /**
@@ -158,6 +188,17 @@ public class MultiblockStructureData {
   public CompoundNBT writeToNBT() {
     CompoundNBT nbt = new CompoundNBT();
     nbt.put(TAG_POSITIONS, writePosList(positions));
+    return nbt;
+  }
+
+  /**
+   * Writes this structure to NBT for the client, requires fewer positions to be synced
+   * @return  structure as NBT
+   */
+  public CompoundNBT writeClientNBT() {
+    CompoundNBT nbt = new CompoundNBT();
+    nbt.put(TAG_MIN, TagUtil.writePos(minPos));
+    nbt.put(TAG_MAX, TagUtil.writePos(maxPos));
     return nbt;
   }
 

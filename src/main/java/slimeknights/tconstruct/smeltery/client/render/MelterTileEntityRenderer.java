@@ -36,7 +36,7 @@ public class MelterTileEntityRenderer extends TileEntityRenderer<MelterTileEntit
       // render items
       List<ModelItem> modelItems = model.getItems();
       for (int i = 0; i < modelItems.size(); i++) {
-        RenderingHelper.renderItem(matrices, buffer, melter.getStackInSlot(i), modelItems.get(i), light);
+        RenderingHelper.renderItem(matrices, buffer, melter.getMeltingInventory().getStackInSlot(i), modelItems.get(i), light);
       }
 
       // pop back rotation

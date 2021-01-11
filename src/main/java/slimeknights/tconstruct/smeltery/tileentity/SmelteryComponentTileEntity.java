@@ -8,8 +8,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import slimeknights.tconstruct.common.multiblock.ServantTileEntity;
-import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
 import javax.annotation.Nullable;
 

@@ -500,6 +500,8 @@
     "gui.tconstruct.melting.available": "Free:",
     "gui.tconstruct.melting.used": "Used:",
     
+    "gui.tconstruct.smeltery": "Smeltery",
+    
     "block.tconstruct.smeltery_controller": "Smeltery Controller",
     "block.tconstruct.smeltery_controller.tooltip": "Heart of the smeltery.",
 

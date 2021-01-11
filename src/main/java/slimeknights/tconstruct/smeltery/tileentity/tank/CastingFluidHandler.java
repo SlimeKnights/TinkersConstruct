@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.smeltery;
+package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraftforge.fluids.FluidStack;

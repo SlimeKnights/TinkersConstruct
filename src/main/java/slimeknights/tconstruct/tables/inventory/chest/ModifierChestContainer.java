@@ -8,8 +8,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
+import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.tileentity.chest.ModifierChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 

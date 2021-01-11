@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.recipe.alloying;
 
 import lombok.AllArgsConstructor;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.library.smeltery.SmelteryTank;
+import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
 
 /** Smeltery implementation of the alloy tank, basically just a wrapper around the smeltery tank */
 @AllArgsConstructor

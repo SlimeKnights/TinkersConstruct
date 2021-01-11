@@ -49,6 +49,7 @@ import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.block.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
+import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
@@ -187,6 +188,7 @@ public final class TinkerSmeltery extends TinkerModule {
    * Inventory
    */
   public static final RegistryObject<ContainerType<MelterContainer>> melterContainer = CONTAINERS.register("melter", MelterContainer::new);
+  public static final RegistryObject<ContainerType<SmelteryContainer>> smelteryContainer = CONTAINERS.register("smeltery", SmelteryContainer::new);
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {

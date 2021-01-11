@@ -37,11 +37,11 @@ import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
-import slimeknights.tconstruct.library.smeltery.CastingFluidHandler;
 import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.recipe.TileCastingWrapper;
+import slimeknights.tconstruct.smeltery.tileentity.tank.CastingFluidHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
