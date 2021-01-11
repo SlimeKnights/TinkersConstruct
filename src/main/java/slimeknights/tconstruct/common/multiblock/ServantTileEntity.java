@@ -110,7 +110,7 @@ public class ServantTileEntity extends MantleTileEntity implements IServantLogic
     Block masterBlock = null;
     // if the master position is valid, get the master block
     if (masterPos != null && tags.contains(TAG_MASTER_BLOCK, NBT.TAG_STRING)) {
-      ResourceLocation masterBlockName = ResourceLocation.tryCreate(TAG_MASTER_BLOCK);
+      ResourceLocation masterBlockName = ResourceLocation.tryCreate(tags.getString(TAG_MASTER_BLOCK));
       if (masterBlockName != null && ForgeRegistries.BLOCKS.containsKey(masterBlockName)) {
         masterBlock = ForgeRegistries.BLOCKS.getValue(masterBlockName);
       }
