@@ -31,7 +31,8 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> {
     if (te != null) {
       this.smeltery = te;
       this.tank = new GuiSmelteryTank(this, te.getTank(), 8, 16, SCALA.w, SCALA.h);
-      this.sideInventory = new SmelterySideInventoryScreen(this, container.getSideInventory(), playerInventory, te.getMeltingInventory().getSlots(), 3);
+      int slots = te.getMeltingInventory().getSlots();
+      this.sideInventory = new SmelterySideInventoryScreen(this, container.getSideInventory(), playerInventory, slots, SmelteryContainer.calcColumns(slots));
       this.melting = new GuiMeltingModule(this, te.getMeltingInventory(), te::getTemperature, sideInventory::shouldDrawSlot);
       addModule(sideInventory);
     } else {

@@ -16,7 +16,9 @@ public class SmelteryContainer extends MultiModuleContainer<SmelteryTileEntity> 
   public SmelteryContainer(int id, @Nullable PlayerInventory inv, @Nullable SmelteryTileEntity smeltery) {
     super(TinkerSmeltery.smelteryContainer.get(), id, inv, smeltery);
     if (inv != null && smeltery != null) {
-      sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer.get(), id, inv, smeltery, 0, 0, 3);
+      // can hold 7 in a column, so try to fill the first column first
+      // cap to 4 columns
+      sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer.get(), id, inv, smeltery, 0, 0, calcColumns(smeltery.getMeltingInventory().getSlots()));
       addSubContainer(sideInventory, true);
       smeltery.getMeltingInventory().trackInts(this::trackIntArray);
     } else {
@@ -27,5 +29,15 @@ public class SmelteryContainer extends MultiModuleContainer<SmelteryTileEntity> 
 
   public SmelteryContainer(int id, PlayerInventory inv, PacketBuffer buf) {
     this(id, inv, getTileEntityFromBuf(buf, SmelteryTileEntity.class));
+  }
+
+  /**
+   * Calculates the number of columns to use for the screen
+   * @param slots  Number of slots
+   * @return  Number of columns
+   */
+  public static int calcColumns(int slots) {
+    // every 7 slots gives us a new column, up to a maximum of 4 columns
+    return Math.min(4, (slots + 6) / 7);
   }
 }
