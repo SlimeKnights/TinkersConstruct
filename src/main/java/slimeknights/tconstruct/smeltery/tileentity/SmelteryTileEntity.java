@@ -66,6 +66,8 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /* Instance data, this data is not written to NBT */
   /** Timer to allow delaying actions based on number of ticks alive */
   private int tick = 0;
+  /** Updates every second. Once it reaches 10, checks above the smeltery for a layer to see if we can expand up */
+  private int expandCounter = 0;
   /** If true, structure will check for an update next tick */
   private boolean updateQueued = false;
 
@@ -94,9 +96,21 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
 
     // if we have a structure, run smeltery logic
     if (structure != null) {
-      // check the next inside position to see if its a valid inner block
-      if (!multiblock.isInnerBlock(world, structure.getNextInsideCheck())) {
-        queueUpdate();
+      // every 15 seconds, check above the smeltery to try to expand
+      if (tick == 0) {
+        expandCounter++;
+        if (expandCounter >= 10) {
+          expandCounter = 0;
+          // instead of rechecking the whole structure, just recheck the layer above and queue an update if its usable
+          if (multiblock.canExpand(structure, world)) {
+            queueUpdate();
+          }
+        }
+      } else if (tick % 2 == 1) {
+        // check the next inside position to see if its a valid inner block every other tick
+        if (!multiblock.isInnerBlock(world, structure.getNextInsideCheck())) {
+          queueUpdate();
+        }
       }
 
       // heat items
@@ -201,8 +215,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
         oldStructure.clearMaster(this);
       }
       structure = null;
-      // TODO: do I need to sync the lack of a structure? I think not
     }
+
+    // clear expand counter either way
+    expandCounter = 0;
   }
 
   /**

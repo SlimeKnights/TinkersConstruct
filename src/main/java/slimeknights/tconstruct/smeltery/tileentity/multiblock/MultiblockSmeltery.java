@@ -135,6 +135,17 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
     return structure.isDirectlyAbove(pos) && TinkerTags.Blocks.SMELTERY_WALL.contains(state.getBlock());
   }
 
+  /**
+   * Checks if this structure can expand up by one block
+   * @return  True if this structure can expand
+   */
+  public boolean canExpand(StructureData data, World world) {
+    BlockPos min = data.getMinPos();
+    BlockPos to = data.getMaxPos().up();
+    // want two positions one layer above the structure
+    return detectLayer(world, new BlockPos(min.getX(), to.getY(), min.getZ()), to, pos -> {});
+  }
+
   /** Extension of structure data to contain tanks list and the inside check */
   public static class StructureData extends MultiblockStructureData {
     /** Positions of all tanks in the structure area */
