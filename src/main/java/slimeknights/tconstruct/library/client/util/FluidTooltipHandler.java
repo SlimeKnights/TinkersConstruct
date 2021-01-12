@@ -39,7 +39,7 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FluidTooltipHandler {
   private static final Map<Fluid,List<FluidGuiEntry>> CACHE = new HashMap<>();
-  private static final String HOLD_SHIFT = Util.makeTranslationKey("gui", "fluid.hold_shift");
+  public static final ITextComponent HOLD_SHIFT = new TranslationTextComponent(Util.makeTranslationKey("gui", "fluid.hold_shift")).mergeStyle(TextFormatting.GRAY);
 
   /*
    * Base units
@@ -129,7 +129,7 @@ public class FluidTooltipHandler {
   public static void appendShift(List<ITextComponent> tooltip) {
     if(!Screen.hasShiftDown()) {
       tooltip.add(new StringTextComponent(""));
-      tooltip.add(new TranslationTextComponent(HOLD_SHIFT).mergeStyle(TextFormatting.GRAY));
+      tooltip.add(HOLD_SHIFT);
     }
   }
 

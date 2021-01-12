@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.block;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,6 +19,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
@@ -25,8 +28,11 @@ import javax.annotation.Nullable;
 import java.util.Locale;
 
 public class SearedTankBlock extends SearedBlock {
-  public SearedTankBlock(Properties properties) {
+  @Getter
+  private final int capacity;
+  public SearedTankBlock(Properties properties, int capacity) {
     super(properties);
+    this.capacity = capacity;
   }
 
   @Deprecated
@@ -43,7 +49,7 @@ public class SearedTankBlock extends SearedBlock {
 
   @Override
   public TileEntity createTileEntity(BlockState state, IBlockReader worldIn) {
-    return new TankTileEntity();
+    return new TankTileEntity(this);
   }
 
   @Deprecated
@@ -86,10 +92,14 @@ public class SearedTankBlock extends SearedBlock {
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 
+  @AllArgsConstructor
   public enum TankType implements IStringSerializable {
-    TANK,
-    GAUGE,
-    WINDOW;
+    TANK(TankTileEntity.DEFAULT_CAPACITY),
+    GAUGE(MaterialValues.VALUE_Block * 3),
+    WINDOW(TankTileEntity.DEFAULT_CAPACITY);
+
+    @Getter
+    private final int capacity;
 
     @Override
     public String getString() {
