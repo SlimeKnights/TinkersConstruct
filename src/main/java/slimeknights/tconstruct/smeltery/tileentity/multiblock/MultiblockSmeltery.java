@@ -1,25 +1,25 @@
 package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery.StructureData;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class MultiblockSmeltery extends MultiblockCuboid {
+public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
   private static final String TAG_TANKS = "tanks";
   private static final String TAG_INSIDE_CHECK = "insideCheck";
 
@@ -34,25 +34,53 @@ public class MultiblockSmeltery extends MultiblockCuboid {
   }
 
   @Override
-  public StructureData detectMultiblock(World world, BlockPos master, Direction facing) {
-    tanks.clear();
-    Set<BlockPos> positions = super.detectMultiblockPositions(world, master, facing);
-    if (positions == null) {
-      return null;
-    }
-
-    // tanks are possibly added on a layer that is later declared invalid, so remove those before doing checks
-    tanks.removeIf(pos -> !positions.contains(pos));
-    if (tanks.isEmpty()) {
-      return null;
-    }
-    return new StructureData(positions, hasFloor, hasCeiling, ImmutableList.copyOf(tanks));
+  public StructureData create(BlockPos min, BlockPos max, Set<BlockPos> extraPos) {
+    // remove any tanks that are out of bounds, possible one got added in a layer later declared invalid
+    // this might cause problems if we ever add a roof to the smeltery, possibly switch to a frame check?
+    tanks.removeIf(pos -> !MultiblockStructureData.isWithin(pos, min, max));
+    return new StructureData(min, max, extraPos, hasFloor, hasFrame, hasCeiling, ImmutableList.copyOf(tanks));
   }
+
+  /**
+   * Creates a copy of structure data for the client side
+   * @param min  Min position
+   * @param max  Max position
+   * @return  Structure data
+   */
+  public StructureData createClient(BlockPos min, BlockPos max) {
+    return new StructureData(min, max, Collections.emptySet(), hasFloor, hasFrame, hasCeiling, Collections.emptyList());
+  }
+
+  @Override
+  public StructureData detectMultiblock(World world, BlockPos master, Direction facing) {
+    // clear tanks from last check before calling
+    tanks.clear();
+    StructureData data = super.detectMultiblock(world, master, facing);
+    // need at least one tank to build a smeltery
+    return tanks.isEmpty() ? null : data;
+  }
+
+  /**
+   * Reads the structure data from NBT
+   * @param  nbt  NBT tag
+   * @return Structure data, or null if invalid
+   */
+  @Override
+  @Nullable
+  public StructureData readFromNBT(CompoundNBT nbt) {
+    // add all tanks from NBT, will be picked up in the create call
+    tanks.clear();
+    tanks.addAll(readPosList(nbt, TAG_TANKS));
+    return super.readFromNBT(nbt);
+  }
+
+
+  /* Block checks */
 
   /**
    * Checks if the given block position is a valid slave
    * @param world  World instance
-   * @param pos    Position to check
+   * @param pos    Position to check, note it may be mutable
    * @return   True if its a valid slave
    */
   protected boolean isValidSlave(World world, BlockPos pos) {
@@ -84,7 +112,7 @@ public class MultiblockSmeltery extends MultiblockCuboid {
 
     // add tanks to the internal lists
     if (TinkerTags.Blocks.SMELTERY_TANKS.contains(state.getBlock())) {
-      tanks.add(pos);
+      tanks.add(pos.toImmutable());
       return true;
     }
     return TinkerTags.Blocks.SMELTERY_WALL.contains(state.getBlock());
@@ -92,63 +120,30 @@ public class MultiblockSmeltery extends MultiblockCuboid {
 
   @Override
   public boolean shouldUpdate(World world, MultiblockStructureData structure, BlockPos pos, BlockState state) {
-    if (structure.isInside(pos)) {
+    if (structure.withinBounds(pos)) {
       // if its a part of the structure, need to update if its not a valid smeltery block
       if (structure.contains(pos)) {
         return !TinkerTags.Blocks.SMELTERY_WALL.contains(state.getBlock());
-      // block is inside the structure, but not one of the blocks of the structure, means its blocking part of the structure, so update
+      }
+      // if not part of the actual structure, we only care if its a block that's not air in the inner section
+      // in other words, ignore blocks added into the frame
       // note we don't do a check for a valid inner block, if it is a valid inner block we need to update to include it
-      } else return !state.isAir(world, pos);
+      return structure.isInside(pos) && !state.isAir(world, pos);
     }
 
     // if its one block above, might be trying to expand upwards
     return structure.isDirectlyAbove(pos) && TinkerTags.Blocks.SMELTERY_WALL.contains(state.getBlock());
   }
 
-  /**
-   * Reads the structure data from NBT
-   * @param  nbt  NBT tag
-   * @return Structure data, or null if invalid
-   */
-  @Override
-  @Nullable
-  public StructureData readFromNBT(CompoundNBT nbt) {
-    // TODO: not sure how to clean this up for better inheritance right now
-    if (nbt.contains(MultiblockStructureData.TAG_POSITIONS, NBT.TAG_LIST)) {
-      Set<BlockPos> positions = readPosList(nbt, MultiblockStructureData.TAG_POSITIONS, ImmutableSet::builder);
-      if (!positions.isEmpty()) {
-        List<BlockPos> tanks = readPosList(nbt, TAG_TANKS, ImmutableList::builder);
-        if (!tanks.isEmpty()) {
-          StructureData structure = new StructureData(positions, hasFloor, hasCeiling, tanks);
-          structure.insideCheck = TagUtil.readPos(nbt, TAG_INSIDE_CHECK);
-          return structure;
-        }
-      }
-    } else {
-      // client side gets just min and max
-      BlockPos minPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MIN);
-      BlockPos maxPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MAX);
-      if (minPos != null && maxPos != null) {
-        return new StructureData(ImmutableSet.of(), minPos, maxPos, hasFloor, hasCeiling, ImmutableList.of());
-      }
-    }
-
-    return null;
-  }
-
+  /** Extension of structure data to contain tanks list and the inside check */
   public static class StructureData extends MultiblockStructureData {
-
     /** Positions of all tanks in the structure area */
     private final List<BlockPos> tanks;
     /** Next position to check for inside checks */
     private BlockPos insideCheck;
-    public StructureData(Set<BlockPos> positions, boolean hasFloor, boolean hasCeiling, List<BlockPos> tanks) {
-      super(positions, hasFloor, hasCeiling);
-      this.tanks = tanks;
-    }
 
-    public StructureData(Set<BlockPos> positions, BlockPos minPos, BlockPos maxPos, boolean hasFloor, boolean hasCeiling, List<BlockPos> tanks) {
-      super(positions, minPos, maxPos, hasFloor, hasCeiling);
+    protected StructureData(BlockPos minPos, BlockPos maxPos, Set<BlockPos> extraPositions, boolean hasFloor, boolean hasFrame, boolean hasCeiling, List<BlockPos> tanks) {
+      super(minPos, maxPos, extraPositions, hasFloor, hasFrame, hasCeiling);
       this.tanks = tanks;
     }
 
@@ -158,7 +153,7 @@ public class MultiblockSmeltery extends MultiblockCuboid {
      * @return  Next inside position based on the previous one
      */
 		private BlockPos getNextInsideCheck(@Nullable BlockPos prev) {
-      BlockPos min = getInsideMin();
+      BlockPos min = getMinInside();
 		  if (prev == null) {
 		    return min;
       }
@@ -167,7 +162,7 @@ public class MultiblockSmeltery extends MultiblockCuboid {
 		    return min;
       }
 
-		  BlockPos max = getInsideMax();
+		  BlockPos max = getMaxInside();
       // end of row
 		  if (prev.getZ() >= max.getZ()) {
 		    // end of layer

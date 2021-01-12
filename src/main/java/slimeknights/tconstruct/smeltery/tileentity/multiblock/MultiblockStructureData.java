@@ -13,13 +13,14 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
  * Data class representing the size and contents of a multiblock
  */
 public class MultiblockStructureData {
-  public static final String TAG_POSITIONS = "positions";
+  public static final String TAG_EXTRA_POS = "extra";
   public static final String TAG_MIN = "min";
   public static final String TAG_MAX = "max";
 
@@ -30,88 +31,53 @@ public class MultiblockStructureData {
   @Getter
   private final BlockPos maxPos;
 
-  /** Contains all positions currently part of the structure */
-  protected final Set<BlockPos> positions;
+  /** Contains all positions not in the standard areas, typically inside */
+  protected final Set<BlockPos> extra;
 
-  // TODO: needed?
-//  /** Size of the structure in each direction */
-//  @Getter
-//  private final int dx, dy, dz;
+  /** Booleans to determine bound check parameters */
+  private final boolean hasCeiling, hasFrame, hasFloor;
 
   /**
    * Smallest position inside the structure walls
    */
   @Getter
-  private final BlockPos insideMin;
+  private final BlockPos minInside;
   /**
    * Largest position inside the structure walls
    */
   @Getter
-  private final BlockPos insideMax;
+  private final BlockPos maxInside;
 
   /** Size of the inside of the structure */
   @Getter
   private final int internalSize;
 
-  /**
-   * Gets the min position based on the set
-   * @param positions  Position set
-   * @return  Min position
-   */
-  private static BlockPos getMinPos(Set<BlockPos> positions) {
-    int minX = Integer.MAX_VALUE;
-    int minY = Integer.MAX_VALUE;
-    int minZ = Integer.MAX_VALUE;
-    for(BlockPos pos : positions) {
-      if(pos.getX() < minX) minX = pos.getX();
-      if(pos.getY() < minY) minY = pos.getY();
-      if(pos.getZ() < minZ) minZ = pos.getZ();
-    }
-    return new BlockPos(minX, minY, minZ);
-  }
-
-  /**
-   * Gets the max position based on the set
-   * @param positions  Position set
-   * @return  Max position
-   */
-  private static BlockPos getMaxPos(Set<BlockPos> positions) {
-    int maxX = Integer.MIN_VALUE;
-    int maxY = Integer.MIN_VALUE;
-    int maxZ = Integer.MIN_VALUE;
-    for(BlockPos pos : positions) {
-      if(pos.getX() > maxX) maxX = pos.getX();
-      if(pos.getY() > maxY) maxY = pos.getY();
-      if(pos.getZ() > maxZ) maxZ = pos.getZ();
-    }
-    return new BlockPos(maxX, maxY, maxZ);
-  }
-
-  public MultiblockStructureData(Set<BlockPos> positions, BlockPos minPos, BlockPos maxPos, boolean hasFloor, boolean hasCeiling) {
-    this.positions = positions;
+  public MultiblockStructureData(BlockPos minPos, BlockPos maxPos, Set<BlockPos> extraPositons, boolean hasFloor, boolean hasFrame, boolean hasCeiling) {
     this.minPos = minPos;
     this.maxPos = maxPos;
+    this.extra = extraPositons;
+    this.hasFloor = hasFloor;
+    this.hasFrame = hasFrame;
+    this.hasCeiling = hasCeiling;
 
     // inner positions
-    insideMin = minPos.add(1, hasFloor ? 1 : 0, 1);
-    insideMax = maxPos.add(-1, hasCeiling ? -1 : 0, -1);
-    internalSize = (insideMax.getX() - insideMin.getX() + 1)
-                   * (insideMax.getY() - insideMin.getY() + 1)
-                   * (insideMax.getZ() - insideMin.getZ() + 1);
-  }
-
-  public MultiblockStructureData(Set<BlockPos> positions, boolean hasFloor, boolean hasCeiling) {
-    this(positions, getMinPos(positions), getMaxPos(positions), hasFloor, hasCeiling);
+    minInside = minPos.add(1, hasFloor ? 1 : 0, 1);
+    maxInside = maxPos.add(-1, hasCeiling ? -1 : 0, -1);
+    internalSize = (maxInside.getX() - minInside.getX() + 1)
+                   * (maxInside.getY() - minInside.getY() + 1)
+                   * (maxInside.getZ() - minInside.getZ() + 1);
   }
 
   /**
-   * Checks if the given block position is part of this structure
+   * Checks if a positon is within the cube made from two other positions
    * @param pos  Position to check
-   * @return  True if its part of this structure
+   * @param min  Min position
+   * @param max  Max position
+   * @return  True if within the positions
    */
-  public boolean contains(BlockPos pos) {
-    // can save a bit of effort on hash lookup if we check bounds first
-    return isInside(pos) && positions.contains(pos);
+  public static boolean isWithin(BlockPos pos, BlockPos min, BlockPos max) {
+    return pos.getX() >= min.getX() && pos.getY() >= min.getY() && pos.getZ() >= min.getZ()
+           && pos.getX() <= max.getX() && pos.getY() <= max.getY() && pos.getZ() <= max.getZ();
   }
 
   /**
@@ -119,9 +85,56 @@ public class MultiblockStructureData {
    * @param pos  Position to check
    * @return  True if the position is within the bounds
    */
+  public boolean withinBounds(BlockPos pos) {
+    return isWithin(pos, minPos, maxPos);
+  }
+
+  /**
+   * Checks if the position is within the inside of the structure
+   * @param pos  Position to check
+   * @return  True if within the central bounds
+   */
   public boolean isInside(BlockPos pos) {
-    return pos.getX() >= minPos.getX() && pos.getY() >= minPos.getY() && pos.getZ() >= minPos.getZ()
-      && pos.getX() <= maxPos.getX() && pos.getY() <= maxPos.getY() && pos.getZ() <= maxPos.getZ();
+    return isWithin(pos, minInside, maxInside);
+  }
+
+  /**
+   * Checks if the given block position is part of this structure.
+   * @param pos  Position to check
+   * @return  True if its part of this structure
+   */
+  public boolean contains(BlockPos pos) {
+    return withinBounds(pos) && containsBase(pos);
+  }
+
+  /**
+   * Checks if the given block position is part of this structure. Slightly simplier logic assuming the position is within bounds
+   * @param pos  Position to check
+   * @return  True if its part of this structure
+   */
+  private boolean containsBase(BlockPos pos) {
+    // blocks in the inner region are added to the extra positions, fall back to that
+    if (!isInside(pos)) {
+      // if there is a frame, shape is a full cube so the subtraction is all we need
+      if (hasFrame) {
+        return true;
+      }
+
+      // otherwise we have to count edges to make sure its not on a frame
+      // frame is any blocks touching two edges
+      int edges = 0;
+      if (pos.getX() == minPos.getX() || pos.getX() == maxPos.getX()) edges++;
+      if (pos.getZ() == minPos.getZ() || pos.getZ() == maxPos.getZ()) edges++;
+      if ((hasFloor && pos.getY() == minPos.getY()) ||
+          (hasCeiling && pos.getX() == maxPos.getX())) edges++;
+      if (edges < 2) {
+        return true;
+      }
+    }
+
+    // inner blocks and frame blocks (no frame) can both be added
+    // though note checking code does not currently support finding extra frame blocks
+    return extra.contains(pos);
   }
 
   /**
@@ -133,6 +146,24 @@ public class MultiblockStructureData {
     return pos.getX() >= minPos.getX() && pos.getZ() >= minPos.getZ()
            && pos.getX() <= maxPos.getX() && pos.getZ() <= maxPos.getZ()
            && pos.getY() == maxPos.getY() + 1;
+  }
+
+  /**
+   * Iterates over each position contained in this structure
+   * @param consumer  Position consumer, note the position is mutable, so call {@link BlockPos#toImmutable()} if you have to store it
+   */
+  protected void forEachContained(Consumer<BlockPos.Mutable> consumer) {
+    BlockPos.Mutable mutable = new BlockPos.Mutable();
+    for (int x = minPos.getX(); x <= maxPos.getX(); x++) {
+      for (int y = minPos.getY(); y <= maxPos.getY(); y++) {
+        for (int z = minPos.getZ(); z <= maxPos.getZ(); z++) {
+          mutable.setPos(x, y, z);
+          if (containsBase(mutable)) {
+            consumer.accept(mutable);
+          }
+        }
+      }
+    }
   }
 
   /**
@@ -150,20 +181,22 @@ public class MultiblockStructureData {
 
     World world = master.getTileEntity().getWorld();
     assert world != null;
+
+
     // assign master to each servant
-    for (BlockPos pos : positions) {
+    forEachContained(pos -> {
       if (shouldUpdate.test(pos) && world.isBlockLoaded(pos)) {
         TileEntityHelper.getTile(IServantLogic.class, world, pos).ifPresent(te -> te.setPotentialMaster(master));
       }
-    }
+    });
 
     // remove master from anything only in the old structure
     if (oldStructure != null) {
-      for (BlockPos pos : oldStructure.positions) {
+      oldStructure.forEachContained(pos -> {
         if (!contains(pos) && world.isBlockLoaded(pos)) {
           TileEntityHelper.getTile(IServantLogic.class, world, pos).ifPresent(te -> te.removeMaster(master));
         }
-      }
+      });
     }
   }
 
@@ -174,31 +207,33 @@ public class MultiblockStructureData {
   public void clearMaster(IMasterLogic master) {
     World world = master.getTileEntity().getWorld();
     assert world != null;
-    for (BlockPos pos : positions) {
-      if (!contains(pos) && world.isBlockLoaded(pos)) {
+    forEachContained(pos -> {
+      if (world.isBlockLoaded(pos)) {
         TileEntityHelper.getTile(IServantLogic.class, world, pos).ifPresent(te -> te.removeMaster(master));
       }
-    }
+    });
   }
 
   /**
-   * Writes this structure to NBT
-   * @return  structure as NBT
-   */
-  public CompoundNBT writeToNBT() {
-    CompoundNBT nbt = new CompoundNBT();
-    nbt.put(TAG_POSITIONS, writePosList(positions));
-    return nbt;
-  }
-
-  /**
-   * Writes this structure to NBT for the client, requires fewer positions to be synced
+   * Writes this structure to NBT for the client, client does not need a full list of positions, just render bounds
    * @return  structure as NBT
    */
   public CompoundNBT writeClientNBT() {
     CompoundNBT nbt = new CompoundNBT();
     nbt.put(TAG_MIN, TagUtil.writePos(minPos));
     nbt.put(TAG_MAX, TagUtil.writePos(maxPos));
+    return nbt;
+  }
+
+  /**
+   * Writes the full NBT data for writing to disk
+   * @return  structure as NBT
+   */
+  public CompoundNBT writeToNBT() {
+    CompoundNBT nbt = writeClientNBT();
+    if (!extra.isEmpty()) {
+      nbt.put(TAG_EXTRA_POS, writePosList(extra));
+    }
     return nbt;
   }
 

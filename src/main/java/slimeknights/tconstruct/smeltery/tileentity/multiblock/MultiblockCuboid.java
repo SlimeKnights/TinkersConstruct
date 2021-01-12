@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableCollection.Builder;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -16,19 +14,19 @@ import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 /**
  * Base class for all cuboid multiblocks
  */
 @AllArgsConstructor
-public abstract class MultiblockCuboid {
-
+public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
   // constants to make code more readible
   private static final int NORTH = Direction.NORTH.getHorizontalIndex();
   private static final int EAST = Direction.EAST.getHorizontalIndex();
@@ -38,7 +36,7 @@ public abstract class MultiblockCuboid {
   /** If true, the multiblock requires a floor */
   protected final boolean hasFloor;
   /** If true, the multiblock requires a frame */
-  private final boolean hasFrame;
+  protected final boolean hasFrame;
   /** If true, the multiblock requires a ceiling */
   protected final boolean hasCeiling;
   /** Maximum number of blocks to detect downwards */
@@ -58,12 +56,12 @@ public abstract class MultiblockCuboid {
    * @param world   World instance
    * @param master  Position of the master
    * @param facing  Direction the master is facing. Opposite is behind the controller
-   * @return  Set of positions in the sturcture
+   * @return  Multiblock structue data
    */
   @Nullable
-  protected Set<BlockPos> detectMultiblockPositions(World world, BlockPos master, Direction facing) {
-    // list of blocks that are part of the multiblock
-    ImmutableSet.Builder<BlockPos> subBlocks = ImmutableSet.builder();
+  public T detectMultiblock(World world, BlockPos master, Direction facing) {
+    // list of blocks that are part of the multiblock, but not in a standard position
+    ImmutableSet.Builder<BlockPos> extraBlocks = ImmutableSet.builder();
     // center is the lowest block behind in a position behind the controller
     BlockPos center = getOuterPos(world, master.offset(facing.getOpposite()), Direction.DOWN, downLimit).up();
 
@@ -88,11 +86,14 @@ public abstract class MultiblockCuboid {
       return null;
     }
 
-    Consumer<Collection<BlockPos>> posConsumer = subBlocks::addAll;
+    // for the rest of calculation, will use a from and a to position bounds
+    BlockPos from = center.add(edges[WEST], 0, edges[NORTH]);
+    BlockPos to = center.add(edges[EAST], 0, edges[SOUTH]);
+    Consumer<Collection<BlockPos>> posConsumer = extraBlocks::addAll;
 
     // check the floor (frame check done inside)
     if (hasFloor) {
-      if (!detectCap(world, center.down(), edges, CuboidSide.FLOOR, posConsumer)) {
+      if (!detectCap(world, from.down(), to.down(), CuboidSide.FLOOR, posConsumer)) {
         return null;
       }
     }
@@ -100,7 +101,7 @@ public abstract class MultiblockCuboid {
     // go up layer for layer (again, frame check done inside)
     int height = 0;
     for (; height + center.getY() < world.getHeight(); height++) {
-      if(!detectLayer(world, center.up(height), edges, posConsumer)) {
+      if(!detectLayer(world, from.up(height), to.up(height), posConsumer)) {
         break;
       }
     }
@@ -114,31 +115,18 @@ public abstract class MultiblockCuboid {
     if(hasCeiling) {
       // "height" failed above meaning there is a non-hollow layer there
       // assuming its a valid structure, it failed because its a ceiling (if another reason, the ceiling check will fail)
-      if(!detectCap(world, center.up(height), edges, CuboidSide.CEILING, posConsumer)) {
+      if(!detectCap(world, from.up(height), to.up(height), CuboidSide.CEILING, posConsumer)) {
         return null;
       }
     }
 
-    // return positions to finish
-    return subBlocks.build();
+    // get final bounds
+    // min is 1 block down if we have a floor (to/from is at the first layer)
+    // max is at height, 1 down is the last successful layer if no ceiling
+    BlockPos minPos = hasFloor ? from.down() : from;
+    BlockPos maxPos = to.up(hasCeiling ? height : height - 1);
+    return create(minPos, maxPos, extraBlocks.build());
   }
-
-  /**
-   * Detects a multiblock structure for the given controller
-   * @param world   World instance
-   * @param master  Position of the master
-   * @param facing  Direction the master is facing. Opposite is behind the controller
-   * @return  Multiblock structure data instance, or null if structure is invalid
-   */
-  @Nullable
-  public MultiblockStructureData detectMultiblock(World world, BlockPos master, Direction facing) {
-    Set<BlockPos> positions = detectMultiblockPositions(world, master, facing);
-    if (positions != null) {
-      return new MultiblockStructureData(positions, hasFloor, hasCeiling);
-    }
-    return null;
-  }
-
 
   /* Layer detection */
 
@@ -161,79 +149,58 @@ public abstract class MultiblockCuboid {
   /**
    * Detects the floor or ceiling of the structure
    * @param world     World instance
-   * @param center    Start position for iteration
-   * @param edges     Distances from edge for each direction
+   * @param from      Start position for the cap
+   * @param to        End position for the cap
    * @param side      Side of the cube
-   * @param consumer  Set of all structure positions for the output
+   * @param consumer  Consumer for any extra positions in this region, specifically frame positions when frame is disabled
    * @return  True if this "cap" is valid, false if not
    */
-  protected boolean detectCap(World world, BlockPos center, int[] edges, CuboidSide side, Consumer<Collection<BlockPos>> consumer) {
-    BlockPos from = center.add(edges[WEST], 0, edges[NORTH]);
-    BlockPos to = center.add(edges[EAST], 0, edges[SOUTH]);
-
+  protected boolean detectCap(World world, BlockPos from, BlockPos to, CuboidSide side, Consumer<Collection<BlockPos>> consumer) {
     // ensure the area is loaded before trying
     if (!world.isAreaLoaded(from, to)) {
       return false;
     }
 
-    // temporary list of position candidates, so we can only add them if successful
-    List<BlockPos> candidates = Lists.newArrayList();
-
     // validate frame first
+    BlockPos.Mutable mutable = new BlockPos.Mutable();
+    int height = from.getY();
     if (hasFrame) {
       // function to check a single position in the frame
-      Predicate<BlockPos> frameCheck = pos -> {
-        if (isValidBlock(world, pos, side, true)) {
-          candidates.add(pos);
-          return true;
-        }
-        return false;
-      };
+      Predicate<BlockPos> frameCheck = pos -> isValidBlock(world, pos, side, true);
 
       // calculate blocks
       // x direction
-      for (int x = 0; x <= to.getX() - from.getX(); x++) {
-        if (!frameCheck.test(from.add(x, 0, 0))) return false;
-        if (!frameCheck.test(to.add(-x, 0, 0))) return false;
+      for (int x = from.getX(); x <= to.getX(); x++) {
+        if (!frameCheck.test(mutable.setPos(x, height, from.getZ()))) return false;
+        if (!frameCheck.test(mutable.setPos(x, height, to.getZ()))) return false;
       }
       // z direction. don't doublecheck corners
-      for (int z = 1; z < to.getZ() - from.getZ(); z++) {
-        if (!frameCheck.test(from.add(0, 0, z))) return false;
-        if (!frameCheck.test(to.add(0, 0, -z))) return false;
+      for (int z = from.getZ() + 1; z < to.getZ(); z++) {
+        if (!frameCheck.test(mutable.setPos(from.getX(), height, z))) return false;
+        if (!frameCheck.test(mutable.setPos(to.getX(), height, z))) return false;
       }
     }
 
     // validate inside of the floor
-    from = from.add(1, 0, 1);
-    to = to.add(-1, 0, -1);
-
-    // iterate positions in the structure
-    for(BlockPos row = from; row.getZ() <= to.getZ(); row = row.add(0, 0, 1)) {
-      for(BlockPos pos = row; pos.getX() <= to.getX(); pos = pos.add(1, 0, 0)) {
-        if (!isValidBlock(world, pos, side, false)) {
+    for (int z = from.getZ() + 1; z < to.getZ(); z++) {
+      for (int x = from.getX() + 1; x < to.getX(); x++) {
+        if (!isValidBlock(world, mutable.setPos(x, height, z), side, false)) {
           return false;
         }
-        candidates.add(pos);
       }
     }
-
-    // structure detection successful, so add positions to the set
-    consumer.accept(candidates);
     return true;
   }
 
   /**
    * Detects an inner layer of the structure. That is, an area with an empty center
    * @param world     World instance
-   * @param center    Start position for iteration
-   * @param edges     Distances from edge for each direction
-   * @param consumer  Set of all structure positions for the output
+   * @param from      Start position for the layer
+   * @param to        End position for the layer
+   * @param consumer  Consumer for any extra positions in this region
    * @return  True if this layer is valid, false otherwise
    */
-  protected boolean detectLayer(World world, BlockPos center, int[] edges, Consumer<Collection<BlockPos>> consumer) {
-    BlockPos from = center.add(edges[WEST], 0, edges[NORTH]);
-    BlockPos to = center.add(edges[EAST], 0, edges[SOUTH]);
-
+  protected boolean detectLayer(World world, BlockPos from, BlockPos to, Consumer<Collection<BlockPos>> consumer) {
     // ensure its loaded
     if(!world.isAreaLoaded(from, to)) {
       return false;
@@ -243,32 +210,28 @@ public abstract class MultiblockCuboid {
     List<BlockPos> candidates = Lists.newArrayList();
 
     // validate frame first
+    BlockPos.Mutable mutable = new BlockPos.Mutable();
+    int height = from.getY();
     if (hasFrame) {
       // function to check a single position in the frame
-      Predicate<BlockPos> frameCheck = pos -> {
-        if (isValidBlock(world, pos, CuboidSide.WALL, true)) {
-          candidates.add(pos);
-          return true;
-        }
-        return false;
-      };
+      Predicate<BlockPos> frameCheck = pos -> isValidBlock(world, pos, CuboidSide.WALL, true);
 
       // we only have 4 corner blocks to check
       if (!frameCheck.test(from)) return false;
       if (!frameCheck.test(to)) return false;
-      if (!frameCheck.test(new BlockPos(to.getX(), from.getY(), from.getZ()))) return false;
-      if (!frameCheck.test(new BlockPos(from.getX(), from.getY(), to.getZ()))) return false;
+      if (!frameCheck.test(mutable.setPos(to.getX(), height, from.getZ()))) return false;
+      if (!frameCheck.test(mutable.setPos(from.getX(), height, to.getZ()))) return false;
     }
 
     // validate the inside
-    for (int x = edges[1] + 1; x < edges[3]; x++) {
-      for (int z = edges[2] + 1; z < edges[0]; z++) {
+    for (int x = from.getX() + 1; x < to.getX(); x++) {
+      for (int z = from.getZ() + 1; z < to.getZ(); z++) {
         // ensure its a valid block for inside the structure
-        BlockPos pos = center.add(x, 0, z);
-        if (isInnerBlock(world, pos)) {
-          // skip airblocks for the list of inner blocks
-          if (!world.isAirBlock(pos)) {
-            candidates.add(pos);
+        mutable.setPos(x, height, z);
+        if (isInnerBlock(world, mutable)) {
+          // any non airblocks are added to extra blocks, this region is ignored by default
+          if (!world.isAirBlock(mutable)) {
+            candidates.add(mutable.toImmutable());
           }
         } else {
           return false;
@@ -277,20 +240,14 @@ public abstract class MultiblockCuboid {
     }
 
     // validate the 4 sides
-    Predicate<BlockPos> wallCheck = pos -> {
-      if (isValidBlock(world, pos, CuboidSide.WALL, false)) {
-        candidates.add(pos);
-        return true;
-      }
-      return false;
-    };
-    for (int x = edges[1] + 1; x < edges[3]; x++) {
-      if (!wallCheck.test(center.add(x, 0, edges[NORTH]))) return false;
-      if (!wallCheck.test(center.add(x, 0, edges[SOUTH]))) return false;
+    Predicate<BlockPos> wallCheck = pos -> isValidBlock(world, pos, CuboidSide.WALL, false);
+    for (int x = from.getX() + 1; x < to.getX(); x++) {
+      if (!wallCheck.test(mutable.setPos(x, height, from.getZ()))) return false;
+      if (!wallCheck.test(mutable.setPos(x, height, to.getZ()))) return false;
     }
-    for (int z = edges[2] + 1; z < edges[0]; z++) {
-      if (!wallCheck.test(center.add(edges[WEST], 0, z))) return false;
-      if (!wallCheck.test(center.add(edges[EAST], 0, z))) return false;
+    for (int z = from.getZ() + 1; z < to.getZ(); z++) {
+      if (!wallCheck.test(mutable.setPos(from.getX(), height, z))) return false;
+      if (!wallCheck.test(mutable.setPos(to.getX(), height, z))) return false;
     }
 
     // was successful, add all candidates
@@ -305,7 +262,7 @@ public abstract class MultiblockCuboid {
   /**
    * Checks if a block is valid in the structure
    * @param world    World argument
-   * @param pos      Position to check
+   * @param pos      Position to check, note it may be mutable
    * @param side     Side of the structure, floor, ceiling, or wall
    * @param isFrame  If true, checking a frame. If false, checking a side
    * @return  True if this block is valid
@@ -315,7 +272,7 @@ public abstract class MultiblockCuboid {
   /**
    * Checks if a block is a valid block inside the cuboid
    * @param world  World instance
-   * @param pos    Position to check
+   * @param pos    Position to check, note it may be mutable
    * @return  True if its a valid inner block
    */
   public boolean isInnerBlock(World world, BlockPos pos) {
@@ -344,24 +301,25 @@ public abstract class MultiblockCuboid {
    * @return Structure data, or null if invalid
    */
   @Nullable
-  public MultiblockStructureData readFromNBT(CompoundNBT nbt) {
-    // serverside gets a tag list
-    if (nbt.contains(MultiblockStructureData.TAG_POSITIONS, NBT.TAG_LIST)) {
-      Set<BlockPos> set = readPosList(nbt, MultiblockStructureData.TAG_POSITIONS, ImmutableSet::builder);
-      if (!set.isEmpty()) {
-        return new MultiblockStructureData(set, hasFloor, hasCeiling);
-      }
-    } else {
-      // client side gets just min and max
-      BlockPos minPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MIN);
-      BlockPos maxPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MAX);
-      if (minPos != null && maxPos != null) {
-        return new MultiblockStructureData(ImmutableSet.of(), minPos, maxPos, hasFloor, hasCeiling);
-      }
+  public T readFromNBT(CompoundNBT nbt) {
+    BlockPos minPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MIN);
+    BlockPos maxPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MAX);
+    if (minPos == null || maxPos == null) {
+      return null;
     }
-
-    return null;
+    // will be empty client side
+    Set<BlockPos> extra = ImmutableSet.copyOf(readPosList(nbt, MultiblockStructureData.TAG_EXTRA_POS));
+    return create(minPos, maxPos, extra);
   }
+
+  /**
+   * Creates a new instance from the given min and max bounds. Used to create the structure client side
+   * @param min       Min pos
+   * @param max       Max pos
+   * @param extraPos  Set of extra positons in the structure
+   * @return  Structure from bounds
+   */
+  public abstract T create(BlockPos min, BlockPos max, Set<BlockPos> extraPos);
 
   /**
    * Reads a set of positions from a NBT position list
@@ -369,19 +327,21 @@ public abstract class MultiblockCuboid {
    * @param key      Key to read
    * @return  Set of positions
    */
-  @SuppressWarnings("unchecked")
-  protected static <T extends Collection<BlockPos>> T readPosList(CompoundNBT rootTag, String key, Supplier<Builder<BlockPos>> builderSupplier) {
-    ImmutableCollection.Builder<BlockPos> builder = builderSupplier.get();
+  protected static Collection<BlockPos> readPosList(CompoundNBT rootTag, String key) {
+    List<BlockPos> collection;
     if (rootTag.contains(key, NBT.TAG_LIST)) {
       ListNBT list = rootTag.getList(key, NBT.TAG_COMPOUND);
+      collection = new ArrayList<>(list.size());
       for (int i = 0; i < list.size(); i++) {
         BlockPos pos = TagUtil.readPos(list.getCompound(i));
         if (pos != null) {
-          builder.add(pos);
+          collection.add(pos);
         }
       }
+    } else {
+      collection = Collections.emptyList();
     }
-    return (T)builder.build();
+    return collection;
   }
 
   /**

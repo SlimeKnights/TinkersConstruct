@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
@@ -253,7 +251,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
    * @param maxPos  Max structure position
    */
   public void setStructureSize(BlockPos minPos, BlockPos maxPos) {
-    setStructure(new StructureData(ImmutableSet.of(), minPos, maxPos, true, false, ImmutableList.of()));
+    setStructure(multiblock.createClient(minPos, maxPos));
   }
 
 
