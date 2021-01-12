@@ -43,6 +43,7 @@ import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.SearedBlock;
+import slimeknights.tconstruct.smeltery.block.SearedDrainBlock;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
@@ -53,6 +54,7 @@ import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.DrainTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
@@ -101,6 +103,9 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Block> searedFancyBricks = BLOCKS.register("seared_fancy_bricks", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> searedTriangleBricks = BLOCKS.register("seared_triangle_bricks", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
 
+  // peripherals
+  public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
+
   /** Properties for a faucet block */
   private static final Block.Properties FAUCET = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).notSolid();
   public static final EnumObject<TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), type -> new SearedTankBlock(SMELTERY_GLASS, type.getCapacity()), b -> new TankItem(b, SMELTERY_PROPS));
@@ -122,8 +127,9 @@ public final class TinkerSmeltery extends TinkerModule {
     set.addAll(searedCobble.values());
     set.addAll(searedBricks.values());
     set.addAll(searedPaver.values());
-    set.add(searedCrackedBricks.get(), searedFancyBricks.get(), searedTriangleBricks.get());
+    set.add(searedCrackedBricks.get(), searedFancyBricks.get(), searedTriangleBricks.get(), searedGlass.get());
   });
+  public static final RegistryObject<TileEntityType<DrainTileEntity>> drain = TILE_ENTITIES.register("drain", DrainTileEntity::new, searedDrain);
   public static final RegistryObject<TileEntityType<TankTileEntity>> tank = TILE_ENTITIES.register("tank", TankTileEntity::new, (set) -> set.addAll(searedTank.values()));
   public static final RegistryObject<TileEntityType<FaucetTileEntity>> faucet = TILE_ENTITIES.register("faucet", FaucetTileEntity::new, searedFaucet);
   public static final RegistryObject<TileEntityType<ChannelTileEntity>> channel = TILE_ENTITIES.register("channel", ChannelTileEntity::new, searedChannel);

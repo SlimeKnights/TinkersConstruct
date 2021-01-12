@@ -37,6 +37,17 @@ public class ServantTileEntity extends MantleTileEntity implements IServantLogic
   }
 
   /**
+   * Called to change the master
+   * @param master  New master
+   * @param block   New master block
+   */
+  protected void setMaster(@Nullable BlockPos master, @Nullable Block block) {
+    masterPos = master;
+    masterBlock = block;
+    this.markDirtyFast();
+  }
+
+  /**
    * Checks that this servant has a valid master. Clears the master if invalid
    * @return  True if this servant has a valid master
    */
@@ -51,8 +62,7 @@ public class ServantTileEntity extends MantleTileEntity implements IServantLogic
       return true;
     }
     // master invalid, so clear
-    this.masterPos = null;
-    this.markDirtyFast();
+    setMaster(null, null);
     return false;
   }
 
@@ -84,18 +94,14 @@ public class ServantTileEntity extends MantleTileEntity implements IServantLogic
       this.markDirtyFast();
     // otherwise, only set if we don't have a master
     } else if (!validateMaster()) {
-      this.masterPos = newMaster;
-      this.masterBlock = masterTE.getBlockState().getBlock();
-      this.markDirtyFast();
+      setMaster(newMaster, masterTE.getBlockState().getBlock());
     }
   }
 
   @Override
   public void removeMaster(IMasterLogic master) {
     if (masterPos != null && masterPos.equals(master.getTileEntity().getPos())) {
-      masterPos = null;
-      masterBlock = null;
-      this.markDirtyFast();
+      setMaster(null, null);
     }
   }
 

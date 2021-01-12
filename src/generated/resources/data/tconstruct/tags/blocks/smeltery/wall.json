@@ -3,6 +3,7 @@
   "values": [
     "#tconstruct:smeltery/floor",
     "#tconstruct:smeltery/tanks",
-    "tconstruct:seared_glass"
+    "tconstruct:seared_glass",
+    "tconstruct:seared_drain"
   ]
 }

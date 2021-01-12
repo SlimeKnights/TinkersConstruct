@@ -10,36 +10,16 @@ import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.common.multiblock.ServantTileEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
-import javax.annotation.Nullable;
-
+/** Mostly extended to make type validaton easier, and the servant base class is not registered */
 public class SmelteryComponentTileEntity extends ServantTileEntity {
 
   public SmelteryComponentTileEntity() {
     this(TinkerSmeltery.smelteryComponent.get());
   }
 
-  @SuppressWarnings("WeakerAccess")
   protected SmelteryComponentTileEntity(TileEntityType<?> tileEntityTypeIn) {
     super(tileEntityTypeIn);
-  }
-
-  /**
-   * Gets a tile entity at the position of the master that contains a ISmelteryTankHandler
-   *
-   * @return null if the TE is not an ISmelteryTankHandler or if the master is missing
-   */
-  @Nullable
-  protected ISmelteryTankHandler getSmelteryTankHandler() {
-    BlockPos master = this.getMasterPos();
-    if (master != null && this.world != null) {
-      TileEntity te = this.world.getTileEntity(master);
-      if (te instanceof ISmelteryTankHandler) {
-        return (ISmelteryTankHandler) te;
-      }
-    }
-    return null;
   }
 
   /**

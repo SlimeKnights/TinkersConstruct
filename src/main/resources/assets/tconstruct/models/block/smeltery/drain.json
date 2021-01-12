@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "tconstruct:block/smeltery/drain_front",
+    "front": "tconstruct:block/smeltery/drain_back",
+    "side": "tconstruct:block/smeltery/drain_front"
+  }
+}

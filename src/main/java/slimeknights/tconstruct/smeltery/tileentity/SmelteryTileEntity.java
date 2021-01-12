@@ -17,6 +17,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.tileentity.NamableTileEntity;
@@ -56,6 +57,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /** Tank instance for this smeltery */
   @Getter
   private final SmelteryTank tank = new SmelteryTank(this);
+  /** Capability to pass to drains for fluid handling */
+  @Getter
+  private LazyOptional<IFluidHandler> fluidCapability = LazyOptional.empty();
+
   /** Inventory handling melting items */
   @Getter
   private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank);
@@ -210,11 +215,22 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
       setStructure(newStructure);
       // sync size to the client
       TinkerNetwork.getInstance().sendToClientsAround(new SmelteryStructureUpdatedPacket(pos, newStructure.getMinPos(), newStructure.getMaxPos()), world, pos);
+
+      // update tank capability
+      if (!fluidCapability.isPresent()) {
+        fluidCapability = LazyOptional.of(() -> tank);
+      }
     } else {
       if (oldStructure != null) {
         oldStructure.clearMaster(this);
       }
-      structure = null;
+      setStructure(null);
+
+      // update tank capability
+      if (fluidCapability.isPresent()) {
+        fluidCapability.invalidate();
+        fluidCapability = LazyOptional.empty();
+      }
     }
 
     // clear expand counter either way
@@ -283,7 +299,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
       meltingInventory.readFromNBT(nbt.getCompound(TAG_INVENTORY));
     }
     if (nbt.contains(TAG_STRUCTURE, NBT.TAG_COMPOUND)) {
-      multiblock.readFromNBT(nbt.getCompound(TAG_STRUCTURE));
+      structure = multiblock.readFromNBT(nbt.getCompound(TAG_STRUCTURE));
+      if (structure != null) {
+        fluidCapability = LazyOptional.of(() -> tank);
+      }
     }
   }
 

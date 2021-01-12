@@ -36,6 +36,7 @@ import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
   @Override
   protected Iterable<Block> getKnownBlocks() {
     return ForgeRegistries.BLOCKS.getValues().stream()
-                                 .filter((block) -> TConstruct.modID.equals(block.getRegistryName().getNamespace()))
+                                 .filter((block) -> TConstruct.modID.equals(Objects.requireNonNull(block.getRegistryName()).getNamespace()))
                                  .collect(Collectors.toList());
   }
 
@@ -178,6 +179,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlassPane.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedMelter.get());
     this.registerDropSelfLootTable(TinkerSmeltery.smelteryController.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedDrain.get());
 
     for (SearedTankBlock.TankType type : SearedTankBlock.TankType.values()) {
       this.registerLootTable(TinkerSmeltery.searedTank.get(type), (block) -> droppingWithFunctions(block, (builder) -> {
