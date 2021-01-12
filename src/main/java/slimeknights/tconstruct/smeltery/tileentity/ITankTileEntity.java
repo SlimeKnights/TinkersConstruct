@@ -5,8 +5,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IWorld;
@@ -121,21 +119,18 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    * @return  True if further interactions should be blocked, false otherwise
    */
   static boolean interactWithTank(World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-    if (!world.isRemote()) {
-      // simply update the fluid handler capability
-      TileEntity te = world.getTileEntity(pos);
-      if (te != null) {
-        te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit.getFace()).ifPresent((handler) -> {
-          if (FluidUtil.interactWithFluidHandler(player, hand, handler)) {
-            // FIXME: this is wrong, should have the fluid play the sound
-            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.BLOCKS, 1, 1);
-          }
-        });
+    // success if the item is a fluid handler, regardless of if fluid moved
+    if (FluidUtil.getFluidHandler(player.getHeldItem(hand)).isPresent()) {
+      if (!world.isRemote()) {
+        TileEntity te = world.getTileEntity(pos);
+        if (te != null) {
+          te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit.getFace())
+            .ifPresent(handler -> FluidUtil.interactWithFluidHandler(player, hand, handler));
+        }
       }
+      return true;
     }
-
-    // if its a fluid handler item, block further interactions
-    return FluidUtil.getFluidHandler(player.getHeldItem(hand)).isPresent();
+    return false;
   }
 
   /**
