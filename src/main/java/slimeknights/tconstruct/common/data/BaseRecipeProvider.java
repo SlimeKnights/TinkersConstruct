@@ -5,6 +5,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.data.SingleItemRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
@@ -166,6 +167,76 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
                              .addCriterion("has_item", hasBlock)
                              .build(consumer, wrap(item, folder, "_wall_stonecutter"));
     }
+  }
+
+  /**
+   * Registers a recipe packing a small item into a large one
+   * @param consumer   Recipe consumer
+   * @param large      Large item
+   * @param small      Small item
+   * @param largeName  Large name
+   * @param smallName  Small name
+   * @param folder     Recipe folder
+   */
+  protected void registerPackingRecipe(Consumer<IFinishedRecipe> consumer, String largeName, IItemProvider large, String smallName, IItemProvider small, String folder) {
+    // ingot to block
+    ShapedRecipeBuilder.shapedRecipe(large)
+                       .key('#', small)
+                       .patternLine("###")
+                       .patternLine("###")
+                       .patternLine("###")
+                       .addCriterion("has_item", hasItem(small))
+                       .setGroup(Objects.requireNonNull(large.asItem().getRegistryName()).toString())
+                       .build(consumer, wrap(large, folder, String.format("_from_%ss", smallName)));
+    // block to ingot
+    ShapelessRecipeBuilder.shapelessRecipe(small, 9)
+                          .addIngredient(large)
+                          .addCriterion("has_item", hasItem(large))
+                          .setGroup(Objects.requireNonNull(small.asItem().getRegistryName()).toString())
+                          .build(consumer, wrap(small, folder, String.format("_from_%s", largeName)));
+  }
+
+  /**
+   * Registers a recipe packing a small item into a large one
+   * @param consumer   Recipe consumer
+   * @param largeItem  Large item
+   * @param smallItem  Small item
+   * @param smallTag   Tag for small item
+   * @param largeName  Large name
+   * @param smallName  Small name
+   * @param folder     Recipe folder
+   */
+  protected void registerPackingRecipe(Consumer<IFinishedRecipe> consumer, String largeName, IItemProvider largeItem, String smallName, IItemProvider smallItem, ITag<Item> smallTag, String folder) {
+    // ingot to block
+    // note our item is in the center, any mod allowed around the edges
+    ShapedRecipeBuilder.shapedRecipe(largeItem)
+                       .key('#', smallTag)
+                       .key('*', smallItem)
+                       .patternLine("###")
+                       .patternLine("#*#")
+                       .patternLine("###")
+                       .addCriterion("has_item", hasItem(smallItem))
+                       .setGroup(Objects.requireNonNull(largeItem.asItem().getRegistryName()).toString())
+                       .build(consumer, wrap(largeItem, folder, String.format("_from_%ss", smallName)));
+    // block to ingot
+    ShapelessRecipeBuilder.shapelessRecipe(smallItem, 9)
+                          .addIngredient(largeItem)
+                          .addCriterion("has_item", hasItem(largeItem))
+                          .setGroup(Objects.requireNonNull(smallItem.asItem().getRegistryName()).toString())
+                          .build(consumer, wrap(smallItem, folder, String.format("_from_%s", largeName)));
+  }
+
+  /**
+   * Adds recipes to convert a block to ingot, ingot to block, and for nuggets
+   * @param consumer  Recipe consumer
+   * @param block     Block item
+   * @param ingot     Ingot item
+   * @param nugget    Nugget item
+   * @param folder    Folder for recipes
+   */
+  protected void registerMineralRecipes(Consumer<IFinishedRecipe> consumer, String name, IItemProvider block, IItemProvider ingot, IItemProvider nugget, String folder) {
+    registerPackingRecipe(consumer, "block", block, "ingot", ingot, getTag("forge", "ingots/" + name), folder);
+    registerPackingRecipe(consumer, "ingot", ingot, "nugget", nugget, getTag("forge", "nuggets/" + name), folder);
   }
 
   // Forge constructor is private, not sure if there is a public place for this

@@ -7,15 +7,20 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
 
@@ -26,6 +31,11 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
 
   @Override
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+    this.addCommonRecipes(consumer);
+    this.addMaterialRecipes(consumer);
+  }
+
+  private void addCommonRecipes(Consumer<IFinishedRecipe> consumer) {
     // firewood and lavawood
     String folder = "common/firewood/";
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.firewood)
@@ -120,5 +130,81 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                                                   .addCondition(new ConfigOptionEnabledCondition("addGravelToFlintRecipe"))
                                                   .build(consumer),
                             location("common/flint"));
+  }
+
+  private void addMaterialRecipes(Consumer<IFinishedRecipe> consumer) {
+    String folder = "common/materials/";
+    // metals
+    registerMineralRecipes(consumer, "cobalt",      TinkerMaterials.cobaltBlock,      TinkerMaterials.cobaltIngot,      TinkerMaterials.cobaltNugget,      folder);
+    registerMineralRecipes(consumer, "ardite",      TinkerMaterials.arditeBlock,      TinkerMaterials.arditeIngot,      TinkerMaterials.arditeNugget,      folder);
+    registerMineralRecipes(consumer, "manyullyn",   TinkerMaterials.manyullynBlock,   TinkerMaterials.manyullynIngot,   TinkerMaterials.manyullynNugget,   folder);
+    registerMineralRecipes(consumer, "knightslime", TinkerMaterials.knightSlimeBlock, TinkerMaterials.knightslimeIngot, TinkerMaterials.knightslimeNugget, folder);
+    registerMineralRecipes(consumer, "pig_iron",    TinkerMaterials.pigironBlock,     TinkerMaterials.pigironIngot,     TinkerMaterials.pigironNugget,     folder);
+    registerMineralRecipes(consumer, "copper",      TinkerMaterials.copperBlock,      TinkerMaterials.copperIngot,      TinkerMaterials.copperNugget,      folder);
+    registerMineralRecipes(consumer, "rose_gold",   TinkerMaterials.roseGoldBlock,    TinkerMaterials.roseGoldIngot,    TinkerMaterials.roseGoldNugget,    folder);
+
+    // smelt ore into ingots, must use a blast furnace for nether ores
+    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), TinkerMaterials.cobaltIngot, 1.5f, 200)
+                        .addCriterion("has_item", hasItem(TinkerWorld.cobaltOre))
+                        .build(consumer, wrap(TinkerMaterials.cobaltIngot, folder, "_smelting"));
+    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.arditeOre), TinkerMaterials.arditeIngot, 1.5f, 200)
+                        .addCriterion("has_item", hasItem(TinkerWorld.arditeOre))
+                        .build(consumer, wrap(TinkerMaterials.arditeIngot, folder, "_smelting"));
+
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), TinkerMaterials.copperIngot, 1.5f, 200)
+                        .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
+                        .build(consumer, wrap(TinkerMaterials.copperIngot, folder, "_smelting"));
+
+    // FIXME: temporary manyullyn recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.manyullynNugget)
+                          .addIngredient(TinkerMaterials.cobaltNugget)
+                          .addIngredient(TinkerMaterials.arditeNugget)
+                          .addIngredient(Items.COAL)
+                          .setGroup(TinkerMaterials.manyullynNugget.getRegistryName().toString())
+                          .addCriterion("has_item", hasItem(TinkerMaterials.cobaltNugget))
+                          .build(consumer, wrap(TinkerMaterials.manyullynNugget, folder, "_crafting"));
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.manyullynIngot)
+                          .addIngredient(TinkerMaterials.cobaltIngot)
+                          .addIngredient(TinkerMaterials.arditeIngot)
+                          .addIngredient(Blocks.COAL_BLOCK)
+                          .setGroup(TinkerMaterials.manyullynIngot.getRegistryName().toString())
+                          .addCriterion("has_item", hasItem(TinkerMaterials.cobaltIngot))
+                          .build(consumer, wrap(TinkerMaterials.manyullynIngot, folder, "_crafting"));
+
+    // FIXME: temporary rose gold recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.roseGoldNugget)
+                          .addIngredient(TinkerMaterials.copperNugget)
+                          .addIngredient(Items.GOLD_NUGGET)
+                          .addIngredient(Items.COAL)
+                          .setGroup(TinkerMaterials.roseGoldNugget.getRegistryName().toString())
+                          .addCriterion("has_item", hasItem(Items.GOLD_NUGGET))
+                          .build(consumer, wrap(TinkerMaterials.roseGoldNugget, folder, "_crafting"));
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.roseGoldIngot)
+                          .addIngredient(TinkerMaterials.copperIngot)
+                          .addIngredient(Items.GOLD_INGOT)
+                          .addIngredient(Blocks.COAL_BLOCK)
+                          .setGroup(TinkerMaterials.roseGoldIngot.getRegistryName().toString())
+                          .addCriterion("has_item", hasItem(Items.GOLD_INGOT))
+                          .build(consumer, wrap(TinkerMaterials.roseGoldIngot, folder, "_crafting"));
+
+    // FIXME: temporary knightslime recipe
+    Item purpleSlime = TinkerCommons.slimeball.get(SlimeType.PURPLE);
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.knightslimeIngot)
+                          .addIngredient(purpleSlime)
+                          .addIngredient(Items.IRON_INGOT)
+                          .addIngredient(TinkerSmeltery.searedBrick)
+                          .setGroup(TinkerMaterials.knightslimeIngot.getRegistryName().toString())
+                          .addCriterion("has_item", hasItem(purpleSlime))
+                          .build(consumer, wrap(TinkerMaterials.knightslimeIngot, folder, "_crafting"));
+
+    // FIXME: temporary pigiron recipe
+    Item blood = TinkerCommons.slimeball.get(SlimeType.BLOOD);
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.pigironIngot, 4)
+                          .addIngredient(blood)
+                          .addIngredient(Items.IRON_INGOT).addIngredient(Items.IRON_INGOT).addIngredient(Items.IRON_INGOT).addIngredient(Items.IRON_INGOT)
+                          .addIngredient(Items.BRICK).addIngredient(Items.BRICK).addIngredient(Items.BRICK).addIngredient(Items.BRICK)
+                          .setGroup(TinkerMaterials.pigironIngot.getRegistryName().toString())
+                          .addCriterion("has_item", hasItem(purpleSlime))
+                          .build(consumer, wrap(TinkerMaterials.pigironIngot, folder, "_crafting"));
   }
 }
