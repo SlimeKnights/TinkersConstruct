@@ -203,6 +203,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/drain"));
 
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedDuct)
+                       .key('#', TinkerSmeltery.searedBrick)
+                       .patternLine("###")
+                       .patternLine("   ")
+                       .patternLine("###")
+                       .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+                       .build(consumer, location("smeltery/duct"));
+
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedMelter)
                        .key('G', TinkerSmeltery.searedTank.get(TankType.GAUGE))
                        .key('B', TinkerSmeltery.searedBrick)
