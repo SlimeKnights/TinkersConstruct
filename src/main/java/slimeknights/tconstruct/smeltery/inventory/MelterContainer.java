@@ -9,7 +9,7 @@ import slimeknights.tconstruct.common.inventory.ItemHandlerSlot;
 import slimeknights.tconstruct.library.utils.LambdaIntReference;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.inventory.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
 import javax.annotation.Nullable;
 

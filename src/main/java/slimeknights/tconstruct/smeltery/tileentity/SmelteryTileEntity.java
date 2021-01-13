@@ -30,7 +30,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.network.SmelteryStructureUpdatedPacket;
-import slimeknights.tconstruct.smeltery.tileentity.inventory.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery.StructureData;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;

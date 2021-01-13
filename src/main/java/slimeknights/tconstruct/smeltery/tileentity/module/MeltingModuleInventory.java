@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.tileentity.inventory;
+package slimeknights.tconstruct.smeltery.tileentity.module;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -13,7 +13,6 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModule;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 import java.util.Arrays;

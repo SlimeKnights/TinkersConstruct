@@ -8,7 +8,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
-import slimeknights.tconstruct.smeltery.tileentity.inventory.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;

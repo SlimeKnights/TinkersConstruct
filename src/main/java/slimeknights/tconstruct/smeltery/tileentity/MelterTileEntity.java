@@ -33,7 +33,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.MelterFuelWrapper;
-import slimeknights.tconstruct.smeltery.tileentity.inventory.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
 import javax.annotation.Nullable;
 import java.util.Optional;

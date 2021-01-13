@@ -100,7 +100,7 @@ public class MeltingModule implements ISingleItemInventory, IIntArray {
           requiredTemp = 0;
         }
       } else {
-        currentTemp += temperature / 100;
+        currentTemp += temperature / 200;
       }
     }
   }
