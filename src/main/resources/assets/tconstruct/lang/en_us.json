@@ -480,6 +480,10 @@
     "block.tconstruct.seared_glass_pane": "Seared Glass Pane",
     "block.tconstruct.seared_glass_pane.tooltip": "Cannot be used in a Smeltery.",
     
+
+    "block.tconstruct.seared_ladder": "Seared Ladder",
+    "block.tconstruct.seared_ladder.tooltip": "Climbable Smeltery block. Safe for decoration.",
+    
     "block.tconstruct.seared_tank": "Seared Tank",
     "block.tconstruct.seared_tank.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
     "block.tconstruct.seared_gauge": "Seared Gauge",

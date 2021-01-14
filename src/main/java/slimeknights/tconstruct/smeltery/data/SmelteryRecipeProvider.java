@@ -81,9 +81,18 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // block from bricks
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedBricks)
                        .key('b', TinkerSmeltery.searedBrick)
-                       .patternLine("bb").patternLine("bb")
+                       .patternLine("bb")
+                       .patternLine("bb")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, wrap(TinkerSmeltery.searedBricks, folder, "_from_brick"));
+    // ladder from bircks
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedLadder, 2)
+                       .key('b', TinkerSmeltery.searedBrick)
+                       .patternLine("b b")
+                       .patternLine("bbb")
+                       .patternLine("b b")
+                       .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+                       .build(consumer, prefix(TinkerSmeltery.searedLadder, folder));
 
     // cobble -> stone
     CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerSmeltery.searedCobble.get()), TinkerSmeltery.searedStone, 0.1f, 200)

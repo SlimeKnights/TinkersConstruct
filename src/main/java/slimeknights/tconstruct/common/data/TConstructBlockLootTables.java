@@ -175,6 +175,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerSmeltery.searedCrackedBricks.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedFancyBricks.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedTriangleBricks.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedLadder.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlass.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlassPane.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedMelter.get());

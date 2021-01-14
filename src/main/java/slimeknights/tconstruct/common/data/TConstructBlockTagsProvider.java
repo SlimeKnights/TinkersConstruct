@@ -123,7 +123,10 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_WALL)
         .addTag(TinkerTags.Blocks.SMELTERY_FLOOR)
         .addTag(TinkerTags.Blocks.SMELTERY_TANKS)
-        .add(TinkerSmeltery.searedGlass.get(), TinkerSmeltery.searedDrain.get(), TinkerSmeltery.searedDuct.get());
+        .add(TinkerSmeltery.searedGlass.get(), TinkerSmeltery.searedLadder.get(), TinkerSmeltery.searedDrain.get(), TinkerSmeltery.searedDuct.get());
+
+    // climb seared ladder
+    this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get());
   }
 
   @Override
