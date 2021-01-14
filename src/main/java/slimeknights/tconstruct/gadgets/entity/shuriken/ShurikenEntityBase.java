@@ -29,8 +29,19 @@ public abstract class ShurikenEntityBase extends ProjectileItemEntity implements
     super(type, livingEntityIn, worldIn);
   }
 
+    /**
+   * Get damage dealt by Shuriken
+   * Should be <= 20.0F
+   * @return float damage
+   */
   public abstract float getDamage();
 
+  /**
+   * Get knockback dealt by Shuriken
+   * Should be <= 1.0F, Minecraft
+   * typically uses values from 0.2F-0.6F
+   * @return float knockback
+   */
   public abstract float getKnockback();
 
   @Override

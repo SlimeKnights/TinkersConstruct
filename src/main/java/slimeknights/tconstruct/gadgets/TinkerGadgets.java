@@ -40,17 +40,16 @@ import slimeknights.tconstruct.gadgets.entity.shuriken.FlintShurikenEntity;
 import slimeknights.tconstruct.gadgets.entity.shuriken.QuartzShurikenEntity;
 import slimeknights.tconstruct.gadgets.item.EflnBallItem;
 import slimeknights.tconstruct.gadgets.item.FancyItemFrameItem;
-import slimeknights.tconstruct.gadgets.item.FlintShurikenItem;
 import slimeknights.tconstruct.gadgets.item.GlowBallItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem.CarryPotionEffect;
+import slimeknights.tconstruct.gadgets.item.ShurikenItem;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.shared.TinkerFood;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
-import slimeknights.tconstruct.gadgets.item.QuartzShurikenItem;
 
 import java.util.function.Function;
 
@@ -119,9 +118,12 @@ public final class TinkerGadgets extends TinkerModule {
   public static final ItemObject<Item> soggySpaghetti = ITEMS.register("soggy_spaghetti", SPAGET_PROPS);
   public static final ItemObject<Item> coldSpaghetti = ITEMS.register("cold_spaghetti", SPAGET_PROPS);
 
+  // Shuriken Properties -- TODO potentially make "THROWABLE_PROPS" or similar for other throwballs
+  private static final Item.Properties SHURIKEN_PROPS = new Item.Properties().maxStackSize(16).group(TAB_GADGETS);
+
   // Shurikens
-  public static final ItemObject<QuartzShurikenItem> quartzShuriken = ITEMS.register("quartz_shuriken", QuartzShurikenItem::new);
-  public static final ItemObject<FlintShurikenItem> flintShuriken = ITEMS.register("flint_shuriken", FlintShurikenItem::new);
+  public static final ItemObject<ShurikenItem> quartzShuriken = ITEMS.register("quartz_shuriken", () -> new ShurikenItem(SHURIKEN_PROPS, QuartzShurikenEntity::new));
+  public static final ItemObject<ShurikenItem> flintShuriken = ITEMS.register("flint_shuriken", () -> new ShurikenItem(SHURIKEN_PROPS, FlintShurikenEntity::new));
 
   /*
    * Entities
