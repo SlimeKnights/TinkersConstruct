@@ -161,6 +161,20 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(Tags.Items.DUSTS_GLOWSTONE))
                        .build(consumer, prefix(TinkerGadgets.glowBall, "gadgets/throwball/"));
 
+    // Shurikens
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.flintShuriken.get(), 4)
+                        .key('X', Items.FLINT)
+                        .patternLine(" X ")
+                        .patternLine("X X")
+                        .patternLine(" X ")
+                        .build(consumer, prefix(TinkerGadgets.flintShuriken, "gadgets/flint_shuriken/"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.quartzShuriken.get(), 4)
+                        .key('X', Items.QUARTZ)
+                        .patternLine(" X ")
+                        .patternLine("X X")
+                        .patternLine(" X ")
+                        .build(consumer, prefix(TinkerGadgets.quartzShuriken, "gadgets/quartz_shuriken/"));
+
     // piggybackpack
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.piggyBackpack.get())
                        .key('#', Tags.Items.RODS_WOODEN)
