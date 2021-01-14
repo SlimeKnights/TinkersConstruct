@@ -377,6 +377,9 @@
     "item.tconstruct.efln_ball": "EFLN",
     "item.tconstruct.efln_ball.tooltip": "Explodes! Safe for mining",
 
+    "item.tconstruct.quartz_shuriken": "Quartz Shuriken",
+    "item.tconstruct.flint_shuriken": "Flint Shuriken",
+
     "item.tconstruct.green_slime_sling": "Slimesling",
     "item.tconstruct.green_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
     "item.tconstruct.blue_slime_sling": "Slimesling",
