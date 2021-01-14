@@ -6,7 +6,6 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.network.PacketBuffer;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.common.inventory.ItemHandlerSlot;
-import slimeknights.tconstruct.library.utils.LambdaIntReference;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
@@ -30,8 +29,7 @@ public class MelterContainer extends BaseContainer<MelterTileEntity> {
       this.addInventorySlots();
 
       // syncing
-      this.trackInt(new LambdaIntReference(melter::getFuel, melter::setFuel));
-      this.trackInt(new LambdaIntReference(melter::getTemperature, melter::setTemperature));
+      this.trackIntArray(melter.getFuelModule());
       inventory.trackInts(this::trackIntArray);
     } else {
       inputs = new Slot[0];

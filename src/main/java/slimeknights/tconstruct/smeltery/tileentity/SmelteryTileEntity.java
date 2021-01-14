@@ -32,6 +32,7 @@ import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.network.SmelteryStructureUpdatedPacket;
 import slimeknights.tconstruct.smeltery.tileentity.module.AlloyingModule;
+import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.tileentity.module.SmelteryAlloyTank;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery;
@@ -40,6 +41,7 @@ import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -47,7 +49,11 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   private static final String TAG_STRUCTURE = "structure";
   private static final String TAG_TANK = "tank";
   private static final String TAG_INVENTORY = "inventory";
+
+  /** Fluid capacity per internal block */
   private static final int CAPACITY_PER_BLOCK = MaterialValues.VALUE_Ingot * 8;
+  /** Number of wall blocks needed to increase the fuel cost by 1 */
+  private static final int BLOCKS_PER_FUEL = 10;
 
   /** Sub module to detect the multiblock for this structure */
   private final MultiblockSmeltery multiblock = new MultiblockSmeltery(this);
@@ -68,9 +74,11 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   @Getter
   private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank);
 
-  // TODO: update properly
+  /** Fuel module */
   @Getter
-  private final int temperature = 1000;
+  private final FuelModule fuelModule = new FuelModule(this, () ->  structure != null ? structure.getTanks() : Collections.emptyList());
+  /** Current fuel consumption rate */
+  private int fuelRate = 1;
 
   /* Instance data, this data is not written to NBT */
   /** Timer to allow delaying actions based on number of ticks alive */
@@ -130,13 +138,17 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
       switch (tick % 4) {
         // first tick, find fuel if needed
         case 0:
-//          if (meltingInventory.canHeat() || alloyingModule.canAlloy()) {
-//            // TODO: find fuel
-//          }
+          if (!fuelModule.hasFuel() && (meltingInventory.canHeat() || alloyingModule.canAlloy())) {
+            fuelModule.findFuel();
+          }
           break;
           // second tick: melt items
         case 1:
-          meltingInventory.heatItems(temperature);
+          if (fuelModule.hasFuel()) {
+            meltingInventory.heatItems(fuelModule.getTemperature());
+          } else {
+            meltingInventory.coolItems();
+          }
           break;
           // third tick: alloy alloys
         case 2:
@@ -144,7 +156,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
           break;
           // fourth tick: consume fuel
         case 3:
-          // TODO: consume fuel
+          fuelModule.decreaseFuel(fuelRate);
           break;
       }
     } else if (tick == 0) {
@@ -209,6 +221,8 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
       int size = structure.getInternalSize();
       tank.setCapacity(CAPACITY_PER_BLOCK * size);
       meltingInventory.resize(size, dropItem);
+      // fuel rate: every 10 blocks in the wall makes the fuel cost 1 more
+      fuelRate = 1 + structure.getPerimeterCount() / BLOCKS_PER_FUEL;
     }
   }
 
@@ -330,11 +344,12 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
       meltingInventory.readFromNBT(nbt.getCompound(TAG_INVENTORY));
     }
     if (nbt.contains(TAG_STRUCTURE, NBT.TAG_COMPOUND)) {
-      structure = multiblock.readFromNBT(nbt.getCompound(TAG_STRUCTURE));
+      setStructure(multiblock.readFromNBT(nbt.getCompound(TAG_STRUCTURE)));
       if (structure != null) {
         fluidCapability = LazyOptional.of(() -> tank);
       }
     }
+    fuelModule.readFromNBT(nbt);
   }
 
   @Override
@@ -344,6 +359,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
     if (structure != null) {
       compound.put(TAG_STRUCTURE, structure.writeToNBT());
     }
+    fuelModule.writeToNBT(compound);
     return compound;
   }
 
@@ -353,6 +369,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
     super.writeSynced(compound);
     compound.put(TAG_TANK, tank.write(new CompoundNBT()));
     compound.put(TAG_INVENTORY, meltingInventory.writeToNBT());
+    fuelModule.writeLastPos(compound);
   }
 
   @Override

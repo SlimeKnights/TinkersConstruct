@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.fuel;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
@@ -40,7 +41,16 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
 
   @Override
   public boolean matches(IFluidInventory inv, World worldIn) {
-    return input.test(inv.getFluid());
+    return matches(inv.getFluid());
+  }
+
+  /**
+   * Checks if this fuel matches the given fluid
+   * @param fluid  Fluid
+   * @return  True if matches
+   */
+  public boolean matches(Fluid fluid) {
+    return input.test(fluid);
   }
 
   /**
@@ -49,7 +59,16 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
    * @return  Amount of fluid consumed
    */
   public int getAmount(IFluidInventory inv) {
-    return input.getAmount(inv.getFluid().getFluid());
+    return getAmount(inv.getFluid());
+  }
+
+  /**
+   * Gets the amount of fluid consumed for the given fluid
+   * @param fluid  Fluid
+   * @return  Amount of fluid consumed
+   */
+  public int getAmount(Fluid fluid) {
+    return input.getAmount(fluid);
   }
 
   /**

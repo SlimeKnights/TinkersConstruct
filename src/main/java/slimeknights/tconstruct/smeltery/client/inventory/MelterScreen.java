@@ -6,42 +6,39 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
-import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
+import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiMeltingModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiSmelteryTank;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.inventory.MelterFuelWrapper;
+import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public class MelterScreen extends ContainerScreen<MelterContainer> {
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/melter.png");
   private static final ElementScreen SCALA = new ElementScreen(176, 0, 52, 52, 256, 256);
-  // fuel tooltips
-  private static final String TOOLTIP_NO_FUEL = Util.makeTranslationKey("gui", "melting.fuel.empty");
-  private static final String TOOLTIP_TEMPERATURE = Util.makeTranslationKey("gui", "melting.fuel.temperature");
-  private static final String TOOLTIP_INVALID_FUEL = Util.makeTranslationKey("gui", "melting.fuel.invalid");
 
   private final GuiMeltingModule melting;
+  private final GuiFuelModule fuel;
   public MelterScreen(MelterContainer container, PlayerInventory inv, ITextComponent name) {
     super(container, inv, name);
     MelterTileEntity te = container.getTile();
     if (te != null) {
-      melting = new GuiMeltingModule(this, te.getMeltingInventory(), te::getTemperature, slot -> true);
+      FuelModule fuelModule = te.getFuelModule();
+      melting = new GuiMeltingModule(this, te.getMeltingInventory(), fuelModule::getTemperature, slot -> true);
+      fuel = new GuiFuelModule(this, fuelModule, 153, 16, 12, 52);
     } else {
       melting = null;
+      fuel = null;
     }
   }
 
@@ -61,13 +58,10 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
     if (melter != null) {
       FluidTankAnimated tank = melter.getTank();
       GuiUtil.renderFluidTank(matrices, this, tank.getFluid(), tank.getCapacity(), 90, 16, 52, 52, 100);
-
-      // fuel
-      MelterFuelWrapper wrapper = melter.getFuelInventory();
-      if (wrapper != null) {
-        GuiUtil.renderFluidTank(matrices, this, wrapper.getFluidStack(), wrapper.getCapacity(), 153, 16, 12, 52, 100);
-      }
     }
+
+    // fuel
+    if (fuel != null) fuel.drawTank(matrices);
   }
 
   @Override
@@ -96,9 +90,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
     }
 
     // highlight hovered fuel
-    if (GuiUtil.isHovered(checkX, checkY, 152, 15, 14, 54)) {
-      GuiUtil.renderHighlight(matrices, 153, 16, 12, 52);
-    }
+    if (fuel != null) fuel.renderHighlight(matrices, checkX, checkY);
 
     assert minecraft != null;
     minecraft.getTextureManager().bindTexture(BACKGROUND);
@@ -153,36 +145,12 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
       this.func_243308_b(matrices, tooltip, mouseX, mouseY);
     }
 
+    // heat tooltips
     if (melting != null) {
       melting.drawHeatTooltips(matrices, mouseX, mouseY);
     }
 
     // fuel tooltip
-    if (GuiUtil.isHovered(checkX, checkY, 152, 15, 14, 54)) {
-      List<ITextComponent> tooltip = null;
-      // make sure we have a tank below
-      MelterFuelWrapper wrapper = melter.getFuelInventory();
-      if (wrapper != null) {
-        FluidStack fluid = wrapper.getFluidStack();
-        if (!fluid.isEmpty()) {
-          tooltip = FluidTooltipHandler.getFluidTooltip(fluid);
-          // we are displaying current tank, so a match means matches current contents
-          MeltingFuel fuel = melter.findMeltingFuel();
-          if (fuel != null) {
-            tooltip.add(1, new TranslationTextComponent(TOOLTIP_TEMPERATURE, fuel.getTemperature()).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
-          } else {
-            // invalid fuel
-            tooltip.add(1, new TranslationTextComponent(TOOLTIP_INVALID_FUEL).mergeStyle(TextFormatting.RED));
-          }
-        }
-      }
-      // null means either empty or we have no wrapper
-      if (tooltip == null) {
-        tooltip = Collections.singletonList(new TranslationTextComponent(TOOLTIP_NO_FUEL));
-      }
-
-      // TODO: func_243308_b->renderTooltip
-      this.func_243308_b(matrices, tooltip, mouseX, mouseY);
-    }
+    if (fuel != null) fuel.addTooltip(matrices, mouseX, mouseY);
   }
 }

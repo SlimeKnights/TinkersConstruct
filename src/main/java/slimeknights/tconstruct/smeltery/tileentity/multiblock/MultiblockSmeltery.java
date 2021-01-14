@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 
 import com.google.common.collect.ImmutableList;
+import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -149,6 +150,7 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
   /** Extension of structure data to contain tanks list and the inside check */
   public static class StructureData extends MultiblockStructureData {
     /** Positions of all tanks in the structure area */
+    @Getter
     private final List<BlockPos> tanks;
     /** Next position to check for inside checks */
     private BlockPos insideCheck;
@@ -199,6 +201,20 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
 		public BlockPos getNextInsideCheck() {
       insideCheck = getNextInsideCheck(insideCheck);
       return insideCheck;
+    }
+
+    /**
+     * Gets the number of blocks making up the walls and floor
+     * @return  Blocks in walls and floor
+     */
+    public int getPerimeterCount() {
+      BlockPos min = getMinInside();
+      BlockPos max = getMaxInside();
+      int dx = max.getX() - min.getX();
+      int dy = max.getY() - min.getY();
+      int dz = max.getZ() - min.getZ();
+      // 2 of the X and the Z wall, one of the floor
+      return (2 * (dx * dy) + 2 * (dy * dz) + (dx * dz));
     }
 
     /**

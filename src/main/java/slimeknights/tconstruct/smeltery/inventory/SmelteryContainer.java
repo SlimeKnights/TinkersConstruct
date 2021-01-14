@@ -6,6 +6,7 @@ import net.minecraft.network.PacketBuffer;
 import slimeknights.mantle.inventory.MultiModuleContainer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 
 import javax.annotation.Nullable;
@@ -18,9 +19,11 @@ public class SmelteryContainer extends MultiModuleContainer<SmelteryTileEntity> 
     if (inv != null && smeltery != null) {
       // can hold 7 in a column, so try to fill the first column first
       // cap to 4 columns
-      sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer.get(), id, inv, smeltery, 0, 0, calcColumns(smeltery.getMeltingInventory().getSlots()));
+      MeltingModuleInventory inventory = smeltery.getMeltingInventory();
+      sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer.get(), id, inv, smeltery, 0, 0, calcColumns(inventory.getSlots()));
       addSubContainer(sideInventory, true);
-      smeltery.getMeltingInventory().trackInts(this::trackIntArray);
+      this.trackIntArray(smeltery.getFuelModule());
+      inventory.trackInts(this::trackIntArray);
     } else {
       sideInventory = null;
     }

@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
@@ -20,7 +20,8 @@ import java.util.function.BiConsumer;
 /**
  * Helper class to draw the smeltery tank in UIs
  */
-public class GuiSmelteryTank extends ElementScreen {
+@RequiredArgsConstructor
+public class GuiSmelteryTank {
   // fluid tooltips
   public static final String TOOLTIP_CAPACITY = Util.makeTranslationKey("gui", "melting.capacity");
   public static final String TOOLTIP_AVAILABLE = Util.makeTranslationKey("gui", "melting.available");
@@ -28,15 +29,15 @@ public class GuiSmelteryTank extends ElementScreen {
 
   private final ContainerScreen<?> parent;
   private final SmelteryTank tank;
-  public GuiSmelteryTank(ContainerScreen<?> parent, SmelteryTank tank, int x, int y, int w, int h) {
-    super(x, y, w, h, 256, 256);
-    this.parent = parent;
-    this.tank = tank;
-  }
+  private final int x, y, width, height;
 
+  /**
+   * Calculates the heights of the liquids
+   * @return  Array of liquid heights at each index
+   */
   private int[] calcLiquidHeights() {
     assert tank != null;
-    return calcLiquidHeights(tank.getFluids(), Math.max(tank.getContained(), tank.getCapacity()), h, 3);
+    return calcLiquidHeights(tank.getFluids(), Math.max(tank.getContained(), tank.getCapacity()), height, 3);
   }
 
   /**
@@ -46,7 +47,7 @@ public class GuiSmelteryTank extends ElementScreen {
    * @return  True if within the tank
    */
   private boolean withinTank(int checkX, int checkY) {
-    return x <= checkX && checkX < (x + w) && y <= checkY && checkY < (y + h);
+    return x <= checkX && checkX < (x + width) && y <= checkY && checkY < (y + height);
   }
 
   /**
@@ -58,11 +59,11 @@ public class GuiSmelteryTank extends ElementScreen {
     if (tank.getContained() > 0) {
       int[] heights = calcLiquidHeights();
 
-      int bottom = y + w;
+      int bottom = y + width;
       for (int i = 0; i < heights.length; i++) {
         int fluidH = heights[i];
         FluidStack liquid = tank.getFluids().get(i);
-        GuiUtil.renderTiledFluid(matrices, parent, liquid, x, bottom - fluidH, w, fluidH, 100);
+        GuiUtil.renderTiledFluid(matrices, parent, liquid, x, bottom - fluidH, width, fluidH, 100);
         bottom -= fluidH;
       }
     }
@@ -79,7 +80,7 @@ public class GuiSmelteryTank extends ElementScreen {
     int checkY = mouseY - parent.guiTop;
     if (withinTank(checkX, checkY)) {
       int[] heights = calcLiquidHeights();
-      int hovered = getFluidHovered(heights, (y + h) - checkY - 1);
+      int hovered = getFluidHovered(heights, (y + height) - checkY - 1);
 
       // sum all heights below the hovered fluid
       int heightSum = 0;
@@ -89,9 +90,9 @@ public class GuiSmelteryTank extends ElementScreen {
       }
       // render the area
       if (hovered == -1) {
-        GuiUtil.renderHighlight(matrices, x, y, w, h - heightSum);
+        GuiUtil.renderHighlight(matrices, x, y, width, height - heightSum);
       } else {
-        GuiUtil.renderHighlight(matrices, x, (y + h) - heightSum, w, heights[hovered]);
+        GuiUtil.renderHighlight(matrices, x, (y + height) - heightSum, width, heights[hovered]);
       }
     }
   }
@@ -124,7 +125,7 @@ public class GuiSmelteryTank extends ElementScreen {
     int checkX = mouseX - parent.guiLeft;
     int checkY = mouseY - parent.guiTop;
     if (withinTank(checkX, checkY)) {
-      int hovered = getFluidHovered(calcLiquidHeights(), (y + h) - checkY - 1);
+      int hovered = getFluidHovered(calcLiquidHeights(), (y + height) - checkY - 1);
       List<ITextComponent> tooltip;
       if (hovered == -1) {
         BiConsumer<Integer, List<ITextComponent>> formatter =
@@ -158,7 +159,7 @@ public class GuiSmelteryTank extends ElementScreen {
    */
   public void handleClick(int mouseX, int mouseY) {
     if (withinTank(mouseX, mouseY)) {
-      int index = getFluidHovered(calcLiquidHeights(), (y + h) - mouseY - 1);
+      int index = getFluidHovered(calcLiquidHeights(), (y + height) - mouseY - 1);
       if (index != -1) {
         TinkerNetwork.getInstance().sendToServer(new SmelteryFluidClickedPacket(index));
       }
