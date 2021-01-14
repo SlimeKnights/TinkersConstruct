@@ -121,7 +121,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       throw new IndexOutOfBoundsException();
     }
     if (modules[slot] == null) {
-      modules[slot] = new MeltingModule(parent);
+      modules[slot] = new MeltingModule(parent, outputFunction);
     }
     return modules[slot];
   }
@@ -269,7 +269,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   public void heatItems(int temperature) {
     for (MeltingModule module : modules) {
       if (module != null) {
-        module.heatItem(temperature, outputFunction);
+        module.heatItem(temperature);
       }
     }
   }

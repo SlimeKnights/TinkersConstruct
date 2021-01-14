@@ -31,6 +31,9 @@ public class MeltingModule implements ISingleItemInventory, IIntArray {
 
   /** Tile entity containing this melting module */
   private final MantleTileEntity parent;
+  /** Function that accepts fluid output from this module */
+  private final Predicate<FluidStack> outputFunction;
+
   /** Current temperature of the item in the slot */
   @Getter
   private int currentTemp = 0;
@@ -77,10 +80,12 @@ public class MeltingModule implements ISingleItemInventory, IIntArray {
     // must have a recipe and an item
     if (requiredTemp > 0) {
       if (stack.isEmpty()) {
+        currentTemp = 0;
         requiredTemp = 0;
         return false;
       }
-      return true;
+      // don't mark items as can heat if done heating
+      return currentTemp != NO_SPACE;
     }
     return false;
   }
@@ -88,14 +93,13 @@ public class MeltingModule implements ISingleItemInventory, IIntArray {
   /**
    * Heats the item in this slot
    * @param temperature     Heating structure temperature
-   * @param outputFunction  Function to call on output, returns true if the output was taken
    */
-  public void heatItem(int temperature, Predicate<FluidStack> outputFunction) {
-    // if we have a recipe
-    if (canHeatItem() && temperature >= requiredTemp) {
+  public void heatItem(int temperature) {
+    // if the slot is able to be heated, heat it
+    if ((canHeatItem() || currentTemp == NO_SPACE) && temperature >= requiredTemp) {
       // if we are done, cook item
       if (currentTemp == NO_SPACE || currentTemp >= requiredTemp) {
-        if (onItemFinishedHeating(outputFunction)) {
+        if (onItemFinishedHeating()) {
           currentTemp = 0;
           requiredTemp = 0;
         }
@@ -109,12 +113,16 @@ public class MeltingModule implements ISingleItemInventory, IIntArray {
    * Cools down the item, reversing the recipe progress
    */
   public void coolItem() {
-    if (canHeatItem()) {
-      if (currentTemp == NO_SPACE) {
-        currentTemp = requiredTemp;
-      } else if (currentTemp > 0) {
-        currentTemp -= 5;
+    // if done heating but no space, try placing into the smeltery,
+    // cooling done that already finished smelting causes the smeltery to constantly drain fuel
+    if (currentTemp == NO_SPACE) {
+      if (onItemFinishedHeating()) {
+        currentTemp = 0;
+        requiredTemp = 0;
       }
+      // if the item is heated, cool down rapidly
+    } else if (canHeatItem() && currentTemp > 0) {
+      currentTemp -= 5;
     }
   }
 
@@ -145,10 +153,9 @@ public class MeltingModule implements ISingleItemInventory, IIntArray {
 
   /**
    * Called when the slot finishes heating its item
-   * @param outputFunction  Function to call on output, returns true if the output was taken
    * @return  True if the slot should clear its state
    */
-  private boolean onItemFinishedHeating(Predicate<FluidStack> outputFunction) {
+  private boolean onItemFinishedHeating() {
     IMeltingRecipe recipe = findRecipe();
     if (recipe == null) {
       return true;
