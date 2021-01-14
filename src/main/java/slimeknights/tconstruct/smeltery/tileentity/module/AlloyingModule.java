@@ -37,13 +37,13 @@ public class AlloyingModule {
   public boolean canAlloy() {
     World world = getWorld();
     if (lastMatch != null && lastMatch.matches(alloyTank, world)) {
-      return true;
+      return lastMatch.canPerform(alloyTank);
     }
 
     // find a new recipe
     return world.getRecipeManager().getRecipe(RecipeTypes.ALLOYING, alloyTank, world).filter(recipe -> {
       lastMatch = recipe;
-      return true;
+      return recipe.canPerform(alloyTank);
     }).isPresent();
   }
 
@@ -78,7 +78,7 @@ public class AlloyingModule {
     while (recipeIterator.hasNext()) {
       recipe = recipeIterator.next();
       if (recipe.matches(alloyTank, world)) {
-        recipe.handleRecipe(alloyTank, fluidHandler);
+        recipe.performRecipe(alloyTank, fluidHandler);
         // store this recipe as the last successful recipe to speed up canAlloy()
         lastMatch = recipe;
       } else {

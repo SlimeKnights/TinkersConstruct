@@ -114,11 +114,38 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   }
 
   /**
+   * Checks if this recipe can be performed.
+   * Note that {@link #performRecipe(IAlloyTank, IFluidHandler)} runs similar logic, so calling both is uneccessary.
+   * @param inv  Alloy tank inventory
+   * @return  True if this recipe can be performed
+   */
+  public boolean canPerform(IAlloyTank inv) {
+    // bit corresponding to fluids that are already used
+    BitSet used = makeBitset(inv);
+    int drainAmount = 0;
+    FluidStack fluid;
+    for (FluidIngredient ingredient : inputs) {
+      // care about size, if too small just skip the recipe
+      int index = findMatch(ingredient, inv, used, true);
+      if (index != -1) {
+        fluid = inv.getFluidInTank(index);
+        drainAmount += ingredient.getAmount(fluid.getFluid());
+      } else {
+        // no fluid matched this ingredient, match failed
+        return false;
+      }
+    }
+
+    // ensure there is space for the recipe
+    return inv.canFit(output, drainAmount);
+  }
+
+  /**
    * Attempts to perform the recipe. Will do nothing if either there is not enough input, or if there is not enough space for the output
    * @param inv      Fluid inventory for inputs
    * @param handler  Fluid handler representing the output
    */
-  public void handleRecipe(IAlloyTank inv, IFluidHandler handler) {
+  public void performRecipe(IAlloyTank inv, IFluidHandler handler) {
     // figure out how much fluid we need to remove
     List<FluidStack> drainFluids = new ArrayList<>();
     int drainAmount = 0;
@@ -136,9 +163,9 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
         drainAmount += amount;
         drainFluids.add(new FluidStack(fluid, amount));
       } else {
+        // no fluid matched this ingredient, match failed
         return;
       }
-      // no fluid matched this ingredient, match failed
     }
 
     // ensure there is space for the recipe
