@@ -257,7 +257,8 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
       newStructure.assignMaster(this, oldStructure);
       setStructure(newStructure);
       // sync size to the client
-      TinkerNetwork.getInstance().sendToClientsAround(new SmelteryStructureUpdatedPacket(pos, newStructure.getMinPos(), newStructure.getMaxPos()), world, pos);
+      TinkerNetwork.getInstance().sendToClientsAround(
+        new SmelteryStructureUpdatedPacket(pos, newStructure.getMinPos(), newStructure.getMaxPos(), newStructure.getTanks()), world, pos);
 
       // update tank capability
       if (!fluidCapability.isPresent()) {
@@ -337,8 +338,9 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
    * @param minPos  Min structure position
    * @param maxPos  Max structure position
    */
-  public void setStructureSize(BlockPos minPos, BlockPos maxPos) {
-    setStructure(multiblock.createClient(minPos, maxPos));
+  public void setStructureSize(BlockPos minPos, BlockPos maxPos, List<BlockPos> tanks) {
+    setStructure(multiblock.createClient(minPos, maxPos, tanks));
+    fuelModule.clearCachedDisplayListeners();
   }
 
 
@@ -379,7 +381,6 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
     super.writeSynced(compound);
     compound.put(TAG_TANK, tank.write(new CompoundNBT()));
     compound.put(TAG_INVENTORY, meltingInventory.writeToNBT());
-    fuelModule.writeLastPos(compound);
   }
 
   @Override

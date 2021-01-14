@@ -34,6 +34,8 @@ public class GuiFuelModule {
   private final int x, y, width, height;
   private final int fireX, fireY;
 
+  private FuelInfo fuelInfo = null;
+
   /**
    * Draws the fuel at the correct location
    * @param matrices  Matrix stack instance
@@ -46,9 +48,10 @@ public class GuiFuelModule {
     }
 
     // draw tank second, it changes the image
-    FuelInfo fuelInfo = fuelModule.getFuelInfo();
+    // fuel info is stored in a field to share with other methods
+    fuelInfo = fuelModule.getFuelInfo();
     if (!fuelInfo.isEmpty()) {
-      GuiUtil.renderFluidTank(matrices, screen, fuelInfo.getFuel(), fuelInfo.getCapacity(), x, y, width, height, 100);
+      GuiUtil.renderFluidTank(matrices, screen, fuelInfo.getFuel(), fuelInfo.getTotalAmount(), fuelInfo.getCapacity(), x, y, width, height, 100);
     }
   }
 
@@ -75,15 +78,14 @@ public class GuiFuelModule {
     int checkY = mouseY - screen.guiTop;
 
     if (GuiUtil.isHovered(checkX, checkY, x - 1, y - 1, width + 2, height + 2)) {
-      List<ITextComponent> tooltip = null;
-      // make sure we have a tank below
-      FuelInfo fuelInfo = fuelModule.getFuelInfo();
-      if (!fuelInfo.isEmpty()) {
+      List<ITextComponent> tooltip;
+      // fetch info from shared field
+      if (fuelInfo != null && !fuelInfo.isEmpty()) {
         FluidStack fluid = fuelInfo.getFuel();
-        tooltip = FluidTooltipHandler.getFluidTooltip(fluid);
+        tooltip = FluidTooltipHandler.getFluidTooltip(fluid, fuelInfo.getTotalAmount());
         int temperature = fuelModule.getTemperature();
         if (temperature > 0) {
-          tooltip.add(1, new TranslationTextComponent(TOOLTIP_TEMPERATURE, fuelModule.getTemperature()).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
+          tooltip.add(1, new TranslationTextComponent(TOOLTIP_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
         } else {
           tooltip.add(1, new TranslationTextComponent(TOOLTIP_INVALID_FUEL).mergeStyle(TextFormatting.RED));
         }

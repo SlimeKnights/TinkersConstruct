@@ -181,9 +181,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
     if (tag.contains(TAG_INVENTORY, NBT.TAG_COMPOUND)) {
       meltingInventory.readFromNBT(tag.getCompound(TAG_INVENTORY));
     }
-    if (world != null && world.isRemote) {
-      fuelModule.setFuelInfo(pos.down());
-    }
   }
 
   @Override

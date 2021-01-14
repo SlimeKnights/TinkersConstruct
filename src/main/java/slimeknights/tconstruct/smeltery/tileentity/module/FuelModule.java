@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.fluid.Fluid;
@@ -25,7 +26,8 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -34,6 +36,9 @@ import java.util.function.Supplier;
  */
 @RequiredArgsConstructor
 public class FuelModule implements IIntArray {
+  /** Block position that will never be valid in world, used for sync */
+  private static final BlockPos NULL_POS = new BlockPos(0, -1, 0);
+
   /** Listener to attach to stored capability */
   private final NonNullConsumer<LazyOptional<IFluidHandler>> listener = new WeakConsumerWrapper<>(this, (self, cap) -> {
     self.fluidHandler = null;
@@ -43,7 +48,7 @@ public class FuelModule implements IIntArray {
   /** Parent TE */
   private final MantleTileEntity parent;
   /** Supplier for the list of valid tank positions */
-  private final Supplier<Collection<BlockPos>> tankSupplier;
+  private final Supplier<List<BlockPos>> tankSupplier;
 
   /** Last fuel recipe used */
   @Nullable
@@ -54,6 +59,15 @@ public class FuelModule implements IIntArray {
   /** Position of the last fluid handler */
   @Nullable
   private BlockPos lastPos = null;
+
+
+  /** Client fuel display */
+  private List<LazyOptional<IFluidHandler>> tankDisplayHandlers;
+  /** Listener to attach to display capabilities */
+  private final NonNullConsumer<LazyOptional<IFluidHandler>> displayListener = new WeakConsumerWrapper<>(this, (self, cap) -> {
+    self.tankDisplayHandlers.remove(cap);
+    // TODO: mark position for refetch?
+  });
 
   /** Current amount of fluid in the TE */
   @Getter
@@ -167,8 +181,6 @@ public class FuelModule implements IIntArray {
    * Attempts to consume fuel from one of the tanks
    */
   public void findFuel() {
-    // TODO: smeltery liked combining all tanks into one fuel info, is there an efficient way to do that?
-
     // if we have a handler, try to use that if possible
     if (fluidHandler != null) {
       if (fluidHandler.filter(tryConsumeFuel).isPresent()) {
@@ -214,15 +226,7 @@ public class FuelModule implements IIntArray {
   public CompoundNBT writeToNBT(CompoundNBT nbt) {
     nbt.putInt(TAG_FUEL, fuel);
     nbt.putInt(TAG_TEMPERATURE, temperature);
-    return nbt;
-  }
-
-  /**
-   * Writes the last position to NBT. Separate method as its synced in the smeltery and unused in the melter
-   * @param nbt  NBT to write to
-   * @return  NBT written to
-   */
-  public CompoundNBT writeLastPos(CompoundNBT nbt) {
+    // technically unneeded for melters, but does not hurt to add
     if (lastPos != null) {
       nbt.put(TAG_LAST_FUEL, TagUtil.writePos(lastPos));
     }
@@ -255,7 +259,7 @@ public class FuelModule implements IIntArray {
       case LAST_X:
         return lastPos == null ? 0 : lastPos.getX();
       case LAST_Y:
-        return lastPos == null ? 0 : lastPos.getY();
+        return lastPos == null ? -1 : lastPos.getY();
       case LAST_Z:
         return lastPos == null ? 0 : lastPos.getZ();
     }
@@ -274,11 +278,12 @@ public class FuelModule implements IIntArray {
       case TEMPERATURE:
         temperature = value;
         break;
+        // position sync takes three parts
       case LAST_X:
       case LAST_Y:
       case LAST_Z:
         // position sync
-        if (lastPos == null) lastPos = BlockPos.ZERO;
+        if (lastPos == null) lastPos = NULL_POS;
         switch (index) {
           case LAST_X:
             lastPos = new BlockPos(value, lastPos.getY(), lastPos.getZ());
@@ -290,55 +295,133 @@ public class FuelModule implements IIntArray {
             lastPos = new BlockPos(lastPos.getX(), lastPos.getY(), value);
             break;
         }
+        fluidHandler = null;
     }
   }
 
   /**
-   * Updates the last position from the packet
-   * @param lastPos  New last position
+   * Called on client structure update to clear the cached display listeners
    */
-  public void setFuelInfo(@Nullable BlockPos lastPos) {
-    this.lastPos = lastPos;
-    fluidHandler = null;
+  public void clearCachedDisplayListeners() {
+    this.tankDisplayHandlers = null;
   }
 
   /**
    * Called client side to get the fuel info for the current tank
+   * Note this relies on the client side fuel handlers containing fuel, which is common for our blocks as show fluid in world.
+   * If a tank does not do that this won't work.
    * @return  Fuel info
    */
   public FuelInfo getFuelInfo() {
-    // no last pos? no fuel
-    if (lastPos == null) {
-      return FuelInfo.EMPTY;
+    List<BlockPos> positions = null;
+    // if there is no position, means we have not yet consumed fuel. Just fetch the first tank
+    // TODO: should we try to find a valid fuel tank? might be a bit confusing if they have multiple tanks in the structure before melting
+    // however, a valid tank is a lot more effort to find
+
+    // Y of -1 is how the UI syncs null
+    BlockPos mainTank = lastPos;
+    if (mainTank == null || mainTank.getY() == -1) {
+      // if no first, return no fuel info
+      positions = tankSupplier.get();
+      if (positions.isEmpty()) {
+        return FuelInfo.EMPTY;
+      }
+      mainTank = positions.get(0);
+      assert mainTank != null;
     }
 
-    // fetch fluid handler
+    // fetch primary fluid handler
     if (fluidHandler == null) {
-      TileEntity te = getWorld().getTileEntity(lastPos);
+      TileEntity te = getWorld().getTileEntity(mainTank);
       if (te != null) {
         fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
         fluidHandler.addListener(listener);
       } else {
-        // TODO: how do we clear this cache?
         fluidHandler = LazyOptional.empty();
       }
     }
 
-    return fluidHandler.map(handler -> new FuelInfo(handler.getFluidInTank(0), handler.getTankCapacity(0)))
-                       .orElse(FuelInfo.EMPTY);
+    // determine what fluid we have and hpw many other fluids we have
+    FuelInfo info = fluidHandler.map(handler -> FuelInfo.of(handler.getFluidInTank(0), handler.getTankCapacity(0)))
+                                .orElse(FuelInfo.EMPTY);
+
+    // if nothing, return here
+    if (info.isEmpty()) {
+      return FuelInfo.EMPTY;
+    }
+
+    // fetch fluid handler list if missing
+    World world = getWorld();
+    if (tankDisplayHandlers == null) {
+      tankDisplayHandlers = new ArrayList<>();
+      // only need to fetch this if either case requests
+      if (positions == null) positions = tankSupplier.get();
+      for (BlockPos pos : positions) {
+        if (!pos.equals(mainTank)) {
+          TileEntity te = world.getTileEntity(pos);
+          if (te != null) {
+            LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+            if (handler.isPresent()) {
+              handler.addListener(displayListener);
+              tankDisplayHandlers.add(handler);
+            }
+          }
+        }
+      }
+    }
+
+    // add display info from each handler
+    FluidStack currentFuel = info.getFuel();
+    for (LazyOptional<IFluidHandler> capability : tankDisplayHandlers) {
+      capability.ifPresent(handler -> {
+        // sum if empty (more capacity) or the same fluid (more amount and capacity)
+        FluidStack fluid = handler.getFluidInTank(0);
+        if (fluid.isEmpty()) {
+          info.add(0, handler.getTankCapacity(0));
+        } else if (currentFuel.isFluidEqual(fluid)) {
+          info.add(fluid.getAmount(), handler.getTankCapacity(0));
+        }
+      });
+    }
+
+    return info;
   }
 
   /** Data class to hold information about the current fuel */
-  @Data
+  @Getter @AllArgsConstructor(access = AccessLevel.PRIVATE)
   public static class FuelInfo {
     /** Empty fuel instance */
-    public static final FuelInfo EMPTY = new FuelInfo(FluidStack.EMPTY, 0);
+    public static final FuelInfo EMPTY = new FuelInfo(FluidStack.EMPTY, 0, 0);
 
     private final FluidStack fuel;
-    private final int capacity;
+    private int totalAmount;
+    private int capacity;
+
+    /**
+     * Gets fuel info from the given stack and capacity
+     * @param fluid     Fluid
+     * @param capacity  Capacity
+     * @return  Fuel info
+     */
+    public static FuelInfo of(FluidStack fluid, int capacity) {
+      if (fluid.isEmpty()) {
+        return EMPTY;
+      }
+      return new FuelInfo(fluid, fluid.getAmount(), Math.max(capacity, fluid.getAmount()));
+    }
+
+    /**
+     * Adds an additional amount and capacity to this info
+     * @param amount    Amount to add
+     * @param capacity  Capacity to add
+     */
+    protected void add(int amount, int capacity) {
+      this.totalAmount += amount;
+      this.capacity += capacity;
+    }
 
     public boolean isEmpty() {
-      return fuel.isEmpty() || capacity == 0;
+      return fuel.isEmpty() || totalAmount == 0 || capacity == 0;
     }
   }
 }

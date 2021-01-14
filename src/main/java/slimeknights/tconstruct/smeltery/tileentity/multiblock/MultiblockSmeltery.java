@@ -48,8 +48,8 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
    * @param max  Max position
    * @return  Structure data
    */
-  public StructureData createClient(BlockPos min, BlockPos max) {
-    return new StructureData(min, max, Collections.emptySet(), hasFloor, hasFrame, hasCeiling, Collections.emptyList());
+  public StructureData createClient(BlockPos min, BlockPos max, List<BlockPos> tanks) {
+    return new StructureData(min, max, Collections.emptySet(), hasFloor, hasFrame, hasCeiling, tanks);
   }
 
   @Override
@@ -217,6 +217,13 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
       return (2 * (dx * dy) + 2 * (dy * dz) + (dx * dz));
     }
 
+    @Override
+    public CompoundNBT writeClientNBT() {
+      CompoundNBT nbt = super.writeClientNBT();
+      nbt.put(TAG_TANKS, writePosList(tanks));
+      return nbt;
+    }
+
     /**
      * Writes this structure to NBT
      * @return  structure as NBT
@@ -224,7 +231,6 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
     @Override
     public CompoundNBT writeToNBT() {
       CompoundNBT nbt = super.writeToNBT();
-      nbt.put(TAG_TANKS, writePosList(tanks));
       if (insideCheck != null) {
         nbt.put(TAG_INSIDE_CHECK, TagUtil.writePos(insideCheck));
       }
