@@ -2,13 +2,17 @@ package slimeknights.tconstruct.plugin.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
+import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
@@ -26,9 +30,13 @@ import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.client.inventory.IScreenWithFluidTank;
+import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
+import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -73,7 +81,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingBasin), TConstructRecipeCategoryUid.castingBasin);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingTable), TConstructRecipeCategoryUid.castingTable);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructRecipeCategoryUid.melting);
-    // TODO: alloy recipe catalyst
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructRecipeCategoryUid.melting, TConstructRecipeCategoryUid.alloy);
   }
 
   @Override
@@ -128,5 +136,20 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerTools.axe.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.kama.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.broadSword.get(), toolInterpreter);
+  }
+
+  @Override
+  public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+    registration.addGenericGuiContainerHandler(MelterScreen.class, new GuiContainerTankHandler<>());
+    registration.addGenericGuiContainerHandler(SmelteryScreen.class, new GuiContainerTankHandler<>());
+  }
+
+  /** Class to pass {@link IScreenWithFluidTank} into JEI */
+  public static class GuiContainerTankHandler<C extends Container, T extends ContainerScreen<C> & IScreenWithFluidTank> implements IGuiContainerHandler<T> {
+    @Override
+    @Nullable
+    public Object getIngredientUnderMouse(T containerScreen, double mouseX, double mouseY) {
+      return containerScreen.getIngredientUnderMouse(mouseX, mouseY);
+    }
   }
 }

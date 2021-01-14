@@ -26,7 +26,6 @@ import java.util.List;
 
 /**
  * Alloy recipe category for JEI display
- * TODO: fluid tooltips to show rates
  */
 public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, ITooltipCallback<FluidStack> {
   private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/alloy.png");
@@ -43,8 +42,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
   public AlloyRecipeCategory(IGuiHelper helper) {
     this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 165, 62);
-    // TODO: smeltery controller
-    this.icon = helper.createDrawableIngredient(new ItemStack(TinkerSmeltery.searedBrick));
+    this.icon = helper.createDrawableIngredient(new ItemStack(TinkerSmeltery.smelteryController));
     this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 165, 0, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
   }
 
@@ -106,8 +104,9 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
       ITextComponent modId = list.get(list.size() - 1);
       list.clear();
       list.add(name);
-      // TODO: format as rate?
-      FluidTooltipHandler.appendMaterial(stack, list);
+
+      // multiply amount by 5 to put in terms of seconds
+      FluidTooltipHandler.appendMaterial(stack.getFluid(), stack.getAmount() * 5, true, list);
       list.add(modId);
     }
   }

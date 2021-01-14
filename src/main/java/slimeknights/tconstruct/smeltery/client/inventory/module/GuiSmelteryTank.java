@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClickedPacket;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -31,13 +32,19 @@ public class GuiSmelteryTank {
   private final SmelteryTank tank;
   private final int x, y, width, height;
 
+  private int[] liquidHeights;
+
   /**
    * Calculates the heights of the liquids
+   * @param   refresh  If true, refresh the heights
    * @return  Array of liquid heights at each index
    */
-  private int[] calcLiquidHeights() {
+  private int[] calcLiquidHeights(boolean refresh) {
     assert tank != null;
-    return calcLiquidHeights(tank.getFluids(), Math.max(tank.getContained(), tank.getCapacity()), height, 3);
+    if (liquidHeights == null || refresh) {
+      liquidHeights = calcLiquidHeights(tank.getFluids(), Math.max(tank.getContained(), tank.getCapacity()), height, 3);
+    }
+    return liquidHeights;
   }
 
   /**
@@ -57,7 +64,7 @@ public class GuiSmelteryTank {
   public void renderFluids(MatrixStack matrices) {
     // draw liquids
     if (tank.getContained() > 0) {
-      int[] heights = calcLiquidHeights();
+      int[] heights = calcLiquidHeights(true);
 
       int bottom = y + width;
       for (int i = 0; i < heights.length; i++) {
@@ -70,6 +77,33 @@ public class GuiSmelteryTank {
   }
 
   /**
+   * Gets the fluid under the mouse at the given Y position relative to the tank bottom
+   * @param heights  Fluids heights
+   * @param y  Y position to check
+   * @return  Fluid index under mouse, or -1 if no fluid
+   */
+  private int getFluidHovered(int[] heights, int y) {
+    for (int i = 0; i < heights.length; i++) {
+      if (y < heights[i]) {
+        return i;
+      }
+      y -= heights[i];
+    }
+
+    return -1;
+  }
+
+  /**
+   * Gets the fluid under the mouse at the given Y mouse position
+   * @param heights  Fluids heights
+   * @param checkY   Mouse Y position
+   * @return  Fluid index under mouse, or -1 if no fluid
+   */
+  private int getFluidFromMouse(int[] heights, int checkY) {
+    return getFluidHovered(heights, (y + height) - checkY - 1);
+  }
+
+  /**
    * Renders a highlight on the hovered fluid
    * @param matrices  Matrix stack instance
    * @param mouseX    Mouse X
@@ -79,8 +113,8 @@ public class GuiSmelteryTank {
     int checkX = mouseX - parent.guiLeft;
     int checkY = mouseY - parent.guiTop;
     if (withinTank(checkX, checkY)) {
-      int[] heights = calcLiquidHeights();
-      int hovered = getFluidHovered(heights, (y + height) - checkY - 1);
+      int[] heights = calcLiquidHeights(false);
+      int hovered = getFluidFromMouse(heights, checkY);
 
       // sum all heights below the hovered fluid
       int heightSum = 0;
@@ -98,23 +132,6 @@ public class GuiSmelteryTank {
   }
 
   /**
-   * Gets the fluid under the mouse at the given Y position
-   * @param heights  Fluids heights
-   * @param y  Y position to check
-   * @return  Fluid index under mouse, or -1 if no fluid
-   */
-  private int getFluidHovered(int[] heights, int y) {
-    for (int i = 0; i < heights.length; i++) {
-      if (y < heights[i]) {
-        return i;
-      }
-      y -= heights[i];
-    }
-
-    return -1;
-  }
-
-  /**
    * Gets the tooltip for the tank based on the given mouse position
    * @param matrices  Matrix stack instance
    * @param mouseX    Mouse X
@@ -125,7 +142,7 @@ public class GuiSmelteryTank {
     int checkX = mouseX - parent.guiLeft;
     int checkY = mouseY - parent.guiTop;
     if (withinTank(checkX, checkY)) {
-      int hovered = getFluidHovered(calcLiquidHeights(), (y + height) - checkY - 1);
+      int hovered = getFluidFromMouse(calcLiquidHeights(false), checkY);
       List<ITextComponent> tooltip;
       if (hovered == -1) {
         BiConsumer<Integer, List<ITextComponent>> formatter =
@@ -159,11 +176,28 @@ public class GuiSmelteryTank {
    */
   public void handleClick(int mouseX, int mouseY) {
     if (withinTank(mouseX, mouseY)) {
-      int index = getFluidHovered(calcLiquidHeights(), (y + height) - mouseY - 1);
+      int index = getFluidFromMouse(calcLiquidHeights(false), mouseY);
       if (index != -1) {
         TinkerNetwork.getInstance().sendToServer(new SmelteryFluidClickedPacket(index));
       }
     }
+  }
+
+  /**
+   * Gets the ingredient under the mouse
+   * @param checkX  Mouse X position
+   * @param checkY  Mouse Y position
+   * @return  Ingredient
+   */
+  @Nullable
+  public FluidStack getIngredient(int checkX, int checkY) {
+    if (withinTank(checkX, checkY)) {
+      int index = getFluidFromMouse(calcLiquidHeights(false), checkY);
+      if (index != -1) {
+        return tank.getFluidInTank(index);
+      }
+    }
+    return null;
   }
 
 

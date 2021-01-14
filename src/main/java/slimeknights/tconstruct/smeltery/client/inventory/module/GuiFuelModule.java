@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule.FuelInfo;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,6 +36,16 @@ public class GuiFuelModule {
   private final int fireX, fireY;
 
   private FuelInfo fuelInfo = null;
+
+  /**
+   * Checks if the fuel tank is hovered
+   * @param checkX  X position to check
+   * @param checkY  Y position to check
+   * @return  True if hovered
+   */
+  private boolean isHovered(int checkX, int checkY) {
+    return GuiUtil.isHovered(checkX, checkY, x - 1, y - 1, width + 2, height + 2);
+  }
 
   /**
    * Draws the fuel at the correct location
@@ -62,7 +73,7 @@ public class GuiFuelModule {
    * @param checkY    Top corner relative mouse Y
    */
   public void renderHighlight(MatrixStack matrices, int checkX, int checkY) {
-    if (GuiUtil.isHovered(checkX, checkY, x - 1, y - 1, width + 2, height + 2)) {
+    if (isHovered(checkX, checkY)) {
       GuiUtil.renderHighlight(matrices, x, y, width, height);
     }
   }
@@ -77,7 +88,7 @@ public class GuiFuelModule {
     int checkX = mouseX - screen.guiLeft;
     int checkY = mouseY - screen.guiTop;
 
-    if (GuiUtil.isHovered(checkX, checkY, x - 1, y - 1, width + 2, height + 2)) {
+    if (isHovered(checkX, checkY)) {
       List<ITextComponent> tooltip;
       // fetch info from shared field
       if (fuelInfo != null && !fuelInfo.isEmpty()) {
@@ -96,5 +107,19 @@ public class GuiFuelModule {
       // TODO: func_243308_b->renderTooltip
       screen.func_243308_b(matrices, tooltip, mouseX, mouseY);
     }
+  }
+
+  /**
+   * Gets the fluid stack under the mouse
+   * @param checkX  Mouse X position
+   * @param checkY  Mouse Y position
+   * @return  Fluid stack under mouse
+   */
+  @Nullable
+  public FluidStack getIngredient(int checkX, int checkY) {
+    if (isHovered(checkX, checkY) && fuelInfo != null && !fuelInfo.isEmpty()) {
+      return fuelInfo.getFuel();
+    }
+    return null;
   }
 }

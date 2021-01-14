@@ -9,6 +9,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -40,6 +41,7 @@ import java.util.Optional;
 public class FluidTooltipHandler {
   private static final Map<Fluid,List<FluidGuiEntry>> CACHE = new HashMap<>();
   public static final ITextComponent HOLD_SHIFT = new TranslationTextComponent(Util.makeTranslationKey("gui", "fluid.hold_shift")).mergeStyle(TextFormatting.GRAY);
+  public static final String PER_SECOND = Util.makeTranslationKey("gui", "fluid.per_second");
 
   /*
    * Base units
@@ -98,7 +100,7 @@ public class FluidTooltipHandler {
     // fluid name, not sure if there is a cleaner way to do this
     tooltip.add(fluid.getDisplayName().copyRaw().mergeStyle(TextFormatting.WHITE));
     // material
-    appendMaterial(fluid.getFluid(), amount, tooltip);
+    appendMaterial(fluid.getFluid(), amount, false, tooltip);
     // add mod display name
     ModList.get().getModContainerById(Objects.requireNonNull(fluid.getFluid().getRegistryName()).getNamespace())
            .map(container -> container.getModInfo().getDisplayName())
@@ -112,28 +114,29 @@ public class FluidTooltipHandler {
    * @param tooltip  Tooltip to append information
    */
   public static void appendMaterial(FluidStack fluid, List<ITextComponent> tooltip) {
-    appendMaterial(fluid.getFluid(), fluid.getAmount(), tooltip);
+    appendMaterial(fluid.getFluid(), fluid.getAmount(), false, tooltip);
   }
 
   /**
    * Adds information for the tooltip based on material units
-   * @param fluid    Input fluid
-   * @param original Input amount
-   * @param tooltip  Tooltip to append information
+   * @param fluid      Input fluid
+   * @param original   Input amount
+   * @param perSecond  If true, formats as a rate per second
+   * @param tooltip    Tooltip to append information
    */
-  public static void appendMaterial(Fluid fluid, int original, List<ITextComponent> tooltip) {
+  public static void appendMaterial(Fluid fluid, int original, boolean perSecond, List<ITextComponent> tooltip) {
     int amount = original;
 
     // if holding shift, skip specific units
     if(!Screen.hasShiftDown()) {
       List<FluidGuiEntry> entries = CACHE.computeIfAbsent(fluid, FluidTooltipHandler::calcFluidEntries);
       for(FluidGuiEntry entry : entries) {
-        amount = entry.getText(tooltip, amount);
+        amount = entry.getText(tooltip, perSecond, amount);
       }
     }
 
     // standard display stuff: bucket amounts
-    appendBuckets(amount, tooltip);
+    appendBuckets(amount, perSecond, tooltip);
 
     // add hold shift message
     if (amount != original) {
@@ -158,7 +161,7 @@ public class FluidTooltipHandler {
    * @param tooltip  Tooltip to append information
    */
   public static void appendIngots(int amount, List<ITextComponent> tooltip) {
-    amount = INGOT.getText(tooltip, amount);
+    amount = INGOT.getText(tooltip, false, amount);
     appendBuckets(amount, tooltip);
   }
 
@@ -168,9 +171,19 @@ public class FluidTooltipHandler {
    * @param tooltip  Tooltip to append information
    */
   public static void appendBuckets(int amount, List<ITextComponent> tooltip) {
-    amount = KILOBUCKET.getText(tooltip, amount);
-    amount = BUCKET.getText(tooltip, amount);
-    MILLIBUCKET.getText(tooltip, amount);
+    appendBuckets(amount, false, tooltip);
+  }
+
+  /**
+   * Adds information to the tooltip based on the fluid using bucket units
+   * @param amount     Fluid amount
+   * @param perSecond  If true, formats as a rate per second
+   * @param tooltip  Tooltip to append information
+   */
+  public static void appendBuckets(int amount, boolean perSecond, List<ITextComponent> tooltip) {
+    amount = KILOBUCKET.getText(tooltip, perSecond, amount);
+    amount = BUCKET.getText(tooltip, perSecond, amount);
+    MILLIBUCKET.getText(tooltip, perSecond, amount);
   }
 
   /**
@@ -258,10 +271,14 @@ public class FluidTooltipHandler {
      * Gets the display text for this fluid entry
      * @return  Display text
      */
-    private int getText(List<ITextComponent> tooltip, int amount) {
+    private int getText(List<ITextComponent> tooltip, boolean perSecond, int amount) {
       int full = amount / needed;
       if (full > 0) {
-        tooltip.add(new TranslationTextComponent(translationKey, full).mergeStyle(TextFormatting.GRAY));
+        IFormattableTextComponent component = new TranslationTextComponent(translationKey, full);
+        if (perSecond) {
+          component = new TranslationTextComponent(PER_SECOND, component);
+        }
+        tooltip.add(component.mergeStyle(TextFormatting.GRAY));
       }
       return amount % needed;
     }

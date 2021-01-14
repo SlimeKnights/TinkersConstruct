@@ -18,7 +18,9 @@ import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 
-public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> {
+import javax.annotation.Nullable;
+
+public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> implements IScreenWithFluidTank {
   public static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/smeltery.png");
   private static final ElementScreen SCALA = new ElementScreen(176, 76, 52, 52, 256, 256);
 
@@ -109,5 +111,21 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> {
       tank.handleClick((int)mouseX - cornerX, (int)mouseY - cornerY);
     }
     return super.mouseClicked(mouseX, mouseY, mouseButton);
+  }
+
+  @Nullable
+  @Override
+  public Object getIngredientUnderMouse(double mouseX, double mouseY) {
+    Object ingredient = null;
+
+    int checkX = (int) mouseX - cornerX;
+    int checkY = (int) mouseY - cornerY;
+
+    // try fuel first, its faster
+    if (fuel != null) ingredient = fuel.getIngredient(checkX, checkY);
+    // then try tank
+    if (tank != null && ingredient == null) ingredient = tank.getIngredient(checkX, checkY);
+
+    return ingredient;
   }
 }
