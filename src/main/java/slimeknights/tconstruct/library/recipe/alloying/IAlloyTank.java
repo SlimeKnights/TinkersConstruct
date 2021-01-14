@@ -21,8 +21,10 @@ public interface IAlloyTank extends IEmptyInventory {
   FluidStack getFluidInTank(int tank);
 
   /**
-   * Gets the amount of empty space in the tank
-   * @return  Amount of empty space
+   * Checks if the given recipe can fit
+   * @param  fluid    Fluid to add
+   * @param  removed  How much fluid this recipe will consume
+   * @return true if the recipe will fit
    */
-  int getRemainingSpace();
+  boolean canFit(FluidStack fluid, int removed);
 }

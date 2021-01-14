@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -30,7 +31,9 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.network.SmelteryStructureUpdatedPacket;
+import slimeknights.tconstruct.smeltery.tileentity.module.AlloyingModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.tileentity.module.SmelteryAlloyTank;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery.StructureData;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
@@ -64,6 +67,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /** Inventory handling melting items */
   @Getter
   private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank);
+
   // TODO: update properly
   @Getter
   private final int temperature = 1000;
@@ -75,6 +79,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   private int expandCounter = 0;
   /** If true, structure will check for an update next tick */
   private boolean updateQueued = false;
+
+  /** Module handling alloys */
+  @Getter
+  private final AlloyingModule alloyingModule = new AlloyingModule(this, tank, new SmelteryAlloyTank(tank));
 
   /* Capability */
   private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> meltingInventory);
@@ -111,20 +119,34 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
             queueUpdate();
           }
         }
-      } else if (tick % 2 == 1) {
+      } else if (tick % 4 == 0) {
         // check the next inside position to see if its a valid inner block every other tick
         if (!multiblock.isInnerBlock(world, structure.getNextInsideCheck())) {
           queueUpdate();
         }
       }
 
-      // heat items
-      if (tick % 4 == 0) {
-        if (meltingInventory.canHeat()) {
+      // run in four phases alternating each tick, so each thing runs once every 4 ticks
+      switch (tick % 4) {
+        // first tick, find fuel if needed
+        case 0:
+//          if (meltingInventory.canHeat() || alloyingModule.canAlloy()) {
+//            // TODO: find fuel
+//          }
+          break;
+          // second tick: melt items
+        case 1:
           meltingInventory.heatItems(temperature);
-        }
+          break;
+          // third tick: alloy alloys
+        case 2:
+          alloyingModule.doAlloy();
+          break;
+          // fourth tick: consume fuel
+        case 3:
+          // TODO: consume fuel
+          break;
       }
-
     } else if (tick == 0) {
       queueUpdate();
     }
@@ -266,6 +288,15 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   @Override
   public void updateFluidsFromPacket(List<FluidStack> fluids) {
     tank.setFluids(fluids);
+  }
+
+  @Override
+  public void notifyFluidsChanged(FluidChange type, Fluid fluid) {
+    // adding a new fluid means recipes that previously did not match might match now
+    // can ignore removing a fluid as that is handled internally by the module
+    if (type == FluidChange.ADDED) {
+      alloyingModule.clearCachedRecipes();
+    }
   }
 
 

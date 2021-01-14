@@ -12,6 +12,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.SmelteryTankUpdatePacket;
+import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler.FluidChange;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -170,6 +171,7 @@ public class SmelteryTank implements IFluidHandler {
     resource.setAmount(usable);
     fluids.add(resource);
     syncFluids();
+    parent.notifyFluidsChanged(FluidChange.ADDED, resource.getFluid());
     return usable;
   }
 
@@ -194,6 +196,7 @@ public class SmelteryTank implements IFluidHandler {
       // if now empty, remove from the list
       if (fluid.getAmount() <= 0) {
         fluids.remove(fluid);
+        parent.notifyFluidsChanged(FluidChange.REMOVED, fluid.getFluid());
       }
       syncFluids();
     }
@@ -223,6 +226,7 @@ public class SmelteryTank implements IFluidHandler {
           // if now empty, remove from the list
           if (fluid.getAmount() <= 0) {
             iter.remove();
+            parent.notifyFluidsChanged(FluidChange.REMOVED, fluid.getFluid());
           }
           syncFluids();
         }

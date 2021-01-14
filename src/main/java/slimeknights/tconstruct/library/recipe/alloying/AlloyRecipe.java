@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,75 +59,105 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     return displayInputs;
   }
 
-  @Override
-  public boolean matches(IAlloyTank inv, World worldIn) {
+  /**
+   * Creates the bitset used for marking fluids we do not care about
+   * @param inv  Alloy tank
+   * @return  Bitset
+   */
+  private static BitSet makeBitset(IAlloyTank inv) {
     int tanks = inv.getTanks();
-    // bit corresponding to fluids that are already used
     BitSet used = new BitSet(tanks);
-
     // mark empty as used to save a bit of effort
     for (int i = 0; i < tanks; i++) {
       if (inv.getFluidInTank(i).isEmpty()) {
         used.set(i);
       }
     }
-
-    // amount of fluid that will be removed from the tank
-    int toRemove = 0;
-    FluidStack fluid;
-    ingredientLoop:
-    for (FluidIngredient ingredient : inputs) {
-      for (int i = 0; i < tanks; i++) {
-        // must not have used that fluid yet
-        if (!used.get(i)) {
-          fluid = inv.getFluidInTank(i);
-          if (ingredient.test(fluid)) {
-            // mark how much space will be freed and mark this fluid used
-            toRemove += ingredient.getAmount(fluid.getFluid());
-            used.set(i);
-            continue ingredientLoop;
-          }
-        }
-      }
-      // no fluid matched this ingredient, match failed
-      return false;
-    }
-
-    // ensure we have enough space for this match
-    return output.getAmount() - toRemove <= inv.getRemainingSpace();
+    return used;
   }
 
   /**
-   * Subtracts inputs from the fluid handler and adds in outputs
-   * @param handler  Fluid handler representing the alloy tank
+   * Finds a match for the given ingredient
+   * @param ingredient  Ingredient to check
+   * @param inv         Alloy tank to search
+   * @param used        Bitset for already used matches, will be modified
+   * @return  Index of found match, or -1 if match not found
    */
-  public void handleRecipe(IFluidHandler handler) {
-    int tanks = handler.getTanks();
-
-    // remove fluid for each ingredient
-    FluidStack fluid, drained;
-    ingredientLoop:
-    for (FluidIngredient ingredient : inputs) {
-      for (int i = 0; i < tanks; i++) {
-        // find a fluid that matches the ingredient
-        fluid = handler.getFluidInTank(i);
-        if (ingredient.test(fluid)) {
-          drained = handler.drain(fluid, FluidAction.EXECUTE);
-          // ensure the right amount of fluid was drained and skip to next ingredient
-          if (drained.getAmount() != fluid.getAmount()) {
-            TConstruct.log.error("Wrong amount of fluid {} drained for recipe {}", drained, id);
-          }
-          continue ingredientLoop;
+  private static int findMatch(FluidIngredient ingredient, IAlloyTank inv, BitSet used, boolean checkSize) {
+    FluidStack fluid;
+    for (int i = 0; i < inv.getTanks(); i++) {
+      // must not have used that fluid yet
+      if (!used.get(i)) {
+        fluid = inv.getFluidInTank(i);
+        if (checkSize ? ingredient.test(fluid) : ingredient.test(fluid.getFluid())) {
+          used.set(i);
+          return i;
         }
       }
-      // no fluid matched this ingredient, match failed
-      TConstruct.log.error("Ingredient failed to match for recipe {}", id);
+    }
+    return -1;
+  }
+
+  @Override
+  public boolean matches(IAlloyTank inv, World worldIn) {
+    BitSet used = makeBitset(inv);
+    for (FluidIngredient ingredient : inputs) {
+      // do not care about size for matches, just want a recipe with the right fluids
+      int index = findMatch(ingredient, inv, used, false);
+      if (index == -1) {
+        return false;
+      }
     }
 
-    // add the output
-    int filled = handler.fill(output.copy(), FluidAction.EXECUTE);
-    if (filled != output.getAmount()) {
-      TConstruct.log.error("Filled only {} for recipe {}", filled, id);
+    // goal of matches is to see if this works for any of those fluids, so ignore current space
+    return true;
+  }
+
+  /**
+   * Attempts to perform the recipe. Will do nothing if either there is not enough input, or if there is not enough space for the output
+   * @param inv      Fluid inventory for inputs
+   * @param handler  Fluid handler representing the output
+   */
+  public void handleRecipe(IAlloyTank inv, IFluidHandler handler) {
+    // figure out how much fluid we need to remove
+    List<FluidStack> drainFluids = new ArrayList<>();
+    int drainAmount = 0;
+
+    // bit corresponding to fluids that are already used
+    BitSet used = makeBitset(inv);
+
+    FluidStack fluid;
+    for (FluidIngredient ingredient : inputs) {
+      // care about size, if too small just skip the recipe
+      int index = findMatch(ingredient, inv, used, true);
+      if (index != -1) {
+        fluid = inv.getFluidInTank(index);
+        int amount = ingredient.getAmount(fluid.getFluid());
+        drainAmount += amount;
+        drainFluids.add(new FluidStack(fluid, amount));
+      } else {
+        return;
+      }
+      // no fluid matched this ingredient, match failed
+    }
+
+    // ensure there is space for the recipe
+    FluidStack drained;
+    if (inv.canFit(output, drainAmount)) {
+      // drain each marked fluid
+      for (FluidStack toDrain : drainFluids) {
+        drained = handler.drain(toDrain, FluidAction.EXECUTE);
+        // ensure the right amount of fluid was drained and skip to next ingredient
+        if (drained.getAmount() != toDrain.getAmount()) {
+          TConstruct.log.error("Wrong amount of fluid {} drained for recipe {}", drained, id);
+        }
+      }
+
+      // add the output
+      int filled = handler.fill(output.copy(), FluidAction.EXECUTE);
+      if (filled != output.getAmount()) {
+        TConstruct.log.error("Filled only {} for recipe {}", filled, id);
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
+import net.minecraft.fluid.Fluid;
 import net.minecraftforge.common.extensions.IForgeTileEntity;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -25,4 +26,13 @@ public interface ISmelteryTankHandler extends IForgeTileEntity {
    * @return  Fluid capability
    */
   LazyOptional<IFluidHandler> getFluidCapability();
+
+  /**
+   * Called when the tank adds or removes a fluid to notify listeners
+   * @param type  Type of the change
+   */
+  default void notifyFluidsChanged(FluidChange type, Fluid fluid) {}
+
+  /** Simple enum to make {@link #notifyFluidsChanged(FluidChange, Fluid)} more readible */
+  enum FluidChange { ADDED, REMOVED; }
 }
