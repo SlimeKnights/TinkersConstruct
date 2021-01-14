@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:smeltery/alloys/molten_pig_iron"
+      "tconstruct:melting/netherite_from_ingot"
     ]
   },
   "criteria": {
-    "has_iron": {
+    "hasItem": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:iron_ingot"
+            "tag": "forge:ingots/iron"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:smeltery/alloys/molten_pig_iron"
+        "recipe": "tconstruct:melting/netherite_from_ingot"
       }
     }
   },
   "requirements": [
     [
-      "has_iron",
+      "hasItem",
       "has_the_recipe"
     ]
   ]

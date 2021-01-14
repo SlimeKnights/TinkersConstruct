@@ -339,11 +339,20 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     addMetalMelting(consumer, TinkerFluids.moltenCopper.get(), "copper", true, folder);
     addMetalMelting(consumer, TinkerFluids.moltenCobalt.get(), "cobalt", true, folder);
     addMetalMelting(consumer, TinkerFluids.moltenArdite.get(), "ardite", true, folder);
+    // TODO: ore recipe
+    ITag<Item> ore = Tags.Items.ORES_NETHERITE_SCRAP;
+    MeltingRecipeBuilder.melting(Ingredient.fromTag(ore), TinkerFluids.moltenDebris.get(), MaterialValues.VALUE_Ingot)
+                        .addCriterion("hasItem", hasItem(ore))
+                        .build(consumer, location(folder + "molten_debris_from_ore"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), MaterialValues.VALUE_Ingot)
+                        .addCriterion("hasItem", hasItem(ore))
+                        .build(consumer, location(folder + "molten_debris_from_scrap"));
     // metal alloys
     addMetalMelting(consumer, TinkerFluids.moltenRoseGold.get(), "rose_gold", false, folder);
     addMetalMelting(consumer, TinkerFluids.moltenManyullyn.get(), "manyullyn", false, folder);
     addMetalMelting(consumer, TinkerFluids.moltenPigIron.get(), "pig_iron", false, folder);
     addMetalMelting(consumer, TinkerFluids.moltenKnightslime.get(), "knightslime", false, folder);
+    addMetalMelting(consumer, TinkerFluids.moltenNetherite.get(), "netherite", false, folder);
 
     // blood
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.ROTTEN_FLESH), TinkerFluids.blood.get(), MaterialValues.VALUE_SlimeBall / 5)
@@ -425,20 +434,38 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
   private void addAlloyRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "smeltery/alloys/";
     // TODO: knightslime
-    // TODO: manyullyn
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenRoseGold.get(), MaterialValues.VALUE_Nugget * 4)
-                      .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.VALUE_Nugget * 3)
-                      .addInput(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Nugget)
+
+    // alloy recipes are in terms of ingots
+
+    // rose gold
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenRoseGold.get(), MaterialValues.VALUE_Ingot * 4)
+                      .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.VALUE_Ingot * 3)
+                      .addInput(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot)
                       .addCriterion("has_copper", hasItem(TinkerMaterials.copperNugget))
-                      .addCriterion("has_gold", hasItem(Items.GOLD_NUGGET))
+                      .addCriterion("has_gold", hasItem(Items.GOLD_INGOT))
                       .build(consumer, prefixR(TinkerFluids.moltenRoseGold, folder));
-    // TODO: rate
+
+    // pig iron
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenPigIron.get(), MaterialValues.VALUE_Ingot * 2)
                       .addInput(TinkerFluids.moltenIron.get(), MaterialValues.VALUE_Ingot)
                       .addInput(TinkerFluids.blood.get(), MaterialValues.VALUE_SlimeBall)
                       .addInput(TinkerFluids.moltenGlass.get(), MaterialValues.VALUE_Glass / 4)
-                      .addCriterion("has_iron", hasItem(Items.IRON_NUGGET))
+                      .addCriterion("has_iron", hasItem(Items.IRON_INGOT))
                       .build(consumer, prefixR(TinkerFluids.moltenPigIron, folder));
+
+    // manyullyn
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenManyullyn.get(), MaterialValues.VALUE_Ingot * 4)
+                      .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.VALUE_Ingot * 3)
+                      .addInput(TinkerFluids.moltenDebris.get(), MaterialValues.VALUE_Ingot)
+                      .addCriterion("has_iron", hasItem(TinkerMaterials.cobaltIngot))
+                      .build(consumer, prefixR(TinkerFluids.moltenManyullyn, folder));
+
+    // netherrite
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenNetherite.get(), MaterialValues.VALUE_Nugget)
+                      .addInput(TinkerFluids.moltenDebris.get(), MaterialValues.VALUE_Nugget * 4)
+                      .addInput(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Nugget * 4)
+                      .addCriterion("has_iron", hasItem(Items.IRON_NUGGET))
+                      .build(consumer, prefixR(TinkerFluids.moltenNetherite, folder));
   }
 
 

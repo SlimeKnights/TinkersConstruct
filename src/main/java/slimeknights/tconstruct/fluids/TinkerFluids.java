@@ -38,11 +38,13 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenCopper = FLUIDS.register("molten_copper", moltenBuilder().color(0xffed9f07).temperature(542), Material.LAVA, 11);
   public static final FluidObject<ForgeFlowingFluid> moltenCobalt = FLUIDS.register("molten_cobalt", moltenBuilder().color(0xff2882d4).temperature(950), Material.LAVA, 10);
   public static final FluidObject<ForgeFlowingFluid> moltenArdite = FLUIDS.register("molten_ardite", moltenBuilder().color(0xffd14210).temperature(860), Material.LAVA, 8);
+  public static final FluidObject<ForgeFlowingFluid> moltenDebris = FLUIDS.register("molten_debris", moltenBuilder().color(0xff5d342c).temperature(800), Material.LAVA, 9);
   // alloys
   public static final FluidObject<ForgeFlowingFluid> moltenRoseGold = FLUIDS.register("molten_rose_gold", moltenBuilder().color(0xffbf8a71).temperature(537), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenManyullyn = FLUIDS.register("molten_manyullyn", moltenBuilder().color(0xffa15cf8).temperature(1000), Material.LAVA, 9);
   public static final FluidObject<ForgeFlowingFluid> moltenPigIron = FLUIDS.register("molten_pig_iron", moltenBuilder().color(0xffef9e9b).temperature(600), Material.LAVA, 10);
   public static final FluidObject<ForgeFlowingFluid> moltenKnightslime = FLUIDS.register("molten_knightslime", moltenBuilder().color(0xfff18ff0).temperature(520), Material.LAVA, 9);
+  public static final FluidObject<ForgeFlowingFluid> moltenNetherite = FLUIDS.register("molten_netherite", moltenBuilder().color(0xff3c3232).temperature(1100), Material.LAVA, 11);
 
   /** Creates a builder for a molten fluid */
   private static FluidAttributes.Builder stoneBuilder() {

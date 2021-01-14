@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:netherite_scrap"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_debris",
+    "amount": 144
+  },
+  "temperature": 250
+}

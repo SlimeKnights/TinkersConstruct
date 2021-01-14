@@ -218,6 +218,7 @@
 
     "item.tconstruct.cobalt_nugget": "Cobalt Nugget",
     "item.tconstruct.ardite_nugget": "Ardite Nugget",
+    "item.tconstruct.netherite_nugget": "Netherite Nugget",
     "item.tconstruct.manyullyn_nugget": "Manyullyn Nugget",
     "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
     "item.tconstruct.pigiron_nugget": "Pigiron Nugget",
@@ -278,6 +279,11 @@
     "fluid.tconstruct.flowing_molten_cobalt": "Flowing Molten Cobalt",
     "item.tconstruct.molten_cobalt_bucket": "Molten Cobalt Bucket",
 
+    "block.tconstruct.molten_debris_fluid": "Molten Debris",
+    "fluid.tconstruct.molten_debris": "Molten Debris",
+    "fluid.tconstruct.flowing_molten_debris": "Flowing Molten Debris",
+    "item.tconstruct.molten_debris_bucket": "Molten Debris Bucket",
+
     "block.tconstruct.molten_ardite_fluid": "Molten Ardite",
     "fluid.tconstruct.molten_ardite": "Molten Ardite",
     "fluid.tconstruct.flowing_molten_ardite": "Flowing Molten Ardite",
@@ -297,6 +303,11 @@
     "fluid.tconstruct.molten_pig_iron": "Molten Pig Iron",
     "fluid.tconstruct.flowing_molten_pig_iron": "Flowing Molten Pig Iron",
     "item.tconstruct.molten_pig_iron_bucket": "Molten Pig Iron Bucket",
+
+    "block.tconstruct.molten_netherite_fluid": "Molten Netherite",
+    "fluid.tconstruct.molten_netherite": "Molten Netherite",
+    "fluid.tconstruct.flowing_molten_netherite": "Flowing Molten Netherite",
+    "item.tconstruct.molten_netherite_bucket": "Molten Netherite Bucket",
 
     "block.tconstruct.molten_knightslime_fluid": "Molten Knightslime",
     "fluid.tconstruct.molten_knightslime": "Molten Knightslime",

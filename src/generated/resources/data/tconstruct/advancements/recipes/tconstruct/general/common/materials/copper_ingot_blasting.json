@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/materials/pigiron_ingot_crafting"
+      "tconstruct:common/materials/copper_ingot_blasting"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:purple_slime_ball"
+            "item": "tconstruct:copper_ore"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/materials/pigiron_ingot_crafting"
+        "recipe": "tconstruct:common/materials/copper_ingot_blasting"
       }
     }
   },

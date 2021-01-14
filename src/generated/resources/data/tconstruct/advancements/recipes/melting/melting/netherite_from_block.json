@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/materials/rose_gold_nugget_crafting"
+      "tconstruct:melting/netherite_from_block"
     ]
   },
   "criteria": {
-    "has_item": {
+    "hasItem": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:gold_nugget"
+            "tag": "forge:storage_blocks/netherite"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/materials/rose_gold_nugget_crafting"
+        "recipe": "tconstruct:melting/netherite_from_block"
       }
     }
   },
   "requirements": [
     [
-      "has_item",
+      "hasItem",
       "has_the_recipe"
     ]
   ]

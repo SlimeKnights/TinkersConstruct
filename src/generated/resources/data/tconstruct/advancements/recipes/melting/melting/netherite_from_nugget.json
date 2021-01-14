@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/materials/manyullyn_ingot_crafting"
+      "tconstruct:melting/netherite_from_nugget"
     ]
   },
   "criteria": {
-    "has_item": {
+    "hasItem": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:cobalt_ingot"
+            "tag": "forge:nuggets/iron"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/materials/manyullyn_ingot_crafting"
+        "recipe": "tconstruct:melting/netherite_from_nugget"
       }
     }
   },
   "requirements": [
     [
-      "has_item",
+      "hasItem",
       "has_the_recipe"
     ]
   ]

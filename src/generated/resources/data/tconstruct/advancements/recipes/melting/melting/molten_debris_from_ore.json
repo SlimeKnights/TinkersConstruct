@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/materials/manyullyn_nugget_crafting"
+      "tconstruct:melting/molten_debris_from_ore"
     ]
   },
   "criteria": {
-    "has_item": {
+    "hasItem": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:cobalt_nugget"
+            "tag": "forge:ores/netherite_scrap"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/materials/manyullyn_nugget_crafting"
+        "recipe": "tconstruct:melting/molten_debris_from_ore"
       }
     }
   },
   "requirements": [
     [
-      "has_item",
+      "hasItem",
       "has_the_recipe"
     ]
   ]

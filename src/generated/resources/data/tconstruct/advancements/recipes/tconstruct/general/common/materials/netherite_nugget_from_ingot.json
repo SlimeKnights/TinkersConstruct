@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/materials/rose_gold_ingot_crafting"
+      "tconstruct:common/materials/netherite_nugget_from_ingot"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:gold_ingot"
+            "item": "minecraft:netherite_ingot"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/materials/rose_gold_ingot_crafting"
+        "recipe": "tconstruct:common/materials/netherite_nugget_from_ingot"
       }
     }
   },

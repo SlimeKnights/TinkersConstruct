@@ -1,16 +1,16 @@
 {
   "type": "tconstruct:alloy",
   "output": {
-    "fluid": "tconstruct:molten_rose_gold",
+    "fluid": "tconstruct:molten_manyullyn",
     "amount": 576
   },
   "inputs": [
     {
-      "name": "tconstruct:molten_copper",
+      "name": "tconstruct:molten_cobalt",
       "amount": 432
     },
     {
-      "name": "tconstruct:molten_gold",
+      "name": "tconstruct:molten_debris",
       "amount": 144
     }
   ]

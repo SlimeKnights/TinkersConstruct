@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:smeltery/alloys/molten_pig_iron"
+      "tconstruct:melting/molten_debris_from_scrap"
     ]
   },
   "criteria": {
-    "has_iron": {
+    "hasItem": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:iron_ingot"
+            "tag": "forge:ores/netherite_scrap"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:smeltery/alloys/molten_pig_iron"
+        "recipe": "tconstruct:melting/molten_debris_from_scrap"
       }
     }
   },
   "requirements": [
     [
-      "has_iron",
+      "hasItem",
       "has_the_recipe"
     ]
   ]
