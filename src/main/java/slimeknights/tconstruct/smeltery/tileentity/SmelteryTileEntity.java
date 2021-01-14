@@ -86,7 +86,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /** Updates every second. Once it reaches 10, checks above the smeltery for a layer to see if we can expand up */
   private int expandCounter = 0;
   /** If true, structure will check for an update next tick */
-  private boolean updateQueued = false;
+  private boolean structureUpdateQueued = false;
+
+  /** If true, fluids have changed since the last update and should be synced to the client, synced at most once every 4 ticks */
+  private boolean fluidUpdateQueued = false;
 
   /** Module handling alloys */
   @Getter
@@ -110,9 +113,9 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
     }
 
     // run structure update if requested
-    if (updateQueued) {
+    if (structureUpdateQueued) {
       checkStructure();
-      updateQueued = false;
+      structureUpdateQueued = false;
     }
 
     // if we have a structure, run smeltery logic
@@ -124,13 +127,13 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
           expandCounter = 0;
           // instead of rechecking the whole structure, just recheck the layer above and queue an update if its usable
           if (multiblock.canExpand(structure, world)) {
-            queueUpdate();
+            updateStructure();
           }
         }
       } else if (tick % 4 == 0) {
         // check the next inside position to see if its a valid inner block every other tick
         if (!multiblock.isInnerBlock(world, structure.getNextInsideCheck())) {
-          queueUpdate();
+          updateStructure();
         }
       }
 
@@ -154,13 +157,17 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
         case 2:
           alloyingModule.doAlloy();
           break;
-          // fourth tick: consume fuel
+          // fourth tick: consume fuel, update fluids
         case 3:
           fuelModule.decreaseFuel(fuelRate);
+          if (fluidUpdateQueued) {
+            fluidUpdateQueued = false;
+            tank.syncFluids();
+          }
           break;
       }
     } else if (tick == 0) {
-      queueUpdate();
+      updateStructure();
     }
 
     // update tick timer
@@ -207,8 +214,8 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /**
    * Marks the smeltery for a structure check
    */
-  public void queueUpdate() {
-    updateQueued = true;
+  public void updateStructure() {
+    structureUpdateQueued = true;
   }
 
   /**
@@ -292,7 +299,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
 
     assert world != null;
     if (multiblock.shouldUpdate(world, structure, pos, state)) {
-      queueUpdate();
+      updateStructure();
     }
   }
 
@@ -311,6 +318,9 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
     if (type == FluidChange.ADDED) {
       alloyingModule.clearCachedRecipes();
     }
+
+    // mark that fluids need an update on the client
+    fluidUpdateQueued = true;
   }
 
 

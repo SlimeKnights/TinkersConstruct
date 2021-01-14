@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -41,7 +42,7 @@ public class SmelteryTank implements IFluidHandler {
   /**
    * Called when the fluids change to sync to client
    */
-  private void syncFluids() {
+  public void syncFluids() {
     TileEntity te = parent.getTileEntity();
     World world = te.getWorld();
     if (world != null && !world.isRemote) {
@@ -127,7 +128,7 @@ public class SmelteryTank implements IFluidHandler {
       FluidStack fluid = fluids.get(index);
       fluids.remove(index);
       fluids.add(0, fluid);
-      syncFluids();
+      parent.notifyFluidsChanged(FluidChange.CHANGED, Fluids.EMPTY);
     }
   }
 
@@ -157,11 +158,11 @@ public class SmelteryTank implements IFluidHandler {
     contained += usable;
 
     // check if we already have the given liquid
-    for (FluidStack liquid : fluids) {
-      if (liquid.isFluidEqual(resource)) {
+    for (FluidStack fluid : fluids) {
+      if (fluid.isFluidEqual(resource)) {
         // yup. add it
-        liquid.grow(usable);
-        syncFluids();
+        fluid.grow(usable);
+        parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getFluid());
         return usable;
       }
     }
@@ -170,7 +171,6 @@ public class SmelteryTank implements IFluidHandler {
     resource = resource.copy();
     resource.setAmount(usable);
     fluids.add(resource);
-    syncFluids();
     parent.notifyFluidsChanged(FluidChange.ADDED, resource.getFluid());
     return usable;
   }
@@ -197,8 +197,9 @@ public class SmelteryTank implements IFluidHandler {
       if (fluid.getAmount() <= 0) {
         fluids.remove(fluid);
         parent.notifyFluidsChanged(FluidChange.REMOVED, fluid.getFluid());
+      } else {
+        parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getFluid());
       }
-      syncFluids();
     }
 
     // return drained fluid
@@ -227,8 +228,9 @@ public class SmelteryTank implements IFluidHandler {
           if (fluid.getAmount() <= 0) {
             iter.remove();
             parent.notifyFluidsChanged(FluidChange.REMOVED, fluid.getFluid());
+          } else {
+            parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getFluid());
           }
-          syncFluids();
         }
 
         return ret;

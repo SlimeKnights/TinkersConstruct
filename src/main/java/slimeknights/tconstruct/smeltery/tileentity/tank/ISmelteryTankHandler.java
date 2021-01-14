@@ -29,10 +29,18 @@ public interface ISmelteryTankHandler extends IForgeTileEntity {
 
   /**
    * Called when the tank adds or removes a fluid to notify listeners
-   * @param type  Type of the change
+   * @param type   Type of the change
+   * @param fluid  Fluid changed, may be empty if multiple fluids change (order change for example)
    */
   default void notifyFluidsChanged(FluidChange type, Fluid fluid) {}
 
   /** Simple enum to make {@link #notifyFluidsChanged(FluidChange, Fluid)} more readible */
-  enum FluidChange { ADDED, REMOVED; }
+  enum FluidChange {
+    /** Fluid was added to the tank */
+    ADDED,
+    /** Fluid size changed */
+    CHANGED,
+    /** Fluid was removed from the block */
+    REMOVED
+  }
 }
