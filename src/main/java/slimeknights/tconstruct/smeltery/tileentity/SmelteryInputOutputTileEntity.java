@@ -135,7 +135,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   /** Item implementation of smeltery IO */
   public static class DuctTileEntity extends SmelteryInputOutputTileEntity<IItemHandler> {
     public DuctTileEntity() {
-      this(TinkerSmeltery.drain.get());
+      this(TinkerSmeltery.duct.get());
     }
 
     protected DuctTileEntity(TileEntityType<?> type) {
