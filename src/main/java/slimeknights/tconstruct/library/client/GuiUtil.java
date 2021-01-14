@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.client;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -119,6 +120,7 @@ public final class GuiUtil {
       TextureAtlasSprite fluidSprite = screen.getMinecraft().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(stack.getFluid().getAttributes().getStillTexture(stack));
       RenderUtils.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
       renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));
+      GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
   }
 

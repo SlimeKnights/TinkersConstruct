@@ -56,7 +56,11 @@ public class FuelModule implements IIntArray {
   private BlockPos lastPos = null;
 
   /** Current amount of fluid in the TE */
+  @Getter
   private int fuel = 0;
+  /** Amount of fuel produced by the last source */
+  @Getter
+  private int fuelQuality = 0;
   /** Temperature of the current fuel */
   @Getter
   private int temperature = 0;
@@ -131,6 +135,7 @@ public class FuelModule implements IIntArray {
           TConstruct.log.error("Invalid amount of fuel drained from tank");
         }
         fuel += recipe.getDuration();
+        fuelQuality = recipe.getDuration();
         temperature = recipe.getTemperature();
         return true;
       }
@@ -227,14 +232,15 @@ public class FuelModule implements IIntArray {
 
   /* UI syncing */
   private static final int FUEL = 0;
-  private static final int TEMPERATURE = 1;
-  private static final int LAST_X = 2;
-  private static final int LAST_Y = 3;
-  private static final int LAST_Z = 4;
+  private static final int FUEL_QUALITY = 1;
+  private static final int TEMPERATURE = 2;
+  private static final int LAST_X = 3;
+  private static final int LAST_Y = 4;
+  private static final int LAST_Z = 5;
 
   @Override
   public int size() {
-    return 5;
+    return 6;
   }
 
   @Override
@@ -242,6 +248,8 @@ public class FuelModule implements IIntArray {
     switch (index) {
       case FUEL:
         return fuel;
+      case FUEL_QUALITY:
+        return fuelQuality;
       case TEMPERATURE:
         return temperature;
       case LAST_X:
@@ -259,6 +267,9 @@ public class FuelModule implements IIntArray {
     switch (index) {
       case FUEL:
         fuel = value;
+        break;
+      case FUEL_QUALITY:
+        fuelQuality = value;
         break;
       case TEMPERATURE:
         temperature = value;

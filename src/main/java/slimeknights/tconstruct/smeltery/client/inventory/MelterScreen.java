@@ -35,7 +35,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
     if (te != null) {
       FuelModule fuelModule = te.getFuelModule();
       melting = new GuiMeltingModule(this, te.getMeltingInventory(), fuelModule::getTemperature, slot -> true);
-      fuel = new GuiFuelModule(this, fuelModule, 153, 16, 12, 52);
+      fuel = new GuiFuelModule(this, fuelModule, 153, 32, 12, 36, 152, 15);
     } else {
       melting = null;
       fuel = null;
@@ -61,7 +61,10 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
     }
 
     // fuel
-    if (fuel != null) fuel.drawTank(matrices);
+    if (fuel != null) {
+      getMinecraft().getTextureManager().bindTexture(BACKGROUND);
+      fuel.draw(matrices);
+    }
   }
 
   @Override

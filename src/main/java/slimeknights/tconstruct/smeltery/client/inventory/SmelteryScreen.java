@@ -40,7 +40,7 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> {
       addModule(sideInventory);
       FuelModule fuelModule = te.getFuelModule();
       this.melting = new GuiMeltingModule(this, te.getMeltingInventory(), fuelModule::getTemperature, sideInventory::shouldDrawSlot);
-      this.fuel = new GuiFuelModule(this, fuelModule, 71, 16, 12, 52);
+      this.fuel = new GuiFuelModule(this, fuelModule, 71, 32, 12, 36, 70, 15);
     } else {
       this.smeltery = null;
       this.tank = null;
@@ -64,11 +64,15 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> {
     GuiUtil.drawBackground(matrices, this, BACKGROUND);
     super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
 
+
     // render fluids
     if (tank != null) tank.renderFluids(matrices);
 
     // fuel
-    if (fuel != null) fuel.drawTank(matrices);
+    if (fuel != null) {
+      getMinecraft().getTextureManager().bindTexture(BACKGROUND);
+      fuel.draw(matrices);
+    }
   }
 
   @Override

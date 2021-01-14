@@ -7,6 +7,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
@@ -21,6 +22,8 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 public class GuiFuelModule {
+  private static final ScalableElementScreen FIRE = new ScalableElementScreen(176, 136, 14, 14, 256, 256);
+
   // tooltips
   private static final String TOOLTIP_NO_FUEL = Util.makeTranslationKey("gui", "melting.fuel.empty");
   private static final String TOOLTIP_TEMPERATURE = Util.makeTranslationKey("gui", "melting.fuel.temperature");
@@ -29,12 +32,20 @@ public class GuiFuelModule {
   private final ContainerScreen<?> screen;
   private final FuelModule fuelModule;
   private final int x, y, width, height;
+  private final int fireX, fireY;
 
   /**
    * Draws the fuel at the correct location
    * @param matrices  Matrix stack instance
    */
-  public void drawTank(MatrixStack matrices) {
+  public void draw(MatrixStack matrices) {
+    // draw fire
+    int fuel = fuelModule.getFuel();
+    if (fuel > 0) {
+      FIRE.drawScaledYUp(matrices, fireX + screen.guiLeft, fireY + screen.guiTop, 14 * fuel / fuelModule.getFuelQuality());
+    }
+
+    // draw tank second, it changes the image
     FuelInfo fuelInfo = fuelModule.getFuelInfo();
     if (!fuelInfo.isEmpty()) {
       GuiUtil.renderFluidTank(matrices, screen, fuelInfo.getFuel(), fuelInfo.getCapacity(), x, y, width, height, 100);
