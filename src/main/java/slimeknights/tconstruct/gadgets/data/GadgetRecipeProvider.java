@@ -167,13 +167,13 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                         .patternLine(" X ")
                         .patternLine("X X")
                         .patternLine(" X ")
-                        .build(consumer, prefix(TinkerGadgets.flintShuriken, "gadgets/flint_shuriken/"));
+                        .build(consumer, prefix(TinkerGadgets.flintShuriken, "gadgets/shuriken/"));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.quartzShuriken.get(), 4)
                         .key('X', Items.QUARTZ)
                         .patternLine(" X ")
                         .patternLine("X X")
                         .patternLine(" X ")
-                        .build(consumer, prefix(TinkerGadgets.quartzShuriken, "gadgets/quartz_shuriken/"));
+                        .build(consumer, prefix(TinkerGadgets.quartzShuriken, "gadgets/shuriken/"));
 
     // piggybackpack
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.piggyBackpack.get())
