@@ -25,6 +25,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
@@ -89,7 +90,7 @@ public abstract class AbstractCastingCategory<T extends ItemCastingRecipe> imple
 
   @Override
   public List<ITextComponent> getTooltipStrings(T recipe, double mouseX, double mouseY) {
-    if (mouseX >= 63 && mouseY >= 39 && mouseX < 76 && mouseY < 50 && recipe.getCast() != Ingredient.EMPTY) {
+    if (recipe.getCast() != Ingredient.EMPTY && GuiUtil.isHovered((int)mouseX, (int)mouseY, 63, 39, 13, 11)) {
       return Collections.singletonList(new TranslationTextComponent(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
     }
     return Collections.emptyList();

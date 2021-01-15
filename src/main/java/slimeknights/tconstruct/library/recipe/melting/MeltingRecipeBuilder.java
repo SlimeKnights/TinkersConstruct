@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.advancements.Advancement.Builder;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -23,11 +23,12 @@ import java.util.function.ToIntFunction;
 /**
  * Builder for a recipe that melts an ingredient into a fuel
  */
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBuilder> {
   private final Ingredient input;
   private final FluidStack output;
   private final int temperature;
+  private boolean isOre = false;
 
   /**
    * Creates a new builder instance using a specific temperature
@@ -76,6 +77,15 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
     return melting(input, new FluidStack(fluid, amount));
   }
 
+  /**
+   * Sets this recipe as an ore recipe, output multiplied based on the melter
+   * @return  Builder instance
+   */
+  public MeltingRecipeBuilder setOre() {
+    this.isOre = true;
+    return this;
+  }
+
   @Override
   public void build(Consumer<IFinishedRecipe> consumer) {
     build(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
@@ -83,20 +93,19 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildAdvancement(id, "melting");
-    consumer.accept(new Result(id, group, input, output, temperature, advancementBuilder, advancementId));
+    // only build JSON if needed
+    ResourceLocation advancementId = null;
+    if (!advancementBuilder.getCriteria().isEmpty()) {
+      advancementId = this.buildAdvancement(id, "melting");
+    }
+    consumer.accept(new Result(id, advancementId));
   }
 
   @AllArgsConstructor
-  private static class Result implements IFinishedRecipe {
+  private class Result implements IFinishedRecipe {
     @Getter
     private final ResourceLocation ID;
-    private final String group;
-    private final Ingredient input;
-    private final FluidStack output;
-    private final int temperature;
-    private final Builder advancementBuilder;
-    @Getter
+    @Getter @Nullable
     private final ResourceLocation advancementID;
 
     @Override
@@ -104,20 +113,24 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
-      json.add("ingredient", this.input.serialize());
-      json.add("result", RecipeHelper.serializeFluidStack(this.output));
-      json.addProperty("temperature", this.temperature);
+      json.add("ingredient", input.serialize());
+      json.add("result", RecipeHelper.serializeFluidStack(output));
+      json.addProperty("temperature", temperature);
     }
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.meltingSerializer.get();
+      return isOre ? TinkerSmeltery.oreMeltingSerializer.get() : TinkerSmeltery.meltingSerializer.get();
     }
 
     @Override
     @Nullable
     public JsonObject getAdvancementJson() {
-      return this.advancementBuilder.serialize();
+      // only build JSON if needed
+      if (advancementID == null) {
+        return null;
+      }
+      return advancementBuilder.serialize();
     }
   }
 }

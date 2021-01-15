@@ -4,7 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -12,20 +11,20 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 /**
  * Common interface for all melting recipes
  */
-public interface IMeltingRecipe extends ICustomOutputRecipe<ISingleItemInventory> {
+public interface IMeltingRecipe extends ICustomOutputRecipe<IMeltingInventory> {
   /**
    * Gets a new instance of the output stack for this recipe
    * @param inv  Input inventory
    * @return  Output stack
    */
-  FluidStack getOutput(ISingleItemInventory inv);
+  FluidStack getOutput(IMeltingInventory inv);
 
   /**
    * Gets the minimum temperatue to melt this item. Doubles as the time
    * @param inv  Inventory instance
    * @return  Recipe temperature
    */
-  int getTemperature(ISingleItemInventory inv);
+  int getTemperature(IMeltingInventory inv);
 
   /* Recipe data */
 

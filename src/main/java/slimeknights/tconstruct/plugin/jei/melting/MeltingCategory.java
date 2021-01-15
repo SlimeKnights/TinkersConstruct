@@ -25,6 +25,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
@@ -32,11 +33,13 @@ import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.awt.Color;
+import java.util.Collections;
 import java.util.List;
 
 public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltipCallback<FluidStack> {
   private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/melting.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "melting.title");
+  private static final String KEY_ORE = Util.makeTranslationKey("jei", "melting.ore");
   private static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "melting.temperature");
 
   @Getter
@@ -47,6 +50,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltip
   private final IDrawable icon;
   private final IDrawableStatic tankOverlay;
   private final IDrawableAnimated heatBar;
+  private final IDrawableStatic plus;
 
   public MeltingCategory(IGuiHelper helper) {
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 132, 40);
@@ -54,6 +58,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltip
     this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.tankOverlay = helper.createDrawable(BACKGROUND_LOC, 132, 0, 32, 32);
     this.heatBar = helper.drawableBuilder(BACKGROUND_LOC, 164, 0, 3, 16).buildAnimated(200, StartDirection.BOTTOM, false);
+    this.plus = helper.drawableBuilder(BACKGROUND_LOC, 132, 34, 6, 6).build();
   }
 
   @Override
@@ -69,17 +74,28 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltip
   @Override
   public void setIngredients(MeltingRecipe recipe, IIngredients ingredients) {
     ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutput());
+    ingredients.setOutputLists(VanillaTypes.FLUID, recipe.getDisplayOutput());
   }
 
   @Override
   public void draw(MeltingRecipe recipe, MatrixStack matrices, double mouseX, double mouseY) {
     heatBar.draw(matrices, 24, 18);
+    if (recipe.isOre()) {
+      plus.draw(matrices, 87, 31);
+    }
 
     String tempString = I18n.format(KEY_TEMPERATURE, recipe.getTemperature());
     FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
     int x = 56 - fontRenderer.getStringWidth(tempString) / 2;
     fontRenderer.drawString(matrices, tempString, x, 3, Color.GRAY.getRGB());
+  }
+
+  @Override
+  public List<ITextComponent> getTooltipStrings(MeltingRecipe recipe, double mouseX, double mouseY) {
+    if (recipe.isOre() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 87, 31, 16, 16)) {
+      return Collections.singletonList(new TranslationTextComponent(KEY_ORE));
+    }
+    return Collections.emptyList();
   }
 
   @Override

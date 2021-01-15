@@ -790,6 +790,7 @@
     
     "jei.tconstruct.melting.title": "Melting",
     "jei.tconstruct.melting.temperature": "%s°C",
+    "jei.tconstruct.melting.ore": "Recipe output is boosted based on the block",
     "jei.tconstruct.entity_melting.title": "Entity Melting",
 
     "jei.tconstruct.alloy.title": "Alloying"

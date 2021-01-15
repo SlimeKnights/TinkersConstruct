@@ -14,6 +14,7 @@ import slimeknights.mantle.tileentity.MantleTileEntity;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
+import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
 /**
@@ -24,34 +25,42 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   private static final String TAG_ITEMS = "items";
   private static final String TAG_SIZE = "size";
 
-
+  /** Parent tile entity */
   private final MantleTileEntity parent;
-  private MeltingModule[] modules;
-  private final boolean strictSize;
+  /** Fluid handler for outputs */
   private final IFluidHandler fluidHandler;
+  /** Array of modules containing each slot */
+  private MeltingModule[] modules;
+  /** If true, module cannot be resized */
+  private final boolean strictSize;
+  /** Number of nuggets to produce when melting an ore */
+  private final IntSupplier nuggetsPerOre;
+  /** Cache of predicate for fluid output */
   private final Predicate<FluidStack> outputFunction = this::tryFillTank;
 
   /**
    * Creates a new inventory with a fixed size
-   * @param parent  Parent tile
-   * @param size    Size
+   * @param parent         Parent tile
+   * @param fluidHandler   Tank for output
+   * @param nuggetsPerOre  Number of nuggets to produce from an ore block
+   * @param size           Size
    */
-  public MeltingModuleInventory(MantleTileEntity parent, IFluidHandler fluidHandler, int size) {
+  public MeltingModuleInventory(MantleTileEntity parent, IFluidHandler fluidHandler, IntSupplier nuggetsPerOre, int size) {
     this.parent = parent;
     this.fluidHandler = fluidHandler;
     this.modules = new MeltingModule[size];
-    this.strictSize = true;
+    this.nuggetsPerOre = nuggetsPerOre;
+    this.strictSize = size != 0;
   }
 
   /**
    * Creates a new inventory with a variable size
-   * @param parent  Parent tile
+   * @param parent         Parent tile
+   * @param fluidHandler   Tank for output
+   * @param nuggetsPerOre  Number of nuggets to produce from an ore block
    */
-  public MeltingModuleInventory(MantleTileEntity parent, IFluidHandler fluidHandler) {
-    this.parent = parent;
-    this.fluidHandler = fluidHandler;
-    this.modules = new MeltingModule[0];
-    this.strictSize = false;
+  public MeltingModuleInventory(MantleTileEntity parent, IFluidHandler fluidHandler, IntSupplier nuggetsPerOre) {
+    this(parent, fluidHandler, nuggetsPerOre, 0);
   }
 
   /* Properties */
@@ -118,7 +127,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       throw new IndexOutOfBoundsException();
     }
     if (modules[slot] == null) {
-      modules[slot] = new MeltingModule(parent, outputFunction, slot);
+      modules[slot] = new MeltingModule(parent, outputFunction, nuggetsPerOre, slot);
     }
     return modules[slot];
   }

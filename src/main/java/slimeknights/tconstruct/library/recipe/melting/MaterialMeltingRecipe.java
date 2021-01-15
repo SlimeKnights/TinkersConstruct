@@ -15,7 +15,6 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.RecipeSerializer;
-import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -39,19 +38,19 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   private List<MeltingRecipe> multiRecipes;
 
   @Override
-  public boolean matches(ISingleItemInventory inv, World worldIn) {
+  public boolean matches(IMeltingInventory inv, World worldIn) {
     // must be a item, and the item must have something to melt into
     ItemStack stack = inv.getStack();
     return stack.getItem() == item && item.getMaterial(stack).getFluid() != Fluids.EMPTY;
   }
 
   @Override
-  public FluidStack getOutput(ISingleItemInventory inv) {
+  public FluidStack getOutput(IMeltingInventory inv) {
     return new FluidStack(item.getMaterial(inv.getStack()).getFluid(), amount);
   }
 
   @Override
-  public int getTemperature(ISingleItemInventory inv) {
+  public int getTemperature(IMeltingInventory inv) {
     return IMeltingRecipe.calcTemperature(item.getMaterial(inv.getStack()).getTemperature(), amount);
   }
 

@@ -24,6 +24,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.NamableTileEntity;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.library.Util;
@@ -75,7 +76,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
 
   /** Inventory handling melting items */
   @Getter
-  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank);
+  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, Config.COMMON.smelteryNuggetsPerOre::get);
 
   /** Fuel module */
   @Getter

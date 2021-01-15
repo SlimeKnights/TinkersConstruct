@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:melting",
+  "type": "tconstruct:ore_melting",
   "ingredient": {
     "tag": "forge:ores/netherite_scrap"
   },

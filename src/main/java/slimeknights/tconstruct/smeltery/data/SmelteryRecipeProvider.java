@@ -362,9 +362,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     addMetalMelting(consumer, TinkerFluids.moltenCopper.get(), "copper", true, folder);
     addMetalMelting(consumer, TinkerFluids.moltenCobalt.get(), "cobalt", true, folder);
     addMetalMelting(consumer, TinkerFluids.moltenArdite.get(), "ardite", true, folder);
-    // TODO: ore recipe
     ITag<Item> ore = Tags.Items.ORES_NETHERITE_SCRAP;
     MeltingRecipeBuilder.melting(Ingredient.fromTag(ore), TinkerFluids.moltenDebris.get(), MaterialValues.VALUE_Ingot)
+                        .setOre()
                         .addCriterion("hasItem", hasItem(ore))
                         .build(consumer, location(folder + "molten_debris_from_ore"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), MaterialValues.VALUE_Ingot)
@@ -416,7 +416,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, location(folder + "obsidian"));
 
     // emerald
-    // TODO: ore recipe
     MeltingRecipeBuilder.melting(Ingredient.fromTag(Tags.Items.ORES_EMERALD), TinkerFluids.moltenEmerald.get(), MaterialValues.VALUE_Gem)
                         .addCriterion("has_item", hasItem(Tags.Items.ORES_EMERALD))
                         .build(consumer, prefix(Items.EMERALD_ORE, folder));
@@ -529,9 +528,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .addCriterion("hasItem", hasItem(Tags.Items.NUGGETS_IRON))
                         .build(consumer, location(prefix + "nugget"));
     if (hasOre) {
-      // TODO: mark as an ore recipe for ore doubling
       ITag<Item> ore = getTag("forge", "ores/" + name);
       MeltingRecipeBuilder.melting(Ingredient.fromTag(ore), fluid, MaterialValues.VALUE_Ingot)
+                          .setOre()
                           .addCriterion("hasItem", hasItem(ore))
                           .build(consumer, location(prefix + "ore"));
     }

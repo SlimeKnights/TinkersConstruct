@@ -8,22 +8,23 @@ import net.minecraft.util.IIntArray;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
+import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
 /**
  * This class represents a single item slot that can melt into a liquid
  */
 @RequiredArgsConstructor
-public class MeltingModule implements ISingleItemInventory, IIntArray {
+public class MeltingModule implements IMeltingInventory, IIntArray {
   public static final int NO_SPACE = -1;
 
   private static final String TAG_CURRENT_TEMP = "temp";
@@ -35,6 +36,8 @@ public class MeltingModule implements ISingleItemInventory, IIntArray {
   private final MantleTileEntity parent;
   /** Function that accepts fluid output from this module */
   private final Predicate<FluidStack> outputFunction;
+  /** Function that gives the nuggets per ore for this module */
+  private final IntSupplier nuggetsPerOre;
   /** Slot index for updates */
   private final int slotIndex;
 
@@ -51,6 +54,11 @@ public class MeltingModule implements ISingleItemInventory, IIntArray {
   /** Current item in this slot */
   @Getter
   private ItemStack stack = ItemStack.EMPTY;
+
+  @Override
+  public int getNuggetsPerOre() {
+    return nuggetsPerOre.getAsInt();
+  }
 
   /**
    * Sets the contents of this module

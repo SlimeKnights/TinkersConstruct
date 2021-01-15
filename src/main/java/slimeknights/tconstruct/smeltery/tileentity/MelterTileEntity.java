@@ -22,6 +22,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.tileentity.NamableTileEntity;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -61,7 +62,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   /* Heating */
   /** Handles all the melting needs */
   @Getter
-  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, 3);
+  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, Config.COMMON.melterNuggetsPerOre::get, 3);
   /** Capability holder for the tank */
   private final LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> meltingInventory);
 
