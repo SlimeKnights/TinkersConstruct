@@ -118,12 +118,12 @@ public final class TinkerGadgets extends TinkerModule {
   public static final ItemObject<Item> soggySpaghetti = ITEMS.register("soggy_spaghetti", SPAGET_PROPS);
   public static final ItemObject<Item> coldSpaghetti = ITEMS.register("cold_spaghetti", SPAGET_PROPS);
 
-  // Shuriken Properties -- TODO potentially make "THROWABLE_PROPS" or similar for other throwballs
-  private static final Item.Properties SHURIKEN_PROPS = new Item.Properties().maxStackSize(16).group(TAB_GADGETS);
+  // Shuriken Properties
+  private static final Item.Properties THROWABLE_PROPS = new Item.Properties().maxStackSize(16).group(TAB_GADGETS);
 
   // Shurikens
-  public static final ItemObject<ShurikenItem> quartzShuriken = ITEMS.register("quartz_shuriken", () -> new ShurikenItem(SHURIKEN_PROPS, QuartzShurikenEntity::new));
-  public static final ItemObject<ShurikenItem> flintShuriken = ITEMS.register("flint_shuriken", () -> new ShurikenItem(SHURIKEN_PROPS, FlintShurikenEntity::new));
+  public static final ItemObject<ShurikenItem> quartzShuriken = ITEMS.register("quartz_shuriken", () -> new ShurikenItem(THROWABLE_PROPS, QuartzShurikenEntity::new));
+  public static final ItemObject<ShurikenItem> flintShuriken = ITEMS.register("flint_shuriken", () -> new ShurikenItem(THROWABLE_PROPS, FlintShurikenEntity::new));
 
   /*
    * Entities

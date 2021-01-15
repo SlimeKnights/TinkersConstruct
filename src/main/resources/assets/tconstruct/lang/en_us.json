@@ -378,7 +378,9 @@
     "item.tconstruct.efln_ball.tooltip": "Explodes! Safe for mining",
 
     "item.tconstruct.quartz_shuriken": "Quartz Shuriken",
+    "item.tconstruct.quartz_shuriken.tooltip": "A throwable weapon with higher damage",
     "item.tconstruct.flint_shuriken": "Flint Shuriken",
+    "item.tconstruct.flint_shuriken.tooltip": "A throwable weapon with high knockback",
 
     "item.tconstruct.green_slime_sling": "Slimesling",
     "item.tconstruct.green_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
