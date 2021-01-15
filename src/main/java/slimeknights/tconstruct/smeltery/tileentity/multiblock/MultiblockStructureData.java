@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 import lombok.Getter;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import slimeknights.mantle.util.TileEntityHelper;
@@ -52,6 +53,10 @@ public class MultiblockStructureData {
   @Getter
   private final int internalSize;
 
+  /** Bounding box representing the area inside the structure */
+  @Getter
+  private final AxisAlignedBB bounds;
+
   public MultiblockStructureData(BlockPos minPos, BlockPos maxPos, Set<BlockPos> extraPositons, boolean hasFloor, boolean hasFrame, boolean hasCeiling) {
     this.minPos = minPos;
     this.maxPos = maxPos;
@@ -66,6 +71,7 @@ public class MultiblockStructureData {
     internalSize = (maxInside.getX() - minInside.getX() + 1)
                    * (maxInside.getY() - minInside.getY() + 1)
                    * (maxInside.getZ() - minInside.getZ() + 1);
+    bounds = new AxisAlignedBB(minInside, maxInside.add(1, 1, 1));
   }
 
   /**

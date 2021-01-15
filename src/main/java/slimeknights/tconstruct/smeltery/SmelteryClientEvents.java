@@ -34,6 +34,7 @@ import slimeknights.tconstruct.smeltery.client.render.CastingTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.ChannelTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.FaucetTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.MelterTileEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.SmelteryTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.TankTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
@@ -68,6 +69,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.table.get(), CastingTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.basin.get(), CastingTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.melter.get(), MelterTileEntityRenderer::new);
+    ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.smeltery.get(), SmelteryTileEntityRenderer::new);
 
     // screens
     ScreenManager.registerFactory(TinkerSmeltery.melterContainer.get(), MelterScreen::new);

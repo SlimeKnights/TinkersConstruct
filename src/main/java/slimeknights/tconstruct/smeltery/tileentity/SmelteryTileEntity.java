@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -61,7 +62,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
 
   /* Saved data, written to NBT */
   /** Current structure contents */
-  @Nullable
+  @Nullable @Getter
   private MultiblockSmeltery.StructureData structure;
   /** Tank instance for this smeltery */
   @Getter
@@ -80,6 +81,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /** Current fuel consumption rate */
   private int fuelRate = 1;
 
+
   /* Instance data, this data is not written to NBT */
   /** Timer to allow delaying actions based on number of ticks alive */
   private int tick = 0;
@@ -87,9 +89,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   private int expandCounter = 0;
   /** If true, structure will check for an update next tick */
   private boolean structureUpdateQueued = false;
-
   /** If true, fluids have changed since the last update and should be synced to the client, synced at most once every 4 ticks */
   private boolean fluidUpdateQueued = false;
+  /** Cache of the bounds for the case of no structure */
+  private AxisAlignedBB defaultBounds;
 
   /** Module handling alloys */
   @Getter
@@ -322,6 +325,16 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
 
     // mark that fluids need an update on the client
     fluidUpdateQueued = true;
+  }
+
+  @Override
+  public AxisAlignedBB getRenderBoundingBox() {
+    if (structure != null) {
+      return structure.getBounds();
+    } else if (defaultBounds == null) {
+      defaultBounds = new AxisAlignedBB(pos, pos.add(1, 1, 1));
+    }
+    return defaultBounds;
   }
 
 
