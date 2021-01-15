@@ -545,8 +545,8 @@
     
     "block.tconstruct.seared_drain": "Seared Drain",
     "block.tconstruct.seared_drain.tooltop": "Smeltery fluid input and output",
-    "block.tconstruct.seared_duct": "Seared Duct",
-    "block.tconstruct.seared_duct.tooltop": "Smeltery item input and output",
+    "block.tconstruct.seared_chute": "Seared Chute",
+    "block.tconstruct.seared_chute.tooltop": "Smeltery item input and output",
 
     "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
     "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",

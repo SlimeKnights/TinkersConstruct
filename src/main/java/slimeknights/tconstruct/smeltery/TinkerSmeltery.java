@@ -61,8 +61,8 @@ import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.ChuteTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.DrainTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.DuctTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
@@ -111,7 +111,7 @@ public final class TinkerSmeltery extends TinkerModule {
 
   // peripherals
   public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> searedDuct = BLOCKS.register("seared_duct", () -> new OrientableSmelteryBlock(SMELTERY, DuctTileEntity::new), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new OrientableSmelteryBlock(SMELTERY, ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
 
   /** Properties for a faucet block */
   private static final Block.Properties FAUCET = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).notSolid();
@@ -138,7 +138,7 @@ public final class TinkerSmeltery extends TinkerModule {
     set.add(searedCrackedBricks.get(), searedFancyBricks.get(), searedTriangleBricks.get(), searedLadder.get(), searedGlass.get());
   });
   public static final RegistryObject<TileEntityType<DrainTileEntity>> drain = TILE_ENTITIES.register("drain", DrainTileEntity::new, searedDrain);
-  public static final RegistryObject<TileEntityType<DuctTileEntity>> duct = TILE_ENTITIES.register("duct", DuctTileEntity::new, searedDuct);
+  public static final RegistryObject<TileEntityType<ChuteTileEntity>> chute = TILE_ENTITIES.register("chute", ChuteTileEntity::new, searedChute);
   public static final RegistryObject<TileEntityType<TankTileEntity>> tank = TILE_ENTITIES.register("tank", TankTileEntity::new, (set) -> set.addAll(searedTank.values()));
   // controller
   public static final RegistryObject<TileEntityType<MelterTileEntity>> melter = TILE_ENTITIES.register("melter", MelterTileEntity::new, searedMelter);

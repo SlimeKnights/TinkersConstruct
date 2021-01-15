@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=west":  { "model": "tconstruct:block/smeltery/chute", "y":  90 },
+    "facing=south": { "model": "tconstruct:block/smeltery/chute"  },
+    "facing=north": { "model": "tconstruct:block/smeltery/chute", "y": 180 },
+    "facing=east":  { "model": "tconstruct:block/smeltery/chute", "y": 270 }
+  }
+}
