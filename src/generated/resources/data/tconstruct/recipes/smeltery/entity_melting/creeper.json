@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:entity_melting",
   "entity": {
-    "type": "tconstruct:blue_slime"
+    "type": "minecraft:creeper"
   },
   "output": {
-    "fluid": "tconstruct:blue_slime",
-    "amount": 25
+    "fluid": "tconstruct:molten_glass",
+    "amount": 36
   },
   "damage": 2
 }

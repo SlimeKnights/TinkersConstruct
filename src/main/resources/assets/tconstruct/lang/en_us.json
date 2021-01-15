@@ -234,6 +234,11 @@
     "fluid.tconstruct.flowing_blood": "Flowing Blood",
     "item.tconstruct.blood_bucket": "Bucket o' Blood",
 
+    "block.tconstruct.green_slime_fluid": "Green Slime",
+    "fluid.tconstruct.green_slime": "Green Slime",
+    "fluid.tconstruct.flowing_green_slime": "Flowing Green Slime",
+    "item.tconstruct.green_slime_bucket": "Green Slime Bucket",
+
     "block.tconstruct.blue_slime_fluid": "Blue Slime",
     "fluid.tconstruct.blue_slime": "Blue Slime",
     "fluid.tconstruct.flowing_blue_slime": "Flowing Blue Slime",
@@ -313,6 +318,21 @@
     "fluid.tconstruct.molten_knightslime": "Molten Knightslime",
     "fluid.tconstruct.flowing_molten_knightslime": "Flowing Molten Knightslime",
     "item.tconstruct.molten_knightslime_bucket": "Molten Knightslime Bucket",
+
+    "block.tconstruct.molten_emerald_fluid": "Molten Emerald",
+    "fluid.tconstruct.molten_emerald": "Molten Emerald",
+    "fluid.tconstruct.flowing_molten_emerald": "Flowing Molten Emerald",
+    "item.tconstruct.molten_emerald_bucket": "Molten Emerald Bucket",
+
+    "block.tconstruct.molten_blaze_fluid": "Molten Blaze",
+    "fluid.tconstruct.molten_blaze": "Molten Blaze",
+    "fluid.tconstruct.flowing_molten_blaze": "Flowing Molten Blaze",
+    "item.tconstruct.molten_blaze_bucket": "Molten Blaze Bucket",
+
+    "block.tconstruct.molten_ender_fluid": "Molten Ender",
+    "fluid.tconstruct.molten_ender": "Molten Ender",
+    "fluid.tconstruct.flowing_molten_ender": "Flowing Molten Ender",
+    "item.tconstruct.molten_ender_bucket": "Molten Ender Bucket",
 
 
     "_comment": "Tinkers Gadgets",
@@ -520,6 +540,8 @@
     "block.tconstruct.smeltery_controller": "Smeltery Controller",
     "block.tconstruct.smeltery_controller.tooltip": "Brain of the Smeltery.",
     "gui.tconstruct.smeltery": "Smeltery",
+    "death.attack.tconstruct.smeltery_heat": "%1$s tried to make molten player",
+    "death.attack.tconstruct.smeltery_magic": "%1$s has become one with the smeltery",
     
     "block.tconstruct.seared_drain": "Seared Drain",
     "block.tconstruct.seared_drain.tooltop": "Smeltery fluid input and output",

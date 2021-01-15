@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:entity_melting",
   "entity": {
-    "type": "tconstruct:blue_slime"
+    "type": "minecraft:blaze"
   },
   "output": {
-    "fluid": "tconstruct:blue_slime",
-    "amount": 25
+    "fluid": "tconstruct:molten_blaze",
+    "amount": 20
   },
   "damage": 2
 }

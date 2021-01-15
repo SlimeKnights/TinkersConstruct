@@ -20,8 +20,9 @@ public final class MaterialValues {
   /** Value of a single metal brick block, is divisible by 36 */
   public static final int VALUE_BrickBlock = VALUE_Ingot * 4;
 
-  /** Value of a gem such as emerald */
-  public static final int VALUE_Gem = 666; // divisible by 3!
+  /** Value of a gem such as emerald or an ender pearl, divides into buckets well */
+  public static final int VALUE_Gem = 250;
+  public static final int VALUE_GemBlock = VALUE_Gem * 9;
 
   /** Value of a single glass block */
   public static final int VALUE_Glass = VALUE_Ingot * 4;

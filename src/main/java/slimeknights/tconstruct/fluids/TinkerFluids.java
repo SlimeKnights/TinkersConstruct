@@ -2,6 +2,7 @@ package slimeknights.tconstruct.fluids;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
@@ -21,16 +22,20 @@ public final class TinkerFluids extends TinkerModule {
 
   // basic
   public static final RegistryObject<UnplaceableFluid> milk = FLUIDS.registerFluid("milk", () -> new UnplaceableFluid(() -> Items.MILK_BUCKET, FluidAttributes.builder(FluidIcons.MILK_STILL, FluidIcons.MILK_FLOWING).density(1050).viscosity(1050).temperature(320)));
-  public static final FluidObject<ForgeFlowingFluid> blood = FLUIDS.register("blood", FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).color(0xff540000).density(1200).viscosity(1200).temperature(336), Material.WATER, 0);
+  public static final FluidObject<ForgeFlowingFluid> blood = FLUIDS.register("blood", coolBuilder().color(0xff540000).density(1200).viscosity(1200).temperature(336), Material.WATER, 0);
 
   // slime
-  public static final FluidObject<ForgeFlowingFluid> blueSlime = FLUIDS.register("blue_slime", FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY).color(0xef67f0f5).density(1500).viscosity(1500).temperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<ForgeFlowingFluid> purpleSlime = FLUIDS.register("purple_slime", FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY).color(0xefd236ff).density(1600).viscosity(1600).temperature(370), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<ForgeFlowingFluid> greenSlime = FLUIDS.register("green_slime", coolBuilder().color(0xef76be6d).density(1400).viscosity(1400).temperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<ForgeFlowingFluid> blueSlime = FLUIDS.register("blue_slime", coolBuilder().color(0xef67f0f5).density(1500).viscosity(1500).temperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<ForgeFlowingFluid> purpleSlime = FLUIDS.register("purple_slime", coolBuilder().color(0xefd236ff).density(1600).viscosity(1600).temperature(370), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
 
   // molten
   public static final FluidObject<ForgeFlowingFluid> searedStone = FLUIDS.register("seared_stone", stoneBuilder().color(0xff777777).temperature(800), Material.LAVA, 7);
   public static final FluidObject<ForgeFlowingFluid> moltenGlass = FLUIDS.register("molten_glass", moltenBuilder().color(0xffc0f5fe).temperature(625), Material.LAVA, 10);
   public static final FluidObject<ForgeFlowingFluid> moltenObsidian = FLUIDS.register("molten_obsidian", stoneBuilder().color(0xff2c0d59).temperature(1000), Material.LAVA, 11);
+  public static final FluidObject<ForgeFlowingFluid> moltenBlaze = FLUIDS.register("molten_blaze", hotBuilder(FluidIcons.BLAZE_STILL, FluidIcons.BLAZE_FLOWING).temperature(1800), Material.LAVA, 14);
+  public static final FluidObject<ForgeFlowingFluid> moltenEmerald = FLUIDS.register("molten_emerald", moltenBuilder().color(0xff41f384).temperature(1150), Material.LAVA, 4);
+  public static final FluidObject<ForgeFlowingFluid> moltenEnder = FLUIDS.register("molten_ender", stoneBuilder().color(0xff105e51).temperature(777), Material.LAVA, 7);
 
   // metals
   public static final FluidObject<ForgeFlowingFluid> moltenIron = FLUIDS.register("molten_iron", moltenBuilder().color(0xffa81212).temperature(769), Material.LAVA, 12);
@@ -46,13 +51,24 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenKnightslime = FLUIDS.register("molten_knightslime", moltenBuilder().color(0xfff18ff0).temperature(520), Material.LAVA, 9);
   public static final FluidObject<ForgeFlowingFluid> moltenNetherite = FLUIDS.register("molten_netherite", moltenBuilder().color(0xff3c3232).temperature(1100), Material.LAVA, 11);
 
+
+  /** Creates a builder for a cool fluid */
+  private static FluidAttributes.Builder coolBuilder() {
+    return FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY);
+  }
+
+  /** Creates a builder for a hot fluid */
+  private static FluidAttributes.Builder hotBuilder(ResourceLocation stillTexture, ResourceLocation flowingTexture) {
+    return FluidAttributes.builder(stillTexture, flowingTexture).density(2000).viscosity(10000).temperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
+  }
+
   /** Creates a builder for a molten fluid */
   private static FluidAttributes.Builder stoneBuilder() {
-    return FluidAttributes.builder(FluidIcons.STONE_STILL, FluidIcons.STONE_FLOWING).density(2000).viscosity(10000).temperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
+    return hotBuilder(FluidIcons.STONE_STILL, FluidIcons.STONE_FLOWING);
   }
 
   /** Creates a builder for a molten fluid */
   private static FluidAttributes.Builder moltenBuilder() {
-    return FluidAttributes.builder(FluidIcons.MOLTEN_STILL, FluidIcons.MOLTEN_FLOWING).density(2000).viscosity(10000).temperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
+    return hotBuilder(FluidIcons.MOLTEN_STILL, FluidIcons.MOLTEN_FLOWING);
   }
 }

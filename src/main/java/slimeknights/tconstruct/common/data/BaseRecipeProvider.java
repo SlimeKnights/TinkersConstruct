@@ -70,6 +70,17 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
 
   /**
    * Prefixes the resource location path with the given value
+   * @param entry    Item registry name to use
+   * @param prefix  Prefix value
+   * @return  Resource location path
+   */
+  protected static ResourceLocation wrapR(Supplier<? extends IForgeRegistryEntry<?>> entry, String prefix, String suffix) {
+    ResourceLocation loc = Objects.requireNonNull(entry.get().getRegistryName());
+    return location(prefix + loc.getPath() + suffix);
+  }
+
+  /**
+   * Prefixes the resource location path with the given value
    * @param item    Item registry name to use
    * @param prefix  Prefix value
    * @return  Resource location path

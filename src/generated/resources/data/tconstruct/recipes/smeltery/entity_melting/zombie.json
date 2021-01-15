@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "types": [
+      "minecraft:zombie",
+      "minecraft:zombified_piglin",
+      "minecraft:zoglin",
+      "minecraft:zombie_horse"
+    ]
+  },
+  "output": {
+    "fluid": "tconstruct:blood",
+    "amount": 25
+  },
+  "damage": 2
+}

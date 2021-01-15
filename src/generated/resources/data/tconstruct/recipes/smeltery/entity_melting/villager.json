@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:entity_melting",
   "entity": {
-    "type": "tconstruct:blue_slime"
+    "type": "minecraft:villager"
   },
   "output": {
-    "fluid": "tconstruct:blue_slime",
+    "fluid": "tconstruct:molten_emerald",
     "amount": 25
   },
-  "damage": 2
+  "damage": 5
 }
