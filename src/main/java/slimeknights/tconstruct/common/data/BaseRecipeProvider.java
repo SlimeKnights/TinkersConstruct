@@ -91,6 +91,17 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
   }
 
   /**
+   * Prefixes the resource location path with the given value
+   * @param entry   Entry registry name to use
+   * @param prefix  Prefix value
+   * @return  Resource location path
+   */
+  protected static ResourceLocation prefixR(IForgeRegistryEntry<?> entry, String prefix) {
+    ResourceLocation loc = Objects.requireNonNull(entry.getRegistryName());
+    return location(prefix + loc.getPath());
+  }
+
+  /**
    * Gets a tag by name
    * @param modId  Mod ID for tag
    * @param name   Tag name

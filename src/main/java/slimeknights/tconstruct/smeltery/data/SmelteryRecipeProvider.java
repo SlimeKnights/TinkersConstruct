@@ -7,11 +7,13 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.data.SingleItemRecipeBuilder;
+import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
@@ -26,6 +28,8 @@ import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ContainerFillingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.entitymelting.EntityIngredient;
+import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
@@ -55,6 +59,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addMeltingRecipes(consumer);
     this.addCastingRecipes(consumer);
     this.addAlloyRecipes(consumer);
+    this.addEntityMeltingRecipes(consumer);
   }
 
   private void addBaseRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -527,6 +532,25 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                           .addCriterion("hasItem", hasItem(ore))
                           .build(consumer, location(prefix + "ore"));
     }
+  }
+
+  private void addEntityMeltingRecipes(Consumer<IFinishedRecipe> consumer) {
+    String folder = "smeltery/entity_melting/";
+    // iron golems can be healed using an iron ingot 25 health
+    // 4 * 9 gives 36, which is larger
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.IRON_GOLEM), new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.VALUE_Nugget), 4)
+                              .build(consumer, prefixR(EntityType.IRON_GOLEM, folder));
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SNOW_GOLEM), new FluidStack(Fluids.WATER, 100))
+                              .build(consumer, prefixR(EntityType.SNOW_GOLEM, folder));
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(TinkerWorld.blueSlimeEntity.get()), new FluidStack(TinkerFluids.blueSlime.get(), 50))
+                              .build(consumer, prefixR(TinkerWorld.blueSlimeEntity, folder));
+
+    // melt skeletons to get the milk out
+    EntityMeltingRecipeBuilder.melting(
+      EntityIngredient.of(EntityIngredient.of(EntityTypeTags.SKELETONS), EntityIngredient.of(EntityType.SKELETON_HORSE)),
+      new FluidStack(TinkerFluids.milk.get(), 100))
+                              .build(consumer, location(folder + "skeletons"));
+    // TODO: villagers into emeralds?
   }
 
 

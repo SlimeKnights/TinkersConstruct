@@ -22,6 +22,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
@@ -33,6 +34,7 @@ import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.network.SmelteryStructureUpdatedPacket;
 import slimeknights.tconstruct.smeltery.tileentity.module.AlloyingModule;
+import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.tileentity.module.SmelteryAlloyTank;
@@ -97,6 +99,8 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /** Module handling alloys */
   @Getter
   private final AlloyingModule alloyingModule = new AlloyingModule(this, tank, new SmelteryAlloyTank(tank));
+  /** Module handling entity interaction */
+  private final EntityMeltingModule entityModule = new EntityMeltingModule(this, tank, this::canMeltEntities, this::insertIntoInventory, () -> structure == null ? null : structure.getBounds());
 
   /* Capability */
   private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> meltingInventory);
@@ -138,6 +142,11 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
         if (!multiblock.isInnerBlock(world, structure.getNextInsideCheck())) {
           updateStructure();
         }
+      }
+
+      // every second, interact with entities, will consume fuel if needed
+      if (tick == 12) {
+        entityModule.interactWithEntities();
       }
 
       // run in four phases alternating each tick, so each thing runs once every 4 ticks
@@ -336,6 +345,31 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
       defaultBounds = new AxisAlignedBB(pos, pos.add(1, 1, 1));
     }
     return defaultBounds;
+  }
+
+
+  /* Heating helpers */
+
+  /**
+   * Checks if we can melt entities
+   * @return  True if we can melt entities
+   */
+  private boolean canMeltEntities() {
+    if (tank.getContained() > 0) {
+      if (!fuelModule.hasFuel()) {
+        fuelModule.findFuel();
+      }
+      return fuelModule.hasFuel();
+    }
+    return false;
+  }
+
+  /**
+   * Inserts an item into the inventory
+   * @param stack  Stack to insert
+   */
+  private ItemStack insertIntoInventory(ItemStack stack) {
+    return ItemHandlerHelper.insertItem(meltingInventory, stack, false);
   }
 
 

@@ -768,6 +768,7 @@
     
     "jei.tconstruct.melting.title": "Melting",
     "jei.tconstruct.melting.temperature": "%s°C",
+    "jei.tconstruct.entity_melting.title": "Entity Melting",
 
     "jei.tconstruct.alloy.title": "Alloying"
 }

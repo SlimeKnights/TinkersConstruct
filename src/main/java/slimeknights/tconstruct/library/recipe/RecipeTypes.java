@@ -5,6 +5,7 @@ import net.minecraft.item.crafting.IRecipeType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
+import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
@@ -25,6 +26,7 @@ public interface RecipeTypes {
 
   // smeltery
   IRecipeType<IMeltingRecipe> MELTING = register("melting");
+  IRecipeType<EntityMeltingRecipe> ENTITY_MELTING = register("entity_melting");
   IRecipeType<MeltingFuel> FUEL = register("fuel");
   IRecipeType<AlloyRecipe> ALLOYING = register("alloying");
 

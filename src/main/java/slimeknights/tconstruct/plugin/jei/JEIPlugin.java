@@ -1,47 +1,66 @@
 package slimeknights.tconstruct.plugin.jei;
 
+import com.google.common.collect.ImmutableSet;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
+import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
+import slimeknights.tconstruct.library.recipe.entitymelting.EntityIngredient;
+import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
+import slimeknights.tconstruct.plugin.jei.entitymelting.EntityIngredientHelper;
+import slimeknights.tconstruct.plugin.jei.entitymelting.EntityIngredientRenderer;
+import slimeknights.tconstruct.plugin.jei.entitymelting.EntityMeltingRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.client.inventory.IScreenWithFluidTank;
 import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
+import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @SuppressWarnings("unused")
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
+  @SuppressWarnings("rawtypes")
+  public static final IIngredientType<EntityType> TYPE = () -> EntityType.class;
+
   @Override
   public ResourceLocation getPluginUid() {
     return TConstructRecipeCategoryUid.pluginUid;
@@ -54,6 +73,12 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new CastingTableCategory(guiHelper));
     registry.addRecipeCategories(new MeltingCategory(guiHelper));
     registry.addRecipeCategories(new AlloyRecipeCategory(guiHelper));
+    registry.addRecipeCategories(new EntityMeltingRecipeCategory(guiHelper));
+  }
+
+  @Override
+  public void registerIngredients(IModIngredientRegistration registration) {
+    registration.register(TYPE, Collections.emptyList(), new EntityIngredientHelper(), new EntityIngredientRenderer(16));
   }
 
   @Override
@@ -70,6 +95,25 @@ public class JEIPlugin implements IModPlugin {
     List<MeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.MELTING, MeltingRecipe.class);
     register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.melting);
     MeltingFuelHandler.setMeltngFuels(RecipeHelper.getRecipes(manager, RecipeTypes.FUEL, MeltingFuel.class));
+
+    // entity melting
+    List<EntityMeltingRecipe> entityMeltingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.ENTITY_MELTING, EntityMeltingRecipe.class);
+    // generate a "default" recipe for all other entity types
+    List<EntityType<?>> unusedTypes = new ArrayList<>();
+    typeLoop:
+    for (EntityType<?> type : ForgeRegistries.ENTITIES) {
+      // use tag overrides for default recipe
+      if (TinkerTags.EntityTypes.MELTING_HIDE.contains(type)) continue;
+      if (type.getClassification() == EntityClassification.MISC && !TinkerTags.EntityTypes.MELTING_SHOW.contains(type)) continue;
+      for (EntityMeltingRecipe recipe : entityMeltingRecipes) {
+        if (recipe.matches(type)) {
+          continue typeLoop;
+        }
+      }
+      unusedTypes.add(type);
+    }
+    entityMeltingRecipes.add(new EntityMeltingRecipe(Util.getResource("__default"), EntityIngredient.of(ImmutableSet.copyOf(unusedTypes)), EntityMeltingModule.getDefaultFluid(), 2));
+    register.addRecipes(entityMeltingRecipes, TConstructRecipeCategoryUid.entityMelting);
 
     // alloying
     List<AlloyRecipe> alloyRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.ALLOYING, AlloyRecipe.class);
