@@ -16,10 +16,6 @@ public class QuartzShurikenEntity extends ShurikenEntityBase {
     super(TinkerGadgets.quartzShurikenEntity.get(), throwerIn, worldIn);
   }
 
-  public QuartzShurikenEntity(EntityType<? extends QuartzShurikenEntity> type, LivingEntity livingEntityIn, World worldIn) {
-    super(type, livingEntityIn, worldIn);
-  }
-
   @Override
   protected Item getDefaultItem() {
     return TinkerGadgets.quartzShuriken.get();
@@ -33,5 +29,10 @@ public class QuartzShurikenEntity extends ShurikenEntityBase {
   @Override
   public float getKnockback() {
     return 0.4F;
+  }
+
+  @Override
+  public ShurikenEntityBase getShurikenEntity() {
+    return this;
   }
 }

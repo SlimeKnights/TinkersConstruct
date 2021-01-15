@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.gadgets.entity.shuriken;
+package slimeknights.tconstruct.gadgets.client;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.util.math.vector.Quaternion;
+import slimeknights.tconstruct.gadgets.entity.shuriken.ShurikenEntityBase;
 
 public class RenderShuriken extends SpriteRenderer<ShurikenEntityBase> {
 
@@ -37,9 +38,8 @@ public class RenderShuriken extends SpriteRenderer<ShurikenEntityBase> {
 //
 //    // shurikens spin around their center a lot. *spin*
 //    GL11.glRotatef(r, 0f, 0f, 1f);
-
-    super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     matrixStackIn.pop();
+    super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
   }
 }
 

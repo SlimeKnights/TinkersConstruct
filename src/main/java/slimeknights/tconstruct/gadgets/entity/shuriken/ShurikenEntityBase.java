@@ -4,14 +4,19 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.entity.projectile.SnowballEntity;
+import net.minecraft.item.Item;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
 import javax.annotation.Nonnull;
 
@@ -43,6 +48,31 @@ public abstract class ShurikenEntityBase extends ProjectileItemEntity implements
    * @return float knockback
    */
   public abstract float getKnockback();
+
+  /**
+   * Get the entity, flint or quartz,
+   * to use in onImpact method.
+   * @return ShurikenEntityBase entity
+   */
+  public abstract ShurikenEntityBase getShurikenEntity();
+
+  @Override
+  protected void onImpact(RayTraceResult result) {
+    super.onImpact(result);
+
+    if (!this.world.isRemote) {
+      if (result.getType() == RayTraceResult.Type.BLOCK) {
+        if(getShurikenEntity() instanceof FlintShurikenEntity) {
+          this.entityDropItem(TinkerGadgets.flintShuriken.asItem());
+        }
+        else {
+          this.entityDropItem(TinkerGadgets.quartzShuriken.asItem());
+        }
+      }
+      this.world.setEntityState(this, (byte)3);
+      this.remove();
+    }
+  }
 
   @Override
   protected void onEntityHit(EntityRayTraceResult result) {
