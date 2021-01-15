@@ -325,6 +325,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
 
     // mark that fluids need an update on the client
     fluidUpdateQueued = true;
+    this.markDirtyFast();
   }
 
   @Override

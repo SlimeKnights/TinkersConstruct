@@ -125,6 +125,7 @@ public class FuelModule implements IIntArray {
    */
   public void decreaseFuel(int amount) {
     fuel = Math.max(0, fuel - amount);
+    parent.markDirtyFast();
   }
 
 
@@ -151,6 +152,7 @@ public class FuelModule implements IIntArray {
         fuel += recipe.getDuration();
         fuelQuality = recipe.getDuration();
         temperature = recipe.getTemperature();
+        parent.markDirtyFast();
         return true;
       }
     }
