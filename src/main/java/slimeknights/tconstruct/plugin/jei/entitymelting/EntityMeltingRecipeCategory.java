@@ -44,7 +44,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "entity_melting.title");
 
   /** Renderer instance to use in this category */
-  private static final EntityIngredientRenderer ENTITY_RENDERER = new EntityIngredientRenderer(32);
+  private final EntityIngredientRenderer entityRenderer = new EntityIngredientRenderer(32);
 
   @Getter
   private final IDrawable background;
@@ -96,7 +96,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     // if we have a spawn egg focus, filter the displayed entities
     IGuiIngredientGroup<EntityType> entityTypes = layout.getIngredientsGroup(JEIPlugin.TYPE);
     IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
-    entityTypes.init(0, true, ENTITY_RENDERER, 19, 11, 32, 32, 0, 0);
+    entityTypes.init(0, true, entityRenderer, 19, 11, 32, 32, 0, 0);
     if (focus != null && focus.getValue().getItem() instanceof SpawnEggItem) {
       EntityType<?> type = ((SpawnEggItem) focus.getValue().getItem()).getType(null);
       entityTypes.set(0, recipe.getInputs().stream().filter(type::equals).collect(Collectors.toList()));
