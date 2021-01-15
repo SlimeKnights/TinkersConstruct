@@ -65,8 +65,9 @@ public class FuelModule implements IIntArray {
   private List<LazyOptional<IFluidHandler>> tankDisplayHandlers;
   /** Listener to attach to display capabilities */
   private final NonNullConsumer<LazyOptional<IFluidHandler>> displayListener = new WeakConsumerWrapper<>(this, (self, cap) -> {
-    self.tankDisplayHandlers.remove(cap);
-    // TODO: mark position for refetch?
+    if (self.tankDisplayHandlers != null) {
+      self.tankDisplayHandlers.remove(cap);
+    }
   });
 
   /** Current amount of fluid in the TE */
