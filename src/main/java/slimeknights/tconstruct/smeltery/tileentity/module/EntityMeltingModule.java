@@ -5,7 +5,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -15,6 +17,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 
@@ -29,7 +33,10 @@ import java.util.function.Supplier;
  */
 @RequiredArgsConstructor
 public class EntityMeltingModule {
-  public static final DamageSource SMELTERY_DAMAGE = new DamageSource("smeltery").setFireDamage();
+  /** Standard damage sourcce for melting most mobs */
+  public static final DamageSource SMELTERY_DAMAGE = new DamageSource(Util.prefix("smeltery_heat")).setFireDamage();
+  /** Special damage source for "absorbing" hot entities */
+  public static final DamageSource SMELTERY_MAGIC = new DamageSource(Util.prefix("smeltery_magic")).setMagicDamage();
 
   private final MantleTileEntity parent;
   private final IFluidHandler tank;
@@ -73,7 +80,21 @@ public class EntityMeltingModule {
    */
   public static FluidStack getDefaultFluid() {
     // TODO: consider a way to put this in a recipe
-    return new FluidStack(TinkerFluids.blood.get(), 20);
+    return new FluidStack(TinkerFluids.blood.get(), MaterialValues.VALUE_SlimeBall / 5);
+  }
+
+  /**
+   * checks if an entity can be melted
+   * @param entity  Entity to check
+   * @return  True if they can be melted
+   */
+  private boolean canMeltEntity(LivingEntity entity) {
+    // fire based mobs are absorbed instead of damaged
+    return !entity.isInvulnerableTo(entity.isImmuneToFire() ? SMELTERY_MAGIC : SMELTERY_DAMAGE)
+           // have to special case players because for some dumb reason creative players do not return true to invulnerable to
+           && !(entity instanceof PlayerEntity && ((PlayerEntity)entity).abilities.disableDamage)
+           // also have to special case fire resistance, so a blaze with fire resistance is immune to the smeltery
+           && !entity.isPotionActive(Effects.FIRE_RESISTANCE);
   }
 
   /**
@@ -96,12 +117,12 @@ public class EntityMeltingModule {
         }
       }
 
-      // only can melt living
-      else if (entity instanceof LivingEntity) {
+      // only can melt living, ensure its not immune to our damage
+      else if (entity instanceof LivingEntity && canMeltEntity((LivingEntity)entity)) {
         // only fetch boolean once, its not the fastest as it tries to consume fuel
         if (canMelt == null) canMelt = canMeltEntities.getAsBoolean();
 
-        // ensure we are allowed to melt
+        // ensure we have fuel/any other needed smeltery states
         if (canMelt) {
           // determine what we are melting
           FluidStack fluid;
@@ -116,7 +137,7 @@ public class EntityMeltingModule {
           }
 
           // if the entity is successfully damaged, fill the tank with fluid
-          if (entity.attackEntityFrom(SMELTERY_DAMAGE, damage)) {
+          if (entity.attackEntityFrom(entity.isImmuneToFire() ? SMELTERY_MAGIC : SMELTERY_DAMAGE, damage)) {
             // its fine if we don't fill it all, leftover fluid is just lost
             tank.fill(fluid, FluidAction.EXECUTE);
           }
