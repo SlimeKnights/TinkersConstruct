@@ -4,7 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.IIntArray;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -12,8 +11,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -121,7 +118,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       throw new IndexOutOfBoundsException();
     }
     if (modules[slot] == null) {
-      modules[slot] = new MeltingModule(parent, outputFunction);
+      modules[slot] = new MeltingModule(parent, outputFunction, slot);
     }
     return modules[slot];
   }
@@ -170,12 +167,6 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
 
   @Override
   public void setStackInSlot(int slot, ItemStack stack) {
-    // send a slot update to the client when items change, so we can update the TESR
-    World world = parent.getWorld();
-    if (world != null && !world.isRemote && !ItemStack.areItemStacksEqual(stack, getStackInSlot(slot))) {
-      TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(stack, slot, parent.getPos()), world, parent.getPos());
-    }
-
     // actually set the stack
     if (validSlot(slot)) {
       if (stack.isEmpty()) {

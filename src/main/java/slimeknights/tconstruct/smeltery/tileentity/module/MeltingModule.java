@@ -10,8 +10,10 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
+import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -33,6 +35,8 @@ public class MeltingModule implements ISingleItemInventory, IIntArray {
   private final MantleTileEntity parent;
   /** Function that accepts fluid output from this module */
   private final Predicate<FluidStack> outputFunction;
+  /** Slot index for updates */
+  private final int slotIndex;
 
   /** Current temperature of the item in the slot */
   @Getter
@@ -53,6 +57,12 @@ public class MeltingModule implements ISingleItemInventory, IIntArray {
    * @param newStack  New stack
    */
   public void setStack(ItemStack newStack) {
+    // send a slot update to the client when items change, so we can update the TESR
+    World world = parent.getWorld();
+    if (slotIndex != -1 && world != null && !world.isRemote && !ItemStack.areItemStacksEqual(stack, newStack)) {
+      TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, slotIndex, parent.getPos()), world, parent.getPos());
+    }
+
     // clear progress if setting to empty or the items do not match
     if (this.stack.isEmpty() || newStack.isEmpty() || !ItemHandlerHelper.canItemStacksStack(this.stack, newStack)) {
       currentTemp = 0;
