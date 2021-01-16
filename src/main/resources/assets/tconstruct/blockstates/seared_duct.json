@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=west":  { "model": "tconstruct:block/smeltery/duct", "y":  90 },
+    "facing=south": { "model": "tconstruct:block/smeltery/duct"  },
+    "facing=north": { "model": "tconstruct:block/smeltery/duct", "y": 180 },
+    "facing=east":  { "model": "tconstruct:block/smeltery/duct", "y": 270 }
+  }
+}

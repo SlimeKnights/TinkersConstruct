@@ -176,6 +176,7 @@
     "item.tconstruct.mending_moss.tooltip": "Mending Moss Modifier",
     "item.tconstruct.creative_modifier": "Creative Modifier",
     "item.tconstruct.creative_modifier.tooltip": "Adds an additional modifier",
+    
     "item.tconstruct.blank_cast": "Blank Cast",
     "item.tconstruct.ingot_cast": "Ingot Cast",
     "item.tconstruct.nugget_cast": "Nugget Cast",
@@ -205,6 +206,10 @@
     "item.tconstruct.tough_binding_cast": "Tough Binding Cast",
     "item.tconstruct.large_sword_blade_cast": "Large Sword Blade Cast",
     "item.tconstruct.pan_head_cast": "Pan Head Cast",
+    
+    "item.tconstruct.copper_can": "Copper Can",
+    "item.tconstruct.copper_can.tooltip": "Stackable container holding 1 ingot of fluid",
+    "item.tconstruct.copper_can.contents": "Contains: 1 ingot %s",
 
     "item.tconstruct.cobalt_ingot": "Cobalt Ingot",
     "item.tconstruct.ardite_ingot": "Ardite Ingot",
@@ -545,6 +550,9 @@
     
     "block.tconstruct.seared_drain": "Seared Drain",
     "block.tconstruct.seared_drain.tooltop": "Smeltery fluid input and output",
+    "block.tconstruct.seared_duct": "Seared Duct",
+    "block.tconstruct.seared_duct.tooltop": "Filtered smeltery fluid input and output using copper cans",
+    "gui.tconstruct.duct": "Duct",
     "block.tconstruct.seared_chute": "Seared Chute",
     "block.tconstruct.seared_chute.tooltop": "Smeltery item input and output",
 

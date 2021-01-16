@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.model.FaucetFluidLoader;
+import slimeknights.mantle.client.screen.BackgroundContainerScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.Util;
@@ -74,6 +75,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     // screens
     ScreenManager.registerFactory(TinkerSmeltery.melterContainer.get(), MelterScreen::new);
     ScreenManager.registerFactory(TinkerSmeltery.smelteryContainer.get(), SmelteryScreen::new);
+    ScreenManager.registerFactory(TinkerSmeltery.ductContainer.get(), BackgroundContainerScreen.Factory.ofName(133, TinkerSmeltery.duct.getId()));
 
     FluidTooltipHandler.init();
   }

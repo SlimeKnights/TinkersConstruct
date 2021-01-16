@@ -13,12 +13,19 @@ import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
+import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.DrainTileEntity;
+
+import java.util.function.Supplier;
 
 /** Extenson to include interaction behavior */
 public class SearedDrainBlock extends OrientableSmelteryBlock {
   public SearedDrainBlock(Properties properties) {
     super(properties, DrainTileEntity::new);
+  }
+
+  protected SearedDrainBlock(Properties properties, Supplier<? extends SmelteryComponentTileEntity> tileEntity) {
+    super(properties, tileEntity);
   }
 
   @SuppressWarnings("deprecation")

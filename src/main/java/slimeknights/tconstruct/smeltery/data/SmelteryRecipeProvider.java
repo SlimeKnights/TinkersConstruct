@@ -225,6 +225,15 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/chute"));
 
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedDuct)
+                       .key('#', TinkerSmeltery.searedBrick)
+                       .key('C', TinkerTags.Items.INGOTS_COBALT)
+                       .patternLine("# #")
+                       .patternLine("C C")
+                       .patternLine("# #")
+                       .addCriterion("has_item", hasItem(TinkerTags.Items.INGOTS_COBALT))
+                       .build(consumer, location("smeltery/duct"));
+
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedMelter)
                        .key('G', TinkerSmeltery.searedTank.get(TankType.GAUGE))
                        .key('B', TinkerSmeltery.searedBrick)
@@ -232,6 +241,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("BBB")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, prefix(TinkerSmeltery.searedMelter, "smeltery/"));
+
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.copperCan, 3)
+                       .key('c', TinkerTags.Items.INGOTS_COPPER)
+                       .patternLine("c c")
+                       .patternLine(" c ")
+                       .addCriterion("has_item", hasItem(TinkerTags.Items.INGOTS_COPPER))
+                       .build(consumer, prefix(TinkerSmeltery.copperCan, "smeltery/"));
   }
 
 
@@ -241,6 +257,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     ContainerFillingRecipeBuilder.tableRecipe(Items.BUCKET, FluidAttributes.BUCKET_VOLUME)
                                  .addCriterion("has_item", hasItem(Items.BUCKET))
                                  .build(consumer, location(folder + "filling/bucket"));
+    ContainerFillingRecipeBuilder.tableRecipe(TinkerSmeltery.copperCan, MaterialValues.VALUE_Ingot)
+                                 .addCriterion("has_item", hasItem(TinkerSmeltery.copperCan))
+                                 .build(consumer, location(folder + "filling/copper_can"));
     // Slime
     this.addSlimeCastingRecipe(consumer, TinkerFluids.blood, SlimeType.BLOOD, folder);
     this.addSlimeCastingRecipe(consumer, TinkerFluids.greenSlime, SlimeType.GREEN, folder);

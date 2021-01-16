@@ -132,6 +132,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
       TinkerSmeltery.hammerHeadCast.get(),
       TinkerSmeltery.wideGuardCast.get(),
       TinkerSmeltery.shovelHeadCast.get());
+    this.getOrCreateBuilder(TinkerTags.Items.DUCT_CONTAINERS).add(TinkerSmeltery.copperCan.get());
   }
 
   @Override

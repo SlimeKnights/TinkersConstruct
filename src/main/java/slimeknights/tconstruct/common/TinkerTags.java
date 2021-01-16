@@ -100,10 +100,12 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> NUGGETS_ROSE_GOLD = forgeTag("nuggets/rose_gold");
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE = forgeTag("nuggets/netherite");
 
-
     public static final IOptionalNamedTag<Item> CASTS = tag("casts");
 
     public static final IOptionalNamedTag<Item> RODS_STONE = forgeTag("rods/stone");
+
+    /** Containers that can be used in the duct */
+    public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");
 
 
     private static IOptionalNamedTag<Item> tag(String name) {

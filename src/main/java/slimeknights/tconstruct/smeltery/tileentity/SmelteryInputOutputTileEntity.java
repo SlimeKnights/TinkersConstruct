@@ -118,6 +118,11 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
       super(type, CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EmptyFluidHandler.INSTANCE);
     }
 
+    /** Wraps the given capability */
+    protected LazyOptional<IFluidHandler> makeWrapper(LazyOptional<IFluidHandler> capability) {
+      return LazyOptional.of(() -> capability.orElse(emptyInstance));
+    }
+
     @Override
     protected LazyOptional<IFluidHandler> getCapability(TileEntity parent) {
       // fluid capability is not exposed directly in the smeltery
@@ -125,7 +130,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
         LazyOptional<IFluidHandler> capability = ((ISmelteryTankHandler) parent).getFluidCapability();
         if (capability.isPresent()) {
           capability.addListener(listener);
-          return LazyOptional.of(() -> capability.orElse(emptyInstance));
+          return makeWrapper(capability);
         }
       }
       return LazyOptional.empty();
@@ -142,4 +147,5 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
       super(type, CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EmptyItemHandler.INSTANCE);
     }
   }
+
 }
