@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
@@ -11,31 +12,36 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.inventory.DuctContainer;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.DrainTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.DuctItemHandler;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.DuctTankWrapper;
+import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 
 import javax.annotation.Nullable;
 
 /**
  * Filtered drain tile entity
  */
-public class DuctTileEntity extends DrainTileEntity implements INamedContainerProvider {
+public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerProvider {
   private static final String TAG_ITEM = "item";
+  private static final ITextComponent TITLE = new TranslationTextComponent(Util.makeTranslationKey("gui", "duct"));
 
   @Getter
   private final DuctItemHandler itemHandler = new DuctItemHandler(this);
   private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> itemHandler);
-  private static final ITextComponent TITLE = new TranslationTextComponent(Util.makeTranslationKey("gui", "duct"));
+  @Getter
+  private final IModelData modelData = new SinglePropertyData<>(IDisplayFluidListener.PROPERTY);
 
   public DuctTileEntity() {
     this(TinkerSmeltery.duct.get());
@@ -81,6 +87,16 @@ public class DuctTileEntity extends DrainTileEntity implements INamedContainerPr
     return LazyOptional.of(() -> new DuctTankWrapper(capability.orElse(emptyInstance), itemHandler));
   }
 
+  /** Updates the fluid in model data */
+  public void updateFluid() {
+    Fluid fluid = itemHandler.getFluid();
+    modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
+    requestModelDataUpdate();
+    assert world != null;
+    BlockState state = getBlockState();
+    world.notifyBlockUpdate(pos, state, state, 48);
+  }
+
 
   /* NBT */
 
@@ -93,9 +109,8 @@ public class DuctTileEntity extends DrainTileEntity implements INamedContainerPr
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tags) {
-    tags = super.write(tags);
+  public void writeSynced(CompoundNBT tags) {
+    super.writeSynced(tags);
     tags.put(TAG_ITEM, itemHandler.writeToNBT());
-    return tags;
   }
 }

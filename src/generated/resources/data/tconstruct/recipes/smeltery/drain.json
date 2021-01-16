@@ -2,12 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "# #",
-    "# #",
+    "C C",
     "# #"
   ],
   "key": {
     "#": {
       "item": "tconstruct:seared_brick"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
     }
   },
   "result": {

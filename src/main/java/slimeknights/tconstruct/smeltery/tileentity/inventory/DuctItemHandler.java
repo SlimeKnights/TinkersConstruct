@@ -6,25 +6,43 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.smeltery.tileentity.DuctTileEntity;
+import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 /**
  * Item handler for the duct
  */
 @RequiredArgsConstructor
 public class DuctItemHandler implements IItemHandlerModifiable {
-  private final MantleTileEntity parent;
+  private final DuctTileEntity parent;
 
   /** Current item in this slot */
   @Getter
   private ItemStack stack = ItemStack.EMPTY;
 
-  public void setStack(ItemStack stack) {
-    this.stack = stack;
+  /**
+   * Sets the stack in this duct
+   * @param newStack  New stack
+   */
+  public void setStack(ItemStack newStack) {
+    World world = parent.getWorld();
+    boolean hasChange = world != null && !ItemStack.areItemStacksEqual(this.stack, newStack);
+    this.stack = newStack;
+    if (hasChange) {
+      if (!world.isRemote) {
+        BlockPos pos = parent.getPos();
+        TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, 0, pos), world, pos);
+      } else {
+        parent.updateFluid();
+      }
+    }
     parent.markDirtyFast();
   }
 

@@ -108,10 +108,11 @@ public class ServantTileEntity extends MantleTileEntity implements IServantLogic
 
   /* NBT */
 
-  @Override
-  public void read(BlockState blockState, CompoundNBT tags) {
-    super.read(blockState, tags);
-
+  /**
+   * Reads the master from NBT
+   * @param tags  NBT to read
+   */
+  protected void readMaster(CompoundNBT tags) {
     BlockPos masterPos = TagUtil.readPos(tags, TAG_MASTER_POS);
     Block masterBlock = null;
     // if the master position is valid, get the master block
@@ -129,12 +130,27 @@ public class ServantTileEntity extends MantleTileEntity implements IServantLogic
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tags) {
-    tags = super.write(tags);
+  public void read(BlockState blockState, CompoundNBT tags) {
+    super.read(blockState, tags);
+    readMaster(tags);
+  }
+
+  /**
+   * Writes the master position and master block to the given compound
+   * @param tags  Tags
+   */
+  protected CompoundNBT writeMaster(CompoundNBT tags) {
     if (masterPos != null && masterBlock != null) {
       tags.put(TAG_MASTER_POS, TagUtil.writePos(masterPos));
       tags.putString(TAG_MASTER_BLOCK, Objects.requireNonNull(masterBlock.getRegistryName()).toString());
     }
+    return tags;
+  }
+
+  @Override
+  public CompoundNBT write(CompoundNBT tags) {
+    tags = super.write(tags);
+    writeMaster(tags);
     return tags;
   }
 }

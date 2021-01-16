@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "#C#",
-    "   ",
+    "CGC",
     "#C#"
   ],
   "key": {
@@ -11,9 +11,12 @@
     },
     "C": {
       "tag": "forge:ingots/copper"
+    },
+    "G": {
+      "tag": "forge:glass/colorless"
     }
   },
   "result": {
-    "item": "tconstruct:seared_chute"
+    "item": "tconstruct:smeltery_controller"
   }
 }

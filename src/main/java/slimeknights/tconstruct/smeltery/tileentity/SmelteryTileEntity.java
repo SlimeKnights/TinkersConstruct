@@ -6,6 +6,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -15,6 +16,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
@@ -23,6 +25,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
@@ -41,11 +44,15 @@ import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory
 import slimeknights.tconstruct.smeltery.tileentity.module.SmelteryAlloyTank;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery.StructureData;
+import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
 
 import javax.annotation.Nullable;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -77,6 +84,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /** Inventory handling melting items */
   @Getter
   private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, Config.COMMON.smelteryNuggetsPerOre::get);
+  private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> meltingInventory);
 
   /** Fuel module */
   @Getter
@@ -103,8 +111,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /** Module handling entity interaction */
   private final EntityMeltingModule entityModule = new EntityMeltingModule(this, tank, this::canMeltEntities, this::insertIntoInventory, () -> structure == null ? null : structure.getBounds());
 
-  /* Capability */
-  private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> meltingInventory);
+  /* Client display */
+  @Getter
+  private final IModelData modelData = new SinglePropertyData<>(IDisplayFluidListener.PROPERTY);
+  private final List<WeakReference<IDisplayFluidListener>> fluidDisplayListeners = new ArrayList<>();
 
   /* Misc helpers */
   /** Function to drop an item */
@@ -267,11 +277,13 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
 
     // structure info updates
     if (active) {
-      newStructure.assignMaster(this, oldStructure);
-      setStructure(newStructure);
       // sync size to the client
       TinkerNetwork.getInstance().sendToClientsAround(
         new SmelteryStructureUpdatedPacket(pos, newStructure.getMinPos(), newStructure.getMaxPos(), newStructure.getTanks()), world, pos);
+
+      // set master positions
+      newStructure.assignMaster(this, oldStructure);
+      setStructure(newStructure);
 
       // update tank capability
       if (!fluidCapability.isPresent()) {
@@ -325,17 +337,53 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
     tank.setFluids(fluids);
   }
 
+  /**
+   * Updates the fluid displayed in the block, only used client side
+   * @param fluid  Fluid
+   */
+  private void updateDisplayFluid(Fluid fluid) {
+    if (world != null && world.isRemote) {
+      // update ourself
+      modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
+      this.requestModelDataUpdate();
+      BlockState state = getBlockState();
+      world.notifyBlockUpdate(pos, state, state, 48);
+
+      // update all listeners
+      Iterator<WeakReference<IDisplayFluidListener>> iterator = fluidDisplayListeners.iterator();
+      while (iterator.hasNext()) {
+        WeakReference<IDisplayFluidListener> reference = iterator.next();
+        IDisplayFluidListener listener = reference.get();
+        if (listener == null) {
+          iterator.remove();
+        } else {
+          listener.notifyDisplayFluidUpdated(fluid);
+        }
+      }
+    }
+  }
+
+  @Override
+  public void addDisplayListener(IDisplayFluidListener listener) {
+    fluidDisplayListeners.add(new WeakReference<>(listener));
+    listener.notifyDisplayFluidUpdated(tank.getFluidInTank(0).getFluid());
+  }
+
   @Override
   public void notifyFluidsChanged(FluidChange type, Fluid fluid) {
-    // adding a new fluid means recipes that previously did not match might match now
-    // can ignore removing a fluid as that is handled internally by the module
-    if (type == FluidChange.ADDED) {
-      alloyingModule.clearCachedRecipes();
-    }
+    if (type == FluidChange.ORDER_CHANGED) {
+      updateDisplayFluid(fluid);
+    } else {
+      // adding a new fluid means recipes that previously did not match might match now
+      // can ignore removing a fluid as that is handled internally by the module
+      if (type == FluidChange.ADDED) {
+        alloyingModule.clearCachedRecipes();
+      }
 
-    // mark that fluids need an update on the client
-    fluidUpdateQueued = true;
-    this.markDirtyFast();
+      // mark that fluids need an update on the client
+      fluidUpdateQueued = true;
+      this.markDirtyFast();
+    }
   }
 
   @Override
@@ -390,6 +438,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   public void setStructureSize(BlockPos minPos, BlockPos maxPos, List<BlockPos> tanks) {
     setStructure(multiblock.createClient(minPos, maxPos, tanks));
     fuelModule.clearCachedDisplayListeners();
+    fluidDisplayListeners.clear();
   }
 
 
@@ -400,6 +449,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
     super.read(state, nbt);
     if (nbt.contains(TAG_TANK, NBT.TAG_COMPOUND)) {
       tank.read(nbt.getCompound(TAG_TANK));
+      Fluid first = tank.getFluidInTank(0).getFluid();
+      if (first != Fluids.EMPTY) {
+        updateDisplayFluid(first);
+      }
     }
     if (nbt.contains(TAG_INVENTORY, NBT.TAG_COMPOUND)) {
       meltingInventory.readFromNBT(nbt.getCompound(TAG_INVENTORY));

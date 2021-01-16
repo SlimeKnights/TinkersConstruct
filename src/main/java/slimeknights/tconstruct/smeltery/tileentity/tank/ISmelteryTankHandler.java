@@ -34,6 +34,12 @@ public interface ISmelteryTankHandler extends IForgeTileEntity {
    */
   default void notifyFluidsChanged(FluidChange type, Fluid fluid) {}
 
+  /**
+   * Adds a listener to the display listeners list
+   * @param listener  Listener
+   */
+  void addDisplayListener(IDisplayFluidListener listener);
+
   /** Simple enum to make {@link #notifyFluidsChanged(FluidChange, Fluid)} more readible */
   enum FluidChange {
     /** Fluid was added to the tank */
@@ -41,6 +47,8 @@ public interface ISmelteryTankHandler extends IForgeTileEntity {
     /** Fluid size changed */
     CHANGED,
     /** Fluid was removed from the block */
-    REMOVED
+    REMOVED,
+    /** Sent client side to signify the bottom most fluid is different */
+    ORDER_CHANGED;
   }
 }

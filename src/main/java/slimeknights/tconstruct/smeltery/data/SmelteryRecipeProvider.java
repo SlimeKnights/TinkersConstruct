@@ -152,6 +152,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.registerSlabStair(consumer, TinkerSmeltery.searedPaver, folder, true);
     this.registerSlabStairWall(consumer, TinkerSmeltery.searedBricks, folder, true);
 
+    // tanks
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.TANK))
                        .key('#', TinkerSmeltery.searedBrick)
                        .key('B', Tags.Items.GLASS)
@@ -160,7 +161,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("###")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/seared/tank"));
-
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.GAUGE))
                        .key('#', TinkerSmeltery.searedBrick)
                        .key('B', Tags.Items.GLASS)
@@ -169,7 +169,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("#B#")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/seared/gauge"));
-
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.WINDOW))
                        .key('#', TinkerSmeltery.searedBrick)
                        .key('B', Tags.Items.GLASS)
@@ -179,13 +178,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/seared/window"));
 
+    // fluid transfer
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedFaucet.get())
                        .key('#', TinkerSmeltery.searedBrick)
                        .patternLine("# #")
                        .patternLine(" # ")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/faucet"));
-
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedChannel.get())
                        .key('#', TinkerSmeltery.searedBrick)
                        .patternLine("# #")
@@ -193,6 +192,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/channel"));
 
+    // casting
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.castingBasin.get())
                        .key('#', TinkerSmeltery.searedBrick)
                        .patternLine("# #")
@@ -200,7 +200,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("###")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/casting/basin"));
-
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.castingTable.get())
                        .key('#', TinkerSmeltery.searedBrick)
                        .patternLine("###")
@@ -209,22 +208,23 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/casting/table"));
 
+    // peripherals
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedDrain)
                        .key('#', TinkerSmeltery.searedBrick)
+                       .key('C', TinkerTags.Items.INGOTS_COPPER)
                        .patternLine("# #")
-                       .patternLine("# #")
+                       .patternLine("C C")
                        .patternLine("# #")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/drain"));
-
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedChute)
                        .key('#', TinkerSmeltery.searedBrick)
-                       .patternLine("###")
+                       .key('C', TinkerTags.Items.INGOTS_COPPER)
+                       .patternLine("#C#")
                        .patternLine("   ")
-                       .patternLine("###")
+                       .patternLine("#C#")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/chute"));
-
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedDuct)
                        .key('#', TinkerSmeltery.searedBrick)
                        .key('C', TinkerTags.Items.INGOTS_COBALT)
@@ -234,6 +234,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerTags.Items.INGOTS_COBALT))
                        .build(consumer, location("smeltery/duct"));
 
+    // controllers
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedMelter)
                        .key('G', TinkerSmeltery.searedTank.get(TankType.GAUGE))
                        .key('B', TinkerSmeltery.searedBrick)
@@ -241,6 +242,15 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("BBB")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, prefix(TinkerSmeltery.searedMelter, "smeltery/"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.smelteryController)
+                       .key('#', TinkerSmeltery.searedBrick)
+                       .key('C', TinkerTags.Items.INGOTS_COPPER)
+                       .key('G', Tags.Items.GLASS_COLORLESS)
+                       .patternLine("#C#")
+                       .patternLine("CGC")
+                       .patternLine("#C#")
+                       .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+                       .build(consumer, location("smeltery/controller"));
 
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.copperCan, 3)
                        .key('c', TinkerTags.Items.INGOTS_COPPER)

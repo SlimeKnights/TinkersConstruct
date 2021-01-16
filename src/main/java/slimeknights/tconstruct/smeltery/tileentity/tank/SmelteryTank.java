@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -251,9 +252,14 @@ public class SmelteryTank implements IFluidHandler {
    * @param fluids  List of fluids
    */
   public void setFluids(List<FluidStack> fluids) {
+    Fluid oldFirst = getFluidInTank(0).getFluid();
     this.fluids.clear();
     this.fluids.addAll(fluids);
     contained = fluids.stream().mapToInt(FluidStack::getAmount).reduce(0, Integer::sum);
+    Fluid newFirst = getFluidInTank(0).getFluid();
+    if (oldFirst != newFirst) {
+      parent.notifyFluidsChanged(FluidChange.ORDER_CHANGED, newFirst);
+    }
   }
 
   /** Writes the tank to NBT */

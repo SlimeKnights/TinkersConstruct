@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -24,9 +25,11 @@ import javax.annotation.Nullable;
 
 /** Filtering drain block, have to reimplement either inventory block logic or seared block logic unfortunately */
 public class SearedDuctBlock extends InventoryBlock {
+  public static final BooleanProperty ACTIVE = SmelteryIOBlock.ACTIVE;
   public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
   public SearedDuctBlock(Properties properties) {
     super(properties);
+    this.setDefaultState(this.getDefaultState().with(ACTIVE, false));
   }
 
   @Override
@@ -57,7 +60,7 @@ public class SearedDuctBlock extends InventoryBlock {
 
   @Override
   protected void fillStateContainer(StateContainer.Builder<Block,BlockState> builder) {
-    builder.add(FACING);
+    builder.add(ACTIVE, FACING);
   }
 
   @Nullable

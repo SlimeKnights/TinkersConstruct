@@ -16,7 +16,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import slimeknights.tconstruct.smeltery.tileentity.DrainTileEntity;
 
 /** Extenson to include interaction behavior */
-public class SearedDrainBlock extends OrientableSmelteryBlock {
+public class SearedDrainBlock extends SmelteryIOBlock {
   public SearedDrainBlock(Properties properties) {
     super(properties, DrainTileEntity::new);
   }

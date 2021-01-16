@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "top": "tconstruct:block/smeltery/io/duct_front",
-    "front": "tconstruct:block/smeltery/io/back",
-    "side": "tconstruct:block/smeltery/io/duct_front"
-  }
-}

@@ -16,6 +16,7 @@ import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.library.EmptyItemHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.component.SmelteryIOBlock;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
 import javax.annotation.Nullable;
@@ -56,13 +57,21 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
 
   @Override
   protected void setMaster(@Nullable BlockPos master, @Nullable Block block) {
-    // invalidate if the master changed
+    assert world != null;
+
+    // invalidate handlers if the master changed
     if (!Objects.equals(getMasterPos(), master)) {
       clearHandler();
-      assert world != null;
       world.notifyNeighborsOfStateChange(pos, getBlockState().getBlock());
     }
+    // update the master
+    boolean hadMaster = getMasterPos() != null;
     super.setMaster(master, block);
+    // update the active state
+    boolean hasMaster = getMasterPos() != null;
+    if (hadMaster != hasMaster) {
+      world.setBlockState(pos, getBlockState().with(SmelteryIOBlock.ACTIVE, hasMaster));
+    }
   }
 
   /**
@@ -109,12 +118,8 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   }
 
   /** Fluid implementation of smeltery IO */
-  public static class DrainTileEntity extends SmelteryInputOutputTileEntity<IFluidHandler> {
-    public DrainTileEntity() {
-      this(TinkerSmeltery.drain.get());
-    }
-
-    protected DrainTileEntity(TileEntityType<?> type) {
+  public static abstract class SmelteryFluidIO extends SmelteryInputOutputTileEntity<IFluidHandler> {
+    protected SmelteryFluidIO(TileEntityType<?> type) {
       super(type, CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EmptyFluidHandler.INSTANCE);
     }
 
