@@ -90,7 +90,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("bb")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, wrap(TinkerSmeltery.searedBricks, folder, "_from_brick"));
-    // ladder from bircks
+    // ladder from bricks
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedLadder, 2)
                        .key('b', TinkerSmeltery.searedBrick)
                        .patternLine("b b")
@@ -179,13 +179,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, location("smeltery/seared/window"));
 
     // fluid transfer
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedFaucet.get())
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedFaucet.get(), 2)
                        .key('#', TinkerSmeltery.searedBrick)
                        .patternLine("# #")
                        .patternLine(" # ")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, location("smeltery/faucet"));
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedChannel.get())
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedChannel.get(), 3)
                        .key('#', TinkerSmeltery.searedBrick)
                        .patternLine("# #")
                        .patternLine("###")

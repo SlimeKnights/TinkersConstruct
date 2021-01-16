@@ -71,10 +71,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(TinkerModifiers.moss, folder));
 
     // reinforcement
-    // FIXME: switch recipe to use a golden cast
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.reinforcement)
                        .key('O', Items.OBSIDIAN)
-                       .key('G', Tags.Items.INGOTS_GOLD)
+                       .key('G', TinkerSmeltery.blankCast)
                        .patternLine("OOO")
                        .patternLine("OGO")
                        .patternLine("OOO")
