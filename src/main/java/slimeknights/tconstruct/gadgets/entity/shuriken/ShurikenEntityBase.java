@@ -49,29 +49,21 @@ public abstract class ShurikenEntityBase extends ProjectileItemEntity implements
    */
   public abstract float getKnockback();
 
-  /**
-   * Get the entity, flint or quartz,
-   * to use in onImpact method.
-   * @return ShurikenEntityBase entity
-   */
-  public abstract ShurikenEntityBase getShurikenEntity();
-
   @Override
   protected void onImpact(RayTraceResult result) {
     super.onImpact(result);
 
     if (!this.world.isRemote) {
-      if (result.getType() == RayTraceResult.Type.BLOCK) {
-        if(getShurikenEntity() instanceof FlintShurikenEntity) {
-          this.entityDropItem(TinkerGadgets.flintShuriken.asItem());
-        }
-        else {
-          this.entityDropItem(TinkerGadgets.quartzShuriken.asItem());
-        }
-      }
-      this.world.setEntityState(this, (byte)3);
+      this.world.setEntityState(this, (byte) 3);
       this.remove();
     }
+  }
+
+  @Override
+  protected void func_230299_a_(BlockRayTraceResult result) {
+    super.func_230299_a_(result);
+
+    this.entityDropItem(getDefaultItem());
   }
 
   @Override
