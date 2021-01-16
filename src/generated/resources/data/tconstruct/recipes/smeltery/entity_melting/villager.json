@@ -1,7 +1,10 @@
 {
   "type": "tconstruct:entity_melting",
   "entity": {
-    "type": "minecraft:villager"
+    "types": [
+      "minecraft:villager",
+      "minecraft:wandering_trader"
+    ]
   },
   "output": {
     "fluid": "tconstruct:molten_emerald",

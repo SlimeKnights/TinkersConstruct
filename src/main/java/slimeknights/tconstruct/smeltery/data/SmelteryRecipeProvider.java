@@ -536,7 +536,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     String folder = "smeltery/entity_melting/";
 
     // zombies give less blood, they lost a lot already
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.ZOMBIE, EntityType.ZOMBIFIED_PIGLIN, EntityType.ZOGLIN, EntityType.ZOMBIE_HORSE),
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.ZOMBIE, EntityType.HUSK, EntityType.DROWNED, EntityType.ZOMBIFIED_PIGLIN, EntityType.ZOGLIN, EntityType.ZOMBIE_HORSE),
                                        new FluidStack(TinkerFluids.blood.get(), MaterialValues.VALUE_SlimeBall / 10), 2)
                               .build(consumer, prefixR(EntityType.ZOMBIE, folder));
 
@@ -575,15 +575,15 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                               .build(consumer, prefixR(EntityType.SILVERFISH, folder));
 
     // villagers melt into emerald, but they die quite quick
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.VILLAGER),
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.VILLAGER, EntityType.WANDERING_TRADER),
                                        new FluidStack(TinkerFluids.moltenEmerald.get(), MaterialValues.VALUE_Gem / 10), 5)
                               .build(consumer, prefixR(EntityType.VILLAGER, folder));
     // illagers are more resistant, they resist the villager culture afterall
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.PILLAGER, EntityType.ILLUSIONER, EntityType.EVOKER),
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.EVOKER, EntityType.ILLUSIONER, EntityType.PILLAGER, EntityType.VINDICATOR),
                                        new FluidStack(TinkerFluids.moltenEmerald.get(), MaterialValues.VALUE_Gem / 10), 2)
                               .build(consumer, location(folder + "illager"));
-    // zombie villagers faintly recall being a villager once
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.ZOMBIE_VILLAGER),
+    // zombie villagers and witches faintly recall being a villager once
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.ZOMBIE_VILLAGER, EntityType.WITCH),
                                        new FluidStack(TinkerFluids.moltenEmerald.get(), MaterialValues.VALUE_Gem / 25), 3)
                               .build(consumer, prefixR(EntityType.ZOMBIE_VILLAGER, folder));
 

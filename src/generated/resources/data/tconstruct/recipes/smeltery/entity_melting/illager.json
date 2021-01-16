@@ -2,9 +2,10 @@
   "type": "tconstruct:entity_melting",
   "entity": {
     "types": [
-      "minecraft:pillager",
+      "minecraft:evoker",
       "minecraft:illusioner",
-      "minecraft:evoker"
+      "minecraft:pillager",
+      "minecraft:vindicator"
     ]
   },
   "output": {
