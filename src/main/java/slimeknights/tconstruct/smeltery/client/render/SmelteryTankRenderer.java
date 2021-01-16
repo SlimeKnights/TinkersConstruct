@@ -123,10 +123,8 @@ public class SmelteryTankRenderer {
     // fluid attributes
     FluidAttributes attributes = fluid.getFluid().getAttributes();
     TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
-    TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
     int color = attributes.getColor(fluid);
     brightness = FluidRenderer.withBlockLight(brightness, attributes.getLuminosity(fluid));
-    //int brightness = mc.world.getCombinedLight(pos, fluid.getFluid().getLuminosity());
     boolean upsideDown = attributes.isGaseous(fluid);
 
     // the liquid can stretch over more blocks than the subtracted height is if yMin's decimal is bigger than yMax's decimal (causing UV over 1)
@@ -148,11 +146,11 @@ public class SmelteryTankRenderer {
         for(int x = 0; x <= xd; x++) {
           from.set(xBounds[x], yBounds[y], zBounds[z]);
           to.set(xBounds[x + 1], yBounds[y + 1], zBounds[z + 1]);
-          if (x == 0)  FluidRenderer.putTexturedQuad(builder, matrix, flowing, from, to, Direction.WEST,  color, brightness, rotation, true);
-          if (x == xd) FluidRenderer.putTexturedQuad(builder, matrix, flowing, from, to, Direction.EAST,  color, brightness, rotation, true);
-          if (z == 0)  FluidRenderer.putTexturedQuad(builder, matrix, flowing, from, to, Direction.NORTH, color, brightness, rotation, true);
-          if (z == zd) FluidRenderer.putTexturedQuad(builder, matrix, flowing, from, to, Direction.SOUTH, color, brightness, rotation, true);
-          if (y == yd) FluidRenderer.putTexturedQuad(builder, matrix, still,   from, to, Direction.UP,    color, brightness, rotation, false);
+          if (x == 0)  FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.WEST,  color, brightness, rotation, false);
+          if (x == xd) FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.EAST,  color, brightness, rotation, false);
+          if (z == 0)  FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.NORTH, color, brightness, rotation, false);
+          if (z == zd) FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.SOUTH, color, brightness, rotation, false);
+          if (y == yd) FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.UP,    color, brightness, rotation, false);
           if (y == 0) {
             // increase Y position slightly to prevent z fighting on neighboring fluids
             from.setY(from.getY() + 0.001f);
