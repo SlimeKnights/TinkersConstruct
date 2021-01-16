@@ -30,9 +30,4 @@ public class QuartzShurikenEntity extends ShurikenEntityBase {
   public float getKnockback() {
     return 0.4F;
   }
-
-  @Override
-  public ShurikenEntityBase getShurikenEntity() {
-    return this;
-  }
 }

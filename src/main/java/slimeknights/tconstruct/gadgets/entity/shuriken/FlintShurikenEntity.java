@@ -30,9 +30,4 @@ public class FlintShurikenEntity extends ShurikenEntityBase {
   public float getKnockback() {
     return 0.6F;
   }
-
-  @Override
-  public ShurikenEntityBase getShurikenEntity() {
-    return this;
-  }
 }
