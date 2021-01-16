@@ -47,7 +47,7 @@ public abstract class EntityIngredient implements Predicate<EntityType<?>> {
     Collection<EntityType<?>> collection = getTypes();
     buffer.writeVarInt(collection.size());
     for (EntityType<?> type : collection) {
-      buffer.writeRegistryId(type);
+      buffer.writeRegistryIdUnsafe(ForgeRegistries.ENTITIES, type);
     }
   }
 
