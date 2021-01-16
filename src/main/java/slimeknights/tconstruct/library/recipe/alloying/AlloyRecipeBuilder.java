@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.recipe.alloying;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.fluid.Fluid;
@@ -98,17 +96,15 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
         throw new IllegalStateException("Invalid alloying recipe " + id + ", output contained in inputs");
       }
     }
-    ResourceLocation advancementId = this.buildAdvancement(id, "alloys");
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "alloys");
     consumer.accept(new Result(id, advancementId));
   }
 
   /** Result class for the builder */
-  @AllArgsConstructor
-  private class Result implements IFinishedRecipe {
-    @Getter
-    private final ResourceLocation ID;
-    @Getter
-    private final ResourceLocation advancementID;
+  private class Result extends AbstractFinishedRecipe {
+    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
 
     @Override
     public void serialize(JsonObject json) {
@@ -123,12 +119,6 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
     @Override
     public IRecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.alloyingSerializer.get();
-    }
-
-    @Nullable
-    @Override
-    public JsonObject getAdvancementJson() {
-      return advancementBuilder.serialize();
     }
   }
 }

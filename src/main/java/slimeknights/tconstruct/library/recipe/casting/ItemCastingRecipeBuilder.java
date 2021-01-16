@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
@@ -169,34 +166,27 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
     if (this.coolingTime < 0) {
       throw new IllegalStateException("Cooling time is too low, must be at least 0");
     }
-    ResourceLocation advancementId = this.buildAdvancement(id, "casting");
-    consumer.accept(new ItemCastingRecipeBuilder.Result(id, this.group, this.consumed, this.switchSlots, this.fluid, this.cast, this.result, this.coolingTime, this.advancementBuilder, advancementId, this.recipeSerializer));
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
+    consumer.accept(new ItemCastingRecipeBuilder.Result(id, advancementId));
   }
 
-  @AllArgsConstructor
-  private static class Result implements IFinishedRecipe {
-    @Getter
-    protected final ResourceLocation ID;
-    private final String group;
-    private final boolean consumed;
-    private final boolean switchSlots;
-    private final FluidIngredient fluid;
-    private final Ingredient cast;
-    private final ItemStack result;
-    private final int coolingTime;
-    private final Advancement.Builder advancementBuilder;
-    @Getter
-    private final ResourceLocation advancementID;
-    @Getter
-    private final IRecipeSerializer<? extends ItemCastingRecipe> serializer;
+  private class Result extends AbstractFinishedRecipe {
+    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
+
+    @Override
+    public IRecipeSerializer<?> getSerializer() {
+      return recipeSerializer;
+    }
 
     @Override
     public void serialize(JsonObject json) {
-      if (!this.group.isEmpty()) {
-        json.addProperty("group", this.group);
+      if (!group.isEmpty()) {
+        json.addProperty("group", group);
       }
       if (cast != Ingredient.EMPTY) {
-        json.add("cast", this.cast.serialize());
+        json.add("cast", cast.serialize());
         if (consumed) {
           json.addProperty("cast_consumed", true);
         }
@@ -204,26 +194,20 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
       if (switchSlots) {
         json.addProperty("switch_slots", true);
       }
-      json.add("fluid", this.fluid.serialize());
+      json.add("fluid", fluid.serialize());
 
       // if the item has NBT, write both, else write just the name
-      String itemName = Objects.requireNonNull(this.result.getItem().getRegistryName()).toString();
+      String itemName = Objects.requireNonNull(result.getItem().getRegistryName()).toString();
       if (result.hasTag()) {
-        JsonObject result = new JsonObject();
-        result.addProperty("item", itemName);
-        result.addProperty("nbt", Objects.requireNonNull(this.result.getTag()).toString());
-        json.add("result", result);
+        JsonObject jsonResult = new JsonObject();
+        jsonResult.addProperty("item", itemName);
+        jsonResult.addProperty("nbt", Objects.requireNonNull(result.getTag()).toString());
+        json.add("result", jsonResult);
       } else {
         json.addProperty("result", itemName);
       }
 
-      json.addProperty("cooling_time", this.coolingTime);
-    }
-
-    @Nullable
-    @Override
-    public JsonObject getAdvancementJson() {
-      return this.advancementBuilder.serialize();
+      json.addProperty("cooling_time", coolingTime);
     }
   }
 }

@@ -31,7 +31,6 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -249,7 +248,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     String name = Objects.requireNonNull(toolCore.getRegistryName()).getPath();
 
     ToolBuildingRecipeBuilder.toolBuildingRecipe(toolCore)
-      .addCriterion("has_item", hasItem(TinkerTables.tinkerStation))
       .build(consumer, location("tinker_station/building/" + name));
   }
 
@@ -273,14 +271,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     PartRecipeBuilder.partRecipe(part)
                      .setPattern(location(name))
                      .setCost(cost)
-                     .addCriterion("has_item", hasItem(TinkerTables.pattern))
                      .build(consumer, location("parts/" + name));
 
     // Material Casting
     MaterialCastingRecipeBuilder.tableRecipe(part)
                                 .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
                                 .setCast(cast, false)
-                                .addCriterion("has_item", hasItem(cast))
                                 .build(consumer, location("casting/parts/" + name));
 
     // Cast Casting
@@ -288,13 +284,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                             .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
                             .setCast(MaterialIngredient.fromItem(part), true)
                             .setSwitchSlots()
-                            .addCriterion("has_item", hasItem(part))
                             .build(consumer, location("casting/casts/" + Objects.requireNonNull(part.asItem().getRegistryName()).getPath()));
 
     // Part melting
-    MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot)
-                                .addCriterion("has_item", hasItem(part))
-                                .build(consumer, location("melting/parts/" + part));
+    MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot).build(consumer, location("melting/parts/" + part));
   }
 
   /**
@@ -311,7 +304,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setIngredient(input)
                          .setValue(value)
                          .setNeeded(needed)
-                         .addCriterion("has_item", hasItem(TinkerTables.pattern.get()))
                          .build(consumer, location("materials/" + saveName));
   }
 

@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.recipe.melting;
 
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
@@ -30,20 +28,14 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildAdvancement(id, "melting");
-    consumer.accept(new Result(id, group, item, amount, advancementBuilder, advancementId));
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "melting");
+    consumer.accept(new Result(id, advancementId));
   }
 
-  @AllArgsConstructor
-  private static class Result implements IFinishedRecipe {
-    @Getter
-    private final ResourceLocation ID;
-    private final String group;
-    private final IMaterialItem item;
-    private final int amount;
-    private final Builder advancementBuilder;
-    @Getter
-    private final ResourceLocation advancementID;
+  private class Result extends AbstractFinishedRecipe {
+    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
 
     @Override
     public void serialize(JsonObject json) {
@@ -57,12 +49,6 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
     @Override
     public IRecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.materialMeltingSerializer.get();
-    }
-
-    @Nullable
-    @Override
-    public JsonObject getAdvancementJson() {
-      return this.advancementBuilder.serialize();
     }
   }
 }

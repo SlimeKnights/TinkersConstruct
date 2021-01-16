@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.recipe.entitymelting;
 
 import com.google.gson.JsonObject;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -33,14 +32,15 @@ public class EntityMeltingRecipeBuilder extends AbstractRecipeBuilder<EntityMelt
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation resourceLocation) {
-    consumer.accept(new FinishedRecipe(resourceLocation));
+  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "entity_melting");
+    consumer.accept(new FinishedRecipe(id, advancementId));
   }
 
-  @RequiredArgsConstructor
-  private class FinishedRecipe implements IFinishedRecipe {
-    @Getter
-    private final ResourceLocation ID;
+  private class FinishedRecipe extends AbstractFinishedRecipe {
+    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
 
     @Override
     public void serialize(JsonObject json) {
@@ -52,18 +52,6 @@ public class EntityMeltingRecipeBuilder extends AbstractRecipeBuilder<EntityMelt
     @Override
     public IRecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.entityMeltingSerializer.get();
-    }
-
-    @Nullable
-    @Override
-    public JsonObject getAdvancementJson() {
-      return null;
-    }
-
-    @Nullable
-    @Override
-    public ResourceLocation getAdvancementID() {
-      return null;
     }
   }
 }

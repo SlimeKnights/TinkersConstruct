@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -102,48 +99,36 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
     if (this.fluidAmount <= 0) {
       throw new IllegalStateException("Material casting recipes require a positive amount of fluid");
     }
-    ResourceLocation advancementId = this.buildAdvancement(id, "casting");
-    consumer.accept(new Result(id, this.group, this.consumed, this.switchSlots, this.fluidAmount, this.cast, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
+    consumer.accept(new Result(id, advancementId));
   }
 
-  @AllArgsConstructor
-  private static class Result implements IFinishedRecipe {
-    @Getter
-    protected final ResourceLocation ID;
-    private final String group;
-    private final boolean consumed;
-    private final boolean switchSlots;
-    private final int fluidAmount;
-    private final Ingredient cast;
-    private final IMaterialItem result;
-    private final Advancement.Builder advancementBuilder;
-    @Getter
-    private final ResourceLocation advancementID;
-    @Getter
-    private final IRecipeSerializer<? extends MaterialCastingRecipe> serializer;
+  private class Result extends AbstractFinishedRecipe {
+    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
+
+    @Override
+    public IRecipeSerializer<?> getSerializer() {
+      return recipeSerializer;
+    }
 
     @Override
     public void serialize(JsonObject json) {
-      if (!this.group.isEmpty()) {
-        json.addProperty("group", this.group);
+      if (!group.isEmpty()) {
+        json.addProperty("group", group);
       }
       if (cast != Ingredient.EMPTY) {
-        json.add("cast", this.cast.serialize());
-        if (this.consumed) {
+        json.add("cast", cast.serialize());
+        if (consumed) {
           json.addProperty("cast_consumed", true);
         }
       }
-      if (this.switchSlots) {
+      if (switchSlots) {
         json.addProperty("switch_slots", true);
       }
-      json.addProperty("fluid_amount", this.fluidAmount);
-      json.addProperty("result", Objects.requireNonNull(this.result.asItem().getRegistryName()).toString());
-    }
-
-    @Nullable
-    @Override
-    public JsonObject getAdvancementJson() {
-      return this.advancementBuilder.serialize();
+      json.addProperty("fluid_amount", fluidAmount);
+      json.addProperty("result", Objects.requireNonNull(result.asItem().getRegistryName()).toString());
     }
   }
 }

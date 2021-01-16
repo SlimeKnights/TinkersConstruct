@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.recipe.melting;
 
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.fluid.Fluid;
@@ -94,19 +92,14 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
     // only build JSON if needed
-    ResourceLocation advancementId = null;
-    if (!advancementBuilder.getCriteria().isEmpty()) {
-      advancementId = this.buildAdvancement(id, "melting");
-    }
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "melting");
     consumer.accept(new Result(id, advancementId));
   }
 
-  @AllArgsConstructor
-  private class Result implements IFinishedRecipe {
-    @Getter
-    private final ResourceLocation ID;
-    @Getter @Nullable
-    private final ResourceLocation advancementID;
+  private class Result extends AbstractFinishedRecipe {
+    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
 
     @Override
     public void serialize(JsonObject json) {
@@ -121,16 +114,6 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
     @Override
     public IRecipeSerializer<?> getSerializer() {
       return isOre ? TinkerSmeltery.oreMeltingSerializer.get() : TinkerSmeltery.meltingSerializer.get();
-    }
-
-    @Override
-    @Nullable
-    public JsonObject getAdvancementJson() {
-      // only build JSON if needed
-      if (advancementID == null) {
-        return null;
-      }
-      return advancementBuilder.serialize();
     }
   }
 }

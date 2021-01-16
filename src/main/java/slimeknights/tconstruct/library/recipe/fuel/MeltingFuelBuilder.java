@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.recipe.fuel;
 
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
@@ -45,21 +43,14 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildAdvancement(id, "melting_fuel");
-    consumer.accept(new Result(id, group, input, duration, temperature, advancementBuilder, advancementId));
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "melting_fuel");
+    consumer.accept(new Result(id, advancementId));
   }
 
-  @AllArgsConstructor
-  private static class Result implements IFinishedRecipe {
-    @Getter
-    private final ResourceLocation ID;
-    private final String group;
-    private final FluidIngredient input;
-    private final int duration;
-    private final int temperature;
-    private final Advancement.Builder advancementBuilder;
-    @Getter
-    private final ResourceLocation advancementID;
+  private class Result extends AbstractFinishedRecipe {
+    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
 
     @Override
     public void serialize(JsonObject json) {
@@ -74,12 +65,6 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
     @Override
     public IRecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.fuelSerializer.get();
-    }
-
-    @Nullable
-    @Override
-    public JsonObject getAdvancementJson() {
-      return advancementBuilder.serialize();
     }
   }
 }

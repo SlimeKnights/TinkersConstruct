@@ -1,9 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -69,36 +66,27 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildAdvancement(id, "casting");
-    consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, this.group, this.fluidAmount, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
+    consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, advancementId));
   }
 
-  @AllArgsConstructor
-  private static class Result implements IFinishedRecipe {
-    @Getter
-    protected final ResourceLocation ID;
-    private final String group;
-    private final int fluidAmount;
-    private final Item result;
-    private final Advancement.Builder advancementBuilder;
-    @Getter
-    private final ResourceLocation advancementID;
-    @Getter
-    private final IRecipeSerializer<? extends ContainerFillingRecipe> serializer;
+  private class Result extends AbstractFinishedRecipe {
+    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
+
+    @Override
+    public IRecipeSerializer<?> getSerializer() {
+      return recipeSerializer;
+    }
 
     @Override
     public void serialize(JsonObject json) {
-      if (!this.group.isEmpty()) {
-        json.addProperty("group", this.group);
+      if (!group.isEmpty()) {
+        json.addProperty("group", group);
       }
-      json.addProperty("fluid_amount", this.fluidAmount);
-      json.addProperty("container", Objects.requireNonNull(this.result.asItem().getRegistryName()).toString());
-    }
-
-    @Nullable
-    @Override
-    public JsonObject getAdvancementJson() {
-      return this.advancementBuilder.serialize();
+      json.addProperty("fluid_amount", fluidAmount);
+      json.addProperty("container", Objects.requireNonNull(result.asItem().getRegistryName()).toString());
     }
   }
 }
