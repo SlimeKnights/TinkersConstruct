@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.block;
+package slimeknights.tconstruct.smeltery.block.component;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;

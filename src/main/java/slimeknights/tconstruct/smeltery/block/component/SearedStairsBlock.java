@@ -1,7 +1,7 @@
-package slimeknights.tconstruct.smeltery.block;
+package slimeknights.tconstruct.smeltery.block.component;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -12,12 +12,13 @@ import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
-// TODO: reassess need
-public class SearedSlabBlock extends SlabBlock {
+// TODO: reassess the need
+public class SearedStairsBlock extends StairsBlock {
 
-  public SearedSlabBlock(Properties properties) {
-    super(properties);
+  public SearedStairsBlock(Supplier<BlockState> state, Properties properties) {
+    super(state, properties);
   }
 
   @Override
@@ -40,15 +41,17 @@ public class SearedSlabBlock extends SlabBlock {
   }
 
   @Override
-  public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-    SmelteryComponentTileEntity.updateNeighbors(worldIn, pos, state);
+  public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+    SmelteryComponentTileEntity.updateNeighbors(world, pos, state);
   }
 
   @Override
   @Deprecated
   public boolean eventReceived(BlockState state, World worldIn, BlockPos pos, int id, int param) {
     super.eventReceived(state, worldIn, pos, id, param);
+
     TileEntity tileentity = worldIn.getTileEntity(pos);
+
     return tileentity != null && tileentity.receiveClientEvent(id, param);
   }
 }

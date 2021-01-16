@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.block;
+package slimeknights.tconstruct.smeltery.block.component;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

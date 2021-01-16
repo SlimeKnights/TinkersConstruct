@@ -17,7 +17,7 @@ import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 
 import javax.annotation.Nullable;
 import java.util.List;

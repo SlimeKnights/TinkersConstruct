@@ -1,10 +1,9 @@
-package slimeknights.tconstruct.smeltery.block;
+package slimeknights.tconstruct.smeltery.block.component;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
@@ -17,12 +16,13 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class SearedLadderBlock extends SearedBlock {
+public class SearedLadderBlock extends OrientableSmelteryBlock {
   /** Collision bounds, determines where this block stops the player */
   private static final Map<Direction,VoxelShape> COLLISION = Util.make(new EnumMap<>(Direction.class), map -> {
     map.put(Direction.NORTH, VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), makeCuboidShape( 2, 0,  0, 14, 16,  5), IBooleanFunction.ONLY_FIRST));
@@ -82,17 +82,17 @@ public class SearedLadderBlock extends SearedBlock {
   }
 
   public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
-  public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
   public SearedLadderBlock(Properties properties) {
-    super(properties);
+    super(properties, SmelteryComponentTileEntity::new);
   }
 
   /** Bottom connections */
 
   @Override
   protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-    builder.add(BOTTOM, FACING);
+    super.fillStateContainer(builder);
+    builder.add(BOTTOM);
   }
 
   @Nullable

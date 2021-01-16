@@ -28,7 +28,7 @@ import slimeknights.tconstruct.library.client.model.block.ChannelModel;
 import slimeknights.tconstruct.library.client.model.block.MelterModel;
 import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
-import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
 import slimeknights.tconstruct.smeltery.client.render.CastingTileEntityRenderer;

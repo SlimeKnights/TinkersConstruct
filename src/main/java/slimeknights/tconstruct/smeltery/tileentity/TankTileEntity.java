@@ -21,8 +21,8 @@ import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
-import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

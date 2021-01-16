@@ -125,7 +125,6 @@ public class SmelteryTankRenderer {
     TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
     TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
     int color = attributes.getColor(fluid);
-    // TODO: block light from lighting pos?
     brightness = FluidRenderer.withBlockLight(brightness, attributes.getLuminosity(fluid));
     //int brightness = mc.world.getCombinedLight(pos, fluid.getFluid().getLuminosity());
     boolean upsideDown = attributes.isGaseous(fluid);
