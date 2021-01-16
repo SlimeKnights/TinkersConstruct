@@ -109,6 +109,14 @@ public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerPr
   }
 
   @Override
+  public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+    super.handleUpdateTag(state, tag);
+    if (world != null && world.isRemote) {
+      updateFluid();
+    }
+  }
+
+  @Override
   public void writeSynced(CompoundNBT tags) {
     super.writeSynced(tags);
     tags.put(TAG_ITEM, itemHandler.writeToNBT());
