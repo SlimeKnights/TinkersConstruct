@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei;
 
-import com.google.common.collect.ImmutableSet;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
@@ -15,21 +14,16 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
-import slimeknights.tconstruct.library.recipe.entitymelting.EntityIngredient;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
@@ -37,6 +31,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
+import slimeknights.tconstruct.plugin.jei.entitymelting.DefaultEntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.entitymelting.EntityIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.entitymelting.EntityIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.entitymelting.EntityMeltingRecipeCategory;
@@ -46,12 +41,11 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.client.inventory.IScreenWithFluidTank;
 import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
-import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
+import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -99,20 +93,7 @@ public class JEIPlugin implements IModPlugin {
     // entity melting
     List<EntityMeltingRecipe> entityMeltingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.ENTITY_MELTING, EntityMeltingRecipe.class);
     // generate a "default" recipe for all other entity types
-    List<EntityType<?>> unusedTypes = new ArrayList<>();
-    typeLoop:
-    for (EntityType<?> type : ForgeRegistries.ENTITIES) {
-      // use tag overrides for default recipe
-      if (TinkerTags.EntityTypes.MELTING_HIDE.contains(type)) continue;
-      if (type.getClassification() == EntityClassification.MISC && !TinkerTags.EntityTypes.MELTING_SHOW.contains(type)) continue;
-      for (EntityMeltingRecipe recipe : entityMeltingRecipes) {
-        if (recipe.matches(type)) {
-          continue typeLoop;
-        }
-      }
-      unusedTypes.add(type);
-    }
-    entityMeltingRecipes.add(new EntityMeltingRecipe(Util.getResource("__default"), EntityIngredient.of(ImmutableSet.copyOf(unusedTypes)), EntityMeltingModule.getDefaultFluid(), 2));
+    entityMeltingRecipes.add(new DefaultEntityMeltingRecipe(entityMeltingRecipes));
     register.addRecipes(entityMeltingRecipes, TConstructRecipeCategoryUid.entityMelting);
 
     // alloying
@@ -180,6 +161,7 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerTools.axe.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.kama.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.broadSword.get(), toolInterpreter);
+    registry.registerSubtypeInterpreter(TinkerSmeltery.copperCan.get(), CopperCanItem::getSubtype);
   }
 
   @Override

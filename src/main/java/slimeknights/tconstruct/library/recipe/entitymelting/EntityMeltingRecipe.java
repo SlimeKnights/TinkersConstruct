@@ -65,7 +65,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
   @SuppressWarnings("rawtypes")
   public List<List<EntityType>> getDisplayInputs() {
     if (displayInputs == null) {
-      displayInputs = ImmutableList.of(ImmutableList.copyOf(ingredient.getTypes()));
+      displayInputs = ImmutableList.of(ImmutableList.copyOf(getInputs()));
     }
     return displayInputs;
   }
