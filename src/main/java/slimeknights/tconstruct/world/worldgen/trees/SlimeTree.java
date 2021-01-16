@@ -60,7 +60,7 @@ public class SlimeTree extends Tree {
 
       configuredFeature.config.forcePlacement();
 
-      if (configuredFeature.func_242765_a(world, chunkGenerator, rand, pos)) {
+      if (configuredFeature.generate(world, chunkGenerator, rand, pos)) {
         return true;
       }
       else {

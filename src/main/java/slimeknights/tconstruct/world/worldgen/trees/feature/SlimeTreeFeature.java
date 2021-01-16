@@ -39,7 +39,7 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
   }
 
   @Override
-  public final boolean func_241855_a(ISeedReader seedReader, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, BaseSlimeTreeFeatureConfig config) {
+  public final boolean generate(ISeedReader seedReader, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, BaseSlimeTreeFeatureConfig config) {
     Set<BlockPos> set = Sets.newHashSet();
     Set<BlockPos> set1 = Sets.newHashSet();
     Set<BlockPos> set2 = Sets.newHashSet();

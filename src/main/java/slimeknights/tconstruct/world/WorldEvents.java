@@ -2,12 +2,8 @@ package slimeknights.tconstruct.world;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.MobSpawnInfo;
@@ -16,6 +12,7 @@ import net.minecraft.world.biome.provider.NetherBiomeProvider;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.OreFeatureConfig.FillerBlockType;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
@@ -27,9 +24,7 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import java.util.function.Supplier;
 
@@ -108,8 +103,8 @@ public class WorldEvents {
 
       if (Config.COMMON.generateCopper.get()) {
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-          Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241882_a, TinkerWorld.copperOre.get().getDefaultState(), 17))
-            .withPlacement(Placement.field_242907_l.configure(new TopSolidRangeConfig(30, 0, 90))).func_242728_a().func_242731_b(Config.COMMON.veinCountCopper.get()));
+          Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.BASE_STONE_OVERWORLD, TinkerWorld.copperOre.get().getDefaultState(), 17))
+            .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(30, 0, 90))).square().func_242731_b(Config.COMMON.veinCountCopper.get()));
       }
     }
     else if (event.getCategory() == Biome.Category.THEEND && doesNameMatchBiomes(event.getName(), Biomes.END_MIDLANDS, Biomes.END_HIGHLANDS, Biomes.END_BARRENS, Biomes.SMALL_END_ISLANDS)) {
@@ -130,12 +125,12 @@ public class WorldEvents {
     int veinCount = count.get() / 2;
 
     generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION,
-      Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241883_b, block.get().getDefaultState(), 5))
-        .withPlacement(Placement.field_242907_l.configure(new TopSolidRangeConfig(32, 0, 64))).func_242728_a().func_242731_b(veinCount));
+      Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.NETHERRACK, block.get().getDefaultState(), 5))
+        .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(32, 0, 64))).square().func_242731_b(veinCount));
 
     generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION,
-      Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241883_b, block.get().getDefaultState(), 5))
-        .func_242733_d(128).func_242728_a().func_242731_b(veinCount));
+      Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, block.get().getDefaultState(), 5))
+        .range(128).square().func_242731_b(veinCount));
   }
 
   /**
@@ -143,8 +138,8 @@ public class WorldEvents {
    * @param name - The Name that will be compared to the given Biomes names
    * @param biomes - The Biome that will be used for the check
    */
-  private static boolean doesNameMatchBiomes(ResourceLocation name, RegistryKey<Biome>... biomes) {
-    for (RegistryKey<Biome> biome : biomes) {
+  private static boolean doesNameMatchBiomes(ResourceLocation name, RegistryKey<?>... biomes) {
+    for (RegistryKey<?> biome : biomes) {
       if (biome.getLocation().equals(name)) {
         return true;
       }

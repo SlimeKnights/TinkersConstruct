@@ -185,9 +185,9 @@ dependencies {
     compile fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
 
     // compile against the JEI API but do not include it at runtime
-    compileOnly fg.deobf("mezz.jei:jei-1.16.2:${jei_version}:api")
+    compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
     // at runtime, use the full JEI jar
-    runtimeOnly fg.deobf("mezz.jei:jei-1.16.2:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
 
     compile fg.deobf("mcjty.theoneprobe:TheOneProbe-${minecraft_base_version}:${minecraft_base_version}-${probe_version}")
 
@@ -208,13 +208,10 @@ def modsTomlSpec = copySpec{
     from(sourceSets.main.resources) {
         include 'META-INF/mods.toml'
         expand 'version': artifact_version,
-            'minecraft_version_min': minecraft_version_min,
-            'minecraft_version_max': minecraft_version_max,
-            'forge_version_min': forge_version_min,
-            'forge_version_max': forge_version_max,
-            'javafml_min': javafml_min,
-            'javafml_max': javafml_max,
-            'mantle_version': mantle_version
+            'loader_range': loader_range,
+            'minecraft_range': minecraft_range,
+            'forge_range': forge_range,
+            'mantle_range': mantle_range
     }
 }
 // need to copy into each build directory, unfortunately does not seem easy to do this automatically
