@@ -352,8 +352,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
       // update all listeners
       Iterator<WeakReference<IDisplayFluidListener>> iterator = fluidDisplayListeners.iterator();
       while (iterator.hasNext()) {
-        WeakReference<IDisplayFluidListener> reference = iterator.next();
-        IDisplayFluidListener listener = reference.get();
+        IDisplayFluidListener listener = iterator.next().get();
         if (listener == null) {
           iterator.remove();
         } else {
@@ -438,7 +437,14 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   public void setStructureSize(BlockPos minPos, BlockPos maxPos, List<BlockPos> tanks) {
     setStructure(multiblock.createClient(minPos, maxPos, tanks));
     fuelModule.clearCachedDisplayListeners();
-    fluidDisplayListeners.clear();
+    if (structure == null) {
+      fluidDisplayListeners.clear();
+    } else {
+      fluidDisplayListeners.removeIf(reference -> {
+        IDisplayFluidListener listener = reference.get();
+        return listener == null || !structure.contains(listener.getListenerPos());
+      });
+    }
   }
 
 

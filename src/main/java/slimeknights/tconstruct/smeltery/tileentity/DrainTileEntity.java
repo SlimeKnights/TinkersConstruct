@@ -47,6 +47,11 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
     }
   }
 
+  @Override
+  public BlockPos getListenerPos() {
+    return getPos();
+  }
+
 
   /* Updating */
 
