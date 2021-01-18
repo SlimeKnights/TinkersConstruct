@@ -44,7 +44,7 @@ public class SmelteryControllerBlock extends ControllerBlock {
   public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
     if (state.get(ACTIVE)) {
       double x = pos.getX() + 0.5D;
-      double y = (double) pos.getY() + (rand.nextFloat() * 6F) / 16F + 0.5F;
+      double y = (double) pos.getY() + (rand.nextFloat() * 6F + 2F) / 16F;
       double z = pos.getZ() + 0.5D;
       double frontOffset = 0.52D;
       double sideOffset = rand.nextDouble() * 0.6D - 0.3D;
