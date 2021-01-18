@@ -118,7 +118,8 @@ public class EntityMeltingModule {
       }
 
       // only can melt living, ensure its not immune to our damage
-      else if (entity instanceof LivingEntity && canMeltEntity((LivingEntity)entity)) {
+      // if canMelt is already found as false, skip instance checks, we only care about items now
+      else if (canMelt != Boolean.FALSE && entity instanceof LivingEntity && canMeltEntity((LivingEntity)entity)) {
         // only fetch boolean once, its not the fastest as it tries to consume fuel
         if (canMelt == null) canMelt = canMeltEntities.getAsBoolean();
 
@@ -141,8 +142,6 @@ public class EntityMeltingModule {
             // its fine if we don't fill it all, leftover fluid is just lost
             tank.fill(fluid, FluidAction.EXECUTE);
           }
-        } else {
-          break;
         }
       }
     }
