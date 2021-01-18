@@ -41,6 +41,8 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltip
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "melting.title");
   private static final String KEY_ORE = Util.makeTranslationKey("jei", "melting.ore");
   private static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "melting.temperature");
+  private static final String KEY_MULTIPLIER = Util.makeTranslationKey("jei", "melting.multiplier");
+  private static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "time");
 
   @Getter
   private final String title;
@@ -84,10 +86,12 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltip
       plus.draw(matrices, 87, 31);
     }
 
-    String tempString = I18n.format(KEY_TEMPERATURE, recipe.getTemperature());
     FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-    int x = 56 - fontRenderer.getStringWidth(tempString) / 2;
-    fontRenderer.drawString(matrices, tempString, x, 3, Color.GRAY.getRGB());
+    String tempString = I18n.format(KEY_TEMPERATURE, recipe.getTemperature());
+    fontRenderer.drawString(matrices, tempString, 20, 3, Color.GRAY.getRGB());
+    String timeString = I18n.format(KEY_COOLING_TIME, recipe.getTime() / 4);
+    int x = 92 - fontRenderer.getStringWidth(timeString);
+    fontRenderer.drawString(matrices, timeString, x, 3, Color.GRAY.getRGB());
   }
 
   @Override
@@ -128,10 +132,12 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltip
       FluidTooltipHandler.appendMaterial(stack, list);
     }
 
-    // fuels show temperature
+    // fuels show temperature and quality
     if (index == 1) {
-      MeltingFuelHandler.getTemperature(stack.getFluid()).ifPresent((temperature) ->
-        list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY)));
+      MeltingFuelHandler.getTemperature(stack.getFluid()).ifPresent(temperature -> {
+        list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY));
+        list.add(new TranslationTextComponent(KEY_MULTIPLIER, temperature / 1000f).mergeStyle(TextFormatting.GRAY));
+      });
     }
     list.add(modId);
   }

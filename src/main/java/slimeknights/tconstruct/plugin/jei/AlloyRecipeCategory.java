@@ -20,6 +20,7 @@ import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
+import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.List;
@@ -38,12 +39,14 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
   @Getter
   private final String title;
   private final IDrawable arrow;
+  private final IDrawable tank;
 
   public AlloyRecipeCategory(IGuiHelper helper) {
     this.title = ForgeI18n.getPattern(KEY_TITLE);
-    this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 165, 62);
+    this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 166, 62);
     this.icon = helper.createDrawableIngredient(new ItemStack(TinkerSmeltery.smelteryController));
-    this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 165, 0, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
+    this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 166, 0, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
+    this.tank = helper.createDrawable(BACKGROUND_LOC, 166, 17, 16, 16);
   }
 
   @Override
@@ -88,12 +91,16 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
     for (int i = 0; i < inputs.size(); i++) {
       int x = 19 + (int) (i * width);
       int w = (int) ((i + 1) * width - i * width);
-      fluids.init(i + 1, true, x, 11, w, 32, maxAmount, false, null);
+      fluids.init(i + 2, true, x, 11, w, 32, maxAmount, false, null);
     }
 
     // output
-    fluids.init(0, false, 130, 11, 16, 32, maxAmount, false, null);
+    fluids.init(0, false, 131, 11, 16, 32, maxAmount, false, null);
     fluids.set(ingredients);
+
+    // show fuels that are valid for this recipe
+    fluids.init(1, true, 91, 43, 16, 16, 1, false, tank);
+    fluids.set(1, MeltingFuelHandler.getUsableFuels(1));
   }
 
   @Override
@@ -106,7 +113,9 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
       list.add(name);
 
       // multiply amount by 5 to put in terms of seconds
-      FluidTooltipHandler.appendMaterial(stack.getFluid(), stack.getAmount() * 5, true, list);
+      if (index != 1) {
+        FluidTooltipHandler.appendMaterial(stack.getFluid(), stack.getAmount() * 5, true, list);
+      }
       list.add(modId);
     }
   }

@@ -38,9 +38,9 @@ import java.util.List;
 public abstract class AbstractCastingCategory<T extends ItemCastingRecipe> implements IRecipeCategory<T>, ITooltipCallback<FluidStack> {
   private static final int INPUT_SLOT = 0;
   private static final int OUTPUT_SLOT = 1;
-  private static final String KEY_COOLING_TIME = "jei.tconstruct.casting.cooling_time";
-  private static final String KEY_CAST_KEPT = "jei.tconstruct.casting.cast_kept";
-  private static final String KEY_CAST_CONSUMED = "jei.tconstruct.casting.cast_consumed";
+  private static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "time");
+  private static final String KEY_CAST_KEPT = Util.makeTranslationKey("jei", "casting.cast_kept");
+  private static final String KEY_CAST_CONSUMED = Util.makeTranslationKey("jei", "casting.cast_consumed");
   protected static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/casting.png");
 
   @Getter

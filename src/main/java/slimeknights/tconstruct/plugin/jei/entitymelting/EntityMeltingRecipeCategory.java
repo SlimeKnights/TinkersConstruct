@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.JEIPlugin;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
+import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.awt.Color;
@@ -53,12 +54,14 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
   @Getter
   private final String title;
   private final IDrawable arrow;
+  private final IDrawable tank;
 
   public EntityMeltingRecipeCategory(IGuiHelper helper) {
     this.title = ForgeI18n.getPattern(KEY_TITLE);
-    this.background = helper.createDrawable(BACKGROUND_LOC, 0, 41, 149, 62);
+    this.background = helper.createDrawable(BACKGROUND_LOC, 0, 41, 150, 62);
     this.icon = helper.createDrawableIngredient(new ItemStack(TinkerSmeltery.smelteryController));
-    this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 149, 41, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
+    this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 150, 41, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
+    this.tank = helper.createDrawable(BACKGROUND_LOC, 150, 74, 16, 16);
   }
 
   @Override
@@ -107,8 +110,12 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     // output
     IGuiFluidStackGroup fluids = layout.getFluidStacks();
     fluids.addTooltipCallback(this);
-    fluids.init(1, false, 114, 11, 16, 32, MaterialValues.VALUE_Ingot, false, null);
+    fluids.init(1, false, 115, 11, 16, 32, MaterialValues.VALUE_Ingot, false, null);
     fluids.set(ingredients);
+
+    // show fuels that are valid for this recipe
+    fluids.init(2, true, 75, 43, 16, 16, 1, false, tank);
+    fluids.set(2, MeltingFuelHandler.getUsableFuels(1));
   }
 
   @Override
@@ -117,7 +124,9 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     ITextComponent modId = list.get(list.size() - 1);
     list.clear();
     list.add(name);
-    FluidTooltipHandler.appendMaterial(fluid.getFluid(), fluid.getAmount(), true, list);
+    if (index != 2) {
+      FluidTooltipHandler.appendMaterial(fluid.getFluid(), fluid.getAmount(), true, list);
+    }
     list.add(modId);
   }
 }

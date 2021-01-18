@@ -795,14 +795,16 @@
     "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required.",
 
     "_comment": "JEI Strings",
+    "jei.tconstruct.time": "%s s",
+    
     "jei.tconstruct.casting.basin": "Casting Basin",
     "jei.tconstruct.casting.table": "Casting Table",
-    "jei.tconstruct.casting.cooling_time": "%s s",
     "jei.tconstruct.casting.cast_kept": "Cast item can be reused in later recipes",
     "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
     
     "jei.tconstruct.melting.title": "Melting",
     "jei.tconstruct.melting.temperature": "%s°C",
+    "jei.tconstruct.melting.multiplier": "Speed multiplier: %sx",
     "jei.tconstruct.melting.ore": "Recipe output is boosted based on the block",
     "jei.tconstruct.entity_melting.title": "Entity Melting",
 
