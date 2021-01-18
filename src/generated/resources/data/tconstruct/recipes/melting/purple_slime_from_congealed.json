@@ -7,5 +7,6 @@
     "fluid": "tconstruct:purple_slime",
     "amount": 1000
   },
-  "temperature": 64
+  "temperature": 70,
+  "time": 64
 }

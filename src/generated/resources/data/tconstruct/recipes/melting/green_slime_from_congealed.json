@@ -7,5 +7,6 @@
     "fluid": "tconstruct:green_slime",
     "amount": 1000
   },
-  "temperature": 46
+  "temperature": 50,
+  "time": 62
 }

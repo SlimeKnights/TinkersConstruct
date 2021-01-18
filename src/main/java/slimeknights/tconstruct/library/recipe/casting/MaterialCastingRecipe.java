@@ -50,7 +50,7 @@ public abstract class MaterialCastingRecipe implements ICastingRecipe, IMultiRec
 
   @Override
   public boolean matches(ICastingInventory inv, World worldIn) {
-    return this.cast.test(inv.getStack()) && MaterialRegistry.getInstance() .getMaterial(inv.getFluid()) != IMaterial.UNKNOWN;
+    return this.cast.test(inv.getStack()) && MaterialRegistry.getInstance().getMaterial(inv.getFluid()) != IMaterial.UNKNOWN;
   }
 
   @Override

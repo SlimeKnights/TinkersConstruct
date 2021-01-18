@@ -7,5 +7,6 @@
     "fluid": "tconstruct:molten_iron",
     "amount": 16
   },
-  "temperature": 117
+  "temperature": 800,
+  "time": 20
 }

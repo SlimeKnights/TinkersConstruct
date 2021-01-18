@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class OreMeltingRecipe extends MeltingRecipe {
   private List<List<FluidStack>> displayOutput;
-  public OreMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature) {
-    super(id, group, input, output, temperature);
+  public OreMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time) {
+    super(id, group, input, output, temperature, time);
   }
 
   /**

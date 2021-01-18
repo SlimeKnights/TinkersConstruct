@@ -16,7 +16,6 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.ToIntFunction;
 
 /**
  * Builder for a recipe that melts an ingredient into a fuel
@@ -26,6 +25,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   private final Ingredient input;
   private final FluidStack output;
   private final int temperature;
+  private final int time;
   private boolean isOre = false;
 
   /**
@@ -33,46 +33,48 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    * @param input        Recipe input
    * @param output       Recipe output
    * @param temperature  Temperature required
+   * @param time         Time this recipe takes
    * @return  Builder instance
    */
-  public static MeltingRecipeBuilder melting(Ingredient input, FluidStack output, int temperature) {
-    if (temperature <= 0) {
-      throw new IllegalArgumentException("Invalid temperature " + temperature + ", must be greater than zero");
-    }
-    return new MeltingRecipeBuilder(input, output, temperature);
+  public static MeltingRecipeBuilder melting(Ingredient input, FluidStack output, int temperature, int time) {
+    if (temperature < 0) throw new IllegalArgumentException("Invalid temperature " + temperature + ", must be greater than zero");
+    if (time <= 0) throw new IllegalArgumentException("Invalid time " + time + ", must be greater than zero");
+    return new MeltingRecipeBuilder(input, output, temperature, time);
   }
 
   /**
    * Creates a new builder instance using a specific temperature
    * @param input        Recipe input
-   * @param fluid        Fluid result
-   * @param amount       Fluid returned from recipe
-   * @param temperature  Function to get a temperature for the given fluid amount
+   * @param output       Recipe output
+   * @param timeFactor   Factor this recipe takes compared to the standard of ingots
    * @return  Builder instance
    */
-  public static MeltingRecipeBuilder melting(Ingredient input, Fluid fluid, int amount, ToIntFunction<Integer> temperature) {
-    return melting(input, new FluidStack(fluid, amount), temperature.applyAsInt(amount));
+  public static MeltingRecipeBuilder melting(Ingredient input, FluidStack output, float timeFactor) {
+    int temperature = output.getFluid().getAttributes().getTemperature(output) - 300;
+    return melting(input, output, temperature, IMeltingRecipe.calcTime(temperature, timeFactor));
   }
 
   /**
-   * Creates a new builder instance using a calculated temperature
-   * @param input   Recipe input
-   * @param output  Recipe output
+   * Creates a new builder instance using a specific temperature
+   * @param input       Recipe input
+   * @param fluid       Fluid result
+   * @param amount      Fluid returned from recipe
+   * @param timeFactor  Factor this recipe takes compared to the standard of ingots
    * @return  Builder instance
    */
-  public static MeltingRecipeBuilder melting(Ingredient input, FluidStack output) {
-    return melting(input, output, IMeltingRecipe.calcTemperature(output));
+  public static MeltingRecipeBuilder melting(Ingredient input, Fluid fluid, int amount, float timeFactor) {
+    return melting(input, new FluidStack(fluid, amount), timeFactor);
   }
 
   /**
-   * Creates a new builder instance using a calculated temperature
-   * @param input   Recipe input
-   * @param fluid   Fluid result
-   * @param amount  Fluid returned from recipe
+   * Creates a new builder instance using a specific temperature
+   * @param input       Recipe input
+   * @param fluid       Fluid result
+   * @param amount      Fluid returned from recipe
    * @return  Builder instance
    */
   public static MeltingRecipeBuilder melting(Ingredient input, Fluid fluid, int amount) {
-    return melting(input, new FluidStack(fluid, amount));
+    return melting(input, new FluidStack(fluid, amount), IMeltingRecipe.calcTimeFactor(amount));
   }
 
   /**
@@ -109,6 +111,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
       json.add("ingredient", input.serialize());
       json.add("result", RecipeHelper.serializeFluidStack(output));
       json.addProperty("temperature", temperature);
+      json.addProperty("time", time);
     }
 
     @Override

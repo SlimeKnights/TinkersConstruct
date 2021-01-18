@@ -89,16 +89,27 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
     return true;
   }
 
+  /** Returns true if a slot is defined in the array */
+  private boolean hasModule(int slot) {
+    return validSlot(slot) && modules[slot] != null;
+  }
+
   /**
-   * Gets the current temperature of a slot
+   * Gets the current time of a slot
    * @param slot  Slot index
    * @return  Slot temperature
    */
-  public int getCurrentTemp(int slot) {
-    if (validSlot(slot) && modules[slot] != null) {
-      return modules[slot].getCurrentTemp();
-    }
-    return 0;
+  public int getCurrentTime(int slot) {
+    return hasModule(slot) ? modules[slot].getCurrentTime() : 0;
+  }
+
+  /**
+   * Gets the required time for a slot
+   * @param slot  Slot index
+   * @return  Required time
+   */
+  public int getRequiredTime(int slot) {
+    return hasModule(slot) ? modules[slot].getRequiredTime() : 0;
   }
 
   /**
@@ -107,10 +118,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    * @return  Required temperature
    */
   public int getRequiredTemp(int slot) {
-    if (validSlot(slot) && modules[slot] != null) {
-      return modules[slot].getRequiredTemp();
-    }
-    return 0;
+    return hasModule(slot) ? modules[slot].getRequiredTemp() : 0;
   }
 
 

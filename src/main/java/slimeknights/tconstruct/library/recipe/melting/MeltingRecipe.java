@@ -36,6 +36,9 @@ public class MeltingRecipe implements IMeltingRecipe {
   private final FluidStack output;
   @Getter
   private final int temperature;
+  /** Number of "steps" needed to melt this, by default lava increases steps by 5 every 4 ticks (25 a second) */
+  @Getter
+  private final int time;
 
   @Override
   public boolean matches(IMeltingInventory inv, World world) {
@@ -45,6 +48,11 @@ public class MeltingRecipe implements IMeltingRecipe {
   @Override
   public int getTemperature(IMeltingInventory inv) {
     return temperature;
+  }
+
+  @Override
+  public int getTime(IMeltingInventory inv) {
+    return time;
   }
 
   @Override
@@ -76,7 +84,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   @FunctionalInterface
   public interface IFactory<T extends MeltingRecipe> {
     /** Creates a new instance of this recipe */
-    T create(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature);
+    T create(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time);
   }
 
   /**
@@ -93,18 +101,13 @@ public class MeltingRecipe implements IMeltingRecipe {
       FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
 
       // temperature calculates
-      int temperature;
-      if (json.has("temperature")) {
-        temperature = JSONUtils.getInt(json, "temperature");
-      } else {
-        temperature = IMeltingRecipe.calcTemperature(output);
-      }
-      // validate temperature
-      if (temperature <= 0) {
-        throw new JsonSyntaxException("Melting temperature must be greater than zero");
-      }
+      int temperature = JSONUtils.getInt(json, "temperature");
+      int time = JSONUtils.getInt(json, "time");
+      // validate values
+      if (temperature < 0) throw new JsonSyntaxException("Melting temperature must be greater than zero");
+      if (time <= 0) throw new JsonSyntaxException("Melting time must be greater than zero");
 
-      return factory.create(id, group, input, output, temperature);
+      return factory.create(id, group, input, output, temperature, time);
     }
 
     @Nullable
@@ -114,7 +117,8 @@ public class MeltingRecipe implements IMeltingRecipe {
       Ingredient input = Ingredient.read(buffer);
       FluidStack output = FluidStack.readFromPacket(buffer);
       int temperature = buffer.readInt();
-      return factory.create(id, group, input, output, temperature);
+      int time = buffer.readVarInt();
+      return factory.create(id, group, input, output, temperature, time);
     }
 
     @Override
@@ -123,6 +127,7 @@ public class MeltingRecipe implements IMeltingRecipe {
       recipe.input.write(buffer);
       recipe.output.writeToPacket(buffer);
       buffer.writeInt(recipe.temperature);
+      buffer.writeVarInt(recipe.time);
     }
   }
 }

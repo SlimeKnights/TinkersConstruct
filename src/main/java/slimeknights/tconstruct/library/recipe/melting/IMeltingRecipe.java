@@ -20,11 +20,18 @@ public interface IMeltingRecipe extends ICustomOutputRecipe<IMeltingInventory> {
   FluidStack getOutput(IMeltingInventory inv);
 
   /**
-   * Gets the minimum temperatue to melt this item. Doubles as the time
+   * Gets the minimum temperature to melt this item
    * @param inv  Inventory instance
    * @return  Recipe temperature
    */
   int getTemperature(IMeltingInventory inv);
+
+  /**
+   * Gets the time this recipe takes in 1/5th second increments. Smeltery updates every 4 ticks
+   * @param inv  Inventory instance
+   * @return  Recipe time
+   */
+  int getTime(IMeltingInventory inv);
 
   /* Recipe data */
 
@@ -43,30 +50,32 @@ public interface IMeltingRecipe extends ICustomOutputRecipe<IMeltingInventory> {
   double LOG9_2 = 0.31546487678;
 
   /**
-   * Calculates the temperature for a recipe based on the amount and temperature
-   * @param temperature  Temperature baseline
-   * @param amount       Output amount
-   * @return  Temperatuer for the recipe in celsius
+   * Calculates the temperature for a recipe based on the given temperature and factor
+   * @param temperature  Required melting temperature in Celsius
+   * @param factor       Multiplier based on material type
+   * @return  Time for the recipe in celsius
    */
-  static int calcTemperature(int temperature, int amount) {
-    int base = MaterialValues.VALUE_Block;
-    int maxTemp = Math.max(0, temperature); // we use 0 as baseline, not 300
-    double f = (double) amount / (double) base;
-
-    // we calculate 2^log9(f), which effectively gives us 2^(1 for each multiple of 9)
-    // so 1 = 1, 9 = 2, 81 = 4, 1/9 = 1/2, 1/81 = 1/4 etc
-    // we simplify it to f^log9(2) to make calculation simpler
-    f = Math.pow(f, LOG9_2);
-
-    return (int) (f * (double) maxTemp);
+  static int calcTime(int temperature, float factor) {
+    // base formula is temp^(.585), which will produce a time in 1/5th second increments
+    return (int)Math.round((Math.pow(temperature + 300, 0.585f) * factor));
   }
 
   /**
-   * Calculates the temperature for a recipe based on the fluid result
-   * @param fluid  Fluid result
-   * @return  Temperature for the recipe in celsius
+   * Calculates a time factor for the given fluid amount
+   * @param amount  Fluid amount
+   * @return  Time factor
    */
-  static int calcTemperature(FluidStack fluid) {
-    return calcTemperature(fluid.getFluid().getAttributes().getTemperature(fluid) - 300, fluid.getAmount());
+  static float calcTimeFactor(int amount) {
+    return (float)Math.sqrt(amount / (float)MaterialValues.VALUE_Ingot);
+  }
+
+  /**
+   * Calculates the temperature for a recipe based on the given temperature and factor
+   * @param temperature  Required melting temperature
+   * @param amount       Amount of relevant fluid
+   * @return  Time for the recipe in celsius
+   */
+  static int calcTimeForAmount(int temperature, int amount) {
+    return calcTime(temperature, calcTimeFactor(amount));
   }
 }

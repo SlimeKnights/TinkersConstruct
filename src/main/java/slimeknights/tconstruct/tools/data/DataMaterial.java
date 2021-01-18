@@ -34,6 +34,6 @@ public class DataMaterial implements IMaterial {
     if (fluid == Fluids.EMPTY) {
       return 0;
     }
-    return fluid.getAttributes().getTemperature();
+    return fluid.getAttributes().getTemperature() - 300;
   }
 }

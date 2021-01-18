@@ -7,5 +7,6 @@
     "fluid": "tconstruct:molten_debris",
     "amount": 144
   },
-  "temperature": 250
+  "temperature": 1175,
+  "time": 71
 }

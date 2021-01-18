@@ -17,6 +17,7 @@ import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -51,7 +52,17 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
 
   @Override
   public int getTemperature(IMeltingInventory inv) {
-    return IMeltingRecipe.calcTemperature(item.getMaterial(inv.getStack()).getTemperature(), amount);
+    return item.getMaterial(inv.getStack()).getTemperature();
+  }
+
+  /** Gets the melting time for this recipe */
+  private int getTime(IMaterial material) {
+    return IMeltingRecipe.calcTimeForAmount(material.getTemperature(), amount);
+  }
+
+  @Override
+  public int getTime(IMeltingInventory inv) {
+    return getTime(item.getMaterial(inv.getStack()));
   }
 
   @Override
@@ -71,7 +82,8 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
           group,
           Ingredient.fromStacks(item.getItemstackWithMaterial(mat)),
           new FluidStack(mat.getFluid(), amount),
-          mat.getTemperature()
+          mat.getTemperature(),
+          getTime(mat)
         );
       }).collect(Collectors.toList());
     }

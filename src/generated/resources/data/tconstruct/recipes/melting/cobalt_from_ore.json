@@ -7,5 +7,6 @@
     "fluid": "tconstruct:molten_cobalt",
     "amount": 144
   },
-  "temperature": 325
+  "temperature": 1300,
+  "time": 112
 }

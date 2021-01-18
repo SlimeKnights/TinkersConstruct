@@ -27,10 +27,12 @@ import java.util.function.Predicate;
 public class MeltingModule implements IMeltingInventory, IIntArray {
   public static final int NO_SPACE = -1;
 
-  private static final String TAG_CURRENT_TEMP = "temp";
-  private static final String TAG_REQUIRED_TEMP = "required";
-  private static final int CURRENT_TEMP = 0;
-  private static final int REQUIRED_TEMP = 1;
+  private static final String TAG_CURRENT_TIME = "time";
+  private static final String TAG_REQUIRED_TIME = "required";
+  private static final String TAG_REQUIRED_TEMP = "temp";
+  private static final int CURRENT_TIME = 0;
+  private static final int REQUIRED_TIME = 1;
+  private static final int REQUIRED_TEMP = 2;
 
   /** Tile entity containing this melting module */
   private final MantleTileEntity parent;
@@ -41,9 +43,12 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
   /** Slot index for updates */
   private final int slotIndex;
 
-  /** Current temperature of the item in the slot */
+  /** Current time of the item in the slot */
   @Getter
-  private int currentTemp = 0;
+  private int currentTime = 0;
+  /** Required time for the item in the slot */
+  @Getter
+  private int requiredTime = 0;
   /** Required temperature for the item in the slot */
   @Getter
   private int requiredTemp = 0;
@@ -61,6 +66,15 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
   }
 
   /**
+   * Resets recipe time values
+   */
+  private void resetRecipe() {
+    currentTime = 0;
+    requiredTime = 0;
+    requiredTemp = 0;
+  }
+
+  /**
    * Sets the contents of this module
    * @param newStack  New stack
    */
@@ -72,20 +86,25 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
     }
 
     // clear progress if setting to empty or the items do not match
-    if (this.stack.isEmpty() || newStack.isEmpty() || !ItemHandlerHelper.canItemStacksStack(this.stack, newStack)) {
-      currentTemp = 0;
+    if (newStack.isEmpty()) {
+      resetRecipe();
+    } else if (this.stack.isEmpty() || !ItemHandlerHelper.canItemStacksStack(this.stack, newStack)) {
+      currentTime = 0;
     }
 
     // update stack and heat required
     this.stack = newStack;
-    int newHeat = 0;
+    int newTime = 0;
+    int newTemp = 0;
     if(!stack.isEmpty()) {
       IMeltingRecipe recipe = findRecipe();
       if (recipe != null) {
-        newHeat = recipe.getTemperature(this);
+        newTime = recipe.getTime(this) * 10;
+        newTemp = recipe.getTemperature(this);
       }
     }
-    requiredTemp = newHeat;
+    requiredTime = newTime;
+    requiredTemp = newTemp;
     parent.markDirtyFast();
   }
 
@@ -96,14 +115,13 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    */
   public boolean canHeatItem() {
     // must have a recipe and an item
-    if (requiredTemp > 0) {
+    if (requiredTime > 0) {
       if (stack.isEmpty()) {
-        currentTemp = 0;
-        requiredTemp = 0;
+        resetRecipe();
         return false;
       }
       // don't mark items as can heat if done heating
-      return currentTemp != NO_SPACE;
+      return currentTime != NO_SPACE;
     }
     return false;
   }
@@ -114,15 +132,14 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    */
   public void heatItem(int temperature) {
     // if the slot is able to be heated, heat it
-    if ((canHeatItem() || currentTemp == NO_SPACE) && temperature >= requiredTemp) {
+    if ((canHeatItem() || currentTime == NO_SPACE) && temperature >= requiredTemp) {
       // if we are done, cook item
-      if (currentTemp == NO_SPACE || currentTemp >= requiredTemp) {
+      if (currentTime == NO_SPACE || currentTime >= requiredTime) {
         if (onItemFinishedHeating()) {
-          currentTemp = 0;
-          requiredTemp = 0;
+          resetRecipe();
         }
       } else {
-        currentTemp += temperature / 200;
+        currentTime += temperature / 100;
       }
     }
   }
@@ -133,14 +150,13 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
   public void coolItem() {
     // if done heating but no space, try placing into the smeltery,
     // cooling done that already finished smelting causes the smeltery to constantly drain fuel
-    if (currentTemp == NO_SPACE) {
+    if (currentTime == NO_SPACE) {
       if (onItemFinishedHeating()) {
-        currentTemp = 0;
-        requiredTemp = 0;
+        resetRecipe();
       }
       // if the item is heated, cool down rapidly
-    } else if (canHeatItem() && currentTemp > 0) {
-      currentTemp -= 5;
+    } else if (currentTime > 0 && canHeatItem()) {
+      currentTime -= 5;
     }
   }
 
@@ -191,7 +207,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
       return true;
     }
 
-    currentTemp = NO_SPACE;
+    currentTime = NO_SPACE;
     return false;
   }
 
@@ -203,7 +219,8 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
     CompoundNBT nbt = new CompoundNBT();
     if (!stack.isEmpty()) {
       stack.write(nbt);
-      nbt.putInt(TAG_CURRENT_TEMP, currentTemp);
+      nbt.putInt(TAG_CURRENT_TIME, currentTime);
+      nbt.putInt(TAG_REQUIRED_TIME, requiredTime);
       nbt.putInt(TAG_REQUIRED_TEMP, requiredTemp);
     }
     return nbt;
@@ -215,22 +232,27 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    */
   public void readFromNBT(CompoundNBT nbt) {
     stack = ItemStack.read(nbt);
-    currentTemp = nbt.getInt(TAG_CURRENT_TEMP);
-    requiredTemp = nbt.getInt(TAG_REQUIRED_TEMP);
+    if (!stack.isEmpty()) {
+      currentTime = nbt.getInt(TAG_CURRENT_TIME);
+      requiredTime = nbt.getInt(TAG_REQUIRED_TIME);
+      requiredTemp = nbt.getInt(TAG_REQUIRED_TEMP);
+    }
   }
 
   /* Container sync */
 
   @Override
   public int size() {
-    return 2;
+    return 3;
   }
 
   @Override
   public int get(int index) {
     switch (index) {
-      case CURRENT_TEMP:
-        return currentTemp;
+      case CURRENT_TIME:
+        return currentTime;
+      case REQUIRED_TIME:
+        return requiredTime;
       case REQUIRED_TEMP:
         return requiredTemp;
     }
@@ -240,8 +262,11 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
   @Override
   public void set(int index, int value) {
     switch (index) {
-      case CURRENT_TEMP:
-        currentTemp = value;
+      case CURRENT_TIME:
+        currentTime = value;
+        break;
+      case REQUIRED_TIME:
+        requiredTime = value;
         break;
       case REQUIRED_TEMP:
         requiredTemp = value;
