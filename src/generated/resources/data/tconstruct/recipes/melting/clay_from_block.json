@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:clay"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_clay",
+    "amount": 1000
+  },
+  "temperature": 450,
+  "time": 48
+}

@@ -259,6 +259,11 @@
     "fluid.tconstruct.flowing_seared_stone": "Flowing Seared Stone",
     "item.tconstruct.seared_stone_bucket": "Seared Stone Bucket",
 
+    "block.tconstruct.molten_clay_fluid": "Molten Clay",
+    "fluid.tconstruct.molten_clay": "Molten Clay",
+    "fluid.tconstruct.flowing_molten_clay": "Flowing Molten Clay",
+    "item.tconstruct.molten_clay_bucket": "Molten Clay Bucket",
+
     "block.tconstruct.molten_glass_fluid": "Molten Glass",
     "fluid.tconstruct.molten_glass": "Molten Glass",
     "fluid.tconstruct.flowing_molten_glass": "Flowing Molten Glass",

@@ -5,9 +5,9 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_glass",
-    "amount": 576
+    "name": "tconstruct:molten_clay",
+    "amount": 500
   },
   "result": "tconstruct:seared_paver",
-  "cooling_time": 117
+  "cooling_time": 90
 }

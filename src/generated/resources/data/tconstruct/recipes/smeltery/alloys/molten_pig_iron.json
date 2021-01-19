@@ -11,11 +11,11 @@
     },
     {
       "name": "tconstruct:blood",
-      "amount": 250
+      "amount": 125
     },
     {
-      "name": "tconstruct:molten_glass",
-      "amount": 144
+      "name": "tconstruct:molten_clay",
+      "amount": 125
     }
   ]
 }

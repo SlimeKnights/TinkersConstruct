@@ -97,7 +97,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     @Override
     public T read(ResourceLocation id, JsonObject json) {
       String group = JSONUtils.getString(json, "group", "");
-      Ingredient input = Ingredient.deserialize(JSONUtils.getJsonObject(json, "ingredient"));
+      Ingredient input = Ingredient.deserialize(json.get("ingredient"));
       FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
 
       // temperature calculates
