@@ -120,7 +120,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     if(world.getWorldType() == WorldType.FLAT && !Config.genIslandsInSuperflat) {
       return;
     }
-    if(!Config.slimeIslandsOnlyGenerateInSurfaceWorlds && !world.provider.isSurfaceWorld()) {
+    if(Config.slimeIslandsOnlyGenerateInSurfaceWorlds && !world.provider.isSurfaceWorld()) {
       return;
     }
     // should generate in this dimension?
