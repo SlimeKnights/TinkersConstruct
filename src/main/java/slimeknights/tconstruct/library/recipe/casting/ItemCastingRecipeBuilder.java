@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.TagPreference;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -30,7 +31,9 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingRecipeBuilder> {
   private final ItemStack result;
-  private final ItemCastingRecipeSerializer<?> recipeSerializer;
+  @Nullable
+  private final TagPreference.Entry<Item> tagResult;
+  private final AbstractCastingRecipe.Serializer<?> recipeSerializer;
   private Ingredient cast = Ingredient.EMPTY;
   private FluidIngredient fluid = FluidIngredient.EMPTY;
   @Setter @Accessors(chain = true)
@@ -44,8 +47,8 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param serializer  Serializer type
    * @return  Builder instance
    */
-  public static ItemCastingRecipeBuilder castingRecipe(IItemProvider resultIn, ItemCastingRecipeSerializer<?> serializer) {
-    return castingRecipe(new ItemStack(resultIn), serializer);
+  public static ItemCastingRecipeBuilder castingRecipe(IItemProvider resultIn, ItemCastingRecipe.Serializer<?> serializer) {
+    return castingRecipe(new ItemStack(resultIn), null, serializer);
   }
 
   /**
@@ -64,6 +67,34 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    */
   public static ItemCastingRecipeBuilder tableRecipe(IItemProvider resultIn) {
     return castingRecipe(resultIn, TinkerSmeltery.tableRecipeSerializer.get());
+  }
+
+  /**
+   * Creates a new builder instance
+   * @param resultIn    Recipe result
+   * @param serializer  Serializer type
+   * @return  Builder instance
+   */
+  public static ItemCastingRecipeBuilder castingRecipe(TagPreference.Entry<Item> resultIn, PreferenceCastingRecipe.Serializer<?> serializer) {
+    return castingRecipe(ItemStack.EMPTY, resultIn, serializer);
+  }
+
+  /**
+   * Creates a new casting basin recipe
+   * @param resultIn  Recipe result
+   * @return  Builder instance
+   */
+  public static ItemCastingRecipeBuilder basinRecipe(TagPreference.Entry<Item> resultIn) {
+    return castingRecipe(resultIn, TinkerSmeltery.basinPreferenceSerializer.get());
+  }
+
+  /**
+   * Creates a new casting table recipe
+   * @param resultIn  Recipe result
+   * @return  Builder instance
+   */
+  public static ItemCastingRecipeBuilder tableRecipe(TagPreference.Entry<Item> resultIn) {
+    return castingRecipe(resultIn, TinkerSmeltery.tablePreferenceSerializer.get());
   }
 
 
@@ -157,7 +188,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    if (result.isEmpty()) {
+    if (this.tagResult == null && this.result.isEmpty()) {
       throw new IllegalStateException("Result may not be empty");
     }
     if (this.fluid == FluidIngredient.EMPTY) {
@@ -196,15 +227,20 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
       }
       json.add("fluid", fluid.serialize());
 
-      // if the item has NBT, write both, else write just the name
-      String itemName = Objects.requireNonNull(result.getItem().getRegistryName()).toString();
-      if (result.hasTag()) {
-        JsonObject jsonResult = new JsonObject();
-        jsonResult.addProperty("item", itemName);
-        jsonResult.addProperty("nbt", Objects.requireNonNull(result.getTag()).toString());
-        json.add("result", jsonResult);
+      // use tag result if one is set
+      if (tagResult != null) {
+        json.add("result", tagResult.serialize());
       } else {
-        json.addProperty("result", itemName);
+        // if the item has NBT, write both, else write just the name
+        String itemName = Objects.requireNonNull(result.getItem().getRegistryName()).toString();
+        if (result.hasTag()) {
+          JsonObject jsonResult = new JsonObject();
+          jsonResult.addProperty("item", itemName);
+          jsonResult.addProperty("nbt", Objects.requireNonNull(result.getTag()).toString());
+          json.add("result", jsonResult);
+        } else {
+          json.addProperty("result", itemName);
+        }
       }
 
       json.addProperty("cooling_time", coolingTime);

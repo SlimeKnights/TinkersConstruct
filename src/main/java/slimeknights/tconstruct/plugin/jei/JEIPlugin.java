@@ -2,6 +2,7 @@ package slimeknights.tconstruct.plugin.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredientType;
@@ -12,18 +13,25 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import mezz.jei.api.runtime.IIngredientManager;
+import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
-import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
@@ -41,6 +49,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.client.inventory.IScreenWithFluidTank;
 import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
+import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -80,9 +89,9 @@ public class JEIPlugin implements IModPlugin {
     assert Minecraft.getInstance().world != null;
     RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
     // casting
-    List<ItemCastingRecipe> castingBasinRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_BASIN, ItemCastingRecipe.class);
+    List<AbstractCastingRecipe> castingBasinRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_BASIN, AbstractCastingRecipe.class);
     register.addRecipes(castingBasinRecipes, TConstructRecipeCategoryUid.castingBasin);
-    List<ItemCastingRecipe> castingTableRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_TABLE, ItemCastingRecipe.class);
+    List<AbstractCastingRecipe> castingTableRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_TABLE, AbstractCastingRecipe.class);
     register.addRecipes(castingTableRecipes, TConstructRecipeCategoryUid.castingTable);
 
     // melting
@@ -168,6 +177,19 @@ public class JEIPlugin implements IModPlugin {
   public void registerGuiHandlers(IGuiHandlerRegistration registration) {
     registration.addGenericGuiContainerHandler(MelterScreen.class, new GuiContainerTankHandler<>());
     registration.addGenericGuiContainerHandler(SmelteryScreen.class, new GuiContainerTankHandler<>());
+  }
+
+
+  @Override
+  public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+    IIngredientManager manager = jeiRuntime.getIngredientManager();
+    for (SmelteryCompat compat : SmelteryCompat.values()) {
+      ITag<Item> ingot = TagCollectionManager.getManager().getItemTags().get(new ResourceLocation("forge", "ingots/" + compat.getName()));
+      if (ingot == null || ingot.getAllElements().isEmpty()) {
+        manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, Collections.singleton(new ItemStack(compat.getBucket())));
+        manager.removeIngredientsAtRuntime(VanillaTypes.FLUID, Collections.singleton(new FluidStack(compat.getFluid(), FluidAttributes.BUCKET_VOLUME)));
+      }
+    }
   }
 
   /** Class to pass {@link IScreenWithFluidTank} into JEI */

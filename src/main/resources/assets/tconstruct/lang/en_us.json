@@ -230,9 +230,17 @@
     "item.tconstruct.copper_nugget": "Copper Nugget",
     "item.tconstruct.rose_gold_nugget": "Rose Gold Nugget",
 
+    
     "_comment": "Tinkers Fluids",
 
     "fluid.tconstruct.milk": "Milk",
+
+    "block.tconstruct.molten_blaze_fluid": "Molten Blaze",
+    "fluid.tconstruct.molten_blaze": "Molten Blaze",
+    "fluid.tconstruct.flowing_molten_blaze": "Flowing Molten Blaze",
+    "item.tconstruct.molten_blaze_bucket": "Molten Blaze Bucket",
+    
+    "_comment": "Slime",
 
     "block.tconstruct.blood_fluid": "Blood",
     "fluid.tconstruct.blood": "Blood",
@@ -253,6 +261,8 @@
     "fluid.tconstruct.purple_slime": "Purple Slime",
     "fluid.tconstruct.flowing_purple_slime": "Flowing Purple Slime",
     "item.tconstruct.purple_slime_bucket": "Purple Slime Bucket",
+    
+    "_comment": "Rock",
 
     "block.tconstruct.seared_stone_fluid": "Seared Stone",
     "fluid.tconstruct.seared_stone": "Seared Stone",
@@ -273,6 +283,18 @@
     "fluid.tconstruct.molten_obsidian": "Molten Obsidian",
     "fluid.tconstruct.flowing_molten_obsidian": "Flowing Molten Obsidian",
     "item.tconstruct.molten_obsidian_bucket": "Molten Obsidian Bucket",
+
+    "block.tconstruct.molten_emerald_fluid": "Molten Emerald",
+    "fluid.tconstruct.molten_emerald": "Molten Emerald",
+    "fluid.tconstruct.flowing_molten_emerald": "Flowing Molten Emerald",
+    "item.tconstruct.molten_emerald_bucket": "Molten Emerald Bucket",
+
+    "block.tconstruct.molten_ender_fluid": "Molten Ender",
+    "fluid.tconstruct.molten_ender": "Molten Ender",
+    "fluid.tconstruct.flowing_molten_ender": "Flowing Molten Ender",
+    "item.tconstruct.molten_ender_bucket": "Molten Ender Bucket",
+    
+    "_comment": "Ores",
 
     "block.tconstruct.molten_iron_fluid": "Molten Iron",
     "fluid.tconstruct.molten_iron": "Molten Iron",
@@ -303,6 +325,8 @@
     "fluid.tconstruct.molten_ardite": "Molten Ardite",
     "fluid.tconstruct.flowing_molten_ardite": "Flowing Molten Ardite",
     "item.tconstruct.molten_ardite_bucket": "Molten Ardite Bucket",
+    
+    "_comment": "Alloys",
 
     "block.tconstruct.molten_rose_gold_fluid": "Molten Rose Gold",
     "fluid.tconstruct.molten_rose_gold": "Molten Rose Gold",
@@ -328,22 +352,91 @@
     "fluid.tconstruct.molten_knightslime": "Molten Knightslime",
     "fluid.tconstruct.flowing_molten_knightslime": "Flowing Molten Knightslime",
     "item.tconstruct.molten_knightslime_bucket": "Molten Knightslime Bucket",
+    
+    "_comment": "Compat Ores",
 
-    "block.tconstruct.molten_emerald_fluid": "Molten Emerald",
-    "fluid.tconstruct.molten_emerald": "Molten Emerald",
-    "fluid.tconstruct.flowing_molten_emerald": "Flowing Molten Emerald",
-    "item.tconstruct.molten_emerald_bucket": "Molten Emerald Bucket",
+    "block.tconstruct.molten_tin_fluid": "Molten Tin",
+    "fluid.tconstruct.molten_tin": "Molten Tin",
+    "fluid.tconstruct.flowing_molten_tin": "Flowing Molten Tin",
+    "item.tconstruct.molten_tin_bucket": "Molten Tin Bucket",
 
-    "block.tconstruct.molten_blaze_fluid": "Molten Blaze",
-    "fluid.tconstruct.molten_blaze": "Molten Blaze",
-    "fluid.tconstruct.flowing_molten_blaze": "Flowing Molten Blaze",
-    "item.tconstruct.molten_blaze_bucket": "Molten Blaze Bucket",
+    "block.tconstruct.molten_aluminum_fluid": "Molten Aluminum",
+    "fluid.tconstruct.molten_aluminum": "Molten Aluminum",
+    "fluid.tconstruct.flowing_molten_aluminum": "Flowing Molten Aluminum",
+    "item.tconstruct.molten_aluminum_bucket": "Molten Aluminum Bucket",
 
-    "block.tconstruct.molten_ender_fluid": "Molten Ender",
-    "fluid.tconstruct.molten_ender": "Molten Ender",
-    "fluid.tconstruct.flowing_molten_ender": "Flowing Molten Ender",
-    "item.tconstruct.molten_ender_bucket": "Molten Ender Bucket",
+    "block.tconstruct.molten_lead_fluid": "Molten Lead",
+    "fluid.tconstruct.molten_lead": "Molten Lead",
+    "fluid.tconstruct.flowing_molten_lead": "Flowing Molten Lead",
+    "item.tconstruct.molten_lead_bucket": "Molten Lead Bucket",
 
+    "block.tconstruct.molten_silver_fluid": "Molten Silver",
+    "fluid.tconstruct.molten_silver": "Molten Silver",
+    "fluid.tconstruct.flowing_molten_silver": "Flowing Molten Silver",
+    "item.tconstruct.molten_silver_bucket": "Molten Silver Bucket",
+
+    "block.tconstruct.molten_nickel_fluid": "Molten Nickel",
+    "fluid.tconstruct.molten_nickel": "Molten Nickel",
+    "fluid.tconstruct.flowing_molten_nickel": "Flowing Molten Nickel",
+    "item.tconstruct.molten_nickel_bucket": "Molten Nickel Bucket",
+
+    "block.tconstruct.molten_zinc_fluid": "Molten Zinc",
+    "fluid.tconstruct.molten_zinc": "Molten Zinc",
+    "fluid.tconstruct.flowing_molten_zinc": "Flowing Molten Zinc",
+    "item.tconstruct.molten_zinc_bucket": "Molten Zinc Bucket",
+
+    "block.tconstruct.molten_platinum_fluid": "Molten Platinum",
+    "fluid.tconstruct.molten_platinum": "Molten Platinum",
+    "fluid.tconstruct.flowing_molten_platinum": "Flowing Molten Platinum",
+    "item.tconstruct.molten_platinum_bucket": "Molten Platinum Bucket",
+
+    "block.tconstruct.molten_tungsten_fluid": "Molten Tungsten",
+    "fluid.tconstruct.molten_tungsten": "Molten Tungsten",
+    "fluid.tconstruct.flowing_molten_tungsten": "Flowing Molten Tungsten",
+    "item.tconstruct.molten_tungsten_bucket": "Molten Tungsten Bucket",
+
+    "block.tconstruct.molten_osmium_fluid": "Molten Osmium",
+    "fluid.tconstruct.molten_osmium": "Molten Osmium",
+    "fluid.tconstruct.flowing_molten_osmium": "Flowing Molten Osmium",
+    "item.tconstruct.molten_osmium_bucket": "Molten Osmium Bucket",
+
+    "block.tconstruct.molten_uranium_fluid": "Molten Uranium",
+    "fluid.tconstruct.molten_uranium": "Molten Uranium",
+    "fluid.tconstruct.flowing_molten_uranium": "Flowing Molten Uranium",
+    "item.tconstruct.molten_uranium_bucket": "Molten Uranium Bucket",
+    
+    "_comment": "Compat Alloys",
+
+    "block.tconstruct.molten_bronze_fluid": "Molten Bronze",
+    "fluid.tconstruct.molten_bronze": "Molten Bronze",
+    "fluid.tconstruct.flowing_molten_bronze": "Flowing Molten Bronze",
+    "item.tconstruct.molten_bronze_bucket": "Molten Bronze Bucket",
+
+    "block.tconstruct.molten_brass_fluid": "Molten Brass",
+    "fluid.tconstruct.molten_brass": "Molten Brass",
+    "fluid.tconstruct.flowing_molten_brass": "Flowing Molten Brass",
+    "item.tconstruct.molten_brass_bucket": "Molten Brass Bucket",
+
+    "block.tconstruct.molten_electrum_fluid": "Molten Electrum",
+    "fluid.tconstruct.molten_electrum": "Molten Electrum",
+    "fluid.tconstruct.flowing_molten_electrum": "Flowing Molten Electrum",
+    "item.tconstruct.molten_electrum_bucket": "Molten Electrum Bucket",
+
+    "block.tconstruct.molten_invar_fluid": "Molten Invar",
+    "fluid.tconstruct.molten_invar": "Molten Invar",
+    "fluid.tconstruct.flowing_molten_invar": "Flowing Molten Invar",
+    "item.tconstruct.molten_invar_bucket": "Molten Invar Bucket",
+
+    "block.tconstruct.molten_constantan_fluid": "Molten Constantan",
+    "fluid.tconstruct.molten_constantan": "Molten Constantan",
+    "fluid.tconstruct.flowing_molten_constantan": "Flowing Molten Constantan",
+    "item.tconstruct.molten_constantan_bucket": "Molten Constantan Bucket",
+
+    "block.tconstruct.molten_steel_fluid": "Molten Steel",
+    "fluid.tconstruct.molten_steel": "Molten Steel",
+    "fluid.tconstruct.flowing_molten_steel": "Flowing Molten Steel",
+    "item.tconstruct.molten_steel_bucket": "Molten Steel Bucket",
+    
 
     "_comment": "Tinkers Gadgets",
 

@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:alloy",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/electrum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    },
+    {
+      "value": {
+        "tag": "forge:ingots/silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "output": {
+    "fluid": "tconstruct:molten_electrum",
+    "amount": 288
+  },
+  "inputs": [
+    {
+      "name": "tconstruct:molten_gold",
+      "amount": 144
+    },
+    {
+      "name": "tconstruct:molten_silver",
+      "amount": 144
+    }
+  ]
+}

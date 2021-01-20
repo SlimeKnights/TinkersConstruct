@@ -6,6 +6,7 @@ import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Config {
@@ -43,6 +44,8 @@ public class Config {
     public final BooleanValue listAllToolMaterials;
 
     public final BooleanValue listAllPartMaterials;
+
+    public final ConfigValue<List<String>> tagPreferences;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -103,6 +106,11 @@ public class Config {
         .comment("Number of nuggets produced when an ore block is melted in the smeltery. 9 nuggets would give 1 ingot")
         .translation("tconstruct.configgui.smelteryNuggetsPerOre")
         .defineInRange("smelteryNuggetsPerOre", 15, 1, 45);
+
+      this.tagPreferences = builder
+        .comment("Preferences for outputs from tags used in automatic compat in recipes")
+        .translation("tconstruct.configgui.tagPreferences")
+        .define("tagPreferences", Arrays.asList("minecraft", "tconstruct", "immersiveengineering", "mekanism", "thermalfoundation", "thermalexpansion"));
 
       builder.pop();
 

@@ -80,7 +80,7 @@ public abstract class MaterialCastingRecipe implements ICastingRecipe, IMultiRec
    * @return  Display recipe list
    */
   @SuppressWarnings("WeakerAccess")
-  protected List<ItemCastingRecipe> getRecipes(ItemCastingRecipeSerializer.IFactory<? extends ItemCastingRecipe> factory) {
+  protected List<ItemCastingRecipe> getRecipes(ItemCastingRecipe.IFactory<? extends ItemCastingRecipe> factory) {
     if (multiRecipes == null) {
       multiRecipes = MaterialRegistry.getMaterials().stream()
                                      .filter(mat -> mat.getFluid() != Fluids.EMPTY)

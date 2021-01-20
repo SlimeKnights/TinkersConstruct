@@ -26,12 +26,13 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
+import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ContainerFillingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ContainerFillingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
-import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.casting.PreferenceCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipe;
@@ -199,12 +200,14 @@ public final class TinkerSmeltery extends TinkerModule {
    * Recipe
    */
   // casting
-  public static final RegistryObject<ItemCastingRecipeSerializer<ItemCastingRecipe.Basin>> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> new ItemCastingRecipeSerializer<>(ItemCastingRecipe.Basin::new));
-  public static final RegistryObject<ItemCastingRecipeSerializer<ItemCastingRecipe.Table>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new ItemCastingRecipeSerializer<>(ItemCastingRecipe.Table::new));
+  public static final RegistryObject<ItemCastingRecipe.Serializer<ItemCastingRecipe.Basin>> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Basin::new));
+  public static final RegistryObject<ItemCastingRecipe.Serializer<ItemCastingRecipe.Table>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Table::new));
   public static final RegistryObject<MaterialCastingRecipeSerializer<MaterialCastingRecipe.Basin>> basinMaterialSerializer = RECIPE_SERIALIZERS.register("basin_casting_material", () -> new MaterialCastingRecipeSerializer<>(MaterialCastingRecipe.Basin::new));
   public static final RegistryObject<MaterialCastingRecipeSerializer<MaterialCastingRecipe.Table>> tableMaterialSerializer = RECIPE_SERIALIZERS.register("table_casting_material", () -> new MaterialCastingRecipeSerializer<>(MaterialCastingRecipe.Table::new));
   public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Basin>> basinFillingRecipeSerializer = RECIPE_SERIALIZERS.register("basin_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Basin::new));
   public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Table>> tableFillingRecipeSerializer = RECIPE_SERIALIZERS.register("table_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Table::new));
+  public static final RegistryObject<PreferenceCastingRecipe.Serializer<AbstractCastingRecipe>> basinPreferenceSerializer = RECIPE_SERIALIZERS.register("preference_casting_basin", () -> new PreferenceCastingRecipe.Serializer<>(PreferenceCastingRecipe.Basin::new, ItemCastingRecipe.Basin::new));
+  public static final RegistryObject<PreferenceCastingRecipe.Serializer<AbstractCastingRecipe>> tablePreferenceSerializer = RECIPE_SERIALIZERS.register("preference_casting_table", () -> new PreferenceCastingRecipe.Serializer<>(PreferenceCastingRecipe.Table::new, ItemCastingRecipe.Table::new));
   // melting
   public static final RegistryObject<IRecipeSerializer<MeltingRecipe>> meltingSerializer = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipe.Serializer<>(MeltingRecipe::new));
   public static final RegistryObject<IRecipeSerializer<MeltingRecipe>> oreMeltingSerializer = RECIPE_SERIALIZERS.register("ore_melting", () -> new MeltingRecipe.Serializer<>(OreMeltingRecipe::new));
