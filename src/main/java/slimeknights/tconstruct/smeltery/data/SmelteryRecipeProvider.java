@@ -427,9 +427,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
       Blocks.YELLOW_GLAZED_TERRACOTTA, Blocks.LIME_GLAZED_TERRACOTTA, Blocks.PINK_GLAZED_TERRACOTTA, Blocks.GRAY_GLAZED_TERRACOTTA,
       Blocks.LIGHT_GRAY_GLAZED_TERRACOTTA, Blocks.CYAN_GLAZED_TERRACOTTA, Blocks.PURPLE_GLAZED_TERRACOTTA, Blocks.BLUE_GLAZED_TERRACOTTA,
       Blocks.BROWN_GLAZED_TERRACOTTA, Blocks.GREEN_GLAZED_TERRACOTTA, Blocks.RED_GLAZED_TERRACOTTA, Blocks.BLACK_GLAZED_TERRACOTTA,
-      TinkerCommons.driedClay, TinkerCommons.driedClay.getStairs(), TinkerCommons.driedClayBricks, TinkerCommons.driedClayBricks.getStairs());
+      TinkerCommons.driedClay, TinkerCommons.driedClayBricks);
     MeltingRecipeBuilder.melting(terracottaBlock, TinkerFluids.moltenClay.get(), MaterialValues.VALUE_SlimeBall * 4, 2.0f)
                         .build(consumer, location(folder + "clay_from_terracotta"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerCommons.driedClay.getStairs(), TinkerCommons.driedClayBricks.getStairs()), TinkerFluids.moltenClay.get(), MaterialValues.VALUE_SlimeBall, 2.0f)
+                        .build(consumer, location(folder + "clay_from_stairs"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.BRICK, TinkerCommons.driedBrick), TinkerFluids.moltenClay.get(), MaterialValues.VALUE_SlimeBall, 1.0f)
                         .build(consumer, location(folder + "clay_from_brick"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.BRICK_SLAB, TinkerCommons.driedClay.getSlab(), TinkerCommons.driedClayBricks.getSlab()),
