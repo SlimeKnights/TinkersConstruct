@@ -43,7 +43,7 @@ public class FuelModule implements IIntArray {
   /** Block position that will never be valid in world, used for sync */
   private static final BlockPos NULL_POS = new BlockPos(0, -1, 0);
   /** Temperature used for solid fuels, hot enough to melt iron */
-  private static final int SOLID_TEMPERATURE = 800;
+  public static final int SOLID_TEMPERATURE = 800;
 
   /** Listener to attach to stored capability */
   private final NonNullConsumer<LazyOptional<IFluidHandler>> fluidListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
