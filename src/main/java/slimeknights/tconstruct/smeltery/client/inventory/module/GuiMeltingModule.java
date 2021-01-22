@@ -91,7 +91,7 @@ public class GuiMeltingModule {
           ITextComponent tooltip = null;
 
           // NaN means 0 progress for 0 need, unmeltable
-          if (inventory.getRequiredTime(inventory.getRequiredTime(index)) == 0) {
+          if (inventory.getRequiredTime(index) == 0) {
             tooltip = TOOLTIP_UNMELTABLE;
           }
           // -1 error state if temperature is too low
