@@ -11,6 +11,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -73,6 +74,7 @@ import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
+import slimeknights.tconstruct.smeltery.util.EntityMeltingRecipeCache;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -228,6 +230,9 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<ContainerType<SmelteryContainer>> smelteryContainer = CONTAINERS.register("smeltery", SmelteryContainer::new);
   public static final RegistryObject<ContainerType<SingleItemContainer>> singleItemContainer = CONTAINERS.register("single_item", SingleItemContainer::new);
 
+  public TinkerSmeltery() {
+    MinecraftForge.EVENT_BUS.addListener(EntityMeltingRecipeCache::onReloadListenerReload);
+  }
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {

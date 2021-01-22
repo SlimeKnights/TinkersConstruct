@@ -14,13 +14,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.tconstruct.common.TinkerTags.EntityTypes;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
+import slimeknights.tconstruct.smeltery.util.EntityMeltingRecipeCache;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -33,7 +33,7 @@ import java.util.function.Supplier;
  */
 @RequiredArgsConstructor
 public class EntityMeltingModule {
-  /** Standard damage sourcce for melting most mobs */
+  /** Standard damage source for melting most mobs */
   public static final DamageSource SMELTERY_DAMAGE = new DamageSource(Util.prefix("smeltery_heat")).setFireDamage();
   /** Special damage source for "absorbing" hot entities */
   public static final DamageSource SMELTERY_MAGIC = new DamageSource(Util.prefix("smeltery_magic")).setMagicDamage();
@@ -65,13 +65,12 @@ public class EntityMeltingModule {
     if (lastRecipe != null && lastRecipe.matches(type)) {
       return lastRecipe;
     }
-    for (EntityMeltingRecipe recipe : RecipeHelper.getRecipes(getWorld().getRecipeManager(), RecipeTypes.ENTITY_MELTING, EntityMeltingRecipe.class)) {
-      if (recipe.matches(type)) {
-        lastRecipe = recipe;
-        return recipe;
-      }
+    // find a new recipe if the last recipe does not match
+    EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(getWorld().getRecipeManager(), type);
+    if (recipe != null) {
+      lastRecipe = recipe;
     }
-    return null;
+    return recipe;
   }
 
   /**
@@ -111,6 +110,7 @@ public class EntityMeltingModule {
     boolean melted = false;
     for (Entity entity : getWorld().getEntitiesWithinAABB(Entity.class, boundingBox)) {
       // items are placed inside the smeltery
+      EntityType<?> type = entity.getType();
       if (entity instanceof ItemEntity) {
         ItemStack stack = insertFunction.apply(((ItemEntity) entity).getItem());
         if (stack.isEmpty()) {
@@ -121,7 +121,8 @@ public class EntityMeltingModule {
 
       // only can melt living, ensure its not immune to our damage
       // if canMelt is already found as false, skip instance checks, we only care about items now
-      else if (canMelt != Boolean.FALSE && entity instanceof LivingEntity && canMeltEntity((LivingEntity)entity)) {
+      // if the type is hidden, skip as well, I suppose thats your blacklist if you must have one
+      else if (canMelt != Boolean.FALSE && !EntityTypes.MELTING_HIDE.contains(type) && entity instanceof LivingEntity && canMeltEntity((LivingEntity)entity)) {
         // only fetch boolean once, its not the fastest as it tries to consume fuel
         if (canMelt == null) canMelt = canMeltEntities.getAsBoolean();
 
