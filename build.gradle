@@ -51,6 +51,7 @@ repositories {
 }
 
 group = 'slimeknights.tconstruct'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 // sets version to the slimeKnights version format
 task buildInfo {
