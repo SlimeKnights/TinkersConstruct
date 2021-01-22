@@ -111,9 +111,10 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
 
   /**
    * Checks if this slot has an item it can heat
+   * @param  temperature  Temperature to try
    * @return  True if this slot has an item it can heat
    */
-  public boolean canHeatItem() {
+  public boolean canHeatItem(int temperature) {
     // must have a recipe and an item
     if (requiredTime > 0) {
       if (stack.isEmpty()) {
@@ -121,7 +122,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
         return false;
       }
       // don't mark items as can heat if done heating
-      return currentTime != NO_SPACE;
+      return currentTime != NO_SPACE && temperature >= requiredTime;
     }
     return false;
   }
@@ -132,7 +133,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    */
   public void heatItem(int temperature) {
     // if the slot is able to be heated, heat it
-    if ((canHeatItem() || currentTime == NO_SPACE) && temperature >= requiredTemp) {
+    if (canHeatItem(temperature)) {
       // if we are done, cook item
       if (currentTime == NO_SPACE || currentTime >= requiredTime) {
         if (onItemFinishedHeating()) {
@@ -155,7 +156,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
         resetRecipe();
       }
       // if the item is heated, cool down rapidly
-    } else if (currentTime > 0 && canHeatItem()) {
+    } else if (currentTime > 0 && requiredTime > 0) {
       currentTime -= 5;
     }
   }

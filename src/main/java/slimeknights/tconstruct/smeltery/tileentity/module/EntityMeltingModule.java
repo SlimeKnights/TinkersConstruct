@@ -99,14 +99,16 @@ public class EntityMeltingModule {
 
   /**
    * Interacts with entities in the structure
+   * @return True if something was melted and fuel is needed
    */
-  public void interactWithEntities() {
+  public boolean interactWithEntities() {
     AxisAlignedBB boundingBox = bounds.get();
     if (boundingBox == null) {
-      return;
+      return false;
     }
 
     Boolean canMelt = null;
+    boolean melted = false;
     for (Entity entity : getWorld().getEntitiesWithinAABB(Entity.class, boundingBox)) {
       // items are placed inside the smeltery
       if (entity instanceof ItemEntity) {
@@ -141,9 +143,11 @@ public class EntityMeltingModule {
           if (entity.attackEntityFrom(entity.isImmuneToFire() ? SMELTERY_MAGIC : SMELTERY_DAMAGE, damage)) {
             // its fine if we don't fill it all, leftover fluid is just lost
             tank.fill(fluid, FluidAction.EXECUTE);
+            melted = true;
           }
         }
       }
     }
+    return melted;
   }
 }

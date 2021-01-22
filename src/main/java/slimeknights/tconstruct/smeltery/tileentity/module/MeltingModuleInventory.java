@@ -245,11 +245,12 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
 
   /**
    * Checks if any slot can heat
+   * @param temperature  Temperature to try
    * @return  True if a slot can heat
    */
-  public boolean canHeat() {
+  public boolean canHeat(int temperature) {
     for (MeltingModule module : modules) {
-      if (module != null && module.canHeatItem()) {
+      if (module != null && module.canHeatItem(temperature)) {
         return true;
       }
     }

@@ -9,9 +9,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -146,8 +144,8 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
       switch (tick) {
         // tick 0: find fuel
         case 0:
-          if (!fuelModule.hasFuel() && meltingInventory.canHeat()) {
-            fuelModule.findFuel();
+          if (!fuelModule.hasFuel() && meltingInventory.canHeat(fuelModule.findFuel(false))) {
+            fuelModule.findFuel(true);
           }
         // tick 2: heat items and consume fuel
         case 2:
@@ -160,13 +158,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
       }
       tick = (tick + 1) % 4;
     }
-  }
-
-  @Override
-  public void setWorldAndPos(World world, BlockPos pos) {
-    super.setWorldAndPos(world, pos);
-//    // mostly for the client side, set the location of the fuel handler
-//    fuelModule.setLastPos(pos.down());
   }
 
 

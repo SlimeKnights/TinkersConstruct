@@ -156,16 +156,17 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
       }
 
       // every second, interact with entities, will consume fuel if needed
+      boolean entityMelted = false;
       if (tick == 12) {
-        entityModule.interactWithEntities();
+        entityMelted = entityModule.interactWithEntities();
       }
 
       // run in four phases alternating each tick, so each thing runs once every 4 ticks
       switch (tick % 4) {
         // first tick, find fuel if needed
         case 0:
-          if (!fuelModule.hasFuel() && (meltingInventory.canHeat() || alloyingModule.canAlloy())) {
-            fuelModule.findFuel();
+          if (!fuelModule.hasFuel() && (entityMelted || alloyingModule.canAlloy() || meltingInventory.canHeat(fuelModule.findFuel(false)))) {
+            fuelModule.findFuel(true);
           }
           break;
           // second tick: melt items
@@ -404,10 +405,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
    */
   private boolean canMeltEntities() {
     if (tank.getContained() > 0) {
-      if (!fuelModule.hasFuel()) {
-        fuelModule.findFuel();
+      if (fuelModule.hasFuel()) {
+        return true;
       }
-      return fuelModule.hasFuel();
+      return fuelModule.findFuel(false) > 0;
     }
     return false;
   }

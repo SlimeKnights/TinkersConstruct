@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.common.util.NonNullPredicate;
+import net.minecraftforge.common.util.NonNullFunction;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -33,6 +33,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -145,121 +146,160 @@ public class FuelModule implements IIntArray {
 
   /* Fuel updating */
 
-  /** Cached lambda of following function as its used a lot */
-  private final NonNullPredicate<IFluidHandler> tryConsumeFuel = this::tryConsumeFuel;
-
-  /** Cached lambda of following function as its used a lot */
-  private final NonNullPredicate<IItemHandler> trySolidFuel = this::trySolidFuel;
+  /* Cache of objects, since they are otherwise created possibly several times */
+  private final NonNullFunction<IItemHandler,Integer> trySolidFuelConsume = handler -> trySolidFuel(handler, true);
+  private final NonNullFunction<IItemHandler,Integer> trySolidFuelNoConsume = handler -> trySolidFuel(handler, false);
+  private final NonNullFunction<IFluidHandler,Integer> tryLiquidFuelConsume = handler -> tryLiquidFuel(handler, true);
+  private final NonNullFunction<IFluidHandler,Integer> tryLiquidFuelNoConsume = handler -> tryLiquidFuel(handler, false);
 
   /**
    * Tries to consume fuel from the given fluid handler
    * @param handler  Handler to consume fuel from
-   * @return   True if fuel was consumed
+   * @return   Temperature of the consumed fuel, 0 if none found
    */
-  private boolean trySolidFuel(IItemHandler handler) {
+  private int trySolidFuel(IItemHandler handler, boolean consume) {
     for (int i = 0; i < handler.getSlots(); i++) {
       ItemStack stack = handler.getStackInSlot(i);
       int time = ForgeHooks.getBurnTime(stack) / 4;
       if (time > 0) {
-        ItemStack extracted = handler.extractItem(i, 1, false);
-        if (extracted.isItemEqual(stack)) {
-          fuel += time;
-          fuelQuality = time;
-          temperature = SOLID_TEMPERATURE;
-          parent.markDirtyFast();
-        } else {
-          TConstruct.log.error("Invalid item removed from solid fuel handler");
+        if (consume) {
+          ItemStack extracted = handler.extractItem(i, 1, false);
+          if (extracted.isItemEqual(stack)) {
+            fuel += time;
+            fuelQuality = time;
+            temperature = SOLID_TEMPERATURE;
+            parent.markDirtyFast();
+          } else {
+            TConstruct.log.error("Invalid item removed from solid fuel handler");
+          }
         }
-        return true;
+        return SOLID_TEMPERATURE;
       }
     }
-    return false;
+    return 0;
+  }
+
+  /**
+   * Gets the mapper function for solid fuel
+   * @param consume  If true, fuel is consumed
+   * @return Mapper function for solid fuel
+   */
+  private NonNullFunction<IItemHandler,Integer> trySolidFuel(boolean consume) {
+    return consume ? trySolidFuelConsume : trySolidFuelNoConsume;
   }
 
   /**
    * Trys to consume fuel from the given fluid handler
    * @param handler  Handler to consume fuel from
-   * @return   True if fuel was consumed
+   * @return   Temperature of the consumed fuel, 0 if none found
    */
-  private boolean tryConsumeFuel(IFluidHandler handler) {
+  private int tryLiquidFuel(IFluidHandler handler, boolean consume) {
     FluidStack fluid = handler.getFluidInTank(0);
     MeltingFuel recipe = findRecipe(fluid.getFluid());
     if (recipe != null) {
       int amount = recipe.getAmount(fluid.getFluid());
       if (fluid.getAmount() >= amount) {
-        FluidStack drained = handler.drain(new FluidStack(fluid, amount), FluidAction.EXECUTE);
-        if (drained.getAmount() != amount) {
-          TConstruct.log.error("Invalid amount of fuel drained from tank");
+        if (consume) {
+          FluidStack drained = handler.drain(new FluidStack(fluid, amount), FluidAction.EXECUTE);
+          if (drained.getAmount() != amount) {
+            TConstruct.log.error("Invalid amount of fuel drained from tank");
+          }
+          fuel += recipe.getDuration();
+          fuelQuality = recipe.getDuration();
+          temperature = recipe.getTemperature();
+          parent.markDirtyFast();
+          return temperature;
+        } else {
+          return recipe.getTemperature();
         }
-        fuel += recipe.getDuration();
-        fuelQuality = recipe.getDuration();
-        temperature = recipe.getTemperature();
-        parent.markDirtyFast();
-        return true;
       }
     }
-    return false;
+    return 0;
+  }
+
+  /**
+   * Gets the mapper function for liquid fuel
+   * @param consume  If true, fuel is consumed
+   * @return Mapper function for liquid fuel
+   */
+  private NonNullFunction<IFluidHandler,Integer> tryLiquidFuel(boolean consume) {
+    return consume ? tryLiquidFuelConsume : tryLiquidFuelNoConsume;
   }
 
   /**
    * Tries to consume fuel from the given position
    * @param pos  Position
-   * @return  True if fuel was consumed
+   * @return   Temperature of the consumed fuel, 0 if none found
    */
-  private boolean tryConsumeFuel(BlockPos pos) {
+  private int tryFindFuel(BlockPos pos, boolean consume) {
     TileEntity te = getWorld().getTileEntity(pos);
     if (te != null) {
       // if we find a valid cap, try to consume fuel from it
       LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-      if (capability.filter(tryConsumeFuel).isPresent()) {
+      Optional<Integer> temperature = capability.map(tryLiquidFuel(consume));
+      if (temperature.isPresent()) {
         itemHandler = null;
         fluidHandler = capability;
         capability.addListener(fluidListener);
         lastPos = pos;
-        return true;
+        return temperature.get();
       } else {
         // if we find a valid item cap, consume fuel from that
         LazyOptional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
-        if (itemCap.filter(trySolidFuel).isPresent()) {
+        temperature = itemCap.map(trySolidFuel(consume));
+        if (temperature.isPresent()) {
           fluidHandler = null;
           itemHandler = itemCap;
           itemCap.addListener(itemListener);
           lastPos = pos;
-          return true;
+          return temperature.get();
         }
       }
     }
-    return false;
+
+    return 0;
   }
 
   /**
    * Attempts to consume fuel from one of the tanks
+   * @return  temperature of the found fluid, 0 if none
    */
-  public void findFuel() {
+  public int findFuel(boolean consume) {
     // if we have a handler, try to use that if possible
+    Optional<Integer> handlerTemp = Optional.empty();
     if (fluidHandler != null) {
-      if (fluidHandler.filter(tryConsumeFuel).isPresent()) {
-        return;
-      }
+      handlerTemp = fluidHandler.map(tryLiquidFuel(consume));
     } else if (itemHandler != null) {
-      if (itemHandler.filter(trySolidFuel).isPresent()) {
-        return;
-      }
+      handlerTemp = itemHandler.map(trySolidFuel(consume));
     // if no handler, try to find one at the last position
-    } else if (lastPos != null && tryConsumeFuel(lastPos)) {
-      return;
+    } else if (lastPos != null) {
+      int posTemp = tryFindFuel(lastPos, consume);
+      if (posTemp > 0) {
+        return posTemp;
+      }
+    }
+
+    // if either handler was present, return the temperature
+    if (handlerTemp.isPresent()) {
+      return handlerTemp.get();
     }
 
     // find a new handler among our tanks
     for (BlockPos pos : tankSupplier.get()) {
       // already checked the last position above, no reason to try again
-      if (!pos.equals(lastPos) && tryConsumeFuel(pos)) {
-        return;
+      if (!pos.equals(lastPos)) {
+        int posTemp = tryFindFuel(pos, consume);
+        if (posTemp > 0) {
+          return posTemp;
+        }
       }
     }
 
     // no handler found, tell client of the lack of fuel
-    temperature = 0;
+    if (consume) {
+      temperature = 0;
+    }
+    return 0;
   }
 
   /* NBT */

@@ -54,14 +54,6 @@ public class GuiFuelModule {
   }
 
   /**
-   * Updates the fuel info in teh GUI, call before the method that needs the most updates
-   */
-  @Deprecated
-  public FuelInfo updateFuel() {
-    return fuelInfo;
-  }
-
-  /**
    * Draws the fuel at the correct location
    * @param matrices  Matrix stack instance
    */
