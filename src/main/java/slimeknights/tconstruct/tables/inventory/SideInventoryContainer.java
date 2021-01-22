@@ -11,7 +11,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.tconstruct.common.inventory.ItemHandlerSlot;
+import slimeknights.mantle.inventory.ItemHandlerSlot;
 
 import javax.annotation.Nullable;
 

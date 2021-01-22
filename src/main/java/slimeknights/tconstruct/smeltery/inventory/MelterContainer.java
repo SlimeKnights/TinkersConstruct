@@ -5,7 +5,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.network.PacketBuffer;
 import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.tconstruct.common.inventory.ItemHandlerSlot;
+import slimeknights.mantle.inventory.ItemHandlerSlot;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
