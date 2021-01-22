@@ -57,10 +57,15 @@ public abstract class ControllerBlock extends InventoryBlock {
    * Tile Entity interaction
    */
 
+  /** @return True if the GUI can be opened */
+  protected boolean canOpenGui(BlockState state) {
+    return state.get(ACTIVE);
+  }
+
   @Override
   protected boolean openGui(PlayerEntity player, World world, BlockPos pos) {
     BlockState state = world.getBlockState(pos);
-    if(state.getBlock() == this && state.get(ACTIVE)) {
+    if (state.getBlock() == this && canOpenGui(state)) {
       return super.openGui(player, world, pos);
     }
     return false;

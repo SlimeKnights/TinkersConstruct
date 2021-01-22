@@ -15,6 +15,7 @@ import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule.FuelInfo;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,16 +27,21 @@ public class GuiFuelModule {
   private static final ScalableElementScreen FIRE = new ScalableElementScreen(176, 136, 14, 14, 256, 256);
 
   // tooltips
-  private static final String TOOLTIP_NO_FUEL = Util.makeTranslationKey("gui", "melting.fuel.empty");
   private static final String TOOLTIP_TEMPERATURE = Util.makeTranslationKey("gui", "melting.fuel.temperature");
-  private static final String TOOLTIP_INVALID_FUEL = Util.makeTranslationKey("gui", "melting.fuel.invalid");
+  private static final ITextComponent TOOLTIP_NO_FUEL = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.empty"));
+  private static final ITextComponent TOOLTIP_INVALID_FUEL = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.invalid")).mergeStyle(TextFormatting.RED);
+  private static final ITextComponent TOOLTIP_SOLID_FUEL = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.solid"));
 
   private final ContainerScreen<?> screen;
   private final FuelModule fuelModule;
+  /** location to draw the tank */
   private final int x, y, width, height;
+  /** location to draw the fire */
   private final int fireX, fireY;
+  /** If true, UI has a fuel slot */
+  private final boolean hasFuelSlot;
 
-  private FuelInfo fuelInfo = null;
+  private FuelInfo fuelInfo = FuelInfo.EMPTY;
 
   /**
    * Checks if the fuel tank is hovered
@@ -45,6 +51,14 @@ public class GuiFuelModule {
    */
   private boolean isHovered(int checkX, int checkY) {
     return GuiUtil.isHovered(checkX, checkY, x - 1, y - 1, width + 2, height + 2);
+  }
+
+  /**
+   * Updates the fuel info in teh GUI, call before the method that needs the most updates
+   */
+  @Deprecated
+  public FuelInfo updateFuel() {
+    return fuelInfo;
   }
 
   /**
@@ -59,10 +73,12 @@ public class GuiFuelModule {
     }
 
     // draw tank second, it changes the image
-    // fuel info is stored in a field to share with other methods
-    fuelInfo = fuelModule.getFuelInfo();
-    if (!fuelInfo.isEmpty()) {
-      GuiUtil.renderFluidTank(matrices, screen, fuelInfo.getFuel(), fuelInfo.getTotalAmount(), fuelInfo.getCapacity(), x, y, width, height, 100);
+    // store fuel info into a field for other methods, this one updates most often
+    if (!hasFuelSlot) {
+      fuelInfo = fuelModule.getFuelInfo();
+      if (!fuelInfo.isEmpty()) {
+        GuiUtil.renderFluidTank(matrices, screen, fuelInfo.getFluid(), fuelInfo.getTotalAmount(), fuelInfo.getCapacity(), x, y, width, height, 100);
+      }
     }
   }
 
@@ -74,7 +90,15 @@ public class GuiFuelModule {
    */
   public void renderHighlight(MatrixStack matrices, int checkX, int checkY) {
     if (isHovered(checkX, checkY)) {
-      GuiUtil.renderHighlight(matrices, x, y, width, height);
+      // if there is a fuel slot, render highlight lower
+      if (hasFuelSlot) {
+        if (checkY > y + 18) {
+          GuiUtil.renderHighlight(matrices, x, y + 18, width, height - 18);
+        }
+      } else {
+        // full fluid highlight
+        GuiUtil.renderHighlight(matrices, x, y, width, height);
+      }
     }
   }
 
@@ -90,18 +114,31 @@ public class GuiFuelModule {
 
     if (isHovered(checkX, checkY)) {
       List<ITextComponent> tooltip;
-      // fetch info from shared field
-      if (fuelInfo != null && !fuelInfo.isEmpty()) {
-        FluidStack fluid = fuelInfo.getFuel();
+      // if an item or we have a fuel slot, do item tooltip
+      if (hasFuelSlot || fuelInfo.isItem()) {
+        // if there is a fuel slot, start below the fuel slot
+        if (!hasFuelSlot || checkY > y + 18) {
+          // no invalid fuel, we assume the slot is validated (hasFuelSlot is only true for the heater which validates)
+          int temperature = fuelModule.getTemperature();
+          if (temperature > 0) {
+            tooltip = Arrays.asList(TOOLTIP_SOLID_FUEL, new TranslationTextComponent(TOOLTIP_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
+          } else {
+            tooltip = Collections.singletonList(TOOLTIP_NO_FUEL);
+          }
+        } else {
+          tooltip = Collections.emptyList();
+        }
+      } else if (!fuelInfo.isEmpty()) {
+        FluidStack fluid = fuelInfo.getFluid();
         tooltip = FluidTooltipHandler.getFluidTooltip(fluid, fuelInfo.getTotalAmount());
         int temperature = fuelModule.getTemperature();
         if (temperature > 0) {
           tooltip.add(1, new TranslationTextComponent(TOOLTIP_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
         } else {
-          tooltip.add(1, new TranslationTextComponent(TOOLTIP_INVALID_FUEL).mergeStyle(TextFormatting.RED));
+          tooltip.add(1, TOOLTIP_INVALID_FUEL);
         }
       } else {
-        tooltip = Collections.singletonList(new TranslationTextComponent(TOOLTIP_NO_FUEL));
+        tooltip = Collections.singletonList(TOOLTIP_NO_FUEL);
       }
 
       // TODO: func_243308_b->renderTooltip
@@ -117,8 +154,8 @@ public class GuiFuelModule {
    */
   @Nullable
   public FluidStack getIngredient(int checkX, int checkY) {
-    if (isHovered(checkX, checkY) && fuelInfo != null && !fuelInfo.isEmpty()) {
-      return fuelInfo.getFuel();
+    if (!hasFuelSlot && isHovered(checkX, checkY) && !fuelInfo.isEmpty()) {
+      return fuelInfo.getFluid();
     }
     return null;
   }

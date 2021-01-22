@@ -114,11 +114,13 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     // structure tags
     // floor allows any basic seared blocks
     this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_FLOOR).addTag(TinkerTags.Blocks.SEARED_BLOCKS);
-    // tanks is tanks (duh)
-    Builder<Block> tankBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.MELTER_TANKS);
-    TinkerSmeltery.searedTank.values().forEach(tankBuilder::add);
-    // smeltery can use any melter tag, but melter cannot use all smeltery tanks in theory
-    this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_TANKS).addTag(TinkerTags.Blocks.MELTER_TANKS);
+    // melter supports the heater as a tank
+    Builder<Block> melterBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.MELTER_TANKS).add(TinkerSmeltery.searedHeater.get());
+    Builder<Block> smelteryBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_TANKS);
+    TinkerSmeltery.searedTank.forEach(tank -> {
+      melterBuilder.add(tank);
+      smelteryBuilder.add(tank);
+    });
     // wall allows anything in the floor, tanks, and glass
     this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_WALL)
         .addTag(TinkerTags.Blocks.SMELTERY_FLOOR)

@@ -22,7 +22,7 @@ import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.inventory.DuctContainer;
+import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.DuctItemHandler;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.DuctTankWrapper;
@@ -62,7 +62,7 @@ public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerPr
   @Nullable
   @Override
   public Container createMenu(int id, PlayerInventory inventory, PlayerEntity playerEntity) {
-    return new DuctContainer(id, inventory, this);
+    return new SingleItemContainer(id, inventory, this);
   }
 
 

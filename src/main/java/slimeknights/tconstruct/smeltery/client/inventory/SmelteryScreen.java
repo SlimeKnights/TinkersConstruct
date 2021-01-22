@@ -42,7 +42,7 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> impleme
       addModule(sideInventory);
       FuelModule fuelModule = te.getFuelModule();
       this.melting = new GuiMeltingModule(this, te.getMeltingInventory(), fuelModule::getTemperature, sideInventory::shouldDrawSlot);
-      this.fuel = new GuiFuelModule(this, fuelModule, 71, 32, 12, 36, 70, 15);
+      this.fuel = new GuiFuelModule(this, fuelModule, 71, 32, 12, 36, 70, 15, false);
     } else {
       this.smeltery = null;
       this.tank = null;

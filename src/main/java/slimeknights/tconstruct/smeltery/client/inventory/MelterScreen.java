@@ -21,6 +21,8 @@ import javax.annotation.Nullable;
 public class MelterScreen extends ContainerScreen<MelterContainer> implements IScreenWithFluidTank {
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/melter.png");
   private static final ElementScreen SCALA = new ElementScreen(176, 0, 52, 52, 256, 256);
+  private static final ElementScreen FUEL_SLOT = new ElementScreen(176, 52, 18, 36, 256, 256);
+  private static final ElementScreen FUEL_TANK = new ElementScreen(194, 52, 14, 38, 256, 256);
 
   private final GuiMeltingModule melting;
   private final GuiFuelModule fuel;
@@ -31,7 +33,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
     if (te != null) {
       FuelModule fuelModule = te.getFuelModule();
       melting = new GuiMeltingModule(this, te.getMeltingInventory(), fuelModule::getTemperature, slot -> true);
-      fuel = new GuiFuelModule(this, fuelModule, 153, 32, 12, 36, 152, 15);
+      fuel = new GuiFuelModule(this, fuelModule, 153, 32, 12, 36, 152, 15, container.isHasFuelSlot());
       tank = new GuiTankModule(this, te.getTank(), 90, 16, 52, 52);
     } else {
       melting = null;
@@ -57,6 +59,12 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
     // fuel
     if (fuel != null) {
       getMinecraft().getTextureManager().bindTexture(BACKGROUND);
+      // draw the correct background for the fuel type
+      if (container.isHasFuelSlot()) {
+        FUEL_SLOT.draw(matrices, guiLeft + 150, guiTop + 31);
+      } else {
+        FUEL_TANK.draw(matrices, guiLeft + 152, guiTop + 31);
+      }
       fuel.draw(matrices);
     }
   }

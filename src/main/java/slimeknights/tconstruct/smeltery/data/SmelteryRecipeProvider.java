@@ -245,15 +245,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("BBB")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, prefix(TinkerSmeltery.searedMelter, "smeltery/"));
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.smelteryController)
-                       .key('#', TinkerSmeltery.searedBrick)
-                       .key('C', TinkerTags.Items.INGOTS_COPPER)
-                       .key('G', Tags.Items.GLASS_COLORLESS)
-                       .patternLine("#C#")
-                       .patternLine("CGC")
-                       .patternLine("#C#")
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedHeater)
+                       .key('B', TinkerSmeltery.searedBrick)
+                       .patternLine("BBB")
+                       .patternLine("B B")
+                       .patternLine("BBB")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
-                       .build(consumer, location("smeltery/controller"));
+                       .build(consumer, prefix(TinkerSmeltery.searedHeater, "smeltery/"));
 
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.copperCan, 3)
                        .key('c', TinkerTags.Items.INGOTS_COPPER)
@@ -267,6 +265,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
   private void addCastingRecipes(Consumer<IFinishedRecipe> consumer) {
     // Pure Fluid Recipes
     String folder = "casting/";
+
+    // smeltery controller
+    ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.smelteryController)
+                            .setCast(TinkerSmeltery.searedHeater, true)
+                            .setFluid(new FluidStack(TinkerFluids.moltenCopper.get(), MaterialValues.VALUE_Ingot * 4))
+                            .build(consumer, prefix(TinkerSmeltery.smelteryController, folder));
+
+    // container filling
     ContainerFillingRecipeBuilder.tableRecipe(Items.BUCKET, FluidAttributes.BUCKET_VOLUME)
                                  .addCriterion("has_item", hasItem(Items.BUCKET))
                                  .build(consumer, location(folder + "filling/bucket"));

@@ -44,6 +44,7 @@ import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
+import slimeknights.tconstruct.smeltery.block.HeaterBlock;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
@@ -55,8 +56,8 @@ import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.block.component.SmelteryIOBlock;
 import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
-import slimeknights.tconstruct.smeltery.inventory.DuctContainer;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
+import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.smeltery.item.TankItem;
@@ -65,6 +66,7 @@ import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.DrainTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.DuctTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.HeaterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.ChuteTileEntity;
@@ -132,6 +134,7 @@ public final class TinkerSmeltery extends TinkerModule {
   private static final Supplier<Block.Properties> CONTROLLER = () -> builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).setLightLevel(s -> s.get(ControllerBlock.ACTIVE) ? 13 : 0);;
   public static final ItemObject<MelterBlock> searedMelter = BLOCKS.register("melter", () -> new MelterBlock(CONTROLLER.get().notSolid()), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<SmelteryControllerBlock> smelteryController = BLOCKS.register("smeltery_controller", () -> new SmelteryControllerBlock(CONTROLLER.get()), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<HeaterBlock> searedHeater = BLOCKS.register("seared_heater", () -> new HeaterBlock(CONTROLLER.get()), TOOLTIP_BLOCK_ITEM);
 
   /*
    * Tile entities
@@ -151,6 +154,7 @@ public final class TinkerSmeltery extends TinkerModule {
   // controller
   public static final RegistryObject<TileEntityType<MelterTileEntity>> melter = TILE_ENTITIES.register("melter", MelterTileEntity::new, searedMelter);
   public static final RegistryObject<TileEntityType<SmelteryTileEntity>> smeltery = TILE_ENTITIES.register("smeltery", SmelteryTileEntity::new, smelteryController);
+  public static final RegistryObject<TileEntityType<HeaterTileEntity>> heater = TILE_ENTITIES.register("heater", HeaterTileEntity::new, searedHeater);
   // fluid transfer
   public static final RegistryObject<TileEntityType<FaucetTileEntity>> faucet = TILE_ENTITIES.register("faucet", FaucetTileEntity::new, searedFaucet);
   public static final RegistryObject<TileEntityType<ChannelTileEntity>> channel = TILE_ENTITIES.register("channel", ChannelTileEntity::new, searedChannel);
@@ -222,7 +226,8 @@ public final class TinkerSmeltery extends TinkerModule {
    */
   public static final RegistryObject<ContainerType<MelterContainer>> melterContainer = CONTAINERS.register("melter", MelterContainer::new);
   public static final RegistryObject<ContainerType<SmelteryContainer>> smelteryContainer = CONTAINERS.register("smeltery", SmelteryContainer::new);
-  public static final RegistryObject<ContainerType<DuctContainer>> ductContainer = CONTAINERS.register("duct", DuctContainer::new);
+  public static final RegistryObject<ContainerType<SingleItemContainer>> singleItemContainer = CONTAINERS.register("single_item", SingleItemContainer::new);
+
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {

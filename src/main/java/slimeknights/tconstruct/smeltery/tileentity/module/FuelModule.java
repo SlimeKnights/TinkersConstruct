@@ -5,11 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.common.util.NonNullPredicate;
@@ -17,6 +19,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
@@ -38,12 +42,12 @@ import java.util.function.Supplier;
 public class FuelModule implements IIntArray {
   /** Block position that will never be valid in world, used for sync */
   private static final BlockPos NULL_POS = new BlockPos(0, -1, 0);
+  /** Temperature used for solid fuels, hot enough to melt iron */
+  private static final int SOLID_TEMPERATURE = 800;
 
   /** Listener to attach to stored capability */
-  private final NonNullConsumer<LazyOptional<IFluidHandler>> listener = new WeakConsumerWrapper<>(this, (self, cap) -> {
-    self.fluidHandler = null;
-    self.lastPos = null;
-  });
+  private final NonNullConsumer<LazyOptional<IFluidHandler>> fluidListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
+  private final NonNullConsumer<LazyOptional<IItemHandler>> itemListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
 
   /** Parent TE */
   private final MantleTileEntity parent;
@@ -56,6 +60,9 @@ public class FuelModule implements IIntArray {
   /** Last fluid handler where fluid was extracted */
   @Nullable
   private LazyOptional<IFluidHandler> fluidHandler;
+  /** Last item handler where items were extracted */
+  @Nullable
+  private LazyOptional<IItemHandler> itemHandler;
   /** Position of the last fluid handler */
   @Nullable
   private BlockPos lastPos = null;
@@ -84,6 +91,12 @@ public class FuelModule implements IIntArray {
   /*
    * Helpers
    */
+
+  private void reset() {
+    this.fluidHandler = null;
+    this.itemHandler = null;
+    this.lastPos = null;
+  }
 
   /** Gets a nonnull world instance from the parent */
   private World getWorld() {
@@ -135,6 +148,34 @@ public class FuelModule implements IIntArray {
   /** Cached lambda of following function as its used a lot */
   private final NonNullPredicate<IFluidHandler> tryConsumeFuel = this::tryConsumeFuel;
 
+  /** Cached lambda of following function as its used a lot */
+  private final NonNullPredicate<IItemHandler> trySolidFuel = this::trySolidFuel;
+
+  /**
+   * Tries to consume fuel from the given fluid handler
+   * @param handler  Handler to consume fuel from
+   * @return   True if fuel was consumed
+   */
+  private boolean trySolidFuel(IItemHandler handler) {
+    for (int i = 0; i < handler.getSlots(); i++) {
+      ItemStack stack = handler.getStackInSlot(i);
+      int time = ForgeHooks.getBurnTime(stack) / 4;
+      if (time > 0) {
+        ItemStack extracted = handler.extractItem(i, 1, false);
+        if (extracted.isItemEqual(stack)) {
+          fuel += time;
+          fuelQuality = time;
+          temperature = SOLID_TEMPERATURE;
+          parent.markDirtyFast();
+        } else {
+          TConstruct.log.error("Invalid item removed from solid fuel handler");
+        }
+        return true;
+      }
+    }
+    return false;
+  }
+
   /**
    * Trys to consume fuel from the given fluid handler
    * @param handler  Handler to consume fuel from
@@ -171,10 +212,21 @@ public class FuelModule implements IIntArray {
       // if we find a valid cap, try to consume fuel from it
       LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
       if (capability.filter(tryConsumeFuel).isPresent()) {
+        itemHandler = null;
         fluidHandler = capability;
-        capability.addListener(listener);
+        capability.addListener(fluidListener);
         lastPos = pos;
         return true;
+      } else {
+        // if we find a valid item cap, consume fuel from that
+        LazyOptional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+        if (itemCap.filter(trySolidFuel).isPresent()) {
+          fluidHandler = null;
+          itemHandler = itemCap;
+          itemCap.addListener(itemListener);
+          lastPos = pos;
+          return true;
+        }
       }
     }
     return false;
@@ -189,7 +241,11 @@ public class FuelModule implements IIntArray {
       if (fluidHandler.filter(tryConsumeFuel).isPresent()) {
         return;
       }
-      // if no handler, try to find one at the last position
+    } else if (itemHandler != null) {
+      if (itemHandler.filter(trySolidFuel).isPresent()) {
+        return;
+      }
+    // if no handler, try to find one at the last position
     } else if (lastPos != null && tryConsumeFuel(lastPos)) {
       return;
     }
@@ -299,6 +355,7 @@ public class FuelModule implements IIntArray {
             break;
         }
         fluidHandler = null;
+        itemHandler = null;
     }
   }
 
@@ -333,70 +390,86 @@ public class FuelModule implements IIntArray {
       assert mainTank != null;
     }
 
-    // fetch primary fluid handler
-    if (fluidHandler == null) {
+    // fetch primary fuel handler
+    if (fluidHandler == null && itemHandler == null) {
       TileEntity te = getWorld().getTileEntity(mainTank);
       if (te != null) {
-        fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-        fluidHandler.addListener(listener);
-      } else {
-        fluidHandler = LazyOptional.empty();
+        LazyOptional<IFluidHandler> fluidCap = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+        if (fluidCap.isPresent()) {
+          fluidHandler = fluidCap;
+          fluidHandler.addListener(fluidListener);
+        } else {
+          LazyOptional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+          if (itemCap.isPresent()) {
+            itemHandler = itemCap;
+            itemHandler.addListener(itemListener);
+          }
+        }
       }
+    }
+    // ensure all handlers are set
+    if (fluidHandler == null) fluidHandler = LazyOptional.empty();
+    if (itemHandler == null) itemHandler = LazyOptional.empty();
+
+    // if its an item, stop here
+    if (itemHandler.isPresent()) {
+      return FuelInfo.ITEM;
     }
 
     // determine what fluid we have and hpw many other fluids we have
     FuelInfo info = fluidHandler.map(handler -> FuelInfo.of(handler.getFluidInTank(0), handler.getTankCapacity(0)))
                                 .orElse(FuelInfo.EMPTY);
 
-    // if nothing, return here
-    if (info.isEmpty()) {
-      return FuelInfo.EMPTY;
-    }
-
-    // fetch fluid handler list if missing
-    World world = getWorld();
-    if (tankDisplayHandlers == null) {
-      tankDisplayHandlers = new ArrayList<>();
-      // only need to fetch this if either case requests
-      if (positions == null) positions = tankSupplier.get();
-      for (BlockPos pos : positions) {
-        if (!pos.equals(mainTank)) {
-          TileEntity te = world.getTileEntity(pos);
-          if (te != null) {
-            LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-            if (handler.isPresent()) {
-              handler.addListener(displayListener);
-              tankDisplayHandlers.add(handler);
+    // add extra fluid display
+    if (!info.isEmpty()) {
+      // fetch fluid handler list if missing
+      World world = getWorld();
+      if (tankDisplayHandlers == null) {
+        tankDisplayHandlers = new ArrayList<>();
+        // only need to fetch this if either case requests
+        if (positions == null) positions = tankSupplier.get();
+        for (BlockPos pos : positions) {
+          if (!pos.equals(mainTank)) {
+            TileEntity te = world.getTileEntity(pos);
+            if (te != null) {
+              LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+              if (handler.isPresent()) {
+                handler.addListener(displayListener);
+                tankDisplayHandlers.add(handler);
+              }
             }
           }
         }
       }
-    }
 
-    // add display info from each handler
-    FluidStack currentFuel = info.getFuel();
-    for (LazyOptional<IFluidHandler> capability : tankDisplayHandlers) {
-      capability.ifPresent(handler -> {
-        // sum if empty (more capacity) or the same fluid (more amount and capacity)
-        FluidStack fluid = handler.getFluidInTank(0);
-        if (fluid.isEmpty()) {
-          info.add(0, handler.getTankCapacity(0));
-        } else if (currentFuel.isFluidEqual(fluid)) {
-          info.add(fluid.getAmount(), handler.getTankCapacity(0));
-        }
-      });
+      // add display info from each handler
+      FluidStack currentFuel = info.getFluid();
+      for (LazyOptional<IFluidHandler> capability : tankDisplayHandlers) {
+        capability.ifPresent(handler -> {
+          // sum if empty (more capacity) or the same fluid (more amount and capacity)
+          FluidStack fluid = handler.getFluidInTank(0);
+          if (fluid.isEmpty()) {
+            info.add(0, handler.getTankCapacity(0));
+          } else if (currentFuel.isFluidEqual(fluid)) {
+            info.add(fluid.getAmount(), handler.getTankCapacity(0));
+          }
+        });
+      }
     }
 
     return info;
   }
 
   /** Data class to hold information about the current fuel */
-  @Getter @AllArgsConstructor(access = AccessLevel.PRIVATE)
+  @Getter
+  @AllArgsConstructor(access = AccessLevel.PRIVATE)
   public static class FuelInfo {
     /** Empty fuel instance */
     public static final FuelInfo EMPTY = new FuelInfo(FluidStack.EMPTY, 0, 0);
+    /** Item fuel instance */
+    public static final FuelInfo ITEM = new FuelInfo(FluidStack.EMPTY, 0, 0);
 
-    private final FluidStack fuel;
+    private final FluidStack fluid;
     private int totalAmount;
     private int capacity;
 
@@ -423,8 +496,17 @@ public class FuelModule implements IIntArray {
       this.capacity += capacity;
     }
 
+    /**
+     * Checks if this fuel info is an item
+     * @return  True if an item
+     */
+    public boolean isItem() {
+      return this == ITEM;
+    }
+
+    /** Checks if this fuel info has no fluid */
     public boolean isEmpty() {
-      return fuel.isEmpty() || totalAmount == 0 || capacity == 0;
+      return fluid.isEmpty() || totalAmount == 0 || capacity == 0;
     }
   }
 }

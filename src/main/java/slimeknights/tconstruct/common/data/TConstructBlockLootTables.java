@@ -167,10 +167,15 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addSmeltery() {
+    // controller
+    this.registerDropSelfLootTable(TinkerSmeltery.searedMelter.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedHeater.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.smelteryController.get());
+
+    // smeltery component
     this.registerBuildingLootTables(TinkerSmeltery.searedStone);
     this.registerWallBuildingLootTables(TinkerSmeltery.searedCobble);
     this.registerBuildingLootTables(TinkerSmeltery.searedPaver);
-    this.registerBuildingLootTables(TinkerSmeltery.searedStone);
     this.registerWallBuildingLootTables(TinkerSmeltery.searedBricks);
     this.registerDropSelfLootTable(TinkerSmeltery.searedCrackedBricks.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedFancyBricks.get());
@@ -178,8 +183,6 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerSmeltery.searedLadder.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlass.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlassPane.get());
-    this.registerDropSelfLootTable(TinkerSmeltery.searedMelter.get());
-    this.registerDropSelfLootTable(TinkerSmeltery.smelteryController.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedDrain.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedChute.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedDuct.get());
@@ -191,8 +194,11 @@ public class TConstructBlockLootTables extends BlockLootTables {
       }));
     }
 
+    // fluid
     this.registerDropSelfLootTable(TinkerSmeltery.searedFaucet.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedChannel.get());
+
+    // casting
     this.registerDropSelfLootTable(TinkerSmeltery.castingBasin.get());
     this.registerDropSelfLootTable(TinkerSmeltery.castingTable.get());
   }

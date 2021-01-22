@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "tconstruct:seared_heater",
     "tconstruct:seared_tank",
     "tconstruct:seared_gauge",
     "tconstruct:seared_window"

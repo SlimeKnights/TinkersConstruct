@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#tconstruct:melter_tanks"
+    "tconstruct:seared_tank",
+    "tconstruct:seared_gauge",
+    "tconstruct:seared_window"
   ]
 }

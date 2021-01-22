@@ -639,11 +639,15 @@
     "block.tconstruct.channel.down.none": "Disallowed flowing down",
 
     "block.tconstruct.melter": "Seared Melter",
-    "block.tconstruct.melter.tooltip": "First Smeltery.\nPlace above a seared tank to fuel.",
+    "block.tconstruct.melter.tooltip": "First Smeltery.\nPlace above a seared tank or heater to fuel.",
     "gui.tconstruct.melter": "Melter",
     "gui.tconstruct.melting.capacity": "Capacity:",
     "gui.tconstruct.melting.available": "Free:",
     "gui.tconstruct.melting.used": "Used:",
+    
+    "block.tconstruct.seared_heater": "Seared Heater",
+    "block.tconstruct.seared_heater.tooltip": "Solid fuel source for the Melter.",
+    "gui.tconstruct.heater": "Heater",
     
     "block.tconstruct.smeltery_controller": "Smeltery Controller",
     "block.tconstruct.smeltery_controller.tooltip": "Brain of the Smeltery.",
@@ -664,6 +668,7 @@
     "gui.tconstruct.melting.no_space": "Not enough free space for the fluid.",
 
     "gui.tconstruct.melting.fuel.empty": "No fuel found",
+    "gui.tconstruct.melting.fuel.solid": "Solid fuel",
     "gui.tconstruct.melting.fuel.temperature": "Temperature: %s°C",
     "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
     
