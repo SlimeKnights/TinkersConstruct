@@ -681,7 +681,6 @@
     "gui.tconstruct.fluid.pane": "%s Panes",
     "gui.tconstruct.fluid.gem": "%s Gems",
     "gui.tconstruct.fluid.slimeball": "%s Slimeballs",
-    "gui.tconstruct.fluid.per_second": "%s / s",
     
     "gui.tconstruct.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
     

@@ -114,7 +114,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
 
       // multiply amount by 5 to put in terms of seconds
       if (index != 1) {
-        FluidTooltipHandler.appendMaterial(stack.getFluid(), stack.getAmount() * 5, true, list);
+        FluidTooltipHandler.appendMaterial(stack, list);
       }
       list.add(modId);
     }

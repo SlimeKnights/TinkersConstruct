@@ -125,7 +125,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     list.clear();
     list.add(name);
     if (index != 2) {
-      FluidTooltipHandler.appendMaterial(fluid.getFluid(), fluid.getAmount(), true, list);
+      FluidTooltipHandler.appendMaterial(fluid, list);
     }
     list.add(modId);
   }
