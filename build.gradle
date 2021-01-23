@@ -21,7 +21,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.0.1', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.0.9', changing: true
         classpath "io.freefair.gradle:lombok-plugin:5.3.0"
     }
 }
