@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:bucket",
     "tconstruct:copper_can"
   ]
 }

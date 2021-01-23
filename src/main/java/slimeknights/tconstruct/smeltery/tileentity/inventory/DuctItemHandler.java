@@ -42,7 +42,12 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
 
   @Override
   protected boolean isItemValid(ItemStack stack) {
-    return stack.getItem().isIn(TinkerTags.Items.DUCT_CONTAINERS);
+    if (stack.getItem().isIn(TinkerTags.Items.DUCT_CONTAINERS)) {
+      return true;
+    }
+    
+    ItemStack container = stack.getContainerItem();
+    return !container.isEmpty() && container.getItem().isIn(TinkerTags.Items.DUCT_CONTAINERS);
   }
 
   /**

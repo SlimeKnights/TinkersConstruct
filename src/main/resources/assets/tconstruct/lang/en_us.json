@@ -747,7 +747,7 @@
     "block.tconstruct.seared_drain": "Seared Drain",
     "block.tconstruct.seared_drain.tooltip": "Smeltery fluid input and output",
     "block.tconstruct.seared_duct": "Seared Duct",
-    "block.tconstruct.seared_duct.tooltip": "Filtered smeltery fluid input and output using copper cans",
+    "block.tconstruct.seared_duct.tooltip": "Filtered smeltery fluid input and output using copper cans or buckets",
     "gui.tconstruct.duct": "Duct",
     "block.tconstruct.seared_chute": "Seared Chute",
     "block.tconstruct.seared_chute.tooltip": "Smeltery item input and output",
