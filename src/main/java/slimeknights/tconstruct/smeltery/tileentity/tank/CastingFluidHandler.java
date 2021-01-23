@@ -4,16 +4,16 @@ import net.minecraft.fluid.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
-import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
 import javax.annotation.Nonnull;
 
 public class CastingFluidHandler implements IFluidHandler {
 
   private final FluidTankAnimated tank;
-  private final AbstractCastingTileEntity tile;
+  private final CastingTileEntity tile;
 
-  public CastingFluidHandler(AbstractCastingTileEntity tile, FluidTankAnimated tank) {
+  public CastingFluidHandler(CastingTileEntity tile, FluidTankAnimated tank) {
     this.tile = tile;
     this.tank = tank;
   }
@@ -41,7 +41,7 @@ public class CastingFluidHandler implements IFluidHandler {
 
   @Override
   public int fill(FluidStack resource, FluidAction action) {
-    if (resource.isEmpty() || tile.isStackInSlot(AbstractCastingTileEntity.OUTPUT)) {
+    if (resource.isEmpty() || tile.isStackInSlot(CastingTileEntity.OUTPUT)) {
       return 0;
     }
     Fluid fluid = resource.getFluid();

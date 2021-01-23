@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
+import net.minecraft.data.TagsProvider;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -14,6 +15,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -21,6 +23,7 @@ import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.Locale;
+import java.util.function.Consumer;
 
 public class TConstructItemTagsProvider extends ItemTagsProvider {
 
@@ -118,20 +121,36 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   private void addSmeltery() {
     this.copy(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Items.SEARED_BRICKS);
     this.copy(TinkerTags.Blocks.SEARED_BLOCKS, TinkerTags.Items.SEARED_BLOCKS);
-    this.getOrCreateBuilder(TinkerTags.Items.CASTS).add(
-      TinkerSmeltery.blankCast.get(),
-      TinkerSmeltery.ingotCast.get(),
-      TinkerSmeltery.nuggetCast.get(),
-      TinkerSmeltery.gemCast.get(),
-      TinkerSmeltery.pickaxeHeadCast.get(),
-      TinkerSmeltery.smallBindingCast.get(),
-      TinkerSmeltery.toolRodCast.get(),
-      TinkerSmeltery.toughToolRodCast.get(),
-      TinkerSmeltery.largePlateCast.get(),
-      TinkerSmeltery.swordBladeCast.get(),
-      TinkerSmeltery.hammerHeadCast.get(),
-      TinkerSmeltery.wideGuardCast.get(),
-      TinkerSmeltery.shovelHeadCast.get());
+
+    // tag each type of cast
+    TagsProvider.Builder<Item> goldCasts = this.getOrCreateBuilder(TinkerTags.Items.GOLD_CASTS);
+    TagsProvider.Builder<Item> sandCasts = this.getOrCreateBuilder(TinkerTags.Items.SAND_CASTS);
+    TagsProvider.Builder<Item> redSandCasts = this.getOrCreateBuilder(TinkerTags.Items.RED_SAND_CASTS);
+    Consumer<CastItemObject> addCast = cast -> {
+      goldCasts.add(cast.get());
+      sandCasts.add(cast.getSand());
+      redSandCasts.add(cast.getRedSand());
+      this.getOrCreateBuilder(cast.getSingleUseTag()).add(cast.getSand(), cast.getRedSand());
+    };
+    addCast.accept(TinkerSmeltery.blankCast);
+    addCast.accept(TinkerSmeltery.ingotCast);
+    addCast.accept(TinkerSmeltery.nuggetCast);
+    addCast.accept(TinkerSmeltery.gemCast);
+    addCast.accept(TinkerSmeltery.pickaxeHeadCast);
+    addCast.accept(TinkerSmeltery.smallBindingCast);
+    addCast.accept(TinkerSmeltery.toolRodCast);
+    addCast.accept(TinkerSmeltery.toughToolRodCast);
+    addCast.accept(TinkerSmeltery.largePlateCast);
+    addCast.accept(TinkerSmeltery.swordBladeCast);
+    addCast.accept(TinkerSmeltery.hammerHeadCast);
+    addCast.accept(TinkerSmeltery.shovelHeadCast);
+
+    // add all casts to a common tag
+    this.getOrCreateBuilder(TinkerTags.Items.CASTS)
+        .addTag(TinkerTags.Items.GOLD_CASTS)
+        .addTag(TinkerTags.Items.SAND_CASTS)
+        .addTag(TinkerTags.Items.RED_SAND_CASTS);
+
     this.getOrCreateBuilder(TinkerTags.Items.DUCT_CONTAINERS).add(TinkerSmeltery.copperCan.get());
   }
 

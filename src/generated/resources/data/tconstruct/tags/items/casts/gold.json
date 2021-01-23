@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:blank_cast",
+    "tconstruct:ingot_cast",
+    "tconstruct:nugget_cast",
+    "tconstruct:gem_cast",
+    "tconstruct:pickaxe_head_cast",
+    "tconstruct:small_binding_cast",
+    "tconstruct:tool_rod_cast",
+    "tconstruct:tough_tool_rod_cast",
+    "tconstruct:large_plate_cast",
+    "tconstruct:sword_blade_cast",
+    "tconstruct:hammer_head_cast",
+    "tconstruct:shovel_head_cast"
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "tconstruct:casts"
+    "tag": "tconstruct:casts/gold"
   },
   "result": {
     "fluid": "tconstruct:molten_gold",

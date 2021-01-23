@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -201,6 +203,24 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
     consumer.accept(new ItemCastingRecipeBuilder.Result(id, advancementId));
   }
 
+  /**
+   * Serializes the given result to JSON
+   * @param result  Result
+   * @return  JSON element
+   */
+  public static JsonElement serializeResult(ItemStack result) {
+    // if the item has NBT, write both, else write just the name
+    String itemName = Objects.requireNonNull(result.getItem().getRegistryName()).toString();
+    if (result.hasTag()) {
+      JsonObject jsonResult = new JsonObject();
+      jsonResult.addProperty("item", itemName);
+      jsonResult.addProperty("nbt", Objects.requireNonNull(result.getTag()).toString());
+      return jsonResult;
+    } else {
+      return new JsonPrimitive(itemName);
+    }
+  }
+
   private class Result extends AbstractFinishedRecipe {
     public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
       super(ID, advancementID);
@@ -231,16 +251,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
       if (tagResult != null) {
         json.add("result", tagResult.serialize());
       } else {
-        // if the item has NBT, write both, else write just the name
-        String itemName = Objects.requireNonNull(result.getItem().getRegistryName()).toString();
-        if (result.hasTag()) {
-          JsonObject jsonResult = new JsonObject();
-          jsonResult.addProperty("item", itemName);
-          jsonResult.addProperty("nbt", Objects.requireNonNull(result.getTag()).toString());
-          json.add("result", jsonResult);
-        } else {
-          json.addProperty("result", itemName);
-        }
+        json.add("result", serializeResult(result));
       }
 
       json.addProperty("cooling_time", coolingTime);

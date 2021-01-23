@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 
@@ -23,6 +24,7 @@ public interface RecipeTypes {
   // casting
   IRecipeType<ICastingRecipe> CASTING_BASIN = register("casting_basin");
   IRecipeType<ICastingRecipe> CASTING_TABLE = register("casting_table");
+  IRecipeType<MoldingRecipe> MOLDING = register("molding");
 
   // smeltery
   IRecipeType<IMeltingRecipe> MELTING = register("melting");

@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:molding",
+  "material": {
+    "item": "tconstruct:blank_sand_cast"
+  },
+  "mold": {
+    "item": "tconstruct:tough_tool_rod",
+    "type": "tconstruct:material"
+  },
+  "result": "tconstruct:tough_tool_rod_sand_cast"
+}

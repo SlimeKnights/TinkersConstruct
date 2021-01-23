@@ -175,37 +175,7 @@
     "item.tconstruct.mending_moss": "Mending Moss",
     "item.tconstruct.mending_moss.tooltip": "Mending Moss Modifier",
     "item.tconstruct.creative_modifier": "Creative Modifier",
-    "item.tconstruct.creative_modifier.tooltip": "Adds an additional modifier",
-    
-    "item.tconstruct.blank_cast": "Blank Cast",
-    "item.tconstruct.ingot_cast": "Ingot Cast",
-    "item.tconstruct.nugget_cast": "Nugget Cast",
-    "item.tconstruct.gem_cast": "Gem Cast",
-    "item.tconstruct.pickaxe_head_cast": "Pickaxe Head Cast",
-    "item.tconstruct.small_binding_cast": "Binding Cast",
-    "item.tconstruct.tool_rod_cast": "Tool Rod Cast",
-    "item.tconstruct.tough_tool_rod_cast": "Tough Tool Rod Cast",
-    "item.tconstruct.large_plate_cast": "Large Plate Cast",
-    "item.tconstruct.axe_head_cast": "Axe Head Cast",
-    "item.tconstruct.scythe_head_cast": "Scythe Head Cast",
-    "item.tconstruct.sharpening_kit_cast": "Sharpening Kit Cast",
-    "item.tconstruct.sword_blade_cast": "Sword Blade Cast",
-    "item.tconstruct.hand_guard_cast": "Hand Guard Cast",
-    "item.tconstruct.bow_limb_cast": "Bow Limb Cast",
-    "item.tconstruct.wide_guard_cast": "Wide Guard Cast",
-    "item.tconstruct.kama_head_cast": "Kama Head Cast",
-    "item.tconstruct.sign_head_cast": "Sign Head Cast",
-    "item.tconstruct.broad_axe_head_cast": "Broad Axe Head Cast",
-    "item.tconstruct.hammer_head_cast": "Hammer Head Cast",
-    "item.tconstruct.knife_blade_cast": "Knife Blade Cast",
-    "item.tconstruct.excavator_head_cast": "Excavator Head Cast",
-    "item.tconstruct.cross_guard_cast": "Cross Guard Cast",
-    "item.tconstruct.arrow_head_cast": "Arrow Head Cast",
-    "item.tconstruct.gear_cast": "Gear Cast",
-    "item.tconstruct.shovel_head_cast": "Shovel Head Cast",
-    "item.tconstruct.tough_binding_cast": "Tough Binding Cast",
-    "item.tconstruct.large_sword_blade_cast": "Large Sword Blade Cast",
-    "item.tconstruct.pan_head_cast": "Pan Head Cast",
+    "item.tconstruct.creative_modifier.tooltip": "Adds an additional modifier",    
     
     "item.tconstruct.copper_can": "Copper Can",
     "item.tconstruct.copper_can.tooltip": "Stackable container holding 1 ingot of fluid",
@@ -229,6 +199,126 @@
     "item.tconstruct.pigiron_nugget": "Pigiron Nugget",
     "item.tconstruct.copper_nugget": "Copper Nugget",
     "item.tconstruct.rose_gold_nugget": "Rose Gold Nugget",
+    
+    
+    "_comment": "Tinkers Gold Casts",
+    
+    "item.tconstruct.blank_cast": "Blank Gold Cast",
+    "item.tconstruct.ingot_cast": "Ingot Gold Cast",
+    "item.tconstruct.nugget_cast": "Nugget Gold Cast",
+    "item.tconstruct.gem_cast": "Gem Gold Cast",
+    "item.tconstruct.gear_cast": "Gear Gold Cast",
+    
+    "item.tconstruct.sharpening_kit_cast": "Sharpening Kit Gold Cast",
+    
+    "_comment": "Small Head Gold Casts",
+    
+    "item.tconstruct.pickaxe_head_cast": "Pickaxe Head Gold Cast",
+    "item.tconstruct.shovel_head_cast": "Shovel Head Gold Cast",
+    "item.tconstruct.axe_head_cast": "Axe Head Gold Cast",
+    "item.tconstruct.kama_head_cast": "Kama Head Gold Cast",
+    "item.tconstruct.sword_blade_cast": "Sword Blade Gold Cast",
+    "item.tconstruct.sign_head_cast": "Sign Head Gold Cast",
+    "item.tconstruct.bow_limb_cast": "Bow Limb Gold Cast",
+    
+    "_comment": "Large Head Gold Casts",
+    
+    "item.tconstruct.hammer_head_cast": "Hammer Head Gold Cast",
+    "item.tconstruct.excavator_head_cast": "Excavator Head Gold Cast",
+    "item.tconstruct.broad_axe_head_cast": "Broad Axe Head Gold Cast",
+    "item.tconstruct.scythe_head_cast": "Scythe Head Gold Cast",
+    "item.tconstruct.large_sword_blade_cast": "Large Sword Blade Gold Cast",
+    "item.tconstruct.large_plate_cast": "Large Plate Gold Cast",
+    
+    "_comment": "Binding Gold Casts",
+    
+    "item.tconstruct.small_binding_cast": "Binding Gold Cast",
+    "item.tconstruct.tough_binding_cast": "Tough Binding Gold Cast",
+    
+    "_comment": "Tool Rod Gold Casts",
+    
+    "item.tconstruct.tool_rod_cast": "Tool Rod Gold Cast",
+    "item.tconstruct.tough_tool_rod_cast": "Tough Tool Rod Gold Cast",
+    
+    
+    "_comment": "Tinkers Sand Casts",
+    
+    "item.tconstruct.blank_sand_cast": "Blank Sand Cast",
+    "item.tconstruct.ingot_sand_cast": "Ingot Sand Cast",
+    "item.tconstruct.nugget_sand_cast": "Nugget Sand Cast",
+    "item.tconstruct.gem_sand_cast": "Gem Sand Cast",
+    "item.tconstruct.gear_sand_cast": "Gear Sand Cast",
+    
+    "item.tconstruct.sharpening_kit_sand_cast": "Sharpening Kit Sand Cast",
+    
+    "_comment": "Small Head Sand Casts",
+    
+    "item.tconstruct.pickaxe_head_sand_cast": "Pickaxe Head Sand Cast",
+    "item.tconstruct.shovel_head_sand_cast": "Shovel Head Sand Cast",
+    "item.tconstruct.axe_head_sand_cast": "Axe Head Sand Cast",
+    "item.tconstruct.kama_head_sand_cast": "Kama Head Sand Cast",
+    "item.tconstruct.sword_blade_sand_cast": "Sword Blade Sand Cast",
+    "item.tconstruct.sign_head_sand_cast": "Sign Head Sand Cast",
+    "item.tconstruct.bow_limb_sand_cast": "Bow Limb Sand Cast",
+    
+    "_comment": "Large Head Sand Casts",
+    
+    "item.tconstruct.hammer_head_sand_cast": "Hammer Head Sand Cast",
+    "item.tconstruct.excavator_head_sand_cast": "Excavator Head Sand Cast",
+    "item.tconstruct.broad_axe_head_sand_cast": "Broad Axe Head Sand Cast",
+    "item.tconstruct.scythe_head_sand_cast": "Scythe Head Sand Cast",
+    "item.tconstruct.large_sword_blade_sand_cast": "Large Sword Blade Sand Cast",
+    "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
+    
+    "_comment": "Binding Sand Casts",
+    
+    "item.tconstruct.small_binding_sand_cast": "Binding Sand Cast",
+    "item.tconstruct.tough_binding_sand_cast": "Tough Binding Sand Cast",
+    
+    "_comment": "Tool Rod Sand Casts",
+    
+    "item.tconstruct.tool_rod_sand_cast": "Tool Rod Sand Cast",
+    "item.tconstruct.tough_tool_rod_sand_cast": "Tough Tool Rod Sand Cast",
+    
+    
+    "_comment": "Tinkers Red Sand Casts",
+    
+    "item.tconstruct.blank_red_sand_cast": "Blank Red Sand Cast",
+    "item.tconstruct.ingot_red_sand_cast": "Ingot Red Sand Cast",
+    "item.tconstruct.nugget_red_sand_cast": "Nugget Red Sand Cast",
+    "item.tconstruct.gem_red_sand_cast": "Gem Red Sand Cast",
+    "item.tconstruct.gear_red_sand_cast": "Gear Red Sand Cast",
+    
+    "item.tconstruct.sharpening_kit_red_sand_cast": "Sharpening Kit Red Sand Cast",
+    
+    "_comment": "Small Head Red Sand Casts",
+    
+    "item.tconstruct.pickaxe_head_red_sand_cast": "Pickaxe Head Red Sand Cast",
+    "item.tconstruct.shovel_head_red_sand_cast": "Shovel Head Red Sand Cast",
+    "item.tconstruct.axe_head_red_sand_cast": "Axe Head Red Sand Cast",
+    "item.tconstruct.kama_head_red_sand_cast": "Kama Head Red Sand Cast",
+    "item.tconstruct.sword_blade_red_sand_cast": "Sword Blade Red Sand Cast",
+    "item.tconstruct.sign_head_red_sand_cast": "Sign Head Red Sand Cast",
+    "item.tconstruct.bow_limb_red_sand_cast": "Bow Limb Red Sand Cast",
+    
+    "_comment": "Large Head Red Sand Casts",
+    
+    "item.tconstruct.hammer_head_red_sand_cast": "Hammer Head Red Sand Cast",
+    "item.tconstruct.excavator_head_red_sand_cast": "Excavator Head Red Sand Cast",
+    "item.tconstruct.broad_axe_head_red_sand_cast": "Broad Axe Head Red Sand Cast",
+    "item.tconstruct.scythe_head_red_sand_cast": "Scythe Head Red Sand Cast",
+    "item.tconstruct.large_sword_blade_red_sand_cast": "Large Sword Blade Red Sand Cast",
+    "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
+    
+    "_comment": "Binding Red Sand Casts",
+    
+    "item.tconstruct.small_binding_red_sand_cast": "Binding Red Sand Cast",
+    "item.tconstruct.tough_binding_red_sand_cast": "Tough Binding Red Sand Cast",
+    
+    "_comment": "Tool Rod Red Sand Casts",
+    
+    "item.tconstruct.tool_rod_red_sand_cast": "Tool Rod Red Sand Cast",
+    "item.tconstruct.tough_tool_rod_red_sand_cast": "Tough Tool Rod Red Sand Cast",
 
     
     "_comment": "Tinkers Fluids",
@@ -559,7 +649,6 @@
     "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
     "item.tconstruct.small_binding": "Small Binding",
     "item.tconstruct.tough_binding": "Tough Binding",
-    "item.tconstruct.wide_guard": "Wide Guard",
     "item.tconstruct.large_plate": "Large Plate",
 
     "_conment": "Tool Descriptions",
@@ -903,6 +992,9 @@
     "jei.tconstruct.casting.table": "Casting Table",
     "jei.tconstruct.casting.cast_kept": "Cast item can be reused in later recipes",
     "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
+    
+    "jei.tconstruct.molding.title": "Molding",
+    "jei.tconstruct.molding.mold_consumed": "Mold item is consumed on crafting",
     
     "jei.tconstruct.melting.title": "Melting",
     "jei.tconstruct.melting.temperature": "%s°C",

@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:molding",
+  "material": {
+    "item": "tconstruct:blank_sand_cast"
+  },
+  "mold": {
+    "item": "tconstruct:small_binding",
+    "type": "tconstruct:material"
+  },
+  "result": "tconstruct:small_binding_sand_cast"
+}

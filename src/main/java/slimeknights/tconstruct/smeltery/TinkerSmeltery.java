@@ -25,6 +25,7 @@ import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
@@ -39,6 +40,7 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.OreMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
 import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
@@ -62,7 +64,7 @@ import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.smeltery.item.TankItem;
-import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.DrainTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.DuctTileEntity;
@@ -161,8 +163,8 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<TileEntityType<FaucetTileEntity>> faucet = TILE_ENTITIES.register("faucet", FaucetTileEntity::new, searedFaucet);
   public static final RegistryObject<TileEntityType<ChannelTileEntity>> channel = TILE_ENTITIES.register("channel", ChannelTileEntity::new, searedChannel);
   // casting
-  public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> basin = TILE_ENTITIES.register("basin", AbstractCastingTileEntity.Basin::new, castingBasin);
-  public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> table = TILE_ENTITIES.register("table", AbstractCastingTileEntity.Table::new, castingTable);
+  public static final RegistryObject<TileEntityType<CastingTileEntity>> basin = TILE_ENTITIES.register("basin", CastingTileEntity.Basin::new, castingBasin);
+  public static final RegistryObject<TileEntityType<CastingTileEntity>> table = TILE_ENTITIES.register("table", CastingTileEntity.Table::new, castingTable);
 
   /*
    * Items
@@ -171,36 +173,34 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Item> copperCan = ITEMS.register("copper_can", () -> new CopperCanItem(new Item.Properties().maxStackSize(16).group(TAB_SMELTERY)));
 
   // casts
-  public static final ItemObject<Item> blankCast = ITEMS.register("blank_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> ingotCast = ITEMS.register("ingot_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> nuggetCast = ITEMS.register("nugget_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> gemCast = ITEMS.register("gem_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> pickaxeHeadCast = ITEMS.register("pickaxe_head_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> smallBindingCast = ITEMS.register("small_binding_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> toolRodCast = ITEMS.register("tool_rod_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> toughToolRodCast = ITEMS.register("tough_tool_rod_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> largePlateCast = ITEMS.register("large_plate_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> swordBladeCast = ITEMS.register("sword_blade_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> hammerHeadCast = ITEMS.register("hammer_head_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> wideGuardCast = ITEMS.register("wide_guard_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> shovelHeadCast = ITEMS.register("shovel_head_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> axeHeadCast = ITEMS.register("axe_head_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> kamaHeadCast = ITEMS.register("kama_head_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> toughBindingCast = ITEMS.register("tough_binding_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> excavatorHeadCast = ITEMS.register("excavator_head_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> scytheHeadCast = ITEMS.register("scythe_head_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> sharpeningKitCast = ITEMS.register("sharpening_kit_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> largeSwordBladeCast = ITEMS.register("large_sword_blade_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> knifeBladeCast = ITEMS.register("knife_blade_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> bowLimbCast = ITEMS.register("bow_limb_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> handGuardCast = ITEMS.register("hand_guard_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> crossGuardCast = ITEMS.register("cross_guard_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> gearCast = ITEMS.register("gear_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> broadAxeHeadCast = ITEMS.register("broad_axe_head_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> arrowHeadCast = ITEMS.register("arrow_head_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> panHeadCast = ITEMS.register("pan_head_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> signHeadCast = ITEMS.register("sign_head_cast", SMELTERY_PROPS);
-
+  // basic
+  public static final CastItemObject blankCast  = ITEMS.registerCast("blank", SMELTERY_PROPS);
+  public static final CastItemObject ingotCast  = ITEMS.registerCast("ingot", SMELTERY_PROPS);
+  public static final CastItemObject nuggetCast = ITEMS.registerCast("nugget", SMELTERY_PROPS);
+  public static final CastItemObject gemCast    = ITEMS.registerCast("gem", SMELTERY_PROPS);
+  //  public static final ItemObject<Item> sharpeningKitCast = ITEMS.register("sharpening_kit_cast", SMELTERY_PROPS);
+  //  public static final ItemObject<Item> gearCast = ITEMS.register("gear_cast", SMELTERY_PROPS);
+  // small tool heads
+  public static final CastItemObject pickaxeHeadCast  = ITEMS.registerCast("pickaxe_head", SMELTERY_PROPS);
+  public static final CastItemObject shovelHeadCast   = ITEMS.registerCast("shovel_head", SMELTERY_PROPS);
+  public static final CastItemObject axeHeadCast      = ITEMS.registerCast("axe_head", SMELTERY_PROPS);
+  public static final CastItemObject kamaHeadCast     = ITEMS.registerCast("kama_head", SMELTERY_PROPS);
+  public static final CastItemObject swordBladeCast   = ITEMS.registerCast("sword_blade", SMELTERY_PROPS);
+  //  public static final ItemObject<Item> signHeadCast = ITEMS.register("sign_head_cast", SMELTERY_PROPS);
+  //  public static final ItemObject<Item> bowLimbCast = ITEMS.register("bow_limb_cast", SMELTERY_PROPS);
+  // large tool heads
+  public static final CastItemObject hammerHeadCast    = ITEMS.registerCast("hammer_head", SMELTERY_PROPS);
+  public static final CastItemObject excavatorHeadCast = ITEMS.registerCast("excavator_head", SMELTERY_PROPS);
+  //  public static final ItemObject<Item> broadAxeHeadCast = ITEMS.register("broad_axe_head_cast", SMELTERY_PROPS);
+  public static final CastItemObject largePlateCast    = ITEMS.registerCast("large_plate", SMELTERY_PROPS);
+  //  public static final ItemObject<Item> scytheHeadCast = ITEMS.register("scythe_head_cast", SMELTERY_PROPS);
+  //  public static final ItemObject<Item> largeSwordBladeCast = ITEMS.register("large_sword_blade_cast", SMELTERY_PROPS);
+  // bindings
+  public static final CastItemObject smallBindingCast = ITEMS.registerCast("small_binding", SMELTERY_PROPS);
+  public static final CastItemObject toughBindingCast = ITEMS.registerCast("tough_binding", SMELTERY_PROPS);
+  // tool rods
+  public static final CastItemObject toolRodCast      = ITEMS.registerCast("tool_rod", SMELTERY_PROPS);
+  public static final CastItemObject toughToolRodCast = ITEMS.registerCast("tough_tool_rod", SMELTERY_PROPS);
 
   /*
    * Recipe
@@ -214,6 +214,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Table>> tableFillingRecipeSerializer = RECIPE_SERIALIZERS.register("table_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Table::new));
   public static final RegistryObject<PreferenceCastingRecipe.Serializer<AbstractCastingRecipe>> basinPreferenceSerializer = RECIPE_SERIALIZERS.register("preference_casting_basin", () -> new PreferenceCastingRecipe.Serializer<>(PreferenceCastingRecipe.Basin::new, ItemCastingRecipe.Basin::new));
   public static final RegistryObject<PreferenceCastingRecipe.Serializer<AbstractCastingRecipe>> tablePreferenceSerializer = RECIPE_SERIALIZERS.register("preference_casting_table", () -> new PreferenceCastingRecipe.Serializer<>(PreferenceCastingRecipe.Table::new, ItemCastingRecipe.Table::new));
+  public static final RegistryObject<MoldingRecipe.Serializer> moldingSerializer = RECIPE_SERIALIZERS.register("molding", MoldingRecipe.Serializer::new);
   // melting
   public static final RegistryObject<IRecipeSerializer<MeltingRecipe>> meltingSerializer = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipe.Serializer<>(MeltingRecipe::new));
   public static final RegistryObject<IRecipeSerializer<MeltingRecipe>> oreMeltingSerializer = RECIPE_SERIALIZERS.register("ore_melting", () -> new MeltingRecipe.Serializer<>(OreMeltingRecipe::new));

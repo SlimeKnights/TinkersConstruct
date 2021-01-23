@@ -36,6 +36,7 @@ import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
+import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
@@ -78,6 +79,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new MeltingCategory(guiHelper));
     registry.addRecipeCategories(new AlloyRecipeCategory(guiHelper));
     registry.addRecipeCategories(new EntityMeltingRecipeCategory(guiHelper));
+    registry.addRecipeCategories(new MoldingRecipeCategory(guiHelper));
   }
 
   @Override
@@ -109,12 +111,16 @@ public class JEIPlugin implements IModPlugin {
     // alloying
     List<AlloyRecipe> alloyRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.ALLOYING, AlloyRecipe.class);
     register.addRecipes(alloyRecipes, TConstructRecipeCategoryUid.alloy);
+
+    // molding
+    List<MoldingRecipe> moldingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.MOLDING, MoldingRecipe.class);
+    register.addRecipes(moldingRecipes, TConstructRecipeCategoryUid.molding);
   }
 
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingBasin), TConstructRecipeCategoryUid.castingBasin);
-    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingTable), TConstructRecipeCategoryUid.castingTable);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingTable), TConstructRecipeCategoryUid.castingTable, TConstructRecipeCategoryUid.molding);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructRecipeCategoryUid.melting);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructRecipeCategoryUid.melting, TConstructRecipeCategoryUid.alloy);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);
@@ -141,7 +147,6 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerToolParts.swordBlade.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.smallBinding.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.toughBinding.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.wideGuard.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.largePlate.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.toolRod.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.toughToolRod.get(), toolPartInterpreter);

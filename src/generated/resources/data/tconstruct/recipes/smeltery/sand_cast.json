@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:sand/colorless"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:blank_sand_cast",
+    "count": 4
+  }
+}

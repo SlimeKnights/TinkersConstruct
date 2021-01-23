@@ -12,6 +12,7 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.recipe.FluidIngredient;
+import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -56,6 +57,24 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe {
     }
   }
 
+  /**
+   * Reads the result from the given JSON
+   * @param parent  Parent JSON
+   * @param name    Tag name
+   * @return  Item stack result
+   * @throws com.google.gson.JsonSyntaxException If the syntax is invalid
+   */
+  public static ItemStack deseralizeResultItem(JsonObject parent, String name) {
+    JsonElement element = JsonHelper.getElement(parent, name);
+    if (element.isJsonPrimitive()) {
+      return new ItemStack(JSONUtils.getItem(element, name));
+    } else {
+      ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(element, name), true);
+      result.setCount(1);
+      return result;
+    }
+  }
+
   @AllArgsConstructor
   public static class Serializer<T extends ItemCastingRecipe> extends AbstractCastingRecipe.Serializer<T> {
     private final IFactory<T> factory;
@@ -63,14 +82,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe {
     @Override
     protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, FluidIngredient fluidIn, int coolingTime, boolean consumed, boolean switchSlots, JsonObject json) {
       // result can either be "mod:name" or {"item": "mod:name"} Second form supports NBT
-      ItemStack result;
-      JsonElement resultElement = json.get("result");
-      if (resultElement.isJsonPrimitive()) {
-        result = new ItemStack(JSONUtils.getItem(resultElement, "result"));
-      } else {
-        result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), true);
-        result.setCount(1);
-      }
+      ItemStack result = deseralizeResultItem(json, "result");
       return factory.create(idIn, groupIn, cast, fluidIn, result, coolingTime, consumed, switchSlots);
     }
 

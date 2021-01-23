@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/hammer_head_cast"
+  },
+  "cast_consumed": true,
+  "fluid_amount": 1152,
+  "result": "tconstruct:hammer_head"
+}

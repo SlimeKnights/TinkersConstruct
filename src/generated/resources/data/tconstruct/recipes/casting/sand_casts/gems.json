@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:molding",
+  "material": {
+    "item": "tconstruct:blank_sand_cast"
+  },
+  "mold": {
+    "tag": "forge:gems"
+  },
+  "result": "tconstruct:gem_sand_cast"
+}

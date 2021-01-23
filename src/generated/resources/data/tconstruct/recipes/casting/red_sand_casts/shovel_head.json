@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:molding",
+  "material": {
+    "item": "tconstruct:blank_red_sand_cast"
+  },
+  "mold": {
+    "item": "tconstruct:shovel_head",
+    "type": "tconstruct:material"
+  },
+  "result": "tconstruct:shovel_head_red_sand_cast"
+}

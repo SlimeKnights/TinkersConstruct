@@ -16,6 +16,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
@@ -24,6 +25,7 @@ import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeBuild
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -137,7 +139,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, TinkerSmeltery.swordBladeCast);
     addPartRecipe(consumer, TinkerToolParts.smallBinding, 1, TinkerSmeltery.smallBindingCast);
     addPartRecipe(consumer, TinkerToolParts.toughBinding, 3, TinkerSmeltery.toughBindingCast);
-    addPartRecipe(consumer, TinkerToolParts.wideGuard, 1, TinkerSmeltery.wideGuardCast);
     addPartRecipe(consumer, TinkerToolParts.largePlate, 8, TinkerSmeltery.largePlateCast);
     addPartRecipe(consumer, TinkerToolParts.toolRod, 1, TinkerSmeltery.toolRodCast);
     addPartRecipe(consumer, TinkerToolParts.toughToolRod, 3, TinkerSmeltery.toughToolRodCast);
@@ -262,7 +263,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
    * @param cost      Part cost
    * @param cast      Part cast
    */
-  private void addPartRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends IMaterialItem> sup, int cost, IItemProvider cast) {
+  private void addPartRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends IMaterialItem> sup, int cost, CastItemObject cast) {
     // Base data
     IMaterialItem part = sup.get();
     String name = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
@@ -278,13 +279,29 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                                 .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
                                 .setCast(cast, false)
                                 .build(consumer, location("casting/parts/" + name));
+    MaterialCastingRecipeBuilder.tableRecipe(part)
+                                .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
+                                .setCast(cast.getSingleUseTag(), true)
+                                .build(consumer, location("casting/parts/" + name + "_sand"));
 
     // Cast Casting
+    MaterialIngredient ingredient = MaterialIngredient.fromItem(part);
+    String partName = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
     ItemCastingRecipeBuilder.tableRecipe(cast)
                             .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
-                            .setCast(MaterialIngredient.fromItem(part), true)
+                            .setCast(ingredient, true)
                             .setSwitchSlots()
-                            .build(consumer, location("casting/casts/" + Objects.requireNonNull(part.asItem().getRegistryName()).getPath()));
+                            .build(consumer, location("casting/casts/" + partName));
+
+    // sand cast molding
+    MoldingRecipeBuilder.molding(cast.getSand())
+                        .setMaterial(TinkerSmeltery.blankCast.getSand())
+                        .setMold(ingredient, false)
+                        .build(consumer, location("casting/sand_casts/" + partName));
+    MoldingRecipeBuilder.molding(cast.getRedSand())
+                        .setMaterial(TinkerSmeltery.blankCast.getRedSand())
+                        .setMold(ingredient, false)
+                        .build(consumer, location("casting/red_sand_casts/" + partName));
 
     // Part melting
     MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot).build(consumer, location("melting/parts/" + part));

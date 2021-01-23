@@ -23,10 +23,11 @@ import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.registration.deferred.ContainerTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.EntityTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
-import slimeknights.mantle.registration.deferred.ItemDeferredRegister;
 import slimeknights.mantle.registration.deferred.TileEntityTypeDeferredRegister;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.registration.BlockDeferredRegisterExtension;
+import slimeknights.tconstruct.common.registration.ItemDeferredRegisterExtension;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 
@@ -40,7 +41,7 @@ import java.util.function.Function;
 public abstract class TinkerModule {
   // deferred register instances
   protected static final BlockDeferredRegisterExtension BLOCKS = new BlockDeferredRegisterExtension(TConstruct.modID);
-  protected static final ItemDeferredRegister ITEMS = new ItemDeferredRegister(TConstruct.modID);
+  protected static final ItemDeferredRegisterExtension ITEMS = new ItemDeferredRegisterExtension(TConstruct.modID);
   protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.modID);
   protected static final TileEntityTypeDeferredRegister TILE_ENTITIES = new TileEntityTypeDeferredRegister(TConstruct.modID);
   protected static final EntityTypeDeferredRegister ENTITIES = new EntityTypeDeferredRegister(TConstruct.modID);

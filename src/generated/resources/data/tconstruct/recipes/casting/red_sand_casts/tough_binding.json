@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:molding",
+  "material": {
+    "item": "tconstruct:blank_red_sand_cast"
+  },
+  "mold": {
+    "item": "tconstruct:tough_binding",
+    "type": "tconstruct:material"
+  },
+  "result": "tconstruct:tough_binding_red_sand_cast"
+}
