@@ -5,9 +5,9 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.recipe.entitymelting.EntityIngredient;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 

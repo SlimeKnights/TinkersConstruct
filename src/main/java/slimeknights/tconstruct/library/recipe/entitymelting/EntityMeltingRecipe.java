@@ -13,6 +13,7 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.RecipeSerializer;
@@ -38,6 +39,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
   @Getter
   private final int damage;
 
+  @SuppressWarnings("rawtypes")
   private List<List<EntityType>> displayInputs;
 
   /**

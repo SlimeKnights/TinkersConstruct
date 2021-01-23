@@ -2,8 +2,8 @@ package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeHooks;
+import slimeknights.mantle.inventory.SingleItemHandler;
 import slimeknights.mantle.tileentity.MantleTileEntity;
-import slimeknights.tconstruct.common.inventory.SingleItemHandler;
 
 /**
  * Item handler holding the heater inventory
