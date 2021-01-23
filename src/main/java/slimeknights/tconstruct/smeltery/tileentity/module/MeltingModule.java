@@ -122,7 +122,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
         return false;
       }
       // don't mark items as can heat if done heating
-      return currentTime != NO_SPACE && temperature >= requiredTime;
+      return currentTime != NO_SPACE && temperature >= requiredTemp;
     }
     return false;
   }
