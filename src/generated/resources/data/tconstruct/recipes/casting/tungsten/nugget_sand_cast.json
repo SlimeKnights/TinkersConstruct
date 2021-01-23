@@ -10,7 +10,7 @@
     }
   ],
   "cast": {
-    "tag": "tconstruct:casts/single_use/nugget_cast"
+    "tag": "tconstruct:casts/single_use/nugget"
   },
   "cast_consumed": true,
   "fluid": {

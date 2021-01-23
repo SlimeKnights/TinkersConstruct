@@ -133,18 +133,27 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
       redSandCasts.add(cast.getRedSand());
       this.getOrCreateBuilder(cast.getSingleUseTag()).add(cast.getSand(), cast.getRedSand());
     };
+    // basic
     addCast.accept(TinkerSmeltery.blankCast);
     addCast.accept(TinkerSmeltery.ingotCast);
     addCast.accept(TinkerSmeltery.nuggetCast);
     addCast.accept(TinkerSmeltery.gemCast);
+    // small heads
     addCast.accept(TinkerSmeltery.pickaxeHeadCast);
+    addCast.accept(TinkerSmeltery.shovelHeadCast);
+    addCast.accept(TinkerSmeltery.axeHeadCast);
+    addCast.accept(TinkerSmeltery.kamaHeadCast);
+    addCast.accept(TinkerSmeltery.swordBladeCast);
+    // large heads
+    addCast.accept(TinkerSmeltery.hammerHeadCast);
+    addCast.accept(TinkerSmeltery.excavatorHeadCast);
+    addCast.accept(TinkerSmeltery.largePlateCast);
+    // bindings
     addCast.accept(TinkerSmeltery.smallBindingCast);
+    addCast.accept(TinkerSmeltery.toughBindingCast);
+    // tool rods
     addCast.accept(TinkerSmeltery.toolRodCast);
     addCast.accept(TinkerSmeltery.toughToolRodCast);
-    addCast.accept(TinkerSmeltery.largePlateCast);
-    addCast.accept(TinkerSmeltery.swordBladeCast);
-    addCast.accept(TinkerSmeltery.hammerHeadCast);
-    addCast.accept(TinkerSmeltery.shovelHeadCast);
 
     // add all casts to a common tag
     this.getOrCreateBuilder(TinkerTags.Items.CASTS)

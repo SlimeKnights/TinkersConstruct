@@ -16,20 +16,23 @@ import java.util.function.Supplier;
  * Deferred wrapper holding gold, sand, and red sand casts
  */
 public class CastItemObject extends ItemObject<Item> {
+  private final ResourceLocation name;
   private final Supplier<? extends Item> sand;
   private final Supplier<? extends Item> redSand;
   @Getter
   private final IOptionalNamedTag<Item> singleUseTag;
 
-  public CastItemObject(Item gold, Item sand, Item redSand) {
+  public CastItemObject(ResourceLocation name, Item gold, Item sand, Item redSand) {
     super(gold);
+    this.name = name;
     this.sand = sand.delegate;
     this.redSand = redSand.delegate;
     singleUseTag = makeSingleUseTag();
   }
 
-  public CastItemObject(ItemObject<? extends Item> gold, Supplier<? extends Item> sand, Supplier<? extends Item> redSand) {
+  public CastItemObject(ResourceLocation name, ItemObject<? extends Item> gold, Supplier<? extends Item> sand, Supplier<? extends Item> redSand) {
     super(gold);
+    this.name = name;
     this.sand = sand;
     this.redSand = redSand;
     singleUseTag = makeSingleUseTag();
@@ -40,8 +43,7 @@ public class CastItemObject extends ItemObject<Item> {
    * @return  Single use tag
    */
   protected IOptionalNamedTag<Item> makeSingleUseTag() {
-    ResourceLocation id = getRegistryName();
-    return ItemTags.createOptional(new ResourceLocation(id.getNamespace(), "casts/single_use/" + id.getPath()));
+    return ItemTags.createOptional(new ResourceLocation(name.getNamespace(), "casts/single_use/" + name.getPath()));
   }
 
   /**

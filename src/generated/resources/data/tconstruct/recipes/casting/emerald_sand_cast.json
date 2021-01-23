@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "tag": "tconstruct:casts/single_use/gem_cast"
+    "tag": "tconstruct:casts/single_use/gem"
   },
   "cast_consumed": true,
   "fluid": {
