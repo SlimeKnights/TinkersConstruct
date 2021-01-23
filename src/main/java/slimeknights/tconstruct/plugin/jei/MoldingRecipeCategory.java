@@ -42,7 +42,6 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
     this.table = helper.createDrawable(BACKGROUND_LOC, 117, 0, 16, 16);
     this.downArrow = helper.createDrawable(BACKGROUND_LOC, 70, 55, 6, 6);
     this.upArrow = helper.createDrawable(BACKGROUND_LOC, 76, 55, 6, 6);
-    this.moldConsumed = helper.createDrawable(BACKGROUND_LOC, 141, 32, 13, 11);
   }
 
   @Override
