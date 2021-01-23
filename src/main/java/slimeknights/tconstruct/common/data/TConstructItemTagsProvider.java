@@ -52,6 +52,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.MAGMA_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.MAGMA));
 
     this.getOrCreateBuilder(Tags.Items.INGOTS)
+        .add(TinkerCommons.driedBrick.get(), TinkerCommons.mudBrick.get(), TinkerSmeltery.searedBrick.get())
         .addTag(TinkerTags.Items.INGOTS_COBALT)
         .addTag(TinkerTags.Items.INGOTS_ARDITE)
         .addTag(TinkerTags.Items.INGOTS_MANYULLYN)

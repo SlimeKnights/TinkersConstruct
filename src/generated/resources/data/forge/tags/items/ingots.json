@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "tconstruct:dried_brick",
+    "tconstruct:mud_brick",
+    "tconstruct:seared_brick",
     "#forge:ingots/cobalt",
     "#forge:ingots/ardite",
     "#forge:ingots/manyullyn",
