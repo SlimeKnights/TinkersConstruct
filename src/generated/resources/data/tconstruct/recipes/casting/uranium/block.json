@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:preference_casting_basin",
+  "type": "tconstruct:casting_basin",
   "conditions": [
     {
       "value": {

@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.recipe.molding;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
@@ -11,7 +13,6 @@ import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -86,6 +87,24 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
     consumer.accept(new FinishedRecipe(id, advancementId));
   }
 
+  /**
+   * Serializes the given result to JSON
+   * @param result  Result
+   * @return  JSON element
+   */
+  public static JsonElement serializeResult(ItemStack result) {
+    // if the item has NBT, write both, else write just the name
+    String itemName = Objects.requireNonNull(result.getItem().getRegistryName()).toString();
+    if (result.hasTag()) {
+      JsonObject jsonResult = new JsonObject();
+      jsonResult.addProperty("item", itemName);
+      jsonResult.addProperty("nbt", Objects.requireNonNull(result.getTag()).toString());
+      return jsonResult;
+    } else {
+      return new JsonPrimitive(itemName);
+    }
+  }
+
   private class FinishedRecipe extends AbstractFinishedRecipe {
     public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
       super(ID, advancementID);
@@ -100,7 +119,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
           json.addProperty("mold_consumed", true);
         }
       }
-      json.add("result", ItemCastingRecipeBuilder.serializeResult(output));
+      json.add("result", serializeResult(output));
     }
 
     @Override

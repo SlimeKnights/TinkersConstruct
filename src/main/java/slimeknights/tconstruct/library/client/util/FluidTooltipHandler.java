@@ -22,7 +22,7 @@ import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.ArrayList;
@@ -184,7 +184,7 @@ public class FluidTooltipHandler {
 
     // first, search casting recipes for cast items
     List<FluidGuiEntry> list = new ArrayList<>();
-    for (AbstractCastingRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.CASTING_TABLE, AbstractCastingRecipe.class)) {
+    for (ItemCastingRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.CASTING_TABLE, ItemCastingRecipe.class)) {
       // if the fluid matches, move onto cast search
       FluidIngredient ingredient = recipe.getFluid();
       if (ingredient.test(fluid)) {
@@ -204,7 +204,7 @@ public class FluidTooltipHandler {
     }
 
     // next, iterate basin recipes to find block amounts
-    for (AbstractCastingRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.CASTING_BASIN, AbstractCastingRecipe.class)) {
+    for (ItemCastingRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.CASTING_BASIN, ItemCastingRecipe.class)) {
       // no cast, copy amount
       FluidIngredient ingredient = recipe.getFluid();
       if (recipe.getCast() == Ingredient.EMPTY && ingredient.test(fluid)) {

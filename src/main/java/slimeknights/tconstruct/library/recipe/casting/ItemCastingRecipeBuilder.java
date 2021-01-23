@@ -1,15 +1,12 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
@@ -19,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.TagPreference;
+import slimeknights.tconstruct.library.recipe.ItemOutput;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -32,9 +29,7 @@ import java.util.function.Consumer;
 @SuppressWarnings({"WeakerAccess", "unused"})
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingRecipeBuilder> {
-  private final ItemStack result;
-  @Nullable
-  private final TagPreference.Entry<Item> tagResult;
+  private final ItemOutput result;
   private final AbstractCastingRecipe.Serializer<?> recipeSerializer;
   private Ingredient cast = Ingredient.EMPTY;
   private FluidIngredient fluid = FluidIngredient.EMPTY;
@@ -44,13 +39,12 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
   private boolean switchSlots = false;
 
   /**
-   * Creates a new builder instance
-   * @param resultIn    Recipe result
-   * @param serializer  Serializer type
+   * Creates a new casting basin recipe
+   * @param resultIn  Recipe result
    * @return  Builder instance
    */
-  public static ItemCastingRecipeBuilder castingRecipe(IItemProvider resultIn, ItemCastingRecipe.Serializer<?> serializer) {
-    return castingRecipe(new ItemStack(resultIn), null, serializer);
+  public static ItemCastingRecipeBuilder basinRecipe(ItemOutput result) {
+    return castingRecipe(result, TinkerSmeltery.basinRecipeSerializer.get());
   }
 
   /**
@@ -59,7 +53,25 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @return  Builder instance
    */
   public static ItemCastingRecipeBuilder basinRecipe(IItemProvider resultIn) {
-    return castingRecipe(resultIn, TinkerSmeltery.basinRecipeSerializer.get());
+    return basinRecipe(ItemOutput.fromItem(resultIn));
+  }
+
+  /**
+   * Creates a new casting basin recipe
+   * @param resultIn  Recipe result
+   * @return  Builder instance
+   */
+  public static ItemCastingRecipeBuilder basinRecipe(ITag<Item> result) {
+    return basinRecipe(ItemOutput.fromTag(result, 1));
+  }
+
+  /**
+   * Creates a new casting table recipe
+   * @param resultIn  Recipe result
+   * @return  Builder instance
+   */
+  public static ItemCastingRecipeBuilder tableRecipe(ItemOutput resultIn) {
+    return castingRecipe(resultIn, TinkerSmeltery.tableRecipeSerializer.get());
   }
 
   /**
@@ -68,35 +80,16 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @return  Builder instance
    */
   public static ItemCastingRecipeBuilder tableRecipe(IItemProvider resultIn) {
-    return castingRecipe(resultIn, TinkerSmeltery.tableRecipeSerializer.get());
-  }
-
-  /**
-   * Creates a new builder instance
-   * @param resultIn    Recipe result
-   * @param serializer  Serializer type
-   * @return  Builder instance
-   */
-  public static ItemCastingRecipeBuilder castingRecipe(TagPreference.Entry<Item> resultIn, PreferenceCastingRecipe.Serializer<?> serializer) {
-    return castingRecipe(ItemStack.EMPTY, resultIn, serializer);
-  }
-
-  /**
-   * Creates a new casting basin recipe
-   * @param resultIn  Recipe result
-   * @return  Builder instance
-   */
-  public static ItemCastingRecipeBuilder basinRecipe(TagPreference.Entry<Item> resultIn) {
-    return castingRecipe(resultIn, TinkerSmeltery.basinPreferenceSerializer.get());
+    return tableRecipe(ItemOutput.fromItem(resultIn));
   }
 
   /**
    * Creates a new casting table recipe
-   * @param resultIn  Recipe result
+   * @param result  Recipe result
    * @return  Builder instance
    */
-  public static ItemCastingRecipeBuilder tableRecipe(TagPreference.Entry<Item> resultIn) {
-    return castingRecipe(resultIn, TinkerSmeltery.tablePreferenceSerializer.get());
+  public static ItemCastingRecipeBuilder tableRecipe(ITag<Item> result) {
+    return tableRecipe(ItemOutput.fromTag(result, 1));
   }
 
 
@@ -185,14 +178,11 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    */
   @Override
   public void build(Consumer<IFinishedRecipe> consumerIn) {
-    this.build(consumerIn, Objects.requireNonNull(this.result.getItem().getRegistryName()));
+    this.build(consumerIn, Objects.requireNonNull(this.result.get().getItem().getRegistryName()));
   }
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    if (this.tagResult == null && this.result.isEmpty()) {
-      throw new IllegalStateException("Result may not be empty");
-    }
     if (this.fluid == FluidIngredient.EMPTY) {
       throw new IllegalStateException("Casting recipes require a fluid input");
     }
@@ -201,24 +191,6 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
     consumer.accept(new ItemCastingRecipeBuilder.Result(id, advancementId));
-  }
-
-  /**
-   * Serializes the given result to JSON
-   * @param result  Result
-   * @return  JSON element
-   */
-  public static JsonElement serializeResult(ItemStack result) {
-    // if the item has NBT, write both, else write just the name
-    String itemName = Objects.requireNonNull(result.getItem().getRegistryName()).toString();
-    if (result.hasTag()) {
-      JsonObject jsonResult = new JsonObject();
-      jsonResult.addProperty("item", itemName);
-      jsonResult.addProperty("nbt", Objects.requireNonNull(result.getTag()).toString());
-      return jsonResult;
-    } else {
-      return new JsonPrimitive(itemName);
-    }
   }
 
   private class Result extends AbstractFinishedRecipe {
@@ -246,14 +218,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
         json.addProperty("switch_slots", true);
       }
       json.add("fluid", fluid.serialize());
-
-      // use tag result if one is set
-      if (tagResult != null) {
-        json.add("result", tagResult.serialize());
-      } else {
-        json.add("result", serializeResult(result));
-      }
-
+      json.add("result", result.serialize());
       json.addProperty("cooling_time", coolingTime);
     }
   }

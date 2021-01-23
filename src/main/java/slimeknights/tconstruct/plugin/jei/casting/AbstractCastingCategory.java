@@ -28,13 +28,13 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 
 import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractCastingCategory implements IRecipeCategory<AbstractCastingRecipe>, ITooltipCallback<FluidStack> {
+public abstract class AbstractCastingCategory implements IRecipeCategory<ItemCastingRecipe>, ITooltipCallback<FluidStack> {
   private static final int INPUT_SLOT = 0;
   private static final int OUTPUT_SLOT = 1;
   private static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "time");
@@ -66,22 +66,22 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<Abstrac
   }
 
   @Override
-  public abstract boolean isHandled(AbstractCastingRecipe recipe);
+  public abstract boolean isHandled(ItemCastingRecipe recipe);
 
   @Override
-  public Class<? extends AbstractCastingRecipe> getRecipeClass() {
-    return AbstractCastingRecipe.class;
+  public Class<? extends ItemCastingRecipe> getRecipeClass() {
+    return ItemCastingRecipe.class;
   }
 
   @Override
-  public void setIngredients(AbstractCastingRecipe recipe, IIngredients ingredients) {
+  public void setIngredients(ItemCastingRecipe recipe, IIngredients ingredients) {
     ingredients.setInputIngredients(recipe.getIngredients());
     ingredients.setInputLists(VanillaTypes.FLUID, ImmutableList.of(recipe.getFluids()));
     ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
   }
 
   @Override
-  public void draw(AbstractCastingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+  public void draw(ItemCastingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
     arrow.draw(matrixStack, 58, 18);
     block.draw(matrixStack, 38, 35);
     if (recipe.getCast() != Ingredient.EMPTY) {
@@ -96,7 +96,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<Abstrac
   }
 
   @Override
-  public List<ITextComponent> getTooltipStrings(AbstractCastingRecipe recipe, double mouseX, double mouseY) {
+  public List<ITextComponent> getTooltipStrings(ItemCastingRecipe recipe, double mouseX, double mouseY) {
     if (recipe.getCast() != Ingredient.EMPTY && GuiUtil.isHovered((int)mouseX, (int)mouseY, 63, 39, 13, 11)) {
       return Collections.singletonList(new TranslationTextComponent(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
     }
@@ -104,7 +104,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<Abstrac
   }
 
   @Override
-  public void setRecipe(IRecipeLayout recipeLayout, AbstractCastingRecipe recipe, IIngredients ingredients) {
+  public void setRecipe(IRecipeLayout recipeLayout, ItemCastingRecipe recipe, IIngredients ingredients) {
     IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
     guiItemStacks.init(INPUT_SLOT, true, 37, 18);
     guiItemStacks.init(OUTPUT_SLOT, false, 92, 17);

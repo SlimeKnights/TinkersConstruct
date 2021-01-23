@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
@@ -10,32 +10,65 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.library.recipe.ItemOutput;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * Casting recipe that takes a fluid and optional cast and outputs an item
  */
 public abstract class ItemCastingRecipe extends AbstractCastingRecipe {
-  protected final ItemStack result;
-  public ItemCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemStack result, int coolingTime, boolean consumed, boolean switchSlots) {
-    super(type, id, group, cast, fluid, coolingTime, consumed, switchSlots);
+  @Getter
+  protected final FluidIngredient fluid;
+  protected final ItemOutput result;
+  @Getter
+  protected final int coolingTime;
+  public ItemCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+    super(type, id, group, cast, consumed, switchSlots);
+    this.fluid = fluid;
     this.result = result;
+    this.coolingTime = coolingTime;
+  }
+
+  @Override
+  public int getFluidAmount(ICastingInventory inv) {
+    return this.fluid.getAmount(inv.getFluid());
+  }
+
+  @Override
+  public boolean matches(ICastingInventory inv, World worldIn) {
+    return getCast().test(inv.getStack()) && fluid.test(inv.getFluid());
   }
 
   @Override
   public ItemStack getRecipeOutput() {
-    return this.result;
+    return this.result.get();
+  }
+
+  @Override
+  public int getCoolingTime(ICastingInventory inv) {
+    return this.coolingTime;
+  }
+
+  /**
+   * Gets a list of valid fluid inputs for this recipe, for display in JEI
+   * @return  List of fluids
+   */
+  public List<FluidStack> getFluids() {
+    return this.fluid.getFluids();
   }
 
   /** Subclass for basin recipes */
   public static class Basin extends ItemCastingRecipe {
-    public Basin(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemStack result, int coolingTime, boolean consumed, boolean switchSlots) {
+    public Basin(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
       super(RecipeTypes.CASTING_BASIN, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
     }
 
@@ -47,7 +80,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe {
 
   /** Subclass for table recipes */
   public static class Table extends ItemCastingRecipe {
-    public Table(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemStack result, int coolingTime, boolean consumed, boolean switchSlots) {
+    public Table(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
       super(RecipeTypes.CASTING_TABLE, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
     }
 
@@ -57,44 +90,31 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe {
     }
   }
 
-  /**
-   * Reads the result from the given JSON
-   * @param parent  Parent JSON
-   * @param name    Tag name
-   * @return  Item stack result
-   * @throws com.google.gson.JsonSyntaxException If the syntax is invalid
-   */
-  public static ItemStack deseralizeResultItem(JsonObject parent, String name) {
-    JsonElement element = JsonHelper.getElement(parent, name);
-    if (element.isJsonPrimitive()) {
-      return new ItemStack(JSONUtils.getItem(element, name));
-    } else {
-      ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(element, name), true);
-      result.setCount(1);
-      return result;
-    }
-  }
-
   @AllArgsConstructor
   public static class Serializer<T extends ItemCastingRecipe> extends AbstractCastingRecipe.Serializer<T> {
     private final IFactory<T> factory;
 
     @Override
-    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, FluidIngredient fluidIn, int coolingTime, boolean consumed, boolean switchSlots, JsonObject json) {
-      // result can either be "mod:name" or {"item": "mod:name"} Second form supports NBT
-      ItemStack result = deseralizeResultItem(json, "result");
-      return factory.create(idIn, groupIn, cast, fluidIn, result, coolingTime, consumed, switchSlots);
+    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
+      FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
+      ItemOutput output = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
+      int coolingTime = JSONUtils.getInt(json, "cooling_time");
+      return factory.create(idIn, groupIn, cast, fluid, output, coolingTime, consumed, switchSlots);
     }
 
     @Override
-    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, FluidIngredient fluidIn, int coolingTime, boolean consumed, boolean switchSlots, PacketBuffer buffer) {
-      ItemStack result = buffer.readItemStack();
-      return factory.create(idIn, groupIn, cast, fluidIn, result, coolingTime, consumed, switchSlots);
+    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, PacketBuffer buffer) {
+      FluidIngredient fluid = FluidIngredient.read(buffer);
+      ItemOutput result = ItemOutput.read(buffer);
+      int coolingTime = buffer.readInt();
+      return factory.create(idIn, groupIn, cast, fluid, result, coolingTime, consumed, switchSlots);
     }
 
     @Override
     public void writeExtra(PacketBuffer buffer, T recipe) {
-      buffer.writeItemStack(recipe.result);
+      recipe.fluid.write(buffer);
+      recipe.result.write(buffer);
+      buffer.writeInt(recipe.coolingTime);
     }
   }
 
@@ -104,6 +124,6 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe {
    */
   public interface IFactory<T extends AbstractCastingRecipe> {
     /** Creates a new instance of this factory */
-    T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, FluidIngredient fluidIn, ItemStack output, int coolingTime, boolean consumed, boolean switchSlots);
+    T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, FluidIngredient fluidIn, ItemOutput output, int coolingTime, boolean consumed, boolean switchSlots);
   }
 }

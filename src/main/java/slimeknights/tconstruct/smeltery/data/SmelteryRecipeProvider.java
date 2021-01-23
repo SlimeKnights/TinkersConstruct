@@ -924,13 +924,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
   /** Adds a recipe for casting using a cast */
   private void addOptionalCastingWithCast(Consumer<IFinishedRecipe> consumer, Fluid fluid, int amount, CastItemObject cast, String tagPrefix, String recipeName, String name, String folder) {
     String tagName = tagPrefix + "/" + name;
-    TagPreference.Entry<Item> nugget = TagPreference.getItems().getEntry(getTag("forge", tagName));
+    ITag<Item> tag = getTag("forge", tagName);
     Consumer<IFinishedRecipe> wrapped = withCondition(consumer, tagCondition(tagName));
-    ItemCastingRecipeBuilder.tableRecipe(nugget)
+    ItemCastingRecipeBuilder.tableRecipe(tag)
                             .setFluid(new FluidStack(fluid, amount))
                             .setCast(cast, false)
                             .build(wrapped, location(folder + name + "/" + recipeName + "_gold_cast"));
-    ItemCastingRecipeBuilder.tableRecipe(nugget)
+    ItemCastingRecipeBuilder.tableRecipe(tag)
                             .setFluid(new FluidStack(fluid, amount))
                             .setCast(cast.getSingleUseTag(), true)
                             .build(wrapped, location(folder + name + "/" + recipeName + "_sand_cast"));
@@ -948,7 +948,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     addOptionalCastingWithCast(consumer, fluid, MaterialValues.VALUE_Nugget, TinkerSmeltery.nuggetCast, "nuggets", "nugget", name, folder);
     addOptionalCastingWithCast(consumer, fluid, MaterialValues.VALUE_Ingot, TinkerSmeltery.ingotCast, "ingots", "ingot", name, folder);
     // block
-    TagPreference.Entry<Item> block = TagPreference.getItems().getEntry(getTag("forge", "storage_blocks/" + name));
+    ITag<Item> block = getTag("forge", "storage_blocks/" + name);
     Consumer<IFinishedRecipe> wrapped = withCondition(consumer, tagCondition("storage_blocks/" + name));
     ItemCastingRecipeBuilder.basinRecipe(block)
                             .setFluid(new FluidStack(fluid, MaterialValues.VALUE_Block))

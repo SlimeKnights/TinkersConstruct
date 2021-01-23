@@ -1,15 +1,10 @@
 package slimeknights.tconstruct.library.recipe;
 
 import com.google.common.collect.Lists;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import lombok.AllArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ITagCollection;
 import net.minecraft.tags.TagCollectionManager;
-import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
@@ -24,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 /**
@@ -119,79 +113,5 @@ public class TagPreference<T extends IForgeRegistryEntry<T>> {
       // return first element, its the preference
       return Optional.of(sortedElements.get(0));
     });
-  }
-
-  /**
-   * Gets an entry for the given tag
-   * @param tag    Tag instance
-   * @param count  Output count
-   * @return  Tag preference entry
-   */
-  public Entry<T> getEntry(ITag<T> tag, int count) {
-    return new Entry<>(this, tag, count);
-  }
-
-  /**
-   * Gets an entry for the given tag
-   * @param tag    Tag instance
-   * @return  Tag preference entry
-   */
-  public Entry<T> getEntry(ITag<T> tag) {
-    return getEntry(tag, 1);
-  }
-
-
-  /**
-   * Deserializes an entry from JSON
-   * @param json        Json instance
-   * @return  Tag entry
-   * @throws JsonSyntaxException  syntax exception
-   */
-  public Entry<T> deserialize(JsonObject json) {
-    ITag<T> tag = collection.get().get(new ResourceLocation(JSONUtils.getString(json, "tag")));
-    int count = JSONUtils.getInt(json, "count", 1);
-    return new Entry<T>(this, tag, count);
-  }
-
-  /**
-   * Helper class representing a single tag empty instance
-   * @param <T>  Registry type
-   */
-  @AllArgsConstructor
-  public static class Entry<T extends IForgeRegistryEntry<T>> {
-    private final TagPreference<T> parent;
-    private final ITag<T> tag;
-    private final int count;
-
-    /**
-     * Checks if this entry is present
-     * @return  True if the entry is present
-     */
-    public boolean isPresent() {
-      return parent.getPreference(tag).isPresent();
-    }
-
-    /**
-     * Runs a function if this entry is present
-     * @param mapper  Mapper for results
-     * @return Optional of result
-     */
-    public <O> Optional<O> map(BiFunction<T, Integer, O> mapper) {
-      return parent.getPreference(tag)
-                   .map(entry -> mapper.apply(entry, count));
-    }
-
-    /**
-     * Serializes the entry to JSON
-     * @return  Serialized entry
-     */
-    public JsonElement serialize() {
-      JsonObject json = new JsonObject();
-      json.addProperty("tag", parent.collection.get().getValidatedIdFromTag(tag).toString());
-      if (count != 1) {
-        json.addProperty("count", count);
-      }
-      return json;
-    }
   }
 }

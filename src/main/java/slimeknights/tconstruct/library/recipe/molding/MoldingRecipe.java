@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.molding;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +13,11 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -34,7 +35,7 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingInventory> {
   @Getter
   private final ItemStack recipeOutput;
 
-  @Override
+	@Override
   public boolean matches(IMoldingInventory inv, World worldIn) {
     return material.test(inv.getMaterial()) && mold.test(inv.getMold());
   }
@@ -54,6 +55,24 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingInventory> {
     return NonNullList.from(Ingredient.EMPTY, material, mold);
   }
 
+  /**
+   * Reads the result from the given JSON
+   * @param parent  Parent JSON
+   * @param name    Tag name
+   * @return  Item stack result
+   * @throws com.google.gson.JsonSyntaxException If the syntax is invalid
+   */
+  public static ItemStack deseralizeResultItem(JsonObject parent, String name) {
+    JsonElement element = JsonHelper.getElement(parent, name);
+    if (element.isJsonPrimitive()) {
+      return new ItemStack(JSONUtils.getItem(element, name));
+    } else {
+      ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(element, name), true);
+      result.setCount(1);
+      return result;
+    }
+  }
+
   public static class Serializer extends RecipeSerializer<MoldingRecipe> {
     @Override
     public MoldingRecipe read(ResourceLocation id, JsonObject json) {
@@ -64,7 +83,7 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingInventory> {
         mold = Ingredient.deserialize(json.get("mold"));
         moldConsumed = JSONUtils.getBoolean(json, "mold_consumed", false);
       }
-      ItemStack output = ItemCastingRecipe.deseralizeResultItem(json, "result");
+      ItemStack output = deseralizeResultItem(json, "result");
       return new MoldingRecipe(id, material, mold, moldConsumed, output);
     }
 

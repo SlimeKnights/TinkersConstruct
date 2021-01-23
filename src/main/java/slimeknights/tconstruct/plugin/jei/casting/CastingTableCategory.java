@@ -3,7 +3,7 @@ package slimeknights.tconstruct.plugin.jei.casting;
 import mezz.jei.api.helpers.IGuiHelper;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -19,7 +19,7 @@ public class CastingTableCategory extends AbstractCastingCategory {
   }
 
   @Override
-  public boolean isHandled(AbstractCastingRecipe recipe) {
+  public boolean isHandled(ItemCastingRecipe recipe) {
     return recipe.getType() == RecipeTypes.CASTING_TABLE;
   }
 }
