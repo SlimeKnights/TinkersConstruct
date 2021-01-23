@@ -30,7 +30,6 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.JEIPlugin;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.awt.Color;
 import java.util.List;
@@ -59,7 +58,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
   public EntityMeltingRecipeCategory(IGuiHelper helper) {
     this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 41, 150, 62);
-    this.icon = helper.createDrawableIngredient(new ItemStack(TinkerSmeltery.smelteryController));
+    this.icon = helper.createDrawable(BACKGROUND_LOC, 174, 41, 16, 16);
     this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 150, 41, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
     this.tank = helper.createDrawable(BACKGROUND_LOC, 150, 74, 16, 16);
   }

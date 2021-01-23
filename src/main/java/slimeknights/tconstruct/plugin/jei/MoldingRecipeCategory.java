@@ -34,11 +34,11 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   private final IDrawable icon;
   @Getter
   private final String title;
-  private final IDrawable table, downArrow, upArrow, moldConsumed;
+  private final IDrawable table, downArrow, upArrow;
   public MoldingRecipeCategory(IGuiHelper helper) {
     this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 55, 70, 57);
-    this.icon = helper.createDrawableIngredient(new ItemStack(TinkerSmeltery.castingTable));
+    this.icon = helper.createDrawableIngredient(new ItemStack(TinkerSmeltery.blankCast.getSand()));
     this.table = helper.createDrawable(BACKGROUND_LOC, 117, 0, 16, 16);
     this.downArrow = helper.createDrawable(BACKGROUND_LOC, 70, 55, 6, 6);
     this.upArrow = helper.createDrawable(BACKGROUND_LOC, 76, 55, 6, 6);
@@ -64,16 +64,11 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
     } else {
       upArrow.draw(matrixStack, 8, 17);
     }
-
-    // mold consumed icon
-    if (recipe.isMoldConsumed()) {
-      moldConsumed.draw(matrixStack, 52, 10);
-    }
   }
 
   @Override
   public List<ITextComponent> getTooltipStrings(MoldingRecipe recipe, double mouseX, double mouseY) {
-    if (recipe.isMoldConsumed() && !recipe.getMold().hasNoMatchingItems() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 52, 10, 13, 11)) {
+    if (recipe.isMoldConsumed() && !recipe.getMold().hasNoMatchingItems() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 50, 7, 18, 18)) {
       return Collections.singletonList(TOOLTIP_MOLD_CONSUMED);
     }
     return Collections.emptyList();
@@ -97,7 +92,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
       guiItemStacks.init(2, true, 2, 0);
       guiItemStacks.set(ingredients);
       if (!recipe.isMoldConsumed()) {
-        guiItemStacks.init(3, true, 50, 8);
+        guiItemStacks.init(3, true, 50, 7);
         guiItemStacks.set(3, ingredients.getInputs(VanillaTypes.ITEM).get(1));
       }
     } else {
