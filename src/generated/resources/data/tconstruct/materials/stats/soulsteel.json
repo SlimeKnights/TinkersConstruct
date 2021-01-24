@@ -1,0 +1,21 @@
+{
+  "materialId": "tconstruct:soulsteel",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 1120,
+      "miningSpeed": 7.0,
+      "harvestLevel": 4,
+      "attack": 4.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 1.0,
+      "attackSpeed": 1.1,
+      "miningSpeed": 1.1
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

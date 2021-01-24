@@ -196,9 +196,9 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
     // frames
     registerFrameRecipes(consumer, TinkerModifiers.silkyCloth, FrameType.JEWEL);
-    registerFrameRecipes(consumer, TinkerMaterials.cobaltNugget, FrameType.COBALT);
-    registerFrameRecipes(consumer, TinkerMaterials.arditeNugget, FrameType.ARDITE);
-    registerFrameRecipes(consumer, TinkerMaterials.manyullynNugget, FrameType.MANYULLYN);
+    registerFrameRecipes(consumer, TinkerMaterials.cobalt.getNugget(), FrameType.COBALT);
+    registerFrameRecipes(consumer, TinkerMaterials.ardite.getNugget(), FrameType.ARDITE);
+    registerFrameRecipes(consumer, TinkerMaterials.manyullyn.getNugget(), FrameType.MANYULLYN);
     registerFrameRecipes(consumer, Items.GOLD_NUGGET, FrameType.GOLD);
     Item clearFrame = TinkerGadgets.itemFrame.get(FrameType.CLEAR);
     ShapedRecipeBuilder.shapedRecipe(clearFrame)

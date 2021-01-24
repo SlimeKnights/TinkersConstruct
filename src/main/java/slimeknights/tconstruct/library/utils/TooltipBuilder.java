@@ -103,8 +103,8 @@ public class TooltipBuilder {
   public TooltipBuilder addDurability(boolean textIfBroken) {
     StatsNBT stats = data.getStats();
     if (stats.broken && textIfBroken) {
-      this.tips.add(new TranslationTextComponent(HeadMaterialStats.DURABILITY_LOCALIZATION)
-        .append(new StringTextComponent(": "))
+      this.tips.add(new TranslationTextComponent(HeadMaterialStats.DURABILITY_PREFIX)
+        .appendString(": ")
         .append(new TranslationTextComponent("tooltip.tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED)));
     }
     else {

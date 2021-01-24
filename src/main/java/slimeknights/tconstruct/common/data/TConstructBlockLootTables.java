@@ -73,14 +73,24 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerBuildingLootTables(TinkerCommons.firewood);
     this.registerBuildingLootTables(TinkerCommons.lavawood);
 
-    this.registerDropSelfLootTable(TinkerMaterials.cobaltBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.arditeBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.manyullynBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.knightSlimeBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.pigironBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.copperBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.roseGoldBlock.get());
     this.registerDropSelfLootTable(TinkerModifiers.silkyJewelBlock.get());
+
+    // ores
+    this.registerDropSelfLootTable(TinkerMaterials.copper.get());
+    this.registerDropSelfLootTable(TinkerMaterials.cobalt.get());
+    this.registerDropSelfLootTable(TinkerMaterials.ardite.get());
+    // tier 3
+    this.registerDropSelfLootTable(TinkerMaterials.slimesteel.get());
+    this.registerDropSelfLootTable(TinkerMaterials.tinkersBronze.get());
+    this.registerDropSelfLootTable(TinkerMaterials.roseGold.get());
+    this.registerDropSelfLootTable(TinkerMaterials.pigiron.get());
+    // tier 4
+    this.registerDropSelfLootTable(TinkerMaterials.manyullyn.get());
+    this.registerDropSelfLootTable(TinkerMaterials.hepatizon.get());
+    this.registerDropSelfLootTable(TinkerMaterials.slimeBronze.get());
+    this.registerDropSelfLootTable(TinkerMaterials.soulsteel.get());
+    // tier 5
+    this.registerDropSelfLootTable(TinkerMaterials.knightslime.get());
   }
 
   private void addDecorative() {

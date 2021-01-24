@@ -25,14 +25,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> ORES_ARDITE = forgeTag("ores/ardite");
     public static final IOptionalNamedTag<Block> ORES_COPPER = forgeTag("ores/copper");
 
-    public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_COBALT = forgeTag("storage_blocks/cobalt");
-    public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_ARDITE = forgeTag("storage_blocks/ardite");
-    public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_MANYULLYN = forgeTag("storage_blocks/manyullyn");
-    public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
-    public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_PIG_IRON = forgeTag("storage_blocks/pig_iron");
-    public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
-    public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_ROSE_GOLD = forgeTag("storage_blocks/rose_gold");
-
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Block> SEARED_BRICKS = tag("seared_bricks");
 
@@ -66,14 +58,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> ORES_ARDITE = forgeTag("ores/ardite");
     public static final IOptionalNamedTag<Item> ORES_COPPER = forgeTag("ores/copper");
 
-    public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_COBALT = forgeTag("storage_blocks/cobalt");
-    public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_ARDITE = forgeTag("storage_blocks/ardite");
-    public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_MANYULLYN = forgeTag("storage_blocks/manyullyn");
-    public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
-    public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_PIG_IRON = forgeTag("storage_blocks/pig_iron");
-    public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
-    public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_ROSE_GOLD = forgeTag("storage_blocks/rose_gold");
-
     public static final IOptionalNamedTag<Item> SEARED_BLOCKS = tag("seared_blocks");
 
     public static final IOptionalNamedTag<Item> SEARED_BRICKS = tag("seared_bricks");
@@ -83,21 +67,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> BLOOD_SLIMEBALL = forgeTag("slimeball/blood");
 
     public static final IOptionalNamedTag<Item> MAGMA_SLIMEBALL = forgeTag("slimeball/magma");
-    public static final IOptionalNamedTag<Item> INGOTS_ARDITE = forgeTag("ingots/ardite");
-    public static final IOptionalNamedTag<Item> INGOTS_COBALT = forgeTag("ingots/cobalt");
-    public static final IOptionalNamedTag<Item> INGOTS_MANYULLYN = forgeTag("ingots/manyullyn");
-    public static final IOptionalNamedTag<Item> INGOTS_KNIGHTSLIME = forgeTag("ingots/knightslime");
-    public static final IOptionalNamedTag<Item> INGOTS_PIG_IRON = forgeTag("ingots/pig_iron");
-    public static final IOptionalNamedTag<Item> INGOTS_COPPER = forgeTag("ingots/copper");
-    public static final IOptionalNamedTag<Item> INGOTS_ROSE_GOLD = forgeTag("ingots/rose_gold");
 
-    public static final IOptionalNamedTag<Item> NUGGETS_COBALT = forgeTag("nuggets/cobalt");
-    public static final IOptionalNamedTag<Item> NUGGETS_ARDITE = forgeTag("nuggets/ardite");
-    public static final IOptionalNamedTag<Item> NUGGETS_MANYULLYN = forgeTag("nuggets/manyullyn");
-    public static final IOptionalNamedTag<Item> NUGGETS_KNIGHTSLIME = forgeTag("nuggets/knightslime");
-    public static final IOptionalNamedTag<Item> NUGGETS_PIG_IRON = forgeTag("nuggets/pig_iron");
-    public static final IOptionalNamedTag<Item> NUGGETS_COPPER = forgeTag("nuggets/copper");
-    public static final IOptionalNamedTag<Item> NUGGETS_ROSE_GOLD = forgeTag("nuggets/rose_gold");
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE = forgeTag("nuggets/netherite");
 
     public static final IOptionalNamedTag<Item> CASTS = tag("casts");

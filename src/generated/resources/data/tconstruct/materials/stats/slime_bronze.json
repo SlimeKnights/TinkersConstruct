@@ -1,0 +1,21 @@
+{
+  "materialId": "tconstruct:slime_bronze",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 1200,
+      "miningSpeed": 10.0,
+      "harvestLevel": 4,
+      "attack": 3.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 1.1,
+      "attackSpeed": 0.9,
+      "miningSpeed": 1.3
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "materialId": "tconstruct:nahuatl",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 350,
+      "miningSpeed": 4.0,
+      "harvestLevel": 3,
+      "attack": 4.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 0.9,
+      "attackSpeed": 1.2,
+      "miningSpeed": 1.0
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

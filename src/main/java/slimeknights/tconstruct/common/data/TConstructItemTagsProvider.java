@@ -16,6 +16,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
+import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -51,49 +52,26 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLOOD));
     this.getOrCreateBuilder(TinkerTags.Items.MAGMA_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.MAGMA));
 
-    this.getOrCreateBuilder(Tags.Items.INGOTS)
-        .add(TinkerCommons.driedBrick.get(), TinkerCommons.mudBrick.get(), TinkerSmeltery.searedBrick.get())
-        .addTag(TinkerTags.Items.INGOTS_COBALT)
-        .addTag(TinkerTags.Items.INGOTS_ARDITE)
-        .addTag(TinkerTags.Items.INGOTS_MANYULLYN)
-        .addTag(TinkerTags.Items.INGOTS_KNIGHTSLIME)
-        .addTag(TinkerTags.Items.INGOTS_PIG_IRON)
-        .addTag(TinkerTags.Items.INGOTS_COPPER)
-        .addTag(TinkerTags.Items.INGOTS_ROSE_GOLD);
-    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_COBALT).add(TinkerMaterials.cobaltIngot.get());
-    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_ARDITE).add(TinkerMaterials.arditeIngot.get());
-    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_MANYULLYN).add(TinkerMaterials.manyullynIngot.get());
-    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_KNIGHTSLIME).add(TinkerMaterials.knightslimeIngot.get());
-    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_PIG_IRON).add(TinkerMaterials.pigironIngot.get());
-    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_COPPER).add(TinkerMaterials.copperIngot.get());
-    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_ROSE_GOLD).add(TinkerMaterials.roseGoldIngot.get());
+    this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerCommons.driedBrick.get(), TinkerCommons.mudBrick.get(), TinkerSmeltery.searedBrick.get());
 
-    this.getOrCreateBuilder(Tags.Items.NUGGETS)
-        .addTag(TinkerTags.Items.NUGGETS_COBALT)
-        .addTag(TinkerTags.Items.NUGGETS_ARDITE)
-        .addTag(TinkerTags.Items.NUGGETS_MANYULLYN)
-        .addTag(TinkerTags.Items.NUGGETS_KNIGHTSLIME)
-        .addTag(TinkerTags.Items.NUGGETS_PIG_IRON)
-        .addTag(TinkerTags.Items.NUGGETS_COPPER)
-        .addTag(TinkerTags.Items.NUGGETS_ROSE_GOLD)
-        .addTag(TinkerTags.Items.NUGGETS_NETHERITE);
-    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_COBALT).add(TinkerMaterials.cobaltNugget.get());
-    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_ARDITE).add(TinkerMaterials.arditeNugget.get());
-    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_MANYULLYN).add(TinkerMaterials.manyullynNugget.get());
-    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_KNIGHTSLIME).add(TinkerMaterials.knightslimeNugget.get());
-    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_PIG_IRON).add(TinkerMaterials.pigironNugget.get());
-    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_COPPER).add(TinkerMaterials.copperNugget.get());
-    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_ROSE_GOLD).add(TinkerMaterials.roseGoldNugget.get());
+    // ores
+    addMetalTags(TinkerMaterials.copper);
+    addMetalTags(TinkerMaterials.cobalt);
+    addMetalTags(TinkerMaterials.ardite);
+    // tier 3
+    addMetalTags(TinkerMaterials.slimesteel);
+    addMetalTags(TinkerMaterials.tinkersBronze);
+    addMetalTags(TinkerMaterials.roseGold);
+    addMetalTags(TinkerMaterials.pigiron);
+    // tier 4
+    addMetalTags(TinkerMaterials.manyullyn);
+    addMetalTags(TinkerMaterials.hepatizon);
+    addMetalTags(TinkerMaterials.slimeBronze);
+    addMetalTags(TinkerMaterials.soulsteel);
+    // tier 5
+    addMetalTags(TinkerMaterials.knightslime);
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
-
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
-    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Items.STORAGE_BLOCKS_COBALT);
-    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE, TinkerTags.Items.STORAGE_BLOCKS_ARDITE);
-    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN, TinkerTags.Items.STORAGE_BLOCKS_MANYULLYN);
-    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, TinkerTags.Items.STORAGE_BLOCKS_KNIGHTSLIME);
-    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_PIG_IRON, TinkerTags.Items.STORAGE_BLOCKS_PIG_IRON);
-    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_COPPER, TinkerTags.Items.STORAGE_BLOCKS_COPPER);
-    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD, TinkerTags.Items.STORAGE_BLOCKS_ROSE_GOLD);
 
     copyColored(Tags.Blocks.GLASS, Tags.Items.GLASS);
     copyColored(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
@@ -167,6 +145,20 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   @Override
   public String getName() {
     return "Tinkers Construct Item Tags";
+  }
+
+
+
+  /**
+   * Adds relevant tags for a metal object
+   * @param metal  Metal object
+   */
+  private void addMetalTags(MetalItemObject metal) {
+    this.getOrCreateBuilder(metal.getIngotTag()).add(metal.getIngot());
+    this.getOrCreateBuilder(Tags.Items.INGOTS).addTag(metal.getIngotTag());
+    this.getOrCreateBuilder(metal.getNuggetTag()).add(metal.getNugget());
+    this.getOrCreateBuilder(Tags.Items.NUGGETS).addTag(metal.getNuggetTag());
+    this.copy(metal.getBlockTag(), metal.getBlockItemTag());
   }
 
   /*
