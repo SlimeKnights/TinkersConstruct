@@ -35,6 +35,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> searedStone    = FLUIDS.register("seared_stone",     stoneBuilder().color(0xff777777).temperature( 900), Material.LAVA,  7);
   public static final FluidObject<ForgeFlowingFluid> moltenClay     = FLUIDS.register("molten_clay",      stoneBuilder().color(0xffb75a40).temperature( 750), Material.LAVA,  3);
   public static final FluidObject<ForgeFlowingFluid> moltenGlass    = FLUIDS.register("molten_glass",    moltenBuilder().color(0xffc0f5fe).temperature(1050), Material.LAVA, 10);
+  public static final FluidObject<ForgeFlowingFluid> liquidSoul     = FLUIDS.register("liquid_soul",       coolBuilder().color(0xffb78e77).temperature( 700), Material.LAVA,  2);
   public static final FluidObject<ForgeFlowingFluid> moltenObsidian = FLUIDS.register("molten_obsidian",  stoneBuilder().color(0xff2c0d59).temperature(1300), Material.LAVA, 11);
   public static final FluidObject<ForgeFlowingFluid> moltenEmerald  = FLUIDS.register("molten_emerald",  moltenBuilder().color(0xff41f384).temperature(1234), Material.LAVA,  4);
   public static final FluidObject<ForgeFlowingFluid> moltenEnder    = FLUIDS.register("molten_ender",     stoneBuilder().color(0xff105e51).temperature( 777), Material.LAVA,  7);

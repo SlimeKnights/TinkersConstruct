@@ -89,6 +89,9 @@
     "block.tconstruct.red_clear_stained_glass_pane": "Clear Red Stained Glass Pane",
     "block.tconstruct.black_clear_stained_glass_pane": "Clear Black Stained Glass Pane",
 
+    "block.tconstruct.soul_glass": "Soul Glass",
+    "block.tconstruct.soul_glass_pane": "Soul Glass Pane",
+
     "block.tconstruct.glow": "Glow",
     "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
     "block.tconstruct.silky_jewel_block.tooltip": "Can be used as beacon base",
@@ -412,6 +415,11 @@
     "fluid.tconstruct.molten_glass": "Molten Glass",
     "fluid.tconstruct.flowing_molten_glass": "Flowing Molten Glass",
     "item.tconstruct.molten_glass_bucket": "Molten Glass Bucket",
+
+    "block.tconstruct.liquid_soul_fluid": "Liquid Soul",
+    "fluid.tconstruct.liquid_soul": "Liquid Soul",
+    "fluid.tconstruct.flowing_liquid_soul": "Flowing Liquid Soul",
+    "item.tconstruct.liquid_soul_bucket": "Liquid Soul Bucket",
 
     "block.tconstruct.molten_obsidian_fluid": "Molten Obsidian",
     "fluid.tconstruct.molten_obsidian": "Molten Obsidian",

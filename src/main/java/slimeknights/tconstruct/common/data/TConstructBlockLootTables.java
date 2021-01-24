@@ -100,6 +100,8 @@ public class TConstructBlockLootTables extends BlockLootTables {
       this.registerDropSelfLootTable(TinkerCommons.clearStainedGlass.get(color));
       this.registerDropSelfLootTable(TinkerCommons.clearStainedGlassPane.get(color));
     }
+    this.registerDropSelfLootTable(TinkerCommons.soulGlass.get());
+    this.registerDropSelfLootTable(TinkerCommons.soulGlassPane.get());
 
     this.registerBuildingLootTables(TinkerCommons.mudBricks);
     this.registerBuildingLootTables(TinkerCommons.driedClay);

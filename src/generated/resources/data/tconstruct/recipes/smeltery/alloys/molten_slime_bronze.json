@@ -1,20 +1,20 @@
 {
   "type": "tconstruct:alloy",
   "output": {
-    "fluid": "tconstruct:molten_pig_iron",
+    "fluid": "tconstruct:molten_slime_bronze",
     "amount": 288
   },
   "inputs": [
     {
-      "name": "tconstruct:molten_iron",
+      "name": "tconstruct:molten_copper",
       "amount": 144
     },
     {
-      "name": "tconstruct:blood",
+      "name": "tconstruct:magma_cream",
       "amount": 250
     },
     {
-      "name": "tconstruct:molten_clay",
+      "name": "tconstruct:molten_emerald",
       "amount": 250
     }
   ]

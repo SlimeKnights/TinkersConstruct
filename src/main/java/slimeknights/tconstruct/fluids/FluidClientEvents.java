@@ -18,5 +18,7 @@ public class FluidClientEvents extends ClientEventBase {
     RenderTypeLookup.setRenderLayer(TinkerFluids.blueSlime.getFlowing(), RenderType.getTranslucent());
     RenderTypeLookup.setRenderLayer(TinkerFluids.purpleSlime.getStill(), RenderType.getTranslucent());
     RenderTypeLookup.setRenderLayer(TinkerFluids.purpleSlime.getFlowing(), RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(TinkerFluids.liquidSoul.getStill(), RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(TinkerFluids.liquidSoul.getFlowing(), RenderType.getTranslucent());
   }
 }
