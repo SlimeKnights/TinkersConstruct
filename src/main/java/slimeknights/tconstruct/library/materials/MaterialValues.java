@@ -26,8 +26,8 @@ public final class MaterialValues {
 
   /** Value of a single glass block */
   public static final int VALUE_Glass = VALUE_Ingot * 4;
-  /** Value of a glass pane */
-  public static final int VALUE_Pane = VALUE_Glass * 6 / 16;
+  /** Value of a glass pane, slightly cheaper than vanilla */
+  public static final int VALUE_Pane = VALUE_Glass / 4;
 
   /** Value of a single slimeball */
   public static final int VALUE_SlimeBall = 250;
