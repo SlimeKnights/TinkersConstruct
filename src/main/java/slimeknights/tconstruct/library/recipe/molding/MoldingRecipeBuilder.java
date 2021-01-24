@@ -22,6 +22,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "molding")
 public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBuilder> {
   private final ItemStack output;
+  private final MoldingRecipe.Serializer<?> serializer;
   private Ingredient material = Ingredient.EMPTY;
   private Ingredient mold = Ingredient.EMPTY;
   private boolean moldConsumed = false;
@@ -31,8 +32,17 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
    * @param item  Item output
    * @return  Recipe
    */
-  public static MoldingRecipeBuilder molding(IItemProvider item) {
-    return molding(new ItemStack(item));
+  public static MoldingRecipeBuilder moldingTable(IItemProvider item) {
+    return molding(new ItemStack(item), TinkerSmeltery.moldingTableSerializer.get());
+  }
+
+  /**
+   * Creates a new builder of the given item
+   * @param item  Item output
+   * @return  Recipe
+   */
+  public static MoldingRecipeBuilder moldingBasin(IItemProvider item) {
+    return molding(new ItemStack(item), TinkerSmeltery.moldingBasinSerializer.get());
   }
 
   /* Inputs */
@@ -124,7 +134,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.moldingSerializer.get();
+      return serializer;
     }
   }
 }

@@ -24,7 +24,8 @@ public interface RecipeTypes {
   // casting
   IRecipeType<ICastingRecipe> CASTING_BASIN = register("casting_basin");
   IRecipeType<ICastingRecipe> CASTING_TABLE = register("casting_table");
-  IRecipeType<MoldingRecipe> MOLDING = register("molding");
+  IRecipeType<MoldingRecipe> MOLDING_TABLE = register("molding_table");
+  IRecipeType<MoldingRecipe> MOLDING_BASIN = register("molding_basin");
 
   // smeltery
   IRecipeType<IMeltingRecipe> MELTING = register("melting");

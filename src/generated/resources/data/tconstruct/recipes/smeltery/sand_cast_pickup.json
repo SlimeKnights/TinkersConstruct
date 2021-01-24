@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:molding",
+  "type": "tconstruct:molding_table",
   "material": {
     "tag": "tconstruct:casts/sand"
   },

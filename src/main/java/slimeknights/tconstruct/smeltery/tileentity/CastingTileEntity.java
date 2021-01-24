@@ -58,28 +58,43 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   private static final String TAG_TIMER = "timer";
   private static final String TAG_RECIPE = "recipe";
 
+  /** Special casting fluid tank */
   @Getter
   private final FluidTankAnimated tank = new FluidTankAnimated(0, this);
   private final LazyOptional<CastingFluidHandler> holder = LazyOptional.of(() -> new CastingFluidHandler(this, tank));
-  private final TileCastingWrapper crafting;
-  private final IRecipeType<ICastingRecipe> recipeType;
-  private ItemStack lastOutput = null;
 
+  /* Casting recipes */
+  /** Recipe type for casting recipes, may be basin or table */
+  private final IRecipeType<ICastingRecipe> castingType;
+  /** Inventory for use in casting recipes */
+  private final TileCastingWrapper castingInventory;
   /** Current recipe progress */
   @Getter
   private int timer;
   /** Current in progress recipe */
-  private ICastingRecipe recipe;
+  private ICastingRecipe currentRecipe;
   /** Name of the current recipe, fetched from NBT. Used since NBT is read before recipe manager access */
   private ResourceLocation recipeName;
   /** Cache recipe to reduce time during recipe lookups. Not saved to NBT */
-  private ICastingRecipe lastRecipe;
+  private ICastingRecipe lastCastingRecipe;
+  /** Last recipe output for client side display */
+  private ItemStack lastOutput = null;
 
-  protected CastingTileEntity(TileEntityType<?> tileEntityTypeIn, IRecipeType<ICastingRecipe> recipeType) {
+  /* Molding recipes */
+  /** Recipe type for molding recipes, may be basin or table */
+  private final IRecipeType<MoldingRecipe> moldingType;
+  /** Inventory to use for molding recipes */
+  private final MoldingInventoryWrapper moldingInventory;
+  /** Cache recipe to reduce time during recipe lookups. Not saved to NBT */
+  private MoldingRecipe lastMoldingRecipe;
+
+  protected CastingTileEntity(TileEntityType<?> tileEntityTypeIn, IRecipeType<ICastingRecipe> castingType, IRecipeType<MoldingRecipe> moldingType) {
     super(tileEntityTypeIn, "gui.tconstruct.casting", 2, 1);
     this.itemHandler = new SidedInvWrapper(this, Direction.DOWN);
-    this.recipeType = recipeType;
-    this.crafting = new TileCastingWrapper(this, Fluids.EMPTY);
+    this.castingType = castingType;
+    this.moldingType = moldingType;
+    this.castingInventory = new TileCastingWrapper(this, Fluids.EMPTY);
+    this.moldingInventory = new MoldingInventoryWrapper(itemHandler, INPUT);
   }
 
   @Override
@@ -103,17 +118,59 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       return;
     }
 
-    // completely empty -> insert current item into input
     ItemStack held = player.getHeldItem(hand);
-    if (!isStackInSlot(INPUT) && !isStackInSlot(OUTPUT)) {
-      ItemStack stack = held.split(stackSizeLimit);
-      player.setHeldItem(hand, held.isEmpty() ? ItemStack.EMPTY : held);
-      setInventorySlotContents(INPUT, stack);
+    ItemStack input = getStackInSlot(INPUT);
+    ItemStack output = getStackInSlot(OUTPUT);
+
+    // all molding recipes require a stack in the input slot and nothing in the output slot
+    if (!input.isEmpty() && output.isEmpty()) {
+      // first, try the players hand item for a recipe
+      moldingInventory.setMold(held);
+      MoldingRecipe recipe = findMoldingRecipe();
+      if (recipe != null) {
+        // if hand is empty, pick up the result (hand empty will only match recipes with no mold item)
+        ItemStack result = recipe.getCraftingResult(moldingInventory);
+        if (held.isEmpty()) {
+          setInventorySlotContents(INPUT, ItemStack.EMPTY);
+          player.setHeldItem(hand, result);
+        } else {
+          // if the recipe has a mold, hand item goes on table (if not consumed in crafting)
+          setInventorySlotContents(INPUT, result);
+          if (!recipe.isMoldConsumed()) {
+            setInventorySlotContents(OUTPUT, ItemHandlerHelper.copyStackWithSize(held, 1));
+            // send a block update for the comparator, needs to be done after the stack is removed
+            world.notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
+          }
+          held.shrink(1);
+          player.setHeldItem(hand, held.isEmpty() ? ItemStack.EMPTY : held);
+        }
+        moldingInventory.setMold(ItemStack.EMPTY);
+        return;
+      } else {
+        // if no recipe was found using the held item, try to find a mold-less recipe to perform
+        // this ensures that if a recipe happens "on pickup" you get consistent behavior, without this it would fall though to pick up normally
+        moldingInventory.setMold(ItemStack.EMPTY);
+        recipe = findMoldingRecipe();
+        if (recipe != null) {
+          setInventorySlotContents(INPUT, ItemStack.EMPTY);
+          ItemHandlerHelper.giveItemToPlayer(player, recipe.getCraftingResult(moldingInventory), player.inventory.currentItem);
+          return;
+        }
+      }
     }
-    // take item out
-    else {
-      // take out stack 1 if something is there, 0 otherwise
-      int slot = isStackInSlot(OUTPUT) ? OUTPUT : INPUT;
+
+    // recipes failed, so do normal pickup
+    // completely empty -> insert current item into input
+    if (input.isEmpty() && output.isEmpty()) {
+      if (!held.isEmpty()) {
+        ItemStack stack = held.split(stackSizeLimit);
+        player.setHeldItem(hand, held.isEmpty() ? ItemStack.EMPTY : held);
+        setInventorySlotContents(INPUT, stack);
+      }
+    } else {
+      // stack in either slot, take one out
+      // prefer output stack, as often the input is a cast that we want to use again
+      int slot = output.isEmpty() ? INPUT : OUTPUT;
 
       // Additional info: Only 1 item can be put into the casting block usually, however recipes
       // can have ItemStacks with stacksize > 1 as output
@@ -148,22 +205,22 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   @Override
   public void tick() {
     // no recipe
-    if (world == null || recipe == null) {
+    if (world == null || currentRecipe == null) {
       return;
     }
     // fully filled
     if (tank.getFluidAmount() == tank.getCapacity() && !tank.getFluid().isEmpty()) {
       timer++;
-      if (!world.isRemote && timer >= recipe.getCoolingTime(crafting)) {
-        ItemStack output = recipe.getCraftingResult(crafting);
-        if (recipe.switchSlots()) {
-          if (!recipe.isConsumed()) {
+      if (!world.isRemote && timer >= currentRecipe.getCoolingTime(castingInventory)) {
+        ItemStack output = currentRecipe.getCraftingResult(castingInventory);
+        if (currentRecipe.switchSlots()) {
+          if (!currentRecipe.isConsumed()) {
             setInventorySlotContents(OUTPUT, getStackInSlot(INPUT));
           }
           setInventorySlotContents(INPUT, output);
         }
         else {
-          if (recipe.isConsumed()) {
+          if (currentRecipe.isConsumed()) {
             setInventorySlotContents(INPUT, ItemStack.EMPTY);
           }
           setInventorySlotContents(OUTPUT, output);
@@ -181,19 +238,37 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   @Nullable
-  private ICastingRecipe findRecipe() {
-    if (world == null) {
-      return null;
+  private ICastingRecipe findCastingRecipe() {
+    if (world == null) return null;
+    if (this.lastCastingRecipe != null && this.lastCastingRecipe.matches(castingInventory, world)) {
+      return this.lastCastingRecipe;
     }
-    if (this.lastRecipe != null && this.lastRecipe.matches(crafting, world)) {
-      return this.lastRecipe;
-    }
-    ICastingRecipe castingRecipe = world.getRecipeManager().getRecipe(this.recipeType, crafting, world).orElse(null);
+    ICastingRecipe castingRecipe = world.getRecipeManager().getRecipe(this.castingType, castingInventory, world).orElse(null);
     if (castingRecipe != null) {
-      this.lastRecipe = castingRecipe;
+      this.lastCastingRecipe = castingRecipe;
     }
     return castingRecipe;
   }
+
+
+  /**
+   * Finds a molding recipe for the given inventory
+   * @return  Recipe, or null if no recipe found
+   */
+  @Nullable
+  private MoldingRecipe findMoldingRecipe() {
+    if (world == null) return null;
+    if (lastMoldingRecipe != null && lastMoldingRecipe.matches(moldingInventory, world)) {
+      return lastMoldingRecipe;
+    }
+    Optional<MoldingRecipe> newRecipe = world.getRecipeManager().getRecipe(moldingType, moldingInventory, world);
+    if (newRecipe.isPresent()) {
+      lastMoldingRecipe = newRecipe.get();
+      return lastMoldingRecipe;
+    }
+    return null;
+  }
+
 
   /**
    * Called from CastingFluidHandler.fill()
@@ -202,18 +277,18 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
    * @return        Amount of fluid needed for recipe, used to resize the tank.
    */
   public int initNewCasting(Fluid fluid, IFluidHandler.FluidAction action) {
-    if (this.recipe != null || this.recipeName != null) {
+    if (this.currentRecipe != null || this.recipeName != null) {
       return 0;
     }
-    this.crafting.setFluid(fluid);
+    this.castingInventory.setFluid(fluid);
 
-    ICastingRecipe castingRecipe = findRecipe();
+    ICastingRecipe castingRecipe = findCastingRecipe();
     if (castingRecipe != null) {
       if (action == IFluidHandler.FluidAction.EXECUTE) {
-        this.recipe = castingRecipe;
+        this.currentRecipe = castingRecipe;
         this.lastOutput = null;
       }
-      return castingRecipe.getFluidAmount(crafting);
+      return castingRecipe.getFluidAmount(castingInventory);
     }
     return 0;
   }
@@ -223,12 +298,12 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
    */
   public void reset() {
     timer = 0;
-    recipe = null;
+    currentRecipe = null;
     this.lastOutput = null;
     tank.setCapacity(0);
     tank.setFluid(FluidStack.EMPTY);
     tank.setRenderOffset(0);
-    crafting.setFluid(Fluids.EMPTY);
+    castingInventory.setFluid(Fluids.EMPTY);
 
     if (world != null && !world.isRemote && world instanceof ServerWorld) {
       TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(getPos(), FluidStack.EMPTY), (ServerWorld) world, getPos());
@@ -266,10 +341,10 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
    */
   public ItemStack getRecipeOutput() {
     if (lastOutput == null) {
-      if (recipe == null) {
+      if (currentRecipe == null) {
         return ItemStack.EMPTY;
       }
-      lastOutput = recipe.getCraftingResult(crafting);
+      lastOutput = currentRecipe.getCraftingResult(castingInventory);
     }
     return lastOutput;
   }
@@ -279,10 +354,10 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
    * @return  total recipe time
    */
   public int getRecipeTime() {
-    if (recipe == null) {
+    if (currentRecipe == null) {
       return -1;
     }
-    return recipe.getCoolingTime(crafting);
+    return currentRecipe.getCoolingTime(castingInventory);
   }
 
 
@@ -300,9 +375,9 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     if(!fluid.isEmpty()) {
       // fetch recipe by name
       RecipeHelper.getRecipe(world.getRecipeManager(), name, ICastingRecipe.class).ifPresent(recipe -> {
-        this.recipe = recipe;
-        crafting.setFluid(fluid.getFluid());
-        tank.setCapacity(recipe.getFluidAmount(crafting));
+        this.currentRecipe = recipe;
+        castingInventory.setFluid(fluid.getFluid());
+        tank.setCapacity(recipe.getFluidAmount(castingInventory));
       });
     }
   }
@@ -323,8 +398,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     tags = super.write(tags);
     tags.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
     tags.putInt(TAG_TIMER, timer);
-    if (recipe != null) {
-      tags.putString(TAG_RECIPE, recipe.getId().toString());
+    if (currentRecipe != null) {
+      tags.putString(TAG_RECIPE, currentRecipe.getId().toString());
     } else if (recipeName != null) {
       tags.putString(TAG_RECIPE, recipeName.toString());
     }
@@ -350,74 +425,13 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
 
   public static class Basin extends CastingTileEntity {
     public Basin() {
-      super(TinkerSmeltery.basin.get(), RecipeTypes.CASTING_BASIN);
+      super(TinkerSmeltery.basin.get(), RecipeTypes.CASTING_BASIN, RecipeTypes.MOLDING_BASIN);
     }
   }
 
   public static class Table extends CastingTileEntity {
-    private MoldingRecipe lastRecipe;
-    private final MoldingInventoryWrapper moldingInventory;
     public Table() {
-      super(TinkerSmeltery.table.get(), RecipeTypes.CASTING_TABLE);
-      moldingInventory = new MoldingInventoryWrapper(itemHandler, INPUT);
-    }
-
-    /**
-     * Finds a molding recipe for the given inventory
-     * @return  Recipe, or null if no recipe found
-     */
-    @Nullable
-    private MoldingRecipe findRecipe() {
-      assert world != null;
-      if (lastRecipe != null && lastRecipe.matches(moldingInventory, world)) {
-        return lastRecipe;
-      }
-      Optional<MoldingRecipe> newRecipe = world.getRecipeManager().getRecipe(RecipeTypes.MOLDING, moldingInventory, world);
-      if (newRecipe.isPresent()) {
-        lastRecipe = newRecipe.get();
-        return lastRecipe;
-      }
-      return null;
-    }
-
-    @Override
-    public void interact(PlayerEntity player, Hand hand) {
-      // if we have an input and no output, recipe time!
-      ItemStack input = getStackInSlot(INPUT);
-      if (!input.isEmpty() && getStackInSlot(OUTPUT).isEmpty()) {
-        // first, try the players hand item for a recipe
-        ItemStack held = player.getHeldItem(hand);
-        moldingInventory.setMold(held);
-        MoldingRecipe recipe = findRecipe();
-        if (recipe != null) {
-          // if using an empty hand, pick up the result
-          ItemStack result = recipe.getCraftingResult(moldingInventory);
-          if (held.isEmpty()) {
-            setInventorySlotContents(INPUT, ItemStack.EMPTY);
-            player.setHeldItem(hand, result);
-          } else {
-            // if using an item, result goes on table, along with the hand item
-            setInventorySlotContents(INPUT, result);
-            if (!recipe.isMoldConsumed()) {
-              setInventorySlotContents(OUTPUT, ItemHandlerHelper.copyStackWithSize(held, 1));
-            }
-            held.shrink(1);
-            player.setHeldItem(hand, held.isEmpty() ? ItemStack.EMPTY : held);
-          }
-          moldingInventory.setMold(ItemStack.EMPTY);
-          return;
-        } else {
-          // if no recipe was found using the item, try with just the item on the table (pickup)
-          moldingInventory.setMold(ItemStack.EMPTY);
-          recipe = findRecipe();
-          if (recipe != null) {
-            setInventorySlotContents(INPUT, ItemStack.EMPTY);
-            ItemHandlerHelper.giveItemToPlayer(player, recipe.getCraftingResult(moldingInventory), player.inventory.currentItem);
-            return;
-          }
-        }
-      }
-      super.interact(player, hand);
+      super(TinkerSmeltery.table.get(), RecipeTypes.CASTING_TABLE, RecipeTypes.MOLDING_TABLE);
     }
   }
 }

@@ -16,6 +16,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
+import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -34,12 +35,13 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   private final IDrawable icon;
   @Getter
   private final String title;
-  private final IDrawable table, downArrow, upArrow;
+  private final IDrawable table, basin, downArrow, upArrow;
   public MoldingRecipeCategory(IGuiHelper helper) {
     this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 55, 70, 57);
     this.icon = helper.createDrawableIngredient(new ItemStack(TinkerSmeltery.blankCast.getSand()));
     this.table = helper.createDrawable(BACKGROUND_LOC, 117, 0, 16, 16);
+    this.basin = helper.createDrawable(BACKGROUND_LOC, 117, 16, 16, 16);
     this.downArrow = helper.createDrawable(BACKGROUND_LOC, 70, 55, 6, 6);
     this.upArrow = helper.createDrawable(BACKGROUND_LOC, 76, 55, 6, 6);
   }
@@ -56,9 +58,13 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
 
   @Override
   public void draw(MoldingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    // draw the main block
+    IDrawable block = recipe.getType() == RecipeTypes.MOLDING_BASIN ? basin : table;
+    block.draw(matrixStack, 3, 40);
+
     // if no mold, we "pickup" the item, so draw no table
     if (!recipe.getMold().hasNoMatchingItems()) {
-      table.draw(matrixStack, 51, 40);
+      block.draw(matrixStack, 51, 40);
       downArrow.draw(matrixStack, 8, 17);
     } else {
       upArrow.draw(matrixStack, 8, 17);

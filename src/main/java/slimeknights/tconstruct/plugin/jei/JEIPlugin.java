@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jei;
 
+import com.google.common.collect.ImmutableList;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
@@ -19,12 +20,16 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.TagCollectionManager;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
@@ -113,14 +118,33 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(alloyRecipes, TConstructRecipeCategoryUid.alloy);
 
     // molding
-    List<MoldingRecipe> moldingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.MOLDING, MoldingRecipe.class);
+    List<MoldingRecipe> moldingRecipes = ImmutableList.<MoldingRecipe>builder()
+      .addAll(RecipeHelper.getJEIRecipes(manager, RecipeTypes.MOLDING_TABLE, MoldingRecipe.class))
+      .addAll(RecipeHelper.getJEIRecipes(manager, RecipeTypes.MOLDING_BASIN, MoldingRecipe.class))
+      .build();
     register.addRecipes(moldingRecipes, TConstructRecipeCategoryUid.molding);
+  }
+
+  /**
+   * Adds an item as a casting catalyst, and as a molding catalyst if it has molding recipes
+   * @param registry     Catalyst regisry
+   * @param item         Item to add
+   * @param ownCategory  Category to always add
+   * @param type         Molding recipe type
+   */
+  private static <T extends IRecipe<C>, C extends IInventory> void addCastingCatalyst(IRecipeCatalystRegistration registry, IItemProvider item, ResourceLocation ownCategory, IRecipeType<T> type) {
+    ItemStack stack = new ItemStack(item);
+    registry.addRecipeCatalyst(stack, ownCategory);
+    assert Minecraft.getInstance().world != null;
+    if (!Minecraft.getInstance().world.getRecipeManager().getRecipes(type).isEmpty()) {
+      registry.addRecipeCatalyst(stack, TConstructRecipeCategoryUid.molding);
+    }
   }
 
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingBasin), TConstructRecipeCategoryUid.castingBasin);
-    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingTable), TConstructRecipeCategoryUid.castingTable, TConstructRecipeCategoryUid.molding);
+    addCastingCatalyst(registry, TinkerSmeltery.castingTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
+    addCastingCatalyst(registry, TinkerSmeltery.castingBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructRecipeCategoryUid.melting);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructRecipeCategoryUid.melting, TConstructRecipeCategoryUid.alloy, TConstructRecipeCategoryUid.entityMelting);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);

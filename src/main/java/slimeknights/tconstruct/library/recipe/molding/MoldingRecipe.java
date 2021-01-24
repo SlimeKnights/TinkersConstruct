@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 
 /** Recipe to combine two items on the top of a casting table, changing the first */
 @RequiredArgsConstructor
-public class MoldingRecipe implements ICommonRecipe<IMoldingInventory> {
+public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> {
   @Getter
   private final ResourceLocation id;
   private final Ingredient material;
@@ -38,16 +38,6 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingInventory> {
 	@Override
   public boolean matches(IMoldingInventory inv, World worldIn) {
     return material.test(inv.getMaterial()) && mold.test(inv.getMold());
-  }
-
-  @Override
-  public IRecipeSerializer<?> getSerializer() {
-    return TinkerSmeltery.moldingSerializer.get();
-  }
-
-  @Override
-  public IRecipeType<?> getType() {
-    return RecipeTypes.MOLDING;
   }
 
   @Override
@@ -73,9 +63,53 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingInventory> {
     }
   }
 
-  public static class Serializer extends RecipeSerializer<MoldingRecipe> {
+  /** Subclass for table recipes */
+  public static class Table extends MoldingRecipe {
+    public Table(ResourceLocation id, Ingredient material, Ingredient mold, boolean moldConsumed, ItemStack recipeOutput) {
+      super(id, material, mold, moldConsumed, recipeOutput);
+    }
+
     @Override
-    public MoldingRecipe read(ResourceLocation id, JsonObject json) {
+    public IRecipeSerializer<?> getSerializer() {
+      return TinkerSmeltery.moldingTableSerializer.get();
+    }
+
+    @Override
+    public IRecipeType<?> getType() {
+      return RecipeTypes.MOLDING_TABLE;
+    }
+  }
+
+  /** Subclass for basin recipes */
+  public static class Basin extends MoldingRecipe {
+    public Basin(ResourceLocation id, Ingredient material, Ingredient mold, boolean moldConsumed, ItemStack recipeOutput) {
+      super(id, material, mold, moldConsumed, recipeOutput);
+    }
+
+    @Override
+    public IRecipeSerializer<?> getSerializer() {
+      return TinkerSmeltery.moldingBasinSerializer.get();
+    }
+
+    @Override
+    public IRecipeType<?> getType() {
+      return RecipeTypes.MOLDING_BASIN;
+    }
+  }
+
+  /** Serializer factory interface */
+  @FunctionalInterface
+  public interface IFactory<T extends MoldingRecipe> {
+    T create(ResourceLocation id, Ingredient material, Ingredient mold, boolean moldConsumed, ItemStack recipeOutput);
+  }
+
+  /** Generic serializer to both types */
+  @RequiredArgsConstructor
+  public static class Serializer<T extends MoldingRecipe> extends RecipeSerializer<T> {
+    private final IFactory<T> factory;
+
+    @Override
+    public T read(ResourceLocation id, JsonObject json) {
       Ingredient material = Ingredient.deserialize(JsonHelper.getElement(json, "material"));
       Ingredient mold = Ingredient.EMPTY;
       boolean moldConsumed = false;
@@ -84,17 +118,17 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingInventory> {
         moldConsumed = JSONUtils.getBoolean(json, "mold_consumed", false);
       }
       ItemStack output = deseralizeResultItem(json, "result");
-      return new MoldingRecipe(id, material, mold, moldConsumed, output);
+      return factory.create(id, material, mold, moldConsumed, output);
     }
 
     @Nullable
     @Override
-    public MoldingRecipe read(ResourceLocation id, PacketBuffer buffer) {
+    public T read(ResourceLocation id, PacketBuffer buffer) {
       Ingredient material = Ingredient.read(buffer);
       Ingredient mold = Ingredient.read(buffer);
       boolean moldConsumed = buffer.readBoolean();
       ItemStack output = buffer.readItemStack();
-      return new MoldingRecipe(id, material, mold, moldConsumed, output);
+      return factory.create(id, material, mold, moldConsumed, output);
     }
 
     @Override
