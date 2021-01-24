@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.util.SupplierItemGroup;
@@ -18,7 +17,6 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.ToolsRecipeProvider;
@@ -94,10 +92,5 @@ public final class TinkerTools extends TinkerModule {
       datagenerator.addProvider(new MaterialDataProvider(datagenerator));
       datagenerator.addProvider(new MaterialStatsDataProvider(datagenerator));
     }
-  }
-
-  @SubscribeEvent
-  void commonSetup(FMLCommonSetupEvent event) {
-    HarvestLevels.loadCustomNames();
   }
 }
