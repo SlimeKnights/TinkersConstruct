@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:ingot_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_soulsteel",
+    "amount": 144
+  },
+  "result": "tconstruct:soulsteel_ingot",
+  "cooling_time": 72
+}

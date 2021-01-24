@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:alloy",
+  "output": {
+    "fluid": "tconstruct:molten_slimesteel",
+    "amount": 288
+  },
+  "inputs": [
+    {
+      "name": "tconstruct:molten_iron",
+      "amount": 144
+    },
+    {
+      "name": "tconstruct:blue_slime",
+      "amount": 250
+    },
+    {
+      "name": "tconstruct:seared_stone",
+      "amount": 144
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import net.minecraft.resources.IResourceManager;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.util.ResourceValidator;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.smeltery.SmelteryClientEvents;
 import slimeknights.tconstruct.tables.TableClientEvents;
 import slimeknights.tconstruct.world.WorldClientEvents;
@@ -24,6 +25,7 @@ public class TinkerClient {
     TinkerBook.initBook();
 
     Minecraft minecraft = Minecraft.getInstance();
+    //noinspection ConstantConditions
     if (minecraft != null) {
       IResourceManager manager = Minecraft.getInstance().getResourceManager();
       if (manager instanceof IReloadableResourceManager) {
@@ -41,5 +43,6 @@ public class TinkerClient {
     SmelteryClientEvents.addResourceListener(manager);
     MaterialRenderInfoLoader.addResourceListener(manager);
     manager.addReloadListener(textureValidator);
+    manager.addReloadListener(HarvestLevels.INSTANCE);
   }
 }

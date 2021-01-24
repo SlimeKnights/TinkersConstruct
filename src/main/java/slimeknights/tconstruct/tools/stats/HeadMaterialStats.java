@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.stats;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.Color;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
@@ -25,23 +25,23 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class HeadMaterialStats extends BaseMaterialStats {
-
   public static final MaterialStatsId ID = new MaterialStatsId(Util.getResource("head"));
   public static final HeadMaterialStats DEFAULT = new HeadMaterialStats(1, 1f, 0, 1f);
-
-  public final static String DURABILITY_LOCALIZATION = "stat.head.durability.name";
-  public final static String MINING_SPEED_LOCALIZATION = "stat.head.mining_speed.name";
-  public final static String ATTACK_LOCALIZATION = "stat.head.attack.name";
-  public final static String HARVEST_LEVEL_LOCALIZATION = "stat.head.harvest_level.name";
-
-  public final static String DURABILITY_DESCRIPTION_LOCALIZATION = "stat.head.durability.description";
-  public final static String MINING_SPEED_DESCRIPTION_LOCALIZATION = "stat.head.mining_speed.description";
-  public final static String ATTACK_DESCRIPTION_LOCALIZATION = "stat.head.attack.description";
-  public final static String HARVEST_LEVEL_DESCRIPTION_LOCALIZATION = "stat.head.harvest_level.description";
+  // tooltip prefixes
+  public static final String DURABILITY_PREFIX = makeTooltipKey("head.durability");
+  private static final String MINING_SPEED_PREFIX = makeTooltipKey("head.mining_speed");
+  private static final String ATTACK_PREFIX = makeTooltipKey("head.attack");
+  private static final String HARVEST_LEVEL_PREFIX = makeTooltipKey("head.harvest_level");
+  // tooltip descriptions
+  private static final ITextComponent DURABILITY_DESCRIPTION = makeTooltip("head.durability.description");
+  private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip("head.mining_speed.description");
+  private static final ITextComponent ATTACK_DESCRIPTION = makeTooltip("head.attack.description");
+  private static final ITextComponent HARVEST_LEVEL_DESCRIPTION = makeTooltip("head.harvest_level.description");
+  private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, MINING_SPEED_DESCRIPTION, ATTACK_DESCRIPTION, HARVEST_LEVEL_DESCRIPTION);
 
   public final static Color DURABILITY_COLOR = Color.fromInt(0xFF47cc47);
+  public final static Color MINING_SPEED_COLOR = Color.fromInt(0xFF78A0CD);
   public final static Color ATTACK_COLOR = Color.fromInt(0xFFD76464);
-  public final static Color SPEED_COLOR = Color.fromInt(0xFF78A0CD);
 
   private int durability;
   private float miningSpeed;
@@ -72,44 +72,40 @@ public class HeadMaterialStats extends BaseMaterialStats {
   @Override
   public List<ITextComponent> getLocalizedInfo() {
     List<ITextComponent> info = Lists.newArrayList();
-
     info.add(formatDurability(this.durability));
     info.add(formatHarvestLevel(this.harvestLevel));
     info.add(formatMiningSpeed(this.miningSpeed));
     info.add(formatAttack(this.attack));
-
     return info;
-  }
-
-  public static ITextComponent formatDurability(int durability) {
-    return formatNumber(DURABILITY_LOCALIZATION, DURABILITY_COLOR, durability);
-  }
-
-  public static ITextComponent formatDurability(int durability, int ref) {
-    return new TranslationTextComponent(DURABILITY_LOCALIZATION).append(CustomFontColor.formatPartialAmount(durability, ref));
-  }
-
-  public static ITextComponent formatHarvestLevel(int level) {
-    return new TranslationTextComponent(HARVEST_LEVEL_LOCALIZATION).append(HarvestLevels.getHarvestLevelName(level));
-  }
-
-  public static ITextComponent formatMiningSpeed(float speed) {
-    return formatNumber(MINING_SPEED_LOCALIZATION, SPEED_COLOR, speed);
-  }
-
-  public static ITextComponent formatAttack(float attack) {
-    return formatNumber(ATTACK_LOCALIZATION, ATTACK_COLOR, attack);
   }
 
   @Override
   public List<ITextComponent> getLocalizedDescriptions() {
-    List<ITextComponent> info = Lists.newArrayList();
+    return DESCRIPTION;
+  }
 
-    info.add(new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION));
-    info.add(new TranslationTextComponent(HARVEST_LEVEL_DESCRIPTION_LOCALIZATION));
-    info.add(new TranslationTextComponent(MINING_SPEED_DESCRIPTION_LOCALIZATION));
-    info.add(new TranslationTextComponent(ATTACK_DESCRIPTION_LOCALIZATION));
+  /** Applies formatting for durability */
+  public static ITextComponent formatDurability(int durability) {
+    return formatNumber(DURABILITY_PREFIX, DURABILITY_COLOR, durability);
+  }
 
-    return info;
+  /** Applies formatting for durability with a reference durability */
+  public static ITextComponent formatDurability(int durability, int ref) {
+    return new TranslationTextComponent(DURABILITY_PREFIX).append(CustomFontColor.formatPartialAmount(durability, ref));
+  }
+
+  /** Applies formatting for harvest level */
+  public static ITextComponent formatHarvestLevel(int level) {
+    return new TranslationTextComponent(HARVEST_LEVEL_PREFIX).append(HarvestLevels.getHarvestLevelName(level));
+  }
+
+  /** Applies formatting for mining speed */
+  public static ITextComponent formatMiningSpeed(float speed) {
+    return formatNumber(MINING_SPEED_PREFIX, MINING_SPEED_COLOR, speed);
+  }
+
+  /** Applies formatting for attack */
+  public static ITextComponent formatAttack(float attack) {
+    return formatNumber(ATTACK_PREFIX, ATTACK_COLOR, attack);
   }
 }

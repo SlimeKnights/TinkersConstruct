@@ -7,17 +7,16 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.IItemProvider;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -134,39 +133,53 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
 
   private void addMaterialRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "common/materials/";
-    // metals
-    registerMineralRecipes(consumer, "cobalt",      TinkerMaterials.cobaltBlock,      TinkerMaterials.cobaltIngot,      TinkerMaterials.cobaltNugget,      folder);
-    registerMineralRecipes(consumer, "ardite",      TinkerMaterials.arditeBlock,      TinkerMaterials.arditeIngot,      TinkerMaterials.arditeNugget,      folder);
-    registerMineralRecipes(consumer, "manyullyn",   TinkerMaterials.manyullynBlock,   TinkerMaterials.manyullynIngot,   TinkerMaterials.manyullynNugget,   folder);
-    registerMineralRecipes(consumer, "knightslime", TinkerMaterials.knightSlimeBlock, TinkerMaterials.knightslimeIngot, TinkerMaterials.knightslimeNugget, folder);
-    registerMineralRecipes(consumer, "pig_iron",    TinkerMaterials.pigironBlock,     TinkerMaterials.pigironIngot,     TinkerMaterials.pigironNugget,     folder);
-    registerMineralRecipes(consumer, "copper",      TinkerMaterials.copperBlock,      TinkerMaterials.copperIngot,      TinkerMaterials.copperNugget,      folder);
-    registerMineralRecipes(consumer, "rose_gold",   TinkerMaterials.roseGoldBlock,    TinkerMaterials.roseGoldIngot,    TinkerMaterials.roseGoldNugget,    folder);
+
+    // ores
+    registerMineralRecipes(consumer, TinkerMaterials.copper, folder);
+    registerMineralRecipes(consumer, TinkerMaterials.cobalt, folder);
+    registerMineralRecipes(consumer, TinkerMaterials.ardite, folder);
+    // tier 3
+    registerMineralRecipes(consumer, TinkerMaterials.slimesteel,    folder);
+    registerMineralRecipes(consumer, TinkerMaterials.tinkersBronze, folder);
+    registerMineralRecipes(consumer, TinkerMaterials.roseGold,      folder);
+    registerMineralRecipes(consumer, TinkerMaterials.pigiron,       folder);
+    // tier 4
+    registerMineralRecipes(consumer, TinkerMaterials.manyullyn,   folder);
+    registerMineralRecipes(consumer, TinkerMaterials.hepatizon, folder);
+    registerMineralRecipes(consumer, TinkerMaterials.slimeBronze, folder);
+    registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
     registerPackingRecipe(consumer, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, folder);
+    // tier 5
+    registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
 
     // smelt ore into ingots, must use a blast furnace for nether ores
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), TinkerMaterials.cobaltIngot, 1.5f, 200)
+    IItemProvider cobaltIngot = TinkerMaterials.cobalt.getIngot();
+    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.cobaltOre))
-                        .build(consumer, wrap(TinkerMaterials.cobaltIngot, folder, "_smelting"));
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.arditeOre), TinkerMaterials.arditeIngot, 1.5f, 200)
+                        .build(consumer, wrap(cobaltIngot, folder, "_smelting"));
+    IItemProvider arditeIngot = TinkerMaterials.ardite.getIngot();
+    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.arditeOre), arditeIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.arditeOre))
-                        .build(consumer, wrap(TinkerMaterials.arditeIngot, folder, "_smelting"));
-
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), TinkerMaterials.copperIngot, 1.5f, 200)
+                        .build(consumer, wrap(arditeIngot, folder, "_smelting"));
+    IItemProvider copperIngot = TinkerMaterials.copper.getIngot();
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
-                        .build(consumer, wrap(TinkerMaterials.copperIngot, folder, "_smelting"));
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), TinkerMaterials.copperIngot, 1.5f, 100)
+                        .build(consumer, wrap(copperIngot, folder, "_smelting"));
+    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 100)
                         .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
-                        .build(consumer, wrap(TinkerMaterials.copperIngot, folder, "_blasting"));
+                        .build(consumer, wrap(copperIngot, folder, "_blasting"));
+  }
 
-    // FIXME: temporary knightslime recipe
-    Item purpleSlime = TinkerCommons.slimeball.get(SlimeType.PURPLE);
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.knightslimeIngot)
-                          .addIngredient(purpleSlime)
-                          .addIngredient(Items.IRON_INGOT)
-                          .addIngredient(TinkerSmeltery.searedBrick)
-                          .setGroup(TinkerMaterials.knightslimeIngot.getRegistryName().toString())
-                          .addCriterion("has_item", hasItem(purpleSlime))
-                          .build(consumer, wrap(TinkerMaterials.knightslimeIngot, folder, "_crafting"));
+  /**
+   * Adds recipes to convert a block to ingot, ingot to block, and for nuggets
+   * @param consumer  Recipe consumer
+   * @param metal     Metal object
+   * @param folder    Folder for recipes
+   */
+  protected void registerMineralRecipes(Consumer<IFinishedRecipe> consumer, MetalItemObject metal, String folder) {
+    String name = metal.getName();
+    IItemProvider ingot = metal.getIngot();
+    registerPackingRecipe(consumer, "block", metal.get(), "ingot", ingot, getTag("forge", "ingots/" + name), folder);
+    registerPackingRecipe(consumer, "ingot", ingot, "nugget", metal.getNugget(), getTag("forge", "nuggets/" + name), folder);
   }
 }

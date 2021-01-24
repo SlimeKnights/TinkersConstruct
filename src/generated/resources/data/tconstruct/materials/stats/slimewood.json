@@ -1,0 +1,21 @@
+{
+  "materialId": "tconstruct:slimewood",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 560,
+      "miningSpeed": 4.0,
+      "harvestLevel": 2,
+      "attack": 1.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 1.4,
+      "attackSpeed": 0.8,
+      "miningSpeed": 0.8
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

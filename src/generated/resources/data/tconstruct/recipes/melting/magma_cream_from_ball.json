@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:magma_cream"
+  },
+  "result": {
+    "fluid": "tconstruct:magma_cream",
+    "amount": 250
+  },
+  "temperature": 300,
+  "time": 42
+}

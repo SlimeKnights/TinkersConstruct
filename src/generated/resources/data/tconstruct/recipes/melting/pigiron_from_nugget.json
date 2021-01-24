@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:nuggets/pigiron"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_pig_iron",
+    "amount": 16
+  },
+  "temperature": 811,
+  "time": 20
+}

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:nugget_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_hepatizon",
+    "amount": 16
+  },
+  "result": "tconstruct:hepatizon_nugget",
+  "cooling_time": 26
+}

@@ -37,7 +37,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -145,88 +144,52 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   }
 
   private void addMaterialsRecipes(Consumer<IFinishedRecipe> consumer) {
+    // tier 1
+    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(Tags.Items.RODS_WOODEN), 1, 2, "wood_from_sticks");
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood_from_planks");
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood_from_logs");
-
-    registerMaterial(consumer, MaterialIds.stone, Ingredient.fromTag(Tags.Items.COBBLESTONE), 1, 1, "stone_from_cobblestone");
-    registerMaterial(consumer, MaterialIds.stone, Ingredient.fromTag(Tags.Items.STONE), 1, 1, "stone_from_stone");
-
+    registerMaterial(consumer, MaterialIds.stone, new CompoundIngredient(
+      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.BASALT, Blocks.POLISHED_BASALT, Blocks.POLISHED_BLACKSTONE)
+    ), 1, 1, "stone_from_stone");
     registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT), 1, 1, "flint");
-
-    registerMaterial(consumer, MaterialIds.cactus, Ingredient.fromItems(Items.CACTUS), 1, 1, "cactus");
-
-    registerMaterial(consumer, MaterialIds.obsidian, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "obsidian");
-
-    registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.PRISMARINE), 1, 1, "prismarine_from_block");
-    registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.PRISMARINE_BRICKS), 9, 4, "prismarine_from_bricks");
-    registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.DARK_PRISMARINE), 2, 1, "prismarine_from_dark");
-    registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.PRISMARINE_SHARD), 1, 4, "prismarine_from_shard");
-
-    registerMaterial(consumer, MaterialIds.netherrack, Ingredient.fromItems(Items.NETHERRACK), 1, 1, "netherrack");
-
     registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone_from_bones");
-    registerMaterial(consumer, MaterialIds.bone, Ingredient.fromItems(Items.BONE_MEAL), 1, 4, "bone_from_bonemeal");
+    // tier 2
+    registerMetalMaterial(consumer, MaterialIds.iron, "iron", false);
+    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 4, 1, "seared_stone_from_block");
+    registerMetalMaterial(consumer, MaterialIds.copper, "copper", false);
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.GREEN_SLIMEBALL), 1, 1, "slime_from_ball");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.GREEN)), 4, 1, "slime_from_congealed");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.GREEN)), 5, 1, "slime_from_block");
+    // tier 3
+    registerMetalMaterial(consumer, MaterialIds.slimesteel, "slimesteel", false);
+    registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
+    registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "tinkers_bronze", false);
+    registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
+    registerMetalMaterial(consumer, MaterialIds.pigIron, "pigiron", false);
 
-    registerMaterial(consumer, MaterialIds.paper, Ingredient.fromItems(Items.PAPER), 1, 4, "paper");
+    // tier 2 (nether)
+    // tier 3 (nether)
+    registerMetalMaterial(consumer, MaterialIds.cobalt, "cobalt", false);
+    // tier 4
+    registerMetalMaterial(consumer, MaterialIds.manyullyn, "manyullyn", false);
+    registerMetalMaterial(consumer, MaterialIds.hepatizon, "hepatizon", false);
+    registerMetalMaterial(consumer, MaterialIds.slimeBronze, "slime_bronze", false);
+    registerMetalMaterial(consumer, MaterialIds.soulsteel, "soulsteel", false);
 
-    registerMaterial(consumer, MaterialIds.sponge, Ingredient.fromItems(Items.SPONGE), 1, 1, "sponge");
+    // tier 2 (end)
+    registerMaterial(consumer, MaterialIds.endstone, Ingredient.fromItems(Blocks.END_STONE), 1, 1, "endstone");
 
-    registerMaterial(consumer, MaterialIds.sponge, Ingredient.fromItems(TinkerCommons.firewood), 1, 1, "firewood");
+    // tier 2 (mod compat)
+    registerMetalMaterial(consumer, MaterialIds.silver, "silver", true);
+    registerMetalMaterial(consumer, MaterialIds.lead, "lead", true);
+    // tier 3 (mod integration)
+    registerMetalMaterial(consumer, MaterialIds.electrum, "electrum", true);
+    registerMetalMaterial(consumer, MaterialIds.bronze, "bronze", true);
+    registerMetalMaterial(consumer, MaterialIds.steel, "steel", true);
 
-    registerMaterial(consumer, MaterialIds.slime, Ingredient.fromItems(TinkerModifiers.greenSlimeCrystal), 1, 1, "slime");
-
-    registerMaterial(consumer, MaterialIds.blueslime, Ingredient.fromItems(TinkerModifiers.blueSlimeCrystal), 1, 1, "blue_slime");
-
-    registerMaterial(consumer, MaterialIds.knightslime, Ingredient.fromTag(TinkerTags.Items.INGOTS_KNIGHTSLIME), 1, 1, "knightslime_from_ingot");
-    registerMaterial(consumer, MaterialIds.knightslime, Ingredient.fromTag(TinkerTags.Items.NUGGETS_KNIGHTSLIME), 1, 9, "knightslime_from_nugget");
-    registerMaterial(consumer, MaterialIds.knightslime, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_KNIGHTSLIME), 9, 1, "knightslime_from_block");
-
-    registerMaterial(consumer, MaterialIds.magmaslime, Ingredient.fromItems(TinkerModifiers.magmaSlimeCrystal), 1, 1, "magma_slime");
-
-    registerMaterial(consumer, MaterialIds.iron, Ingredient.fromTag(Tags.Items.INGOTS_IRON), 1, 1, "iron_from_ingot");
-    registerMaterial(consumer, MaterialIds.iron, Ingredient.fromTag(Tags.Items.NUGGETS_IRON), 1, 9, "iron_from_nugget");
-    registerMaterial(consumer, MaterialIds.iron, Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_IRON), 9, 1, "iron_from_block");
-
-    registerMaterial(consumer, MaterialIds.pigiron, Ingredient.fromTag(TinkerTags.Items.INGOTS_PIG_IRON), 1, 1, "pigiron_from_ingot");
-    registerMaterial(consumer, MaterialIds.pigiron, Ingredient.fromTag(TinkerTags.Items.NUGGETS_PIG_IRON), 1, 9, "pigiron_from_nugget");
-    registerMaterial(consumer, MaterialIds.pigiron, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_PIG_IRON), 9, 1, "pigiron_from_block");
-
-    registerMaterial(consumer, MaterialIds.cobalt, Ingredient.fromTag(TinkerTags.Items.INGOTS_COBALT), 1, 1, "cobalt_from_ingot");
-    registerMaterial(consumer, MaterialIds.cobalt, Ingredient.fromTag(TinkerTags.Items.NUGGETS_COBALT), 1, 9, "cobalt_from_nugget");
-    registerMaterial(consumer, MaterialIds.cobalt, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_COBALT), 9, 1, "cobalt_from_block");
-
-    registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.INGOTS_ARDITE), 1, 1, "ardite_from_ingot");
-    registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.NUGGETS_ARDITE), 1, 9, "ardite_from_nugget");
-    registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_ARDITE), 9, 1, "ardite_from_block");
-
-    registerMaterial(consumer, MaterialIds.manyullyn, Ingredient.fromTag(TinkerTags.Items.INGOTS_MANYULLYN), 1, 1, "manyullyn_from_ingot");
-    registerMaterial(consumer, MaterialIds.manyullyn, Ingredient.fromTag(TinkerTags.Items.NUGGETS_MANYULLYN), 1, 9, "manyullyn_from_nugget");
-    registerMaterial(consumer, MaterialIds.manyullyn, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_MANYULLYN), 9, 1, "manyullyn_from_block");
-
-    registerMaterial(consumer, MaterialIds.copper, Ingredient.fromTag(TinkerTags.Items.INGOTS_COPPER), 1, 1, "copper_from_ingot");
-    registerMaterial(consumer, MaterialIds.copper, Ingredient.fromTag(TinkerTags.Items.NUGGETS_COPPER), 1, 9, "copper_from_nugget");
-    registerMaterial(consumer, MaterialIds.copper, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_COPPER), 9, 1, "copper_from_block");
-
-    registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
-
-    registerMaterial(consumer, MaterialIds.slimevine_blue, Ingredient.fromItems(TinkerWorld.blueSlimeVine), 1, 1, "slimevine_blue");
-    registerMaterial(consumer, MaterialIds.slimevine_purple, Ingredient.fromItems(TinkerWorld.purpleSlimeVine), 1, 1, "slimevine_purple");
-
-    registerMaterial(consumer, MaterialIds.blaze, Ingredient.fromItems(Items.BLAZE_ROD), 1, 1, "blaze");
-
-    registerMaterial(consumer, MaterialIds.reed, Ingredient.fromItems(Items.SUGAR_CANE), 1, 1, "reed");
-
-    registerMaterial(consumer, MaterialIds.ice, Ingredient.fromItems(Items.PACKED_ICE), 1, 1, "ice");
-
-    registerMaterial(consumer, MaterialIds.endrod, Ingredient.fromItems(Items.END_ROD), 1, 1, "endrod");
-
-    registerMaterial(consumer, MaterialIds.feather, Ingredient.fromItems(Items.FEATHER), 1, 1, "feather");
-
-    registerMaterial(consumer, MaterialIds.leaf, Ingredient.fromTag(ItemTags.LEAVES), 1, 2, "leaf");
-
-    registerMaterial(consumer, MaterialIds.slimeleaf_blue, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLUE)), 1, 2, "slimeleaf_blue");
-    registerMaterial(consumer, MaterialIds.slimeleaf_orange, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ORANGE)), 1, 2, "slimeleaf_orange");
-    registerMaterial(consumer, MaterialIds.slimeleaf_purple, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE)), 1, 2, "slimeleaf_purple");
+    //registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
+    //registerMaterial(consumer, MaterialIds.slimevine_blue, Ingredient.fromItems(TinkerWorld.blueSlimeVine), 1, 1, "slimevine_blue");
+    //registerMaterial(consumer, MaterialIds.slimevine_purple, Ingredient.fromItems(TinkerWorld.purpleSlimeVine), 1, 1, "slimevine_purple");
   }
 
   private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -322,6 +285,21 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setValue(value)
                          .setNeeded(needed)
                          .build(consumer, location("materials/" + saveName));
+  }
+
+  /**
+   * Register ingots, nuggets, and blocks for a metal material
+   * @param consumer  Consumer instance
+   * @param material  Material
+   * @param name      Material name
+   */
+  private void registerMetalMaterial(Consumer<IFinishedRecipe> consumer, MaterialId material, String name, boolean optional) {
+    Consumer<IFinishedRecipe> wrapped = optional ? withCondition(consumer, tagCondition("ingots/" + name)) : consumer;
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "ingots/" + name)), 1, 1, name + "_from_ingot");
+    wrapped = optional ? withCondition(consumer, tagCondition("nuggets/" + name)) : consumer;
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, name + "_from_nugget");
+    wrapped = optional ? withCondition(consumer, tagCondition("storage_blocks/" + name)) : consumer;
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, name + "_from_block");
   }
 
   /**
