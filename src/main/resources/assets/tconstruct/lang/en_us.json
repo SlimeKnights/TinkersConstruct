@@ -145,10 +145,10 @@
     "item.tconstruct.manyullyn_ingot": "Manyullyn Ingot",
     "item.tconstruct.manyullyn_nugget": "Manyullyn Nugget",
     
-    "block.tconstruct.heptazion_block": "Block of Heptazion",
-    "block.tconstruct.heptazion_block.tooltip": "Can be used as beacon base",
-    "item.tconstruct.heptazion_ingot": "Heptazion Ingot",
-    "item.tconstruct.heptazion_nugget": "Heptazion Nugget",
+    "block.tconstruct.hepatizon_block": "Block of Hepatizon",
+    "block.tconstruct.hepatizon_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.hepatizon_ingot": "Hepatizon Ingot",
+    "item.tconstruct.hepatizon_nugget": "Hepatizon Nugget",
     
     "block.tconstruct.slime_bronze_block": "Block of Slime Bronze",
     "block.tconstruct.slime_bronze_block.tooltip": "Can be used as beacon base",
@@ -489,10 +489,10 @@
     "fluid.tconstruct.flowing_molten_manyullyn": "Flowing Molten Manyullyn",
     "item.tconstruct.molten_manyullyn_bucket": "Molten Manyullyn Bucket",
 
-    "block.tconstruct.molten_heptazion_fluid": "Molten Heptazion",
-    "fluid.tconstruct.molten_heptazion": "Molten Heptazion",
-    "fluid.tconstruct.flowing_molten_heptazion": "Flowing Molten Heptazion",
-    "item.tconstruct.molten_heptazion_bucket": "Molten Heptazion Bucket",
+    "block.tconstruct.molten_hepatizon_fluid": "Molten Hepatizon",
+    "fluid.tconstruct.molten_hepatizon": "Molten Hepatizon",
+    "fluid.tconstruct.flowing_molten_hepatizon": "Flowing Molten Hepatizon",
+    "item.tconstruct.molten_hepatizon_bucket": "Molten Hepatizon Bucket",
 
     "block.tconstruct.molten_slime_bronze_fluid": "Molten Slime Bronze",
     "fluid.tconstruct.molten_slime_bronze": "Molten Slime Bronze",
