@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/heptazion_block"
+            "model": "tconstruct:block/hepatizon_block"
         }
     }
 }

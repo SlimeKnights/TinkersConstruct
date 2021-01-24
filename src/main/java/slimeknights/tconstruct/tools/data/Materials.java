@@ -30,6 +30,7 @@ final class Materials {
   public static final IMaterial slimesteel    = mat(MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, false, "74c8c7");
   public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl, false, "601cc4");
   public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, TinkerFluids.moltenTinkersBronze, false, "f9cf72");
+  public static final IMaterial roseGold      = mat(MaterialIds.roseGold, TinkerFluids.moltenRoseGold, false, "ffdbcc");
   public static final IMaterial pigIron       = mat(MaterialIds.pigIron, TinkerFluids.moltenPigIron, false, "ef9e9b");
 
   // tier 2 (nether)
@@ -38,7 +39,7 @@ final class Materials {
   public static final IMaterial cobalt = mat(MaterialIds.cobalt, TinkerFluids.moltenCobalt, false, "2882d4");
   // tier 4
   public static final IMaterial manyullyn   = mat(MaterialIds.manyullyn, TinkerFluids.moltenManyullyn, false, "a15cf8");
-  public static final IMaterial hepatizon   = mat(MaterialIds.hepatizon, TinkerFluids.moltenHepatizon, false, "410d59");
+  public static final IMaterial hepatizon   = mat(MaterialIds.hepatizon, TinkerFluids.moltenHepatizon, false, "60496b");
   public static final IMaterial slimeBronze = mat(MaterialIds.slimeBronze, TinkerFluids.moltenSlimeBronze, false, "ff960d");
   public static final IMaterial soulsteel   = mat(MaterialIds.soulsteel, TinkerFluids.moltenSoulsteel, false, "6a5244");
 

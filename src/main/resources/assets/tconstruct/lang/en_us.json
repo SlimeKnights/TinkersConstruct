@@ -933,54 +933,50 @@
 
     "item.tconstruct.blue_slime_spawn_egg": "Blue Slime Spawn Egg",
     
-    "__comment": "Materials",
     
+    "__comment": "Tier 1 Materials",
     "material.tconstruct.wood": "Wood",
     "material.tconstruct.wood.format": "Wooden %s",
     "material.tconstruct.stone": "Stone",
     "material.tconstruct.flint": "Flint",
-    "material.tconstruct.cactus": "Cactus",
-    "material.tconstruct.obsidian": "Obsidian",
-    "material.tconstruct.prismarine": "Prismarine",
-    "material.tconstruct.netherrack": "Netherrack",
-    "material.tconstruct.endstone": "End",
     "material.tconstruct.bone": "Bone",
-    "material.tconstruct.paper": "Paper",
-    "material.tconstruct.sponge": "Sponge",
-    "material.tconstruct.firewood": "Firewood",
-    "material.tconstruct.slime": "Slime",
-    "material.tconstruct.blueslime": "Blue Slime",
-    "material.tconstruct.blueslime.format": "Slime %s",
-    "material.tconstruct.knightslime": "Knightslime",
-    "material.tconstruct.magmaslime": "Magma Slime",
-    "material.tconstruct.ardite": "Ardite",
+    
+    "__comment": "Tier 2 Materials",
+    "material.tconstruct.iron": "Iron",
+    "material.tconstruct.seared_stone": "Seared Stone",
+    "material.tconstruct.copper": "Copper",
+    "material.tconstruct.slimewood": "Slimewood",
+    
+    "__comment": "Tier 3 Materials",
+    "material.tconstruct.slimesteel": "Slimesteel",
+    "material.tconstruct.nahuatl": "Nahuatl",
+    "material.tconstruct.tinkers_bronze": "Tinker's Bronze",
+    "material.tconstruct.rose_gold": "Rose Gold",
+    "material.tconstruct.pig_iron": "Pig Iron",
+    
+    
+    "__comment": "Tier Nether Materials",
     "material.tconstruct.cobalt": "Cobalt",
     "material.tconstruct.manyullyn": "Manyullyn",
-    "material.tconstruct.iron": "Iron",
-    "material.tconstruct.pigiron": "Pig Iron",
-    "material.tconstruct.copper": "Copper",
-    "material.tconstruct.bronze": "Bronze",
+    "material.tconstruct.hepatizon": "Hepatizon",
+    "material.tconstruct.slime_bronze": "Slime Bronze",
+    "material.tconstruct.soulsteel": "Soulsteel",
+    
+    
+    "__comment": "Tier End Materials",
+    "material.tconstruct.endstone": "End",
+    "material.tconstruct.knightslime": "Knightslime",
+    
+    
+    "__comment": "Tier 2 Integration Materials",
     "material.tconstruct.lead": "Lead",
     "material.tconstruct.silver": "Silver",
+    
+    "__comment": "Tier 3 Integration Materials",
     "material.tconstruct.electrum": "Electrum",
+    "material.tconstruct.bronze": "Bronze",
     "material.tconstruct.steel": "Steel",
     
-    "material.tconstruct.string": "String",
-    "material.tconstruct.vine": "Vines",
-    "material.tconstruct.slimevine_blue": "Slimevine",
-    "material.tconstruct.slimevine_orange": "Slimevine",
-    "material.tconstruct.slimevine_purple": "Slimevine",
-    
-    "material.tconstruct.blaze": "Blazerod",
-    "material.tconstruct.reed": "Reeds",
-    "material.tconstruct.ice": "Ice",
-    "material.tconstruct.endrod": "Endrod",
-    
-    "material.tconstruct.feather": "Feather",
-    "material.tconstruct.leaf": "Leaf",
-    "material.tconstruct.slimeleaf_blue": "Slimeleaf",
-    "material.tconstruct.slimeleaf_orange": "Slimeleaf",
-    "material.tconstruct.slimeleaf_purple": "Slimeleaf",
 
     "_comment": "Stats",
 
