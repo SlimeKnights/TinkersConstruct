@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:alloy",
+  "output": {
+    "fluid": "tconstruct:molten_tinkers_bronze",
+    "amount": 576
+  },
+  "inputs": [
+    {
+      "name": "tconstruct:molten_copper",
+      "amount": 432
+    },
+    {
+      "name": "tconstruct:molten_glass",
+      "amount": 144
+    }
+  ]
+}

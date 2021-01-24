@@ -17,7 +17,7 @@ public abstract class BaseMaterialStats implements IMaterialStats {
 
   @Override
   public IFormattableTextComponent getLocalizedName() {
-    return new TranslationTextComponent(String.format("stat.%s.name", this.getIdentifier().getPath()));
+    return new TranslationTextComponent(String.format("stat.tconstruct.%s", this.getIdentifier().getPath()));
   }
 
   public static ITextComponent formatNumber(String loc, Color color, int number) {
@@ -33,4 +33,23 @@ public abstract class BaseMaterialStats implements IMaterialStats {
     return new TranslationTextComponent(loc)
       .append(new StringTextComponent(Util.dfPercent.format(number)).modifyStyle(style -> style.setColor(color)));
   }
+
+  /**
+   * Helper to make a translation key for the given name
+   * @param name  name
+   * @return  Text component
+   */
+  protected static String makeTooltipKey(String name) {
+    return Util.makeTranslationKey("stat", name);
+  }
+
+  /**
+   * Helper to make a text component for the given name
+   * @param name  name
+   * @return  Text component
+   */
+  protected static ITextComponent makeTooltip(String name) {
+    return new TranslationTextComponent(makeTooltipKey(name));
+  }
+
 }

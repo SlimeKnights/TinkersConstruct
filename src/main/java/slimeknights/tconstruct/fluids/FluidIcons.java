@@ -19,4 +19,7 @@ public class FluidIcons {
 
   public static final ResourceLocation BLAZE_STILL = Util.getResource("block/fluid/blaze_still");
   public static final ResourceLocation BLAZE_FLOWING = Util.getResource("block/fluid/blaze_flowing");
+
+  public static final ResourceLocation MAGMA_CREAM_STILL = Util.getResource("block/fluid/magma_cream_still");
+  public static final ResourceLocation MAGMA_CREAM_FLOWING = Util.getResource("block/fluid/magma_cream_flowing");
 }

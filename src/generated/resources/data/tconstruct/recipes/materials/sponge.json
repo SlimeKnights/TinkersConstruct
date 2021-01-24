@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "minecraft:sponge"
-  },
-  "value": 1,
-  "needed": 1,
-  "material": "tconstruct:sponge"
-}
