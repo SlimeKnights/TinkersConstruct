@@ -20,7 +20,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
-import slimeknights.tconstruct.smeltery.util.EntityMeltingRecipeCache;
+import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
 
 import javax.annotation.Nullable;
 import java.util.Objects;

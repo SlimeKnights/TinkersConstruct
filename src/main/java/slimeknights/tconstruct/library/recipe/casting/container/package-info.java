@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.smeltery.util;
+package slimeknights.tconstruct.library.recipe.casting.container;
 
 import mcp.MethodsReturnNonnullByDefault;
 
