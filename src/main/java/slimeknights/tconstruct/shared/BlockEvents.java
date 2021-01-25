@@ -9,7 +9,6 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID)
@@ -32,8 +31,6 @@ public class BlockEvents {
 
     if (TinkerWorld.congealedSlime.contains(block)) {
       bounce(event.getEntity(), 0.25f);
-    } else if (block == TinkerModifiers.slimyMudGreen.get() || block == TinkerModifiers.slimyMudBlue.get()) {
-      bounce(event.getEntity(), 0.15f);
     } else if (TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.greenSlimeGrass.contains(block) || TinkerWorld.blueSlimeGrass.contains(block) || TinkerWorld.purpleSlimeGrass.contains(block) || TinkerWorld.magmaSlimeGrass.contains(block)) {
       bounce(event.getEntity(), 0.06f);
     }

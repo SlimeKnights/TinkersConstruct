@@ -64,11 +64,8 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
   private void addCommon() {
     this.registerDropSelfLootTable(TinkerSmeltery.grout.get());
-    this.registerDropSelfLootTable(TinkerModifiers.slimyMudGreen.get());
-    this.registerDropSelfLootTable(TinkerModifiers.slimyMudBlue.get());
     this.registerDropSelfLootTable(TinkerModifiers.graveyardSoil.get());
     this.registerDropSelfLootTable(TinkerModifiers.consecratedSoil.get());
-    this.registerDropSelfLootTable(TinkerModifiers.slimyMudMagma.get());
 
     this.registerBuildingLootTables(TinkerCommons.firewood);
     this.registerBuildingLootTables(TinkerCommons.lavawood);
