@@ -723,6 +723,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.ENDER_DRAGON),
                                        new FluidStack(TinkerFluids.moltenEnder.get(), MaterialValues.VALUE_Gem / 25), 2)
                               .build(consumer, location(folder + "ender"));
+
+    // if you can get him to stay, wither is a source of free liquid soul
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.WITHER),
+                                       new FluidStack(TinkerFluids.liquidSoul.get(), MaterialValues.VALUE_Glass / 16), 2)
+                              .build(consumer, prefixR(EntityType.WITHER, folder));
   }
 
 
