@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:nuggets/pig_iron"
+    "tag": "forge:nuggets/pigiron"
   },
   "result": {
     "fluid": "tconstruct:molten_pig_iron",

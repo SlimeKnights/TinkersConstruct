@@ -1,12 +1,12 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:storage_blocks/pig_iron"
+    "tag": "forge:ingots/pigiron"
   },
   "result": {
     "fluid": "tconstruct:molten_pig_iron",
-    "amount": 1296
+    "amount": 144
   },
   "temperature": 811,
-  "time": 181
+  "time": 60
 }

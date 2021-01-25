@@ -455,10 +455,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     addMetalMelting(consumer, TinkerFluids.moltenSlimesteel.get(),    "slimesteel",     false, folder, false);
     addMetalMelting(consumer, TinkerFluids.moltenTinkersBronze.get(), "tinkers_bronze", false, folder, false);
     addMetalMelting(consumer, TinkerFluids.moltenRoseGold.get(),      "rose_gold",      false, folder, false);
-    addMetalMelting(consumer, TinkerFluids.moltenPigIron.get(),       "pig_iron",       false, folder, false);
+    addMetalMelting(consumer, TinkerFluids.moltenPigIron.get(),       "pigiron",       false, folder, false);
     // tier 4
     addMetalMelting(consumer, TinkerFluids.moltenManyullyn.get(),   "manyullyn",    false, folder, false);
-    addMetalMelting(consumer, TinkerFluids.moltenHepatizon.get(), "heptazion", false, folder, false);
+    addMetalMelting(consumer, TinkerFluids.moltenHepatizon.get(),   "hepatizon",    false, folder, false);
     addMetalMelting(consumer, TinkerFluids.moltenSlimeBronze.get(), "slime_bronze", false, folder, false);
     addMetalMelting(consumer, TinkerFluids.moltenSoulsteel.get(),   "soulsteel",    false, folder, false);
     addMetalMelting(consumer, TinkerFluids.moltenNetherite.get(),   "netherite",    false, folder, false);

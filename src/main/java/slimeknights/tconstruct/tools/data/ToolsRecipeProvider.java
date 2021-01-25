@@ -145,13 +145,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
 
   private void addMaterialsRecipes(Consumer<IFinishedRecipe> consumer) {
     // tier 1
+    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(Tags.Items.RODS_WOODEN), 1, 2, "wood_from_sticks");
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood_from_planks");
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood_from_logs");
-    registerMaterial(consumer, MaterialIds.stone, Ingredient.fromTag(Tags.Items.COBBLESTONE), 1, 1, "stone_from_cobblestone");
-    registerMaterial(consumer, MaterialIds.stone, Ingredient.fromTag(Tags.Items.STONE), 1, 1, "stone_from_stone");
+    registerMaterial(consumer, MaterialIds.stone, new CompoundIngredient(
+      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.BASALT, Blocks.POLISHED_BASALT, Blocks.POLISHED_BLACKSTONE)
+    ), 1, 1, "stone_from_stone");
     registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT), 1, 1, "flint");
     registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone_from_bones");
-    registerMaterial(consumer, MaterialIds.bone, Ingredient.fromItems(Items.BONE_MEAL), 1, 4, "bone_from_bonemeal");
     // tier 2
     registerMetalMaterial(consumer, MaterialIds.iron, "iron", false);
     registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 4, 1, "seared_stone_from_block");
@@ -164,14 +165,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
     registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "tinkers_bronze", false);
     registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
-    registerMetalMaterial(consumer, MaterialIds.pigIron, "pig_iron", false);
+    registerMetalMaterial(consumer, MaterialIds.pigIron, "pigiron", false);
 
     // tier 2 (nether)
     // tier 3 (nether)
     registerMetalMaterial(consumer, MaterialIds.cobalt, "cobalt", false);
     // tier 4
     registerMetalMaterial(consumer, MaterialIds.manyullyn, "manyullyn", false);
-    registerMetalMaterial(consumer, MaterialIds.hepatizon, "heptazion", false);
+    registerMetalMaterial(consumer, MaterialIds.hepatizon, "hepatizon", false);
     registerMetalMaterial(consumer, MaterialIds.slimeBronze, "slime_bronze", false);
     registerMetalMaterial(consumer, MaterialIds.soulsteel, "soulsteel", false);
 
