@@ -538,7 +538,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // magma cream
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.MAGMA_CREAM), TinkerFluids.magmaCream.get(), MaterialValues.VALUE_SlimeBall, 1.0f)
                         .build(consumer, wrapR(TinkerFluids.magmaCream, folder, "_from_ball"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.MAGMA_BLOCK), TinkerFluids.magmaCream.get(), MaterialValues.VALUE_SlimeBall * 9, 3.0f)
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.MAGMA_BLOCK), TinkerFluids.magmaCream.get(), MaterialValues.VALUE_SlimeBall * 4, 3.0f)
                         .build(consumer, wrapR(TinkerFluids.magmaCream, folder, "_from_block"));
 
     // obsidian
