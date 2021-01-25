@@ -29,9 +29,9 @@ public class HeadMaterialStats extends BaseMaterialStats {
   public static final HeadMaterialStats DEFAULT = new HeadMaterialStats(1, 1f, 0, 1f);
   // tooltip prefixes
   public static final String DURABILITY_PREFIX = makeTooltipKey("head.durability");
-  private static final String MINING_SPEED_PREFIX = makeTooltipKey("mining_speed.durability");
-  private static final String ATTACK_PREFIX = makeTooltipKey("attack.durability");
-  private static final String HARVEST_LEVEL_PREFIX = makeTooltipKey("harvest_level.durability");
+  private static final String MINING_SPEED_PREFIX = makeTooltipKey("head.mining_speed");
+  private static final String ATTACK_PREFIX = makeTooltipKey("head.attack");
+  private static final String HARVEST_LEVEL_PREFIX = makeTooltipKey("head.harvest_level");
   // tooltip descriptions
   private static final ITextComponent DURABILITY_DESCRIPTION = makeTooltip("head.durability.description");
   private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip("head.mining_speed.description");
