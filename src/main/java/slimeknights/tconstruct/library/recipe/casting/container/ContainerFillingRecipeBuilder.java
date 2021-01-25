@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.casting;
+package slimeknights.tconstruct.library.recipe.casting.container;
 
 import com.google.gson.JsonObject;
 import net.minecraft.data.IFinishedRecipe;

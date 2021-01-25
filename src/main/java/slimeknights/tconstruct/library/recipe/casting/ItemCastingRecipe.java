@@ -20,12 +20,13 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Casting recipe that takes a fluid and optional cast and outputs an item
  */
-public abstract class ItemCastingRecipe extends AbstractCastingRecipe {
+public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplayableCastingRecipe {
   @Getter
   protected final FluidIngredient fluid;
   protected final ItemOutput result;
@@ -58,10 +59,29 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe {
     return this.coolingTime;
   }
 
+
+  /* JEI */
+
+  @Override
+  public boolean hasCast() {
+    return cast != Ingredient.EMPTY;
+  }
+
+  @Override
+  public List<ItemStack> getCastItems() {
+    return Arrays.asList(cast.getMatchingStacks());
+  }
+
+  @Override
+  public ItemStack getOutput() {
+    return this.result.get();
+  }
+
   /**
    * Gets a list of valid fluid inputs for this recipe, for display in JEI
    * @return  List of fluids
    */
+  @Override
   public List<FluidStack> getFluids() {
     return this.fluid.getFluids();
   }

@@ -10,7 +10,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -30,7 +29,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingRecipeBuilder> {
   private final ItemOutput result;
-  private final AbstractCastingRecipe.Serializer<?> recipeSerializer;
+  private final ItemCastingRecipe.Serializer<?> recipeSerializer;
   private Ingredient cast = Ingredient.EMPTY;
   private FluidIngredient fluid = FluidIngredient.EMPTY;
   @Setter @Accessors(chain = true)
@@ -40,7 +39,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
 
   /**
    * Creates a new casting basin recipe
-   * @param resultIn  Recipe result
+   * @param result  Recipe result
    * @return  Builder instance
    */
   public static ItemCastingRecipeBuilder basinRecipe(ItemOutput result) {
@@ -58,7 +57,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
 
   /**
    * Creates a new casting basin recipe
-   * @param resultIn  Recipe result
+   * @param result  Recipe result
    * @return  Builder instance
    */
   public static ItemCastingRecipeBuilder basinRecipe(ITag<Item> result) {
@@ -101,9 +100,10 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param amount  amount of fluid
    * @return  Builder instance
    */
-  public ItemCastingRecipeBuilder setFluid(Tag<Fluid> tagIn, int amount) {
+  public ItemCastingRecipeBuilder setFluid(ITag<Fluid> tagIn, int amount) {
     return this.setFluid(FluidIngredient.of(tagIn, amount));
   }
+
   /**
    * Sets the fluid ingredient
    * @param fluid  Fluid ingredient instance
