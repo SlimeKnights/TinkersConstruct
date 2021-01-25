@@ -29,8 +29,9 @@ import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.casting.ContainerFillingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.casting.material.CompositeCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
@@ -41,6 +42,7 @@ import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
+import slimeknights.tconstruct.tools.data.MaterialIds;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
@@ -405,6 +407,18 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addCastCastingRecipe(consumer, Tags.Items.INGOTS, TinkerSmeltery.ingotCast, folder);
     this.addCastCastingRecipe(consumer, Tags.Items.NUGGETS, TinkerSmeltery.nuggetCast, folder);
     this.addCastCastingRecipe(consumer, Tags.Items.GEMS, TinkerSmeltery.gemCast, folder);
+
+    // composite casting
+    folder += "composite/";
+    CompositeCastingRecipeBuilder.table(MaterialIds.stone, MaterialIds.searedStone)
+                                 .setFluid(new FluidStack(TinkerFluids.moltenClay.get(), MaterialValues.VALUE_SlimeBall / 2))
+                                 .build(consumer, location(folder + "seared_stone"));
+    CompositeCastingRecipeBuilder.table(MaterialIds.wood, MaterialIds.slimewood)
+                                 .setFluid(new FluidStack(TinkerFluids.greenSlime.get(), MaterialValues.VALUE_SlimeBall))
+                                 .build(consumer, location(folder + "slimewood"));
+    CompositeCastingRecipeBuilder.table(MaterialIds.wood, MaterialIds.nahuatl)
+                                 .setFluid(new FluidStack(TinkerFluids.moltenObsidian.get(), MaterialValues.VALUE_Pane))
+                                 .build(consumer, location(folder + "nahuatl"));
   }
 
   private void addMeltingRecipes(Consumer<IFinishedRecipe> consumer) {

@@ -1,27 +1,28 @@
-package slimeknights.tconstruct.smeltery.util;
+package slimeknights.tconstruct.library.recipe.entitymelting;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.resources.IResourceManager;
-import net.minecraftforge.event.AddReloadListenerEvent;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
+import slimeknights.tconstruct.common.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class handling a recipe cache for entity melting recipes
+ * Class handling a recipe cache for entity melting recipes, since any given entity type has one recipe
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class EntityMeltingRecipeCache implements IEarlySafeManagerReloadListener {
+public class EntityMeltingRecipeCache {
   private static final Map<EntityType<?>,EntityMeltingRecipe> CACHE = new HashMap<>();
-  private static final EntityMeltingRecipeCache INSTANCE = new EntityMeltingRecipeCache();
+
+  static {
+    // register listener to reset on cache clear
+    RecipeCacheInvalidator.addReloadListener(CACHE::clear);
+  }
 
   /**
    * Gets the recipe for the given type
@@ -46,18 +47,5 @@ public class EntityMeltingRecipeCache implements IEarlySafeManagerReloadListener
     // cache nothing was found
     CACHE.put(type, null);
     return null;
-  }
-
-  @Override
-  public void onReloadSafe(IResourceManager resourceManager) {
-    CACHE.clear();
-  }
-
-  /**
-   * Called when resource managers reload
-   * @param event  Reload event
-   */
-  public static void onReloadListenerReload(AddReloadListenerEvent event) {
-    event.addListener(INSTANCE);
   }
 }
