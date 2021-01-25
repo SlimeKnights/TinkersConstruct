@@ -301,7 +301,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addSlimeCastingRecipe(consumer, TinkerFluids.blueSlime, SlimeType.BLUE, folder);
     this.addSlimeCastingRecipe(consumer, TinkerFluids.purpleSlime, SlimeType.PURPLE, folder);
     // magma cream
-    addBlockCastingRecipe(consumer, TinkerFluids.magmaCream, MaterialValues.VALUE_SlimeBall * 9, Blocks.MAGMA_BLOCK, folder);
+    addBlockCastingRecipe(consumer, TinkerFluids.magmaCream, MaterialValues.VALUE_SlimeBall * 4, Blocks.MAGMA_BLOCK, folder);
     ItemCastingRecipeBuilder.tableRecipe(Items.MAGMA_CREAM)
                             .setFluid(new FluidStack(TinkerFluids.magmaCream.get(), MaterialValues.VALUE_SlimeBall))
                             .build(consumer, location(folder + "slimeball/magma_cream"));
