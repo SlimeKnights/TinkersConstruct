@@ -1,17 +1,12 @@
 package slimeknights.tconstruct.tools.data;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -30,7 +25,6 @@ import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -38,7 +32,6 @@ import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -120,12 +113,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .setGroup(TinkerModifiers.silkyJewel.getRegistryName().toString())
                        .build(consumer, prefix(TinkerModifiers.silkyJewel, folder));
     registerPackingRecipe(consumer, "block", TinkerModifiers.silkyJewelBlock, "gem", TinkerModifiers.silkyJewel, folder);
-
-
-    // slimy mud and slime crystals
-    registerMudRecipe(consumer, SlimeType.GREEN, null, TinkerModifiers.slimyMudGreen, TinkerModifiers.greenSlimeCrystal, folder);
-    registerMudRecipe(consumer, SlimeType.BLUE, null, TinkerModifiers.slimyMudBlue, TinkerModifiers.blueSlimeCrystal, folder);
-    registerMudRecipe(consumer, SlimeType.MAGMA, Items.MAGMA_CREAM, TinkerModifiers.slimyMudMagma, TinkerModifiers.magmaSlimeCrystal, folder);
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -300,46 +287,5 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, name + "_from_nugget");
     wrapped = optional ? withCondition(consumer, tagCondition("storage_blocks/" + name)) : consumer;
     registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, name + "_from_block");
-  }
-
-  /**
-   * Registers recipes to craft slimy mud
-   * @param consumer   Recipe consumer
-   * @param slime      Slime type
-   * @param extraItem  Extra item to mix with slime
-   * @param mud        Mud output
-   * @param crystal    Crystal output
-   * @param folder     Output folder
-   */
-  private void registerMudRecipe(Consumer<IFinishedRecipe> consumer, SlimeType slime, @Nullable IItemProvider extraItem, IItemProvider mud, IItemProvider crystal, String folder) {
-    Item slimeball = TinkerCommons.slimeball.get(slime);
-
-    // null means use slime for both, so we can add congealed recipe
-    if (extraItem == null) {
-      Block congealed = TinkerWorld.congealedSlime.get(slime);
-      ShapelessRecipeBuilder.shapelessRecipe(mud)
-                            .addIngredient(congealed)
-                            .addIngredient(Tags.Items.SAND)
-                            .addIngredient(Blocks.DIRT)
-                            .addCriterion("has_item", hasItem(congealed))
-                            .setGroup(locationString("slimy_mud"))
-                            .build(consumer, wrap(mud, folder, "_congealed"));
-      extraItem = slimeball;
-    }
-    // base recipe
-    ShapelessRecipeBuilder.shapelessRecipe(mud)
-                          .addIngredient(slimeball)
-                          .addIngredient(slimeball)
-                          .addIngredient(extraItem)
-                          .addIngredient(extraItem)
-                          .addIngredient(Tags.Items.SAND)
-                          .addIngredient(Blocks.DIRT)
-                          .addCriterion("has_item", hasItem(slimeball))
-                          .setGroup(locationString("slimy_mud"))
-                          .build(consumer, wrap(mud, folder, "_slimeballs"));
-    // crystal smelting
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(mud), crystal, 0.5f, 200)
-                        .addCriterion("has_item", hasItem(mud))
-                        .build(consumer, wrap(crystal, folder, "_smelting"));
   }
 }
