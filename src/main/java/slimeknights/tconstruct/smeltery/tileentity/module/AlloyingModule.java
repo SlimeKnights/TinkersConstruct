@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.tileentity.MantleTileEntity;
@@ -13,38 +12,89 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /** Module to handle running alloys via a fluid handler */
-@RequiredArgsConstructor
 public class AlloyingModule {
   private final MantleTileEntity parent;
-  private final IFluidHandler fluidHandler;
   private final IAlloyTank alloyTank;
 
-  /** Cache of the last recipe that matched. Only used in {@link #canAlloy()} as we have to run all recipes in {@link #doAlloy()} */
-  @Nullable
-  private AlloyRecipe lastMatch;
   /** List of recipes that succeeded last time in {@link #doAlloy()}, only these will be used for the next iteration */
   @Nullable
   private List<AlloyRecipe> lastRecipes;
+
+  /** Predicates for common behaviors */
+  private final Predicate<AlloyRecipe> canPerform, performRecipe;
+
+  public AlloyingModule(MantleTileEntity parent, IFluidHandler fluidHandler, IAlloyTank alloyTank) {
+    this.parent = parent;
+    this.alloyTank = alloyTank;
+    this.canPerform = recipe -> recipe.canPerform(alloyTank);
+    this.performRecipe = recipe -> {
+      recipe.performRecipe(alloyTank, fluidHandler);
+      return false;
+    };
+  }
 
   /** Gets a nonnull world instance from the parent */
   private World getWorld() {
     return Objects.requireNonNull(parent.getWorld(), "Parent tile entity has null world");
   }
 
-  /** Checks if any alloy recipe can be used */
-  public boolean canAlloy() {
-    World world = getWorld();
-    if (lastMatch != null && lastMatch.matches(alloyTank, world)) {
-      return lastMatch.canPerform(alloyTank);
+  /**
+   * Gets a list of recipes that currently match the tank
+   * @return  List of recipes that match the tank
+   */
+  private List<AlloyRecipe> getRecipes() {
+    if (lastRecipes == null) {
+      lastRecipes = getWorld().getRecipeManager().getRecipes(RecipeTypes.ALLOYING, alloyTank, getWorld());
+    }
+    return lastRecipes;
+  }
+
+  /**
+   * Runs all the recipes, removing any that no longer match
+   * @param predicate  Logic to run for recipes, return true to stop looping
+   * @return  True if any recipe returned true
+   */
+  private boolean iterateRecipes(Predicate<AlloyRecipe> predicate) {
+    List<AlloyRecipe> recipes = getRecipes();
+    if (recipes.isEmpty()) {
+      return false;
     }
 
-    // find a new recipe
-    return world.getRecipeManager().getRecipe(RecipeTypes.ALLOYING, alloyTank, world).filter(recipe -> {
-      lastMatch = recipe;
-      return recipe.canPerform(alloyTank);
-    }).isPresent();
+    World world = getWorld();
+    Iterator<AlloyRecipe> iterator = recipes.iterator();
+    while (iterator.hasNext()) {
+      // if the recipe no longer matches, remove
+      // if it matches, run their function and stop if requested
+      AlloyRecipe recipe = iterator.next();
+      if (recipe.matches(alloyTank, world)) {
+        if (predicate.test(recipe)) {
+          return true;
+        }
+      } else {
+        iterator.remove();
+      }
+    }
+    return false;
+  }
+
+  /** Checks if any alloy recipe can be used */
+  public boolean canAlloy() {
+    return iterateRecipes(canPerform);
+  }
+
+  /**
+   * Actually performs alloys for the tank
+   */
+  public void doAlloy() {
+    List<AlloyRecipe> recipes = getRecipes();
+    if (recipes.isEmpty()) return;
+    // shuffle the recipe list, in case we have mutually exclusive recipes it makes them less dependant on name order
+    Collections.shuffle(recipes);
+    // recipes is the same as lastRecipes at this time, so the iterator will use the shuffled list
+    iterateRecipes(performRecipe);
   }
 
   /**
@@ -52,39 +102,5 @@ public class AlloyingModule {
    */
   public void clearCachedRecipes() {
     lastRecipes = null;
-  }
-
-  /**
-   * Actually performs alloys for the tank
-   */
-  public void doAlloy() {
-    World world = getWorld();
-
-    // if no cached recipes, find a new list of recipes for this set of fluids
-    if (lastRecipes == null) {
-      lastRecipes = world.getRecipeManager().getRecipes(RecipeTypes.ALLOYING, alloyTank, world);
-    }
-
-    // no recipes? done
-    if (lastRecipes.isEmpty()) {
-      return;
-    }
-
-    // shuffle the recipe list, in case we have mutually exclusive recipes it makes them less dependant on name order
-    Collections.shuffle(lastRecipes);
-
-    Iterator<AlloyRecipe> recipeIterator = lastRecipes.iterator();
-    AlloyRecipe recipe;
-    while (recipeIterator.hasNext()) {
-      recipe = recipeIterator.next();
-      if (recipe.matches(alloyTank, world)) {
-        recipe.performRecipe(alloyTank, fluidHandler);
-        // store this recipe as the last successful recipe to speed up canAlloy()
-        lastMatch = recipe;
-      } else {
-        // remove the recipe if it no longer matches, means we have fewer fluids than we did when this list was cached
-        recipeIterator.remove();
-      }
-    }
   }
 }

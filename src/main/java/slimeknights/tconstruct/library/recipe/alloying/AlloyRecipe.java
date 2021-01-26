@@ -45,6 +45,11 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   /** Recipe output */
   @Getter
   private final FluidStack output;
+  /** Required temperature to craft this */
+  @Getter
+  private final int temperature;
+
+
   /** Cache of recipe input list */
   private List<List<FluidStack>> displayInputs;
 
@@ -120,6 +125,9 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
    * @return  True if this recipe can be performed
    */
   public boolean canPerform(IAlloyTank inv) {
+    // skip if temperature is too low
+    if (inv.getTemperature() < temperature) return false;
+
     // bit corresponding to fluids that are already used
     BitSet used = makeBitset(inv);
     int drainAmount = 0;
@@ -146,6 +154,9 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
    * @param handler  Fluid handler representing the output
    */
   public void performRecipe(IAlloyTank inv, IFluidHandler handler) {
+    // skip if temperature is too low
+    if (inv.getTemperature() < temperature) return;
+
     // figure out how much fluid we need to remove
     List<FluidStack> drainFluids = new ArrayList<>();
     int drainAmount = 0;
@@ -213,7 +224,8 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
           throw new JsonSyntaxException("Output fluid contained in input in alloy recipe " + id);
         }
       }
-      return new AlloyRecipe(id, inputs, output);
+      int temperature = JSONUtils.getInt(json, "temperature");
+      return new AlloyRecipe(id, inputs, output, temperature);
     }
 
     @Override
@@ -223,6 +235,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
       for (FluidIngredient input : recipe.inputs) {
         input.write(buffer);
       }
+      buffer.writeVarInt(recipe.temperature);
     }
 
     @Nullable
@@ -234,7 +247,8 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
       for (int i = 0; i < inputCount; i++) {
         builder.add(FluidIngredient.read(buffer));
       }
-      return new AlloyRecipe(id, builder.build(), output);
+      int temperature = buffer.readVarInt();
+      return new AlloyRecipe(id, builder.build(), output, temperature);
     }
   }
 }
