@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "tag": "forge:storage_blocks/slime_bronze"
-  },
-  "value": 9,
-  "needed": 1,
-  "material": "tconstruct:slime_bronze"
-}

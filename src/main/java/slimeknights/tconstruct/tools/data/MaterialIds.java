@@ -33,7 +33,7 @@ public final class MaterialIds {
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
-  public static final MaterialId slimeBronze = id("slime_bronze");
+  public static final MaterialId queensSlime = id("queens_slime");
   public static final MaterialId soulsteel = id("soulsteel");
 
   // tier 2 (end)

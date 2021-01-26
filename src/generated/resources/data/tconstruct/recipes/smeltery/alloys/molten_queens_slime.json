@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "name": "tconstruct:molten_cobalt",
+      "amount": 144
+    },
+    {
+      "name": "tconstruct:molten_gold",
+      "amount": 144
+    },
+    {
+      "name": "tconstruct:magma_cream",
+      "amount": 250
+    }
+  ],
+  "output": {
+    "fluid": "tconstruct:molten_queens_slime",
+    "amount": 288
+  },
+  "temperature": 1150
+}

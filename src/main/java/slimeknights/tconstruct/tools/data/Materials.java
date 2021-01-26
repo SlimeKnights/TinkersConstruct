@@ -40,7 +40,7 @@ final class Materials {
   // tier 4
   public static final IMaterial manyullyn   = mat(MaterialIds.manyullyn, TinkerFluids.moltenManyullyn, false, "a15cf8");
   public static final IMaterial hepatizon   = mat(MaterialIds.hepatizon, TinkerFluids.moltenHepatizon, false, "60496b");
-  public static final IMaterial slimeBronze = mat(MaterialIds.slimeBronze, TinkerFluids.moltenSlimeBronze, false, "ff960d");
+  public static final IMaterial queensSlime = mat(MaterialIds.queensSlime, TinkerFluids.moltenQueensSlime, false, "236c45");
   public static final IMaterial soulsteel   = mat(MaterialIds.soulsteel, TinkerFluids.moltenSoulsteel, false, "6a5244");
 
   // tier 2 (end)
