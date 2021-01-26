@@ -1,9 +1,5 @@
 {
   "type": "tconstruct:alloy",
-  "output": {
-    "fluid": "tconstruct:molten_slimesteel",
-    "amount": 288
-  },
   "inputs": [
     {
       "name": "tconstruct:molten_iron",
@@ -17,5 +13,10 @@
       "name": "tconstruct:seared_stone",
       "amount": 144
     }
-  ]
+  ],
+  "output": {
+    "fluid": "tconstruct:molten_slimesteel",
+    "amount": 288
+  },
+  "temperature": 900
 }

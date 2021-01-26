@@ -41,7 +41,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/melting.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "melting.title");
   private static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "time");
-  private static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "melting.temperature");
+  private static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "temperature");
   private static final String KEY_MULTIPLIER = Util.makeTranslationKey("jei", "melting.multiplier");
   private static final ITextComponent TOOLTIP_ORE = new TranslationTextComponent(Util.makeTranslationKey("jei", "melting.ore"));
   private static final ITextComponent SOLID_TEMPERATURE = new TranslationTextComponent(KEY_TEMPERATURE, FuelModule.SOLID_TEMPERATURE).mergeStyle(TextFormatting.GRAY);

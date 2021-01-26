@@ -1,9 +1,5 @@
 {
   "type": "tconstruct:alloy",
-  "output": {
-    "fluid": "tconstruct:molten_soulsteel",
-    "amount": 576
-  },
   "inputs": [
     {
       "name": "tconstruct:molten_iron",
@@ -17,5 +13,10 @@
       "name": "tconstruct:liquid_soul",
       "amount": 144
     }
-  ]
+  ],
+  "output": {
+    "fluid": "tconstruct:molten_soulsteel",
+    "amount": 576
+  },
+  "temperature": 1200
 }

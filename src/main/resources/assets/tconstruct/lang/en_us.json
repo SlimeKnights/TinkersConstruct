@@ -1062,6 +1062,7 @@
 
     "_comment": "JEI Strings",
     "jei.tconstruct.time": "%s s",
+    "jei.tconstruct.temperature": "%s°C",
     
     "jei.tconstruct.casting.basin": "Casting Basin",
     "jei.tconstruct.casting.table": "Casting Table",
@@ -1072,7 +1073,6 @@
     "jei.tconstruct.molding.mold_consumed": "Mold item is consumed on crafting",
     
     "jei.tconstruct.melting.title": "Melting",
-    "jei.tconstruct.melting.temperature": "%s°C",
     "jei.tconstruct.melting.multiplier": "Speed multiplier: %sx",
     "jei.tconstruct.melting.ore": "Recipe output is boosted based on the block",
     "jei.tconstruct.entity_melting.title": "Entity Melting",

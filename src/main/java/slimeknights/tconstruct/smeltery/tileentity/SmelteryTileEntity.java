@@ -106,8 +106,9 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   private AxisAlignedBB defaultBounds;
 
   /** Module handling alloys */
+  private final SmelteryAlloyTank alloyTank = new SmelteryAlloyTank(tank);
   @Getter
-  private final AlloyingModule alloyingModule = new AlloyingModule(this, tank, new SmelteryAlloyTank(tank));
+  private final AlloyingModule alloyingModule = new AlloyingModule(this, tank, alloyTank);
   /** Module handling entity interaction */
   private final EntityMeltingModule entityModule = new EntityMeltingModule(this, tank, this::canMeltEntities, this::insertIntoInventory, () -> structure == null ? null : structure.getBounds());
 
@@ -165,8 +166,18 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
       switch (tick % 4) {
         // first tick, find fuel if needed
         case 0:
-          if (!fuelModule.hasFuel() && (entityMelted || alloyingModule.canAlloy() || meltingInventory.canHeat(fuelModule.findFuel(false)))) {
-            fuelModule.findFuel(true);
+          if (!fuelModule.hasFuel()) {
+            // if we melted something already, we need fuel
+            if (entityMelted) {
+              fuelModule.findFuel(true);
+            } else {
+              // both alloying and melting need to know the temperature
+              int possibleTemp = fuelModule.findFuel(false);
+              alloyTank.setTemperature(possibleTemp);
+              if (meltingInventory.canHeat(possibleTemp) || alloyingModule.canAlloy()) {
+                fuelModule.findFuel(true);
+              }
+            }
           }
           break;
           // second tick: melt items
@@ -179,7 +190,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
           break;
           // third tick: alloy alloys
         case 2:
-          alloyingModule.doAlloy();
+          if (fuelModule.hasFuel()) {
+            alloyTank.setTemperature(fuelModule.getTemperature());
+            alloyingModule.doAlloy();
+          }
           break;
           // fourth tick: consume fuel, update fluids
         case 3:

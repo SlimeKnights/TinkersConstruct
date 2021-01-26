@@ -1,9 +1,5 @@
 {
   "type": "tconstruct:alloy",
-  "output": {
-    "fluid": "tconstruct:molten_pig_iron",
-    "amount": 288
-  },
   "inputs": [
     {
       "name": "tconstruct:molten_iron",
@@ -17,5 +13,10 @@
       "name": "tconstruct:molten_clay",
       "amount": 250
     }
-  ]
+  ],
+  "output": {
+    "fluid": "tconstruct:molten_pig_iron",
+    "amount": 288
+  },
+  "temperature": 811
 }
