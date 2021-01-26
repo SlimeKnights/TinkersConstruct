@@ -358,8 +358,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addMetalCastingRecipe(consumer, TinkerFluids.moltenPigIron,       TinkerMaterials.pigiron,       folder);
     // tier 4 alloys
     this.addMetalCastingRecipe(consumer, TinkerFluids.moltenManyullyn,   TinkerMaterials.manyullyn,   folder);
-    this.addMetalCastingRecipe(consumer, TinkerFluids.moltenHepatizon, TinkerMaterials.hepatizon, folder);
-    this.addMetalCastingRecipe(consumer, TinkerFluids.moltenSlimeBronze, TinkerMaterials.slimeBronze, folder);
+    this.addMetalCastingRecipe(consumer, TinkerFluids.moltenHepatizon,   TinkerMaterials.hepatizon,   folder);
+    this.addMetalCastingRecipe(consumer, TinkerFluids.moltenQueensSlime, TinkerMaterials.queensSlime, folder);
     this.addMetalCastingRecipe(consumer, TinkerFluids.moltenSoulsteel,   TinkerMaterials.soulsteel,   folder);
     // tier 5 alloys
     this.addMetalCastingRecipe(consumer, TinkerFluids.moltenKnightslime, TinkerMaterials.knightslime, folder);
@@ -459,7 +459,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // tier 4
     addMetalMelting(consumer, TinkerFluids.moltenManyullyn.get(),   "manyullyn",    false, folder, false);
     addMetalMelting(consumer, TinkerFluids.moltenHepatizon.get(),   "hepatizon",    false, folder, false);
-    addMetalMelting(consumer, TinkerFluids.moltenSlimeBronze.get(), "slime_bronze", false, folder, false);
+    addMetalMelting(consumer, TinkerFluids.moltenQueensSlime.get(), "queens_slime", false, folder, false);
     addMetalMelting(consumer, TinkerFluids.moltenSoulsteel.get(),   "soulsteel",    false, folder, false);
     addMetalMelting(consumer, TinkerFluids.moltenNetherite.get(),   "netherite",    false, folder, false);
     // tier 5
@@ -603,6 +603,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // tier 4
 
+    // queens slime: 1 cobalt + 1 gold + 1 magma cream
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenQueensSlime.get(), MaterialValues.VALUE_Ingot * 2)
+                      .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.VALUE_Ingot)
+                      .addInput(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot)
+                      .addInput(TinkerFluids.magmaCream.get(), MaterialValues.VALUE_SlimeBall)
+                      .build(consumer, prefixR(TinkerFluids.moltenQueensSlime, folder));
+
     // manyullyn: 3 cobalt + 1 debris = 4
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenManyullyn.get(), MaterialValues.VALUE_Ingot * 4)
                       .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.VALUE_Ingot * 3)
@@ -615,13 +622,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                       .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.VALUE_Ingot)
                       .addInput(TinkerFluids.moltenObsidian.get(), MaterialValues.VALUE_Pane)
                       .build(consumer, prefixR(TinkerFluids.moltenHepatizon, folder));
-
-    // slime bronze: 1 copper + 1 magma cream + 1 emerald = 2
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenSlimeBronze.get(), MaterialValues.VALUE_Ingot * 2)
-                      .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.VALUE_Ingot)
-                      .addInput(TinkerFluids.magmaCream.get(), MaterialValues.VALUE_SlimeBall)
-                      .addInput(TinkerFluids.moltenEmerald.get(), MaterialValues.VALUE_Gem)
-                      .build(consumer, prefixR(TinkerFluids.moltenSlimeBronze, folder));
 
     // soulsteel: 2 iron + 1 cobalt + 1 soul = 4
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenSoulsteel.get(), MaterialValues.VALUE_Ingot * 4)

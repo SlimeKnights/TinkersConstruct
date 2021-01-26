@@ -51,9 +51,9 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     addMetalTags(TinkerMaterials.roseGold);
     addMetalTags(TinkerMaterials.pigiron);
     // tier 4
+    addMetalTags(TinkerMaterials.queensSlime);
     addMetalTags(TinkerMaterials.manyullyn);
     addMetalTags(TinkerMaterials.hepatizon);
-    addMetalTags(TinkerMaterials.slimeBronze);
     addMetalTags(TinkerMaterials.soulsteel);
     // tier 5
     addMetalTags(TinkerMaterials.knightslime);
