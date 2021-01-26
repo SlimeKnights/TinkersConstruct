@@ -1,9 +1,5 @@
 {
   "type": "tconstruct:alloy",
-  "output": {
-    "fluid": "tconstruct:molten_slime_bronze",
-    "amount": 288
-  },
   "inputs": [
     {
       "name": "tconstruct:molten_copper",
@@ -17,5 +13,10 @@
       "name": "tconstruct:molten_emerald",
       "amount": 250
     }
-  ]
+  ],
+  "output": {
+    "fluid": "tconstruct:molten_slime_bronze",
+    "amount": 288
+  },
+  "temperature": 1150
 }

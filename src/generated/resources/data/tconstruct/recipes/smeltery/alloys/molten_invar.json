@@ -16,10 +16,6 @@
       "type": "forge:not"
     }
   ],
-  "output": {
-    "fluid": "tconstruct:molten_invar",
-    "amount": 432
-  },
   "inputs": [
     {
       "name": "tconstruct:molten_iron",
@@ -29,5 +25,10 @@
       "name": "tconstruct:molten_nickel",
       "amount": 144
     }
-  ]
+  ],
+  "output": {
+    "fluid": "tconstruct:molten_invar",
+    "amount": 432
+  },
+  "temperature": 900
 }
