@@ -153,10 +153,10 @@
     "item.tconstruct.hepatizon_ingot": "Hepatizon Ingot",
     "item.tconstruct.hepatizon_nugget": "Hepatizon Nugget",
     
-    "block.tconstruct.slime_bronze_block": "Block of Slime Bronze",
-    "block.tconstruct.slime_bronze_block.tooltip": "Can be used as beacon base",
-    "item.tconstruct.slime_bronze_ingot": "Slime Bronze Ingot",
-    "item.tconstruct.slime_bronze_nugget": "Slime Bronze Nugget",
+    "block.tconstruct.queens_slime_block": "Block of Queen's Slime",
+    "block.tconstruct.queens_slime_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.queens_slime_ingot": "Queen's Slime Ingot",
+    "item.tconstruct.queens_slime_nugget": "Queen's Slime Nugget",
     
     "block.tconstruct.soulsteel_block": "Block of Soulsteel",
     "block.tconstruct.soulsteel_block.tooltip": "Can be used as beacon base",
@@ -502,10 +502,10 @@
     "fluid.tconstruct.flowing_molten_hepatizon": "Flowing Molten Hepatizon",
     "item.tconstruct.molten_hepatizon_bucket": "Molten Hepatizon Bucket",
 
-    "block.tconstruct.molten_slime_bronze_fluid": "Molten Slime Bronze",
-    "fluid.tconstruct.molten_slime_bronze": "Molten Slime Bronze",
-    "fluid.tconstruct.flowing_molten_slime_bronze": "Flowing Molten Slime Bronze",
-    "item.tconstruct.molten_slime_bronze_bucket": "Molten Slime Bronze Bucket",
+    "block.tconstruct.molten_queens_slime_fluid": "Molten Queen's Slime",
+    "fluid.tconstruct.molten_queens_slime": "Molten Queen's Slime",
+    "fluid.tconstruct.flowing_molten_queens_slime": "Flowing Molten Queen's Slime",
+    "item.tconstruct.molten_queens_slime_bucket": "Molten Queen's Slime Bucket",
 
     "block.tconstruct.molten_soulsteel_fluid": "Molten Soulsteel",
     "fluid.tconstruct.molten_soulsteel": "Molten Soulsteel",
@@ -959,7 +959,7 @@
     "material.tconstruct.cobalt": "Cobalt",
     "material.tconstruct.manyullyn": "Manyullyn",
     "material.tconstruct.hepatizon": "Hepatizon",
-    "material.tconstruct.slime_bronze": "Slime Bronze",
+    "material.tconstruct.queens_slime": "Queen's Slime",
     "material.tconstruct.soulsteel": "Soulsteel",
     
     

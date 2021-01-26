@@ -93,16 +93,16 @@ final class MaterialStats {
                      new HandleMaterialStats(1.1f, 1.1f, 1.2f),
                      ExtraMaterialStats.DEFAULT);
     // tier 4
-    addMaterialStats(MaterialIds.manyullyn,
-                     new HeadMaterialStats(1500, 9f, NETHERITE, 4f),
+    addMaterialStats(MaterialIds.queensSlime,
+                     new HeadMaterialStats(1350, 9f, NETHERITE, 4f),
                      new HandleMaterialStats(1.2f, 1.1f, 1.1f),
                      ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.hepatizon,
-                     new HeadMaterialStats(920, 6f, NETHERITE, 5f),
-                     new HandleMaterialStats(0.7f, 1.3f, 1.0f),
+    addMaterialStats(MaterialIds.manyullyn,
+                     new HeadMaterialStats(1500, 8f, NETHERITE, 5f),
+                     new HandleMaterialStats(0.8f, 1.4f, 1.0f),
                      ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.slimeBronze,
-                     new HeadMaterialStats(1200, 10f, NETHERITE, 3f),
+    addMaterialStats(MaterialIds.hepatizon,
+                     new HeadMaterialStats(900, 10f, NETHERITE, 3f),
                      new HandleMaterialStats(1.1f, 0.9f, 1.3f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.soulsteel,

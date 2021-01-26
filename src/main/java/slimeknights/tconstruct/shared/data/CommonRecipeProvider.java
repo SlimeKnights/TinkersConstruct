@@ -144,9 +144,9 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     registerMineralRecipes(consumer, TinkerMaterials.roseGold,      folder);
     registerMineralRecipes(consumer, TinkerMaterials.pigiron,       folder);
     // tier 4
+    registerMineralRecipes(consumer, TinkerMaterials.queensSlime, folder);
     registerMineralRecipes(consumer, TinkerMaterials.manyullyn,   folder);
-    registerMineralRecipes(consumer, TinkerMaterials.hepatizon, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.slimeBronze, folder);
+    registerMineralRecipes(consumer, TinkerMaterials.hepatizon,   folder);
     registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
     registerPackingRecipe(consumer, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, folder);
     // tier 5
