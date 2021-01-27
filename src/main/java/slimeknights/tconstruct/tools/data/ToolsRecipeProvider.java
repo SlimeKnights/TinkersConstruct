@@ -164,7 +164,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel", false);
 
     // tier 2 (end)
-    registerMaterial(consumer, MaterialIds.endstone, Ingredient.fromItems(Blocks.END_STONE), 1, 1, "endstone");
+    //registerMaterial(consumer, MaterialIds.endstone, Ingredient.fromItems(Blocks.END_STONE), 1, 1, "endstone");
 
     // tier 2 (mod compat)
     registerMetalMaterial(consumer, MaterialIds.silver, "silver", true);

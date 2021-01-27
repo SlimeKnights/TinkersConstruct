@@ -991,14 +991,18 @@
     "stat.tconstruct.head.attack.description": "Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.",
 
     "stat.tconstruct.handle": "Handle",
+    "stat.tconstruct.handle.default_stats": "Default stats",
     "stat.tconstruct.handle.durability": "Durability: ",
     "stat.tconstruct.handle.durability.description": "The total durability of the tool will be multiplied by this.",
+    "stat.tconstruct.handle.attack_damage": "Attack Damage: ",
+    "stat.tconstruct.handle.attack_damage.description": "The total attack damage of the tool will be multiplied by this.",
     "stat.tconstruct.handle.attack_speed": "Attack Speed: ",
     "stat.tconstruct.handle.attack_speed.description": "The total attack speed of the tool will be multiplied by this.",
     "stat.tconstruct.handle.mining_speed": "Mining Speed: ",
     "stat.tconstruct.handle.mining_speed.description": "The total mining speed of the tool will be multiplied by this.",
 
     "stat.tconstruct.extra": "Extra",
+    "stat.tconstruct.extra.no_stats": "No stats",
 
     "stat.tconstruct.mining_level.wood": "Wood",
     "stat.tconstruct.mining_level.stone": "Stone",

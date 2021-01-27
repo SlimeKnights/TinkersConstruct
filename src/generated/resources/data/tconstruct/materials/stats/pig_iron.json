@@ -11,8 +11,9 @@
     {
       "id": "tconstruct:handle",
       "durability": 1.15,
-      "attackSpeed": 1.1,
-      "miningSpeed": 0.85
+      "miningSpeed": 0.8,
+      "attackSpeed": 1.0,
+      "attackDamage": 1.1
     },
     {
       "id": "tconstruct:extra"
