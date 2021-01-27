@@ -108,7 +108,8 @@ public final class ToolStatsBuilder {
 
   public float buildAttack() {
     double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack);
-    return (float)Math.max(0.1d, averageHeadAttack);
+    double averageHandle = getAverageValue(handles, HandleMaterialStats::getAttackDamage, 1.0f);
+    return (float)Math.max(0.1d, averageHeadAttack * averageHandle);
   }
 
   /**
