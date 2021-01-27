@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.common.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -12,32 +14,35 @@ public class Config {
    */
   public static class Common {
 
-    public final ForgeConfigSpec.BooleanValue shouldSpawnWithTinkersBook;
+    public final BooleanValue shouldSpawnWithTinkersBook;
 
-    public final ForgeConfigSpec.BooleanValue addGravelToFlintRecipe;
+    public final BooleanValue addGravelToFlintRecipe;
 
-    public final ForgeConfigSpec.BooleanValue requireSlimeballsToMatchInVanillaRecipe;
+    public final BooleanValue requireSlimeballsToMatchInVanillaRecipe;
 
-    public final ForgeConfigSpec.BooleanValue registerAllRecipes;
+    public final BooleanValue registerAllRecipes;
 
-    public final ForgeConfigSpec.BooleanValue generateCobalt;
-    public final ForgeConfigSpec.ConfigValue<Integer> veinCountCobalt;
+    public final ConfigValue<Integer> melterNuggetsPerOre;
+    public final ConfigValue<Integer> smelteryNuggetsPerOre;
 
-    public final ForgeConfigSpec.BooleanValue generateArdite;
-    public final ForgeConfigSpec.ConfigValue<Integer> veinCountArdite;
+    public final BooleanValue generateCobalt;
+    public final ConfigValue<Integer> veinCountCobalt;
 
-    public final ForgeConfigSpec.BooleanValue generateCopper;
-    public final ForgeConfigSpec.ConfigValue<Integer> veinCountCopper;
+    public final BooleanValue generateArdite;
+    public final ConfigValue<Integer> veinCountArdite;
 
-    public final ForgeConfigSpec.BooleanValue generateSlimeIslands;
+    public final BooleanValue generateCopper;
+    public final ConfigValue<Integer> veinCountCopper;
 
-    public final ForgeConfigSpec.BooleanValue chestsKeepInventory;
+    public final BooleanValue generateSlimeIslands;
 
-    public final ForgeConfigSpec.ConfigValue<List<String>> craftingStationBlacklist;
+    public final BooleanValue chestsKeepInventory;
 
-    public final ForgeConfigSpec.BooleanValue listAllToolMaterials;
+    public final ConfigValue<List<String>> craftingStationBlacklist;
 
-    public final ForgeConfigSpec.BooleanValue listAllPartMaterials;
+    public final BooleanValue listAllToolMaterials;
+
+    public final BooleanValue listAllPartMaterials;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -89,6 +94,15 @@ public class Config {
         .translation("tconstruct.configgui.listAllPartMaterials")
         .worldRestart()
         .define("listAllPartMaterials", true);
+
+      this.melterNuggetsPerOre = builder
+        .comment("Number of nuggets produced when an ore block is melted in the melter. 9 would give 1 ingot")
+        .translation("tconstruct.configgui.melterNuggetsPerOre")
+        .defineInRange("melterNuggetsPerOre", 9, 1, 45);
+      this.smelteryNuggetsPerOre = builder
+        .comment("Number of nuggets produced when an ore block is melted in the smeltery. 9 nuggets would give 1 ingot")
+        .translation("tconstruct.configgui.smelteryNuggetsPerOre")
+        .defineInRange("smelteryNuggetsPerOre", 15, 1, 45);
 
       builder.pop();
 

@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tables.client;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.resource.VanillaResourceType;
 import slimeknights.tconstruct.library.client.util.ResourceValidator;
 
 /**
@@ -13,7 +12,7 @@ public class PatternGuiTextureLoader extends ResourceValidator {
   /** Singleton instance */
   public static final PatternGuiTextureLoader INSTANCE = new PatternGuiTextureLoader();
   private PatternGuiTextureLoader() {
-    super(VanillaResourceType.TEXTURES, "textures/gui/tinker_pattern", "textures", ".png");
+    super("textures/gui/tinker_pattern", "textures", ".png");
     FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onTextureStitch);
   }
 

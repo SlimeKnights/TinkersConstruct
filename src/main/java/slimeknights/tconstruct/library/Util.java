@@ -9,9 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -24,13 +22,13 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.lwjgl.glfw.GLFW;
-import slimeknights.mantle.recipe.match.RecipeMatchRegistry;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("deprecation")
@@ -108,6 +106,15 @@ public class Util {
     return net.minecraft.util.Util.makeTranslationKey(base, getResource(name));
   }
 
+
+  /**
+   * Same as {@link net.minecraft.util.Util#make(Object, Consumer)}
+   */
+  public static <T> T make(T object, Consumer<T> consumer) {
+    consumer.accept(object);
+    return object;
+  }
+
   /**
    * Translate the string, insert parameters into the translation key
    */
@@ -122,21 +129,6 @@ public class Util {
   public static String translateFormatted(String key, Object... pars) {
     // translates twice to allow rerouting/alias
     return I18n.format(I18n.format(key, pars).trim()).trim();
-  }
-
-  /**
-   * Returns a fixed size DEEP copy of the list
-   */
-  public static NonNullList<ItemStack> deepCopyFixedNonNullList(NonNullList<ItemStack> in) {
-    return RecipeMatchRegistry.copyItemStackArray(in);
-  }
-
-  /**
-   * @deprecated use deepCopyFixedNonNullList
-   */
-  @Deprecated
-  public static NonNullList<ItemStack> copyItemStackArray(NonNullList<ItemStack> in) {
-    return deepCopyFixedNonNullList(in);
   }
 
   /* Code for ctl and shift down  from TicTooltips by squeek502

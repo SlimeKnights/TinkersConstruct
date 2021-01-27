@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:melting",
+  "type": "tconstruct:ore_melting",
   "ingredient": {
     "tag": "forge:ores/copper"
   },
@@ -7,5 +7,6 @@
     "fluid": "tconstruct:molten_copper",
     "amount": 144
   },
-  "temperature": 121
+  "temperature": 500,
+  "time": 75
 }

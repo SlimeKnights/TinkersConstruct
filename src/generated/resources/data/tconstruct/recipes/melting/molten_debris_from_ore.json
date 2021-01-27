@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:ore_melting",
+  "ingredient": {
+    "tag": "forge:ores/netherite_scrap"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_debris",
+    "amount": 144
+  },
+  "temperature": 1175,
+  "time": 143
+}

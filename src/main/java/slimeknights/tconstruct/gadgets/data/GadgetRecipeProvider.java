@@ -21,8 +21,8 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
-import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -160,6 +160,22 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine("###")
                        .addCriterion("has_item", hasItem(Tags.Items.DUSTS_GLOWSTONE))
                        .build(consumer, prefix(TinkerGadgets.glowBall, "gadgets/throwball/"));
+
+    // Shurikens
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.flintShuriken.get(), 4)
+                        .key('X', Items.FLINT)
+                        .patternLine(" X ")
+                        .patternLine("X X")
+                        .patternLine(" X ")
+                        .addCriterion("has_item", hasItem(Items.FLINT))
+                        .build(consumer, prefix(TinkerGadgets.flintShuriken, "gadgets/shuriken/"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.quartzShuriken.get(), 4)
+                        .key('X', Items.QUARTZ)
+                        .patternLine(" X ")
+                        .patternLine("X X")
+                        .patternLine(" X ")
+                        .addCriterion("has_item", hasItem(Items.QUARTZ))
+                        .build(consumer, prefix(TinkerGadgets.quartzShuriken, "gadgets/shuriken/"));
 
     // piggybackpack
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.piggyBackpack.get())

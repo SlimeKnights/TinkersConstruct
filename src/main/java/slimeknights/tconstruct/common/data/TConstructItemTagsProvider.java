@@ -4,30 +4,31 @@ import net.minecraft.block.Block;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
+import net.minecraft.data.TagsProvider;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.tools.TinkerMaterials;
 
 import java.util.Locale;
-import java.util.Set;
+import java.util.function.Consumer;
 
 public class TConstructItemTagsProvider extends ItemTagsProvider {
 
-  private Set<ResourceLocation> filter = null;
-
-  public TConstructItemTagsProvider(DataGenerator generatorIn, BlockTagsProvider blockTagProvider) {
-    super(generatorIn, blockTagProvider);
+  public TConstructItemTagsProvider(DataGenerator generatorIn, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
+    super(generatorIn, blockTagProvider, TConstruct.modID, existingFileHelper);
   }
 
   @Override
@@ -51,6 +52,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.MAGMA_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.MAGMA));
 
     this.getOrCreateBuilder(Tags.Items.INGOTS)
+        .add(TinkerCommons.driedBrick.get(), TinkerCommons.mudBrick.get(), TinkerSmeltery.searedBrick.get())
         .addTag(TinkerTags.Items.INGOTS_COBALT)
         .addTag(TinkerTags.Items.INGOTS_ARDITE)
         .addTag(TinkerTags.Items.INGOTS_MANYULLYN)
@@ -73,7 +75,8 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.NUGGETS_KNIGHTSLIME)
         .addTag(TinkerTags.Items.NUGGETS_PIG_IRON)
         .addTag(TinkerTags.Items.NUGGETS_COPPER)
-        .addTag(TinkerTags.Items.NUGGETS_ROSE_GOLD);
+        .addTag(TinkerTags.Items.NUGGETS_ROSE_GOLD)
+        .addTag(TinkerTags.Items.NUGGETS_NETHERITE);
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_COBALT).add(TinkerMaterials.cobaltNugget.get());
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_ARDITE).add(TinkerMaterials.arditeNugget.get());
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_MANYULLYN).add(TinkerMaterials.manyullynNugget.get());
@@ -81,6 +84,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_PIG_IRON).add(TinkerMaterials.pigironNugget.get());
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_COPPER).add(TinkerMaterials.copperNugget.get());
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_ROSE_GOLD).add(TinkerMaterials.roseGoldNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
 
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Items.STORAGE_BLOCKS_COBALT);
@@ -117,22 +121,47 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
   private void addSmeltery() {
     this.copy(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Items.SEARED_BRICKS);
-    this.copy(TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS, TinkerTags.Items.SMOOTH_SEARED_BLOCKS);
     this.copy(TinkerTags.Blocks.SEARED_BLOCKS, TinkerTags.Items.SEARED_BLOCKS);
-    this.getOrCreateBuilder(TinkerTags.Items.CASTS).add(
-      TinkerSmeltery.blankCast.get(),
-      TinkerSmeltery.ingotCast.get(),
-      TinkerSmeltery.nuggetCast.get(),
-      TinkerSmeltery.gemCast.get(),
-      TinkerSmeltery.pickaxeHeadCast.get(),
-      TinkerSmeltery.smallBindingCast.get(),
-      TinkerSmeltery.toolRodCast.get(),
-      TinkerSmeltery.toughToolRodCast.get(),
-      TinkerSmeltery.largePlateCast.get(),
-      TinkerSmeltery.swordBladeCast.get(),
-      TinkerSmeltery.hammerHeadCast.get(),
-      TinkerSmeltery.wideGuardCast.get(),
-      TinkerSmeltery.shovelHeadCast.get());
+
+    // tag each type of cast
+    TagsProvider.Builder<Item> goldCasts = this.getOrCreateBuilder(TinkerTags.Items.GOLD_CASTS);
+    TagsProvider.Builder<Item> sandCasts = this.getOrCreateBuilder(TinkerTags.Items.SAND_CASTS);
+    TagsProvider.Builder<Item> redSandCasts = this.getOrCreateBuilder(TinkerTags.Items.RED_SAND_CASTS);
+    Consumer<CastItemObject> addCast = cast -> {
+      goldCasts.add(cast.get());
+      sandCasts.add(cast.getSand());
+      redSandCasts.add(cast.getRedSand());
+      this.getOrCreateBuilder(cast.getSingleUseTag()).add(cast.getSand(), cast.getRedSand());
+    };
+    // basic
+    addCast.accept(TinkerSmeltery.blankCast);
+    addCast.accept(TinkerSmeltery.ingotCast);
+    addCast.accept(TinkerSmeltery.nuggetCast);
+    addCast.accept(TinkerSmeltery.gemCast);
+    // small heads
+    addCast.accept(TinkerSmeltery.pickaxeHeadCast);
+    addCast.accept(TinkerSmeltery.shovelHeadCast);
+    addCast.accept(TinkerSmeltery.axeHeadCast);
+    addCast.accept(TinkerSmeltery.kamaHeadCast);
+    addCast.accept(TinkerSmeltery.swordBladeCast);
+    // large heads
+    addCast.accept(TinkerSmeltery.hammerHeadCast);
+    addCast.accept(TinkerSmeltery.excavatorHeadCast);
+    addCast.accept(TinkerSmeltery.largePlateCast);
+    // bindings
+    addCast.accept(TinkerSmeltery.smallBindingCast);
+    addCast.accept(TinkerSmeltery.toughBindingCast);
+    // tool rods
+    addCast.accept(TinkerSmeltery.toolRodCast);
+    addCast.accept(TinkerSmeltery.toughToolRodCast);
+
+    // add all casts to a common tag
+    this.getOrCreateBuilder(TinkerTags.Items.CASTS)
+        .addTag(TinkerTags.Items.GOLD_CASTS)
+        .addTag(TinkerTags.Items.SAND_CASTS)
+        .addTag(TinkerTags.Items.RED_SAND_CASTS);
+
+    this.getOrCreateBuilder(TinkerTags.Items.DUCT_CONTAINERS).add(Items.BUCKET, TinkerSmeltery.copperCan.get());
   }
 
   @Override

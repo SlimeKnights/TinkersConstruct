@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:nugget_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_gold",
+    "amount": 16
+  },
+  "result": "minecraft:gold_nugget",
+  "cooling_time": 19
+}

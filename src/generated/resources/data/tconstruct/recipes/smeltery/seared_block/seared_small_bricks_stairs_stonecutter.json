@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "tconstruct:seared_small_bricks"
-  },
-  "result": "tconstruct:seared_small_bricks_stairs",
-  "count": 1
-}

@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:alloy",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/bronze",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    },
+    {
+      "value": {
+        "tag": "forge:ingots/tin",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "output": {
+    "fluid": "tconstruct:molten_bronze",
+    "amount": 576
+  },
+  "inputs": [
+    {
+      "name": "tconstruct:molten_copper",
+      "amount": 432
+    },
+    {
+      "name": "tconstruct:molten_tin",
+      "amount": 144
+    }
+  ]
+}

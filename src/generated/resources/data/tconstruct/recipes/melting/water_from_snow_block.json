@@ -7,5 +7,6 @@
     "fluid": "minecraft:water",
     "amount": 500
   },
-  "temperature": 14
+  "temperature": 0,
+  "time": 21
 }

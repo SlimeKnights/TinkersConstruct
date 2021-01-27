@@ -7,5 +7,6 @@
     "fluid": "tconstruct:molten_ardite",
     "amount": 1296
   },
-  "temperature": 560
+  "temperature": 1100,
+  "time": 208
 }

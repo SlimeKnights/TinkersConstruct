@@ -16,6 +16,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
@@ -24,16 +25,14 @@ import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeBuild
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -54,7 +53,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     this.addModifierRecipes(consumer);
     this.addMaterialsRecipes(consumer);
-    this.addToolMaterialRecipes(consumer);
     this.addPartRecipes(consumer);
     this.addTinkerStationRecipes(consumer);
   }
@@ -74,10 +72,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(TinkerModifiers.moss, folder));
 
     // reinforcement
-    // FIXME: switch recipe to use a golden cast
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.reinforcement)
                        .key('O', Items.OBSIDIAN)
-                       .key('G', Tags.Items.INGOTS_GOLD)
+                       .key('G', TinkerSmeltery.blankCast)
                        .patternLine("OOO")
                        .patternLine("OGO")
                        .patternLine("OOO")
@@ -123,7 +120,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerModifiers.silkyCloth))
                        .setGroup(TinkerModifiers.silkyJewel.getRegistryName().toString())
                        .build(consumer, prefix(TinkerModifiers.silkyJewel, folder));
-    registerMineralRecipes(consumer, TinkerModifiers.silkyJewelBlock, TinkerModifiers.silkyJewel, null, folder);
+    registerPackingRecipe(consumer, "block", TinkerModifiers.silkyJewelBlock, "gem", TinkerModifiers.silkyJewel, folder);
 
 
     // slimy mud and slime crystals
@@ -131,83 +128,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMudRecipe(consumer, SlimeType.BLUE, null, TinkerModifiers.slimyMudBlue, TinkerModifiers.blueSlimeCrystal, folder);
     registerMudRecipe(consumer, SlimeType.MAGMA, Items.MAGMA_CREAM, TinkerModifiers.slimyMudMagma, TinkerModifiers.magmaSlimeCrystal, folder);
   }
-
-  private void addToolMaterialRecipes(Consumer<IFinishedRecipe> consumer) {
-    String folder = "tools/materials/";
-    // metals
-    registerMineralRecipes(consumer, TinkerMaterials.cobaltBlock, TinkerMaterials.cobaltIngot, TinkerMaterials.cobaltNugget, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.arditeBlock, TinkerMaterials.arditeIngot, TinkerMaterials.arditeNugget, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.manyullynBlock, TinkerMaterials.manyullynIngot, TinkerMaterials.manyullynNugget, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.knightSlimeBlock, TinkerMaterials.knightslimeIngot, TinkerMaterials.knightslimeNugget, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.pigironBlock, TinkerMaterials.pigironIngot, TinkerMaterials.pigironNugget, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.copperBlock, TinkerMaterials.copperIngot, TinkerMaterials.copperNugget, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.roseGoldBlock, TinkerMaterials.roseGoldIngot, TinkerMaterials.roseGoldNugget, folder);
-
-    // smelt ore into ingots, must use a blast furnace for nether ores
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), TinkerMaterials.cobaltIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.cobaltOre))
-                        .build(consumer, wrap(TinkerMaterials.cobaltIngot, folder, "_smelting"));
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.arditeOre), TinkerMaterials.arditeIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.arditeOre))
-                        .build(consumer, wrap(TinkerMaterials.arditeIngot, folder, "_smelting"));
-
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), TinkerMaterials.copperIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
-                        .build(consumer, wrap(TinkerMaterials.copperIngot, folder, "_smelting"));
-
-    // FIXME: temporary manyullyn recipe
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.manyullynNugget)
-                          .addIngredient(TinkerMaterials.cobaltNugget)
-                          .addIngredient(TinkerMaterials.arditeNugget)
-                          .addIngredient(Items.COAL)
-                          .setGroup(TinkerMaterials.manyullynNugget.getRegistryName().toString())
-                          .addCriterion("has_item", hasItem(TinkerMaterials.cobaltNugget))
-                          .build(consumer, wrap(TinkerMaterials.manyullynNugget, folder, "_crafting"));
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.manyullynIngot)
-                          .addIngredient(TinkerMaterials.cobaltIngot)
-                          .addIngredient(TinkerMaterials.arditeIngot)
-                          .addIngredient(Blocks.COAL_BLOCK)
-                          .setGroup(TinkerMaterials.manyullynIngot.getRegistryName().toString())
-                          .addCriterion("has_item", hasItem(TinkerMaterials.cobaltIngot))
-                          .build(consumer, wrap(TinkerMaterials.manyullynIngot, folder, "_crafting"));
-
-    // FIXME: temporary rose gold recipe
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.roseGoldNugget)
-                          .addIngredient(TinkerMaterials.copperNugget)
-                          .addIngredient(Items.GOLD_NUGGET)
-                          .addIngredient(Items.COAL)
-                          .setGroup(TinkerMaterials.roseGoldNugget.getRegistryName().toString())
-                          .addCriterion("has_item", hasItem(Items.GOLD_NUGGET))
-                          .build(consumer, wrap(TinkerMaterials.roseGoldNugget, folder, "_crafting"));
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.roseGoldIngot)
-                          .addIngredient(TinkerMaterials.copperIngot)
-                          .addIngredient(Items.GOLD_INGOT)
-                          .addIngredient(Blocks.COAL_BLOCK)
-                          .setGroup(TinkerMaterials.roseGoldIngot.getRegistryName().toString())
-                          .addCriterion("has_item", hasItem(Items.GOLD_INGOT))
-                          .build(consumer, wrap(TinkerMaterials.roseGoldIngot, folder, "_crafting"));
-
-    // FIXME: temporary knightslime recipe
-    Item purpleSlime = TinkerCommons.slimeball.get(SlimeType.PURPLE);
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.knightslimeIngot)
-                          .addIngredient(purpleSlime)
-                          .addIngredient(Items.IRON_INGOT)
-                          .addIngredient(TinkerSmeltery.searedBrick)
-                          .setGroup(TinkerMaterials.knightslimeIngot.getRegistryName().toString())
-                          .addCriterion("has_item", hasItem(purpleSlime))
-                          .build(consumer, wrap(TinkerMaterials.knightslimeIngot, folder, "_crafting"));
-
-    // FIXME: temporary pigiron recipe
-    Item blood = TinkerCommons.slimeball.get(SlimeType.BLOOD);
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.pigironIngot, 4)
-                          .addIngredient(blood)
-                          .addIngredient(Items.IRON_INGOT).addIngredient(Items.IRON_INGOT).addIngredient(Items.IRON_INGOT).addIngredient(Items.IRON_INGOT)
-                          .addIngredient(Items.BRICK).addIngredient(Items.BRICK).addIngredient(Items.BRICK).addIngredient(Items.BRICK)
-                          .setGroup(TinkerMaterials.pigironIngot.getRegistryName().toString())
-                          .addCriterion("has_item", hasItem(purpleSlime))
-                          .build(consumer, wrap(TinkerMaterials.pigironIngot, folder, "_crafting"));
-  }
-
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
     addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
@@ -219,7 +139,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, TinkerSmeltery.swordBladeCast);
     addPartRecipe(consumer, TinkerToolParts.smallBinding, 1, TinkerSmeltery.smallBindingCast);
     addPartRecipe(consumer, TinkerToolParts.toughBinding, 3, TinkerSmeltery.toughBindingCast);
-    addPartRecipe(consumer, TinkerToolParts.wideGuard, 1, TinkerSmeltery.wideGuardCast);
     addPartRecipe(consumer, TinkerToolParts.largePlate, 8, TinkerSmeltery.largePlateCast);
     addPartRecipe(consumer, TinkerToolParts.toolRod, 1, TinkerSmeltery.toolRodCast);
     addPartRecipe(consumer, TinkerToolParts.toughToolRod, 3, TinkerSmeltery.toughToolRodCast);
@@ -290,9 +209,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
 
     registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
 
-    registerMaterial(consumer, MaterialIds.slimevine_blue, Ingredient.fromItems(TinkerWorld.blueSlimeVine, TinkerWorld.blueSlimeVineMiddle, TinkerWorld.blueSlimeVineEnd), 1, 1, "slimevine_blue");
-
-    registerMaterial(consumer, MaterialIds.slimevine_purple, Ingredient.fromItems(TinkerWorld.purpleSlimeVine, TinkerWorld.purpleSlimeVineMiddle, TinkerWorld.purpleSlimeVineEnd), 1, 1, "slimevine_purple");
+    registerMaterial(consumer, MaterialIds.slimevine_blue, Ingredient.fromItems(TinkerWorld.blueSlimeVine), 1, 1, "slimevine_blue");
+    registerMaterial(consumer, MaterialIds.slimevine_purple, Ingredient.fromItems(TinkerWorld.purpleSlimeVine), 1, 1, "slimevine_purple");
 
     registerMaterial(consumer, MaterialIds.blaze, Ingredient.fromItems(Items.BLAZE_ROD), 1, 1, "blaze");
 
@@ -331,56 +249,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     String name = Objects.requireNonNull(toolCore.getRegistryName()).getPath();
 
     ToolBuildingRecipeBuilder.toolBuildingRecipe(toolCore)
-      .addCriterion("has_item", hasItem(TinkerTables.tinkerStation))
       .build(consumer, location("tinker_station/building/" + name));
   }
 
 
   /* Helpers */
 
-  /**
-   * Adds recipes to convert a block to ingot, ingot to block, and for nuggets
-   * @param consumer  Recipe consumer
-   * @param block     Block item
-   * @param ingot     Ingot item
-   * @param nugget    Nugget item
-   * @param folder    Folder for recipes
-   */
-  private void registerMineralRecipes(Consumer<IFinishedRecipe> consumer, IItemProvider block, IItemProvider ingot, @Nullable IItemProvider nugget, String folder) {
-    // ingot to block
-    ShapedRecipeBuilder.shapedRecipe(block)
-                       .key('i', ingot)
-                       .patternLine("iii")
-                       .patternLine("iii")
-                       .patternLine("iii")
-                       .addCriterion("has_item", hasItem(ingot))
-                       .setGroup(Objects.requireNonNull(block.asItem().getRegistryName()).toString())
-                       .build(consumer, wrap(block, folder, "_from_ingots"));
-    // block to ingot
-    ShapelessRecipeBuilder.shapelessRecipe(ingot, 9)
-                          .addIngredient(block)
-                          .addCriterion("has_item", hasItem(block))
-                          .setGroup(Objects.requireNonNull(ingot.asItem().getRegistryName()).toString())
-                          .build(consumer, wrap(ingot, folder, "_from_block"));
-    // nugget recipes
-    if (nugget != null) {
-      // nugget to ingot
-      ShapedRecipeBuilder.shapedRecipe(ingot)
-                         .key('n', nugget)
-                         .patternLine("nnn")
-                         .patternLine("nnn")
-                         .patternLine("nnn")
-                         .addCriterion("has_item", hasItem(nugget))
-                         .setGroup(Objects.requireNonNull(ingot.asItem().getRegistryName()).toString())
-                         .build(consumer, wrap(ingot, folder, "_from_ingots"));
-      // ingot to nugget
-      ShapelessRecipeBuilder.shapelessRecipe(nugget, 9)
-                            .addIngredient(ingot)
-                            .addCriterion("has_item", hasItem(ingot))
-                            .setGroup(Objects.requireNonNull(nugget.asItem().getRegistryName()).toString())
-                            .build(consumer, wrap(nugget, folder, "_from_ingot"));
-    }
-  }
 
   /**
    * Adds a recipe to craft a part
@@ -389,7 +263,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
    * @param cost      Part cost
    * @param cast      Part cast
    */
-  private void addPartRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends IMaterialItem> sup, int cost, IItemProvider cast) {
+  private void addPartRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends IMaterialItem> sup, int cost, CastItemObject cast) {
     // Base data
     IMaterialItem part = sup.get();
     String name = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
@@ -398,28 +272,39 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     PartRecipeBuilder.partRecipe(part)
                      .setPattern(location(name))
                      .setCost(cost)
-                     .addCriterion("has_item", hasItem(TinkerTables.pattern))
                      .build(consumer, location("parts/" + name));
 
     // Material Casting
     MaterialCastingRecipeBuilder.tableRecipe(part)
                                 .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
                                 .setCast(cast, false)
-                                .addCriterion("has_item", hasItem(cast))
                                 .build(consumer, location("casting/parts/" + name));
+    MaterialCastingRecipeBuilder.tableRecipe(part)
+                                .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
+                                .setCast(cast.getSingleUseTag(), true)
+                                .build(consumer, location("casting/parts/" + name + "_sand"));
 
     // Cast Casting
+    MaterialIngredient ingredient = MaterialIngredient.fromItem(part);
+    String partName = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
     ItemCastingRecipeBuilder.tableRecipe(cast)
                             .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
-                            .setCast(MaterialIngredient.fromItem(part), true)
+                            .setCast(ingredient, true)
                             .setSwitchSlots()
-                            .addCriterion("has_item", hasItem(part))
-                            .build(consumer, location("casting/casts/" + Objects.requireNonNull(part.asItem().getRegistryName()).getPath()));
+                            .build(consumer, location("casting/casts/" + partName));
+
+    // sand cast molding
+    MoldingRecipeBuilder.moldingTable(cast.getSand())
+                        .setMaterial(TinkerSmeltery.blankCast.getSand())
+                        .setMold(ingredient, false)
+                        .build(consumer, location("casting/sand_casts/" + partName));
+    MoldingRecipeBuilder.moldingTable(cast.getRedSand())
+                        .setMaterial(TinkerSmeltery.blankCast.getRedSand())
+                        .setMold(ingredient, false)
+                        .build(consumer, location("casting/red_sand_casts/" + partName));
 
     // Part melting
-    MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot)
-                                .addCriterion("has_item", hasItem(part))
-                                .build(consumer, location("melting/parts/" + part));
+    MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot).build(consumer, location("melting/parts/" + part));
   }
 
   /**
@@ -436,7 +321,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setIngredient(input)
                          .setValue(value)
                          .setNeeded(needed)
-                         .addCriterion("has_item", hasItem(TinkerTables.pattern.get()))
                          .build(consumer, location("materials/" + saveName));
   }
 

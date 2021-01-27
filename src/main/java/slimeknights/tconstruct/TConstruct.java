@@ -10,10 +10,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -27,6 +30,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
@@ -42,9 +46,9 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -118,11 +122,12 @@ public class TConstruct {
   static void gatherData(final GatherDataEvent event) {
     if (event.includeServer()) {
       DataGenerator datagenerator = event.getGenerator();
-      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator);
+      ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator, existingFileHelper);
       datagenerator.addProvider(blockTags);
-      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags));
-      datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator));
-      datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator));
+      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags, existingFileHelper));
+      datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
     }
   }
@@ -147,5 +152,17 @@ public class TConstruct {
         return Command.SINGLE_SUCCESS;
       });
     event.getServer().getCommandManager().getDispatcher().register(executes);
+  }
+
+
+  @SubscribeEvent
+  void missingItems(final MissingMappings<Item> event) {
+    RegistrationHelper.handleMissingMappings(event, modID, name -> {
+      switch (name) {
+        case "wide_guard": return TinkerToolParts.toolRod.get();
+        case "wide_guard_cast": return TinkerSmeltery.toolRodCast.get();
+      }
+      return null;
+    });
   }
 }

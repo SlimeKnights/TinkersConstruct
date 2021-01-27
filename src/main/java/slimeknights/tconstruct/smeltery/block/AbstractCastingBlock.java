@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.shared.block.TableBlock;
-import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
 public abstract class AbstractCastingBlock extends TableBlock {
   protected AbstractCastingBlock(Properties builder) {
@@ -23,8 +23,8 @@ public abstract class AbstractCastingBlock extends TableBlock {
       return ActionResultType.PASS;
     }
     TileEntity te = world.getTileEntity(pos);
-    if (te instanceof AbstractCastingTileEntity) {
-      ((AbstractCastingTileEntity) te).interact(player);
+    if (te instanceof CastingTileEntity) {
+      ((CastingTileEntity) te).interact(player, hand);
       return ActionResultType.SUCCESS;
     }
     return super.onBlockActivated(state, world, pos, player, hand, rayTraceResult);

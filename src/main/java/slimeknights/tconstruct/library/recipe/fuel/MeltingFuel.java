@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.fuel;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
@@ -11,12 +12,12 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -40,7 +41,16 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
 
   @Override
   public boolean matches(IFluidInventory inv, World worldIn) {
-    return input.test(inv.getFluid());
+    return matches(inv.getFluid());
+  }
+
+  /**
+   * Checks if this fuel matches the given fluid
+   * @param fluid  Fluid
+   * @return  True if matches
+   */
+  public boolean matches(Fluid fluid) {
+    return input.test(fluid);
   }
 
   /**
@@ -49,7 +59,16 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
    * @return  Amount of fluid consumed
    */
   public int getAmount(IFluidInventory inv) {
-    return input.getAmount(inv.getFluid().getFluid());
+    return getAmount(inv.getFluid());
+  }
+
+  /**
+   * Gets the amount of fluid consumed for the given fluid
+   * @param fluid  Fluid
+   * @return  Amount of fluid consumed
+   */
+  public int getAmount(Fluid fluid) {
+    return input.getAmount(fluid);
   }
 
   /**
@@ -80,7 +99,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
   /**
    * Serializer for {@link MeltingFuel}
    */
-  public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MeltingFuel> {
+  public static class Serializer extends RecipeSerializer<MeltingFuel> {
     @Override
     public MeltingFuel read(ResourceLocation id, JsonObject json) {
       String group = JSONUtils.getString(json, "group", "");

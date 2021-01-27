@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "types": [
+      "minecraft:zombie_villager",
+      "minecraft:witch"
+    ]
+  },
+  "output": {
+    "fluid": "tconstruct:molten_emerald",
+    "amount": 10
+  },
+  "damage": 3
+}

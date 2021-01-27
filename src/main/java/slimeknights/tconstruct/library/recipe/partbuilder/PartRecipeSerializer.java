@@ -1,18 +1,17 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import com.google.gson.JsonObject;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 import javax.annotation.Nullable;
 
-public class PartRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<PartRecipe> {
+public class PartRecipeSerializer extends RecipeSerializer<PartRecipe> {
   @Override
   public PartRecipe read(ResourceLocation recipeId, JsonObject json) {
     String group = JSONUtils.getString(json, "group", "");

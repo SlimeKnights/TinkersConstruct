@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:ingot_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_gold",
+    "amount": 144
+  },
+  "result": "minecraft:gold_ingot",
+  "cooling_time": 57
+}

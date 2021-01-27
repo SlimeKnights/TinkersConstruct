@@ -7,5 +7,6 @@
     "fluid": "tconstruct:molten_copper",
     "amount": 16
   },
-  "temperature": 60
+  "temperature": 500,
+  "time": 17
 }

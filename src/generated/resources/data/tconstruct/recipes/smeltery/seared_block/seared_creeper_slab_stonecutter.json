@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "tconstruct:seared_creeper"
-  },
-  "result": "tconstruct:seared_creeper_slab",
-  "count": 2
-}

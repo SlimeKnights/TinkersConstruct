@@ -17,8 +17,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Explosion;
-import net.minecraft.world.IExplosionContext;
+import net.minecraft.world.ExplosionContext;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -29,7 +30,7 @@ public class EFLNExplosion extends Explosion {
 
   protected ImmutableSet<BlockPos> affectedBlockPositionsInternal;
 
-  public EFLNExplosion(World world, @Nullable Entity entity, @Nullable DamageSource damage, @Nullable IExplosionContext context, double x, double y, double z, float size, boolean causesFire, Explosion.Mode mode) {
+  public EFLNExplosion(World world, @Nullable Entity entity, @Nullable DamageSource damage, @Nullable ExplosionContext context, double x, double y, double z, float size, boolean causesFire, Explosion.Mode mode) {
     super(world, entity, damage, context, x, y, z, size, causesFire, mode);
   }
 
@@ -101,7 +102,7 @@ public class EFLNExplosion extends Explosion {
 
         if (blockstate.canDropFromExplosion(this.world, blockpos, this) && this.world instanceof ServerWorld) {
           TileEntity tileentity = blockstate.hasTileEntity() ? this.world.getTileEntity(blockpos) : null;
-          LootContext.Builder builder = (new LootContext.Builder((ServerWorld) this.world)).withRandom(this.world.rand).withParameter(LootParameters.POSITION, blockpos).withParameter(LootParameters.TOOL, ItemStack.EMPTY).withNullableParameter(LootParameters.BLOCK_ENTITY, tileentity).withNullableParameter(LootParameters.THIS_ENTITY, this.exploder);
+          LootContext.Builder builder = (new LootContext.Builder((ServerWorld) this.world)).withRandom(this.world.rand).withParameter(LootParameters.field_237457_g_, Vector3d.copyCentered(blockpos)).withParameter(LootParameters.TOOL, ItemStack.EMPTY).withNullableParameter(LootParameters.BLOCK_ENTITY, tileentity).withNullableParameter(LootParameters.THIS_ENTITY, this.exploder);
 
           if (this.mode == Explosion.Mode.DESTROY) {
             builder.withParameter(LootParameters.EXPLOSION_RADIUS, this.size);

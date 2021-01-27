@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ores/nickel",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/nickel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_nickel",
+    "amount": 144
+  },
+  "temperature": 950,
+  "time": 97
+}

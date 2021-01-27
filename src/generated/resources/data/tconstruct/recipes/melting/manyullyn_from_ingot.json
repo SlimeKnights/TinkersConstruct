@@ -7,5 +7,6 @@
     "fluid": "tconstruct:molten_manyullyn",
     "amount": 144
   },
-  "temperature": 350
+  "temperature": 1200,
+  "time": 72
 }

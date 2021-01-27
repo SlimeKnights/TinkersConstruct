@@ -3,18 +3,24 @@ package slimeknights.tconstruct.smeltery.tileentity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.BucketItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fml.DistExecutor;
 import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.tconstruct.common.config.Config;
@@ -112,6 +118,46 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    */
 
   /**
+   * Attempts to interact with a flilled bucket on a fluid tank. This is unique as it handles fish buckets, which don't expose fluid capabilities
+   * @param world    World instance
+   * @param pos      Block position
+   * @param player   Player
+   * @param hand     Hand
+   * @param hit      Hit side
+   * @param offset   Direction to place fish
+   * @return True if using a bucket
+   */
+  static boolean interactWithBucket(World world, BlockPos pos, PlayerEntity player, Hand hand, Direction hit, Direction offset) {
+    ItemStack held = player.getHeldItem(hand);
+    if (held.getItem() instanceof BucketItem) {
+      BucketItem bucket = (BucketItem) held.getItem();
+      Fluid fluid = bucket.getFluid();
+      if (fluid != Fluids.EMPTY) {
+        if (!world.isRemote) {
+          TileEntity te = world.getTileEntity(pos);
+          if (te != null) {
+            te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit)
+              .ifPresent(handler -> {
+                FluidStack fluidStack = new FluidStack(bucket.getFluid(), FluidAttributes.BUCKET_VOLUME);
+                // must empty the whole bucket
+                if (handler.fill(fluidStack, FluidAction.SIMULATE) == FluidAttributes.BUCKET_VOLUME) {
+                  handler.fill(fluidStack, FluidAction.EXECUTE);
+                  bucket.onLiquidPlaced(world, held, pos.offset(offset));
+                  world.playSound(null, pos, fluid.getAttributes().getEmptySound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                  if (!player.isCreative()) {
+                    player.setHeldItem(hand, held.getContainerItem());
+                  }
+                }
+              });
+          }
+        }
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Base logic to interact with a tank
    * @param world   World instance
    * @param pos     Tank position
@@ -121,21 +167,21 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    * @return  True if further interactions should be blocked, false otherwise
    */
   static boolean interactWithTank(World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-    if (!world.isRemote()) {
-      // simply update the fluid handler capability
-      TileEntity te = world.getTileEntity(pos);
-      if (te != null) {
-        te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit.getFace()).ifPresent((handler) -> {
-          if (FluidUtil.interactWithFluidHandler(player, hand, handler)) {
-            // FIXME: this is wrong, should have the fluid play the sound
-            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.BLOCKS, 1, 1);
-          }
-        });
+    // success if the item is a fluid handler, regardless of if fluid moved
+    ItemStack stack = player.getHeldItem(hand);
+    Direction face = hit.getFace();
+    if (FluidUtil.getFluidHandler(stack).isPresent()) {
+      if (!world.isRemote()) {
+        TileEntity te = world.getTileEntity(pos);
+        if (te != null) {
+          te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face)
+            .ifPresent(handler -> FluidUtil.interactWithFluidHandler(player, hand, handler));
+        }
       }
+      return true;
     }
-
-    // if its a fluid handler item, block further interactions
-    return FluidUtil.getFluidHandler(player.getHeldItem(hand)).isPresent();
+    // fall back to buckets for fish buckets
+    return interactWithBucket(world, pos, player, hand, face, face);
   }
 
   /**

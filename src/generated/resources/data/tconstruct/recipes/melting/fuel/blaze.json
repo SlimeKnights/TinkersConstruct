@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:melting_fuel",
+  "fluid": {
+    "name": "tconstruct:molten_blaze",
+    "amount": 50
+  },
+  "duration": 150,
+  "temperature": 1500
+}

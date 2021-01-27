@@ -7,5 +7,6 @@
     "fluid": "tconstruct:blood",
     "amount": 50
   },
-  "temperature": 12
+  "temperature": 36,
+  "time": 30
 }

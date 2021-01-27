@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.library.recipe.material;
 
 import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -80,43 +77,29 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
     if (this.needed <= 0) {
       throw new IllegalStateException("recipe " + id + " has no needed associated with it");
     }
-    ResourceLocation advancementId = this.buildAdvancement(id, "materials");
-    consumerIn.accept(new Result(id, this.getGroup(), this.ingredient, this.material, this.value, this.needed, this.advancementBuilder, advancementId));
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "materials");
+    consumerIn.accept(new Result(id, advancementId));
   }
 
-  @AllArgsConstructor
-  private static class Result implements IFinishedRecipe {
-    @Getter
-    private final ResourceLocation ID;
-    private final String group;
-    private final Ingredient ingredient;
-    private final MaterialId material;
-    private final int value;
-    private final int needed;
-    private final Advancement.Builder advancementBuilder;
-    @Getter
-    private final ResourceLocation advancementID;
+  private class Result extends AbstractFinishedRecipe {
+    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
 
     @Override
     public void serialize(JsonObject json) {
-      if (!this.group.isEmpty()) {
-        json.addProperty("group", this.group);
+      if (!group.isEmpty()) {
+        json.addProperty("group", group);
       }
-      json.add("ingredient", this.ingredient.serialize());
-      json.addProperty("value", this.value);
-      json.addProperty("needed", this.needed);
-      json.addProperty("material", this.material.toString());
+      json.add("ingredient", ingredient.serialize());
+      json.addProperty("value", value);
+      json.addProperty("needed", needed);
+      json.addProperty("material", material.toString());
     }
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
       return TinkerTables.materialRecipeSerializer.get();
-    }
-
-    @Nullable
-    @Override
-    public JsonObject getAdvancementJson() {
-      return this.advancementBuilder.serialize();
     }
   }
 }

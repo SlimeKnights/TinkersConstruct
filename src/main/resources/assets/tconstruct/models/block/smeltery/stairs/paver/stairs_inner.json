@@ -3,6 +3,6 @@
     "textures": {
         "bottom": "tconstruct:block/smeltery/seared/paver",
         "top": "tconstruct:block/smeltery/seared/paver",
-        "side": "tconstruct:block/smeltery/seared/paver"
+        "side": "tconstruct:block/smeltery/seared/paver_slab"
     }
 }

@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:melting",
+  "type": "tconstruct:ore_melting",
   "ingredient": {
     "tag": "forge:ores/gold"
   },
@@ -7,5 +7,6 @@
     "fluid": "tconstruct:molten_gold",
     "amount": 144
   },
-  "temperature": 116
+  "temperature": 700,
+  "time": 85
 }

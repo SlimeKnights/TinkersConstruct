@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
+import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
@@ -39,7 +39,7 @@ public final class ToolStatsBuilder {
   private final List<ExtraMaterialStats> extras;
 
   public static ToolStatsBuilder from(List<IMaterial> materials, ToolDefinition toolDefinition) {
-    List<PartMaterialRequirement> requiredComponents = toolDefinition.getRequiredComponents();
+    List<IToolPart> requiredComponents = toolDefinition.getRequiredComponents();
     if (materials.size() != requiredComponents.size()) {
       throw TinkerAPIMaterialException.statBuilderWithInvalidMaterialCount();
     }
@@ -51,7 +51,7 @@ public final class ToolStatsBuilder {
     );
   }
 
-  private static <T extends IMaterialStats> List<T> listOfCompatibleWith(MaterialStatsId statsId, List<IMaterial> materials, List<PartMaterialRequirement> requiredComponents) {
+  private static <T extends IMaterialStats> List<T> listOfCompatibleWith(MaterialStatsId statsId, List<IMaterial> materials, List<IToolPart> requiredComponents) {
     return Streams.zip(materials.stream(), requiredComponents.stream(),
       (material, partMaterialType) -> ToolStatsBuilder.<T>fetchStatsOrDefault(statsId, material, partMaterialType))
       .filter(Objects::nonNull)
@@ -59,8 +59,8 @@ public final class ToolStatsBuilder {
   }
 
   @Nullable
-  private static <T extends IMaterialStats> T fetchStatsOrDefault(MaterialStatsId statsId, IMaterial material, PartMaterialRequirement requiredComponent) {
-    if (requiredComponent.usesStat(statsId)) {
+  private static <T extends IMaterialStats> T fetchStatsOrDefault(MaterialStatsId statsId, IMaterial material, IToolPart requiredComponent) {
+    if (statsId.equals(requiredComponent.getStatType())) {
       return MaterialRegistry.getInstance().<T>getMaterialStats(material.getIdentifier(), statsId)
         .orElseGet(() -> MaterialRegistry.getInstance().getDefaultStats(statsId));
     } else {

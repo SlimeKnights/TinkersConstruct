@@ -9,9 +9,9 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.mantle.inventory.ItemHandlerSlot;
 
 import javax.annotation.Nullable;
 
@@ -69,6 +69,6 @@ public class SideInventoryContainer<TILE extends TileEntity> extends BaseContain
    * @return  Inventory slot
    */
   protected Slot createSlot(IItemHandler itemHandler, int index, int x, int y) {
-    return new SlotItemHandler(itemHandler, index, x, y);
+    return new ItemHandlerSlot(itemHandler, index, x, y);
   }
 }

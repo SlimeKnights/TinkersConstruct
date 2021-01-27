@@ -10,13 +10,15 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
@@ -26,8 +28,8 @@ import java.util.function.Consumer;
 
 public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
-  public TConstructBlockTagsProvider(DataGenerator generatorIn) {
-    super(generatorIn);
+  public TConstructBlockTagsProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
+    super(generatorIn, TConstruct.modID, existingFileHelper);
   }
 
   @Override
@@ -103,15 +105,31 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Blocks.SEARED_BRICKS).add(
       TinkerSmeltery.searedBricks.get(),
       TinkerSmeltery.searedFancyBricks.get(),
-      TinkerSmeltery.searedSquareBricks.get(),
-      TinkerSmeltery.searedSmallBricks.get(),
-      TinkerSmeltery.searedTriangleBricks.get(),
-      TinkerSmeltery.searedRoad.get());
-    this.getOrCreateBuilder(TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS).add(TinkerSmeltery.searedPaver.get(), TinkerSmeltery.searedCreeper.get(), TinkerSmeltery.searedTile.get());
+      TinkerSmeltery.searedTriangleBricks.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.SEARED_BLOCKS)
-        .add(TinkerSmeltery.searedStone.get(), TinkerSmeltery.searedCrackedBricks.get(), TinkerSmeltery.searedCobble.get())
-        .addTag(TinkerTags.Blocks.SEARED_BRICKS)
-        .addTag(TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS);
+        .add(TinkerSmeltery.searedStone.get(), TinkerSmeltery.searedCrackedBricks.get(), TinkerSmeltery.searedCobble.get(), TinkerSmeltery.searedPaver.get())
+        .addTag(TinkerTags.Blocks.SEARED_BRICKS);
+    this.getOrCreateBuilder(BlockTags.WALLS).add(TinkerSmeltery.searedBricks.getWall(), TinkerSmeltery.searedCobble.getWall());
+
+    // structure tags
+    // floor allows any basic seared blocks
+    this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_FLOOR).addTag(TinkerTags.Blocks.SEARED_BLOCKS);
+    // melter supports the heater as a tank
+    Builder<Block> melterBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.MELTER_TANKS).add(TinkerSmeltery.searedHeater.get());
+    Builder<Block> smelteryBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_TANKS);
+    TinkerSmeltery.searedTank.forEach(tank -> {
+      melterBuilder.add(tank);
+      smelteryBuilder.add(tank);
+    });
+    // wall allows anything in the floor, tanks, and glass
+    this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_WALL)
+        .addTag(TinkerTags.Blocks.SMELTERY_FLOOR)
+        .addTag(TinkerTags.Blocks.SMELTERY_TANKS)
+        .add(TinkerSmeltery.searedGlass.get(), TinkerSmeltery.searedLadder.get(),
+             TinkerSmeltery.searedDrain.get(), TinkerSmeltery.searedChute.get(), TinkerSmeltery.searedDuct.get());
+
+    // climb seared ladder
+    this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get());
   }
 
   @Override

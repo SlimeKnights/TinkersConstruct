@@ -3,9 +3,6 @@
   "values": [
     "tconstruct:seared_bricks",
     "tconstruct:seared_fancy_bricks",
-    "tconstruct:seared_square_bricks",
-    "tconstruct:seared_small_bricks",
-    "tconstruct:seared_triangle_bricks",
-    "tconstruct:seared_road"
+    "tconstruct:seared_triangle_bricks"
   ]
 }

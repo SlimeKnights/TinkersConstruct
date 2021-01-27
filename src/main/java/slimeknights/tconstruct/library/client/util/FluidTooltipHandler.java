@@ -39,7 +39,7 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FluidTooltipHandler {
   private static final Map<Fluid,List<FluidGuiEntry>> CACHE = new HashMap<>();
-  private static final String HOLD_SHIFT = Util.makeTranslationKey("gui", "fluid.hold_shift");
+  public static final ITextComponent HOLD_SHIFT = new TranslationTextComponent(Util.makeTranslationKey("gui", "fluid.hold_shift")).mergeStyle(TextFormatting.GRAY);
 
   /*
    * Base units
@@ -84,11 +84,21 @@ public class FluidTooltipHandler {
    * @return  Fluid tooltip
    */
   public static List<ITextComponent> getFluidTooltip(FluidStack fluid) {
+    return getFluidTooltip(fluid, fluid.getAmount());
+  }
+
+  /**
+   * Gets the tooltip for a fluid stack
+   * @param fluid  Fluid stack instance
+   * @param amount Amount override
+   * @return  Fluid tooltip
+   */
+  public static List<ITextComponent> getFluidTooltip(FluidStack fluid, int amount) {
     List<ITextComponent> tooltip = new ArrayList<>();
     // fluid name, not sure if there is a cleaner way to do this
-    tooltip.add(new StringTextComponent("").append(fluid.getDisplayName()).mergeStyle(TextFormatting.WHITE));
+    tooltip.add(fluid.getDisplayName().copyRaw().mergeStyle(TextFormatting.WHITE));
     // material
-    appendMaterial(fluid, tooltip);
+    appendMaterial(fluid.getFluid(), amount, tooltip);
     // add mod display name
     ModList.get().getModContainerById(Objects.requireNonNull(fluid.getFluid().getRegistryName()).getNamespace())
            .map(container -> container.getModInfo().getDisplayName())
@@ -102,12 +112,21 @@ public class FluidTooltipHandler {
    * @param tooltip  Tooltip to append information
    */
   public static void appendMaterial(FluidStack fluid, List<ITextComponent> tooltip) {
-    int original = fluid.getAmount();
+    appendMaterial(fluid.getFluid(), fluid.getAmount(), tooltip);
+  }
+
+  /**
+   * Adds information for the tooltip based on material units
+   * @param fluid      Input fluid
+   * @param original   Input amount
+   * @param tooltip    Tooltip to append information
+   */
+  public static void appendMaterial(Fluid fluid, int original, List<ITextComponent> tooltip) {
     int amount = original;
 
     // if holding shift, skip specific units
     if(!Screen.hasShiftDown()) {
-      List<FluidGuiEntry> entries = CACHE.computeIfAbsent(fluid.getFluid(), FluidTooltipHandler::calcFluidEntries);
+      List<FluidGuiEntry> entries = CACHE.computeIfAbsent(fluid, FluidTooltipHandler::calcFluidEntries);
       for(FluidGuiEntry entry : entries) {
         amount = entry.getText(tooltip, amount);
       }
@@ -129,7 +148,7 @@ public class FluidTooltipHandler {
   public static void appendShift(List<ITextComponent> tooltip) {
     if(!Screen.hasShiftDown()) {
       tooltip.add(new StringTextComponent(""));
-      tooltip.add(new TranslationTextComponent(HOLD_SHIFT).mergeStyle(TextFormatting.GRAY));
+      tooltip.add(HOLD_SHIFT);
     }
   }
 
@@ -145,7 +164,7 @@ public class FluidTooltipHandler {
 
   /**
    * Adds information to the tooltip based on the fluid using bucket units
-   * @param amount   Fluid amount
+   * @param amount     Fluid amount
    * @param tooltip  Tooltip to append information
    */
   public static void appendBuckets(int amount, List<ITextComponent> tooltip) {

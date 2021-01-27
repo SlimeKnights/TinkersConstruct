@@ -1,32 +1,32 @@
 package slimeknights.tconstruct.library.utils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.math.BlockPos;
-//import slimeknights.tconstruct.library.tinkering.Category;
-//import slimeknights.tconstruct.library.tools.ToolNBT;
+import net.minecraftforge.common.util.Constants.NBT;
 
+import javax.annotation.Nullable;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TagUtil {
-
   public static int TAG_TYPE_STRING = (StringNBT.valueOf("")).getId();
   public static int TAG_TYPE_COMPOUND = (new CompoundNBT()).getId();
 
-  private TagUtil() {
-  }
-
   /* Generic Tag Operations */
+
+  @Deprecated
   public static CompoundNBT getTagSafe(ItemStack stack) {
-    // yes, the null checks aren't needed anymore, but they don't hurt either.
-    // After all the whole purpose of this function is safety/processing possibly invalid input ;)
-    if (stack == null || stack.getItem() == null || stack.isEmpty() || !stack.hasTag()) {
+    if (stack.isEmpty() || !stack.hasTag()) {
       return new CompoundNBT();
     }
-
     return stack.getTag();
   }
 
+  @Deprecated
   public static CompoundNBT getTagSafe(CompoundNBT tag, String key) {
     if (tag == null) {
       return new CompoundNBT();
@@ -35,6 +35,7 @@ public final class TagUtil {
     return tag.getCompound(key);
   }
 
+  @Deprecated
   public static ListNBT getTagListSafe(CompoundNBT tag, String key, int type) {
     if (tag == null) {
       return new ListNBT();
@@ -296,19 +297,42 @@ public final class TagUtil {
 
   /* Helper functions */
 
+  /**
+   * Writes a block position to NBT
+   * @param pos  Position to write
+   * @return  Position in NBT
+   */
   public static CompoundNBT writePos(BlockPos pos) {
     CompoundNBT tag = new CompoundNBT();
-    if (pos != null) {
-      tag.putInt("X", pos.getX());
-      tag.putInt("Y", pos.getY());
-      tag.putInt("Z", pos.getZ());
-    }
+    tag.putInt("x", pos.getX());
+    tag.putInt("y", pos.getY());
+    tag.putInt("z", pos.getZ());
     return tag;
   }
 
+  /**
+   * Reads a block position from NBT
+   * @param tag  Tag
+   * @return  Block position, or null if invalid
+   */
+  @Nullable
   public static BlockPos readPos(CompoundNBT tag) {
-    if (tag != null) {
-      return new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z"));
+    if (tag.contains("x", NBT.TAG_ANY_NUMERIC) && tag.contains("y", NBT.TAG_ANY_NUMERIC) && tag.contains("z", NBT.TAG_ANY_NUMERIC)) {
+      return new BlockPos(tag.getInt("x"), tag.getInt("y"), tag.getInt("z"));
+    }
+    return null;
+  }
+
+  /**
+   * Reads a block position from NBT
+   * @param parent  Parent tag
+   * @param key     Position key
+   * @return  Block position, or null if invalid or missing
+   */
+  @Nullable
+  public static BlockPos readPos(CompoundNBT parent, String key) {
+    if (parent.contains(key, NBT.TAG_COMPOUND)) {
+      return readPos(parent.getCompound(key));
     }
     return null;
   }

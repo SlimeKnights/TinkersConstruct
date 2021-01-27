@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 public class TConstructLootTableProvider extends LootTableProvider {
 
   private LootTableProvider x;
-  private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> lootTables = ImmutableList.of(Pair.of(TConstructBlockLootTables::new, LootParameterSets.BLOCK));
+  private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> lootTables = ImmutableList.of(Pair.of(TConstructBlockLootTables::new, LootParameterSets.BLOCK), Pair.of(TConstructEntityLootTables::new, LootParameterSets.ENTITY));
 
   public TConstructLootTableProvider(DataGenerator gen) {
     super(gen);
@@ -34,7 +34,7 @@ public class TConstructLootTableProvider extends LootTableProvider {
 
   @Override
   protected void validate(Map<ResourceLocation,LootTable> map, ValidationTracker validationtracker) {
-    map.forEach((loc, table) -> LootTableManager.func_227508_a_(validationtracker, loc, table));
+    map.forEach((loc, table) -> LootTableManager.validateLootTable(validationtracker, loc, table));
     // Remove vanilla's tables, which we also loaded so we can redirect stuff to them.
     // This ensures the remaining generator logic doesn't write those to files.
     map.keySet().removeIf((loc) -> !loc.getNamespace().equals(TConstruct.modID));

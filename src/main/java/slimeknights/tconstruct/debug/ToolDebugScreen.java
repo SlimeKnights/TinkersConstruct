@@ -39,7 +39,7 @@ public class ToolDebugScreen extends ContainerScreen<ToolDebugContainer> {
   public void render(MatrixStack matrices, int p_render_1_, int p_render_2_, float p_render_3_) {
     this.renderBackground(matrices);
     super.render(matrices, p_render_1_, p_render_2_, p_render_3_);
-    this.func_230459_a_(matrices, p_render_1_, p_render_2_);
+    this.renderHoveredTooltip(matrices, p_render_1_, p_render_2_);
     //GlStateManager.disableLighting();
     //GlStateManager.disableBlend();
   }

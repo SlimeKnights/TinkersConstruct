@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "type": "minecraft:slime"
+  },
+  "output": {
+    "fluid": "tconstruct:green_slime",
+    "amount": 25
+  },
+  "damage": 2
+}

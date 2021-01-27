@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/gem"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_ender",
+    "amount": 250
+  },
+  "result": "minecraft:ender_pearl",
+  "cooling_time": 65
+}

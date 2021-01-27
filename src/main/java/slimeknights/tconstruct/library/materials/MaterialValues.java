@@ -8,24 +8,28 @@ package slimeknights.tconstruct.library.materials;
  * In general, use these values when registering items/item-interactions unless you have a very good reason.
  */
 public final class MaterialValues {
-
   // How much the different items are "worth"
-  // the values are used for both liquid conversion as well as part crafting
+  // the values are used for liquid conversion
+
+  /** Value of a single metal ingot, is divisible by 9 */
   public static final int VALUE_Ingot = 144;
+  /** Value of a single metal nugget */
   public static final int VALUE_Nugget = VALUE_Ingot / 9;
-  public static final int VALUE_Fragment = VALUE_Ingot / 4;
-  public static final int VALUE_Shard = VALUE_Ingot / 2;
-
-  public static final int VALUE_Gem = 666; // divisible by 3!
+  /** Value of a single metal block, is divisible by 81 */
   public static final int VALUE_Block = VALUE_Ingot * 9;
-
-  public static final int VALUE_SearedBlock = VALUE_Ingot * 2;
-  public static final int VALUE_SearedMaterial = VALUE_Ingot / 2;
-  public static final int VALUE_Glass = 1000;
-  public static final int VALUE_Pane = VALUE_Glass * 6 / 16;
-
+  /** Value of a single metal brick block, is divisible by 36 */
   public static final int VALUE_BrickBlock = VALUE_Ingot * 4;
 
+  /** Value of a gem such as emerald or an ender pearl, divides into buckets well */
+  public static final int VALUE_Gem = 250;
+  public static final int VALUE_GemBlock = VALUE_Gem * 9;
+
+  /** Value of a single glass block */
+  public static final int VALUE_Glass = VALUE_Ingot * 4;
+  /** Value of a glass pane, slightly cheaper than vanilla */
+  public static final int VALUE_Pane = VALUE_Glass / 4;
+
+  /** Value of a single slimeball */
   public static final int VALUE_SlimeBall = 250;
 
 

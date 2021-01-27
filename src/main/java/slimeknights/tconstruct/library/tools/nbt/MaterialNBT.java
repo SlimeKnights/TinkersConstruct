@@ -35,12 +35,25 @@ public class MaterialNBT {
     return materials;
   }
 
+  /**
+   * Gets the material at the given index
+   * @param index  Index
+   * @return  Material, or unknown if index is invalid
+   */
+  public IMaterial getMaterial(int index) {
+    List<IMaterial> mats = materials;
+    if (index > mats.size() || index < 0) {
+      return IMaterial.UNKNOWN;
+    }
+    return mats.get(index);
+  }
+
   public static MaterialNBT readFromNBT(@Nullable INBT nbt) {
     if (nbt == null || nbt.getId() != Constants.NBT.TAG_LIST) {
       return EMPTY;
     }
     ListNBT listNBT = (ListNBT) nbt;
-    if (listNBT.func_230528_d__() != Constants.NBT.TAG_STRING) {
+    if (listNBT.getTagType() != Constants.NBT.TAG_STRING) {
       return EMPTY;
     }
 

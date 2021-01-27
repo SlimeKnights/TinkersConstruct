@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "type": "minecraft:blaze"
+  },
+  "output": {
+    "fluid": "tconstruct:molten_blaze",
+    "amount": 20
+  },
+  "damage": 2
+}

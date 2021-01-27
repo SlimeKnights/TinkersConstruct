@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
@@ -46,7 +47,9 @@ public interface ICastingRecipe extends ICommonRecipe<ICastingInventory> {
    * @return  Cooling time based on the given inputs
    */
   static int calcCoolingTime(int temperature, int amount) {
-    return 24 + (temperature * amount) / 1600;
+    // the time in melting reipes assumes updating 5 times a second
+    // we update 20 times a second, so get roughly a quart of those values
+    return IMeltingRecipe.calcTimeForAmount(temperature, amount);
   }
 
   /**

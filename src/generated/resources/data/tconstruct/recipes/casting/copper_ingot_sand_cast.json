@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/ingot"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_copper",
+    "amount": 144
+  },
+  "result": "tconstruct:copper_ingot",
+  "cooling_time": 50
+}

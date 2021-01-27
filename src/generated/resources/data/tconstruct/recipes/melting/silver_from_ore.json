@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ores/silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/silver"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_silver",
+    "amount": 144
+  },
+  "temperature": 790,
+  "time": 90
+}

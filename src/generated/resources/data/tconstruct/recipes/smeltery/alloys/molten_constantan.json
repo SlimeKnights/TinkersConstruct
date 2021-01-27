@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:alloy",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/constantan",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    },
+    {
+      "value": {
+        "tag": "forge:ingots/nickel",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "output": {
+    "fluid": "tconstruct:molten_constantan",
+    "amount": 288
+  },
+  "inputs": [
+    {
+      "name": "tconstruct:molten_copper",
+      "amount": 144
+    },
+    {
+      "name": "tconstruct:molten_nickel",
+      "amount": 144
+    }
+  ]
+}

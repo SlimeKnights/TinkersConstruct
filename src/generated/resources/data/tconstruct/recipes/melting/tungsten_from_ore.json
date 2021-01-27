@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ores/tungsten",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/tungsten"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_tungsten",
+    "amount": 144
+  },
+  "temperature": 950,
+  "time": 97
+}
