@@ -37,7 +37,7 @@ public final class MaterialIds {
   public static final MaterialId soulsteel = id("soulsteel");
 
   // tier 2 (end)
-  public static final MaterialId endstone = id("endstone");
+  //public static final MaterialId endstone = id("endstone");
   // chorus
 
   // tier 2 (mod integration)

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.materials.stats;
 
 import lombok.EqualsAndHashCode;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -32,6 +33,19 @@ public abstract class BaseMaterialStats implements IMaterialStats {
   public static ITextComponent formatNumberPercent(String loc, Color color, float number) {
     return new TranslationTextComponent(loc)
       .append(new StringTextComponent(Util.dfPercent.format(number)).modifyStyle(style -> style.setColor(color)));
+  }
+
+  /**
+   * Formats a percentage with hue shifting
+   * @param loc     Prefix location
+   * @param number  Percentage
+   * @return  Colored percent with prefix
+   */
+  public static ITextComponent formatColoredPercent(String loc, float number) {
+    // 0.5 is red, 1.0 should be roughly green, 1.5 is blue
+    float hue = MathHelper.positiveModulo(number - 0.5f, 2f);
+    return new TranslationTextComponent(loc)
+      .append(new StringTextComponent(Util.dfPercent.format(number)).modifyStyle(style -> style.setColor(Color.fromInt(Util.hueToRGB(hue / 1.5f)))));
   }
 
   /**

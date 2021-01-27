@@ -44,7 +44,7 @@ final class Materials {
   public static final IMaterial soulsteel   = mat(MaterialIds.soulsteel, TinkerFluids.moltenSoulsteel, false, "6a5244");
 
   // tier 2 (end)
-  public static final IMaterial endstone = mat(MaterialIds.endstone, true, "e0d890");
+  //public static final IMaterial endstone = mat(MaterialIds.endstone, true, "e0d890");
 
   // tier 2 (mod integration)
   public static final IMaterial lead = mat(MaterialIds.lead, false, "4d4968");

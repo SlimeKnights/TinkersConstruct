@@ -20,7 +20,7 @@ public final class MaterialStatsFixture {
   public static final BaseMaterialStats MATERIAL_STATS_2 = new ComplexTestStats(STATS_TYPE_2, 4, 5, "6");
 
   public static final HeadMaterialStats MATERIAL_STATS_HEAD = new HeadMaterialStats(100, 1f, 1, 1f);
-  public static final HandleMaterialStats MATERIAL_STATS_HANDLE = new HandleMaterialStats(1.5f, 1.0f, 1.0f);
+  public static final HandleMaterialStats MATERIAL_STATS_HANDLE = new HandleMaterialStats(1.5f, 1.0f, 1.0f, 1.0f);
   public static final ExtraMaterialStats MATERIAL_STATS_EXTRA = ExtraMaterialStats.DEFAULT;
 
   public static final List<IMaterialStats> TIC_DEFAULT_STATS = ImmutableList.of(
