@@ -28,23 +28,26 @@ final class MaterialStats {
     // head order is durability, mining speed, mining level, damage
 
     // tier 1
+    // vanilla wood: 59, 2f, WOOD, 0f
     addMaterialStats(MaterialIds.wood,
                      new HeadMaterialStats(60, 2f, WOOD, 0f),
                      HandleMaterialStats.DEFAULT, // 1.0 to all four stats for wood, its the baseline handle
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.flint,
-                     new HeadMaterialStats(75, 4f, STONE, 2f),
+                     new HeadMaterialStats(75, 3f, STONE, 2f),
                      HandleMaterialStats.DEFAULT.withDurability(0.75f).withAttackDamage(1.1f),
                      ExtraMaterialStats.DEFAULT);
+    // vanilla stone: 131, 4f, STONE, 1f
     addMaterialStats(MaterialIds.stone,
-                     new HeadMaterialStats(130, 6f, STONE, 1f),
+                     new HeadMaterialStats(130, 4f, STONE, 1f),
                      HandleMaterialStats.DEFAULT.withDurability(0.8f).withMiningSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.bone,
-                     new HeadMaterialStats(90, 5f, STONE, 2f),
+                     new HeadMaterialStats(100, 3f, STONE, 2f),
                      HandleMaterialStats.DEFAULT.withDurability(0.85f).withAttackSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
     // tier 2
+    // vanilla iron: 250, 6f, IRON, 2f
     addMaterialStats(MaterialIds.iron,
                      new HeadMaterialStats(250, 6f, IRON, 2f),
                      HandleMaterialStats.DEFAULT.withDurability(1.15f),
@@ -73,6 +76,7 @@ final class MaterialStats {
                      ExtraMaterialStats.DEFAULT);
 
     // tier 3
+    // vanilla diamond: 1561, 8f, DIAMOND, 3f
     addMaterialStats(MaterialIds.slimesteel,
                      new HeadMaterialStats(640, 6f, DIAMOND, 3f),
                      HandleMaterialStats.DEFAULT.withDurability(1.25f).withAttackSpeed(0.95f),
@@ -85,6 +89,7 @@ final class MaterialStats {
                      new HeadMaterialStats(420, 8f, DIAMOND, 3f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(1.15f),
                      ExtraMaterialStats.DEFAULT);
+    // vanilla gold: 32, 12f, WOOD, 0f
     addMaterialStats(MaterialIds.roseGold,
                      new HeadMaterialStats(175, 12f, IRON, 1f),
                      HandleMaterialStats.DEFAULT.withDurability(0.6f).withAttackSpeed(1.25f).withMiningSpeed(1.3f),
@@ -119,6 +124,7 @@ final class MaterialStats {
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withAttackSpeed(1.1f).withMiningSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
     // tier 4
+    // vanilla netherite: 2031, 9f, NETHERITE, 4f
     addMaterialStats(MaterialIds.queensSlime,
                      new HeadMaterialStats(1350, 9f, NETHERITE, 4f),
                      HandleMaterialStats.DEFAULT.withDurability(1.4f),
