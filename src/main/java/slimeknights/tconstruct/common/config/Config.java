@@ -277,7 +277,7 @@ public final class Config {
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "slimeIslandsOnlyGenerateInSurfaceWorlds", slimeIslandsOnlyGenerateInSurfaceWorlds);
-      prop.setComment("If true, slime islands wont generate in dimensions which aren't of type surface. This means they wont generate in modded cave dimensions like the deep dark.");
+      prop.setComment("If false, slime islands only generate in dimensions which are of type surface. This means they won't generate in modded cave dimensions like the Deep Dark. Note that the name of this property is inverted: It must be set to false to prevent slime islands from generating in non-surface dimensions.");
       slimeIslandsOnlyGenerateInSurfaceWorlds = prop.getBoolean();
       propOrder.add(prop.getName());
 
