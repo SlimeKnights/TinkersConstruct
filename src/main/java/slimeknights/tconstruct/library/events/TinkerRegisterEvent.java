@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.events;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
@@ -10,6 +11,7 @@ import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+import slimeknights.tconstruct.library.tools.ToolCore;
 
 /** Base event used when something is registered in the Tinker Registry */
 @Cancelable
@@ -78,6 +80,30 @@ public abstract class TinkerRegisterEvent<T> extends TinkerEvent {
     }
   }
 
+  /** Register a tool station addition */
+  public static class ToolStationCraftingRegisterEvent extends TinkerRegisterEvent<ToolCore> {
+
+    public ToolStationCraftingRegisterEvent(ToolCore tool) {
+      super(tool);
+    }
+  }
+
+  /** Register a tool forge addition */
+  public static class ToolForgeCraftingRegisterEvent extends TinkerRegisterEvent<ToolCore> {
+
+    public ToolForgeCraftingRegisterEvent(ToolCore tool) {
+      super(tool);
+    }
+  }
+  
+  /** Register a stencil table addition */
+  public static class StencilTableCraftingRegisterEvent extends TinkerRegisterEvent<ItemStack> {
+
+    public StencilTableCraftingRegisterEvent(ItemStack stencil) {
+      super(stencil);
+    }
+  }
+  
   public static class SmelteryFuelRegisterEvent extends TinkerRegisterEvent<FluidStack> {
 
     private final int fuelDuration;

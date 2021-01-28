@@ -385,7 +385,11 @@ public final class TinkerRegistry {
 
   /** Adds a tool to the Crafting UI of the Tool Station */
   public static void registerToolStationCrafting(ToolCore tool) {
-    toolStationCrafting.add(tool);
+    if(new TinkerRegisterEvent.ToolStationCraftingRegisterEvent(tool).fire()) {
+      toolStationCrafting.add(tool);
+    } else {
+      log.debug("Registration of tool station recipe " + tool.getRegistryName().toString() + " has been cancelled by event");
+    }
   }
 
   public static Set<ToolCore> getToolStationCrafting() {
@@ -394,7 +398,11 @@ public final class TinkerRegistry {
 
   /** Adds a tool to the Crafting UI of the Tool Forge */
   public static void registerToolForgeCrafting(ToolCore tool) {
-    toolForgeCrafting.add(tool);
+    if(new TinkerRegisterEvent.ToolForgeCraftingRegisterEvent(tool).fire()) {
+      toolForgeCrafting.add(tool);
+    } else {
+      log.debug("Registration of tool forge recipe " + tool.getRegistryName().toString() + " has been cancelled by event");
+    }
   }
 
   public static Set<ToolCore> getToolForgeCrafting() {
@@ -408,7 +416,11 @@ public final class TinkerRegistry {
           "Stencil Table Crafting has to be a pattern (%s)", stencil.toString()));
       return;
     }
-    stencilTableCrafting.add(stencil);
+    if(new TinkerRegisterEvent.StencilTableCraftingRegisterEvent(stencil).fire()) {
+      stencilTableCrafting.add(stencil);
+    } else {
+      log.debug("Registration of stencil table stencil " + stencil.toString() + " has been cancelled by event");
+    }
   }
 
   public static List<ItemStack> getStencilTableCrafting() {
