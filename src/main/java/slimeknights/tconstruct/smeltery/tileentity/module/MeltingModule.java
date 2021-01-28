@@ -133,7 +133,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    */
   public void heatItem(int temperature) {
     // if the slot is able to be heated, heat it
-    if (canHeatItem(temperature)) {
+    if (currentTime == NO_SPACE || canHeatItem(temperature)) {
       // if we are done, cook item
       if (currentTime == NO_SPACE || currentTime >= requiredTime) {
         if (onItemFinishedHeating()) {

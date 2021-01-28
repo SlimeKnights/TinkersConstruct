@@ -1078,7 +1078,7 @@
     
     "jei.tconstruct.melting.title": "Melting",
     "jei.tconstruct.melting.multiplier": "Speed multiplier: %sx",
-    "jei.tconstruct.melting.ore": "Recipe output is boosted based on the block",
+    "jei.tconstruct.melting.ore": "Recipe output is boosted based on the controller type",
     "jei.tconstruct.entity_melting.title": "Entity Melting",
 
     "jei.tconstruct.alloy.title": "Alloying"
