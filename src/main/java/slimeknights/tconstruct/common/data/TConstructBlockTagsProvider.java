@@ -63,8 +63,6 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(Tags.Blocks.GLASS_PANES_COLORLESS).add(TinkerCommons.clearGlassPane.get());
     addColored(getOrCreateBuilder(Tags.Blocks.STAINED_GLASS)::add, Tags.Blocks.GLASS, "{color}_clear_stained_glass");
     addColored(getOrCreateBuilder(Tags.Blocks.STAINED_GLASS_PANES)::add, Tags.Blocks.GLASS_PANES, "{color}_clear_stained_glass_pane");
-    this.getOrCreateBuilder(Tags.Blocks.GLASS).add(TinkerCommons.soulGlass.get());
-    this.getOrCreateBuilder(Tags.Blocks.GLASS_PANES).add(TinkerCommons.soulGlassPane.get());
   }
 
   private void addWorld() {
