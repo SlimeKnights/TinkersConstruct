@@ -280,7 +280,7 @@ public class FuelModule implements IIntArray {
     }
 
     // if either handler was present, return the temperature
-    if (handlerTemp.isPresent()) {
+    if (handlerTemp.orElse(0) > 0) {
       return handlerTemp.get();
     }
 
