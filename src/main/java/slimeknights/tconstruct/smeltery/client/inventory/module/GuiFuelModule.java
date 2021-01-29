@@ -123,7 +123,7 @@ public class GuiFuelModule {
       } else if (!fuelInfo.isEmpty()) {
         FluidStack fluid = fuelInfo.getFluid();
         tooltip = FluidTooltipHandler.getFluidTooltip(fluid, fuelInfo.getTotalAmount());
-        int temperature = fuelModule.getTemperature();
+        int temperature = fuelInfo.getTemperature();
         if (temperature > 0) {
           tooltip.add(1, new TranslationTextComponent(TOOLTIP_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
         } else {
