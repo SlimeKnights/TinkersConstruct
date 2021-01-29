@@ -21,12 +21,11 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
+import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelCache;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
@@ -114,13 +113,7 @@ public class FuelModule implements IIntArray {
     if (lastRecipe != null && lastRecipe.matches(fluid)) {
       return lastRecipe;
     }
-    for (MeltingFuel recipe : RecipeHelper.getRecipes(getWorld().getRecipeManager(), RecipeTypes.FUEL, MeltingFuel.class)) {
-      if (recipe.matches(fluid)) {
-        lastRecipe = recipe;
-        return recipe;
-      }
-    }
-    return null;
+    return MeltingFuelCache.findRecipe(getWorld().getRecipeManager(), fluid);
   }
 
 
@@ -457,8 +450,17 @@ public class FuelModule implements IIntArray {
     }
 
     // determine what fluid we have and hpw many other fluids we have
-    FuelInfo info = fluidHandler.map(handler -> FuelInfo.of(handler.getFluidInTank(0), handler.getTankCapacity(0)))
-                                .orElse(FuelInfo.EMPTY);
+    FuelInfo info = fluidHandler.map(handler -> {
+      FluidStack fluid = handler.getFluidInTank(0);
+      int temperature = 0;
+      if (!fluid.isEmpty()) {
+        MeltingFuel fuel = findRecipe(fluid.getFluid());
+        if (fuel != null) {
+          temperature = fuel.getTemperature();
+        }
+      }
+      return FuelInfo.of(fluid, handler.getTankCapacity(0), temperature);
+    }).orElse(FuelInfo.EMPTY);
 
     // add extra fluid display
     if (!info.isEmpty()) {
@@ -505,13 +507,14 @@ public class FuelModule implements IIntArray {
   @AllArgsConstructor(access = AccessLevel.PRIVATE)
   public static class FuelInfo {
     /** Empty fuel instance */
-    public static final FuelInfo EMPTY = new FuelInfo(FluidStack.EMPTY, 0, 0);
+    public static final FuelInfo EMPTY = new FuelInfo(FluidStack.EMPTY, 0, 0, 0);
     /** Item fuel instance */
-    public static final FuelInfo ITEM = new FuelInfo(FluidStack.EMPTY, 0, 0);
+    public static final FuelInfo ITEM = new FuelInfo(FluidStack.EMPTY, 0, 0, SOLID_TEMPERATURE);
 
     private final FluidStack fluid;
     private int totalAmount;
     private int capacity;
+    private final int temperature;
 
     /**
      * Gets fuel info from the given stack and capacity
@@ -519,11 +522,11 @@ public class FuelModule implements IIntArray {
      * @param capacity  Capacity
      * @return  Fuel info
      */
-    public static FuelInfo of(FluidStack fluid, int capacity) {
+    public static FuelInfo of(FluidStack fluid, int capacity, int temperature) {
       if (fluid.isEmpty()) {
         return EMPTY;
       }
-      return new FuelInfo(fluid, fluid.getAmount(), Math.max(capacity, fluid.getAmount()));
+      return new FuelInfo(fluid, fluid.getAmount(), Math.max(capacity, fluid.getAmount()), temperature);
     }
 
     /**
