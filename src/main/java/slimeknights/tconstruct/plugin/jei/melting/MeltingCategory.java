@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.plugin.jei.melting;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
@@ -40,7 +43,7 @@ import java.util.List;
 public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/melting.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "melting.title");
-  private static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "time");
+  private static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "melting.time");
   private static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "temperature");
   private static final String KEY_MULTIPLIER = Util.makeTranslationKey("jei", "melting.multiplier");
   private static final ITextComponent TOOLTIP_ORE = new TranslationTextComponent(Util.makeTranslationKey("jei", "melting.ore"));
@@ -85,18 +88,23 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
   @Getter
   private final IDrawable icon;
   private final IDrawableStatic tankOverlay;
-  private final IDrawableAnimated heatBar;
   private final IDrawableStatic plus;
   private final IDrawableStatic solidFuel;
+  private final LoadingCache<Integer,IDrawableAnimated> cachedArrows;
 
   public MeltingCategory(IGuiHelper helper) {
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 132, 40);
     this.icon = helper.createDrawableIngredient(new ItemStack(TinkerSmeltery.searedMelter));
     this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.tankOverlay = helper.createDrawable(BACKGROUND_LOC, 132, 0, 32, 32);
-    this.heatBar = helper.drawableBuilder(BACKGROUND_LOC, 164, 0, 3, 16).buildAnimated(200, StartDirection.BOTTOM, false);
     this.plus = helper.drawableBuilder(BACKGROUND_LOC, 132, 34, 6, 6).build();
-    this.solidFuel = helper.drawableBuilder(BACKGROUND_LOC, 167, 0, 18, 20).build();
+    this.solidFuel = helper.drawableBuilder(BACKGROUND_LOC, 164, 0, 18, 20).build();
+    this.cachedArrows = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<Integer,IDrawableAnimated>() {
+      @Override
+      public IDrawableAnimated load(Integer meltingTime) {
+        return helper.drawableBuilder(BACKGROUND_LOC, 150, 41, 24, 17).buildAnimated(meltingTime, StartDirection.LEFT, false);
+      }
+    });
   }
 
   @Override
@@ -117,7 +125,8 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
 
   @Override
   public void draw(MeltingRecipe recipe, MatrixStack matrices, double mouseX, double mouseY) {
-    heatBar.draw(matrices, 24, 18);
+    // draw the arrow
+    cachedArrows.getUnchecked(recipe.getTime() * 5).draw(matrices, 56, 18);
     if (recipe.isOre()) {
       plus.draw(matrices, 87, 31);
     }
@@ -128,19 +137,23 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
       solidFuel.draw(matrices, 1, 19);
     }
 
-    // temperature and time
+    // temperature
     FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
     String tempString = I18n.format(KEY_TEMPERATURE, temperature);
-    fontRenderer.drawString(matrices, tempString, 20, 3, Color.GRAY.getRGB());
-    String timeString = I18n.format(KEY_COOLING_TIME, recipe.getTime() / 4);
-    int x = 92 - fontRenderer.getStringWidth(timeString);
-    fontRenderer.drawString(matrices, timeString, x, 3, Color.GRAY.getRGB());
+    int x = 56 - fontRenderer.getStringWidth(tempString) / 2;
+    fontRenderer.drawString(matrices, tempString, x, 3, Color.GRAY.getRGB());
   }
 
   @Override
-  public List<ITextComponent> getTooltipStrings(MeltingRecipe recipe, double mouseX, double mouseY) {
-    if (recipe.isOre() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 87, 31, 16, 16)) {
+  public List<ITextComponent> getTooltipStrings(MeltingRecipe recipe, double mouseXD, double mouseYD) {
+    int mouseX = (int)mouseXD;
+    int mouseY = (int)mouseYD;
+    if (recipe.isOre() && GuiUtil.isHovered(mouseX, mouseY, 87, 31, 16, 16)) {
       return Collections.singletonList(TOOLTIP_ORE);
+    }
+    // time tooltip
+    if (GuiUtil.isHovered(mouseX, mouseY, 56, 18, 24, 17)) {
+      return Collections.singletonList(new TranslationTextComponent(KEY_COOLING_TIME, recipe.getTime() / 4));
     }
     return Collections.emptyList();
   }
@@ -149,7 +162,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
   public void setRecipe(IRecipeLayout layout, MeltingRecipe recipe, IIngredients ingredients) {
     // input
     IGuiItemStackGroup items = layout.getItemStacks();
-    items.init(0, true, 27, 17);
+    items.init(0, true, 23, 17);
     items.set(ingredients);
 
     // output
