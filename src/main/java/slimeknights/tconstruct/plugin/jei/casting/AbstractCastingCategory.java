@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.plugin.jei.casting;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
@@ -46,21 +49,26 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   private final IDrawable icon;
   @Getter
   private final String title;
-  private final IDrawableAnimated arrow;
   private final IDrawable tankOverlay;
   private final IDrawable castConsumed;
   private final IDrawable castKept;
   private final IDrawable block;
+  private final LoadingCache<Integer,IDrawableAnimated> cachedArrows;
 
   protected AbstractCastingCategory(IGuiHelper guiHelper, Block icon, String translationKey, IDrawable block) {
     this.background = guiHelper.createDrawable(BACKGROUND_LOC, 0, 0, 117, 54);
     this.icon = guiHelper.createDrawableIngredient(new ItemStack(icon));
     this.title = ForgeI18n.getPattern(translationKey);
-    this.arrow = guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17).buildAnimated(200, IDrawableAnimated.StartDirection.LEFT, false);
     this.tankOverlay = guiHelper.createDrawable(BACKGROUND_LOC, 133, 0, 32, 32);
     this.castConsumed = guiHelper.createDrawable(BACKGROUND_LOC, 141, 32, 13, 11);
     this.castKept = guiHelper.createDrawable(BACKGROUND_LOC, 141, 43, 13, 11);
     this.block = block;
+    this.cachedArrows = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<Integer,IDrawableAnimated>() {
+      @Override
+      public IDrawableAnimated load(Integer coolingTime) {
+        return guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17).buildAnimated(coolingTime, IDrawableAnimated.StartDirection.LEFT, false);
+      }
+    });
   }
 
   @Override
@@ -80,7 +88,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
 
   @Override
   public void draw(IDisplayableCastingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-    arrow.draw(matrixStack, 58, 18);
+    cachedArrows.getUnchecked(recipe.getCoolingTime()).draw(matrixStack, 58, 18);
     block.draw(matrixStack, 38, 35);
     if (recipe.hasCast()) {
       (recipe.isConsumed() ? castConsumed : castKept).draw(matrixStack, 63, 39);
