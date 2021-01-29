@@ -81,7 +81,7 @@ public final class TinkerWorld extends TinkerModule {
   @Deprecated
   public static final ItemObject<Block> arditeOre = BLOCKS.register("ardite_ore", () -> new Block(NETHER_ORE), DEFAULT_BLOCK_ITEM);
 
-  private static final Block.Properties OVERWORLD_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).setRequiresTool().hardnessAndResistance(3.0F, 3.0F);
+  private static final Block.Properties OVERWORLD_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).setRequiresTool().harvestLevel(HarvestLevels.STONE).hardnessAndResistance(3.0F, 3.0F);
   public static final ItemObject<Block> copperOre = BLOCKS.register("copper_ore", OVERWORLD_ORE, DEFAULT_BLOCK_ITEM);
 
   // slime
