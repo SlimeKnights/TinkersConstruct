@@ -1083,7 +1083,7 @@
 
     "jei.tconstruct.entity_melting.title": "Entity Melting",
     "jei.tconstruct.entity_melting.per_hearts": "Per %s Hearts Damage",
-    "jei.tconstruct.entity_melting.per_heart": "Per 1 Heart Damage",
+    "jei.tconstruct.entity_melting.per_heart": "Per 1.0 Heart Damage",
 
     "jei.tconstruct.alloy.title": "Alloying"
 }
