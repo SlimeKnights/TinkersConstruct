@@ -25,11 +25,18 @@ public class RecipeCacheInvalidator implements IEarlySafeManagerReloadListener {
     listeners.add(runnable);
   }
 
-  @Override
-  public void onReloadSafe(IResourceManager resourceManager) {
+  /**
+   * Reloads all listeners, used client side
+   */
+  public static void reload() {
     for (Runnable runnable : listeners) {
       runnable.run();
     }
+  }
+
+  @Override
+  public void onReloadSafe(IResourceManager resourceManager) {
+    reload();
   }
 
   /**
