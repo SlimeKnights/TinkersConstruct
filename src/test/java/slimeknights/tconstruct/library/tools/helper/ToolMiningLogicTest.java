@@ -24,7 +24,7 @@ class ToolMiningLogicTest extends ToolCoreTest {
   private final PickaxeTool pickaxeTool = new PickaxeTool(
     new Item.Properties().addToolType(ToolType.PICKAXE, 1),
     ToolDefinitionFixture.getStandardToolDefinition());
-  private ToolMiningLogic toolMiningLogic = new ToolMiningLogic();
+  private final ToolMiningLogic toolMiningLogic = new ToolMiningLogic();
 
   @Test
   void calcSpeed_dirt_notEffective() {

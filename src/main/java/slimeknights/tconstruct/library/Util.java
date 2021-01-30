@@ -14,7 +14,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ForgeI18n;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -105,6 +107,16 @@ public class Util {
    */
   public static String makeTranslationKey(String base, String name) {
     return net.minecraft.util.Util.makeTranslationKey(base, getResource(name));
+  }
+
+  /**
+   * Makes a translation text component for the given name
+   * @param base  Base name, such as "block" or "gui"
+   * @param name  Object name
+   * @return  Translation key
+   */
+  public static IFormattableTextComponent makeTranslation(String base, String name) {
+    return new TranslationTextComponent(makeTranslationKey(base, name));
   }
 
 

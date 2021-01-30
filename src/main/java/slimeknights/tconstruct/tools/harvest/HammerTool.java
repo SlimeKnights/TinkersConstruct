@@ -9,20 +9,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 public class HammerTool extends PickaxeTool implements IAoeTool {
-
-  public static final float DURABILITY_MODIFIER = 2.5f;
 
   public HammerTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
@@ -57,13 +52,5 @@ public class HammerTool extends PickaxeTool implements IAoeTool {
   @Override
   public ImmutableList<BlockPos> getAOEBlocks(@Nonnull ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
     return AoeToolInteractionUtil.calculateAOEBlocks(stack, world, player, origin, 3, 3, 1);
-  }
-
-  @Override
-  public StatsNBT buildToolStats(List<IMaterial> materials) {
-    StatsNBT statsNBT = super.buildToolStats(materials);
-
-    return new StatsNBT((int) (statsNBT.durability * DURABILITY_MODIFIER), statsNBT.harvestLevel, statsNBT.attack,
-      statsNBT.miningSpeed, statsNBT.attackSpeedMultiplier, statsNBT.freeModifiers, statsNBT.broken);
   }
 }

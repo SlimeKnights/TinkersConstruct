@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.tools;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
@@ -17,13 +18,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -52,10 +51,9 @@ import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolMiningLogic;
 import slimeknights.tconstruct.library.tools.helper.TraitUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.library.utils.TooltipType;
-import slimeknights.tconstruct.tools.ToolStatsBuilder;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import javax.annotation.Nullable;
@@ -74,8 +72,22 @@ import java.util.stream.Collectors;
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
 public abstract class ToolCore extends Item implements ITinkerable, IModifiable, IRepairable, ITinkerStationDisplay {
+  private static final ITextComponent TOOLTIP_HOLD_SHIFT;
+  private static final ITextComponent TOOLTIP_HOLD_CTRL;
+  static {
+    ITextComponent shift = Util.makeTranslation("key", "shift").mergeStyle(TextFormatting.YELLOW, TextFormatting.ITALIC);
+    TOOLTIP_HOLD_SHIFT = new TranslationTextComponent(Util.makeTranslationKey("tooltip", "hold_shift"), shift);
+    ITextComponent ctrl = Util.makeTranslation("key", "ctrl").mergeStyle(TextFormatting.AQUA, TextFormatting.ITALIC);
+    TOOLTIP_HOLD_CTRL = new TranslationTextComponent(Util.makeTranslationKey("tooltip", "hold_ctrl"), ctrl);
+  }
+  private static final ITextComponent TOOLTIP_ATTACK_ATTRIBUTE = new TranslationTextComponent("attribute.name.generic.attack_damage");
 
+
+  /** Tool definition for the given tool */
+  @Getter
   private final ToolDefinition toolDefinition;
+  /** Mining logic for the given tool */
+  @Getter
   private final ToolMiningLogic toolMiningLogic;
 
   public ToolCore(Properties properties, ToolDefinition toolDefinition) {
@@ -87,34 +99,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     this.toolDefinition = toolDefinition;
     this.toolMiningLogic = toolMiningLogic;
   }
-
-  /**
-   * Gets the tool definition for the given tool
-   *
-   * @return the tool definition
-   */
-  public ToolDefinition getToolDefinition() {
-    return this.toolDefinition;
-  }
-
-  /**
-   *  Gets the mining logic for the given tool
-   *
-   * @return the tool mining logic
-   */
-  public ToolMiningLogic getToolMiningLogic() {
-    return this.toolMiningLogic;
-  }
-
-  /**
-   * Builds the tool stats from the given materials
-   *
-   * @param materials the list of materials to build from
-   * @return the tool stats
-   */
-  public StatsNBT buildToolStats(List<IMaterial> materials) {
-    return ToolStatsBuilder.from(materials, this.toolDefinition).buildDefaultStats();
-  }
+  
 
   /* Item Entity -> INDESTRUCTIBLE */
 
@@ -134,17 +119,12 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public int getMaxDamage(ItemStack stack) {
-    return ToolData.from(stack).getStats().durability;
+    return ToolStack.from(stack).getStats().getDurability();
   }
 
   @Override
   public void setDamage(ItemStack stack, int damage) {
-    int max = this.getMaxDamage(stack);
-    super.setDamage(stack, Math.min(max - 1, damage));
-
-    if (damage >= max) {
-      ToolDamageUtil.breakTool(stack);
-    }
+    ToolStack.from(stack).setDamage(damage);
   }
 
   /**
@@ -153,7 +133,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    */
   @Override
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
-    if (ToolDamageUtil.damageTool(stack, amount, damager)) {
+    if (ToolStack.from(stack).damage(amount, damager, stack)) {
       onBroken.accept(damager);
     }
 
@@ -168,7 +148,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   @Override
   public double getDurabilityForDisplay(ItemStack stack) {
     // show 1 when broken (fully broken)
-    if (ToolData.isBroken(stack)) {
+    if (ToolDamageUtil.isBroken(stack)) {
       return 1;
     }
     return super.getDurabilityForDisplay(stack);
@@ -179,7 +159,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   @Override
   public Set<ToolType> getToolTypes(ItemStack stack) {
     // no classes if broken
-    if (ToolData.isBroken(stack)) {
+    if (ToolDamageUtil.isBroken(stack)) {
       return Collections.emptySet();
     }
 
@@ -190,7 +170,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
     // brokenness is calculated in by the toolTypes check
     if (this.getToolTypes(stack).contains(toolClass)) {
-      return ToolData.from(stack).getStats().harvestLevel;
+      return ToolStack.from(stack).getStats().getHarvestLevel();
     }
 
     return -1;
@@ -216,7 +196,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-    if (ToolData.isBroken(stack)) {
+    if (ToolDamageUtil.isBroken(stack)) {
       return false;
     }
 
@@ -225,7 +205,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
     this.afterBlockBreak(stack, worldIn, state, pos, entityLiving, damage, effective);
 
-    return effective && this.toolDefinition.hasCategory(Category.HARVEST);
+    return effective && this.getToolDefinition().hasCategory(Category.HARVEST);
   }
 
   /**
@@ -247,16 +227,16 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public boolean canHarvestBlock(ItemStack stack, BlockState state) {
-    return this.isEffective(state) && !ToolData.isBroken(stack);
+    return !ToolDamageUtil.isBroken(stack) && this.isEffective(state);
   }
 
   /* Repairing */
 
   @Override
   public boolean canRepairWith(ItemStack repairable, IMaterial material) {
-    ToolData toolData = ToolData.from(repairable);
-    for (int part : this.toolDefinition.getRepairParts()) {
-      if (toolData.getMaterial(part) == material) {
+    ToolStack tool = ToolStack.from(repairable);
+    for (int part : this.getToolDefinition().getRepairParts()) {
+      if (tool.getMaterial(part) == material) {
         return true;
       }
     }
@@ -270,7 +250,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public ItemStack repairItem(ItemStack repairable, int amount) {
-    ToolDamageUtil.repairTool(repairable, amount, null);
+    ToolStack.from(repairable).repair(amount);
     return repairable;
   }
 
@@ -306,11 +286,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-    float speed = ToolData.from(stack).getStats().attackSpeedMultiplier;
-
-    if (!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
-      speed *= ((ToolCore) stack.getItem()).getToolDefinition().getBaseStatDefinition().getAttackSpeed();
-    }
+    float speed = ToolStack.from(stack).getStats().getAttackSpeedMultiplier();
+    speed *= toolDefinition.getBaseStatDefinition().getAttackSpeed();
 
     int time = Math.round(20f / speed);
     if (time < target.hurtResistantTime / 2) {
@@ -325,24 +302,16 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 
-    StatsNBT statsNBT = ToolData.from(stack).getStats();
-
-    float speed = statsNBT.attackSpeedMultiplier;
-
-    if (!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
-      speed *= ((ToolCore) stack.getItem()).getToolDefinition().getBaseStatDefinition().getAttackSpeed();
-    }
-
-    float damage = statsNBT.attack;
-
-    if (!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
-      damage *= ((ToolCore) stack.getItem()).getToolDefinition().getBaseStatDefinition().getDamageModifier();
-    }
-
-    if (slot == EquipmentSlotType.MAINHAND && !ToolData.isBroken(stack)) {
+    ToolStack tool = ToolStack.from(stack);
+    if (slot == EquipmentSlotType.MAINHAND && !tool.isBroken()) {
+      StatsNBT statsNBT = tool.getStats();
+      double speed = statsNBT.getAttackSpeedMultiplier() * toolDefinition.getBaseStatDefinition().getAttackSpeed();
+      float damage = statsNBT.getAttackDamage() * toolDefinition.getBaseStatDefinition().getDamageModifier();
       builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", damage, AttributeModifier.Operation.ADDITION));
       builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", speed - 4d, AttributeModifier.Operation.ADDITION));
     }
+
+    // TODO: modifiers
 
     Multimap<Attribute, AttributeModifier> attributeMap = builder.build();
 
@@ -355,7 +324,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
-    if (!ToolData.isBroken(itemstack) && this instanceof IAoeTool) {
+    if (!ToolDamageUtil.isBroken(itemstack) && this instanceof IAoeTool) {
       for (BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(itemstack, player.getEntityWorld(), player, pos)) {
         this.breakExtraBlock(itemstack, player.getEntityWorld(), player, extraPos, pos);
       }
@@ -408,9 +377,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   @Override
   public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
-
     final boolean isSelectedOrOffhand = isSelected || (entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getHeldItemOffhand() == stack);
-
     TraitUtil.forEachTrait(stack, trait -> trait.onUpdate(stack, worldIn, entityIn, itemSlot, isSelectedOrOffhand));
   }
 
@@ -422,26 +389,25 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     boolean shift = Util.isShiftKeyDown();
     boolean ctrl = Util.isCtrlKeyDown();
 
-    // modifiers
-    if (!shift && !ctrl) {
-      this.getTooltip(stack, tooltip, TooltipType.NORMAL);
-
-      tooltip.add(StringTextComponent.EMPTY);
-
-      tooltip.add(new TranslationTextComponent("tooltip.tool.hold_shift"));
-      tooltip.add(new TranslationTextComponent("tooltip.tool.hold_ctrl"));
-
-      if (worldIn != null) {
-        tooltip.add((new TranslationTextComponent("attribute.modifier.plus.0", Util.df.format(ToolAttackUtil.getActualDamage(stack, Minecraft.getInstance().player)), new TranslationTextComponent("attribute.name.generic.attack_damage"))).mergeStyle(TextFormatting.BLUE));
-      }
-    }
-    // detailed data
-    else if (shift) {
+    if (shift) {
+      // component data
       this.getTooltip(stack, tooltip, TooltipType.SHIFT);
     }
-    // component data
     else if (ctrl) {
+      // modifiers
       this.getTooltip(stack, tooltip, TooltipType.CONTROL);
+    } else {
+      this.getTooltip(stack, tooltip, TooltipType.NORMAL);
+      tooltip.add(StringTextComponent.EMPTY);
+      tooltip.add(TOOLTIP_HOLD_SHIFT);
+      tooltip.add(TOOLTIP_HOLD_CTRL);
+
+      // add +attack damage, in addition to the when in main hand stack
+      // TODO: still needed?
+      if (worldIn != null) {
+        tooltip.add(new TranslationTextComponent("attribute.modifier.plus.0", Util.df.format(ToolAttackUtil.getActualDamage(stack, Minecraft.getInstance().player)), TOOLTIP_ATTACK_ATTRIBUTE)
+                      .mergeStyle(TextFormatting.BLUE));
+      }
     }
   }
 
@@ -457,48 +423,39 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    * @param tooltipType the tooltip type to display
    */
   public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType) {
-    if (tooltipType == TooltipType.NORMAL) {
-      if (ToolData.isBroken(stack)) {
-        tooltips.add(this.getBrokenToolTip(stack).mergeStyle(TextFormatting.DARK_RED, TextFormatting.BOLD));
-      }
+    switch (tooltipType) {
+      case NORMAL:
+        if (ToolDamageUtil.isBroken(stack)) {
+          tooltips.add(TooltipBuilder.TOOLTIP_BROKEN);
+        }
+        break;
+
+      case SHIFT:
+        tooltips.addAll(this.getInformation(stack, false));
+        break;
+
+      case CONTROL:
+        ToolStack tool = ToolStack.from(stack);
+        List<IMaterial> materials = tool.getMaterialsList();
+        if (materials.isEmpty()) {
+          tooltips.add(new StringTextComponent("No tool data. NBT missing."));
+          return;
+        }
+
+        List<IToolPart> components = this.getToolDefinition().getRequiredComponents();
+        if (materials.size() < components.size()) {
+          return;
+        }
+        for (int i = 0; i < components.size(); i++) {
+          IToolPart requirement = components.get(i);
+          IMaterial material = materials.get(i);
+          ItemStack partStack = requirement.getItemstackWithMaterial(material);
+          tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
+          MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
+          tooltips.add(StringTextComponent.EMPTY);
+        }
+        break;
     }
-    else if (tooltipType == TooltipType.SHIFT) {
-      tooltips.addAll(this.getInformation(stack, false));
-    }
-    else if (tooltipType == TooltipType.CONTROL) {
-      CompoundNBT tag = stack.getTag();
-      if (tag == null) {
-        tooltips.add(new StringTextComponent("No tool data. NBT missing."));
-        return;
-      }
-
-      ToolData toolData = ToolData.readFromNBT(tag);
-
-      List<IMaterial> materials = toolData.getMaterials();
-      List<IToolPart> components = this.getToolDefinition().getRequiredComponents();
-      if (materials.size() < components.size()) {
-        return;
-      }
-
-      for (int i = 0; i < components.size(); i++) {
-        IToolPart requirement = components.get(i);
-        IMaterial material = materials.get(i);
-        ItemStack partStack = requirement.getItemstackWithMaterial(material);
-        tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
-        MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
-        tooltips.add(StringTextComponent.EMPTY);
-      }
-    }
-  }
-
-  /**
-   * Gets the broken tool tip for the given tool.
-   *
-   * @param itemStack the given tool stack
-   * @return The broken tool tip
-   */
-  protected IFormattableTextComponent getBrokenToolTip(ItemStack itemStack) {
-    return new TranslationTextComponent(TooltipBuilder.BROKEN_LOCALIZATION);
   }
 
   @Override
@@ -519,33 +476,28 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    * @return the information for the given stack
    */
   public List<ITextComponent> getInformation(ItemStack stack, boolean detailed) {
-    ToolData data = ToolData.from(stack);
-    TooltipBuilder info = new TooltipBuilder(stack, data);
-
-    info.addDurability(!detailed);
-
+    ToolStack tool = ToolStack.from(stack);
+    TooltipBuilder builder = new TooltipBuilder(stack, tool);
+    builder.addDurability(!detailed);
     if (this.getToolDefinition().hasCategory(Category.HARVEST)) {
-      info.addHarvestLevel();
-      info.addMiningSpeed();
+      builder.addHarvestLevel();
+      builder.addMiningSpeed();
     }
 
-    if (this.getToolDefinition().hasCategory(Category.LAUNCHER)) {
-      info.addDrawSpeed();
-      info.addRange();
-      info.addProjectileBonusDamage();
-    }
+//    if (this.getToolDefinition().hasCategory(Category.LAUNCHER)) {
+//      info.addDrawSpeed();
+//      info.addRange();
+//      info.addProjectileBonusDamage();
+//    }
 
-    info.addAttack();
-
-    if (data.getStats().freeModifiers > 0) {
-      info.addFreeModifiers();
-    }
+    builder.addAttack();
+    builder.addFreeModifiers();
 
     if (detailed) {
-      info.addModifierInfo();
+      builder.addModifierInfo();
     }
 
-    return info.getTooltips();
+    return builder.getTooltips();
   }
 
   @Override
@@ -585,9 +537,14 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     }
   }
 
+  /**
+   * Checks if the list of materials are valid for the stack
+   * @param stack  Tool stack instance
+   * @return  True if the stack has valid materials
+   */
   public boolean hasValidMaterials(ItemStack stack) {
     // checks if the materials used support all stats needed
-    List<IMaterial> materials = ToolData.from(stack).getMaterials();
+    List<IMaterial> materials = ToolStack.from(stack).getMaterialsList();
 
     // something went wrong
     if (materials.size() != this.getToolDefinition().getRequiredComponents().size()) {
@@ -614,8 +571,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   @Override
   public ITextComponent getDisplayName(ItemStack stack) {
     // if the tool is not named we use the repair tools for a prefix like thing
-    List<IMaterial> materials = ToolData.from(stack).getMaterials();
-    List<IToolPart> components = ((ToolCore) stack.getItem()).getToolDefinition().getRequiredComponents();
+    List<IMaterial> materials = ToolStack.from(stack).getMaterialsList();
+    List<IToolPart> components = getToolDefinition().getRequiredComponents();
     // we save all the ones for the name in a set so we don't have the same material in it twice
     Set<IMaterial> nameMaterials = Sets.newLinkedHashSet();
 
@@ -737,10 +694,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    * @param player the given player
    * @param fluidMode the fluid mode to use for the raytrace event
    *
-   * @return
+   * @return  Raytrace
    */
-  public BlockRayTraceResult blockRayTrace(World worldIn, PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
-    return (BlockRayTraceResult) Item.rayTrace(worldIn, player, fluidMode);
+  public static BlockRayTraceResult blockRayTrace(World worldIn, PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
+    return Item.rayTrace(worldIn, player, fluidMode);
   }
 
   //

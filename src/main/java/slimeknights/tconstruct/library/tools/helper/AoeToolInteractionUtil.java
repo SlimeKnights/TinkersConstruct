@@ -23,6 +23,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -30,12 +32,10 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.ForgeEventFactory;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
 
 public class AoeToolInteractionUtil {
 
@@ -166,7 +166,10 @@ public class AoeToolInteractionUtil {
       // send an update to the server, so we get an update back
       ClientPlayNetHandler connection = Minecraft.getInstance().getConnection();
       assert connection != null;
-      connection.sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.STOP_DESTROY_BLOCK, pos, ((BlockRayTraceResult) Minecraft.getInstance().objectMouseOver).getFace()));
+      RayTraceResult result = Minecraft.getInstance().objectMouseOver;
+      if (result != null && result.getType() == Type.BLOCK) {
+        connection.sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.STOP_DESTROY_BLOCK, pos, ((BlockRayTraceResult)result).getFace()));
+      }
     }
   }
 
@@ -218,10 +221,10 @@ public class AoeToolInteractionUtil {
     }
 
     // raytrace to get the side, but has to result in the same block
-    BlockRayTraceResult mop = ((ToolCore) stack.getItem()).blockRayTrace(world, player, RayTraceContext.FluidMode.ANY);
-    if (mop == null || !origin.equals(mop.getPos())) {
-      mop = ((ToolCore) stack.getItem()).blockRayTrace(world, player, RayTraceContext.FluidMode.NONE);
-      if (mop == null || !origin.equals(mop.getPos())) {
+    BlockRayTraceResult mop = ToolCore.blockRayTrace(world, player, RayTraceContext.FluidMode.ANY);
+    if (!origin.equals(mop.getPos())) {
+      mop = ToolCore.blockRayTrace(world, player, RayTraceContext.FluidMode.NONE);
+      if (!origin.equals(mop.getPos())) {
         return ImmutableList.of();
       }
     }
@@ -374,7 +377,7 @@ public class AoeToolInteractionUtil {
     Hand hand = context.getHand();
     ItemStack stack = player.getHeldItem(hand);
 
-    if (ToolData.from(stack).getStats().broken) {
+    if (ToolDamageUtil.isBroken(stack)) {
       return ActionResultType.FAIL;
     }
 
@@ -415,7 +418,7 @@ public class AoeToolInteractionUtil {
           continue;
         }
 
-        if (ToolData.from(stack).getStats().broken) {
+        if (ToolDamageUtil.isBroken(stack)) {
           break;
         }
 

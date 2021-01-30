@@ -8,17 +8,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
-import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tools.SwordCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
-
-import java.util.List;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 
 public class BroadSword extends SwordCore {
-
-  public static final float DURABILITY_MODIFIER = 1.1f;
 
   public BroadSword(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
@@ -30,7 +24,7 @@ public class BroadSword extends SwordCore {
     // deal damage first
     boolean hit = super.dealDamage(stack, player, targetEntity, damage);
 
-    if (hit && !ToolData.isBroken(stack)) {
+    if (hit && !ToolDamageUtil.isBroken(stack)) {
       // sweep code from EntityPlayer#attackTargetEntityWithCurrentItem()
       // basically: no crit, no sprinting and has to stand on the ground for sweep. Also has to move regularly slowly
       double d0 = player.distanceWalkedModified - player.prevDistanceWalkedModified;
@@ -67,11 +61,4 @@ public class BroadSword extends SwordCore {
   public float getRepairModifierForPart(int index) {
     return DURABILITY_MODIFIER;
   }*/
-
-  @Override
-  public StatsNBT buildToolStats(List<IMaterial> materials) {
-    StatsNBT statsNBT = super.buildToolStats(materials);
-
-    return new StatsNBT((int) (statsNBT.durability * DURABILITY_MODIFIER), statsNBT.harvestLevel, statsNBT.attack + 1f, statsNBT.miningSpeed, statsNBT.attackSpeedMultiplier, statsNBT.freeModifiers, statsNBT.broken);
-  }
 }

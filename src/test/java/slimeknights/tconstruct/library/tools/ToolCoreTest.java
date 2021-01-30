@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.MaterialRegistryExtension;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 @ExtendWith(MaterialRegistryExtension.class)
@@ -47,10 +47,12 @@ public abstract class ToolCoreTest extends BaseMcTest {
     );
   }
 
-  protected boolean isTestitemBroken() {
-    return ToolData.from(testItemStack).getStats().broken;
+  /** Checks if the test item is broken */
+  protected boolean IsTestItemBroken() {
+    return ToolDamageUtil.isBroken(testItemStack);
   }
 
+  /** Breaks a tool using high damage */
   protected void breakTool(ItemStack stack) {
     stack.setDamage(99999);
   }

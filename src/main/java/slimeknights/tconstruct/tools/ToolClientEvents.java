@@ -25,7 +25,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 
@@ -93,15 +93,14 @@ public class ToolClientEvents extends ClientEventBase {
 
   /** Color handler instance for ToolCore */
   private static final IItemColor toolColorHandler = (stack, index) -> {
-    return Optional.ofNullable(stack.getTag())
-      .map(ToolData::readFromNBT)
-      .map(ToolData::getMaterials)
-      .filter((mats) -> index < mats.size())
-      .map((mats) -> mats.get(index))
-      .map(IMaterial::getIdentifier)
-      .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
-      .map(IMaterialRenderInfo::getVertexColor)
-      .orElse(-1);
+    IMaterial material = ToolStack.from(stack).getMaterial(index);
+    if (material != IMaterial.UNKNOWN) {
+      return MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material.getIdentifier())
+                                              .map(IMaterialRenderInfo::getVertexColor)
+                                              .orElse(-1);
+    }
+    return -1;
+
   };
 
   /**

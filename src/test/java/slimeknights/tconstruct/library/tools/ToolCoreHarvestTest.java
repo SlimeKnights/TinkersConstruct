@@ -13,7 +13,7 @@ public class ToolCoreHarvestTest extends ToolCoreTest {
   @Test
   void getToolTypes_notBroken_ok() {
     assertThat(testItemStack.getToolTypes()).contains(ToolType.PICKAXE);
-    assertThat(isTestitemBroken()).isFalse();
+    assertThat(IsTestItemBroken()).isFalse();
   }
 
   @Test
@@ -21,7 +21,7 @@ public class ToolCoreHarvestTest extends ToolCoreTest {
     breakTool(testItemStack);
 
     assertThat(testItemStack.getToolTypes()).isEmpty();
-    assertThat(isTestitemBroken()).isTrue();
+    assertThat(IsTestItemBroken()).isTrue();
   }
 
   @Test

@@ -16,8 +16,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.ToolType;
@@ -27,7 +25,7 @@ import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.List;
 import java.util.Random;
@@ -108,8 +106,7 @@ public class KamaTool extends ToolCore implements IAoeTool {
         });
       }
 
-      ToolDamageUtil.damageTool(itemStack, 1, playerEntity);
-
+      ToolStack.from(itemStack).damage(1, playerEntity, itemStack);
       return true;
     }
 
@@ -119,7 +116,7 @@ public class KamaTool extends ToolCore implements IAoeTool {
 
   @Override
   protected boolean breakBlock(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
-    return !ToolData.isBroken(itemstack) && ToolInteractionUtil.shearBlock(itemstack, player.getEntityWorld(), player, pos);
+    return !ToolDamageUtil.isBroken(itemstack) && ToolInteractionUtil.shearBlock(itemstack, player.getEntityWorld(), player, pos);
   }
 
   @Override
@@ -130,33 +127,28 @@ public class KamaTool extends ToolCore implements IAoeTool {
   @Override
   public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
     ItemStack itemStackIn = playerIn.getHeldItem(handIn);
-
-    if (ToolData.isBroken(itemStackIn)) {
+    if (ToolDamageUtil.isBroken(itemStackIn)) {
       return ActionResult.resultFail(itemStackIn);
     }
 
-    BlockRayTraceResult rayTraceResult = this.blockRayTrace(worldIn, playerIn, RayTraceContext.FluidMode.NONE);
+//    BlockRayTraceResult rayTraceResult = blockRayTrace(worldIn, playerIn, RayTraceContext.FluidMode.NONE);
+//
+//    int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStackIn);
+//    BlockPos origin = rayTraceResult.getPos();
 
-    if (rayTraceResult == null) {
-      return ActionResult.resultPass(itemStackIn);
-    }
-
-    int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStackIn);
-    BlockPos origin = rayTraceResult.getPos();
-
-    boolean harvestedSomething = false;
-
-    /*for(BlockPos pos : this.getAOEBlocks(itemStackIn, playerIn.getEntityWorld(), playerIn, origin)) {
-      harvestedSomething |= harvestCrop(itemStackIn, worldIn, playerIn, pos, fortune);
-    }*/
-
-    //harvestedSomething |= this.harvestCrop(itemStackIn, worldIn, playerIn, origin, fortune);
-
-    if (harvestedSomething) {
-      playerIn.getEntityWorld().playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, playerIn.getSoundCategory(), 1.0F, 1.0F);
-      this.swingTool(playerIn, handIn);
-      return ActionResult.resultSuccess(itemStackIn);
-    }
+//    boolean harvestedSomething = false;
+//
+//    /*for(BlockPos pos : this.getAOEBlocks(itemStackIn, playerIn.getEntityWorld(), playerIn, origin)) {
+//      harvestedSomething |= harvestCrop(itemStackIn, worldIn, playerIn, pos, fortune);
+//    }*/
+//
+//    //harvestedSomething |= this.harvestCrop(itemStackIn, worldIn, playerIn, origin, fortune);
+//
+//    if (harvestedSomething) {
+//      playerIn.getEntityWorld().playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, playerIn.getSoundCategory(), 1.0F, 1.0F);
+//      this.swingTool(playerIn, handIn);
+//      return ActionResult.resultSuccess(itemStackIn);
+//    }
 
     return ActionResult.resultPass(itemStackIn);
   }

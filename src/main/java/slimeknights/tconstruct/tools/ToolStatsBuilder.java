@@ -68,16 +68,14 @@ public final class ToolStatsBuilder {
     }
   }
 
+  /** Builds stats using the given factory */
+  public StatsNBT buildStats(IStatFactory factory) {
+    return factory.create(buildDurability(), buildHarvestLevel(), buildAttack(), buildMiningSpeed(), buildAttackSpeed());
+  }
+
+  /** Builds default stats */
   public StatsNBT buildDefaultStats() {
-    return new StatsNBT(
-      buildDurability(),
-      buildHarvestLevel(),
-      buildAttack(),
-      buildMiningSpeed(),
-      buildAttackSpeed(),
-      StatsNBT.DEFAULT_MODIFIERS,
-      false
-    );
+    return new StatsNBT(buildDurability(), buildHarvestLevel(), buildAttack(), buildMiningSpeed(), buildAttackSpeed());
   }
 
   public int buildDurability() {
@@ -136,5 +134,12 @@ public final class ToolStatsBuilder {
       .mapToDouble(value -> statGetter.apply(value).doubleValue())
       .average()
       .orElse(missingValue);
+  }
+
+  /**
+   * Factory to create instance of StatNBT, for tools that modify it to produce larger values
+   */
+  public interface IStatFactory {
+    StatsNBT create(int durability, int harvestLevel, float attackDamage, float miningSpeed, float attackSpeedMultiplier);
   }
 }

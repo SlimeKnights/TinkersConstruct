@@ -43,7 +43,7 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.shared.TinkerClient;
 
 import javax.annotation.Nullable;
@@ -206,6 +206,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
       // fetch the material from the stack
       IMaterial material = IMaterialItem.getMaterialFromStack(stack);
       // if no material on the stack, try to fetch from the tool model
+      // TODO: transfer into tool model to safe a ton of effort
       if (material == IMaterial.UNKNOWN) {
         // needs to have a valid index
         int index = this.index;
@@ -213,20 +214,13 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
           return originalModel;
         }
         // fetch the tool material at the given index
-        Optional<IMaterial> toolMaterial = Optional.ofNullable(stack.getTag())
-                                                   .map(ToolData::readFromNBT)
-                                                   .map(ToolData::getMaterials)
-                                                   .filter((mats) -> mats.size() > index)
-                                                   .map((mats) -> mats.get(index))
-                                                   .filter((mat) -> mat != IMaterial.UNKNOWN);
+        material = ToolStack.from(stack).getMaterial(index);
+
         // material must exist
-        if (toolMaterial.isPresent()) {
-          material = toolMaterial.get();
-        } else {
+        if (material == IMaterial.UNKNOWN) {
           return originalModel;
         }
       }
-
       // cache all baked material models, they will not need to be recreated as materials will not change
       return cache.computeIfAbsent(material.getIdentifier(), this::bakeDynamic);
     }
