@@ -8,7 +8,6 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
-import slimeknights.tconstruct.tools.ToolStatsBuilder.IStatFactory;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.Collections;
@@ -26,35 +25,21 @@ public class ToolDefinition {
   private static final Set<MaterialStatsId> REPAIR_STATS = ImmutableSet.of(HeadMaterialStats.ID);
   public static final ToolDefinition EMPTY = new ToolDefinition(new ToolBaseStatDefinition.Builder().setDamageModifier(1f).build(), Collections::emptyList, ImmutableSet.of());
 
-  /**
-   * Inherent stats of the tool.
-   */
+  /** Inherent stats of the tool. */
   private final ToolBaseStatDefinition baseStatDefinition;
-  /**
-   * The tool parts required to build this tool.
-   */
+  /** The tool parts required to build this tool. */
   protected final Lazy<List<IToolPart>> requiredComponents;
-  /**
-   * Categories determine behaviour of the tool when interacting with things or displaying information.
-   */
+  /** Categories determine behaviour of the tool when interacting with things or displaying information. */
   @Getter
   protected final Set<Category> categories;
-  /**
-   * Factory to create tool stats
-   */
-  protected final IStatFactory statFactory;
 
+  /** Cached indices that can be used to repair this tool */
   private int[] repairIndices;
 
-  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Set<Category> categories, IStatFactory statFactory) {
+  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Set<Category> categories) {
     this.baseStatDefinition = baseStatDefinition;
     this.requiredComponents = Lazy.of(requiredComponents);
     this.categories = ImmutableSet.copyOf(categories);
-    this.statFactory = statFactory;
-  }
-
-  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Set<Category> categories) {
-    this(baseStatDefinition, requiredComponents, categories, StatsNBT::new);
   }
 
   /**
@@ -90,7 +75,7 @@ public class ToolDefinition {
    * @return  Stats NBT
    */
   public StatsNBT buildStats(List<IMaterial> materials) {
-    return ToolStatsBuilder.from(materials, this).buildStats(statFactory);
+    return ToolStatsBuilder.from(materials, this).buildStats(baseStatDefinition.getStatFactory());
   }
 
   /* Repairing */
@@ -106,8 +91,4 @@ public class ToolDefinition {
     }
     return repairIndices;
   }
-
-  /*public float getRepairModifierForPart(int index) {
-    return 1f;
-  }*/
 }
