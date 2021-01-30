@@ -19,25 +19,31 @@ import javax.annotation.Nullable;
 @EqualsAndHashCode
 @ToString
 public class StatsNBT {
-  final static StatsNBT EMPTY = new StatsNBT(1, 0, 1, 1, 1);
+  static final StatsNBT EMPTY = new StatsNBT(1, 0, 1, 1, 1);
 
   protected static final String TAG_DURABILITY = "durability";
-  protected static final String TAG_ATTACK = "attack";
-  protected static final String TAG_ATTACK_SPEED_MULTIPLIER = "attack_speed_multiplier";
+  protected static final String TAG_ATTACK_DAMAGE = "attack";
+  protected static final String TAG_ATTACK_SPEED = "attack_speed_multiplier";
   protected static final String TAG_MINING_SPEED = "mining_speed";
   protected static final String TAG_HARVEST_LEVEL = "harvest_level";
 
+  /** Total durability for the tool */
   @Getter
-  public final int durability;
+  private final int durability;
+  /** Harvest level when mining on the tool */
   @Getter
-  public final int harvestLevel;
+  private final int harvestLevel;
+  /** Base dealt by the tool */
   @Getter
-  public final float attackDamage;
+  private final float attackDamage;
+  /** Base mining speed */
   @Getter
-  public final float miningSpeed;
+  private final float miningSpeed;
+  /** Value to multiply by attack speed, larger values are faster */
   @Getter
-  public final float attackSpeedMultiplier;
+  private final float attackSpeed;
 
+  /** Parses the stats from NBT */
   public static StatsNBT readFromNBT(@Nullable INBT inbt) {
     if (inbt == null || inbt.getId() != Constants.NBT.TAG_COMPOUND) {
       return EMPTY;
@@ -46,21 +52,21 @@ public class StatsNBT {
     CompoundNBT nbt = (CompoundNBT)inbt;
     int durability = NBTUtil.getInt(nbt, TAG_DURABILITY, EMPTY.durability);
     int harvestLevel = NBTUtil.getInt(nbt, TAG_HARVEST_LEVEL, EMPTY.harvestLevel);
-    float attack = NBTUtil.getFloat(nbt, TAG_ATTACK, EMPTY.attackDamage);
+    float attack = NBTUtil.getFloat(nbt, TAG_ATTACK_DAMAGE, EMPTY.attackDamage);
     float miningSpeed = NBTUtil.getFloat(nbt, TAG_MINING_SPEED, EMPTY.miningSpeed);
-    float attackSpeedMultiplier = NBTUtil.getFloat(nbt, TAG_ATTACK_SPEED_MULTIPLIER, EMPTY.attackSpeedMultiplier);
+    float attackSpeedMultiplier = NBTUtil.getFloat(nbt, TAG_ATTACK_SPEED, EMPTY.attackSpeed);
 
     return new StatsNBT(durability, harvestLevel, attack, miningSpeed, attackSpeedMultiplier);
   }
 
-
+  /** Writes these stats to NBT */
   public CompoundNBT serializeToNBT() {
     CompoundNBT nbt = new CompoundNBT();
     nbt.putInt(TAG_DURABILITY, durability);
     nbt.putInt(TAG_HARVEST_LEVEL, harvestLevel);
-    nbt.putFloat(TAG_ATTACK, attackDamage);
+    nbt.putFloat(TAG_ATTACK_DAMAGE, attackDamage);
     nbt.putFloat(TAG_MINING_SPEED, miningSpeed);
-    nbt.putFloat(TAG_ATTACK_SPEED_MULTIPLIER, attackSpeedMultiplier);
+    nbt.putFloat(TAG_ATTACK_SPEED, attackSpeed);
 
     return nbt;
   }
