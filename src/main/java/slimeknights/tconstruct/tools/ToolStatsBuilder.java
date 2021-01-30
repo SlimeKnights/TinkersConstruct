@@ -140,6 +140,10 @@ public final class ToolStatsBuilder {
    * Factory to create instance of StatNBT, for tools that modify it to produce larger values
    */
   public interface IStatFactory {
+    /** Default stats factory */
+    IStatFactory DEFAULT = StatsNBT::new;
+
+    /** Creates tool stats from the given parameters */
     StatsNBT create(int durability, int harvestLevel, float attackDamage, float miningSpeed, float attackSpeedMultiplier);
   }
 }

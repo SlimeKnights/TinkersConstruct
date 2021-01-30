@@ -8,6 +8,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -24,6 +25,8 @@ public class ToolStack {
 
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
+  protected static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_mod_data";
+  protected static final String TAG_VOLATILE_MOD_DATA = "tic_volatile_mod_data";
   public static final String TAG_BROKEN = "tic_broken";
   // vanilla tags
   protected static final String TAG_DAMAGE = "Damage";
@@ -38,21 +41,20 @@ public class ToolStack {
   /** Original tool NBT */
   private final CompoundNBT nbt;
 
-  // todo: state data violates read only of tool data, do we need read only?
-  // broken
-  // free modifiers
-  //
-
   // lazy loaded data
   /** Current damage of the tool, -1 means unloaded */
   private int damage = -1;
   /** If true, tool is broken. Null means unloaded */
   private Boolean broken;
+  /** Data object containing materials */
   @Nullable
   private MaterialNBT materials;
+  /** Data object containing the original tool stats */
   @Nullable
   private StatsNBT stats;
 
+  /** Data object containing persistent modifier data */
+  private ModDataNBT persistantModData;
 
   /* Creating */
 
@@ -365,10 +367,30 @@ public class ToolStack {
   /* Modifiers */
 
   /**
+   * Gets the persistant modifier data. This will be preserved when modifiers rebuild
+   * @return  Persistant modifier data
+   */
+  public ModDataNBT getPersistantData() {
+    if (persistantModData == null) {
+      // parse if the tag already exists
+      if (nbt.contains(TAG_PERSISTENT_MOD_DATA, NBT.TAG_COMPOUND)) {
+        persistantModData = ModDataNBT.fromNBT(nbt.getCompound(TAG_PERSISTENT_MOD_DATA));
+      } else {
+        // if no tag exists, create it
+        CompoundNBT tag = new CompoundNBT();
+        nbt.put(TAG_PERSISTENT_MOD_DATA, tag);
+        persistantModData = ModDataNBT.fromNBT(tag);
+      }
+    }
+    return persistantModData;
+  }
+
+  /**
    * Gets the free modifiers remaining on the tool
    * @return  Free modifiers
    */
   public int getFreeModifiers() {
-    return DEFAULT_MODIFIERS;
+    // TODO: sum in
+    return getPersistantData().getModifiers();
   }
 }

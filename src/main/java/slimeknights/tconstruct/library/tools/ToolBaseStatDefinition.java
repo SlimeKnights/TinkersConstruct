@@ -3,7 +3,10 @@ package slimeknights.tconstruct.library.tools;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import slimeknights.tconstruct.library.TinkerAPIException;
+import slimeknights.tconstruct.tools.ToolStatsBuilder.IStatFactory;
 
 /**
  * This class defines the innate properties of a tool.
@@ -39,50 +42,36 @@ public final class ToolBaseStatDefinition {
    */
   private final double attackSpeed;
 
-  /**
-   * Knockback modifier. Basically this takes the vanilla knockback on hit and modifies it by this factor.
-   */
+  /** Knockback modifier. Basically this takes the vanilla knockback on hit and modifies it by this factor. */
   private final float knockbackModifier;
 
-  public static class Builder {
+  /** Number of modifiers new tools start with */
+  private final int defaultModifiers;
 
+  /** Number of abilities new tools start with */
+  private final int defaultAbilities;
+
+  /** Factory to create the tool stats from the material data, used for minor fine adjustments */
+  private final IStatFactory statFactory;
+
+  /** Tool stat builder */
+  @Setter @Accessors(chain = true)
+  public static class Builder {
     private float miningSpeedModifer = 1;
     private float damageModifier = 0;
     private float damageCutoff = 15;
     private double attackSpeed = 4;
     private float knockbackModifier = 1;
+    private int defaultModifiers = 3;
+    private int defaultAbilities = 1;
+    private IStatFactory statFactory = IStatFactory.DEFAULT;
 
-    public Builder setMiningSpeedModifer(float miningSpeedModifer) {
-      this.miningSpeedModifer = miningSpeedModifer;
-      return this;
-    }
-
-    public Builder setDamageModifier(float damageModifier) {
-      this.damageModifier = damageModifier;
-      return this;
-    }
-
-    public Builder setDamageCutoff(float damageCutoff) {
-      this.damageCutoff = damageCutoff;
-      return this;
-    }
-
-    public Builder setAttackSpeed(double attackSpeed) {
-      this.attackSpeed = attackSpeed;
-      return this;
-    }
-
-    public Builder setKnockbackModifier(float knockbackModifier) {
-      this.knockbackModifier = knockbackModifier;
-      return this;
-    }
-
+    /** Creates the tool stat definition */
     public ToolBaseStatDefinition build() {
       if (damageModifier < 0.001) {
         throw new TinkerAPIException("Trying to define a tool without damage modifier set. Damage modifier has to be defined per tool and should be greater than 0.001 and non-negative.");
       }
-
-      return new ToolBaseStatDefinition(miningSpeedModifer, damageModifier, damageCutoff, attackSpeed, knockbackModifier);
+      return new ToolBaseStatDefinition(miningSpeedModifer, damageModifier, damageCutoff, attackSpeed, knockbackModifier, defaultModifiers, defaultAbilities, statFactory);
     }
   }
 }

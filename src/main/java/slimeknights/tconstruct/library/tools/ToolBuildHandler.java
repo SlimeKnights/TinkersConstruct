@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public final class ToolBuildHandler {
   }
 
   /**
-   * Builds a too stack from a material list
+   * Builds a too stack from a material list and a given tool definition
    * @param tool       Tool instance
    * @param materials  Material list
    * @return  Item stack with materials
@@ -41,6 +42,10 @@ public final class ToolBuildHandler {
   public static ItemStack buildItemFromMaterials(ToolCore tool, List<IMaterial> materials) {
     ToolStack toolStack = ToolStack.from(tool, tool.getToolDefinition());
     toolStack.setMaterials(materials);
+    ToolBaseStatDefinition baseStats = tool.getToolDefinition().getBaseStatDefinition();
+    ModDataNBT data = toolStack.getPersistantData();
+    data.setModifiers(baseStats.getDefaultModifiers());
+    data.setAbilities(baseStats.getDefaultAbilities());
     return toolStack.createStack();
   }
 
