@@ -44,7 +44,7 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
 import slimeknights.tconstruct.plugin.jei.entitymelting.DefaultEntityMeltingRecipe;
@@ -180,8 +180,7 @@ public class JEIPlugin implements IModPlugin {
     ISubtypeInterpreter toolInterpreter = itemStack -> {
       StringBuilder builder = new StringBuilder();
 
-      List<IMaterial> materialList = ToolData.from(itemStack).getMaterials();
-
+      List<IMaterial> materialList = ToolStack.from(itemStack).getMaterialsList();
       if (!materialList.isEmpty()) {
         for (int i = 0; i < materialList.size(); i++) {
           // looks nicer if there is no comma at the start

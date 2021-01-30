@@ -1,11 +1,17 @@
 package slimeknights.tconstruct.library.tools;
 
 import com.google.common.collect.ImmutableSet;
+import lombok.Getter;
 import net.minecraftforge.common.util.Lazy;
+import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tinkering.Category;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.tools.ToolStatsBuilder;
+import slimeknights.tconstruct.tools.ToolStatsBuilder.IStatFactory;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -18,6 +24,7 @@ import java.util.stream.IntStream;
  */
 public class ToolDefinition {
   private static final Set<MaterialStatsId> REPAIR_STATS = ImmutableSet.of(HeadMaterialStats.ID);
+  public static final ToolDefinition EMPTY = new ToolDefinition(new ToolBaseStatDefinition.Builder().setDamageModifier(1f).build(), Collections::emptyList, ImmutableSet.of());
 
   /**
    * Inherent stats of the tool.
@@ -30,14 +37,24 @@ public class ToolDefinition {
   /**
    * Categories determine behaviour of the tool when interacting with things or displaying information.
    */
+  @Getter
   protected final Set<Category> categories;
+  /**
+   * Factory to create tool stats
+   */
+  protected final IStatFactory statFactory;
 
   private int[] repairIndices;
 
-  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Set<Category> categories) {
+  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Set<Category> categories, IStatFactory statFactory) {
     this.baseStatDefinition = baseStatDefinition;
     this.requiredComponents = Lazy.of(requiredComponents);
     this.categories = ImmutableSet.copyOf(categories);
+    this.statFactory = statFactory;
+  }
+
+  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Set<Category> categories) {
+    this(baseStatDefinition, requiredComponents, categories, StatsNBT::new);
   }
 
   /**
@@ -68,12 +85,12 @@ public class ToolDefinition {
   }
 
   /**
-   * Gets all the categories for the given tool
-   *
-   * @return the list of categories
+   * Builds the stats for this tool definition
+   * @param materials  Materials list
+   * @return  Stats NBT
    */
-  public Set<Category> getCategories() {
-    return this.categories;
+  public StatsNBT buildStats(List<IMaterial> materials) {
+    return ToolStatsBuilder.from(materials, this).buildStats(statFactory);
   }
 
   /* Repairing */

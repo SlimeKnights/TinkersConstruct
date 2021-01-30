@@ -5,8 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 /**
  * External logic for the ToolCore that handles mining calculations.
@@ -26,9 +25,8 @@ public final class ToolMiningLogic {
     }
 
     ToolCore toolCore = (ToolCore) stack.getItem();
-    StatsNBT stats = ToolData.from(stack).getStats();
-
-    if(stats.broken) {
+    ToolStack tool = ToolStack.from(stack);
+    if (tool.isBroken()) {
       return 0.3f;
     }
 
@@ -40,7 +38,7 @@ public final class ToolMiningLogic {
 
     // calculate speed depending on stats
     float modifier = toolCore.getToolDefinition().getBaseStatDefinition().getMiningSpeedModifier();
-    return stats.miningSpeed * modifier;
+    return tool.getStats().getMiningSpeed() * modifier;
   }
 
   /**

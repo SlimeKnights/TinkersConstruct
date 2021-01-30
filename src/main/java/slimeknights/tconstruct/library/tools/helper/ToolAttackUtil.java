@@ -20,7 +20,7 @@ import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 import javax.annotation.Nullable;
@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ToolAttackUtil {
-
   /**
    * Gets the actual damage a tool does
    *
@@ -46,7 +45,7 @@ public class ToolAttackUtil {
       }
     }
 
-    float toolDamage = ToolData.from(stack).getStats().attack;
+    float toolDamage = ToolStack.from(stack).getStats().getAttackDamage();
 
     if (!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
       toolDamage *= ((ToolCore) stack.getItem()).getToolDefinition().getBaseStatDefinition().getDamageModifier();
@@ -110,17 +109,13 @@ public class ToolAttackUtil {
    * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
    * Most of this function is the same as {@link net.minecraft.entity.player.PlayerEntity#attackTargetEntityWithCurrentItem(Entity targetEntity)}
    */
-  public static boolean attackEntity(ItemStack stack, ToolCore tool, LivingEntity attacker, Entity targetEntity, Entity projectileEntity, boolean applyCoolDown) {
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, LivingEntity attacker, Entity targetEntity, @Nullable Entity projectileEntity, boolean applyCoolDown) {
     // nothing to do, no target?
-    if (targetEntity == null || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTag()) {
+    if (!targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTag()) {
       return false;
     }
 
-    if (ToolData.from(stack).getStats().broken) {
-      return false;
-    }
-
-    if (attacker == null) {
+    if (ToolDamageUtil.isBroken(stack)) {
       return false;
     }
 
@@ -318,7 +313,7 @@ public class ToolAttackUtil {
           damageOut *= 2;
         }
 
-        stack.damageItem((int) damageOut, null, livingEntity -> livingEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+        stack.damageItem((int) damageOut, player, livingEntity -> livingEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
       }
     }
     else {

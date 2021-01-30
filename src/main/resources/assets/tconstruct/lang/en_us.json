@@ -1011,9 +1011,15 @@
     "stat.tconstruct.mining_level.netherite": "Netherite",
 
     "_comment": "Tooltips",
-    "tooltip.tool.modifiers": "Modifiers",
-    "tooltip.tool.broken": "Broken",
-    "tooltip.tool.empty": "Empty",
+    "key.tconstruct.shift": "Shift",
+    "key.tconstruct.ctrl": "Ctrl",
+
+    "tooltip.tconstruct.tool.modifiers": "Modifiers",
+    "tooltip.tconstruct.tool.broken": "Broken",
+    "tooltip.tconstruct.tool.empty": "Empty",
+    "tooltip.tconstruct.hold_shift": "Hold %s for stats",
+    "tooltip.tconstruct.hold_ctrl": "Hold %s for more",
+
     "tooltip.tool.hold_shift": "Hold §e§oShift§r§7 for Stats",
     "tooltip.tool.hold_ctrl": "Hold §e§bCtrl§r§7 for more",
 

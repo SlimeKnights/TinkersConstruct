@@ -18,16 +18,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants;
-import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
-
-import java.util.List;
 
 public class AxeTool extends ToolCore implements IAoeTool {
 
@@ -58,8 +54,7 @@ public class AxeTool extends ToolCore implements IAoeTool {
 
     Hand hand = context.getHand();
     ItemStack stack = player.getHeldItem(hand);
-
-    if (ToolData.from(stack).getStats().broken) {
+    if (ToolDamageUtil.isBroken(stack)) {
       return ActionResultType.FAIL;
     }
 
@@ -115,13 +110,5 @@ public class AxeTool extends ToolCore implements IAoeTool {
   @Override
   public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
     return true;
-  }
-
-  @Override
-  public StatsNBT buildToolStats(List<IMaterial> materials) {
-    StatsNBT statsNBT = super.buildToolStats(materials);
-
-    return new StatsNBT(statsNBT.durability, statsNBT.harvestLevel, (int) (statsNBT.attack + 0.5f),
-      statsNBT.miningSpeed, statsNBT.attackSpeedMultiplier, statsNBT.freeModifiers, statsNBT.broken);
   }
 }

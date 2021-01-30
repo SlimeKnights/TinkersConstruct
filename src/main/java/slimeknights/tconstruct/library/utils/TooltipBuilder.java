@@ -8,30 +8,31 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.List;
 
+@SuppressWarnings("UnusedReturnValue")
 @RequiredArgsConstructor
 public class TooltipBuilder {
+  /** Formateed broken string */
+  public static final ITextComponent TOOLTIP_BROKEN = Util.makeTranslation("tooltip", "tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED);
+  /** Prefixed broken string */
+  private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = new TranslationTextComponent(HeadMaterialStats.DURABILITY_PREFIX).append(TOOLTIP_BROKEN);
+  /** Key for free modifiers localization */
+  private final static String KEY_FREE_MODIFIERS = Util.makeTranslationKey("tooltip", "tool.modifiers");
 
-  public final static String FREE_MODIFIERS_LOCALIZATION = "tooltip.tool.modifiers";
-  public final static String AMMO_LOCALIZATION = "stat.projectile.ammo.name";
-
-  public static final String BROKEN_LOCALIZATION = "tooltip.tool.broken";
-  public static final String EMPTY_LOCALIZATION = "tooltip.tool.empty";
-
+  /** Final list of tooltips */
   private final List<ITextComponent> tips = Lists.newLinkedList();
-  private final ItemStack tool;
-  private final ToolData data;
+  @Deprecated
+  private final ItemStack stack;
+  private final ToolStack tool;
 
-  public TooltipBuilder(ItemStack tool) {
-    this(tool, ToolData.from(tool));
+  public TooltipBuilder(ItemStack stack) {
+    this(stack, ToolStack.from(stack));
   }
 
   /**
@@ -41,18 +42,6 @@ public class TooltipBuilder {
    */
   public List<ITextComponent> getTooltips() {
     return this.tips;
-  }
-
-  /**
-   * Adds the given text to the tooltip
-   *
-   * @param text the text to add
-   * @return the tooltip builder
-   */
-  public TooltipBuilder add(String text) {
-    this.tips.add(new StringTextComponent(text));
-
-    return this;
   }
 
   /**
@@ -73,14 +62,9 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addMiningSpeed() {
-    float speed = data.getStats().miningSpeed;
-
-    if (!this.tool.isEmpty() && this.tool.getItem() instanceof ToolCore) {
-      speed *= ((ToolCore) this.tool.getItem()).getToolDefinition().getBaseStatDefinition().getMiningSpeedModifier();
-    }
-
+    float speed = tool.getStats().getMiningSpeed();
+    speed *= tool.getDefinition().getBaseStatDefinition().getMiningSpeedModifier();
     this.tips.add(HeadMaterialStats.formatMiningSpeed(speed));
-
     return this;
   }
 
@@ -90,8 +74,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addHarvestLevel() {
-    this.tips.add(HeadMaterialStats.formatHarvestLevel(data.getStats().harvestLevel));
-
+    this.tips.add(HeadMaterialStats.formatHarvestLevel(tool.getStats().getHarvestLevel()));
     return this;
   }
 
@@ -101,14 +84,10 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addDurability(boolean textIfBroken) {
-    StatsNBT stats = data.getStats();
-    if (stats.broken && textIfBroken) {
-      this.tips.add(new TranslationTextComponent(HeadMaterialStats.DURABILITY_PREFIX)
-        .appendString(": ")
-        .append(new TranslationTextComponent("tooltip.tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED)));
-    }
-    else {
-      this.tips.add(HeadMaterialStats.formatDurability(ToolDamageUtil.getCurrentDurability(this.tool, data), stats.durability));
+    if (tool.isBroken() && textIfBroken) {
+      this.tips.add(TOOLTIP_BROKEN_PREFIXED);
+    } else {
+      this.tips.add(HeadMaterialStats.formatDurability(tool.getCurrentDurability(), tool.getStats().getDurability()));
     }
 
     return this;
@@ -120,10 +99,9 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addAttack() {
-    float attack = ToolAttackUtil.getActualDamage(this.tool, Minecraft.getInstance().player);
-
+    // TODO
+    float attack = ToolAttackUtil.getActualDamage(this.stack, Minecraft.getInstance().player);
     this.tips.add(HeadMaterialStats.formatAttack(attack));
-
     return this;
   }
 
@@ -133,9 +111,12 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addFreeModifiers() {
-    this.tips.add(new TranslationTextComponent(FREE_MODIFIERS_LOCALIZATION)
-      .appendString(": ")
-      .appendString(String.valueOf(data.getStats().freeModifiers)));
+    int modifiers = tool.getFreeModifiers();
+    if (modifiers > 0) {
+      this.tips.add(new TranslationTextComponent(KEY_FREE_MODIFIERS)
+                      .appendString(": ")
+                      .appendString(String.valueOf(modifiers)));
+    }
 
     return this;
   }
@@ -200,20 +181,6 @@ public class TooltipBuilder {
 
     //todo implement code below and remove line above.
     //this.tips.add(BowMaterialStats.formatRange(ProjectileLauncherNBT.from(stack).range));
-
-    return this;
-  }
-
-  /**
-   * Adds the projective damage bonus to the tooltip
-   *
-   * @return the tooltip builder
-   */
-  public TooltipBuilder addProjectileBonusDamage() {
-    this.tips.add(new StringTextComponent("TODO: Implement getting projectile bonus damage"));
-
-    //todo implement code below and remove line above.
-    //this.tips.add(BowMaterialStats.formatDamage(ProjectileLauncherNBT.from(stack).bonusDamage));
 
     return this;
   }
