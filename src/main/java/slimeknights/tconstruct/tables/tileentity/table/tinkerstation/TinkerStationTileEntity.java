@@ -86,15 +86,16 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
       // if we have a recipe, fetch its result
       if (recipe != null) {
-        ValidationResult validationResult = recipe.validate(this.inventoryWrapper);
+        // sync if the recipe is different
+        if (lastRecipe != recipe) {
+          this.lastRecipe = recipe;
+          this.syncToRelevantPlayers(this::syncRecipe);
+        }
 
+        // try for UI errors
+        ValidationResult validationResult = recipe.validate(this.inventoryWrapper);
         if (validationResult.isSuccess()) {
           result = recipe.getCraftingResult(this.inventoryWrapper);
-          // sync if the recipe is different
-          if (recipe != this.lastRecipe) {
-            this.lastRecipe = recipe;
-            this.syncToRelevantPlayers(this::syncRecipe);
-          }
         } else if (validationResult.hasMessage()) {
           this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
           this.screenSyncMessage = validationResult.getMessage();

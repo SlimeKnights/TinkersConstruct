@@ -62,7 +62,7 @@ public class ToolStack {
    * @param copyNbt  If true, NBT is copied from the stack
    * @return  Tool stack
    */
-  public static ToolStack from(ItemStack stack, boolean copyNbt) {
+  private static ToolStack from(ItemStack stack, boolean copyNbt) {
     Item item = stack.getItem();
     ToolDefinition definition = ToolDefinition.EMPTY;
     if (item instanceof ToolCore) {
@@ -84,6 +84,15 @@ public class ToolStack {
    */
   public static ToolStack from(ItemStack stack) {
     return from(stack, false);
+  }
+
+  /**
+   * Creates a tool stack from the given item stack, copying the NBT
+   * @param stack  Stack
+   * @return  Tool stack
+   */
+  public static ToolStack copyFrom(ItemStack stack) {
+    return from(stack, true);
   }
 
   /**
@@ -277,6 +286,11 @@ public class ToolStack {
   protected void setStats(StatsNBT stats) {
     this.stats = stats;
     nbt.put(TAG_STATS, stats.serializeToNBT());
+    // if we no longer have enough durability, decrease the damage and mark it broken
+    int newMax = stats.getDurability();
+    if (getDamageRaw() >= newMax) {
+      setDamage(newMax);
+    }
   }
 
 
@@ -311,13 +325,23 @@ public class ToolStack {
   }
 
   /**
-   * Sets the materials on this tool stack
+   * Sets the materials on this tool stack, updating tool stats
    * @param materials  New materials NBT
    */
   public void setMaterials(MaterialNBT materials) {
     setMaterialsRaw(materials);
     // update base stats based on the new materials
     this.setStats(definition.buildStats(materials.getMaterials()));
+  }
+
+  /**
+   * Replaces the material at the given index
+   * @param index        Index to replace
+   * @param replacement  New material
+   * @throws IndexOutOfBoundsException  If the index is invalid
+   */
+  public void replaceMaterial(int index, IMaterial replacement) {
+    setMaterials(getMaterials().replaceMaterial(index, replacement));
   }
 
   /**
