@@ -40,7 +40,7 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
 
   @Test
   void testMaxDamageBreaksTool() {
-    int statDurability = ToolStack.from(testItemStack).getStats().durability;
+    int statDurability = ToolStack.from(testItemStack).getStats().getDurability();
 
     testItemStack.setDamage(statDurability);
 
@@ -50,7 +50,7 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
 
   @Test
   void testMoreThanMaxDamageBreaksTool() {
-    int statDurability = ToolStack.from(testItemStack).getStats().durability;
+    int statDurability = ToolStack.from(testItemStack).getStats().getDurability();
 
     testItemStack.setDamage(99999999);
 

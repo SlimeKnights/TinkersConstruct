@@ -20,9 +20,9 @@ class StatsNBTTest extends BaseMcTest {
     
     assertThat(nbt.getInt(StatsNBT.TAG_DURABILITY)).isEqualTo(1);
     assertThat(nbt.getInt(StatsNBT.TAG_HARVEST_LEVEL)).isEqualTo(2);
-    assertThat(nbt.getFloat(StatsNBT.TAG_ATTACK)).isEqualTo(3);
+    assertThat(nbt.getFloat(StatsNBT.TAG_ATTACK_DAMAGE)).isEqualTo(3);
     assertThat(nbt.getFloat(StatsNBT.TAG_MINING_SPEED)).isEqualTo(4);
-    assertThat(nbt.getFloat(StatsNBT.TAG_ATTACK_SPEED_MULTIPLIER)).isEqualTo(5);
+    assertThat(nbt.getFloat(StatsNBT.TAG_ATTACK_SPEED)).isEqualTo(5);
   }
 
   @Test
@@ -37,17 +37,17 @@ class StatsNBTTest extends BaseMcTest {
     CompoundNBT nbt = new CompoundNBT();
     nbt.putInt(StatsNBT.TAG_DURABILITY, 6);
     nbt.putInt(StatsNBT.TAG_HARVEST_LEVEL, 5);
-    nbt.putFloat(StatsNBT.TAG_ATTACK, 4);
+    nbt.putFloat(StatsNBT.TAG_ATTACK_DAMAGE, 4);
     nbt.putFloat(StatsNBT.TAG_MINING_SPEED, 3);
-    nbt.putFloat(StatsNBT.TAG_ATTACK_SPEED_MULTIPLIER, 2);
+    nbt.putFloat(StatsNBT.TAG_ATTACK_SPEED, 2);
 
     StatsNBT statsNBT = StatsNBT.readFromNBT(nbt);
 
-    assertThat(statsNBT.durability).isEqualTo(6);
-    assertThat(statsNBT.harvestLevel).isEqualTo(5);
-    assertThat(statsNBT.attackDamage).isEqualTo(4);
-    assertThat(statsNBT.miningSpeed).isEqualTo(3);
-    assertThat(statsNBT.attackSpeedMultiplier).isEqualTo(2);
+    assertThat(statsNBT.getDurability()).isEqualTo(6);
+    assertThat(statsNBT.getHarvestLevel()).isEqualTo(5);
+    assertThat(statsNBT.getAttackDamage()).isEqualTo(4);
+    assertThat(statsNBT.getMiningSpeed()).isEqualTo(3);
+    assertThat(statsNBT.getAttackSpeed()).isEqualTo(2);
   }
 
   @Test
