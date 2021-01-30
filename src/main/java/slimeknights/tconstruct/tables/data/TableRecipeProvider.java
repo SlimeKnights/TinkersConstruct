@@ -85,5 +85,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     // tool repair recipe
     CustomRecipeBuilder.customRecipe(TinkerTables.tinkerStationRepairSerializer.get())
                        .build(consumer, locationString(folder + "tinker_station_repair"));
+    CustomRecipeBuilder.customRecipe(TinkerTables.tinkerStationPartSwappingSerializer.get())
+                       .build(consumer, locationString(folder + "tinker_station_part_swapping"));
   }
 }

@@ -29,7 +29,9 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
   }
 
   /**
-   * Gets the recipe result, assumes matches is true and validate returned SUCCESS
+   * Gets the recipe result, assumes matches is true and validate returned SUCCESS.
+   * Returning {@link ItemStack#EMPTY} is equivalent to {@link #validate(ITinkerStationInventory)} returning {@link ValidationResult#PASS}
+   * @return  Item stack result.
    */
   @Override
   default ItemStack getCraftingResult(ITinkerStationInventory inv) {
