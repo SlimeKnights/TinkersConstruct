@@ -18,16 +18,16 @@ import java.util.function.BiFunction;
 @EqualsAndHashCode
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class ModDataNBT implements IModDataReadOnly {
-  protected static final String TAG_MODIFIERS = "modifiers";
+  protected static final String TAG_UPGRADES = "upgrades";
   protected static final String TAG_ABILITIES = "abilities";
 
   /** Compound representing modifier data */
   @Getter(AccessLevel.PROTECTED)
   private final CompoundNBT data;
 
-  /** Modifiers remaining in this data */
+  /** Upgrades remaining in this data */
   @Getter
-  private int modifiers;
+  private int upgrades;
   /** Abilities remaining in this data */
   @Getter
   private int abilities;
@@ -39,15 +39,15 @@ public class ModDataNBT implements IModDataReadOnly {
     this(new CompoundNBT(), 0, 0);
   }
 
-  /** Updates the modifiers */
-  public void setModifiers(int value) {
-    this.modifiers = value;
-    data.putInt(TAG_MODIFIERS, value);
+  /** Updates the upgrade slots */
+  public void setUpgrades(int value) {
+    this.upgrades = value;
+    data.putInt(TAG_UPGRADES, value);
   }
 
-  /** Adds the given number of modifiers, use negative to remove */
-  public void addModifiers(int add) {
-    setModifiers(modifiers + add);
+  /** Adds the given number of upgrades, use negative to remove */
+  public void addUpgrades(int add) {
+    setUpgrades(upgrades + add);
   }
 
   /** Updates the ability slots */
@@ -122,8 +122,8 @@ public class ModDataNBT implements IModDataReadOnly {
    * @return  Parsed mod data
    */
   public static ModDataNBT readFromNBT(CompoundNBT data) {
-    int modifiers = data.getInt(TAG_MODIFIERS);
+    int upgrades = data.getInt(TAG_UPGRADES);
     int abilities = data.getInt(TAG_ABILITIES);
-    return new ModDataNBT(data, modifiers, abilities);
+    return new ModDataNBT(data, upgrades, abilities);
   }
 }

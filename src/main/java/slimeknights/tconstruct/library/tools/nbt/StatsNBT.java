@@ -23,7 +23,7 @@ public class StatsNBT {
 
   protected static final String TAG_DURABILITY = "durability";
   protected static final String TAG_ATTACK_DAMAGE = "attack";
-  protected static final String TAG_ATTACK_SPEED = "attack_speed_multiplier";
+  protected static final String TAG_ATTACK_SPEED = "attack_speed";
   protected static final String TAG_MINING_SPEED = "mining_speed";
   protected static final String TAG_HARVEST_LEVEL = "harvest_level";
 

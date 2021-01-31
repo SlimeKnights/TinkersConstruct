@@ -56,15 +56,15 @@ public interface IModifierToolStack {
 
   /* Modifiers */
 
-  /** Gets a full list of effective modifiers on this tool, from both modifiers and material traits */
-  ModifierNBT getAllMods();
+  /** Gets a full list of effective modifiers on this tool, from both upgrades/abilities and material traits */
+  ModifierNBT getModifiers();
 
   /**
    * Helper to get a list of all modifiers on the tool. Note this list is already sorted by priority
    * @return  List of all modifiers
    */
-  default List<ModifierEntry> getAllModsList() {
-    return getAllMods().getModifiers();
+  default List<ModifierEntry> getModifierList() {
+    return getModifiers().getModifiers();
   }
 
   /**
@@ -73,7 +73,7 @@ public interface IModifierToolStack {
    * @return  Level of modifier, 0 if the modifier is not on the tool
    */
   default int getModifierLevel(Modifier modifier) {
-    return getAllMods().getLevel(modifier);
+    return getModifiers().getLevel(modifier);
   }
 
 
@@ -98,11 +98,11 @@ public interface IModifierToolStack {
   /* Helpers */
 
   /**
-   * Gets the free modifiers remaining on the tool
-   * @return  Free modifiers
+   * Gets the free upgrade slots remaining on the tool
+   * @return  Free upgrade slots
    */
-  default int getFreeModifiers() {
-    return getPersistentData().getModifiers() + getVolatileData().getModifiers();
+  default int getFreeUpgrades() {
+    return getPersistentData().getUpgrades() + getVolatileData().getUpgrades();
   }
 
   /**

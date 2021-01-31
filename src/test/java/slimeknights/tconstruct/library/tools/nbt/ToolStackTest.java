@@ -72,9 +72,9 @@ class ToolStackTest extends ToolCoreTest {
     assertThat(tool.getDamage()).isEqualTo(0);
     assertThat(tool.isBroken()).isFalse();
     assertThat(tool.getMaterials()).isEqualTo(MaterialNBT.EMPTY);
-    assertThat(tool.getModifiers()).isEqualTo(ModifierNBT.EMPTY);
+    assertThat(tool.getUpgrades()).isEqualTo(ModifierNBT.EMPTY);
     assertThat(tool.getPersistentData()).isEqualTo(new ModDataNBT());
-    assertThat(tool.getAllMods()).isEqualTo(ModifierNBT.EMPTY);
+    assertThat(tool.getModifiers()).isEqualTo(ModifierNBT.EMPTY);
     assertThat(tool.getStats()).isEqualTo(StatsNBT.EMPTY);
     assertThat(tool.getVolatileData()).isEqualTo(IModDataReadOnly.EMPTY);
   }
@@ -292,9 +292,9 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void modifiers_addModifier() {
     ToolStack toolStack = ToolStack.from(testItemStack);
-    assertThat(toolStack.getModifiers().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(0);
+    assertThat(toolStack.getUpgrades().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(0);
     toolStack.addModifier(ModifierFixture.TEST_MODIFIER_1, 1);
-    assertThat(toolStack.getModifiers().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(1);
+    assertThat(toolStack.getUpgrades().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(1);
   }
 
   @Test
@@ -303,8 +303,8 @@ class ToolStackTest extends ToolCoreTest {
     toolStack.addModifier(ModifierFixture.TEST_MODIFIER_1, 1);
 
     CompoundNBT nbt = toolStack.getNbt();
-    assertThat(nbt.contains(ToolStack.TAG_MODIFIERS));
-    ModifierNBT readModifiers = ModifierNBT.readFromNBT(nbt.get(ToolStack.TAG_MODIFIERS));
+    assertThat(nbt.contains(ToolStack.TAG_UPGRADES));
+    ModifierNBT readModifiers = ModifierNBT.readFromNBT(nbt.get(ToolStack.TAG_UPGRADES));
     assertThat(readModifiers).isNotEqualTo(ModifierNBT.EMPTY);
     assertThat(readModifiers).isEqualTo(ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_MODIFIER_1, 1));
   }
@@ -312,10 +312,10 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void modifiers_deserialize() {
     ModifierNBT setModifiers = ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_MODIFIER_1, 1);
-    testItemStack.getOrCreateTag().put(ToolStack.TAG_MODIFIERS, setModifiers.serializeToNBT());
+    testItemStack.getOrCreateTag().put(ToolStack.TAG_UPGRADES, setModifiers.serializeToNBT());
 
     ToolStack tool = ToolStack.from(testItemStack);
-    ModifierNBT readModifiers = tool.getModifiers();
+    ModifierNBT readModifiers = tool.getUpgrades();
     assertThat(readModifiers).isNotEqualTo(ModifierNBT.EMPTY);
     assertThat(readModifiers).isEqualTo(setModifiers);
   }
@@ -324,11 +324,11 @@ class ToolStackTest extends ToolCoreTest {
   void allMods_serialize() {
     ToolStack toolStack = ToolStack.from(testItemStack);
     ModifierNBT setModifiers = ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_MODIFIER_1, 1);
-    toolStack.setAllMods(setModifiers);
+    toolStack.setModifiers(setModifiers);
 
     CompoundNBT nbt = toolStack.getNbt();
-    assertThat(nbt.contains(ToolStack.TAG_ALL_MODS));
-    ModifierNBT readModifiers = ModifierNBT.readFromNBT(nbt.get(ToolStack.TAG_ALL_MODS));
+    assertThat(nbt.contains(ToolStack.TAG_MODIFIERS));
+    ModifierNBT readModifiers = ModifierNBT.readFromNBT(nbt.get(ToolStack.TAG_MODIFIERS));
     assertThat(readModifiers).isNotEqualTo(ModifierNBT.EMPTY);
     assertThat(readModifiers).isEqualTo(setModifiers);
   }
@@ -336,10 +336,10 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void allMods_deserialize() {
     ModifierNBT setModifiers = ModifierNBT.EMPTY.withModifier(ModifierFixture.TEST_MODIFIER_1, 1);
-    testItemStack.getOrCreateTag().put(ToolStack.TAG_ALL_MODS, setModifiers.serializeToNBT());
+    testItemStack.getOrCreateTag().put(ToolStack.TAG_MODIFIERS, setModifiers.serializeToNBT());
 
     ToolStack tool = ToolStack.from(testItemStack);
-    ModifierNBT readModifiers = tool.getAllMods();
+    ModifierNBT readModifiers = tool.getModifiers();
     assertThat(readModifiers).isNotEqualTo(ModifierNBT.EMPTY);
     assertThat(readModifiers).isEqualTo(setModifiers);
   }
@@ -353,7 +353,7 @@ class ToolStackTest extends ToolCoreTest {
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_PERSISTENT_MOD_DATA)).isFalse();
 
     ModDataNBT modData = toolStack.getPersistentData();
-    modData.setModifiers(1);
+    modData.setUpgrades(1);
 
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_PERSISTENT_MOD_DATA)).isTrue();
     assertThat(toolStack.getNbt().getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA)).isEqualTo(modData.getData());
@@ -362,7 +362,7 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void persistentModData_deserialize() {
     ModDataNBT modData = new ModDataNBT();
-    modData.setModifiers(1);
+    modData.setUpgrades(1);
     testItemStack.getOrCreateTag().put(ToolStack.TAG_PERSISTENT_MOD_DATA, modData.getData());
 
     ToolStack toolStack = ToolStack.from(testItemStack);
@@ -373,7 +373,7 @@ class ToolStackTest extends ToolCoreTest {
   void volatileModData_serialize() {
     ToolStack toolStack = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinition.EMPTY, new CompoundNBT());
     ModDataNBT modData = new ModDataNBT();
-    modData.setModifiers(1);
+    modData.setUpgrades(1);
     toolStack.setVolatileModData(modData);
 
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_VOLATILE_MOD_DATA)).isTrue();
@@ -383,7 +383,7 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void volatileModData_deserialize() {
     ModDataNBT modData = new ModDataNBT();
-    modData.setModifiers(1);
+    modData.setUpgrades(1);
     testItemStack.getOrCreateTag().put(ToolStack.TAG_VOLATILE_MOD_DATA, modData.getData());
 
     ToolStack toolStack = ToolStack.from(testItemStack);
@@ -420,13 +420,13 @@ class ToolStackTest extends ToolCoreTest {
     // set some data that will get cleared out
     toolStack.setEnchantments(ImmutableMap.of(Enchantments.KNOCKBACK, 2));
     ModDataNBT volatileData = new ModDataNBT();
-    volatileData.setModifiers(4);
+    volatileData.setUpgrades(4);
     toolStack.setVolatileModData(volatileData);
-    assertThat(toolStack.getAllMods()).isEqualTo(ModifierNBT.EMPTY);
+    assertThat(toolStack.getModifiers()).isEqualTo(ModifierNBT.EMPTY);
 
     toolStack.addModifier(ModifierFixture.TEST_MODIFIER_1, 2);
     assertThat(toolStack.getVolatileData()).isEqualTo(IModDataReadOnly.EMPTY);
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_ENCHANTMENTS)).isFalse();
-    assertThat(toolStack.getAllMods().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(2);
+    assertThat(toolStack.getModifiers().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(2);
   }
 }

@@ -699,7 +699,7 @@
     "block.tconstruct.part_chest.tooltip": "Can hold a large amount of toolparts",
 
     "block.tconstruct.modifier_chest": "Modifier Chest",
-    "block.tconstruct.modifier_chest.tooltip": "Holds modifiers",
+    "block.tconstruct.modifier_chest.tooltip": "Holds modifier items",
     
     "item.tconstruct.pattern": "Pattern",
 
@@ -981,6 +981,9 @@
 
     "_comment": "Stats",
 
+    "stat.tconstruct.attack_speed": "Attack Speed: ",
+    "stat.tconstruct.attack_speed.description": "Base value for attack speed calculations.\nRoughly full strength attacks per second.",
+
     "stat.tconstruct.head": "Head",
     "stat.tconstruct.head.durability": "Durability: ",
     "stat.tconstruct.head.durability.description": "The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.",
@@ -1010,15 +1013,14 @@
     "stat.tconstruct.mining_level.diamond": "Diamond",
     "stat.tconstruct.mining_level.netherite": "Netherite",
 
-    "stat.head.attack_speed.name": "Attack Speed: ",
-    "stat.head.attack_speed.description": "Base value for attack speed calculations.\nRoughly full strength attacks per second.",
 
     "_comment": "Tooltips",
+
     "key.tconstruct.shift": "Shift",
     "key.tconstruct.ctrl": "Ctrl",
 
-    "tooltip.tconstruct.tool.modifiers": "Modifiers",
-    "tooltip.tconstruct.tool.abilities": "Abilities",
+    "tooltip.tconstruct.tool.upgrades": "Upgrades: ",
+    "tooltip.tconstruct.tool.abilities": "Abilities: ",
     "tooltip.tconstruct.tool.broken": "Broken",
     "tooltip.tconstruct.tool.empty": "Empty",
     "tooltip.tconstruct.hold_shift": "Hold %s for stats",
@@ -1056,7 +1058,7 @@
 
     "gui.tconstruct.tinker_station": "Tinker Station",
     "gui.tconstruct.tinker_station.repair": "Repair & Modify",
-    "gui.tconstruct.tinker_station.modifiers": "Traits & Modifiers",
+    "gui.tconstruct.tinker_station.modifiers": "Modifiers",
     "gui.tconstruct.tinker_station.components": "Components",
     "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
     "gui.tconstruct.tinker_station.no_traits": "None :[",

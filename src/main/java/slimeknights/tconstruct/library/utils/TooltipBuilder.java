@@ -3,11 +3,13 @@ package slimeknights.tconstruct.library.utils;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -23,8 +25,13 @@ public class TooltipBuilder {
   /** Prefixed broken string */
   private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = new TranslationTextComponent(HeadMaterialStats.DURABILITY_PREFIX).append(TOOLTIP_BROKEN);
   /** Key for free modifiers localization */
-  private final static String KEY_FREE_MODIFIERS = Util.makeTranslationKey("tooltip", "tool.modifiers");
+  private final static String KEY_FREE_UPGRADES = Util.makeTranslationKey("tooltip", "tool.upgrades");
   private final static String KEY_FREE_ABILITIES = Util.makeTranslationKey("tooltip", "tool.abilities");
+  private final static String KEY_ATTACK_SPEED = Util.makeTranslationKey("stat", "attack_speed");
+
+  private final static Color UPGRADE_COLOR = Color.fromInt(0xFFCCBA47);
+  private final static Color ABILITY_COLOR = Color.fromInt(0xFFB8A0FF);
+  private final static Color ATTACK_SPEED_COLOR = Color.fromInt(0xFF8547CC);
 
   /** Final list of tooltips */
   private final List<ITextComponent> tips = Lists.newLinkedList();
@@ -107,7 +114,7 @@ public class TooltipBuilder {
    */
   public TooltipBuilder addAttackSpeed() {
     double attackSpeed = tool.getStats().getAttackSpeed() * tool.getDefinition().getBaseStatDefinition().getAttackSpeed();
-    this.tips.add(HeadMaterialStats.formatAttackSpeed((float)attackSpeed));
+    this.tips.add(BaseMaterialStats.formatNumber(KEY_ATTACK_SPEED, ATTACK_SPEED_COLOR, (float)attackSpeed));
     return this;
   }
 
@@ -116,12 +123,10 @@ public class TooltipBuilder {
    *
    * @return the tooltip builder
    */
-  public TooltipBuilder addFreeModifiers() {
-    int modifiers = tool.getFreeModifiers();
+  public TooltipBuilder addFreeUpgrades() {
+    int modifiers = tool.getFreeUpgrades();
     if (modifiers > 0) {
-      this.tips.add(new TranslationTextComponent(KEY_FREE_MODIFIERS)
-                      .appendString(": ")
-                      .appendString(String.valueOf(modifiers)));
+      this.tips.add(BaseMaterialStats.formatNumber(KEY_FREE_UPGRADES, UPGRADE_COLOR, modifiers));
     }
 
     return this;
@@ -135,9 +140,7 @@ public class TooltipBuilder {
   public TooltipBuilder addFreeAbilities() {
     int abilities = tool.getFreeAbilities();
     if (abilities > 0) {
-      this.tips.add(new TranslationTextComponent(KEY_FREE_ABILITIES)
-                      .appendString(": ")
-                      .appendString(String.valueOf(abilities)));
+      this.tips.add(BaseMaterialStats.formatNumber(KEY_FREE_ABILITIES, ABILITY_COLOR, abilities));
     }
 
     return this;
@@ -149,7 +152,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addModifierInfo() {
-    for (ModifierEntry entry : tool.getAllModsList()) {
+    for (ModifierEntry entry : tool.getModifierList()) {
       this.tips.add(entry.getModifier().getDisplayName(entry.getLevel()));
     }
     return this;
