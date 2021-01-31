@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tools.nbt;
 
 import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 /**
  * NBT object containing all current modifiers
  */
+@EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ModifierNBT {
   protected static final String TAG_MODIFIER = "name";
