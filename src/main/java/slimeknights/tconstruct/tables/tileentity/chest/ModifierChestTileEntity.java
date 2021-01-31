@@ -4,7 +4,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.chest.ModifierChestContainer;
 
@@ -25,6 +24,7 @@ public class ModifierChestTileEntity extends TinkerChestTileEntity {
 
   @Override
   public boolean isItemValidForSlot(int slot, @Nonnull ItemStack itemstack) {
-    return itemstack.getItem() instanceof IModifier;
+    // TODO: implement properly, probably a tag
+    return true;
   }
 }
