@@ -9,7 +9,7 @@ import slimeknights.tconstruct.tools.ToolStatsBuilder.IStatFactory;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ToolBaseStatDefinitions {
   // pickaxes
-  static final ToolBaseStatDefinition PICKAXE = new ToolBaseStatDefinition.Builder().setDamageModifier(1).build();
+  static final ToolBaseStatDefinition PICKAXE = new ToolBaseStatDefinition.Builder().setDamageModifier(1).setAttackSpeed(1.2f).build();
 
   static final ToolBaseStatDefinition HAMMER = new ToolBaseStatDefinition.Builder()
     .setDamageModifier(1.2f).setAttackSpeed(0.8f).setMiningSpeedModifer(0.4f).setStatFactory(durabilityMultiplier(2.5f)).build();
