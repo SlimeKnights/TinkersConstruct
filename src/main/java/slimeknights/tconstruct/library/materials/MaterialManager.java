@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.materials;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,15 +15,20 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Color;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
 import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -153,7 +159,21 @@ public class MaterialManager extends SyncingJsonReloadListener {
                             .map(Color::fromHex)
                             .orElse(Material.WHITE);
 
-      return new Material(materialId, fluid, fluidPerUnit, isCraftable, color, temperature);
+      // parse traits
+      List<ModifierEntry> traits = Collections.emptyList();
+      if (materialJson.getTraits() != null) {
+        List<ModifierEntry> list = Arrays.stream(materialJson.getTraits()).filter(json -> {
+          ResourceLocation name = json.getName();
+          if (!TinkerRegistries.EMPTY.equals(name) && TinkerRegistries.MODIFIERS.containsKey(name)) {
+            return true;
+          }
+          log.warn("Failed to find modifier {} for material {}", name, materialId);
+          return false;
+        }).map(json -> new ModifierEntry(Objects.requireNonNull(TinkerRegistries.MODIFIERS.getValue(json.getName())), Math.max(1, json.getLevel())))
+          .collect(Collectors.toList());
+        traits = ImmutableList.copyOf(list);
+      }
+      return new Material(materialId, fluid, fluidPerUnit, isCraftable, color, temperature, traits);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;
