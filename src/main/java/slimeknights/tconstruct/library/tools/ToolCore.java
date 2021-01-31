@@ -5,7 +5,6 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -82,7 +81,6 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     ITextComponent ctrl = Util.makeTranslation("key", "ctrl").mergeStyle(TextFormatting.AQUA, TextFormatting.ITALIC);
     TOOLTIP_HOLD_CTRL = new TranslationTextComponent(Util.makeTranslationKey("tooltip", "hold_ctrl"), ctrl);
   }
-  private static final ITextComponent TOOLTIP_ATTACK_ATTRIBUTE = new TranslationTextComponent("attribute.name.generic.attack_damage");
 
 
   /** Tool definition for the given tool */
@@ -409,13 +407,6 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       tooltip.add(StringTextComponent.EMPTY);
       tooltip.add(TOOLTIP_HOLD_SHIFT);
       tooltip.add(TOOLTIP_HOLD_CTRL);
-
-      // add +attack damage, in addition to the when in main hand stack
-      // TODO: still needed?
-      if (worldIn != null) {
-        tooltip.add(new TranslationTextComponent("attribute.modifier.plus.0", Util.df.format(ToolAttackUtil.getActualDamage(stack, Minecraft.getInstance().player)), TOOLTIP_ATTACK_ATTRIBUTE)
-                      .mergeStyle(TextFormatting.BLUE));
-      }
     }
   }
 
@@ -432,17 +423,23 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    */
   public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType) {
     switch (tooltipType) {
-      case NORMAL:
-        if (ToolDamageUtil.isBroken(stack)) {
+      case NORMAL: {
+        ToolStack tool = ToolStack.from(stack);
+        if (tool.isBroken()) {
           tooltips.add(TooltipBuilder.TOOLTIP_BROKEN);
         }
+        // modifier tooltip
+        for (ModifierEntry entry : tool.getAllModsList()) {
+          tooltips.add(entry.getModifier().getDisplayName(entry.getLevel()));
+        }
         break;
+      }
 
       case SHIFT:
         tooltips.addAll(this.getInformation(stack, false));
         break;
 
-      case CONTROL:
+      case CONTROL: {
         ToolStack tool = ToolStack.from(stack);
         List<IMaterial> materials = tool.getMaterialsList();
         if (materials.isEmpty()) {
@@ -463,6 +460,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
           tooltips.add(StringTextComponent.EMPTY);
         }
         break;
+      }
     }
   }
 
@@ -476,6 +474,16 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     return this.getInformation(stack, true);
   }
 
+  @Override
+  public List<ITextComponent> getTraits(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+    List<ITextComponent> list = new ArrayList<>();
+    for (ModifierEntry entry : tool.getAllModsList()) {
+      list.add(entry.getModifier().getDisplayName(entry.getLevel()));
+    }
+    return list;
+  }
+
   /**
    * Gets the information for the given tool stack
    *
@@ -485,8 +493,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    */
   public List<ITextComponent> getInformation(ItemStack stack, boolean detailed) {
     ToolStack tool = ToolStack.from(stack);
-    TooltipBuilder builder = new TooltipBuilder(stack, tool);
+    TooltipBuilder builder = new TooltipBuilder(tool);
     builder.addDurability(!detailed);
+    builder.addAttackDamage();
+    builder.addAttackSpeed();
     if (this.getToolDefinition().hasCategory(Category.HARVEST)) {
       builder.addHarvestLevel();
       builder.addMiningSpeed();
@@ -498,12 +508,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 //      info.addProjectileBonusDamage();
 //    }
 
-    builder.addAttack();
     builder.addFreeModifiers();
-
-    if (detailed) {
-      builder.addModifierInfo();
-    }
+    builder.addFreeAbilities();
 
     return builder.getTooltips();
   }

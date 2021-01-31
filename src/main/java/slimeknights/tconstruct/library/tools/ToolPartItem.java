@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.tools;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -23,6 +22,7 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
@@ -75,9 +75,10 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     // Material traits/info
     boolean shift = Util.isShiftKeyDown();
 
-    // todo traits
-    if(!this.checkMissingMaterialTooltip(stack, tooltip)) {
-      tooltip.addAll(this.getTooltipTraitInfo(material));
+    if (!this.checkMissingMaterialTooltip(stack, tooltip)) {
+      for (ModifierEntry entry : material.getTraits()) {
+        tooltip.add(entry.getModifier().getDisplayName(entry.getLevel()));
+      }
     }
 
     // Stats
@@ -93,16 +94,6 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     }
 
     tooltip.addAll(this.getAddedByInfo(material));
-  }
-
-  private List<? extends ITextComponent> getTooltipTraitInfo(IMaterial material) {
-    //TODO IMPLEMENT
-
-    List<ITextComponent> tooltips = Lists.newLinkedList();
-
-    tooltips.add(new StringTextComponent("None ;("));
-
-    return tooltips;
   }
 
   public List<ITextComponent> getTooltipStatsInfo(IMaterial material) {

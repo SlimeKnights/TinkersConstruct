@@ -133,6 +133,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   public ITextComponent getDisplayName(int level) {
     return new TranslationTextComponent(getTranslationKey())
+      .appendString(" ")
       .append(new TranslationTextComponent(KEY_LEVEL + level))
       .modifyStyle(style -> style.setColor(Color.fromInt(color)));
   }

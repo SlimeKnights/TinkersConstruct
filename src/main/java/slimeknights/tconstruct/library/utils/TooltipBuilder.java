@@ -3,12 +3,12 @@ package slimeknights.tconstruct.library.utils;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -24,16 +24,12 @@ public class TooltipBuilder {
   private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = new TranslationTextComponent(HeadMaterialStats.DURABILITY_PREFIX).append(TOOLTIP_BROKEN);
   /** Key for free modifiers localization */
   private final static String KEY_FREE_MODIFIERS = Util.makeTranslationKey("tooltip", "tool.modifiers");
+  private final static String KEY_FREE_ABILITIES = Util.makeTranslationKey("tooltip", "tool.abilities");
 
   /** Final list of tooltips */
   private final List<ITextComponent> tips = Lists.newLinkedList();
-  @Deprecated
-  private final ItemStack stack;
   private final ToolStack tool;
 
-  public TooltipBuilder(ItemStack stack) {
-    this(stack, ToolStack.from(stack));
-  }
 
   /**
    * Gets the tooltips from the builder
@@ -98,10 +94,20 @@ public class TooltipBuilder {
    *
    * @return the tooltip builder
    */
-  public TooltipBuilder addAttack() {
-    // TODO
-    float attack = ToolAttackUtil.getActualDamage(this.stack, Minecraft.getInstance().player);
+  public TooltipBuilder addAttackDamage() {
+    float attack = ToolAttackUtil.getActualDamage(tool, Minecraft.getInstance().player);
     this.tips.add(HeadMaterialStats.formatAttack(attack));
+    return this;
+  }
+
+  /**
+   * Adds the attack speed to the tooltip
+   *
+   * @return the tooltip builder
+   */
+  public TooltipBuilder addAttackSpeed() {
+    double attackSpeed = tool.getStats().getAttackSpeed() * tool.getDefinition().getBaseStatDefinition().getAttackSpeed();
+    this.tips.add(HeadMaterialStats.formatAttackSpeed((float)attackSpeed));
     return this;
   }
 
@@ -122,32 +128,30 @@ public class TooltipBuilder {
   }
 
   /**
+   * Adds the current free modifiers to the tooltip
+   *
+   * @return the tooltip builder
+   */
+  public TooltipBuilder addFreeAbilities() {
+    int abilities = tool.getFreeAbilities();
+    if (abilities > 0) {
+      this.tips.add(new TranslationTextComponent(KEY_FREE_ABILITIES)
+                      .appendString(": ")
+                      .appendString(String.valueOf(abilities)));
+    }
+
+    return this;
+  }
+
+  /**
    * Adds the modifier information to the tooltip
    *
    * @return the tooltip builder
    */
   public TooltipBuilder addModifierInfo() {
-    this.tips.add(new StringTextComponent("todo modifier information"));
-
-    //todo implement code below and remove line above.
-    /*NBTTagList tagList = TagUtil.getModifiersTagList(stack);
-    for(int i = 0; i < tagList.tagCount(); i++) {
-      NBTTagCompound tag = tagList.getCompoundTagAt(i);
-      ModifierNBT data = ModifierNBT.readTag(tag);
-
-      // get matching modifier
-      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
-      if(modifier == null || modifier.isHidden()) {
-        continue;
-      }
-
-      for(String string : modifier.getExtraInfo(stack, tag)) {
-        if(!string.isEmpty()) {
-          tips.add(data.getColorString() + string);
-        }
-      }
-    }*/
-
+    for (ModifierEntry entry : tool.getAllModsList()) {
+      this.tips.add(entry.getModifier().getDisplayName(entry.getLevel()));
+    }
     return this;
   }
 
