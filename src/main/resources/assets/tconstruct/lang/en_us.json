@@ -1010,11 +1010,15 @@
     "stat.tconstruct.mining_level.diamond": "Diamond",
     "stat.tconstruct.mining_level.netherite": "Netherite",
 
+    "stat.head.attack_speed.name": "Attack Speed: ",
+    "stat.head.attack_speed.description": "Base value for attack speed calculations.\nRoughly full strength attacks per second.",
+
     "_comment": "Tooltips",
     "key.tconstruct.shift": "Shift",
     "key.tconstruct.ctrl": "Ctrl",
 
     "tooltip.tconstruct.tool.modifiers": "Modifiers",
+    "tooltip.tconstruct.tool.abilities": "Abilities",
     "tooltip.tconstruct.tool.broken": "Broken",
     "tooltip.tconstruct.tool.empty": "Empty",
     "tooltip.tconstruct.hold_shift": "Hold %s for stats",
@@ -1052,11 +1056,10 @@
 
     "gui.tconstruct.tinker_station": "Tinker Station",
     "gui.tconstruct.tinker_station.repair": "Repair & Modify",
-    "gui.tconstruct.tinker_station.traits": "Traits",
+    "gui.tconstruct.tinker_station.modifiers": "Traits & Modifiers",
     "gui.tconstruct.tinker_station.components": "Components",
     "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
     "gui.tconstruct.tinker_station.no_traits": "None :[",
-    "gui.tconstruct.tinker_station.traits.coming_soon": "Traits coming soon",
 
     "_comment": "GUIs Messages",
 
