@@ -85,8 +85,8 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     if (Config.CLIENT.extraToolTips.get()) {
       if (!shift) {
         // info tooltip for detailed and component info
-        tooltip.add(new StringTextComponent(""));
-        tooltip.add(new TranslationTextComponent("tooltip.tool.hold_shift"));
+        tooltip.add(StringTextComponent.EMPTY);
+        tooltip.add(ToolCore.TOOLTIP_HOLD_SHIFT);
       }
       else {
         tooltip.addAll(this.getTooltipStatsInfo(material));

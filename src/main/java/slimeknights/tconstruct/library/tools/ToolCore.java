@@ -73,7 +73,7 @@ import java.util.stream.Collectors;
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
 public abstract class ToolCore extends Item implements ITinkerable, IModifiable, IRepairable, ITinkerStationDisplay {
-  private static final ITextComponent TOOLTIP_HOLD_SHIFT;
+  protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
   private static final ITextComponent TOOLTIP_HOLD_CTRL;
   static {
     ITextComponent shift = Util.makeTranslation("key", "shift").mergeStyle(TextFormatting.YELLOW, TextFormatting.ITALIC);
