@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools.nbt;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
@@ -17,19 +16,38 @@ import java.util.function.BiFunction;
  */
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class ModDataNBT implements IModDataReadOnly {
-  private static final String TAG_MODIFIERS = "modifiers";
-  private static final String TAG_ABILITIES = "abilities";
+  protected static final String TAG_MODIFIERS = "modifiers";
+  protected static final String TAG_ABILITIES = "abilities";
 
   /** Compound representing modifier data */
   @Getter(AccessLevel.PROTECTED)
   private final CompoundNBT data;
 
   /** Modifiers remaining in this data */
-  @Getter @Setter
+  @Getter
   private int modifiers;
   /** Abilities remaining in this data */
-  @Getter @Setter
+  @Getter
   private int abilities;
+
+  /**
+   * Creates a new mod data containing empty data
+   */
+  public ModDataNBT() {
+    this(new CompoundNBT(), 0, 0);
+  }
+
+  /** Updates the modifiers */
+  public void setModifiers(int value) {
+    this.modifiers = value;
+    data.putInt(TAG_MODIFIERS, value);
+  }
+
+  /** Updates the ability slots */
+  public void setAbilities(int value) {
+    this.abilities = value;
+    data.putInt(TAG_ABILITIES, value);
+  }
 
   @Override
   public <T> T getNBT(ResourceLocation name, BiFunction<CompoundNBT,String,T> function) {
@@ -41,7 +59,7 @@ public class ModDataNBT implements IModDataReadOnly {
    * @param name  Key name
    * @param nbt   NBT value
    */
-  public void set(ResourceLocation name, INBT nbt) {
+  public void put(ResourceLocation name, INBT nbt) {
     data.put(name.toString(), nbt);
   }
 
@@ -50,7 +68,7 @@ public class ModDataNBT implements IModDataReadOnly {
    * @param name  Name
    * @param value  Integer value
    */
-  public void setInt(ResourceLocation name, int value) {
+  public void putInt(ResourceLocation name, int value) {
     data.putInt(name.toString(), value);
   }
 
@@ -59,7 +77,7 @@ public class ModDataNBT implements IModDataReadOnly {
    * @param name  Name
    * @param value  Boolean value
    */
-  public void setBoolean(ResourceLocation name, boolean value) {
+  public void putBoolean(ResourceLocation name, boolean value) {
     data.putBoolean(name.toString(), value);
   }
 
@@ -68,7 +86,7 @@ public class ModDataNBT implements IModDataReadOnly {
    * @param name  Name
    * @param value  Float value
    */
-  public void setFloat(ResourceLocation name, float value) {
+  public void putFloat(ResourceLocation name, float value) {
     data.putFloat(name.toString(), value);
   }
 
@@ -77,7 +95,7 @@ public class ModDataNBT implements IModDataReadOnly {
    * @param name  Name
    * @param value  String value
    */
-  public void getString(ResourceLocation name, String value) {
+  public void putString(ResourceLocation name, String value) {
     data.putString(name.toString(), value);
   }
 
@@ -86,7 +104,7 @@ public class ModDataNBT implements IModDataReadOnly {
    * @param data  data
    * @return  Parsed mod data
    */
-  public static ModDataNBT fromNBT(CompoundNBT data) {
+  public static ModDataNBT readFromNBT(CompoundNBT data) {
     int modifiers = data.getInt(TAG_MODIFIERS);
     int abilities = data.getInt(TAG_ABILITIES);
     return new ModDataNBT(data, modifiers, abilities);

@@ -374,12 +374,12 @@ public class ToolStack {
     if (persistantModData == null) {
       // parse if the tag already exists
       if (nbt.contains(TAG_PERSISTENT_MOD_DATA, NBT.TAG_COMPOUND)) {
-        persistantModData = ModDataNBT.fromNBT(nbt.getCompound(TAG_PERSISTENT_MOD_DATA));
+        persistantModData = ModDataNBT.readFromNBT(nbt.getCompound(TAG_PERSISTENT_MOD_DATA));
       } else {
         // if no tag exists, create it
         CompoundNBT tag = new CompoundNBT();
         nbt.put(TAG_PERSISTENT_MOD_DATA, tag);
-        persistantModData = ModDataNBT.fromNBT(tag);
+        persistantModData = ModDataNBT.readFromNBT(tag);
       }
     }
     return persistantModData;
