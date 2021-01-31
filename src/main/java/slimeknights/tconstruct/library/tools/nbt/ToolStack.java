@@ -9,6 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -44,6 +45,7 @@ public class ToolStack implements IModifierToolStack {
   protected static final String TAG_DAMAGE = "Damage";
   public static final String TAG_UNBREAKABLE = "Unbreakable";
   protected static final String TAG_ENCHANTMENTS = "Enchantments";
+  private static final String TAG_HIDE_FLAGS = "HideFlags";
   // modifier values
   private static final String TAG_ID = "id";
   private static final String TAG_LEVEL = "lvl";
@@ -590,8 +592,10 @@ public class ToolStack implements IModifierToolStack {
     }
     if (list.isEmpty()) {
       nbt.remove(TAG_ENCHANTMENTS);
+      nbt.remove(TAG_HIDE_FLAGS);
     } else {
       nbt.put(TAG_ENCHANTMENTS, list);
+      nbt.putInt(TAG_HIDE_FLAGS, TooltipDisplayFlags.ENCHANTMENTS.func_242397_a());
     }
   }
 }

@@ -101,6 +101,12 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     this.toolDefinition = toolDefinition;
     this.toolMiningLogic = toolMiningLogic;
   }
+
+  @Override
+  public boolean hasEffect(ItemStack stack) {
+    // we use enchantments to handle some modifiers, don't glow from them
+    return false;
+  }
   
 
   /* Item Entity -> INDESTRUCTIBLE */
