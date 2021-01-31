@@ -7,6 +7,7 @@ import slimeknights.tconstruct.library.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialManager;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
+import slimeknights.tconstruct.library.materials.json.TraitJson;
 
 public class MaterialDataProvider extends GenericDataProvider {
 
@@ -20,12 +21,19 @@ public class MaterialDataProvider extends GenericDataProvider {
   }
 
   private MaterialJson convert(IMaterial material) {
+    TraitJson[] traits = null;
+    if (!material.getTraits().isEmpty()) {
+      traits = material.getTraits().stream()
+                       .map(entry -> new TraitJson(entry.getModifier().getId(), entry.getLevel()))
+                       .toArray(TraitJson[]::new);
+    }
+
     // if empty, no fluid, no temperature
     String color = material.getColor().getName();
     if (material.getFluid() == Fluids.EMPTY) {
-      return new MaterialJson(material.isCraftable(), null, null, color, null);
+      return new MaterialJson(material.isCraftable(), null, null, color, null, traits);
     }
-    return new MaterialJson(material.isCraftable(), material.getFluid().getRegistryName(), material.getFluidPerUnit(), color, material.getTemperature());
+    return new MaterialJson(material.isCraftable(), material.getFluid().getRegistryName(), material.getFluidPerUnit(), color, material.getTemperature(), traits);
   }
 
   @Override

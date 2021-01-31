@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.network;
 
+import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.fluid.Fluid;
@@ -10,17 +11,21 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.MaterialRegistry;
+import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
 public class UpdateMaterialsPacket implements IThreadsafePacket {
   private final Collection<IMaterial> materials;
+
   public UpdateMaterialsPacket(PacketBuffer buffer) {
     int materialCount = buffer.readInt();
     this.materials = new ArrayList<>(materialCount);
@@ -36,7 +41,12 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       int color = buffer.readInt();
       int temperature = buffer.readInt();
 
-      this.materials.add(new Material(id, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature));
+      int size = buffer.readVarInt();
+      ImmutableList.Builder<ModifierEntry> builder = ImmutableList.builder();
+      for (int j = 0; j < size; j++) {
+        builder.add(new ModifierEntry(TinkerRegistries.MODIFIERS.getValue(buffer.readResourceLocation()), buffer.readVarInt()));
+      }
+      this.materials.add(new Material(id, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, builder.build()));
     }
   }
 
@@ -51,6 +61,12 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       // the color int getter is private
       buffer.writeInt(material.getColor().color);
       buffer.writeInt(material.getTemperature());
+      List<ModifierEntry> traits = material.getTraits();
+      buffer.writeVarInt(traits.size());
+      for (ModifierEntry entry : traits) {
+        buffer.writeResourceLocation(entry.getModifier().getId());
+        buffer.writeVarInt(entry.getLevel());
+      }
     });
   }
 
