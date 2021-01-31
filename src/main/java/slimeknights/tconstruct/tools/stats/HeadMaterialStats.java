@@ -31,17 +31,20 @@ public class HeadMaterialStats extends BaseMaterialStats {
   public static final String DURABILITY_PREFIX = makeTooltipKey("head.durability");
   private static final String MINING_SPEED_PREFIX = makeTooltipKey("head.mining_speed");
   private static final String ATTACK_PREFIX = makeTooltipKey("head.attack");
+  public final static String ATTACK_SPEED_LOCALIZATION = "stat.head.attack_speed.name";
   private static final String HARVEST_LEVEL_PREFIX = makeTooltipKey("head.harvest_level");
   // tooltip descriptions
   private static final ITextComponent DURABILITY_DESCRIPTION = makeTooltip("head.durability.description");
   private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip("head.mining_speed.description");
   private static final ITextComponent ATTACK_DESCRIPTION = makeTooltip("head.attack.description");
+  public final static String ATTACK_SPEED_DESCRIPTION_LOCALIZATION = "stat.head.attack_speed.description";
   private static final ITextComponent HARVEST_LEVEL_DESCRIPTION = makeTooltip("head.harvest_level.description");
   private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, MINING_SPEED_DESCRIPTION, ATTACK_DESCRIPTION, HARVEST_LEVEL_DESCRIPTION);
 
   public final static Color DURABILITY_COLOR = Color.fromInt(0xFF47cc47);
   public final static Color MINING_SPEED_COLOR = Color.fromInt(0xFF78A0CD);
   public final static Color ATTACK_COLOR = Color.fromInt(0xFFD76464);
+  public final static Color ATTACK_SPEED_COLOR = Color.fromInt(0xFF8547CC);
 
   private int durability;
   private float miningSpeed;
@@ -107,5 +110,9 @@ public class HeadMaterialStats extends BaseMaterialStats {
   /** Applies formatting for attack */
   public static ITextComponent formatAttack(float attack) {
     return formatNumber(ATTACK_PREFIX, ATTACK_COLOR, attack);
+  }
+
+  public static ITextComponent formatAttackSpeed(float attack) {
+    return formatNumber(ATTACK_SPEED_LOCALIZATION, ATTACK_SPEED_COLOR, attack);
   }
 }

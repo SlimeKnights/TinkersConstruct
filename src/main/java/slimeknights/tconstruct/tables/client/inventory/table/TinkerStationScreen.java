@@ -74,7 +74,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
   public TextFieldWidget textField;
   protected InfoPanelScreen tinkerInfo;
-  protected InfoPanelScreen traitInfo;
+  protected InfoPanelScreen modifierInfo;
 
   protected TinkerStationButtonsScreen buttonsScreen;
   protected int activeSlots; // how many of the available slots are active
@@ -89,11 +89,11 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.tinkerInfo = new InfoPanelScreen(this, container, playerInventory, title);
     this.addModule(this.tinkerInfo);
 
-    this.traitInfo = new InfoPanelScreen(this, container, playerInventory, title);
-    this.addModule(this.traitInfo);
+    this.modifierInfo = new InfoPanelScreen(this, container, playerInventory, title);
+    this.addModule(this.modifierInfo);
 
     this.tinkerInfo.yOffset = 5;
-    this.traitInfo.yOffset = this.tinkerInfo.ySize + 9;
+    this.modifierInfo.yOffset = this.tinkerInfo.ySize + 9;
 
     this.ySize = 174;
 
@@ -124,8 +124,8 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.buttonsScreen.yOffset = this.centerBeam.h + this.buttonDecorationTop.h;
     this.tinkerInfo.xOffset = 2;
     this.tinkerInfo.yOffset = this.centerBeam.h + this.panelDecorationL.h;
-    this.traitInfo.xOffset = this.tinkerInfo.xOffset;
-    this.traitInfo.yOffset = this.tinkerInfo.yOffset + this.tinkerInfo.ySize + 4;
+    this.modifierInfo.xOffset = this.tinkerInfo.xOffset;
+    this.modifierInfo.yOffset = this.tinkerInfo.yOffset + this.tinkerInfo.ySize + 4;
 
     for (ModuleScreen module : this.modules) {
       module.guiTop += 4;
@@ -214,15 +214,16 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         this.tinkerInfo.setText();
       }
 
-      this.traitInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tinker_station.traits"));
-      this.traitInfo.setText(new TranslationTextComponent("gui.tconstruct.tinker_station.traits.coming_soon"));
+      this.modifierInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tinker_station.modifiers"));
+      this.modifierInfo.setText(((IModifiable)toolStack.getItem()).getTraits(toolStack));
+
     }
     // Repair info
     else if (this.currentData.getItemStack().isEmpty()) {
       this.tinkerInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tinker_station.repair"));
       this.tinkerInfo.setText();
 
-      this.traitInfo.setCaption(StringTextComponent.EMPTY);
+      this.modifierInfo.setCaption(StringTextComponent.EMPTY);
 
       IFormattableTextComponent textComponent = new StringTextComponent("\n\n")
         .appendString("       .\n")
@@ -232,7 +233,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         .appendString("     \"\"")
         .mergeStyle(TextFormatting.DARK_GRAY);
 
-      this.traitInfo.setText(textComponent);
+      this.modifierInfo.setText(textComponent);
     }
     // tool build info
     // TODO: not all tinkerable is tool core, switch to IModifyable?
@@ -256,9 +257,9 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         text.append(textComponent);
       }
 
-      this.traitInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tinker_station.components"));
+      this.modifierInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tinker_station.components"));
 
-      this.traitInfo.setText(text);
+      this.modifierInfo.setText(text);
     }
   }
 
@@ -399,8 +400,8 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     // draw the decorations for the panels
     this.panelDecorationL.draw(matrices, this.tinkerInfo.guiLeft + 5, this.tinkerInfo.guiTop - this.panelDecorationL.h);
     this.panelDecorationR.draw(matrices, this.tinkerInfo.guiRight() - 5 - this.panelDecorationR.w, this.tinkerInfo.guiTop - this.panelDecorationR.h);
-    this.panelDecorationL.draw(matrices, this.traitInfo.guiLeft + 5, this.traitInfo.guiTop - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.traitInfo.guiRight() - 5 - this.panelDecorationR.w, this.traitInfo.guiTop - this.panelDecorationR.h);
+    this.panelDecorationL.draw(matrices, this.modifierInfo.guiLeft + 5, this.modifierInfo.guiTop - this.panelDecorationL.h);
+    this.panelDecorationR.draw(matrices, this.modifierInfo.guiRight() - 5 - this.panelDecorationR.w, this.modifierInfo.guiTop - this.panelDecorationR.h);
 
     RenderSystem.enableDepthTest();
 
@@ -457,7 +458,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       return false;
     }
 
-    if (this.traitInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
+    if (this.modifierInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
       return false;
     }
 
@@ -470,7 +471,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       return false;
     }
 
-    if (this.traitInfo.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)) {
+    if (this.modifierInfo.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)) {
       return false;
     }
 
@@ -483,7 +484,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       return false;
     }
 
-    if (this.traitInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
+    if (this.modifierInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
       return false;
     }
 
@@ -496,7 +497,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       return false;
     }
 
-    if (this.traitInfo.handleMouseReleased(mouseX, mouseY, state)) {
+    if (this.modifierInfo.handleMouseReleased(mouseX, mouseY, state)) {
       return false;
     }
 
@@ -584,7 +585,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
   protected void wood() {
     this.tinkerInfo.wood();
-    this.traitInfo.wood();
+    this.modifierInfo.wood();
 
     this.buttonDecorationTop = SLOT_SPACE_TOP.shift(SLOT_SPACE_TOP.w, 0);
     this.buttonDecorationBot = SLOT_SPACE_BOTTOM.shift(SLOT_SPACE_BOTTOM.w, 0);
@@ -600,7 +601,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
   protected void metal() {
     this.tinkerInfo.metal();
-    this.traitInfo.metal();
+    this.modifierInfo.metal();
 
     this.buttonDecorationTop = SLOT_SPACE_TOP.shift(SLOT_SPACE_TOP.w * 2, 0);
     this.buttonDecorationBot = SLOT_SPACE_BOTTOM.shift(SLOT_SPACE_BOTTOM.w * 2, 0);
@@ -618,16 +619,16 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   public void error(ITextComponent message) {
     this.tinkerInfo.setCaption(new TranslationTextComponent("gui.tconstruct.error"));
     this.tinkerInfo.setText(message);
-    this.traitInfo.setCaption(StringTextComponent.EMPTY);
-    this.traitInfo.setText(StringTextComponent.EMPTY);
+    this.modifierInfo.setCaption(StringTextComponent.EMPTY);
+    this.modifierInfo.setText(StringTextComponent.EMPTY);
   }
 
   @Override
   public void warning(ITextComponent message) {
     this.tinkerInfo.setCaption(new TranslationTextComponent("gui.tconstruct.warning"));
     this.tinkerInfo.setText(message);
-    this.traitInfo.setCaption(StringTextComponent.EMPTY);
-    this.traitInfo.setText(StringTextComponent.EMPTY);
+    this.modifierInfo.setCaption(StringTextComponent.EMPTY);
+    this.modifierInfo.setText(StringTextComponent.EMPTY);
   }
 
   /**

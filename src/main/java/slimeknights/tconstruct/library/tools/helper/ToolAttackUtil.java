@@ -19,6 +19,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tinkering.Category;
+import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.traits.ITrait;
@@ -35,29 +36,17 @@ public class ToolAttackUtil {
    * @param player the current player
    * @return the actual damage of the tool
    */
-  public static float getActualDamage(ItemStack stack, @Nullable LivingEntity player) {
+  public static float getActualDamage(ToolStack stack, @Nullable LivingEntity player) {
     float damage = (float) Attributes.ATTACK_DAMAGE.getDefaultValue();
-
     if (player != null) {
       ModifiableAttributeInstance instance = player.getAttribute(Attributes.ATTACK_DAMAGE);
       if (instance != null) {
         damage = (float) instance.getValue();
       }
     }
-
-    float toolDamage = ToolStack.from(stack).getStats().getAttackDamage();
-
-    if (!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
-      toolDamage *= ((ToolCore) stack.getItem()).getToolDefinition().getBaseStatDefinition().getDamageModifier();
-    }
-
-    damage += toolDamage;
-
-    if (stack.getItem() instanceof ToolCore) {
-      damage = calculateCutoffDamage(damage, ((ToolCore) stack.getItem()).getToolDefinition().getBaseStatDefinition().getDamageCutoff());
-    }
-
-    return damage;
+    ToolBaseStatDefinition baseStats = stack.getDefinition().getBaseStatDefinition();
+    damage += stack.getStats().getAttackDamage() * baseStats.getDamageModifier();
+    return calculateCutoffDamage(damage, baseStats.getDamageCutoff());
   }
 
   /**
