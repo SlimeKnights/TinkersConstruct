@@ -1026,9 +1026,6 @@
     "tooltip.tconstruct.hold_shift": "Hold %s for stats",
     "tooltip.tconstruct.hold_ctrl": "Hold %s for more",
 
-    "tooltip.tool.hold_shift": "Hold §e§oShift§r§7 for Stats",
-    "tooltip.tool.hold_ctrl": "Hold §e§bCtrl§r§7 for more",
-
     "tooltip.part.material_added_by": "Material added by %s",
     "tooltip.part.missing_material": "Missing material: %s",
     "tooltip.part.missing_stats": "Material is missing the required stats:\n{0}",
