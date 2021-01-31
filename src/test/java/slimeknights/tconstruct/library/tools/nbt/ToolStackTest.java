@@ -76,7 +76,7 @@ class ToolStackTest extends ToolCoreTest {
     assertThat(tool.getPersistentData()).isEqualTo(new ModDataNBT());
     assertThat(tool.getAllMods()).isEqualTo(ModifierNBT.EMPTY);
     assertThat(tool.getStats()).isEqualTo(StatsNBT.EMPTY);
-    assertThat(tool.getVolatileModData()).isEqualTo(IModDataReadOnly.EMPTY);
+    assertThat(tool.getVolatileData()).isEqualTo(IModDataReadOnly.EMPTY);
   }
 
 
@@ -387,7 +387,7 @@ class ToolStackTest extends ToolCoreTest {
     testItemStack.getOrCreateTag().put(ToolStack.TAG_VOLATILE_MOD_DATA, modData.getData());
 
     ToolStack toolStack = ToolStack.from(testItemStack);
-    assertThat(toolStack.getVolatileModData()).isEqualTo(modData);
+    assertThat(toolStack.getVolatileData()).isEqualTo(modData);
   }
 
 
@@ -425,7 +425,7 @@ class ToolStackTest extends ToolCoreTest {
     assertThat(toolStack.getAllMods()).isEqualTo(ModifierNBT.EMPTY);
 
     toolStack.addModifier(ModifierFixture.TEST_MODIFIER_1, 2);
-    assertThat(toolStack.getVolatileModData()).isEqualTo(IModDataReadOnly.EMPTY);
+    assertThat(toolStack.getVolatileData()).isEqualTo(IModDataReadOnly.EMPTY);
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_ENCHANTMENTS)).isFalse();
     assertThat(toolStack.getAllMods().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(2);
   }

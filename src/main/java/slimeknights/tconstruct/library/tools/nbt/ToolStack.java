@@ -32,7 +32,7 @@ import java.util.function.BiConsumer;
  * Class handling parsing all tool related NBT
  */
 @RequiredArgsConstructor(staticName = "from")
-public class ToolStack {
+public class ToolStack implements IModifierToolStack {
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
   protected static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_mod_data";
@@ -200,6 +200,7 @@ public class ToolStack {
    * Checks if this tool is currently broken
    * @return  True if broken
    */
+  @Override
   public boolean isBroken() {
     if (broken == null) {
       broken = nbt.getBoolean(TAG_BROKEN);
@@ -231,6 +232,7 @@ public class ToolStack {
    * Gets the tools current damage from NBT
    * @return  Current damage
    */
+  @Override
   public int getDamage() {
     // if broken, return full damage
     if (isBroken()) {
@@ -341,6 +343,7 @@ public class ToolStack {
    * Gets the tool stats if parsed, or parses from NBT if not yet parsed
    * @return stats
    */
+  @Override
   public StatsNBT getStats() {
     if (stats == null) {
       stats = StatsNBT.readFromNBT(nbt.get(TAG_STATS));
@@ -365,10 +368,7 @@ public class ToolStack {
 
   /* Materials */
 
-  /**
-   * Gets the materials if parsed, or parses if not yet parsed
-   * @return materials instance
-   */
+  @Override
   public MaterialNBT getMaterials() {
     if (materials == null) {
       materials = MaterialNBT.readFromNBT(nbt.get(TAG_MATERIALS));
@@ -412,23 +412,6 @@ public class ToolStack {
     setMaterials(getMaterials().replaceMaterial(index, replacement));
   }
 
-  /**
-   * Gets the list of all materials
-   * @return List of all materials
-   */
-  public List<IMaterial> getMaterialsList() {
-    return getMaterials().getMaterials();
-  }
-
-  /**
-   * Gets the material at the given index
-   * @param index  Index
-   * @return  Material, or unknown if index is invalid
-   */
-  public IMaterial getMaterial(int index) {
-    return getMaterials().getMaterial(index);
-  }
-
 
   /* Modifiers */
 
@@ -459,10 +442,7 @@ public class ToolStack {
     rebuildStats();
   }
 
-  /**
-   * Gets a list of all modifiers and traits currently on the tool
-   * @return  Full modifier list
-   */
+  @Override
   public ModifierNBT getAllMods() {
     if (allMods == null) {
       allMods = ModifierNBT.readFromNBT(nbt.get(TAG_ALL_MODS));
@@ -482,11 +462,7 @@ public class ToolStack {
 
   /* Data */
 
-  /**
-   * Gets the persistent modifier data, or creates it if missing.
-   * This will be preserved when modifiers rebuild, and can be modified freely.
-   * @return  Persistent modifier data
-   */
+  @Override
   public ModDataNBT getPersistentData() {
     if (persistentModData == null) {
       // parse if the tag already exists
@@ -502,11 +478,8 @@ public class ToolStack {
     return persistentModData;
   }
 
-  /**
-   * Gets the volatile modifier data. This will be refreshed when modifiers changed, and should not be written to.
-   * @return  Volatile modifier data
-   */
-  public IModDataReadOnly getVolatileModData() {
+  @Override
+  public IModDataReadOnly getVolatileData() {
     if (volatileModData == null) {
       // parse if the tag already exists
       if (nbt.contains(TAG_VOLATILE_MOD_DATA, NBT.TAG_COMPOUND)) {
@@ -532,22 +505,6 @@ public class ToolStack {
       volatileModData = modData;
       nbt.put(TAG_VOLATILE_MOD_DATA, data);
     }
-  }
-
-  /**
-   * Gets the free modifiers remaining on the tool
-   * @return  Free modifiers
-   */
-  public int getFreeModifiers() {
-    return getPersistentData().getModifiers() + getVolatileModData().getModifiers();
-  }
-
-  /**
-   * Gets the free ability slots remaining on the tool
-   * @return  Free abilities
-   */
-  public int getFreeAbilities() {
-    return getPersistentData().getAbilities() + getVolatileModData().getAbilities();
   }
 
 

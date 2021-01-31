@@ -23,8 +23,13 @@ public interface IModDataReadOnly {
     }
 
     @Override
-    public <T> T getNBT(ResourceLocation name, BiFunction<CompoundNBT,String,T> function) {
+    public <T> T get(ResourceLocation name, BiFunction<CompoundNBT,String,T> function) {
       return function.apply(new CompoundNBT(), name.toString());
+    }
+
+    @Override
+    public boolean contains(ResourceLocation name, int type) {
+      return false;
     }
   };
 
@@ -42,7 +47,15 @@ public interface IModDataReadOnly {
    * @param <T>  NBT type of output
    * @return  Data based on the function
    */
-  <T> T getNBT(ResourceLocation name, BiFunction<CompoundNBT,String,T> function);
+  <T> T get(ResourceLocation name, BiFunction<CompoundNBT,String,T> function);
+
+  /**
+   * Checks if the data contains the given tag
+   * @param name  Namespaced key
+   * @param type  Tag type, see {@link net.minecraftforge.common.util.Constants.NBT} for values
+   * @return  True if the tag is contained
+   */
+  boolean contains(ResourceLocation name, int type);
 
 
   /* Helpers */
@@ -53,7 +66,7 @@ public interface IModDataReadOnly {
    * @return  Integer value
    */
   default INBT get(ResourceLocation name) {
-    return getNBT(name, CompoundNBT::get);
+    return get(name, CompoundNBT::get);
   }
 
   /**
@@ -62,7 +75,7 @@ public interface IModDataReadOnly {
    * @return  Integer value
    */
   default int getInt(ResourceLocation name) {
-    return getNBT(name, CompoundNBT::getInt);
+    return get(name, CompoundNBT::getInt);
   }
 
   /**
@@ -71,7 +84,7 @@ public interface IModDataReadOnly {
    * @return  Boolean value
    */
   default boolean getBoolean(ResourceLocation name) {
-    return getNBT(name, CompoundNBT::getBoolean);
+    return get(name, CompoundNBT::getBoolean);
   }
 
   /**
@@ -80,7 +93,7 @@ public interface IModDataReadOnly {
    * @return  Float value
    */
   default float getFloat(ResourceLocation name) {
-    return getNBT(name, CompoundNBT::getFloat);
+    return get(name, CompoundNBT::getFloat);
   }
 
   /**
@@ -89,7 +102,7 @@ public interface IModDataReadOnly {
    * @return  String value
    */
   default String getString(ResourceLocation name) {
-    return getNBT(name, CompoundNBT::getString);
+    return get(name, CompoundNBT::getString);
   }
 
   /**
@@ -98,6 +111,6 @@ public interface IModDataReadOnly {
    * @return  Compound value
    */
   default CompoundNBT getCompound(ResourceLocation name) {
-    return getNBT(name, CompoundNBT::getCompound);
+    return get(name, CompoundNBT::getCompound);
   }
 }
