@@ -14,7 +14,7 @@ class ModDataNBTTest extends BaseMcTest {
 
   @Test
   void empty() {
-    assertThat(IModDataReadOnly.EMPTY.getModifiers()).isEqualTo(0);
+    assertThat(IModDataReadOnly.EMPTY.getUpgrades()).isEqualTo(0);
     assertThat(IModDataReadOnly.EMPTY.getAbilities()).isEqualTo(0);
 
     CompoundNBT nbt = IModDataReadOnly.EMPTY.getCompound(testKey);
@@ -27,7 +27,7 @@ class ModDataNBTTest extends BaseMcTest {
   void defaults() {
     ModDataNBT nbt = new ModDataNBT();
 
-    assertThat(nbt.getModifiers()).isEqualTo(0);
+    assertThat(nbt.getUpgrades()).isEqualTo(0);
     assertThat(nbt.getAbilities()).isEqualTo(0);
     assertThat(nbt.getData().isEmpty()).isTrue();
   }
@@ -35,13 +35,13 @@ class ModDataNBTTest extends BaseMcTest {
   @Test
   void serialize() {
     ModDataNBT modData = new ModDataNBT();
-    modData.setModifiers(2);
+    modData.setUpgrades(2);
     modData.setAbilities(3);
     modData.putInt(testKey, 1);
     modData.put(testKey2, new CompoundNBT());
 
     CompoundNBT nbt = modData.getData();
-    assertThat(nbt.getInt(ModDataNBT.TAG_MODIFIERS)).isEqualTo(2);
+    assertThat(nbt.getInt(ModDataNBT.TAG_UPGRADES)).isEqualTo(2);
     assertThat(nbt.getInt(ModDataNBT.TAG_ABILITIES)).isEqualTo(3);
     assertThat(nbt.getInt(testKey.toString())).isEqualTo(1);
     assertThat(nbt.contains(testKey2.toString(), NBT.TAG_COMPOUND)).isTrue();
@@ -50,7 +50,7 @@ class ModDataNBTTest extends BaseMcTest {
   @Test
   void deserialize() {
     CompoundNBT nbt = new CompoundNBT();
-    nbt.putInt(ModDataNBT.TAG_MODIFIERS, 4);
+    nbt.putInt(ModDataNBT.TAG_UPGRADES, 4);
     nbt.putInt(ModDataNBT.TAG_ABILITIES, 5);
     nbt.putString(testKey.toString(), "Not sure why you need strings");
     CompoundNBT tag = new CompoundNBT();
@@ -58,7 +58,7 @@ class ModDataNBTTest extends BaseMcTest {
     nbt.put(testKey2.toString(), tag);
 
     ModDataNBT modData = ModDataNBT.readFromNBT(nbt);
-    assertThat(modData.getModifiers()).isEqualTo(4);
+    assertThat(modData.getUpgrades()).isEqualTo(4);
     assertThat(modData.getAbilities()).isEqualTo(5);
     assertThat(modData.getString(testKey)).isEqualTo("Not sure why you need strings");
 

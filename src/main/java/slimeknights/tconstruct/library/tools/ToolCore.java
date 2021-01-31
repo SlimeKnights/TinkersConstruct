@@ -319,7 +319,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
     // grab attributes from modifiers
     BiConsumer<Attribute, AttributeModifier> attributeConsumer = builder::put;
-    for (ModifierEntry entry : tool.getAllModsList()) {
+    for (ModifierEntry entry : tool.getModifierList()) {
       entry.getModifier().addAttributes(tool, entry.getLevel(), attributeConsumer);
     }
 
@@ -429,7 +429,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
           tooltips.add(TooltipBuilder.TOOLTIP_BROKEN);
         }
         // modifier tooltip
-        for (ModifierEntry entry : tool.getAllModsList()) {
+        for (ModifierEntry entry : tool.getModifierList()) {
           tooltips.add(entry.getModifier().getDisplayName(entry.getLevel()));
         }
         break;
@@ -478,7 +478,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   public List<ITextComponent> getTraits(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
     List<ITextComponent> list = new ArrayList<>();
-    for (ModifierEntry entry : tool.getAllModsList()) {
+    for (ModifierEntry entry : tool.getModifierList()) {
       list.add(entry.getModifier().getDisplayName(entry.getLevel()));
     }
     return list;
@@ -508,7 +508,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 //      info.addProjectileBonusDamage();
 //    }
 
-    builder.addFreeModifiers();
+    builder.addFreeUpgrades();
     builder.addFreeAbilities();
 
     return builder.getTooltips();

@@ -36,10 +36,10 @@ import java.util.function.BiConsumer;
 public class ToolStack implements IModifierToolStack {
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
-  protected static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_mod_data";
-  protected static final String TAG_VOLATILE_MOD_DATA = "tic_volatile_mod_data";
+  protected static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_data";
+  protected static final String TAG_VOLATILE_MOD_DATA = "tic_volatile_data";
+  protected static final String TAG_UPGRADES = "tic_upgrades";
   protected static final String TAG_MODIFIERS = "tic_modifiers";
-  protected static final String TAG_ALL_MODS = "tic_all_modifiers";
   public static final String TAG_BROKEN = "tic_broken";
   // vanilla tags
   protected static final String TAG_DAMAGE = "Damage";
@@ -71,17 +71,17 @@ public class ToolStack implements IModifierToolStack {
   /** Data object containing materials */
   @Nullable
   private MaterialNBT materials;
-  /** Direct modifiers added to this tool */
+  /** Upgrades are modifiers that come from recipes. Abilities are included with these in NBT */
   @Nullable
-  private ModifierNBT modifiers;
+  private ModifierNBT upgrades;
   /** Data object containing modifier data that persists on stat rebuild */
   @Nullable
   private ModDataNBT persistentModData;
 
   // nbt cache: these values are calculated tool data
-  /** Combination of modifiers from modifiers and material traits */
+  /** Combination of modifiers from upgrades and material traits */
   @Nullable
-  private ModifierNBT allMods;
+  private ModifierNBT modifiers;
   /** Data object containing the original tool stats */
   @Nullable
   private StatsNBT stats;
@@ -144,8 +144,8 @@ public class ToolStack implements IModifierToolStack {
     tool.damage = this.damage;
     tool.broken = this.broken;
     tool.materials = this.materials;
+    tool.upgrades = this.upgrades;
     tool.modifiers = this.modifiers;
-    tool.allMods = this.allMods;
     tool.stats = this.stats;
     // skipping mod data as those are mutable, so not safe to share the same instance
     return tool;
@@ -162,13 +162,13 @@ public class ToolStack implements IModifierToolStack {
     // set cached to empty, saves a NBT lookup or two
     tool.damage = 0;
     tool.broken = false;
-    tool.modifiers = ModifierNBT.EMPTY;
+    tool.upgrades = ModifierNBT.EMPTY;
     // update the materials
     tool.setMaterials(materials);
     // update modifier data
     ToolBaseStatDefinition baseStats = definition.getBaseStatDefinition();
     ModDataNBT data = tool.getPersistentData();
-    data.setModifiers(baseStats.getDefaultModifiers());
+    data.setUpgrades(baseStats.getDefaultModifiers());
     data.setAbilities(baseStats.getDefaultAbilities());
     return tool;
   }
@@ -419,14 +419,14 @@ public class ToolStack implements IModifierToolStack {
 
   /**
    * Gets a list of modifiers added from recipes.
-   * In general you should use {@link #getAllMods()} when performing modifier actions to include traits.
+   * In general you should use {@link #getModifiers()} when performing modifier actions to include traits.
    * @return  Recipe modifier list
    */
-  public ModifierNBT getModifiers() {
-    if (modifiers == null) {
-      modifiers = ModifierNBT.readFromNBT(nbt.get(TAG_MODIFIERS));
+  public ModifierNBT getUpgrades() {
+    if (upgrades == null) {
+      upgrades = ModifierNBT.readFromNBT(nbt.get(TAG_UPGRADES));
     }
-    return modifiers;
+    return upgrades;
   }
 
   /**
@@ -438,27 +438,27 @@ public class ToolStack implements IModifierToolStack {
     if (level <= 0) {
       throw new IllegalArgumentException("Invalid level, must be above 0");
     }
-    ModifierNBT newModifiers = getModifiers().withModifier(modifier, level);
-    this.modifiers = newModifiers;
-    nbt.put(TAG_MODIFIERS, newModifiers.serializeToNBT());
+    ModifierNBT newModifiers = getUpgrades().withModifier(modifier, level);
+    this.upgrades = newModifiers;
+    nbt.put(TAG_UPGRADES, newModifiers.serializeToNBT());
     rebuildStats();
   }
 
   @Override
-  public ModifierNBT getAllMods() {
-    if (allMods == null) {
-      allMods = ModifierNBT.readFromNBT(nbt.get(TAG_ALL_MODS));
+  public ModifierNBT getModifiers() {
+    if (modifiers == null) {
+      modifiers = ModifierNBT.readFromNBT(nbt.get(TAG_MODIFIERS));
     }
-    return allMods;
+    return modifiers;
   }
 
   /**
    * Updates the list of all modifiers in NBT, called in {@link #rebuildStats()}
    * @param modifiers  New modifiers
    */
-  protected void setAllMods(ModifierNBT modifiers) {
-    this.allMods = modifiers;
-    nbt.put(TAG_ALL_MODS, allMods.serializeToNBT());
+  protected void setModifiers(ModifierNBT modifiers) {
+    this.modifiers = modifiers;
+    nbt.put(TAG_MODIFIERS, this.modifiers.serializeToNBT());
   }
 
 
@@ -518,7 +518,7 @@ public class ToolStack implements IModifierToolStack {
    */
   public boolean isValid() {
     return getMaterialsList().size() == definition.getRequiredComponents().size()
-      && getFreeModifiers() > 0 && getFreeAbilities() > 0;
+           && getFreeUpgrades() > 0 && getFreeAbilities() > 0;
   }
 
   /**
@@ -528,12 +528,12 @@ public class ToolStack implements IModifierToolStack {
     // first, rebuild the list of all modifiers
     List<IMaterial> materials = getMaterialsList();
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();
-    modBuilder.add(getModifiers());
+    modBuilder.add(getUpgrades());
     for (IMaterial material : materials) {
       modBuilder.add(material.getTraits());
     }
     ModifierNBT allMods = modBuilder.build();
-    setAllMods(allMods);
+    setModifiers(allMods);
 
     // next, update modifier related properties
     StatsNBT stats = definition.buildStats(materials);

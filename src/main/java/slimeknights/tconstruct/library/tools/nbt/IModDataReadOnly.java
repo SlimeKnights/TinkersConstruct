@@ -13,7 +13,7 @@ public interface IModDataReadOnly {
   /** Empty variant of mod data */
   IModDataReadOnly EMPTY = new IModDataReadOnly() {
     @Override
-    public int getModifiers() {
+    public int getUpgrades() {
       return 0;
     }
 
@@ -34,7 +34,7 @@ public interface IModDataReadOnly {
   };
 
   /** Gets the number of modifiers provided by this data */
-  int getModifiers();
+  int getUpgrades();
 
   /** Gets the number of ability slots provided by this data */
   int getAbilities();
