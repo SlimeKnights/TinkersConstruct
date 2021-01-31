@@ -34,6 +34,8 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.client.SmelteryRenderer;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
 
+import static slimeknights.tconstruct.library.Util.getMinFluidHeight;
+
 public class GuiUtil {
 
   private GuiUtil() {
@@ -155,7 +157,7 @@ public class GuiUtil {
   }
 
   private static int[] calcLiquidHeights(List<FluidStack> liquids, int capacity, int height) {
-    return SmelteryRenderer.calcLiquidHeights(liquids, capacity, height, 3);
+    return SmelteryRenderer.calcLiquidHeights(liquids, capacity, height, getMinFluidHeight());
   }
 
   public static void drawGuiTank(SmelteryTank liquids, int x, int y, int w, int height, float zLevel) {

@@ -222,4 +222,18 @@ public class Util {
     }
     return translateFormatted("gui.general.temperature.kelvin", temperature);
   }
+
+  private static int minFluidHeight = 3;
+
+  /**
+   * Sets the preference from the config. For internal use only
+   * @param minHeight  integer minimum display height for fluids
+   */
+  public static void setMinFluidHeight(int minHeight) {
+    minFluidHeight = minHeight;
+  }
+
+  public static int getMinFluidHeight() {
+    return minFluidHeight;
+  }
 }
