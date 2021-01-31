@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -97,7 +98,8 @@ public class MaterialNBT {
 
     List<IMaterial> materials = listNBT.stream()
       .map(INBT::getString)
-      .map(MaterialId::new)
+      .map(MaterialId::tryCreate)
+      .filter(Objects::nonNull)
       .map(MaterialRegistry::getMaterial)
       .collect(Collectors.toList());
 
