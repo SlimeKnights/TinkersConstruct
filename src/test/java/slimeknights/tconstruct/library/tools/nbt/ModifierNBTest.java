@@ -6,10 +6,11 @@ import net.minecraft.nbt.ListNBT;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.ModifierFixture;
+import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ModifierNBTest {
+class ModifierNBTest extends BaseMcTest {
   @BeforeAll
   static void before() {
     ModifierFixture.init();
