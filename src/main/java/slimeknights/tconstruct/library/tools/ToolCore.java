@@ -37,6 +37,7 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
@@ -63,6 +64,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -311,13 +313,13 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", speed - 4d, AttributeModifier.Operation.ADDITION));
     }
 
-    // TODO: modifiers
+    // grab attributes from modifiers
+    BiConsumer<Attribute, AttributeModifier> attributeConsumer = builder::put;
+    for (ModifierEntry entry : tool.getAllModsList()) {
+      entry.getModifier().addAttributes(tool, entry.getLevel(), attributeConsumer);
+    }
 
-    Multimap<Attribute, AttributeModifier> attributeMap = builder.build();
-
-    TraitUtil.forEachTrait(stack, trait -> trait.getAttributeModifiers(slot, stack, attributeMap));
-
-    return attributeMap;
+    return builder.build();
   }
 
   /* World interaction */

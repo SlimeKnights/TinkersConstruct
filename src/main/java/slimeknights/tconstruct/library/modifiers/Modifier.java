@@ -13,6 +13,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
@@ -162,8 +163,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
    * Adds attributes from this modifier's effect
+   * @param tool      Current tool instance
    * @param level     Modifier level
    * @param consumer  Attribute consumer
    */
-  public void addAttributes(int level, BiConsumer<Attribute,AttributeModifier> consumer) {}
+  public void addAttributes(IModifierToolStack tool, int level, BiConsumer<Attribute,AttributeModifier> consumer) {}
 }

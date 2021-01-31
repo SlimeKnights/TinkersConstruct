@@ -45,15 +45,30 @@ public class ModDataNBT implements IModDataReadOnly {
     data.putInt(TAG_MODIFIERS, value);
   }
 
+  /** Adds the given number of modifiers, use negative to remove */
+  public void addModifiers(int add) {
+    setModifiers(modifiers + add);
+  }
+
   /** Updates the ability slots */
   public void setAbilities(int value) {
     this.abilities = value;
     data.putInt(TAG_ABILITIES, value);
   }
 
+  /** Adds the given number of ability slots, use negative to remove */
+  public void addAbilities(int add) {
+    setAbilities(abilities + add);
+  }
+
   @Override
-  public <T> T getNBT(ResourceLocation name, BiFunction<CompoundNBT,String,T> function) {
+  public <T> T get(ResourceLocation name, BiFunction<CompoundNBT,String,T> function) {
     return function.apply(data, name.toString());
+  }
+
+  @Override
+  public boolean contains(ResourceLocation name, int type) {
+    return data.contains(name.toString(), type);
   }
 
   /**
