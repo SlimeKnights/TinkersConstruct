@@ -87,7 +87,7 @@ class MaterialNBTTest extends BaseMcTest {
     // note 1 is out of bounds of empty, but replace material needs to be able to extend the material list to deal with errors
     nbt = nbt.replaceMaterial(1, MaterialFixture.MATERIAL_1);
 
-    assertThat(nbt).overridingErrorMessage("replaceMaterial should not modify the original").isNotEqualTo(MaterialNBT.EMPTY);
+    assertThat(nbt).overridingErrorMessage("replaceMaterial should not modify the original").isNotSameAs(MaterialNBT.EMPTY);
     assertThat(nbt.getMaterial(1)).isEqualTo(MaterialFixture.MATERIAL_1);
   }
 }

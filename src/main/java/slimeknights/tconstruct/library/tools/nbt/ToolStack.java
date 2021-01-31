@@ -1,36 +1,52 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.function.BiConsumer;
 
 /**
  * Class handling parsing all tool related NBT
  */
 @RequiredArgsConstructor(staticName = "from")
 public class ToolStack {
-  public static final int DEFAULT_MODIFIERS = 3;
-
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
   protected static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_mod_data";
   protected static final String TAG_VOLATILE_MOD_DATA = "tic_volatile_mod_data";
+  protected static final String TAG_MODIFIERS = "tic_modifiers";
+  protected static final String TAG_ALL_MODS = "tic_all_modifiers";
   public static final String TAG_BROKEN = "tic_broken";
   // vanilla tags
   protected static final String TAG_DAMAGE = "Damage";
   public static final String TAG_UNBREAKABLE = "Unbreakable";
+  protected static final String TAG_ENCHANTMENTS = "Enchantments";
+  // modifier values
+  private static final String TAG_ID = "id";
+  private static final String TAG_LEVEL = "lvl";
 
   /** Item representing this tool */
   @Getter
@@ -39,22 +55,37 @@ public class ToolStack {
   @Getter
   private final ToolDefinition definition;
   /** Original tool NBT */
+  @Getter(AccessLevel.PROTECTED)
   private final CompoundNBT nbt;
 
-  // lazy loaded data
+  // durability
   /** Current damage of the tool, -1 means unloaded */
   private int damage = -1;
   /** If true, tool is broken. Null means unloaded */
+  @Nullable
   private Boolean broken;
+
+  // tool data: these properties describe the tool
   /** Data object containing materials */
   @Nullable
   private MaterialNBT materials;
+  /** Direct modifiers added to this tool */
+  @Nullable
+  private ModifierNBT modifiers;
+  /** Data object containing modifier data that persists on stat rebuild */
+  @Nullable
+  private ModDataNBT persistentModData;
+
+  // nbt cache: these values are calculated tool data
+  /** Combination of modifiers from modifiers and material traits */
+  @Nullable
+  private ModifierNBT allMods;
   /** Data object containing the original tool stats */
   @Nullable
   private StatsNBT stats;
-
-  /** Data object containing persistent modifier data */
-  private ModDataNBT persistantModData;
+  /** Data object containing modifier data that is recreated when the modifier list changes */
+  @Nullable
+  private IModDataReadOnly volatileModData;
 
   /* Creating */
 
@@ -73,6 +104,9 @@ public class ToolStack {
     CompoundNBT nbt = stack.getTag();
     if (nbt == null) {
       nbt = new CompoundNBT();
+      if (!copyNbt) {
+        stack.setTag(nbt);
+      }
     } else if (copyNbt) {
       nbt = nbt.copy();
     }
@@ -98,13 +132,43 @@ public class ToolStack {
   }
 
   /**
-   * Creates a new tool stack
+   * Creates a copy of this tool to prevent modifications to the original.
+   * Will copy over cached parsed NBT when possible, making this more efficient than calling {@link #copyFrom(ItemStack)}.
+   * @return  Copy of this tool
+   */
+  public ToolStack copy() {
+    ToolStack tool = from(item, definition, nbt.copy());
+    // copy over relevant loaded data
+    tool.damage = this.damage;
+    tool.broken = this.broken;
+    tool.materials = this.materials;
+    tool.modifiers = this.modifiers;
+    tool.allMods = this.allMods;
+    tool.stats = this.stats;
+    // skipping mod data as those are mutable, so not safe to share the same instance
+    return tool;
+  }
+
+  /**
+   * Creates a new tool stack for a completely new tool
    * @param item        Item
    * @param definition  Tool definition
    * @return  Tool stack
    */
-  public static ToolStack from(Item item, ToolDefinition definition) {
-    return from(item, definition, new CompoundNBT());
+  public static ToolStack createTool(Item item, ToolDefinition definition, List<IMaterial> materials) {
+    ToolStack tool = from(item, definition, new CompoundNBT());
+    // set cached to empty, saves a NBT lookup or two
+    tool.damage = 0;
+    tool.broken = false;
+    tool.modifiers = ModifierNBT.EMPTY;
+    // update the materials
+    tool.setMaterials(materials);
+    // update modifier data
+    ToolBaseStatDefinition baseStats = definition.getBaseStatDefinition();
+    ModDataNBT data = tool.getPersistentData();
+    data.setModifiers(baseStats.getDefaultModifiers());
+    data.setAbilities(baseStats.getDefaultAbilities());
+    return tool;
   }
 
   /**
@@ -172,7 +236,8 @@ public class ToolStack {
     if (isBroken()) {
       return getStats().getDurability();
     }
-    return getDamageRaw();
+    // ensure we never return a number larger than max
+    return Math.min(getDamageRaw(), getStats().getDurability());
   }
 
   /**
@@ -183,7 +248,8 @@ public class ToolStack {
     if (isBroken()) {
       return 0;
     }
-    return getStats().getDurability() - getDamageRaw();
+    // ensure we never return a number smaller than 0
+    return Math.max(0, getStats().getDurability() - getDamageRaw());
   }
 
   /**
@@ -193,7 +259,8 @@ public class ToolStack {
   public void setDamage(int damage) {
     int durability = getStats().getDurability();
     if (damage >= durability) {
-      damage = durability - 1;
+      // max on the odd change durability is 0, happens with invalid tools
+      damage = Math.max(0, durability - 1);
       setBroken(true);
     } else {
       setBroken(false);
@@ -271,7 +338,7 @@ public class ToolStack {
   /* Stats */
 
   /**
-   * Gets the tool stats if parsed, or parses if not yet parsed
+   * Gets the tool stats if parsed, or parses from NBT if not yet parsed
    * @return stats
    */
   public StatsNBT getStats() {
@@ -310,14 +377,6 @@ public class ToolStack {
   }
 
   /**
-   * Sets the materials on this tool stack
-   * @param materials  New materials NBT
-   */
-  public void setMaterials(List<IMaterial> materials) {
-    setMaterials(new MaterialNBT(materials));
-  }
-
-  /**
    * Sets the materials without updating the tool stats
    * @param materials  New materials
    */
@@ -332,8 +391,15 @@ public class ToolStack {
    */
   public void setMaterials(MaterialNBT materials) {
     setMaterialsRaw(materials);
-    // update base stats based on the new materials
-    this.setStats(definition.buildStats(materials.getMaterials()));
+    rebuildStats();
+  }
+
+  /**
+   * Sets the materials on this tool stack
+   * @param materials  New materials NBT
+   */
+  public void setMaterials(List<IMaterial> materials) {
+    setMaterials(new MaterialNBT(materials));
   }
 
   /**
@@ -367,22 +433,105 @@ public class ToolStack {
   /* Modifiers */
 
   /**
-   * Gets the persistant modifier data. This will be preserved when modifiers rebuild
-   * @return  Persistant modifier data
+   * Gets a list of modifiers added from recipes.
+   * In general you should use {@link #getAllMods()} when performing modifier actions to include traits.
+   * @return  Recipe modifier list
    */
-  public ModDataNBT getPersistantData() {
-    if (persistantModData == null) {
+  public ModifierNBT getModifiers() {
+    if (modifiers == null) {
+      modifiers = ModifierNBT.readFromNBT(nbt.get(TAG_MODIFIERS));
+    }
+    return modifiers;
+  }
+
+  /**
+   * Adds a single modifier to this tool
+   * @param modifier  Modifier to add
+   * @param level     Level to add
+   */
+  public void addModifier(Modifier modifier, int level) {
+    if (level <= 0) {
+      throw new IllegalArgumentException("Invalid level, must be above 0");
+    }
+    ModifierNBT newModifiers = getModifiers().withModifier(modifier, level);
+    this.modifiers = newModifiers;
+    nbt.put(TAG_MODIFIERS, newModifiers.serializeToNBT());
+    rebuildStats();
+  }
+
+  /**
+   * Gets a list of all modifiers and traits currently on the tool
+   * @return  Full modifier list
+   */
+  public ModifierNBT getAllMods() {
+    if (allMods == null) {
+      allMods = ModifierNBT.readFromNBT(nbt.get(TAG_ALL_MODS));
+    }
+    return allMods;
+  }
+
+  /**
+   * Updates the list of all modifiers in NBT, called in {@link #rebuildStats()}
+   * @param modifiers  New modifiers
+   */
+  protected void setAllMods(ModifierNBT modifiers) {
+    this.allMods = modifiers;
+    nbt.put(TAG_ALL_MODS, allMods.serializeToNBT());
+  }
+
+
+  /* Data */
+
+  /**
+   * Gets the persistent modifier data, or creates it if missing.
+   * This will be preserved when modifiers rebuild, and can be modified freely.
+   * @return  Persistent modifier data
+   */
+  public ModDataNBT getPersistentData() {
+    if (persistentModData == null) {
       // parse if the tag already exists
       if (nbt.contains(TAG_PERSISTENT_MOD_DATA, NBT.TAG_COMPOUND)) {
-        persistantModData = ModDataNBT.readFromNBT(nbt.getCompound(TAG_PERSISTENT_MOD_DATA));
+        persistentModData = ModDataNBT.readFromNBT(nbt.getCompound(TAG_PERSISTENT_MOD_DATA));
       } else {
         // if no tag exists, create it
         CompoundNBT tag = new CompoundNBT();
         nbt.put(TAG_PERSISTENT_MOD_DATA, tag);
-        persistantModData = ModDataNBT.readFromNBT(tag);
+        persistentModData = ModDataNBT.readFromNBT(tag);
       }
     }
-    return persistantModData;
+    return persistentModData;
+  }
+
+  /**
+   * Gets the volatile modifier data. This will be refreshed when modifiers changed, and should not be written to.
+   * @return  Volatile modifier data
+   */
+  public IModDataReadOnly getVolatileModData() {
+    if (volatileModData == null) {
+      // parse if the tag already exists
+      if (nbt.contains(TAG_VOLATILE_MOD_DATA, NBT.TAG_COMPOUND)) {
+        volatileModData = ModDataNBT.readFromNBT(nbt.getCompound(TAG_VOLATILE_MOD_DATA));
+      } else {
+        // if no tag exists, return empty
+        volatileModData = IModDataReadOnly.EMPTY;
+      }
+    }
+    return volatileModData;
+  }
+
+  /**
+   * Updates the volatile mod data in NBT, called in {@link #rebuildStats()}
+   * @param modData  New data
+   */
+  protected void setVolatileModData(ModDataNBT modData) {
+    CompoundNBT data = modData.getData();
+    if (data.isEmpty()) {
+      volatileModData = IModDataReadOnly.EMPTY;
+      nbt.remove(TAG_VOLATILE_MOD_DATA);
+    } else {
+      volatileModData = modData;
+      nbt.put(TAG_VOLATILE_MOD_DATA, data);
+    }
   }
 
   /**
@@ -390,7 +539,102 @@ public class ToolStack {
    * @return  Free modifiers
    */
   public int getFreeModifiers() {
-    // TODO: sum in
-    return getPersistantData().getModifiers();
+    return getPersistentData().getModifiers() + getVolatileModData().getModifiers();
+  }
+
+  /**
+   * Gets the free ability slots remaining on the tool
+   * @return  Free abilities
+   */
+  public int getFreeAbilities() {
+    return getPersistentData().getAbilities() + getVolatileModData().getAbilities();
+  }
+
+
+  /* Utilities */
+
+  /**
+   * Checks if this tool stack is in a valid state
+   * @return  True if the tool is in a valid state
+   */
+  public boolean isValid() {
+    return getMaterialsList().size() == definition.getRequiredComponents().size()
+      && getFreeModifiers() > 0 && getFreeAbilities() > 0;
+  }
+
+  /**
+   * Recalculates any relevant cached data. Called after either the materials or modifiers list changes
+   */
+  private void rebuildStats() {
+    // first, rebuild the list of all modifiers
+    List<IMaterial> materials = getMaterialsList();
+    ModifierNBT.Builder modBuilder = ModifierNBT.builder();
+    modBuilder.add(getModifiers());
+    for (IMaterial material : materials) {
+      modBuilder.add(material.getTraits());
+    }
+    ModifierNBT allMods = modBuilder.build();
+    setAllMods(allMods);
+
+    // next, update modifier related properties
+    StatsNBT stats = definition.buildStats(materials);
+    List<ModifierEntry> modifierList = allMods.getModifiers();
+    if (modifierList.isEmpty()) {
+      setStats(stats);
+      // if no modifiers, clear out data that only exists with modifiers
+      nbt.remove(TAG_ENCHANTMENTS);
+      nbt.remove(TAG_VOLATILE_MOD_DATA);
+      volatileModData = IModDataReadOnly.EMPTY;
+    } else {
+      ModDataNBT volatileData = new ModDataNBT();
+      // consumer to add an enchantment
+      Map<Enchantment,Integer> enchantments = new HashMap<>();
+      BiConsumer<Enchantment,Integer> enchantmentConsumer = (ench, add) -> {
+        if (ench != null && add != null) {
+          Integer level = enchantments.get(ench);
+          if (level != null) {
+            add += level;
+          }
+          enchantments.put(ench, add);
+        }
+      };
+
+      // iterate all modifiers
+      ToolStatsModifierBuilder statBuilder = ToolStatsModifierBuilder.builder();
+      for (ModifierEntry entry : modifierList) {
+        Modifier mod = entry.getModifier();
+        int level = entry.getLevel();
+        mod.addToolStats(level, statBuilder);
+        mod.addVolatileData(level, volatileData);
+        mod.addEnchantments(level, enchantmentConsumer);
+      }
+      // set into NBT
+      setStats(statBuilder.build(stats));
+      setVolatileModData(volatileData);
+      setEnchantments(enchantments);
+    }
+  }
+
+  /**
+   * Sets the list of enchantments onto the tool NBT
+   * @param enchantments  Enchantments list
+   */
+  protected void setEnchantments(Map<Enchantment,Integer> enchantments) {
+    ListNBT list = new ListNBT();
+    for(Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+      Enchantment enchantment = entry.getKey();
+      if (enchantment != null) {
+        int i = entry.getValue();
+        CompoundNBT tag = new CompoundNBT();
+        tag.putString(TAG_ID, Objects.requireNonNull(enchantment.getRegistryName()).toString());
+        tag.putShort(TAG_LEVEL, (short)i);
+        list.add(tag);
+      }
+    }
+    if (list.isEmpty()) {
+      nbt.remove(TAG_ENCHANTMENTS);
+    } else {
+      nbt.put(TAG_ENCHANTMENTS, list);
+    }
   }
 }

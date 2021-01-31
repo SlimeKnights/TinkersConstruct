@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tools.nbt;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -14,6 +15,7 @@ import java.util.function.BiFunction;
  * On a typical tool, there are two copies of this class, one for persistent data, and one that rebuilds when the modifiers refresh
  * Note unlike other NBT classes, the data inside this one is mutable as most of it is directly used by the tools.
  */
+@EqualsAndHashCode
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class ModDataNBT implements IModDataReadOnly {
   protected static final String TAG_MODIFIERS = "modifiers";
