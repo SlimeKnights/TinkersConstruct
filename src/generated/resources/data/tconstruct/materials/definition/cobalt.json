@@ -3,5 +3,9 @@
   "fluid": "tconstruct:molten_cobalt",
   "fluidPerUnit": 144,
   "textColor": "#2882D4",
-  "temperature": 950
+  "temperature": 950,
+  "trait": {
+    "name": "tconstruct:lightweight",
+    "level": 1
+  }
 }

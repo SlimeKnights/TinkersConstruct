@@ -979,6 +979,23 @@
     "material.tconstruct.steel": "Steel",
     
 
+    "_comment": "Modifiers",
+
+    "modifier.tconstruct.empty": "Invalid modifier",
+
+    "modifier.tconstruct.fractured": "Fractured",
+
+    "modifier.tconstruct.reinforced": "Reinforced",
+
+    "modifier.tconstruct.enhanced": "Enhanced",
+    "modifier.tconstruct.lightweight": "Lightweight",
+
+    "modifier.tconstruct.overlord": "Overlord",
+
+    "modifier.tconstruct.heavy": "Heavy",
+    "modifier.tconstruct.smite": "Smite",
+    "modifier.tconstruct.sturdy": "Sturdy",
+
     "_comment": "Stats",
 
     "stat.tconstruct.attack_speed": "Attack Speed: ",

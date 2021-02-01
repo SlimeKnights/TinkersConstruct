@@ -1,4 +1,8 @@
 {
   "craftable": false,
-  "textColor": "#4D4968"
+  "textColor": "#4D4968",
+  "trait": {
+    "name": "tconstruct:heavy",
+    "level": 1
+  }
 }

@@ -9,8 +9,8 @@ import java.util.function.Supplier;
  * Extension of modifier entry to hold a supplier
  */
 public class DataModifierEntry extends ModifierEntry {
-  private final Supplier<Modifier> modifier;
-  public DataModifierEntry(Supplier<Modifier> modifier, int level) {
+  private final Supplier<? extends Modifier> modifier;
+  public DataModifierEntry(Supplier<? extends Modifier> modifier, int level) {
     super(null, level);
     this.modifier = modifier;
   }

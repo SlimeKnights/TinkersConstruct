@@ -11,6 +11,14 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
+import slimeknights.tconstruct.tools.modifiers.LevelDamageModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.EnhancedModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.LightweightModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.ReinforcedModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.SmiteModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
 
 import java.util.function.Supplier;
 
@@ -47,4 +55,20 @@ public final class TinkerModifiers extends TinkerModule {
    * Modifiers
    */
   public static final RegistryObject<Modifier> empty = MODIFIERS.register("empty", () -> new Modifier(-1));
+
+  // traits - tier 1
+  public static final RegistryObject<LevelDamageModifier> fractured = MODIFIERS.register("fractured", () -> new LevelDamageModifier(0xede6bf, 1.5f));
+  // traits - tier 2
+  public static final RegistryObject<ReinforcedModifier> reinforced = MODIFIERS.register("reinforced", ReinforcedModifier::new);
+  // traits - tier 3
+  public static final RegistryObject<EnhancedModifier> enhanced = MODIFIERS.register("enhanced", EnhancedModifier::new);
+  public static final RegistryObject<LightweightModifier> lightweight = MODIFIERS.register("lightweight", LightweightModifier::new);
+  // traits - tier 4
+  public static final RegistryObject<OverlordModifier> overlord = MODIFIERS.register("overlord", OverlordModifier::new);
+
+  // traits - mod compat tier 2
+  public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
+  public static final RegistryObject<SmiteModifier> smite = MODIFIERS.register("smite", SmiteModifier::new);
+  // traits - mod compat tier 3
+  public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
 }

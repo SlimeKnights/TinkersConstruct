@@ -3,5 +3,9 @@
   "fluid": "tconstruct:molten_rose_gold",
   "fluidPerUnit": 144,
   "textColor": "#FFDBCC",
-  "temperature": 550
+  "temperature": 550,
+  "trait": {
+    "name": "tconstruct:enhanced",
+    "level": 1
+  }
 }
