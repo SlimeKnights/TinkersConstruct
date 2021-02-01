@@ -95,7 +95,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Fluid> BLUE_SLIME = tag("blue_slime");
     public static final IOptionalNamedTag<Fluid> PURPLE_SLIME = tag("purple_slime");
     public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
-    public static final IOptionalNamedTag<Fluid> MILK = forgeTag("milk");
 
     private static IOptionalNamedTag<Fluid> tag(String name) {
       return FluidTags.createOptional(Util.getResource(name));

@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "fluid": "tconstruct:milk",
+    "fluid": "minecraft:milk",
     "amount": 100
   },
   "damage": 2

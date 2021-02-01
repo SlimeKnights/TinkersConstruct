@@ -9,6 +9,7 @@ import net.minecraft.command.Commands;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
@@ -16,6 +17,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
@@ -180,6 +182,17 @@ public class TConstruct {
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
+    });
+  }
+
+  @SubscribeEvent
+  void missingFluids(final MissingMappings<Fluid> event) {
+    RegistrationHelper.handleMissingMappings(event, modID, name -> {
+      if ("milk".equals(name)) {
+        assert ForgeMod.MILK.isPresent();
+        return ForgeMod.MILK.get();
+      }
+      return null;
     });
   }
 

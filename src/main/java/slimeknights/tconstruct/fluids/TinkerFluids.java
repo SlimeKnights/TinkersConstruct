@@ -1,17 +1,15 @@
 package slimeknights.tconstruct.fluids;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.fml.RegistryObject;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.fluids.fluids.SlimeFluid;
-import slimeknights.tconstruct.fluids.fluids.UnplaceableFluid;
 import slimeknights.tconstruct.library.Util;
 
 /**
@@ -20,8 +18,11 @@ import slimeknights.tconstruct.library.Util;
 public final class TinkerFluids extends TinkerModule {
   static final Logger log = Util.getLogger("tinker_fluids");
 
+  public TinkerFluids() {
+    ForgeMod.enableMilkFluid();
+  }
+
   // basic
-  public static final RegistryObject<UnplaceableFluid> milk = FLUIDS.registerFluid("milk", () -> new UnplaceableFluid(() -> Items.MILK_BUCKET, FluidAttributes.builder(FluidIcons.MILK_STILL, FluidIcons.MILK_FLOWING).density(1050).viscosity(1050).temperature(320)));
   public static final FluidObject<ForgeFlowingFluid> blood = FLUIDS.register("blood", coolBuilder().color(0xff540000).density(1200).viscosity(1200).temperature(336), Material.WATER, 0);
 
   // slime
