@@ -160,14 +160,12 @@ public class ModifierNBT {
     }
 
     /**
-     * Adds a list of entries to the builder
-     * @param entries  List of modifier entries
+     * Adds an entry to the builder
+     * @param entry  Entry to add
      * @return  Builder instance
      */
-    public Builder add(List<ModifierEntry> entries) {
-      for (ModifierEntry entry : entries) {
-        add(entry.getModifier(), entry.getLevel());
-      }
+    public Builder add(ModifierEntry entry) {
+      add(entry.getModifier(), entry.getLevel());
       return this;
     }
 
@@ -177,7 +175,9 @@ public class ModifierNBT {
      * @return  Builder instance
      */
     public Builder add(ModifierNBT nbt) {
-      add(nbt.modifiers);
+      for (ModifierEntry entry : nbt.modifiers) {
+        add(entry);
+      }
       return this;
     }
 

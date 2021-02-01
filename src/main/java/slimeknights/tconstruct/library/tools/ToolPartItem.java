@@ -76,7 +76,8 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     boolean shift = Util.isShiftKeyDown();
 
     if (!this.checkMissingMaterialTooltip(stack, tooltip)) {
-      for (ModifierEntry entry : material.getTraits()) {
+      ModifierEntry entry = material.getTrait();
+      if (entry != null) {
         tooltip.add(entry.getModifier().getDisplayName(entry.getLevel()));
       }
     }

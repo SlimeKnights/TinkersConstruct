@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.network;
 
-import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.fluid.Fluid;
@@ -19,7 +18,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -40,13 +38,12 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       int fluidPerUnit = buffer.readVarInt();
       int color = buffer.readInt();
       int temperature = buffer.readInt();
-
-      int size = buffer.readVarInt();
-      ImmutableList.Builder<ModifierEntry> builder = ImmutableList.builder();
-      for (int j = 0; j < size; j++) {
-        builder.add(new ModifierEntry(TinkerRegistries.MODIFIERS.getValue(buffer.readResourceLocation()), buffer.readVarInt()));
+      // buffer has a boolean stating if the trait is nonnull
+      ModifierEntry trait = null;
+      if (buffer.readBoolean()) {
+        trait = new ModifierEntry(buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS), buffer.readVarInt());
       }
-      this.materials.add(new Material(id, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, builder.build()));
+      this.materials.add(new Material(id, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, trait));
     }
   }
 
@@ -61,11 +58,14 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       // the color int getter is private
       buffer.writeInt(material.getColor().color);
       buffer.writeInt(material.getTemperature());
-      List<ModifierEntry> traits = material.getTraits();
-      buffer.writeVarInt(traits.size());
-      for (ModifierEntry entry : traits) {
-        buffer.writeResourceLocation(entry.getModifier().getId());
-        buffer.writeVarInt(entry.getLevel());
+      ModifierEntry trait = material.getTrait();
+      // write boolean to signify this s null
+      if (trait == null) {
+        buffer.writeBoolean(false);
+      } else {
+        buffer.writeBoolean(true);
+        buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, trait.getModifier());
+        buffer.writeVarInt(trait.getLevel());
       }
     });
   }

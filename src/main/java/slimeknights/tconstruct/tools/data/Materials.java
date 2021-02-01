@@ -11,8 +11,8 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -66,9 +66,9 @@ final class Materials {
 
 
   /** Creates a material with a fluid */
-  private static IMaterial mat(MaterialId location, Supplier<? extends Fluid> fluid, boolean craftable, int color, DataModifierEntry... traits) {
+  private static IMaterial mat(MaterialId location, Supplier<? extends Fluid> fluid, boolean craftable, int color, @Nullable DataModifierEntry trait) {
     // all our materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    IMaterial material = new DataMaterial(location, fluid, MaterialValues.INGOT, craftable, Color.fromInt(color), Arrays.asList(traits));
+    IMaterial material = new DataMaterial(location, fluid, MaterialValues.INGOT, craftable, Color.fromInt(color), trait);
     allMaterials.add(material);
     return material;
   }
@@ -78,13 +78,23 @@ final class Materials {
     return mat(location, fluid, craftable, color, new DataModifierEntry(trait, 1));
   }
 
+  /** Creates a material with a fluid and no trait */
+  private static IMaterial mat(MaterialId location, Supplier<? extends Fluid> fluid, boolean craftable, int color) {
+    return mat(location, fluid, craftable, color, (DataModifierEntry)null);
+  }
+
   /** Creates a material with no fluid */
-  private static IMaterial mat(MaterialId location, boolean craftable, int color, DataModifierEntry... traits) {
+  private static IMaterial mat(MaterialId location, boolean craftable, int color, DataModifierEntry traits) {
     return mat(location, () -> Fluids.EMPTY, craftable, color, traits);
   }
 
   /** Creates a material with no fluid and a single trait */
   private static IMaterial mat(MaterialId location, boolean craftable, int color, Supplier<Modifier> trait) {
     return mat(location, craftable, color, new DataModifierEntry(trait, 1));
+  }
+
+  /** Creates a material with no fluid and no trait */
+  private static IMaterial mat(MaterialId location, boolean craftable, int color) {
+    return mat(location, () -> Fluids.EMPTY, craftable, color, (DataModifierEntry)null);
   }
 }
