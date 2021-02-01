@@ -307,20 +307,20 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-
     ToolStack tool = ToolStack.from(stack);
     if (slot == EquipmentSlotType.MAINHAND && !tool.isBroken()) {
+      // base stats
       StatsNBT statsNBT = tool.getStats();
       double speed = statsNBT.getAttackSpeed() * toolDefinition.getBaseStatDefinition().getAttackSpeed();
       float damage = statsNBT.getAttackDamage() * toolDefinition.getBaseStatDefinition().getDamageModifier();
       builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", damage, AttributeModifier.Operation.ADDITION));
       builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", speed - 4d, AttributeModifier.Operation.ADDITION));
-    }
 
-    // grab attributes from modifiers
-    BiConsumer<Attribute, AttributeModifier> attributeConsumer = builder::put;
-    for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().addAttributes(tool, entry.getLevel(), attributeConsumer);
+      // grab attributes from modifiers
+      BiConsumer<Attribute, AttributeModifier> attributeConsumer = builder::put;
+      for (ModifierEntry entry : tool.getModifierList()) {
+        entry.getModifier().addAttributes(tool, entry.getLevel(), attributeConsumer);
+      }
     }
 
     return builder.build();

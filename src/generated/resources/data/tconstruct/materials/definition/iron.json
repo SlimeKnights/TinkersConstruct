@@ -3,5 +3,9 @@
   "fluid": "tconstruct:molten_iron",
   "fluidPerUnit": 144,
   "textColor": "#CACACA",
-  "temperature": 800
+  "temperature": 800,
+  "trait": {
+    "name": "tconstruct:reinforced",
+    "level": 1
+  }
 }

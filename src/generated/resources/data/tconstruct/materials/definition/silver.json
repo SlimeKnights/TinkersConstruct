@@ -1,4 +1,8 @@
 {
   "craftable": false,
-  "textColor": "#D1ECF6"
+  "textColor": "#D1ECF6",
+  "trait": {
+    "name": "tconstruct:smite",
+    "level": 1
+  }
 }

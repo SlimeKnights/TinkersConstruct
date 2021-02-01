@@ -1,4 +1,8 @@
 {
   "craftable": false,
-  "textColor": "#A7A7A7"
+  "textColor": "#A7A7A7",
+  "trait": {
+    "name": "tconstruct:sturdy",
+    "level": 1
+  }
 }
