@@ -587,7 +587,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // tinker's bronze: 3 copper + 1 silicon (1/4 glass) = 4
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenTinkersBronze.get(), MaterialValues.VALUE_Ingot * 4)
                       .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.VALUE_Ingot * 3)
-                      .addInput(TinkerFluids.moltenGlass.get(), MaterialValues.VALUE_Pane)
+                      .addInput(TinkerFluids.moltenGlass.get(), MaterialValues.VALUE_Glass)
                       .build(consumer, prefixR(TinkerFluids.moltenTinkersBronze, folder));
 
     // rose gold: 3 copper + 1 gold = 4
@@ -621,14 +621,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenHepatizon.get(), MaterialValues.VALUE_Ingot * 4)
                       .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.VALUE_Ingot * 2)
                       .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.VALUE_Ingot)
-                      .addInput(TinkerFluids.moltenObsidian.get(), MaterialValues.VALUE_Pane)
+                      .addInput(TinkerFluids.moltenObsidian.get(), MaterialValues.VALUE_Glass)
                       .build(consumer, prefixR(TinkerFluids.moltenHepatizon, folder));
 
     // soulsteel: 2 iron + 1 cobalt + 1 soul = 4
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenSoulsteel.get(), MaterialValues.VALUE_Ingot * 4)
                       .addInput(TinkerFluids.moltenIron.get(), MaterialValues.VALUE_Ingot * 2)
                       .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.VALUE_Ingot)
-                      .addInput(TinkerFluids.liquidSoul.get(), MaterialValues.VALUE_Pane)
+                      .addInput(TinkerFluids.liquidSoul.get(), MaterialValues.VALUE_Glass)
                       .build(consumer, prefixR(TinkerFluids.moltenSoulsteel, folder));
 
     // netherrite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)
