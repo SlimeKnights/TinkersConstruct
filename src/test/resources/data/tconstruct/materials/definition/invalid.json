@@ -3,7 +3,5 @@
     "fluid": "in:valid",
     "textColor": "theBestColor",
     "temperature": -100,
-    "traits": [
-        { "name": "in:valid" }
-    ]
+    "trait": { "name": "in:valid" }
 }

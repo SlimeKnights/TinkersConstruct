@@ -530,7 +530,10 @@ public class ToolStack implements IModifierToolStack {
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();
     modBuilder.add(getUpgrades());
     for (IMaterial material : materials) {
-      modBuilder.add(material.getTraits());
+      ModifierEntry trait = material.getTrait();
+      if (trait != null) {
+        modBuilder.add(trait);
+      }
     }
     ModifierNBT allMods = modBuilder.build();
     setModifiers(allMods);

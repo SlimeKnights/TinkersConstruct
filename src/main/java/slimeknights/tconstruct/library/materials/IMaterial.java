@@ -8,7 +8,7 @@ import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import java.util.List;
+import javax.annotation.Nullable;
 
 public interface IMaterial {
 
@@ -61,7 +61,6 @@ public interface IMaterial {
 
   /**
    * Gets the text color for this material
-   * TODO: convert to an int?
    * @return the text color
    */
   Color getColor();
@@ -74,8 +73,9 @@ public interface IMaterial {
   int getTemperature();
 
   /**
-   * Gets a list of traits from this tool
-   * @return  Tool traits
+   * Gets the trait for this material. Null if this material has no trait
+   * @return  Traits
    */
-  List<ModifierEntry> getTraits();
+  @Nullable
+  ModifierEntry getTrait();
 }
