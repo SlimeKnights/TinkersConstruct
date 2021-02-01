@@ -991,7 +991,6 @@
     "stat.tconstruct.head.attack.description": "Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.",
 
     "stat.tconstruct.handle": "Handle",
-    "stat.tconstruct.handle.default_stats": "Default stats",
     "stat.tconstruct.handle.durability": "Durability: ",
     "stat.tconstruct.handle.durability.description": "The total durability of the tool will be multiplied by this.",
     "stat.tconstruct.handle.attack_damage": "Attack Damage: ",

@@ -30,7 +30,6 @@ public class HandleMaterialStats extends BaseMaterialStats {
   private static final String ATTACK_DAMAGE_PREFIX = makeTooltipKey("handle.attack_damage");
   private static final String ATTACK_SPEED_PREFIX = makeTooltipKey("handle.attack_speed");
   private static final String MINING_SPEED_PREFIX = makeTooltipKey("handle.mining_speed");
-  private static final ITextComponent DEFAULT_STATS = makeTooltip("handle.default_stats");
   // tooltip descriptions
   private static final ITextComponent DURABILITY_DESCRIPTION = makeTooltip("handle.durability.description");
   private static final ITextComponent ATTACK_DAMAGE_DESCRIPTION = makeTooltip("handle.durability.attack_damage");
@@ -68,13 +67,10 @@ public class HandleMaterialStats extends BaseMaterialStats {
   @Override
   public List<ITextComponent> getLocalizedInfo() {
     List<ITextComponent> list = new ArrayList<>();
-    if (this.durability != 1) list.add(formatDurability(this.durability));
-    if (this.attackDamage != 1) list.add(formatAttackDamage(this.attackDamage));
-    if (this.attackSpeed != 1) list.add(formatAttackSpeed(this.attackSpeed));
-    if (this.miningSpeed != 1) list.add(formatMiningSpeed(this.miningSpeed));
-    if (list.isEmpty()) {
-      list.add(DEFAULT_STATS);
-    }
+    list.add(formatDurability(this.durability));
+    list.add(formatAttackDamage(this.attackDamage));
+    list.add(formatAttackSpeed(this.attackSpeed));
+    list.add(formatMiningSpeed(this.miningSpeed));
     return list;
   }
 
@@ -85,21 +81,21 @@ public class HandleMaterialStats extends BaseMaterialStats {
 
   /** Applies formatting for durability */
   public static ITextComponent formatDurability(float quality) {
-    return formatColoredPercent(DURABILITY_PREFIX, quality);
+    return formatColoredMultiplier(DURABILITY_PREFIX, quality);
   }
 
   /** Applies formatting for attack speed */
   public static ITextComponent formatAttackDamage(float quality) {
-    return formatColoredPercent(ATTACK_DAMAGE_PREFIX, quality);
+    return formatColoredMultiplier(ATTACK_DAMAGE_PREFIX, quality);
   }
 
   /** Applies formatting for attack speed */
   public static ITextComponent formatAttackSpeed(float quality) {
-    return formatColoredPercent(ATTACK_SPEED_PREFIX, quality);
+    return formatColoredMultiplier(ATTACK_SPEED_PREFIX, quality);
   }
 
   /** Applies formatting for mining speed */
   public static ITextComponent formatMiningSpeed(float quality) {
-    return formatColoredPercent(MINING_SPEED_PREFIX, quality);
+    return formatColoredMultiplier(MINING_SPEED_PREFIX, quality);
   }
 }
