@@ -28,7 +28,8 @@ public class GuiFuelModule {
 
   // tooltips
   private static final String TOOLTIP_TEMPERATURE = Util.makeTranslationKey("gui", "melting.fuel.temperature");
-  private static final ITextComponent TOOLTIP_NO_FUEL = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.empty"));
+  private static final List<ITextComponent> TOOLTIP_NO_TANK = Collections.singletonList(new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.no_tank")));
+  private static final List<ITextComponent> TOOLTIP_NO_FUEL = Collections.singletonList(new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.empty")));
   private static final ITextComponent TOOLTIP_INVALID_FUEL = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.invalid")).mergeStyle(TextFormatting.RED);
   private static final ITextComponent TOOLTIP_SOLID_FUEL = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.solid"));
 
@@ -100,7 +101,7 @@ public class GuiFuelModule {
    * @param mouseX    Mouse X position
    * @param mouseY    Mouse Y position
    */
-  public void addTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+  public void addTooltip(MatrixStack matrices, int mouseX, int mouseY, boolean hasTank) {
     int checkX = mouseX - screen.guiLeft;
     int checkY = mouseY - screen.guiTop;
 
@@ -110,12 +111,16 @@ public class GuiFuelModule {
       if (hasFuelSlot || fuelInfo.isItem()) {
         // if there is a fuel slot, start below the fuel slot
         if (!hasFuelSlot || checkY > y + 18) {
-          // no invalid fuel, we assume the slot is validated (hasFuelSlot is only true for the heater which validates)
-          int temperature = fuelModule.getTemperature();
-          if (temperature > 0) {
-            tooltip = Arrays.asList(TOOLTIP_SOLID_FUEL, new TranslationTextComponent(TOOLTIP_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
+          if (hasTank) {
+            // no invalid fuel, we assume the slot is validated (hasFuelSlot is only true for the heater which validates)
+            int temperature = fuelModule.getTemperature();
+            if (temperature > 0) {
+              tooltip = Arrays.asList(TOOLTIP_SOLID_FUEL, new TranslationTextComponent(TOOLTIP_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
+            } else {
+              tooltip = TOOLTIP_NO_FUEL;
+            }
           } else {
-            tooltip = Collections.singletonList(TOOLTIP_NO_FUEL);
+            tooltip = TOOLTIP_NO_TANK;
           }
         } else {
           tooltip = Collections.emptyList();
@@ -130,7 +135,7 @@ public class GuiFuelModule {
           tooltip.add(1, TOOLTIP_INVALID_FUEL);
         }
       } else {
-        tooltip = Collections.singletonList(TOOLTIP_NO_FUEL);
+        tooltip = hasTank ? TOOLTIP_NO_FUEL : TOOLTIP_NO_TANK;
       }
 
       // TODO: func_243308_b->renderTooltip

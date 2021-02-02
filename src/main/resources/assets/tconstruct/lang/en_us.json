@@ -835,6 +835,7 @@
     "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
     "gui.tconstruct.melting.no_space": "Not enough free space for the fluid.",
 
+    "gui.tconstruct.melting.fuel.no_tank": "No tank in structure",
     "gui.tconstruct.melting.fuel.empty": "No fuel found",
     "gui.tconstruct.melting.fuel.solid": "Solid fuel",
     "gui.tconstruct.melting.fuel.temperature": "Temperature: %s°C",

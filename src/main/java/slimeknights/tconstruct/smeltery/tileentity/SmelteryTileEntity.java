@@ -156,53 +156,59 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
         }
       }
 
-      // every second, interact with entities, will consume fuel if needed
-      boolean entityMelted = false;
-      if (tick == 12) {
-        entityMelted = entityModule.interactWithEntities();
-      }
+      // the next set of behaviors all require fuel, skip if no tanks
+      if (structure.hasTanks()) {
+        // every second, interact with entities, will consume fuel if needed
+        boolean entityMelted = false;
+        if (tick == 12) {
+          entityMelted = entityModule.interactWithEntities();
+        }
 
-      // run in four phases alternating each tick, so each thing runs once every 4 ticks
-      switch (tick % 4) {
-        // first tick, find fuel if needed
-        case 0:
-          if (!fuelModule.hasFuel()) {
-            // if we melted something already, we need fuel
-            if (entityMelted) {
-              fuelModule.findFuel(true);
-            } else {
-              // both alloying and melting need to know the temperature
-              int possibleTemp = fuelModule.findFuel(false);
-              alloyTank.setTemperature(possibleTemp);
-              if (meltingInventory.canHeat(possibleTemp) || alloyingModule.canAlloy()) {
+        // run in four phases alternating each tick, so each thing runs once every 4 ticks
+        switch (tick % 4) {
+          // first tick, find fuel if needed
+          case 0:
+            if (!fuelModule.hasFuel()) {
+              // if we melted something already, we need fuel
+              if (entityMelted) {
                 fuelModule.findFuel(true);
+              } else {
+                // both alloying and melting need to know the temperature
+                int possibleTemp = fuelModule.findFuel(false);
+                alloyTank.setTemperature(possibleTemp);
+                if (meltingInventory.canHeat(possibleTemp) || alloyingModule.canAlloy()) {
+                  fuelModule.findFuel(true);
+                }
               }
             }
-          }
-          break;
-          // second tick: melt items
-        case 1:
-          if (fuelModule.hasFuel()) {
-            meltingInventory.heatItems(fuelModule.getTemperature());
-          } else {
-            meltingInventory.coolItems();
-          }
-          break;
-          // third tick: alloy alloys
-        case 2:
-          if (fuelModule.hasFuel()) {
-            alloyTank.setTemperature(fuelModule.getTemperature());
-            alloyingModule.doAlloy();
-          }
-          break;
-          // fourth tick: consume fuel, update fluids
-        case 3:
-          fuelModule.decreaseFuel(fuelRate);
-          if (fluidUpdateQueued) {
-            fluidUpdateQueued = false;
-            tank.syncFluids();
-          }
-          break;
+            break;
+            // second tick: melt items
+          case 1:
+            if (fuelModule.hasFuel()) {
+              meltingInventory.heatItems(fuelModule.getTemperature());
+            } else {
+              meltingInventory.coolItems();
+            }
+            break;
+            // third tick: alloy alloys
+          case 2:
+            if (fuelModule.hasFuel()) {
+              alloyTank.setTemperature(fuelModule.getTemperature());
+              alloyingModule.doAlloy();
+            }
+            break;
+            // fourth tick: consume fuel, update fluids
+          case 3:
+            fuelModule.decreaseFuel(fuelRate);
+            break;
+        }
+      }
+      // fluid update sync every four ticks, whether it has tanks or not
+      if (tick % 4 == 3) {
+        if (fluidUpdateQueued) {
+          fluidUpdateQueued = false;
+          tank.syncFluids();
+        }
       }
     } else if (tick == 0) {
       updateStructure();
