@@ -3,6 +3,6 @@
   "cast": {
     "item": "tconstruct:hammer_head_cast"
   },
-  "fluid_amount": 1152,
+  "item_cost": 8,
   "result": "tconstruct:hammer_head"
 }

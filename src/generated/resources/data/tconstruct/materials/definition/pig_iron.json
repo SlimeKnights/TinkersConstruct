@@ -1,6 +1,7 @@
 {
   "craftable": false,
   "fluid": "tconstruct:molten_pig_iron",
-  "textColor": "ef9e9b",
+  "fluidPerUnit": 144,
+  "textColor": "#EF9E9B",
   "temperature": 811
 }

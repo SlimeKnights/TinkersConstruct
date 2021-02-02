@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 @AllArgsConstructor(staticName = "melting")
 public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<MaterialMeltingRecipeBuilder> {
   private final IMaterialItem item;
-  private final int amount;
+  private final int cost;
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer) {
@@ -43,7 +43,7 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
         json.addProperty("group", group);
       }
       json.addProperty("item", Objects.requireNonNull(item.asItem().getRegistryName()).toString());
-      json.addProperty("amount", amount);
+      json.addProperty("item_cost", cost);
     }
 
     @Override

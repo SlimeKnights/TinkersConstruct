@@ -4,6 +4,6 @@
     "tag": "tconstruct:casts/single_use/large_plate"
   },
   "cast_consumed": true,
-  "fluid_amount": 1152,
+  "item_cost": 8,
   "result": "tconstruct:large_plate"
 }

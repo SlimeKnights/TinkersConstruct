@@ -4,6 +4,6 @@
     "tag": "tconstruct:casts/single_use/tool_rod"
   },
   "cast_consumed": true,
-  "fluid_amount": 144,
+  "item_cost": 1,
   "result": "tconstruct:tool_rod"
 }

@@ -1,6 +1,7 @@
 {
   "craftable": false,
   "fluid": "tconstruct:molten_tinkers_bronze",
-  "textColor": "f9cf72",
+  "fluidPerUnit": 144,
+  "textColor": "#F9CF72",
   "temperature": 700
 }

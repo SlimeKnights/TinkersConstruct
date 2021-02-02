@@ -4,6 +4,6 @@
     "tag": "tconstruct:casts/single_use/sword_blade"
   },
   "cast_consumed": true,
-  "fluid_amount": 288,
+  "item_cost": 2,
   "result": "tconstruct:sword_blade"
 }

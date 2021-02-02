@@ -35,7 +35,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   @Getter
   private final String group;
   private final IMaterialItem item;
-  private final int amount;
+  private final int cost;
   private List<MeltingRecipe> multiRecipes;
 
   @Override
@@ -47,7 +47,8 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
 
   @Override
   public FluidStack getOutput(IMeltingInventory inv) {
-    return new FluidStack(item.getMaterial(inv.getStack()).getFluid(), amount);
+    IMaterial material = item.getMaterial(inv.getStack());
+    return new FluidStack(material.getFluid(), material.getFluidPerUnit() * cost);
   }
 
   @Override
@@ -57,7 +58,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
 
   /** Gets the melting time for this recipe */
   private int getTime(IMaterial material) {
-    return IMeltingRecipe.calcTimeForAmount(material.getTemperature(), amount);
+    return IMeltingRecipe.calcTimeForAmount(material.getTemperature(), material.getFluidPerUnit() * cost);
   }
 
   @Override
@@ -81,7 +82,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
           new ResourceLocation(id.getNamespace(), String.format("%s/%s/%s", id.getPath(), matId.getNamespace(), matId.getPath())),
           group,
           Ingredient.fromStacks(item.getItemstackWithMaterial(mat)),
-          new FluidStack(mat.getFluid(), amount),
+          new FluidStack(mat.getFluid(), mat.getFluidPerUnit() * cost),
           mat.getTemperature(),
           getTime(mat)
         );
@@ -98,8 +99,8 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
     public MaterialMeltingRecipe read(ResourceLocation id, JsonObject json) {
       String group = JSONUtils.getString(json, "group", "");
       IMaterialItem item = RecipeHelper.deserializeItem(JSONUtils.getString(json, "item"), "item", IMaterialItem.class);
-      int amount = JSONUtils.getInt(json, "amount");
-      return new MaterialMeltingRecipe(id, group, item, amount);
+      int cost = JSONUtils.getInt(json, "item_cost");
+      return new MaterialMeltingRecipe(id, group, item, cost);
     }
 
     @Nullable
@@ -108,7 +109,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
       try {
         String group = buffer.readString(Short.MAX_VALUE);
         IMaterialItem item = RecipeHelper.readItem(buffer, IMaterialItem.class);
-        int amount = buffer.readInt();
+        int amount = buffer.readVarInt();
         return new MaterialMeltingRecipe(id, group, item, amount);
       } catch(Exception e) {
         TConstruct.log.error("Error reading material melting recipe from packet.", e);
@@ -121,7 +122,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
       try {
         buffer.writeString(recipe.group);
         RecipeHelper.writeItem(buffer, recipe.item);
-        buffer.writeInt(recipe.amount);
+        buffer.writeVarInt(recipe.cost);
       } catch(Exception e) {
         TConstruct.log.error("Error reading material melting recipe from packet.", e);
         throw e;

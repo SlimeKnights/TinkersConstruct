@@ -4,6 +4,6 @@
     "tag": "tconstruct:casts/single_use/tough_binding"
   },
   "cast_consumed": true,
-  "fluid_amount": 432,
+  "item_cost": 3,
   "result": "tconstruct:tough_binding"
 }

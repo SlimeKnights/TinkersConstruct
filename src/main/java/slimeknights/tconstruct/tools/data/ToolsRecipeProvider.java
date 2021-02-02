@@ -226,11 +226,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
 
     // Material Casting
     MaterialCastingRecipeBuilder.tableRecipe(part)
-                                .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
+                                .setItemCost(cost)
                                 .setCast(cast, false)
                                 .build(consumer, location("casting/parts/" + name));
     MaterialCastingRecipeBuilder.tableRecipe(part)
-                                .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
+                                .setItemCost(cost)
                                 .setCast(cast.getSingleUseTag(), true)
                                 .build(consumer, location("casting/parts/" + name + "_sand"));
 
@@ -254,7 +254,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, location("casting/red_sand_casts/" + partName));
 
     // Part melting
-    MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot).build(consumer, location("melting/parts/" + part));
+    MaterialMeltingRecipeBuilder.melting(part, cost).build(consumer, location("melting/parts/" + part));
   }
 
   /**

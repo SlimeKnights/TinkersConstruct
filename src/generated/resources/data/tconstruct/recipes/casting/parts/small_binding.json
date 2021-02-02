@@ -3,6 +3,6 @@
   "cast": {
     "item": "tconstruct:small_binding_cast"
   },
-  "fluid_amount": 144,
+  "item_cost": 1,
   "result": "tconstruct:small_binding"
 }

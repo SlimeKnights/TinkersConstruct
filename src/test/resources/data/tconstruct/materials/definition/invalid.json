@@ -1,5 +1,6 @@
 {
     "craftable": "blue",
     "fluid": "in:valid",
-    "shardItem": "in:valid"
+    "textColor": "theBestColor",
+    "temperature": -100
 }

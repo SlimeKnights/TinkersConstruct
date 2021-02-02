@@ -1,6 +1,7 @@
 {
   "craftable": false,
   "fluid": "tconstruct:molten_hepatizon",
-  "textColor": "60496b",
+  "fluidPerUnit": 144,
+  "textColor": "#60496B",
   "temperature": 1400
 }

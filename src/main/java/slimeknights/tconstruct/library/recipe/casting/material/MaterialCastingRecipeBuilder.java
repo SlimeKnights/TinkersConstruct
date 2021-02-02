@@ -27,7 +27,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
   private final Serializer<?> recipeSerializer;
   private Ingredient cast = Ingredient.EMPTY;
   @Setter @Accessors(chain = true)
-  private int fluidAmount = 0;
+  private int itemCost = 0;
   private boolean consumed = false;
   private boolean switchSlots = false;
 
@@ -97,7 +97,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    if (this.fluidAmount <= 0) {
+    if (this.itemCost <= 0) {
       throw new IllegalStateException("Material casting recipes require a positive amount of fluid");
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
@@ -128,7 +128,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
       if (switchSlots) {
         json.addProperty("switch_slots", true);
       }
-      json.addProperty("fluid_amount", fluidAmount);
+      json.addProperty("item_cost", itemCost);
       json.addProperty("result", Objects.requireNonNull(result.asItem().getRegistryName()).toString());
     }
   }

@@ -36,19 +36,20 @@ import java.util.stream.Collectors;
  * Casting recipe that takes an arbitrary fluid of a given amount and set the material on the output based on that fluid
  */
 public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implements IMultiRecipe<IDisplayableCastingRecipe> {
-  private final int fluidAmount;
+  private final int itemCost;
   private final IMaterialItem result;
   private List<IDisplayableCastingRecipe> multiRecipes;
 
-  public MaterialCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, Ingredient cast, int fluidAmount, IMaterialItem result, boolean consumed, boolean switchSlots) {
+  public MaterialCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
     super(type, id, group, cast, consumed, switchSlots);
-    this.fluidAmount = fluidAmount;
+    this.itemCost = itemCost;
     this.result = result;
   }
 
   @Override
   public int getCoolingTime(ICastingInventory inv) {
-    return ICastingRecipe.calcCoolingTime(MaterialRegistry.getMaterial(inv.getFluid()).getTemperature(), this.fluidAmount);
+    IMaterial material = MaterialRegistry.getMaterial(inv.getFluid());
+    return ICastingRecipe.calcCoolingTime(material.getTemperature(), material.getFluidPerUnit() * this.itemCost);
   }
 
   @Override
@@ -68,7 +69,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
   @Override
   public int getFluidAmount(ICastingInventory inv) {
-    return this.fluidAmount;
+    return MaterialRegistry.getMaterial(inv.getFluid()).getFluidPerUnit() * this.itemCost;
   }
 
   @Override
@@ -86,8 +87,8 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
       multiRecipes = MaterialRegistry
         .getMaterials().stream()
         .filter(mat -> mat.getFluid() != Fluids.EMPTY)
-        .map(mat -> new DisplayCastingRecipe(type, castItems, Collections.singletonList(new FluidStack(mat.getFluid(), fluidAmount)),
-                                             result.getItemstackWithMaterial(mat), ICastingRecipe.calcCoolingTime(mat.getTemperature(), fluidAmount), consumed))
+        .map(mat -> new DisplayCastingRecipe(type, castItems, Collections.singletonList(new FluidStack(mat.getFluid(), itemCost * mat.getFluidPerUnit())),
+                                             result.getItemstackWithMaterial(mat), ICastingRecipe.calcCoolingTime(mat.getTemperature(), itemCost * mat.getFluidPerUnit()), consumed))
         .collect(Collectors.toList());
     }
     return multiRecipes;
@@ -136,7 +137,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
     @Override
     protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
-      int fluidAmount = JSONUtils.getInt(json, "fluid_amount");
+      int fluidAmount = JSONUtils.getInt(json, "item_cost");
       IMaterialItem result = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", IMaterialItem.class);
       return this.factory.create(idIn, groupIn, cast, fluidAmount, result, consumed, switchSlots);
     }
@@ -150,7 +151,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
     @Override
     protected void writeExtra(PacketBuffer buffer, MaterialCastingRecipe recipe) {
-      buffer.writeInt(recipe.fluidAmount);
+      buffer.writeInt(recipe.itemCost);
       RecipeHelper.writeItem(buffer, recipe.result);
     }
   }

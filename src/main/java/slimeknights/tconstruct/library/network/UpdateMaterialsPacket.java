@@ -5,7 +5,7 @@ import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.Color;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
@@ -16,7 +16,6 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
 
 @Getter
 @AllArgsConstructor
@@ -29,15 +28,15 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
     for (int i = 0; i < materialCount; i++) {
       MaterialId id = new MaterialId(buffer.readResourceLocation());
       boolean craftable = buffer.readBoolean();
-      ResourceLocation fluidId = buffer.readResourceLocation();
-      Fluid fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
+      Fluid fluid = buffer.readRegistryIdUnsafe(ForgeRegistries.FLUIDS);
       if (fluid == null) {
         fluid = Fluids.EMPTY;
       }
-      String textColor = buffer.readString();
+      int fluidPerUnit = buffer.readVarInt();
+      int color = buffer.readInt();
       int temperature = buffer.readInt();
 
-      this.materials.add(new Material(id, fluid, craftable, textColor, temperature));
+      this.materials.add(new Material(id, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature));
     }
   }
 
@@ -47,8 +46,10 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
     this.materials.forEach(material -> {
       buffer.writeResourceLocation(material.getIdentifier());
       buffer.writeBoolean(material.isCraftable());
-      buffer.writeResourceLocation(Objects.requireNonNull(material.getFluid().getRegistryName()));
-      buffer.writeString(material.getTextColor());
+      buffer.writeRegistryIdUnsafe(ForgeRegistries.FLUIDS, material.getFluid());
+      buffer.writeVarInt(material.getFluidPerUnit());
+      // the color int getter is private
+      buffer.writeInt(material.getColor().color);
       buffer.writeInt(material.getTemperature());
     });
   }

@@ -3,6 +3,6 @@
   "cast": {
     "item": "tconstruct:pickaxe_head_cast"
   },
-  "fluid_amount": 288,
+  "item_cost": 2,
   "result": "tconstruct:pickaxe_head"
 }

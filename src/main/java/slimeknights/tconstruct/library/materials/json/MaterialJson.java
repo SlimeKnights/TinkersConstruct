@@ -13,6 +13,9 @@ public class MaterialJson {
   private final Boolean craftable;
   @Nullable
   private final ResourceLocation fluid;
+  @Nullable
+  private final Integer fluidPerUnit;
+  @Nullable
   private final String textColor;
   @Nullable
   private final Integer temperature;

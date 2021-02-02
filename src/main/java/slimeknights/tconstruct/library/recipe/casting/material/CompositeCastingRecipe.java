@@ -20,7 +20,6 @@ import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -92,7 +91,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
   public int getFluidAmount(ICastingInventory inv) {
     Item item = inv.getStack().getItem();
     if (item instanceof IMaterialItem) {
-      return fluid.getAmount(inv.getFluid()) * getMaterialItemCost((IMaterialItem) item) / MaterialValues.VALUE_Ingot;
+      return fluid.getAmount(inv.getFluid()) * getMaterialItemCost((IMaterialItem) item);
     }
     return 0;
   }
@@ -143,9 +142,9 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
                               IMaterialItem part = entry.getKey();
                               List<FluidStack> recipeFluids = fluids;
                               int partCost = entry.getIntValue();
-                              if (partCost != MaterialValues.VALUE_Ingot) {
+                              if (partCost != 1) {
                                 recipeFluids = recipeFluids.stream()
-                                                           .map(fluid -> new FluidStack(fluid, fluid.getAmount() * partCost / MaterialValues.VALUE_Ingot))
+                                                           .map(fluid -> new FluidStack(fluid, fluid.getAmount() * partCost))
                                                            .collect(Collectors.toList());
                               }
                               return new DisplayCastingRecipe(getType(), Collections.singletonList(part.getItemstackWithMaterial(inputMaterial.get())), recipeFluids,

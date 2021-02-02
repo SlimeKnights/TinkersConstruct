@@ -1,5 +1,5 @@
 {
   "type": "tconstruct:material_melting",
   "item": "tconstruct:tool_rod",
-  "amount": 144
+  "item_cost": 1
 }

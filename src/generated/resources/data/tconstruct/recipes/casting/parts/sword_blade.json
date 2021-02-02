@@ -3,6 +3,6 @@
   "cast": {
     "item": "tconstruct:sword_blade_cast"
   },
-  "fluid_amount": 288,
+  "item_cost": 2,
   "result": "tconstruct:sword_blade"
 }

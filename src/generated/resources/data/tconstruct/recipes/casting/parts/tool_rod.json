@@ -3,6 +3,6 @@
   "cast": {
     "item": "tconstruct:tool_rod_cast"
   },
-  "fluid_amount": 144,
+  "item_cost": 1,
   "result": "tconstruct:tool_rod"
 }
