@@ -1,7 +1,7 @@
 {
   "craftable": false,
   "fluid": "tconstruct:molten_slimesteel",
-  "fluidPerUnit": 250,
+  "fluidPerUnit": 144,
   "textColor": "#74C8C7",
   "temperature": 900
 }

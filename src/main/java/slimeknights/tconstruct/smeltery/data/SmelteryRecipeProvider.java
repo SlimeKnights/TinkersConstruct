@@ -418,7 +418,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addCastCastingRecipe(consumer, Tags.Items.GEMS, TinkerSmeltery.gemCast, folder);
 
     // composite casting
-    String compositeFolder = "parts/composite/";
+    String compositeFolder = "tools/parts/composite/";
     CompositeCastingRecipeBuilder.table(MaterialIds.stone, MaterialIds.searedStone)
                                  .setFluid(new FluidStack(TinkerFluids.moltenClay.get(), MaterialValues.VALUE_SlimeBall / 2))
                                  .build(consumer, location(compositeFolder + "seared_stone"));

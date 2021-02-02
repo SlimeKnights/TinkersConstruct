@@ -29,7 +29,7 @@ final class Materials {
   public static final IMaterial copper      = mat(MaterialIds.copper, TinkerFluids.moltenCopper, true, 0xed9f07);
   public static final IMaterial slimewood   = mat(MaterialIds.slimewood, false, 0x82c873);
   // tier 3
-  public static final IMaterial slimesteel    = mat2(MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, false, 0x74c8c7);
+  public static final IMaterial slimesteel    = mat(MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, false, 0x74c8c7);
   public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl, false, 0x601cc4);
   public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, TinkerFluids.moltenTinkersBronze, false, 0xf9cf72);
   public static final IMaterial roseGold      = mat(MaterialIds.roseGold, TinkerFluids.moltenRoseGold, false, 0xffdbcc);
@@ -61,14 +61,6 @@ final class Materials {
 //  public static final IMaterial vine = mat(MaterialIds.vine, true, 0x40a10f);
 //  public static final IMaterial slimevine_blue = mat(MaterialIds.slimevine_blue, true, 0x74c8c7);
 //  public static final IMaterial slimevine_purple = mat(MaterialIds.slimevine_purple, true, 0xc873c8);
-
-
-  private static IMaterial mat2(MaterialId location, Supplier<? extends Fluid> fluid, boolean craftable, int color) {
-    // all our materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    IMaterial material = new DataMaterial(location, fluid, MaterialValues.VALUE_Gem, craftable, Color.fromInt(color));
-    allMaterials.add(material);
-    return material;
-  }
 
 
   /** Creates a material with a fluid */
