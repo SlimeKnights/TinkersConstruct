@@ -40,6 +40,9 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
   @Override
   protected abstract void registerRecipes(Consumer<IFinishedRecipe> consumer);
 
+  @Override
+  public abstract String getName();
+
 
   /* Location helpers */
 

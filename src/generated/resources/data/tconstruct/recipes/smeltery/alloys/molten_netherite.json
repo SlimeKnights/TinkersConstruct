@@ -10,7 +10,7 @@
       "amount": 64
     }
   ],
-  "output": {
+  "result": {
     "fluid": "tconstruct:molten_netherite",
     "amount": 16
   },

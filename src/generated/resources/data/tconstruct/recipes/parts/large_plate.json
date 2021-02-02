@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:part_builder",
-  "pattern": "tconstruct:large_plate",
-  "cost": 8,
-  "output": {
-    "item": "tconstruct:large_plate"
-  }
-}

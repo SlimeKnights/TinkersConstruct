@@ -214,7 +214,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     public T read(ResourceLocation id, JsonObject json) {
       MaterialId input = MaterialRecipeSerializer.getMaterial(json, "input");
       FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
-      MaterialId output = MaterialRecipeSerializer.getMaterial(json, "output");
+      MaterialId output = MaterialRecipeSerializer.getMaterial(json, "result");
       int coolingTemperature = JSONUtils.getInt(json, "temperature");
       return factory.create(id, input, fluid, output, coolingTemperature);
     }

@@ -29,6 +29,11 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
   }
 
   @Override
+  public String getName() {
+    return "Tinkers' Construct Common Recipes";
+  }
+
+  @Override
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     this.addCommonRecipes(consumer);
     this.addMaterialRecipes(consumer);
@@ -82,12 +87,13 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                           .build(consumer, prefix(TinkerCommons.book, "common/"));
 
     // glass
+    folder = "common/glass/";
     ShapedRecipeBuilder.shapedRecipe(TinkerCommons.clearGlassPane, 16)
                        .key('#', TinkerCommons.clearGlass)
                        .patternLine("###")
                        .patternLine("###")
                        .addCriterion("has_block", hasItem(TinkerCommons.clearGlass))
-                       .build(consumer, prefix(TinkerCommons.clearGlassPane, "common/glass/"));
+                       .build(consumer, prefix(TinkerCommons.clearGlassPane, folder));
     for (GlassColor color : GlassColor.values()) {
       Block block = TinkerCommons.clearStainedGlass.get(color);
       ShapedRecipeBuilder.shapedRecipe(block, 8)
@@ -98,7 +104,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                          .patternLine("###")
                          .setGroup(locationString("stained_clear_glass"))
                          .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlass))
-                         .build(consumer, prefix(block, "common/glass/"));
+                         .build(consumer, prefix(block, folder));
       Block pane = TinkerCommons.clearStainedGlassPane.get(color);
       ShapedRecipeBuilder.shapedRecipe(pane, 16)
                          .key('#', block)
@@ -106,7 +112,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                          .patternLine("###")
                          .setGroup(locationString("stained_clear_glass_pane"))
                          .addCriterion("has_block", hasItem(block))
-                         .build(consumer, prefix(pane, "common/glass/"));
+                         .build(consumer, prefix(pane, folder));
       ShapedRecipeBuilder.shapedRecipe(pane, 8)
                          .key('#', TinkerCommons.clearGlassPane)
                          .key('X', color.getDye().getTag())
@@ -115,7 +121,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                          .patternLine("###")
                          .setGroup(locationString("stained_clear_glass_pane"))
                          .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlassPane))
-                         .build(consumer, wrap(pane, "common/glass/", "_from_panes"));
+                         .build(consumer, wrap(pane, folder, "_from_panes"));
     }
 
     // vanilla recipes

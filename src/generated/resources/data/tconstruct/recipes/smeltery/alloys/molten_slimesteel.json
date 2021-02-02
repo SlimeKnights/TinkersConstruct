@@ -14,7 +14,7 @@
       "amount": 144
     }
   ],
-  "output": {
+  "result": {
     "fluid": "tconstruct:molten_slimesteel",
     "amount": 288
   },

@@ -14,7 +14,7 @@
       "amount": 576
     }
   ],
-  "output": {
+  "result": {
     "fluid": "tconstruct:molten_soulsteel",
     "amount": 576
   },

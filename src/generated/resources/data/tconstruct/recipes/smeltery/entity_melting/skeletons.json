@@ -8,7 +8,7 @@
       "type": "minecraft:skeleton_horse"
     }
   ],
-  "output": {
+  "result": {
     "fluid": "minecraft:milk",
     "amount": 100
   },

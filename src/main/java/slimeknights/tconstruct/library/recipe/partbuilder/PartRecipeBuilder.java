@@ -74,7 +74,7 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
       if (outputAmount > 1) {
         jsonOutput.addProperty("count", outputAmount);
       }
-      json.add("output", jsonOutput);
+      json.add("result", jsonOutput);
     }
 
     @Override

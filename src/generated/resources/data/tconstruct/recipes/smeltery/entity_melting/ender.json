@@ -7,7 +7,7 @@
       "minecraft:ender_dragon"
     ]
   },
-  "output": {
+  "result": {
     "fluid": "tconstruct:molten_ender",
     "amount": 10
   },

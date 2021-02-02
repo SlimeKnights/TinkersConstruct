@@ -30,7 +30,6 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
   /**
    * Creates a new recipe producing the given fluid
    * @param fluid   Fluid output
-   * @param amount  Output amount
    * @return  Builder instance
    */
   public static AlloyRecipeBuilder alloy(FluidStack fluid) {
@@ -124,7 +123,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
         inputArray.add(input.serialize());
       }
       json.add("inputs", inputArray);
-      json.add("output", RecipeHelper.serializeFluidStack(output));
+      json.add("result", RecipeHelper.serializeFluidStack(output));
       json.addProperty("temperature", temperature);
     }
 

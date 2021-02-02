@@ -104,7 +104,7 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
     public void serialize(JsonObject json) {
       json.addProperty("input", input.toString());
       json.add("fluid", fluid.serialize());
-      json.addProperty("output", output.toString());
+      json.addProperty("result", output.toString());
       json.addProperty("temperature", temperature);
     }
   }

@@ -42,6 +42,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   }
 
   @Override
+  public String getName() {
+    return "Tinkers' Construct Tool Recipes";
+  }
+
+  @Override
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     this.addModifierRecipes(consumer);
     this.addMaterialsRecipes(consumer);
@@ -132,21 +137,22 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
 
   private void addMaterialsRecipes(Consumer<IFinishedRecipe> consumer) {
     // tier 1
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(Tags.Items.RODS_WOODEN), 1, 2, "wood_from_sticks");
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood_from_planks");
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood_from_logs");
+    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(Tags.Items.RODS_WOODEN), 1, 2, "wood/sticks");
+    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood/planks");
+    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood/logs");
     registerMaterial(consumer, MaterialIds.stone, new CompoundIngredient(
       Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.BASALT, Blocks.POLISHED_BASALT, Blocks.POLISHED_BLACKSTONE)
-    ), 1, 1, "stone_from_stone");
+    ), 1, 1, "stone");
     registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT), 1, 1, "flint");
-    registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone_from_bones");
+    registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone");
     // tier 2
     registerMetalMaterial(consumer, MaterialIds.iron, "iron", false);
-    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 4, 1, "seared_stone_from_block");
+    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick), 1, 1, "seared_stone/brick");
+    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 4, 1, "seared_stone/block");
     registerMetalMaterial(consumer, MaterialIds.copper, "copper", false);
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.GREEN_SLIMEBALL), 1, 1, "slime_from_ball");
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.GREEN)), 4, 1, "slime_from_congealed");
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.GREEN)), 5, 1, "slime_from_block");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.GREEN_SLIMEBALL), 1, 1, "slimewood/ball");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.GREEN)), 4, 1, "slimewood/congealed");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.GREEN)), 5, 1, "slimewood/block");
     // tier 3
     registerMetalMaterial(consumer, MaterialIds.slimesteel, "slimesteel", false);
     registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
@@ -199,7 +205,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     String name = Objects.requireNonNull(toolCore.getRegistryName()).getPath();
 
     ToolBuildingRecipeBuilder.toolBuildingRecipe(toolCore)
-      .build(consumer, location("tinker_station/building/" + name));
+      .build(consumer, location("tools/building/" + name));
   }
 
 
@@ -214,6 +220,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
    * @param cast      Part cast
    */
   private void addPartRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends IMaterialItem> sup, int cost, CastItemObject cast) {
+    String folder = "tools/parts/";
     // Base data
     IMaterialItem part = sup.get();
     String name = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
@@ -222,17 +229,18 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     PartRecipeBuilder.partRecipe(part)
                      .setPattern(location(name))
                      .setCost(cost)
-                     .build(consumer, location("parts/" + name));
+                     .build(consumer, location(folder + "builder/" + name));
 
     // Material Casting
+    String castingFolder = folder + "casting/";
     MaterialCastingRecipeBuilder.tableRecipe(part)
                                 .setItemCost(cost)
                                 .setCast(cast, false)
-                                .build(consumer, location("casting/parts/" + name));
+                                .build(consumer, location(castingFolder + name + "_gold_cast"));
     MaterialCastingRecipeBuilder.tableRecipe(part)
                                 .setItemCost(cost)
                                 .setCast(cast.getSingleUseTag(), true)
-                                .build(consumer, location("casting/parts/" + name + "_sand"));
+                                .build(consumer, location(castingFolder + name + "_sand_cast"));
 
     // Cast Casting
     MaterialIngredient ingredient = MaterialIngredient.fromItem(part);
@@ -241,20 +249,20 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                             .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
                             .setCast(ingredient, true)
                             .setSwitchSlots()
-                            .build(consumer, location("casting/casts/" + partName));
+                            .build(consumer, location("smeltery/casting/casts/" + partName));
 
     // sand cast molding
     MoldingRecipeBuilder.moldingTable(cast.getSand())
                         .setMaterial(TinkerSmeltery.blankCast.getSand())
                         .setPattern(ingredient, false)
-                        .build(consumer, location("casting/sand_casts/" + partName));
+                        .build(consumer, location("smeltery/casting/sand_casts/" + partName));
     MoldingRecipeBuilder.moldingTable(cast.getRedSand())
                         .setMaterial(TinkerSmeltery.blankCast.getRedSand())
                         .setPattern(ingredient, false)
-                        .build(consumer, location("casting/red_sand_casts/" + partName));
+                        .build(consumer, location("smeltery/casting/red_sand_casts/" + partName));
 
     // Part melting
-    MaterialMeltingRecipeBuilder.melting(part, cost).build(consumer, location("melting/parts/" + part));
+    MaterialMeltingRecipeBuilder.melting(part, cost).build(consumer, location(folder + "melting/" + part));
   }
 
   /**
@@ -271,7 +279,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setIngredient(input)
                          .setValue(value)
                          .setNeeded(needed)
-                         .build(consumer, location("materials/" + saveName));
+                         .build(consumer, location("tools/materials/" + saveName));
   }
 
   /**
@@ -282,10 +290,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
    */
   private void registerMetalMaterial(Consumer<IFinishedRecipe> consumer, MaterialId material, String name, boolean optional) {
     Consumer<IFinishedRecipe> wrapped = optional ? withCondition(consumer, tagCondition("ingots/" + name)) : consumer;
-    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "ingots/" + name)), 1, 1, name + "_from_ingot");
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "ingots/" + name)), 1, 1, name + "/ingot");
     wrapped = optional ? withCondition(consumer, tagCondition("nuggets/" + name)) : consumer;
-    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, name + "_from_nugget");
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, name + "/nugget");
     wrapped = optional ? withCondition(consumer, tagCondition("storage_blocks/" + name)) : consumer;
-    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, name + "_from_block");
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, name + "/block");
   }
 }

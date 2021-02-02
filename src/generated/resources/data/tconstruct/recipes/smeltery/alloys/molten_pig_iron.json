@@ -14,7 +14,7 @@
       "amount": 250
     }
   ],
-  "output": {
+  "result": {
     "fluid": "tconstruct:molten_pig_iron",
     "amount": 288
   },

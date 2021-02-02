@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "input": "tconstruct:stone",
+  "fluid": {
+    "name": "tconstruct:molten_clay",
+    "amount": 125
+  },
+  "result": "tconstruct:seared_stone",
+  "temperature": 750
+}

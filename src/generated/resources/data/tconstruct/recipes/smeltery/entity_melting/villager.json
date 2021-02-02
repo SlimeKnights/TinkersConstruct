@@ -6,7 +6,7 @@
       "minecraft:wandering_trader"
     ]
   },
-  "output": {
+  "result": {
     "fluid": "tconstruct:molten_emerald",
     "amount": 25
   },

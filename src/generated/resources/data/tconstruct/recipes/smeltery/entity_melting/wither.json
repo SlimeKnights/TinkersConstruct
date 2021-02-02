@@ -3,7 +3,7 @@
   "entity": {
     "type": "minecraft:wither"
   },
-  "output": {
+  "result": {
     "fluid": "tconstruct:liquid_soul",
     "amount": 36
   },

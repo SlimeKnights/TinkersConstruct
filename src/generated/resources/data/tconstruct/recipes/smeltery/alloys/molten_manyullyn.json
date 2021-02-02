@@ -10,7 +10,7 @@
       "amount": 144
     }
   ],
-  "output": {
+  "result": {
     "fluid": "tconstruct:molten_manyullyn",
     "amount": 576
   },

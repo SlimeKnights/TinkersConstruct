@@ -212,20 +212,20 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   public static class Serializer extends RecipeSerializer<AlloyRecipe> {
     @Override
     public AlloyRecipe read(ResourceLocation id, JsonObject json) {
-      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "output"));
+      FluidStack result = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
       List<FluidIngredient> inputs = JsonHelper.parseList(json, "inputs", FluidIngredient::deserialize);
 
-      // ensure output is not part of any inputs, that would be bad and not clear to the user whats happening
+      // ensure result is not part of any inputs, that would be bad and not clear to the user whats happening
       if (inputs.size() < 2) {
         throw new JsonSyntaxException("Too few inputs to alloy recipe " + id);
       }
       for (FluidIngredient input : inputs) {
-        if (input.test(output)) {
-          throw new JsonSyntaxException("Output fluid contained in input in alloy recipe " + id);
+        if (input.test(result)) {
+          throw new JsonSyntaxException("Result fluid contained in input in alloy recipe " + id);
         }
       }
       int temperature = JSONUtils.getInt(json, "temperature");
-      return new AlloyRecipe(id, inputs, output, temperature);
+      return new AlloyRecipe(id, inputs, result, temperature);
     }
 
     @Override
