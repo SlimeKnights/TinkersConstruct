@@ -3,7 +3,7 @@
   "material": {
     "item": "tconstruct:blank_red_sand_cast"
   },
-  "mold": {
+  "pattern": {
     "item": "tconstruct:kama_head",
     "type": "tconstruct:material"
   },

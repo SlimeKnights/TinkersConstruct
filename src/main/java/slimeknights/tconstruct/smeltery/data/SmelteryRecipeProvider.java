@@ -1042,11 +1042,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                             .build(consumer, location(folder + "casts/" + path));
     MoldingRecipeBuilder.moldingTable(cast.getSand())
                         .setMaterial(TinkerSmeltery.blankCast.getSand())
-                        .setMold(input, false)
+                        .setPattern(input, false)
                         .build(consumer, location(folder + "sand_casts/" + path));
     MoldingRecipeBuilder.moldingTable(cast.getRedSand())
                         .setMaterial(TinkerSmeltery.blankCast.getRedSand())
-                        .setMold(input, false)
+                        .setPattern(input, false)
                         .build(consumer, location(folder + "red_sand_casts/" + path));
   }
 }

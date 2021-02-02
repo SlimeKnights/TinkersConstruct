@@ -14,15 +14,15 @@ public interface IMoldingInventory extends IReadOnlyInventory {
   ItemStack getMaterial();
 
   /**
-   * Gets the item whose shape makes the mold, typically in hand
-   * @return  Mold item
+   * Gets the item whose shape makes the pattern, typically in hand, often a tool part
+   * @return  Pattern item
    */
-  ItemStack getMold();
+  ItemStack getPattern();
 
 
   /* Required methods */
 
-  /** @deprecated use {@link #getMaterial()} and {@link #getMold()} */
+  /** @deprecated use {@link #getMaterial()} and {@link #getPattern()} */
   @Deprecated
   @Override
   default ItemStack getStackInSlot(int index) {
@@ -30,7 +30,7 @@ public interface IMoldingInventory extends IReadOnlyInventory {
       case 0:
         return getMaterial();
       case 1:
-        return getMold();
+        return getPattern();
     }
     return ItemStack.EMPTY;
   }
@@ -42,6 +42,6 @@ public interface IMoldingInventory extends IReadOnlyInventory {
 
   @Override
   default boolean isEmpty() {
-    return getMold().isEmpty() && getMaterial().isEmpty();
+    return getPattern().isEmpty() && getMaterial().isEmpty();
   }
 }

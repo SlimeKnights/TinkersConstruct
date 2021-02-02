@@ -125,7 +125,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     // all molding recipes require a stack in the input slot and nothing in the output slot
     if (!input.isEmpty() && output.isEmpty()) {
       // first, try the players hand item for a recipe
-      moldingInventory.setMold(held);
+      moldingInventory.setPattern(held);
       MoldingRecipe recipe = findMoldingRecipe();
       if (recipe != null) {
         // if hand is empty, pick up the result (hand empty will only match recipes with no mold item)
@@ -136,7 +136,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
         } else {
           // if the recipe has a mold, hand item goes on table (if not consumed in crafting)
           setInventorySlotContents(INPUT, result);
-          if (!recipe.isMoldConsumed()) {
+          if (!recipe.isPatternConsumed()) {
             setInventorySlotContents(OUTPUT, ItemHandlerHelper.copyStackWithSize(held, 1));
             // send a block update for the comparator, needs to be done after the stack is removed
             world.notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
@@ -144,12 +144,12 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
           held.shrink(1);
           player.setHeldItem(hand, held.isEmpty() ? ItemStack.EMPTY : held);
         }
-        moldingInventory.setMold(ItemStack.EMPTY);
+        moldingInventory.setPattern(ItemStack.EMPTY);
         return;
       } else {
         // if no recipe was found using the held item, try to find a mold-less recipe to perform
         // this ensures that if a recipe happens "on pickup" you get consistent behavior, without this it would fall though to pick up normally
-        moldingInventory.setMold(ItemStack.EMPTY);
+        moldingInventory.setPattern(ItemStack.EMPTY);
         recipe = findMoldingRecipe();
         if (recipe != null) {
           setInventorySlotContents(INPUT, ItemStack.EMPTY);
@@ -157,6 +157,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
           return;
         }
       }
+      // clear mold stack, prevents storing an unneeded item
+      moldingInventory.setPattern(ItemStack.EMPTY);
     }
 
     // recipes failed, so do normal pickup

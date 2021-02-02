@@ -1074,7 +1074,7 @@
     "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
     
     "jei.tconstruct.molding.title": "Molding",
-    "jei.tconstruct.molding.mold_consumed": "Mold item is consumed on crafting",
+    "jei.tconstruct.molding.pattern_consumed": "Pattern is consumed on crafting",
     
     "jei.tconstruct.melting.title": "Melting",
     "jei.tconstruct.melting.multiplier": "Speed multiplier: %sx",

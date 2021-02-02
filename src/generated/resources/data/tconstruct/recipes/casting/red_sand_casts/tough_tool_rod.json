@@ -3,7 +3,7 @@
   "material": {
     "item": "tconstruct:blank_red_sand_cast"
   },
-  "mold": {
+  "pattern": {
     "item": "tconstruct:tough_tool_rod",
     "type": "tconstruct:material"
   },

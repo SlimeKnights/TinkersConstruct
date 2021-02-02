@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -21,11 +22,11 @@ import java.util.function.Consumer;
 
 @RequiredArgsConstructor(staticName = "molding")
 public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBuilder> {
-  private final ItemStack output;
+  private final ItemOutput output;
   private final MoldingRecipe.Serializer<?> serializer;
   private Ingredient material = Ingredient.EMPTY;
-  private Ingredient mold = Ingredient.EMPTY;
-  private boolean moldConsumed = false;
+  private Ingredient pattern = Ingredient.EMPTY;
+  private boolean patternConsumed = false;
 
   /**
    * Creates a new builder of the given item
@@ -33,7 +34,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
    * @return  Recipe
    */
   public static MoldingRecipeBuilder moldingTable(IItemProvider item) {
-    return molding(new ItemStack(item), TinkerSmeltery.moldingTableSerializer.get());
+    return molding(ItemOutput.fromItem(item), TinkerSmeltery.moldingTableSerializer.get());
   }
 
   /**
@@ -42,7 +43,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
    * @return  Recipe
    */
   public static MoldingRecipeBuilder moldingBasin(IItemProvider item) {
-    return molding(new ItemStack(item), TinkerSmeltery.moldingBasinSerializer.get());
+    return molding(ItemOutput.fromItem(item), TinkerSmeltery.moldingBasinSerializer.get());
   }
 
   /* Inputs */
@@ -64,20 +65,20 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
   }
 
   /** Sets the mold item, in the players hand */
-  public MoldingRecipeBuilder setMold(Ingredient ingredient, boolean consumed) {
-    this.mold = ingredient;
-    this.moldConsumed = consumed;
+  public MoldingRecipeBuilder setPattern(Ingredient ingredient, boolean consumed) {
+    this.pattern = ingredient;
+    this.patternConsumed = consumed;
     return this;
   }
 
   /** Sets the mold item, in the players hand */
-  public MoldingRecipeBuilder setMold(IItemProvider item, boolean consumed) {
-    return setMold(Ingredient.fromItems(item), consumed);
+  public MoldingRecipeBuilder setPattern(IItemProvider item, boolean consumed) {
+    return setPattern(Ingredient.fromItems(item), consumed);
   }
 
   /** Sets the mold item, in the players hand */
-  public MoldingRecipeBuilder setMold(ITag<Item> tag, boolean consumed) {
-    return setMold(Ingredient.fromTag(tag), consumed);
+  public MoldingRecipeBuilder setPattern(ITag<Item> tag, boolean consumed) {
+    return setPattern(Ingredient.fromTag(tag), consumed);
   }
 
 
@@ -85,7 +86,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer) {
-    build(consumer, Objects.requireNonNull(output.getItem().getRegistryName()));
+    build(consumer, Objects.requireNonNull(output.get().getItem().getRegistryName()));
   }
 
   @Override
@@ -123,13 +124,13 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
     @Override
     public void serialize(JsonObject json) {
       json.add("material", material.serialize());
-      if (mold != Ingredient.EMPTY) {
-        json.add("mold", mold.serialize());
-        if (moldConsumed) {
-          json.addProperty("mold_consumed", true);
+      if (pattern != Ingredient.EMPTY) {
+        json.add("pattern", pattern.serialize());
+        if (patternConsumed) {
+          json.addProperty("pattern_consumed", true);
         }
       }
-      json.add("result", serializeResult(output));
+      json.add("result", output.serialize());
     }
 
     @Override

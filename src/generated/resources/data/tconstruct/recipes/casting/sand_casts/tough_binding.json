@@ -3,7 +3,7 @@
   "material": {
     "item": "tconstruct:blank_sand_cast"
   },
-  "mold": {
+  "pattern": {
     "item": "tconstruct:tough_binding",
     "type": "tconstruct:material"
   },

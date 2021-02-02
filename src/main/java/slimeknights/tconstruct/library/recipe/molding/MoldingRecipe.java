@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.recipe.ICommonRecipe;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -29,20 +30,24 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
   private final ResourceLocation id;
   private final Ingredient material;
   @Getter
-  private final Ingredient mold;
+  private final Ingredient pattern;
   @Getter
-  private final boolean moldConsumed;
-  @Getter
-  private final ItemStack recipeOutput;
+  private final boolean patternConsumed;
+  private final ItemOutput recipeOutput;
 
 	@Override
   public boolean matches(IMoldingInventory inv, World worldIn) {
-    return material.test(inv.getMaterial()) && mold.test(inv.getMold());
+    return material.test(inv.getMaterial()) && pattern.test(inv.getPattern());
   }
 
   @Override
   public NonNullList<Ingredient> getIngredients() {
-    return NonNullList.from(Ingredient.EMPTY, material, mold);
+    return NonNullList.from(Ingredient.EMPTY, material, pattern);
+  }
+
+  @Override
+  public ItemStack getRecipeOutput() {
+    return recipeOutput.get();
   }
 
   /**
@@ -65,7 +70,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
 
   /** Subclass for table recipes */
   public static class Table extends MoldingRecipe {
-    public Table(ResourceLocation id, Ingredient material, Ingredient mold, boolean moldConsumed, ItemStack recipeOutput) {
+    public Table(ResourceLocation id, Ingredient material, Ingredient mold, boolean moldConsumed, ItemOutput recipeOutput) {
       super(id, material, mold, moldConsumed, recipeOutput);
     }
 
@@ -82,7 +87,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
 
   /** Subclass for basin recipes */
   public static class Basin extends MoldingRecipe {
-    public Basin(ResourceLocation id, Ingredient material, Ingredient mold, boolean moldConsumed, ItemStack recipeOutput) {
+    public Basin(ResourceLocation id, Ingredient material, Ingredient mold, boolean moldConsumed, ItemOutput recipeOutput) {
       super(id, material, mold, moldConsumed, recipeOutput);
     }
 
@@ -100,7 +105,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
   /** Serializer factory interface */
   @FunctionalInterface
   public interface IFactory<T extends MoldingRecipe> {
-    T create(ResourceLocation id, Ingredient material, Ingredient mold, boolean moldConsumed, ItemStack recipeOutput);
+    T create(ResourceLocation id, Ingredient material, Ingredient mold, boolean moldConsumed, ItemOutput recipeOutput);
   }
 
   /** Generic serializer to both types */
@@ -111,14 +116,14 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
     @Override
     public T read(ResourceLocation id, JsonObject json) {
       Ingredient material = Ingredient.deserialize(JsonHelper.getElement(json, "material"));
-      Ingredient mold = Ingredient.EMPTY;
-      boolean moldConsumed = false;
-      if (json.has("mold")) {
-        mold = Ingredient.deserialize(json.get("mold"));
-        moldConsumed = JSONUtils.getBoolean(json, "mold_consumed", false);
+      Ingredient pattern = Ingredient.EMPTY;
+      boolean patternConsumed = false;
+      if (json.has("pattern")) {
+        pattern = Ingredient.deserialize(json.get("pattern"));
+        patternConsumed = JSONUtils.getBoolean(json, "pattern_consumed", false);
       }
-      ItemStack output = deseralizeResultItem(json, "result");
-      return factory.create(id, material, mold, moldConsumed, output);
+      ItemOutput output = ItemOutput.fromJson(json.get("result"));
+      return factory.create(id, material, pattern, patternConsumed, output);
     }
 
     @Nullable
@@ -127,16 +132,16 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
       Ingredient material = Ingredient.read(buffer);
       Ingredient mold = Ingredient.read(buffer);
       boolean moldConsumed = buffer.readBoolean();
-      ItemStack output = buffer.readItemStack();
+      ItemOutput output = ItemOutput.read(buffer);
       return factory.create(id, material, mold, moldConsumed, output);
     }
 
     @Override
     public void write(PacketBuffer buffer, MoldingRecipe recipe) {
       recipe.material.write(buffer);
-      recipe.mold.write(buffer);
-      buffer.writeBoolean(recipe.moldConsumed);
-      buffer.writeItemStack(recipe.recipeOutput);
+      recipe.pattern.write(buffer);
+      buffer.writeBoolean(recipe.patternConsumed);
+      recipe.recipeOutput.write(buffer);
     }
   }
 }

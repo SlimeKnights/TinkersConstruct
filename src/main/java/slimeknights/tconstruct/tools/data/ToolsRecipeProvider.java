@@ -246,11 +246,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     // sand cast molding
     MoldingRecipeBuilder.moldingTable(cast.getSand())
                         .setMaterial(TinkerSmeltery.blankCast.getSand())
-                        .setMold(ingredient, false)
+                        .setPattern(ingredient, false)
                         .build(consumer, location("casting/sand_casts/" + partName));
     MoldingRecipeBuilder.moldingTable(cast.getRedSand())
                         .setMaterial(TinkerSmeltery.blankCast.getRedSand())
-                        .setMold(ingredient, false)
+                        .setPattern(ingredient, false)
                         .build(consumer, location("casting/red_sand_casts/" + partName));
 
     // Part melting

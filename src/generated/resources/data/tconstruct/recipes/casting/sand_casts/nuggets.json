@@ -3,7 +3,7 @@
   "material": {
     "item": "tconstruct:blank_sand_cast"
   },
-  "mold": {
+  "pattern": {
     "tag": "forge:nuggets"
   },
   "result": "tconstruct:nugget_sand_cast"
