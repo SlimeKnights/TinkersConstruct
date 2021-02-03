@@ -10,6 +10,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
@@ -19,6 +20,7 @@ import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.Random;
 import java.util.function.BiConsumer;
 
 /**
@@ -27,6 +29,9 @@ import java.util.function.BiConsumer;
  */
 @RequiredArgsConstructor
 public class Modifier implements IForgeRegistryEntry<Modifier> {
+  /** Modifier random instance, use for chance based effects */
+  protected static Random RANDOM = new Random();
+
   private static final String KEY_LEVEL = "enchantment.level.";
   public static final int DEFAULT_PRIORITY = 100;
 
@@ -169,4 +174,38 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param consumer  Attribute consumer
    */
   public void addAttributes(IModifierToolStack tool, int level, BiConsumer<Attribute,AttributeModifier> consumer) {}
+
+
+  /* Hooks */
+
+  /**
+   * Called when the tool is damaged. Returns the amount of damage dealt
+   * @param toolStack  Tool stack
+   * @param level      Tool level
+   * @param amount     Amount of damage to deal
+   * @return  Replacement damage. Returning 0 cancels the damage, or the damage can be made higher
+   */
+  public int onDamage(IModifierToolStack toolStack, int level, int amount) {
+    return amount;
+  }
+
+  /**
+   * Called when the tool is repair. Returns the amount to repair
+   * @param toolStack  Tool stack
+   * @param level      Tool level
+   * @param amount     Amount of damage to deal
+   * @return  Replacement damage. Returning 0 cancels the damage, or the damage can be made higher
+   */
+  public int onRepair(IModifierToolStack toolStack, int level, int amount) {
+    return amount;
+  }
+
+  /**
+   * Called when break speed is being calculated to affect mining speed conditionally
+   * @param tool   Current tool instance
+   * @param level  Modifier level
+   * @param event  Event instance
+   */
+	public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
+
 }

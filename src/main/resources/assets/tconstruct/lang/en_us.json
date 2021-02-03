@@ -984,9 +984,11 @@
 
     "modifier.tconstruct.empty": "Invalid modifier",
 
+    "modifier.tconstruct.cultivated": "Cultivated",
     "modifier.tconstruct.fractured": "Fractured",
 
     "modifier.tconstruct.reinforced": "Reinforced",
+    "modifier.tconstruct.dwarfish": "Dwarfish",
 
     "modifier.tconstruct.enhanced": "Enhanced",
     "modifier.tconstruct.lightweight": "Lightweight",

@@ -12,6 +12,8 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
 import slimeknights.tconstruct.tools.modifiers.LevelDamageModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.DwarfishModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.EnhancedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.LightweightModifier;
@@ -25,7 +27,6 @@ import java.util.function.Supplier;
 /**
  * Contains modifiers and the items or blocks used to craft modifiers
  */
-@SuppressWarnings("unused")
 public final class TinkerModifiers extends TinkerModule {
   protected static final Supplier<IForgeRegistry<Modifier>> MODIFIER_REGISTRY = MODIFIERS.makeRegistry("modifiers", () -> new RegistryBuilder<Modifier>().setType(Modifier.class).setDefaultKey(Util.getResource("empty")));
 
@@ -57,9 +58,11 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<Modifier> empty = MODIFIERS.register("empty", () -> new Modifier(-1));
 
   // traits - tier 1
+  public static final RegistryObject<CultivatedModifier> cultivated = MODIFIERS.register("cultivated", CultivatedModifier::new);
   public static final RegistryObject<LevelDamageModifier> fractured = MODIFIERS.register("fractured", () -> new LevelDamageModifier(0xede6bf, 1.5f));
   // traits - tier 2
   public static final RegistryObject<ReinforcedModifier> reinforced = MODIFIERS.register("reinforced", ReinforcedModifier::new);
+  public static final RegistryObject<DwarfishModifier> dwarfish = MODIFIERS.register("dwarfish", DwarfishModifier::new);
   // traits - tier 3
   public static final RegistryObject<EnhancedModifier> enhanced = MODIFIERS.register("enhanced", EnhancedModifier::new);
   public static final RegistryObject<LightweightModifier> lightweight = MODIFIERS.register("lightweight", LightweightModifier::new);
