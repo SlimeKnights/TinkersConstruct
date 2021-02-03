@@ -12,7 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants.NBT;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -34,6 +36,9 @@ import java.util.function.BiConsumer;
  */
 @RequiredArgsConstructor(staticName = "from")
 public class ToolStack implements IModifierToolStack {
+  /** Volatile mod data key for the durability before modifiers */
+  public static final ResourceLocation ORIGINAL_DURABILITY_KEY = Util.getResource("durability");
+
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
   protected static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_data";
@@ -573,15 +578,25 @@ public class ToolStack implements IModifierToolStack {
         }
       };
 
-      // iterate all modifiers
+      // store original durability in volatile data, allows mods to scale based on original durability and "overclock" based on mods
+      // also used for overslime cap base
+      volatileData.putInt(ORIGINAL_DURABILITY_KEY, stats.getDurability());
+
+      // build persistent data first, its a parameter to the other two hooks
+      IModDataReadOnly persistentData = getPersistentData();
+      for (ModifierEntry entry : modifierList) {
+        entry.getModifier().addVolatileData(persistentData, entry.getLevel(), volatileData);
+      }
+
+      // regular stats last so we can include volatile data
       ToolStatsModifierBuilder statBuilder = ToolStatsModifierBuilder.builder();
       for (ModifierEntry entry : modifierList) {
         Modifier mod = entry.getModifier();
         int level = entry.getLevel();
-        mod.addToolStats(level, statBuilder);
-        mod.addVolatileData(level, volatileData);
-        mod.addEnchantments(level, enchantmentConsumer);
+        mod.addToolStats(persistentData, volatileData, level, statBuilder);
+        mod.addEnchantments(persistentData, volatileData, level, enchantmentConsumer);
       }
+
       // set into NBT
       setStats(statBuilder.build(stats));
       setVolatileModData(volatileData);
