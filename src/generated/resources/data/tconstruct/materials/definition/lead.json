@@ -1,6 +1,9 @@
 {
   "craftable": false,
+  "fluid": "tconstruct:molten_lead",
+  "fluidPerUnit": 144,
   "textColor": "#4D4968",
+  "temperature": 330,
   "trait": {
     "name": "tconstruct:heavy",
     "level": 1

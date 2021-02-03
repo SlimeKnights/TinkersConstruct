@@ -947,12 +947,12 @@
     "material.tconstruct.seared_stone": "Seared Stone",
     "material.tconstruct.copper": "Copper",
     "material.tconstruct.slimewood": "Slimewood",
+    "material.tconstruct.rose_gold": "Rose Gold",
     
     "__comment": "Tier 3 Materials",
     "material.tconstruct.slimesteel": "Slimesteel",
     "material.tconstruct.nahuatl": "Nahuatl",
     "material.tconstruct.tinkers_bronze": "Tinker's Bronze",
-    "material.tconstruct.rose_gold": "Rose Gold",
     "material.tconstruct.pig_iron": "Pig Iron",
     
     
@@ -972,11 +972,12 @@
     "__comment": "Tier 2 Integration Materials",
     "material.tconstruct.lead": "Lead",
     "material.tconstruct.silver": "Silver",
+    "material.tconstruct.electrum": "Electrum",
     
     "__comment": "Tier 3 Integration Materials",
-    "material.tconstruct.electrum": "Electrum",
     "material.tconstruct.bronze": "Bronze",
     "material.tconstruct.steel": "Steel",
+    "material.tconstruct.constantan": "Constantan",
     
 
     "_comment": "Modifiers",

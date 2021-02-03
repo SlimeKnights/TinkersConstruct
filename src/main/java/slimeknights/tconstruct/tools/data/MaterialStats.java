@@ -64,6 +64,11 @@ final class MaterialStats {
                      new HeadMaterialStats(560, 4f, IRON, 1f),
                      HandleMaterialStats.DEFAULT.withDurability(1.3f).withMiningSpeed(0.85f).withAttackDamage(0.85f),
                      ExtraMaterialStats.DEFAULT);
+    // vanilla gold: 32, 12f, WOOD, 0f
+    addMaterialStats(MaterialIds.roseGold,
+                     new HeadMaterialStats(175, 12f, IRON, 1f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.6f).withAttackSpeed(1.25f).withMiningSpeed(1.3f),
+                     ExtraMaterialStats.DEFAULT);
 
     // tier 2 (mod integration)
     addMaterialStats(MaterialIds.silver,
@@ -73,6 +78,10 @@ final class MaterialStats {
     addMaterialStats(MaterialIds.lead,
                      new HeadMaterialStats(350, 5.5f, IRON, 3f),
                      HandleMaterialStats.DEFAULT.withAttackSpeed(0.8f).withAttackDamage(1.3f),
+                     ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.electrum,
+                     new HeadMaterialStats(225, 12f, IRON, 1.5f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.8f).withAttackSpeed(1.15f).withMiningSpeed(1.2f),
                      ExtraMaterialStats.DEFAULT);
 
     // tier 3
@@ -89,28 +98,23 @@ final class MaterialStats {
                      new HeadMaterialStats(420, 8f, DIAMOND, 3f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(1.15f),
                      ExtraMaterialStats.DEFAULT);
-    // vanilla gold: 32, 12f, WOOD, 0f
-    addMaterialStats(MaterialIds.roseGold,
-                     new HeadMaterialStats(175, 12f, IRON, 1f),
-                     HandleMaterialStats.DEFAULT.withDurability(0.6f).withAttackSpeed(1.25f).withMiningSpeed(1.3f),
-                     ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.pigIron,
                      new HeadMaterialStats(380, 7f, DIAMOND, 3f),
                      HandleMaterialStats.DEFAULT.withDurability(1.15f).withAttackDamage(1.1f).withMiningSpeed(0.8f),
                      ExtraMaterialStats.DEFAULT);
 
     // tier 3 (mod integration)
-    addMaterialStats(MaterialIds.electrum,
-                     new HeadMaterialStats(225, 12f, IRON, 1.5f),
-                     HandleMaterialStats.DEFAULT.withDurability(0.8f).withAttackSpeed(1.15f).withMiningSpeed(1.2f),
+    addMaterialStats(MaterialIds.steel,
+                     new HeadMaterialStats(550, 7f, DIAMOND, 3.5f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.15f).withAttackSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.bronze,
                      new HeadMaterialStats(450, 8f, DIAMOND, 3f),
                      HandleMaterialStats.DEFAULT.withDurability(1.15f).withMiningSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.steel,
-                     new HeadMaterialStats(550, 7f, DIAMOND, 3.5f),
-                     HandleMaterialStats.DEFAULT.withDurability(1.3f).withMiningSpeed(1.1f),
+    addMaterialStats(MaterialIds.constantan,
+                     new HeadMaterialStats(375, 8.5f, DIAMOND, 2.5f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.9f).withMiningSpeed(1.3f),
                      ExtraMaterialStats.DEFAULT);
 
     // tier 2 (nether)

@@ -1,4 +1,7 @@
 {
   "craftable": false,
-  "textColor": "#E3BD68"
+  "fluid": "tconstruct:molten_bronze",
+  "fluidPerUnit": 144,
+  "textColor": "#E3BD68",
+  "temperature": 700
 }
