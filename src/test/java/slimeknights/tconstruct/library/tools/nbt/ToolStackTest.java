@@ -249,7 +249,7 @@ class ToolStackTest extends ToolCoreTest {
 
     ToolStack tool = ToolStack.from(stack);
     tool.setStats(new StatsNBT(50, 0, 0, 0, 0));
-    assertThat(tool.getDamageRaw()).isEqualTo(49);
+    assertThat(tool.getDamageRaw()).isEqualTo(50);
     assertThat(tool.isBroken()).isTrue();
   }
 

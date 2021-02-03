@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.tools;
 
 import org.junit.jupiter.api.Test;
-import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,22 +39,24 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
 
   @Test
   void testMaxDamageBreaksTool() {
-    int statDurability = ToolStack.from(testItemStack).getStats().getDurability();
+    ToolStack tool = ToolStack.from(testItemStack);
+    int statDurability = tool.getStats().getDurability();
 
-    testItemStack.setDamage(statDurability);
+    tool.setDamage(statDurability);
 
-    assertThat(ToolDamageUtil.getCurrentDamage(testItemStack)).isEqualTo(statDurability);
-    assertThat(IsTestItemBroken()).isTrue();
+    assertThat(tool.getDamage()).isEqualTo(statDurability);
+    assertThat(tool.isBroken()).isTrue();
   }
 
   @Test
   void testMoreThanMaxDamageBreaksTool() {
-    int statDurability = ToolStack.from(testItemStack).getStats().getDurability();
+    ToolStack tool = ToolStack.from(testItemStack);
+    int statDurability = tool.getStats().getDurability();
 
     testItemStack.setDamage(99999999);
 
-    assertThat(ToolDamageUtil.getCurrentDamage(testItemStack)).isEqualTo(statDurability);
-    assertThat(IsTestItemBroken()).isTrue();
+    assertThat(tool.getDamage()).isEqualTo(statDurability);
+    assertThat(tool.isBroken()).isTrue();
   }
 
   /*

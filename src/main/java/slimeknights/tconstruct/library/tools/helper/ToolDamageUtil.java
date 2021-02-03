@@ -33,6 +33,7 @@ public class ToolDamageUtil {
    * @param stack the tool stack to use
    * @return the currently durability of the tool stack
    */
+  @Deprecated
   public static int getCurrentDurability(ItemStack stack) {
     if (isBroken(stack)) {
       return 0;
@@ -47,6 +48,7 @@ public class ToolDamageUtil {
    * @param stack the tool stack to use
    * @return the currently durability of the tool stack
    */
+  @Deprecated
   public static int getCurrentDamage(ItemStack stack) {
     if (isBroken(stack)) {
       return stack.getMaxDamage();
