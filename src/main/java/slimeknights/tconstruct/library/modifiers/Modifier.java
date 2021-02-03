@@ -14,6 +14,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
+import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
@@ -147,25 +148,30 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /* Tool building hooks */
 
   /**
-   * Adds raw stats to the tool. Called whenever modifiers are rebuilt
-   * @param level    Modifier level
-   * @param builder  Tool stat builder
-   */
-  public void addToolStats(int level, ToolStatsModifierBuilder builder) {}
-
-  /**
    * Adds any relevant volatile data to the tool data. This data is rebuilt every time modifiers rebuild
+   * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
    * @param level  Modifier level
    * @param data   Mutable mod NBT data
    */
-  public void addVolatileData(int level, ModDataNBT data) {}
+  public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT data) {}
+
+  /**
+   * Adds raw stats to the tool. Called whenever modifiers are rebuilt
+   * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
+   * @param volatileData    Modifier NBT calculated from modifiers in {@link #addVolatileData(IModDataReadOnly, int, ModDataNBT)}
+   * @param level           Modifier level
+   * @param builder         Tool stat builder
+   */
+  public void addToolStats(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {}
 
   /**
    * Adds enchantments from this modifier's effect
+   * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
+   * @param volatileData    Modifier NBT calculated from modifiers in {@link #addVolatileData(IModDataReadOnly, int, ModDataNBT)}
    * @param level     Modifier level
    * @param consumer  Consumer accepting any enchantments
    */
-  public void addEnchantments(int level, BiConsumer<Enchantment, Integer> consumer) {}
+  public void addEnchantments(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, BiConsumer<Enchantment, Integer> consumer) {}
 
   /**
    * Adds attributes from this modifier's effect

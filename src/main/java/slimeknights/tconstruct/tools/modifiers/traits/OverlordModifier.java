@@ -4,6 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 public class OverlordModifier extends Modifier {
@@ -13,7 +14,7 @@ public class OverlordModifier extends Modifier {
   }
 
   @Override
-  public void addVolatileData(int level, ModDataNBT data) {
+  public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT data) {
     int current = 50;
     if (data.contains(OVERSLIME_CAP, NBT.TAG_ANY_NUMERIC)) {
       current = data.getInt(OVERSLIME_CAP);
