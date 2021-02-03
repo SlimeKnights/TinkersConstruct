@@ -291,7 +291,14 @@ public class ToolStack implements IModifierToolStack {
       return false;
     }
 
-    // TODO: modifiers
+    // try each modifier
+    for (ModifierEntry entry : getModifierList()) {
+      amount = entry.getModifier().onDamage(this, entry.getLevel(), amount);
+      // if no more damage, done
+      if (amount < 0) {
+        return false;
+      }
+    }
 
     int durability = getStats().getDurability();
     int damage = getDamage();
@@ -329,19 +336,18 @@ public class ToolStack implements IModifierToolStack {
       return;
     }
 
-    // todo: modifiers
+    // try each modifier
+    for (ModifierEntry entry : getModifierList()) {
+      amount = entry.getModifier().onRepair(this, entry.getLevel(), amount);
+      // if no more damage, done
+      if (amount < 0) {
+        return;
+      }
+    }
 
     // ensure we never repair more than max durability
     int newDamage = damage - Math.min(amount, damage);
     setDamage(newDamage);
-
-    // TODO: trigger criteria updates?
-//    if (entity instanceof ServerPlayerEntity) {
-//      if (stack == null) {
-//        stack = createStack();
-//      }
-//      CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((ServerPlayerEntity) entity, stack, newDamage);
-//    }
   }
 
 

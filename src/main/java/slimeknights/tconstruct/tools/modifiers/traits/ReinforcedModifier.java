@@ -1,10 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-
-import java.util.function.BiConsumer;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class ReinforcedModifier extends Modifier {
   public ReinforcedModifier() {
@@ -12,8 +9,19 @@ public class ReinforcedModifier extends Modifier {
   }
 
   @Override
-  public void addEnchantments(int level, BiConsumer<Enchantment, Integer> consumer) {
-    // FIXME: temporary solution until damage hook is implemented
-    consumer.accept(Enchantments.UNBREAKING, level);
+  public int onDamage(IModifierToolStack toolStack, int level, int amount) {
+    // vanilla formula, 100 / (level + 1), means 50% chance
+    float chance = 1f / (level + 1f);
+    if (chance < 1f) {
+      int dealt = 0;
+      // TODO: is there a closed form version of this?
+      for (int i = 0; i < amount; i++) {
+        if (RANDOM.nextFloat() < chance) {
+          dealt++;
+        }
+      }
+      return dealt;
+    }
+    return amount;
   }
 }
