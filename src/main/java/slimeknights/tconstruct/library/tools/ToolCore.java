@@ -125,7 +125,15 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public int getMaxDamage(ItemStack stack) {
-    return ToolStack.from(stack).getStats().getDurability();
+    ToolStack tool = ToolStack.from(stack);
+    int durability = tool.getStats().getDurability();
+    // vanilla deletes tools if max damage == getDamage, so tell vanilla our max is one higher when broken
+    return tool.isBroken() ? durability + 1 : durability;
+  }
+
+  @Override
+  public int getDamage(ItemStack stack) {
+    return ToolStack.from(stack).getDamage();
   }
 
   @Override
