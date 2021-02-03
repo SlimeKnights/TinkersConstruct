@@ -153,11 +153,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.GREEN_SLIMEBALL), 1, 1, "slimewood/ball");
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.GREEN)), 4, 1, "slimewood/congealed");
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.GREEN)), 5, 1, "slimewood/block");
+    registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
     // tier 3
     registerMetalMaterial(consumer, MaterialIds.slimesteel, "slimesteel", false);
     registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
     registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "tinkers_bronze", false);
-    registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
     registerMetalMaterial(consumer, MaterialIds.pigIron, "pigiron", false);
 
     // tier 2 (nether)
@@ -165,20 +165,21 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMetalMaterial(consumer, MaterialIds.cobalt, "cobalt", false);
     // tier 4
     registerMetalMaterial(consumer, MaterialIds.queensSlime, "queens_slime", false);
-    registerMetalMaterial(consumer, MaterialIds.manyullyn,   "manyullyn", false);
-    registerMetalMaterial(consumer, MaterialIds.hepatizon,   "hepatizon", false);
-    registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel", false);
+    registerMetalMaterial(consumer, MaterialIds.manyullyn,   "manyullyn",    false);
+    registerMetalMaterial(consumer, MaterialIds.hepatizon,   "hepatizon",    false);
+    registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel",    false);
 
     // tier 2 (end)
     //registerMaterial(consumer, MaterialIds.endstone, Ingredient.fromItems(Blocks.END_STONE), 1, 1, "endstone");
 
     // tier 2 (mod compat)
-    registerMetalMaterial(consumer, MaterialIds.silver, "silver", true);
-    registerMetalMaterial(consumer, MaterialIds.lead, "lead", true);
-    // tier 3 (mod integration)
+    registerMetalMaterial(consumer, MaterialIds.silver,   "silver",  true);
+    registerMetalMaterial(consumer, MaterialIds.lead,     "lead",     true);
     registerMetalMaterial(consumer, MaterialIds.electrum, "electrum", true);
-    registerMetalMaterial(consumer, MaterialIds.bronze, "bronze", true);
-    registerMetalMaterial(consumer, MaterialIds.steel, "steel", true);
+    // tier 3 (mod integration)
+    registerMetalMaterial(consumer, MaterialIds.bronze,     "bronze",     true);
+    registerMetalMaterial(consumer, MaterialIds.steel,      "steel",      true);
+    registerMetalMaterial(consumer, MaterialIds.constantan, "constantan", true);
 
     //registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
     //registerMaterial(consumer, MaterialIds.slimevine_blue, Ingredient.fromItems(TinkerWorld.blueSlimeVine), 1, 1, "slimevine_blue");

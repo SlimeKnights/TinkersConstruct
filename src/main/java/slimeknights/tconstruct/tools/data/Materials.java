@@ -52,12 +52,13 @@ final class Materials {
   //public static final IMaterial endstone = mat(MaterialIds.endstone, true, 0xe0d890);
 
   // tier 2 (mod integration)
-  public static final IMaterial lead = mat(MaterialIds.lead, false, 0x4d4968, TinkerModifiers.heavy);
-  public static final IMaterial silver = mat(MaterialIds.silver, false, 0xd1ecf6, TinkerModifiers.smite);
+  public static final IMaterial lead     = mat(MaterialIds.lead,     TinkerFluids.moltenLead,     false, 0x4d4968, TinkerModifiers.heavy);
+  public static final IMaterial silver   = mat(MaterialIds.silver,   TinkerFluids.moltenSilver,   false, 0xd1ecf6, TinkerModifiers.smite);
+  public static final IMaterial electrum = mat(MaterialIds.electrum, TinkerFluids.moltenElectrum, false, 0xe8db49);
   // tier 3 (mod integration)
-  public static final IMaterial electrum = mat(MaterialIds.electrum, false, 0xe8db49);
-  public static final IMaterial bronze = mat(MaterialIds.bronze, false, 0xe3bd68);
-  public static final IMaterial steel = mat(MaterialIds.steel, false, 0xa7a7a7, TinkerModifiers.sturdy);
+  public static final IMaterial bronze     = mat(MaterialIds.bronze,     TinkerFluids.moltenBronze,     false, 0xe3bd68);
+  public static final IMaterial steel      = mat(MaterialIds.steel,      TinkerFluids.moltenSteel,      false, 0xa7a7a7, TinkerModifiers.sturdy);
+  public static final IMaterial constantan = mat(MaterialIds.constantan, TinkerFluids.moltenConstantan, false, 0xff9e7f);
 
   // bowstring IMaterials
 //  public static final IMaterial string = mat(MaterialIds.string, true, 0xeeeeee);

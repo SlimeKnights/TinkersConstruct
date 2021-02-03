@@ -1,6 +1,9 @@
 {
   "craftable": false,
+  "fluid": "tconstruct:molten_steel",
+  "fluidPerUnit": 144,
   "textColor": "#A7A7A7",
+  "temperature": 1210,
   "trait": {
     "name": "tconstruct:sturdy",
     "level": 1

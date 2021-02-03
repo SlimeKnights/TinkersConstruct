@@ -1,0 +1,7 @@
+{
+  "craftable": false,
+  "fluid": "tconstruct:molten_constantan",
+  "fluidPerUnit": 144,
+  "textColor": "#FF9E7F",
+  "temperature": 920
+}
