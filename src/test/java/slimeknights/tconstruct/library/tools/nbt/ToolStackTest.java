@@ -15,6 +15,7 @@ import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.tools.ToolCoreTest;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 
 import java.util.Arrays;
 
@@ -85,7 +86,7 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void createStack_setsNBT() {
     ToolStack tool = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinition.EMPTY, new CompoundNBT());
-    tool.setBroken(true);
+    tool.setBrokenRaw(true);
     ItemStack stack = tool.createStack();
     assertThat(stack.getTag()).isEqualTo(tool.getNbt());
   }
@@ -95,7 +96,7 @@ class ToolStackTest extends ToolCoreTest {
     ToolStack tool = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinition.EMPTY, new CompoundNBT());
     // vanilla's setTag function will set the damage to 0 if applicable, so just ensuring its set
     tool.setDamage(0);
-    tool.setBroken(true);
+    tool.setBrokenRaw(true);
 
     ItemStack stack = tool.updateStack(new ItemStack(Items.DIAMOND_PICKAXE));
     assertThat(stack.getTag()).isEqualTo(tool.getNbt());
@@ -109,14 +110,14 @@ class ToolStackTest extends ToolCoreTest {
   }
 
 
-  /* Damage and broken*/
+  /* Damage and broken */
 
   @Test
   void serialize_damageBroken() {
     ToolStack stack = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinitionFixture.getStandardToolDefinition(), new CompoundNBT());
     stack.setStats(new StatsNBT(100, 0, 0, 0, 0));
     stack.setDamage(1);
-    stack.setBroken(true);
+    stack.setBrokenRaw(true);
 
     CompoundNBT nbt = stack.getNbt();
     assertThat(nbt.contains(ToolStack.TAG_BROKEN)).isTrue();
@@ -185,6 +186,16 @@ class ToolStackTest extends ToolCoreTest {
     assertThat(tool.getDamage()).isEqualTo(oldDamage - 25);
   }
 
+  @Test
+  void broken_quickCheck() {
+    ToolStack tool = ToolStack.from(testItemStack);
+    tool.breakTool();
+    ItemStack stack = tool.createStack();
+    assertThat(ToolDamageUtil.isBroken(stack)).isTrue();
+  }
+
+
+  /* Materials */
 
   @Test
   void deserializeNBT_materials() {

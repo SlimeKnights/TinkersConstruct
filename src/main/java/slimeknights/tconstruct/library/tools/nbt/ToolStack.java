@@ -214,9 +214,16 @@ public class ToolStack implements IModifierToolStack {
    * Sets the broken state on the tool
    * @param broken  New broken value
    */
-  public void setBroken(boolean broken) {
+  protected void setBrokenRaw(boolean broken) {
     this.broken = broken;
     nbt.putBoolean(TAG_BROKEN, broken);
+  }
+
+  /**
+   * Breaks the tool
+   */
+  protected void breakTool() {
+    setDamage(getStats().getDurability());
   }
 
   /**
@@ -241,7 +248,7 @@ public class ToolStack implements IModifierToolStack {
       return getStats().getDurability();
     }
     // ensure we never return a number larger than max
-    return Math.min(getDamageRaw(), getStats().getDurability());
+    return Math.min(getDamageRaw(), getStats().getDurability() - 1);
   }
 
   /**
@@ -263,11 +270,10 @@ public class ToolStack implements IModifierToolStack {
   public void setDamage(int damage) {
     int durability = getStats().getDurability();
     if (damage >= durability) {
-      // max on the odd change durability is 0, happens with invalid tools
-      damage = Math.max(0, durability - 1);
-      setBroken(true);
+      damage = Math.max(0, durability);
+      setBrokenRaw(true);
     } else {
-      setBroken(false);
+      setBrokenRaw(false);
     }
     this.damage = damage;
     nbt.putInt(TAG_DAMAGE, damage);
