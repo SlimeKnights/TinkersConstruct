@@ -37,7 +37,7 @@ import java.util.Collections;
 
 public class MelterTileEntity extends NamableTileEntity implements ITankTileEntity, ITickableTileEntity {
   /** Max capacity for the tank */
-  private static final int TANK_CAPACITY = MaterialValues.VALUE_Block;
+  private static final int TANK_CAPACITY = MaterialValues.METAL_BLOCK;
   /* tags */
   private static final String TAG_FUEL = "fuel";
   private static final String TAG_TEMPERATURE = "temperature";

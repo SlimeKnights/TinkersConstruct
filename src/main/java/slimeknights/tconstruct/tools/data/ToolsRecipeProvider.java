@@ -246,7 +246,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     MaterialIngredient ingredient = MaterialIngredient.fromItem(part);
     String partName = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
     ItemCastingRecipeBuilder.tableRecipe(cast)
-                            .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
+                            .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
                             .setCast(ingredient, true)
                             .setSwitchSlots()
                             .build(consumer, location("smeltery/casting/casts/" + partName));

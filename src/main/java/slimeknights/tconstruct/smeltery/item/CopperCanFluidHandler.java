@@ -44,7 +44,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
 
   @Override
   public int getTankCapacity(int tank) {
-    return MaterialValues.VALUE_Ingot;
+    return MaterialValues.INGOT;
   }
 
   /** Gets the contained fluid */
@@ -54,7 +54,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
 
   @Override
   public FluidStack getFluidInTank(int tank) {
-    return new FluidStack(getFluid(), MaterialValues.VALUE_Ingot);
+    return new FluidStack(getFluid(), MaterialValues.INGOT);
   }
 
 
@@ -63,20 +63,20 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   @Override
   public int fill(FluidStack resource, FluidAction action) {
     // must not be filled, must have enough
-    if (getFluid() != Fluids.EMPTY || resource.getAmount() < MaterialValues.VALUE_Ingot) {
+    if (getFluid() != Fluids.EMPTY || resource.getAmount() < MaterialValues.INGOT) {
       return 0;
     }
     // update fluid and return
     if (action.execute()) {
       CopperCanItem.setFluid(container, resource.getFluid());
     }
-    return MaterialValues.VALUE_Ingot;
+    return MaterialValues.INGOT;
   }
 
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
     // must be draining at least an ingot
-    if (resource.isEmpty() || resource.getAmount() < MaterialValues.VALUE_Ingot) {
+    if (resource.isEmpty() || resource.getAmount() < MaterialValues.INGOT) {
       return FluidStack.EMPTY;
     }
     // must have a fluid, must match what they are draining
@@ -85,7 +85,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
       return FluidStack.EMPTY;
     }
     // output 1 ingot
-    FluidStack output = new FluidStack(fluid, MaterialValues.VALUE_Ingot);
+    FluidStack output = new FluidStack(fluid, MaterialValues.INGOT);
     if (action.execute()) {
       CopperCanItem.setFluid(container, Fluids.EMPTY);
     }
@@ -95,7 +95,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   @Override
   public FluidStack drain(int maxDrain, FluidAction action) {
     // must be draining at least an ingot
-    if (maxDrain < MaterialValues.VALUE_Ingot) {
+    if (maxDrain < MaterialValues.INGOT) {
       return FluidStack.EMPTY;
     }
     // must have a fluid
@@ -104,7 +104,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
       return FluidStack.EMPTY;
     }
     // output 1 ingot
-    FluidStack output = new FluidStack(fluid, MaterialValues.VALUE_Ingot);
+    FluidStack output = new FluidStack(fluid, MaterialValues.INGOT);
     if (action.execute()) {
       CopperCanItem.setFluid(container, Fluids.EMPTY);
     }

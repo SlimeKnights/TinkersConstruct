@@ -62,7 +62,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   private static final String TAG_INVENTORY = "inventory";
 
   /** Fluid capacity per internal block */
-  private static final int CAPACITY_PER_BLOCK = MaterialValues.VALUE_Ingot * 8;
+  private static final int CAPACITY_PER_BLOCK = MaterialValues.INGOT * 8;
   /** Number of wall blocks needed to increase the fuel cost by 1 */
   private static final int BLOCKS_PER_FUEL = 10;
 

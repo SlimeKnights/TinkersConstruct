@@ -118,7 +118,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
 
     IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
     fluidStacks.addTooltipCallback(this);
-    int capacity = MaterialValues.VALUE_Block;
+    int capacity = MaterialValues.METAL_BLOCK;
     fluidStacks.init(0, true, 3, 3, 32, 32, capacity, false, tankOverlay);
     fluidStacks.set(ingredients);
     int h = 11;

@@ -100,7 +100,6 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     fontRenderer.drawString(matrices, damage, x, 8, Color.RED.getRGB());
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
   public void setRecipe(IRecipeLayout layout, EntityMeltingRecipe recipe, IIngredients ingredients) {
     // inputs
@@ -118,7 +117,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     // output
     IGuiFluidStackGroup fluids = layout.getFluidStacks();
     fluids.addTooltipCallback(TOOLTIP_MAP.computeIfAbsent(recipe.getDamage(), FluidTooltip::new));
-    fluids.init(1, false, 115, 11, 16, 32, MaterialValues.VALUE_Ingot, false, null);
+    fluids.init(1, false, 115, 11, 16, 32, MaterialValues.INGOT, false, null);
     fluids.set(ingredients);
 
     // show fuels that are valid for this recipe

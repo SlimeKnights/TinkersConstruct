@@ -167,7 +167,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
 
     // output
     IGuiFluidStackGroup fluids = layout.getFluidStacks();
-    fluids.init(0, false, 96, 4, 32, 32, MaterialValues.VALUE_Block, false, tankOverlay);
+    fluids.init(0, false, 96, 4, 32, 32, MaterialValues.METAL_BLOCK, false, tankOverlay);
     fluids.set(ingredients);
 
     // show fuels that are valid for this recipe

@@ -79,7 +79,7 @@ public class EntityMeltingModule {
    */
   public static FluidStack getDefaultFluid() {
     // TODO: consider a way to put this in a recipe
-    return new FluidStack(TinkerFluids.blood.get(), MaterialValues.VALUE_SlimeBall / 5);
+    return new FluidStack(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL / 5);
   }
 
   /**

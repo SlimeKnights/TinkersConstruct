@@ -43,8 +43,8 @@ public class TankItem extends BlockTooltipItem {
         if (tank.getCapacity() % FluidAttributes.BUCKET_VOLUME == 0 || Screen.hasShiftDown()) {
           tooltip.add(new TranslationTextComponent(KEY_MB, amount).mergeStyle(TextFormatting.GRAY));
         } else {
-          int ingots = amount / MaterialValues.VALUE_Ingot;
-          int mb = amount % MaterialValues.VALUE_Ingot;
+          int ingots = amount / MaterialValues.INGOT;
+          int mb = amount % MaterialValues.INGOT;
           if (mb == 0) {
             tooltip.add(new TranslationTextComponent(KEY_INGOTS, ingots).mergeStyle(TextFormatting.GRAY));
           } else {

@@ -66,7 +66,7 @@ public interface IMeltingRecipe extends ICustomOutputRecipe<IMeltingInventory> {
    * @return  Time factor
    */
   static float calcTimeFactor(int amount) {
-    return (float)Math.sqrt(amount / (float)MaterialValues.VALUE_Ingot);
+    return (float)Math.sqrt(amount / (float)MaterialValues.INGOT);
   }
 
   /**

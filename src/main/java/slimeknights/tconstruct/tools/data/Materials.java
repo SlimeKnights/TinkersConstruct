@@ -66,7 +66,7 @@ final class Materials {
   /** Creates a material with a fluid */
   private static IMaterial mat(MaterialId location, Supplier<? extends Fluid> fluid, boolean craftable, int color) {
     // all our materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    IMaterial material = new DataMaterial(location, fluid, MaterialValues.VALUE_Ingot, craftable, Color.fromInt(color));
+    IMaterial material = new DataMaterial(location, fluid, MaterialValues.INGOT, craftable, Color.fromInt(color));
     allMaterials.add(material);
     return material;
   }

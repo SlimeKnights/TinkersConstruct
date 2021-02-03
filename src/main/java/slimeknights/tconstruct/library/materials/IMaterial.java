@@ -41,7 +41,7 @@ public interface IMaterial {
   Fluid getFluid();
 
   /**
-   * Gets the amount of fluid needed to produce one "unit" of this material. Typically {@link MaterialValues#VALUE_Ingot} for metal based materials.
+   * Gets the amount of fluid needed to produce one "unit" of this material. Typically {@link MaterialValues#INGOT} for metal based materials.
    * Will be 0 for non-fluids
    *
    * @return  Amount of fluid per unit.
