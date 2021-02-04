@@ -11,7 +11,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
@@ -26,6 +25,8 @@ import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.network.StationTabPacket;
 
 public class BaseStationScreen<TILE extends TileEntity & IInventory, CONTAINER extends BaseStationContainer<TILE>> extends MultiModuleScreen<CONTAINER> {
+  protected static final ITextComponent COMPONENT_WARNING = Util.makeTranslation("gui", "warning");
+  protected static final ITextComponent COMPONENT_ERROR = Util.makeTranslation("gui", "error");
 
   public static final ResourceLocation BLANK_BACK = Util.getResource("textures/gui/blank.png");
 
