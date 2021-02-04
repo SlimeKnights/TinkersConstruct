@@ -1,37 +1,21 @@
 package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 
-public class TinkerSlot extends Slot {
-
-  public boolean dormant;
-
-  public TinkerSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+/** Slot holding the tool in the tinker station */
+public class TinkerableSlot extends TinkerStationSlot {
+  public TinkerableSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
     super(inventoryIn, index, xPosition, yPosition);
   }
 
   @Override
   public boolean isItemValid(ItemStack stack) {
     // dormant slots don't take any items, they can only be taken out of
-    if (this.dormant) {
+    if (this.isDormant()) {
       return false;
     }
-
     return stack != ItemStack.EMPTY && stack.getItem() instanceof ITinkerStationDisplay;
-  }
-
-  public boolean isDormant() {
-    return this.dormant;
-  }
-
-  public void activate() {
-    this.dormant = false;
-  }
-
-  public void deactivate() {
-    this.dormant = true;
   }
 }

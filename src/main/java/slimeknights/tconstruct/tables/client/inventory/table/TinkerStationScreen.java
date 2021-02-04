@@ -33,17 +33,24 @@ import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInforma
 import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotPosition;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
 import slimeknights.tconstruct.tables.client.inventory.module.TinkerStationButtonsScreen;
-import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerSlot;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
-import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationInSlot;
+import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationInputSlot;
+import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationSlot;
+import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerableSlot;
 import slimeknights.tconstruct.tables.network.TinkerStationSelectionPacket;
 import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
 
 import java.util.List;
 import java.util.function.Function;
 
-public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEntity, TinkerStationContainer> {
+import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_COUNT;
+import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_SLOT;
+import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.TINKER_SLOT;
 
+public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEntity, TinkerStationContainer> {
+  private static final ITextComponent COMPONENT_WARNING = Util.makeTranslation("gui", "warning");
+  private static final ITextComponent COMPONENT_ERROR = Util.makeTranslation("gui", "error");
+  private static final ITextComponent COMPONENTS_TEXT = Util.makeTranslation("gui", "tinker_station.components");
   private static final ResourceLocation TINKER_STATION_TEXTURE = Util.getResource("textures/gui/tinker_station.png");
 
   private static final ElementScreen ACTIVE_TEXT_FIELD = new ElementScreen(0, 210, 91, 12, 256, 256);
@@ -61,7 +68,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   public static final ResourceLocation REPAIR_NAME = Util.getResource("repair");
 
   public static final int COLUMN_COUNT = 5;
-  private static final int TABLE_SLOT_COUNT = 6;
+  private static final int TABLE_SLOT_COUNT = INPUT_COUNT + 1;
 
   protected ElementScreen buttonDecorationTop = SLOT_SPACE_TOP;
   protected ElementScreen buttonDecorationBot = SLOT_SPACE_BOTTOM;
@@ -101,7 +108,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     SlotInformation slotInformation = SlotInformationLoader.get(TinkerStationScreen.REPAIR_NAME);
 
-    this.activeSlots = Math.min(slotInformation.getPoints().size(), TABLE_SLOT_COUNT);
+    this.activeSlots = Math.min(slotInformation.getPoints().size(), INPUT_COUNT);
     this.currentData = slotInformation;
   }
 
@@ -127,7 +134,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.modifierInfo.xOffset = this.tinkerInfo.xOffset;
     this.modifierInfo.yOffset = this.tinkerInfo.yOffset + this.tinkerInfo.ySize + 4;
 
-    for (ModuleScreen module : this.modules) {
+    for (ModuleScreen<?,?> module : this.modules) {
       module.guiTop += 4;
     }
 
@@ -145,46 +152,44 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   public void updateScreen() {
     int i;
 
+    // remaining slots
+    int stillFilled = 0;
+    Slot slot = this.container.getSlot(TINKER_SLOT);
+    SlotPosition toolPos = currentData.getToolSlot();
+    if (toolPos.isHidden()) {
+      // update position for other slots
+      slot.xPos = 87;
+      slot.yPos = 62;
+      stillFilled++;
+      if (slot instanceof TinkerStationSlot) {
+        ((TinkerableSlot) slot).deactivate();
+      }
+    } else {
+      slot.xPos = toolPos.getX();
+      slot.yPos = toolPos.getY();
+      if (slot instanceof TinkerableSlot) {
+        ((TinkerableSlot) slot).activate();
+      }
+    }
+
+    // visible slots
     for (i = 0; i < this.activeSlots; i++) {
-      Slot slot = this.container.getSlot(i);
+      slot = this.container.getSlot(i + INPUT_SLOT);
       SlotPosition point = this.currentData.getPoints().get(i);
 
       slot.xPos = point.getX();
       slot.yPos = point.getY();
 
-      if (slot instanceof TinkerStationInSlot) {
-        ((TinkerStationInSlot) slot).activate();
+      if (slot instanceof TinkerStationInputSlot) {
+        ((TinkerStationInputSlot) slot).activate();
       }
     }
 
-    if (!this.currentData.getToolSlot().isHidden()) {
-      Slot slot = this.container.getSlot(TinkerStationTileEntity.TINKER_SLOT);
-      SlotPosition position = this.currentData.getToolSlot();
-
-      slot.xPos = position.getX();
-      slot.yPos = position.getY();
-
-      if (slot instanceof TinkerSlot) {
-        ((TinkerSlot) slot).activate();
-      }
-    }
-
-    // remaining slots
-    int stillFilled = 0;
-
-    for (; i < TABLE_SLOT_COUNT; i++) {
-      Slot currentSlot = this.container.getSlot(i);
-
-      if (currentSlot instanceof TinkerStationInSlot) {
-        ((TinkerStationInSlot) currentSlot).deactivate();
-
-        currentSlot.xPos = 87 + 20 * stillFilled;
-        currentSlot.yPos = 62;
-        stillFilled++;
-      }
-
-      if (currentSlot instanceof TinkerSlot && this.currentData.getToolSlot().isHidden()) {
-        ((TinkerSlot) currentSlot).deactivate();
+    // hidden slots
+    for (; i < INPUT_COUNT; i++) {
+      Slot currentSlot = this.container.getSlot(i + INPUT_SLOT);
+      if (currentSlot instanceof TinkerStationInputSlot) {
+        ((TinkerStationInputSlot) currentSlot).deactivate();
 
         currentSlot.xPos = 87 + 20 * stillFilled;
         currentSlot.yPos = 62;
@@ -200,7 +205,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     ItemStack toolStack = this.container.getResult();
 
     if (toolStack.isEmpty()) {
-      toolStack = this.container.getSlot(TinkerStationTileEntity.TINKER_SLOT).getStack();
+      toolStack = this.container.getSlot(TINKER_SLOT).getStack();
     }
 
     if (toolStack.getItem() instanceof IModifiable) {
@@ -248,7 +253,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         IToolPart requirement = materialRequirements.get(i);
         IFormattableTextComponent textComponent = new StringTextComponent(" * ");
 
-        ItemStack slotStack = this.container.getSlot(i).getStack();
+        ItemStack slotStack = this.container.getSlot(i + INPUT_SLOT).getStack();
         if (requirement.asItem() != slotStack.getItem()) {
           textComponent.mergeStyle(TextFormatting.RED);
         }
@@ -257,8 +262,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         text.append(textComponent);
       }
 
-      this.modifierInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tinker_station.components"));
-
+      this.modifierInfo.setCaption(COMPONENTS_TEXT);
       this.modifierInfo.setText(text);
     }
   }
@@ -325,25 +329,21 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     RenderSystem.color4f(1.0f, 1.0f, 1.0f, 0.28f);
 
     for (int i = 0; i < this.activeSlots; i++) {
-      Slot slot = this.container.getSlot(i);
+      Slot slot = this.container.getSlot(i + INPUT_SLOT);
       SLOT_BACKGROUND.draw(matrices, x + this.cornerX + slot.xPos - 1, y + this.cornerY + slot.yPos - 1);
     }
 
     if (!this.currentData.getToolSlot().isHidden()) {
-      Slot slot = this.container.getSlot(TinkerStationTileEntity.TINKER_SLOT);
+      Slot slot = this.container.getSlot(TINKER_SLOT);
       SLOT_BACKGROUND.draw(matrices, x + this.cornerX + slot.xPos - 1, y + this.cornerY + slot.yPos - 1);
     }
 
     // full opaque. Draw the borders of the slots
     RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-    for (int i = 0; i < TABLE_SLOT_COUNT; i++) {
+    for (int i = 0; i <= INPUT_COUNT; i++) {
       Slot slot = this.container.getSlot(i);
-
-      if (slot instanceof TinkerStationInSlot && (!((TinkerStationInSlot) slot).isDormant() || slot.getHasStack())) {
-        SLOT_BORDER.draw(matrices, x + this.cornerX + slot.xPos - 1, y + this.cornerY + slot.yPos - 1);
-      }
-      else if (slot instanceof TinkerSlot && (!((TinkerSlot) slot).isDormant() || slot.getHasStack())) {
+      if ((slot instanceof TinkerStationSlot && (!((TinkerStationSlot) slot).isDormant() || slot.getHasStack()))) {
         SLOT_BORDER.draw(matrices, x + this.cornerX + slot.xPos - 1, y + this.cornerY + slot.yPos - 1);
       }
     }
@@ -355,12 +355,12 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     }
     else if (this.currentData.getItemStack().getItem() instanceof ToolCore) {
       for (int i = 0; i < this.activeSlots; i++) {
-        Slot slot = this.container.getSlot(i);
-        if (slot.getHasStack() || !(slot instanceof TinkerStationInSlot)) {
+        Slot slot = this.container.getSlot(i + INPUT_SLOT);
+        if (slot.getHasStack() || !(slot instanceof TinkerStationInputSlot)) {
           continue;
         }
 
-        ResourceLocation icon = ((TinkerStationInSlot) slot).getIcon();
+        ResourceLocation icon = ((TinkerStationInputSlot) slot).getIcon();
         if (icon != null) {
           this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
           Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
@@ -408,16 +408,18 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
   }
 
+  /** Draws the repair icons for all slots */
   protected void drawRepairSlotIcons(MatrixStack matrixStack) {
     for (int i = 0; i < this.activeSlots; i++) {
-      this.drawRepairSlotIcon(matrixStack, i);
+      this.drawRepairSlotIcon(matrixStack, i + INPUT_SLOT);
     }
 
     if (!this.currentData.getToolSlot().isHidden()) {
-      this.drawRepairSlotIcon(matrixStack, TinkerStationTileEntity.TINKER_SLOT);
+      this.drawRepairSlotIcon(matrixStack, TINKER_SLOT);
     }
   }
 
+  /** Draws the repair icon for the given slot */
   protected void drawRepairSlotIcon(MatrixStack matrixStack, int i) {
     ElementScreen icon = null;
     Slot slot = this.container.getSlot(i);
@@ -428,23 +430,25 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       return;
     }
 
-    if (i == 0) {
-      icon = Icons.QUARTZ;
-    }
-    else if (i == 1) {
-      icon = Icons.DUST;
-    }
-    else if (i == 2) {
-      icon = Icons.LAPIS;
-    }
-    else if (i == 3) {
-      icon = Icons.INGOT;
-    }
-    else if (i == 4) {
-      icon = Icons.GEM;
-    }
-    else if (i == 5) {
-      icon = Icons.PICKAXE;
+    switch (i) {
+      case 0:
+        icon = Icons.PICKAXE;
+        break;
+      case 1:
+        icon = Icons.QUARTZ;
+        break;
+      case 2:
+        icon = Icons.DUST;
+        break;
+      case 3:
+        icon = Icons.LAPIS;
+        break;
+      case 4:
+        icon = Icons.INGOT;
+        break;
+      case 5:
+        icon = Icons.GEM;
+        break;
     }
 
     if (icon != null) {
@@ -514,10 +518,10 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     boolean keyPressed = this.textField.keyPressed(keyCode, scanCode, modifiers);
 
-    if (keyPressed) {
+    //if (keyPressed) {
       //TinkerNetwork.getInstance().sendToServer(new ToolStationTextPacket(this.textField.getText()));
       //this.container.setToolName(textField.getText());
-    }
+    //}
 
     return keyPressed || this.textField.canWrite() || super.keyPressed(keyCode, scanCode, modifiers);
   }
@@ -543,8 +547,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   protected void insertText(String text, boolean setText) {
     if (setText) {
       this.textField.setText(text);
-    }
-    else {
+    } else {
       this.textField.writeText(text);
     }
   }
@@ -559,27 +562,17 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   @Override
   public void moveItems(MatrixStack matrixStack, Slot slotIn) {
     // don't draw dormant slots with no item
-    if (slotIn instanceof TinkerStationInSlot && ((TinkerStationInSlot) slotIn).isDormant() && !slotIn.getHasStack()) {
+    if (slotIn instanceof TinkerStationSlot && ((TinkerStationSlot) slotIn).isDormant() && !slotIn.getHasStack()) {
       return;
     }
-
-    if (slotIn instanceof TinkerSlot && ((TinkerSlot) slotIn).isDormant() && !slotIn.getHasStack()) {
-      return;
-    }
-
     super.moveItems(matrixStack, slotIn);
   }
 
   @Override
   public boolean isSlotSelected(Slot slotIn, double mouseX, double mouseY) {
-    if (slotIn instanceof TinkerStationInSlot && ((TinkerStationInSlot) slotIn).isDormant() && !slotIn.getHasStack()) {
+    if (slotIn instanceof TinkerStationSlot && ((TinkerStationSlot) slotIn).isDormant() && !slotIn.getHasStack()) {
       return false;
     }
-
-    if (slotIn instanceof TinkerSlot && ((TinkerSlot) slotIn).isDormant() && !slotIn.getHasStack()) {
-      return false;
-    }
-
     return super.isSlotSelected(slotIn, mouseX, mouseY);
   }
 
@@ -617,7 +610,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
   @Override
   public void error(ITextComponent message) {
-    this.tinkerInfo.setCaption(new TranslationTextComponent("gui.tconstruct.error"));
+    this.tinkerInfo.setCaption(COMPONENT_ERROR);
     this.tinkerInfo.setText(message);
     this.modifierInfo.setCaption(StringTextComponent.EMPTY);
     this.modifierInfo.setText(StringTextComponent.EMPTY);
@@ -625,7 +618,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
   @Override
   public void warning(ITextComponent message) {
-    this.tinkerInfo.setCaption(new TranslationTextComponent("gui.tconstruct.warning"));
+    this.tinkerInfo.setCaption(COMPONENT_WARNING);
     this.tinkerInfo.setText(message);
     this.modifierInfo.setCaption(StringTextComponent.EMPTY);
     this.modifierInfo.setText(StringTextComponent.EMPTY);
@@ -650,12 +643,22 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       requiredComponents = ((ToolCore)tool.getItem()).getToolDefinition().getRequiredComponents();
     }
 
-    for (int i = 0; i < this.tile.getSizeInventory(); i++) {
-      Slot slot = this.container.getSlot(i);
-      // set part icons for the slots
-      if (slot instanceof TinkerStationInSlot) {
-        TinkerStationInSlot toolPartSlot = (TinkerStationInSlot) slot;
+    Slot slot = this.container.getSlot(TINKER_SLOT);
+    if (slot instanceof TinkerableSlot) {
+      TinkerableSlot tinkerableSlot = (TinkerableSlot) slot;
+      if (data.getToolSlot().isHidden()) {
+        tinkerableSlot.deactivate();
+      }
+      else {
+        tinkerableSlot.activate();
+      }
+    }
 
+    for (int i = 0; i < INPUT_COUNT; i++) {
+      // set part icons for the slots
+      slot = this.container.getSlot(i + INPUT_SLOT);
+      if (slot instanceof TinkerStationInputSlot) {
+        TinkerStationInputSlot toolPartSlot = (TinkerStationInputSlot) slot;
         toolPartSlot.setIcon(null);
         if (i >= activeSlots) {
           toolPartSlot.deactivate();
@@ -665,17 +668,6 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
           if (requiredComponents != null && i < requiredComponents.size()) {
             toolPartSlot.setIcon(requiredComponents.get(i).asItem().getRegistryName());
           }
-        }
-      }
-
-      if (slot instanceof TinkerSlot) {
-        TinkerSlot tinkerSlot = (TinkerSlot) slot;
-
-        if (data.getToolSlot().isHidden()) {
-          tinkerSlot.deactivate();
-        }
-        else {
-          tinkerSlot.activate();
         }
       }
     }
