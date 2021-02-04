@@ -7,12 +7,13 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.recipe.ValidationResult;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -21,6 +22,8 @@ import java.util.function.IntConsumer;
 
 @RequiredArgsConstructor
 public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
+  private static final ValidatedResult FULLY_REPAIRED = ValidatedResult.failure(Util.makeTranslationKey("gui", "tool_repair.fully_repaired"));
+
   /** No action int consumer for recipe result */
   private static final IntConsumer NO_ACTION = i -> {};
 
@@ -66,13 +69,35 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public ValidationResult validate(ITinkerStationInventory inv) {
-    // ensure input needs repair. Done in validate as this is the correct recipe, just not currently applicable
-    ItemStack repairable = inv.getTinkerableStack();
-    if (repairable.getItem() instanceof IRepairable && !((IRepairable) repairable.getItem()).needsRepair(repairable)) {
-      return ValidationResult.failure("gui.tconstruct.tool_repair.fully_repaired");
+  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
+    ItemStack tinkerable = inv.getTinkerableStack();
+    if (!(tinkerable.getItem() instanceof IRepairable)) {
+      return ValidatedResult.PASS;
     }
-    return ValidationResult.SUCCESS;
+    // ensure input needs repair
+    if (!((IRepairable) tinkerable.getItem()).needsRepair(tinkerable)) {
+      return FULLY_REPAIRED;
+    }
+
+    // first, determine how much we can repair
+    IRepairable repairable = (IRepairable)tinkerable.getItem();
+    int repairNeeded = ToolDamageUtil.getCurrentDamage(tinkerable);
+    int repairRemaining = repairNeeded;
+
+    // iterate stacks, adding up amount we can repair, assumes the material is correct per #matches()
+    for (int i = 0; i < inv.getInputCount() && repairRemaining > 0; i++) {
+      repairRemaining -= repairFromSlot(inv, repairRemaining, i, NO_ACTION);
+    }
+
+    // did we actually repair something?
+    // TODO: this may be inconsistent if modifiers change repair amount, will have to handle mods here somewhere probably
+    if (repairRemaining < repairNeeded) {
+      // repair remaining can be negative
+      return ValidatedResult.success(repairable.repairItem(tinkerable.copy(), repairNeeded - Math.max(0, repairRemaining)));
+    }
+
+    // for some odd reason, did not repair anything
+    return ValidatedResult.success(tinkerable.copy());
   }
 
   /**
@@ -101,34 +126,6 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     }
 
     return 0;
-  }
-
-  @Override
-  public ItemStack getCraftingResult(ITinkerStationInventory inv) {
-    ItemStack tinkerable = inv.getTinkerableStack();
-    if (!(tinkerable.getItem() instanceof IRepairable)) {
-      return ItemStack.EMPTY;
-    }
-    IRepairable repairable = (IRepairable)tinkerable.getItem();
-
-    // first, determine how much we can repair
-    int repairNeeded = ToolDamageUtil.getCurrentDamage(tinkerable);
-    int repairRemaining = repairNeeded;
-
-    // iterate stacks, adding up amount we can repair, assumes the material is correct per #matches()
-    for (int i = 0; i < inv.getInputCount() && repairRemaining > 0; i++) {
-      repairRemaining -= repairFromSlot(inv, repairRemaining, i, NO_ACTION);
-    }
-
-    // did we actually repair something?
-    // TODO: this may be inconsistent if modifiers change repair amount, will have to handle mods here somewhere probably
-    if (repairRemaining < repairNeeded) {
-      // repair remaining can be negative
-      return repairable.repairItem(tinkerable.copy(), repairNeeded - Math.max(0, repairRemaining));
-    }
-
-    // for some odd reason, did not repair anything
-    return tinkerable;
   }
 
   @Override
