@@ -89,15 +89,12 @@ class MaterialManagerTest extends BaseMcTest {
   }
 
   @Test
-  void invalidTrait_ignore() {
-    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("invalid");
+  void invalidTrait_throwSyntaxException() {
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("bad_trait");
 
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
-
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
-    assertThat(allMaterials).hasSize(1);
-    IMaterial testMaterial = allMaterials.iterator().next();
-    assertThat(testMaterial.getTrait()).isNull();
+    assertThat(allMaterials).hasSize(0);
   }
 
   @Test

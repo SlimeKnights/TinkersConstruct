@@ -10,7 +10,6 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -41,7 +40,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       // buffer has a boolean stating if the trait is nonnull
       ModifierEntry trait = null;
       if (buffer.readBoolean()) {
-        trait = new ModifierEntry(buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS), buffer.readVarInt());
+        trait = ModifierEntry.read(buffer);
       }
       this.materials.add(new Material(id, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, trait));
     }
@@ -64,8 +63,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
         buffer.writeBoolean(false);
       } else {
         buffer.writeBoolean(true);
-        buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, trait.getModifier());
-        buffer.writeVarInt(trait.getLevel());
+        trait.write(buffer);
       }
     });
   }

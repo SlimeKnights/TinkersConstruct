@@ -14,11 +14,9 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Color;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
-import slimeknights.tconstruct.library.materials.json.TraitJson;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
@@ -46,6 +44,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+    .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -157,16 +156,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
                             .orElse(Material.WHITE);
 
       // parse trait
-      ModifierEntry trait = null;
-      TraitJson traitJson = materialJson.getTrait();
-      if (traitJson != null) {
-        ResourceLocation name = traitJson.getName();
-        if (!TinkerRegistries.EMPTY.equals(name) && TinkerRegistries.MODIFIERS.containsKey(name)) {
-          trait = new ModifierEntry(TinkerRegistries.MODIFIERS.getValue(name), traitJson.getLevel());
-        } else {
-          log.warn("Failed to find modifier {} for material {}", name, materialId);
-        }
-      }
+      ModifierEntry trait = materialJson.getTrait();
       return new Material(materialId, fluid, fluidPerUnit, isCraftable, color, temperature, trait);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
