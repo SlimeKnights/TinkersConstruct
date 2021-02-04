@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.TConstruct;
@@ -11,6 +10,8 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import javax.annotation.Nullable;
 
 public interface IMaterial {
+  /** ID of fallback material */
+  MaterialId UNKNOWN_ID = new MaterialId(TConstruct.modID, "unknown");
 
   /**
    * Fallback material. Used for operations where a material or specific aspects of a material are used,
@@ -19,7 +20,7 @@ public interface IMaterial {
    * <p>
    * The fallback material needs to have all part types associated with it.
    */
-  IMaterial UNKNOWN = new Material(new ResourceLocation(TConstruct.modID, "unknown"), Fluids.EMPTY, false);
+  IMaterial UNKNOWN = new Material(UNKNOWN_ID, Fluids.EMPTY, false);
 
   /**
    * Used to identify the material in NBT and other constructs.

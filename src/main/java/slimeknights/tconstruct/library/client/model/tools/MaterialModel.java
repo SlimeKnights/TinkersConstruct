@@ -43,7 +43,7 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.shared.TinkerClient;
 
 import javax.annotation.Nullable;
@@ -204,25 +204,25 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     @Override
     public IBakedModel getOverrideModel(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       // fetch the material from the stack
-      IMaterial material = IMaterialItem.getMaterialFromStack(stack);
+      MaterialId material = IMaterialItem.getMaterialFromStack(stack).getIdentifier();
       // if no material on the stack, try to fetch from the tool model
       // TODO: transfer into tool model to safe a ton of effort
-      if (material == IMaterial.UNKNOWN) {
+      if (IMaterial.UNKNOWN_ID.equals(material)) {
         // needs to have a valid index
         int index = this.index;
         if (index < 0) {
           return originalModel;
         }
         // fetch the tool material at the given index
-        material = ToolStack.from(stack).getMaterial(index);
+        material = MaterialIdNBT.from(stack).getMaterial(index);
 
         // material must exist
-        if (material == IMaterial.UNKNOWN) {
+        if (IMaterial.UNKNOWN_ID.equals(material)) {
           return originalModel;
         }
       }
       // cache all baked material models, they will not need to be recreated as materials will not change
-      return cache.computeIfAbsent(material.getIdentifier(), this::bakeDynamic);
+      return cache.computeIfAbsent(material, this::bakeDynamic);
     }
 
     /**

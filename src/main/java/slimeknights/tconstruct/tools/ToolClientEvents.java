@@ -22,17 +22,17 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModelLoader;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
-@SuppressWarnings("unused")
 @EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Bus.MOD)
 public class ToolClientEvents extends ClientEventBase {
 
@@ -93,9 +93,9 @@ public class ToolClientEvents extends ClientEventBase {
 
   /** Color handler instance for ToolCore */
   private static final IItemColor toolColorHandler = (stack, index) -> {
-    IMaterial material = ToolStack.from(stack).getMaterial(index);
-    if (material != IMaterial.UNKNOWN) {
-      return MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material.getIdentifier())
+    MaterialId material = MaterialIdNBT.from(stack).getMaterial(index);
+    if (!IMaterial.UNKNOWN_ID.equals(material)) {
+      return MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material)
                                               .map(IMaterialRenderInfo::getVertexColor)
                                               .orElse(-1);
     }

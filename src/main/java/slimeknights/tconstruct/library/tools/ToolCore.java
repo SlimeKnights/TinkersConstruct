@@ -30,7 +30,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -65,7 +64,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * An indestructible item constructed from different parts.
@@ -89,6 +87,9 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   /** Mining logic for the given tool */
   @Getter
   private final ToolMiningLogic toolMiningLogic;
+
+  /** Cached tool for rendering on UIs */
+  private ItemStack toolForRendering;
 
   public ToolCore(Properties properties, ToolDefinition toolDefinition) {
     this(properties.maxStackSize(1).setNoRepair(), toolDefinition, new ToolMiningLogic());
@@ -646,25 +647,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    * @return the tool to use for rendering
    */
   public ItemStack buildToolForRendering() {
-    if (MaterialRegistry.initialized()) {
-      List<IToolPart> requirements = this.getToolDefinition().getRequiredComponents();
-      List<IMaterial> toolMaterials = new ArrayList<>(requirements.size());
-      IMaterial material = IMaterial.UNKNOWN;
-
-      for (int i = 0; i < requirements.size(); i++) {
-        IToolPart requirement = requirements.get(i);
-        List<IMaterial> materials = MaterialRegistry.getInstance().getMaterials().stream().filter(requirement::canUseMaterial).collect(Collectors.toList());
-        if (material == IMaterial.UNKNOWN) {
-          material = materials.get(TConstruct.random.nextInt(materials.size()));
-        }
-
-        toolMaterials.add(i, material);
-      }
-
-      return ToolBuildHandler.buildItemFromMaterials(this, toolMaterials);
+    if (toolForRendering == null) {
+      toolForRendering = ToolBuildHandler.buildToolForRendering(this, this.getToolDefinition());
     }
-
-    return ItemStack.EMPTY;
+    return toolForRendering;
   }
 
   @Override
