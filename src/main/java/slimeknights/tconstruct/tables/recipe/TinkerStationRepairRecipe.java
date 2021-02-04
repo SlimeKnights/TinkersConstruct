@@ -22,7 +22,7 @@ import java.util.function.IntConsumer;
 
 @RequiredArgsConstructor
 public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
-  private static final ValidatedResult FULLY_REPAIRED = ValidatedResult.failure(Util.makeTranslationKey("gui", "tool_repair.fully_repaired"));
+  private static final ValidatedResult FULLY_REPAIRED = ValidatedResult.failure(Util.makeTranslationKey("recipe", "tool_repair.fully_repaired"));
 
   /** No action int consumer for recipe result */
   private static final IntConsumer NO_ACTION = i -> {};

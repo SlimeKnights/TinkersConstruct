@@ -702,8 +702,6 @@
     "block.tconstruct.modifier_chest.tooltip": "Holds modifier items",
     
     "item.tconstruct.pattern": "Pattern",
-
-    "gui.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
     
     "_comment": "Tinkers Tools",
     
@@ -1090,6 +1088,9 @@
     "gui.tconstruct.tinker_station.components": "Components",
     "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
     "gui.tconstruct.tinker_station.no_traits": "None :[",
+
+    "recipe.tconstruct.part_swapping.unswappable": "Part cannot be removed due to errors with modifiers",
+    "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
 
     "_comment": "GUIs Messages",
 
