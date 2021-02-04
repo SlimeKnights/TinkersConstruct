@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.materials.json;
 
 import lombok.Data;
 import net.minecraft.util.ResourceLocation;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
 
@@ -18,5 +19,5 @@ public class MaterialJson {
   @Nullable
   private final Integer temperature;
   @Nullable
-  private final TraitJson trait;
+  private final ModifierEntry trait;
 }

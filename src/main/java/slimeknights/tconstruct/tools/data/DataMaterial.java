@@ -8,6 +8,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
@@ -27,8 +28,9 @@ public class DataMaterial implements IMaterial {
   private final boolean craftable;
   @Getter
   private final Color color;
-  @Getter @Nullable
-  private final ModifierEntry trait;
+  @Nullable
+  private final Supplier<? extends Modifier> trait;
+  private final int traitLevel;
 
   @Override
   public Fluid getFluid() {
@@ -42,5 +44,14 @@ public class DataMaterial implements IMaterial {
       return 0;
     }
     return fluid.getAttributes().getTemperature() - 300;
+  }
+
+  @Nullable
+  @Override
+  public ModifierEntry getTrait() {
+    if (trait == null) {
+      return null;
+    }
+    return new ModifierEntry(trait.get(), traitLevel);
   }
 }

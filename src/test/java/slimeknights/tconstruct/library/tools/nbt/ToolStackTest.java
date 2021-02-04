@@ -436,7 +436,7 @@ class ToolStackTest extends ToolCoreTest {
     assertThat(toolStack.getModifiers()).isEqualTo(ModifierNBT.EMPTY);
 
     toolStack.addModifier(ModifierFixture.TEST_MODIFIER_1, 2);
-    assertThat(toolStack.getVolatileData()).isEqualTo(IModDataReadOnly.EMPTY);
+    assertThat(toolStack.getVolatileData()).isNotEqualTo(volatileData);
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_ENCHANTMENTS)).isFalse();
     assertThat(toolStack.getModifiers().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(2);
   }
