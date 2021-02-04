@@ -50,6 +50,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /** Cached text component for display names */
   @Nullable
   private ITextComponent displayName;
+  /** Cached text component for description */
+  @Nullable
+  private ITextComponent description;
 
   /**
    * Override this method to make your modifier run earlier or later.
@@ -130,6 +133,17 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
       displayName = new TranslationTextComponent(getTranslationKey()).modifyStyle(style -> style.setColor(Color.fromInt(color)));
     }
     return displayName;
+  }
+
+  /**
+   * Gets the description for this modifier
+   * @return  Description for this modifier
+   */
+  public final ITextComponent getDescription() {
+    if (description == null) {
+      description = new TranslationTextComponent(getTranslationKey() + ".description");
+    }
+    return description;
   }
 
   /**
@@ -234,5 +248,4 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param event  Event instance
    */
 	public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
-
 }

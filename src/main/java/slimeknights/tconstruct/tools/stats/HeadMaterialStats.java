@@ -37,7 +37,7 @@ public class HeadMaterialStats extends BaseMaterialStats {
   private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip("head.mining_speed.description");
   private static final ITextComponent ATTACK_DESCRIPTION = makeTooltip("head.attack.description");
   private static final ITextComponent HARVEST_LEVEL_DESCRIPTION = makeTooltip("head.harvest_level.description");
-  private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, MINING_SPEED_DESCRIPTION, ATTACK_DESCRIPTION, HARVEST_LEVEL_DESCRIPTION);
+  private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, HARVEST_LEVEL_DESCRIPTION, MINING_SPEED_DESCRIPTION, ATTACK_DESCRIPTION);
 
   public final static Color DURABILITY_COLOR = Color.fromInt(0xFF47cc47);
   public final static Color MINING_SPEED_COLOR = Color.fromInt(0xFF78A0CD);

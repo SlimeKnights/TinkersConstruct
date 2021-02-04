@@ -21,11 +21,14 @@ import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
@@ -40,6 +43,7 @@ import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerableSl
 import slimeknights.tconstruct.tables.network.TinkerStationSelectionPacket;
 import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -51,6 +55,17 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   private static final ITextComponent COMPONENT_WARNING = Util.makeTranslation("gui", "warning");
   private static final ITextComponent COMPONENT_ERROR = Util.makeTranslation("gui", "error");
   private static final ITextComponent COMPONENTS_TEXT = Util.makeTranslation("gui", "tinker_station.components");
+
+  private static final ITextComponent MODIFIERS_TEXT = Util.makeTranslation("gui", "tinker_station.modifiers");
+  private static final ITextComponent REPAIR_TEXT = Util.makeTranslation("gui", "tinker_station.repair");
+  private static final ITextComponent ASCII_ANVIL = new StringTextComponent("\n\n")
+    .appendString("       .\n")
+    .appendString("     /( _________\n")
+    .appendString("     |  >:=========`\n")
+    .appendString("     )(  \n")
+    .appendString("     \"\"")
+    .mergeStyle(TextFormatting.DARK_GRAY);
+
   private static final ResourceLocation TINKER_STATION_TEXTURE = Util.getResource("textures/gui/tinker_station.png");
 
   private static final ElementScreen ACTIVE_TEXT_FIELD = new ElementScreen(0, 210, 91, 12, 256, 256);
@@ -212,6 +227,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       if (toolStack.getItem() instanceof ITinkerStationDisplay) {
         ITinkerStationDisplay tool = (ITinkerStationDisplay) toolStack.getItem();
         this.tinkerInfo.setCaption(tool.getLocalizedName());
+        // TODO: tooltips
         this.tinkerInfo.setText(tool.getInformation(toolStack));
       }
       else {
@@ -219,26 +235,26 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         this.tinkerInfo.setText();
       }
 
-      this.modifierInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tinker_station.modifiers"));
-      this.modifierInfo.setText(((IModifiable)toolStack.getItem()).getTraits(toolStack));
+      // TODO: generalize to all modifiable tools
+      ToolStack tool = ToolStack.from(toolStack);
+      List<ITextComponent> modifiers = new ArrayList<>();
+      List<ITextComponent> modifierInfo = new ArrayList<>();
+      for (ModifierEntry entry : tool.getModifierList()) {
+        Modifier mod = entry.getModifier();
+        modifiers.add(mod.getDisplayName(entry.getLevel()));
+        modifierInfo.add(mod.getDescription());
+      }
 
+      this.modifierInfo.setCaption(MODIFIERS_TEXT);
+      this.modifierInfo.setText(modifiers, modifierInfo);
     }
     // Repair info
     else if (this.currentData.getItemStack().isEmpty()) {
-      this.tinkerInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tinker_station.repair"));
+      this.tinkerInfo.setCaption(REPAIR_TEXT);
       this.tinkerInfo.setText();
 
       this.modifierInfo.setCaption(StringTextComponent.EMPTY);
-
-      IFormattableTextComponent textComponent = new StringTextComponent("\n\n")
-        .appendString("       .\n")
-        .appendString("     /( _________\n")
-        .appendString("     |  >:=========`\n")
-        .appendString("     )(  \n")
-        .appendString("     \"\"")
-        .mergeStyle(TextFormatting.DARK_GRAY);
-
-      this.modifierInfo.setText(textComponent);
+      this.modifierInfo.setText(ASCII_ANVIL);
     }
     // tool build info
     // TODO: not all tinkerable is tool core, switch to IModifyable?

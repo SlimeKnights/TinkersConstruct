@@ -15,7 +15,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
@@ -173,10 +172,10 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       if (!info.isEmpty()) {
         stats.add(stat.getLocalizedName().mergeStyle(TextFormatting.UNDERLINE));
         stats.addAll(info);
-        stats.add(new StringTextComponent(""));
-        tips.add(new StringTextComponent(""));
+        stats.add(StringTextComponent.EMPTY);
+        tips.add(StringTextComponent.EMPTY);
         tips.addAll(stat.getLocalizedDescriptions());
-        tips.add(new StringTextComponent(""));
+        tips.add(StringTextComponent.EMPTY);
       }
     }
 
