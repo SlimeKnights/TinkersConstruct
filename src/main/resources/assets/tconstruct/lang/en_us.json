@@ -982,29 +982,51 @@
 
     "modifier.tconstruct.empty": "Invalid modifier",
 
+    "__comment": "Tier 2 Modifiers",
+    "modifier.tconstruct.writable": "Writable",
+    "modifier.tconstruct.writable.description": "§oIntellectual!§r\nMore words. More Modifiers. It's only logical!",
+    "modifier.tconstruct.emerald": "Emerald",
+    "modifier.tconstruct.emerald.description": "§oFancy!§r\nIncreases durability depending on base stats!",
+
+    "__comment": "Tier 3 Modifiers",
+    "modifier.tconstruct.silky": "Silky",
+    "modifier.tconstruct.silky.description": "§oSmooth as silk!§r\nMined blocks drop themselves instead of the usual items.",
+    "modifier.tconstruct.diamond": "Diamond",
+    "modifier.tconstruct.diamond.description": "§oShiny!§r\nIncreased durability and stats!",
+
+    "__comment": "Tier 4 Modifiers",
+    "modifier.tconstruct.netherite": "Netherite",
+    "modifier.tconstruct.netherite.description": "§oAncient!§r\nHarness the power of ancient metal in your tools!",
+
     "__comment": "Tier 1 Traits",
     "modifier.tconstruct.cultivated": "Cultivated",
     "modifier.tconstruct.cultivated.description": "Tool practically grows more material when repairing",
     "modifier.tconstruct.fractured": "Fractured",
     "modifier.tconstruct.fractured.description": "Tool is extra sharp due to the broken bits of bone",
 
+    "__comment": "Tier 2 Traits",
     "modifier.tconstruct.reinforced": "Reinforced",
     "modifier.tconstruct.reinforced.description": "Tool is less likely to take damage",
     "modifier.tconstruct.dwarfish": "Dwarfish",
     "modifier.tconstruct.dwarfish.description": "Tool mines faster the deeper you mine, just don't mine too deep",
-
     "modifier.tconstruct.enhanced": "Enhanced",
     "modifier.tconstruct.enhanced.description": "Tool can be upgraded with additional bling",
+
+    "__comment": "Tier 3 Traits",
     "modifier.tconstruct.lightweight": "Lightweight",
     "modifier.tconstruct.lightweight.description": "Tool is incredibly light, allowing faster attacking and mining",
 
+    "__comment": "Tier 4 Traits",
     "modifier.tconstruct.overlord": "Overlord",
     "modifier.tconstruct.overlord.description": "Tool rules over a greater amount of overslime",
 
+    "__comment": "Tier 2 Mod Compat Traits",
     "modifier.tconstruct.heavy": "Heavy",
     "modifier.tconstruct.heavy.description": "Hard to move while wielding, but it packs a heavy punch",
     "modifier.tconstruct.smite": "Smite",
     "modifier.tconstruct.smite.description": "Let the undead fall to the might of your blade",
+
+    "__comment": "Tier 3 Mod Compat Traits",
     "modifier.tconstruct.sturdy": "Sturdy",
     "modifier.tconstruct.sturdy.description": "Made from the longest lasting steel",
 
@@ -1091,6 +1113,11 @@
 
     "recipe.tconstruct.part_swapping.unswappable": "Part cannot be removed due to errors with modifiers",
     "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
+
+    "recipe.tconstruct.modifier.not_enough_upgrades": "Need at least %s upgrade slots to add this modifier",
+    "recipe.tconstruct.modifier.not_enough_abilities": "Need at least %s ability slots to add this modifier",
+    "recipe.tconstruct.modifier.low_harvest_level": "Must have a harvest level of at least %s to add this modifier",
+    "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
 
     "_comment": "GUIs Messages",
 

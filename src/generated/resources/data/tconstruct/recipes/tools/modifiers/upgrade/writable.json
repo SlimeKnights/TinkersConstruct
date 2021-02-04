@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:writable_book"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:writable",
+    "level": 1
+  },
+  "max_level": 1
+}

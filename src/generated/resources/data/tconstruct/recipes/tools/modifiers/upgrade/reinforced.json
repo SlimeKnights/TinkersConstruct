@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:reinforcement"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:reinforced",
+    "level": 1
+  },
+  "max_level": 3,
+  "upgrade_slots": 1
+}

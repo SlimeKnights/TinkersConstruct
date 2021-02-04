@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:diamond"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:diamond",
+    "level": 1
+  },
+  "max_level": 1,
+  "upgrade_slots": 1,
+  "min_harvest_level": 2
+}

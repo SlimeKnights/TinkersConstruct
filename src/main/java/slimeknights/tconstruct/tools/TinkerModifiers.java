@@ -11,16 +11,20 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
+import slimeknights.tconstruct.tools.modifiers.ExtraModifier;
 import slimeknights.tconstruct.tools.modifiers.LevelDamageModifier;
+import slimeknights.tconstruct.tools.modifiers.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DwarfishModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.EnhancedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.LightweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SmiteModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.SilkyModifier;
 
 import java.util.function.Supplier;
 
@@ -57,6 +61,17 @@ public final class TinkerModifiers extends TinkerModule {
    */
   public static final RegistryObject<Modifier> empty = MODIFIERS.register("empty", () -> new Modifier(-1));
 
+  // upgrades - tier 2
+  public static final RegistryObject<ExtraModifier> writable = MODIFIERS.register("writable", () -> new ExtraModifier(0xffffff, true));
+  public static final RegistryObject<EmeraldModifier> emerald = MODIFIERS.register("emerald", EmeraldModifier::new);
+
+  // upgrades - tier 3
+  public static final RegistryObject<DiamondModifier> diamond = MODIFIERS.register("diamond", DiamondModifier::new);
+  public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
+
+  // upgrades - tier 4
+  public static final RegistryObject<NetheriteModifier> netherite = MODIFIERS.register("netherite", NetheriteModifier::new);
+
   // traits - tier 1
   public static final RegistryObject<CultivatedModifier> cultivated = MODIFIERS.register("cultivated", CultivatedModifier::new);
   public static final RegistryObject<LevelDamageModifier> fractured = MODIFIERS.register("fractured", () -> new LevelDamageModifier(0xede6bf, 1.5f));
@@ -64,7 +79,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ReinforcedModifier> reinforced = MODIFIERS.register("reinforced", ReinforcedModifier::new);
   public static final RegistryObject<DwarfishModifier> dwarfish = MODIFIERS.register("dwarfish", DwarfishModifier::new);
   // traits - tier 3
-  public static final RegistryObject<EnhancedModifier> enhanced = MODIFIERS.register("enhanced", EnhancedModifier::new);
+  public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(0xffdbcc, false));
   public static final RegistryObject<LightweightModifier> lightweight = MODIFIERS.register("lightweight", LightweightModifier::new);
   // traits - tier 4
   public static final RegistryObject<OverlordModifier> overlord = MODIFIERS.register("overlord", OverlordModifier::new);
