@@ -51,6 +51,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolMiningLogic;
 import slimeknights.tconstruct.library.tools.helper.TraitUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.library.utils.TooltipType;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -112,14 +113,19 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public boolean hasCustomEntity(ItemStack stack) {
-    return true;
+    // only indestructible when netherite mining level or higher
+    return ToolStack.from(stack).getStats().getHarvestLevel() >= HarvestLevels.NETHERITE;
   }
 
   @Override
-  public Entity createEntity(World world, Entity original, ItemStack itemstack) {
-    IndestructibleEntityItem entity = new IndestructibleEntityItem(world, original.getPosX(), original.getPosY(), original.getPosZ(), itemstack);
-    entity.setPickupDelayFrom(original);
-    return entity;
+  public Entity createEntity(World world, Entity original, ItemStack stack) {
+    // only indestructible when netherite mining level or higher
+    if (ToolStack.from(stack).getStats().getHarvestLevel() >= HarvestLevels.NETHERITE) {
+      IndestructibleEntityItem entity = new IndestructibleEntityItem(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
+      entity.setPickupDelayFrom(original);
+      return entity;
+    }
+    return null;
   }
 
   /* Damage/Durability */

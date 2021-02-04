@@ -23,8 +23,10 @@ import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuild
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -118,6 +120,47 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .setGroup(TinkerModifiers.silkyJewel.getRegistryName().toString())
                        .build(consumer, prefix(TinkerModifiers.silkyJewel, folder));
     registerPackingRecipe(consumer, "block", TinkerModifiers.silkyJewelBlock, "gem", TinkerModifiers.silkyJewel, folder);
+
+    // upgrades
+    String upgradeFolder = folder + "upgrade/";
+
+    // tier 2
+    ModifierRecipeBuilder.modifier(TinkerModifiers.writable.get())
+                         .addInput(Items.WRITABLE_BOOK)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.writable, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
+                         .addInput(TinkerModifiers.reinforcement)
+                         .setMaxLevel(3)
+                         .setUpgradeSlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.reinforced, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.emerald.get())
+                         .addInput(Items.EMERALD)
+                         .setMaxLevel(1)
+                         .setUpgradeSlots(1)
+                         .minHarvestLevel(HarvestLevels.STONE)
+                         .build(consumer, prefixR(TinkerModifiers.emerald, upgradeFolder));
+
+    // tier 3
+    ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())
+                         .addInput(TinkerModifiers.silkyJewel)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.silky, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.diamond.get())
+                         .addInput(Items.DIAMOND)
+                         .setMaxLevel(1)
+                         .setUpgradeSlots(1)
+                         .minHarvestLevel(HarvestLevels.IRON)
+                         .build(consumer, prefixR(TinkerModifiers.diamond, upgradeFolder));
+
+    // tier 4
+    ModifierRecipeBuilder.modifier(TinkerModifiers.netherite.get())
+                         .addInput(Tags.Items.INGOTS_NETHERITE)
+                         .setMaxLevel(1)
+                         .setUpgradeSlots(1)
+                         .minHarvestLevel(HarvestLevels.DIAMOND)
+                         .build(consumer, prefixR(TinkerModifiers.netherite, upgradeFolder));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {

@@ -47,7 +47,9 @@ public class ModDataNBT implements IModDataReadOnly {
 
   /** Adds the given number of upgrades, use negative to remove */
   public void addUpgrades(int add) {
-    setUpgrades(upgrades + add);
+    if (add != 0) {
+      setUpgrades(upgrades + add);
+    }
   }
 
   /** Updates the ability slots */
@@ -58,7 +60,9 @@ public class ModDataNBT implements IModDataReadOnly {
 
   /** Adds the given number of ability slots, use negative to remove */
   public void addAbilities(int add) {
-    setAbilities(abilities + add);
+    if (add != 0) {
+      setAbilities(abilities + add);
+    }
   }
 
   @Override
