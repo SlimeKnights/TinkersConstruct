@@ -148,15 +148,26 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /* Tool building hooks */
 
   /**
-   * Adds any relevant volatile data to the tool data. This data is rebuilt every time modifiers rebuild
+   * Adds any relevant volatile data to the tool data. This data is rebuilt every time modifiers rebuild.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>Persistent mod data (accessed via {@link IModifierToolStack}): Can be written to freely, but will not automatically remove if the modifier is removed.</li>
+   * </ul>
    * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
-   * @param level  Modifier level
-   * @param data   Mutable mod NBT data
+   * @param level           Modifier level
+   * @param volatileData    Mutable mod NBT data, result of this method
    */
-  public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT data) {}
+  public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {}
 
   /**
-   * Adds raw stats to the tool. Called whenever modifiers are rebuilt
+   * Adds raw stats to the tool. Called whenever tool stats are rebuilt.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #addAttributes(IModifierToolStack, int, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
+   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
+   * </ul>
    * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
    * @param volatileData    Modifier NBT calculated from modifiers in {@link #addVolatileData(IModDataReadOnly, int, ModDataNBT)}
    * @param level           Modifier level
@@ -165,16 +176,21 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void addToolStats(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {}
 
   /**
-   * Adds enchantments from this modifier's effect
+   * Adds enchantments from this modifier's effect. Used when an enchantment must be used for compatibility in vanilla, in general try to use a different hook.
    * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
    * @param volatileData    Modifier NBT calculated from modifiers in {@link #addVolatileData(IModDataReadOnly, int, ModDataNBT)}
-   * @param level     Modifier level
+   * @param level           Modifier level
    * @param consumer  Consumer accepting any enchantments
    */
   public void addEnchantments(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, BiConsumer<Enchantment, Integer> consumer) {}
 
   /**
-   * Adds attributes from this modifier's effect
+   * Adds attributes from this modifier's effect. Called whenever the item stack refreshes capabilities.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but can affect durability, mining level, and mining speed.</li>
+   * </ul>
    * @param tool      Current tool instance
    * @param level     Modifier level
    * @param consumer  Attribute consumer
@@ -185,29 +201,34 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /* Hooks */
 
   /**
-   * Called when the tool is damaged. Returns the amount of damage dealt
+   * Called when the tool is damaged. Can be used to cancel, decrease, or increase the damage.
    * @param toolStack  Tool stack
    * @param level      Tool level
    * @param amount     Amount of damage to deal
-   * @return  Replacement damage. Returning 0 cancels the damage, or the damage can be made higher
+   * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
    */
   public int onDamage(IModifierToolStack toolStack, int level, int amount) {
     return amount;
   }
 
   /**
-   * Called when the tool is repair. Returns the amount to repair
+   * Called when the tool is repair. Can be used to decrease, increase, or cancel the repair.
+   * Note canceling it may give unexpected behavior at the tool station.
    * @param toolStack  Tool stack
    * @param level      Tool level
    * @param amount     Amount of damage to deal
-   * @return  Replacement damage. Returning 0 cancels the damage, or the damage can be made higher
+   * @return  Replacement damage. Returning 0 cancels the repair and stops other modifiers from processing.
    */
   public int onRepair(IModifierToolStack toolStack, int level, int amount) {
     return amount;
   }
 
   /**
-   * Called when break speed is being calculated to affect mining speed conditionally
+   * Called when break speed is being calculated to affect mining speed conditionally.
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but effect shows in the tooltip.</li>
+   * </ul>
    * @param tool   Current tool instance
    * @param level  Modifier level
    * @param event  Event instance

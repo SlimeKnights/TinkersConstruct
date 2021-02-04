@@ -14,12 +14,12 @@ public class OverlordModifier extends Modifier {
   }
 
   @Override
-  public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT data) {
+  public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     int current = 50;
-    if (data.contains(OVERSLIME_CAP, NBT.TAG_ANY_NUMERIC)) {
-      current = data.getInt(OVERSLIME_CAP);
+    if (volatileData.contains(OVERSLIME_CAP, NBT.TAG_ANY_NUMERIC)) {
+      current = volatileData.getInt(OVERSLIME_CAP);
     }
     // extra 50 per level
-    data.putInt(OVERSLIME_CAP, current + level * 50);
+    volatileData.putInt(OVERSLIME_CAP, current + level * 50);
   }
 }
