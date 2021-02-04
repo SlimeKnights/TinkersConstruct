@@ -7,9 +7,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -22,6 +24,8 @@ import java.util.List;
  */
 @AllArgsConstructor
 public class TinkerStationPartSwapping implements ITinkerStationRecipe {
+  private static final ValidatedResult UNSWAPPABLE = ValidatedResult.failure(Util.makeTranslationKey("recipe", "part_swapping.unswappable"));
+
   @Getter
   protected final ResourceLocation id;
 
@@ -61,9 +65,9 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   }
 
   @Override
-  public ItemStack getCraftingResult(ITinkerStationInventory inv) {
+  public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
     // copy the tool NBT to ensure the original tool is intact
-    ToolStack tool = ToolStack.copyFrom(inv.getTinkerableStack());
+    ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     List<IToolPart> parts = tool.getDefinition().getRequiredComponents();
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
@@ -71,13 +75,13 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         // not tool part, should never happen
         Item item = stack.getItem();
         if (!(item instanceof IToolPart)) {
-          return ItemStack.EMPTY;
+          return ValidatedResult.PASS;
         }
 
         // ensure the part is valid
         IMaterial partMaterial = ((IToolPart)item).getMaterial(stack);
         if (partMaterial == IMaterial.UNKNOWN) {
-          return ItemStack.EMPTY;
+          return ValidatedResult.PASS;
         }
 
         // we have a part and its not at this index, find the first copy of this part
@@ -86,23 +90,28 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         if (i >= parts.size() || parts.get(i).asItem() != item) {
           index = parts.indexOf(item);
           if (index == -1) {
-            return ItemStack.EMPTY;
+            return ValidatedResult.PASS;
           }
         }
 
         // ensure there is a change in the part
         IMaterial toolMaterial = tool.getMaterial(index);
         if (toolMaterial == partMaterial) {
-          return ItemStack.EMPTY;
+          return ValidatedResult.PASS;
         }
 
         // actual update
+        tool = tool.copy();
         tool.replaceMaterial(index, partMaterial);
-        return tool.createStack();
+
+        if (!tool.isValid()) {
+          return UNSWAPPABLE;
+        }
+        return ValidatedResult.success(tool.createStack());
       }
     }
     // no item found, should never happen
-    return ItemStack.EMPTY;
+    return ValidatedResult.PASS;
   }
 
   @Override
