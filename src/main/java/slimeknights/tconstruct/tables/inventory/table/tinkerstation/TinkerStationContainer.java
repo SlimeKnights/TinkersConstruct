@@ -12,9 +12,7 @@ import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStati
 import javax.annotation.Nullable;
 
 public class TinkerStationContainer extends BaseStationContainer<TinkerStationTileEntity> {
-
   private final LazyResultSlot resultSlot;
-  private final TinkerSlot tinkerSlot;
 
   /**
    * Standard constructor
@@ -30,20 +28,19 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       // send the player the current recipe, as we only sync to open containers
       tile.syncRecipe(inv.player);
 
+
+      this.addSlot(new TinkerableSlot(tile, TinkerStationTileEntity.TINKER_SLOT, 0, 0));
+
       int index;
-
       for (index = 0; index < tile.getSizeInventory() - 1; index++) {
-        this.addSlot(new TinkerStationInSlot(tile, index, 0, 0));
+        this.addSlot(new TinkerStationInputSlot(tile, index + TinkerStationTileEntity.INPUT_SLOT, 0, 0));
       }
-
-      this.addSlot(this.tinkerSlot = new TinkerSlot(tile, TinkerStationTileEntity.TINKER_SLOT, 0, 0));
 
       // add result slot, will fetch result cache
       this.addSlot(this.resultSlot = new LazyResultSlot(tile.getCraftingResult(), 124, 37));
     }
     else {
       // requirement for final variable
-      this.tinkerSlot = null;
       this.resultSlot = null;
     }
 
@@ -70,6 +67,11 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
     return slot != this.resultSlot && super.canMergeSlot(stack, slot);
   }
 
+  /**
+   * Updates the active slots from the screen
+   * @param activeSlots     Active slots
+   * @param mainSlotHidden  If true, main slot is hidden
+   */
   public void setToolSelection(int activeSlots, boolean mainSlotHidden) {
     assert this.tile != null;
 
@@ -80,24 +82,13 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
     for (int i = 0; i < this.tile.getSizeInventory(); i++) {
       Slot slot = this.inventorySlots.get(i);
 
-      if (slot instanceof TinkerStationInSlot) {
-        TinkerStationInSlot slotToolPart = (TinkerStationInSlot) slot;
-
-        if (i >= activeSlots) {
+      if (slot instanceof TinkerStationSlot) {
+        TinkerStationSlot slotToolPart = (TinkerStationSlot) slot;
+        if (i == TinkerStationTileEntity.TINKER_SLOT ? mainSlotHidden : i > activeSlots) {
           slotToolPart.deactivate();
         }
         else {
           slotToolPart.activate();
-        }
-      }
-      else if (slot instanceof TinkerSlot) {
-        TinkerSlot tinkerSlot = (TinkerSlot) slot;
-
-        if (mainSlotHidden) {
-          tinkerSlot.deactivate();
-        }
-        else {
-          tinkerSlot.activate();
         }
       }
     }

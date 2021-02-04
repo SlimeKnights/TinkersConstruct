@@ -11,12 +11,16 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStatio
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class TinkerStationInventoryWrapper implements IMutableTinkerStationInventory {
-  private static final int INPUT_COUNT = 5;
+import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_COUNT;
+import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_SLOT;
+import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.TINKER_SLOT;
 
+public class TinkerStationInventoryWrapper implements IMutableTinkerStationInventory {
   private final TinkerStationTileEntity station;
+  /** Cache of the material recipes found in each slot */
   private final MaterialRecipe[] materials = new MaterialRecipe[INPUT_COUNT];
-  private final boolean[] foundMaterial = new boolean[INPUT_COUNT];
+  /** Cache of whether each slot has been searched for a material */
+  private final boolean[] searchedMaterial = new boolean[INPUT_COUNT];
 
   private MaterialRecipe lastMaterialRecipe;
   @Nullable
@@ -61,15 +65,15 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
    * Clears the cached inputs
    */
   public void refreshInput(int slot) {
-    if (slot >= 0 && slot < INPUT_COUNT) {
-      this.materials[slot] = null;
-      this.foundMaterial[slot] = false;
+    if (slot >= INPUT_SLOT && slot < INPUT_COUNT + INPUT_SLOT) {
+      this.materials[slot - 1] = null;
+      this.searchedMaterial[slot - 1] = false;
     }
   }
 
   @Override
   public ItemStack getTinkerableStack() {
-    return this.station.getStackInSlot(TinkerStationTileEntity.TINKER_SLOT);
+    return this.station.getStackInSlot(TINKER_SLOT);
   }
 
   @Override
@@ -77,7 +81,7 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
     if (index < 0 || index >= INPUT_COUNT) {
       return ItemStack.EMPTY;
     }
-    return this.station.getStackInSlot(index);
+    return this.station.getStackInSlot(index + TinkerStationTileEntity.INPUT_SLOT);
   }
 
   @Override
@@ -91,9 +95,9 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
     if (index < 0 || index >= INPUT_COUNT) {
       return null;
     }
-    if (!foundMaterial[index]) {
+    if (!searchedMaterial[index]) {
       materials[index] = findMaterialRecipe(getInput(index));
-      foundMaterial[index] = true;
+      searchedMaterial[index] = true;
     }
     return materials[index];
   }
@@ -101,7 +105,7 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
   @Override
   public void setInput(int index, ItemStack stack) {
     if (index >= 0 && index < INPUT_COUNT) {
-      this.station.setInventorySlotContents(index, stack);
+      this.station.setInventorySlotContents(index + TinkerStationTileEntity.INPUT_SLOT, stack);
     }
   }
 

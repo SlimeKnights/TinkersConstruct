@@ -31,9 +31,12 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 
 public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
-
-  public static final int TINKER_SLOT = 5;
-  public static final int OUTPUT_SLOT = 0;
+  /** Slot index of the tool slot */
+  public static final int TINKER_SLOT = 0;
+  /** Slot index of the first input slot */
+  public static final int INPUT_SLOT = 1;
+  /** Slot index of the first input slot */
+  public static final int INPUT_COUNT = 5;
 
   /** Last crafted crafting recipe */
   @Nullable
