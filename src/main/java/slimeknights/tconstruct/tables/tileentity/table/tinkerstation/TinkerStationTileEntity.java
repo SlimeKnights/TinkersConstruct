@@ -17,8 +17,8 @@ import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.ValidationResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
@@ -93,19 +93,21 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
         }
 
         // try for UI errors
-        ValidationResult validationResult = recipe.validate(this.inventoryWrapper);
-        if (validationResult.isSuccess()) {
-          result = recipe.getCraftingResult(this.inventoryWrapper);
-        } else if (validationResult.hasMessage()) {
+        ValidatedResult validatedResult = recipe.getValidatedResult(this.inventoryWrapper);
+        if (validatedResult.isSuccess()) {
+          result = validatedResult.getResult();
+        } else if (validatedResult.hasMessage()) {
           this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
-          this.screenSyncMessage = validationResult.getMessage();
+          this.screenSyncMessage = validatedResult.getMessage();
         }
       }
     }
     // client side only needs to update result, server syncs message elsewhere
-    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)
-             && this.lastRecipe.validate(this.inventoryWrapper).isSuccess()) {
-      result = this.lastRecipe.getCraftingResult(this.inventoryWrapper);
+    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)) {
+      ValidatedResult validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
+      if (validatedResult.isSuccess()) {
+        result = validatedResult.getResult();
+      }
     }
 
     this.syncToRelevantPlayers(this::syncScreen);
