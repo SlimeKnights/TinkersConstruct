@@ -23,6 +23,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.SmiteModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.FireproofModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SilkyModifier;
 
@@ -70,6 +71,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
 
   // upgrades - tier 4
+  public static final RegistryObject<FireproofModifier> fireproof = MODIFIERS.register("fireproof", () -> new FireproofModifier(0x7E6059));
   public static final RegistryObject<NetheriteModifier> netherite = MODIFIERS.register("netherite", NetheriteModifier::new);
 
   // traits - tier 1
