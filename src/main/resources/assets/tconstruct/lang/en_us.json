@@ -984,20 +984,32 @@
 
     "modifier.tconstruct.empty": "Invalid modifier",
 
+    "__comment": "Tier 1 Traits",
     "modifier.tconstruct.cultivated": "Cultivated",
+    "modifier.tconstruct.cultivated.description": "Tool practically grows more material when repairing",
     "modifier.tconstruct.fractured": "Fractured",
+    "modifier.tconstruct.fractured.description": "Tool is extra sharp due to the broken bits of bone",
 
     "modifier.tconstruct.reinforced": "Reinforced",
+    "modifier.tconstruct.reinforced.description": "Tool is less likely to take damage",
     "modifier.tconstruct.dwarfish": "Dwarfish",
+    "modifier.tconstruct.dwarfish.description": "Tool mines faster the deeper you mine, just don't mine too deep",
 
     "modifier.tconstruct.enhanced": "Enhanced",
+    "modifier.tconstruct.enhanced.description": "Tool can be upgraded with additional bling",
     "modifier.tconstruct.lightweight": "Lightweight",
+    "modifier.tconstruct.lightweight.description": "Tool is incredibly light, allowing faster attacking and mining",
 
     "modifier.tconstruct.overlord": "Overlord",
+    "modifier.tconstruct.overlord.description": "Tool rules over a greater amount of overslime",
 
     "modifier.tconstruct.heavy": "Heavy",
+    "modifier.tconstruct.heavy.description": "Hard to move while wielding, but it packs a heavy punch",
     "modifier.tconstruct.smite": "Smite",
+    "modifier.tconstruct.smite.description": "Let the undead fall to the might of your blade",
     "modifier.tconstruct.sturdy": "Sturdy",
+    "modifier.tconstruct.sturdy.description": "Made from the longest lasting steel",
+
 
     "_comment": "Stats",
 

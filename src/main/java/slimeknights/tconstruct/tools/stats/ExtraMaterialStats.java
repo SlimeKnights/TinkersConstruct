@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.tools.stats;
 
-import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -23,6 +23,7 @@ public class ExtraMaterialStats extends BaseMaterialStats {
   public static final ExtraMaterialStats DEFAULT = new ExtraMaterialStats();
   private static final ITextComponent NO_STATS = makeTooltip("extra.no_stats");
   private static final List<ITextComponent> LOCALIZED = Collections.singletonList(NO_STATS);
+  private static final List<ITextComponent> DESCRIPTION = Collections.singletonList(StringTextComponent.EMPTY);
 
   // no stats
 
@@ -44,6 +45,6 @@ public class ExtraMaterialStats extends BaseMaterialStats {
 
   @Override
   public List<ITextComponent> getLocalizedDescriptions() {
-    return ImmutableList.of();
+    return DESCRIPTION;
   }
 }

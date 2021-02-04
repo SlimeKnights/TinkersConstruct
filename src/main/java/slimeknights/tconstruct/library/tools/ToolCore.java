@@ -482,16 +482,6 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     return this.getInformation(stack, true);
   }
 
-  @Override
-  public List<ITextComponent> getTraits(ItemStack stack) {
-    ToolStack tool = ToolStack.from(stack);
-    List<ITextComponent> list = new ArrayList<>();
-    for (ModifierEntry entry : tool.getModifierList()) {
-      list.add(entry.getModifier().getDisplayName(entry.getLevel()));
-    }
-    return list;
-  }
-
   /**
    * Gets the information for the given tool stack
    *

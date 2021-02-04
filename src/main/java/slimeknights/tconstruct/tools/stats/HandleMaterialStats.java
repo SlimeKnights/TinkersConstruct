@@ -32,9 +32,9 @@ public class HandleMaterialStats extends BaseMaterialStats {
   private static final String MINING_SPEED_PREFIX = makeTooltipKey("handle.mining_speed");
   // tooltip descriptions
   private static final ITextComponent DURABILITY_DESCRIPTION = makeTooltip("handle.durability.description");
-  private static final ITextComponent ATTACK_DAMAGE_DESCRIPTION = makeTooltip("handle.durability.attack_damage");
-  private static final ITextComponent ATTACK_SPEED_DESCRIPTION = makeTooltip("handle.durability.attack_speed");
-  private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip("handle.durability.mining_speed");
+  private static final ITextComponent ATTACK_DAMAGE_DESCRIPTION = makeTooltip("handle.attack_damage.description");
+  private static final ITextComponent ATTACK_SPEED_DESCRIPTION = makeTooltip("handle.attack_speed.description");
+  private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip("handle.mining_speed.description");
   private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, ATTACK_DAMAGE_DESCRIPTION, ATTACK_SPEED_DESCRIPTION, MINING_SPEED_DESCRIPTION);
 
   // multipliers
