@@ -1,13 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
-public class NetheriteModifier extends SingleUseModifier {
+public class NetheriteModifier extends FireproofModifier {
   public NetheriteModifier() {
-    super(0x3C0249);
+    super(0x8E7C7F);
   }
 
   @Override

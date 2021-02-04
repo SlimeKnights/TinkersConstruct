@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:netherite_scrap"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:fireproof",
+    "level": 1
+  },
+  "max_level": 1
+}

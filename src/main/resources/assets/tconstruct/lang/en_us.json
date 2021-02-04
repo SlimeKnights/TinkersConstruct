@@ -995,8 +995,10 @@
     "modifier.tconstruct.diamond.description": "§oShiny!§r\nIncreased durability and stats!",
 
     "__comment": "Tier 4 Modifiers",
+    "modifier.tconstruct.fireproof": "Fireproof",
+    "modifier.tconstruct.fireproof.description": "§oAncient!§r\nA crude version of netherite, granting flame immunity but not making the tool stronger",
     "modifier.tconstruct.netherite": "Netherite",
-    "modifier.tconstruct.netherite.description": "§oAncient!§r\nHarness the power of ancient metal in your tools!",
+    "modifier.tconstruct.netherite.description": "§oRefined!§r\nHarness the power of ancient metal, making the tool stronger and fire immune",
 
     "__comment": "Tier 1 Traits",
     "modifier.tconstruct.cultivated": "Cultivated",
