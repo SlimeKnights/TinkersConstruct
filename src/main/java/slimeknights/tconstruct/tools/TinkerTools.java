@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,8 +14,6 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
@@ -29,8 +26,6 @@ import slimeknights.tconstruct.tools.harvest.PickaxeTool;
 import slimeknights.tconstruct.tools.harvest.ShovelTool;
 import slimeknights.tconstruct.tools.melee.BroadSword;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -39,15 +34,7 @@ import java.util.function.Supplier;
 public final class TinkerTools extends TinkerModule {
 
   /** Creative tab for all tool items */
-  public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.modID, "tools", () -> {
-    List<IMaterial> materials = new ArrayList<>(MaterialRegistry.getInstance().getMaterials());
-
-    if (materials.isEmpty()) {
-      return new ItemStack(TinkerTools.pickaxe);
-    }
-
-    return TinkerTools.pickaxe.get().buildToolForRendering();
-  });
+  public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.modID, "tools", () -> TinkerTools.pickaxe.get().buildToolForRendering());
 
   /*
    * Items

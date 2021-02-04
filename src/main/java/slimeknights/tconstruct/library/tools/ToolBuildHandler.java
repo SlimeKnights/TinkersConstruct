@@ -1,16 +1,28 @@
 package slimeknights.tconstruct.library.tools;
 
 import com.google.common.collect.Streams;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public final class ToolBuildHandler {
+  private static final List<MaterialId> RENDER_MATERIALS = Arrays.asList(
+    new MaterialId(TConstruct.modID, "ui_render_head"),
+    new MaterialId(TConstruct.modID, "ui_render_handle"),
+    new MaterialId(TConstruct.modID, "ui_render_extra"),
+    new MaterialId(TConstruct.modID, "ui_render_large"),
+    new MaterialId(TConstruct.modID, "ui_render_extra_large"));
 
   /**
    * Builds an ItemStack of this tool with the given materials from the ItemStacks, if possible.
@@ -40,6 +52,22 @@ public final class ToolBuildHandler {
    */
   public static ItemStack buildItemFromMaterials(ToolCore tool, List<IMaterial> materials) {
     return ToolStack.createTool(tool, tool.getToolDefinition(), materials).createStack();
+  }
+
+  /**
+   * Builds a tool using the render materials for the sake of display in UIs
+   * @param item        Tool item
+   * @param definition  Tool definition
+   * @return  Tool for rendering
+   */
+  public static ItemStack buildToolForRendering(Item item, ToolDefinition definition) {
+    List<IToolPart> requirements = definition.getRequiredComponents();
+    int size = requirements.size();
+    List<MaterialId> toolMaterials = new ArrayList<>(size);
+    for (int i = 0; i < requirements.size(); i++) {
+      toolMaterials.add(i, RENDER_MATERIALS.get(i % RENDER_MATERIALS.size()));
+    }
+    return new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(item));
   }
 
   /**
