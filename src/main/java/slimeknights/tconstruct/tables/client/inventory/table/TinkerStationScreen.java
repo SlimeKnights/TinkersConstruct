@@ -52,8 +52,6 @@ import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.Tink
 import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.TINKER_SLOT;
 
 public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEntity, TinkerStationContainer> {
-  private static final ITextComponent COMPONENT_WARNING = Util.makeTranslation("gui", "warning");
-  private static final ITextComponent COMPONENT_ERROR = Util.makeTranslation("gui", "error");
   private static final ITextComponent COMPONENTS_TEXT = Util.makeTranslation("gui", "tinker_station.components");
 
   private static final ITextComponent MODIFIERS_TEXT = Util.makeTranslation("gui", "tinker_station.modifiers");
