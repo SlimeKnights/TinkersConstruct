@@ -59,7 +59,6 @@ import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
-import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 
@@ -213,7 +212,7 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-    registration.addRecipeTransferHandler(CraftingStationContainer.class, VanillaRecipeCategoryUid.CRAFTING, 0, 9, 10, 36);
+    registration.addRecipeTransferHandler(new CraftingStationTransferInfo());
   }
 
   @Override
@@ -236,4 +235,5 @@ public class JEIPlugin implements IModPlugin {
       return containerScreen.getIngredientUnderMouse(mouseX, mouseY);
     }
   }
+
 }
