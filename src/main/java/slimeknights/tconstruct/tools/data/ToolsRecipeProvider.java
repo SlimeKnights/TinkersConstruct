@@ -179,13 +179,13 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefixR(TinkerModifiers.netherite, upgradeFolder));
 
     // overslime
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.GREEN), 50)
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.GREEN), 10)
                                   .build(consumer, location(upgradeFolder + "overslime/green"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.BLUE), 75)
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.BLUE), 40)
                                   .build(consumer, location(upgradeFolder + "overslime/blue"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.MAGMA), 125)
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.MAGMA), 100)
                                   .build(consumer, location(upgradeFolder + "overslime/magma"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.PURPLE), 175)
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.PURPLE), 200)
                                   .build(consumer, location(upgradeFolder + "overslime/purple"));
   }
 
