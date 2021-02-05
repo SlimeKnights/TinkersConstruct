@@ -18,8 +18,8 @@ import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.tools.modifiers.ExtraModifier;
 import slimeknights.tconstruct.tools.modifiers.LevelDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.ReinforcedModifier;
-import slimeknights.tconstruct.tools.modifiers.free.FireproofModifier;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
+import slimeknights.tconstruct.tools.modifiers.free.WorldboundModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DwarfishModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
@@ -81,7 +81,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
 
   // upgrades - tier 4
-  public static final RegistryObject<FireproofModifier> fireproof = MODIFIERS.register("fireproof", () -> new FireproofModifier(0x7E6059));
+  public static final RegistryObject<WorldboundModifier> worldbound = MODIFIERS.register("worldbound", () -> new WorldboundModifier(0x7E6059));
   public static final RegistryObject<NetheriteModifier> netherite = MODIFIERS.register("netherite", NetheriteModifier::new);
 
   // traits - tier 1

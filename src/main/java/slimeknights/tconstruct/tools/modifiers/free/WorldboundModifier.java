@@ -5,8 +5,8 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
-public class FireproofModifier extends SingleUseModifier {
-  public FireproofModifier(int color) {
+public class WorldboundModifier extends SingleUseModifier {
+  public WorldboundModifier(int color) {
     super(color);
   }
 

@@ -167,10 +167,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefixR(TinkerModifiers.diamond, upgradeFolder));
 
     // tier 4
-    ModifierRecipeBuilder.modifier(TinkerModifiers.fireproof.get())
+    ModifierRecipeBuilder.modifier(TinkerModifiers.worldbound.get())
                          .addInput(Items.NETHERITE_SCRAP)
                          .setMaxLevel(1)
-                         .build(consumer, prefixR(TinkerModifiers.fireproof, upgradeFolder));
+                         .build(consumer, prefixR(TinkerModifiers.worldbound, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.netherite.get())
                          .addInput(Tags.Items.INGOTS_NETHERITE)
                          .setMaxLevel(1)

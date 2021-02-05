@@ -1000,10 +1000,10 @@
     "modifier.tconstruct.diamond.description": "§oShiny!§r\nIncreased durability and stats!",
 
     "__comment": "Tier 4 Modifiers",
-    "modifier.tconstruct.fireproof": "Fireproof",
-    "modifier.tconstruct.fireproof.description": "§oAncient!§r\nA crude version of netherite, granting flame immunity but not making the tool stronger",
+    "modifier.tconstruct.worldbound": "Worldbound",
+    "modifier.tconstruct.worldbound.description": "§oAncient!§r\nA crude version of netherite, granting immunity to external damage like fire, but no additional strength.",
     "modifier.tconstruct.netherite": "Netherite",
-    "modifier.tconstruct.netherite.description": "§oRefined!§r\nHarness the power of ancient metal, making the tool stronger and fire immune",
+    "modifier.tconstruct.netherite.description": "§oRefined!§r\nHarness the power of ancient metal, making the tool stronger and immune to external damage such as fire.",
 
     
     "__comment": "Tier 1 Traits",
@@ -1019,6 +1019,8 @@
     "modifier.tconstruct.dwarfish.description": "§oMiner's Friend!§r\nTool mines faster the deeper you mine, just don't mine too deep",
     "modifier.tconstruct.overgrowth": "Overgrowth",
     "modifier.tconstruct.overgrowth.description": "§oFungal!§r\nTool slowly grows overslime.",
+    "modifier.tconstruct.enhanced": "Enhanced",
+    "modifier.tconstruct.enhanced.description": "§oShiny!§r\nAny extra upgrade goes well with gold.",
 
     "__comment": "Tier 3 Traits",
     "modifier.tconstruct.overcast": "Overcast",
