@@ -17,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -664,30 +665,19 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     return Rarity.COMMON;
   }
 
-  //  @OnlyIn(Dist.CLIENT)
-  //  @Override
-  //  public boolean hasEffect(ItemStack stack) {
-  //    return TagUtil.hasEnchantEffect(stack);
-  //  }
-  //
-  //  /* NBT loading */
-  //
-  //  @Override
-  //  public boolean updateItemStackNBT(CompoundNBT nbt) {
-  //    // when the itemstack is loaded from NBT we recalculate all the data
-  //    if(nbt.contains(Tags.BASE)) {
-  //      try {
-  //        // todo ToolBuilder.rebuildTool(nbt, this);
-  //        throw new TinkerGuiException();
-  //      }
-  //      catch(TinkerGuiException e) {
-  //        // nothing to do
-  //      }
-  //    }
-  //
-  //    // return value shouldn't matter since it's never checked
-  //    return true;
-  //  }
+
+  /* NBT loading */
+
+  @Override
+  public boolean updateItemStackNBT(CompoundNBT nbt) {
+    // when the itemstack is loaded from NBT we recalculate all the data
+    // stops things from being wrong if modifiers or materials change
+    ToolStack tool = ToolStack.from(this, getToolDefinition(), nbt);
+    tool.rebuildStats();
+
+    // return value shouldn't matter since it's never checked
+    return true;
+  }
 
   /* Misc */
 

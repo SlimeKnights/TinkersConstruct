@@ -541,7 +541,7 @@ public class ToolStack implements IModifierToolStack {
   /**
    * Recalculates any relevant cached data. Called after either the materials or modifiers list changes
    */
-  private void rebuildStats() {
+  public void rebuildStats() {
     // first, rebuild the list of all modifiers
     List<IMaterial> materials = getMaterialsList();
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();
