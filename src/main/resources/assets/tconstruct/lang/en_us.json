@@ -983,6 +983,7 @@
     "_comment": "Modifiers",
 
     "modifier.tconstruct.empty": "Invalid modifier",
+    "modifier.tconstruct.empty.description": "§oMissing!§r\nFallback for when a modifier is missing.",
 
     "__comment": "Tier 2 Modifiers",
     "modifier.tconstruct.writable": "Writable",
@@ -1004,19 +1005,18 @@
     "modifier.tconstruct.netherite": "Netherite",
     "modifier.tconstruct.netherite.description": "§oRefined!§r\nHarness the power of ancient metal, making the tool stronger and fire immune",
 
+    
     "__comment": "Tier 1 Traits",
     "modifier.tconstruct.cultivated": "Cultivated",
-    "modifier.tconstruct.cultivated.description": "Tool practically grows more material when repairing",
+    "modifier.tconstruct.cultivated.description": "§oEconomical!§r\nTool practically grows more material when repairing",
     "modifier.tconstruct.fractured": "Fractured",
-    "modifier.tconstruct.fractured.description": "Tool is extra sharp due to the broken bits of bone",
+    "modifier.tconstruct.fractured.description": "§oBreak a Leg!§r\nTool is extra sharp due to the broken bits of bone",
 
     "__comment": "Tier 2 Traits",
     "modifier.tconstruct.reinforced": "Reinforced",
-    "modifier.tconstruct.reinforced.description": "Tool is less likely to take damage",
+    "modifier.tconstruct.reinforced.description": "§oUnbreaking!§r\nTool is less likely to take damage",
     "modifier.tconstruct.dwarfish": "Dwarfish",
-    "modifier.tconstruct.dwarfish.description": "Tool mines faster the deeper you mine, just don't mine too deep",
-    "modifier.tconstruct.enhanced": "Enhanced",
-    "modifier.tconstruct.enhanced.description": "Tool can be upgraded with additional bling",
+    "modifier.tconstruct.dwarfish.description": "§oMiner's Friend!§r\nTool mines faster the deeper you mine, just don't mine too deep",
     "modifier.tconstruct.overgrowth": "Overgrowth",
     "modifier.tconstruct.overgrowth.description": "§oFungal!§r\nTool slowly grows overslime.",
 
@@ -1024,7 +1024,7 @@
     "modifier.tconstruct.overcast": "Overcast",
     "modifier.tconstruct.overcast.description": "§oSpringy!§r\nDamage has a chance to bounce off overslime on tool.",
     "modifier.tconstruct.lightweight": "Lightweight",
-    "modifier.tconstruct.lightweight.description": "Tool is incredibly light, allowing faster attacking and mining",
+    "modifier.tconstruct.lightweight.description": "§oLike a Shardblade!§r\nTool is incredibly light for its size, allowing faster attacking and mining",
 
     "__comment": "Tier 4 Traits",
     "modifier.tconstruct.overlord": "Overlord",
@@ -1032,13 +1032,13 @@
 
     "__comment": "Tier 2 Mod Compat Traits",
     "modifier.tconstruct.heavy": "Heavy",
-    "modifier.tconstruct.heavy.description": "Hard to move while wielding, but it packs a heavy punch",
+    "modifier.tconstruct.heavy.description": "§oDense!§r\nHard to move while wielding, but it packs a heavy punch",
     "modifier.tconstruct.smite": "Smite",
-    "modifier.tconstruct.smite.description": "Let the undead fall to the might of your blade",
+    "modifier.tconstruct.smite.description": "§oDie, Foul Creature!§r\nLet the undead fall to the might of your blade",
 
     "__comment": "Tier 3 Mod Compat Traits",
     "modifier.tconstruct.sturdy": "Sturdy",
-    "modifier.tconstruct.sturdy.description": "Made from the longest lasting steel",
+    "modifier.tconstruct.sturdy.description": "§oStainless!§r\nMade from the longest lasting steel",
 
 
     "_comment": "Stats",
