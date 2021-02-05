@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.util.ResourceLocation;
@@ -10,6 +11,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -136,17 +138,6 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
-   * Gets the description for this modifier
-   * @return  Description for this modifier
-   */
-  public final ITextComponent getDescription() {
-    if (description == null) {
-      description = new TranslationTextComponent(getTranslationKey() + ".description");
-    }
-    return description;
-  }
-
-  /**
    * Gets the display name for the given level of this modifier
    * @param level  Modifier level
    * @return  Display name
@@ -156,6 +147,27 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
       .appendString(" ")
       .append(new TranslationTextComponent(KEY_LEVEL + level))
       .modifyStyle(style -> style.setColor(Color.fromInt(color)));
+  }
+
+  /**
+   * Stack sensitive version of {@link #getDisplayName(int)}. Useful for displaying persistent data such as overslime or redstone amount
+   * @param tool   Tool instance
+   * @param level  Tool level
+   * @return
+   */
+  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
+    return getDisplayName(level);
+  }
+
+  /**
+   * Gets the description for this modifier
+   * @return  Description for this modifier
+   */
+  public final ITextComponent getDescription() {
+    if (description == null) {
+      description = new TranslationTextComponent(getTranslationKey() + ".description");
+    }
+    return description;
   }
 
 
@@ -248,4 +260,49 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param event  Event instance
    */
 	public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
+
+  /**
+   * Called when the stack updates in the player inventory
+   * @param tool      Current tool instance
+   * @param level     Modifier level
+   * @param world     World containing tool
+   * @param holder    Entity holding tool
+   * @param isHeld    If true, tool is in the main hand or off hand. If false, tool is simply in the inventory
+   * @param isActive  If true, tool is currently active (e.g. bow being drawn back)
+   */
+	public void onInventoryTick(IModifierToolStack tool, int level, World world, Entity holder, boolean isHeld, boolean isActive) {}
+
+
+	/* Durability display */
+
+  /**
+   * Gets the damage percentage for display.  First tool returning something other than NaN will determine display durability
+   * @param tool   Tool instance
+   * @param level  Modifier level
+   * @return  Damage percentage. 0 is undamaged, 1 is fully damaged.
+   */
+  public double getDamagePercentage(IModifierToolStack tool, int level) {
+    return Double.NaN;
+  }
+
+  /**
+   * Override the default tool logic for showing the durability bar
+   * @param tool   Tool instance
+   * @param level  Modifier level
+   * @return  True forces the bar to show, false forces it to hide. Return null to allow default behavior
+   */
+  @Nullable
+  public Boolean showDurabilityBar(IModifierToolStack tool, int level) {
+    return null;
+  }
+
+  /**
+   * Gets the RGB for the durability bar
+   * @param tool   Tool instance
+   * @param level  Modifier level
+   * @return  RGB, or -1 to not handle it
+   */
+  public int getDurabilityRGB(IModifierToolStack tool, int level) {
+    return -1;
+  }
 }

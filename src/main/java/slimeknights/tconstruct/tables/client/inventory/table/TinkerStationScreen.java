@@ -239,7 +239,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       List<ITextComponent> modifierInfo = new ArrayList<>();
       for (ModifierEntry entry : tool.getModifierList()) {
         Modifier mod = entry.getModifier();
-        modifiers.add(mod.getDisplayName(entry.getLevel()));
+        modifiers.add(mod.getDisplayName(tool, entry.getLevel()));
         modifierInfo.add(mod.getDescription());
       }
 

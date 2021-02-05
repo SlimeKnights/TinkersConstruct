@@ -3,5 +3,9 @@
   "fluid": "tconstruct:molten_slimesteel",
   "fluidPerUnit": 144,
   "textColor": "#74C8C7",
-  "temperature": 900
+  "temperature": 900,
+  "trait": {
+    "name": "tconstruct:overcast",
+    "level": 1
+  }
 }

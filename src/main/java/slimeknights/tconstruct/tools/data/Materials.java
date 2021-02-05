@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class Materials {
   static final List<IMaterial> allMaterials = new ArrayList<>();
@@ -30,9 +31,9 @@ final class Materials {
   public static final IMaterial iron        = mat(MaterialIds.iron, TinkerFluids.moltenIron, false, 0xcacaca, TinkerModifiers.reinforced);
   public static final IMaterial searedStone = mat(MaterialIds.searedStone, TinkerFluids.searedStone, false, 0x3f3f3f);
   public static final IMaterial copper      = mat(MaterialIds.copper, TinkerFluids.moltenCopper, true, 0xed9f07, TinkerModifiers.dwarfish);
-  public static final IMaterial slimewood   = mat(MaterialIds.slimewood, false, 0x82c873);
+  public static final IMaterial slimewood   = mat(MaterialIds.slimewood, false, 0x82c873, TinkerModifiers.overgrowth);
   // tier 3
-  public static final IMaterial slimesteel    = mat(MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, false, 0x74c8c7);
+  public static final IMaterial slimesteel    = mat(MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, false, 0x74c8c7, TinkerModifiers.overcast);
   public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl, false, 0x601cc4);
   public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, TinkerFluids.moltenTinkersBronze, false, 0xf9cf72);
   public static final IMaterial roseGold      = mat(MaterialIds.roseGold, TinkerFluids.moltenRoseGold, false, 0xffdbcc, TinkerModifiers.enhanced);
@@ -43,9 +44,9 @@ final class Materials {
   // tier 3 (nether)
   public static final IMaterial cobalt = mat(MaterialIds.cobalt, TinkerFluids.moltenCobalt, false, 0x2882d4, TinkerModifiers.lightweight);
   // tier 4
+  public static final IMaterial queensSlime = mat(MaterialIds.queensSlime, TinkerFluids.moltenQueensSlime, false, 0x236c45, TinkerModifiers.overlord);
   public static final IMaterial manyullyn   = mat(MaterialIds.manyullyn, TinkerFluids.moltenManyullyn, false, 0xa15cf8);
   public static final IMaterial hepatizon   = mat(MaterialIds.hepatizon, TinkerFluids.moltenHepatizon, false, 0x60496b);
-  public static final IMaterial queensSlime = mat(MaterialIds.queensSlime, TinkerFluids.moltenQueensSlime, false, 0x236c45, TinkerModifiers.overlord);
   public static final IMaterial soulsteel   = mat(MaterialIds.soulsteel, TinkerFluids.moltenSoulsteel, false, 0x6a5244);
 
   // tier 2 (end)
