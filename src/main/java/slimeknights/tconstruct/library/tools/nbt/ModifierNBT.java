@@ -170,14 +170,24 @@ public class ModifierNBT {
     }
 
     /**
+     * Adds an entry to the builder
+     * @param entries  Entries to add
+     * @return  Builder instance
+     */
+    public Builder add(List<ModifierEntry> entries) {
+      for (ModifierEntry entry : entries) {
+        add(entry);
+      }
+      return this;
+    }
+
+    /**
      * Adds all modifiers from the given modifier NBT
      * @param nbt  NBT object
      * @return  Builder instance
      */
     public Builder add(ModifierNBT nbt) {
-      for (ModifierEntry entry : nbt.modifiers) {
-        add(entry);
-      }
+      add(nbt.getModifiers());
       return this;
     }
 

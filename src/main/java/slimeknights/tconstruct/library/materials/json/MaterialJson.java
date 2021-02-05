@@ -19,5 +19,5 @@ public class MaterialJson {
   @Nullable
   private final Integer temperature;
   @Nullable
-  private final ModifierEntry trait;
+  private final ModifierEntry[] traits;
 }

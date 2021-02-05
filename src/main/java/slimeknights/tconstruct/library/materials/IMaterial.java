@@ -7,7 +7,7 @@ import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import javax.annotation.Nullable;
+import java.util.List;
 
 public interface IMaterial {
   /** ID of fallback material */
@@ -74,9 +74,8 @@ public interface IMaterial {
   int getTemperature();
 
   /**
-   * Gets the trait for this material. Null if this material has no trait
+   * Gets the traits for this material. Empty if this material has no traits
    * @return  Traits
    */
-  @Nullable
-  ModifierEntry getTrait();
+  List<ModifierEntry> getTraits();
 }

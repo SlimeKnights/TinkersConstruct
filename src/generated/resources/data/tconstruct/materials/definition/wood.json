@@ -1,8 +1,10 @@
 {
   "craftable": true,
   "textColor": "#8E661B",
-  "trait": {
-    "name": "tconstruct:cultivated",
-    "level": 1
-  }
+  "traits": [
+    {
+      "name": "tconstruct:cultivated",
+      "level": 1
+    }
+  ]
 }

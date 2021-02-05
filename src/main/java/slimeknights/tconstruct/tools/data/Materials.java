@@ -10,10 +10,12 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -31,7 +33,7 @@ final class Materials {
   public static final IMaterial iron        = mat(MaterialIds.iron, TinkerFluids.moltenIron, false, 0xcacaca, TinkerModifiers.reinforced);
   public static final IMaterial searedStone = mat(MaterialIds.searedStone, TinkerFluids.searedStone, false, 0x3f3f3f);
   public static final IMaterial copper      = mat(MaterialIds.copper, TinkerFluids.moltenCopper, true, 0xed9f07, TinkerModifiers.dwarfish);
-  public static final IMaterial slimewood   = mat(MaterialIds.slimewood, false, 0x82c873, TinkerModifiers.overgrowth);
+  public static final IMaterial slimewood   = mat(MaterialIds.slimewood, 0x82c873, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
   // tier 3
   public static final IMaterial slimesteel    = mat(MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, false, 0x74c8c7, TinkerModifiers.overcast);
   public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl, false, 0x601cc4);
@@ -68,26 +70,38 @@ final class Materials {
 //  public static final IMaterial slimevine_purple = mat(MaterialIds.slimevine_purple, true, 0xc873c8);
 
 
-  /** Creates a material with a fluid */
-  private static IMaterial mat(MaterialId location, Supplier<? extends Fluid> fluid, boolean craftable, int color, @Nullable Supplier<? extends Modifier> trait) {
+  /** Creates a material with no fluid and two traits */
+  private static IMaterial mat(MaterialId location, int color, Supplier<? extends Modifier> trait1, Supplier<? extends Modifier> trait2) {
     // all our materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    IMaterial material = new DataMaterial(location, fluid, MaterialValues.INGOT, craftable, Color.fromInt(color), trait, 1);
+    Supplier<List<ModifierEntry>> traitSupplier = () -> Arrays.asList(new ModifierEntry(trait1.get(), 1), new ModifierEntry(trait2.get(), 1));
+    IMaterial material = new DataMaterial(location, () -> Fluids.EMPTY, 0, true, Color.fromInt(color), traitSupplier);
     allMaterials.add(material);
     return material;
   }
 
-  /** Creates a material with a fluid and no trait */
-  private static IMaterial mat(MaterialId location, Supplier<? extends Fluid> fluid, boolean craftable, int color) {
-    return mat(location, fluid, craftable, color, null);
+  /** Creates a material with a fluid and a trait */
+  private static IMaterial mat(MaterialId location, Supplier<? extends Fluid> fluid, boolean craftable, int color, Supplier<? extends Modifier> trait) {
+    // all our materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
+    Supplier<List<ModifierEntry>> traitSupplier = () -> Collections.singletonList(new ModifierEntry(trait.get(), 1));
+    IMaterial material = new DataMaterial(location, fluid, MaterialValues.INGOT, craftable, Color.fromInt(color), traitSupplier);
+    allMaterials.add(material);
+    return material;
   }
 
   /** Creates a material with no fluid */
-  private static IMaterial mat(MaterialId location, boolean craftable, int color, @Nullable Supplier<? extends Modifier> trait) {
+  private static IMaterial mat(MaterialId location, boolean craftable, int color, Supplier<? extends Modifier> trait) {
     return mat(location, () -> Fluids.EMPTY, craftable, color, trait);
+  }
+
+  /** Creates a material with a fluid and no trait */
+  private static IMaterial mat(MaterialId location, Supplier<? extends Fluid> fluid, boolean craftable, int color) {
+    IMaterial material = new DataMaterial(location, fluid, MaterialValues.INGOT, craftable, Color.fromInt(color), Collections::emptyList);
+    allMaterials.add(material);
+    return material;
   }
 
   /** Creates a material with no fluid and no trait */
   private static IMaterial mat(MaterialId location, boolean craftable, int color) {
-    return mat(location, () -> Fluids.EMPTY, craftable, color, null);
+    return mat(location, () -> Fluids.EMPTY, craftable, color);
   }
 }
