@@ -23,6 +23,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -132,6 +133,11 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   /* Damage/Durability */
 
   @Override
+  public boolean isDamageable() {
+    return true;
+  }
+
+  @Override
   public int getMaxDamage(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
     int durability = tool.getStats().getDurability();
@@ -149,12 +155,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     ToolStack.from(stack).setDamage(damage);
   }
 
-  /**
-   * We basically emulate Itemstack.damageItem here. We always return 0 to skip the handling in ItemStack.
-   * If we don't broken tools will be deleted.
-   */
   @Override
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
+    // We basically emulate Itemstack.damageItem here. We always return 0 to skip the handling in ItemStack.
+    // If we don't tools ignore our damage logic
     if (ToolStack.from(stack).damage(amount, damager, stack)) {
       onBroken.accept(damager);
     }
@@ -163,17 +167,54 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   }
 
   @Override
-  public boolean isDamageable() {
-    return true;
+  public boolean showDurabilityBar(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+    // if any modifier wishes to show when undamaged, let them
+    for (ModifierEntry entry : tool.getModifierList()) {
+      Boolean show = entry.getModifier().showDurabilityBar(tool, entry.getLevel());
+      if (show != null) {
+        return show;
+      }
+    }
+    return tool.getDamage() > 0;
+  }
+
+  /**
+   * Helper to avoid unneeded tool stack parsing
+   * @param tool  Tool stack
+   * @return  Durability for display
+   */
+  private double getDamagePercentage(ToolStack tool) {
+    // first modifier who wishs to handle it wins
+    for (ModifierEntry entry : tool.getModifierList()) {
+      double display = entry.getModifier().getDamagePercentage(tool, entry.getLevel());
+      if (!Double.isNaN(display)) {
+        return display;
+      }
+    }
+
+    // no one took it? just use regular durability
+    return (double) tool.getDamage() / tool.getStats().getDurability();
   }
 
   @Override
   public double getDurabilityForDisplay(ItemStack stack) {
-    // show 1 when broken (fully broken)
-    if (ToolDamageUtil.isBroken(stack)) {
-      return 1;
+    return getDamagePercentage(ToolStack.from(stack));
+  }
+
+  @Override
+  public int getRGBDurabilityForDisplay(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+
+    // first modifier who wishs to handle it wins
+    for (ModifierEntry entry : tool.getModifierList()) {
+      int rgb = entry.getModifier().getDurabilityRGB(tool, entry.getLevel());
+      // not a problem to check against -1, the top 16 bits are unused
+      if (rgb != -1) {
+        return rgb;
+      }
     }
-    return super.getDurabilityForDisplay(stack);
+    return MathHelper.hsvToRGB(Math.max(0.0f, (float) (1.0f - getDamagePercentage(tool))) / 3.0f, 1.0f, 1.0f);
   }
 
   /* Mining */
@@ -394,14 +435,30 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     AoeToolInteractionUtil.breakExtraBlock(tool, world, player, pos, refPos);
   }
 
-  /* Trait interactions */
+  /* Modifier interactions */
 
   @Override
   public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
-    final boolean isSelectedOrOffhand = isSelected || (entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getHeldItemOffhand() == stack);
-    TraitUtil.forEachTrait(stack, trait -> trait.onUpdate(stack, worldIn, entityIn, itemSlot, isSelectedOrOffhand));
+
+    ToolStack tool = ToolStack.from(stack);
+    List<ModifierEntry> modifiers = tool.getModifierList();
+    if (!modifiers.isEmpty()) {
+      boolean isActive = false;
+      // for living entities, active is available, and say its selected if in the offhand
+      if (entityIn instanceof LivingEntity) {
+        LivingEntity living = (LivingEntity) entityIn;
+        isActive = living.getActiveItemStack() == stack;
+        if (!isSelected) {
+          isSelected = living.getHeldItemOffhand() == stack;
+        }
+      }
+      for (ModifierEntry entry : modifiers) {
+        entry.getModifier().onInventoryTick(tool, entry.getLevel(), worldIn, entityIn, isSelected, isActive);
+      }
+    }
   }
+
 
   /* Information */
 
@@ -446,7 +503,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
         }
         // modifier tooltip
         for (ModifierEntry entry : tool.getModifierList()) {
-          tooltips.add(entry.getModifier().getDisplayName(entry.getLevel()));
+          tooltips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
         }
         break;
       }

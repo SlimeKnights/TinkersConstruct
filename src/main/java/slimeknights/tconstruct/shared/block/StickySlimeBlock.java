@@ -37,6 +37,11 @@ public class StickySlimeBlock extends net.minecraft.block.SlimeBlock {
      */
     public static final SlimeType[] TINKER = {BLUE, PURPLE, BLOOD, MAGMA};
 
+    /**
+     * Slime types from slimes
+     */
+    public static final SlimeType[] TRUE_SLIME = {GREEN, BLUE, PURPLE, MAGMA};
+
     /* Block color for this slime type */
     @Getter
     private final int color;

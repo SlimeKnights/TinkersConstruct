@@ -19,7 +19,6 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeSerializer;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipe;
 import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.tables.block.chest.ModifierChestBlock;
 import slimeknights.tconstruct.tables.block.chest.PartChestBlock;
@@ -89,7 +88,6 @@ public final class TinkerTables extends TinkerModule {
   public static final RegistryObject<PartRecipeSerializer> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", PartRecipeSerializer::new);
   public static final RegistryObject<MaterialRecipeSerializer> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", MaterialRecipeSerializer::new);
   public static final RegistryObject<ToolBuildingRecipeSerializer> toolBuildingRecipeSerializer = RECIPE_SERIALIZERS.register("tool_building", ToolBuildingRecipeSerializer::new);
-  public static final RegistryObject<ModifierRecipe.Serializer> modifierSerializer = RECIPE_SERIALIZERS.register("modifier", ModifierRecipe.Serializer::new);
   public static final RegistryObject<SpecialRecipeSerializer<TinkerStationRepairRecipe>> tinkerStationRepairSerializer = RECIPE_SERIALIZERS.register("tinker_station_repair", () -> new SpecialRecipeSerializer<>(TinkerStationRepairRecipe::new));
   public static final RegistryObject<SpecialRecipeSerializer<TinkerStationPartSwapping>> tinkerStationPartSwappingSerializer = RECIPE_SERIALIZERS.register("tinker_station_part_swapping", () -> new SpecialRecipeSerializer<>(TinkerStationPartSwapping::new));
 

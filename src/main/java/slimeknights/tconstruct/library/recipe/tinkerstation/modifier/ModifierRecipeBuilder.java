@@ -13,7 +13,7 @@ import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -194,7 +194,7 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-      return TinkerTables.modifierSerializer.get();
+      return TinkerModifiers.modifierSerializer.get();
     }
   }
 }

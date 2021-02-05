@@ -163,11 +163,11 @@ public class TConstruct {
   @Nullable
   private static Block missingBlock(String name) {
     switch (name) {
-      case "slimy_mud_green": case "green_slime_crystal":
+      case "slimy_mud_green":
         return TinkerWorld.congealedSlime.get(SlimeType.GREEN);
-      case "slimy_mud_blue": case "blue_slime_crystal":
+      case "slimy_mud_blue":
         return TinkerWorld.congealedSlime.get(SlimeType.BLUE);
-      case "slimy_mud_magma": case "magma_slime_crystal":
+      case "slimy_mud_magma":
         return TinkerWorld.congealedSlime.get(SlimeType.MAGMA);
     }
     return null;

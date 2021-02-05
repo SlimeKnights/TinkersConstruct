@@ -1,4 +1,8 @@
 {
   "craftable": false,
-  "textColor": "#82C873"
+  "textColor": "#82C873",
+  "trait": {
+    "name": "tconstruct:overgrowth",
+    "level": 1
+  }
 }

@@ -1,12 +1,14 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -24,9 +26,11 @@ import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -121,6 +125,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(TinkerModifiers.silkyJewel, folder));
     registerPackingRecipe(consumer, "block", TinkerModifiers.silkyJewelBlock, "gem", TinkerModifiers.silkyJewel, folder);
 
+    // slime crystals
+    TinkerModifiers.slimeCrystal.forEach((type, crystal) -> {
+      IItemProvider slimeball = TinkerCommons.slimeball.get(type);
+      CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(slimeball), crystal, 1.0f, 400)
+                          .addCriterion("has_item", hasItem(slimeball))
+                          .build(consumer, folder + "slime_crystal/" + type.getString());
+    });
+
     // upgrades
     String upgradeFolder = folder + "upgrade/";
 
@@ -165,6 +177,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setUpgradeSlots(1)
                          .minHarvestLevel(HarvestLevels.DIAMOND)
                          .build(consumer, prefixR(TinkerModifiers.netherite, upgradeFolder));
+
+    // overslime
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.GREEN), 50)
+                                  .build(consumer, location(upgradeFolder + "overslime/green"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.BLUE), 75)
+                                  .build(consumer, location(upgradeFolder + "overslime/blue"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.MAGMA), 125)
+                                  .build(consumer, location(upgradeFolder + "overslime/magma"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.PURPLE), 175)
+                                  .build(consumer, location(upgradeFolder + "overslime/purple"));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {

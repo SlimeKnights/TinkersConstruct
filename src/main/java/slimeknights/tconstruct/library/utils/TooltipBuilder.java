@@ -153,7 +153,7 @@ public class TooltipBuilder {
    */
   public TooltipBuilder addModifierInfo() {
     for (ModifierEntry entry : tool.getModifierList()) {
-      this.tips.add(entry.getModifier().getDisplayName(entry.getLevel()));
+      this.tips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
     }
     return this;
   }

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.upgrades;
+package slimeknights.tconstruct.tools.modifiers.free;
 
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.ToolCore;

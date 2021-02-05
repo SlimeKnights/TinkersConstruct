@@ -25,7 +25,7 @@ import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
-import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.BitSet;
@@ -182,7 +182,7 @@ public class ModifierRecipe implements ITinkerStationRecipe {
 
   @Override
   public IRecipeSerializer<?> getSerializer() {
-    return TinkerTables.modifierSerializer.get();
+    return TinkerModifiers.modifierSerializer.get();
   }
 
   public static class Serializer extends RecipeSerializer<ModifierRecipe> {
