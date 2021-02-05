@@ -150,7 +150,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.EMERALD)
                          .setMaxLevel(1)
                          .setUpgradeSlots(1)
-                         .minHarvestLevel(HarvestLevels.STONE)
                          .build(consumer, prefixR(TinkerModifiers.emerald, upgradeFolder));
 
     // tier 3
