@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common;
 
+import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.resources.IResourceManager;
@@ -15,28 +16,28 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RecipeCacheInvalidator implements IEarlySafeManagerReloadListener {
   private static final RecipeCacheInvalidator INSTANCE = new RecipeCacheInvalidator();
-  private static final List<Runnable> listeners = new ArrayList<>();
+  private static final List<BooleanConsumer> listeners = new ArrayList<>();
 
   /**
    * Adds a new listener that runs every time the recipes are reloaded
    * @param runnable  Runnable
    */
-  public static void addReloadListener(Runnable runnable) {
+  public static void addReloadListener(BooleanConsumer runnable) {
     listeners.add(runnable);
   }
 
   /**
    * Reloads all listeners, used client side
    */
-  public static void reload() {
-    for (Runnable runnable : listeners) {
-      runnable.run();
+  public static void reload(boolean client) {
+    for (BooleanConsumer runnable : listeners) {
+      runnable.accept(client);
     }
   }
 
   @Override
   public void onReloadSafe(IResourceManager resourceManager) {
-    reload();
+    reload(false);
   }
 
   /**

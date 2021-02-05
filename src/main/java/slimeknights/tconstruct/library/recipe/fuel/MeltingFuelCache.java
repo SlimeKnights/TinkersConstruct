@@ -21,7 +21,7 @@ public class MeltingFuelCache {
 
   static {
     // register listener to reset on cache clear
-    RecipeCacheInvalidator.addReloadListener(CACHE::clear);
+    RecipeCacheInvalidator.addReloadListener(client -> CACHE.clear());
   }
 
   /**
