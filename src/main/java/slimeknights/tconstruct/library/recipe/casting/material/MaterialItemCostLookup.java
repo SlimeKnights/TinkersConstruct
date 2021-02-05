@@ -20,11 +20,32 @@ public class MaterialItemCostLookup {
   /** Map containing a lookup from a material item to the cost in mb, for basin parts */
   private static final Object2IntMap<IMaterialItem> BASIN_LOOKUP = new Object2IntOpenHashMap<>(50);
 
+  /** If true, a clear is queued for the next time a recipe is added */
+  private static boolean clearQueued = false;
+
   static {
-    RecipeCacheInvalidator.addReloadListener(() -> {
-      TABLE_LOOKUP.clear();
-      BASIN_LOOKUP.clear();
+    RecipeCacheInvalidator.addReloadListener(client -> {
+      // don't clear immediately on client, clear next time we try adding recipes
+      if (client) {
+        clearQueued = true;
+      } else {
+        clearCache();
+      }
     });
+  }
+
+  /** Clears the cache */
+  private static void clearCache() {
+    clearQueued = false;
+    TABLE_LOOKUP.clear();
+    BASIN_LOOKUP.clear();
+  }
+
+  /** Clears the cache if queued */
+  private static void checkClear() {
+    if (clearQueued) {
+      clearCache();
+    }
   }
 
   /**
@@ -33,6 +54,7 @@ public class MaterialItemCostLookup {
    * @param cost  Cost in mb for that item
    */
   public static void registerBasin(IMaterialItem item, int cost) {
+    checkClear();
     BASIN_LOOKUP.put(item, cost);
   }
 
@@ -42,6 +64,7 @@ public class MaterialItemCostLookup {
    * @param cost  Cost in mb for that item
    */
   public static void registerTable(IMaterialItem item, int cost) {
+    checkClear();
     TABLE_LOOKUP.put(item, cost);
   }
 
