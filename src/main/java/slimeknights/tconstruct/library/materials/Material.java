@@ -7,7 +7,8 @@ import net.minecraft.util.Util;
 import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
 @Getter
 public class Material implements IMaterial {
@@ -32,15 +33,14 @@ public class Material implements IMaterial {
   private final Color color;
   /** Temperature for recipe calculations */
   private final int temperature;
-  /** Trait applied by this material, null means no trait */
-  @Nullable
-  private final ModifierEntry trait;
+  /** Traits applied by this material */
+  private final List<ModifierEntry> traits;
 
   /**
    * Materials should only be created by the MaterialManager, except when used for data gen
    * They're synced over the network and other classes might lead to unexpected behaviour.
    */
-  public Material(ResourceLocation identifier, Fluid fluid, int fluidPerUnit, boolean craftable, Color color, int temperature, @Nullable ModifierEntry trait) {
+  public Material(ResourceLocation identifier, Fluid fluid, int fluidPerUnit, boolean craftable, Color color, int temperature, List<ModifierEntry> traits) {
     this.identifier = new MaterialId(identifier);
     this.fluid = fluid;
     this.fluidPerUnit = fluidPerUnit;
@@ -48,10 +48,10 @@ public class Material implements IMaterial {
     this.translationKey = Util.makeTranslationKey("material", identifier);
     this.color = color;
     this.temperature = temperature;
-    this.trait = trait;
+    this.traits = traits;
   }
 
   protected Material(ResourceLocation identifier, Fluid fluid, boolean craftable) {
-    this(identifier, fluid, 0, craftable, WHITE, 0, null);
+    this(identifier, fluid, 0, craftable, WHITE, 0, Collections.emptyList());
   }
 }

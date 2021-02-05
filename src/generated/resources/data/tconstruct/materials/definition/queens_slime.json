@@ -4,8 +4,10 @@
   "fluidPerUnit": 144,
   "textColor": "#236C45",
   "temperature": 1150,
-  "trait": {
-    "name": "tconstruct:overlord",
-    "level": 1
-  }
+  "traits": [
+    {
+      "name": "tconstruct:overlord",
+      "level": 1
+    }
+  ]
 }

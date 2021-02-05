@@ -4,8 +4,10 @@
   "fluidPerUnit": 144,
   "textColor": "#CACACA",
   "temperature": 800,
-  "trait": {
-    "name": "tconstruct:reinforced",
-    "level": 1
-  }
+  "traits": [
+    {
+      "name": "tconstruct:reinforced",
+      "level": 1
+    }
+  ]
 }

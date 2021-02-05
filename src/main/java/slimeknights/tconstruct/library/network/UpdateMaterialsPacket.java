@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.network;
 
+import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.fluid.Fluid;
@@ -17,6 +18,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -38,11 +40,12 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       int color = buffer.readInt();
       int temperature = buffer.readInt();
       // buffer has a boolean stating if the trait is nonnull
-      ModifierEntry trait = null;
-      if (buffer.readBoolean()) {
-        trait = ModifierEntry.read(buffer);
+      ImmutableList.Builder<ModifierEntry> builder = ImmutableList.builder();
+      int size = buffer.readVarInt();
+      for (int t = 0; t < size; t++) {
+        builder.add(ModifierEntry.read(buffer));
       }
-      this.materials.add(new Material(id, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, trait));
+      this.materials.add(new Material(id, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, builder.build()));
     }
   }
 
@@ -57,13 +60,10 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       // the color int getter is private
       buffer.writeInt(material.getColor().color);
       buffer.writeInt(material.getTemperature());
-      ModifierEntry trait = material.getTrait();
-      // write boolean to signify this s null
-      if (trait == null) {
-        buffer.writeBoolean(false);
-      } else {
-        buffer.writeBoolean(true);
-        trait.write(buffer);
+      List<ModifierEntry> traits = material.getTraits();
+      buffer.writeVarInt(traits.size());
+      for (ModifierEntry entry : traits) {
+        entry.write(buffer);
       }
     });
   }

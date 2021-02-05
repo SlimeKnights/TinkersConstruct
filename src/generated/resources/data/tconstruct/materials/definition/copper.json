@@ -4,8 +4,10 @@
   "fluidPerUnit": 144,
   "textColor": "#ED9F07",
   "temperature": 500,
-  "trait": {
-    "name": "tconstruct:dwarfish",
-    "level": 1
-  }
+  "traits": [
+    {
+      "name": "tconstruct:dwarfish",
+      "level": 1
+    }
+  ]
 }

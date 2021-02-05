@@ -4,8 +4,10 @@
   "fluidPerUnit": 144,
   "textColor": "#D1ECF6",
   "temperature": 790,
-  "trait": {
-    "name": "tconstruct:smite",
-    "level": 1
-  }
+  "traits": [
+    {
+      "name": "tconstruct:smite",
+      "level": 1
+    }
+  ]
 }

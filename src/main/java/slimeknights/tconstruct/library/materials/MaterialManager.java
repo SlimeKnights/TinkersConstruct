@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.materials;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,6 +25,7 @@ import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -156,8 +158,8 @@ public class MaterialManager extends SyncingJsonReloadListener {
                             .orElse(Material.WHITE);
 
       // parse trait
-      ModifierEntry trait = materialJson.getTrait();
-      return new Material(materialId, fluid, fluidPerUnit, isCraftable, color, temperature, trait);
+      ModifierEntry[] traits = materialJson.getTraits();
+      return new Material(materialId, fluid, fluidPerUnit, isCraftable, color, temperature, traits == null ? Collections.emptyList() : ImmutableList.copyOf(traits));
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;

@@ -171,13 +171,15 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     List<ITextComponent> stats = Lists.newLinkedList();
     List<ITextComponent> tips = Lists.newArrayList();
 
-    ModifierEntry trait = material.getTrait();
-    if (trait != null) {
-      Modifier mod = trait.getModifier();
+    List<ModifierEntry> traits = material.getTraits();
+    if (!traits.isEmpty()) {
       stats.add(TRAIT_TITLE);
       tips.add(StringTextComponent.EMPTY);
-      stats.add(mod.getDisplayName(trait.getLevel()));
-      tips.add(mod.getDescription());
+      for (ModifierEntry trait : traits) {
+        Modifier mod = trait.getModifier();
+        stats.add(mod.getDisplayName(trait.getLevel()));
+        tips.add(mod.getDescription());
+      }
       stats.add(StringTextComponent.EMPTY);
       tips.add(StringTextComponent.EMPTY);
     }

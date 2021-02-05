@@ -19,6 +19,7 @@ import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.JsonFileLoader;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,10 +52,10 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(testMaterial.getColor().color).isEqualTo(0x1234ab);
     assertThat(testMaterial.getTemperature()).isEqualTo(1234);
 
-    ModifierEntry trait = testMaterial.getTrait();
-    assertThat(trait).isNotNull();
-    assertThat(trait.getModifier()).isEqualTo(ModifierFixture.TEST_MODIFIER_2);
-    assertThat(trait.getLevel()).isEqualTo(2);
+    List<ModifierEntry> traits = testMaterial.getTraits();
+    assertThat(traits).hasSize(1);
+    assertThat(traits.get(0).getModifier()).isEqualTo(ModifierFixture.TEST_MODIFIER_2);
+    assertThat(traits.get(0).getLevel()).isEqualTo(2);
   }
 
   @Test
@@ -71,7 +72,7 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(testMaterial.isCraftable()).isFalse();
     assertThat(testMaterial.getColor().color & 0xffffff).isEqualTo(0xffffff);
     assertThat(testMaterial.getTemperature()).isEqualTo(0);
-    assertThat(testMaterial.getTrait()).isNull();
+    assertThat(testMaterial.getTraits()).isEmpty();
   }
 
   @Test
