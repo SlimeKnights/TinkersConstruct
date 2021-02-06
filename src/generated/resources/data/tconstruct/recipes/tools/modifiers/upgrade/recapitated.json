@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:heads"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:recapitated",
+    "level": 1
+  },
+  "max_level": 1
+}

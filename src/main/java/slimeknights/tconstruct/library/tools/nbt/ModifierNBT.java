@@ -17,7 +17,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -197,8 +196,7 @@ public class ModifierNBT {
       // note priority is negated so higher numbers go first
       List<ModifierEntry> list = modifiers.entrySet().stream()
         .map(entry -> new ModifierEntry(entry.getKey(), entry.getValue()))
-        .sorted(Comparator.comparingInt(entry -> -entry.getModifier().getPriority()))
-        .collect(Collectors.toList());
+        .sorted().collect(Collectors.toList());
       return new ModifierNBT(ImmutableList.copyOf(list));
     }
   }

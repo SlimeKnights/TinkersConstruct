@@ -16,6 +16,12 @@ public class ExtraModifier extends Modifier {
   }
 
   @Override
+  public boolean shouldDisplay(boolean advanced) {
+    // single use modifiers can hide in the tooltip, but show enhanced regardless
+    return !singleUse || advanced;
+  }
+
+  @Override
   public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT data) {
     data.addUpgrades(singleUse ? 1 : level);
   }
@@ -26,5 +32,11 @@ public class ExtraModifier extends Modifier {
       return getDisplayName();
     }
     return super.getDisplayName(level);
+  }
+
+  @Override
+  public int getPriority() {
+    // show lower priority, the trait should be above the rest though
+    return singleUse ? 50 : 75;
   }
 }

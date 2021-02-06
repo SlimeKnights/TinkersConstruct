@@ -22,12 +22,25 @@ import java.lang.reflect.Type;
  */
 @Data
 @EqualsAndHashCode
-public class ModifierEntry {
+public class ModifierEntry implements Comparable<ModifierEntry> {
   /** JSON serialzier instance for GSON */
   public static final Serializer SERIALIZER = new Serializer();
 
   private final Modifier modifier;
   private final int level;
+
+  @Override
+  public int compareTo(ModifierEntry other) {
+    Modifier mod1 = this.getModifier(), mod2 = other.getModifier();
+    int priority1 = mod1.getPriority(), priority2 = mod2.getPriority();
+    // sort by priority first if different
+    if (priority1 != priority2) {
+      // reversed order so higher goes first
+      return Integer.compare(priority2, priority1);
+    }
+    // fallback to ID path, approximates localized name so we get mostly alphabetical sort in the tooltip
+    return mod1.getId().getPath().compareTo(mod2.getId().getPath());
+  }
 
   /**
    * Parses a modifier entry from JSON
