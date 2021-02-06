@@ -155,7 +155,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Stack sensitive version of {@link #getDisplayName(int)}. Useful for displaying persistent data such as overslime or redstone amount
    * @param tool   Tool instance
    * @param level  Tool level
-   * @return
+   * @return  Stack sensitive display name
    */
   public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
     return getDisplayName(level);
@@ -285,7 +285,16 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 	public void onInventoryTick(IModifierToolStack tool, int level, World world, Entity holder, boolean isHeld, boolean isActive) {}
 
 
-	/* Durability display */
+	/* Display */
+
+  /**
+   * Determines if the modifier should display
+   * @param advanced  If true, in an advanced view such as the tinker station. False for tooltips
+   * @return  True if the modifier should show
+   */
+  public boolean shouldDisplay(boolean advanced) {
+    return true;
+  }
 
   /**
    * Gets the damage percentage for display.  First tool returning something other than NaN will determine display durability

@@ -503,7 +503,9 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
         }
         // modifier tooltip
         for (ModifierEntry entry : tool.getModifierList()) {
-          tooltips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
+          if (entry.getModifier().shouldDisplay(false)) {
+            tooltips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
+          }
         }
         break;
       }

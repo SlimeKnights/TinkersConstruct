@@ -151,9 +151,11 @@ public class TooltipBuilder {
    *
    * @return the tooltip builder
    */
-  public TooltipBuilder addModifierInfo() {
+  public TooltipBuilder addModifierInfo(boolean advanced) {
     for (ModifierEntry entry : tool.getModifierList()) {
-      this.tips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
+      if (entry.getModifier().shouldDisplay(advanced)) {
+        this.tips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
+      }
     }
     return this;
   }

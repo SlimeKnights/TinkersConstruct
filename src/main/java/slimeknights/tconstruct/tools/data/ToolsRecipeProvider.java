@@ -138,10 +138,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     String upgradeFolder = folder + "upgrade/";
 
     // tier 2
-    ModifierRecipeBuilder.modifier(TinkerModifiers.writable.get())
-                         .addInput(Items.WRITABLE_BOOK)
-                         .setMaxLevel(1)
-                         .build(consumer, prefixR(TinkerModifiers.writable, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
                          .addInput(TinkerModifiers.reinforcement)
                          .setMaxLevel(3)
@@ -177,6 +173,21 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setRequirements(ModifierMatch.list(1, ModifierMatch.entry(TinkerModifiers.diamond.get()), ModifierMatch.entry(TinkerModifiers.emerald.get())))
                          .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.netherite_requirements"))
                          .build(consumer, prefixR(TinkerModifiers.netherite, upgradeFolder));
+
+    // extra modifiers
+    ModifierRecipeBuilder.modifier(TinkerModifiers.writable.get())
+                         .addInput(Items.WRITABLE_BOOK)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.writable, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.harmonious.get())
+                         .addInput(ItemTags.MUSIC_DISCS)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.harmonious, upgradeFolder));
+    // TODO: dragon head is currently included in this, do we want a different item for dragon kill?
+    ModifierRecipeBuilder.modifier(TinkerModifiers.recapitated.get())
+                         .addInput(Tags.Items.HEADS)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.recapitated, upgradeFolder));
 
     // overslime
     OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.GREEN), 10)
