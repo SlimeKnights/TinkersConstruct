@@ -99,7 +99,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
         ValidatedResult validatedResult = recipe.getValidatedResult(this.inventoryWrapper);
         if (validatedResult.isSuccess()) {
           result = validatedResult.getResult();
-        } else if (validatedResult.hasMessage()) {
+        } else if (validatedResult.hasError()) {
           this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
           this.screenSyncMessage = validatedResult.getMessage();
         }

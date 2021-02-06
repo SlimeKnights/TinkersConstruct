@@ -1123,13 +1123,15 @@
     "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
     "gui.tconstruct.tinker_station.no_traits": "None :[",
 
-    "recipe.tconstruct.part_swapping.unswappable": "Part cannot be removed due to errors with modifiers",
     "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
 
     "recipe.tconstruct.modifier.not_enough_upgrades": "Need at least %s upgrade slots to add this modifier",
     "recipe.tconstruct.modifier.not_enough_abilities": "Need at least %s ability slots to add this modifier",
-    "recipe.tconstruct.modifier.low_harvest_level": "Must have a harvest level of at least %s to add this modifier",
     "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
+    "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
+
+    "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
+
 
     "_comment": "GUIs Messages",
 

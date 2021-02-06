@@ -15,6 +15,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
@@ -25,11 +26,11 @@ import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuild
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -162,7 +163,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.DIAMOND)
                          .setMaxLevel(1)
                          .setUpgradeSlots(1)
-                         .minHarvestLevel(HarvestLevels.IRON)
                          .build(consumer, prefixR(TinkerModifiers.diamond, upgradeFolder));
 
     // tier 4
@@ -174,7 +174,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_NETHERITE)
                          .setMaxLevel(1)
                          .setUpgradeSlots(1)
-                         .minHarvestLevel(HarvestLevels.DIAMOND)
+                         .setRequirements(ModifierMatch.list(1, ModifierMatch.entry(TinkerModifiers.diamond.get()), ModifierMatch.entry(TinkerModifiers.emerald.get())))
+                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.netherite_requirements"))
                          .build(consumer, prefixR(TinkerModifiers.netherite, upgradeFolder));
 
     // overslime

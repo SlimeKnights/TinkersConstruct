@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -24,8 +23,6 @@ import java.util.List;
  */
 @AllArgsConstructor
 public class TinkerStationPartSwapping implements ITinkerStationRecipe {
-  private static final ValidatedResult UNSWAPPABLE = ValidatedResult.failure(Util.makeTranslationKey("recipe", "part_swapping.unswappable"));
-
   @Getter
   protected final ResourceLocation id;
 
@@ -104,8 +101,10 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         tool = tool.copy();
         tool.replaceMaterial(index, partMaterial);
 
-        if (!tool.isValid()) {
-          return UNSWAPPABLE;
+        // ensure no modifier problems
+        ValidatedResult toolValidation = tool.validate();
+        if (toolValidation.hasError()) {
+          return toolValidation;
         }
         return ValidatedResult.success(tool.createStack());
       }

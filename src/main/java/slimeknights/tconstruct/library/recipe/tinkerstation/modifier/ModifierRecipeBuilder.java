@@ -3,6 +3,8 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -24,10 +26,13 @@ import java.util.function.Consumer;
 public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeBuilder> {
   private final List<SizedIngredient> inputs = new ArrayList<>();
   private final ModifierEntry result;
+  @Setter @Accessors(chain = true)
+  private ModifierMatch requirements = ModifierMatch.ALWAYS;
+  @Setter @Accessors(chain = true)
+  private String requirementsError;
   private int maxLevel = 0;
   private int upgradeSlots = 0;
   private int abilitySlots = 0;
-  private int harvestLevel = -1;
 
   /**
    * Creates a new recipe for 1 level of a modifier
@@ -37,6 +42,7 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
   public static ModifierRecipeBuilder modifier(Modifier modifier) {
     return modifier(new ModifierEntry(modifier, 1));
   }
+
 
   /* Inputs */
 
@@ -138,19 +144,6 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
     return this;
   }
 
-  /**
-   * Sets the required harvest level for this recipe
-   * @param level  Harvest level
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder minHarvestLevel(int level) {
-    if (level < -1) {
-      throw new IllegalArgumentException("Level must be -1 or above");
-    }
-    this.harvestLevel = level;
-    return this;
-  }
-
   @Override
   public void build(Consumer<IFinishedRecipe> consumer) {
     build(consumer, result.getModifier().getId());
@@ -177,6 +170,11 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
         array.add(ingredient.serialize());
       }
       json.add("inputs", array);
+      if (requirements != ModifierMatch.ALWAYS) {
+        JsonObject reqJson = requirements.serialize();
+        reqJson.addProperty("error", requirementsError);
+        json.add("requirements", reqJson);
+      }
       json.add("result", result.toJson());
       if (maxLevel != 0) {
         json.addProperty("max_level", maxLevel);
@@ -186,9 +184,6 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
       }
       if (abilitySlots != 0) {
         json.addProperty("ability_slots", abilitySlots);
-      }
-      if (harvestLevel != -1) {
-        json.addProperty("min_harvest_level", harvestLevel);
       }
     }
 

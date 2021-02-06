@@ -18,6 +18,8 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRequirementLookup;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -36,6 +38,11 @@ import java.util.function.BiConsumer;
  */
 @RequiredArgsConstructor(staticName = "from")
 public class ToolStack implements IModifierToolStack {
+  /** Error messages for when there are not enough remaining modifiers */
+  private static final ValidatedResult NOT_ENOUGH_UPGRADES = ValidatedResult.failure(Util.makeTranslationKey("recipe", "modifier.not_enough_upgrades"));
+  private static final ValidatedResult NOT_ENOUGH_ABILITIES = ValidatedResult.failure(Util.makeTranslationKey("recipe", "modifier.not_enough_abilities"));
+
+
   /** Volatile mod data key for the durability before modifiers */
   public static final ResourceLocation ORIGINAL_DURABILITY_KEY = Util.getResource("durability");
 
@@ -531,11 +538,26 @@ public class ToolStack implements IModifierToolStack {
 
   /**
    * Checks if this tool stack is in a valid state
-   * @return  True if the tool is in a valid state
+   * @return  Pass if the tool is valid, failure result if invalid
    */
-  public boolean isValid() {
-    return getMaterialsList().size() == definition.getRequiredComponents().size()
-           && getFreeUpgrades() > 0 && getFreeAbilities() > 0;
+  public ValidatedResult validate() {
+    // first check slot counts
+    if (getFreeUpgrades() < 0) {
+      return NOT_ENOUGH_UPGRADES;
+    }
+    if (getFreeAbilities() < 0) {
+      return NOT_ENOUGH_ABILITIES;
+    }
+    // next, ensure modifiers validate
+    ValidatedResult result;
+    List<ModifierEntry> mods = getModifierList();
+    for (ModifierEntry entry : mods) {
+      result = entry.getModifier().validate(this, entry.getLevel());
+      if (result.hasError()) {
+        return result;
+      }
+    }
+    return ModifierRequirementLookup.checkRequirements(getUpgrades().getModifiers(), mods);
   }
 
   /**
