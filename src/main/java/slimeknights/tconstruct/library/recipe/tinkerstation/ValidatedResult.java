@@ -57,7 +57,7 @@ public class ValidatedResult {
    * If true, this recipe failed with an error message. This message should be displayed on screen
    * @return  true if the recipe failed with an error message
    */
-  public boolean hasMessage() {
+  public boolean hasError() {
     return false;
   }
 
@@ -92,7 +92,7 @@ public class ValidatedResult {
     }
 
     @Override
-    public boolean hasMessage() {
+    public boolean hasError() {
       return true;
     }
   }

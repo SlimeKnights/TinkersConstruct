@@ -6,6 +6,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -32,6 +33,9 @@ public class OverslimeModifier extends SingleUseModifier {
     return getDisplayName().deepCopy().appendString(": " + getOverslime(tool) + " / " + getCap(tool));
   }
 
+
+  /* Tool building */
+
   @Override
   public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     // add overslime cap if missing, just a consistency thing really
@@ -49,6 +53,19 @@ public class OverslimeModifier extends SingleUseModifier {
   }
 
   @Override
+  public ValidatedResult validate(ToolStack tool, int level) {
+    // clear excess overslime
+    int cap = getCap(tool);
+    if (getOverslime(tool) > cap) {
+      setOverslime(tool, cap);
+    }
+    return ValidatedResult.PASS;
+  }
+
+
+  /* Hooks */
+
+  @Override
   public int getPriority() {
     // higher than reinforced, reinforced does not protect overslime
     return 150;
@@ -60,7 +77,7 @@ public class OverslimeModifier extends SingleUseModifier {
     if (overslime > 0) {
       // if we have more overslime than amount, remove some overslime
       if (overslime >= amount) {
-        addOverslime(toolStack, -amount);
+        setOverslime(toolStack, overslime - amount);
         return 0;
       }
       // amount is more than overslime, reduce and clear overslime

@@ -16,9 +16,11 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 import javax.annotation.Nullable;
@@ -223,6 +225,16 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   public void addAttributes(IModifierToolStack tool, int level, BiConsumer<Attribute,AttributeModifier> consumer) {}
 
+  /**
+   * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
+   * Do not validate max level here, simply ignore levels over max if needed.
+   * @param tool   Current tool instance
+   * @param level  Modifier level
+   * @return  PASS result if success, failure if there was an error.
+   */
+  public ValidatedResult validate(ToolStack tool, int level) {
+    return ValidatedResult.PASS;
+  }
 
   /* Hooks */
 

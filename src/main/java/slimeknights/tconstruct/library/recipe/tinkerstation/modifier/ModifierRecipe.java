@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.network.PacketBuffer;
@@ -24,7 +23,6 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -34,12 +32,11 @@ import java.util.List;
 /**
  * Standard recipe to add a modifier
  */
-@RequiredArgsConstructor
 public class ModifierRecipe implements ITinkerStationRecipe {
   private static final String KEY_MAX_LEVEL = Util.makeTranslationKey("recipe", "modifier.max_level");
   private static final String KEY_NOT_ENOUGH_UPGRADES = Util.makeTranslationKey("recipe", "modifier.not_enough_upgrades");
   private static final String KEY_NOT_ENOUGH_ABILITIES = Util.makeTranslationKey("recipe", "modifier.not_enough_abilities");
-  private static final String KEY_LOW_HARVEST_LEVEL = Util.makeTranslationKey("recipe", "modifier.low_harvest_level");
+  private static final ValidatedResult REQUIREMENTS_ERROR = ValidatedResult.failure(ModifierRequirementLookup.DEFAULT_ERROR_KEY);
 
   @Getter
   private final ResourceLocation id;
@@ -49,6 +46,10 @@ public class ModifierRecipe implements ITinkerStationRecipe {
    * Making the most strict first will produce the best behavior
    */
   private final List<SizedIngredient> inputs;
+  /** Modifiers that must match for this recipe */
+  private final ModifierMatch requirements;
+  /** Error message to display if the requirements do not match */
+  private final String requirementsError;
   /** Modifier this recipe is adding */
   private final ModifierEntry result;
   /** Maximum level of this modifier allowed */
@@ -57,8 +58,20 @@ public class ModifierRecipe implements ITinkerStationRecipe {
   private final int upgradeSlots;
   /** Required ability slots to add this modifier */
   private final int abilitySlots;
-  /** Required harvest level to apply this modifier */
-  private final int harvestLevel;
+
+  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
+    this.id = id;
+    this.inputs = inputs;
+    this.requirements = requirements;
+    this.requirementsError = requirementsError;
+    this.result = result;
+    this.maxLevel = maxLevel;
+    this.upgradeSlots = upgradeSlots;
+    this.abilitySlots = abilitySlots;
+    if (requirements != ModifierMatch.ALWAYS) {
+      ModifierRequirementLookup.addRequirement(result.getModifier(), requirements, requirementsError);
+    }
+  }
 
   /**
    * Creates the bitset used for marking inputs we do not care about
@@ -126,6 +139,10 @@ public class ModifierRecipe implements ITinkerStationRecipe {
     // TODO: this only works for tool core, generalize
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
 
+    // validate modifier prereqs
+    if (!requirements.test(tool.getModifierList())) {
+      return requirementsError.isEmpty() ? REQUIREMENTS_ERROR : ValidatedResult.failure(requirementsError);
+    }
     // max level of modifier
     if (maxLevel != 0 && tool.getUpgrades().getLevel(result.getModifier()) + result.getLevel() > maxLevel) {
       return ValidatedResult.failure(KEY_MAX_LEVEL, result.getModifier().getDisplayName(), maxLevel);
@@ -137,10 +154,6 @@ public class ModifierRecipe implements ITinkerStationRecipe {
     if (tool.getFreeAbilities() < abilitySlots) {
       return ValidatedResult.failure(KEY_NOT_ENOUGH_ABILITIES, abilitySlots);
     }
-    // harvest level check
-    if (tool.getStats().getHarvestLevel() < harvestLevel) {
-      return ValidatedResult.failure(KEY_LOW_HARVEST_LEVEL, HarvestLevels.getHarvestLevelName(harvestLevel));
-    }
 
     // consume slots
     tool = tool.copy();
@@ -150,6 +163,13 @@ public class ModifierRecipe implements ITinkerStationRecipe {
 
     // add modifier
     tool.addModifier(result.getModifier(), result.getLevel());
+
+    // ensure no modifier problems
+    ValidatedResult toolValidation = tool.validate();
+    if (toolValidation.hasError()) {
+      return toolValidation;
+    }
+
     return ValidatedResult.success(tool.createStack());
   }
 
@@ -189,6 +209,13 @@ public class ModifierRecipe implements ITinkerStationRecipe {
     @Override
     public ModifierRecipe read(ResourceLocation id, JsonObject json) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
+      ModifierMatch requirements = ModifierMatch.ALWAYS;
+      String requirementsError = "";
+      if (json.has("requirements")) {
+        JsonObject reqJson = JSONUtils.getJsonObject(json, "requirements");
+        requirements = ModifierMatch.deserialize(reqJson);
+        requirementsError = JSONUtils.getString(reqJson, "error", "");
+      }
       ModifierEntry result = ModifierEntry.fromJson(JSONUtils.getJsonObject(json, "result"));
       int upgradeSlots = JSONUtils.getInt(json, "upgrade_slots", 0);
       if (upgradeSlots < 0) {
@@ -205,11 +232,7 @@ public class ModifierRecipe implements ITinkerStationRecipe {
       if (upgradeSlots > 0 && abilitySlots > 0) {
         throw new JsonSyntaxException("Cannot set both upgrade_slots and ability_slots");
       }
-      int harvestLevel = JSONUtils.getInt(json, "min_harvest_level", -1);
-      if (harvestLevel < -1) {
-        throw new JsonSyntaxException("harvest_level must be -1 or above");
-      }
-      return new ModifierRecipe(id, ingredients, result, maxLevel, upgradeSlots, abilitySlots, harvestLevel);
+      return new ModifierRecipe(id, ingredients, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     }
 
     @Nullable
@@ -220,12 +243,13 @@ public class ModifierRecipe implements ITinkerStationRecipe {
       for (int i = 0; i < size; i++) {
         builder.add(SizedIngredient.read(buffer));
       }
+      ModifierMatch requirements = ModifierMatch.read(buffer);
+      String requirementsError = buffer.readString(Short.MAX_VALUE);
       ModifierEntry result = ModifierEntry.read(buffer);
       int maxLevel = buffer.readVarInt();
       int upgradeSlots = buffer.readVarInt();
       int abilitySlots = buffer.readVarInt();
-      int harvestLevel = buffer.readVarInt();
-      return new ModifierRecipe(id, builder.build(), result, maxLevel, upgradeSlots, abilitySlots, harvestLevel);
+      return new ModifierRecipe(id, builder.build(), requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     }
 
     @Override
@@ -234,11 +258,12 @@ public class ModifierRecipe implements ITinkerStationRecipe {
       for (SizedIngredient ingredient : recipe.inputs) {
         ingredient.write(buffer);
       }
+      recipe.requirements.write(buffer);
+      buffer.writeString(recipe.requirementsError);
       recipe.result.write(buffer);
       buffer.writeVarInt(recipe.maxLevel);
       buffer.writeVarInt(recipe.upgradeSlots);
       buffer.writeVarInt(recipe.abilitySlots);
-      buffer.writeVarInt(recipe.harvestLevel);
     }
   }
 }
