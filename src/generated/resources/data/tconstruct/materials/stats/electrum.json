@@ -4,7 +4,7 @@
     {
       "id": "tconstruct:head",
       "durability": 225,
-      "miningSpeed": 12.0,
+      "miningSpeed": 11.0,
       "harvestLevel": 2,
       "attack": 1.5
     },

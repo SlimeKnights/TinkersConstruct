@@ -3,8 +3,8 @@
   "stats": [
     {
       "id": "tconstruct:head",
-      "durability": 375,
-      "miningSpeed": 8.5,
+      "durability": 675,
+      "miningSpeed": 6.5,
       "harvestLevel": 3,
       "attack": 2.5
     },
