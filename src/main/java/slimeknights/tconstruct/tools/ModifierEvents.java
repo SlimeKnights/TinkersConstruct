@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -21,6 +22,17 @@ public class ModifierEvents {
     if (!tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event);
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void onBlockBreak(BlockEvent.BreakEvent event) {
+    // technically works on anything that has the tic_modifiers tag
+    ToolStack tool = ToolStack.from(event.getPlayer().getHeldItemMainhand());
+    if (!tool.isBroken()) {
+      for (ModifierEntry entry : tool.getModifierList()) {
+        entry.getModifier().onBlockBreak(tool, entry.getLevel(), event);
       }
     }
   }

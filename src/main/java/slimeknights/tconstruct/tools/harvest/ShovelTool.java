@@ -29,7 +29,7 @@ public class ShovelTool extends ToolCore implements IAoeTool {
   }
 
   @Override
-  public boolean isEffective(BlockState state) {
+  public boolean canHarvestBlock(BlockState state) {
     return EFFECTIVE_MATERIALS.contains(state.getMaterial()) || ShovelItem.EFFECTIVE_ON.contains(state.getBlock());
   }
 

@@ -17,7 +17,7 @@ public class TestToolCore extends ToolCore {
   }
 
   @Override
-  public boolean isEffective(BlockState state) {
+  public boolean canHarvestBlock(BlockState state) {
     return state.getBlock() == Blocks.DIRT;
   }
 

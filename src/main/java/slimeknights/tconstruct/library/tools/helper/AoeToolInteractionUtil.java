@@ -66,7 +66,7 @@ public class AoeToolInteractionUtil {
 
     ToolCore toolCore = (ToolCore) tool.getItem();
 
-    if (!toolCore.isEffective(blockState) && !ToolInteractionUtil.isToolEffectiveAgainstBlock(tool, blockState)) {
+    if (!toolCore.canHarvestBlock(blockState) && !ToolInteractionUtil.isToolEffectiveAgainstBlock(tool, blockState)) {
       return false;
     }
 
@@ -211,7 +211,7 @@ public class AoeToolInteractionUtil {
     // find out where the player is hitting the block
     BlockState state = world.getBlockState(origin);
 
-    if (!((ToolCore) stack.getItem()).isEffective(state) && !ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, state)) {
+    if (!((ToolCore) stack.getItem()).canHarvestBlock(state) && !ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, state)) {
       return ImmutableList.of();
     }
 
@@ -325,7 +325,7 @@ public class AoeToolInteractionUtil {
 
           BlockPos pos = new BlockPos(xp, yp, zp);
 
-          boolean isEffective = ((ToolCore) stack.getItem()).isEffective(world.getBlockState(pos));
+          boolean isEffective = ((ToolCore) stack.getItem()).canHarvestBlock(world.getBlockState(pos));
           boolean isToolEffectiveAgainstBlock = ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, world.getBlockState(pos));
 
           if (isToolEffectiveAgainstBlock) {

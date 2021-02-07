@@ -45,7 +45,7 @@ public class KamaTool extends ToolCore implements IAoeTool {
   }
 
   @Override
-  public boolean isEffective(BlockState state) {
+  public boolean canHarvestBlock(BlockState state) {
     return EFFECTIVE_MATERIALS.contains(state.getMaterial());
   }
 

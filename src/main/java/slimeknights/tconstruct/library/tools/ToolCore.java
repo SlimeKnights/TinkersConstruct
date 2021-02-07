@@ -18,6 +18,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -50,7 +51,6 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolMiningLogic;
-import slimeknights.tconstruct.library.tools.helper.TraitUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
@@ -242,7 +242,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    * Handles damaging the tool and applying the traits
    * Called by onBlockDestroyed
    *
-   * @param stack the tool stack
+   * @param tool  The parsed tool instance
+   * @param stack the tool stack, generally you should use tool instead for queries
    * @param world the current world
    * @param state the block state at the given position
    * @param pos the block pos affected
@@ -250,24 +251,38 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    * @param damage the damage to apply to the tool
    * @param wasEffective if the break was effective
    */
-  public void afterBlockBreak(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity livingEntity, int damage, boolean wasEffective) {
-    TraitUtil.forEachTrait(stack, trait -> trait.afterBlockBreak(stack, world, state, pos, livingEntity, wasEffective));
-    stack.damageItem(damage, livingEntity,
-      entity -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+  public void afterBlockBreak(ToolStack tool, ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity livingEntity, int damage, boolean wasEffective) {
+    for (ModifierEntry entry : tool.getModifierList()) {
+      entry.getModifier().afterBlockBreak(tool, entry.getLevel(), world, state, pos, livingEntity, wasEffective);
+    }
+    if (tool.damage(damage, livingEntity, stack)) {
+      livingEntity.sendBreakAnimation(Hand.MAIN_HAND);
+    }
   }
 
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-    if (ToolDamageUtil.isBroken(stack)) {
+    ToolStack tool = ToolStack.from(stack);
+    if (tool.isBroken()) {
       return false;
     }
 
-    boolean effective = this.isEffective(state) || ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, worldIn.getBlockState(pos));
-    int damage = effective ? 1 : 2;
+    if (!worldIn.isRemote) {
+      boolean effective = this.canHarvestBlock(state)
+                          || stack.getItem().getToolTypes(stack).stream().anyMatch(toolType -> state.getBlock().isToolEffective(state, toolType));
+      // determine tool damage based on block
+      int damage;
+      if (state.getBlockHardness(worldIn, pos) == 0.0F) {
+        damage = 0;
+      } else if (effective) {
+        damage = 1;
+      } else {
+        damage = 2;
+      }
+      this.afterBlockBreak(tool, stack, worldIn, state, pos, entityLiving, damage, effective);
+    }
 
-    this.afterBlockBreak(stack, worldIn, state, pos, entityLiving, damage, effective);
-
-    return effective && this.getToolDefinition().hasCategory(Category.HARVEST);
+    return true;
   }
 
   /**
@@ -276,11 +291,12 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    * @param state the blockstate
    * @return true if effective or false if not
    */
-  public abstract boolean isEffective(BlockState state);
+  @Override
+  public abstract boolean canHarvestBlock(BlockState state);
 
   @Override
   public float getDestroySpeed(ItemStack stack, BlockState state) {
-    if (this.isEffective(state) || ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, state)) {
+    if (this.canHarvestBlock(state) || ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, state)) {
       return this.toolMiningLogic.calcDigSpeed(stack, state);
     }
 
@@ -289,7 +305,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public boolean canHarvestBlock(ItemStack stack, BlockState state) {
-    return !ToolDamageUtil.isBroken(stack) && this.isEffective(state);
+    return !ToolDamageUtil.isBroken(stack) && this.canHarvestBlock(state);
   }
 
   /* Repairing */
@@ -426,20 +442,17 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
 
-    ToolStack tool = ToolStack.from(stack);
-    List<ModifierEntry> modifiers = tool.getModifierList();
-    if (!modifiers.isEmpty()) {
-      boolean isActive = false;
-      // for living entities, active is available, and say its selected if in the offhand
-      if (entityIn instanceof LivingEntity) {
+    // don't care about non-living, they skip most tool context
+    if (entityIn instanceof LivingEntity) {
+      ToolStack tool = ToolStack.from(stack);
+      List<ModifierEntry> modifiers = tool.getModifierList();
+      if (!modifiers.isEmpty()) {
         LivingEntity living = (LivingEntity) entityIn;
-        isActive = living.getActiveItemStack() == stack;
-        if (!isSelected) {
-          isSelected = living.getHeldItemOffhand() == stack;
+        // we pass in the stack for most custom context, but for the sake of armor its easier to tell them that this is the correct slot for effects
+        boolean isHeld = isSelected || living.getHeldItemOffhand() == stack;
+        for (ModifierEntry entry : modifiers) {
+          entry.getModifier().onInventoryTick(tool, entry.getLevel(), worldIn, living, itemSlot, isSelected, isHeld, stack);
         }
-      }
-      for (ModifierEntry entry : modifiers) {
-        entry.getModifier().onInventoryTick(tool, entry.getLevel(), worldIn, entityIn, isSelected, isActive);
       }
     }
   }

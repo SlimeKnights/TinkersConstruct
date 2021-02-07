@@ -9,7 +9,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -41,7 +40,7 @@ public class AxeTool extends ToolCore implements IAoeTool {
   }
 
   @Override
-  public boolean isEffective(BlockState state) {
+  public boolean canHarvestBlock(BlockState state) {
     return EFFECTIVE_MATERIALS.contains(state.getMaterial()) || AxeItem.EFFECTIVE_ON_BLOCKS.contains(state.getBlock());
   }
 
@@ -86,15 +85,6 @@ public class AxeTool extends ToolCore implements IAoeTool {
     }
 
     return super.getDestroySpeed(stack, state);
-  }
-
-  @Override
-  public void afterBlockBreak(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity player, int damage, boolean wasEffective) {
-    if (state.getBlock().isIn(BlockTags.LEAVES)) {
-      damage = 0;
-    }
-
-    super.afterBlockBreak(stack, world, state, pos, player, damage, wasEffective);
   }
 
   @Override
