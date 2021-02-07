@@ -19,7 +19,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tinkering.Category;
-import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.traits.ITrait;
@@ -44,9 +43,8 @@ public class ToolAttackUtil {
         damage = (float) instance.getValue();
       }
     }
-    ToolBaseStatDefinition baseStats = stack.getDefinition().getBaseStatDefinition();
-    damage += stack.getStats().getAttackDamage() * baseStats.getDamageModifier();
-    return calculateCutoffDamage(damage, baseStats.getDamageCutoff());
+    damage += stack.getStats().getAttackDamage();
+    return calculateCutoffDamage(damage, stack.getDefinition().getBaseStatDefinition().getDamageCutoff());
   }
 
   /**
@@ -224,6 +222,7 @@ public class ToolAttackUtil {
       oldVelY = target.getMotion().getY();
       oldVelZ = target.getMotion().getZ();
 
+      // FIXME: target.applyKnockback
       target.setMotion(oldVelX + (target.getMotion().getX() - oldVelX) * tool.getToolDefinition().getBaseStatDefinition().getKnockbackModifier(),
         oldVelY + (target.getMotion().getY() - oldVelY) * tool.getToolDefinition().getBaseStatDefinition().getKnockbackModifier() / 3f,
         oldVelZ + (target.getMotion().getZ() - oldVelZ) * tool.getToolDefinition().getBaseStatDefinition().getKnockbackModifier()

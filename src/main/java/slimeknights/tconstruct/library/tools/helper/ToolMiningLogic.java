@@ -37,8 +37,7 @@ public final class ToolMiningLogic {
     }
 
     // calculate speed depending on stats
-    float modifier = toolCore.getToolDefinition().getBaseStatDefinition().getMiningSpeedModifier();
-    return tool.getStats().getMiningSpeed() * modifier;
+    return tool.getStats().getMiningSpeed();
   }
 
   /**

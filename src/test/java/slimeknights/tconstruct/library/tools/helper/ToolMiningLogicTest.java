@@ -70,7 +70,7 @@ class ToolMiningLogicTest extends ToolCoreTest {
     ToolCore toolWithMiningModifier = new PickaxeTool(
       new Item.Properties().addToolType(ToolType.PICKAXE, 1),
       new ToolDefinition(
-        new ToolBaseStatDefinition.Builder().setDamageModifier(1f).setMiningSpeedModifer(modifier).build(),
+        new ToolBaseStatDefinition.Builder().setDamageModifier(1f).setMiningSpeedModifier(modifier).build(),
         () -> ImmutableList.of(MaterialItemFixture.MATERIAL_ITEM_HEAD, MaterialItemFixture.MATERIAL_ITEM_HANDLE, MaterialItemFixture.MATERIAL_ITEM_EXTRA),
         ImmutableSet.of(Category.HARVEST)
       ));
