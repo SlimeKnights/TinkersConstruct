@@ -6,8 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -20,10 +18,6 @@ import java.util.List;
 @SuppressWarnings("UnusedReturnValue")
 @RequiredArgsConstructor
 public class TooltipBuilder {
-  /** Formateed broken string */
-  public static final ITextComponent TOOLTIP_BROKEN = Util.makeTranslation("tooltip", "tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED);
-  /** Prefixed broken string */
-  private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = new TranslationTextComponent(HeadMaterialStats.DURABILITY_PREFIX).append(TOOLTIP_BROKEN);
   /** Key for free modifiers localization */
   private final static String KEY_FREE_UPGRADES = Util.makeTranslationKey("tooltip", "tool.upgrades");
   private final static String KEY_FREE_ABILITIES = Util.makeTranslationKey("tooltip", "tool.abilities");
@@ -84,13 +78,9 @@ public class TooltipBuilder {
    *
    * @return the tooltip builder
    */
-  public TooltipBuilder addDurability(boolean textIfBroken) {
-    if (tool.isBroken() && textIfBroken) {
-      this.tips.add(TOOLTIP_BROKEN_PREFIXED);
-    } else {
-      this.tips.add(HeadMaterialStats.formatDurability(tool.getCurrentDurability(), tool.getStats().getDurability()));
-    }
-
+  public TooltipBuilder addDurability() {
+    // never show broken text in this context
+    this.tips.add(HeadMaterialStats.formatDurability(tool.getCurrentDurability(), tool.getStats().getDurability(), false));
     return this;
   }
 
