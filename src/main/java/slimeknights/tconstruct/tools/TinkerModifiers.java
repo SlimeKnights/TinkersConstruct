@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -21,6 +22,7 @@ import slimeknights.tconstruct.tools.modifiers.LevelDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.free.WorldboundModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.BonusDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DwarfishModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
@@ -28,7 +30,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.LightweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.SmiteModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.SearingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
@@ -94,6 +96,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<LevelDamageModifier> fractured = MODIFIERS.register("fractured", () -> new LevelDamageModifier(0xede6bf, 1.5f));
   // traits - tier 2
   public static final RegistryObject<ReinforcedModifier> reinforced = MODIFIERS.register("reinforced", ReinforcedModifier::new);
+  public static final RegistryObject<SearingModifier> searing = MODIFIERS.register("searing", SearingModifier::new);
   public static final RegistryObject<DwarfishModifier> dwarfish = MODIFIERS.register("dwarfish", DwarfishModifier::new);
   public static final RegistryObject<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
   // traits - tier 3
@@ -105,7 +108,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // traits - mod compat tier 2
   public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
-  public static final RegistryObject<SmiteModifier> smite = MODIFIERS.register("smite", SmiteModifier::new);
+  public static final RegistryObject<BonusDamageModifier> smite = MODIFIERS.register("smite", () -> new BonusDamageModifier(0xd1ecf6, CreatureAttribute.UNDEAD));
   // traits - mod compat tier 3
   public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
 

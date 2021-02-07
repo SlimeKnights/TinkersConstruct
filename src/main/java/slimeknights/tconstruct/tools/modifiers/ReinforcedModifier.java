@@ -9,7 +9,7 @@ public class ReinforcedModifier extends Modifier {
   }
 
   @Override
-  public int onDamage(IModifierToolStack toolStack, int level, int amount) {
+  public int onDamageTool(IModifierToolStack toolStack, int level, int amount) {
     // vanilla formula, 100 / (level + 1), means 50% chance at level 1
     float chance = 1f / (level + 1f);
     if (chance < 1f) {

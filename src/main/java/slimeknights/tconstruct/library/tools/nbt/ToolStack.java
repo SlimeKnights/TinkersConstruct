@@ -305,7 +305,7 @@ public class ToolStack implements IModifierToolStack {
 
     // try each modifier
     for (ModifierEntry entry : getModifierList()) {
-      amount = entry.getModifier().onDamage(this, entry.getLevel(), amount);
+      amount = entry.getModifier().onDamageTool(this, entry.getLevel(), amount);
       // if no more damage, done
       if (amount < 0) {
         return false;
@@ -350,7 +350,7 @@ public class ToolStack implements IModifierToolStack {
 
     // try each modifier
     for (ModifierEntry entry : getModifierList()) {
-      amount = entry.getModifier().onRepair(this, entry.getLevel(), amount);
+      amount = entry.getModifier().onRepairTool(this, entry.getLevel(), amount);
       // if no more damage, done
       if (amount < 0) {
         return;

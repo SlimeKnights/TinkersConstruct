@@ -18,7 +18,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -73,7 +72,7 @@ import java.util.function.Consumer;
  * This class handles how all the data for items made out of different
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
-public abstract class ToolCore extends Item implements ITinkerable, IModifiable, IRepairable, ITinkerStationDisplay {
+public abstract class ToolCore extends Item implements ITinkerable, IModifiable, IRepairable, ITinkerStationDisplay, IModifiableWeapon {
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
@@ -319,29 +318,6 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   /* Attacking */
 
-  /**
-   * Actually deal damage to the entity we hit. Can be overridden for special behaviour
-   *
-   * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
-   */
-  public boolean dealDamage(ItemStack stack, LivingEntity player, Entity entity, float damage) {
-    if (player instanceof PlayerEntity) {
-      return entity.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) player), damage);
-    }
-
-    return entity.attackEntityFrom(DamageSource.causeMobDamage(player), damage);
-  }
-
-  /**
-   * Checks if the player is ready to special attack
-   *
-   * @param player the player to check
-   * @return whether or not if the player is ready for special attack
-   */
-  protected boolean readyForSpecialAttack(LivingEntity player) {
-    return player instanceof PlayerEntity && ((PlayerEntity) player).getCooledAttackStrength(0.5f) > 0.9f;
-  }
-
   @Override
   public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
     return ToolAttackUtil.attackEntity(stack, this, player, entity);
@@ -357,6 +333,19 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     }
 
     return super.hitEntity(stack, target, attacker);
+  }
+
+  @Override
+  public float getDamageCutoff() {
+    return getToolDefinition().getBaseStatDefinition().getDamageCutoff();
+  }
+
+  @Override
+  public void damageWeapon(ToolStack tool, ItemStack stack, LivingEntity living, int amount) {
+    if (!getToolDefinition().hasCategory(Category.WEAPON)) {
+      amount *= 2;
+    }
+    IModifiableWeapon.super.damageWeapon(tool, stack, living, amount);
   }
 
   @Override
