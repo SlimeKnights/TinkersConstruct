@@ -749,51 +749,52 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     return Item.rayTrace(worldIn, player, fluidMode);
   }
 
-  //
-  //  @Override
-  //  public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
-  //    return shouldCauseReequipAnimation(oldStack, newStack, false);
-  //  }
-  //
-  //  @Override
-  //  public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
-  //    if(TagUtil.getResetFlag(newStack)) {
-  //      TagUtil.setResetFlag(newStack, false);
-  //      return true;
-  //    }
-  //    if(oldStack == newStack) {
-  //      return false;
-  //    }
-  //    if(slotChanged) {
-  //      return true;
-  //    }
-  //
-  //    if(oldStack.hasEffect() != newStack.hasEffect()) {
-  //      return true;
-  //    }
-  //
-  //    Multimap<String, AttributeModifier> attributesNew = newStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
-  //    Multimap<String, AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
-  //
-  //    if(attributesNew.size() != attributesOld.size()) {
-  //      return true;
-  //    }
-  //    for(String key : attributesOld.keySet()) {
-  //      if(!attributesNew.containsKey(key)) {
-  //        return true;
-  //      }
-  //      Iterator<AttributeModifier> iter1 = attributesNew.get(key).iterator();
-  //      Iterator<AttributeModifier> iter2 = attributesOld.get(key).iterator();
-  //      while(iter1.hasNext() && iter2.hasNext()) {
-  //        if(!iter1.next().equals(iter2.next())) {
-  //          return true;
-  //        }
-  //      }
-  //    }
-  //
-  //    if(oldStack.getItem() == newStack.getItem() && newStack.getItem() instanceof ToolCore) {
-  //      return !isEqualTinkersItem(oldStack, newStack);
-  //    }
-  //    return !ItemStack.areItemStacksEqual(oldStack, newStack);
-  //  }
+  @Override
+  public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
+    return shouldCauseReequipAnimation(oldStack, newStack, false);
+  }
+
+  @Override
+  public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+    if (oldStack == newStack) {
+      return false;
+    }
+    // basic changes
+    if (slotChanged || oldStack.getItem() != newStack.getItem()) {
+      return true;
+    }
+
+    // if the tool props changed,
+    ToolStack oldTool = ToolStack.from(oldStack);
+    ToolStack newTool = ToolStack.from(newStack);
+
+    // check if modifiers or materials changed
+    if (!oldTool.getMaterialsList().equals(newTool.getMaterialsList())) {
+      return true;
+    }
+    if (!oldTool.getModifierList().equals(newTool.getModifierList())) {
+      return true;
+    }
+
+    // if the attributes changed, reequip
+    Multimap<Attribute, AttributeModifier> attributesNew = newStack.getAttributeModifiers(EquipmentSlotType.MAINHAND);
+    Multimap<Attribute, AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EquipmentSlotType.MAINHAND);
+    if (attributesNew.size() != attributesOld.size()) {
+      return true;
+    }
+    for (Attribute attribute : attributesOld.keySet()) {
+      if (!attributesNew.containsKey(attribute)) {
+        return true;
+      }
+      Iterator<AttributeModifier> iter1 = attributesNew.get(attribute).iterator();
+      Iterator<AttributeModifier> iter2 = attributesOld.get(attribute).iterator();
+      while (iter1.hasNext() && iter2.hasNext()) {
+        if (!iter1.next().equals(iter2.next())) {
+          return true;
+        }
+      }
+    }
+    // no changes, no reequip
+    return false;
+  }
 }
