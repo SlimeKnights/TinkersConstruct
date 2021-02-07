@@ -1021,7 +1021,7 @@
     "modifier.tconstruct.reinforced": "Reinforced",
     "modifier.tconstruct.reinforced.description": "§oUnbreaking!§r\nTool is less likely to take damage",
     "modifier.tconstruct.searing": "Searing",
-    "modifier.tconstruct.searing.description": "§oHarness the Smeltery!§r\nTool does bonus damage in hot areas, but less damage in cold ones",
+    "modifier.tconstruct.searing.description": "§oHarness the Smeltery!§r\nTool does bonus fire damage in hot areas, but less overall damage in cold ones",
     "modifier.tconstruct.dwarfish": "Dwarfish",
     "modifier.tconstruct.dwarfish.description": "§oMiner's Friend!§r\nTool mines faster the deeper you mine, just don't mine too deep",
     "modifier.tconstruct.overgrowth": "Overgrowth",
