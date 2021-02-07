@@ -350,8 +350,6 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   @Override
   public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
     float speed = ToolStack.from(stack).getStats().getAttackSpeed();
-    speed *= toolDefinition.getBaseStatDefinition().getAttackSpeed();
-
     int time = Math.round(20f / speed);
     if (time < target.hurtResistantTime / 2) {
       target.hurtResistantTime = (target.hurtResistantTime + time) / 2;
@@ -368,10 +366,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     if (slot == EquipmentSlotType.MAINHAND && !tool.isBroken()) {
       // base stats
       StatsNBT statsNBT = tool.getStats();
-      double speed = statsNBT.getAttackSpeed() * toolDefinition.getBaseStatDefinition().getAttackSpeed();
-      float damage = statsNBT.getAttackDamage() * toolDefinition.getBaseStatDefinition().getDamageModifier();
-      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", damage, AttributeModifier.Operation.ADDITION));
-      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", speed - 4d, AttributeModifier.Operation.ADDITION));
+      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", statsNBT.getAttackDamage(), AttributeModifier.Operation.ADDITION));
+      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", statsNBT.getAttackSpeed() - 4d, AttributeModifier.Operation.ADDITION));
 
       // grab attributes from modifiers
       BiConsumer<Attribute, AttributeModifier> attributeConsumer = builder::put;

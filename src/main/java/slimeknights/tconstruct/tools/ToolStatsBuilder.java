@@ -144,6 +144,6 @@ public final class ToolStatsBuilder {
     IStatFactory DEFAULT = StatsNBT::new;
 
     /** Creates tool stats from the given parameters */
-    StatsNBT create(int durability, int harvestLevel, float attackDamage, float miningSpeed, float attackSpeedMultiplier);
+    StatsNBT create(int durability, int harvestLevel, float attackDamage, float miningSpeed, float attackSpeed);
   }
 }

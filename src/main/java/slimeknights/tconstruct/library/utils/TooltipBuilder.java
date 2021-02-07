@@ -65,9 +65,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addMiningSpeed() {
-    float speed = tool.getStats().getMiningSpeed();
-    speed *= tool.getDefinition().getBaseStatDefinition().getMiningSpeedModifier();
-    this.tips.add(HeadMaterialStats.formatMiningSpeed(speed));
+    this.tips.add(HeadMaterialStats.formatMiningSpeed(tool.getStats().getMiningSpeed()));
     return this;
   }
 
@@ -113,8 +111,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addAttackSpeed() {
-    double attackSpeed = tool.getStats().getAttackSpeed() * tool.getDefinition().getBaseStatDefinition().getAttackSpeed();
-    this.tips.add(BaseMaterialStats.formatNumber(KEY_ATTACK_SPEED, ATTACK_SPEED_COLOR, (float)attackSpeed));
+    this.tips.add(BaseMaterialStats.formatNumber(KEY_ATTACK_SPEED, ATTACK_SPEED_COLOR, tool.getStats().getAttackSpeed()));
     return this;
   }
 
