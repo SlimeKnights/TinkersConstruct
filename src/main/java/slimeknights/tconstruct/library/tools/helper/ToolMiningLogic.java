@@ -30,7 +30,7 @@ public final class ToolMiningLogic {
       return 0.3f;
     }
 
-    if(!toolCore.isEffective(blockState)
+    if(!toolCore.canHarvestBlock(blockState)
       && !ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, blockState)
       && !hasRequiredHarvestLevel(stack, blockState)) {
       return 1f;

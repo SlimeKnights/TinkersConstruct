@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -19,9 +20,9 @@ public class OvergrowthModifier extends Modifier {
   }
 
   @Override
-  public void onInventoryTick(IModifierToolStack tool, int level, World world, Entity holder, boolean isHeld, boolean isActive) {
+  public void onInventoryTick(IModifierToolStack tool, int level, World world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {
     // update 1 times a second, but skip when active (messes with pulling bow back)
-    if (!isActive && !world.isRemote && holder.ticksExisted % 20 == 0) {
+    if (!world.isRemote && holder.ticksExisted % 20 == 0 && holder.getActiveItemStack() == stack) {
       // ensure we have overslime
       int overslime = OverslimeModifier.getOverslime(tool);
       int cap = OverslimeModifier.getCap(tool);

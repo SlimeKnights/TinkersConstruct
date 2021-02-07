@@ -2,18 +2,21 @@ package slimeknights.tconstruct.library.modifiers;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
@@ -263,10 +266,28 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
+   * Called when the stack updates in the player inventory
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param world          World containing tool
+   * @param holder         Entity holding tool
+   * @param itemSlot       Slot containing this tool
+   * @param isSelected     If true, this item is currently in the player's main hand
+   * @param isCorrectSlot  If true, this item is in the proper slot. For tools, that is main hand or off hand. For armor, this means its in the correct armor slot
+   * @param stack          Item stack instance to check other slots for the tool. Do not modify
+   */
+  public void onInventoryTick(IModifierToolStack tool, int level, World world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {}
+
+
+  /* Harvest hooks */
+
+  /**
    * Called when break speed is being calculated to affect mining speed conditionally.
+   * <br>
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but effect shows in the tooltip.</li>
+   *   <li>{@link #onBlockBreak(IModifierToolStack, int, BreakEvent)}: Can directly prevent block breaking instead of just change breaking speed. Called just once per block break</li>
    * </ul>
    * @param tool   Current tool instance
    * @param level  Modifier level
@@ -275,21 +296,47 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
 
   /**
-   * Called when the stack updates in the player inventory
-   * @param tool      Current tool instance
-   * @param level     Modifier level
-   * @param world     World containing tool
-   * @param holder    Entity holding tool
-   * @param isHeld    If true, tool is in the main hand or off hand. If false, tool is simply in the inventory
-   * @param isActive  If true, tool is currently active (e.g. bow being drawn back)
+   * Called before a block is broken. Can be used to modify block XP or as a last chance to prevent block breaking.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed)}: Make the block break slower instead of outright canceling it.</li>
+   *   <li>{@link #afterBlockBreak(IModifierToolStack, int, World, BlockState, BlockPos, LivingEntity, boolean)}: Fired after we know the block broke successfully, to perform extra effects.</li>
+   * </ul>
+   * @param tool   Tool used
+   * @param level  Modifier level
+   * @param event  Break event
    */
-  public void onInventoryTick(IModifierToolStack tool, int level, World world, Entity holder, boolean isHeld, boolean isActive) {}
+  public void onBlockBreak(IModifierToolStack tool, int level, BreakEvent event) {}
+
+  /**
+   * Called after a block is broken
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onBlockBreak(IModifierToolStack, int, BreakEvent)}: Can be used to prevent block breaking.</li>
+   * </ul>
+   * @param tool          Tool used
+   * @param level         Modifier level
+   * @param world         World instance
+   * @param state         Block broken
+   * @param pos           Position broken
+   * @param living        Entity breaking the block
+   * @param wasEffective  If true, tool was effective at breaking this block
+   */
+  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean wasEffective) {}
 
 
   /* Attack hooks */
 
   /**
    * Called when a living entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
+   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, boolean)}: Perform special attacks on entity hit beyond damage boosts</li>
+   * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
    * @param attacker      Entity doing the attacking
@@ -306,6 +353,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
    * Called when a living entity is attacked. Used to calculate the knockback this attack will do. Damage is final damage including critical damage.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, boolean)}: Perform special attacks on entity hit beyond knockback boosts</li>
+   * </ul>
    * @param tool           Tool used to attack
    * @param level          Modifier level
    * @param attacker       Entity doing the attacking
@@ -322,7 +374,14 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
-   * Called after a living entity is successfully attacked. Used to apply special effects on hit
+   * Called after a living entity is successfully attacked. Used to apply special effects on hit.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Adjusts the base tool stats that affect damage</li>
+   *   <li>{@link #applyLivingDamage(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, boolean, boolean)}: Change the amount of damage dealt with attacker context</li>
+   *   <li>{@link #applyLivingKnockback(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Change the amount of knockback dealt</li>
+   * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
    * @param attacker      Entity doing the attacking
@@ -335,7 +394,6 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
     return 0;
   }
-
 
 
   /* Display */
