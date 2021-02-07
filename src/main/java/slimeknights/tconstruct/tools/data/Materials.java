@@ -31,7 +31,7 @@ final class Materials {
   public static final IMaterial bone  = mat(MaterialIds.bone, true, 0xede6bf, TinkerModifiers.fractured);
   // tier 2
   public static final IMaterial iron        = mat(MaterialIds.iron, TinkerFluids.moltenIron, false, 0xcacaca, TinkerModifiers.reinforced);
-  public static final IMaterial searedStone = mat(MaterialIds.searedStone, TinkerFluids.searedStone, false, 0x3f3f3f);
+  public static final IMaterial searedStone = mat(MaterialIds.searedStone, TinkerFluids.searedStone, false, 0x3f3f3f, TinkerModifiers.searing);
   public static final IMaterial copper      = mat(MaterialIds.copper, TinkerFluids.moltenCopper, true, 0xed9f07, TinkerModifiers.dwarfish);
   public static final IMaterial slimewood   = mat(MaterialIds.slimewood, 0x82c873, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
   // tier 3

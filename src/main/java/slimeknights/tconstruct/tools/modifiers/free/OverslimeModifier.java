@@ -72,7 +72,7 @@ public class OverslimeModifier extends SingleUseModifier {
   }
 
   @Override
-  public int onDamage(IModifierToolStack toolStack, int level, int amount) {
+  public int onDamageTool(IModifierToolStack toolStack, int level, int amount) {
     int overslime = getOverslime(toolStack);
     if (overslime > 0) {
       // if we have more overslime than amount, remove some overslime

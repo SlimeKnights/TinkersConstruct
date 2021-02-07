@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class AxeTool extends ToolCore implements IAoeTool {
@@ -97,13 +98,11 @@ public class AxeTool extends ToolCore implements IAoeTool {
   }
 
   @Override
-  public boolean dealDamage(ItemStack stack, LivingEntity player, Entity entity, float damage) {
-    boolean hit = super.dealDamage(stack, player, entity, damage);
-
-    if (hit && this.readyForSpecialAttack(player)) {
+  public boolean dealDamage(ToolStack tool, LivingEntity player, Entity entity, float damage, boolean isCriticalHit, boolean fullyCharged) {
+    boolean hit = super.dealDamage(tool, player, entity, damage, isCriticalHit, fullyCharged);
+    if (hit && fullyCharged) {
       ToolAttackUtil.spawnAttachParticle(TinkerTools.axeAttackParticle.get(), player, 0.8d);
     }
-
     return hit;
   }
 

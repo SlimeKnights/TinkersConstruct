@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.util.ResourceLocation;
@@ -245,7 +246,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param amount     Amount of damage to deal
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
    */
-  public int onDamage(IModifierToolStack toolStack, int level, int amount) {
+  public int onDamageTool(IModifierToolStack toolStack, int level, int amount) {
     return amount;
   }
 
@@ -257,7 +258,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param amount     Amount of damage to deal
    * @return  Replacement damage. Returning 0 cancels the repair and stops other modifiers from processing.
    */
-  public int onRepair(IModifierToolStack toolStack, int level, int amount) {
+  public int onRepairTool(IModifierToolStack toolStack, int level, int amount) {
     return amount;
   }
 
@@ -271,7 +272,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level  Modifier level
    * @param event  Event instance
    */
-	public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
+  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
 
   /**
    * Called when the stack updates in the player inventory
@@ -282,10 +283,62 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param isHeld    If true, tool is in the main hand or off hand. If false, tool is simply in the inventory
    * @param isActive  If true, tool is currently active (e.g. bow being drawn back)
    */
-	public void onInventoryTick(IModifierToolStack tool, int level, World world, Entity holder, boolean isHeld, boolean isActive) {}
+  public void onInventoryTick(IModifierToolStack tool, int level, World world, Entity holder, boolean isHeld, boolean isActive) {}
 
 
-	/* Display */
+  /* Attack hooks */
+
+  /**
+   * Called when a living entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt.
+   * @param tool          Tool used to attack
+   * @param level         Modifier level
+   * @param attacker      Entity doing the attacking
+   * @param target        Entity being attacked
+   * @param baseDamage    Base damage dealt before modifiers
+   * @param damage        Computed damage from all prior modifiers
+   * @param isCritical    If true, this attack is a critical hit
+   * @param fullyCharged  If true, this attack was fully charged (could perform a sword sweep)
+   * @return  New damage to deal
+   */
+  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
+    return damage;
+  }
+
+  /**
+   * Called when a living entity is attacked. Used to calculate the knockback this attack will do. Damage is final damage including critical damage.
+   * @param tool           Tool used to attack
+   * @param level          Modifier level
+   * @param attacker       Entity doing the attacking
+   * @param target         Entity being attacked
+   * @param damage         Damage to deal to the attacker
+   * @param baseKnockback  Base knockback before modifiers
+   * @param knockback      Computed knockback from all prior modifiers
+   * @param isCritical     If true, this attack is a critical hit
+   * @param fullyCharged   If true, this attack was fully charged (could perform a sword sweep)
+   * @return  New knockback to apply
+   */
+  public float applyLivingKnockback(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged) {
+    return knockback;
+  }
+
+  /**
+   * Called after a living entity is successfully attacked. Used to apply special effects on hit
+   * @param tool          Tool used to attack
+   * @param level         Modifier level
+   * @param attacker      Entity doing the attacking
+   * @param target        Entity being attacked
+   * @param damageDealt   Amount of damage successfully dealt
+   * @param isCritical    If true, this attack is a critical hit
+   * @param fullyCharged  If true, this attack was fully charged (could perform a sword sweep)
+   * @return  Extra damage to deal to the tool
+   */
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
+    return 0;
+  }
+
+
+
+  /* Display */
 
   /**
    * Determines if the modifier should display

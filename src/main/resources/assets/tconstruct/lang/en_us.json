@@ -1020,6 +1020,8 @@
     "__comment": "Tier 2 Traits",
     "modifier.tconstruct.reinforced": "Reinforced",
     "modifier.tconstruct.reinforced.description": "§oUnbreaking!§r\nTool is less likely to take damage",
+    "modifier.tconstruct.searing": "Searing",
+    "modifier.tconstruct.searing.description": "§oHarness the Smeltery!§r\nTool does bonus damage in hot areas, but less damage in cold ones",
     "modifier.tconstruct.dwarfish": "Dwarfish",
     "modifier.tconstruct.dwarfish.description": "§oMiner's Friend!§r\nTool mines faster the deeper you mine, just don't mine too deep",
     "modifier.tconstruct.overgrowth": "Overgrowth",
@@ -1029,7 +1031,7 @@
 
     "__comment": "Tier 3 Traits",
     "modifier.tconstruct.overcast": "Overcast",
-    "modifier.tconstruct.overcast.description": "§oSpringy!§r\nDamage has a chance to bounce off overslime on tool.",
+    "modifier.tconstruct.overcast.description": "§oSpringy!§r\nDamage has a chance to bounce off overslime on tool",
     "modifier.tconstruct.lightweight": "Lightweight",
     "modifier.tconstruct.lightweight.description": "§oLike a Shardblade!§r\nTool is incredibly light for its size, allowing faster attacking and mining",
 

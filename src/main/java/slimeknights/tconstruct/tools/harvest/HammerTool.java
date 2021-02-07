@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nonnull;
@@ -24,15 +25,13 @@ public class HammerTool extends PickaxeTool implements IAoeTool {
   }
 
   @Override
-  public boolean dealDamage(ItemStack stack, LivingEntity player, Entity entity, float damage) {
+  public boolean dealDamage(ToolStack tool, LivingEntity player, Entity entity, float damage, boolean isCriticalHit, boolean fullyCharged) {
     // bonus damage vs. undead!
     if (entity instanceof LivingEntity && ((LivingEntity) entity).getCreatureAttribute() == CreatureAttribute.UNDEAD) {
       damage += 3 + TConstruct.random.nextInt(4);
     }
-
-    boolean hit = super.dealDamage(stack, player, entity, damage);
-
-    if (hit && this.readyForSpecialAttack(player)) {
+    boolean hit = super.dealDamage(tool, player, entity, damage, isCriticalHit, fullyCharged);
+    if (hit && fullyCharged) {
       ToolAttackUtil.spawnAttachParticle(TinkerTools.hammerAttackParticle.get(), player, 0.8d);
     }
 

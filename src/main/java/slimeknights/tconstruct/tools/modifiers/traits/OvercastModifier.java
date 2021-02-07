@@ -23,7 +23,7 @@ public class OvercastModifier extends Modifier {
   }
 
   @Override
-  public int onDamage(IModifierToolStack toolStack, int level, int amount) {
+  public int onDamageTool(IModifierToolStack toolStack, int level, int amount) {
     int overslime = OverslimeModifier.getOverslime(toolStack);
     if (overslime > 0) {
       // bit better than vanilla, 80 / (level + 1), means 40% chance of damage at level 1
