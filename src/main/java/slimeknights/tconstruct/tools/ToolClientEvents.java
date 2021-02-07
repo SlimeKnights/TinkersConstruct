@@ -4,11 +4,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -45,6 +48,7 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
     RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
+    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::onTooltipEvent);
   }
 
   @SubscribeEvent
@@ -79,6 +83,14 @@ public class ToolClientEvents extends ClientEventBase {
     registerMaterialItemColors(colors, TinkerToolParts.largePlate);
     registerMaterialItemColors(colors, TinkerToolParts.toolRod);
     registerMaterialItemColors(colors, TinkerToolParts.toughToolRod);
+  }
+
+  // registered with FORGE bus
+  private static void onTooltipEvent(ItemTooltipEvent event) {
+    if (event.getFlags().isAdvanced() && event.getItemStack().getItem() instanceof ToolCore) {
+      // remove the advanced tooltip durability, we supply that
+      event.getToolTip().removeIf(text -> text instanceof TranslationTextComponent && ((TranslationTextComponent)text).getKey().equals("item.durability"));
+    }
   }
 
   /** Color handler instance for MaterialItem */

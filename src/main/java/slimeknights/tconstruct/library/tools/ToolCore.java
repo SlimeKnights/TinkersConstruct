@@ -496,9 +496,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     switch (tooltipType) {
       case NORMAL: {
         ToolStack tool = ToolStack.from(stack);
-        if (tool.isBroken()) {
-          tooltips.add(TooltipBuilder.TOOLTIP_BROKEN);
-        }
+        // shows as broken when broken, hold shift for proper durability
+        tooltips.add(HeadMaterialStats.formatDurability(tool.getCurrentDurability(), tool.getStats().getDurability(), true));
         // modifier tooltip
         for (ModifierEntry entry : tool.getModifierList()) {
           if (entry.getModifier().shouldDisplay(false)) {
@@ -557,7 +556,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   public List<ITextComponent> getInformation(ItemStack stack, boolean detailed) {
     ToolStack tool = ToolStack.from(stack);
     TooltipBuilder builder = new TooltipBuilder(tool);
-    builder.addDurability(!detailed);
+    builder.addDurability();
     builder.addAttackDamage();
     builder.addAttackSpeed();
     if (this.getToolDefinition().hasCategory(Category.HARVEST)) {
