@@ -8,17 +8,25 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class SearingModifier extends Modifier {
+  private static final float BASELINE_TEMPERATURE = 0.75f;
+
   public SearingModifier() {
     super(0x3f3f3f);
+  }
+
+  /** Applies the temperature boost */
+  private static float temperatureBoost(float temperature, int level) {
+    // produces 0 at 0.75t. Caps at level * 2.5 at 2.0t, or at level * -2.5 at -0.5t
+    return (temperature - BASELINE_TEMPERATURE) * (level * 2);
   }
 
   @Override
   public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
     BlockPos attackerPos = attacker.getPosition();
-    // simple slope, 0.5 is neutral, +- 1 damage per 0.5
+    // only decrease damage, increase is handled in afterLivingHit
     float temperature = attacker.world.getBiome(attackerPos).getTemperature(attackerPos);
-    if (temperature < 0.5) {
-      damage += (temperature - 0.5f) * (level * 2);
+    if (temperature < BASELINE_TEMPERATURE) {
+      damage += temperatureBoost(temperature, level);
     }
     return damage;
   }
@@ -26,9 +34,9 @@ public class SearingModifier extends Modifier {
   @Override
   public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
     BlockPos attackerPos = attacker.getPosition();
-    // simple slope, 0.5 is neutral, +- 1 damage per 0.5
+    // only increase damage, decrease in applyLivingDamage
     float temperature = attacker.world.getBiome(attackerPos).getTemperature(attackerPos);
-    if (temperature > 0.5) {
+    if (temperature > BASELINE_TEMPERATURE) {
       DamageSource source;
       if (attacker instanceof PlayerEntity) {
         source = DamageSource.causePlayerDamage((PlayerEntity)attacker);
@@ -36,7 +44,7 @@ public class SearingModifier extends Modifier {
         source = DamageSource.causeMobDamage(attacker);
       }
       target.hurtResistantTime = 0;
-      target.attackEntityFrom(source.setFireDamage(), (temperature - 0.5f) * (level * 2));
+      target.attackEntityFrom(source.setFireDamage(), temperatureBoost(temperature, level));
     }
     return 0;
   }
