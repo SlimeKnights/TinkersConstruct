@@ -15,6 +15,7 @@ import java.util.function.BiConsumer;
 
 public class HeavyModifier extends Modifier {
   private static final UUID ATTRIBUTE_UUID = UUID.fromString("f8a6e738-642b-11eb-ae93-0242ac130002");
+  private static final String ATTRIBUTE_NAME = Util.prefix("heavy");
   public HeavyModifier() {
     super(0x4d4968);
   }
@@ -37,6 +38,6 @@ public class HeavyModifier extends Modifier {
    */
   @Override
   public void addAttributes(IModifierToolStack tool, int level, BiConsumer<Attribute,AttributeModifier> consumer) {
-    consumer.accept(Attributes.MOVEMENT_SPEED, new AttributeModifier(ATTRIBUTE_UUID, Util.prefix("heavy"), level * (-0.1), Operation.MULTIPLY_BASE));
+    consumer.accept(Attributes.MOVEMENT_SPEED, new AttributeModifier(ATTRIBUTE_UUID, ATTRIBUTE_NAME, level * (-0.1), Operation.MULTIPLY_BASE));
   }
 }

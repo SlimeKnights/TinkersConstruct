@@ -26,8 +26,8 @@ final class Materials {
 
   // tier 1
   public static final IMaterial wood  = mat(MaterialIds.wood, true, 0x8e661b, TinkerModifiers.cultivated);
-  public static final IMaterial flint = mat(MaterialIds.flint, true, 0x696969);
-  public static final IMaterial stone = mat(MaterialIds.stone, true, 0x999999);
+  public static final IMaterial flint = mat(MaterialIds.flint, true, 0x696969, TinkerModifiers.jagged);
+  public static final IMaterial stone = mat(MaterialIds.stone, true, 0x999999, TinkerModifiers.stonebound);
   public static final IMaterial bone  = mat(MaterialIds.bone, true, 0xede6bf, TinkerModifiers.fractured);
   // tier 2
   public static final IMaterial iron        = mat(MaterialIds.iron, TinkerFluids.moltenIron, false, 0xcacaca, TinkerModifiers.reinforced);
