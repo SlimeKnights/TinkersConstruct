@@ -20,6 +20,7 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ExtraModifier;
 import slimeknights.tconstruct.tools.modifiers.LevelDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.ReinforcedModifier;
+import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.free.WorldboundModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.BonusDamageModifier;
@@ -35,7 +36,9 @@ import slimeknights.tconstruct.tools.modifiers.traits.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SearingModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.SharpModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.TastyModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
@@ -107,8 +110,10 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
   // traits - tier 3
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
+  public static final RegistryObject<SharpModifier> sharp = MODIFIERS.register("sharp", SharpModifier::new);
   public static final RegistryObject<MaintainedModifier> wellMaintained = MODIFIERS.register("maintained", MaintainedModifier::new);
   public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(0xffdbcc, false));
+  public static final RegistryObject<TastyModifier> tasty = MODIFIERS.register("tasty", TastyModifier::new);
 
   public static final RegistryObject<LightweightModifier> lightweight = MODIFIERS.register("lightweight", LightweightModifier::new);
   // traits - tier 4
@@ -121,6 +126,11 @@ public final class TinkerModifiers extends TinkerModule {
   // traits - mod compat tier 3
   public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
   public static final RegistryObject<MaintainedModifier2> wellMaintained2 = MODIFIERS.register("maintained_2", MaintainedModifier2::new);
+
+  /*
+   * Effects
+   */
+  public static RegistryObject<BleedingEffect> bleeding = POTIONS.register("bleeding", BleedingEffect::new);
 
   /*
    * Recipes

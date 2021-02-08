@@ -7,7 +7,11 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -20,6 +24,7 @@ import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -29,6 +34,7 @@ import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
@@ -38,6 +44,8 @@ import java.util.function.BiConsumer;
  */
 @RequiredArgsConstructor
 public class Modifier implements IForgeRegistryEntry<Modifier> {
+  private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.modID + ".anti_knockback", 1f, Operation.ADDITION);
+
   /** Modifier random instance, use for chance based effects */
   protected static Random RANDOM = new Random();
 
@@ -436,5 +444,41 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   public int getDurabilityRGB(IModifierToolStack tool, int level) {
     return -1;
+  }
+
+
+  /* Utils */
+
+  /**
+   * Adds secondary damage to an entity
+   * @param source       Damage source
+   * @param damage       Damage amount
+   * @param target       Target
+   * @param noKnockback  If true, prevents extra knockback
+   * @return  True if damaged
+   */
+  public static boolean attackEntitySecondary(DamageSource source, float damage, LivingEntity target, boolean noKnockback) {
+    Optional<ModifiableAttributeInstance> knockbackResistance = Optional.ofNullable(target.getAttribute(Attributes.KNOCKBACK_RESISTANCE))
+                                                                        .filter(attribute -> !attribute.hasModifier(ANTI_KNOCKBACK_MODIFIER));
+    // store last damage before secondary attack
+    float oldLastDamage = target.lastDamage;
+
+    // prevent knockback in secondary attacks, if requested
+    if (noKnockback) {
+      knockbackResistance.ifPresent(attribute -> attribute.applyNonPersistentModifier(ANTI_KNOCKBACK_MODIFIER));
+    }
+
+    // set hurt resistance time to 0 because we always want to deal damage in traits
+    target.hurtResistantTime = 0;
+    boolean hit = target.attackEntityFrom(source, damage);
+    // set total received damage, important for AI and stuff
+    target.lastDamage += oldLastDamage;
+
+    // remove no knockback marker
+    if (noKnockback) {
+      knockbackResistance.ifPresent(attribute -> attribute.removeModifier(ANTI_KNOCKBACK_MODIFIER));
+    }
+
+    return hit;
   }
 }

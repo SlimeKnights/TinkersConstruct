@@ -267,6 +267,7 @@ public class ToolStack implements IModifierToolStack {
    * Gets the current durability remaining for this tool
    * @return  Tool durability
    */
+  @Override
   public int getCurrentDurability() {
     if (isBroken()) {
       return 0;
@@ -291,13 +292,7 @@ public class ToolStack implements IModifierToolStack {
     nbt.putInt(TAG_DAMAGE, damage);
   }
 
-  /**
-   * Damages the tool by the given amount
-   * @param amount  Amount to damage
-   * @param stack   Stack to use for criteria updates, if null creates a stack
-   * @param entity  Entity for criteria updates, if null no updates run
-   * @return true if the tool broke when damaging
-   */
+  @Override
   public boolean damage(int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
     if (amount <= 0 || isBroken() || nbt.getBoolean(TAG_UNBREAKABLE)) {
       return false;

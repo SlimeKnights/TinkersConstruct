@@ -9,14 +9,20 @@ public class TinkerEffect extends Effect {
 
   private final boolean show;
 
-  public TinkerEffect(EffectType typeIn, boolean showInInventory) {
-    this(typeIn, showInInventory, 0xffffff);
+  public TinkerEffect(EffectType typeIn, boolean show) {
+    this(typeIn, 0xffffff, show);
   }
 
-  public TinkerEffect(EffectType typeIn, boolean showInInventory, int color) {
+  public TinkerEffect(EffectType typeIn, int color, boolean show) {
     super(typeIn, color);
+    this.show = show;
+  }
 
-    this.show = showInInventory;
+  /* Visibility */
+
+  @Override
+  public boolean shouldRender(EffectInstance effect) {
+    return this.show;
   }
 
   @Override
@@ -24,27 +30,48 @@ public class TinkerEffect extends Effect {
     return this.show;
   }
 
+  @Override
+  public boolean shouldRenderHUD(EffectInstance effect) {
+    return this.show;
+  }
+
+
+  /* Helpers */
+
+  /**
+   * Applies this potion to an entity
+   * @param entity    Entity
+   * @param duration  Duration
+   * @return  Applied instance
+   */
   public EffectInstance apply(LivingEntity entity, int duration) {
     return this.apply(entity, duration, 0);
   }
 
+  /**
+   * Applies this potion to an entity
+   * @param entity    Entity
+   * @param duration  Duration
+   * @param level     Effect level
+   * @return  Applied instance
+   */
   public EffectInstance apply(LivingEntity entity, int duration, int level) {
     EffectInstance effect = new EffectInstance(this, duration, level, false, false);
     entity.addPotionEffect(effect);
     return effect;
   }
 
+  /**
+   * Gets the level of the effect on the entity, or -1 if not active
+   * @param entity  Entity to check
+   * @return  Level, or -1 if inactive
+   */
   public int getLevel(LivingEntity entity) {
     EffectInstance effect = entity.getActivePotionEffect(this);
     if (effect != null) {
       return effect.getAmplifier();
     }
-    return 0;
-  }
-
-  @Override
-  public boolean shouldRender(EffectInstance effect) {
-    return this.show;
+    return -1;
   }
 
 }

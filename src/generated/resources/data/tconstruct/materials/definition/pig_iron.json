@@ -3,5 +3,11 @@
   "fluid": "tconstruct:molten_pig_iron",
   "fluidPerUnit": 144,
   "textColor": "#EF9E9B",
-  "temperature": 811
+  "temperature": 811,
+  "traits": [
+    {
+      "name": "tconstruct:tasty",
+      "level": 1
+    }
+  ]
 }
