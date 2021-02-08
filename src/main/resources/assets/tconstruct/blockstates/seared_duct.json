@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "active=false,facing=west":  { "model": "tconstruct:block/smeltery/io/duct_inactive", "y":  90 },
+    "active=false,facing=south": { "model": "tconstruct:block/smeltery/io/duct_inactive"  },
+    "active=false,facing=north": { "model": "tconstruct:block/smeltery/io/duct_inactive", "y": 180 },
+    "active=false,facing=east":  { "model": "tconstruct:block/smeltery/io/duct_inactive", "y": 270 },
+    "active=true,facing=west":   { "model": "tconstruct:block/smeltery/io/duct_active", "y":  90 },
+    "active=true,facing=south":  { "model": "tconstruct:block/smeltery/io/duct_active"  },
+    "active=true,facing=north":  { "model": "tconstruct:block/smeltery/io/duct_active", "y": 180 },
+    "active=true,facing=east":   { "model": "tconstruct:block/smeltery/io/duct_active", "y": 270 }
+  }
+}

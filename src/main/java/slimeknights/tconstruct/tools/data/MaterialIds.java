@@ -1,70 +1,65 @@
 package slimeknights.tconstruct.tools.data;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MaterialIds {
-
-  // natural resources/blocks
+  // tier 1
   public static final MaterialId wood = id("wood");
-  public static final MaterialId stone = id("stone");
   public static final MaterialId flint = id("flint");
-  public static final MaterialId cactus = id("cactus");
+  public static final MaterialId stone = id("stone");
   public static final MaterialId bone = id("bone");
-  public static final MaterialId obsidian = id("obsidian");
-  public static final MaterialId prismarine = id("prismarine");
-  public static final MaterialId endstone = id("endstone");
-  public static final MaterialId paper = id("paper");
-  public static final MaterialId sponge = id("sponge");
-  public static final MaterialId firewood = id("firewood");
-
-  // Slime
-  public static final MaterialId knightslime = id("knightslime");
-  public static final MaterialId slime = id("slime");
-  public static final MaterialId blueslime = id("blueslime");
-  public static final MaterialId magmaslime = id("magmaslime");
-
-  // Metals
+  // tier 2
   public static final MaterialId iron = id("iron");
-  public static final MaterialId pigiron = id("pigiron");
-
-  // Nether Materials
-  public static final MaterialId netherrack = id("netherrack");
-  public static final MaterialId ardite = id("ardite");
-  public static final MaterialId cobalt = id("cobalt");
-  public static final MaterialId manyullyn = id("manyullyn");
-
-  // mod integration
+  public static final MaterialId searedStone = id("seared_stone");
   public static final MaterialId copper = id("copper");
-  public static final MaterialId bronze = id("bronze");
-  public static final MaterialId lead = id("lead");
+  public static final MaterialId slimewood = id("slimewood");
+  // tier 3
+  public static final MaterialId slimesteel = id("slimesteel");
+  public static final MaterialId nahuatl = id("nahuatl");
+  public static final MaterialId tinkersBronze = id("tinkers_bronze");
+  public static final MaterialId roseGold = id("rose_gold");
+  public static final MaterialId pigIron = id("pig_iron");
+
+  // tier 2 (nether)
+  // nether wood
+  // public static final MaterialId witherBone = id("wither_bone");
+  // tier 3 (nether)
+  // nether stone, scorched stone?
+  public static final MaterialId cobalt = id("cobalt");
+  // tier 4
+  public static final MaterialId manyullyn = id("manyullyn");
+  public static final MaterialId hepatizon = id("hepatizon");
+  public static final MaterialId queensSlime = id("queens_slime");
+  public static final MaterialId soulsteel = id("soulsteel");
+
+  // tier 2 (end)
+  //public static final MaterialId endstone = id("endstone");
+  // chorus
+
+  // tier 2 (mod integration)
   public static final MaterialId silver = id("silver");
+  public static final MaterialId lead = id("lead");
+  // tier 3 (mod integration)
   public static final MaterialId electrum = id("electrum");
+  public static final MaterialId bronze = id("bronze");
   public static final MaterialId steel = id("steel");
 
   // bowstring materials
-  public static final MaterialId string = id("string");
-  public static final MaterialId vine = id("vine");
-  public static final MaterialId slimevine_blue = id("slimevine_blue");
-  public static final MaterialId slimevine_purple = id("slimevine_purple");
+  //public static final MaterialId string = id("string");
+  //public static final MaterialId vine = id("vine");
+  //public static final MaterialId slimevine_blue = id("slimevine_blue");
+  //public static final MaterialId slimevine_purple = id("slimevine_purple");
 
-  // additional arrow shaft
-  public static final MaterialId blaze = id("blaze");
-  public static final MaterialId reed = id("reed");
-  public static final MaterialId ice = id("ice");
-  public static final MaterialId endrod = id("endrod");
-
-  // fletching
-  public static final MaterialId feather = id("feather");
-  public static final MaterialId leaf = id("leaf");
-  public static final MaterialId slimeleaf_blue = id("slimeleaf_blue");
-  public static final MaterialId slimeleaf_orange = id("slimeleaf_orange");
-  public static final MaterialId slimeleaf_purple = id("slimeleaf_purple");
-
+  /**
+   * Creates a new material ID
+   * @param name  ID name
+   * @return  Material ID object
+   */
   private static MaterialId id(String name) {
     return new MaterialId(Util.getResource(name));
-  }
-
-  private MaterialIds() {
   }
 }

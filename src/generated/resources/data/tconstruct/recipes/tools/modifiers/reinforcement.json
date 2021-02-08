@@ -10,7 +10,7 @@
       "item": "minecraft:obsidian"
     },
     "G": {
-      "tag": "forge:ingots/gold"
+      "item": "tconstruct:blank_cast"
     }
   },
   "result": {

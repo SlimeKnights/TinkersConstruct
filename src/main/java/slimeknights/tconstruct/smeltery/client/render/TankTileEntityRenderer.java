@@ -25,7 +25,7 @@ public class TankTileEntityRenderer<T extends TileEntity & ITankTileEntity> exte
       return;
     }
     // render the fluid
-    TankModel.BakedModel model = ModelHelper.getBakedModel(tile.getBlockState(), TankModel.BakedModel.class);
+    TankModel.BakedModel<?> model = ModelHelper.getBakedModel(tile.getBlockState(), TankModel.BakedModel.class);
     if (model != null) {
       RenderUtils.renderFluidTank(matrixStack, buffer, model.getFluid(), tile.getTank(), combinedLightIn, partialTicks, true);
     }

@@ -39,7 +39,7 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FluidTooltipHandler {
   private static final Map<Fluid,List<FluidGuiEntry>> CACHE = new HashMap<>();
-  private static final String HOLD_SHIFT = Util.makeTranslationKey("gui", "fluid.hold_shift");
+  public static final ITextComponent HOLD_SHIFT = new TranslationTextComponent(Util.makeTranslationKey("gui", "fluid.hold_shift")).mergeStyle(TextFormatting.GRAY);
 
   /*
    * Base units
@@ -47,8 +47,8 @@ public class FluidTooltipHandler {
   private static final FluidGuiEntry KILOBUCKET = new FluidGuiEntry("kilobucket", 1000000);
   private static final FluidGuiEntry BUCKET = new FluidGuiEntry("bucket", 1000);
   private static final FluidGuiEntry MILLIBUCKET = new FluidGuiEntry("millibucket", 1);
-  private static final FluidGuiEntry INGOT = new FluidGuiEntry("ingot", MaterialValues.VALUE_Ingot);
-  private static final FluidGuiEntry BLOCK = new FluidGuiEntry("block", MaterialValues.VALUE_Block);
+  private static final FluidGuiEntry INGOT = new FluidGuiEntry("ingot", MaterialValues.INGOT);
+  private static final FluidGuiEntry BLOCK = new FluidGuiEntry("block", MaterialValues.METAL_BLOCK);
 
   /** List of options to check for table cast recipes */
   private static final Map<Item,FluidGuiEntry> TOOLTIP_OPTIONS = new IdentityHashMap<>();
@@ -59,11 +59,11 @@ public class FluidTooltipHandler {
   public static void init() {
     MinecraftForge.EVENT_BUS.addListener(FluidTooltipHandler::onRecipesUpdated);
     TOOLTIP_OPTIONS.put(TinkerSmeltery.ingotCast.get(), INGOT);
-    TOOLTIP_OPTIONS.put(TinkerSmeltery.nuggetCast.get(), new FluidGuiEntry("nugget", MaterialValues.VALUE_Nugget));
-    TOOLTIP_OPTIONS.put(TinkerSmeltery.gemCast.get(), new FluidGuiEntry("gem", MaterialValues.VALUE_Gem));
+    TOOLTIP_OPTIONS.put(TinkerSmeltery.nuggetCast.get(), new FluidGuiEntry("nugget", MaterialValues.NUGGET));
+    TOOLTIP_OPTIONS.put(TinkerSmeltery.gemCast.get(), new FluidGuiEntry("gem", MaterialValues.GEM));
     for (FluidGuiEntry entry : new FluidGuiEntry[] {
-      new FluidGuiEntry("pane", MaterialValues.VALUE_Pane),
-      new FluidGuiEntry("slimeball", MaterialValues.VALUE_SlimeBall)
+      new FluidGuiEntry("pane", MaterialValues.GLASS_PANE),
+      new FluidGuiEntry("slimeball", MaterialValues.SLIMEBALL)
     }) {
       TABLE_TOP_OPTIONS.put(entry.needed, entry);
     }
@@ -73,7 +73,6 @@ public class FluidTooltipHandler {
    * Called when recipes are synced from the server to the client
    * @param event  Event instance
    */
-  @SuppressWarnings("unused")
   private static void onRecipesUpdated(RecipesUpdatedEvent event) {
     CACHE.clear();
   }
@@ -84,11 +83,21 @@ public class FluidTooltipHandler {
    * @return  Fluid tooltip
    */
   public static List<ITextComponent> getFluidTooltip(FluidStack fluid) {
+    return getFluidTooltip(fluid, fluid.getAmount());
+  }
+
+  /**
+   * Gets the tooltip for a fluid stack
+   * @param fluid  Fluid stack instance
+   * @param amount Amount override
+   * @return  Fluid tooltip
+   */
+  public static List<ITextComponent> getFluidTooltip(FluidStack fluid, int amount) {
     List<ITextComponent> tooltip = new ArrayList<>();
     // fluid name, not sure if there is a cleaner way to do this
-    tooltip.add(new StringTextComponent("").append(fluid.getDisplayName()).mergeStyle(TextFormatting.WHITE));
+    tooltip.add(fluid.getDisplayName().copyRaw().mergeStyle(TextFormatting.WHITE));
     // material
-    appendMaterial(fluid, tooltip);
+    appendMaterial(fluid.getFluid(), amount, tooltip);
     // add mod display name
     ModList.get().getModContainerById(Objects.requireNonNull(fluid.getFluid().getRegistryName()).getNamespace())
            .map(container -> container.getModInfo().getDisplayName())
@@ -102,12 +111,21 @@ public class FluidTooltipHandler {
    * @param tooltip  Tooltip to append information
    */
   public static void appendMaterial(FluidStack fluid, List<ITextComponent> tooltip) {
-    int original = fluid.getAmount();
+    appendMaterial(fluid.getFluid(), fluid.getAmount(), tooltip);
+  }
+
+  /**
+   * Adds information for the tooltip based on material units
+   * @param fluid      Input fluid
+   * @param original   Input amount
+   * @param tooltip    Tooltip to append information
+   */
+  public static void appendMaterial(Fluid fluid, int original, List<ITextComponent> tooltip) {
     int amount = original;
 
     // if holding shift, skip specific units
     if(!Screen.hasShiftDown()) {
-      List<FluidGuiEntry> entries = CACHE.computeIfAbsent(fluid.getFluid(), FluidTooltipHandler::calcFluidEntries);
+      List<FluidGuiEntry> entries = CACHE.computeIfAbsent(fluid, FluidTooltipHandler::calcFluidEntries);
       for(FluidGuiEntry entry : entries) {
         amount = entry.getText(tooltip, amount);
       }
@@ -129,7 +147,7 @@ public class FluidTooltipHandler {
   public static void appendShift(List<ITextComponent> tooltip) {
     if(!Screen.hasShiftDown()) {
       tooltip.add(new StringTextComponent(""));
-      tooltip.add(new TranslationTextComponent(HOLD_SHIFT).mergeStyle(TextFormatting.GRAY));
+      tooltip.add(HOLD_SHIFT);
     }
   }
 
@@ -145,7 +163,7 @@ public class FluidTooltipHandler {
 
   /**
    * Adds information to the tooltip based on the fluid using bucket units
-   * @param amount   Fluid amount
+   * @param amount     Fluid amount
    * @param tooltip  Tooltip to append information
    */
   public static void appendBuckets(int amount, List<ITextComponent> tooltip) {

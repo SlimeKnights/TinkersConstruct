@@ -1,0 +1,22 @@
+{
+  "materialId": "tconstruct:queens_slime",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 1350,
+      "miningSpeed": 9.0,
+      "harvestLevel": 4,
+      "attack": 4.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 1.4,
+      "miningSpeed": 1.0,
+      "attackSpeed": 1.0,
+      "attackDamage": 1.0
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

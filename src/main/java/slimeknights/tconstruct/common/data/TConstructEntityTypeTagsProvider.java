@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.EntityTypeTagsProvider;
+import net.minecraft.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -16,6 +17,8 @@ public class TConstructEntityTypeTagsProvider extends EntityTypeTagsProvider {
   @Override
   public void registerTags() {
     this.getOrCreateBuilder(TinkerTags.EntityTypes.SLIMES).add(TinkerWorld.blueSlimeEntity.get());
+    this.getOrCreateBuilder(TinkerTags.EntityTypes.MELTING_SHOW).add(EntityType.IRON_GOLEM, EntityType.SNOW_GOLEM, EntityType.VILLAGER, EntityType.PLAYER);
+    this.getOrCreateBuilder(TinkerTags.EntityTypes.MELTING_HIDE).add(EntityType.GIANT);
   }
 
   @Override

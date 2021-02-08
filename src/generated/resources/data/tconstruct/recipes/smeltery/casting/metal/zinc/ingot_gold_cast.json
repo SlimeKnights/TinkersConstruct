@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/zinc",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "item": "tconstruct:ingot_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_zinc",
+    "amount": 144
+  },
+  "result": {
+    "tag": "forge:ingots/zinc"
+  },
+  "cooling_time": 47
+}

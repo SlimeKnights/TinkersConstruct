@@ -1,0 +1,7 @@
+{
+  "type": "tconstruct:molding_table",
+  "material": {
+    "tag": "tconstruct:casts/red_sand"
+  },
+  "result": "tconstruct:blank_red_sand_cast"
+}

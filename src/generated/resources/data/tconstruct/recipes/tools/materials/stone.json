@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": [
+    {
+      "tag": "forge:stone"
+    },
+    {
+      "tag": "forge:cobblestone"
+    },
+    [
+      {
+        "item": "minecraft:basalt"
+      },
+      {
+        "item": "minecraft:polished_basalt"
+      },
+      {
+        "item": "minecraft:polished_blackstone"
+      }
+    ]
+  ],
+  "value": 1,
+  "needed": 1,
+  "material": "tconstruct:stone"
+}

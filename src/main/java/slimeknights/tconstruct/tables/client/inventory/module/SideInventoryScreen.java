@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tables.client.inventory.module;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import lombok.Getter;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
@@ -15,7 +16,7 @@ import slimeknights.mantle.client.screen.SliderWidget;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.library.Util;
 
-public class SideInventoryScreen extends ModuleScreen {
+public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Container> extends ModuleScreen<P,C> {
 
   protected ScalableElementScreen overlap = GenericScreen.overlap;
   protected ElementScreen overlapTopLeft = GenericScreen.overlapTopLeft;
@@ -41,6 +42,7 @@ public class SideInventoryScreen extends ModuleScreen {
   protected BorderWidget border = new BorderWidget();
 
   protected int columns;
+  @Getter
   protected int slotCount;
 
   protected int firstSlotId;
@@ -52,11 +54,11 @@ public class SideInventoryScreen extends ModuleScreen {
 
   protected SliderWidget slider = new SliderWidget(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
-  public SideInventoryScreen(MultiModuleScreen<?> parent, Container container, PlayerInventory playerInventory, ITextComponent title, int slotCount, int columns) {
+  public SideInventoryScreen(P parent, C container, PlayerInventory playerInventory, ITextComponent title, int slotCount, int columns) {
     this(parent, container, playerInventory, title, slotCount, columns, false, false);
   }
 
-  public SideInventoryScreen(MultiModuleScreen<?> parent, Container container, PlayerInventory playerInventory, ITextComponent title, int slotCount, int columns, boolean rightSide, boolean connected) {
+  public SideInventoryScreen(P parent, C container, PlayerInventory playerInventory, ITextComponent title, int slotCount, int columns, boolean rightSide, boolean connected) {
     super(parent, container, playerInventory, title, rightSide, false);
 
     this.connected = connected;
@@ -219,9 +221,7 @@ public class SideInventoryScreen extends ModuleScreen {
       yd += this.textBackground.h;
     }
 
-    for (Object o : this.container.inventorySlots) {
-      Slot slot = (Slot) o;
-
+    for (Slot slot : this.container.inventorySlots) {
       if (this.shouldDrawSlot(slot)) {
         // calc position of the slot
         int offset = slot.getSlotIndex() - this.firstSlotId;
@@ -248,7 +248,7 @@ public class SideInventoryScreen extends ModuleScreen {
   @Override
   public void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
     if (this.shouldDrawName()) {
-      this.font.drawString(matrices, this.getTitle().getString(), this.border.w, this.border.h - 1, 0x404040);
+      this.font.drawString(matrices, this.getTitle().getString(), this.guiLeft + this.border.w, this.guiTop + this.border.h - 1, 0x404040);
     }
   }
 

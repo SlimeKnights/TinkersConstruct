@@ -1,10 +1,15 @@
 package slimeknights.tconstruct.plugin.jei.melting;
 
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -24,6 +29,10 @@ public class MeltingFuelHandler {
    * Lookup from fluid to fluids melting temperature
    */
   private static Map<Fluid,Integer> temperatureLookup = Collections.emptyMap();
+
+  /** List of solid fuels for solid melting */
+  public static final Lazy<List<ItemStack>> SOLID_FUELS = Lazy.of(() -> Arrays.asList(
+    new ItemStack(Items.COAL), new ItemStack(Items.CHARCOAL), new ItemStack(Blocks.OAK_LOG), new ItemStack(Blocks.OAK_PLANKS), new ItemStack(Items.BLAZE_ROD)));
 
   /**
    * Updates the melting cache, called on JEI load

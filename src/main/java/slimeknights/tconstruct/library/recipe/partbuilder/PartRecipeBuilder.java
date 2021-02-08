@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
@@ -55,48 +52,34 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
     if (this.pattern == null) {
       throw new IllegalStateException("recipe " + id + " has no pattern associated with it");
     }
-    ResourceLocation advancementId = this.buildAdvancement(id, "parts");
-    consumerIn.accept(new Result(id, this.group, this.output, this.outputAmount, this.cost, this.pattern, this.advancementBuilder, advancementId));
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "parts");
+    consumerIn.accept(new Result(id, advancementId));
   }
 
-  @AllArgsConstructor
-  private static class Result implements IFinishedRecipe {
-    @Getter
-    private final ResourceLocation ID;
-    private final String group;
-    private final IMaterialItem output;
-    private final int outputAmount;
-    private final int cost;
-    private final ResourceLocation pattern;
-    private final Advancement.Builder advancementBuilder;
-    @Getter
-    private final ResourceLocation advancementID;
+  private class Result extends AbstractFinishedRecipe {
+    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
 
     @Override
     public void serialize(JsonObject json) {
-      if (!this.group.isEmpty()) {
-        json.addProperty("group", this.group);
+      if (!group.isEmpty()) {
+        json.addProperty("group", group);
       }
-      json.addProperty("pattern", this.pattern.toString());
-      json.addProperty("cost", this.cost);
+      json.addProperty("pattern", pattern.toString());
+      json.addProperty("cost", cost);
 
-      JsonObject output = new JsonObject();
-      output.addProperty("item", Objects.requireNonNull(this.output.asItem().getRegistryName()).toString());
+      JsonObject jsonOutput = new JsonObject();
+      jsonOutput.addProperty("item", Objects.requireNonNull(output.asItem().getRegistryName()).toString());
       if (outputAmount > 1) {
-        output.addProperty("count", this.outputAmount);
+        jsonOutput.addProperty("count", outputAmount);
       }
-      json.add("output", output);
+      json.add("result", jsonOutput);
     }
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
       return TinkerTables.partRecipeSerializer.get();
-    }
-
-    @Nullable
-    @Override
-    public JsonObject getAdvancementJson() {
-      return this.advancementBuilder.serialize();
     }
   }
 }

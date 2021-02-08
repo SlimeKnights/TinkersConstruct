@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "name": "tconstruct:molten_debris",
+      "amount": 64
+    },
+    {
+      "name": "tconstruct:molten_gold",
+      "amount": 64
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_netherite",
+    "amount": 16
+  },
+  "temperature": 1250
+}

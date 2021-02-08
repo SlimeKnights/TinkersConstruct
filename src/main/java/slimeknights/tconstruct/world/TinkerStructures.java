@@ -81,15 +81,15 @@ public final class TinkerStructures extends TinkerModule {
    */
   @SubscribeEvent
   void commonSetup(FMLCommonSetupEvent event) {
-    SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("overworld_slime_island"), overworldSlimeIsland.get().func_236391_a_(NoFeatureConfig.field_236559_b_));
-    Structure.field_236365_a_.put("tconstruct:overworld_slime_island", overworldSlimeIsland.get());
+    SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("overworld_slime_island"), overworldSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
+    Structure.NAME_STRUCTURE_BIMAP.put("tconstruct:overworld_slime_island", overworldSlimeIsland.get());
     DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(overworldSlimeIsland.get(), new StructureSeparationSettings(30, 22, 14357800));
 
-    NETHER_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("nether_slime_island"), netherSlimeIsland.get().func_236391_a_(NoFeatureConfig.field_236559_b_));
-    Structure.field_236365_a_.put("tconstruct:nether_slime_island", netherSlimeIsland.get());
+    NETHER_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("nether_slime_island"), netherSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
+    Structure.NAME_STRUCTURE_BIMAP.put("tconstruct:nether_slime_island", netherSlimeIsland.get());
 
-    END_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("end_slime_island"), endSlimeIsland.get().func_236391_a_(NoFeatureConfig.field_236559_b_));
-    Structure.field_236365_a_.put("tconstruct:end_slime_island", endSlimeIsland.get());
+    END_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("end_slime_island"), endSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
+    Structure.NAME_STRUCTURE_BIMAP.put("tconstruct:end_slime_island", endSlimeIsland.get());
 
     BLUE_SLIME_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("blue_slime_tree"), SLIME_TREE.get().withConfiguration((
       new BaseSlimeTreeFeatureConfig.Builder(

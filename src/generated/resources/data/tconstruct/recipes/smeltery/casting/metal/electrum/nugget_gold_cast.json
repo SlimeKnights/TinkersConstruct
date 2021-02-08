@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:nuggets/electrum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "item": "tconstruct:nugget_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_electrum",
+    "amount": 16
+  },
+  "result": {
+    "tag": "forge:nuggets/electrum"
+  },
+  "cooling_time": 20
+}

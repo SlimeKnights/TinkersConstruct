@@ -1,5 +1,6 @@
 {
     "craftable": true,
     "fluid": "minecraft:water",
-    "shardItem": "minecraft:stick"
+    "textColor": "#1234ab",
+    "temperature": 1234
 }

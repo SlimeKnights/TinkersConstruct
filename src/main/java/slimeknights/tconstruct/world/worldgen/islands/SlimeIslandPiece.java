@@ -111,7 +111,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
 
           if (treeFeature != null && worldIn instanceof ISeedReader) {
             ISeedReader seedReader = (ISeedReader) worldIn;
-            treeFeature.func_242765_a(seedReader, this.chunkGenerator, rand, pos);
+            treeFeature.generate(seedReader, this.chunkGenerator, rand, pos);
           }
         }
 

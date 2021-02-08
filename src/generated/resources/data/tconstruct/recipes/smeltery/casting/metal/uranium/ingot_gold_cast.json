@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/uranium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "item": "tconstruct:ingot_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_uranium",
+    "amount": 144
+  },
+  "result": {
+    "tag": "forge:ingots/uranium"
+  },
+  "cooling_time": 61
+}

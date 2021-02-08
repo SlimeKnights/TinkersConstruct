@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_table",
+  "fluid": {
+    "name": "tconstruct:molten_glass",
+    "amount": 144
+  },
+  "result": "tconstruct:clear_glass_pane",
+  "cooling_time": 59
+}

@@ -74,7 +74,7 @@ public final class ToolStatsBuilder {
       buildHarvestLevel(),
       buildAttack(),
       buildMiningSpeed(),
-      1f,
+      buildAttackSpeed(),
       StatsNBT.DEFAULT_MODIFIERS,
       false
     );
@@ -82,20 +82,21 @@ public final class ToolStatsBuilder {
 
   public int buildDurability() {
     double averageHeadDurability = getAverageValue(heads, HeadMaterialStats::getDurability);
-    double averageExtraDurability = getAverageValue(extras, ExtraMaterialStats::getDurability);
-    double averageHandleDurability = getAverageValue(handles, HandleMaterialStats::getDurability);
-    double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getModifier, 1);
-
-    double durability = (averageHeadDurability + averageExtraDurability) * averageHandleModifier + averageHandleDurability;
-
+    double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getDurability, 1);
     // durability should never be below 1
-    return Math.max(1, (int)durability);
+    return Math.max(1, (int)(averageHeadDurability * averageHandleModifier));
   }
 
   public float buildMiningSpeed() {
     double averageHeadSpeed = getAverageValue(heads, HeadMaterialStats::getMiningSpeed);
+    double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getMiningSpeed, 1);
 
-    return (float)Math.max(0.1d, averageHeadSpeed);
+    return (float)Math.max(0.1d, averageHeadSpeed * averageHandleModifier);
+  }
+
+  public float buildAttackSpeed() {
+    double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getAttackSpeed, 1);
+    return (float)averageHandleModifier;
   }
 
   public int buildHarvestLevel() {
@@ -107,15 +108,30 @@ public final class ToolStatsBuilder {
 
   public float buildAttack() {
     double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack);
-
-    return (float)Math.max(0.1d, averageHeadAttack);
+    double averageHandle = getAverageValue(handles, HandleMaterialStats::getAttackDamage, 1.0f);
+    return (float)Math.max(0.1d, averageHeadAttack * averageHandle);
   }
 
+  /**
+   * Gets the average value from a list of stat types
+   * @param stats       Stat list
+   * @param statGetter  Function to get the value
+   * @param <T>  Material type
+   * @return  Average value
+   */
   private <T extends IMaterialStats> double getAverageValue(List<T> stats, Function<T, ? extends Number> statGetter) {
     return getAverageValue(stats, statGetter, 0);
   }
 
-  private <T extends IMaterialStats, N extends Number> double getAverageValue(List<T> stats, Function<T, N> statGetter, double missingValue ) {
+  /**
+   * Gets the average value from a list of stat types
+   * @param stats         Stat list
+   * @param statGetter    Function to get the value
+   * @param missingValue  Default value to use for missing stats
+   * @param <T>  Material type
+   * @return  Average value
+   */
+  private <T extends IMaterialStats, N extends Number> double getAverageValue(List<T> stats, Function<T, N> statGetter, double missingValue) {
     return stats.stream()
       .mapToDouble(value -> statGetter.apply(value).doubleValue())
       .average()

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "tconstruct:block/smeltery/seared/bricks",
+    "front": "tconstruct:block/smeltery/controller/heater_inactive",
+    "side": "tconstruct:block/smeltery/seared/bricks"
+  }
+}

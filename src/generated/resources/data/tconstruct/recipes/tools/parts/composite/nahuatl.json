@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "input": "tconstruct:wood",
+  "fluid": {
+    "name": "tconstruct:molten_obsidian",
+    "amount": 144
+  },
+  "result": "tconstruct:nahuatl",
+  "temperature": 1300
+}

@@ -25,7 +25,7 @@ import static org.mockito.Mockito.mock;
 class MaterialManagerTest extends BaseMcTest {
 
   private MaterialManager materialManager;
-  private JsonFileLoader fileLoader = new JsonFileLoader(MaterialManager.GSON, MaterialManager.FOLDER);
+  private final JsonFileLoader fileLoader = new JsonFileLoader(MaterialManager.GSON, MaterialManager.FOLDER);
 
   @BeforeEach
   void setUp() {
@@ -45,6 +45,8 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "full"));
     assertThat(testMaterial.getFluid()).isEqualTo(Fluids.WATER);
     assertThat(testMaterial.isCraftable()).isTrue();
+    assertThat(testMaterial.getColor().color).isEqualTo(0x1234ab);
+    assertThat(testMaterial.getTemperature()).isEqualTo(1234);
   }
 
   @Test
@@ -59,6 +61,8 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "minimal"));
     assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(FluidState::isEmpty);
     assertThat(testMaterial.isCraftable()).isFalse();
+    assertThat(testMaterial.getColor().color & 0xffffff).isEqualTo(0xffffff);
+    assertThat(testMaterial.getTemperature()).isEqualTo(0);
   }
 
   @Test
@@ -71,17 +75,8 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
     assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(FluidState::isEmpty);
-  }
-
-  @Test
-  void invalidShard_useDefault() {
-    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("invalid");
-
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
-
-    Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
-    assertThat(allMaterials).hasSize(1);
-    IMaterial testMaterial = allMaterials.iterator().next();
+    assertThat(testMaterial.getColor().color & 0xffffff).isEqualTo(0xffffff);
+    assertThat(testMaterial.getTemperature()).isEqualTo(0);
   }
 
   @Test

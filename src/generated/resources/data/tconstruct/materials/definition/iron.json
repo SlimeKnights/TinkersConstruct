@@ -1,6 +1,7 @@
 {
   "craftable": false,
   "fluid": "tconstruct:molten_iron",
-  "textColor": "cacaca",
-  "temperature": 769
+  "fluidPerUnit": 144,
+  "textColor": "#CACACA",
+  "temperature": 800
 }

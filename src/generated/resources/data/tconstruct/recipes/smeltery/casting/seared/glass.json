@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "tag": "forge:glass/colorless"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:seared_stone",
+    "amount": 576
+  },
+  "result": "tconstruct:seared_glass",
+  "cooling_time": 107
+}

@@ -1,12 +1,17 @@
 {
   "replace": false,
   "values": [
+    "#forge:nuggets/copper",
     "#forge:nuggets/cobalt",
     "#forge:nuggets/ardite",
+    "#forge:nuggets/slimesteel",
+    "#forge:nuggets/tinkers_bronze",
+    "#forge:nuggets/rose_gold",
+    "#forge:nuggets/pigiron",
+    "#forge:nuggets/queens_slime",
     "#forge:nuggets/manyullyn",
-    "#forge:nuggets/knightslime",
-    "#forge:nuggets/pig_iron",
-    "#forge:nuggets/copper",
-    "#forge:nuggets/rose_gold"
+    "#forge:nuggets/hepatizon",
+    "#forge:nuggets/soulsteel",
+    "#forge:nuggets/knightslime"
   ]
 }

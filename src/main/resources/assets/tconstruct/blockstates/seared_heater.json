@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "active=false,facing=north": { "model": "tconstruct:block/smeltery/controller/heater_inactive" },
+    "active=false,facing=south": { "model": "tconstruct:block/smeltery/controller/heater_inactive", "uvlock": true, "y": 180 },
+    "active=false,facing=west":  { "model": "tconstruct:block/smeltery/controller/heater_inactive", "uvlock": true, "y": 270 },
+    "active=false,facing=east":  { "model": "tconstruct:block/smeltery/controller/heater_inactive", "uvlock": true, "y": 90 },
+    "active=true,facing=north":  { "model": "tconstruct:block/smeltery/controller/heater_active" },
+    "active=true,facing=south":  { "model": "tconstruct:block/smeltery/controller/heater_active", "uvlock": true, "y": 180 },
+    "active=true,facing=west":   { "model": "tconstruct:block/smeltery/controller/heater_active", "uvlock": true, "y": 270 },
+    "active=true,facing=east":   { "model": "tconstruct:block/smeltery/controller/heater_active", "uvlock": true, "y": 90 }
+  }
+}

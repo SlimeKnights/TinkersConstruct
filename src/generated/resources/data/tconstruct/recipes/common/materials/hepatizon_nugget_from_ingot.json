@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tconstruct:hepatizon_nugget",
+  "ingredients": [
+    {
+      "item": "tconstruct:hepatizon_ingot"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:hepatizon_nugget",
+    "count": 9
+  }
+}

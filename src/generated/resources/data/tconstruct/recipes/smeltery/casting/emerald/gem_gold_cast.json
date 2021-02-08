@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:gem_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_emerald",
+    "amount": 250
+  },
+  "result": "minecraft:emerald",
+  "cooling_time": 85
+}

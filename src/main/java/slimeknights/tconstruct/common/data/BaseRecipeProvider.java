@@ -5,6 +5,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.data.SingleItemRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
@@ -12,7 +13,12 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.common.crafting.conditions.NotCondition;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
@@ -21,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Shared logic for each module's recipe provider
@@ -32,6 +39,9 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
 
   @Override
   protected abstract void registerRecipes(Consumer<IFinishedRecipe> consumer);
+
+  @Override
+  public abstract String getName();
 
 
   /* Location helpers */
@@ -67,12 +77,45 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
 
   /**
    * Prefixes the resource location path with the given value
+   * @param entry    Item registry name to use
+   * @param prefix  Prefix value
+   * @return  Resource location path
+   */
+  protected static ResourceLocation wrapR(Supplier<? extends IForgeRegistryEntry<?>> entry, String prefix, String suffix) {
+    ResourceLocation loc = Objects.requireNonNull(entry.get().getRegistryName());
+    return location(prefix + loc.getPath() + suffix);
+  }
+
+  /**
+   * Prefixes the resource location path with the given value
    * @param item    Item registry name to use
    * @param prefix  Prefix value
    * @return  Resource location path
    */
   protected static ResourceLocation prefix(IItemProvider item, String prefix) {
     ResourceLocation loc = Objects.requireNonNull(item.asItem().getRegistryName());
+    return location(prefix + loc.getPath());
+  }
+
+  /**
+   * Prefixes the resource location path with the given value
+   * @param entry   Entry registry name to use
+   * @param prefix  Prefix value
+   * @return  Resource location path
+   */
+  protected static ResourceLocation prefixR(Supplier<? extends IForgeRegistryEntry<?>> entry, String prefix) {
+    ResourceLocation loc = Objects.requireNonNull(entry.get().getRegistryName());
+    return location(prefix + loc.getPath());
+  }
+
+  /**
+   * Prefixes the resource location path with the given value
+   * @param entry   Entry registry name to use
+   * @param prefix  Prefix value
+   * @return  Resource location path
+   */
+  protected static ResourceLocation prefixR(IForgeRegistryEntry<?> entry, String prefix) {
+    ResourceLocation loc = Objects.requireNonNull(entry.getRegistryName());
     return location(prefix + loc.getPath());
   }
 
@@ -155,8 +198,90 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
     }
   }
 
+  /**
+   * Registers a recipe packing a small item into a large one
+   * @param consumer   Recipe consumer
+   * @param large      Large item
+   * @param small      Small item
+   * @param largeName  Large name
+   * @param smallName  Small name
+   * @param folder     Recipe folder
+   */
+  protected void registerPackingRecipe(Consumer<IFinishedRecipe> consumer, String largeName, IItemProvider large, String smallName, IItemProvider small, String folder) {
+    // ingot to block
+    ShapedRecipeBuilder.shapedRecipe(large)
+                       .key('#', small)
+                       .patternLine("###")
+                       .patternLine("###")
+                       .patternLine("###")
+                       .addCriterion("has_item", hasItem(small))
+                       .setGroup(Objects.requireNonNull(large.asItem().getRegistryName()).toString())
+                       .build(consumer, wrap(large, folder, String.format("_from_%ss", smallName)));
+    // block to ingot
+    ShapelessRecipeBuilder.shapelessRecipe(small, 9)
+                          .addIngredient(large)
+                          .addCriterion("has_item", hasItem(large))
+                          .setGroup(Objects.requireNonNull(small.asItem().getRegistryName()).toString())
+                          .build(consumer, wrap(small, folder, String.format("_from_%s", largeName)));
+  }
 
-    // Forge constructor is private, not sure if there is a public place for this
+  /**
+   * Registers a recipe packing a small item into a large one
+   * @param consumer   Recipe consumer
+   * @param largeItem  Large item
+   * @param smallItem  Small item
+   * @param smallTag   Tag for small item
+   * @param largeName  Large name
+   * @param smallName  Small name
+   * @param folder     Recipe folder
+   */
+  protected void registerPackingRecipe(Consumer<IFinishedRecipe> consumer, String largeName, IItemProvider largeItem, String smallName, IItemProvider smallItem, ITag<Item> smallTag, String folder) {
+    // ingot to block
+    // note our item is in the center, any mod allowed around the edges
+    ShapedRecipeBuilder.shapedRecipe(largeItem)
+                       .key('#', smallTag)
+                       .key('*', smallItem)
+                       .patternLine("###")
+                       .patternLine("#*#")
+                       .patternLine("###")
+                       .addCriterion("has_item", hasItem(smallItem))
+                       .setGroup(Objects.requireNonNull(largeItem.asItem().getRegistryName()).toString())
+                       .build(consumer, wrap(largeItem, folder, String.format("_from_%ss", smallName)));
+    // block to ingot
+    ShapelessRecipeBuilder.shapelessRecipe(smallItem, 9)
+                          .addIngredient(largeItem)
+                          .addCriterion("has_item", hasItem(largeItem))
+                          .setGroup(Objects.requireNonNull(smallItem.asItem().getRegistryName()).toString())
+                          .build(consumer, wrap(smallItem, folder, String.format("_from_%s", largeName)));
+  }
+
+
+  /* conditions */
+
+  /**
+   * Creates a consumer instance with the added conditions
+   * @param consumer    Base consumer
+   * @param conditions  Extra conditions
+   * @return  Wrapped consumer
+   */
+  protected static Consumer<IFinishedRecipe> withCondition(Consumer<IFinishedRecipe> consumer, ICondition... conditions) {
+    ConsumerWrapperBuilder builder = ConsumerWrapperBuilder.wrap();
+    for (ICondition condition : conditions) {
+      builder.addCondition(condition);
+    }
+    return builder.build(consumer);
+  }
+
+  /**
+   * Creates a condition for a tag existing
+   * @param name  Forge tag name
+   * @return  Condition for tag existing
+   */
+  protected static ICondition tagCondition(String name) {
+    return new NotCondition(new TagEmptyCondition("forge", name));
+  }
+
+  // Forge constructor is private, not sure if there is a public place for this
   protected static class CompoundIngredient extends net.minecraftforge.common.crafting.CompoundIngredient {
     public CompoundIngredient(List<Ingredient> children) {
       super(children);

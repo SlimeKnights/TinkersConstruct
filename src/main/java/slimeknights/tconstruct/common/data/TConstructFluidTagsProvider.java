@@ -15,8 +15,6 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
 
   @Override
   public void registerTags() {
-    this.getOrCreateBuilder(TinkerTags.Fluids.MILK).add(TinkerFluids.milk.get());
-
     this.getOrCreateBuilder(TinkerTags.Fluids.SLIME)
         .addTag(TinkerTags.Fluids.BLUE_SLIME)
         .addTag(TinkerTags.Fluids.PURPLE_SLIME);

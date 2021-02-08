@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ores/uranium",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/uranium"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_uranium",
+    "amount": 144
+  },
+  "temperature": 830,
+  "time": 92
+}

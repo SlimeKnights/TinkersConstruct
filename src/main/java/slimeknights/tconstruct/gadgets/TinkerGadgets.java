@@ -36,11 +36,14 @@ import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.gadgets.entity.GlowballEntity;
+import slimeknights.tconstruct.gadgets.entity.shuriken.FlintShurikenEntity;
+import slimeknights.tconstruct.gadgets.entity.shuriken.QuartzShurikenEntity;
 import slimeknights.tconstruct.gadgets.item.EflnBallItem;
 import slimeknights.tconstruct.gadgets.item.FancyItemFrameItem;
 import slimeknights.tconstruct.gadgets.item.GlowBallItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem.CarryPotionEffect;
+import slimeknights.tconstruct.gadgets.item.ShurikenItem;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
 import slimeknights.tconstruct.library.Util;
@@ -115,6 +118,13 @@ public final class TinkerGadgets extends TinkerModule {
   public static final ItemObject<Item> soggySpaghetti = ITEMS.register("soggy_spaghetti", SPAGET_PROPS);
   public static final ItemObject<Item> coldSpaghetti = ITEMS.register("cold_spaghetti", SPAGET_PROPS);
 
+  // Shuriken Properties
+  private static final Item.Properties THROWABLE_PROPS = new Item.Properties().maxStackSize(16).group(TAB_GADGETS);
+
+  // Shurikens
+  public static final ItemObject<ShurikenItem> quartzShuriken = ITEMS.register("quartz_shuriken", () -> new ShurikenItem(THROWABLE_PROPS, QuartzShurikenEntity::new));
+  public static final ItemObject<ShurikenItem> flintShuriken = ITEMS.register("flint_shuriken", () -> new ShurikenItem(THROWABLE_PROPS, FlintShurikenEntity::new));
+
   /*
    * Entities
    */
@@ -141,6 +151,22 @@ public final class TinkerGadgets extends TinkerModule {
       .setTrackingRange(64)
       .setUpdateInterval(10)
       .setCustomClientFactory((spawnEntity, world) -> new EflnBallEntity(TinkerGadgets.eflnEntity.get(), world))
+      .setShouldReceiveVelocityUpdates(true);
+  });
+  public static final RegistryObject<EntityType<QuartzShurikenEntity>> quartzShurikenEntity = ENTITIES.register("quartz_shuriken", () -> {
+    return EntityType.Builder.<QuartzShurikenEntity>create(QuartzShurikenEntity::new, EntityClassification.MISC)
+      .size(0.25F, 0.25F)
+      .setTrackingRange(64)
+      .setUpdateInterval(10)
+      .setCustomClientFactory((spawnEntity, world) -> new QuartzShurikenEntity(TinkerGadgets.quartzShurikenEntity.get(), world))
+      .setShouldReceiveVelocityUpdates(true);
+  });
+  public static final RegistryObject<EntityType<FlintShurikenEntity>> flintShurikenEntity = ENTITIES.register("flint_shuriken", () -> {
+    return EntityType.Builder.<FlintShurikenEntity>create(FlintShurikenEntity::new, EntityClassification.MISC)
+      .size(0.25F, 0.25F)
+      .setTrackingRange(64)
+      .setUpdateInterval(10)
+      .setCustomClientFactory((spawnEntity, world) -> new FlintShurikenEntity(TinkerGadgets.flintShurikenEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true);
   });
 

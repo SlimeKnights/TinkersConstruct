@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.client;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -96,9 +97,24 @@ public final class GuiUtil {
    * @param depth     Tank depth
    */
   public static void renderFluidTank(MatrixStack matrices, ContainerScreen<?> screen, FluidStack stack, int capacity, int x, int y, int width, int height, int depth) {
+    renderFluidTank(matrices, screen, stack, stack.getAmount(), capacity, x, y, width, height, depth);
+  }
+
+  /**
+   * Renders a fluid tank with a partial fluid level and an amount override
+   * @param screen    Parent screen
+   * @param stack     Fluid stack
+   * @param capacity  Tank capacity, determines height
+   * @param x         Tank X position
+   * @param y         Tank Y position
+   * @param width     Tank width
+   * @param height    Tank height
+   * @param depth     Tank depth
+   */
+  public static void renderFluidTank(MatrixStack matrices, ContainerScreen<?> screen, FluidStack stack, int amount, int capacity, int x, int y, int width, int height, int depth) {
     if(!stack.isEmpty()) {
       int maxY = y + height;
-      int fluidHeight = Math.min(height * stack.getAmount() / capacity, height);
+      int fluidHeight = Math.min(height * amount / capacity, height);
       renderTiledFluid(matrices, screen, stack, x, maxY - fluidHeight, width, fluidHeight, depth);
     }
   }
@@ -119,6 +135,7 @@ public final class GuiUtil {
       TextureAtlasSprite fluidSprite = screen.getMinecraft().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(stack.getFluid().getAttributes().getStillTexture(stack));
       RenderUtils.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
       renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));
+      GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
   }
 

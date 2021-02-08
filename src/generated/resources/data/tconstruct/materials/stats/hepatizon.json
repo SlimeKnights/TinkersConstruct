@@ -1,0 +1,22 @@
+{
+  "materialId": "tconstruct:hepatizon",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 900,
+      "miningSpeed": 10.0,
+      "harvestLevel": 4,
+      "attack": 3.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 1.1,
+      "miningSpeed": 1.4,
+      "attackSpeed": 0.9,
+      "attackDamage": 1.0
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

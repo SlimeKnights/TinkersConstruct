@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:pigiron_block",
+  "pattern": [
+    "###",
+    "#*#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/pigiron"
+    },
+    "*": {
+      "item": "tconstruct:pigiron_ingot"
+    }
+  },
+  "result": {
+    "item": "tconstruct:pigiron_block"
+  }
+}

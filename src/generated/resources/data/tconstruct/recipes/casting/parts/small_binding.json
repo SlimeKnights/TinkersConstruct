@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:table_casting_material",
-  "cast": {
-    "item": "tconstruct:small_binding_cast"
-  },
-  "fluid_amount": 144,
-  "result": "tconstruct:small_binding"
-}

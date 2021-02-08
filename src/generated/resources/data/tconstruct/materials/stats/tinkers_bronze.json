@@ -1,0 +1,22 @@
+{
+  "materialId": "tconstruct:tinkers_bronze",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 420,
+      "miningSpeed": 8.0,
+      "harvestLevel": 3,
+      "attack": 3.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 1.1,
+      "miningSpeed": 1.15,
+      "attackSpeed": 1.0,
+      "attackDamage": 1.0
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

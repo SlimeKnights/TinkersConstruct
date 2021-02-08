@@ -18,7 +18,7 @@ public class CraftingStationScreen extends BaseStationScreen<CraftingStationTile
   public CraftingStationScreen(CraftingStationContainer container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
 
-    SideInventoryContainer sideInventoryContainer = container.getSubContainer(SideInventoryContainer.class);
+    SideInventoryContainer<?> sideInventoryContainer = container.getSubContainer(SideInventoryContainer.class);
     if (sideInventoryContainer != null) {
       ITextComponent sideInventoryName = title;
 
@@ -27,7 +27,7 @@ public class CraftingStationScreen extends BaseStationScreen<CraftingStationTile
           sideInventoryName = ((INamedContainerProvider) te).getDisplayName();
       }
 
-      this.addModule(new SideInventoryScreen(this, sideInventoryContainer, playerInventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.getColumns()));
+      this.addModule(new SideInventoryScreen<>(this, sideInventoryContainer, playerInventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.getColumns()));
     }
   }
 

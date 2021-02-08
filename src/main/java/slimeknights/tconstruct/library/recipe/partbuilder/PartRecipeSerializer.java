@@ -1,18 +1,17 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import com.google.gson.JsonObject;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 import javax.annotation.Nullable;
 
-public class PartRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<PartRecipe> {
+public class PartRecipeSerializer extends RecipeSerializer<PartRecipe> {
   @Override
   public PartRecipe read(ResourceLocation recipeId, JsonObject json) {
     String group = JSONUtils.getString(json, "group", "");
@@ -20,8 +19,8 @@ public class PartRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
     int cost = JSONUtils.getInt(json, "cost");
 
     // output fetch as a material item, its an error if it does not implement that interface
-    JsonObject output = JSONUtils.getJsonObject(json, "output");
-    IMaterialItem item = RecipeHelper.deserializeItem(JSONUtils.getString(output, "item"), "output", IMaterialItem.class);
+    JsonObject output = JSONUtils.getJsonObject(json, "result");
+    IMaterialItem item = RecipeHelper.deserializeItem(JSONUtils.getString(output, "item"), "result", IMaterialItem.class);
     int count = JSONUtils.getInt(output, "count", 1);
 
     return new PartRecipe(recipeId, group, pattern, cost, item, count);

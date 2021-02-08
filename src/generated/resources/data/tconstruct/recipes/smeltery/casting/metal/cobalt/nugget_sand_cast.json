@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_cobalt",
+    "amount": 16
+  },
+  "result": "tconstruct:cobalt_nugget",
+  "cooling_time": 22
+}

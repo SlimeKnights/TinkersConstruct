@@ -23,12 +23,12 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
@@ -36,6 +36,7 @@ import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
   @Override
   protected Iterable<Block> getKnownBlocks() {
     return ForgeRegistries.BLOCKS.getValues().stream()
-                                 .filter((block) -> TConstruct.modID.equals(block.getRegistryName().getNamespace()))
+                                 .filter((block) -> TConstruct.modID.equals(Objects.requireNonNull(block.getRegistryName()).getNamespace()))
                                  .collect(Collectors.toList());
   }
 
@@ -63,23 +64,30 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
   private void addCommon() {
     this.registerDropSelfLootTable(TinkerSmeltery.grout.get());
-    this.registerDropSelfLootTable(TinkerModifiers.slimyMudGreen.get());
-    this.registerDropSelfLootTable(TinkerModifiers.slimyMudBlue.get());
     this.registerDropSelfLootTable(TinkerModifiers.graveyardSoil.get());
     this.registerDropSelfLootTable(TinkerModifiers.consecratedSoil.get());
-    this.registerDropSelfLootTable(TinkerModifiers.slimyMudMagma.get());
 
     this.registerBuildingLootTables(TinkerCommons.firewood);
     this.registerBuildingLootTables(TinkerCommons.lavawood);
 
-    this.registerDropSelfLootTable(TinkerMaterials.cobaltBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.arditeBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.manyullynBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.knightSlimeBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.pigironBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.copperBlock.get());
-    this.registerDropSelfLootTable(TinkerMaterials.roseGoldBlock.get());
     this.registerDropSelfLootTable(TinkerModifiers.silkyJewelBlock.get());
+
+    // ores
+    this.registerDropSelfLootTable(TinkerMaterials.copper.get());
+    this.registerDropSelfLootTable(TinkerMaterials.cobalt.get());
+    this.registerDropSelfLootTable(TinkerMaterials.ardite.get());
+    // tier 3
+    this.registerDropSelfLootTable(TinkerMaterials.slimesteel.get());
+    this.registerDropSelfLootTable(TinkerMaterials.tinkersBronze.get());
+    this.registerDropSelfLootTable(TinkerMaterials.roseGold.get());
+    this.registerDropSelfLootTable(TinkerMaterials.pigiron.get());
+    // tier 4
+    this.registerDropSelfLootTable(TinkerMaterials.manyullyn.get());
+    this.registerDropSelfLootTable(TinkerMaterials.hepatizon.get());
+    this.registerDropSelfLootTable(TinkerMaterials.queensSlime.get());
+    this.registerDropSelfLootTable(TinkerMaterials.soulsteel.get());
+    // tier 5
+    this.registerDropSelfLootTable(TinkerMaterials.knightslime.get());
   }
 
   private void addDecorative() {
@@ -89,6 +97,8 @@ public class TConstructBlockLootTables extends BlockLootTables {
       this.registerDropSelfLootTable(TinkerCommons.clearStainedGlass.get(color));
       this.registerDropSelfLootTable(TinkerCommons.clearStainedGlassPane.get(color));
     }
+    this.registerDropSelfLootTable(TinkerCommons.soulGlass.get());
+    this.registerDropSelfLootTable(TinkerCommons.soulGlassPane.get());
 
     this.registerBuildingLootTables(TinkerCommons.mudBricks);
     this.registerBuildingLootTables(TinkerCommons.driedClay);
@@ -166,17 +176,25 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addSmeltery() {
+    // controller
+    this.registerDropSelfLootTable(TinkerSmeltery.searedMelter.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedHeater.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.smelteryController.get());
+
+    // smeltery component
     this.registerBuildingLootTables(TinkerSmeltery.searedStone);
     this.registerWallBuildingLootTables(TinkerSmeltery.searedCobble);
     this.registerBuildingLootTables(TinkerSmeltery.searedPaver);
-    this.registerBuildingLootTables(TinkerSmeltery.searedStone);
     this.registerWallBuildingLootTables(TinkerSmeltery.searedBricks);
     this.registerDropSelfLootTable(TinkerSmeltery.searedCrackedBricks.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedFancyBricks.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedTriangleBricks.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedLadder.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlass.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlassPane.get());
-    this.registerDropSelfLootTable(TinkerSmeltery.searedMelter.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedDrain.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedChute.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedDuct.get());
 
     for (SearedTankBlock.TankType type : SearedTankBlock.TankType.values()) {
       this.registerLootTable(TinkerSmeltery.searedTank.get(type), (block) -> droppingWithFunctions(block, (builder) -> {
@@ -185,7 +203,11 @@ public class TConstructBlockLootTables extends BlockLootTables {
       }));
     }
 
+    // fluid
     this.registerDropSelfLootTable(TinkerSmeltery.searedFaucet.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedChannel.get());
+
+    // casting
     this.registerDropSelfLootTable(TinkerSmeltery.castingBasin.get());
     this.registerDropSelfLootTable(TinkerSmeltery.castingTable.get());
   }

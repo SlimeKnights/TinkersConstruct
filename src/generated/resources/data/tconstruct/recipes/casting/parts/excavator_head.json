@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:table_casting_material",
-  "cast": {
-    "item": "tconstruct:excavator_head_cast"
-  },
-  "fluid_amount": 1152,
-  "result": "tconstruct:excavator_head"
-}

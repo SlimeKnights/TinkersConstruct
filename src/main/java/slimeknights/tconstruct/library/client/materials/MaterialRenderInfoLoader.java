@@ -9,11 +9,9 @@ import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.resource.IResourceType;
-import net.minecraftforge.resource.VanillaResourceType;
-import slimeknights.mantle.client.IEarlySelectiveReloadListener;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.utils.ModResourceLocationSerializer;
 
@@ -27,7 +25,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 /**
  * Loads the material render info from resource packs. Loaded independently of materials loaded in data packs, so a resource needs to exist in both lists to be used.
@@ -37,7 +34,7 @@ import java.util.function.Predicate;
  * So if your mods name is "foobar", the location for your mods materials is "assets/foobar/toolmaterials".
  */
 @Log4j2
-public class MaterialRenderInfoLoader implements IEarlySelectiveReloadListener {
+public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener {
 
   public static final MaterialRenderInfoLoader INSTANCE = new MaterialRenderInfoLoader();
 
@@ -80,42 +77,39 @@ public class MaterialRenderInfoLoader implements IEarlySelectiveReloadListener {
   }
 
   @Override
-  public void onResourceManagerReload(IResourceManager manager, Predicate<IResourceType> predicate) {
-    // required for model loading, so most sensible option
-    if (predicate.test(VanillaResourceType.MODELS)) {
-      // first, we need to fetch all relevant JSON files
-      int trim = FOLDER.length() + 1;
-      Map<MaterialId, IMaterialRenderInfo> map = new HashMap<>();
-      for(ResourceLocation location : manager.getAllResourceLocations(FOLDER, (loc) -> loc.endsWith(".json"))) {
-        // clean up ID by trimming off the extension
-        String path = location.getPath();
-        MaterialId id = new MaterialId(location.getNamespace(), path.substring(trim, path.length() - 5));
+  public void onReloadSafe(IResourceManager manager) {
+    // first, we need to fetch all relevant JSON files
+    int trim = FOLDER.length() + 1;
+    Map<MaterialId, IMaterialRenderInfo> map = new HashMap<>();
+    for(ResourceLocation location : manager.getAllResourceLocations(FOLDER, (loc) -> loc.endsWith(".json"))) {
+      // clean up ID by trimming off the extension
+      String path = location.getPath();
+      MaterialId id = new MaterialId(location.getNamespace(), path.substring(trim, path.length() - 5));
 
-        // read in the JSON data
-        try (
-          IResource iresource = manager.getResource(location);
-          InputStream inputstream = iresource.getInputStream();
-          Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
-        ) {
-          MaterialRenderInfoJson json = GSON.fromJson(reader, MaterialRenderInfoJson.class);
-          if (json == null) {
-            log.error("Couldn't load data file {} from {} as it's null or empty", id, location);
-          } else {
-            // parse it into material render info
-            IMaterialRenderInfo old = map.put(id, loadRenderInfo(id, json));
-            if (old != null) {
-              throw new IllegalStateException("Duplicate data file ignored with ID " + id);
-            }
+      // read in the JSON data
+      try (
+        IResource iresource = manager.getResource(location);
+        InputStream inputstream = iresource.getInputStream();
+        Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
+      ) {
+        MaterialRenderInfoJson json = GSON.fromJson(reader, MaterialRenderInfoJson.class);
+        if (json == null) {
+          log.error("Couldn't load data file {} from {} as it's null or empty", id, location);
+        } else {
+          // parse it into material render info
+          IMaterialRenderInfo old = map.put(id, loadRenderInfo(id, json));
+          if (old != null) {
+            throw new IllegalStateException("Duplicate data file ignored with ID " + id);
           }
-        } catch (IllegalArgumentException | IOException | JsonParseException jsonparseexception) {
-          log.error("Couldn't parse data file {} from {}", id, location, jsonparseexception);
         }
+      } catch (IllegalArgumentException | IOException | JsonParseException jsonparseexception) {
+        log.error("Couldn't parse data file {} from {}", id, location, jsonparseexception);
       }
-      // store the list immediately, otherwise it is not in place in time for models to load
-      this.renderInfos = map;
-      log.debug("Loaded material render infos: {}", Util.toIndentedStringList(map.keySet()));
-      log.info("{} material render infos loaded", map.size());
     }
+    // store the list immediately, otherwise it is not in place in time for models to load
+    this.renderInfos = map;
+    log.debug("Loaded material render infos: {}", Util.toIndentedStringList(map.keySet()));
+    log.info("{} material render infos loaded", map.size());
   }
 
   /**

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tconstruct:smeltery/red_sand_cast"
+    ]
+  },
+  "criteria": {
+    "has_casting": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:casting_table"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tconstruct:smeltery/red_sand_cast"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_casting",
+      "has_the_recipe"
+    ]
+  ]
+}

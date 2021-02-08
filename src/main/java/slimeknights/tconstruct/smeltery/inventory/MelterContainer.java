@@ -4,34 +4,53 @@ import lombok.Getter;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.items.CapabilityItemHandler;
 import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.tconstruct.library.utils.IntArrayWrapper;
-import slimeknights.tconstruct.library.utils.LambdaIntReference;
+import slimeknights.mantle.inventory.ItemHandlerSlot;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
 import javax.annotation.Nullable;
 
 public class MelterContainer extends BaseContainer<MelterTileEntity> {
+  @SuppressWarnings("MismatchedReadAndWriteOfArray")
   @Getter
   private final Slot[] inputs;
+  @Getter
+  private boolean hasFuelSlot = false;
   public MelterContainer(int id, @Nullable PlayerInventory inv, @Nullable MelterTileEntity melter) {
     super(TinkerSmeltery.melterContainer.get(), id, inv, melter);
 
     // create slots
     if (melter != null) {
-      int size = melter.getSizeInventory();
-      inputs = new Slot[size];
+      MeltingModuleInventory inventory = melter.getMeltingInventory();
+      inputs = new Slot[inventory.getSlots()];
       for (int i = 0; i < inputs.length; i++) {
-        inputs[i] = this.addSlot(new Slot(melter, i, 22, 16 + (i * 18)));
+        inputs[i] = this.addSlot(new ItemHandlerSlot(inventory, i, 22, 16 + (i * 18)));
       }
+
+      // add fuel slot if present, we only add for the melter though
+      World world = melter.getWorld();
+      BlockPos down = melter.getPos().down();
+      if (world != null && world.getBlockState(down).isIn(TinkerSmeltery.searedHeater.get())) {
+        TileEntity te = world.getTileEntity(down);
+        if (te != null) {
+          hasFuelSlot = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(handler -> {
+            this.addSlot(new ItemHandlerSlot(handler, 0, 151, 32));
+            return true;
+          }).isPresent();
+        }
+      }
+
       this.addInventorySlots();
 
       // syncing
-      this.trackInt(new LambdaIntReference(melter::getFuel, melter::setFuel));
-      this.trackInt(new LambdaIntReference(melter::getTemperature, melter::setTemperature));
-      this.trackIntArray(new IntArrayWrapper(melter::getItemTemperatures));
-      this.trackIntArray(new IntArrayWrapper(melter::getItemTempRequired));
+      this.trackIntArray(melter.getFuelModule());
+      inventory.trackInts(this::trackIntArray);
     } else {
       inputs = new Slot[0];
     }

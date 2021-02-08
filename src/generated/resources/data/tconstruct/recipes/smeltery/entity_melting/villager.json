@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:entity_melting",
+  "entity": {
+    "types": [
+      "minecraft:villager",
+      "minecraft:wandering_trader"
+    ]
+  },
+  "result": {
+    "fluid": "tconstruct:molten_emerald",
+    "amount": 25
+  },
+  "damage": 5
+}

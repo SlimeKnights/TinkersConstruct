@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
@@ -19,9 +20,11 @@ public class DataMaterial implements IMaterial {
   private final MaterialId identifier;
   private final Supplier<? extends Fluid> fluid;
   @Getter
+  private final int fluidPerUnit;
+  @Getter
   private final boolean craftable;
   @Getter
-  private final String textColor;
+  private final Color color;
 
   @Override
   public Fluid getFluid() {
@@ -34,6 +37,6 @@ public class DataMaterial implements IMaterial {
     if (fluid == Fluids.EMPTY) {
       return 0;
     }
-    return fluid.getAttributes().getTemperature();
+    return fluid.getAttributes().getTemperature() - 300;
   }
 }

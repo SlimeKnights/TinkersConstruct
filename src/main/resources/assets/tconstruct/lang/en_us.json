@@ -40,11 +40,6 @@
     "block.tconstruct.pink_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
     "block.tconstruct.congealed_slime.tooltip": "Lets you jump really high",
 
-    "block.tconstruct.copper_ore": "Copper Ore",
-
-    "block.tconstruct.cobalt_ore": "Cobalt Ore",
-    "block.tconstruct.ardite_ore": "Ardite Ore",
-
     "block.tconstruct.mud_bricks": "Mud Bricks",
     "block.tconstruct.mud_bricks_slab": "Mud Bricks Slab",
     "block.tconstruct.mud_bricks_stairs": "Mud Bricks Stairs",
@@ -94,25 +89,91 @@
     "block.tconstruct.red_clear_stained_glass_pane": "Clear Red Stained Glass Pane",
     "block.tconstruct.black_clear_stained_glass_pane": "Clear Black Stained Glass Pane",
 
-    "block.tconstruct.cobalt_block": "Block of Cobalt",
-    "block.tconstruct.cobalt_block.tooltip": "block.tconstruct.metal.tooltip",
-    "block.tconstruct.ardite_block": "Block of Ardite",
-    "block.tconstruct.ardite_block.tooltip": "block.tconstruct.metal.tooltip",
-    "block.tconstruct.manyullyn_block": "Block of Manyullyn",
-    "block.tconstruct.manyullyn_block.tooltip": "block.tconstruct.metal.tooltip",
-    "block.tconstruct.knightslime_block": "Block of Knightslime",
-    "block.tconstruct.knightslime_block.tooltip": "block.tconstruct.metal.tooltip",
-    "block.tconstruct.pigiron_block": "Block of Pigiron",
-    "block.tconstruct.pigiron_block.tooltip": "block.tconstruct.metal.tooltip",
-    "block.tconstruct.copper_block": "Block of Copper",
-    "block.tconstruct.copper_block.tooltip": "block.tconstruct.metal.tooltip",
-    "block.tconstruct.rose_gold_block": "Block of Rose Gold",
-    "block.tconstruct.copper_block.tooltip": "block.tconstruct.metal.tooltip",
-    "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
-    "block.tconstruct.silky_jewel_block.tooltip": "block.tconstruct.metal.tooltip",
-    "block.tconstruct.metal.tooltip": "Can be used as beacon base",
+    "block.tconstruct.soul_glass": "Soul Glass",
+    "block.tconstruct.soul_glass_pane": "Soul Glass Pane",
 
     "block.tconstruct.glow": "Glow",
+    "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
+    "block.tconstruct.silky_jewel_block.tooltip": "Can be used as beacon base",
+    
+    
+    "__comment": "Ore Metals",
+    
+    "block.tconstruct.copper_ore": "Copper Ore",
+    "block.tconstruct.copper_block": "Block of Copper",
+    "block.tconstruct.copper_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.copper_ingot": "Copper Ingot",
+    "item.tconstruct.copper_nugget": "Copper Nugget",
+
+    "block.tconstruct.cobalt_ore": "Cobalt Ore",
+    "block.tconstruct.cobalt_block": "Block of Cobalt",
+    "block.tconstruct.cobalt_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.cobalt_ingot": "Cobalt Ingot",
+    "item.tconstruct.cobalt_nugget": "Cobalt Nugget",
+    
+    "block.tconstruct.ardite_ore": "Ardite Ore",
+    "block.tconstruct.ardite_block": "Block of Ardite",
+    "block.tconstruct.ardite_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.ardite_ingot": "Ardite Ingot",
+    "item.tconstruct.ardite_nugget": "Ardite Nugget",
+    
+    
+    "__comment": "Tier 3 Metals",
+    
+    "block.tconstruct.slimesteel_block": "Block of Slimesteel",
+    "block.tconstruct.slimesteel_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.slimesteel_ingot": "Slimesteel Ingot",
+    "item.tconstruct.slimesteel_nugget": "Slimesteel Nugget",
+    
+    "block.tconstruct.tinkers_bronze_block": "Block of Tinker's Bronze",
+    "block.tconstruct.tinkers_bronze_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.tinkers_bronze_ingot": "Tinker's Bronze Ingot",
+    "item.tconstruct.tinkers_bronze_nugget": "Tinker's Bronze Nugget",
+    
+    "block.tconstruct.rose_gold_block": "Block of Rose Gold",
+    "block.tconstruct.rose_gold_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.rose_gold_ingot": "Rose Gold Ingot",
+    "item.tconstruct.rose_gold_nugget": "Rose Gold Nugget",
+    
+    "block.tconstruct.pigiron_block": "Block of Pig Iron",
+    "block.tconstruct.pigiron_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.pigiron_ingot": "Pig Iron Ingot",
+    "item.tconstruct.pigiron_nugget": "Pig Iron Nugget",
+
+    
+    "__comment": "Tier 4 Metals",
+    
+    "block.tconstruct.manyullyn_block": "Block of Manyullyn",
+    "block.tconstruct.manyullyn_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.manyullyn_ingot": "Manyullyn Ingot",
+    "item.tconstruct.manyullyn_nugget": "Manyullyn Nugget",
+    
+    "block.tconstruct.hepatizon_block": "Block of Hepatizon",
+    "block.tconstruct.hepatizon_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.hepatizon_ingot": "Hepatizon Ingot",
+    "item.tconstruct.hepatizon_nugget": "Hepatizon Nugget",
+    
+    "block.tconstruct.queens_slime_block": "Block of Queen's Slime",
+    "block.tconstruct.queens_slime_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.queens_slime_ingot": "Queen's Slime Ingot",
+    "item.tconstruct.queens_slime_nugget": "Queen's Slime Nugget",
+    
+    "block.tconstruct.soulsteel_block": "Block of Soulsteel",
+    "block.tconstruct.soulsteel_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.soulsteel_ingot": "Soulsteel Ingot",
+    "item.tconstruct.soulsteel_nugget": "Soulsteel Nugget",
+    
+    "item.tconstruct.netherite_nugget": "Netherite Nugget",
+
+    
+    "__comment": "Tier 5 Metals",
+    
+    "block.tconstruct.knightslime_block": "Block of Knightslime",
+    "block.tconstruct.knightslime_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.knightslime_ingot": "Knightslime Ingot",
+    "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
+    "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
+    
 
     "item.tconstruct.book": "Materials and You",
     "item.tconstruct.book.tooltip": "The book every Tinker needs\nby Skyla",
@@ -175,88 +236,207 @@
     "item.tconstruct.mending_moss": "Mending Moss",
     "item.tconstruct.mending_moss.tooltip": "Mending Moss Modifier",
     "item.tconstruct.creative_modifier": "Creative Modifier",
-    "item.tconstruct.creative_modifier.tooltip": "Adds an additional modifier",
-    "item.tconstruct.blank_cast": "Blank Cast",
-    "item.tconstruct.ingot_cast": "Ingot Cast",
-    "item.tconstruct.nugget_cast": "Nugget Cast",
-    "item.tconstruct.gem_cast": "Gem Cast",
-    "item.tconstruct.pickaxe_head_cast": "Pickaxe Head Cast",
-    "item.tconstruct.small_binding_cast": "Binding Cast",
-    "item.tconstruct.tool_rod_cast": "Tool Rod Cast",
-    "item.tconstruct.tough_tool_rod_cast": "Tough Tool Rod Cast",
-    "item.tconstruct.large_plate_cast": "Large Plate Cast",
-    "item.tconstruct.axe_head_cast": "Axe Head Cast",
-    "item.tconstruct.scythe_head_cast": "Scythe Head Cast",
-    "item.tconstruct.sharpening_kit_cast": "Sharpening Kit Cast",
-    "item.tconstruct.sword_blade_cast": "Sword Blade Cast",
-    "item.tconstruct.hand_guard_cast": "Hand Guard Cast",
-    "item.tconstruct.bow_limb_cast": "Bow Limb Cast",
-    "item.tconstruct.wide_guard_cast": "Wide Guard Cast",
-    "item.tconstruct.kama_head_cast": "Kama Head Cast",
-    "item.tconstruct.sign_head_cast": "Sign Head Cast",
-    "item.tconstruct.broad_axe_head_cast": "Broad Axe Head Cast",
-    "item.tconstruct.hammer_head_cast": "Hammer Head Cast",
-    "item.tconstruct.knife_blade_cast": "Knife Blade Cast",
-    "item.tconstruct.excavator_head_cast": "Excavator Head Cast",
-    "item.tconstruct.cross_guard_cast": "Cross Guard Cast",
-    "item.tconstruct.arrow_head_cast": "Arrow Head Cast",
-    "item.tconstruct.gear_cast": "Gear Cast",
-    "item.tconstruct.shovel_head_cast": "Shovel Head Cast",
-    "item.tconstruct.tough_binding_cast": "Tough Binding Cast",
-    "item.tconstruct.large_sword_blade_cast": "Large Sword Blade Cast",
-    "item.tconstruct.pan_head_cast": "Pan Head Cast",
+    "item.tconstruct.creative_modifier.tooltip": "Adds an additional modifier",    
+    
+    "item.tconstruct.copper_can": "Copper Can",
+    "item.tconstruct.copper_can.tooltip": "Stackable container holding 1 ingot of fluid",
+    "item.tconstruct.copper_can.contents": "Contains: 1 ingot %s",
+    
+    
+    "_comment": "Tinkers Gold Casts",
+    
+    "item.tconstruct.blank_cast": "Blank Gold Cast",
+    "item.tconstruct.ingot_cast": "Ingot Gold Cast",
+    "item.tconstruct.nugget_cast": "Nugget Gold Cast",
+    "item.tconstruct.gem_cast": "Gem Gold Cast",
+    "item.tconstruct.gear_cast": "Gear Gold Cast",
+    
+    "item.tconstruct.sharpening_kit_cast": "Sharpening Kit Gold Cast",
+    
+    "_comment": "Small Head Gold Casts",
+    
+    "item.tconstruct.pickaxe_head_cast": "Pickaxe Head Gold Cast",
+    "item.tconstruct.shovel_head_cast": "Shovel Head Gold Cast",
+    "item.tconstruct.axe_head_cast": "Axe Head Gold Cast",
+    "item.tconstruct.kama_head_cast": "Kama Head Gold Cast",
+    "item.tconstruct.sword_blade_cast": "Sword Blade Gold Cast",
+    "item.tconstruct.sign_head_cast": "Sign Head Gold Cast",
+    "item.tconstruct.bow_limb_cast": "Bow Limb Gold Cast",
+    
+    "_comment": "Large Head Gold Casts",
+    
+    "item.tconstruct.hammer_head_cast": "Hammer Head Gold Cast",
+    "item.tconstruct.excavator_head_cast": "Excavator Head Gold Cast",
+    "item.tconstruct.broad_axe_head_cast": "Broad Axe Head Gold Cast",
+    "item.tconstruct.scythe_head_cast": "Scythe Head Gold Cast",
+    "item.tconstruct.large_sword_blade_cast": "Large Sword Blade Gold Cast",
+    "item.tconstruct.large_plate_cast": "Large Plate Gold Cast",
+    
+    "_comment": "Binding Gold Casts",
+    
+    "item.tconstruct.small_binding_cast": "Binding Gold Cast",
+    "item.tconstruct.tough_binding_cast": "Tough Binding Gold Cast",
+    
+    "_comment": "Tool Rod Gold Casts",
+    
+    "item.tconstruct.tool_rod_cast": "Tool Rod Gold Cast",
+    "item.tconstruct.tough_tool_rod_cast": "Tough Tool Rod Gold Cast",
+    
+    
+    "_comment": "Tinkers Sand Casts",
+    
+    "item.tconstruct.blank_sand_cast": "Blank Sand Cast",
+    "item.tconstruct.ingot_sand_cast": "Ingot Sand Cast",
+    "item.tconstruct.nugget_sand_cast": "Nugget Sand Cast",
+    "item.tconstruct.gem_sand_cast": "Gem Sand Cast",
+    "item.tconstruct.gear_sand_cast": "Gear Sand Cast",
+    
+    "item.tconstruct.sharpening_kit_sand_cast": "Sharpening Kit Sand Cast",
+    
+    "_comment": "Small Head Sand Casts",
+    
+    "item.tconstruct.pickaxe_head_sand_cast": "Pickaxe Head Sand Cast",
+    "item.tconstruct.shovel_head_sand_cast": "Shovel Head Sand Cast",
+    "item.tconstruct.axe_head_sand_cast": "Axe Head Sand Cast",
+    "item.tconstruct.kama_head_sand_cast": "Kama Head Sand Cast",
+    "item.tconstruct.sword_blade_sand_cast": "Sword Blade Sand Cast",
+    "item.tconstruct.sign_head_sand_cast": "Sign Head Sand Cast",
+    "item.tconstruct.bow_limb_sand_cast": "Bow Limb Sand Cast",
+    
+    "_comment": "Large Head Sand Casts",
+    
+    "item.tconstruct.hammer_head_sand_cast": "Hammer Head Sand Cast",
+    "item.tconstruct.excavator_head_sand_cast": "Excavator Head Sand Cast",
+    "item.tconstruct.broad_axe_head_sand_cast": "Broad Axe Head Sand Cast",
+    "item.tconstruct.scythe_head_sand_cast": "Scythe Head Sand Cast",
+    "item.tconstruct.large_sword_blade_sand_cast": "Large Sword Blade Sand Cast",
+    "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
+    
+    "_comment": "Binding Sand Casts",
+    
+    "item.tconstruct.small_binding_sand_cast": "Binding Sand Cast",
+    "item.tconstruct.tough_binding_sand_cast": "Tough Binding Sand Cast",
+    
+    "_comment": "Tool Rod Sand Casts",
+    
+    "item.tconstruct.tool_rod_sand_cast": "Tool Rod Sand Cast",
+    "item.tconstruct.tough_tool_rod_sand_cast": "Tough Tool Rod Sand Cast",
+    
+    
+    "_comment": "Tinkers Red Sand Casts",
+    
+    "item.tconstruct.blank_red_sand_cast": "Blank Red Sand Cast",
+    "item.tconstruct.ingot_red_sand_cast": "Ingot Red Sand Cast",
+    "item.tconstruct.nugget_red_sand_cast": "Nugget Red Sand Cast",
+    "item.tconstruct.gem_red_sand_cast": "Gem Red Sand Cast",
+    "item.tconstruct.gear_red_sand_cast": "Gear Red Sand Cast",
+    
+    "item.tconstruct.sharpening_kit_red_sand_cast": "Sharpening Kit Red Sand Cast",
+    
+    "_comment": "Small Head Red Sand Casts",
+    
+    "item.tconstruct.pickaxe_head_red_sand_cast": "Pickaxe Head Red Sand Cast",
+    "item.tconstruct.shovel_head_red_sand_cast": "Shovel Head Red Sand Cast",
+    "item.tconstruct.axe_head_red_sand_cast": "Axe Head Red Sand Cast",
+    "item.tconstruct.kama_head_red_sand_cast": "Kama Head Red Sand Cast",
+    "item.tconstruct.sword_blade_red_sand_cast": "Sword Blade Red Sand Cast",
+    "item.tconstruct.sign_head_red_sand_cast": "Sign Head Red Sand Cast",
+    "item.tconstruct.bow_limb_red_sand_cast": "Bow Limb Red Sand Cast",
+    
+    "_comment": "Large Head Red Sand Casts",
+    
+    "item.tconstruct.hammer_head_red_sand_cast": "Hammer Head Red Sand Cast",
+    "item.tconstruct.excavator_head_red_sand_cast": "Excavator Head Red Sand Cast",
+    "item.tconstruct.broad_axe_head_red_sand_cast": "Broad Axe Head Red Sand Cast",
+    "item.tconstruct.scythe_head_red_sand_cast": "Scythe Head Red Sand Cast",
+    "item.tconstruct.large_sword_blade_red_sand_cast": "Large Sword Blade Red Sand Cast",
+    "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
+    
+    "_comment": "Binding Red Sand Casts",
+    
+    "item.tconstruct.small_binding_red_sand_cast": "Binding Red Sand Cast",
+    "item.tconstruct.tough_binding_red_sand_cast": "Tough Binding Red Sand Cast",
+    
+    "_comment": "Tool Rod Red Sand Casts",
+    
+    "item.tconstruct.tool_rod_red_sand_cast": "Tool Rod Red Sand Cast",
+    "item.tconstruct.tough_tool_rod_red_sand_cast": "Tough Tool Rod Red Sand Cast",
 
-    "item.tconstruct.cobalt_ingot": "Cobalt Ingot",
-    "item.tconstruct.ardite_ingot": "Ardite Ingot",
-    "item.tconstruct.manyullyn_ingot": "Manyullyn Ingot",
-    "item.tconstruct.knightslime_ingot": "Knightslime Ingot",
-    "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
-    "item.tconstruct.pigiron_ingot": "Pigiron Ingot",
-    "item.tconstruct.pigiron_ingot.tooltip": "Pigiron Ingot",
-    "item.tconstruct.copper_ingot": "Copper Ingot",
-    "item.tconstruct.rose_gold_ingot": "Rose Gold Ingot",
-
-    "item.tconstruct.cobalt_nugget": "Cobalt Nugget",
-    "item.tconstruct.ardite_nugget": "Ardite Nugget",
-    "item.tconstruct.manyullyn_nugget": "Manyullyn Nugget",
-    "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
-    "item.tconstruct.pigiron_nugget": "Pigiron Nugget",
-    "item.tconstruct.copper_nugget": "Copper Nugget",
-    "item.tconstruct.rose_gold_nugget": "Rose Gold Nugget",
-
+    
     "_comment": "Tinkers Fluids",
 
     "fluid.tconstruct.milk": "Milk",
+
+    "block.tconstruct.molten_blaze_fluid": "Molten Blaze",
+    "fluid.tconstruct.molten_blaze": "Molten Blaze",
+    "fluid.tconstruct.flowing_molten_blaze": "Flowing Molten Blaze",
+    "item.tconstruct.molten_blaze_bucket": "Molten Blaze Bucket",
+    
+    "_comment": "Slime",
 
     "block.tconstruct.blood_fluid": "Blood",
     "fluid.tconstruct.blood": "Blood",
     "fluid.tconstruct.flowing_blood": "Flowing Blood",
     "item.tconstruct.blood_bucket": "Bucket o' Blood",
 
+    "block.tconstruct.green_slime_fluid": "Green Slime",
+    "fluid.tconstruct.green_slime": "Green Slime",
+    "fluid.tconstruct.flowing_green_slime": "Flowing Green Slime",
+    "item.tconstruct.green_slime_bucket": "Green Slime Bucket",
+
     "block.tconstruct.blue_slime_fluid": "Blue Slime",
     "fluid.tconstruct.blue_slime": "Blue Slime",
     "fluid.tconstruct.flowing_blue_slime": "Flowing Blue Slime",
     "item.tconstruct.blue_slime_bucket": "Blue Slime Bucket",
 
+    "block.tconstruct.magma_cream_fluid": "Magma Cream",
+    "fluid.tconstruct.magma_cream": "Magma Cream",
+    "fluid.tconstruct.flowing_magma_cream": "Flowing Magma Cream",
+    "item.tconstruct.magma_cream_bucket": "Magma Cream Bucket",
+    
     "block.tconstruct.purple_slime_fluid": "Purple Slime",
     "fluid.tconstruct.purple_slime": "Purple Slime",
     "fluid.tconstruct.flowing_purple_slime": "Flowing Purple Slime",
     "item.tconstruct.purple_slime_bucket": "Purple Slime Bucket",
+    
+    "_comment": "Rock",
 
     "block.tconstruct.seared_stone_fluid": "Seared Stone",
     "fluid.tconstruct.seared_stone": "Seared Stone",
     "fluid.tconstruct.flowing_seared_stone": "Flowing Seared Stone",
     "item.tconstruct.seared_stone_bucket": "Seared Stone Bucket",
 
+    "block.tconstruct.molten_clay_fluid": "Molten Clay",
+    "fluid.tconstruct.molten_clay": "Molten Clay",
+    "fluid.tconstruct.flowing_molten_clay": "Flowing Molten Clay",
+    "item.tconstruct.molten_clay_bucket": "Molten Clay Bucket",
+
     "block.tconstruct.molten_glass_fluid": "Molten Glass",
     "fluid.tconstruct.molten_glass": "Molten Glass",
     "fluid.tconstruct.flowing_molten_glass": "Flowing Molten Glass",
     "item.tconstruct.molten_glass_bucket": "Molten Glass Bucket",
 
+    "block.tconstruct.liquid_soul_fluid": "Liquid Soul",
+    "fluid.tconstruct.liquid_soul": "Liquid Soul",
+    "fluid.tconstruct.flowing_liquid_soul": "Flowing Liquid Soul",
+    "item.tconstruct.liquid_soul_bucket": "Liquid Soul Bucket",
+
     "block.tconstruct.molten_obsidian_fluid": "Molten Obsidian",
     "fluid.tconstruct.molten_obsidian": "Molten Obsidian",
     "fluid.tconstruct.flowing_molten_obsidian": "Flowing Molten Obsidian",
     "item.tconstruct.molten_obsidian_bucket": "Molten Obsidian Bucket",
+
+    "block.tconstruct.molten_emerald_fluid": "Molten Emerald",
+    "fluid.tconstruct.molten_emerald": "Molten Emerald",
+    "fluid.tconstruct.flowing_molten_emerald": "Flowing Molten Emerald",
+    "item.tconstruct.molten_emerald_bucket": "Molten Emerald Bucket",
+
+    "block.tconstruct.molten_ender_fluid": "Molten Ender",
+    "fluid.tconstruct.molten_ender": "Molten Ender",
+    "fluid.tconstruct.flowing_molten_ender": "Flowing Molten Ender",
+    "item.tconstruct.molten_ender_bucket": "Molten Ender Bucket",
+    
+    "_comment": "Ores",
 
     "block.tconstruct.molten_iron_fluid": "Molten Iron",
     "fluid.tconstruct.molten_iron": "Molten Iron",
@@ -278,31 +458,154 @@
     "fluid.tconstruct.flowing_molten_cobalt": "Flowing Molten Cobalt",
     "item.tconstruct.molten_cobalt_bucket": "Molten Cobalt Bucket",
 
+    "block.tconstruct.molten_debris_fluid": "Molten Debris",
+    "fluid.tconstruct.molten_debris": "Molten Debris",
+    "fluid.tconstruct.flowing_molten_debris": "Flowing Molten Debris",
+    "item.tconstruct.molten_debris_bucket": "Molten Debris Bucket",
+
     "block.tconstruct.molten_ardite_fluid": "Molten Ardite",
     "fluid.tconstruct.molten_ardite": "Molten Ardite",
     "fluid.tconstruct.flowing_molten_ardite": "Flowing Molten Ardite",
     "item.tconstruct.molten_ardite_bucket": "Molten Ardite Bucket",
+    
+    "_comment": "Tier 3 Alloys",
+
+    "block.tconstruct.molten_slimesteel_fluid": "Molten Slimesteel",
+    "fluid.tconstruct.molten_slimesteel": "Molten Slimesteel",
+    "fluid.tconstruct.flowing_molten_slimesteel": "Flowing Molten Slimesteel",
+    "item.tconstruct.molten_slimesteel_bucket": "Molten Slimesteel Bucket",
+
+    "block.tconstruct.molten_tinkers_bronze_fluid": "Molten Tinker's Bronze",
+    "fluid.tconstruct.molten_tinkers_bronze": "Molten Tinker's Bronze",
+    "fluid.tconstruct.flowing_molten_tinkers_bronze": "Flowing Molten Tinker's Bronze",
+    "item.tconstruct.molten_tinkers_bronze_bucket": "Molten Tinker's Bronze Bucket",
 
     "block.tconstruct.molten_rose_gold_fluid": "Molten Rose Gold",
     "fluid.tconstruct.molten_rose_gold": "Molten Rose Gold",
     "fluid.tconstruct.flowing_molten_rose_gold": "Flowing Molten Rose Gold",
     "item.tconstruct.molten_rose_gold_bucket": "Molten Rose Gold Bucket",
 
+    "block.tconstruct.molten_pig_iron_fluid": "Molten Pig Iron",
+    "fluid.tconstruct.molten_pig_iron": "Molten Pig Iron",
+    "fluid.tconstruct.flowing_molten_pig_iron": "Flowing Molten Pig Iron",
+    "item.tconstruct.molten_pig_iron_bucket": "Molten Pig Iron Bucket",
+    
+    "_comment": "Tier 4 Alloys",
+
     "block.tconstruct.molten_manyullyn_fluid": "Molten Manyullyn",
     "fluid.tconstruct.molten_manyullyn": "Molten Manyullyn",
     "fluid.tconstruct.flowing_molten_manyullyn": "Flowing Molten Manyullyn",
     "item.tconstruct.molten_manyullyn_bucket": "Molten Manyullyn Bucket",
 
-    "block.tconstruct.molten_pig_iron_fluid": "Molten Pig Iron",
-    "fluid.tconstruct.molten_pig_iron": "Molten Pig Iron",
-    "fluid.tconstruct.flowing_molten_pig_iron": "Flowing Molten Pig Iron",
-    "item.tconstruct.molten_pig_iron_bucket": "Molten Pig Iron Bucket",
+    "block.tconstruct.molten_hepatizon_fluid": "Molten Hepatizon",
+    "fluid.tconstruct.molten_hepatizon": "Molten Hepatizon",
+    "fluid.tconstruct.flowing_molten_hepatizon": "Flowing Molten Hepatizon",
+    "item.tconstruct.molten_hepatizon_bucket": "Molten Hepatizon Bucket",
+
+    "block.tconstruct.molten_queens_slime_fluid": "Molten Queen's Slime",
+    "fluid.tconstruct.molten_queens_slime": "Molten Queen's Slime",
+    "fluid.tconstruct.flowing_molten_queens_slime": "Flowing Molten Queen's Slime",
+    "item.tconstruct.molten_queens_slime_bucket": "Molten Queen's Slime Bucket",
+
+    "block.tconstruct.molten_soulsteel_fluid": "Molten Soulsteel",
+    "fluid.tconstruct.molten_soulsteel": "Molten Soulsteel",
+    "fluid.tconstruct.flowing_molten_soulsteel": "Flowing Molten Soulsteel",
+    "item.tconstruct.molten_soulsteel_bucket": "Molten Soulsteel Bucket",
+
+    "block.tconstruct.molten_netherite_fluid": "Molten Netherite",
+    "fluid.tconstruct.molten_netherite": "Molten Netherite",
+    "fluid.tconstruct.flowing_molten_netherite": "Flowing Molten Netherite",
+    "item.tconstruct.molten_netherite_bucket": "Molten Netherite Bucket",
 
     "block.tconstruct.molten_knightslime_fluid": "Molten Knightslime",
     "fluid.tconstruct.molten_knightslime": "Molten Knightslime",
     "fluid.tconstruct.flowing_molten_knightslime": "Flowing Molten Knightslime",
     "item.tconstruct.molten_knightslime_bucket": "Molten Knightslime Bucket",
+    
+    "_comment": "Compat Ores",
 
+    "block.tconstruct.molten_tin_fluid": "Molten Tin",
+    "fluid.tconstruct.molten_tin": "Molten Tin",
+    "fluid.tconstruct.flowing_molten_tin": "Flowing Molten Tin",
+    "item.tconstruct.molten_tin_bucket": "Molten Tin Bucket",
+
+    "block.tconstruct.molten_aluminum_fluid": "Molten Aluminum",
+    "fluid.tconstruct.molten_aluminum": "Molten Aluminum",
+    "fluid.tconstruct.flowing_molten_aluminum": "Flowing Molten Aluminum",
+    "item.tconstruct.molten_aluminum_bucket": "Molten Aluminum Bucket",
+
+    "block.tconstruct.molten_lead_fluid": "Molten Lead",
+    "fluid.tconstruct.molten_lead": "Molten Lead",
+    "fluid.tconstruct.flowing_molten_lead": "Flowing Molten Lead",
+    "item.tconstruct.molten_lead_bucket": "Molten Lead Bucket",
+
+    "block.tconstruct.molten_silver_fluid": "Molten Silver",
+    "fluid.tconstruct.molten_silver": "Molten Silver",
+    "fluid.tconstruct.flowing_molten_silver": "Flowing Molten Silver",
+    "item.tconstruct.molten_silver_bucket": "Molten Silver Bucket",
+
+    "block.tconstruct.molten_nickel_fluid": "Molten Nickel",
+    "fluid.tconstruct.molten_nickel": "Molten Nickel",
+    "fluid.tconstruct.flowing_molten_nickel": "Flowing Molten Nickel",
+    "item.tconstruct.molten_nickel_bucket": "Molten Nickel Bucket",
+
+    "block.tconstruct.molten_zinc_fluid": "Molten Zinc",
+    "fluid.tconstruct.molten_zinc": "Molten Zinc",
+    "fluid.tconstruct.flowing_molten_zinc": "Flowing Molten Zinc",
+    "item.tconstruct.molten_zinc_bucket": "Molten Zinc Bucket",
+
+    "block.tconstruct.molten_platinum_fluid": "Molten Platinum",
+    "fluid.tconstruct.molten_platinum": "Molten Platinum",
+    "fluid.tconstruct.flowing_molten_platinum": "Flowing Molten Platinum",
+    "item.tconstruct.molten_platinum_bucket": "Molten Platinum Bucket",
+
+    "block.tconstruct.molten_tungsten_fluid": "Molten Tungsten",
+    "fluid.tconstruct.molten_tungsten": "Molten Tungsten",
+    "fluid.tconstruct.flowing_molten_tungsten": "Flowing Molten Tungsten",
+    "item.tconstruct.molten_tungsten_bucket": "Molten Tungsten Bucket",
+
+    "block.tconstruct.molten_osmium_fluid": "Molten Osmium",
+    "fluid.tconstruct.molten_osmium": "Molten Osmium",
+    "fluid.tconstruct.flowing_molten_osmium": "Flowing Molten Osmium",
+    "item.tconstruct.molten_osmium_bucket": "Molten Osmium Bucket",
+
+    "block.tconstruct.molten_uranium_fluid": "Molten Uranium",
+    "fluid.tconstruct.molten_uranium": "Molten Uranium",
+    "fluid.tconstruct.flowing_molten_uranium": "Flowing Molten Uranium",
+    "item.tconstruct.molten_uranium_bucket": "Molten Uranium Bucket",
+    
+    "_comment": "Compat Alloys",
+
+    "block.tconstruct.molten_bronze_fluid": "Molten Bronze",
+    "fluid.tconstruct.molten_bronze": "Molten Bronze",
+    "fluid.tconstruct.flowing_molten_bronze": "Flowing Molten Bronze",
+    "item.tconstruct.molten_bronze_bucket": "Molten Bronze Bucket",
+
+    "block.tconstruct.molten_brass_fluid": "Molten Brass",
+    "fluid.tconstruct.molten_brass": "Molten Brass",
+    "fluid.tconstruct.flowing_molten_brass": "Flowing Molten Brass",
+    "item.tconstruct.molten_brass_bucket": "Molten Brass Bucket",
+
+    "block.tconstruct.molten_electrum_fluid": "Molten Electrum",
+    "fluid.tconstruct.molten_electrum": "Molten Electrum",
+    "fluid.tconstruct.flowing_molten_electrum": "Flowing Molten Electrum",
+    "item.tconstruct.molten_electrum_bucket": "Molten Electrum Bucket",
+
+    "block.tconstruct.molten_invar_fluid": "Molten Invar",
+    "fluid.tconstruct.molten_invar": "Molten Invar",
+    "fluid.tconstruct.flowing_molten_invar": "Flowing Molten Invar",
+    "item.tconstruct.molten_invar_bucket": "Molten Invar Bucket",
+
+    "block.tconstruct.molten_constantan_fluid": "Molten Constantan",
+    "fluid.tconstruct.molten_constantan": "Molten Constantan",
+    "fluid.tconstruct.flowing_molten_constantan": "Flowing Molten Constantan",
+    "item.tconstruct.molten_constantan_bucket": "Molten Constantan Bucket",
+
+    "block.tconstruct.molten_steel_fluid": "Molten Steel",
+    "fluid.tconstruct.molten_steel": "Molten Steel",
+    "fluid.tconstruct.flowing_molten_steel": "Flowing Molten Steel",
+    "item.tconstruct.molten_steel_bucket": "Molten Steel Bucket",
+    
 
     "_comment": "Tinkers Gadgets",
 
@@ -340,6 +643,11 @@
     "item.tconstruct.glow_ball.tooltip": "Not suited for consumption.",
     "item.tconstruct.efln_ball": "EFLN",
     "item.tconstruct.efln_ball.tooltip": "Explodes! Safe for mining",
+
+    "item.tconstruct.quartz_shuriken": "Quartz Shuriken",
+    "item.tconstruct.quartz_shuriken.tooltip": "A throwable weapon with higher damage",
+    "item.tconstruct.flint_shuriken": "Flint Shuriken",
+    "item.tconstruct.flint_shuriken.tooltip": "A throwable weapon with high knockback",
 
     "item.tconstruct.green_slime_sling": "Slimesling",
     "item.tconstruct.green_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
@@ -420,7 +728,6 @@
     "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
     "item.tconstruct.small_binding": "Small Binding",
     "item.tconstruct.tough_binding": "Tough Binding",
-    "item.tconstruct.wide_guard": "Wide Guard",
     "item.tconstruct.large_plate": "Large Plate",
 
     "_conment": "Tool Descriptions",
@@ -469,14 +776,20 @@
     "block.tconstruct.seared_glass_pane": "Seared Glass Pane",
     "block.tconstruct.seared_glass_pane.tooltip": "Cannot be used in a Smeltery.",
     
+
+    "block.tconstruct.seared_ladder": "Seared Ladder",
+    "block.tconstruct.seared_ladder.tooltip": "Climbable Smeltery block. Safe for decoration.",
+    
     "block.tconstruct.seared_tank": "Seared Tank",
     "block.tconstruct.seared_tank.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
     "block.tconstruct.seared_gauge": "Seared Gauge",
-    "block.tconstruct.seared_gauge.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
+    "block.tconstruct.seared_gauge.tooltip": "Ideal for metals, holding 3 molten blocks.\nRetains liquid when broken.",
     "block.tconstruct.seared_window": "Seared Window",
-    "block.tconstruct.seared_window.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
+    "block.tconstruct.seared_window.tooltip": "Alternate Smeltery tank.\nRetains liquid when broken.",
     "block.tconstruct.tank.fluid": "Liquid %s",
-    "block.tconstruct.tank.amount": "%d mb",
+    "block.tconstruct.tank.mb": "%d mb",
+    "block.tconstruct.tank.ingots": "%d ingots",
+    "block.tconstruct.tank.mixed": "%d ingots, %d mb",
     
     "block.tconstruct.faucet": "Seared Faucet",
     "block.tconstruct.faucet.tooltip": "Drains liquids from Smelteries and Tanks",
@@ -484,19 +797,47 @@
     "block.tconstruct.casting_basin.tooltip": "Cast items using molten metals from a Smeltery",
     "block.tconstruct.casting_table": "Casting Table",
     "block.tconstruct.casting_table.tooltip": "Cast items using molten metals from a Smeltery",
+   
+    "block.tconstruct.channel": "Seared Channel",
+    "block.tconstruct.channel.tooltip": "Distributes fluids poured from a faucet above.",
+    "block.tconstruct.channel.side.in": "Set side to flow inwards",
+    "block.tconstruct.channel.side.out": "Set side to flow outwards",
+    "block.tconstruct.channel.side.none": "Disallowed flowing on side",
+    "block.tconstruct.channel.down.out": "Allowed flowing down",
+    "block.tconstruct.channel.down.none": "Disallowed flowing down",
 
     "block.tconstruct.melter": "Seared Melter",
-    "block.tconstruct.melter.tooltip": "First Smeltery.\nPlace above a seared tank to fuel.",
+    "block.tconstruct.melter.tooltip": "First Smeltery.\nPlace above a seared tank or heater to fuel.",
     "gui.tconstruct.melter": "Melter",
     "gui.tconstruct.melting.capacity": "Capacity:",
     "gui.tconstruct.melting.available": "Free:",
     "gui.tconstruct.melting.used": "Used:",
+    
+    "block.tconstruct.seared_heater": "Seared Heater",
+    "block.tconstruct.seared_heater.tooltip": "Solid fuel source for the Melter.",
+    "gui.tconstruct.heater": "Heater",
+    
+    "block.tconstruct.smeltery_controller": "Smeltery Controller",
+    "block.tconstruct.smeltery_controller.tooltip": "Brain of the Smeltery.",
+    "gui.tconstruct.smeltery": "Smeltery",
+    "death.attack.tconstruct.smeltery_heat": "%1$s tried to make molten player",
+    "death.attack.tconstruct.smeltery_magic": "%1$s has become one with the smeltery",
+    
+    "block.tconstruct.seared_drain": "Seared Drain",
+    "block.tconstruct.seared_drain.tooltip": "Smeltery fluid input and output",
+    "block.tconstruct.seared_duct": "Seared Duct",
+    "block.tconstruct.seared_duct.tooltip": "Filtered smeltery fluid input and output using copper cans or buckets",
+    "gui.tconstruct.duct": "Duct",
+    "block.tconstruct.seared_chute": "Seared Chute",
+    "block.tconstruct.seared_chute.tooltip": "Smeltery item input and output",
 
     "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
     "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
     "gui.tconstruct.melting.no_space": "Not enough free space for the fluid.",
 
+    "gui.tconstruct.melting.fuel.no_tank": "No tank in structure",
     "gui.tconstruct.melting.fuel.empty": "No fuel found",
+    "gui.tconstruct.melting.fuel.solid": "Solid fuel",
     "gui.tconstruct.melting.fuel.temperature": "Temperature: %s°C",
     "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
     
@@ -593,82 +934,81 @@
 
     "item.tconstruct.blue_slime_spawn_egg": "Blue Slime Spawn Egg",
     
-    "__comment": "Materials",
     
+    "__comment": "Tier 1 Materials",
     "material.tconstruct.wood": "Wood",
     "material.tconstruct.wood.format": "Wooden %s",
     "material.tconstruct.stone": "Stone",
     "material.tconstruct.flint": "Flint",
-    "material.tconstruct.cactus": "Cactus",
-    "material.tconstruct.obsidian": "Obsidian",
-    "material.tconstruct.prismarine": "Prismarine",
-    "material.tconstruct.netherrack": "Netherrack",
-    "material.tconstruct.endstone": "End",
     "material.tconstruct.bone": "Bone",
-    "material.tconstruct.paper": "Paper",
-    "material.tconstruct.sponge": "Sponge",
-    "material.tconstruct.firewood": "Firewood",
-    "material.tconstruct.slime": "Slime",
-    "material.tconstruct.blueslime": "Blue Slime",
-    "material.tconstruct.blueslime.format": "Slime %s",
-    "material.tconstruct.knightslime": "Knightslime",
-    "material.tconstruct.magmaslime": "Magma Slime",
-    "material.tconstruct.ardite": "Ardite",
+    
+    "__comment": "Tier 2 Materials",
+    "material.tconstruct.iron": "Iron",
+    "material.tconstruct.seared_stone": "Seared Stone",
+    "material.tconstruct.copper": "Copper",
+    "material.tconstruct.slimewood": "Slimewood",
+    
+    "__comment": "Tier 3 Materials",
+    "material.tconstruct.slimesteel": "Slimesteel",
+    "material.tconstruct.nahuatl": "Nahuatl",
+    "material.tconstruct.tinkers_bronze": "Tinker's Bronze",
+    "material.tconstruct.rose_gold": "Rose Gold",
+    "material.tconstruct.pig_iron": "Pig Iron",
+    
+    
+    "__comment": "Tier Nether Materials",
     "material.tconstruct.cobalt": "Cobalt",
     "material.tconstruct.manyullyn": "Manyullyn",
-    "material.tconstruct.iron": "Iron",
-    "material.tconstruct.pigiron": "Pig Iron",
-    "material.tconstruct.copper": "Copper",
-    "material.tconstruct.bronze": "Bronze",
+    "material.tconstruct.hepatizon": "Hepatizon",
+    "material.tconstruct.queens_slime": "Queen's Slime",
+    "material.tconstruct.soulsteel": "Soulsteel",
+    
+    
+    "__comment": "Tier End Materials",
+    "material.tconstruct.endstone": "End",
+    "material.tconstruct.knightslime": "Knightslime",
+    
+    
+    "__comment": "Tier 2 Integration Materials",
     "material.tconstruct.lead": "Lead",
     "material.tconstruct.silver": "Silver",
+    
+    "__comment": "Tier 3 Integration Materials",
     "material.tconstruct.electrum": "Electrum",
+    "material.tconstruct.bronze": "Bronze",
     "material.tconstruct.steel": "Steel",
     
-    "material.tconstruct.string": "String",
-    "material.tconstruct.vine": "Vines",
-    "material.tconstruct.slimevine_blue": "Slimevine",
-    "material.tconstruct.slimevine_orange": "Slimevine",
-    "material.tconstruct.slimevine_purple": "Slimevine",
-    
-    "material.tconstruct.blaze": "Blazerod",
-    "material.tconstruct.reed": "Reeds",
-    "material.tconstruct.ice": "Ice",
-    "material.tconstruct.endrod": "Endrod",
-    
-    "material.tconstruct.feather": "Feather",
-    "material.tconstruct.leaf": "Leaf",
-    "material.tconstruct.slimeleaf_blue": "Slimeleaf",
-    "material.tconstruct.slimeleaf_orange": "Slimeleaf",
-    "material.tconstruct.slimeleaf_purple": "Slimeleaf",
 
     "_comment": "Stats",
 
-    "stat.head.name": "Head",
-    "stat.head.durability.name": "Durability: ",
-    "stat.head.durability.description": "The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.",
-    "stat.head.mining_speed.name": "Mining Speed: ",
-    "stat.head.mining_speed.description": "How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.",
-    "stat.head.harvest_level.name": "Mining Level: ",
-    "stat.head.harvest_level.description": "What range of blocks a tool with a tool head of this material can mine.",
-    "stat.head.attack.name": "Attack: ",
-    "stat.head.attack.description": "Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.",
+    "stat.tconstruct.head": "Head",
+    "stat.tconstruct.head.durability": "Durability: ",
+    "stat.tconstruct.head.durability.description": "The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.",
+    "stat.tconstruct.head.mining_speed": "Mining Speed: ",
+    "stat.tconstruct.head.mining_speed.description": "How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.",
+    "stat.tconstruct.head.harvest_level": "Mining Level: ",
+    "stat.tconstruct.head.harvest_level.description": "What range of blocks a tool with a tool head of this material can mine.",
+    "stat.tconstruct.head.attack": "Attack: ",
+    "stat.tconstruct.head.attack.description": "Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.",
 
-    "stat.handle.name": "Handle",
-    "stat.handle.modifier.name": "Modifier: ",
-    "stat.handle.modifier.description": "How suitable the tool material is as a handle.\nThe total durability of the tool will be multiplied by this.",
-    "stat.handle.durability.name": "Durability: ",
-    "stat.handle.durability.description": "How well the material can be held.\nTool durability will be changed by this amount.",
+    "stat.tconstruct.handle": "Handle",
+    "stat.tconstruct.handle.durability": "Durability: ",
+    "stat.tconstruct.handle.durability.description": "The total durability of the tool will be multiplied by this.",
+    "stat.tconstruct.handle.attack_damage": "Attack Damage: ",
+    "stat.tconstruct.handle.attack_damage.description": "The total attack damage of the tool will be multiplied by this.",
+    "stat.tconstruct.handle.attack_speed": "Attack Speed: ",
+    "stat.tconstruct.handle.attack_speed.description": "The total attack speed of the tool will be multiplied by this.",
+    "stat.tconstruct.handle.mining_speed": "Mining Speed: ",
+    "stat.tconstruct.handle.mining_speed.description": "The total mining speed of the tool will be multiplied by this.",
 
-    "stat.extra.name": "Extra",
-    "stat.extra.durability.name": "Durability: ",
-    "stat.extra.durability.description": "How much durability this part contributes when used as an accessory.",
+    "stat.tconstruct.extra": "Extra",
+    "stat.tconstruct.extra.no_stats": "No stats",
 
-    "ui.mining_level.stone": "Stone",
-    "ui.mining_level.iron": "Iron",
-    "ui.mining_level.diamond": "Diamond",
-    "ui.mining_level.obsidian": "Obsidian",
-    "ui.mining_level.cobalt": "Cobalt",
+    "stat.tconstruct.mining_level.wood": "Wood",
+    "stat.tconstruct.mining_level.stone": "Stone",
+    "stat.tconstruct.mining_level.iron": "Iron",
+    "stat.tconstruct.mining_level.diamond": "Diamond",
+    "stat.tconstruct.mining_level.netherite": "Netherite",
 
     "_comment": "Tooltips",
     "tooltip.tool.modifiers": "Modifiers",
@@ -725,12 +1065,25 @@
     "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required.",
 
     "_comment": "JEI Strings",
+    "jei.tconstruct.time": "%s s",
+    "jei.tconstruct.temperature": "%s°C",
+    
     "jei.tconstruct.casting.basin": "Casting Basin",
     "jei.tconstruct.casting.table": "Casting Table",
-    "jei.tconstruct.casting.cooling_time": "%s s",
     "jei.tconstruct.casting.cast_kept": "Cast item can be reused in later recipes",
     "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
     
+    "jei.tconstruct.molding.title": "Molding",
+    "jei.tconstruct.molding.pattern_consumed": "Pattern is consumed on crafting",
+    
     "jei.tconstruct.melting.title": "Melting",
-    "jei.tconstruct.melting.temperature": "%s°C"
+    "jei.tconstruct.melting.multiplier": "Speed multiplier: %sx",
+    "jei.tconstruct.melting.ore": "Recipe output is boosted based on the controller type",
+    "jei.tconstruct.melting.time": "Melting time: %s s",
+
+    "jei.tconstruct.entity_melting.title": "Entity Melting",
+    "jei.tconstruct.entity_melting.per_hearts": "Per %s Hearts Damage",
+    "jei.tconstruct.entity_melting.per_heart": "Per 1.0 Heart Damage",
+
+    "jei.tconstruct.alloy.title": "Alloying"
 }

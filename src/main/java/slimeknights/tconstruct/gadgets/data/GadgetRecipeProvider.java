@@ -21,8 +21,8 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
-import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -32,6 +32,11 @@ import java.util.stream.Stream;
 public class GadgetRecipeProvider extends BaseRecipeProvider {
   public GadgetRecipeProvider(DataGenerator generator) {
     super(generator);
+  }
+
+  @Override
+  public String getName() {
+    return "Tinkers' Construct Gadget Recipes";
   }
 
   @Override
@@ -144,6 +149,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(TinkerGadgets.stoneTorch, folder));
 
     // throw balls
+    folder = "gadgets/throwball/";
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.efln.get())
                        .key('#', Tags.Items.GUNPOWDER)
                        .key('X', Items.FLINT)
@@ -151,7 +157,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine("#X#")
                        .patternLine(" # ")
                        .addCriterion("has_item", hasItem(Tags.Items.DUSTS_GLOWSTONE))
-                       .build(consumer, prefix(TinkerGadgets.efln, "gadgets/throwball/"));
+                       .build(consumer, prefix(TinkerGadgets.efln, folder));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.glowBall.get(), 8)
                        .key('#', Items.SNOWBALL)
                        .key('X', Tags.Items.DUSTS_GLOWSTONE)
@@ -159,9 +165,27 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine("#X#")
                        .patternLine("###")
                        .addCriterion("has_item", hasItem(Tags.Items.DUSTS_GLOWSTONE))
-                       .build(consumer, prefix(TinkerGadgets.glowBall, "gadgets/throwball/"));
+                       .build(consumer, prefix(TinkerGadgets.glowBall, folder));
+
+    // Shurikens
+    folder = "gadgets/shuriken/";
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.flintShuriken.get(), 4)
+                        .key('X', Items.FLINT)
+                        .patternLine(" X ")
+                        .patternLine("X X")
+                        .patternLine(" X ")
+                        .addCriterion("has_item", hasItem(Items.FLINT))
+                        .build(consumer, prefix(TinkerGadgets.flintShuriken, folder));
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.quartzShuriken.get(), 4)
+                        .key('X', Items.QUARTZ)
+                        .patternLine(" X ")
+                        .patternLine("X X")
+                        .patternLine(" X ")
+                        .addCriterion("has_item", hasItem(Items.QUARTZ))
+                        .build(consumer, prefix(TinkerGadgets.quartzShuriken, folder));
 
     // piggybackpack
+    folder = "gadgets/";
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.piggyBackpack.get())
                        .key('#', Tags.Items.RODS_WOODEN)
                        .key('X', Tags.Items.LEATHER)
@@ -169,20 +193,21 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine("# #")
                        .patternLine(" X ")
                        .addCriterion("has_item", hasItem(Tags.Items.RODS_WOODEN))
-                       .build(consumer, prefix(TinkerGadgets.piggyBackpack, "gadgets/"));
+                       .build(consumer, prefix(TinkerGadgets.piggyBackpack, folder));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.punji.get(), 3)
                        .key('#', Items.SUGAR_CANE)
                        .patternLine("# #")
                        .patternLine(" # ")
                        .patternLine("# #")
                        .addCriterion("has_item", hasItem(Items.SUGAR_CANE))
-                       .build(consumer, prefix(TinkerGadgets.punji, "gadgets/"));
+                       .build(consumer, prefix(TinkerGadgets.punji, folder));
 
     // frames
+    folder = "gadgets/fancy_frame/";
     registerFrameRecipes(consumer, TinkerModifiers.silkyCloth, FrameType.JEWEL);
-    registerFrameRecipes(consumer, TinkerMaterials.cobaltNugget, FrameType.COBALT);
-    registerFrameRecipes(consumer, TinkerMaterials.arditeNugget, FrameType.ARDITE);
-    registerFrameRecipes(consumer, TinkerMaterials.manyullynNugget, FrameType.MANYULLYN);
+    registerFrameRecipes(consumer, TinkerMaterials.cobalt.getNugget(), FrameType.COBALT);
+    registerFrameRecipes(consumer, TinkerMaterials.ardite.getNugget(), FrameType.ARDITE);
+    registerFrameRecipes(consumer, TinkerMaterials.manyullyn.getNugget(), FrameType.MANYULLYN);
     registerFrameRecipes(consumer, Items.GOLD_NUGGET, FrameType.GOLD);
     Item clearFrame = TinkerGadgets.itemFrame.get(FrameType.CLEAR);
     ShapedRecipeBuilder.shapedRecipe(clearFrame)
@@ -193,10 +218,10 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine(" e ")
                        .addCriterion("has_item", hasItem(Tags.Items.GLASS_PANES_COLORLESS))
                        .setGroup(locationString("fancy_item_frame"))
-                       .build(consumer, prefix(clearFrame, "gadgets/fancy_frame/"));
+                       .build(consumer, prefix(clearFrame, folder));
 
     // dried clay
-    folder = "building/";
+    folder = "gadgets/building/";
     ShapedRecipeBuilder.shapedRecipe(TinkerCommons.driedClayBricks)
                        .key('b', TinkerCommons.driedBrick)
                        .patternLine("bb")
@@ -211,7 +236,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     addCampfireCooking(consumer, Items.CLAY_BALL, TinkerCommons.driedBrick, 0.3f, folder);
 
     // FIXME: temporary jerky recipes
-    folder = "foods/";
+    folder = "gadgets/foods/";
     addFoodCooking(consumer, Items.COOKED_BEEF, TinkerGadgets.beefJerky, 0.35f, folder);
     addFoodCooking(consumer, Items.COOKED_CHICKEN, TinkerGadgets.chickenJerky, 0.35f, folder);
     addFoodCooking(consumer, Items.COOKED_PORKCHOP, TinkerGadgets.porkJerky, 0.35f, folder);

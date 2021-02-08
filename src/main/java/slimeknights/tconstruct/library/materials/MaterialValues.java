@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.library.materials;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * These values define how much an item is "worth".
  * The values are used for liquids as well as part crafting.
@@ -7,31 +10,26 @@ package slimeknights.tconstruct.library.materials;
  * <p>
  * In general, use these values when registering items/item-interactions unless you have a very good reason.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MaterialValues {
-  // How much the different items are "worth"
-  // the values are used for liquid conversion
-
   /** Value of a single metal ingot, is divisible by 9 */
-  public static final int VALUE_Ingot = 144;
+  public static final int INGOT = 144;
   /** Value of a single metal nugget */
-  public static final int VALUE_Nugget = VALUE_Ingot / 9;
+  public static final int NUGGET = INGOT / 9;
   /** Value of a single metal block, is divisible by 81 */
-  public static final int VALUE_Block = VALUE_Ingot * 9;
+  public static final int METAL_BLOCK = INGOT * 9;
   /** Value of a single metal brick block, is divisible by 36 */
-  public static final int VALUE_BrickBlock = VALUE_Ingot * 4;
+  public static final int BRICK_BLOCK = INGOT * 4;
 
-  /** Value of a gem such as emerald */
-  public static final int VALUE_Gem = 666; // divisible by 3!
+  /** Value of a gem such as emerald or an ender pearl, divides into buckets well */
+  public static final int GEM = 250;
+  public static final int GEM_BLOCK = GEM * 9;
 
   /** Value of a single glass block */
-  public static final int VALUE_Glass = VALUE_Ingot * 4;
-  /** Value of a glass pane */
-  public static final int VALUE_Pane = VALUE_Glass * 6 / 16;
+  public static final int GLASS_BLOCK = INGOT * 4;
+  /** Value of a glass pane, slightly cheaper than vanilla */
+  public static final int GLASS_PANE = GLASS_BLOCK / 4;
 
   /** Value of a single slimeball */
-  public static final int VALUE_SlimeBall = 250;
-
-
-  private MaterialValues() {
-  }
+  public static final int SLIMEBALL = 250;
 }

@@ -41,7 +41,7 @@ public class NetherSlimeIslandStructure extends Structure<NoFeatureConfig> {
   }
 
   @Override
-  public GenerationStage.Decoration func_236396_f_() {
+  public GenerationStage.Decoration getDecorationStage() {
     return GenerationStage.Decoration.UNDERGROUND_DECORATION;
   }
 

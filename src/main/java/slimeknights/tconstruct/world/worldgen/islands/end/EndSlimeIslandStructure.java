@@ -13,8 +13,8 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandPiece;
+import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
 
 public class EndSlimeIslandStructure extends Structure<NoFeatureConfig> {
 
@@ -33,7 +33,7 @@ public class EndSlimeIslandStructure extends Structure<NoFeatureConfig> {
   }
 
   @Override
-  public GenerationStage.Decoration func_236396_f_() {
+  public GenerationStage.Decoration getDecorationStage() {
     return GenerationStage.Decoration.SURFACE_STRUCTURES;
   }
 

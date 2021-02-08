@@ -9,9 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -30,6 +28,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("deprecation")
@@ -41,6 +40,7 @@ public class Util {
 
   public static final DecimalFormat df = new DecimalFormat("#,###,###.##", DecimalFormatSymbols.getInstance(Locale.US));
   public static final DecimalFormat dfPercent = new DecimalFormat("#%");
+  public static final DecimalFormat dfMultiplier = new DecimalFormat("#.##x");
 
   public static Logger getLogger(String type) {
     String log = MODID;
@@ -105,6 +105,15 @@ public class Util {
    */
   public static String makeTranslationKey(String base, String name) {
     return net.minecraft.util.Util.makeTranslationKey(base, getResource(name));
+  }
+
+
+  /**
+   * Same as {@link net.minecraft.util.Util#make(Object, Consumer)}
+   */
+  public static <T> T make(T object, Consumer<T> consumer) {
+    consumer.accept(object);
+    return object;
   }
 
   /**
@@ -221,5 +230,44 @@ public class Util {
     return list.stream()
       .map(Object::toString)
       .collect(Collectors.joining("\n\t", "\n\t", ""));
+  }
+
+  /**
+   * Simplified clone {@link java.awt.Color#HSBtoRGB(float, float, float)} to prevent issue with missing package and remove unused parameters
+   * @param hue  Hue
+   * @return Color from hue
+   */
+  public static int hueToRGB(float hue) {
+    int r = 0, g = 0, b = 0;
+    float h = (hue - (float)Math.floor(hue)) * 6.0f;
+    float localHue = h - (float)Math.floor(h);
+    float invHue = (1.0f - localHue);
+    switch ((int) h) {
+      case 0:
+        r = 255;
+        g = (int) (localHue * 255.0f + 0.5f);
+        break;
+      case 1:
+        r = (int) (invHue * 255.0f + 0.5f);
+        g = 255;
+        break;
+      case 2:
+        g = 255;
+        b = (int) (localHue * 255.0f + 0.5f);
+        break;
+      case 3:
+        g = (int) (invHue * 255.0f + 0.5f);
+        b = 255;
+        break;
+      case 4:
+        r = (int) (localHue * 255.0f + 0.5f);
+        b = 255;
+        break;
+      case 5:
+        r = 255;
+        b = (int) (invHue * 255.0f + 0.5f);
+        break;
+    }
+    return 0xff000000 | (r << 16) | (g << 8) | b;
   }
 }

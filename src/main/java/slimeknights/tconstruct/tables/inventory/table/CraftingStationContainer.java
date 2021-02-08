@@ -18,8 +18,8 @@ import net.minecraftforge.items.wrapper.EmptyHandler;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
+import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
 import javax.annotation.Nullable;

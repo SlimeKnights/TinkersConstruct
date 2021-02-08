@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:part_builder",
-  "pattern": "tconstruct:kama_head",
-  "cost": 2,
-  "output": {
-    "item": "tconstruct:kama_head"
-  }
-}

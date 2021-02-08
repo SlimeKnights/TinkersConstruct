@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "tconstruct:slimy_mud_magma"
-  },
-  "result": "tconstruct:magma_slime_crystal",
-  "experience": 0.5,
-  "cookingtime": 200
-}

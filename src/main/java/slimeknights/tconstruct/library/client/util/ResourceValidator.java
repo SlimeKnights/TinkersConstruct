@@ -3,8 +3,7 @@ package slimeknights.tconstruct.library.client.util;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.resource.IResourceType;
-import slimeknights.mantle.client.IEarlySelectiveReloadListener;
+import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
 
 import java.util.Set;
 import java.util.function.Predicate;
@@ -13,8 +12,7 @@ import java.util.stream.Collectors;
 /**
  * Utility that handles checking if a resource exists in any resource pack
  */
-public class ResourceValidator implements IEarlySelectiveReloadListener, Predicate<ResourceLocation> {
-  private final IResourceType type;
+public class ResourceValidator implements IEarlySafeManagerReloadListener, Predicate<ResourceLocation> {
   private final String folder;
   private final int trim;
   private final String extension;
@@ -22,12 +20,11 @@ public class ResourceValidator implements IEarlySelectiveReloadListener, Predica
 
   /**
    * Gets a resource validator instance
-   * @param type
-   * @param folder
-   * @param extension
+   * @param folder     Folder to search
+   * @param trim       Text to trim off resource locations
+   * @param extension  File extension
    */
-  public ResourceValidator(IResourceType type, String folder, String trim, String extension) {
-    this.type = type;
+  public ResourceValidator(String folder, String trim, String extension) {
     this.folder = folder;
     this.trim = trim.length() + 1;
     this.extension = extension;
@@ -35,18 +32,16 @@ public class ResourceValidator implements IEarlySelectiveReloadListener, Predica
   }
 
   @Override
-  public void onResourceManagerReload(IResourceManager manager, Predicate<IResourceType> predicate) {
-    if (predicate.test(type)) {
-      int extensionLength = extension.length();
-      // FIXME: this does not validate folder names
-      this.resources = manager.getAllResourceLocations(folder, (loc) -> {
-        // must have proper extension and contain valid characters
-        return loc.endsWith(extension) && isPathValid(loc);
-      }).stream().map((location) -> {
-        String path = location.getPath();
-        return new ResourceLocation(location.getNamespace(), path.substring(trim, path.length() - extensionLength));
-      }).collect(Collectors.toSet());
-    }
+  public void onReloadSafe(IResourceManager manager) {
+    int extensionLength = extension.length();
+    // FIXME: this does not validate folder names
+    this.resources = manager.getAllResourceLocations(folder, (loc) -> {
+      // must have proper extension and contain valid characters
+      return loc.endsWith(extension) && isPathValid(loc);
+    }).stream().map((location) -> {
+      String path = location.getPath();
+      return new ResourceLocation(location.getNamespace(), path.substring(trim, path.length() - extensionLength));
+    }).collect(Collectors.toSet());
   }
 
   private static boolean isPathValid(String path) {
