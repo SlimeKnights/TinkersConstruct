@@ -11,13 +11,14 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 /**
  * Event subscriber for modifier events
+ * Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
  */
+@SuppressWarnings("unused")
 @EventBusSubscriber(modid = TConstruct.modID, bus = Bus.FORGE)
 public class ModifierEvents {
 
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
-    // technically works on anything that has the tic_modifiers tag
     ToolStack tool = ToolStack.from(event.getPlayer().getHeldItemMainhand());
     if (!tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
@@ -28,11 +29,10 @@ public class ModifierEvents {
 
   @SubscribeEvent
   static void onBlockBreak(BlockEvent.BreakEvent event) {
-    // technically works on anything that has the tic_modifiers tag
     ToolStack tool = ToolStack.from(event.getPlayer().getHeldItemMainhand());
     if (!tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().onBlockBreak(tool, entry.getLevel(), event);
+        entry.getModifier().beforeBlockBreak(tool, entry.getLevel(), event);
       }
     }
   }

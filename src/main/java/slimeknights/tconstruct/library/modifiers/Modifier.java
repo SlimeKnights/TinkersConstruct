@@ -287,7 +287,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but effect shows in the tooltip.</li>
-   *   <li>{@link #onBlockBreak(IModifierToolStack, int, BreakEvent)}: Can directly prevent block breaking instead of just change breaking speed. Called just once per block break</li>
+   *   <li>{@link #beforeBlockBreak(IModifierToolStack, int, BreakEvent)}: Can directly prevent block breaking instead of just change breaking speed. Called just once per block break</li>
    * </ul>
    * @param tool   Current tool instance
    * @param level  Modifier level
@@ -307,14 +307,14 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level  Modifier level
    * @param event  Break event
    */
-  public void onBlockBreak(IModifierToolStack tool, int level, BreakEvent event) {}
+  public void beforeBlockBreak(IModifierToolStack tool, int level, BreakEvent event) {}
 
   /**
    * Called after a block is broken
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onBlockBreak(IModifierToolStack, int, BreakEvent)}: Can be used to prevent block breaking.</li>
+   *   <li>{@link #beforeBlockBreak(IModifierToolStack, int, BreakEvent)}: Can be used to prevent block breaking.</li>
    * </ul>
    * @param tool          Tool used
    * @param level         Modifier level

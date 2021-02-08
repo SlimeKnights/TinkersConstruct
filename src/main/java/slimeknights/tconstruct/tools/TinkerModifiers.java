@@ -25,6 +25,7 @@ import slimeknights.tconstruct.tools.modifiers.free.WorldboundModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.BonusDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DwarfishModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.ExperiencedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.LightweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvercastModifier;
@@ -109,6 +110,7 @@ public final class TinkerModifiers extends TinkerModule {
   // traits - mod compat tier 2
   public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
   public static final RegistryObject<BonusDamageModifier> smite = MODIFIERS.register("smite", () -> new BonusDamageModifier(0xd1ecf6, CreatureAttribute.UNDEAD));
+  public static final RegistryObject<ExperiencedModifier> experienced = MODIFIERS.register("experienced", ExperiencedModifier::new);
   // traits - mod compat tier 3
   public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
 
