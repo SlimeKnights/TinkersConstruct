@@ -27,6 +27,9 @@ public interface IModifierToolStack {
   /** Gets the current damage of the tool */
   int getDamage();
 
+  /** Gets the current durability remaining for this tool */
+  int getCurrentDurability();
+
   /** Checks whether the tool is broken */
   boolean isBroken();
 

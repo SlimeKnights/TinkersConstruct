@@ -1026,12 +1026,16 @@
     "modifier.tconstruct.dwarfish.description": "§oMiner's Friend!§r\nTool mines faster the deeper you mine, just don't mine too deep",
     "modifier.tconstruct.overgrowth": "Overgrowth",
     "modifier.tconstruct.overgrowth.description": "§oFungal!§r\nTool slowly grows overslime.",
+
     "modifier.tconstruct.enhanced": "Enhanced",
     "modifier.tconstruct.enhanced.description": "§oShiny!§r\nAny extra upgrade goes well with gold.",
 
     "__comment": "Tier 3 Traits",
     "modifier.tconstruct.overcast": "Overcast",
     "modifier.tconstruct.overcast.description": "§oSpringy!§r\nDamage has a chance to bounce off overslime on tool",
+    "modifier.tconstruct.maintained": "Maintained",
+    "modifier.tconstruct.maintained.description": "§oStays Sharp Longer!§r\nTool mines faster when at higher durability",
+    "modifier.tconstruct.maintained.boost": " (+%s speed)",
     "modifier.tconstruct.lightweight": "Lightweight",
     "modifier.tconstruct.lightweight.description": "§oLike a Shardblade!§r\nTool is incredibly light for its size, allowing faster attacking and mining",
 
@@ -1044,10 +1048,14 @@
     "modifier.tconstruct.heavy.description": "§oDense!§r\nHard to move while wielding, but it packs a heavy punch",
     "modifier.tconstruct.smite": "Smite",
     "modifier.tconstruct.smite.description": "§oDie, Foul Creature!§r\nLet the undead fall to the might of your blade",
+    "modifier.tconstruct.experienced": "Experience",
+    "modifier.tconstruct.experienced.description": "§oFast Learner!§r\nGain bonus XP from killing mobs and mining blocks",
 
     "__comment": "Tier 3 Mod Compat Traits",
     "modifier.tconstruct.sturdy": "Sturdy",
     "modifier.tconstruct.sturdy.description": "§oStainless!§r\nMade from the longest lasting steel",
+    "modifier.tconstruct.maintained_2": "Maintained",
+    "modifier.tconstruct.maintained_2.description": "§oGets Sharp Easier!§r\nTool mines faster when at higher durability",
 
 
     "_comment": "Stats",

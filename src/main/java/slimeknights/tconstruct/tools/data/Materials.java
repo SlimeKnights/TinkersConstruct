@@ -37,7 +37,7 @@ final class Materials {
   // tier 3
   public static final IMaterial slimesteel    = mat(MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, false, 0x74c8c7, TinkerModifiers.overcast);
   public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl, false, 0x601cc4);
-  public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, TinkerFluids.moltenTinkersBronze, false, 0xf9cf72);
+  public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, TinkerFluids.moltenTinkersBronze, false, 0xf9cf72, TinkerModifiers.wellMaintained);
   public static final IMaterial roseGold      = mat(MaterialIds.roseGold, TinkerFluids.moltenRoseGold, false, 0xffdbcc, TinkerModifiers.enhanced);
   public static final IMaterial pigIron       = mat(MaterialIds.pigIron, TinkerFluids.moltenPigIron, false, 0xef9e9b);
 
@@ -59,7 +59,7 @@ final class Materials {
   public static final IMaterial silver   = mat(MaterialIds.silver,   TinkerFluids.moltenSilver,   false, 0xd1ecf6, TinkerModifiers.smite);
   public static final IMaterial electrum = mat(MaterialIds.electrum, TinkerFluids.moltenElectrum, false, 0xe8db49, TinkerModifiers.experienced);
   // tier 3 (mod integration)
-  public static final IMaterial bronze     = mat(MaterialIds.bronze,     TinkerFluids.moltenBronze,     false, 0xe3bd68);
+  public static final IMaterial bronze     = mat(MaterialIds.bronze,     TinkerFluids.moltenBronze,     false, 0xcea179, TinkerModifiers.wellMaintained2);
   public static final IMaterial steel      = mat(MaterialIds.steel,      TinkerFluids.moltenSteel,      false, 0xa7a7a7, TinkerModifiers.sturdy);
   public static final IMaterial constantan = mat(MaterialIds.constantan, TinkerFluids.moltenConstantan, false, 0xff9e7f);
 
