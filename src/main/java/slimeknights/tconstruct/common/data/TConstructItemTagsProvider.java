@@ -22,6 +22,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.Locale;
 import java.util.function.Consumer;
@@ -38,6 +39,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.addGadgets();
     this.addWorld();
     this.addSmeltery();
+    this.addTools();
   }
 
   private void addCommon() {
@@ -95,6 +97,40 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.copy(BlockTags.RAILS, ItemTags.RAILS);
     this.getOrCreateBuilder(Tags.Items.RODS).addTag(TinkerTags.Items.RODS_STONE);
     this.getOrCreateBuilder(TinkerTags.Items.RODS_STONE).add(TinkerGadgets.stoneStick.get());
+  }
+
+
+  private void addTools() {
+    // multipart is basically all our tools right now, but future armor/shields won't be
+    // required for part swapping and a few other things
+    this.getOrCreateBuilder(TinkerTags.Items.MULTIPART_TOOL)
+        .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
+             TinkerTools.shovel.get(), TinkerTools.excavator.get(),
+             TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.broadSword.get());
+    // mine blocks
+    this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
+        .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
+             TinkerTools.shovel.get(), TinkerTools.excavator.get(),
+             TinkerTools.axe.get(), TinkerTools.kama.get());
+    // support expanders
+    this.getOrCreateBuilder(TinkerTags.Items.AOE)
+        .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
+             TinkerTools.shovel.get(), TinkerTools.excavator.get(),
+             TinkerTools.axe.get(), TinkerTools.kama.get());
+    // support all weapon modifiers
+    this.getOrCreateBuilder(TinkerTags.Items.COMBAT)
+        .add(TinkerTools.hammer.get(), TinkerTools.axe.get(), TinkerTools.broadSword.get());
+    // can receive damage boosts
+    this.getOrCreateBuilder(TinkerTags.Items.MELEE)
+        .addTag(TinkerTags.Items.COMBAT)
+        .add(TinkerTools.pickaxe.get(), TinkerTools.kama.get(),
+             TinkerTools.shovel.get(), TinkerTools.excavator.get());
+    // supports modifiers
+    this.getOrCreateBuilder(TinkerTags.Items.MODIFIABLE)
+        .addTag(TinkerTags.Items.MULTIPART_TOOL)
+        .addTag(TinkerTags.Items.MELEE)
+        .addTag(TinkerTags.Items.HARVEST)
+        .addTag(TinkerTags.Items.AOE);
   }
 
   private void addSmeltery() {

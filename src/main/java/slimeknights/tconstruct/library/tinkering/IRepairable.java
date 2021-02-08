@@ -6,7 +6,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 /**
  * Items that can be repaired. They also break instead of getting removed.
  */
-public interface IRepairable extends ITinkerable {
+public interface IRepairable {
 
   /**
    * Repairs the given stack by the given amount

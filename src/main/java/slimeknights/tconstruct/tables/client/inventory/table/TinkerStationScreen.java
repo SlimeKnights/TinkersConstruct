@@ -19,12 +19,12 @@ import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -221,7 +221,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       toolStack = this.container.getSlot(TINKER_SLOT).getStack();
     }
 
-    if (toolStack.getItem() instanceof IModifiable) {
+    if (TinkerTags.Items.MODIFIABLE.contains(toolStack.getItem())) {
       if (toolStack.getItem() instanceof ITinkerStationDisplay) {
         ITinkerStationDisplay tool = (ITinkerStationDisplay) toolStack.getItem();
         this.tinkerInfo.setCaption(tool.getLocalizedName());

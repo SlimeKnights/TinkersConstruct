@@ -5,7 +5,7 @@ import net.minecraft.util.text.ITextComponent;
 
 import java.util.List;
 
-public interface ITinkerStationDisplay extends ITinkerable {
+public interface ITinkerStationDisplay {
 
   /**
    * The "title" displayed in the GUI

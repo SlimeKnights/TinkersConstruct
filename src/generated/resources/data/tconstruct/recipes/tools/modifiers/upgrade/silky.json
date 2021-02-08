@@ -5,6 +5,9 @@
       "item": "tconstruct:silky_jewel"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  },
   "result": {
     "name": "tconstruct:silky",
     "level": 1

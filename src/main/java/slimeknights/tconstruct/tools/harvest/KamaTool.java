@@ -55,7 +55,9 @@ public class KamaTool extends ToolCore implements IAoeTool {
     if (target instanceof IForgeShearable) {
       int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 
-      if (this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, fortune)) {
+      ToolStack tool = ToolStack.from(stack);
+      if (!tool.isBroken() && this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, fortune)) {
+        tool.damage(1, playerIn, stack);
         this.swingTool(playerIn, hand);
         return ActionResultType.SUCCESS;
       }
@@ -78,14 +80,14 @@ public class KamaTool extends ToolCore implements IAoeTool {
   /**
    * Tries to shear an given entity, returns false if it fails and true if it succeeds
    *
-   * @param itemStack the current tool stack
+   * @param itemStack the current item stack
    * @param world the current world
    * @param playerEntity the current player
    * @param entity the entity to try to shear
    * @param fortune the fortune to apply to the sheared entity
    * @return if the sheering of the entity was performed or not
    */
-  public boolean shearEntity(ItemStack itemStack, World world, PlayerEntity playerEntity, Entity entity, int fortune) {
+  private boolean shearEntity(ItemStack itemStack, World world, PlayerEntity playerEntity, Entity entity, int fortune) {
     if (!(entity instanceof IForgeShearable)) {
       return false;
     }
@@ -105,8 +107,6 @@ public class KamaTool extends ToolCore implements IAoeTool {
           }
         });
       }
-
-      ToolStack.from(itemStack).damage(1, playerEntity, itemStack);
       return true;
     }
 
