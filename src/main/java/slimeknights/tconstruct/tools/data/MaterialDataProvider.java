@@ -21,10 +21,11 @@ public class MaterialDataProvider extends GenericDataProvider {
 
   private MaterialJson convert(IMaterial material) {
     // if empty, no fluid, no temperature
+    String color = material.getColor().getName();
     if (material.getFluid() == Fluids.EMPTY) {
-      return new MaterialJson(material.isCraftable(), null, material.getTextColor(), null);
+      return new MaterialJson(material.isCraftable(), null, null, color, null);
     }
-    return new MaterialJson(material.isCraftable(), material.getFluid().getRegistryName(), material.getTextColor(), material.getTemperature());
+    return new MaterialJson(material.isCraftable(), material.getFluid().getRegistryName(), material.getFluidPerUnit(), color, material.getTemperature());
   }
 
   @Override

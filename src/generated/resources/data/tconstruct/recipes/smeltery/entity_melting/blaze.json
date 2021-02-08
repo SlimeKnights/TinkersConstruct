@@ -3,7 +3,7 @@
   "entity": {
     "type": "minecraft:blaze"
   },
-  "output": {
+  "result": {
     "fluid": "tconstruct:molten_blaze",
     "amount": 20
   },

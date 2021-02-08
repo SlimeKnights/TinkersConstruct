@@ -8,8 +8,8 @@
       "type": "minecraft:skeleton_horse"
     }
   ],
-  "output": {
-    "fluid": "tconstruct:milk",
+  "result": {
+    "fluid": "minecraft:milk",
     "amount": 100
   },
   "damage": 2

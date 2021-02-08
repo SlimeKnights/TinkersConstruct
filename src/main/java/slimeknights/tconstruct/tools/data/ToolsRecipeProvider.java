@@ -1,17 +1,12 @@
 package slimeknights.tconstruct.tools.data;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -21,7 +16,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
@@ -30,16 +25,13 @@ import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
-import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -47,6 +39,11 @@ import java.util.function.Supplier;
 public class ToolsRecipeProvider extends BaseRecipeProvider {
   public ToolsRecipeProvider(DataGenerator generator) {
     super(generator);
+  }
+
+  @Override
+  public String getName() {
+    return "Tinkers' Construct Tool Recipes";
   }
 
   @Override
@@ -121,12 +118,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .setGroup(TinkerModifiers.silkyJewel.getRegistryName().toString())
                        .build(consumer, prefix(TinkerModifiers.silkyJewel, folder));
     registerPackingRecipe(consumer, "block", TinkerModifiers.silkyJewelBlock, "gem", TinkerModifiers.silkyJewel, folder);
-
-
-    // slimy mud and slime crystals
-    registerMudRecipe(consumer, SlimeType.GREEN, null, TinkerModifiers.slimyMudGreen, TinkerModifiers.greenSlimeCrystal, folder);
-    registerMudRecipe(consumer, SlimeType.BLUE, null, TinkerModifiers.slimyMudBlue, TinkerModifiers.blueSlimeCrystal, folder);
-    registerMudRecipe(consumer, SlimeType.MAGMA, Items.MAGMA_CREAM, TinkerModifiers.slimyMudMagma, TinkerModifiers.magmaSlimeCrystal, folder);
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -145,88 +136,53 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   }
 
   private void addMaterialsRecipes(Consumer<IFinishedRecipe> consumer) {
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood_from_planks");
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood_from_logs");
-
-    registerMaterial(consumer, MaterialIds.stone, Ingredient.fromTag(Tags.Items.COBBLESTONE), 1, 1, "stone_from_cobblestone");
-    registerMaterial(consumer, MaterialIds.stone, Ingredient.fromTag(Tags.Items.STONE), 1, 1, "stone_from_stone");
-
+    // tier 1
+    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(Tags.Items.RODS_WOODEN), 1, 2, "wood/sticks");
+    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood/planks");
+    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood/logs");
+    registerMaterial(consumer, MaterialIds.stone, new CompoundIngredient(
+      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.BASALT, Blocks.POLISHED_BASALT, Blocks.POLISHED_BLACKSTONE)
+    ), 1, 1, "stone");
     registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT), 1, 1, "flint");
+    registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone");
+    // tier 2
+    registerMetalMaterial(consumer, MaterialIds.iron, "iron", false);
+    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick), 1, 1, "seared_stone/brick");
+    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 4, 1, "seared_stone/block");
+    registerMetalMaterial(consumer, MaterialIds.copper, "copper", false);
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.GREEN_SLIMEBALL), 1, 1, "slimewood/ball");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.GREEN)), 4, 1, "slimewood/congealed");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.GREEN)), 5, 1, "slimewood/block");
+    // tier 3
+    registerMetalMaterial(consumer, MaterialIds.slimesteel, "slimesteel", false);
+    registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
+    registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "tinkers_bronze", false);
+    registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
+    registerMetalMaterial(consumer, MaterialIds.pigIron, "pigiron", false);
 
-    registerMaterial(consumer, MaterialIds.cactus, Ingredient.fromItems(Items.CACTUS), 1, 1, "cactus");
+    // tier 2 (nether)
+    // tier 3 (nether)
+    registerMetalMaterial(consumer, MaterialIds.cobalt, "cobalt", false);
+    // tier 4
+    registerMetalMaterial(consumer, MaterialIds.queensSlime, "queens_slime", false);
+    registerMetalMaterial(consumer, MaterialIds.manyullyn,   "manyullyn", false);
+    registerMetalMaterial(consumer, MaterialIds.hepatizon,   "hepatizon", false);
+    registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel", false);
 
-    registerMaterial(consumer, MaterialIds.obsidian, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "obsidian");
+    // tier 2 (end)
+    //registerMaterial(consumer, MaterialIds.endstone, Ingredient.fromItems(Blocks.END_STONE), 1, 1, "endstone");
 
-    registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.PRISMARINE), 1, 1, "prismarine_from_block");
-    registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.PRISMARINE_BRICKS), 9, 4, "prismarine_from_bricks");
-    registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.DARK_PRISMARINE), 2, 1, "prismarine_from_dark");
-    registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.PRISMARINE_SHARD), 1, 4, "prismarine_from_shard");
+    // tier 2 (mod compat)
+    registerMetalMaterial(consumer, MaterialIds.silver, "silver", true);
+    registerMetalMaterial(consumer, MaterialIds.lead, "lead", true);
+    // tier 3 (mod integration)
+    registerMetalMaterial(consumer, MaterialIds.electrum, "electrum", true);
+    registerMetalMaterial(consumer, MaterialIds.bronze, "bronze", true);
+    registerMetalMaterial(consumer, MaterialIds.steel, "steel", true);
 
-    registerMaterial(consumer, MaterialIds.netherrack, Ingredient.fromItems(Items.NETHERRACK), 1, 1, "netherrack");
-
-    registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone_from_bones");
-    registerMaterial(consumer, MaterialIds.bone, Ingredient.fromItems(Items.BONE_MEAL), 1, 4, "bone_from_bonemeal");
-
-    registerMaterial(consumer, MaterialIds.paper, Ingredient.fromItems(Items.PAPER), 1, 4, "paper");
-
-    registerMaterial(consumer, MaterialIds.sponge, Ingredient.fromItems(Items.SPONGE), 1, 1, "sponge");
-
-    registerMaterial(consumer, MaterialIds.sponge, Ingredient.fromItems(TinkerCommons.firewood), 1, 1, "firewood");
-
-    registerMaterial(consumer, MaterialIds.slime, Ingredient.fromItems(TinkerModifiers.greenSlimeCrystal), 1, 1, "slime");
-
-    registerMaterial(consumer, MaterialIds.blueslime, Ingredient.fromItems(TinkerModifiers.blueSlimeCrystal), 1, 1, "blue_slime");
-
-    registerMaterial(consumer, MaterialIds.knightslime, Ingredient.fromTag(TinkerTags.Items.INGOTS_KNIGHTSLIME), 1, 1, "knightslime_from_ingot");
-    registerMaterial(consumer, MaterialIds.knightslime, Ingredient.fromTag(TinkerTags.Items.NUGGETS_KNIGHTSLIME), 1, 9, "knightslime_from_nugget");
-    registerMaterial(consumer, MaterialIds.knightslime, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_KNIGHTSLIME), 9, 1, "knightslime_from_block");
-
-    registerMaterial(consumer, MaterialIds.magmaslime, Ingredient.fromItems(TinkerModifiers.magmaSlimeCrystal), 1, 1, "magma_slime");
-
-    registerMaterial(consumer, MaterialIds.iron, Ingredient.fromTag(Tags.Items.INGOTS_IRON), 1, 1, "iron_from_ingot");
-    registerMaterial(consumer, MaterialIds.iron, Ingredient.fromTag(Tags.Items.NUGGETS_IRON), 1, 9, "iron_from_nugget");
-    registerMaterial(consumer, MaterialIds.iron, Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_IRON), 9, 1, "iron_from_block");
-
-    registerMaterial(consumer, MaterialIds.pigiron, Ingredient.fromTag(TinkerTags.Items.INGOTS_PIG_IRON), 1, 1, "pigiron_from_ingot");
-    registerMaterial(consumer, MaterialIds.pigiron, Ingredient.fromTag(TinkerTags.Items.NUGGETS_PIG_IRON), 1, 9, "pigiron_from_nugget");
-    registerMaterial(consumer, MaterialIds.pigiron, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_PIG_IRON), 9, 1, "pigiron_from_block");
-
-    registerMaterial(consumer, MaterialIds.cobalt, Ingredient.fromTag(TinkerTags.Items.INGOTS_COBALT), 1, 1, "cobalt_from_ingot");
-    registerMaterial(consumer, MaterialIds.cobalt, Ingredient.fromTag(TinkerTags.Items.NUGGETS_COBALT), 1, 9, "cobalt_from_nugget");
-    registerMaterial(consumer, MaterialIds.cobalt, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_COBALT), 9, 1, "cobalt_from_block");
-
-    registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.INGOTS_ARDITE), 1, 1, "ardite_from_ingot");
-    registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.NUGGETS_ARDITE), 1, 9, "ardite_from_nugget");
-    registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_ARDITE), 9, 1, "ardite_from_block");
-
-    registerMaterial(consumer, MaterialIds.manyullyn, Ingredient.fromTag(TinkerTags.Items.INGOTS_MANYULLYN), 1, 1, "manyullyn_from_ingot");
-    registerMaterial(consumer, MaterialIds.manyullyn, Ingredient.fromTag(TinkerTags.Items.NUGGETS_MANYULLYN), 1, 9, "manyullyn_from_nugget");
-    registerMaterial(consumer, MaterialIds.manyullyn, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_MANYULLYN), 9, 1, "manyullyn_from_block");
-
-    registerMaterial(consumer, MaterialIds.copper, Ingredient.fromTag(TinkerTags.Items.INGOTS_COPPER), 1, 1, "copper_from_ingot");
-    registerMaterial(consumer, MaterialIds.copper, Ingredient.fromTag(TinkerTags.Items.NUGGETS_COPPER), 1, 9, "copper_from_nugget");
-    registerMaterial(consumer, MaterialIds.copper, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_COPPER), 9, 1, "copper_from_block");
-
-    registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
-
-    registerMaterial(consumer, MaterialIds.slimevine_blue, Ingredient.fromItems(TinkerWorld.blueSlimeVine), 1, 1, "slimevine_blue");
-    registerMaterial(consumer, MaterialIds.slimevine_purple, Ingredient.fromItems(TinkerWorld.purpleSlimeVine), 1, 1, "slimevine_purple");
-
-    registerMaterial(consumer, MaterialIds.blaze, Ingredient.fromItems(Items.BLAZE_ROD), 1, 1, "blaze");
-
-    registerMaterial(consumer, MaterialIds.reed, Ingredient.fromItems(Items.SUGAR_CANE), 1, 1, "reed");
-
-    registerMaterial(consumer, MaterialIds.ice, Ingredient.fromItems(Items.PACKED_ICE), 1, 1, "ice");
-
-    registerMaterial(consumer, MaterialIds.endrod, Ingredient.fromItems(Items.END_ROD), 1, 1, "endrod");
-
-    registerMaterial(consumer, MaterialIds.feather, Ingredient.fromItems(Items.FEATHER), 1, 1, "feather");
-
-    registerMaterial(consumer, MaterialIds.leaf, Ingredient.fromTag(ItemTags.LEAVES), 1, 2, "leaf");
-
-    registerMaterial(consumer, MaterialIds.slimeleaf_blue, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLUE)), 1, 2, "slimeleaf_blue");
-    registerMaterial(consumer, MaterialIds.slimeleaf_orange, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ORANGE)), 1, 2, "slimeleaf_orange");
-    registerMaterial(consumer, MaterialIds.slimeleaf_purple, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE)), 1, 2, "slimeleaf_purple");
+    //registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
+    //registerMaterial(consumer, MaterialIds.slimevine_blue, Ingredient.fromItems(TinkerWorld.blueSlimeVine), 1, 1, "slimevine_blue");
+    //registerMaterial(consumer, MaterialIds.slimevine_purple, Ingredient.fromItems(TinkerWorld.purpleSlimeVine), 1, 1, "slimevine_purple");
   }
 
   private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -249,7 +205,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     String name = Objects.requireNonNull(toolCore.getRegistryName()).getPath();
 
     ToolBuildingRecipeBuilder.toolBuildingRecipe(toolCore)
-      .build(consumer, location("tinker_station/building/" + name));
+      .build(consumer, location("tools/building/" + name));
   }
 
 
@@ -264,6 +220,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
    * @param cast      Part cast
    */
   private void addPartRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends IMaterialItem> sup, int cost, CastItemObject cast) {
+    String folder = "tools/parts/";
     // Base data
     IMaterialItem part = sup.get();
     String name = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
@@ -272,39 +229,40 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     PartRecipeBuilder.partRecipe(part)
                      .setPattern(location(name))
                      .setCost(cost)
-                     .build(consumer, location("parts/" + name));
+                     .build(consumer, location(folder + "builder/" + name));
 
     // Material Casting
+    String castingFolder = folder + "casting/";
     MaterialCastingRecipeBuilder.tableRecipe(part)
-                                .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
+                                .setItemCost(cost)
                                 .setCast(cast, false)
-                                .build(consumer, location("casting/parts/" + name));
+                                .build(consumer, location(castingFolder + name + "_gold_cast"));
     MaterialCastingRecipeBuilder.tableRecipe(part)
-                                .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
+                                .setItemCost(cost)
                                 .setCast(cast.getSingleUseTag(), true)
-                                .build(consumer, location("casting/parts/" + name + "_sand"));
+                                .build(consumer, location(castingFolder + name + "_sand_cast"));
 
     // Cast Casting
     MaterialIngredient ingredient = MaterialIngredient.fromItem(part);
     String partName = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
     ItemCastingRecipeBuilder.tableRecipe(cast)
-                            .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
+                            .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
                             .setCast(ingredient, true)
                             .setSwitchSlots()
-                            .build(consumer, location("casting/casts/" + partName));
+                            .build(consumer, location("smeltery/casting/casts/" + partName));
 
     // sand cast molding
     MoldingRecipeBuilder.moldingTable(cast.getSand())
                         .setMaterial(TinkerSmeltery.blankCast.getSand())
-                        .setMold(ingredient, false)
-                        .build(consumer, location("casting/sand_casts/" + partName));
+                        .setPattern(ingredient, false)
+                        .build(consumer, location("smeltery/casting/sand_casts/" + partName));
     MoldingRecipeBuilder.moldingTable(cast.getRedSand())
                         .setMaterial(TinkerSmeltery.blankCast.getRedSand())
-                        .setMold(ingredient, false)
-                        .build(consumer, location("casting/red_sand_casts/" + partName));
+                        .setPattern(ingredient, false)
+                        .build(consumer, location("smeltery/casting/red_sand_casts/" + partName));
 
     // Part melting
-    MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot).build(consumer, location("melting/parts/" + part));
+    MaterialMeltingRecipeBuilder.melting(part, cost).build(consumer, location(folder + "melting/" + part));
   }
 
   /**
@@ -321,47 +279,21 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setIngredient(input)
                          .setValue(value)
                          .setNeeded(needed)
-                         .build(consumer, location("materials/" + saveName));
+                         .build(consumer, location("tools/materials/" + saveName));
   }
 
   /**
-   * Registers recipes to craft slimy mud
-   * @param consumer   Recipe consumer
-   * @param slime      Slime type
-   * @param extraItem  Extra item to mix with slime
-   * @param mud        Mud output
-   * @param crystal    Crystal output
-   * @param folder     Output folder
+   * Register ingots, nuggets, and blocks for a metal material
+   * @param consumer  Consumer instance
+   * @param material  Material
+   * @param name      Material name
    */
-  private void registerMudRecipe(Consumer<IFinishedRecipe> consumer, SlimeType slime, @Nullable IItemProvider extraItem, IItemProvider mud, IItemProvider crystal, String folder) {
-    Item slimeball = TinkerCommons.slimeball.get(slime);
-
-    // null means use slime for both, so we can add congealed recipe
-    if (extraItem == null) {
-      Block congealed = TinkerWorld.congealedSlime.get(slime);
-      ShapelessRecipeBuilder.shapelessRecipe(mud)
-                            .addIngredient(congealed)
-                            .addIngredient(Tags.Items.SAND)
-                            .addIngredient(Blocks.DIRT)
-                            .addCriterion("has_item", hasItem(congealed))
-                            .setGroup(locationString("slimy_mud"))
-                            .build(consumer, wrap(mud, folder, "_congealed"));
-      extraItem = slimeball;
-    }
-    // base recipe
-    ShapelessRecipeBuilder.shapelessRecipe(mud)
-                          .addIngredient(slimeball)
-                          .addIngredient(slimeball)
-                          .addIngredient(extraItem)
-                          .addIngredient(extraItem)
-                          .addIngredient(Tags.Items.SAND)
-                          .addIngredient(Blocks.DIRT)
-                          .addCriterion("has_item", hasItem(slimeball))
-                          .setGroup(locationString("slimy_mud"))
-                          .build(consumer, wrap(mud, folder, "_slimeballs"));
-    // crystal smelting
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(mud), crystal, 0.5f, 200)
-                        .addCriterion("has_item", hasItem(mud))
-                        .build(consumer, wrap(crystal, folder, "_smelting"));
+  private void registerMetalMaterial(Consumer<IFinishedRecipe> consumer, MaterialId material, String name, boolean optional) {
+    Consumer<IFinishedRecipe> wrapped = optional ? withCondition(consumer, tagCondition("ingots/" + name)) : consumer;
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "ingots/" + name)), 1, 1, name + "/ingot");
+    wrapped = optional ? withCondition(consumer, tagCondition("nuggets/" + name)) : consumer;
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, name + "/nugget");
+    wrapped = optional ? withCondition(consumer, tagCondition("storage_blocks/" + name)) : consumer;
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, name + "/block");
   }
 }

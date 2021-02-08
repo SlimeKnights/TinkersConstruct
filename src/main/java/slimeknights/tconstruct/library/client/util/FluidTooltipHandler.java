@@ -47,8 +47,8 @@ public class FluidTooltipHandler {
   private static final FluidGuiEntry KILOBUCKET = new FluidGuiEntry("kilobucket", 1000000);
   private static final FluidGuiEntry BUCKET = new FluidGuiEntry("bucket", 1000);
   private static final FluidGuiEntry MILLIBUCKET = new FluidGuiEntry("millibucket", 1);
-  private static final FluidGuiEntry INGOT = new FluidGuiEntry("ingot", MaterialValues.VALUE_Ingot);
-  private static final FluidGuiEntry BLOCK = new FluidGuiEntry("block", MaterialValues.VALUE_Block);
+  private static final FluidGuiEntry INGOT = new FluidGuiEntry("ingot", MaterialValues.INGOT);
+  private static final FluidGuiEntry BLOCK = new FluidGuiEntry("block", MaterialValues.METAL_BLOCK);
 
   /** List of options to check for table cast recipes */
   private static final Map<Item,FluidGuiEntry> TOOLTIP_OPTIONS = new IdentityHashMap<>();
@@ -59,11 +59,11 @@ public class FluidTooltipHandler {
   public static void init() {
     MinecraftForge.EVENT_BUS.addListener(FluidTooltipHandler::onRecipesUpdated);
     TOOLTIP_OPTIONS.put(TinkerSmeltery.ingotCast.get(), INGOT);
-    TOOLTIP_OPTIONS.put(TinkerSmeltery.nuggetCast.get(), new FluidGuiEntry("nugget", MaterialValues.VALUE_Nugget));
-    TOOLTIP_OPTIONS.put(TinkerSmeltery.gemCast.get(), new FluidGuiEntry("gem", MaterialValues.VALUE_Gem));
+    TOOLTIP_OPTIONS.put(TinkerSmeltery.nuggetCast.get(), new FluidGuiEntry("nugget", MaterialValues.NUGGET));
+    TOOLTIP_OPTIONS.put(TinkerSmeltery.gemCast.get(), new FluidGuiEntry("gem", MaterialValues.GEM));
     for (FluidGuiEntry entry : new FluidGuiEntry[] {
-      new FluidGuiEntry("pane", MaterialValues.VALUE_Pane),
-      new FluidGuiEntry("slimeball", MaterialValues.VALUE_SlimeBall)
+      new FluidGuiEntry("pane", MaterialValues.GLASS_PANE),
+      new FluidGuiEntry("slimeball", MaterialValues.SLIMEBALL)
     }) {
       TABLE_TOP_OPTIONS.put(entry.needed, entry);
     }
@@ -73,7 +73,6 @@ public class FluidTooltipHandler {
    * Called when recipes are synced from the server to the client
    * @param event  Event instance
    */
-  @SuppressWarnings("unused")
   private static void onRecipesUpdated(RecipesUpdatedEvent event) {
     CACHE.clear();
   }

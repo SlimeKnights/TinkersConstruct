@@ -40,6 +40,7 @@ public class Util {
 
   public static final DecimalFormat df = new DecimalFormat("#,###,###.##", DecimalFormatSymbols.getInstance(Locale.US));
   public static final DecimalFormat dfPercent = new DecimalFormat("#%");
+  public static final DecimalFormat dfMultiplier = new DecimalFormat("#.##x");
 
   public static Logger getLogger(String type) {
     String log = MODID;
@@ -229,5 +230,44 @@ public class Util {
     return list.stream()
       .map(Object::toString)
       .collect(Collectors.joining("\n\t", "\n\t", ""));
+  }
+
+  /**
+   * Simplified clone {@link java.awt.Color#HSBtoRGB(float, float, float)} to prevent issue with missing package and remove unused parameters
+   * @param hue  Hue
+   * @return Color from hue
+   */
+  public static int hueToRGB(float hue) {
+    int r = 0, g = 0, b = 0;
+    float h = (hue - (float)Math.floor(hue)) * 6.0f;
+    float localHue = h - (float)Math.floor(h);
+    float invHue = (1.0f - localHue);
+    switch ((int) h) {
+      case 0:
+        r = 255;
+        g = (int) (localHue * 255.0f + 0.5f);
+        break;
+      case 1:
+        r = (int) (invHue * 255.0f + 0.5f);
+        g = 255;
+        break;
+      case 2:
+        g = 255;
+        b = (int) (localHue * 255.0f + 0.5f);
+        break;
+      case 3:
+        g = (int) (invHue * 255.0f + 0.5f);
+        b = 255;
+        break;
+      case 4:
+        r = (int) (localHue * 255.0f + 0.5f);
+        b = 255;
+        break;
+      case 5:
+        r = 255;
+        b = (int) (invHue * 255.0f + 0.5f);
+        break;
+    }
+    return 0xff000000 | (r << 16) | (g << 8) | b;
   }
 }

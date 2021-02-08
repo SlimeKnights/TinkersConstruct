@@ -21,8 +21,13 @@ public class TableRecipeProvider extends BaseRecipeProvider {
   }
 
   @Override
+  public String getName() {
+    return "Tinkers' Construct Table Recipes";
+  }
+
+  @Override
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-    String folder = "tools/";
+    String folder = "tables/";
     // pattern
     ShapedRecipeBuilder.shapedRecipe(TinkerTables.pattern, 4)
       .key('s', Tags.Items.RODS_WOODEN)

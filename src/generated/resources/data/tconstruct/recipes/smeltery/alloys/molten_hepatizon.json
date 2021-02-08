@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "name": "tconstruct:molten_copper",
+      "amount": 288
+    },
+    {
+      "name": "tconstruct:molten_cobalt",
+      "amount": 144
+    },
+    {
+      "name": "tconstruct:molten_obsidian",
+      "amount": 576
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_hepatizon",
+    "amount": 576
+  },
+  "temperature": 1400
+}

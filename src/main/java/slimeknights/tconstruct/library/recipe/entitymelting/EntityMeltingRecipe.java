@@ -102,7 +102,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
     @Override
     public EntityMeltingRecipe read(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
-      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "output"));
+      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
       int damage = JSONUtils.getInt(json, "damage", 2);
       return new EntityMeltingRecipe(id, ingredient, output, damage);
     }

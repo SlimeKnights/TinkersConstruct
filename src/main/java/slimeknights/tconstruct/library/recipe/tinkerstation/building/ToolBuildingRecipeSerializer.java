@@ -18,7 +18,7 @@ public class ToolBuildingRecipeSerializer extends RecipeSerializer<ToolBuildingR
     String group = JSONUtils.getString(json, "group", "");
 
     // output fetch as a toolcore item, its an error if it does not implement that interface
-    ToolCore item = RecipeHelper.deserializeItem(JSONUtils.getString(json, "output"), "output", ToolCore.class);
+    ToolCore item = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", ToolCore.class);
 
     return new ToolBuildingRecipe(recipeId, group, item);
   }

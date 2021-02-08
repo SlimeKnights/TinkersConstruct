@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "tconstruct:green_slime_crystal"
-  },
-  "value": 1,
-  "needed": 1,
-  "material": "tconstruct:slime"
-}

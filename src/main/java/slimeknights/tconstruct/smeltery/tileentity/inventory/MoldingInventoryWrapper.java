@@ -14,7 +14,7 @@ public class MoldingInventoryWrapper implements IMoldingInventory {
   private final int slot;
 
   @Getter @Setter
-  private ItemStack mold = ItemStack.EMPTY;
+  private ItemStack pattern = ItemStack.EMPTY;
 
   @Override
   public ItemStack getMaterial() {

@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:table_casting_material",
-  "cast": {
-    "item": "tconstruct:tool_rod_cast"
-  },
-  "fluid_amount": 144,
-  "result": "tconstruct:tool_rod"
-}

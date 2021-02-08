@@ -41,7 +41,7 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
-      json.addProperty("output", Objects.requireNonNull(output.getRegistryName()).toString());
+      json.addProperty("result", Objects.requireNonNull(output.getRegistryName()).toString());
     }
 
     @Override

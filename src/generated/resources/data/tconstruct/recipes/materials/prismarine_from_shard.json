@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "minecraft:prismarine_shard"
-  },
-  "value": 1,
-  "needed": 4,
-  "material": "tconstruct:prismarine"
-}

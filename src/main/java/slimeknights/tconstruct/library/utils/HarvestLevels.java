@@ -1,50 +1,73 @@
 package slimeknights.tconstruct.library.utils;
 
 import com.google.common.collect.Maps;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import net.minecraft.resources.IResourceManager;
+import net.minecraft.util.text.Color;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.tools.data.MaterialIds;
+import slimeknights.tconstruct.library.client.ISafeManagerReloadListener;
 
 import java.util.Map;
 
-public class HarvestLevels {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class HarvestLevels implements ISafeManagerReloadListener {
+  /** Instance for resource reloading */
+  public static final HarvestLevels INSTANCE = new HarvestLevels();
 
-  public static final int STONE = 0;
-  public static final int IRON = 1;
-  public static final int DIAMOND = 2;
-  public static final int OBSIDIAN = 3;
-  public static final int COBALT = 4;
+  public static final int WOOD = 0;
+  public static final int STONE = 1;
+  public static final int IRON = 2;
+  public static final int DIAMOND = 3;
+  public static final int NETHERITE = 4;
 
-  private HarvestLevels() {
-  } // non-instantiable
+  private static boolean namesLoaded = false;
+  private static final Map<Integer, ITextComponent> harvestLevelNames = Maps.newHashMap();
 
-  public static final Map<Integer, ITextComponent> harvestLevelNames = Maps.newHashMap();
-
-  public static ITextComponent getHarvestLevelName(int num) {
-    return harvestLevelNames.containsKey(num) ? harvestLevelNames.get(num) : new StringTextComponent(String.valueOf(num));
+  /** Makes a translation key for the given name */
+  private static IFormattableTextComponent makeLevelKey(String levelName) {
+    return new TranslationTextComponent(Util.makeTranslationKey("stat", "mining_level." + levelName));
   }
 
-  public static void init() {
-    harvestLevelNames.put(STONE, new TranslationTextComponent("ui.mining_level.stone").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.stone).getColor())));
-    harvestLevelNames.put(IRON, new TranslationTextComponent("ui.mining_level.iron").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.iron).getColor())));
-    harvestLevelNames.put(DIAMOND, new TranslationTextComponent("ui.mining_level.diamond").mergeStyle(TextFormatting.AQUA));
-    harvestLevelNames.put(OBSIDIAN, new TranslationTextComponent("ui.mining_level.obsidian").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.obsidian).getColor())));
-    harvestLevelNames.put(COBALT, new TranslationTextComponent("ui.mining_level.cobalt").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.cobalt).getColor())));
+  /**
+   * Loads the list of names from the lang file
+   */
+  private static void loadNames() {
+    if (namesLoaded) return;
+    namesLoaded = true;
 
-    // custom names via resource pack..
-    String base = "ui.mining_level.";
-    int i = 0;
-    while (Util.canTranslate(String.format("%s%d", base, i))) {
-      harvestLevelNames.put(i, new TranslationTextComponent(String.format("%s%d", base, i)));
-      i++;
+    // default names: vanilla levels
+    harvestLevelNames.put(WOOD, makeLevelKey("wood").modifyStyle(style -> style.setColor(Color.fromInt(0x8e661b))));
+    harvestLevelNames.put(STONE, makeLevelKey("stone").modifyStyle(style -> style.setColor(Color.fromInt(0x999999))));
+    harvestLevelNames.put(IRON, makeLevelKey("iron").modifyStyle(style -> style.setColor(Color.fromInt(0xcacaca))));
+    harvestLevelNames.put(DIAMOND, makeLevelKey("diamond").mergeStyle(TextFormatting.AQUA));
+    harvestLevelNames.put(NETHERITE, makeLevelKey("netherite").mergeStyle(TextFormatting.DARK_GRAY));
+
+    // load custom names, may override vanilla replacing with uncolored
+    String base = Util.makeTranslationKey("stat", "mining_level.");
+    for (int i = 0; Util.canTranslate(base + i); i++) {
+      harvestLevelNames.put(i, new TranslationTextComponent(base + i));
     }
   }
 
-  static {
-    init();
+  /**
+   * Gets the harvest level name for the given level number
+   * @param num  Level number
+   * @return     Level name
+   */
+  public static ITextComponent getHarvestLevelName(int num) {
+    loadNames();
+    return harvestLevelNames.computeIfAbsent(num, n -> new StringTextComponent(Integer.toString(num)));
+  }
+
+  @Override
+  public void onReloadSafe(IResourceManager resourceManager) {
+    harvestLevelNames.clear();
+    namesLoaded = false;
   }
 }

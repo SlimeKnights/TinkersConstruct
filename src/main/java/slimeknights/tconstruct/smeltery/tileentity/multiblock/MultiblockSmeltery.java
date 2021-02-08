@@ -56,9 +56,7 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
   public StructureData detectMultiblock(World world, BlockPos master, Direction facing) {
     // clear tanks from last check before calling
     tanks.clear();
-    StructureData data = super.detectMultiblock(world, master, facing);
-    // need at least one tank to build a smeltery
-    return tanks.isEmpty() ? null : data;
+    return super.detectMultiblock(world, master, facing);
   }
 
   /**
@@ -158,6 +156,14 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
     protected StructureData(BlockPos minPos, BlockPos maxPos, Set<BlockPos> extraPositions, boolean hasFloor, boolean hasFrame, boolean hasCeiling, List<BlockPos> tanks) {
       super(minPos, maxPos, extraPositions, hasFloor, hasFrame, hasCeiling);
       this.tanks = tanks;
+    }
+
+    /**
+     * Checks if there are any tanks in this structure
+     * @return  True if there are tanks
+     */
+    public boolean hasTanks() {
+      return !tanks.isEmpty();
     }
 
     /**

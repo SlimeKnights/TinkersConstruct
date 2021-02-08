@@ -4,12 +4,17 @@
     "tconstruct:dried_brick",
     "tconstruct:mud_brick",
     "tconstruct:seared_brick",
+    "#forge:ingots/copper",
     "#forge:ingots/cobalt",
     "#forge:ingots/ardite",
+    "#forge:ingots/slimesteel",
+    "#forge:ingots/tinkers_bronze",
+    "#forge:ingots/rose_gold",
+    "#forge:ingots/pigiron",
+    "#forge:ingots/queens_slime",
     "#forge:ingots/manyullyn",
-    "#forge:ingots/knightslime",
-    "#forge:ingots/pig_iron",
-    "#forge:ingots/copper",
-    "#forge:ingots/rose_gold"
+    "#forge:ingots/hepatizon",
+    "#forge:ingots/soulsteel",
+    "#forge:ingots/knightslime"
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "item": "tconstruct:kama_head_cast"
+  },
+  "item_cost": 2,
+  "result": "tconstruct:kama_head"
+}

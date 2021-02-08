@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:table_casting_material",
-  "cast": {
-    "item": "tconstruct:sword_blade_cast"
-  },
-  "fluid_amount": 288,
-  "result": "tconstruct:sword_blade"
-}

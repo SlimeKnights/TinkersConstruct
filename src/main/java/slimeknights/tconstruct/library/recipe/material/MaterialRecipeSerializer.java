@@ -17,16 +17,27 @@ import javax.annotation.Nullable;
  * Serialiser for {@link MaterialRecipe}
  */
 public class MaterialRecipeSerializer extends RecipeSerializer<MaterialRecipe> {
+  /**
+   * Gets a material ID from JSON
+   * @param json  Json parent
+   * @param key  Key to get
+   * @return  Material id
+   */
+  public static MaterialId getMaterial(JsonObject json, String key) {
+    String materialId = JSONUtils.getString(json, key);
+    if (materialId.isEmpty()) {
+      throw new JsonSyntaxException("Material ID at " + key + " must not be empty");
+    }
+    return new MaterialId(materialId);
+  }
+
   @Override
   public MaterialRecipe read(ResourceLocation recipeId, JsonObject json) {
     String group = JSONUtils.getString(json, "group", "");
     Ingredient ingredient = Ingredient.deserialize(JsonHelper.getElement(json, "ingredient"));
     int value = JSONUtils.getInt(json, "value", 1);
     int needed = JSONUtils.getInt(json, "needed", 1);
-    String materialId = JSONUtils.getString(json, "material");
-    if (materialId.isEmpty()) {
-      throw new JsonSyntaxException("Recipe material must not empty.");
-    }
+    MaterialId materialId = getMaterial(json, "material");
     return new MaterialRecipe(recipeId, group, ingredient, value, needed, new MaterialId(materialId));
   }
 

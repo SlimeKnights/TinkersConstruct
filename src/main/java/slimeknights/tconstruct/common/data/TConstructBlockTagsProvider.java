@@ -14,12 +14,12 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
@@ -41,31 +41,24 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
   }
 
   private void addCommon() {
-    this.getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_PIG_IRON)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_COPPER)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD);
-    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT).add(TinkerMaterials.cobaltBlock.get());
-    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE).add(TinkerMaterials.arditeBlock.get());
-    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN).add(TinkerMaterials.manyullynBlock.get());
-    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME).add(TinkerMaterials.knightSlimeBlock.get());
-    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_PIG_IRON).add(TinkerMaterials.pigironBlock.get());
-    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_COPPER).add(TinkerMaterials.copperBlock.get());
-    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD).add(TinkerMaterials.roseGoldBlock.get());
-    this.getOrCreateBuilder(BlockTags.BEACON_BASE_BLOCKS)
-        .add(TinkerModifiers.silkyJewelBlock.get())
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_PIG_IRON)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_COPPER)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD);
+    // ores
+    addMetalTags(TinkerMaterials.copper);
+    addMetalTags(TinkerMaterials.cobalt);
+    addMetalTags(TinkerMaterials.ardite);
+    // tier 3
+    addMetalTags(TinkerMaterials.slimesteel);
+    addMetalTags(TinkerMaterials.tinkersBronze);
+    addMetalTags(TinkerMaterials.roseGold);
+    addMetalTags(TinkerMaterials.pigiron);
+    // tier 4
+    addMetalTags(TinkerMaterials.queensSlime);
+    addMetalTags(TinkerMaterials.manyullyn);
+    addMetalTags(TinkerMaterials.hepatizon);
+    addMetalTags(TinkerMaterials.soulsteel);
+    // tier 5
+    addMetalTags(TinkerMaterials.knightslime);
 
+    // glass
     this.getOrCreateBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clearGlass.get());
     this.getOrCreateBuilder(Tags.Blocks.GLASS_PANES_COLORLESS).add(TinkerCommons.clearGlassPane.get());
     addColored(getOrCreateBuilder(Tags.Blocks.STAINED_GLASS)::add, Tags.Blocks.GLASS, "{color}_clear_stained_glass");
@@ -151,6 +144,16 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
       getOrCreateBuilder(tag).add(block);
       consumer.accept(block);
     }
+  }
+
+  /**
+   * Adds relevant tags for a metal object
+   * @param metal  Metal object
+   */
+  private void addMetalTags(MetalItemObject metal) {
+    this.getOrCreateBuilder(metal.getBlockTag()).add(metal.get());
+    this.getOrCreateBuilder(BlockTags.BEACON_BASE_BLOCKS).addTag(metal.getBlockTag());
+    this.getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(metal.getBlockTag());
   }
 
   /*

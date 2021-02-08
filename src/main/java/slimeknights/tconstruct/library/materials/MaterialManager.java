@@ -12,6 +12,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.Color;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
@@ -138,10 +139,21 @@ public class MaterialManager extends SyncingJsonReloadListener {
       }
 
       boolean isCraftable = Boolean.TRUE.equals(materialJson.getCraftable());
+      int temperature = 0;
+      int fluidPerUnit = 0;
       Fluid fluid = loadFluid(materialId, materialJson);
-      String color = materialJson.getTextColor();
-      Integer temperature = materialJson.getTemperature();
-      return new Material(materialId, fluid, isCraftable, color, temperature == null ? 0 : temperature);
+      if (fluid != Fluids.EMPTY) {
+        fluidPerUnit = Optional.ofNullable(materialJson.getFluidPerUnit()).orElse(0);
+        temperature = Optional.ofNullable(materialJson.getTemperature()).filter(n -> n >= 0).orElse(0);
+      }
+
+      // parse color from string
+      Color color = Optional.ofNullable(materialJson.getTextColor())
+                            .filter(str -> !str.isEmpty())
+                            .map(Color::fromHex)
+                            .orElse(Material.WHITE);
+
+      return new Material(materialId, fluid, fluidPerUnit, isCraftable, color, temperature);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;
@@ -151,7 +163,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
   /**
    * Find a fluid for the material JSON
    * @param materialId    Material ID
-   * @param materialJson  Mateiral JSON
+   * @param materialJson  Material JSON
    * @return  Fluid, or Fluids.EMPTY if none
    */
   private Fluid loadFluid(ResourceLocation materialId, MaterialJson materialJson) {

@@ -1,0 +1,7 @@
+{
+  "craftable": false,
+  "fluid": "tconstruct:seared_stone",
+  "fluidPerUnit": 144,
+  "textColor": "#3F3F3F",
+  "temperature": 600
+}

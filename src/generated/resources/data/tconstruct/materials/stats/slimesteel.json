@@ -1,0 +1,22 @@
+{
+  "materialId": "tconstruct:slimesteel",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 640,
+      "miningSpeed": 6.0,
+      "harvestLevel": 3,
+      "attack": 3.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 1.25,
+      "miningSpeed": 1.0,
+      "attackSpeed": 0.95,
+      "attackDamage": 1.0
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

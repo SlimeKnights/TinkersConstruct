@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:molding_table",
+  "material": {
+    "item": "tconstruct:blank_sand_cast"
+  },
+  "pattern": {
+    "item": "tconstruct:pickaxe_head",
+    "type": "tconstruct:material"
+  },
+  "result": "tconstruct:pickaxe_head_sand_cast"
+}

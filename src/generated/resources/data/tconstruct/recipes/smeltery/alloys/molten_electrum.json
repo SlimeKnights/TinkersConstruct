@@ -16,10 +16,6 @@
       "type": "forge:not"
     }
   ],
-  "output": {
-    "fluid": "tconstruct:molten_electrum",
-    "amount": 288
-  },
   "inputs": [
     {
       "name": "tconstruct:molten_gold",
@@ -29,5 +25,10 @@
       "name": "tconstruct:molten_silver",
       "amount": 144
     }
-  ]
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_electrum",
+    "amount": 288
+  },
+  "temperature": 760
 }

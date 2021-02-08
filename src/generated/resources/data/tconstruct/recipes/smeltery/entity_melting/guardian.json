@@ -6,7 +6,7 @@
       "minecraft:elder_guardian"
     ]
   },
-  "output": {
+  "result": {
     "fluid": "tconstruct:seared_stone",
     "amount": 16
   },

@@ -13,8 +13,12 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.common.crafting.conditions.NotCondition;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
@@ -35,6 +39,9 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
 
   @Override
   protected abstract void registerRecipes(Consumer<IFinishedRecipe> consumer);
+
+  @Override
+  public abstract String getName();
 
 
   /* Location helpers */
@@ -248,17 +255,30 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
                           .build(consumer, wrap(smallItem, folder, String.format("_from_%s", largeName)));
   }
 
+
+  /* conditions */
+
   /**
-   * Adds recipes to convert a block to ingot, ingot to block, and for nuggets
-   * @param consumer  Recipe consumer
-   * @param block     Block item
-   * @param ingot     Ingot item
-   * @param nugget    Nugget item
-   * @param folder    Folder for recipes
+   * Creates a consumer instance with the added conditions
+   * @param consumer    Base consumer
+   * @param conditions  Extra conditions
+   * @return  Wrapped consumer
    */
-  protected void registerMineralRecipes(Consumer<IFinishedRecipe> consumer, String name, IItemProvider block, IItemProvider ingot, IItemProvider nugget, String folder) {
-    registerPackingRecipe(consumer, "block", block, "ingot", ingot, getTag("forge", "ingots/" + name), folder);
-    registerPackingRecipe(consumer, "ingot", ingot, "nugget", nugget, getTag("forge", "nuggets/" + name), folder);
+  protected static Consumer<IFinishedRecipe> withCondition(Consumer<IFinishedRecipe> consumer, ICondition... conditions) {
+    ConsumerWrapperBuilder builder = ConsumerWrapperBuilder.wrap();
+    for (ICondition condition : conditions) {
+      builder.addCondition(condition);
+    }
+    return builder.build(consumer);
+  }
+
+  /**
+   * Creates a condition for a tag existing
+   * @param name  Forge tag name
+   * @return  Condition for tag existing
+   */
+  protected static ICondition tagCondition(String name) {
+    return new NotCondition(new TagEmptyCondition("forge", name));
   }
 
   // Forge constructor is private, not sure if there is a public place for this

@@ -103,7 +103,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> implements IS
     if (melting != null) melting.drawHeatTooltips(matrices, mouseX, mouseY);
 
     // fuel tooltip
-    if (fuel != null) fuel.addTooltip(matrices, mouseX, mouseY);
+    if (fuel != null) fuel.addTooltip(matrices, mouseX, mouseY, true);
   }
 
   @Nullable

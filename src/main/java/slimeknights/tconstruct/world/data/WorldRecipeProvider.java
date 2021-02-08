@@ -21,6 +21,11 @@ public class WorldRecipeProvider extends BaseRecipeProvider {
   }
 
   @Override
+  public String getName() {
+    return "Tinkers' Construct World Recipes";
+  }
+
+  @Override
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     // Add recipe for all slimeball <-> congealed and slimeblock <-> slimeball
     // fallback: green slime

@@ -14,6 +14,7 @@ import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IJeiRuntime;
@@ -37,7 +38,7 @@ import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
-import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
@@ -58,6 +59,7 @@ import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
+import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 
@@ -97,9 +99,9 @@ public class JEIPlugin implements IModPlugin {
     assert Minecraft.getInstance().world != null;
     RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
     // casting
-    List<ItemCastingRecipe> castingBasinRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_BASIN, ItemCastingRecipe.class);
+    List<IDisplayableCastingRecipe> castingBasinRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_BASIN, IDisplayableCastingRecipe.class);
     register.addRecipes(castingBasinRecipes, TConstructRecipeCategoryUid.castingBasin);
-    List<ItemCastingRecipe> castingTableRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_TABLE, ItemCastingRecipe.class);
+    List<IDisplayableCastingRecipe> castingTableRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_TABLE, IDisplayableCastingRecipe.class);
     register.addRecipes(castingTableRecipes, TConstructRecipeCategoryUid.castingTable);
 
     // melting
@@ -210,6 +212,10 @@ public class JEIPlugin implements IModPlugin {
     registration.addGenericGuiContainerHandler(SmelteryScreen.class, new GuiContainerTankHandler<>());
   }
 
+  @Override
+  public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+    registration.addRecipeTransferHandler(CraftingStationContainer.class, VanillaRecipeCategoryUid.CRAFTING, 0, 9, 10, 36);
+  }
 
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {

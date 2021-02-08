@@ -16,10 +16,6 @@
       "type": "forge:not"
     }
   ],
-  "output": {
-    "fluid": "tconstruct:molten_bronze",
-    "amount": 576
-  },
   "inputs": [
     {
       "name": "tconstruct:molten_copper",
@@ -29,5 +25,10 @@
       "name": "tconstruct:molten_tin",
       "amount": 144
     }
-  ]
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_bronze",
+    "amount": 576
+  },
+  "temperature": 700
 }

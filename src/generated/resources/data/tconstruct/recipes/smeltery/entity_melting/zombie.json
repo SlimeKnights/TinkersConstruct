@@ -10,7 +10,7 @@
       "minecraft:zombie_horse"
     ]
   },
-  "output": {
+  "result": {
     "fluid": "tconstruct:blood",
     "amount": 25
   },

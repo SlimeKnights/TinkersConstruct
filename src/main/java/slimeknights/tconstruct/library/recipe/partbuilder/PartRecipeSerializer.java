@@ -19,8 +19,8 @@ public class PartRecipeSerializer extends RecipeSerializer<PartRecipe> {
     int cost = JSONUtils.getInt(json, "cost");
 
     // output fetch as a material item, its an error if it does not implement that interface
-    JsonObject output = JSONUtils.getJsonObject(json, "output");
-    IMaterialItem item = RecipeHelper.deserializeItem(JSONUtils.getString(output, "item"), "output", IMaterialItem.class);
+    JsonObject output = JSONUtils.getJsonObject(json, "result");
+    IMaterialItem item = RecipeHelper.deserializeItem(JSONUtils.getString(output, "item"), "result", IMaterialItem.class);
     int count = JSONUtils.getInt(output, "count", 1);
 
     return new PartRecipe(recipeId, group, pattern, cost, item, count);

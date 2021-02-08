@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.plugin.jei.casting;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
@@ -18,7 +20,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -28,13 +29,13 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 
 import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractCastingCategory implements IRecipeCategory<ItemCastingRecipe>, ITooltipCallback<FluidStack> {
+public abstract class AbstractCastingCategory implements IRecipeCategory<IDisplayableCastingRecipe>, ITooltipCallback<FluidStack> {
   private static final int INPUT_SLOT = 0;
   private static final int OUTPUT_SLOT = 1;
   private static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "time");
@@ -48,43 +49,48 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<ItemCas
   private final IDrawable icon;
   @Getter
   private final String title;
-  private final IDrawableAnimated arrow;
   private final IDrawable tankOverlay;
   private final IDrawable castConsumed;
   private final IDrawable castKept;
   private final IDrawable block;
+  private final LoadingCache<Integer,IDrawableAnimated> cachedArrows;
 
   protected AbstractCastingCategory(IGuiHelper guiHelper, Block icon, String translationKey, IDrawable block) {
     this.background = guiHelper.createDrawable(BACKGROUND_LOC, 0, 0, 117, 54);
     this.icon = guiHelper.createDrawableIngredient(new ItemStack(icon));
     this.title = ForgeI18n.getPattern(translationKey);
-    this.arrow = guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17).buildAnimated(200, IDrawableAnimated.StartDirection.LEFT, false);
     this.tankOverlay = guiHelper.createDrawable(BACKGROUND_LOC, 133, 0, 32, 32);
     this.castConsumed = guiHelper.createDrawable(BACKGROUND_LOC, 141, 32, 13, 11);
     this.castKept = guiHelper.createDrawable(BACKGROUND_LOC, 141, 43, 13, 11);
     this.block = block;
+    this.cachedArrows = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<Integer,IDrawableAnimated>() {
+      @Override
+      public IDrawableAnimated load(Integer coolingTime) {
+        return guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17).buildAnimated(coolingTime, IDrawableAnimated.StartDirection.LEFT, false);
+      }
+    });
   }
 
   @Override
-  public abstract boolean isHandled(ItemCastingRecipe recipe);
+  public abstract boolean isHandled(IDisplayableCastingRecipe recipe);
 
   @Override
-  public Class<? extends ItemCastingRecipe> getRecipeClass() {
-    return ItemCastingRecipe.class;
+  public Class<? extends IDisplayableCastingRecipe> getRecipeClass() {
+    return IDisplayableCastingRecipe.class;
   }
 
   @Override
-  public void setIngredients(ItemCastingRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setInputLists(VanillaTypes.FLUID, ImmutableList.of(recipe.getFluids()));
-    ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+  public void setIngredients(IDisplayableCastingRecipe recipe, IIngredients ingredients) {
+    ingredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(recipe.getCastItems()));
+    ingredients.setInputLists(VanillaTypes.FLUID, Collections.singletonList(recipe.getFluids()));
+    ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
   }
 
   @Override
-  public void draw(ItemCastingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-    arrow.draw(matrixStack, 58, 18);
+  public void draw(IDisplayableCastingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    cachedArrows.getUnchecked(recipe.getCoolingTime()).draw(matrixStack, 58, 18);
     block.draw(matrixStack, 38, 35);
-    if (recipe.getCast() != Ingredient.EMPTY) {
+    if (recipe.hasCast()) {
       (recipe.isConsumed() ? castConsumed : castKept).draw(matrixStack, 63, 39);
     }
 
@@ -96,15 +102,15 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<ItemCas
   }
 
   @Override
-  public List<ITextComponent> getTooltipStrings(ItemCastingRecipe recipe, double mouseX, double mouseY) {
-    if (recipe.getCast() != Ingredient.EMPTY && GuiUtil.isHovered((int)mouseX, (int)mouseY, 63, 39, 13, 11)) {
+  public List<ITextComponent> getTooltipStrings(IDisplayableCastingRecipe recipe, double mouseX, double mouseY) {
+    if (recipe.hasCast() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 63, 39, 13, 11)) {
       return Collections.singletonList(new TranslationTextComponent(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
     }
     return Collections.emptyList();
   }
 
   @Override
-  public void setRecipe(IRecipeLayout recipeLayout, ItemCastingRecipe recipe, IIngredients ingredients) {
+  public void setRecipe(IRecipeLayout recipeLayout, IDisplayableCastingRecipe recipe, IIngredients ingredients) {
     IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
     guiItemStacks.init(INPUT_SLOT, true, 37, 18);
     guiItemStacks.init(OUTPUT_SLOT, false, 92, 17);
@@ -112,11 +118,11 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<ItemCas
 
     IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
     fluidStacks.addTooltipCallback(this);
-    int capacity = MaterialValues.VALUE_Block;
+    int capacity = MaterialValues.METAL_BLOCK;
     fluidStacks.init(0, true, 3, 3, 32, 32, capacity, false, tankOverlay);
     fluidStacks.set(ingredients);
     int h = 11;
-    if (recipe.getCast() == Ingredient.EMPTY) {
+    if (!recipe.hasCast()) {
       h += 16;
     }
     fluidStacks.init(1, true, 43, 8, 6, h, 1, false, null);

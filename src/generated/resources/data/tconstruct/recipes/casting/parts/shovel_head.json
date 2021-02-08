@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:table_casting_material",
-  "cast": {
-    "item": "tconstruct:shovel_head_cast"
-  },
-  "fluid_amount": 288,
-  "result": "tconstruct:shovel_head"
-}

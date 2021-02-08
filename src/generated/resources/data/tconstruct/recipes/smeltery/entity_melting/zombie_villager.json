@@ -6,7 +6,7 @@
       "minecraft:witch"
     ]
   },
-  "output": {
+  "result": {
     "fluid": "tconstruct:molten_emerald",
     "amount": 10
   },

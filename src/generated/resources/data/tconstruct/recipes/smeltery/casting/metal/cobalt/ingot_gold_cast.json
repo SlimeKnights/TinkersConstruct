@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:ingot_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_cobalt",
+    "amount": 144
+  },
+  "result": "tconstruct:cobalt_ingot",
+  "cooling_time": 65
+}

@@ -2,18 +2,22 @@ package slimeknights.tconstruct;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
@@ -47,6 +51,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -55,6 +60,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 /**
@@ -154,6 +160,18 @@ public class TConstruct {
     event.getServer().getCommandManager().getDispatcher().register(executes);
   }
 
+  @Nullable
+  private static Block missingBlock(String name) {
+    switch (name) {
+      case "slimy_mud_green": case "green_slime_crystal":
+        return TinkerWorld.congealedSlime.get(SlimeType.GREEN);
+      case "slimy_mud_blue": case "blue_slime_crystal":
+        return TinkerWorld.congealedSlime.get(SlimeType.BLUE);
+      case "slimy_mud_magma": case "magma_slime_crystal":
+        return TinkerWorld.congealedSlime.get(SlimeType.MAGMA);
+    }
+    return null;
+  }
 
   @SubscribeEvent
   void missingItems(final MissingMappings<Item> event) {
@@ -162,7 +180,24 @@ public class TConstruct {
         case "wide_guard": return TinkerToolParts.toolRod.get();
         case "wide_guard_cast": return TinkerSmeltery.toolRodCast.get();
       }
+      IItemProvider block = missingBlock(name);
+      return block == null ? null : block.asItem();
+    });
+  }
+
+  @SubscribeEvent
+  void missingFluids(final MissingMappings<Fluid> event) {
+    RegistrationHelper.handleMissingMappings(event, modID, name -> {
+      if ("milk".equals(name)) {
+        assert ForgeMod.MILK.isPresent();
+        return ForgeMod.MILK.get();
+      }
       return null;
     });
+  }
+
+  @SubscribeEvent
+  void missingBlocks(final MissingMappings<Block> event) {
+    RegistrationHelper.handleMissingMappings(event, modID, TConstruct::missingBlock);
   }
 }

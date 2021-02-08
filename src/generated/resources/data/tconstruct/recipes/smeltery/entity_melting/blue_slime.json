@@ -3,7 +3,7 @@
   "entity": {
     "type": "tconstruct:blue_slime"
   },
-  "output": {
+  "result": {
     "fluid": "tconstruct:blue_slime",
     "amount": 25
   },

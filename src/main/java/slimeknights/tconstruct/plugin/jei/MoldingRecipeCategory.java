@@ -27,7 +27,7 @@ import java.util.List;
 public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/casting.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "molding.title");
-  private static final ITextComponent TOOLTIP_MOLD_CONSUMED = new TranslationTextComponent(Util.makeTranslationKey("jei", "molding.mold_consumed"));
+  private static final ITextComponent TOOLTIP_PATTERN_CONSUMED = new TranslationTextComponent(Util.makeTranslationKey("jei", "molding.pattern_consumed"));
 
   @Getter
   private final IDrawable background;
@@ -63,7 +63,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
     block.draw(matrixStack, 3, 40);
 
     // if no mold, we "pickup" the item, so draw no table
-    if (!recipe.getMold().hasNoMatchingItems()) {
+    if (!recipe.getPattern().hasNoMatchingItems()) {
       block.draw(matrixStack, 51, 40);
       downArrow.draw(matrixStack, 8, 17);
     } else {
@@ -73,8 +73,8 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
 
   @Override
   public List<ITextComponent> getTooltipStrings(MoldingRecipe recipe, double mouseX, double mouseY) {
-    if (recipe.isMoldConsumed() && !recipe.getMold().hasNoMatchingItems() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 50, 7, 18, 18)) {
-      return Collections.singletonList(TOOLTIP_MOLD_CONSUMED);
+    if (recipe.isPatternConsumed() && !recipe.getPattern().hasNoMatchingItems() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 50, 7, 18, 18)) {
+      return Collections.singletonList(TOOLTIP_PATTERN_CONSUMED);
     }
     return Collections.emptyList();
   }
@@ -93,10 +93,10 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
     guiItemStacks.init(1, false, 50, 23);
 
     // if we have a mold, we are pressing into the table, so draw pressed item on input and output
-    if (!recipe.getMold().hasNoMatchingItems()) {
+    if (!recipe.getPattern().hasNoMatchingItems()) {
       guiItemStacks.init(2, true, 2, 0);
       guiItemStacks.set(ingredients);
-      if (!recipe.isMoldConsumed()) {
+      if (!recipe.isPatternConsumed()) {
         guiItemStacks.init(3, true, 50, 7);
         guiItemStacks.set(3, ingredients.getInputs(VanillaTypes.ITEM).get(1));
       }

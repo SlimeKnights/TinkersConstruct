@@ -3,7 +3,7 @@
   "entity": {
     "type": "minecraft:slime"
   },
-  "output": {
+  "result": {
     "fluid": "tconstruct:green_slime",
     "amount": 25
   },

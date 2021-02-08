@@ -24,7 +24,17 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "alloy")
 public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder> {
   private final FluidStack output;
+  private final int temperature;
   private final List<FluidIngredient> inputs = new ArrayList<>();
+
+  /**
+   * Creates a new recipe producing the given fluid
+   * @param fluid   Fluid output
+   * @return  Builder instance
+   */
+  public static AlloyRecipeBuilder alloy(FluidStack fluid) {
+    return alloy(fluid, fluid.getFluid().getAttributes().getTemperature(fluid) - 300);
+  }
 
   /**
    * Creates a new recipe producing the given fluid
@@ -108,12 +118,13 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
 
     @Override
     public void serialize(JsonObject json) {
-      json.add("output", RecipeHelper.serializeFluidStack(output));
       JsonArray inputArray = new JsonArray();
       for (FluidIngredient input : inputs) {
         inputArray.add(input.serialize());
       }
       json.add("inputs", inputArray);
+      json.add("result", RecipeHelper.serializeFluidStack(output));
+      json.addProperty("temperature", temperature);
     }
 
     @Override

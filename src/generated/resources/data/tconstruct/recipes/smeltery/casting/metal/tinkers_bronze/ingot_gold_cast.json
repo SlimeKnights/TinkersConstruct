@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:ingot_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_tinkers_bronze",
+    "amount": 144
+  },
+  "result": "tconstruct:tinkers_bronze_ingot",
+  "cooling_time": 57
+}

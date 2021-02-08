@@ -20,7 +20,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
-import slimeknights.tconstruct.smeltery.util.EntityMeltingRecipeCache;
+import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -79,7 +79,7 @@ public class EntityMeltingModule {
    */
   public static FluidStack getDefaultFluid() {
     // TODO: consider a way to put this in a recipe
-    return new FluidStack(TinkerFluids.blood.get(), MaterialValues.VALUE_SlimeBall / 5);
+    return new FluidStack(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL / 5);
   }
 
   /**

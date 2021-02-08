@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:table_casting_material",
-  "cast": {
-    "tag": "tconstruct:casts/single_use/small_binding"
-  },
-  "cast_consumed": true,
-  "fluid_amount": 144,
-  "result": "tconstruct:small_binding"
-}

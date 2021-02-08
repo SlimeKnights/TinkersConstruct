@@ -1,0 +1,7 @@
+{
+  "craftable": false,
+  "fluid": "tconstruct:molten_queens_slime",
+  "fluidPerUnit": 144,
+  "textColor": "#236C45",
+  "temperature": 1150
+}

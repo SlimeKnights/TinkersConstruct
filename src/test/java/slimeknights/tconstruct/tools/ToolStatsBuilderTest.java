@@ -112,57 +112,46 @@ class ToolStatsBuilderTest extends BaseMcTest {
   }
 
   @Test
-  void buildDurability_ensureAverage_extra() {
-    ExtraMaterialStats stats1 = new ExtraMaterialStats(100);
-    ExtraMaterialStats stats2 = new ExtraMaterialStats(50);
-
-    ToolStatsBuilder builder = new ToolStatsBuilder(Collections.emptyList(), Collections.emptyList(), ImmutableList.of(stats1, stats2));
-
-    assertThat(builder.buildDurability()).isEqualTo(75);
-  }
-
-  @Test
-  void buildDurability_ensureAverage_handle() {
-    HandleMaterialStats stats1 = new HandleMaterialStats(1f, 100);
-    HandleMaterialStats stats2 = new HandleMaterialStats(1f, 50);
-
-    ToolStatsBuilder builder = new ToolStatsBuilder(Collections.emptyList(), ImmutableList.of(stats1, stats2), Collections.emptyList());
-
-    assertThat(builder.buildDurability()).isEqualTo(75);
-  }
-
-  @Test
-  void buildDurability_testHandleModifier() {
+  void buildDurability_testHandleDurability() {
     HeadMaterialStats statsHead = new HeadMaterialStats(200, 0, 0, 0);
-    HandleMaterialStats statsHandle = new HandleMaterialStats(0.5f, 0);
-    ExtraMaterialStats statsExtra = new ExtraMaterialStats(100);
+    HandleMaterialStats statsHandle = new HandleMaterialStats(0.5f, 0, 0, 0);
+
+    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle), Collections.emptyList());
+
+    assertThat(builder.buildDurability()).isEqualTo(100);
+  }
+
+  @Test
+  void buildMiningSpeed_testHandleMiningSpeed() {
+    HeadMaterialStats statsHead = new HeadMaterialStats(0, 2.0f, 0, 0);
+    HandleMaterialStats statsHandle = new HandleMaterialStats(0, 0.5f, 0, 0);
+    ExtraMaterialStats statsExtra = ExtraMaterialStats.DEFAULT;
 
     ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle), ImmutableList.of(statsExtra));
 
-    assertThat(builder.buildDurability()).isEqualTo(150);
+    assertThat(builder.buildMiningSpeed()).isEqualTo(1.0f);
   }
 
   @Test
-  void buildDurability_testHandleModifier_average() {
+  void buildDurability_testHandleDurability_average() {
     HeadMaterialStats statsHead = new HeadMaterialStats(200, 0, 0, 0);
-    HandleMaterialStats statsHandle1 = new HandleMaterialStats(0.3f, 0);
-    HandleMaterialStats statsHandle2 = new HandleMaterialStats(0.7f, 0);
-    ExtraMaterialStats statsExtra = new ExtraMaterialStats(100);
+    HandleMaterialStats statsHandle1 = new HandleMaterialStats(0.3f, 0, 0, 0);
+    HandleMaterialStats statsHandle2 = new HandleMaterialStats(0.7f, 0, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), ImmutableList.of(statsExtra));
+    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), Collections.emptyList());
 
-    assertThat(builder.buildDurability()).isEqualTo(150);
+    assertThat(builder.buildDurability()).isEqualTo(100);
   }
 
   @Test
-  void buildDurability_testHandleDurability_notAffectedByModifier() {
-    HeadMaterialStats statsHead = new HeadMaterialStats(100, 0, 0, 0);
-    HandleMaterialStats statsHandle = new HandleMaterialStats(0.1f, 50);
-    ExtraMaterialStats statsExtra = new ExtraMaterialStats(0);
+  void buildMiningSpeed_testHandleMiningSpeed_average() {
+    HeadMaterialStats statsHead = new HeadMaterialStats(0, 2.0f, 0, 0);
+    HandleMaterialStats statsHandle1 = new HandleMaterialStats(0, 0.3f, 0, 0);
+    HandleMaterialStats statsHandle2 = new HandleMaterialStats(0, 0.7f, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle), ImmutableList.of(statsExtra));
+    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), Collections.emptyList());
 
-    assertThat(builder.buildDurability()).isEqualTo(60);
+    assertThat(builder.buildMiningSpeed()).isEqualTo(1.0f);
   }
 
   @Test
@@ -195,5 +184,49 @@ class ToolStatsBuilderTest extends BaseMcTest {
     ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(stats1, stats2, stats3, stats4), Collections.emptyList(), Collections.emptyList());
 
     assertThat(builder.buildHarvestLevel()).isEqualTo(5);
+  }
+
+  @Test
+  void buildAttackSpeed_default() {
+    ToolStatsBuilder builder = new ToolStatsBuilder(Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
+    assertThat(builder.buildAttackSpeed()).isEqualTo(1.0f);
+  }
+
+  @Test
+  void buildAttackSpeed_testHandleAttackDamage() {
+    HeadMaterialStats head = new HeadMaterialStats(0, 0, 0, 2);
+    HandleMaterialStats stats = new HandleMaterialStats(0, 0, 0, 0.5f);
+    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(head), ImmutableList.of(stats), Collections.emptyList());
+
+    assertThat(builder.buildAttack()).isEqualTo(1.0f);
+  }
+
+  @Test
+  void buildAttackSpeed_testHandleAttackDamage_average() {
+    HeadMaterialStats head = new HeadMaterialStats(0, 0, 0, 4);
+    HandleMaterialStats stats1 = new HandleMaterialStats(0, 0, 0, 1.3f);
+    HandleMaterialStats stats2 = new HandleMaterialStats(0, 0, 0, 1.7f);
+
+    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(head), ImmutableList.of(stats1, stats2), Collections.emptyList());
+
+    assertThat(builder.buildAttack()).isEqualTo(6);
+  }
+
+  @Test
+  void buildAttackSpeed_testHandleAttackSpeed() {
+    HandleMaterialStats stats = new HandleMaterialStats(0, 0, 1.5f, 0);
+    ToolStatsBuilder builder = new ToolStatsBuilder(Collections.emptyList(), ImmutableList.of(stats), Collections.emptyList());
+
+    assertThat(builder.buildAttackSpeed()).isEqualTo(1.5f);
+  }
+
+  @Test
+  void buildAttackSpeed_testHandleAttackSpeed_average() {
+    HandleMaterialStats stats1 = new HandleMaterialStats(0, 0, 1.3f, 0);
+    HandleMaterialStats stats2 = new HandleMaterialStats(0, 0, 1.7f, 0);
+
+    ToolStatsBuilder builder = new ToolStatsBuilder(Collections.emptyList(), ImmutableList.of(stats1, stats2), Collections.emptyList());
+
+    assertThat(builder.buildAttackSpeed()).isEqualTo(1.5f);
   }
 }

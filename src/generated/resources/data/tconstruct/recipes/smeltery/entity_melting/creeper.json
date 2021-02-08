@@ -3,7 +3,7 @@
   "entity": {
     "type": "minecraft:creeper"
   },
-  "output": {
+  "result": {
     "fluid": "tconstruct:molten_glass",
     "amount": 36
   },

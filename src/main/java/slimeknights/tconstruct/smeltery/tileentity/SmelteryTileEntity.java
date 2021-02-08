@@ -62,7 +62,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   private static final String TAG_INVENTORY = "inventory";
 
   /** Fluid capacity per internal block */
-  private static final int CAPACITY_PER_BLOCK = MaterialValues.VALUE_Ingot * 8;
+  private static final int CAPACITY_PER_BLOCK = MaterialValues.INGOT * 8;
   /** Number of wall blocks needed to increase the fuel cost by 1 */
   private static final int BLOCKS_PER_FUEL = 10;
 
@@ -106,8 +106,9 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   private AxisAlignedBB defaultBounds;
 
   /** Module handling alloys */
+  private final SmelteryAlloyTank alloyTank = new SmelteryAlloyTank(tank);
   @Getter
-  private final AlloyingModule alloyingModule = new AlloyingModule(this, tank, new SmelteryAlloyTank(tank));
+  private final AlloyingModule alloyingModule = new AlloyingModule(this, tank, alloyTank);
   /** Module handling entity interaction */
   private final EntityMeltingModule entityModule = new EntityMeltingModule(this, tank, this::canMeltEntities, this::insertIntoInventory, () -> structure == null ? null : structure.getBounds());
 
@@ -155,40 +156,59 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
         }
       }
 
-      // every second, interact with entities, will consume fuel if needed
-      boolean entityMelted = false;
-      if (tick == 12) {
-        entityMelted = entityModule.interactWithEntities();
-      }
+      // the next set of behaviors all require fuel, skip if no tanks
+      if (structure.hasTanks()) {
+        // every second, interact with entities, will consume fuel if needed
+        boolean entityMelted = false;
+        if (tick == 12) {
+          entityMelted = entityModule.interactWithEntities();
+        }
 
-      // run in four phases alternating each tick, so each thing runs once every 4 ticks
-      switch (tick % 4) {
-        // first tick, find fuel if needed
-        case 0:
-          if (!fuelModule.hasFuel() && (entityMelted || alloyingModule.canAlloy() || meltingInventory.canHeat(fuelModule.findFuel(false)))) {
-            fuelModule.findFuel(true);
-          }
-          break;
-          // second tick: melt items
-        case 1:
-          if (fuelModule.hasFuel()) {
-            meltingInventory.heatItems(fuelModule.getTemperature());
-          } else {
-            meltingInventory.coolItems();
-          }
-          break;
-          // third tick: alloy alloys
-        case 2:
-          alloyingModule.doAlloy();
-          break;
-          // fourth tick: consume fuel, update fluids
-        case 3:
-          fuelModule.decreaseFuel(fuelRate);
-          if (fluidUpdateQueued) {
-            fluidUpdateQueued = false;
-            tank.syncFluids();
-          }
-          break;
+        // run in four phases alternating each tick, so each thing runs once every 4 ticks
+        switch (tick % 4) {
+          // first tick, find fuel if needed
+          case 0:
+            if (!fuelModule.hasFuel()) {
+              // if we melted something already, we need fuel
+              if (entityMelted) {
+                fuelModule.findFuel(true);
+              } else {
+                // both alloying and melting need to know the temperature
+                int possibleTemp = fuelModule.findFuel(false);
+                alloyTank.setTemperature(possibleTemp);
+                if (meltingInventory.canHeat(possibleTemp) || alloyingModule.canAlloy()) {
+                  fuelModule.findFuel(true);
+                }
+              }
+            }
+            break;
+            // second tick: melt items
+          case 1:
+            if (fuelModule.hasFuel()) {
+              meltingInventory.heatItems(fuelModule.getTemperature());
+            } else {
+              meltingInventory.coolItems();
+            }
+            break;
+            // third tick: alloy alloys
+          case 2:
+            if (fuelModule.hasFuel()) {
+              alloyTank.setTemperature(fuelModule.getTemperature());
+              alloyingModule.doAlloy();
+            }
+            break;
+            // fourth tick: consume fuel, update fluids
+          case 3:
+            fuelModule.decreaseFuel(fuelRate);
+            break;
+        }
+      }
+      // fluid update sync every four ticks, whether it has tanks or not
+      if (tick % 4 == 3) {
+        if (fluidUpdateQueued) {
+          fluidUpdateQueued = false;
+          tank.syncFluids();
+        }
       }
     } else if (tick == 0) {
       updateStructure();

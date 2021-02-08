@@ -3,7 +3,7 @@
   "entity": {
     "type": "minecraft:snow_golem"
   },
-  "output": {
+  "result": {
     "fluid": "minecraft:water",
     "amount": 100
   },

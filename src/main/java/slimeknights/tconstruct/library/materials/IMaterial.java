@@ -8,7 +8,6 @@ import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.TConstruct;
 
 public interface IMaterial {
-  Color WHITE = Color.fromInt(0xFFFFFFFF);
 
   /**
    * Fallback material. Used for operations where a material or specific aspects of a material are used,
@@ -42,6 +41,14 @@ public interface IMaterial {
   Fluid getFluid();
 
   /**
+   * Gets the amount of fluid needed to produce one "unit" of this material. Typically {@link MaterialValues#INGOT} for metal based materials.
+   * Will be 0 for non-fluids
+   *
+   * @return  Amount of fluid per unit.
+   */
+  int getFluidPerUnit();
+
+  /**
    * Gets the translation key for this material
    * @return the translation key
    */
@@ -53,23 +60,7 @@ public interface IMaterial {
    * Gets the text color for this material
    * @return the text color
    */
-  String getTextColor();
-
-  /**
-   * Gets the encoded text color for this material
-   * @return the encoded text color
-   */
-  default Color getColor() {
-    try {
-      int color = Integer.parseInt(getTextColor(), 16);
-      if((color & 0xFF000000) == 0) {
-        color |= 0xFF000000;
-      }
-      return Color.fromInt(color);
-    } catch (NumberFormatException e) {
-      return WHITE;
-    }
-  }
+  Color getColor();
 
   /**
    * Gets the temperature of this material for use in melting and casting recipes.

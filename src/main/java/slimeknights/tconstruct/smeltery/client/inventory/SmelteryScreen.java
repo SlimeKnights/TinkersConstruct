@@ -102,7 +102,13 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> impleme
 
     // fluid tooltips
     if (tank != null) tank.drawTooltip(matrices, mouseX, mouseY);
-    if (fuel != null) fuel.addTooltip(matrices, mouseX, mouseY);
+    if (fuel != null) {
+      boolean hasTank = false;
+      if (smeltery.getStructure() != null) {
+        hasTank = smeltery.getStructure().hasTanks();
+      }
+      fuel.addTooltip(matrices, mouseX, mouseY, hasTank);
+    }
   }
 
   @Override
