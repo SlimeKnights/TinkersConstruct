@@ -1014,6 +1014,11 @@
     "__comment": "Tier 1 Traits",
     "modifier.tconstruct.cultivated": "Cultivated",
     "modifier.tconstruct.cultivated.description": "§oEconomical!§r\nTool practically grows more material when repairing",
+    "modifier.tconstruct.jagged": "Jagged",
+    "modifier.tconstruct.jagged.description": "§oBroken edges make it sharp!§r\nEvery point durability lost increases damage, but decreases mining speed",
+    "modifier.tconstruct.stonebound": "Stonebound",
+    "modifier.tconstruct.stonebound.description": "§oYour tool absolutely loves stone!§r\\nThe tool mines faster as it wears out, but does less damage",
+    "modifier.tconstruct.damage_speed_trade.suffix": " (%s boost)",
     "modifier.tconstruct.fractured": "Fractured",
     "modifier.tconstruct.fractured.description": "§oBreak a Leg!§r\nTool is extra sharp due to the broken bits of bone",
 
