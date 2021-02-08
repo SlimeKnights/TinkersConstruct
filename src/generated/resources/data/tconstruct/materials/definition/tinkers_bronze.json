@@ -3,5 +3,11 @@
   "fluid": "tconstruct:molten_tinkers_bronze",
   "fluidPerUnit": 144,
   "textColor": "#F9CF72",
-  "temperature": 700
+  "temperature": 700,
+  "traits": [
+    {
+      "name": "tconstruct:maintained",
+      "level": 1
+    }
+  ]
 }

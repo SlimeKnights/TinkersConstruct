@@ -7,7 +7,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 public class DwarfishModifier extends Modifier {
   /** Baseline height where boost is 1 */
   private static final int SEA_LEVEL = 64;
-  /** Max bonus per level when y = 0 */
+  /** Max percentage bonus per level when y = 0 */
   private static final float BOOST_AT_0 = 0.2f;
 
   public DwarfishModifier() {

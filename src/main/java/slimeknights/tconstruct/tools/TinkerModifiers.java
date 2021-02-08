@@ -28,6 +28,8 @@ import slimeknights.tconstruct.tools.modifiers.traits.DwarfishModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.ExperiencedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.LightweightModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.MaintainedModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.MaintainedModifier2;
 import slimeknights.tconstruct.tools.modifiers.traits.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
@@ -102,7 +104,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
   // traits - tier 3
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
+  public static final RegistryObject<MaintainedModifier> wellMaintained = MODIFIERS.register("maintained", MaintainedModifier::new);
   public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(0xffdbcc, false));
+
   public static final RegistryObject<LightweightModifier> lightweight = MODIFIERS.register("lightweight", LightweightModifier::new);
   // traits - tier 4
   public static final RegistryObject<OverlordModifier> overlord = MODIFIERS.register("overlord", OverlordModifier::new);
@@ -113,6 +117,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ExperiencedModifier> experienced = MODIFIERS.register("experienced", ExperiencedModifier::new);
   // traits - mod compat tier 3
   public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
+  public static final RegistryObject<MaintainedModifier2> wellMaintained2 = MODIFIERS.register("maintained_2", MaintainedModifier2::new);
 
   /*
    * Recipes

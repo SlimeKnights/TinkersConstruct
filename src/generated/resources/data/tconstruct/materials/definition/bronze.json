@@ -2,6 +2,12 @@
   "craftable": false,
   "fluid": "tconstruct:molten_bronze",
   "fluidPerUnit": 144,
-  "textColor": "#E3BD68",
-  "temperature": 700
+  "textColor": "#CEA179",
+  "temperature": 700,
+  "traits": [
+    {
+      "name": "tconstruct:maintained_2",
+      "level": 1
+    }
+  ]
 }
