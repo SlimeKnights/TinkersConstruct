@@ -1,12 +1,15 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -33,6 +36,20 @@ public interface IModifierToolStack {
   /** Checks whether the tool is broken */
   boolean isBroken();
 
+  /**
+   * Damages the tool by the given amount
+   * @param amount  Amount to damage
+   * @param stack   Stack to use for criteria updates, if null creates a stack
+   * @param entity  Entity for criteria updates, if null no updates run
+   * @return true if the tool broke when damaging
+   */
+  boolean damage(int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack);
+
+  /**
+   * Sets the tools current damage
+   * @param damage  New damage
+   */
+  void setDamage(int damage);
 
   /* Materials */
 

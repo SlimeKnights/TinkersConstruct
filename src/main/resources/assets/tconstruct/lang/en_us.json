@@ -1038,11 +1038,18 @@
     "__comment": "Tier 3 Traits",
     "modifier.tconstruct.overcast": "Overcast",
     "modifier.tconstruct.overcast.description": "§oSpringy!§r\nDamage has a chance to bounce off overslime on tool",
+    "modifier.tconstruct.sharp": "Sharp",
+    "modifier.tconstruct.sharp.description": "§oLacerating!§r\nCauses the target to bleed, dealing additional damage",
     "modifier.tconstruct.maintained": "Maintained",
     "modifier.tconstruct.maintained.description": "§oStays Sharp Longer!§r\nTool mines faster when at higher durability",
     "modifier.tconstruct.maintained.boost": " (+%s speed)",
     "modifier.tconstruct.lightweight": "Lightweight",
     "modifier.tconstruct.lightweight.description": "§oLike a Shardblade!§r\nTool is incredibly light for its size, allowing faster attacking and mining",
+    "modifier.tconstruct.tasty": "Tasty",
+    "modifier.tconstruct.tasty.description": "§oOm Nom Nom§r\nSmells so good, you cannot resist taking a few bites of your tool",
+
+    "death.attack.tconstruct.bleed": "%1$s bled to death",
+    "death.attack.tconstruct.bleed.item": "%1$s bled to death from injuries caused by %2$s",
 
     "__comment": "Tier 4 Traits",
     "modifier.tconstruct.overlord": "Overlord",

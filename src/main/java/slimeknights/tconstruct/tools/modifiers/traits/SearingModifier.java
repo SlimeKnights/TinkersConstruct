@@ -44,7 +44,7 @@ public class SearingModifier extends Modifier {
         source = DamageSource.causeMobDamage(attacker);
       }
       target.hurtResistantTime = 0;
-      target.attackEntityFrom(source.setFireDamage(), temperatureBoost(temperature, level));
+      attackEntitySecondary(source.setFireDamage(), temperatureBoost(temperature, level), target, false);
     }
     return 0;
   }

@@ -36,10 +36,10 @@ final class Materials {
   public static final IMaterial slimewood   = mat(MaterialIds.slimewood, 0x82c873, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
   // tier 3
   public static final IMaterial slimesteel    = mat(MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, false, 0x74c8c7, TinkerModifiers.overcast);
-  public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl, false, 0x601cc4);
+  public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl, false, 0x601cc4, TinkerModifiers.sharp);
   public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, TinkerFluids.moltenTinkersBronze, false, 0xf9cf72, TinkerModifiers.wellMaintained);
   public static final IMaterial roseGold      = mat(MaterialIds.roseGold, TinkerFluids.moltenRoseGold, false, 0xffdbcc, TinkerModifiers.enhanced);
-  public static final IMaterial pigIron       = mat(MaterialIds.pigIron, TinkerFluids.moltenPigIron, false, 0xef9e9b);
+  public static final IMaterial pigIron       = mat(MaterialIds.pigIron, TinkerFluids.moltenPigIron, false, 0xef9e9b, TinkerModifiers.tasty);
 
   // tier 2 (nether)
   //public static final IMaterial witherBone = mat(MaterialIds.witherBone, true, 0xede6bf);
