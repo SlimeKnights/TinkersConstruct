@@ -254,9 +254,9 @@ public class InfoPanelScreen extends ModuleScreen {
     }
 
     // floating over tooltip info?
-    if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.getStringWidth("?") / 2 && mouseX < this.guiRight() && mouseY > this.guiTop + 5 && mouseY < this.guiTop + 5 + this.font.FONT_HEIGHT) {
-      int w = MathHelper.clamp(this.width - mouseX - 12, 10, 200);
-      this.renderTooltip(matrices, this.font.trimStringToWidth(new TranslationTextComponent("gui.tconstruct.general.hover"), w), mouseX - guiLeft, mouseY - guiTop);
+    if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.getStringWidth("?") / 2 && mouseX < this.guiRight()
+        && mouseY > this.guiTop + 5 && mouseY < this.guiTop + 5 + this.font.FONT_HEIGHT) {
+      this.renderTooltip(matrices, this.font.trimStringToWidth(new TranslationTextComponent("gui.tconstruct.general.hover"), 150), mouseX - 155, mouseY);
     }
 
     // are we hovering over an entry?

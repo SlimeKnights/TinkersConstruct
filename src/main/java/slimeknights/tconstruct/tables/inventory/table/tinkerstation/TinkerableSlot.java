@@ -16,6 +16,7 @@ public class TinkerableSlot extends TinkerStationSlot {
     if (this.isDormant()) {
       return false;
     }
+    // TODO: should this use the tag as well?
     return stack != ItemStack.EMPTY && stack.getItem() instanceof ITinkerStationDisplay;
   }
 }
