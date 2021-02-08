@@ -33,18 +33,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
-import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
-import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -72,7 +70,7 @@ import java.util.function.Consumer;
  * This class handles how all the data for items made out of different
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
-public abstract class ToolCore extends Item implements ITinkerable, IModifiable, IRepairable, ITinkerStationDisplay, IModifiableWeapon {
+public abstract class ToolCore extends Item implements IRepairable, ITinkerStationDisplay, IModifiableWeapon {
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
@@ -358,7 +356,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public void damageWeapon(ToolStack tool, ItemStack stack, LivingEntity living, int amount) {
-    if (!getToolDefinition().hasCategory(Category.WEAPON)) {
+    if (!TinkerTags.Items.COMBAT.contains(tool.getItem())) {
       amount *= 2;
     }
     IModifiableWeapon.super.damageWeapon(tool, stack, living, amount);
@@ -559,7 +557,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     builder.addDurability();
     builder.addAttackDamage();
     builder.addAttackSpeed();
-    if (this.getToolDefinition().hasCategory(Category.HARVEST)) {
+    if (TinkerTags.Items.HARVEST.contains(stack.getItem())) {
       builder.addHarvestLevel();
       builder.addMiningSpeed();
     }

@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:shovel",
+    "tconstruct:excavator",
+    "tconstruct:axe",
+    "tconstruct:kama",
+    "tconstruct:broad_sword"
+  ]
+}

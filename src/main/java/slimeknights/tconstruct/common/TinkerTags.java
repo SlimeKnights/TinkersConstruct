@@ -80,6 +80,24 @@ public class TinkerTags {
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");
 
+    /*
+     * Tool tags
+     */
+    /** Anything that can be modified in the tool station */
+    public static final IOptionalNamedTag<Item> MODIFIABLE = tag("modifiable");
+    /** Modifiable items that contain multiple parts */
+    public static final IOptionalNamedTag<Item> MULTIPART_TOOL = tag("modifiable/multipart");
+    /** Modifiable items that support melee attacks */
+    public static final IOptionalNamedTag<Item> MELEE = tag("modifiable/melee");
+    /** Modifiable items that specifically are designed for combat */
+    public static final IOptionalNamedTag<Item> COMBAT = tag("modifiable/combat");
+    /** Modifiable items that can break blocks */
+    public static final IOptionalNamedTag<Item> HARVEST = tag("modifiable/harvest");
+    /** Modifiable items that can have range increased */
+    public static final IOptionalNamedTag<Item> AOE = tag("modifiable/aoe");
+    // /** Modifiable items that support ranged attacks, such as bows */
+    // public static final IOptionalNamedTag<Item> RANGED = tag("modifiable/ranged");
+
 
     private static IOptionalNamedTag<Item> tag(String name) {
       return ItemTags.createOptional(Util.getResource(name));

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
-import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolCoreTest;
@@ -71,8 +69,7 @@ class ToolMiningLogicTest extends ToolCoreTest {
       new Item.Properties().addToolType(ToolType.PICKAXE, 1),
       new ToolDefinition(
         new ToolBaseStatDefinition.Builder().setDamageModifier(1f).setMiningSpeedModifier(modifier).build(),
-        () -> ImmutableList.of(MaterialItemFixture.MATERIAL_ITEM_HEAD, MaterialItemFixture.MATERIAL_ITEM_HANDLE, MaterialItemFixture.MATERIAL_ITEM_EXTRA),
-        ImmutableSet.of(Category.HARVEST)
+        () -> ImmutableList.of(MaterialItemFixture.MATERIAL_ITEM_HEAD, MaterialItemFixture.MATERIAL_ITEM_HANDLE, MaterialItemFixture.MATERIAL_ITEM_EXTRA)
       ));
     ItemStack tool = buildTestTool(toolWithMiningModifier);
 

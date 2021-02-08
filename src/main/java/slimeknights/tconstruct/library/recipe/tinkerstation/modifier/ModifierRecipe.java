@@ -6,6 +6,7 @@ import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
@@ -14,13 +15,13 @@ import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -46,6 +47,8 @@ public class ModifierRecipe implements ITinkerStationRecipe {
    * Making the most strict first will produce the best behavior
    */
   private final List<SizedIngredient> inputs;
+  /** Ingredient representing the required tool, typically a tag */
+  private final Ingredient toolRequirement;
   /** Modifiers that must match for this recipe */
   private final ModifierMatch requirements;
   /** Error message to display if the requirements do not match */
@@ -59,9 +62,10 @@ public class ModifierRecipe implements ITinkerStationRecipe {
   /** Required ability slots to add this modifier */
   private final int abilitySlots;
 
-  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
+  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
     this.id = id;
     this.inputs = inputs;
+    this.toolRequirement = toolRequirement;
     this.requirements = requirements;
     this.requirementsError = requirementsError;
     this.result = result;
@@ -114,10 +118,17 @@ public class ModifierRecipe implements ITinkerStationRecipe {
 
   @Override
   public boolean matches(ITinkerStationInventory inv, World world) {
-    // ensure it can be modified
-    if (!(inv.getTinkerableStack().getItem() instanceof IModifiable)) {
+    // ensure this modifier can be applied
+    ItemStack tinkerable = inv.getTinkerableStack();
+    if (this.toolRequirement == Ingredient.EMPTY) {
+      // if not specified, match anything modifiable
+      if (!TinkerTags.Items.MODIFIABLE.contains(tinkerable.getItem())) {
+        return false;
+      }
+    } else if (!this.toolRequirement.test(tinkerable)) {
       return false;
     }
+
     // check inputs
     BitSet used = makeBitset(inv);
     for (SizedIngredient ingredient : inputs) {
@@ -209,6 +220,10 @@ public class ModifierRecipe implements ITinkerStationRecipe {
     @Override
     public ModifierRecipe read(ResourceLocation id, JsonObject json) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
+      Ingredient toolRequirement = Ingredient.EMPTY;
+      if (json.has("tools")) {
+        toolRequirement = Ingredient.deserialize(json.get("tools"));
+      }
       ModifierMatch requirements = ModifierMatch.ALWAYS;
       String requirementsError = "";
       if (json.has("requirements")) {
@@ -232,7 +247,7 @@ public class ModifierRecipe implements ITinkerStationRecipe {
       if (upgradeSlots > 0 && abilitySlots > 0) {
         throw new JsonSyntaxException("Cannot set both upgrade_slots and ability_slots");
       }
-      return new ModifierRecipe(id, ingredients, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+      return new ModifierRecipe(id, ingredients, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     }
 
     @Nullable
@@ -243,13 +258,14 @@ public class ModifierRecipe implements ITinkerStationRecipe {
       for (int i = 0; i < size; i++) {
         builder.add(SizedIngredient.read(buffer));
       }
+      Ingredient toolRequirement = Ingredient.read(buffer);
       ModifierMatch requirements = ModifierMatch.read(buffer);
       String requirementsError = buffer.readString(Short.MAX_VALUE);
       ModifierEntry result = ModifierEntry.read(buffer);
       int maxLevel = buffer.readVarInt();
       int upgradeSlots = buffer.readVarInt();
       int abilitySlots = buffer.readVarInt();
-      return new ModifierRecipe(id, builder.build(), requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+      return new ModifierRecipe(id, builder.build(), toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     }
 
     @Override
@@ -258,6 +274,7 @@ public class ModifierRecipe implements ITinkerStationRecipe {
       for (SizedIngredient ingredient : recipe.inputs) {
         ingredient.write(buffer);
       }
+      recipe.toolRequirement.write(buffer);
       recipe.requirements.write(buffer);
       buffer.writeString(recipe.requirementsError);
       recipe.result.write(buffer);

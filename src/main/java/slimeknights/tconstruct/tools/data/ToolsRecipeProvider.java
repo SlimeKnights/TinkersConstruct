@@ -154,6 +154,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerModifiers.silkyJewel)
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
+                         .setToolTag(TinkerTags.Items.HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.silky, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.diamond.get())
                          .addInput(Items.DIAMOND)

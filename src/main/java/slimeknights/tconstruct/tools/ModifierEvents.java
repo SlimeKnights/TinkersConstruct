@@ -1,11 +1,13 @@
 package slimeknights.tconstruct.tools;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
@@ -19,7 +21,11 @@ public class ModifierEvents {
 
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
-    ToolStack tool = ToolStack.from(event.getPlayer().getHeldItemMainhand());
+    ItemStack stack = event.getPlayer().getHeldItemMainhand();
+    if (!TinkerTags.Items.HARVEST.contains(stack.getItem())) {
+      return;
+    }
+    ToolStack tool = ToolStack.from(stack);
     if (!tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event);
@@ -29,7 +35,11 @@ public class ModifierEvents {
 
   @SubscribeEvent
   static void onBlockBreak(BlockEvent.BreakEvent event) {
-    ToolStack tool = ToolStack.from(event.getPlayer().getHeldItemMainhand());
+    ItemStack stack = event.getPlayer().getHeldItemMainhand();
+    if (!TinkerTags.Items.HARVEST.contains(stack.getItem())) {
+      return;
+    }
+    ToolStack tool = ToolStack.from(stack);
     if (!tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().beforeBlockBreak(tool, entry.getLevel(), event);

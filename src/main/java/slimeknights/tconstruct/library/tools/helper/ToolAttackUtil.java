@@ -109,6 +109,7 @@ public class ToolAttackUtil {
       return true;
     }
     // broken? give to vanilla
+    // TODO: general modifiable
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
       return false;

@@ -42,7 +42,6 @@ public class ToolStack implements IModifierToolStack {
   private static final ValidatedResult NOT_ENOUGH_UPGRADES = ValidatedResult.failure(Util.makeTranslationKey("recipe", "modifier.not_enough_upgrades"));
   private static final ValidatedResult NOT_ENOUGH_ABILITIES = ValidatedResult.failure(Util.makeTranslationKey("recipe", "modifier.not_enough_abilities"));
 
-
   /** Volatile mod data key for the durability before modifiers */
   public static final ResourceLocation ORIGINAL_DURABILITY_KEY = Util.getResource("durability");
 
@@ -280,6 +279,7 @@ public class ToolStack implements IModifierToolStack {
    * Sets the tools damage
    * @param  damage  New damage
    */
+  @Override
   public void setDamage(int damage) {
     int durability = getStats().getDurability();
     if (damage >= durability) {

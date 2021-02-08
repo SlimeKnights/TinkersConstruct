@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -22,13 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+@Accessors(chain = true)
 @RequiredArgsConstructor(staticName = "modifier")
 public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeBuilder> {
   private final List<SizedIngredient> inputs = new ArrayList<>();
   private final ModifierEntry result;
-  @Setter @Accessors(chain = true)
+  @Setter
+  private Ingredient tools = Ingredient.EMPTY;
+  @Setter
   private ModifierMatch requirements = ModifierMatch.ALWAYS;
-  @Setter @Accessors(chain = true)
+  @Setter
   private String requirementsError;
   private int maxLevel = 0;
   private int upgradeSlots = 0;
@@ -45,6 +49,15 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
 
 
   /* Inputs */
+
+  /**
+   * Sets the tag for applicable tools
+   * @param tag  Tag
+   * @return  Builder instance
+   */
+  public ModifierRecipeBuilder setToolTag(ITag<Item> tag) {
+    return this.setTools(Ingredient.fromTag(tag));
+  }
 
   /**
    * Adds an input to the recipe
@@ -170,6 +183,9 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
         array.add(ingredient.serialize());
       }
       json.add("inputs", array);
+      if (tools != Ingredient.EMPTY) {
+        json.add("tools", tools.serialize());
+      }
       if (requirements != ModifierMatch.ALWAYS) {
         JsonObject reqJson = requirements.serialize();
         reqJson.addProperty("error", requirementsError);

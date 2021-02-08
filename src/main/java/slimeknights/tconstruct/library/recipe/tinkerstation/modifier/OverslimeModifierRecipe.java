@@ -12,12 +12,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
@@ -38,7 +38,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe {
 
   @Override
   public boolean matches(ITinkerStationInventory inv, World world) {
-    if (!(inv.getTinkerableStack().getItem() instanceof IModifiable)) {
+    if (!TinkerTags.Items.MODIFIABLE.contains(inv.getTinkerableStack().getItem())) {
       return false;
     }
     // must find at least one slime, but multiple is fine, as is empty slots

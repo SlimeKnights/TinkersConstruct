@@ -36,6 +36,7 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
@@ -44,7 +45,7 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
 import slimeknights.tconstruct.plugin.jei.entitymelting.DefaultEntityMeltingRecipe;
@@ -179,7 +180,7 @@ public class JEIPlugin implements IModPlugin {
     ISubtypeInterpreter toolInterpreter = itemStack -> {
       StringBuilder builder = new StringBuilder();
 
-      List<IMaterial> materialList = ToolStack.from(itemStack).getMaterialsList();
+      List<MaterialId> materialList = MaterialIdNBT.from(itemStack).getMaterials();
       if (!materialList.isEmpty()) {
         for (int i = 0; i < materialList.size(); i++) {
           // looks nicer if there is no comma at the start

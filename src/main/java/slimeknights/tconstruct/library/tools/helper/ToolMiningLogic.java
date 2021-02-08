@@ -24,6 +24,7 @@ public final class ToolMiningLogic {
       return 1f;
     }
 
+    // TODO: general modifiable
     ToolCore toolCore = (ToolCore) stack.getItem();
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
