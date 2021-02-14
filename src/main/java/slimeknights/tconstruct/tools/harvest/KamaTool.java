@@ -16,22 +16,19 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.ToolType;
-import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.List;
 import java.util.Random;
 
-public class KamaTool extends ToolCore implements IAoeTool {
+public class KamaTool extends ToolCore {
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(Material.WOOD,
@@ -43,6 +40,11 @@ public class KamaTool extends ToolCore implements IAoeTool {
 
   public KamaTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
+  }
+
+  @Override
+  public AOEToolHarvestLogic getToolHarvestLogic() {
+    return AOEToolHarvestLogic.SMALL_TOOL;
   }
 
   @Override
@@ -114,17 +116,6 @@ public class KamaTool extends ToolCore implements IAoeTool {
     return false;
   }
 
-
-  @Override
-  protected boolean breakBlock(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
-    return !ToolDamageUtil.isBroken(itemstack) && ToolInteractionUtil.shearBlock(itemstack, player.getEntityWorld(), player, pos);
-  }
-
-  @Override
-  protected void breakExtraBlock(ItemStack tool, World world, PlayerEntity player, BlockPos pos, BlockPos refPos) {
-    AoeToolInteractionUtil.shearExtraBlock(tool, world, player, pos, refPos);
-  }
-
   @Override
   public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
     ItemStack itemStackIn = playerIn.getHeldItem(handIn);
@@ -156,6 +147,6 @@ public class KamaTool extends ToolCore implements IAoeTool {
 
   @Override
   public ActionResultType onItemUse(ItemUseContext context) {
-    return AoeToolInteractionUtil.tillBlocks(context, ToolType.HOE, SoundEvents.ITEM_HOE_TILL);
+    return getToolHarvestLogic().tillBlocks(context, ToolType.HOE, SoundEvents.ITEM_HOE_TILL);
   }
 }

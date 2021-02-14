@@ -30,11 +30,11 @@ public abstract class SwordCore extends ToolCore {
 
   @Override
   public float getDestroySpeed(ItemStack stack, BlockState state) {
+    float speed = super.getDestroySpeed(stack, state);
     if (state.getBlock() == Blocks.COBWEB) {
-      return super.getDestroySpeed(stack, state) * 7.5f;
+      speed *= 7.5f;
     }
-
-    return super.getDestroySpeed(stack, state);
+    return speed;
   }
 
   @Override

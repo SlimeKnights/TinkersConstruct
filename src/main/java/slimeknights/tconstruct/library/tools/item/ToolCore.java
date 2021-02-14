@@ -18,7 +18,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -40,15 +39,14 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
-import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolMiningLogic;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
@@ -70,7 +68,8 @@ import java.util.function.Consumer;
  * This class handles how all the data for items made out of different
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
-public abstract class ToolCore extends Item implements IRepairable, ITinkerStationDisplay, IModifiableWeapon {
+public abstract class ToolCore extends Item implements IRepairable, ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
+
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
@@ -86,21 +85,13 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
   /** Tool definition for the given tool */
   @Getter
   private final ToolDefinition toolDefinition;
-  /** Mining logic for the given tool */
-  @Getter
-  private final ToolMiningLogic toolMiningLogic;
 
   /** Cached tool for rendering on UIs */
   private ItemStack toolForRendering;
 
-  public ToolCore(Properties properties, ToolDefinition toolDefinition) {
-    this(properties.maxStackSize(1).setNoRepair(), toolDefinition, new ToolMiningLogic());
-  }
-
-  protected ToolCore(Properties properties, ToolDefinition toolDefinition, ToolMiningLogic toolMiningLogic) {
+  protected ToolCore(Properties properties, ToolDefinition toolDefinition) {
     super(properties);
     this.toolDefinition = toolDefinition;
-    this.toolMiningLogic = toolMiningLogic;
   }
 
   @Override
@@ -108,7 +99,17 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
     // we use enchantments to handle some modifiers, don't glow from them
     return false;
   }
-  
+
+  @Override
+  public int getItemStackLimit(ItemStack stack) {
+    return 1;
+  }
+
+  @Override
+  public boolean isRepairable(ItemStack stack) {
+    return false;
+  }
+
 
   /* Item Entity -> INDESTRUCTIBLE */
 
@@ -236,26 +237,6 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
     return -1;
   }
 
-  /**
-   * Handles damaging the tool and applying the traits
-   * Called by onBlockDestroyed
-   *
-   * @param tool  The parsed tool instance
-   * @param stack the tool stack, generally you should use tool instead for queries
-   * @param world the current world
-   * @param state the block state at the given position
-   * @param pos the block pos affected
-   * @param livingEntity the entity
-   * @param damage the damage to apply to the tool
-   * @param wasEffective if the break was effective
-   */
-  public void afterBlockBreak(ToolStack tool, ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity livingEntity, int damage, boolean wasEffective) {
-    for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().afterBlockBreak(tool, entry.getLevel(), world, state, pos, livingEntity, wasEffective);
-    }
-    ToolDamageUtil.damageAnimated(tool, damage, livingEntity);
-  }
-
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
@@ -275,7 +256,10 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
       } else {
         damage = 2;
       }
-      this.afterBlockBreak(tool, stack, worldIn, state, pos, entityLiving, damage, effective);
+      for (ModifierEntry entry : tool.getModifierList()) {
+        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), worldIn, state, pos, entityLiving, effective);
+      }
+      ToolDamageUtil.damageAnimated(tool, damage, entityLiving);
     }
 
     return true;
@@ -292,11 +276,7 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
 
   @Override
   public float getDestroySpeed(ItemStack stack, BlockState state) {
-    if (this.canHarvestBlock(state) || ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, state)) {
-      return this.toolMiningLogic.calcDigSpeed(stack, state);
-    }
-
-    return super.getDestroySpeed(stack, state);
+    return this.getToolHarvestLogic().calcDigSpeed(stack, state);
   }
 
   @Override
@@ -375,12 +355,11 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
   /* World interaction */
 
   @Override
-  public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
-    if (!ToolDamageUtil.isBroken(itemstack) && this instanceof IAoeTool) {
-      for (BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(itemstack, player.getEntityWorld(), player, pos)) {
-        this.breakExtraBlock(itemstack, player.getEntityWorld(), player, extraPos, pos);
-      }
-    }
+  public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
+    return getToolHarvestLogic().handleBlockBreak(stack, pos, player);
+
+    // TODO: consider taking over PlayerInteractionManager#tryHarvestBlock and PlayerController#onPlayerDestroyBlock
+    // will grant better AOE control, https://github.com/mekanism/Mekanism/blob/1.16.x/src/main/java/mekanism/common/item/gear/ItemMekaTool.java#L238
 
     /*// this is a really dumb hack.
     // Basically when something with silktouch harvests a block from the offhand
@@ -396,33 +375,9 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
       off.setTag(tag);
     }*/
 
-    return this.breakBlock(itemstack, pos, player);
+    //return this.breakBlock(stack, pos, player);
   }
 
-  /**
-   * Called to break the base block, return false to perform no breaking
-   * @param itemstack Tool ItemStack
-   * @param pos       Current position
-   * @param player    Player instance
-   * @return true if the normal block break code should be skipped
-   */
-  // todo: find a better way to solve this and breakExtraBlock?
-  protected boolean breakBlock(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
-    return super.onBlockStartBreak(itemstack, pos, player);
-  }
-
-  /**
-   * Called when an AOE block is broken by the tool. Use to override the block breaking logic
-   *
-   * @param tool   Tool ItemStack
-   * @param world  World instance
-   * @param player Player instance
-   * @param pos    Current position
-   * @param refPos Base position
-   */
-  protected void breakExtraBlock(ItemStack tool, World world, PlayerEntity player, BlockPos pos, BlockPos refPos) {
-    AoeToolInteractionUtil.breakExtraBlock(tool, world, player, pos, refPos);
-  }
 
   /* Modifier interactions */
 

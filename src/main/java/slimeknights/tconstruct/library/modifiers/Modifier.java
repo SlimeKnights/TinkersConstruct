@@ -25,6 +25,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -216,15 +217,6 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void addToolStats(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {}
 
   /**
-   * Adds enchantments from this modifier's effect. Used when an enchantment must be used for compatibility in vanilla, in general try to use a different hook.
-   * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
-   * @param volatileData    Modifier NBT calculated from modifiers in {@link #addVolatileData(IModDataReadOnly, int, ModDataNBT)}
-   * @param level           Modifier level
-   * @param consumer  Consumer accepting any enchantments
-   */
-  public void addEnchantments(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, BiConsumer<Enchantment, Integer> consumer) {}
-
-  /**
    * Adds attributes from this modifier's effect. Called whenever the item stack refreshes capabilities.
    * <br>
    * Alternatives:
@@ -304,26 +296,15 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
 
   /**
-   * Called before a block is broken. Can be used to modify block XP or as a last chance to prevent block breaking.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed)}: Make the block break slower instead of outright canceling it.</li>
-   *   <li>{@link #afterBlockBreak(IModifierToolStack, int, World, BlockState, BlockPos, LivingEntity, boolean)}: Fired after we know the block broke successfully, to perform extra effects.</li>
-   * </ul>
-   * @param tool   Tool used
-   * @param level  Modifier level
-   * @param event  Break event
+   * Adds harvest related enchantments from this modifier's effect. Needed to add enchantments for silk touch and fortune. Can add conditionally if needed
+   * @param tool      Tool used
+   * @param level     Modifier level
+   * @param consumer  Consumer accepting any enchantments
    */
-  public void beforeBlockBreak(IModifierToolStack tool, int level, BreakEvent event) {}
+  public void addHarvestEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment, Integer> consumer) {}
 
   /**
-   * Called after a block is broken
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #beforeBlockBreak(IModifierToolStack, int, BreakEvent)}: Can be used to prevent block breaking.</li>
-   * </ul>
+   * Called after a block is broken to apply special effects
    * @param tool          Tool used
    * @param level         Modifier level
    * @param world         World instance
@@ -480,5 +461,23 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     }
 
     return hit;
+  }
+
+  /**
+   * Gets the tool stack from the given entities mainhand. Useful for specialized event handling in modifiers
+   * @param living  Entity instance
+   * @return  Tool stack
+   */
+  @Nullable
+  public static ToolStack getHeldTool(@Nullable LivingEntity living) {
+    if (living == null) {
+      return null;
+    }
+    ItemStack stack = living.getHeldItemMainhand();
+    if (stack.isEmpty() || !stack.getItem().isIn(TinkerTags.Items.MODIFIABLE)) {
+      return null;
+    }
+    ToolStack tool = ToolStack.from(stack);
+    return tool.isBroken() ? null : ToolStack.from(stack);
   }
 }

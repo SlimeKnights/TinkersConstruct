@@ -1,24 +1,16 @@
 package slimeknights.tconstruct.tools.harvest;
 
-import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
-
-import javax.annotation.Nonnull;
+import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 
 public class ExcavatorTool extends ShovelTool {
-
   public ExcavatorTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 
   @Override
-  public ImmutableList<BlockPos> getAOEBlocks(@Nonnull ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
-    return AoeToolInteractionUtil.calculateAOEBlocks(stack, world, player, origin, 3, 3, 1);
+  public AOEToolHarvestLogic getToolHarvestLogic() {
+    return AOEToolHarvestLogic.LARGE_TOOL;
   }
 
   /*@Override

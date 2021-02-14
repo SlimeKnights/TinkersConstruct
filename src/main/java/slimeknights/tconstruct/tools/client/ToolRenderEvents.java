@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.client;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.vertex.MatrixApplyingVertexBuilder;
@@ -26,7 +25,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.tinkering.IAoeTool;
+import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 
 import java.util.List;
 
@@ -41,42 +40,41 @@ public class ToolRenderEvents {
   @SubscribeEvent
   static void renderBlockHighlights(DrawHighlightEvent.HighlightBlock event) {
     PlayerEntity player = Minecraft.getInstance().player;
-
     if (player == null) {
       return;
     }
-
-    World world = player.world;
-
     ItemStack tool = player.getHeldItemMainhand();
+    if (tool.isEmpty()) {
+      return;
+    }
 
     // AOE preview
-    if (!tool.isEmpty()) {
-      if (tool.getItem() instanceof IAoeTool) {
-        ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
-        Iterable<BlockPos> extraBlocks = ((IAoeTool) tool.getItem()).getAOEBlocks(tool, world, player, event.getTarget().getPos());
-
-        WorldRenderer worldRender = event.getContext();
-        MatrixStack matrix = event.getMatrix();
-        IVertexBuilder vertexBuilder = worldRender.renderTypeTextures.getBufferSource().getBuffer(RenderType.getLines());
-        Entity viewEntity = renderInfo.getRenderViewEntity();
-
-
-        Vector3d vector3d = renderInfo.getProjectedView();
-        double d0 = vector3d.getX();
-        double d1 = vector3d.getY();
-        double d2 = vector3d.getZ();
-
-        matrix.push();
-
-        for (BlockPos pos : extraBlocks) {
-          if (world.getWorldBorder().contains(pos)) {
-            worldRender.drawSelectionBox(matrix, vertexBuilder, viewEntity, d0, d1, d2, pos, world.getBlockState(pos));
-          }
-        }
-
-        matrix.pop();
+    if (tool.getItem() instanceof IModifiableHarvest) {
+      World world = player.world;
+      List<BlockPos> extraBlocks = ((IModifiableHarvest) tool.getItem()).getToolHarvestLogic().getAOEBlocks(tool, world, player, event.getTarget().getPos());
+      if (extraBlocks.isEmpty()) {
+        return;
       }
+
+      WorldRenderer worldRender = event.getContext();
+      MatrixStack matrix = event.getMatrix();
+      IVertexBuilder vertexBuilder = worldRender.renderTypeTextures.getBufferSource().getBuffer(RenderType.getLines());
+
+      ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
+      Entity viewEntity = renderInfo.getRenderViewEntity();
+      Vector3d vector3d = renderInfo.getProjectedView();
+
+      double x = vector3d.getX();
+      double y = vector3d.getY();
+      double z = vector3d.getZ();
+
+      matrix.push();
+      for (BlockPos pos : extraBlocks) {
+        if (world.getWorldBorder().contains(pos)) {
+          worldRender.drawSelectionBox(matrix, vertexBuilder, viewEntity, x, y, z, pos, world.getBlockState(pos));
+        }
+      }
+      matrix.pop();
     }
   }
 
@@ -87,40 +85,31 @@ public class ToolRenderEvents {
    */
   @SubscribeEvent
   static void renderBlockDamageProgress(RenderWorldLastEvent event) {
+    // validate required variables are set
     PlayerController controller = Minecraft.getInstance().playerController;
-
-    if (controller == null) {
+    if (controller == null || !controller.isHittingBlock) {
       return;
     }
-
     PlayerEntity player = Minecraft.getInstance().player;
-
-    if (player == null) {
+    if (player == null || Minecraft.getInstance().getRenderViewEntity() == null) {
+      return;
+    }
+    ItemStack tool = player.getHeldItemMainhand();
+    if (tool.isEmpty()) {
       return;
     }
 
-    ItemStack tool = player.getHeldItemMainhand();
-
-    if (!tool.isEmpty()) {
-      if (tool.getItem() instanceof IAoeTool) {
-        Entity renderEntity = Minecraft.getInstance().getRenderViewEntity();
-
-        if (renderEntity == null) {
-          return;
-        }
-
-        BlockRayTraceResult traceResult = RayTracer.retrace(player, RayTraceContext.FluidMode.NONE);
-
-        if (traceResult.getType() != RayTraceResult.Type.BLOCK) {
-          return;
-        }
-
-        Iterable<BlockPos> extraBlocks = ((IAoeTool) tool.getItem()).getAOEBlocks(tool, player.world, player, traceResult.getPos());
-
-        if (controller.isHittingBlock) {
-          drawBlockDamageTexture(event.getContext(), event.getMatrixStack(), Minecraft.getInstance().gameRenderer.getActiveRenderInfo(), player.getEntityWorld(), extraBlocks);
-        }
+    if (tool.getItem() instanceof IModifiableHarvest) {
+      BlockRayTraceResult traceResult = RayTracer.retrace(player, RayTraceContext.FluidMode.NONE);
+      if (traceResult.getType() != RayTraceResult.Type.BLOCK) {
+        return;
       }
+
+      List<BlockPos> extraBlocks = ((IModifiableHarvest) tool.getItem()).getToolHarvestLogic().getAOEBlocks(tool, player.world, player, traceResult.getPos());
+      if (extraBlocks.isEmpty()) {
+        return;
+      }
+      drawBlockDamageTexture(event.getContext(), event.getMatrixStack(), Minecraft.getInstance().gameRenderer.getActiveRenderInfo(), player.getEntityWorld(), extraBlocks);
     }
   }
 
