@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.item;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 
 public abstract class SwordCore extends ToolCore {
 

@@ -5,8 +5,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.PickaxeItem;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 
 public class PickaxeTool extends ToolCore implements IAoeTool {
 

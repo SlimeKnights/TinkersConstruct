@@ -6,7 +6,7 @@ import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
-import slimeknights.tconstruct.library.tools.SwordCore;
+import slimeknights.tconstruct.library.tools.item.SwordCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 

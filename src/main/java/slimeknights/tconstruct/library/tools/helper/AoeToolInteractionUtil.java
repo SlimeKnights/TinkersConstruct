@@ -33,9 +33,9 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.ForgeEventFactory;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.library.tinkering.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent;
+import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 
 public class AoeToolInteractionUtil {
 

@@ -9,9 +9,9 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 
 public class ShovelTool extends ToolCore implements IAoeTool {
 

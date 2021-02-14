@@ -3,9 +3,7 @@ package slimeknights.tconstruct.library.tools.nbt;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,8 +19,8 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRequirementLookup;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 import javax.annotation.Nullable;
@@ -184,9 +182,7 @@ public class ToolStack implements IModifierToolStack {
     return tool;
   }
 
-  /**
-   * Creates an item stack from this tool stack
-   */
+  /** Creates an item stack from this tool stack */
   public ItemStack createStack() {
     ItemStack stack = new ItemStack(item, 1);
     stack.setTag(nbt);
@@ -219,6 +215,11 @@ public class ToolStack implements IModifierToolStack {
       broken = nbt.getBoolean(TAG_BROKEN);
     }
     return broken;
+  }
+
+  @Override
+  public boolean isUnbreakable() {
+    return nbt.getBoolean(TAG_UNBREAKABLE);
   }
 
   /**
@@ -291,72 +292,6 @@ public class ToolStack implements IModifierToolStack {
     this.damage = damage;
     nbt.putInt(TAG_DAMAGE, damage);
   }
-
-  @Override
-  public boolean damage(int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
-    if (amount <= 0 || isBroken() || nbt.getBoolean(TAG_UNBREAKABLE)) {
-      return false;
-    }
-
-    // try each modifier
-    for (ModifierEntry entry : getModifierList()) {
-      amount = entry.getModifier().onDamageTool(this, entry.getLevel(), amount);
-      // if no more damage, done
-      if (amount < 0) {
-        return false;
-      }
-    }
-
-    int durability = getStats().getDurability();
-    int damage = getDamage();
-    int current = durability - damage;
-    amount = Math.min(amount, current);
-    if (amount > 0) {
-      // criteria updates
-      int newDamage = damage + amount;
-      // TODO: needed?
-      if (entity instanceof ServerPlayerEntity) {
-        if (stack == null) {
-          stack = createStack();
-        }
-        CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((ServerPlayerEntity)entity, stack, newDamage);
-      }
-
-      setDamage(newDamage);
-      return newDamage >= durability;
-    }
-    return false;
-  }
-
-  /**
-   * Repairs the given tool stack
-   * @param amount  Amount to repair
-   */
-  public void repair(int amount) {
-    if (amount <= 0) {
-      return;
-    }
-
-    // if undamaged, nothing to do
-    int damage = getDamage();
-    if (damage == 0) {
-      return;
-    }
-
-    // try each modifier
-    for (ModifierEntry entry : getModifierList()) {
-      amount = entry.getModifier().onRepairTool(this, entry.getLevel(), amount);
-      // if no more damage, done
-      if (amount < 0) {
-        return;
-      }
-    }
-
-    // ensure we never repair more than max durability
-    int newDamage = damage - Math.min(amount, damage);
-    setDamage(newDamage);
-  }
-
 
   /* Stats */
 
