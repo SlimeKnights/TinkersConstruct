@@ -8,12 +8,11 @@ import net.minecraft.item.ShovelItem;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.ToolType;
-import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 
-public class ShovelTool extends ToolCore implements IAoeTool {
+public class ShovelTool extends ToolCore {
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(Material.ORGANIC,
@@ -29,12 +28,17 @@ public class ShovelTool extends ToolCore implements IAoeTool {
   }
 
   @Override
+  public AOEToolHarvestLogic getToolHarvestLogic() {
+    return AOEToolHarvestLogic.SMALL_TOOL;
+  }
+
+  @Override
   public boolean canHarvestBlock(BlockState state) {
     return EFFECTIVE_MATERIALS.contains(state.getMaterial()) || ShovelItem.EFFECTIVE_ON.contains(state.getBlock());
   }
 
   @Override
   public ActionResultType onItemUse(ItemUseContext context) {
-    return AoeToolInteractionUtil.tillBlocks(context, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN);
+    return getToolHarvestLogic().tillBlocks(context, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN);
   }
 }

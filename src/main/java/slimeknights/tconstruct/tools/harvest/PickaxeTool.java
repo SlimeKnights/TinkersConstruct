@@ -4,11 +4,12 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.PickaxeItem;
-import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 
-public class PickaxeTool extends ToolCore implements IAoeTool {
+public class PickaxeTool extends ToolCore {
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(net.minecraft.block.material.Material.IRON,
@@ -21,6 +22,11 @@ public class PickaxeTool extends ToolCore implements IAoeTool {
 
   public PickaxeTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
+  }
+
+  @Override
+  public ToolHarvestLogic getToolHarvestLogic() {
+    return AOEToolHarvestLogic.SMALL_TOOL;
   }
 
   @Override

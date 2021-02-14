@@ -3,13 +3,9 @@ package slimeknights.tconstruct.library.tools.nbt;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.Util;
@@ -24,12 +20,7 @@ import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.function.BiConsumer;
 
 /**
  * Class handling parsing all tool related NBT
@@ -53,8 +44,6 @@ public class ToolStack implements IModifierToolStack {
   // vanilla tags
   protected static final String TAG_DAMAGE = "Damage";
   public static final String TAG_UNBREAKABLE = "Unbreakable";
-  protected static final String TAG_ENCHANTMENTS = "Enchantments";
-  private static final String TAG_HIDE_FLAGS = "HideFlags";
   // modifier values
   private static final String TAG_ID = "id";
   private static final String TAG_LEVEL = "lvl";
@@ -510,22 +499,10 @@ public class ToolStack implements IModifierToolStack {
     if (modifierList.isEmpty()) {
       setStats(stats);
       // if no modifiers, clear out data that only exists with modifiers
-      nbt.remove(TAG_ENCHANTMENTS);
       nbt.remove(TAG_VOLATILE_MOD_DATA);
       volatileModData = IModDataReadOnly.EMPTY;
     } else {
       ModDataNBT volatileData = new ModDataNBT();
-      // consumer to add an enchantment
-      Map<Enchantment,Integer> enchantments = new HashMap<>();
-      BiConsumer<Enchantment,Integer> enchantmentConsumer = (ench, add) -> {
-        if (ench != null && add != null) {
-          Integer level = enchantments.get(ench);
-          if (level != null) {
-            add += level;
-          }
-          enchantments.put(ench, add);
-        }
-      };
 
       // store original durability in volatile data, allows mods to scale based on original durability and "overclock" based on mods
       // also used for overslime cap base
@@ -543,38 +520,11 @@ public class ToolStack implements IModifierToolStack {
         Modifier mod = entry.getModifier();
         int level = entry.getLevel();
         mod.addToolStats(persistentData, volatileData, level, statBuilder);
-        mod.addEnchantments(persistentData, volatileData, level, enchantmentConsumer);
       }
 
       // set into NBT
       setStats(statBuilder.build(stats));
       setVolatileModData(volatileData);
-      setEnchantments(enchantments);
-    }
-  }
-
-  /**
-   * Sets the list of enchantments onto the tool NBT
-   * @param enchantments  Enchantments list
-   */
-  protected void setEnchantments(Map<Enchantment,Integer> enchantments) {
-    ListNBT list = new ListNBT();
-    for(Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
-      Enchantment enchantment = entry.getKey();
-      if (enchantment != null) {
-        int i = entry.getValue();
-        CompoundNBT tag = new CompoundNBT();
-        tag.putString(TAG_ID, Objects.requireNonNull(enchantment.getRegistryName()).toString());
-        tag.putShort(TAG_LEVEL, (short)i);
-        list.add(tag);
-      }
-    }
-    if (list.isEmpty()) {
-      nbt.remove(TAG_ENCHANTMENTS);
-      nbt.remove(TAG_HIDE_FLAGS);
-    } else {
-      nbt.put(TAG_ENCHANTMENTS, list);
-      nbt.putInt(TAG_HIDE_FLAGS, TooltipDisplayFlags.ENCHANTMENTS.func_242397_a());
     }
   }
 }

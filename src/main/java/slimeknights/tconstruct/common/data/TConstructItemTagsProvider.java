@@ -131,6 +131,9 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.MELEE)
         .addTag(TinkerTags.Items.HARVEST)
         .addTag(TinkerTags.Items.AOE);
+
+    // kamas are a shear type, when broken we don't pass it to loot tables
+    this.getOrCreateBuilder(Tags.Items.SHEARS).add(TinkerTools.kama.get());
   }
 
   private void addSmeltery() {

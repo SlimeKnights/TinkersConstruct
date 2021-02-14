@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import com.google.common.collect.ImmutableMap;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -405,15 +402,6 @@ class ToolStackTest extends ToolCoreTest {
   /* Rebuild */
 
   @Test
-  void setEnchantments() {
-    ToolStack toolStack = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinition.EMPTY, new CompoundNBT());
-    toolStack.setEnchantments(ImmutableMap.of(Enchantments.KNOCKBACK, 2));
-
-    ItemStack stack = toolStack.createStack();
-    assertThat(EnchantmentHelper.getEnchantmentLevel(Enchantments.KNOCKBACK, stack)).isEqualTo(2);
-  }
-
-  @Test
   void setMaterials_refreshesData() {
     ToolStack toolStack = ToolStack.from(tool, tool.getToolDefinition(), new CompoundNBT());
     assertThat(toolStack.getStats()).isEqualTo(StatsNBT.EMPTY);
@@ -429,7 +417,6 @@ class ToolStackTest extends ToolCoreTest {
     // need materials for rebuild
     toolStack.setMaterialsRaw(new MaterialNBT(Arrays.asList(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA)));
     // set some data that will get cleared out
-    toolStack.setEnchantments(ImmutableMap.of(Enchantments.KNOCKBACK, 2));
     ModDataNBT volatileData = new ModDataNBT();
     volatileData.setUpgrades(4);
     toolStack.setVolatileModData(volatileData);
@@ -437,7 +424,6 @@ class ToolStackTest extends ToolCoreTest {
 
     toolStack.addModifier(ModifierFixture.TEST_MODIFIER_1, 2);
     assertThat(toolStack.getVolatileData()).isNotEqualTo(volatileData);
-    assertThat(toolStack.getNbt().contains(ToolStack.TAG_ENCHANTMENTS)).isFalse();
     assertThat(toolStack.getModifiers().getLevel(ModifierFixture.TEST_MODIFIER_1)).isEqualTo(2);
   }
 }

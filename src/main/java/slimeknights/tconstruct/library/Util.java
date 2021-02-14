@@ -245,6 +245,18 @@ public class Util {
   }
 
   /**
+   * Gets the sign of a number
+   * @param value  Number
+   * @return  Sign
+   */
+  public static int sign(int value) {
+    if (value == 0) {
+      return 0;
+    }
+    return value > 0 ? 1 : -1;
+  }
+
+  /**
    * Simplified clone {@link java.awt.Color#HSBtoRGB(float, float, float)} to prevent issue with missing package and remove unused parameters
    * @param hue  Hue
    * @return Color from hue

@@ -17,15 +17,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants;
-import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class AxeTool extends ToolCore implements IAoeTool {
+public class AxeTool extends ToolCore {
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(Material.WOOD,
@@ -37,6 +38,11 @@ public class AxeTool extends ToolCore implements IAoeTool {
 
   public AxeTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
+  }
+
+  @Override
+  public ToolHarvestLogic getToolHarvestLogic() {
+    return AOEToolHarvestLogic.SMALL_TOOL;
   }
 
   @Override
@@ -76,15 +82,6 @@ public class AxeTool extends ToolCore implements IAoeTool {
     context.getItem().damageItem(1, player, (onBroken) -> onBroken.sendBreakAnimation(context.getHand()));
 
     return ActionResultType.SUCCESS;
-  }
-
-  @Override
-  public float getDestroySpeed(ItemStack stack, BlockState state) {
-    if (state.getMaterial() == Material.LEAVES) {
-      return this.getToolMiningLogic().calcDigSpeed(stack, state);
-    }
-
-    return super.getDestroySpeed(stack, state);
   }
 
   @Override
