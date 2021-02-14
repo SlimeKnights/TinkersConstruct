@@ -173,7 +173,7 @@ class ToolStackTest extends ToolCoreTest {
   void damage_damageTool() {
     ToolStack tool = ToolStack.from(testItemStack);
     int oldDamage = tool.getDamage();
-    tool.damage(100, null, null);
+    ToolDamageUtil.damage(tool, 100, null, null);
     assertThat(tool.getDamage()).isEqualTo(oldDamage + 100);
   }
 
@@ -182,7 +182,7 @@ class ToolStackTest extends ToolCoreTest {
     ToolStack tool = ToolStack.from(testItemStack);
     tool.setDamage(50);
     int oldDamage = tool.getDamage();
-    tool.repair(25);
+    ToolDamageUtil.repair(tool, 25);
     assertThat(tool.getDamage()).isEqualTo(oldDamage - 25);
   }
 

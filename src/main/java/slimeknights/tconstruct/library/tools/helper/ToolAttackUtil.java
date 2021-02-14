@@ -21,8 +21,9 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.IModifiableWeapon;
+import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
@@ -313,7 +314,13 @@ public class ToolAttackUtil {
     }
 
     // damage the tool
-    weapon.damageWeapon(tool, stack, attackerLiving, durabilityLost);
+    if (attackerPlayer == null || !attackerPlayer.isCreative()) {
+      if (!TinkerTags.Items.COMBAT.contains(tool.getItem())) {
+        durabilityLost *= 2;
+      }
+      ToolDamageUtil.damageAnimated(tool, durabilityLost, attackerLiving);
+    }
+
     return true;
   }
 

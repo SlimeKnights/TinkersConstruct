@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -156,7 +156,7 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
     // We basically emulate Itemstack.damageItem here. We always return 0 to skip the handling in ItemStack.
     // If we don't tools ignore our damage logic
-    if (ToolStack.from(stack).damage(amount, damager, stack)) {
+    if (ToolDamageUtil.damage(ToolStack.from(stack), amount, damager, stack)) {
       onBroken.accept(damager);
     }
 
@@ -253,9 +253,7 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
     for (ModifierEntry entry : tool.getModifierList()) {
       entry.getModifier().afterBlockBreak(tool, entry.getLevel(), world, state, pos, livingEntity, wasEffective);
     }
-    if (tool.damage(damage, livingEntity, stack)) {
-      livingEntity.sendBreakAnimation(Hand.MAIN_HAND);
-    }
+    ToolDamageUtil.damageAnimated(tool, damage, livingEntity);
   }
 
   @Override
@@ -326,7 +324,7 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
 
   @Override
   public ItemStack repairItem(ItemStack repairable, int amount) {
-    ToolStack.from(repairable).repair(amount);
+    ToolDamageUtil.repair(ToolStack.from(repairable), amount);
     return repairable;
   }
 
@@ -352,14 +350,6 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
   @Override
   public float getDamageCutoff() {
     return getToolDefinition().getBaseStatDefinition().getDamageCutoff();
-  }
-
-  @Override
-  public void damageWeapon(ToolStack tool, ItemStack stack, LivingEntity living, int amount) {
-    if (!TinkerTags.Items.COMBAT.contains(tool.getItem())) {
-      amount *= 2;
-    }
-    IModifiableWeapon.super.damageWeapon(tool, stack, living, amount);
   }
 
   @Override

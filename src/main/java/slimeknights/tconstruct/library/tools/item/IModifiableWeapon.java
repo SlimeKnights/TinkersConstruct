@@ -1,11 +1,9 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 /**
@@ -30,19 +28,4 @@ public interface IModifiableWeapon {
    * @return  Damage cutoff
    */
   float getDamageCutoff();
-
-  /**
-   * Deals damage to the weapon
-   *
-   * @param tool    Tool instance
-   * @param stack   Item stack instance for the tool
-   * @param living  Attacker
-   * @param amount  Amount of damage to deal
-   */
-  default void damageWeapon(ToolStack tool, ItemStack stack, LivingEntity living, int amount) {
-    boolean isCreative = living instanceof PlayerEntity && ((PlayerEntity)living).isCreative();
-    if (!isCreative && tool.damage(amount, living, stack)) {
-      living.sendBreakAnimation(Hand.MAIN_HAND);
-    }
-  }
 }

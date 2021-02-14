@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.fixture;
 
 import net.minecraft.item.Item;
-import slimeknights.tconstruct.library.tools.ToolPartItem;
+import slimeknights.tconstruct.library.tools.item.ToolPartItem;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;

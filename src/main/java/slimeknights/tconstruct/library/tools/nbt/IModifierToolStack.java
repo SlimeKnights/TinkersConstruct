@@ -8,8 +8,8 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -36,17 +36,12 @@ public interface IModifierToolStack {
   /** Checks whether the tool is broken */
   boolean isBroken();
 
-  /**
-   * Damages the tool by the given amount
-   * @param amount  Amount to damage
-   * @param stack   Stack to use for criteria updates, if null creates a stack
-   * @param entity  Entity for criteria updates, if null no updates run
-   * @return true if the tool broke when damaging
-   */
-  boolean damage(int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack);
+  /** If true, tool is marked unbreakable by vanilla */
+  boolean isUnbreakable();
 
   /**
-   * Sets the tools current damage
+   * Sets the tools current damage.
+   * Note in general you should use {@link ToolDamageUtil#damage(IModifierToolStack, int, LivingEntity, ItemStack)} or {@link ToolDamageUtil#repair(IModifierToolStack, int)} as they handle modifiers
    * @param damage  New damage
    */
   void setDamage(int damage);

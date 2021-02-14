@@ -30,7 +30,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMat
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;

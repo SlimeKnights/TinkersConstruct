@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
@@ -20,11 +21,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class KamaTool extends ToolCore implements IAoeTool {
 
       ToolStack tool = ToolStack.from(stack);
       if (!tool.isBroken() && this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, fortune)) {
-        tool.damage(1, playerIn, stack);
+        ToolDamageUtil.damageAnimated(tool, 1, playerIn, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND);
         this.swingTool(playerIn, hand);
         return ActionResultType.SUCCESS;
       }
