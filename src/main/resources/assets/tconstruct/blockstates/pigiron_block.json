@@ -1,7 +1,8 @@
 {
-    "variants": {
-        "": {
-            "model": "tconstruct:block/pigiron_block"
-        }
-    }
+  "variants": {
+    "facing=north": { "model": "tconstruct:block/pigiron_block" },
+    "facing=south": { "model": "tconstruct:block/pigiron_block", "y": 180 },
+    "facing=west":  { "model": "tconstruct:block/pigiron_block", "y": 270 },
+    "facing=east":  { "model": "tconstruct:block/pigiron_block", "y": 90 }
+  }
 }
