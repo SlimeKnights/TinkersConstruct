@@ -2,7 +2,7 @@
   "craftable": false,
   "fluid": "tconstruct:molten_rose_gold",
   "fluidPerUnit": 144,
-  "textColor": "#FFDBCC",
+  "textColor": "#F7CDBB",
   "temperature": 550,
   "traits": [
     {

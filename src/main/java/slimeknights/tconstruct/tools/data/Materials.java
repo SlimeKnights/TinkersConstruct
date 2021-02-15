@@ -32,22 +32,22 @@ final class Materials {
   // tier 2
   public static final IMaterial iron        = mat(MaterialIds.iron, TinkerFluids.moltenIron, false, 0xcacaca, TinkerModifiers.reinforced);
   public static final IMaterial searedStone = mat(MaterialIds.searedStone, TinkerFluids.searedStone, false, 0x3f3f3f, TinkerModifiers.searing);
-  public static final IMaterial copper      = mat(MaterialIds.copper, TinkerFluids.moltenCopper, true, 0xed9f07, TinkerModifiers.dwarfish);
+  public static final IMaterial copper      = mat(MaterialIds.copper, TinkerFluids.moltenCopper, true, 0xfba165, TinkerModifiers.dwarfish);
   public static final IMaterial slimewood   = mat(MaterialIds.slimewood, 0x82c873, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
   // tier 3
   public static final IMaterial slimesteel    = mat(MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, false, 0x74c8c7, TinkerModifiers.overcast);
   public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl, false, 0x601cc4, TinkerModifiers.sharp);
   public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, TinkerFluids.moltenTinkersBronze, false, 0xf9cf72, TinkerModifiers.wellMaintained);
-  public static final IMaterial roseGold      = mat(MaterialIds.roseGold, TinkerFluids.moltenRoseGold, false, 0xffdbcc, TinkerModifiers.enhanced);
-  public static final IMaterial pigIron       = mat(MaterialIds.pigIron, TinkerFluids.moltenPigIron, false, 0xef9e9b, TinkerModifiers.tasty);
+  public static final IMaterial roseGold      = mat(MaterialIds.roseGold, TinkerFluids.moltenRoseGold, false, 0xf7cdbb, TinkerModifiers.enhanced);
+  public static final IMaterial pigIron       = mat(MaterialIds.pigIron, TinkerFluids.moltenPigIron, false, 0xf0a8a4, TinkerModifiers.tasty);
 
   // tier 2 (nether)
   //public static final IMaterial witherBone = mat(MaterialIds.witherBone, true, 0xede6bf);
   // tier 3 (nether)
-  public static final IMaterial cobalt = mat(MaterialIds.cobalt, TinkerFluids.moltenCobalt, false, 0x2882d4, TinkerModifiers.lightweight);
+  public static final IMaterial cobalt = mat(MaterialIds.cobalt, TinkerFluids.moltenCobalt, false, 0x2376dd, TinkerModifiers.lightweight);
   // tier 4
   public static final IMaterial queensSlime = mat(MaterialIds.queensSlime, TinkerFluids.moltenQueensSlime, false, 0x236c45, TinkerModifiers.overlord);
-  public static final IMaterial manyullyn   = mat(MaterialIds.manyullyn, TinkerFluids.moltenManyullyn, false, 0xa15cf8);
+  public static final IMaterial manyullyn   = mat(MaterialIds.manyullyn, TinkerFluids.moltenManyullyn, false, 0x9261cc);
   public static final IMaterial hepatizon   = mat(MaterialIds.hepatizon, TinkerFluids.moltenHepatizon, false, 0x60496b);
   public static final IMaterial soulsteel   = mat(MaterialIds.soulsteel, TinkerFluids.moltenSoulsteel, false, 0x6a5244);
 
