@@ -12,10 +12,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.ToolType;
@@ -29,6 +31,13 @@ import java.util.List;
 import java.util.Random;
 
 public class KamaTool extends ToolCore {
+  /** Tool harvest logic to damage when breaking instant break blocks */
+  public static final AOEToolHarvestLogic HARVEST_LOGIC = new AOEToolHarvestLogic(1, 1, 1) {
+    @Override
+    public int getDamage(ToolStack tool, ItemStack stack, World world, BlockPos pos, BlockState state) {
+      return state.isIn(BlockTags.FIRE) ? 0 : 1;
+    }
+  };
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(Material.WOOD,
@@ -44,7 +53,7 @@ public class KamaTool extends ToolCore {
 
   @Override
   public AOEToolHarvestLogic getToolHarvestLogic() {
-    return AOEToolHarvestLogic.SMALL_TOOL;
+    return HARVEST_LOGIC;
   }
 
   @Override

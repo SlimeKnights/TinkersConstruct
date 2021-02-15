@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Constants.WorldEvents;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -36,6 +37,25 @@ public class ToolHarvestLogic {
 
   /** Default harvest logic object */
   public static final ToolHarvestLogic DEFAULT = new ToolHarvestLogic();
+
+  /** If true, tool takes damage when instant breaking effective blocks */
+  private final boolean instantBreakDamage = false;
+
+
+  /**
+   * Gets the amoubt of damage this tool should take for the given block state
+   * @param tool   Tool to check
+   * @param stack  Stack for getting tool types
+   * @param state  State to check
+   * @return  Damage to deal
+   */
+  public int getDamage(ToolStack tool, ItemStack stack, World world, BlockPos pos, BlockState state) {
+    if (state.getBlockHardness(world, pos) == 0) {
+      return 0;
+    }
+    // if it lacks the harvest tag, it takes double damage (swords for instance)
+    return tool.getItem().isIn(TinkerTags.Items.HARVEST) ? 1 : 2;
+  }
 
   /**
    * Calculates the dig speed for the given blockstate
@@ -138,13 +158,7 @@ public class ToolHarvestLogic {
     boolean canHarvest = state.canHarvestBlock(world, pos, player);
 
     // determine damage to do
-    int damage = 0;
-    // if we are effective, 1 damage. Mainly for plants that instant break, damages the kama/shears
-    if (isEffective(tool, stack, state)) {
-      damage = 1;
-    } else if (state.getBlockHardness(world, pos) > 0) {
-      damage = 2;
-    }
+    int damage = getDamage(tool, stack, world, pos, state);
 
     // block harvest callbacks
     boolean removed = removeBlock(player, world, pos, canHarvest);
