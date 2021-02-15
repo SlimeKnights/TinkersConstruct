@@ -47,6 +47,7 @@ import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
@@ -245,21 +246,11 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
     }
 
     if (!worldIn.isRemote) {
-      boolean effective = this.canHarvestBlock(state)
-                          || stack.getItem().getToolTypes(stack).stream().anyMatch(toolType -> state.getBlock().isToolEffective(state, toolType));
-      // determine tool damage based on block
-      int damage;
-      if (state.getBlockHardness(worldIn, pos) == 0.0F) {
-        damage = 0;
-      } else if (effective) {
-        damage = 1;
-      } else {
-        damage = 2;
-      }
+      boolean isEffective = ToolHarvestLogic.isEffective(tool, stack, state);
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), worldIn, state, pos, entityLiving, effective);
+        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), worldIn, state, pos, entityLiving, isEffective);
       }
-      ToolDamageUtil.damageAnimated(tool, damage, entityLiving);
+      ToolDamageUtil.damageAnimated(tool, getToolHarvestLogic().getDamage(tool, stack, worldIn, pos, state), entityLiving);
     }
 
     return true;
