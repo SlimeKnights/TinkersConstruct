@@ -2,6 +2,6 @@
   "craftable": false,
   "fluid": "tconstruct:molten_manyullyn",
   "fluidPerUnit": 144,
-  "textColor": "#A15CF8",
+  "textColor": "#9261CC",
   "temperature": 1200
 }

@@ -2,7 +2,7 @@
   "craftable": false,
   "fluid": "tconstruct:molten_cobalt",
   "fluidPerUnit": 144,
-  "textColor": "#2882D4",
+  "textColor": "#2376DD",
   "temperature": 950,
   "traits": [
     {

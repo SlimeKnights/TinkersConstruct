@@ -2,7 +2,7 @@
   "craftable": true,
   "fluid": "tconstruct:molten_copper",
   "fluidPerUnit": 144,
-  "textColor": "#ED9F07",
+  "textColor": "#FBA165",
   "temperature": 500,
   "traits": [
     {
