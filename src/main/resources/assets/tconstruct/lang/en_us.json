@@ -992,6 +992,8 @@
     "modifier.tconstruct.experienced.description": "§oFast Learner!§r\nGain bonus XP from killing mobs and mining blocks",
 
     "__comment": "Tier 2 Upgrades",
+    "modifier.tconstruct.magnetic": "Magnetic",
+    "modifier.tconstruct.magnetic.description": "§oHow do they work?!§r\nHitting things attracts nearby things?!",
     "modifier.tconstruct.emerald": "Emerald",
     "modifier.tconstruct.emerald.description": "§oFancy!§r\nIncreases durability depending on base stats!",
 
