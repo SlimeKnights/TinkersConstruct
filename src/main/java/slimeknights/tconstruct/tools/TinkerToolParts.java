@@ -30,7 +30,6 @@ public final class TinkerToolParts extends TinkerModule {
 
   public static final ItemObject<ToolPartItem> pickaxeHead = ITEMS.register("pickaxe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> hammerHead = ITEMS.register("hammer_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
-  public static final ItemObject<ToolPartItem> shovelHead = ITEMS.register("shovel_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> excavatorHead = ITEMS.register("excavator_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> axeHead = ITEMS.register("axe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> kamaHead = ITEMS.register("kama_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));

@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:part_builder",
-  "pattern": "tconstruct:shovel_head",
-  "cost": 2,
-  "result": {
-    "item": "tconstruct:shovel_head"
-  }
-}

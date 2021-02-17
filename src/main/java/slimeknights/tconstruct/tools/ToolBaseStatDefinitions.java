@@ -12,7 +12,7 @@ public final class ToolBaseStatDefinitions {
     .setDamageBonus(1f).setDamageModifier(1.25f).setAttackSpeed(0.8f).setMiningSpeedModifier(0.4f).setDurabilityModifier(2.5f).build();
 
   // shovels
-  static final ToolBaseStatDefinition SHOVEL = new ToolBaseStatDefinition.Builder().setDamageBonus(1.5f).setAttackSpeed(1f).build();
+  static final ToolBaseStatDefinition MATTOCK = new ToolBaseStatDefinition.Builder().setDamageBonus(1f).setAttackSpeed(1f).build();
   static final ToolBaseStatDefinition EXCAVATOR = new ToolBaseStatDefinition.Builder()
     .setDamageBonus(1.5f).setDamageModifier(1.1f).setAttackSpeed(0.7f).setMiningSpeedModifier(0.28f).setDurabilityModifier(1.75f).build();
 

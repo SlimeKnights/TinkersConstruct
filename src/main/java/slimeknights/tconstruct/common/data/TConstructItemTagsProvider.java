@@ -105,18 +105,18 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     // required for part swapping and a few other things
     this.getOrCreateBuilder(TinkerTags.Items.MULTIPART_TOOL)
         .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
-             TinkerTools.shovel.get(), TinkerTools.excavator.get(),
-             TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.broadSword.get());
+						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
+						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.broadSword.get());
     // mine blocks
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
         .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
-             TinkerTools.shovel.get(), TinkerTools.excavator.get(),
-             TinkerTools.axe.get(), TinkerTools.kama.get());
+						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
+						 TinkerTools.axe.get(), TinkerTools.kama.get());
     // support expanders
     this.getOrCreateBuilder(TinkerTags.Items.AOE)
         .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
-             TinkerTools.shovel.get(), TinkerTools.excavator.get(),
-             TinkerTools.axe.get(), TinkerTools.kama.get());
+						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
+						 TinkerTools.axe.get(), TinkerTools.kama.get());
     // support all weapon modifiers
     this.getOrCreateBuilder(TinkerTags.Items.COMBAT)
         .add(TinkerTools.hammer.get(), TinkerTools.axe.get(), TinkerTools.broadSword.get());
@@ -124,7 +124,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.MELEE)
         .addTag(TinkerTags.Items.COMBAT)
         .add(TinkerTools.pickaxe.get(), TinkerTools.kama.get(),
-             TinkerTools.shovel.get(), TinkerTools.excavator.get());
+						 TinkerTools.mattock.get(), TinkerTools.excavator.get());
     // supports modifiers
     this.getOrCreateBuilder(TinkerTags.Items.MODIFIABLE)
         .addTag(TinkerTags.Items.MULTIPART_TOOL)
@@ -157,7 +157,6 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.gemCast);
     // small heads
     addCast.accept(TinkerSmeltery.pickaxeHeadCast);
-    addCast.accept(TinkerSmeltery.shovelHeadCast);
     addCast.accept(TinkerSmeltery.axeHeadCast);
     addCast.accept(TinkerSmeltery.kamaHeadCast);
     addCast.accept(TinkerSmeltery.swordBladeCast);
