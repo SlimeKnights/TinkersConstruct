@@ -10,12 +10,13 @@ import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.tools.modifiers.traits.LaceratingModifier;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Potion effect from {@link slimeknights.tconstruct.tools.modifiers.traits.SharpModifier}
+ * Potion effect from {@link LaceratingModifier}
  */
 public class BleedingEffect extends TinkerEffect {
   private static final String SOURCE_KEY = Util.prefix("bleed");

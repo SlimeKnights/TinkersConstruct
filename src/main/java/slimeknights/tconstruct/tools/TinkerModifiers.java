@@ -17,18 +17,18 @@ import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
-import slimeknights.tconstruct.tools.modifiers.ExtraModifier;
-import slimeknights.tconstruct.tools.modifiers.LevelDamageModifier;
-import slimeknights.tconstruct.tools.modifiers.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.free.WorldboundModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.BonusDamageModifier;
+import slimeknights.tconstruct.tools.modifiers.shared.ExperiencedModifier;
+import slimeknights.tconstruct.tools.modifiers.shared.ExtraModifier;
+import slimeknights.tconstruct.tools.modifiers.shared.LevelDamageModifier;
+import slimeknights.tconstruct.tools.modifiers.shared.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DwarfishModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.ExperiencedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.LaceratingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.LightweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.MaintainedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.MaintainedModifier2;
@@ -36,9 +36,9 @@ import slimeknights.tconstruct.tools.modifiers.traits.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SearingModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.SharpModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TastyModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.TypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
@@ -81,6 +81,10 @@ public final class TinkerModifiers extends TinkerModule {
    */
   public static final RegistryObject<EmptyModifier> empty = MODIFIERS.register("empty", EmptyModifier::new);
 
+  // shared
+  public static final RegistryObject<ReinforcedModifier> reinforced = MODIFIERS.register("reinforced", ReinforcedModifier::new);
+  public static final RegistryObject<ExperiencedModifier> experienced = MODIFIERS.register("experienced", ExperiencedModifier::new);
+
   // upgrades - tier 2
   public static final RegistryObject<EmeraldModifier> emerald = MODIFIERS.register("emerald", EmeraldModifier::new);
 
@@ -104,13 +108,12 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<DamageSpeedTradeModifier> stonebound = MODIFIERS.register("stonebound", () -> new DamageSpeedTradeModifier(0x999999, -0.01f));
   public static final RegistryObject<LevelDamageModifier> fractured = MODIFIERS.register("fractured", () -> new LevelDamageModifier(0xede6bf, 1.5f));
   // traits - tier 2
-  public static final RegistryObject<ReinforcedModifier> reinforced = MODIFIERS.register("reinforced", ReinforcedModifier::new);
   public static final RegistryObject<SearingModifier> searing = MODIFIERS.register("searing", SearingModifier::new);
   public static final RegistryObject<DwarfishModifier> dwarfish = MODIFIERS.register("dwarfish", DwarfishModifier::new);
   public static final RegistryObject<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
   // traits - tier 3
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
-  public static final RegistryObject<SharpModifier> sharp = MODIFIERS.register("sharp", SharpModifier::new);
+  public static final RegistryObject<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
   public static final RegistryObject<MaintainedModifier> wellMaintained = MODIFIERS.register("maintained", MaintainedModifier::new);
   public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(0xffdbcc, false));
   public static final RegistryObject<TastyModifier> tasty = MODIFIERS.register("tasty", TastyModifier::new);
@@ -121,8 +124,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // traits - mod compat tier 2
   public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
-  public static final RegistryObject<BonusDamageModifier> smite = MODIFIERS.register("smite", () -> new BonusDamageModifier(0xd1ecf6, CreatureAttribute.UNDEAD));
-  public static final RegistryObject<ExperiencedModifier> experienced = MODIFIERS.register("experienced", ExperiencedModifier::new);
+  public static final RegistryObject<TypeDamageModifier> smite = MODIFIERS.register("smite", () -> new TypeDamageModifier(0xd1ecf6, CreatureAttribute.UNDEAD));
   // traits - mod compat tier 3
   public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
   public static final RegistryObject<MaintainedModifier2> wellMaintained2 = MODIFIERS.register("maintained_2", MaintainedModifier2::new);

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers;
+package slimeknights.tconstruct.tools.modifiers.shared;
 
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
