@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:experience_bottle",
+      "amount_needed": 5
+    }
+  ],
+  "result": {
+    "name": "tconstruct:experienced",
+    "level": 1
+  },
+  "max_level": 3,
+  "upgrade_slots": 1
+}

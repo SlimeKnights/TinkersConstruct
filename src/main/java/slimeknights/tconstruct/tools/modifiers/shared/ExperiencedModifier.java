@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.traits;
+package slimeknights.tconstruct.tools.modifiers.shared;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;

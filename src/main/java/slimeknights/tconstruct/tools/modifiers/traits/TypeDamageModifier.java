@@ -5,9 +5,9 @@ import net.minecraft.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
-public class BonusDamageModifier extends Modifier {
+public class TypeDamageModifier extends Modifier {
   private final CreatureAttribute type;
-  public BonusDamageModifier(int color, CreatureAttribute type) {
+  public TypeDamageModifier(int color, CreatureAttribute type) {
     super(color);
     this.type = type;
   }

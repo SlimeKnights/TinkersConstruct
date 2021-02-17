@@ -985,6 +985,12 @@
     "modifier.tconstruct.empty": "Invalid modifier",
     "modifier.tconstruct.empty.description": "§oMissing!§r\nFallback for when a modifier is missing.",
 
+    "__comment": "Shared",
+    "modifier.tconstruct.reinforced": "Reinforced",
+    "modifier.tconstruct.reinforced.description": "§oUnbreaking!§r\nTool is less likely to take damage",
+    "modifier.tconstruct.experienced": "Experience",
+    "modifier.tconstruct.experienced.description": "§oFast Learner!§r\nGain bonus XP from killing mobs and mining blocks",
+
     "__comment": "Tier 2 Upgrades",
     "modifier.tconstruct.emerald": "Emerald",
     "modifier.tconstruct.emerald.description": "§oFancy!§r\nIncreases durability depending on base stats!",
@@ -1023,8 +1029,6 @@
     "modifier.tconstruct.fractured.description": "§oBreak a Leg!§r\nTool is extra sharp due to the broken bits of bone",
 
     "__comment": "Tier 2 Traits",
-    "modifier.tconstruct.reinforced": "Reinforced",
-    "modifier.tconstruct.reinforced.description": "§oUnbreaking!§r\nTool is less likely to take damage",
     "modifier.tconstruct.searing": "Searing",
     "modifier.tconstruct.searing.description": "§oHarness the Smeltery!§r\nTool does bonus fire damage in hot areas, but less overall damage in cold ones",
     "modifier.tconstruct.dwarfish": "Dwarfish",
@@ -1038,8 +1042,8 @@
     "__comment": "Tier 3 Traits",
     "modifier.tconstruct.overcast": "Overcast",
     "modifier.tconstruct.overcast.description": "§oSpringy!§r\nDamage has a chance to bounce off overslime on tool",
-    "modifier.tconstruct.sharp": "Sharp",
-    "modifier.tconstruct.sharp.description": "§oLacerating!§r\nCauses the target to bleed, dealing additional damage",
+    "modifier.tconstruct.lacerating": "Lacerating",
+    "modifier.tconstruct.lacerating.description": "§oSharp Edges!§r\nCauses the target to bleed, dealing additional damage",
     "modifier.tconstruct.maintained": "Maintained",
     "modifier.tconstruct.maintained.description": "§oStays Sharp Longer!§r\nTool mines faster when at higher durability",
     "modifier.tconstruct.maintained.boost": " (+%s speed)",
@@ -1060,8 +1064,6 @@
     "modifier.tconstruct.heavy.description": "§oDense!§r\nHard to move while wielding, but it packs a heavy punch",
     "modifier.tconstruct.smite": "Smite",
     "modifier.tconstruct.smite.description": "§oDie, Foul Creature!§r\nLet the undead fall to the might of your blade",
-    "modifier.tconstruct.experienced": "Experience",
-    "modifier.tconstruct.experienced.description": "§oFast Learner!§r\nGain bonus XP from killing mobs and mining blocks",
 
     "__comment": "Tier 3 Mod Compat Traits",
     "modifier.tconstruct.sturdy": "Sturdy",

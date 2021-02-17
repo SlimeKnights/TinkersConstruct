@@ -143,8 +143,18 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(3)
                          .setUpgradeSlots(1)
                          .build(consumer, prefixR(TinkerModifiers.reinforced, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.experienced.get())
+                         .addInput(Items.EXPERIENCE_BOTTLE, 5)
+                         .setMaxLevel(3)
+                         .setUpgradeSlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.experienced, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic.get())
+                         .addInput(Items.COMPASS)
+                         .setMaxLevel(3)
+                         .setUpgradeSlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.magnetic, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.emerald.get())
-                         .addInput(Items.EMERALD)
+                         .addInput(Tags.Items.GEMS_EMERALD)
                          .setMaxLevel(1)
                          .setUpgradeSlots(1)
                          .build(consumer, prefixR(TinkerModifiers.emerald, upgradeFolder));
@@ -157,7 +167,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setToolTag(TinkerTags.Items.HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.silky, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.diamond.get())
-                         .addInput(Items.DIAMOND)
+                         .addInput(Tags.Items.GEMS_DIAMOND)
                          .setMaxLevel(1)
                          .setUpgradeSlots(1)
                          .build(consumer, prefixR(TinkerModifiers.diamond, upgradeFolder));

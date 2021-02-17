@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers;
+package slimeknights.tconstruct.tools.modifiers.shared;
 
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.Modifier;

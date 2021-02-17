@@ -36,7 +36,7 @@ final class Materials {
   public static final IMaterial slimewood   = mat(MaterialIds.slimewood, 0x82c873, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
   // tier 3
   public static final IMaterial slimesteel    = mat(MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, false, 0x74c8c7, TinkerModifiers.overcast);
-  public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl, false, 0x601cc4, TinkerModifiers.sharp);
+  public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl, false, 0x601cc4, TinkerModifiers.lacerating);
   public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, TinkerFluids.moltenTinkersBronze, false, 0xf9cf72, TinkerModifiers.wellMaintained);
   public static final IMaterial roseGold      = mat(MaterialIds.roseGold, TinkerFluids.moltenRoseGold, false, 0xf7cdbb, TinkerModifiers.enhanced);
   public static final IMaterial pigIron       = mat(MaterialIds.pigIron, TinkerFluids.moltenPigIron, false, 0xf0a8a4, TinkerModifiers.tasty);

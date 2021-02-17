@@ -5,8 +5,8 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-public class SharpModifier extends Modifier {
-  public SharpModifier() {
+public class LaceratingModifier extends Modifier {
+  public LaceratingModifier() {
     super(0x601cc4);
   }
 
