@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:compass"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:magnetic",
+    "level": 1
+  },
+  "max_level": 3,
+  "upgrade_slots": 1
+}
