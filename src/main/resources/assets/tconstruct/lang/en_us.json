@@ -258,7 +258,6 @@
     "_comment": "Small Head Gold Casts",
     
     "item.tconstruct.pickaxe_head_cast": "Pickaxe Head Gold Cast",
-    "item.tconstruct.shovel_head_cast": "Shovel Head Gold Cast",
     "item.tconstruct.axe_head_cast": "Axe Head Gold Cast",
     "item.tconstruct.kama_head_cast": "Kama Head Gold Cast",
     "item.tconstruct.sword_blade_cast": "Sword Blade Gold Cast",
@@ -298,7 +297,6 @@
     "_comment": "Small Head Sand Casts",
     
     "item.tconstruct.pickaxe_head_sand_cast": "Pickaxe Head Sand Cast",
-    "item.tconstruct.shovel_head_sand_cast": "Shovel Head Sand Cast",
     "item.tconstruct.axe_head_sand_cast": "Axe Head Sand Cast",
     "item.tconstruct.kama_head_sand_cast": "Kama Head Sand Cast",
     "item.tconstruct.sword_blade_sand_cast": "Sword Blade Sand Cast",
@@ -338,7 +336,6 @@
     "_comment": "Small Head Red Sand Casts",
     
     "item.tconstruct.pickaxe_head_red_sand_cast": "Pickaxe Head Red Sand Cast",
-    "item.tconstruct.shovel_head_red_sand_cast": "Shovel Head Red Sand Cast",
     "item.tconstruct.axe_head_red_sand_cast": "Axe Head Red Sand Cast",
     "item.tconstruct.kama_head_red_sand_cast": "Kama Head Red Sand Cast",
     "item.tconstruct.sword_blade_red_sand_cast": "Sword Blade Red Sand Cast",
@@ -709,9 +706,9 @@
     
     "item.tconstruct.pickaxe": "Pickaxe",
     "item.tconstruct.hammer": "Hammer",
-    "item.tconstruct.shovel": "Shovel",
+    "item.tconstruct.mattock": "Mattock",
     "item.tconstruct.excavator": "Excavator",
-    "item.tconstruct.axe": "Hatchet",
+    "item.tconstruct.axe": "Hand Axe",
     "item.tconstruct.kama": "Kama",
     "item.tconstruct.broad_sword": "Broadsword",
     
@@ -719,7 +716,6 @@
 
     "item.tconstruct.pickaxe_head": "Pickaxe Head",
     "item.tconstruct.hammer_head": "Hammer Head",
-    "item.tconstruct.shovel_head": "Shovel Head",
     "item.tconstruct.excavator_head": "Excavator Head",
     "item.tconstruct.axe_head": "Axe Head",
     "item.tconstruct.kama_head": "Kama Head",
@@ -734,9 +730,9 @@
 
     "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
     "item.tconstruct.hammer.description": "The Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.",
-    "item.tconstruct.shovel.description": "The Shovel digs up dirt. It is effective on dirt, sand, gravel and snow.\nJust don't dig your own grave!",
+    "item.tconstruct.mattock.description": "The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, sand, gravel, and plants.\nJust don't dig your own grave!",
     "item.tconstruct.excavator.description": "The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!",
-    "item.tconstruct.axe.description": "The Hatchet chops up wood and makes short work of leaves. It also makes for a passable weapon.\nChop chop!",
+    "item.tconstruct.axe.description": "The Hand Axe chops up wood and makes short work of leaves. It also makes for an effective weapon.\nChop chop!",
     "item.tconstruct.kama.description": "The Kama is a precision reaping tool, mowing down plants and shearing animals.\nRight Click: Harvest and replant crops",
     "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
 

@@ -26,9 +26,9 @@ public final class ToolDefinitions {
     ToolBaseStatDefinitions.HAMMER,
     requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughToolRod, TinkerToolParts.largePlate, TinkerToolParts.largePlate));
 
-  public static final ToolDefinition SHOVEL = new ToolDefinition(
-    ToolBaseStatDefinitions.SHOVEL,
-    requirements(TinkerToolParts.shovelHead, TinkerToolParts.toolRod, TinkerToolParts.smallBinding));
+  public static final ToolDefinition MATTOCK = new ToolDefinition(
+    ToolBaseStatDefinitions.MATTOCK,
+    requirements(TinkerToolParts.axeHead, TinkerToolParts.kamaHead, TinkerToolParts.toolRod));
 
   public static final ToolDefinition EXCAVATOR = new ToolDefinition(
     ToolBaseStatDefinitions.EXCAVATOR,

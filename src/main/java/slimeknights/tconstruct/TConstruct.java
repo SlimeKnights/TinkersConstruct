@@ -179,6 +179,12 @@ public class TConstruct {
       switch (name) {
         case "wide_guard": return TinkerToolParts.toolRod.get();
         case "wide_guard_cast": return TinkerSmeltery.toolRodCast.get();
+        // shovel -> mattock
+        case "shovel": return TinkerTools.mattock.get();
+        case "shovel_head": return TinkerToolParts.axeHead.get();
+        case "shovel_head_cast": return TinkerSmeltery.axeHeadCast.get();
+        case "shovel_head_sand_cast": return TinkerSmeltery.axeHeadCast.getSand();
+        case "shovel_head_red_sand_cast": return TinkerSmeltery.axeHeadCast.getRedSand();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
