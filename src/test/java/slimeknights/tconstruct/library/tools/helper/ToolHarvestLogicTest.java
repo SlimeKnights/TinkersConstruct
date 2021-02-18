@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolType;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
@@ -14,6 +15,9 @@ import slimeknights.tconstruct.library.tools.ToolCoreTest;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.tools.harvest.HarvestTool;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -63,7 +67,12 @@ class ToolHarvestLogicTest extends ToolCoreTest {
   }
 
   @Test
-  void calcSpeed_effective_withMiningModifier() {
+  void calcSpeed_effective_withMiningModifier() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    // need to initalize the tool types for blocks, so we show as effective
+    Method method = ForgeHooks.class.getDeclaredMethod("initTools");
+    method.setAccessible(true);
+    method.invoke(null);
+
     float modifier = 2f;
     ToolCore toolWithMiningModifier = new HarvestTool(
       new Item.Properties().addToolType(ToolType.PICKAXE, 1),
