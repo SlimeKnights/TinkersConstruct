@@ -17,6 +17,6 @@ public class TypeDamageModifier extends Modifier {
     if (targetLiving.getCreatureAttribute() == type) {
       damage += level * 2.5f;
     }
-    return damage + level * 2.5f;
+    return damage;
   }
 }
