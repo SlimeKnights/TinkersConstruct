@@ -200,6 +200,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.recapitated, upgradeFolder));
 
+    // creative
+    ModifierRecipeBuilder.modifier(TinkerModifiers.creativeUpgrade.get())
+                         .addInput(TinkerModifiers.creativeUpgradeItem)
+                         .build(consumer, prefixR(TinkerModifiers.creativeUpgrade, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.creativeAbility.get())
+                         .addInput(TinkerModifiers.creativeAbilityItem)
+                         .build(consumer, prefixR(TinkerModifiers.creativeAbility, upgradeFolder));
+
     // overslime
     OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.GREEN), 10)
                                   .build(consumer, location(upgradeFolder + "overslime/green"));

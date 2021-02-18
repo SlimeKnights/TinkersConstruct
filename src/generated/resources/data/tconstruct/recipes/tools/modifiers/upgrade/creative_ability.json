@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:creative_ability"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:creative_ability",
+    "level": 1
+  }
+}

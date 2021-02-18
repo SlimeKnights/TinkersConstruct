@@ -185,6 +185,7 @@ public class TConstruct {
         case "shovel_head_cast": return TinkerSmeltery.axeHeadCast.get();
         case "shovel_head_sand_cast": return TinkerSmeltery.axeHeadCast.getSand();
         case "shovel_head_red_sand_cast": return TinkerSmeltery.axeHeadCast.getRedSand();
+        case "creative_modifier": return TinkerModifiers.creativeUpgradeItem.get();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
