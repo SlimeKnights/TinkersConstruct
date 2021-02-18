@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:tools/modifiers/height_expander"
+      "tconstruct:tools/modifiers/magma_expander"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:slimeball/purple"
+            "tag": "forge:slimeball/magma"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:tools/modifiers/height_expander"
+        "recipe": "tconstruct:tools/modifiers/magma_expander"
       }
     }
   },

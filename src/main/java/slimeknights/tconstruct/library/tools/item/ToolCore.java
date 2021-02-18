@@ -47,7 +47,6 @@ import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
@@ -246,7 +245,7 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
     }
 
     if (!worldIn.isRemote) {
-      boolean isEffective = ToolHarvestLogic.isEffective(tool, stack, state);
+      boolean isEffective = getToolHarvestLogic().isEffective(tool, stack, state);
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().afterBlockBreak(tool, entry.getLevel(), worldIn, state, pos, entityLiving, isEffective);
       }
@@ -256,24 +255,16 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
     return true;
   }
 
-  /**
-   * Checks if the current tool is effective against the given blockstate
-   *
-   * @param state the blockstate
-   * @return true if effective or false if not
-   */
   @Override
-  public abstract boolean canHarvestBlock(BlockState state);
-
-  @Override
-  public float getDestroySpeed(ItemStack stack, BlockState state) {
-    return this.getToolHarvestLogic().calcDigSpeed(stack, state);
+  public final boolean canHarvestBlock(ItemStack stack, BlockState state) {
+    return this.getToolHarvestLogic().isEffective(ToolStack.from(stack), stack, state);
   }
 
   @Override
-  public boolean canHarvestBlock(ItemStack stack, BlockState state) {
-    return !ToolDamageUtil.isBroken(stack) && this.canHarvestBlock(state);
+  public final float getDestroySpeed(ItemStack stack, BlockState state) {
+    return this.getToolHarvestLogic().getDestroySpeed(stack, state);
   }
+
 
   /* Repairing */
 

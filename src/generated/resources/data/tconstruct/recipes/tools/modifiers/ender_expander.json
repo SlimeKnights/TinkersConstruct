@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " P ",
-    "LSL",
+    "SLS",
     " P "
   ],
   "key": {
@@ -10,13 +10,13 @@
       "item": "minecraft:piston"
     },
     "L": {
-      "tag": "forge:gems/lapis"
+      "tag": "forge:ingots/manyullyn"
     },
     "S": {
       "tag": "forge:slimeball/purple"
     }
   },
   "result": {
-    "item": "tconstruct:height_expander"
+    "item": "tconstruct:ender_expander"
   }
 }

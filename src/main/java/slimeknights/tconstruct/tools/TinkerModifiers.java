@@ -42,6 +42,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.TastyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ExpanderModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SilkyModifier;
@@ -67,8 +68,8 @@ public final class TinkerModifiers extends TinkerModule {
   /*
    * Items
    */
-  public static final ItemObject<Item> widthExpander = ITEMS.register("width_expander", GENERAL_PROPS);
-  public static final ItemObject<Item> heightExpander = ITEMS.register("height_expander", GENERAL_PROPS);
+  public static final ItemObject<Item> magmaExpander = ITEMS.register("magma_expander", TOOLTIP_ITEM);
+  public static final ItemObject<Item> enderExpander = ITEMS.register("ender_expander", TOOLTIP_ITEM);
   public static final ItemObject<Item> reinforcement = ITEMS.register("reinforcement", GENERAL_PROPS);
   public static final ItemObject<Item> silkyCloth = ITEMS.register("silky_cloth", GENERAL_PROPS);
   public static final ItemObject<Item> silkyJewel = ITEMS.register("silky_jewel", GENERAL_PROPS);
@@ -101,6 +102,7 @@ public final class TinkerModifiers extends TinkerModule {
   // upgrades - tier 4
   public static final RegistryObject<WorldboundModifier> worldbound = MODIFIERS.register("worldbound", () -> new WorldboundModifier(0x7E6059));
   public static final RegistryObject<NetheriteModifier> netherite = MODIFIERS.register("netherite", NetheriteModifier::new);
+  public static final RegistryObject<ExpanderModifier> expanded = MODIFIERS.register("expanded", ExpanderModifier::new);
 
   // slotless
   public static final RegistryObject<OverslimeModifier> overslime = MODIFIERS.register("overslime", OverslimeModifier::new);

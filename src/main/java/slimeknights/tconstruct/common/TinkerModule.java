@@ -20,6 +20,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.item.BlockTooltipItem;
+import slimeknights.mantle.item.TooltipItem;
 import slimeknights.mantle.registration.deferred.ContainerTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.EntityTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
@@ -35,6 +36,7 @@ import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Contains base helpers for all Tinker modules
@@ -69,6 +71,7 @@ public abstract class TinkerModule {
   protected static final Item.Properties GENERAL_PROPS = new Item.Properties().group(TAB_GENERAL);
   protected static final Function<Block,? extends BlockItem> GENERAL_BLOCK_ITEM = (b) -> new BlockItem(b, GENERAL_PROPS);
   protected static final Function<Block,? extends BlockItem> GENERAL_TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GENERAL_PROPS);
+  protected static final Supplier<Item> TOOLTIP_ITEM = () -> new TooltipItem(GENERAL_PROPS);
 
   /** Called during construction to initialize the registers for this mod */
   public static void initRegisters() {
