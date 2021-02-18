@@ -222,10 +222,10 @@
     "item.tconstruct.magma_slime_crystal.tooltip": "Used to overslime tools",
     "item.tconstruct.purple_slime_crystal": "Slime Crystal",
     "item.tconstruct.purple_slime_crystal.tooltip": "Used to overslime tools",
-    "item.tconstruct.width_expander": "Expander (Horizontal)",
-    "item.tconstruct.width_expander.tooltip": "Don't skip leg day!",
-    "item.tconstruct.height_expander": "Expander (Vertical)",
-    "item.tconstruct.height_expander.tooltip": "Do you even lift?",
+    "item.tconstruct.magma_expander": "Magma Expander",
+    "item.tconstruct.magma_expander.tooltip": "First of the expanders",
+    "item.tconstruct.ender_expander": "Ender Expander",
+    "item.tconstruct.ender_expander.tooltip": "Second of the expanders",
     "item.tconstruct.reinforcement": "Reinforcement",
     "item.tconstruct.reinforcement.tooltip": "Reinforced Modifier",
     "item.tconstruct.silky_cloth": "Silky Cloth",
@@ -1011,6 +1011,8 @@
     "modifier.tconstruct.worldbound.description": "§oAncient!§r\nA crude version of netherite, granting immunity to external damage like fire, but no additional strength.",
     "modifier.tconstruct.netherite": "Netherite",
     "modifier.tconstruct.netherite.description": "§oRefined!§r\nHarness the power of ancient metal, making the tool stronger and immune to external damage such as fire.",
+    "modifier.tconstruct.expanded": "Expanded",
+    "modifier.tconstruct.expanded.description": "§oDid not skip leg day!§r\nTool's area of effect is larger than before.",
 
     "__comment": "Free Modifiers",
     "modifier.tconstruct.overslime": "Overslime",
@@ -1165,6 +1167,7 @@
     "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
 
     "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
+    "recipe.tconstruct.modifier.ender_expander_requirements": "Must apply the magma expander first",
 
 
     "_comment": "GUIs Messages",

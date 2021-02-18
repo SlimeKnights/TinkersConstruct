@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeMo
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -86,24 +87,24 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(TinkerModifiers.reinforcement, folder));
 
     // expanders
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.heightExpander)
+    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.magmaExpander)
                        .key('P', Items.PISTON)
-                       .key('L', Tags.Items.GEMS_LAPIS)
+                       .key('L', TinkerMaterials.tinkersBronze.getIngotTag())
+                       .key('S', TinkerTags.Items.MAGMA_SLIMEBALL)
+                       .patternLine(" P ")
+                       .patternLine("SLS")
+                       .patternLine(" P ")
+                       .addCriterion("has_item", hasItem(TinkerTags.Items.MAGMA_SLIMEBALL))
+                       .build(consumer, prefix(TinkerModifiers.magmaExpander, folder));
+    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.enderExpander)
+                       .key('P', Items.PISTON)
+                       .key('L', TinkerMaterials.manyullyn.getIngotTag())
                        .key('S', TinkerTags.Items.PURPLE_SLIMEBALL)
                        .patternLine(" P ")
-                       .patternLine("LSL")
+                       .patternLine("SLS")
                        .patternLine(" P ")
                        .addCriterion("has_item", hasItem(TinkerTags.Items.PURPLE_SLIMEBALL))
-                       .build(consumer, prefix(TinkerModifiers.heightExpander, folder));
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.widthExpander)
-                       .key('P', Items.PISTON)
-                       .key('L', Tags.Items.GEMS_LAPIS)
-                       .key('S', TinkerTags.Items.PURPLE_SLIMEBALL)
-                       .patternLine(" L ")
-                       .patternLine("PSP")
-                       .patternLine(" L ")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.PURPLE_SLIMEBALL))
-                       .build(consumer, prefix(TinkerModifiers.widthExpander, folder));
+                       .build(consumer, prefix(TinkerModifiers.enderExpander, folder));
 
     // silky cloth
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyCloth)
@@ -184,6 +185,20 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setRequirements(ModifierMatch.list(1, ModifierMatch.entry(TinkerModifiers.diamond.get()), ModifierMatch.entry(TinkerModifiers.emerald.get())))
                          .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.netherite_requirements"))
                          .build(consumer, prefixR(TinkerModifiers.netherite, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
+                         .addInput(TinkerModifiers.magmaExpander)
+                         .setAbilitySlots(1)
+                         .setMaxLevel(1)
+                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_magma"));
+
+    // tier 5
+    ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
+                         .addInput(TinkerModifiers.enderExpander)
+                         .setRequirements(ModifierMatch.entry(TinkerModifiers.expanded.get(), 1))
+                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.ender_expander_requirements"))
+                         .setAbilitySlots(1)
+                         .setMaxLevel(2)
+                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ender"));
 
     // extra modifiers
     ModifierRecipeBuilder.modifier(TinkerModifiers.writable.get())

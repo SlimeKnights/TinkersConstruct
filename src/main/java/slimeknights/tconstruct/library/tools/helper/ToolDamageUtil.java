@@ -124,10 +124,12 @@ public class ToolDamageUtil {
    * @param entity  Entity for animation
    * @param slot    Slot containing the stack
    */
-  public static void damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, EquipmentSlotType slot) {
+  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, EquipmentSlotType slot) {
     if (damage(tool, amount, entity, entity.getItemStackFromSlot(slot))) {
       entity.sendBreakAnimation(slot);
+      return true;
     }
+    return false;
   }
 
   /**
@@ -136,8 +138,8 @@ public class ToolDamageUtil {
    * @param amount  Amount of damage
    * @param entity  Entity for animation
    */
-  public static void damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity) {
-    damageAnimated(tool, amount, entity, EquipmentSlotType.MAINHAND);
+  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity) {
+    return damageAnimated(tool, amount, entity, EquipmentSlotType.MAINHAND);
   }
 
   /**

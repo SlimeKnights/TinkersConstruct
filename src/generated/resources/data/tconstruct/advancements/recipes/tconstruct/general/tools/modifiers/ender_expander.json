@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:tools/modifiers/width_expander"
+      "tconstruct:tools/modifiers/ender_expander"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:tools/modifiers/width_expander"
+        "recipe": "tconstruct:tools/modifiers/ender_expander"
       }
     }
   },

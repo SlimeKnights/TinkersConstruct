@@ -38,9 +38,6 @@ public class ToolHarvestLogic {
   /** Default harvest logic object */
   public static final ToolHarvestLogic DEFAULT = new ToolHarvestLogic();
 
-  /** If true, tool takes damage when instant breaking effective blocks */
-  private final boolean instantBreakDamage = false;
-
 
   /**
    * Gets the amoubt of damage this tool should take for the given block state
@@ -58,13 +55,45 @@ public class ToolHarvestLogic {
   }
 
   /**
+   * Checks if this tool is effective against the given block
+   * @param tool    Tool to check
+   * @param stack   Tool stack
+   * @param state   Block state
+   * @return  True if effective
+   */
+  public boolean isEffectiveAgainst(ToolStack tool, ItemStack stack, BlockState state) {
+    return stack.getToolTypes().stream().anyMatch(state::isToolEffective);
+  }
+
+  /**
+   * Checks if the given tool is effective on the given state
+   * @param tool   Tool to check
+   * @param stack  Stack for getting tool types
+   * @param state  State to check
+   * @return  True if this tool is effective
+   */
+  public final boolean isEffective(ToolStack tool, ItemStack stack, BlockState state) {
+    if (tool.isBroken()) {
+      return false;
+    }
+
+    // harvest level too low -> not effective
+    if (state.getRequiresTool() && tool.getStats().getHarvestLevel() < state.getHarvestLevel()) {
+      return false;
+    }
+
+    // find a matching tool type
+    return isEffectiveAgainst(tool, stack, state);
+  }
+
+  /**
    * Calculates the dig speed for the given blockstate
    *
    * @param stack the tool stack
    * @param blockState the block state to check
    * @return the dig speed
    */
-  public float calcDigSpeed(ItemStack stack, BlockState blockState) {
+  public float getDestroySpeed(ItemStack stack, BlockState blockState) {
     if(!stack.hasTag()) {
       return 1f;
     }
@@ -83,6 +112,7 @@ public class ToolHarvestLogic {
     return tool.getStats().getMiningSpeed();
   }
 
+
   /**
    * Gets a list of blocks that the tool can affect.
    *
@@ -91,7 +121,7 @@ public class ToolHarvestLogic {
    * @param world the current world
    * @param player the player using the tool
    * @param origin the origin block spot to start from
-   * @return A list of BlockPoses that the AOE tool can affect.
+   * @return A list of BlockPos's that the AOE tool can affect.
    */
   public List<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
     return Collections.emptyList();
@@ -282,27 +312,6 @@ public class ToolHarvestLogic {
 
 
   /* Helpers */
-
-  /**
-   * Checks if the given tool is effective on the given state
-   * @param tool   Tool to check
-   * @param stack  Stack for getting tool types
-   * @param state  State to check
-   * @return  True if this tool is effective
-   */
-  public static boolean isEffective(ToolStack tool, ItemStack stack, BlockState state) {
-    if (tool.isBroken()) {
-      return false;
-    }
-
-    // harvest level too low -> not effective
-    if (state.getRequiresTool() && tool.getStats().getHarvestLevel() < state.getHarvestLevel()) {
-      return false;
-    }
-
-    // find a matching tool type
-    return stack.getItem().canHarvestBlock(state) || stack.getToolTypes().stream().anyMatch(state::isToolEffective);
-  }
 
   /**
    * Quick method to remove enchants from a stack

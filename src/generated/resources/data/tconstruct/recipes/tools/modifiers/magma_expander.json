@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " L ",
-    "PSP",
-    " L "
+    " P ",
+    "SLS",
+    " P "
   ],
   "key": {
     "P": {
       "item": "minecraft:piston"
     },
     "L": {
-      "tag": "forge:gems/lapis"
+      "tag": "forge:ingots/tinkers_bronze"
     },
     "S": {
-      "tag": "forge:slimeball/purple"
+      "tag": "forge:slimeball/magma"
     }
   },
   "result": {
-    "item": "tconstruct:width_expander"
+    "item": "tconstruct:magma_expander"
   }
 }

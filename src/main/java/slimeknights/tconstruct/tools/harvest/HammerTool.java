@@ -7,11 +7,10 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class HammerTool extends PickaxeTool {
+public class HammerTool extends HarvestTool {
   public HammerTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
@@ -31,7 +30,7 @@ public class HammerTool extends PickaxeTool {
   }
 
   @Override
-  public ToolHarvestLogic getToolHarvestLogic() {
+  public AOEToolHarvestLogic getToolHarvestLogic() {
     return AOEToolHarvestLogic.LARGE_TOOL;
   }
 

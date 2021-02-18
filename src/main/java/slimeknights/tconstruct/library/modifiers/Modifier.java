@@ -50,7 +50,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /** Modifier random instance, use for chance based effects */
   protected static Random RANDOM = new Random();
 
-  private static final String KEY_LEVEL = "enchantment.level.";
+  protected static final String KEY_LEVEL = "enchantment.level.";
   public static final int DEFAULT_PRIORITY = 100;
 
   /** Display color for all text for this modifier */
@@ -147,7 +147,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   public final ITextComponent getDisplayName() {
     if (displayName == null) {
-      displayName = new TranslationTextComponent(getTranslationKey()).modifyStyle(style -> style.setColor(Color.fromInt(color)));
+      displayName = new TranslationTextComponent(getTranslationKey()).modifyStyle(style -> style.setColor(Color.fromInt(getColor())));
     }
     return displayName;
   }
