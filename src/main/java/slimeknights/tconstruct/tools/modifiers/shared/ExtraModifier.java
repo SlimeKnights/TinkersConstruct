@@ -10,9 +10,16 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
  */
 public class ExtraModifier extends Modifier {
   private final boolean singleUse;
+  private final boolean isAbility;
+
   public ExtraModifier(int color, boolean singleUse) {
+    this(color, singleUse, false);
+  }
+
+  public ExtraModifier(int color, boolean singleUse, boolean isAbility) {
     super(color);
     this.singleUse = singleUse;
+    this.isAbility = isAbility;
   }
 
   @Override
@@ -23,7 +30,11 @@ public class ExtraModifier extends Modifier {
 
   @Override
   public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT data) {
-    data.addUpgrades(singleUse ? 1 : level);
+    if (isAbility) {
+      data.addAbilities(singleUse ? 1 : level);
+    } else {
+      data.addUpgrades(singleUse ? 1 : level);
+    }
   }
 
   @Override

@@ -237,8 +237,10 @@
     "item.tconstruct.moss.tooltip": "Right click a Bookshelf with this\nto convert it into Mending Moss.\n§oConsumes 10 Levels",
     "item.tconstruct.mending_moss": "Mending Moss",
     "item.tconstruct.mending_moss.tooltip": "Mending Moss Modifier",
-    "item.tconstruct.creative_modifier": "Creative Modifier",
-    "item.tconstruct.creative_modifier.tooltip": "Adds an additional modifier",    
+    "item.tconstruct.creative_upgrade": "Creative Upgrade",
+    "item.tconstruct.creative_upgrade.tooltip": "Adds an additional upgrade slot to a tool",    
+    "item.tconstruct.creative_ability": "Creative Ability",
+    "item.tconstruct.creative_ability.tooltip": "Adds an additional ability slot to a tool",  
     
     "item.tconstruct.copper_can": "Copper Can",
     "item.tconstruct.copper_can.tooltip": "Stackable container holding 1 ingot of fluid",
@@ -980,6 +982,11 @@
 
     "modifier.tconstruct.empty": "Invalid modifier",
     "modifier.tconstruct.empty.description": "§oMissing!§r\nFallback for when a modifier is missing.",
+
+    "modifier.tconstruct.creative_upgrade": "Creative Upgrade",
+    "modifier.tconstruct.creative_upgrade.description": "§oDirty Cheater!§r\nCheated in additional upgrade slots.",
+    "modifier.tconstruct.creative_ability": "Creative Ability",
+    "modifier.tconstruct.creative_ability.description": "§oThrone of Lies!§r\nTool sits on unearned extra ability slots.",
 
     "__comment": "Shared",
     "modifier.tconstruct.reinforced": "Reinforced",
