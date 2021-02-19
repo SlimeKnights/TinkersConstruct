@@ -653,7 +653,7 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
   public boolean updateItemStackNBT(CompoundNBT nbt) {
     // when the itemstack is loaded from NBT we recalculate all the data
     // stops things from being wrong if modifiers or materials change
-    ToolStack tool = ToolStack.from(this, getToolDefinition(), nbt);
+    ToolStack tool = ToolStack.from(this, getToolDefinition(), nbt.getCompound("tag"));
     tool.rebuildStats();
 
     // return value shouldn't matter since it's never checked
