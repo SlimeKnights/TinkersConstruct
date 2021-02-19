@@ -493,8 +493,9 @@ public class ToolStack implements IModifierToolStack {
     ModifierNBT allMods = modBuilder.build();
     setModifiers(allMods);
 
+    // for stats, use empty if no materials, in case we have invalid NBT
+    StatsNBT stats = materials.isEmpty() ? StatsNBT.EMPTY : definition.buildStats(materials);
     // next, update modifier related properties
-    StatsNBT stats = definition.buildStats(materials);
     List<ModifierEntry> modifierList = allMods.getModifiers();
     if (modifierList.isEmpty()) {
       setStats(stats);
