@@ -49,7 +49,7 @@ final class Materials {
   public static final IMaterial queensSlime = mat(MaterialIds.queensSlime, TinkerFluids.moltenQueensSlime, false, 0x236c45, TinkerModifiers.overlord);
   public static final IMaterial manyullyn   = mat(MaterialIds.manyullyn, TinkerFluids.moltenManyullyn, false, 0x9261cc);
   public static final IMaterial hepatizon   = mat(MaterialIds.hepatizon, TinkerFluids.moltenHepatizon, false, 0x60496b);
-  public static final IMaterial soulsteel   = mat(MaterialIds.soulsteel, TinkerFluids.moltenSoulsteel, false, 0x6a5244);
+  //public static final IMaterial soulsteel   = mat(MaterialIds.soulsteel, TinkerFluids.moltenSoulsteel, false, 0x6a5244);
 
   // tier 2 (end)
   //public static final IMaterial endstone = mat(MaterialIds.endstone, true, 0xe0d890);

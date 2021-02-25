@@ -280,7 +280,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMetalMaterial(consumer, MaterialIds.queensSlime, "queens_slime", false);
     registerMetalMaterial(consumer, MaterialIds.manyullyn,   "manyullyn",    false);
     registerMetalMaterial(consumer, MaterialIds.hepatizon,   "hepatizon",    false);
-    registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel",    false);
+    //registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel",    false);
 
     // tier 2 (end)
     //registerMaterial(consumer, MaterialIds.endstone, Ingredient.fromItems(Blocks.END_STONE), 1, 1, "endstone");

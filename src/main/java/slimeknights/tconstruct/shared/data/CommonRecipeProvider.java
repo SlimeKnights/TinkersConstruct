@@ -153,10 +153,10 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     registerMineralRecipes(consumer, TinkerMaterials.queensSlime, folder);
     registerMineralRecipes(consumer, TinkerMaterials.manyullyn,   folder);
     registerMineralRecipes(consumer, TinkerMaterials.hepatizon,   folder);
-    registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
+    //registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
     registerPackingRecipe(consumer, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, folder);
     // tier 5
-    registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
+    //registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
 
     // smelt ore into ingots, must use a blast furnace for nether ores
     IItemProvider cobaltIngot = TinkerMaterials.cobalt.getIngot();

@@ -634,13 +634,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                       .addInput(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK)
                       .build(consumer, prefixR(TinkerFluids.moltenHepatizon, folder));
 
-    // soulsteel: 2 iron + 1 cobalt + 1 soul = 4
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenSoulsteel.get(), MaterialValues.INGOT * 4)
-                      .addInput(TinkerFluids.moltenIron.get(), MaterialValues.INGOT * 2)
-                      .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.INGOT)
-                      .addInput(TinkerFluids.liquidSoul.get(), MaterialValues.GLASS_BLOCK)
-                      .build(consumer, prefixR(TinkerFluids.moltenSoulsteel, folder));
-
     // netherrite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenNetherite.get(), MaterialValues.NUGGET)
                       .addInput(TinkerFluids.moltenDebris.get(), MaterialValues.NUGGET * 4)
