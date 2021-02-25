@@ -34,10 +34,10 @@ public final class TinkerMaterials extends TinkerModule {
   public static final MetalItemObject queensSlime = BLOCKS.registerMetal("queens_slime", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   public static final MetalItemObject manyullyn   = BLOCKS.registerMetal("manyullyn", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   public static final MetalItemObject hepatizon   = BLOCKS.registerMetal("hepatizon", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
-  public static final MetalItemObject soulsteel   = BLOCKS.registerMetal("soulsteel", SOUL_STEEL, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject soulsteel   = BLOCKS.registerMetal("soulsteel", SOUL_STEEL, HIDDEN_BLOCK_ITEM, HIDDEN_PROPS);
   public static final ItemObject<Item> netheriteNugget = ITEMS.register("netherite_nugget", GENERAL_PROPS);
   // tier 5
-  public static final MetalItemObject knightslime = BLOCKS.registerMetal("knightslime", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject knightslime = BLOCKS.registerMetal("knightslime", GENERIC_METAL_BLOCK, HIDDEN_BLOCK_ITEM, HIDDEN_PROPS);
 
   /*
    * Serializers

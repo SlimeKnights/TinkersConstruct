@@ -144,10 +144,10 @@ final class MaterialStats {
                      new HeadMaterialStats(1250, 9f, NETHERITE, 3.5f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withAttackSpeed(0.9f).withMiningSpeed(1.4f),
                      ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.soulsteel,
-                     new HeadMaterialStats(1120, 7.5f, NETHERITE, 3f),
-                     HandleMaterialStats.DEFAULT.withAttackSpeed(1.1f).withAttackDamage(1.3f),
-                     ExtraMaterialStats.DEFAULT);
+//    addMaterialStats(MaterialIds.soulsteel,
+//                     new HeadMaterialStats(1120, 7.5f, NETHERITE, 3f),
+//                     HandleMaterialStats.DEFAULT.withAttackSpeed(1.1f).withAttackDamage(1.3f),
+//                     ExtraMaterialStats.DEFAULT);
 
     // tier 2 (end)
 //    addMaterialStats(MaterialIds.endstone,

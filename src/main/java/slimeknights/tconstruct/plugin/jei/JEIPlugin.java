@@ -21,6 +21,7 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.EntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.Item;
@@ -35,6 +36,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -215,14 +217,28 @@ public class JEIPlugin implements IModPlugin {
     registration.addRecipeTransferHandler(new CraftingStationTransferInfo());
   }
 
+  /**
+   * Removes a fluid from JEI
+   * @param manager  Manager
+   * @param fluid    Fluid to remove
+   * @param bucket   Fluid bucket to remove
+   */
+  private static void removeFluid(IIngredientManager manager, Fluid fluid, Item bucket) {
+    manager.removeIngredientsAtRuntime(VanillaTypes.FLUID, Collections.singleton(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME)));
+    manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, Collections.singleton(new ItemStack(bucket)));
+  }
+
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
     IIngredientManager manager = jeiRuntime.getIngredientManager();
+    // hide knightslime and slimesteel until implemented
+    removeFluid(manager, TinkerFluids.moltenSoulsteel.get(), TinkerFluids.moltenSoulsteel.asItem());
+    removeFluid(manager, TinkerFluids.moltenKnightslime.get(), TinkerFluids.moltenKnightslime.asItem());
+    // hide compat that is not present
     for (SmelteryCompat compat : SmelteryCompat.values()) {
       ITag<Item> ingot = TagCollectionManager.getManager().getItemTags().get(new ResourceLocation("forge", "ingots/" + compat.getName()));
       if (ingot == null || ingot.getAllElements().isEmpty()) {
-        manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, Collections.singleton(new ItemStack(compat.getBucket())));
-        manager.removeIngredientsAtRuntime(VanillaTypes.FLUID, Collections.singleton(new FluidStack(compat.getFluid(), FluidAttributes.BUCKET_VOLUME)));
+        removeFluid(manager, compat.getFluid(), compat.getBucket());
       }
     }
   }

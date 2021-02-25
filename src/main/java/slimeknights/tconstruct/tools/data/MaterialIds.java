@@ -35,7 +35,7 @@ public final class MaterialIds {
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
   public static final MaterialId queensSlime = id("queens_slime");
-  public static final MaterialId soulsteel = id("soulsteel");
+  //public static final MaterialId soulsteel = id("soulsteel");
 
   // tier 2 (end)
   //public static final MaterialId endstone = id("endstone");

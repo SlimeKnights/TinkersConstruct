@@ -1,7 +1,0 @@
-{
-  "craftable": false,
-  "fluid": "tconstruct:molten_soulsteel",
-  "fluidPerUnit": 144,
-  "textColor": "#6A5244",
-  "temperature": 1200
-}
