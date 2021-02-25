@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class HammerTool extends HarvestTool {
+  private static final AOEToolHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(PickaxeTool.EXTRA_MATERIALS, 3, 3, 1);
   public HammerTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
@@ -31,7 +32,7 @@ public class HammerTool extends HarvestTool {
 
   @Override
   public AOEToolHarvestLogic getToolHarvestLogic() {
-    return AOEToolHarvestLogic.LARGE_TOOL;
+    return HARVEST_LOGIC;
   }
 
   /*@Override
