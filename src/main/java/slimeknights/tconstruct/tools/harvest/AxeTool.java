@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.harvest;
 
 import com.google.common.collect.Sets;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -19,7 +18,8 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import java.util.Set;
 
 public class AxeTool extends HarvestTool {
-  public static final AOEToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(1, 1, 1);
+  private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.PLANTS, Material.TALL_PLANTS);
+  public static final AOEToolHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(EXTRA_MATERIALS, 1, 1, 1);
   public AxeTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
@@ -46,18 +46,5 @@ public class AxeTool extends HarvestTool {
   @Override
   public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
     return true;
-  }
-
-  /** Logic extension to include leaves and plants */
-  public static class HarvestLogic extends AOEToolHarvestLogic {
-    private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.PLANTS, Material.TALL_PLANTS);
-    public HarvestLogic(int width, int height, int depth) {
-      super(width, height, depth);
-    }
-
-    @Override
-    public boolean isEffectiveAgainst(ToolStack tool, ItemStack stack, BlockState state) {
-      return EXTRA_MATERIALS.contains(state.getMaterial()) || super.isEffectiveAgainst(tool, stack, state);
-    }
   }
 }

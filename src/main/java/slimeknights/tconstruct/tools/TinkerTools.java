@@ -24,6 +24,7 @@ import slimeknights.tconstruct.tools.harvest.HammerTool;
 import slimeknights.tconstruct.tools.harvest.HarvestTool;
 import slimeknights.tconstruct.tools.harvest.KamaTool;
 import slimeknights.tconstruct.tools.harvest.MattockTool;
+import slimeknights.tconstruct.tools.harvest.PickaxeTool;
 import slimeknights.tconstruct.tools.melee.BroadSword;
 
 import java.util.function.Supplier;
@@ -41,7 +42,7 @@ public final class TinkerTools extends TinkerModule {
    */
   private static final Supplier<Item.Properties> TOOL = () -> new Item.Properties().group(TAB_TOOLS);
 
-  public static final ItemObject<HarvestTool> pickaxe = ITEMS.register("pickaxe", () -> new HarvestTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.PICKAXE));
+  public static final ItemObject<HarvestTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.PICKAXE));
   public static final ItemObject<HammerTool> hammer = ITEMS.register("hammer", () -> new HammerTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.HAMMER));
 
   public static final ItemObject<MattockTool> mattock = ITEMS.register("mattock", () -> new MattockTool(TOOL.get().addToolType(ToolType.SHOVEL, 0).addToolType(ToolType.AXE, 0), ToolDefinitions.MATTOCK));
