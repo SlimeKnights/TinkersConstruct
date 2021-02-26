@@ -997,6 +997,8 @@
     "__comment": "Tier 2 Upgrades",
     "modifier.tconstruct.magnetic": "Magnetic",
     "modifier.tconstruct.magnetic.description": "§oHow do they work?!§r\nHitting things attracts nearby things?!",
+    "modifier.tconstruct.knockback": "Knockback",
+    "modifier.tconstruct.knockback.description": "§Weeeeee!§r\nHitting things makes them go flying further!",
     "modifier.tconstruct.emerald": "Emerald",
     "modifier.tconstruct.emerald.description": "§oFancy!§r\nIncreases durability depending on base stats!",
 

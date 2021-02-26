@@ -356,7 +356,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param knockback      Computed knockback from all prior modifiers
    * @param isCritical     If true, this attack is a critical hit
    * @param fullyCharged   If true, this attack was fully charged (could perform a sword sweep)
-   * @return  New knockback to apply
+   * @return  New knockback to apply. 0.5 is equivelent to 1 level of the vanilla enchant
    */
   public float applyLivingKnockback(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged) {
     return knockback;

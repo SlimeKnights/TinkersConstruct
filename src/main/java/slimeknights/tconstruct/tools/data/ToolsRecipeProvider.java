@@ -149,6 +149,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(3)
                          .setUpgradeSlots(1)
                          .build(consumer, prefixR(TinkerModifiers.experienced, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
+                         .addInput(Items.PISTON)
+                         .setMaxLevel(5)
+                         .setUpgradeSlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic.get())
                          .addInput(Items.COMPASS)
                          .setMaxLevel(3)

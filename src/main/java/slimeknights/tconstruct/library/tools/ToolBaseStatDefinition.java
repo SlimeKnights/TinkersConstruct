@@ -25,9 +25,9 @@ public final class ToolBaseStatDefinition {
    */
   private final float damageCutoff;
 
-  /** Knockback modifier. Basically this takes the vanilla knockback on hit and modifies it by this factor.
+  /** Knockback bonus to apply when fully charged. 0.5 is the same as 1 level of vanilla knockback, or the bonus from sprinting
    * TODO: move to tool stats? This and reach */
-  private final float knockbackModifier;
+  private final float knockbackBonus;
 
   /** Number of modifiers new tools start with */
   private final int defaultModifiers;
@@ -66,7 +66,7 @@ public final class ToolBaseStatDefinition {
     private float attackSpeed = 1f;
 
     /** See comment on {@link ToolBaseStatDefinition} */
-    private float knockbackModifier = 1;
+    private float knockbackBonus = 0;
     /** See comment on {@link ToolBaseStatDefinition} */
     private int defaultModifiers = 3;
     /** See comment on {@link ToolBaseStatDefinition} */
@@ -81,7 +81,7 @@ public final class ToolBaseStatDefinition {
       IStatFactory factory = (durability, harvestLevel, attackDamage, miningSpeed, attackSpeed)
         -> new StatsNBT((int)(durability * durabilityModifier), harvestLevel, (attackDamage + damageBonus) * damageModifier,
                         miningSpeed * miningSpeedModifier, attackSpeed * this.attackSpeed);
-      return new ToolBaseStatDefinition(damageCutoff, knockbackModifier, defaultModifiers, defaultAbilities, factory);
+      return new ToolBaseStatDefinition(damageCutoff, knockbackBonus, defaultModifiers, defaultAbilities, factory);
     }
   }
 }

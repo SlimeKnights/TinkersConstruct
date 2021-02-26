@@ -169,7 +169,7 @@ public class ToolAttackUtil {
       return true;
     }
     float knockback = 0;
-    SoundEvent sound = null;
+    SoundEvent sound;
     if (attackerLiving.isSprinting() && fullyCharged) {
       sound = SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK;
       knockback = 0.5f;
@@ -177,6 +177,10 @@ public class ToolAttackUtil {
       sound = SoundEvents.ENTITY_PLAYER_ATTACK_STRONG;
     } else {
       sound = SoundEvents.ENTITY_PLAYER_ATTACK_WEAK;
+    }
+    // apply extra bonus when fully charged
+    if (fullyCharged) {
+      knockback += tool.getDefinition().getBaseStatDefinition().getKnockbackBonus();
     }
 
     // removed: vanilla knockback enchant support

@@ -43,6 +43,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.TypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ExpanderModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SilkyModifier;
@@ -98,6 +99,7 @@ public final class TinkerModifiers extends TinkerModule {
   // upgrades - tier 3
   public static final RegistryObject<DiamondModifier> diamond = MODIFIERS.register("diamond", DiamondModifier::new);
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
+  public static final RegistryObject<KnockbackModifier> knockback = MODIFIERS.register("knockback", KnockbackModifier::new);
 
   // upgrades - tier 4
   public static final RegistryObject<WorldboundModifier> worldbound = MODIFIERS.register("worldbound", () -> new WorldboundModifier(0x7E6059));

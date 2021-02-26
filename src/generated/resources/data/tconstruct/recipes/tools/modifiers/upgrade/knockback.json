@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:piston"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:knockback",
+    "level": 1
+  },
+  "max_level": 5,
+  "upgrade_slots": 1
+}
