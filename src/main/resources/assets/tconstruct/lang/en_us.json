@@ -1067,6 +1067,10 @@
     "__comment": "Tier 4 Traits",
     "modifier.tconstruct.overlord": "Overlord",
     "modifier.tconstruct.overlord.description": "§oRegal!§r\nTool rules over a greater amount of overslime.",
+    "modifier.tconstruct.momentum": "Momentum",
+    "modifier.tconstruct.overlord.description": "§Not Fast Enough, Gotta Go Faster!§r\nMining blocks increases your speed, as long as you keep going.",
+    "modifier.tconstruct.insatiable": "Insatiable",
+    "modifier.tconstruct.insatiable.description": "§oTaste For Blood!§r\nDuring combat you deal more and more damage the more time you hit an enemy.",
 
     "__comment": "Tier 2 Mod Compat Traits",
     "modifier.tconstruct.heavy": "Heavy",

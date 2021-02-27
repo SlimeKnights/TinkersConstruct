@@ -65,8 +65,8 @@ final class Materials {
   public static final IMaterial cobalt = mat(MaterialIds.cobalt, 3, ORDER_NETHER, TinkerFluids.moltenCobalt, false, 0x2376dd, TinkerModifiers.lightweight);
   // tier 4
   public static final IMaterial queensSlime = mat(MaterialIds.queensSlime, 4, ORDER_GENERAL, TinkerFluids.moltenQueensSlime, false, 0x236c45, TinkerModifiers.overlord);
-  public static final IMaterial hepatizon   = mat(MaterialIds.hepatizon,   4, ORDER_HARVEST, TinkerFluids.moltenHepatizon,   false, 0x60496b, null);
-  public static final IMaterial manyullyn   = mat(MaterialIds.manyullyn,   4, ORDER_WEAPON,  TinkerFluids.moltenManyullyn,   false, 0x9261cc, null);
+  public static final IMaterial hepatizon   = mat(MaterialIds.hepatizon,   4, ORDER_HARVEST, TinkerFluids.moltenHepatizon,   false, 0x60496b, TinkerModifiers.momentum);
+  public static final IMaterial manyullyn   = mat(MaterialIds.manyullyn,   4, ORDER_WEAPON,  TinkerFluids.moltenManyullyn,   false, 0x9261cc, TinkerModifiers.insatiable);
   //public static final IMaterial soulsteel   = mat(MaterialIds.soulsteel, 4, ORDER_SPECIAL, TinkerFluids.moltenSoulsteel, false, 0x6a5244);
 
   // tier 2 (end)
