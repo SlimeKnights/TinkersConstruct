@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.materials;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -26,6 +25,7 @@ import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -51,8 +51,9 @@ public class MaterialManager extends SyncingJsonReloadListener {
     .disableHtmlEscaping()
     .create();
 
-  private Map<MaterialId, IMaterial> materials = ImmutableMap.of();
-  private Map<Fluid, IMaterial> fluidLookup = ImmutableMap.of();
+  private Map<MaterialId, IMaterial> materials = Collections.emptyMap();
+  private Map<Fluid, IMaterial> fluidLookup = Collections.emptyMap();
+  private List<IMaterial> sortedMaterials = Collections.emptyList();
 
   public MaterialManager() {
     this(TinkerNetwork.getInstance());
@@ -64,11 +65,11 @@ public class MaterialManager extends SyncingJsonReloadListener {
   }
 
   /**
-   * Gets a collection of all loaded materials
+   * Gets a collection of all loaded materials, sorted by tier and sort orders
    * @return  All loaded materials
    */
   public Collection<IMaterial> getAllMaterials() {
-    return materials.values();
+    return sortedMaterials;
   }
 
   /**
@@ -90,12 +91,13 @@ public class MaterialManager extends SyncingJsonReloadListener {
   }
 
   /**
-   * Recreates the fluid lookup using the new materials map
+   * Recreates the fluid lookup and sorted list using the new materials list
    */
-  private void reloadFluidLookup() {
+  private void onMaterialUpdate() {
     this.fluidLookup = this.materials.values().stream()
                                      .filter((mat) -> mat.getFluid() != Fluids.EMPTY)
                                      .collect(Collectors.toMap(IMaterial::getFluid, Function.identity()));
+    this.sortedMaterials = this.materials.values().stream().sorted().collect(Collectors.toList());
   }
 
   /**
@@ -109,7 +111,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
         IMaterial::getIdentifier,
         Function.identity())
       );
-    reloadFluidLookup();
+    onMaterialUpdate();
   }
 
   @Override
@@ -122,7 +124,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
         IMaterial::getIdentifier,
         material -> material)
       );
-    reloadFluidLookup();
+    onMaterialUpdate();
     
     log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet()));
     log.info("{} materials loaded", materials.size());
@@ -131,6 +133,11 @@ public class MaterialManager extends SyncingJsonReloadListener {
   @Override
   protected Object getUpdatePacket() {
     return new UpdateMaterialsPacket(materials.values());
+  }
+
+  /** Gets an int value or a default */
+  private static int orDefault(@Nullable Integer integer, int def) {
+    return integer == null ? def : integer;
   }
 
   @Nullable
@@ -159,7 +166,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
 
       // parse trait
       ModifierEntry[] traits = materialJson.getTraits();
-      return new Material(materialId, fluid, fluidPerUnit, isCraftable, color, temperature, traits == null ? Collections.emptyList() : ImmutableList.copyOf(traits));
+      return new Material(materialId, orDefault(materialJson.getTier(), 0), orDefault(materialJson.getSortOrder(), 100), fluid, fluidPerUnit, isCraftable, color, temperature, traits == null ? Collections.emptyList() : ImmutableList.copyOf(traits));
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;

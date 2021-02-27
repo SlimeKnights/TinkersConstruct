@@ -20,6 +20,10 @@ import java.util.function.Supplier;
 public class DataMaterial implements IMaterial {
   @Getter
   private final MaterialId identifier;
+  @Getter
+  private final int tier;
+  @Getter
+  private final int sortOrder;
   private final Supplier<? extends Fluid> fluid;
   @Getter
   private final int fluidPerUnit;

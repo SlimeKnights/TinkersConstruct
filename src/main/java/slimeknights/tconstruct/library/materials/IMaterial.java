@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import java.util.List;
 
-public interface IMaterial {
+public interface IMaterial extends Comparable<IMaterial> {
   /** ID of fallback material */
   MaterialId UNKNOWN_ID = new MaterialId(TConstruct.modID, "unknown");
 
@@ -78,4 +78,25 @@ public interface IMaterial {
    * @return  Traits
    */
   List<ModifierEntry> getTraits();
+
+
+  /* Display */
+
+  /** Gets the progression tier of this material */
+  int getTier();
+
+  /** Gets the sort location within this tier */
+  int getSortOrder();
+
+  @Override
+  default int compareTo(IMaterial other) {
+    // tier first, then sort order, fallback to unique ID
+    if (this.getTier() != other.getTier()) {
+      return Integer.compare(this.getTier(), other.getTier());
+    }
+    if (this.getSortOrder() != other.getSortOrder()) {
+      return Integer.compare(this.getSortOrder(), other.getSortOrder());
+    }
+    return this.getIdentifier().compareTo(other.getIdentifier());
+  }
 }

@@ -31,6 +31,8 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
 
     for (int i = 0; i < materialCount; i++) {
       MaterialId id = new MaterialId(buffer.readResourceLocation());
+      int tier = buffer.readVarInt();
+      int sortOrder = buffer.readVarInt();
       boolean craftable = buffer.readBoolean();
       Fluid fluid = buffer.readRegistryIdUnsafe(ForgeRegistries.FLUIDS);
       if (fluid == null) {
@@ -45,7 +47,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       for (int t = 0; t < size; t++) {
         builder.add(ModifierEntry.read(buffer));
       }
-      this.materials.add(new Material(id, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, builder.build()));
+      this.materials.add(new Material(id, tier, sortOrder, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, builder.build()));
     }
   }
 
@@ -54,6 +56,8 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
     buffer.writeInt(this.materials.size());
     this.materials.forEach(material -> {
       buffer.writeResourceLocation(material.getIdentifier());
+      buffer.writeVarInt(material.getTier());
+      buffer.writeVarInt(material.getSortOrder());
       buffer.writeBoolean(material.isCraftable());
       buffer.writeRegistryIdUnsafe(ForgeRegistries.FLUIDS, material.getFluid());
       buffer.writeVarInt(material.getFluidPerUnit());
