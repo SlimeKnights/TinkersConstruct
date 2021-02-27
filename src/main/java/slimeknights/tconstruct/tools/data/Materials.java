@@ -79,7 +79,7 @@ final class Materials {
   public static final IMaterial electrum   = compatMat(MaterialIds.electrum,   3, ORDER_COMPAT,  TinkerFluids.moltenElectrum,   TinkerModifiers.experienced);
   public static final IMaterial bronze     = compatMat(MaterialIds.bronze,     3, ORDER_HARVEST, TinkerFluids.moltenBronze,     TinkerModifiers.wellMaintained2);
   public static final IMaterial steel      = compatMat(MaterialIds.steel,      3, ORDER_GENERAL, TinkerFluids.moltenSteel,      TinkerModifiers.sturdy);
-  public static final IMaterial constantan = compatMat(MaterialIds.constantan, 3, ORDER_COMPAT,  TinkerFluids.moltenConstantan, null);
+  public static final IMaterial constantan = compatMat(MaterialIds.constantan, 3, ORDER_COMPAT,  TinkerFluids.moltenConstantan, TinkerModifiers.temperate);
 
   // bowstring IMaterials
 //  public static final IMaterial string = mat(MaterialIds.string, true, 0xeeeeee);

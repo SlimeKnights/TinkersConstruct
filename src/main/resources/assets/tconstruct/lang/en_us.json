@@ -1083,6 +1083,8 @@
     "modifier.tconstruct.sturdy.description": "§oStainless!§r\nMade from the longest lasting steel",
     "modifier.tconstruct.maintained_2": "Maintained",
     "modifier.tconstruct.maintained_2.description": "§oGets Sharp Easier!§r\nTool mines faster when at higher durability",
+    "modifier.tconstruct.temperate": "Temperate",
+    "modifier.tconstruct.temperate.description": "§oExtreme Mining!§r\nTool mines faster when in extreme temperatures",
 
 
     "_comment": "Stats",

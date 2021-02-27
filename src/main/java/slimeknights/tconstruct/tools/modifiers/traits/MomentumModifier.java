@@ -15,6 +15,12 @@ public class MomentumModifier extends Modifier {
   }
 
   @Override
+  public int getPriority() {
+    // run this last as we boost original speed, adds to existing boosts
+    return 90;
+  }
+
+  @Override
   public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {
     // 50% boost per level at max
     int effectLevel = TinkerModifiers.momentumEffect.get().getLevel(event.getEntityLiving()) + 1;
