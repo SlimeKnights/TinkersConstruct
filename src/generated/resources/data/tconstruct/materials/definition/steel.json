@@ -1,4 +1,11 @@
 {
+  "condition": {
+    "value": {
+      "tag": "forge:ingots/steel",
+      "type": "forge:tag_empty"
+    },
+    "type": "forge:not"
+  },
   "craftable": false,
   "tier": 3,
   "sortOrder": 0,

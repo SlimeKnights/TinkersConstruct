@@ -4,15 +4,23 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Color;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
@@ -23,6 +31,7 @@ import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
 import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -42,11 +51,11 @@ import java.util.stream.Collectors;
  */
 @Log4j2
 public class MaterialManager extends SyncingJsonReloadListener {
-
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
     .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
+    .registerTypeAdapter(ICondition.class, new ConditionSerializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -144,6 +153,12 @@ public class MaterialManager extends SyncingJsonReloadListener {
   private IMaterial loadMaterial(ResourceLocation materialId, JsonObject jsonObject) {
     try {
       MaterialJson materialJson = GSON.fromJson(jsonObject, MaterialJson.class);
+      // condition
+      ICondition condition = materialJson.getCondition();
+      if (condition != null && !condition.test()) {
+        log.debug("Skipped loading material {} as it did not match the condition", materialId);
+        return null;
+      }
 
       if (materialJson.getCraftable() == null) {
         throw TinkerJSONException.materialJsonWithoutCraftingInformation(materialId);
@@ -190,5 +205,17 @@ public class MaterialManager extends SyncingJsonReloadListener {
       }
     }
     return fluid;
+  }
+
+  private static class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> {
+    @Override
+    public ICondition deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+      return CraftingHelper.getCondition(JSONUtils.getJsonObject(json, "condition"));
+    }
+
+    @Override
+    public JsonElement serialize(ICondition condition, Type type, JsonSerializationContext context) {
+      return CraftingHelper.serialize(condition);
+    }
   }
 }

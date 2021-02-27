@@ -1,4 +1,11 @@
 {
+  "condition": {
+    "value": {
+      "tag": "forge:ingots/silver",
+      "type": "forge:tag_empty"
+    },
+    "type": "forge:not"
+  },
   "craftable": false,
   "tier": 2,
   "sortOrder": 5,
