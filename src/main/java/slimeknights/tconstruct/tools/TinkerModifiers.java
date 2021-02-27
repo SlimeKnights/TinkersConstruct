@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.block.Block;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.item.Item;
+import net.minecraft.potion.EffectType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
@@ -10,6 +11,7 @@ import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.effect.TinkerEffect;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipe;
@@ -29,10 +31,12 @@ import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DwarfishModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.InsatibleModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.LaceratingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.LightweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.MaintainedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.MaintainedModifier2;
+import slimeknights.tconstruct.tools.modifiers.traits.MomentumModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
@@ -48,6 +52,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SilkyModifier;
 
+import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
 /**
@@ -131,6 +136,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<LightweightModifier> lightweight = MODIFIERS.register("lightweight", LightweightModifier::new);
   // traits - tier 4
   public static final RegistryObject<OverlordModifier> overlord = MODIFIERS.register("overlord", OverlordModifier::new);
+  public static final RegistryObject<MomentumModifier> momentum = MODIFIERS.register("momentum", MomentumModifier::new);
+  public static final RegistryObject<InsatibleModifier> insatiable = MODIFIERS.register("insatiable", InsatibleModifier::new);
 
   // traits - mod compat tier 2
   public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
@@ -140,10 +147,13 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<MaintainedModifier2> wellMaintained2 = MODIFIERS.register("maintained_2", MaintainedModifier2::new);
 
   /*
-   * Effects
+   * Internal effects
    */
+  private static final IntFunction<Supplier<TinkerEffect>> MARKER_EFFECT = color -> () -> new TinkerEffect(EffectType.BENEFICIAL, color, false);
   public static RegistryObject<BleedingEffect> bleeding = POTIONS.register("bleeding", BleedingEffect::new);
   public static RegistryObject<MagneticEffect> magneticEffect = POTIONS.register("magnetic", MagneticEffect::new);
+  public static RegistryObject<TinkerEffect> momentumEffect = POTIONS.register("momentum", MARKER_EFFECT.apply(0x60496b));
+  public static RegistryObject<TinkerEffect> insatiableEffect = POTIONS.register("insatiable", MARKER_EFFECT.apply(0x9261cc));
 
   /*
    * Recipes
