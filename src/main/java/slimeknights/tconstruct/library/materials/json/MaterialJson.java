@@ -11,6 +11,10 @@ public class MaterialJson {
   @Nullable
   private final Boolean craftable;
   @Nullable
+  private final Integer tier;
+  @Nullable
+  private final Integer sortOrder;
+  @Nullable
   private final ResourceLocation fluid;
   @Nullable
   private final Integer fluidPerUnit;

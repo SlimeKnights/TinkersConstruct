@@ -29,9 +29,9 @@ public class MaterialDataProvider extends GenericDataProvider {
     // if empty, no fluid, no temperature
     String color = material.getColor().getName();
     if (material.getFluid() == Fluids.EMPTY) {
-      return new MaterialJson(material.isCraftable(), null, null, color, null, traits);
+      return new MaterialJson(material.isCraftable(), material.getTier(), material.getSortOrder(), null, null, color, null, traits);
     }
-    return new MaterialJson(material.isCraftable(), material.getFluid().getRegistryName(), material.getFluidPerUnit(), color, material.getTemperature(), traits);
+    return new MaterialJson(material.isCraftable(), material.getTier(), material.getSortOrder(), material.getFluid().getRegistryName(), material.getFluidPerUnit(), color, material.getTemperature(), traits);
   }
 
   @Override

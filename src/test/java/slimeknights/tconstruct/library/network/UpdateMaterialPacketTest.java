@@ -35,9 +35,9 @@ class UpdateMaterialPacketTest extends BaseMcTest {
 
   @Test
   void testGenericEncodeDecode() {
-    IMaterial material1 = new Material(MATERIAL_ID_1, Fluids.WATER, 123, true, Color.fromInt(0x123456), 100,
+    IMaterial material1 = new Material(MATERIAL_ID_1, 1, 2, Fluids.WATER, 123, true, Color.fromInt(0x123456), 100,
                                        Arrays.asList(new ModifierEntry(ModifierFixture.TEST_MODIFIER_1, 2), new ModifierEntry(ModifierFixture.TEST_MODIFIER_2, 3)));
-    IMaterial material2 = new Material(MATERIAL_ID_2, Fluids.EMPTY, 0, false, Color.fromInt(0xFFFFFF), 0, Collections.emptyList());
+    IMaterial material2 = new Material(MATERIAL_ID_2, 3, 4, Fluids.EMPTY, 0, false, Color.fromInt(0xFFFFFF), 0, Collections.emptyList());
     Collection<IMaterial> materials = ImmutableList.of(material1, material2);
 
     // send a packet over the buffer
@@ -54,6 +54,8 @@ class UpdateMaterialPacketTest extends BaseMcTest {
     Iterator<IMaterial> iterator = parsed.iterator();
     IMaterial parsedMat = iterator.next();
     assertThat(parsedMat.getIdentifier()).isEqualTo(MATERIAL_ID_1);
+    assertThat(parsedMat.getTier()).isEqualTo(1);
+    assertThat(parsedMat.getSortOrder()).isEqualTo(2);
     assertThat(parsedMat.getFluid()).isEqualTo(Fluids.WATER);
     assertThat(parsedMat.getFluidPerUnit()).isEqualTo(123);
     assertThat(parsedMat.isCraftable()).isTrue();
@@ -72,6 +74,8 @@ class UpdateMaterialPacketTest extends BaseMcTest {
     // material 2
     parsedMat = iterator.next();
     assertThat(parsedMat.getIdentifier()).isEqualTo(MATERIAL_ID_2);
+    assertThat(parsedMat.getTier()).isEqualTo(3);
+    assertThat(parsedMat.getSortOrder()).isEqualTo(4);
     assertThat(parsedMat.getFluid()).isEqualTo(Fluids.EMPTY);
     assertThat(parsedMat.getFluidPerUnit()).isEqualTo(0);
     assertThat(parsedMat.isCraftable()).isFalse();

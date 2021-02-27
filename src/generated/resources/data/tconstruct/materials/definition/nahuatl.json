@@ -1,5 +1,7 @@
 {
   "craftable": false,
+  "tier": 3,
+  "sortOrder": 2,
   "textColor": "#601CC4",
   "traits": [
     {
