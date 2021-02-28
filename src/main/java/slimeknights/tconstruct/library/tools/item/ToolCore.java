@@ -69,7 +69,6 @@ import java.util.function.Consumer;
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
 public abstract class ToolCore extends Item implements IRepairable, ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
-
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
@@ -316,6 +315,11 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
 
   @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
+    CompoundNBT nbt = stack.getTag();
+    if (nbt == null || nbt.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
+      return ImmutableMultimap.of();
+    }
+
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
     ToolStack tool = ToolStack.from(stack);
     if (slot == EquipmentSlotType.MAINHAND && !tool.isBroken()) {
@@ -388,14 +392,19 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
   @Override
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    boolean shift = Util.isShiftKeyDown();
-    boolean ctrl = Util.isCtrlKeyDown();
-
-    if (shift) {
+    CompoundNBT tag = stack.getTag();
+    // if the display tag is set, hide material info
+    if (tag != null && tag.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
+      ToolStack tool = ToolStack.from(stack);
+      for (ModifierEntry entry : tool.getModifierList()) {
+        if (entry.getModifier().shouldDisplay(false)) {
+          tooltip.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
+        }
+      }
+    } else if (Util.isShiftKeyDown()) {
       // component data
       this.getTooltip(stack, tooltip, TooltipType.SHIFT);
-    }
-    else if (ctrl) {
+    } else if (Util.isCtrlKeyDown()) {
       // modifiers
       this.getTooltip(stack, tooltip, TooltipType.CONTROL);
     } else {
@@ -506,8 +515,6 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
     if (this.isInGroup(group)) {
       this.addDefaultSubItems(items);
     }
-
-    super.fillItemGroup(group, items);
   }
 
   protected void addDefaultSubItems(List<ItemStack> items, Material... fixedMaterials) {

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class ToolBuildHandler {
+  public static final String KEY_DISPLAY_TOOL = "tic_display_tool";
   private static final List<MaterialId> RENDER_MATERIALS = Arrays.asList(
     new MaterialId(TConstruct.modID, "ui_render_head"),
     new MaterialId(TConstruct.modID, "ui_render_handle"),
@@ -68,7 +69,9 @@ public final class ToolBuildHandler {
     for (int i = 0; i < requirements.size(); i++) {
       toolMaterials.add(i, RENDER_MATERIALS.get(i % RENDER_MATERIALS.size()));
     }
-    return new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(item));
+    ItemStack stack = new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(item));
+    stack.getOrCreateTag().putBoolean(KEY_DISPLAY_TOOL, true);
+    return stack;
   }
 
   /**

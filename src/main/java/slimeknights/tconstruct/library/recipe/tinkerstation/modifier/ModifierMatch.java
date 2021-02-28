@@ -9,6 +9,7 @@ import net.minecraft.util.JSONUtils;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -58,8 +59,11 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
    */
   public static ModifierMatch deserialize(JsonObject json) {
     if (json.has("options")) {
-      List<ModifierMatch> options = JsonHelper.parseList(json, "options", ModifierMatch::deserialize);
       int required = JSONUtils.getInt(json, "matches_needed");
+      if (required == 0) {
+        return ALWAYS;
+      }
+      List<ModifierMatch> options = JsonHelper.parseList(json, "options", ModifierMatch::deserialize);
       return new ListMatch(options, required);
     }
 
@@ -85,8 +89,14 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
     for (int i = 0; i < size; i++) {
       builder.add(read(buffer));
     }
+    if (required == 0) {
+      return ALWAYS;
+    }
     return new ListMatch(builder.build(), required);
   }
+
+  /** Applies this modifier match to the given tool stack */
+  public abstract void apply(ModifierNBT.Builder tool);
 
   /**
    * Serializes this entry as JSON
@@ -116,6 +126,11 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
     }
 
     @Override
+    public void apply(ModifierNBT.Builder builder) {
+      builder.add(entry);
+    }
+
+    @Override
     public JsonObject serialize() {
       return entry.toJson();
     }
@@ -142,6 +157,14 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
         }
       }
       return matches >= required;
+    }
+
+    @Override
+    public void apply(ModifierNBT.Builder builder) {
+      int max = Math.min(required, options.size());
+      for (int i = 0; i < max; i++) {
+        options.get(i).apply(builder);
+      }
     }
 
     @Override

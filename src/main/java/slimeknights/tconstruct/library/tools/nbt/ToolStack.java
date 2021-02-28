@@ -39,7 +39,7 @@ public class ToolStack implements IModifierToolStack {
   protected static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_data";
   protected static final String TAG_VOLATILE_MOD_DATA = "tic_volatile_data";
   protected static final String TAG_UPGRADES = "tic_upgrades";
-  protected static final String TAG_MODIFIERS = "tic_modifiers";
+  public static final String TAG_MODIFIERS = "tic_modifiers";
   public static final String TAG_BROKEN = "tic_broken";
   // vanilla tags
   protected static final String TAG_DAMAGE = "Damage";

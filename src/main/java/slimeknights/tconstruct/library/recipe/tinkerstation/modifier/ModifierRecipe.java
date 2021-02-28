@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -22,18 +23,23 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStatio
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Standard recipe to add a modifier
  */
-public class ModifierRecipe implements ITinkerStationRecipe {
+public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
   private static final String KEY_MAX_LEVEL = Util.makeTranslationKey("recipe", "modifier.max_level");
   private static final String KEY_NOT_ENOUGH_UPGRADES = Util.makeTranslationKey("recipe", "modifier.not_enough_upgrades");
   private static final String KEY_NOT_ENOUGH_ABILITIES = Util.makeTranslationKey("recipe", "modifier.not_enough_abilities");
@@ -54,12 +60,16 @@ public class ModifierRecipe implements ITinkerStationRecipe {
   /** Error message to display if the requirements do not match */
   private final String requirementsError;
   /** Modifier this recipe is adding */
+  @Getter
   private final ModifierEntry result;
   /** Maximum level of this modifier allowed */
+  @Getter
   private final int maxLevel;
   /** Required ability slots to add this modifier */
+  @Getter
   private final int upgradeSlots;
   /** Required ability slots to add this modifier */
+  @Getter
   private final int abilitySlots;
 
   public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
@@ -203,6 +213,65 @@ public class ModifierRecipe implements ITinkerStationRecipe {
         TConstruct.log.warn("Missing ingredient in modifier recipe input consume");
       }
     }
+  }
+
+
+  /* JEI display */
+  /** Cache of display inputs */
+  private List<ItemStack> toolInputs = null;
+  /** Cache of display inputs */
+  private List<List<ItemStack>> displayInputs = null;
+  /** Cache of display tool with modifier */
+  private List<List<ItemStack>> displayTool = null;
+
+  /** Gets a list of relevant tools for display */
+  private List<ItemStack> getApplicableTools() {
+    if (toolInputs == null) {
+      Stream<Item> itemStream;
+      // if empty requirement, assume any modifiable
+      if (this.toolRequirement == Ingredient.EMPTY) {
+        itemStream = TinkerTags.Items.MODIFIABLE.getAllElements().stream();
+      } else {
+        itemStream = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(ItemStack::getItem);
+      }
+      toolInputs = itemStream.map(item -> {
+        if (item instanceof ToolCore) {
+          return ((ToolCore)item).buildToolForRendering();
+        }
+        return new ItemStack(item);
+      }).collect(Collectors.toList());
+    }
+    return toolInputs;
+  }
+
+  @Override
+  public List<List<ItemStack>> getDisplayInputs() {
+    if (displayInputs == null) {
+      List<ItemStack> inputTools = getApplicableTools().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, null)).collect(Collectors.toList());
+      displayInputs = Stream.concat(Stream.of(inputTools), inputs.stream().map(SizedIngredient::getMatchingStacks)).collect(Collectors.toList());
+    }
+    return displayInputs;
+  }
+
+  @Override
+  public List<List<ItemStack>> getDisplayOutput() {
+    if (displayTool == null) {
+      displayTool = Collections.singletonList(getApplicableTools().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, result)).collect(Collectors.toList()));
+    }
+    return displayTool;
+  }
+
+  @Override
+  public boolean hasRequirements() {
+    return requirements != ModifierMatch.ALWAYS;
+  }
+
+  @Override
+  public String getRequirementsError() {
+    if (requirementsError.isEmpty()) {
+      return ModifierRequirementLookup.DEFAULT_ERROR_KEY;
+    }
+    return requirementsError;
   }
 
   /** @deprecated */
