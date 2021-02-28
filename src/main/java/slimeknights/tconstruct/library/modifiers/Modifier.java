@@ -17,6 +17,8 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -34,6 +36,8 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
@@ -67,6 +71,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /** Cached text component for display names */
   @Nullable
   private ITextComponent displayName;
+  /** Cached text component for description */
+  @Nullable
+  private List<ITextComponent> descriptionList;
   /** Cached text component for description */
   @Nullable
   private ITextComponent description;
@@ -178,9 +185,24 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Gets the description for this modifier
    * @return  Description for this modifier
    */
+  public final List<ITextComponent> getDescriptionList() {
+    if (descriptionList == null) {
+      descriptionList = Arrays.asList(
+        new TranslationTextComponent(getTranslationKey() + ".flavor").mergeStyle(TextFormatting.ITALIC),
+        new TranslationTextComponent(getTranslationKey() + ".description"));
+    }
+    return descriptionList;
+  }
+
+  /**
+   * Gets the description for this modifier
+   * @return  Description for this modifier
+   */
   public final ITextComponent getDescription() {
     if (description == null) {
-      description = new TranslationTextComponent(getTranslationKey() + ".description");
+      description = getDescriptionList().stream()
+                                        .reduce((c1, c2) -> new StringTextComponent("").append(c1).appendString("\n").append(c2))
+                                        .orElse(StringTextComponent.EMPTY);
     }
     return description;
   }

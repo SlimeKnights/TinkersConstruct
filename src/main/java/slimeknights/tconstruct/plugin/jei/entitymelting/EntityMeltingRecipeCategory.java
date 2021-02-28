@@ -84,7 +84,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
 
   @Override
   public void setIngredients(EntityMeltingRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputLists(JEIPlugin.TYPE, recipe.getDisplayInputs());
+    ingredients.setInputLists(JEIPlugin.ENTITY_TYPE, recipe.getDisplayInputs());
     ingredients.setInputLists(VanillaTypes.ITEM, ImmutableList.of(recipe.getInputs().stream().map(SpawnEggItem::getEgg).filter(Objects::nonNull).map(ItemStack::new).collect(Collectors.toList())));
     ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutput());
   }
@@ -104,7 +104,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
   public void setRecipe(IRecipeLayout layout, EntityMeltingRecipe recipe, IIngredients ingredients) {
     // inputs
     // if we have a spawn egg focus, filter the displayed entities
-    IGuiIngredientGroup<EntityType> entityTypes = layout.getIngredientsGroup(JEIPlugin.TYPE);
+    IGuiIngredientGroup<EntityType> entityTypes = layout.getIngredientsGroup(JEIPlugin.ENTITY_TYPE);
     IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
     entityTypes.init(0, true, entityRenderer, 19, 11, 32, 32, 0, 0);
     if (focus != null && focus.getValue().getItem() instanceof SpawnEggItem) {
