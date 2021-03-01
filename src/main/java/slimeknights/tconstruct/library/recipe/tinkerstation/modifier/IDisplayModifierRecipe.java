@@ -22,9 +22,12 @@ public interface IDisplayModifierRecipe {
   /** Gets the modifier output of this recipe */
   ModifierEntry getDisplayResult();
 
-  /** Gets the max level of this modifier */
+  /**
+   * Gets the max level of this modifier
+   * @return modifier max level, 0 if no max level
+   */
   default int getMaxLevel() {
-    return -1;
+    return 0;
   }
 
   /** Gets the number of upgrade slots required for this modifier */

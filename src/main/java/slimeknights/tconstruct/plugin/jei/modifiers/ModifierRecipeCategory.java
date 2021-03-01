@@ -10,6 +10,8 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -21,14 +23,23 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IDisplayModifierRecipe;
 import slimeknights.tconstruct.plugin.jei.JEIPlugin;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
-import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
 public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/tinker_station.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "modifiers.title");
+
+  // translation
+  private static final List<ITextComponent> TEXT_FREE = Collections.singletonList(Util.makeTranslation("jei", "modifiers.free"));
+  private static final List<ITextComponent> TEXT_SINGLE_UPGRADE = Collections.singletonList(Util.makeTranslation("jei", "modifiers.upgrade"));
+  private static final String KEY_UPGRADES = Util.makeTranslationKey("jei", "modifiers.upgrades");
+  private static final List<ITextComponent> TEXT_SINGLE_ABILITY = Collections.singletonList(Util.makeTranslation("jei", "modifiers.ability"));
+  private static final String KEY_ABILITIES = Util.makeTranslationKey("jei", "modifiers.abilities");
+  private static final String KEY_MAX = Util.makeTranslationKey("jei", "modifiers.max");
 
   private final ModifierIngredientRenderer modifierRenderer = new ModifierIngredientRenderer(124);
 
@@ -38,17 +49,23 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   private final IDrawable icon;
   @Getter
   private final String title;
+  private final String maxPrefix;
   private final IDrawable requirements;
   private final IDrawable[] slotIcons;
+  private final IDrawable slotUpgrade, slotAbility, slotFree;
   public ModifierRecipeCategory(IGuiHelper helper) {
     this.title = ForgeI18n.getPattern(KEY_TITLE);
+    this.maxPrefix = ForgeI18n.getPattern(KEY_MAX);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 128, 77);
-    this.icon = helper.createDrawableIngredient(new ItemStack(TinkerTables.tinkerStation));
+    this.icon = helper.createDrawableIngredient(new ItemStack(TinkerModifiers.creativeUpgradeItem));
     this.slotIcons = new IDrawable[6];
     for (int i = 0; i < 6; i++) {
       slotIcons[i] = helper.createDrawable(BACKGROUND_LOC, 128 + i * 16, 0, 16, 16);
     }
     this.requirements = helper.createDrawable(BACKGROUND_LOC, 128, 17, 16, 16);
+    this.slotUpgrade = helper.createDrawable(BACKGROUND_LOC, 144, 17, 8, 8);
+    this.slotAbility = helper.createDrawable(BACKGROUND_LOC, 152, 17, 8, 8);
+    this.slotFree    = helper.createDrawable(BACKGROUND_LOC, 160, 17, 8, 8);
   }
 
   @Override
@@ -86,15 +103,59 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
 
     // draw requirements icon if needed
     if (recipe.hasRequirements()) {
-      requirements.draw(matrices, 110, 58);
+      requirements.draw(matrices, 66, 58);
+    }
+
+    // draw max count
+    FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+    int max = recipe.getMaxLevel();
+    if (max > 0) {
+      fontRenderer.drawString(matrices, maxPrefix + max, 66, 16, Color.GRAY.getRGB());
+    }
+
+    // draw slot cost
+    int upgrades = recipe.getUpgradeSlots();
+    int abilities = recipe.getAbilitySlots();
+    IDrawable icon;
+    String text = null;
+    // ability takes precedence, not that both is ever set
+    if (abilities > 0) {
+      icon = slotAbility;
+      text = Integer.toString(abilities);
+    } else if (upgrades > 0) {
+      icon = slotUpgrade;
+      text = Integer.toString(upgrades);
+    } else {
+      icon = slotFree;
+    }
+    // draw number for quick info, free has no number
+    icon.draw(matrices, 114, 61);
+    if (text != null) {
+      int x = 112 - fontRenderer.getStringWidth(text);
+      fontRenderer.drawString(matrices, text, x, 62, Color.GRAY.getRGB());
     }
   }
 
   @Override
   public List<ITextComponent> getTooltipStrings(IDisplayModifierRecipe recipe, double mouseX, double mouseY) {
-    if (recipe.hasRequirements() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 110, 58, 16, 16)) {
+    int checkX = (int) mouseX;
+    int checkY = (int) mouseY;
+    if (recipe.hasRequirements() && GuiUtil.isHovered(checkX, checkY, 66, 58, 16, 16)) {
       return Collections.singletonList(new TranslationTextComponent(recipe.getRequirementsError()));
+    } else if (GuiUtil.isHovered(checkX, checkY, 98, 61, 24, 8)) {
+      // slot tooltip over icon
+      int upgrades = recipe.getUpgradeSlots();
+      int abilities = recipe.getAbilitySlots();
+      // ability take precedence again, not that both can be set
+      if (abilities > 0) {
+        return abilities == 1 ? TEXT_SINGLE_ABILITY : Collections.singletonList(new TranslationTextComponent(KEY_ABILITIES, abilities));
+      } else if (upgrades > 0) {
+        return upgrades == 1 ? TEXT_SINGLE_UPGRADE : Collections.singletonList(new TranslationTextComponent(KEY_UPGRADES, upgrades));
+      } else {
+        return TEXT_FREE;
+      }
     }
+    
     return Collections.emptyList();
   }
 

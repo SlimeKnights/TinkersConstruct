@@ -1251,5 +1251,11 @@
 
     "jei.tconstruct.alloy.title": "Alloying",
 
-    "jei.tconstruct.modifiers.title": "Modifiers"
+    "jei.tconstruct.modifiers.title": "Modifiers",
+    "jei.tconstruct.modifiers.ability": "Modifier requires 1 ability slot to apply",
+    "jei.tconstruct.modifiers.abilities": "Modifier requires %s ability slots to apply",
+    "jei.tconstruct.modifiers.upgrade": "Modifier requires 1 upgrade slot to apply",
+    "jei.tconstruct.modifiers.upgrades": "Modifier requires %s upgrade slots to apply",
+    "jei.tconstruct.modifiers.free": "No modifier slots are required to apply",
+    "jei.tconstruct.modifiers.max": "Max: "
 }
