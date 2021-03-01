@@ -60,7 +60,6 @@ public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRec
   /** Error message to display if the requirements do not match */
   private final String requirementsError;
   /** Modifier this recipe is adding */
-  @Getter
   private final ModifierEntry result;
   /** Maximum level of this modifier allowed */
   @Getter
@@ -82,7 +81,9 @@ public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRec
     this.maxLevel = maxLevel;
     this.upgradeSlots = upgradeSlots;
     this.abilitySlots = abilitySlots;
-    if (requirements != ModifierMatch.ALWAYS) {
+    // if this recipe depends on the same modifier as the output, may cause inconsistencies in the requirements check
+    // main reason this is true is when each level of a modifier requires a different item, in that case the requirement is just for internal calculations
+    if (requirements != ModifierMatch.ALWAYS && requirements.getMinLevel(result.getModifier()) == 0) {
       ModifierRequirementLookup.addRequirement(result.getModifier(), requirements, requirementsError);
     }
   }
@@ -223,6 +224,22 @@ public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRec
   private List<List<ItemStack>> displayInputs = null;
   /** Cache of display tool with modifier */
   private List<List<ItemStack>> displayTool = null;
+  /** Display result, may be a higher level than real result */
+  private ModifierEntry displayResult;
+
+  @Override
+  public ModifierEntry getDisplayResult() {
+    if (displayResult == null) {
+      // if the recipe has a minimum level of this modifier, add that min level to the display result
+      int min = requirements.getMinLevel(result.getModifier());
+      if (min > 0) {
+        displayResult = new ModifierEntry(result.getModifier(), result.getLevel() + min);
+      } else {
+        displayResult = result;
+      }
+    }
+    return displayResult;
+  }
 
   /** Gets a list of relevant tools for display */
   private List<ItemStack> getApplicableTools() {

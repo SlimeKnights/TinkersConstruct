@@ -65,7 +65,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   public void setIngredients(IDisplayModifierRecipe recipe, IIngredients ingredients) {
     ingredients.setInputLists(VanillaTypes.ITEM, recipe.getDisplayInputs());
     ingredients.setOutputLists(VanillaTypes.ITEM, recipe.getDisplayOutput());
-    ingredients.setOutput(JEIPlugin.MODIFIER_TYPE, recipe.getResult());
+    ingredients.setOutput(JEIPlugin.MODIFIER_TYPE, recipe.getDisplayResult());
   }
 
   /** Draws a single slot icon */
