@@ -23,7 +23,6 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStatio
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -247,16 +246,11 @@ public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRec
       Stream<Item> itemStream;
       // if empty requirement, assume any modifiable
       if (this.toolRequirement == Ingredient.EMPTY) {
-        itemStream = TinkerTags.Items.MODIFIABLE.getAllElements().stream();
+        itemStream = IDisplayModifierRecipe.getAllModifiable();
       } else {
         itemStream = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(ItemStack::getItem);
       }
-      toolInputs = itemStream.map(item -> {
-        if (item instanceof ToolCore) {
-          return ((ToolCore)item).buildToolForRendering();
-        }
-        return new ItemStack(item);
-      }).collect(Collectors.toList());
+      toolInputs = itemStream.map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList());
     }
     return toolInputs;
   }

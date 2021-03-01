@@ -1,12 +1,17 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /** Common interface for modifier recipes that can show in JEI */
 public interface IDisplayModifierRecipe {
@@ -16,7 +21,7 @@ public interface IDisplayModifierRecipe {
    */
   List<List<ItemStack>> getDisplayInputs();
 
-  /** Gets the tools to display */
+  /** Gets the tools to display, should be a singleton list containing a list of options */
   List<List<ItemStack>> getDisplayOutput();
 
   /** Gets the modifier output of this recipe */
@@ -52,6 +57,19 @@ public interface IDisplayModifierRecipe {
 
 
   /* Helpers */
+
+  /** Gets a stream of all modifiable items for display */
+  static Stream<Item> getAllModifiable() {
+    return TinkerTags.Items.MODIFIABLE.getAllElements().stream();
+  }
+
+  /** Maps the stream from tool items to applicable tool stacks */
+  Function<Item,ItemStack> MAP_TOOL_FOR_RENDERING = item -> {
+    if (item instanceof ToolCore) {
+      return ((ToolCore)item).buildToolForRendering();
+    }
+    return new ItemStack(item);
+  };
 
   /* Gets a copy of the stack with the given modifiers */
   static ItemStack withModifiers(ItemStack stack, @Nullable ModifierMatch match, @Nullable ModifierEntry newModifier) {
