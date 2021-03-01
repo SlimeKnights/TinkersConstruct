@@ -155,12 +155,22 @@ public class OverslimeModifier extends SingleUseModifier {
   }
 
   /**
+   * Sets the given amount to the cap, if you are going to use this method, your modifier should be high priority to prevent blocking others
+   * In general, {@link #addCap(ModDataNBT, int)} or {@link #multiplyCap(ModDataNBT, float)} will serve you better
+   * @param volatileData  Volatile data instance
+   * @param amount        Amount to set
+   */
+  public static void setCap(ModDataNBT volatileData, int amount) {
+    volatileData.putInt(KEY_OVERSLIME_CAP, amount);
+  }
+
+  /**
    * Adds the given amount to the cap
    * @param volatileData  Volatile data instance
    * @param amount        Amount to add
    */
   public static void addCap(ModDataNBT volatileData, int amount) {
-    volatileData.putInt(KEY_OVERSLIME_CAP, getCap(volatileData) + amount);
+    setCap(volatileData, getCap(volatileData) + amount);
   }
 
   /**
@@ -184,8 +194,15 @@ public class OverslimeModifier extends SingleUseModifier {
   /**
    * Sets the overslime on a tool
    */
+  public static void setOverslime(ModDataNBT persistentData, IModDataReadOnly volatileData, int amount) {
+    persistentData.putInt(KEY_OVERSLIME, MathHelper.clamp(amount, 0, getCap(volatileData)));
+  }
+
+  /**
+   * Sets the overslime on a tool
+   */
   public static void setOverslime(IModifierToolStack tool, int amount) {
-    tool.getPersistentData().putInt(KEY_OVERSLIME, MathHelper.clamp(amount, 0, getCap(tool)));
+    setOverslime(tool.getPersistentData(), tool.getVolatileData(), amount);
   }
 
   /**

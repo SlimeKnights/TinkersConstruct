@@ -1032,7 +1032,7 @@
     "__comment": "Free Modifiers",
     "modifier.tconstruct.overslime": "Overslime",
     "modifier.tconstruct.overslime.flavor": "Slimy!",
-    "modifier.tconstruct.overslime.description": "Tool consumes overslime instead of durability!\nNot friendly towards tools lacking slime",
+    "modifier.tconstruct.overslime.description": "Tool consumes overslime instead of durability, until it runs out! Not friendly towards tools lacking slime",
     "modifier.tconstruct.writable": "Writable",
     "modifier.tconstruct.writable.flavor": "Intellectual!",
     "modifier.tconstruct.writable.description": "More words. More upgrade. It's only logical!",

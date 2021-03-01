@@ -16,7 +16,7 @@ import java.util.function.BiFunction;
  * Note unlike other NBT classes, the data inside this one is mutable as most of it is directly used by the tools.
  */
 @EqualsAndHashCode
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class ModDataNBT implements IModDataReadOnly {
   protected static final String TAG_UPGRADES = "upgrades";
   protected static final String TAG_ABILITIES = "abilities";

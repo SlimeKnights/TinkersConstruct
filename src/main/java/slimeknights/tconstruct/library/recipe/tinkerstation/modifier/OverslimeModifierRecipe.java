@@ -6,29 +6,37 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Recipe to add overslime to a tool
  */
 @RequiredArgsConstructor
-public class OverslimeModifierRecipe implements ITinkerStationRecipe {
+public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
   private static final ValidatedResult AT_CAPACITY = ValidatedResult.failure(Util.makeTranslationKey("recipe", "overslime.at_capacity"));
 
   @Getter
@@ -156,6 +164,53 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe {
   @Override
   public IRecipeSerializer<?> getSerializer() {
     return TinkerModifiers.overslimeSerializer.get();
+  }
+
+  /* JEI display */
+  /** Cache of modifier result, same for all overslime */
+  private static final Lazy<ModifierEntry> RESULT = Lazy.of(() -> new ModifierEntry(TinkerModifiers.overslime.get(), 1));
+  /** Cache of tools for input, same for all overslime */
+  private static final Lazy<List<ItemStack>> DISPLAY_TOOLS = Lazy.of(() -> IDisplayModifierRecipe.getAllModifiable().map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList()));
+  /** Cache of display outputs, value depends on recipe */
+  private List<List<ItemStack>> displayInputs = null;
+  /** Cache of display outputs, value depends on recipe */
+  private List<List<ItemStack>> displayOutputs = null;
+
+  @Override
+  public List<List<ItemStack>> getDisplayInputs() {
+    if (displayInputs == null) {
+      displayInputs = Arrays.asList(DISPLAY_TOOLS.get(), Arrays.asList(ingredient.getMatchingStacks()));
+    }
+    return displayInputs;
+  }
+
+  @Override
+  public List<List<ItemStack>> getDisplayOutput() {
+    if (displayOutputs == null) {
+      // set cap and amount based on the restore amount
+      CompoundNBT volatileNBT = new CompoundNBT();
+      ModDataNBT volatileData = new ModDataNBT(volatileNBT, 0, 0);
+      OverslimeModifier.setCap(volatileData, 500);
+      CompoundNBT persistentNBT = new CompoundNBT();
+      OverslimeModifier.setOverslime(new ModDataNBT(persistentNBT, 0, 0), volatileData, restoreAmount);
+      displayOutputs = Collections.singletonList(
+        IDisplayModifierRecipe.getAllModifiable()
+                              .map(MAP_TOOL_FOR_RENDERING)
+                              .map(stack -> {
+                                ItemStack result = IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get());
+                                CompoundNBT nbt = result.getOrCreateTag();
+                                nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
+                                nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);
+                                return result;
+                              })
+                              .collect(Collectors.toList()));
+    }
+    return displayOutputs;
+  }
+
+  @Override
+  public ModifierEntry getDisplayResult() {
+    return RESULT.get();
   }
 
   public static class Serializer extends RecipeSerializer<OverslimeModifierRecipe> {
