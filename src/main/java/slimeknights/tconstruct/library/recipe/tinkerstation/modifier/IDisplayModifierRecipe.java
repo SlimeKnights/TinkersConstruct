@@ -20,7 +20,7 @@ public interface IDisplayModifierRecipe {
   List<List<ItemStack>> getDisplayOutput();
 
   /** Gets the modifier output of this recipe */
-  ModifierEntry getResult();
+  ModifierEntry getDisplayResult();
 
   /** Gets the max level of this modifier */
   default int getMaxLevel() {

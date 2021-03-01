@@ -98,6 +98,9 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
   /** Applies this modifier match to the given tool stack */
   public abstract void apply(ModifierNBT.Builder tool);
 
+  /** Gets the minimum level of this modifier needed for this match. Considers all possible paths, returning the smallest */
+  public abstract int getMinLevel(Modifier modifier);
+
   /**
    * Serializes this entry as JSON
    * @return  JSON
@@ -123,6 +126,13 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
         }
       }
       return false;
+    }
+    @Override
+    public int getMinLevel(Modifier modifier) {
+      if (modifier == entry.getModifier()) {
+        return entry.getLevel();
+      }
+      return 0;
     }
 
     @Override
@@ -157,6 +167,22 @@ public abstract class ModifierMatch implements Predicate<List<ModifierEntry>> {
         }
       }
       return matches >= required;
+    }
+
+    @Override
+    public int getMinLevel(Modifier modifier) {
+      // if we need none, or more than possible, skip
+      // second is a safety check
+      if (required == 0 || required >= options.size()) {
+        return 0;
+      }
+      // basically, try all options (sorted). skip gives us the largest of the paths we are required to use
+      return options.stream()
+                    .mapToInt(entry -> entry.getMinLevel(modifier))
+                    .sorted()
+                    .skip(required - 1)
+                    .findFirst()
+                    .orElse(0);
     }
 
     @Override
