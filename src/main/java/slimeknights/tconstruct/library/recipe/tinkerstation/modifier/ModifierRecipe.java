@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Streams;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
@@ -30,7 +31,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.BitSet;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -218,9 +218,7 @@ public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRec
 
   /* JEI display */
   /** Cache of display inputs */
-  private List<ItemStack> toolInputs = null;
-  /** Cache of display inputs */
-  private List<List<ItemStack>> displayInputs = null;
+  private List<List<ItemStack>> displayItems = null;
   /** Cache of display tool with modifier */
   private List<List<ItemStack>> displayTool = null;
   /** Display result, may be a higher level than real result */
@@ -240,36 +238,23 @@ public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRec
     return displayResult;
   }
 
-  /** Gets a list of relevant tools for display */
-  private List<ItemStack> getApplicableTools() {
-    if (toolInputs == null) {
-      Stream<Item> itemStream;
+  @Override
+  public List<List<ItemStack>> getDisplayItems() {
+    if (displayItems == null) {
       // if empty requirement, assume any modifiable
+      Stream<Item> itemStream;
       if (this.toolRequirement == Ingredient.EMPTY) {
         itemStream = IDisplayModifierRecipe.getAllModifiable();
       } else {
         itemStream = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(ItemStack::getItem);
       }
-      toolInputs = itemStream.map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList());
+      List<ItemStack> toolInputs = itemStream.map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList());
+      List<ItemStack> inputTools = toolInputs.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, null)).collect(Collectors.toList());
+      List<ItemStack> outputTools = toolInputs.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, result)).collect(Collectors.toList());
+      // stream of itemstack lists
+      displayItems = Streams.concat(Stream.of(outputTools), Stream.of(inputTools), inputs.stream().map(SizedIngredient::getMatchingStacks)).collect(Collectors.toList());
     }
-    return toolInputs;
-  }
-
-  @Override
-  public List<List<ItemStack>> getDisplayInputs() {
-    if (displayInputs == null) {
-      List<ItemStack> inputTools = getApplicableTools().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, null)).collect(Collectors.toList());
-      displayInputs = Stream.concat(Stream.of(inputTools), inputs.stream().map(SizedIngredient::getMatchingStacks)).collect(Collectors.toList());
-    }
-    return displayInputs;
-  }
-
-  @Override
-  public List<List<ItemStack>> getDisplayOutput() {
-    if (displayTool == null) {
-      displayTool = Collections.singletonList(getApplicableTools().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, result)).collect(Collectors.toList()));
-    }
-    return displayTool;
+    return displayItems;
   }
 
   @Override

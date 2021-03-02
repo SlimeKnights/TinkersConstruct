@@ -80,26 +80,26 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
 
   @Override
   public void setIngredients(IDisplayModifierRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputLists(VanillaTypes.ITEM, recipe.getDisplayInputs());
-    ingredients.setOutputLists(VanillaTypes.ITEM, recipe.getDisplayOutput());
+    ingredients.setInputLists(VanillaTypes.ITEM, recipe.getDisplayItems());
     ingredients.setOutput(JEIPlugin.MODIFIER_TYPE, recipe.getDisplayResult());
   }
 
   /** Draws a single slot icon */
   private void drawSlot(MatrixStack matrices, List<List<ItemStack>> inputs, int slot, int x, int y) {
     if (slot >= inputs.size() || inputs.get(slot).isEmpty()) {
-      slotIcons[slot].draw(matrices, x + 1, y + 1);
+      // -1 as the item list includes the output slot, we skip that
+      slotIcons[slot - 1].draw(matrices, x + 1, y + 1);
     }
   }
 
   @Override
   public void draw(IDisplayModifierRecipe recipe, MatrixStack matrices, double mouseX, double mouseY) {
-    List<List<ItemStack>> inputs = recipe.getDisplayInputs();
-    drawSlot(matrices, inputs, 1,  2, 32);
-    drawSlot(matrices, inputs, 2, 24, 14);
-    drawSlot(matrices, inputs, 3, 46, 32);
-    drawSlot(matrices, inputs, 4, 42, 57);
-    drawSlot(matrices, inputs, 5,  6, 57);
+    List<List<ItemStack>> inputs = recipe.getDisplayItems();
+    drawSlot(matrices, inputs, 2,  2, 32);
+    drawSlot(matrices, inputs, 3, 24, 14);
+    drawSlot(matrices, inputs, 4, 46, 32);
+    drawSlot(matrices, inputs, 5, 42, 57);
+    drawSlot(matrices, inputs, 6,  6, 57);
 
     // draw requirements icon if needed
     if (recipe.hasRequirements()) {
@@ -165,13 +165,13 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
 
     // set items for display
     IGuiItemStackGroup items = layout.getItemStacks();
-    items.init(0, true, 24, 37);
-    items.init(1, true,  2, 32);
-    items.init(2, true, 24, 14);
-    items.init(3, true, 46, 32);
-    items.init(4, true, 42, 57);
-    items.init(5, true,  6, 57);
-    items.init(6, false, 104, 33);
+    items.init(0, true, 104, 33);
+    items.init(1, true, 24, 37);
+    items.init(2, true,  2, 32);
+    items.init(3, true, 24, 14);
+    items.init(4, true, 46, 32);
+    items.init(5, true, 42, 57);
+    items.init(6, true,  6, 57);
     items.set(ingredients);
 
     // set modifiers for display

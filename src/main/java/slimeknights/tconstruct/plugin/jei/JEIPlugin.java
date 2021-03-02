@@ -9,6 +9,7 @@ import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -176,14 +177,13 @@ public class JEIPlugin implements IModPlugin {
   public void registerItemSubtypes(ISubtypeRegistration registry) {
     ISubtypeInterpreter toolPartInterpreter = itemStack -> {
       IMaterial material = IMaterialItem.getMaterialFromStack(itemStack);
-
       if (material == IMaterial.UNKNOWN) {
         return ISubtypeInterpreter.NONE;
       }
-
       return material.getIdentifier().toString();
     };
 
+    // parts
     registry.registerSubtypeInterpreter(TinkerToolParts.pickaxeHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.hammerHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.excavatorHead.get(), toolPartInterpreter);
@@ -196,24 +196,8 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerToolParts.toolRod.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.toughToolRod.get(), toolPartInterpreter);
 
-    ISubtypeInterpreter toolInterpreter = itemStack -> {
-      StringBuilder builder = new StringBuilder();
-
-      List<MaterialId> materialList = MaterialIdNBT.from(itemStack).getMaterials();
-      if (!materialList.isEmpty()) {
-        for (int i = 0; i < materialList.size(); i++) {
-          // looks nicer if there is no comma at the start
-          if (i != 0) {
-            builder.append(',');
-          }
-
-          builder.append(materialList.get(i));
-        }
-      }
-
-      return builder.toString();
-    };
-
+    // tools
+    ISubtypeInterpreter toolInterpreter = new ToolSubtypeInterpreter();
     registry.registerSubtypeInterpreter(TinkerTools.pickaxe.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.hammer.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.mattock.get(), toolInterpreter);
@@ -221,6 +205,7 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerTools.axe.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.kama.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.broadSword.get(), toolInterpreter);
+
     registry.registerSubtypeInterpreter(TinkerSmeltery.copperCan.get(), CopperCanItem::getSubtype);
   }
 
@@ -270,4 +255,29 @@ public class JEIPlugin implements IModPlugin {
     }
   }
 
+  /** Subtype interpreter for tools, treats the tool as unique in ingredient list, generic in recipes */
+  public static class ToolSubtypeInterpreter implements ISubtypeInterpreter {
+    @Override
+    public String apply(ItemStack itemStack) {
+      return NONE;
+    }
+
+    @Override
+    public String apply(ItemStack itemStack, UidContext context) {
+      if (context == UidContext.Ingredient) {
+        StringBuilder builder = new StringBuilder();
+        List<MaterialId> materialList = MaterialIdNBT.from(itemStack).getMaterials();
+        if (!materialList.isEmpty()) {
+          // append first entry without a comma
+          builder.append(materialList.get(0));
+          for (int i = 1; i < materialList.size(); i++) {
+            builder.append(',');
+            builder.append(materialList.get(i));
+          }
+        }
+        return builder.toString();
+      }
+      return NONE;
+    }
+  }
 }

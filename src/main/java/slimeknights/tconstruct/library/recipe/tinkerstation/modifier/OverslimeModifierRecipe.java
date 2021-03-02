@@ -28,7 +28,6 @@ import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -172,40 +171,33 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   /** Cache of tools for input, same for all overslime */
   private static final Lazy<List<ItemStack>> DISPLAY_TOOLS = Lazy.of(() -> IDisplayModifierRecipe.getAllModifiable().map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList()));
   /** Cache of display outputs, value depends on recipe */
-  private List<List<ItemStack>> displayInputs = null;
-  /** Cache of display outputs, value depends on recipe */
-  private List<List<ItemStack>> displayOutputs = null;
+  private List<List<ItemStack>> displayItems = null;
 
   @Override
-  public List<List<ItemStack>> getDisplayInputs() {
-    if (displayInputs == null) {
-      displayInputs = Arrays.asList(DISPLAY_TOOLS.get(), Arrays.asList(ingredient.getMatchingStacks()));
-    }
-    return displayInputs;
-  }
-
-  @Override
-  public List<List<ItemStack>> getDisplayOutput() {
-    if (displayOutputs == null) {
-      // set cap and amount based on the restore amount
+  public List<List<ItemStack>> getDisplayItems() {
+    if (displayItems == null) {
+      // set cap and amount based on the restore amount for output
       CompoundNBT volatileNBT = new CompoundNBT();
       ModDataNBT volatileData = new ModDataNBT(volatileNBT, 0, 0);
       OverslimeModifier.setCap(volatileData, 500);
       CompoundNBT persistentNBT = new CompoundNBT();
       OverslimeModifier.setOverslime(new ModDataNBT(persistentNBT, 0, 0), volatileData, restoreAmount);
-      displayOutputs = Collections.singletonList(
-        IDisplayModifierRecipe.getAllModifiable()
-                              .map(MAP_TOOL_FOR_RENDERING)
-                              .map(stack -> {
-                                ItemStack result = IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get());
-                                CompoundNBT nbt = result.getOrCreateTag();
-                                nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
-                                nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);
-                                return result;
-                              })
-                              .collect(Collectors.toList()));
+      List<ItemStack> displayOutputs = IDisplayModifierRecipe.getAllModifiable()
+                                                             .map(MAP_TOOL_FOR_RENDERING)
+                                                             .map(stack -> {
+                                                               ItemStack result = IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get());
+                                                               CompoundNBT nbt = result.getOrCreateTag();
+                                                               nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
+                                                               nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);
+                                                               return result;
+                                                             })
+                                                             .collect(Collectors.toList());
+      displayItems = Arrays.asList(
+        displayOutputs,
+        DISPLAY_TOOLS.get(),
+        Arrays.asList(ingredient.getMatchingStacks()));
     }
-    return displayOutputs;
+    return displayItems;
   }
 
   @Override
