@@ -18,7 +18,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import java.util.Set;
 
 public class AxeTool extends HarvestTool {
-  private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.PLANTS, Material.TALL_PLANTS);
+  private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.PLANTS, Material.TALL_PLANTS, Material.BAMBOO, Material.GOURD, Material.PLANTS, Material.TALL_PLANTS);
   public static final AOEToolHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(EXTRA_MATERIALS, 1, 1, 1);
   public AxeTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
