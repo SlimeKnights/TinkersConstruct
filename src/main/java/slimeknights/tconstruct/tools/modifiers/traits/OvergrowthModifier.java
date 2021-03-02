@@ -22,7 +22,7 @@ public class OvergrowthModifier extends Modifier {
   @Override
   public void onInventoryTick(IModifierToolStack tool, int level, World world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {
     // update 1 times a second, but skip when active (messes with pulling bow back)
-    if (!world.isRemote && holder.ticksExisted % 20 == 0 && holder.getActiveItemStack() == stack) {
+    if (!world.isRemote && holder.ticksExisted % 20 == 0 && holder.getActiveItemStack() != stack) {
       // ensure we have overslime
       int overslime = OverslimeModifier.getOverslime(tool);
       int cap = OverslimeModifier.getCap(tool);
