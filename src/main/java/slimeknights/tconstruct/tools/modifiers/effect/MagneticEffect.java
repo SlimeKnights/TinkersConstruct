@@ -25,7 +25,7 @@ public class MagneticEffect extends TinkerEffect {
     double x = entity.getPosX();
     double y = entity.getPosY();
     double z = entity.getPosZ();
-    double range = 1.75 + 0.75f * amplifier;
+    float range = 3f + 1f * amplifier;
     List<ItemEntity> items = entity.getEntityWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
 
     // only pull up to 200 items
@@ -39,7 +39,7 @@ public class MagneticEffect extends TinkerEffect {
       Vector3d vec = entity.getPositionVec()
                            .subtract(item.getPosX(), item.getPosY(), item.getPosZ())
                            .normalize()
-                           .scale(0.06f + amplifier * 0.04f);
+                           .scale(0.05f + amplifier * 0.05f);
 
       // we calculated the movement vector and set it to the correct strength.. now we apply it \o/
       item.setMotion(item.getMotion().add(vec));
