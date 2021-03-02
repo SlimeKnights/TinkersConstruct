@@ -1001,14 +1001,14 @@
 
     "__comment": "Tier 2 Upgrades",
     "modifier.tconstruct.magnetic": "Magnetic",
-    "modifier.tconstruct.magnetic.flavor": "How do they work?!",
-    "modifier.tconstruct.magnetic.description": "Hitting things attracts nearby things?!",
+    "modifier.tconstruct.magnetic.flavor": "Magnetic Personality!",
+    "modifier.tconstruct.magnetic.description": "Hitting things attracts nearby items?!",
     "modifier.tconstruct.knockback": "Knockback",
     "modifier.tconstruct.knockback.flavor": "Weeeeee!",
     "modifier.tconstruct.knockback.description": "Hitting things makes them go flying further!",
     "modifier.tconstruct.emerald": "Emerald",
     "modifier.tconstruct.emerald.flavor": "Fancy!",
-    "modifier.tconstruct.emerald.description": "Increases durability depending on base stats!",
+    "modifier.tconstruct.emerald.description": "Increases durability depending on base durability!",
 
     "__comment": "Tier 3 Upgrades",
     "modifier.tconstruct.silky": "Silky",
@@ -1071,12 +1071,12 @@
 
     "modifier.tconstruct.enhanced": "Enhanced",
     "modifier.tconstruct.enhanced.flavor": "Shiny!",
-    "modifier.tconstruct.enhanced.description": "Any extra upgrade goes well with gold",
+    "modifier.tconstruct.enhanced.description": "Rose gold goes great with a bonus upgrade!",
 
     "__comment": "Tier 3 Traits",
     "modifier.tconstruct.overcast": "Overcast",
     "modifier.tconstruct.overcast.flavor": "Springy!",
-    "modifier.tconstruct.overcast.description": "Damage has a chance to bounce off overslime on tool",
+    "modifier.tconstruct.overcast.description": "Damage has a chance to bounce off of overslime on tool",
     "modifier.tconstruct.lacerating": "Lacerating",
     "modifier.tconstruct.lacerating.flavor": "Sharp Edges!",
     "modifier.tconstruct.lacerating.description": "Causes the target to bleed, dealing additional damage",
@@ -1103,7 +1103,7 @@
     "modifier.tconstruct.momentum.description": "Mining blocks increases your speed, as long as you keep going",
     "modifier.tconstruct.insatiable": "Insatiable",
     "modifier.tconstruct.insatiable.flavor": "Taste For Blood!",
-    "modifier.tconstruct.insatiable.description": "During combat you deal more and more damage the more time you hit an enemy",
+    "modifier.tconstruct.insatiable.description": "During combat you deal more and more damage every time you hit an enemy",
 
     "__comment": "Tier 2 Mod Compat Traits",
     "modifier.tconstruct.heavy": "Heavy",
@@ -1189,7 +1189,7 @@
     "gui.tconstruct.crafting_station": "Crafting Station",
 
     "gui.tconstruct.part_builder": "Part Builder",
-    "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put a blank pattern into the left slot and select the part you want. The remaining slot hold the material you want to craft your part out of.",
+    "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put a blank pattern into the left slot and select the part you want. The remaining slot holds the material you want to craft your part out of.",
     "gui.tconstruct.part_builder.material_value": "Material value: %s",
     "gui.tconstruct.part_builder.cost": "Pattern cost: %s",
     "gui.tconstruct.part_builder.trait": "Trait",
