@@ -29,7 +29,7 @@ public class MattockTool extends ToolCore {
       // slower when a non-shovel block
       float speed = tool.getStats().getMiningSpeed();
       if (!blockState.isToolEffective(ToolType.SHOVEL)) {
-        speed *= 0.6f;
+        speed *= 0.75f;
       }
       return speed;
     }
