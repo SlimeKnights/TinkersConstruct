@@ -9,14 +9,17 @@ import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ForgeI18n;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -173,6 +176,19 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     items.init(5, true, 42, 57);
     items.init(6, true,  6, 57);
     items.set(ingredients);
+
+    // if focusing on a tool, filter out other tools
+    IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
+    if (focus != null && focus.getValue().getItem().isIn(TinkerTags.Items.MULTIPART_TOOL)) {
+      List<List<ItemStack>> allItems = recipe.getDisplayItems();
+      if (allItems.size() >= 2) {
+        Item item = focus.getValue().getItem();
+        allItems.get(0).stream().filter(stack -> stack.getItem() == item)
+                .findFirst().ifPresent(stack -> items.set(0, stack));
+        allItems.get(1).stream().filter(stack -> stack.getItem() == item)
+                .findFirst().ifPresent(stack -> items.set(1, stack));
+      }
+    }
 
     // set modifiers for display
     modifiers.init(7, false, modifierRenderer, 2, 2, 124, 10, 0, 0);
