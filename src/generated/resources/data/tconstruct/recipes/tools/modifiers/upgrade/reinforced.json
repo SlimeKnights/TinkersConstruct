@@ -5,6 +5,9 @@
       "item": "tconstruct:reinforcement"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
   "result": {
     "name": "tconstruct:reinforced",
     "level": 1

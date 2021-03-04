@@ -91,6 +91,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> MELEE = tag("modifiable/melee");
     /** Modifiable items that specifically are designed for combat */
     public static final IOptionalNamedTag<Item> COMBAT = tag("modifiable/combat");
+    /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
+    public static final IOptionalNamedTag<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
     /** Modifiable items that can break blocks */
     public static final IOptionalNamedTag<Item> HARVEST = tag("modifiable/harvest");
     /** Modifiable items that can have range increased */

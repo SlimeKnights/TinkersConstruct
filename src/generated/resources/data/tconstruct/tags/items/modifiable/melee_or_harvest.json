@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:modifiable/melee",
+    "#tconstruct:modifiable/harvest"
+  ]
+}

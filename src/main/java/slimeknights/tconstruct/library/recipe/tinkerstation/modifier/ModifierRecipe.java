@@ -5,7 +5,6 @@ import com.google.common.collect.Streams;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -17,13 +16,13 @@ import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -130,12 +129,7 @@ public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRec
   public boolean matches(ITinkerStationInventory inv, World world) {
     // ensure this modifier can be applied
     ItemStack tinkerable = inv.getTinkerableStack();
-    if (this.toolRequirement == Ingredient.EMPTY) {
-      // if not specified, match anything modifiable
-      if (!TinkerTags.Items.MODIFIABLE.contains(tinkerable.getItem())) {
-        return false;
-      }
-    } else if (!this.toolRequirement.test(tinkerable)) {
+    if (!this.toolRequirement.test(tinkerable)) {
       return false;
     }
 
@@ -242,13 +236,12 @@ public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRec
   public List<List<ItemStack>> getDisplayItems() {
     if (displayItems == null) {
       // if empty requirement, assume any modifiable
-      Stream<Item> itemStream;
-      if (this.toolRequirement == Ingredient.EMPTY) {
-        itemStream = IDisplayModifierRecipe.getAllModifiable();
-      } else {
-        itemStream = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(ItemStack::getItem);
-      }
-      List<ItemStack> toolInputs = itemStream.map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList());
+      List<ItemStack> toolInputs = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(stack -> {
+        if (stack.getItem() instanceof ToolCore) {
+          return ((ToolCore)stack.getItem()).buildToolForRendering();
+        }
+        return stack;
+      }).collect(Collectors.toList());
       List<ItemStack> inputTools = toolInputs.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, null)).collect(Collectors.toList());
       List<ItemStack> outputTools = toolInputs.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, result)).collect(Collectors.toList());
       // stream of itemstack lists
@@ -285,10 +278,7 @@ public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRec
     @Override
     public ModifierRecipe read(ResourceLocation id, JsonObject json) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      Ingredient toolRequirement = Ingredient.EMPTY;
-      if (json.has("tools")) {
-        toolRequirement = Ingredient.deserialize(json.get("tools"));
-      }
+      Ingredient toolRequirement = Ingredient.deserialize(json.get("tools"));
       ModifierMatch requirements = ModifierMatch.ALWAYS;
       String requirementsError = "";
       if (json.has("requirements")) {

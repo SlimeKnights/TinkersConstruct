@@ -5,6 +5,9 @@
       "tag": "forge:ingots/netherite"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
   "requirements": {
     "options": [
       {
