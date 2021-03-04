@@ -270,7 +270,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
       }
 
       // damage the tool, if it breaks or if we changed a campfire, we are done
-      if (ToolDamageUtil.damageAnimated(tool, 1, player, slot) || isCampfire) {
+      if ((!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) || isCampfire) {
         return ActionResultType.SUCCESS;
       }
     }
@@ -308,7 +308,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
         }
 
         // stop if the tool broke
-        if (ToolDamageUtil.damageAnimated(tool, 1, player, slot)) {
+        if (!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) {
           break;
         }
       }
