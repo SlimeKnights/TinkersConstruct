@@ -5,6 +5,9 @@
       "item": "tconstruct:magma_expander"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable/aoe"
+  },
   "result": {
     "name": "tconstruct:expanded",
     "level": 1

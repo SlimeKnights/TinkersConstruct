@@ -5,6 +5,9 @@
       "item": "tconstruct:ender_expander"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable/aoe"
+  },
   "requirements": {
     "name": "tconstruct:expanded",
     "level": 1,
