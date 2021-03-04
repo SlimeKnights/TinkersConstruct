@@ -37,7 +37,7 @@ final class MaterialStats {
                      HandleMaterialStats.DEFAULT, // 1.0 to all four stats for wood, its the baseline handle
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.flint,
-                     new HeadMaterialStats(120, 4f, STONE, 1f),
+                     new HeadMaterialStats(85, 3.5f, STONE, 1.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.8f).withAttackDamage(1.1f),
                      ExtraMaterialStats.DEFAULT);
     // vanilla stone: 131, 4f, STONE, 1f
