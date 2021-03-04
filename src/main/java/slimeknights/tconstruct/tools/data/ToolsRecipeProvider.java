@@ -194,6 +194,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerModifiers.magmaExpander)
                          .setAbilitySlots(1)
                          .setMaxLevel(1)
+                         .setToolTag(TinkerTags.Items.AOE)
                          .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_magma"));
 
     // tier 5
@@ -203,6 +204,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.ender_expander_requirements"))
                          .setAbilitySlots(1)
                          .setMaxLevel(2)
+                         .setToolTag(TinkerTags.Items.AOE)
                          .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ender"));
 
     // extra modifiers
