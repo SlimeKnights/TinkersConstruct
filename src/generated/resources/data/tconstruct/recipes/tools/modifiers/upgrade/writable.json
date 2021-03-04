@@ -5,6 +5,9 @@
       "item": "minecraft:writable_book"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
   "result": {
     "name": "tconstruct:writable",
     "level": 1

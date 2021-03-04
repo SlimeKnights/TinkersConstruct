@@ -5,6 +5,9 @@
       "item": "minecraft:compass"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee_or_harvest"
+  },
   "result": {
     "name": "tconstruct:magnetic",
     "level": 1

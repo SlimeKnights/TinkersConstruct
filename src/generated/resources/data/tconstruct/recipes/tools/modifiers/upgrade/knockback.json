@@ -5,6 +5,9 @@
       "item": "minecraft:piston"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
   "result": {
     "name": "tconstruct:knockback",
     "level": 1

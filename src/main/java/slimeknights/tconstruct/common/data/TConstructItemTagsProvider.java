@@ -126,10 +126,12 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
         .add(TinkerTools.pickaxe.get(), TinkerTools.kama.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get());
     // supports modifiers
+    this.getOrCreateBuilder(TinkerTags.Items.MELEE_OR_HARVEST)
+        .addTag(TinkerTags.Items.MELEE)
+        .addTag(TinkerTags.Items.HARVEST);
     this.getOrCreateBuilder(TinkerTags.Items.MODIFIABLE)
         .addTag(TinkerTags.Items.MULTIPART_TOOL)
-        .addTag(TinkerTags.Items.MELEE)
-        .addTag(TinkerTags.Items.HARVEST)
+        .addTag(TinkerTags.Items.MELEE_OR_HARVEST)
         .addTag(TinkerTags.Items.AOE);
 
     // kamas are a shear type, when broken we don't pass it to loot tables

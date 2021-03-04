@@ -12,8 +12,10 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -26,6 +28,7 @@ import java.util.function.Consumer;
 @Accessors(chain = true)
 @RequiredArgsConstructor(staticName = "modifier")
 public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeBuilder> {
+  private static final Lazy<Ingredient> DEFAULT_TOOL = Lazy.of(() -> Ingredient.fromTag(TinkerTags.Items.MODIFIABLE));
   private final List<SizedIngredient> inputs = new ArrayList<>();
   private final ModifierEntry result;
   @Setter
@@ -183,7 +186,9 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
         array.add(ingredient.serialize());
       }
       json.add("inputs", array);
-      if (tools != Ingredient.EMPTY) {
+      if (tools == Ingredient.EMPTY) {
+        json.add("tools", DEFAULT_TOOL.get().serialize());
+      } else {
         json.add("tools", tools.serialize());
       }
       if (requirements != ModifierMatch.ALWAYS) {

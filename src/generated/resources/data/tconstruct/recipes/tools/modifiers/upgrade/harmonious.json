@@ -5,6 +5,9 @@
       "tag": "minecraft:music_discs"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
   "result": {
     "name": "tconstruct:harmonious",
     "level": 1

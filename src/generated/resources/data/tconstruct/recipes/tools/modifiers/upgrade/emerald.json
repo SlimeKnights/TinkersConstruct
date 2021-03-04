@@ -5,6 +5,9 @@
       "tag": "forge:gems/emerald"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
   "result": {
     "name": "tconstruct:emerald",
     "level": 1

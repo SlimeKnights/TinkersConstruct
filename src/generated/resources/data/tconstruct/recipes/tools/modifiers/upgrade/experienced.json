@@ -6,6 +6,9 @@
       "amount_needed": 5
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee_or_harvest"
+  },
   "result": {
     "name": "tconstruct:experienced",
     "level": 1

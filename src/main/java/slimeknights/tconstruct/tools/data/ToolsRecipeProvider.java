@@ -148,16 +148,19 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.EXPERIENCE_BOTTLE, 5)
                          .setMaxLevel(3)
                          .setUpgradeSlots(1)
+                         .setToolTag(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.experienced, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
                          .addInput(Items.PISTON)
                          .setMaxLevel(5)
                          .setUpgradeSlots(1)
+                         .setToolTag(TinkerTags.Items.MELEE)
                          .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic.get())
                          .addInput(Items.COMPASS)
                          .setMaxLevel(3)
                          .setUpgradeSlots(1)
+                         .setToolTag(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.magnetic, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.emerald.get())
                          .addInput(Tags.Items.GEMS_EMERALD)

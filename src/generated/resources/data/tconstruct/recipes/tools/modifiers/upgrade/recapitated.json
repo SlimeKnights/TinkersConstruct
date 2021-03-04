@@ -5,6 +5,9 @@
       "tag": "forge:heads"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
   "result": {
     "name": "tconstruct:recapitated",
     "level": 1
