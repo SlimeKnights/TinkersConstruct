@@ -97,7 +97,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     assertThat(builder.buildHarvestLevel()).isEqualTo(0);
     assertThat(builder.buildMiningSpeed()).isGreaterThan(0);
     assertThat(builder.buildMiningSpeed()).isLessThanOrEqualTo(1);
-    assertThat(builder.buildAttack()).isGreaterThan(0);
+    assertThat(builder.buildAttack()).isEqualTo(0);
     assertThat(builder.buildAttack()).isLessThanOrEqualTo(1);
   }
 
