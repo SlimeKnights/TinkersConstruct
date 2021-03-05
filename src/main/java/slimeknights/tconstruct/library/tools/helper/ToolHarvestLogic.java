@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SChangeBlockPacket;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameType;
@@ -191,9 +192,10 @@ public class ToolHarvestLogic {
     int damage = getDamage(tool, stack, world, pos, state);
 
     // block harvest callbacks
+    TileEntity te = canHarvest ? world.getTileEntity(pos) : null;
     boolean removed = removeBlock(player, world, pos, canHarvest);
     if (removed && canHarvest) {
-      state.getBlock().harvestBlock(world, player, pos, state, world.getTileEntity(pos), stack);
+      state.getBlock().harvestBlock(world, player, pos, state, te, stack);
     }
 
     // drop XP
@@ -246,7 +248,9 @@ public class ToolHarvestLogic {
 
   /**
    * Call on block break to break a block.
-   * Used in {@link net.minecraftforge.common.extensions.IForgeItem#onBlockStartBreak(ItemStack, BlockPos, PlayerEntity)}
+   * Used in {@link net.minecraftforge.common.extensions.IForgeItem#onBlockStartBreak(ItemStack, BlockPos, PlayerEntity)}.
+   * See also {@link net.minecraft.client.multiplayer.PlayerController#onPlayerDestroyBlock(BlockPos)} (client)
+   * and {@link net.minecraft.server.management.PlayerInteractionManager#tryHarvestBlock(BlockPos)} (server)
    * @param stack   Stack instance
    * @param pos     Position to break
    * @param player  Player instance
