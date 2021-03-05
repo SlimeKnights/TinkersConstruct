@@ -98,8 +98,7 @@ public class OverslimeModifier extends SingleUseModifier {
       if (overslime > cap) {
         return 0;
       }
-      // always show at least 5% green
-      return 0.95 * ((double) (cap - overslime) / cap);
+      return ((double) (cap - overslime) / cap);
     }
     return Double.NaN;
   }

@@ -196,7 +196,12 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
 
   @Override
   public double getDurabilityForDisplay(ItemStack stack) {
-    return getDamagePercentage(ToolStack.from(stack));
+    ToolStack tool = ToolStack.from(stack);
+    if (tool.isBroken()) {
+      return 1;
+    }
+    // always show at least 5% when not broken
+    return 0.95 * getDamagePercentage(tool);
   }
 
   @Override
