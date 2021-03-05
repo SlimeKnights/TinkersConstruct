@@ -94,8 +94,8 @@ public final class TinkerWorld extends TinkerModule {
   public static final EnumObject<SlimeType, CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(CONGEALED_SLIME), TOOLTIP_BLOCK_ITEM);
 
   // island blocks
-  private static final Block.Properties SLIME_DIRT = builder(Material.EARTH, NO_TOOL, SoundType.SLIME).hardnessAndResistance(0.55F);
-  private static final Block.Properties SLIME_GRASS = builder(Material.ORGANIC, NO_TOOL, SoundType.SLIME).hardnessAndResistance(0.65F).tickRandomly();
+  private static final Block.Properties SLIME_DIRT = builder(Material.EARTH, ToolType.SHOVEL, SoundType.SLIME).hardnessAndResistance(0.55F);
+  private static final Block.Properties SLIME_GRASS = builder(Material.ORGANIC, ToolType.SHOVEL, SoundType.SLIME).hardnessAndResistance(0.65F).tickRandomly();
   public static final EnumObject<SlimeDirtType, SlimeDirtBlock> slimeDirt = BLOCKS.registerEnum(SlimeDirtBlock.SlimeDirtType.values(), "slime_dirt", (type) -> new SlimeDirtBlock(SLIME_DIRT), TOOLTIP_BLOCK_ITEM);
   public static final EnumObject<FoliageType, SlimeGrassBlock> vanillaSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "vanilla_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
   public static final EnumObject<FoliageType, SlimeGrassBlock> greenSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "green_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
