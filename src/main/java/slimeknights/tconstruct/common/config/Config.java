@@ -98,11 +98,11 @@ public class Config {
       this.melterNuggetsPerOre = builder
         .comment("Number of nuggets produced when an ore block is melted in the melter. 9 would give 1 ingot")
         .translation("tconstruct.configgui.melterNuggetsPerOre")
-        .defineInRange("melterNuggetsPerOre", 9, 1, 45);
+        .defineInRange("melterNuggetsPerOre", 12, 1, 45);
       this.smelteryNuggetsPerOre = builder
         .comment("Number of nuggets produced when an ore block is melted in the smeltery. 9 nuggets would give 1 ingot")
         .translation("tconstruct.configgui.smelteryNuggetsPerOre")
-        .defineInRange("smelteryNuggetsPerOre", 15, 1, 45);
+        .defineInRange("smelteryNuggetsPerOre", 18, 1, 45);
 
       builder.pop();
 
