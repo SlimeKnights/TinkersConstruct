@@ -103,8 +103,8 @@ public class WorldEvents {
 
       if (Config.COMMON.generateCopper.get()) {
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-          Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.BASE_STONE_OVERWORLD, TinkerWorld.copperOre.get().getDefaultState(), 17))
-            .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(30, 0, 90))).square().func_242731_b(Config.COMMON.veinCountCopper.get()));
+          Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.BASE_STONE_OVERWORLD, TinkerWorld.copperOre.get().getDefaultState(), 9))
+            .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(40, 0, 60))).square().func_242731_b(Config.COMMON.veinCountCopper.get()));
       }
     }
     else if (event.getCategory() == Biome.Category.THEEND && doesNameMatchBiomes(event.getName(), Biomes.END_MIDLANDS, Biomes.END_HIGHLANDS, Biomes.END_BARRENS, Biomes.SMALL_END_ISLANDS)) {
