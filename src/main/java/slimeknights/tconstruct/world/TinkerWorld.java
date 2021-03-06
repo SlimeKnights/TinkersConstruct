@@ -17,7 +17,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.OreFeatureConfig.FillerBlockType;
+import net.minecraft.world.gen.placement.DepthAverageConfig;
+import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -31,6 +41,7 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
@@ -143,6 +154,14 @@ public final class TinkerWorld extends TinkerModule {
   public static final RegistryObject<BasicParticleType> slimeParticle = PARTICLE_TYPES.register("slime", () -> new BasicParticleType(false));
 
   /*
+   * Features
+   */
+  public static ConfiguredFeature<?, ?> COPPER_ORE_FEATURE;
+  public static ConfiguredFeature<?, ?> COBALT_ORE_FEATURE_SMALL;
+  public static ConfiguredFeature<?, ?> COBALT_ORE_FEATURE_LARGE;
+
+
+  /*
    * Events
    */
   @SubscribeEvent
@@ -157,6 +176,23 @@ public final class TinkerWorld extends TinkerModule {
     slimeFern.forEach(block -> ComposterBlock.registerCompostable(0.65f, block));
     ComposterBlock.registerCompostable(0.5f, blueSlimeVine);
     ComposterBlock.registerCompostable(0.5f, purpleSlimeVine);
+
+    // ores
+    COPPER_ORE_FEATURE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("copper_ore"),
+                                           Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.BASE_STONE_OVERWORLD, TinkerWorld.copperOre.get().getDefaultState(), 9))
+                                                      .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(40, 0, 60)))
+                                                      .square()
+                                                      .func_242731_b(Config.COMMON.veinCountCopper.get()));
+    // small veins, standard distribution
+    COBALT_ORE_FEATURE_SMALL = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("cobalt_ore_small"),
+                                                 Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.NETHERRACK, cobaltOre.get().getDefaultState(), 4))
+                                                            .withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT)
+                                                            .square().func_242731_b(Config.COMMON.veinCountCobalt.get() / 2));
+    // large veins, around y=16, up to 48
+    COBALT_ORE_FEATURE_LARGE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("cobalt_ore_large"),
+                                                 Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.NETHERRACK, cobaltOre.get().getDefaultState(), 8))
+                                                            .withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(32, 16)))
+                                                            .square().func_242731_b(Config.COMMON.veinCountCobalt.get() / 2));
   }
 
   @SubscribeEvent

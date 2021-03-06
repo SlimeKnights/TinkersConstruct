@@ -28,9 +28,6 @@ public class Config {
     public final BooleanValue generateCobalt;
     public final ConfigValue<Integer> veinCountCobalt;
 
-    public final BooleanValue generateArdite;
-    public final ConfigValue<Integer> veinCountArdite;
-
     public final BooleanValue generateCopper;
     public final ConfigValue<Integer> veinCountCopper;
 
@@ -113,7 +110,6 @@ public class Config {
         .translation("tconstruct.configgui.generateCopper")
         .worldRestart()
         .define("generateCopper", true);
-
       this.veinCountCopper = builder
         .comment("Approx Ores per Chunk")
         .translation("tconstruct.configgui.veinCountCopper")
@@ -125,24 +121,11 @@ public class Config {
         .translation("tconstruct.configgui.generateCobalt")
         .worldRestart()
         .define("generateCobalt", true);
-
       this.veinCountCobalt = builder
         .comment("Approx Ores per Chunk")
         .translation("tconstruct.configgui.veinCountCobalt")
         .worldRestart()
-        .define("veinCountCobalt", 20);
-
-      this.generateArdite = builder
-        .comment("Generate Ardite")
-        .translation("tconstruct.configgui.generateArdite")
-        .worldRestart()
-        .define("generateArdite", true);
-
-      this.veinCountArdite = builder
-        .comment("Approx Ores per Chunk")
-        .translation("tconstruct.configgui.veinCountArdite")
-        .worldRestart()
-        .define("veinCountArdite", 20);
+        .define("veinCountCobalt", 8);
 
       this.generateSlimeIslands = builder
         .comment("Set this to false to disable slime islands spawning in the world")
