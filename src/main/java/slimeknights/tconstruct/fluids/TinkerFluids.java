@@ -47,7 +47,6 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenGold   = FLUIDS.register("molten_gold",   moltenBuilder().color(0xfff6d609).temperature(1000), Material.LAVA, 13);
   public static final FluidObject<ForgeFlowingFluid> moltenCopper = FLUIDS.register("molten_copper", moltenBuilder().color(0xfffba165).temperature( 800), Material.LAVA, 11);
   public static final FluidObject<ForgeFlowingFluid> moltenCobalt = FLUIDS.register("molten_cobalt", moltenBuilder().color(0xff2376dd).temperature(1250), Material.LAVA, 10);
-  public static final FluidObject<ForgeFlowingFluid> moltenArdite = FLUIDS.register("molten_ardite", moltenBuilder().color(0xffe88317).temperature(1400), Material.LAVA,  8);
   public static final FluidObject<ForgeFlowingFluid> moltenDebris = FLUIDS.register("molten_debris", moltenBuilder().color(0xff5d342c).temperature(1475), Material.LAVA,  9);
   // alloys
   public static final FluidObject<ForgeFlowingFluid> moltenSlimesteel    = FLUIDS.register("molten_slimesteel",     moltenBuilder().color(0xffb3e0dc).temperature(1200), Material.LAVA, 10);

@@ -143,7 +143,6 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     // ores
     registerMineralRecipes(consumer, TinkerMaterials.copper, folder);
     registerMineralRecipes(consumer, TinkerMaterials.cobalt, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.ardite, folder);
     // tier 3
     registerMineralRecipes(consumer, TinkerMaterials.slimesteel,    folder);
     registerMineralRecipes(consumer, TinkerMaterials.tinkersBronze, folder);
@@ -163,10 +162,6 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.cobaltOre))
                         .build(consumer, wrap(cobaltIngot, folder, "_smelting"));
-    IItemProvider arditeIngot = TinkerMaterials.ardite.getIngot();
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.arditeOre), arditeIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.arditeOre))
-                        .build(consumer, wrap(arditeIngot, folder, "_smelting"));
     IItemProvider copperIngot = TinkerMaterials.copper.getIngot();
     CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.copperOre))

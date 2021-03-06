@@ -22,7 +22,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
 
     public static final IOptionalNamedTag<Block> ORES_COBALT = forgeTag("ores/cobalt");
-    public static final IOptionalNamedTag<Block> ORES_ARDITE = forgeTag("ores/ardite");
     public static final IOptionalNamedTag<Block> ORES_COPPER = forgeTag("ores/copper");
 
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
@@ -55,7 +54,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> SLIMY_SAPLINGS = tag("slimy_saplings");
 
     public static final IOptionalNamedTag<Item> ORES_COBALT = forgeTag("ores/cobalt");
-    public static final IOptionalNamedTag<Item> ORES_ARDITE = forgeTag("ores/ardite");
     public static final IOptionalNamedTag<Item> ORES_COPPER = forgeTag("ores/copper");
 
     public static final IOptionalNamedTag<Item> SEARED_BLOCKS = tag("seared_blocks");

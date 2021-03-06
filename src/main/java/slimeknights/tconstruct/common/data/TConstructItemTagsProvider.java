@@ -59,7 +59,6 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     // ores
     addMetalTags(TinkerMaterials.copper);
     addMetalTags(TinkerMaterials.cobalt);
-    addMetalTags(TinkerMaterials.ardite);
     // tier 3
     addMetalTags(TinkerMaterials.slimesteel);
     addMetalTags(TinkerMaterials.tinkersBronze);
@@ -89,7 +88,6 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
     this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
     this.copy(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Items.ORES_COBALT);
-    this.copy(TinkerTags.Blocks.ORES_ARDITE, TinkerTags.Items.ORES_ARDITE);
     this.copy(TinkerTags.Blocks.ORES_COPPER, TinkerTags.Items.ORES_COPPER);
   }
 
