@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
 import javax.annotation.Nullable;
@@ -104,6 +105,10 @@ public interface IMaterialRenderInfo {
    * @return  Material instance
    */
   static RenderMaterial getMaterial(ResourceLocation texture, ResourceLocation material) {
-    return ModelLoaderRegistry.blockMaterial(new ResourceLocation(material.getNamespace(), texture.getPath() + "_" + material.getPath()));
+    String prefix = "";
+    if (!TConstruct.modID.equals(material.getNamespace())) {
+      prefix = material.getNamespace() + "_";
+    }
+    return ModelLoaderRegistry.blockMaterial(new ResourceLocation(texture.getNamespace(), texture.getPath() + "_" + prefix + material.getPath()));
   }
 }
