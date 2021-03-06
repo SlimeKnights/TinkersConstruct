@@ -20,7 +20,6 @@ public class EntityMeltingRecipeCache {
   private static final Map<EntityType<?>,EntityMeltingRecipe> CACHE = new HashMap<>();
 
   static {
-    // register listener to reset on cache clear
     RecipeCacheInvalidator.addReloadListener(client -> CACHE.clear());
   }
 

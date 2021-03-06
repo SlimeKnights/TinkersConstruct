@@ -79,6 +79,12 @@ public class ModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRec
     this.maxLevel = maxLevel;
     this.upgradeSlots = upgradeSlots;
     this.abilitySlots = abilitySlots;
+
+    // add all inputs to the modifier listing
+    for (SizedIngredient ingredient : inputs) {
+      ModifierItemLookup.addIngredient(ingredient);
+    }
+
     // if this recipe depends on the same modifier as the output, may cause inconsistencies in the requirements check
     // main reason this is true is when each level of a modifier requires a different item, in that case the requirement is just for internal calculations
     if (requirements != ModifierMatch.ALWAYS && requirements.getMinLevel(result.getModifier()) == 0) {

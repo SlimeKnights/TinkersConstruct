@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.block;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,9 +15,9 @@ public interface ITinkerStationBlock {
   boolean openGui(PlayerEntity player, World world, BlockPos pos);
 
   /**
-   * Gets the table type of the current block
+   * Gets the sort order for the current block
    *
-   * @return the table type
+   * @return the table sort key
    */
-  TableTypes getType();
+  int getSortKey();
 }

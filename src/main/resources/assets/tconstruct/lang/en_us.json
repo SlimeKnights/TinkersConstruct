@@ -673,10 +673,13 @@
     "block.tconstruct.part_builder": "Part Builder",
 
     "block.tconstruct.part_chest": "Part Chest",
-    "block.tconstruct.part_chest.tooltip": "Can hold a large amount of toolparts",
+    "block.tconstruct.part_chest.tooltip": "Holds up to 256 different tool parts",
 
     "block.tconstruct.modifier_chest": "Modifier Chest",
-    "block.tconstruct.modifier_chest.tooltip": "Holds modifier items",
+    "block.tconstruct.modifier_chest.tooltip": "Holds up to 64 stacks of modifiers",
+
+    "block.tconstruct.cast_chest": "Cast Chest",
+    "block.tconstruct.cast_chest.tooltip": "Holds all relevant casts",
     
     "item.tconstruct.pattern": "Pattern",
     
@@ -1167,7 +1170,7 @@
     "gui.tconstruct.part_builder.cost": "Pattern cost: %s",
     "gui.tconstruct.part_builder.trait": "Trait",
 
-    "gui.tconstruct.pattern_chest": "Pattern Chest",
+    "gui.tconstruct.modifier_chest": "Modifier Chest",
     "gui.tconstruct.cast_chest": "Cast Chest",
     "gui.tconstruct.part_chest": "Part Chest",
 

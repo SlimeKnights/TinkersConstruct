@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -34,7 +33,6 @@ import java.util.stream.Collectors;
 /**
  * Recipe to add overslime to a tool
  */
-@RequiredArgsConstructor
 public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
   private static final ValidatedResult AT_CAPACITY = ValidatedResult.failure(Util.makeTranslationKey("recipe", "overslime.at_capacity"));
 
@@ -42,6 +40,13 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   private final ResourceLocation id;
   private final Ingredient ingredient;
   private final int restoreAmount;
+
+  public OverslimeModifierRecipe(ResourceLocation id, Ingredient ingredient, int restoreAmount) {
+    this.id = id;
+    this.ingredient = ingredient;
+    this.restoreAmount = restoreAmount;
+    ModifierItemLookup.addIngredient(ingredient);
+  }
 
   @Override
   public boolean matches(ITinkerStationInventory inv, World world) {

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " c ",
+    "bCb",
+    "bBb"
+  ],
+  "key": {
+    "c": {
+      "item": "tconstruct:blank_cast"
+    },
+    "b": {
+      "item": "tconstruct:seared_brick"
+    },
+    "B": {
+      "item": "tconstruct:seared_bricks"
+    },
+    "C": {
+      "tag": "forge:chests/wooden"
+    }
+  },
+  "result": {
+    "item": "tconstruct:cast_chest"
+  }
+}

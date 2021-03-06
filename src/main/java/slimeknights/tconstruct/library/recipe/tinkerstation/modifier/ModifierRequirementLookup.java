@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import com.mojang.datafixers.util.Pair;
 import slimeknights.tconstruct.common.RecipeCacheInvalidator;
+import slimeknights.tconstruct.common.RecipeCacheInvalidator.DuelSidedListener;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -21,32 +22,8 @@ public class ModifierRequirementLookup {
   /** Map of requirements for each modifier */
   private static final Map<Modifier,Pair<ModifierMatch,String>> REQUIREMENTS = new HashMap<>();
 
-  /** If true, a clear is queued for the next time a recipe is added */
-  private static boolean clearQueued = false;
-
-  static {
-    RecipeCacheInvalidator.addReloadListener(client -> {
-      // don't clear immediately on client, clear next time we try adding recipes
-      if (client) {
-        clearQueued = true;
-      } else {
-        clearCache();
-      }
-    });
-  }
-
-  /** Clears the cache */
-  private static void clearCache() {
-    clearQueued = false;
-    REQUIREMENTS.clear();
-  }
-
-  /** Clears the cache if queued */
-  private static void checkClear() {
-    if (clearQueued) {
-      clearCache();
-    }
-  }
+  /** Listener for clearing the recipe cache on recipe reload */
+  private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(REQUIREMENTS::clear);
 
   /**
    * Adds a modifier requirement. Typically called by the recipe
@@ -55,7 +32,7 @@ public class ModifierRequirementLookup {
    * @param error     Translation key for error message
    */
   public static void addRequirement(Modifier modifier, ModifierMatch match, String error) {
-    checkClear();
+    LISTENER.checkClear();
     if (error.isEmpty()) {
       error = DEFAULT_ERROR_KEY;
     }

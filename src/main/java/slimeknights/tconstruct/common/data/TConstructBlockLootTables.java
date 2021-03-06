@@ -106,23 +106,25 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
   private void addTools() {
     this.registerDropSelfLootTable(TinkerTables.craftingStation.get());
-    for (Block block : new Block[] {TinkerTables.modifierChest.get(), TinkerTables.partChest.get()}) {
-      this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
-        return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
-                 .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items"));
-      }));
-    }
-    for (Block block : new Block[] {TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get()}) {
-      this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
-        return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
-               .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).addOperation("LegTexture", "TinkerData.LegTexture", Action.REPLACE));
-      }));
-    }
-    this.registerLootTable(TinkerTables.craftingStation.get(), (block) -> {
-      return droppingWithFunctions(block, (builder) -> {
-        return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY));
-      });
-    });
+
+    // chests
+    Function<Block, LootTable.Builder> addChest = block -> droppingWithFunctions(block, (builder) ->
+      builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
+                    .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items")));
+    this.registerLootTable(TinkerTables.modifierChest.get(), addChest);
+    this.registerLootTable(TinkerTables.partChest.get(), addChest);
+    this.registerLootTable(TinkerTables.castChest.get(), addChest);
+
+    // tables with legs
+    Function<Block, LootTable.Builder> addTable = block -> droppingWithFunctions(block, (builder) ->
+      builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
+                    .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).addOperation("LegTexture", "TinkerData.LegTexture", Action.REPLACE)));
+    this.registerLootTable(TinkerTables.partBuilder.get(), addTable);
+    this.registerLootTable(TinkerTables.tinkerStation.get(), addTable);
+
+    // normal tables
+    this.registerLootTable(TinkerTables.craftingStation.get(), block ->
+      droppingWithFunctions(block, (builder) -> builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))));
   }
 
   private void addWorld() {

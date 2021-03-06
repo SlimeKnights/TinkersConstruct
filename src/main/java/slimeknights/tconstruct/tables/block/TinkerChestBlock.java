@@ -1,5 +1,6 @@
-package slimeknights.tconstruct.tables.block.chest;
+package slimeknights.tconstruct.tables.block;
 
+import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,11 +19,12 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.InventoryTileEntity;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.tables.block.TinkerTableBlock;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
-public abstract class TinkerChestBlock extends TinkerTableBlock {
+import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
+public class TinkerChestBlock extends TinkerTableBlock {
   private static final VoxelShape SHAPE = VoxelShapes.or(
     Block.makeCuboidShape(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D), //top
     Block.makeCuboidShape(1.0D, 3.0D, 1.0D, 15.0D, 16.0D, 15.0D), //middle
@@ -32,17 +34,29 @@ public abstract class TinkerChestBlock extends TinkerTableBlock {
     Block.makeCuboidShape(0.5D, 0.0D, 13.5D, 2.5D, 15.0D, 15.5D) //leg
                                                         );
 
-  @SuppressWarnings("WeakerAccess")
-  protected TinkerChestBlock(Properties builder) {
+  private final Supplier<? extends TileEntity> te;
+  @Getter
+  private final int sortKey;
+  public TinkerChestBlock(Properties builder, Supplier<? extends TileEntity> te, int sortKey) {
     super(builder);
+    this.te = te;
+    this.sortKey = sortKey;
   }
 
+  @Nonnull
+  @Override
+  public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
+    return te.get();
+  }
+
+  @SuppressWarnings("deprecation")
   @Override
   @Deprecated
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return SHAPE;
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   @Deprecated
   public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -62,7 +76,9 @@ public abstract class TinkerChestBlock extends TinkerTableBlock {
     return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
+  @Deprecated
   public void dropInventoryItems(BlockState state, World worldIn, BlockPos pos, InventoryTileEntity te) {
     if (!Config.COMMON.chestsKeepInventory.get()) {
       super.dropInventoryItems(state, worldIn, pos, te);
