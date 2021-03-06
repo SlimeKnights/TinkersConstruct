@@ -87,7 +87,7 @@ public final class TinkerWorld extends TinkerModule {
    * Blocks
    */
   // ores
-  private static final Block.Properties NETHER_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).setRequiresTool().harvestLevel(HarvestLevels.DIAMOND).hardnessAndResistance(10.0F).notSolid();
+  private static final Block.Properties NETHER_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.NETHER_ORE).setRequiresTool().harvestLevel(HarvestLevels.DIAMOND).hardnessAndResistance(10.0F).notSolid();
   public static final ItemObject<Block> cobaltOre = BLOCKS.register("cobalt_ore", () -> new Block(NETHER_ORE), DEFAULT_BLOCK_ITEM);
 
   private static final Block.Properties OVERWORLD_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).setRequiresTool().harvestLevel(HarvestLevels.STONE).hardnessAndResistance(3.0F, 3.0F);
