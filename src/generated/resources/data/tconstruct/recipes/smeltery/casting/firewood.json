@@ -5,9 +5,9 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "minecraft:lava",
+    "name": "tconstruct:molten_blaze",
     "amount": 100
   },
-  "result": "tconstruct:lavawood",
-  "cooling_time": 55
+  "result": "tconstruct:firewood",
+  "cooling_time": 67
 }

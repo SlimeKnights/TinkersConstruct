@@ -195,6 +195,8 @@ public class TConstruct {
         case "ardite_ingot": return TinkerMaterials.cobalt.getIngot();
         case "ardite_nugget": return TinkerMaterials.cobalt.getNugget();
         case "molten_ardite_bucket": return TinkerFluids.moltenCobalt.asItem();
+        // mud bricks
+        case "mud_brick": return TinkerCommons.mudBricks.asItem();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

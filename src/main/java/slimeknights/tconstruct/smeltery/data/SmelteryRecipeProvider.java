@@ -405,9 +405,17 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // Misc
     ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.lavawood)
-                            .setFluid(new FluidStack(Fluids.LAVA, 250))
+                            .setFluid(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 10))
                             .setCast(ItemTags.PLANKS, true)
                             .build(consumer, prefix(TinkerCommons.lavawood, folder));
+    ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.firewood)
+                            .setFluid(new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 10))
+                            .setCast(ItemTags.PLANKS, true)
+                            .build(consumer, prefix(TinkerCommons.firewood, folder));
+    ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.mudBricks)
+                            .setFluid(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 10))
+                            .setCast(Items.DIRT, true)
+                            .build(consumer, prefix(TinkerCommons.mudBricks, folder));
 
     // Cast recipes
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.blankCast)

@@ -42,12 +42,6 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
   private void addCommonRecipes(Consumer<IFinishedRecipe> consumer) {
     // firewood and lavawood
     String folder = "common/firewood/";
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.firewood)
-                          .addIngredient(Items.BLAZE_POWDER)
-                          .addIngredient(TinkerCommons.lavawood)
-                          .addIngredient(Items.BLAZE_POWDER)
-                          .addCriterion("has_lavawood", hasItem(TinkerCommons.lavawood))
-                          .build(consumer, prefix(TinkerCommons.firewood, folder));
     registerSlabStair(consumer, TinkerCommons.firewood, folder, false);
     registerSlabStair(consumer, TinkerCommons.lavawood, folder, false);
 
@@ -67,17 +61,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, prefix(TinkerModifiers.consecratedSoil, folder));
 
     // mud bricks
-    ShapedRecipeBuilder.shapedRecipe(TinkerCommons.mudBricks)
-                       .key('#', TinkerCommons.mudBrick.get())
-                       .patternLine("##")
-                       .patternLine("##")
-                       .addCriterion("has_mud_brick", hasItem(TinkerCommons.mudBrick))
-                       .build(consumer, prefix(TinkerCommons.mudBricks, folder));
     registerSlabStair(consumer, TinkerCommons.mudBricks, folder, false);
-    // FIXME: temporary mud brick item recipe
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Blocks.DIRT), TinkerCommons.mudBrick, 0.3f, 200)
-                        .addCriterion("has_item", hasItem(Blocks.DIRT))
-                        .build(consumer, prefix(TinkerCommons.mudBrick, folder));
 
     // book
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.book)

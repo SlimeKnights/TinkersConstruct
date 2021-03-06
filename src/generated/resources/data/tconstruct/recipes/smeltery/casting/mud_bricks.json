@@ -1,13 +1,13 @@
 {
   "type": "tconstruct:casting_basin",
   "cast": {
-    "tag": "minecraft:planks"
+    "item": "minecraft:dirt"
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "minecraft:lava",
+    "name": "minecraft:water",
     "amount": 100
   },
-  "result": "tconstruct:lavawood",
-  "cooling_time": 55
+  "result": "tconstruct:mud_bricks",
+  "cooling_time": 23
 }

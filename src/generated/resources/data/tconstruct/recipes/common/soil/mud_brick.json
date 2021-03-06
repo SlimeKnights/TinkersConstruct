@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "minecraft:dirt"
-  },
-  "result": "tconstruct:mud_brick",
-  "experience": 0.3,
-  "cookingtime": 200
-}
