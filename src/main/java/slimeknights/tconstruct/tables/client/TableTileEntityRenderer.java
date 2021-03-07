@@ -43,4 +43,9 @@ public class TableTileEntityRenderer<T extends TileEntity & IInventory> extends 
       }
     }
   }
+
+  @Override
+  public boolean isGlobalRenderer(T tile) {
+    return !tile.isEmpty();
+  }
 }

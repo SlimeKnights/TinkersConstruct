@@ -10,11 +10,11 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import slimeknights.mantle.client.render.InventoryTileEntityRenderer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.block.TableModel;
+import slimeknights.tconstruct.tables.client.CraftingStationTileEntityRenderer;
 import slimeknights.tconstruct.tables.client.PatternGuiTextureLoader;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.TableTileEntityRenderer;
@@ -47,7 +47,7 @@ public class TableClientEvents extends ClientEventBase {
     ScreenManager.registerFactory(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
     ScreenManager.registerFactory(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
 
-    ClientRegistry.bindTileEntityRenderer(TinkerTables.craftingStationTile.get(), InventoryTileEntityRenderer::new);
+    ClientRegistry.bindTileEntityRenderer(TinkerTables.craftingStationTile.get(), CraftingStationTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerTables.partBuilderTile.get(), TableTileEntityRenderer::new);
   }

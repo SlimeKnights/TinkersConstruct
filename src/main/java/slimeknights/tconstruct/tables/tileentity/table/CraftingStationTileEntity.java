@@ -10,6 +10,7 @@ import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.GameRules;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
@@ -51,6 +52,10 @@ public class CraftingStationTileEntity extends TableTileEntity implements LazyRe
     return new CraftingStationContainer(menuId, playerInventory, this);
   }
 
+  @Override
+  public AxisAlignedBB getRenderBoundingBox() {
+    return new AxisAlignedBB(pos, pos.add(1, 2, 1));
+  }
 
   /* Crafting */
 

@@ -81,7 +81,6 @@ import java.util.List;
 public class JEIPlugin implements IModPlugin {
   @SuppressWarnings("rawtypes")
   public static final IIngredientType<EntityType> ENTITY_TYPE = () -> EntityType.class;
-  @SuppressWarnings("rawtypes")
   public static final IIngredientType<ModifierEntry> MODIFIER_TYPE = () -> ModifierEntry.class;
 
   @Override
