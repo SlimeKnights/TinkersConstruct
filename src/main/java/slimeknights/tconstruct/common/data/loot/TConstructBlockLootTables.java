@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.common.data;
+package slimeknights.tconstruct.common.data.loot;
 
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;

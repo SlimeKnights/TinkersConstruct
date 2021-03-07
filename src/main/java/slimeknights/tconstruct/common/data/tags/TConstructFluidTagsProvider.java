@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.common.data;
+package slimeknights.tconstruct.common.data.tags;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.FluidTagsProvider;

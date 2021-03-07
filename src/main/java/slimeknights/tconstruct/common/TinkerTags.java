@@ -15,6 +15,8 @@ import slimeknights.tconstruct.library.Util;
 public class TinkerTags {
 
   public static class Blocks {
+    public static final IOptionalNamedTag<Block> WORKBENCHES = forgeTag("workbenches");
+    public static final IOptionalNamedTag<Block> TABLES = tag("tables");
 
     public static final IOptionalNamedTag<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Block> SLIMY_LOGS = tag("slimy_logs");
@@ -47,6 +49,8 @@ public class TinkerTags {
   }
 
   public static class Items {
+    public static final IOptionalNamedTag<Item> WORKBENCHES = forgeTag("workbenches");
+    public static final IOptionalNamedTag<Item> TABLES = tag("tables");
 
     public static final IOptionalNamedTag<Item> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Item> SLIMY_LOGS = tag("slimy_logs");

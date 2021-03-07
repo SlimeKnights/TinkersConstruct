@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.common.data;
+package slimeknights.tconstruct.common.data.tags;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -20,6 +20,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
@@ -62,6 +63,13 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(Tags.Blocks.GLASS_PANES_COLORLESS).add(TinkerCommons.clearGlassPane.get());
     addColored(getOrCreateBuilder(Tags.Blocks.STAINED_GLASS)::add, Tags.Blocks.GLASS, "{color}_clear_stained_glass");
     addColored(getOrCreateBuilder(Tags.Blocks.STAINED_GLASS_PANES)::add, Tags.Blocks.GLASS_PANES, "{color}_clear_stained_glass_pane");
+
+    // vanilla is not tagged, so tag it
+    this.getOrCreateBuilder(TinkerTags.Blocks.WORKBENCHES)
+        .add(Blocks.CRAFTING_TABLE, TinkerTables.craftingStation.get())
+        .addOptionalTag(new ResourceLocation("forge:workbench")); // some mods use a non-standard name here, so support it I guess
+    this.getOrCreateBuilder(TinkerTags.Blocks.TABLES)
+        .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
   }
 
   private void addWorld() {

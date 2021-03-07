@@ -20,6 +20,7 @@ import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
+import slimeknights.tconstruct.common.IngredientWithout;
 import slimeknights.tconstruct.common.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
@@ -76,6 +77,7 @@ public final class TinkerCommons extends TinkerModule {
 
   public TinkerCommons() {
     MinecraftForge.EVENT_BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
+    CraftingHelper.register(IngredientWithout.ID, IngredientWithout.SERIALIZER);
   }
 
   @SubscribeEvent

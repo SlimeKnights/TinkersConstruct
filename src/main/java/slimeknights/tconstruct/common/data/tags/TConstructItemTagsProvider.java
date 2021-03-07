@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.common.data;
+package slimeknights.tconstruct.common.data.tags;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.BlockTagsProvider;
@@ -78,6 +78,8 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     copyColored(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
     copy(Tags.Blocks.STAINED_GLASS, Tags.Items.STAINED_GLASS);
     copy(Tags.Blocks.STAINED_GLASS_PANES, Tags.Items.STAINED_GLASS_PANES);
+    copy(TinkerTags.Blocks.WORKBENCHES, TinkerTags.Items.WORKBENCHES);
+    copy(TinkerTags.Blocks.TABLES, TinkerTags.Items.TABLES);
   }
 
   private void addWorld() {

@@ -9,7 +9,18 @@
       "item": "tconstruct:pattern"
     },
     "w": {
-      "item": "minecraft:crafting_table"
+      "type": "tconstruct:without",
+      "base": [
+        {
+          "tag": "forge:workbenches"
+        },
+        {
+          "tag": "tconstruct:tables"
+        }
+      ],
+      "without": {
+        "item": "tconstruct:crafting_station"
+      }
     }
   },
   "result": {

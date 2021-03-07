@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.common.data;
+package slimeknights.tconstruct.common.data.loot;
 
 import net.minecraft.data.loot.EntityLootTables;
 import net.minecraft.entity.EntityType;
