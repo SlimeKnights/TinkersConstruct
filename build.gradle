@@ -1,55 +1,59 @@
-/*
- * Tinkers Construct
- * Master build file
- * 
- * Authors: Sunstrike, ProgWML6
- * Help from AbrarSyed
- */
+import org.codehaus.groovy.runtime.GStringImpl
+import java.util.concurrent.TimeUnit
+import java.util.Properties
+import groovy.util.ConfigSlurper
 
 buildscript {
     repositories {
         mavenCentral()
-	mavenLocal()
+        mavenLocal()
+        jcenter()
         maven {
-            name = 'ForgeFS'
-            url = 'http://files.minecraftforge.net/maven'
+            name = "gt"
+            url = "https://gregtech.overminddl1.com/"
         }
-	maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "jitpack"
+            url = "https://jitpack.io"
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath "com.github.GTNH2:ForgeGradle:FG_1.2-SNAPSHOT"
     }
 }
 
+plugins {
+    id("org.ajoberstar.grgit") version("3.1.1")
+}
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "forge"
+apply plugin: "signing"
 
-repositories {
-    maven {
-        name 'CB Maven FS'
-        url "http://chickenbones.net/maven/"
-    }
-    /*maven {
-         name "ProfMobius Maven FS"
-         url "http://mobiusstrip.eu/maven"
-    }*/
-    maven {
-        name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven'
-    }
-    maven {
-        name 'ForgeFS'
-        url 'http://files.minecraftforge.net/maven'
+idea {
+    module {
+        inheritOutputDirs = true
+        downloadJavadoc = true
+        downloadSources = true
     }
 }
 
-// Load ForgeGradle
-apply plugin: 'forge'
-group = 'tconstruct'
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceSets {
+    main {
+        resources {
+            srcDir 'resources'
+        }
+    }
+}
 
 // Define properties file
 ext.configFile = file "build.properties"
@@ -59,19 +63,6 @@ configFile.withReader {
     def prop = new Properties()
     prop.load(it)
     project.ext.config = new ConfigSlurper().parse prop
-}
-configurations {
-    deployerJars
-}
-
-dependencies {
-    compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
-    compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
-    compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.ccc_version}:dev"
-    compile "codechicken:NotEnoughItems:${config.minecraft_version}-${config.NEI_version}:dev"
-    compile "codechicken:ForgeMultipart:${config.minecraft_version}-${config.fmp_version}:dev"
-    //compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
-    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
 // Finds and sets version data
@@ -93,29 +84,19 @@ task buildInfo {
 }
 ext.artifact_version = 'NFG'
 if (System.getenv().ARTIFACT_VERSION == null) {
-    artifact_version = "${config.mod_version}.${project.buildInfo.buildNum}"
+    artifact_version = "${config.mod_version}.${project.buildInfo.buildNum}" as GStringImpl
 }
 if (System.getenv().ARTIFACT_VERSION != null) {
-    artifact_version = "${System.getenv().ARTIFACT_VERSION}"
+    artifact_version = "${System.getenv().ARTIFACT_VERSION}" as GStringImpl
 }
 
+group = 'tconstruct'
 version = "${config.minecraft_version}-${artifact_version}"
 
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
     runDir = 'run'
     replace '${version}', project.version
-}
-
-sourceSets {
-    main {
-        resources {
-            srcDir 'resources'
-        }
-    }
-}
-sourceSets {
-    main { output.resourcesDir = output.classesDir }
 }
 
 processResources
@@ -136,6 +117,32 @@ processResources
     }
 }
 
+repositories {
+    maven {
+        name 'CB Maven FS'
+        url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
+    }
+    maven {
+        name 'ForgeFS'
+        url 'http://files.minecraftforge.net/maven'
+    }
+}
+
+dependencies {
+    compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
+    compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
+    compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.ccc_version}:dev"
+    compile "codechicken:NotEnoughItems:${config.minecraft_version}-${config.NEI_version}:dev"
+    compile "codechicken:ForgeMultipart:${config.minecraft_version}-${config.fmp_version}:dev"
+    //compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
+}
+
+
+
 // Add Coremod Manifest
 jar {
     manifest {
@@ -146,7 +153,7 @@ jar {
 // Create deobf dev jars
 task deobfJar(type: Jar) {
     from sourceSets.main.output
-    classifier = 'deobf'
+    getArchiveClassifier().set("deobf")
 	manifest {
         attributes 'FMLAT': 'TConstruct_at.cfg'
     }
@@ -154,16 +161,16 @@ task deobfJar(type: Jar) {
 
 // Create API library jar
 task libJar(type: Jar) {
-    from(sourceSets.main.java) {
+    from(sourceSets.main.allSource) {
         include "tconstruct/library/**/*"
     }
-    classifier = 'lib'
+    getArchiveClassifier().set 'lib'
 }
 
 // Create Maven source jar
 task sourceJar(type: Jar, dependsOn:classes) {
-    classifier = 'sources'
-    from sourceSets.main.allJava
+    getArchiveClassifier().set 'sources'
+    from sourceSets.main.allSource
 }
 
 artifacts {
@@ -171,46 +178,3 @@ artifacts {
     archives libJar
     archives sourceJar
 }
-// verify the properties exist.. or initialize.
-if (!project.hasProperty("keystore_location")) // keystore location
-    ext.keystore_location = ".";
-    
-if (!project.hasProperty("keystore_user_alias")) // keystore user alias
-    ext.keystore_user_alias = "";
-if (!project.hasProperty("sftp_username"))
-    ext.sftp_username = "";
-if (!project.hasProperty("sftp_key"))
-    ext.sftp_key = "";
-if (!project.hasProperty("keystore_user_password")) // keystore user pass
-    ext.keystore_user_password = "";
-if (System.getenv().KSK_PW != null)
-	ext.keystore_user_password =System.getenv().KSK_PW;
-
-
-task("uploadJars", dependsOn:"build") {
-    
-    description = "uploads JARs"
-
-    if (project.hasProperty("local_maven") || project.hasProperty("sftp_maven")) {
-	    apply plugin: 'maven'
-        uploadArchives {
-            repositories {
-		    	if(project.hasProperty("local_maven"))
-			    {
-                    mavenDeployer {
-                        repository(url: "file://${local_maven}")
-				    }
-                }
-				if(project.hasProperty("sftp_maven")) {
-                    repositories.mavenDeployer {
-					    configuration = configurations.deployerJars
-                        repository(url: "sftp://${sftp_maven}"){
-						authentication(userName: "${sftp_username}",privateKey: "${sftp_key}")}
-				    }
-                }
-            }
-        }    
-    }
-}
-
-
