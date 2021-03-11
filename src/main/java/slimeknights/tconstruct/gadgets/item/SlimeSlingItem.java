@@ -8,6 +8,7 @@ import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
@@ -84,7 +85,27 @@ public class SlimeSlingItem extends TooltipItem {
         }
         break;
       case BLUE:
-        
+        if(f > 5) {
+          player.addExhaustion(0.2F);
+          player.getCooldownTracker().setCooldown(stack.getItem(), 3);
+          player.setSprinting(true);
+
+          float increase = (float) (0.02 * f + 0.2);
+          if(increase > 0.56f) {
+            increase = 0.56f;
+          }
+
+          float speed = 0.05F * f;
+          if(speed > 0.925f) {
+            speed = 0.925f;
+          }
+          player.setVelocity(
+            (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed),
+            player.getMotion().getY() + increase,
+            (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed)
+
+            );
+        }
         break;
       case MAGMA:
 
