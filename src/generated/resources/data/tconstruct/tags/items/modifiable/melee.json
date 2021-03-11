@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:modifiable/combat",
+    "tconstruct:pickaxe",
+    "tconstruct:kama",
+    "tconstruct:mattock",
+    "tconstruct:excavator"
+  ]
+}

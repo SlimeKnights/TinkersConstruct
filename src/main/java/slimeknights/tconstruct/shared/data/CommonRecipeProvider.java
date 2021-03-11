@@ -42,12 +42,6 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
   private void addCommonRecipes(Consumer<IFinishedRecipe> consumer) {
     // firewood and lavawood
     String folder = "common/firewood/";
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.firewood)
-                          .addIngredient(Items.BLAZE_POWDER)
-                          .addIngredient(TinkerCommons.lavawood)
-                          .addIngredient(Items.BLAZE_POWDER)
-                          .addCriterion("has_lavawood", hasItem(TinkerCommons.lavawood))
-                          .build(consumer, prefix(TinkerCommons.firewood, folder));
     registerSlabStair(consumer, TinkerCommons.firewood, folder, false);
     registerSlabStair(consumer, TinkerCommons.lavawood, folder, false);
 
@@ -67,17 +61,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, prefix(TinkerModifiers.consecratedSoil, folder));
 
     // mud bricks
-    ShapedRecipeBuilder.shapedRecipe(TinkerCommons.mudBricks)
-                       .key('#', TinkerCommons.mudBrick.get())
-                       .patternLine("##")
-                       .patternLine("##")
-                       .addCriterion("has_mud_brick", hasItem(TinkerCommons.mudBrick))
-                       .build(consumer, prefix(TinkerCommons.mudBricks, folder));
     registerSlabStair(consumer, TinkerCommons.mudBricks, folder, false);
-    // FIXME: temporary mud brick item recipe
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Blocks.DIRT), TinkerCommons.mudBrick, 0.3f, 200)
-                        .addCriterion("has_item", hasItem(Blocks.DIRT))
-                        .build(consumer, prefix(TinkerCommons.mudBrick, folder));
 
     // book
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.book)
@@ -143,7 +127,6 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     // ores
     registerMineralRecipes(consumer, TinkerMaterials.copper, folder);
     registerMineralRecipes(consumer, TinkerMaterials.cobalt, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.ardite, folder);
     // tier 3
     registerMineralRecipes(consumer, TinkerMaterials.slimesteel,    folder);
     registerMineralRecipes(consumer, TinkerMaterials.tinkersBronze, folder);
@@ -153,20 +136,16 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     registerMineralRecipes(consumer, TinkerMaterials.queensSlime, folder);
     registerMineralRecipes(consumer, TinkerMaterials.manyullyn,   folder);
     registerMineralRecipes(consumer, TinkerMaterials.hepatizon,   folder);
-    registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
+    //registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
     registerPackingRecipe(consumer, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, folder);
     // tier 5
-    registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
+    //registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
 
     // smelt ore into ingots, must use a blast furnace for nether ores
     IItemProvider cobaltIngot = TinkerMaterials.cobalt.getIngot();
     CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.cobaltOre))
                         .build(consumer, wrap(cobaltIngot, folder, "_smelting"));
-    IItemProvider arditeIngot = TinkerMaterials.ardite.getIngot();
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.arditeOre), arditeIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.arditeOre))
-                        .build(consumer, wrap(arditeIngot, folder, "_smelting"));
     IItemProvider copperIngot = TinkerMaterials.copper.getIngot();
     CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.copperOre))

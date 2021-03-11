@@ -14,7 +14,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ForgeI18n;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -105,6 +107,16 @@ public class Util {
    */
   public static String makeTranslationKey(String base, String name) {
     return net.minecraft.util.Util.makeTranslationKey(base, getResource(name));
+  }
+
+  /**
+   * Makes a translation text component for the given name
+   * @param base  Base name, such as "block" or "gui"
+   * @param name  Object name
+   * @return  Translation key
+   */
+  public static IFormattableTextComponent makeTranslation(String base, String name) {
+    return new TranslationTextComponent(makeTranslationKey(base, name));
   }
 
 
@@ -233,41 +245,14 @@ public class Util {
   }
 
   /**
-   * Simplified clone {@link java.awt.Color#HSBtoRGB(float, float, float)} to prevent issue with missing package and remove unused parameters
-   * @param hue  Hue
-   * @return Color from hue
+   * Gets the sign of a number
+   * @param value  Number
+   * @return  Sign
    */
-  public static int hueToRGB(float hue) {
-    int r = 0, g = 0, b = 0;
-    float h = (hue - (float)Math.floor(hue)) * 6.0f;
-    float localHue = h - (float)Math.floor(h);
-    float invHue = (1.0f - localHue);
-    switch ((int) h) {
-      case 0:
-        r = 255;
-        g = (int) (localHue * 255.0f + 0.5f);
-        break;
-      case 1:
-        r = (int) (invHue * 255.0f + 0.5f);
-        g = 255;
-        break;
-      case 2:
-        g = 255;
-        b = (int) (localHue * 255.0f + 0.5f);
-        break;
-      case 3:
-        g = (int) (invHue * 255.0f + 0.5f);
-        b = 255;
-        break;
-      case 4:
-        r = (int) (localHue * 255.0f + 0.5f);
-        b = 255;
-        break;
-      case 5:
-        r = 255;
-        b = (int) (invHue * 255.0f + 0.5f);
-        break;
+  public static int sign(int value) {
+    if (value == 0) {
+      return 0;
     }
-    return 0xff000000 | (r << 16) | (g << 8) | b;
+    return value > 0 ? 1 : -1;
   }
 }

@@ -37,11 +37,11 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
-import slimeknights.tconstruct.common.data.TConstructEntityTypeTagsProvider;
-import slimeknights.tconstruct.common.data.TConstructFluidTagsProvider;
-import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
-import slimeknights.tconstruct.common.data.TConstructLootTableProvider;
+import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
+import slimeknights.tconstruct.common.data.tags.TConstructBlockTagsProvider;
+import slimeknights.tconstruct.common.data.tags.TConstructEntityTypeTagsProvider;
+import slimeknights.tconstruct.common.data.tags.TConstructFluidTagsProvider;
+import slimeknights.tconstruct.common.data.tags.TConstructItemTagsProvider;
 import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.debug.ToolDebugScreen;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -163,12 +163,14 @@ public class TConstruct {
   @Nullable
   private static Block missingBlock(String name) {
     switch (name) {
-      case "slimy_mud_green": case "green_slime_crystal":
-        return TinkerWorld.congealedSlime.get(SlimeType.GREEN);
-      case "slimy_mud_blue": case "blue_slime_crystal":
-        return TinkerWorld.congealedSlime.get(SlimeType.BLUE);
-      case "slimy_mud_magma": case "magma_slime_crystal":
-        return TinkerWorld.congealedSlime.get(SlimeType.MAGMA);
+      // slimy mud
+      case "slimy_mud_green": return TinkerWorld.congealedSlime.get(SlimeType.GREEN);
+      case "slimy_mud_blue": return TinkerWorld.congealedSlime.get(SlimeType.BLUE);
+      case "slimy_mud_magma": return TinkerWorld.congealedSlime.get(SlimeType.MAGMA);
+      // ardite
+      case "ardite_ore": return TinkerWorld.cobaltOre.get();
+      case "ardite_block": return TinkerMaterials.cobalt.get();
+      case "molten_ardite_fluid": return TinkerFluids.moltenCobalt.getBlock();
     }
     return null;
   }
@@ -179,6 +181,22 @@ public class TConstruct {
       switch (name) {
         case "wide_guard": return TinkerToolParts.toolRod.get();
         case "wide_guard_cast": return TinkerSmeltery.toolRodCast.get();
+        // shovel -> mattock
+        case "shovel": return TinkerTools.mattock.get();
+        case "shovel_head": return TinkerToolParts.axeHead.get();
+        case "shovel_head_cast": return TinkerSmeltery.axeHeadCast.get();
+        case "shovel_head_sand_cast": return TinkerSmeltery.axeHeadCast.getSand();
+        case "shovel_head_red_sand_cast": return TinkerSmeltery.axeHeadCast.getRedSand();
+        // modifiers
+        case "width_expander": return TinkerModifiers.magmaExpander.get();
+        case "height_expander": return TinkerModifiers.enderExpander.get();
+        case "creative_modifier": return TinkerModifiers.creativeUpgradeItem.get();
+        // ardite
+        case "ardite_ingot": return TinkerMaterials.cobalt.getIngot();
+        case "ardite_nugget": return TinkerMaterials.cobalt.getNugget();
+        case "molten_ardite_bucket": return TinkerFluids.moltenCobalt.asItem();
+        // mud bricks
+        case "mud_brick": return TinkerCommons.mudBricks.asItem();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
@@ -188,9 +206,14 @@ public class TConstruct {
   @SubscribeEvent
   void missingFluids(final MissingMappings<Fluid> event) {
     RegistrationHelper.handleMissingMappings(event, modID, name -> {
-      if ("milk".equals(name)) {
-        assert ForgeMod.MILK.isPresent();
-        return ForgeMod.MILK.get();
+      switch (name) {
+        case "milk":
+          assert ForgeMod.MILK.isPresent();
+          return ForgeMod.MILK.get();
+        case "molten_ardite":
+          return TinkerFluids.moltenCobalt.get();
+        case "flowing_molten_ardite":
+          return TinkerFluids.moltenCobalt.getFlowing();
       }
       return null;
     });

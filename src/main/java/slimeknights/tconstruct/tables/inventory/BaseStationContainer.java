@@ -89,8 +89,7 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
 
       // save the thing
       ITinkerStationBlock tinker = (ITinkerStationBlock) state.getBlock();
-      Integer number = tinker.getType().getSort();
-
+      int number = tinker.getSortKey();
       if (!found.contains(number)) {
         found.add(number);
         this.stationBlocks.add(Pair.of(pos, state));
@@ -184,8 +183,7 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
     public int compare(Pair<BlockPos, BlockState> o1, Pair<BlockPos, BlockState> o2) {
       BlockState s1 = o1.getRight();
       BlockState s2 = o2.getRight();
-
-      return ((ITinkerStationBlock) s2.getBlock()).getType().getSort() - ((ITinkerStationBlock) s1.getBlock()).getType().getSort();
+      return Integer.compare(((ITinkerStationBlock) s2.getBlock()).getSortKey(), ((ITinkerStationBlock) s1.getBlock()).getSortKey());
     }
   }
 }

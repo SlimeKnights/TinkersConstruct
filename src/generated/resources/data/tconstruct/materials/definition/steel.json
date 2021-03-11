@@ -1,4 +1,22 @@
 {
+  "condition": {
+    "value": {
+      "tag": "forge:ingots/steel",
+      "type": "forge:tag_empty"
+    },
+    "type": "forge:not"
+  },
   "craftable": false,
-  "textColor": "#A7A7A7"
+  "tier": 3,
+  "sortOrder": 0,
+  "fluid": "tconstruct:molten_steel",
+  "fluidPerUnit": 144,
+  "textColor": "#A7A7A7",
+  "temperature": 1210,
+  "traits": [
+    {
+      "name": "tconstruct:sturdy",
+      "level": 1
+    }
+  ]
 }

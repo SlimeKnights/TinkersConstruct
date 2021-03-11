@@ -11,7 +11,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -238,7 +237,14 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
+  protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+   // no-op
+  }
+
+  @Override
+  protected void renderHoveredTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+    super.renderHoveredTooltip(matrices, mouseX, mouseY);
+
     if (this.tooltips == null) {
       return;
     }
@@ -248,18 +254,13 @@ public class InfoPanelScreen extends ModuleScreen {
     }
 
     // floating over tooltip info?
-    if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.getStringWidth("?") / 2 && mouseX < this.guiRight() && mouseY > this.guiTop + 5 && mouseY < this.guiTop + 5 + this.font.FONT_HEIGHT) {
-      int w = MathHelper.clamp(this.width - mouseX - 12, 10, 200);
-      this.renderTooltip(matrices, this.font.trimStringToWidth(new TranslationTextComponent("gui.tconstruct.general.hover"), w), mouseX - guiLeft, mouseY - guiTop);
+    if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.getStringWidth("?") / 2 && mouseX < this.guiRight()
+        && mouseY > this.guiTop + 5 && mouseY < this.guiTop + 5 + this.font.FONT_HEIGHT) {
+      this.renderTooltip(matrices, this.font.trimStringToWidth(new TranslationTextComponent("gui.tconstruct.general.hover"), 150), mouseX - 155, mouseY);
     }
 
     // are we hovering over an entry?
-    float y = 5 + this.guiTop;
-
-    if (this.hasCaption()) {
-      y += this.font.FONT_HEIGHT + 3;
-    }
-
+    float y = getTooltipStart(5 + this.guiTop);
     float textHeight = this.font.FONT_HEIGHT * this.textScale + 0.5f;
     float lowerBound = (this.guiTop + this.ySize - 5) / this.textScale;
 
@@ -306,7 +307,17 @@ public class InfoPanelScreen extends ModuleScreen {
 
     List<IReorderingProcessor> lines = this.font.trimStringToWidth(this.tooltips.get(i), w);
 
-    this.renderTooltip(matrices, lines, mouseX - this.guiLeft, mouseY - this.guiTop - lines.size() * this.font.FONT_HEIGHT / 2);
+    this.renderTooltip(matrices, lines, mouseX, mouseY - lines.size() * this.font.FONT_HEIGHT / 2);
+  }
+
+  /**
+   * Gets the location of the first tooltip for info tooltips
+   */
+  protected float getTooltipStart(float y) {
+    if (this.hasCaption()) {
+      y += this.font.FONT_HEIGHT + 3;
+    }
+    return y;
   }
 
   @Override

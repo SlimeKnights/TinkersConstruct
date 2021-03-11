@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "SLS",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "L": {
+      "tag": "forge:ingots/tinkers_bronze"
+    },
+    "S": {
+      "tag": "forge:slimeball/magma"
+    }
+  },
+  "result": {
+    "item": "tconstruct:magma_expander"
+  }
+}

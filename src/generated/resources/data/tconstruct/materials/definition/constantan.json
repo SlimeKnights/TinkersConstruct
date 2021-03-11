@@ -1,0 +1,22 @@
+{
+  "condition": {
+    "value": {
+      "tag": "forge:ingots/constantan",
+      "type": "forge:tag_empty"
+    },
+    "type": "forge:not"
+  },
+  "craftable": false,
+  "tier": 3,
+  "sortOrder": 5,
+  "fluid": "tconstruct:molten_constantan",
+  "fluidPerUnit": 144,
+  "textColor": "#FF9E7F",
+  "temperature": 920,
+  "traits": [
+    {
+      "name": "tconstruct:temperate",
+      "level": 1
+    }
+  ]
+}

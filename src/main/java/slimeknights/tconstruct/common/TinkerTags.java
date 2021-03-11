@@ -15,6 +15,8 @@ import slimeknights.tconstruct.library.Util;
 public class TinkerTags {
 
   public static class Blocks {
+    public static final IOptionalNamedTag<Block> WORKBENCHES = forgeTag("workbenches");
+    public static final IOptionalNamedTag<Block> TABLES = tag("tables");
 
     public static final IOptionalNamedTag<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Block> SLIMY_LOGS = tag("slimy_logs");
@@ -22,7 +24,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
 
     public static final IOptionalNamedTag<Block> ORES_COBALT = forgeTag("ores/cobalt");
-    public static final IOptionalNamedTag<Block> ORES_ARDITE = forgeTag("ores/ardite");
     public static final IOptionalNamedTag<Block> ORES_COPPER = forgeTag("ores/copper");
 
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
@@ -48,6 +49,8 @@ public class TinkerTags {
   }
 
   public static class Items {
+    public static final IOptionalNamedTag<Item> WORKBENCHES = forgeTag("workbenches");
+    public static final IOptionalNamedTag<Item> TABLES = tag("tables");
 
     public static final IOptionalNamedTag<Item> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Item> SLIMY_LOGS = tag("slimy_logs");
@@ -55,7 +58,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> SLIMY_SAPLINGS = tag("slimy_saplings");
 
     public static final IOptionalNamedTag<Item> ORES_COBALT = forgeTag("ores/cobalt");
-    public static final IOptionalNamedTag<Item> ORES_ARDITE = forgeTag("ores/ardite");
     public static final IOptionalNamedTag<Item> ORES_COPPER = forgeTag("ores/copper");
 
     public static final IOptionalNamedTag<Item> SEARED_BLOCKS = tag("seared_blocks");
@@ -79,6 +81,26 @@ public class TinkerTags {
 
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");
+
+    /*
+     * Tool tags
+     */
+    /** Anything that can be modified in the tool station */
+    public static final IOptionalNamedTag<Item> MODIFIABLE = tag("modifiable");
+    /** Modifiable items that contain multiple parts */
+    public static final IOptionalNamedTag<Item> MULTIPART_TOOL = tag("modifiable/multipart");
+    /** Modifiable items that support melee attacks */
+    public static final IOptionalNamedTag<Item> MELEE = tag("modifiable/melee");
+    /** Modifiable items that specifically are designed for combat */
+    public static final IOptionalNamedTag<Item> COMBAT = tag("modifiable/combat");
+    /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
+    public static final IOptionalNamedTag<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
+    /** Modifiable items that can break blocks */
+    public static final IOptionalNamedTag<Item> HARVEST = tag("modifiable/harvest");
+    /** Modifiable items that can have range increased */
+    public static final IOptionalNamedTag<Item> AOE = tag("modifiable/aoe");
+    // /** Modifiable items that support ranged attacks, such as bows */
+    // public static final IOptionalNamedTag<Item> RANGED = tag("modifiable/ranged");
 
 
     private static IOptionalNamedTag<Item> tag(String name) {

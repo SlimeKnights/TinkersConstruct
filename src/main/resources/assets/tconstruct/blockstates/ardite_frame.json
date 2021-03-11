@@ -1,6 +1,0 @@
-{
-    "variants": {
-        "map=false": { "model": "tconstruct:block/ardite_frame" },
-        "map=true": { "model": "tconstruct:block/ardite_frame_map" }
-    }
-}

@@ -20,6 +20,7 @@ import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
+import slimeknights.tconstruct.common.IngredientWithout;
 import slimeknights.tconstruct.common.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
@@ -66,7 +67,6 @@ public final class TinkerCommons extends TinkerModule {
    */
   public static final ItemObject<EdibleItem> bacon = ITEMS.register("bacon", () -> new EdibleItem(TinkerFood.BACON, TAB_GENERAL));
   public static final ItemObject<TinkerBookItem> book = ITEMS.register("book", () -> new TinkerBookItem(new Item.Properties().group(TAB_GENERAL).maxStackSize(1)));
-  public static final ItemObject<Item> mudBrick = ITEMS.register("mud_brick", GENERAL_PROPS);
   public static final ItemObject<Item> driedBrick = ITEMS.register("dried_brick", GENERAL_PROPS);
 
   /* Slime Balls are edible, believe it or not */
@@ -77,6 +77,7 @@ public final class TinkerCommons extends TinkerModule {
 
   public TinkerCommons() {
     MinecraftForge.EVENT_BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
+    CraftingHelper.register(IngredientWithout.ID, IngredientWithout.SERIALIZER);
   }
 
   @SubscribeEvent

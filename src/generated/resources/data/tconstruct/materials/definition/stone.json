@@ -1,4 +1,12 @@
 {
   "craftable": true,
-  "textColor": "#999999"
+  "tier": 1,
+  "sortOrder": 1,
+  "textColor": "#999999",
+  "traits": [
+    {
+      "name": "tconstruct:stonebound",
+      "level": 1
+    }
+  ]
 }

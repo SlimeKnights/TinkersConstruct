@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:silky_jewel"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  },
+  "result": {
+    "name": "tconstruct:silky",
+    "level": 1
+  },
+  "max_level": 1,
+  "ability_slots": 1
+}

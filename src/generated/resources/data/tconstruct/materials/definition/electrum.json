@@ -1,4 +1,22 @@
 {
+  "condition": {
+    "value": {
+      "tag": "forge:ingots/electrum",
+      "type": "forge:tag_empty"
+    },
+    "type": "forge:not"
+  },
   "craftable": false,
-  "textColor": "#E8DB49"
+  "tier": 3,
+  "sortOrder": 5,
+  "fluid": "tconstruct:molten_electrum",
+  "fluidPerUnit": 144,
+  "textColor": "#E8DB49",
+  "temperature": 760,
+  "traits": [
+    {
+      "name": "tconstruct:experienced",
+      "level": 1
+    }
+  ]
 }

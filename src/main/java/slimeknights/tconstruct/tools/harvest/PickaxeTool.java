@@ -1,30 +1,21 @@
 package slimeknights.tconstruct.tools.harvest;
 
-import com.google.common.collect.ImmutableSet;
-import net.minecraft.block.BlockState;
+import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.PickaxeItem;
-import slimeknights.tconstruct.library.tinkering.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 
-public class PickaxeTool extends ToolCore implements IAoeTool {
+import java.util.Set;
 
-  public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
-    ImmutableSet.of(net.minecraft.block.material.Material.IRON,
-      net.minecraft.block.material.Material.ANVIL,
-      net.minecraft.block.material.Material.ROCK,
-      net.minecraft.block.material.Material.ICE,
-      net.minecraft.block.material.Material.GLASS,
-      net.minecraft.block.material.Material.PACKED_ICE,
-      net.minecraft.block.material.Material.PISTON);
-
+public class PickaxeTool extends HarvestTool {
+  protected static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.ROCK, Material.IRON, Material.ANVIL);
+  public static final AOEToolHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(EXTRA_MATERIALS, 1, 1, 1);
   public PickaxeTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 
   @Override
-  public boolean isEffective(BlockState state) {
-    return EFFECTIVE_MATERIALS.contains(state.getMaterial()) || PickaxeItem.EFFECTIVE_ON.contains(state.getBlock());
+  public AOEToolHarvestLogic getToolHarvestLogic() {
+    return HARVEST_LOGIC;
   }
 }

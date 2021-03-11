@@ -1,6 +1,7 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/cube_column",
     "textures": {
-        "all": "tconstruct:block/ardite_block"
+        "end": "tconstruct:block/ardite_block_top",
+        "side": "tconstruct:block/ardite_block"
     }
 }

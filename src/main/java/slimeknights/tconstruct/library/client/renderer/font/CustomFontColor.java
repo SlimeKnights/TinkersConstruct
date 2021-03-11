@@ -36,7 +36,7 @@ public class CustomFontColor {
   public static ITextComponent formatPartialAmount(int value, int max) {
     return new StringTextComponent(Util.df.format(value))
       .modifyStyle(style -> style.setColor(CustomFontColor.valueToColor(value, max)))
-      .append(new StringTextComponent("/").mergeStyle(TextFormatting.GRAY))
+      .append(new StringTextComponent(" / ").mergeStyle(TextFormatting.GRAY))
       .append(new StringTextComponent(Util.df.format(max)).modifyStyle(APPLY_MAX));
   }
 }

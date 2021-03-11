@@ -1,7 +1,15 @@
 {
   "craftable": false,
+  "tier": 3,
+  "sortOrder": 7,
   "fluid": "tconstruct:molten_cobalt",
   "fluidPerUnit": 144,
-  "textColor": "#2882D4",
-  "temperature": 950
+  "textColor": "#2376DD",
+  "temperature": 950,
+  "traits": [
+    {
+      "name": "tconstruct:lightweight",
+      "level": 1
+    }
+  ]
 }

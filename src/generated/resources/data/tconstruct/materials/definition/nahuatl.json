@@ -1,4 +1,12 @@
 {
   "craftable": false,
-  "textColor": "#601CC4"
+  "tier": 3,
+  "sortOrder": 2,
+  "textColor": "#601CC4",
+  "traits": [
+    {
+      "name": "tconstruct:lacerating",
+      "level": 1
+    }
+  ]
 }

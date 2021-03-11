@@ -1,18 +1,21 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
@@ -23,8 +26,13 @@ import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuild
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMatch;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -79,24 +87,24 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(TinkerModifiers.reinforcement, folder));
 
     // expanders
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.heightExpander)
+    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.magmaExpander)
                        .key('P', Items.PISTON)
-                       .key('L', Tags.Items.GEMS_LAPIS)
+                       .key('L', TinkerMaterials.tinkersBronze.getIngotTag())
+                       .key('S', TinkerTags.Items.MAGMA_SLIMEBALL)
+                       .patternLine(" P ")
+                       .patternLine("SLS")
+                       .patternLine(" P ")
+                       .addCriterion("has_item", hasItem(TinkerTags.Items.MAGMA_SLIMEBALL))
+                       .build(consumer, prefix(TinkerModifiers.magmaExpander, folder));
+    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.enderExpander)
+                       .key('P', Items.PISTON)
+                       .key('L', TinkerMaterials.manyullyn.getIngotTag())
                        .key('S', TinkerTags.Items.PURPLE_SLIMEBALL)
                        .patternLine(" P ")
-                       .patternLine("LSL")
+                       .patternLine("SLS")
                        .patternLine(" P ")
                        .addCriterion("has_item", hasItem(TinkerTags.Items.PURPLE_SLIMEBALL))
-                       .build(consumer, prefix(TinkerModifiers.heightExpander, folder));
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.widthExpander)
-                       .key('P', Items.PISTON)
-                       .key('L', Tags.Items.GEMS_LAPIS)
-                       .key('S', TinkerTags.Items.PURPLE_SLIMEBALL)
-                       .patternLine(" L ")
-                       .patternLine("PSP")
-                       .patternLine(" L ")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.PURPLE_SLIMEBALL))
-                       .build(consumer, prefix(TinkerModifiers.widthExpander, folder));
+                       .build(consumer, prefix(TinkerModifiers.enderExpander, folder));
 
     // silky cloth
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyCloth)
@@ -118,12 +126,127 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .setGroup(TinkerModifiers.silkyJewel.getRegistryName().toString())
                        .build(consumer, prefix(TinkerModifiers.silkyJewel, folder));
     registerPackingRecipe(consumer, "block", TinkerModifiers.silkyJewelBlock, "gem", TinkerModifiers.silkyJewel, folder);
+
+    // slime crystals
+    TinkerModifiers.slimeCrystal.forEach((type, crystal) -> {
+      IItemProvider slimeball = TinkerCommons.slimeball.get(type);
+      CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(slimeball), crystal, 1.0f, 400)
+                          .addCriterion("has_item", hasItem(slimeball))
+                          .build(consumer, folder + "slime_crystal/" + type.getString());
+    });
+
+    // upgrades
+    String upgradeFolder = folder + "upgrade/";
+
+    // tier 2
+    ModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
+                         .addInput(TinkerModifiers.reinforcement)
+                         .setMaxLevel(3)
+                         .setUpgradeSlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.reinforced, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.experienced.get())
+                         .addInput(Items.EXPERIENCE_BOTTLE, 5)
+                         .setMaxLevel(3)
+                         .setUpgradeSlots(1)
+                         .setToolTag(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .build(consumer, prefixR(TinkerModifiers.experienced, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
+                         .addInput(Items.PISTON)
+                         .setMaxLevel(5)
+                         .setUpgradeSlots(1)
+                         .setToolTag(TinkerTags.Items.MELEE)
+                         .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic.get())
+                         .addInput(Items.COMPASS)
+                         .setMaxLevel(3)
+                         .setUpgradeSlots(1)
+                         .setToolTag(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .build(consumer, prefixR(TinkerModifiers.magnetic, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.emerald.get())
+                         .addInput(Tags.Items.GEMS_EMERALD)
+                         .setMaxLevel(1)
+                         .setUpgradeSlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.emerald, upgradeFolder));
+
+    // tier 3
+    ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())
+                         .addInput(TinkerModifiers.silkyJewel)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .setToolTag(TinkerTags.Items.HARVEST)
+                         .build(consumer, prefixR(TinkerModifiers.silky, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.diamond.get())
+                         .addInput(Tags.Items.GEMS_DIAMOND)
+                         .setMaxLevel(1)
+                         .setUpgradeSlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.diamond, upgradeFolder));
+
+    // tier 4
+    ModifierRecipeBuilder.modifier(TinkerModifiers.worldbound.get())
+                         .addInput(Items.NETHERITE_SCRAP)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.worldbound, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.netherite.get())
+                         .addInput(Tags.Items.INGOTS_NETHERITE)
+                         .setMaxLevel(1)
+                         .setUpgradeSlots(1)
+                         .setRequirements(ModifierMatch.list(1, ModifierMatch.entry(TinkerModifiers.diamond.get()), ModifierMatch.entry(TinkerModifiers.emerald.get())))
+                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.netherite_requirements"))
+                         .build(consumer, prefixR(TinkerModifiers.netherite, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
+                         .addInput(TinkerModifiers.magmaExpander)
+                         .setAbilitySlots(1)
+                         .setMaxLevel(1)
+                         .setToolTag(TinkerTags.Items.AOE)
+                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_magma"));
+
+    // tier 5
+    ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
+                         .addInput(TinkerModifiers.enderExpander)
+                         .setRequirements(ModifierMatch.entry(TinkerModifiers.expanded.get(), 1))
+                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.ender_expander_requirements"))
+                         .setAbilitySlots(1)
+                         .setMaxLevel(2)
+                         .setToolTag(TinkerTags.Items.AOE)
+                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ender"));
+
+    // extra modifiers
+    ModifierRecipeBuilder.modifier(TinkerModifiers.writable.get())
+                         .addInput(Items.WRITABLE_BOOK)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.writable, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.harmonious.get())
+                         .addInput(ItemTags.MUSIC_DISCS)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.harmonious, upgradeFolder));
+    // TODO: dragon head is currently included in this, do we want a different item for dragon kill?
+    ModifierRecipeBuilder.modifier(TinkerModifiers.recapitated.get())
+                         .addInput(Tags.Items.HEADS)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.recapitated, upgradeFolder));
+
+    // creative
+    ModifierRecipeBuilder.modifier(TinkerModifiers.creativeUpgrade.get())
+                         .addInput(TinkerModifiers.creativeUpgradeItem)
+                         .build(consumer, prefixR(TinkerModifiers.creativeUpgrade, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.creativeAbility.get())
+                         .addInput(TinkerModifiers.creativeAbilityItem)
+                         .build(consumer, prefixR(TinkerModifiers.creativeAbility, upgradeFolder));
+
+    // overslime
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.GREEN), 10)
+                                  .build(consumer, location(upgradeFolder + "overslime/green"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.BLUE), 40)
+                                  .build(consumer, location(upgradeFolder + "overslime/blue"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.MAGMA), 100)
+                                  .build(consumer, location(upgradeFolder + "overslime/magma"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.PURPLE), 200)
+                                  .build(consumer, location(upgradeFolder + "overslime/purple"));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
     addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.shovelHead, 2, TinkerSmeltery.shovelHeadCast);
     addPartRecipe(consumer, TinkerToolParts.axeHead, 2, TinkerSmeltery.axeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.excavatorHead, 8, TinkerSmeltery.excavatorHeadCast);
     addPartRecipe(consumer, TinkerToolParts.kamaHead, 2, TinkerSmeltery.kamaHeadCast);
@@ -153,11 +276,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.GREEN_SLIMEBALL), 1, 1, "slimewood/ball");
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.GREEN)), 4, 1, "slimewood/congealed");
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.GREEN)), 5, 1, "slimewood/block");
+    registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
     // tier 3
     registerMetalMaterial(consumer, MaterialIds.slimesteel, "slimesteel", false);
     registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
     registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "tinkers_bronze", false);
-    registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
     registerMetalMaterial(consumer, MaterialIds.pigIron, "pigiron", false);
 
     // tier 2 (nether)
@@ -165,20 +288,21 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMetalMaterial(consumer, MaterialIds.cobalt, "cobalt", false);
     // tier 4
     registerMetalMaterial(consumer, MaterialIds.queensSlime, "queens_slime", false);
-    registerMetalMaterial(consumer, MaterialIds.manyullyn,   "manyullyn", false);
-    registerMetalMaterial(consumer, MaterialIds.hepatizon,   "hepatizon", false);
-    registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel", false);
+    registerMetalMaterial(consumer, MaterialIds.manyullyn,   "manyullyn",    false);
+    registerMetalMaterial(consumer, MaterialIds.hepatizon,   "hepatizon",    false);
+    //registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel",    false);
 
     // tier 2 (end)
     //registerMaterial(consumer, MaterialIds.endstone, Ingredient.fromItems(Blocks.END_STONE), 1, 1, "endstone");
 
     // tier 2 (mod compat)
-    registerMetalMaterial(consumer, MaterialIds.silver, "silver", true);
-    registerMetalMaterial(consumer, MaterialIds.lead, "lead", true);
-    // tier 3 (mod integration)
+    registerMetalMaterial(consumer, MaterialIds.silver,   "silver",  true);
+    registerMetalMaterial(consumer, MaterialIds.lead,     "lead",     true);
     registerMetalMaterial(consumer, MaterialIds.electrum, "electrum", true);
-    registerMetalMaterial(consumer, MaterialIds.bronze, "bronze", true);
-    registerMetalMaterial(consumer, MaterialIds.steel, "steel", true);
+    // tier 3 (mod integration)
+    registerMetalMaterial(consumer, MaterialIds.bronze,     "bronze",     true);
+    registerMetalMaterial(consumer, MaterialIds.steel,      "steel",      true);
+    registerMetalMaterial(consumer, MaterialIds.constantan, "constantan", true);
 
     //registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
     //registerMaterial(consumer, MaterialIds.slimevine_blue, Ingredient.fromItems(TinkerWorld.blueSlimeVine), 1, 1, "slimevine_blue");
@@ -189,7 +313,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerBuildingRecipe(consumer, TinkerTools.pickaxe);
     registerBuildingRecipe(consumer, TinkerTools.hammer);
 
-    registerBuildingRecipe(consumer, TinkerTools.shovel);
+    registerBuildingRecipe(consumer, TinkerTools.mattock);
     registerBuildingRecipe(consumer, TinkerTools.excavator);
 
     registerBuildingRecipe(consumer, TinkerTools.axe);

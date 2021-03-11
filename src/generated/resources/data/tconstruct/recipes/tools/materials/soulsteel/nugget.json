@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "tag": "forge:nuggets/soulsteel"
-  },
-  "value": 1,
-  "needed": 9,
-  "material": "tconstruct:soulsteel"
-}

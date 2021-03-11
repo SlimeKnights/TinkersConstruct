@@ -1,7 +1,15 @@
 {
   "craftable": false,
+  "tier": 3,
+  "sortOrder": 3,
   "fluid": "tconstruct:molten_rose_gold",
   "fluidPerUnit": 144,
-  "textColor": "#FFDBCC",
-  "temperature": 550
+  "textColor": "#F7CDBB",
+  "temperature": 550,
+  "traits": [
+    {
+      "name": "tconstruct:enhanced",
+      "level": 1
+    }
+  ]
 }

@@ -35,11 +35,10 @@ import java.util.Optional;
  */
 @Log4j2
 public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener {
-
   public static final MaterialRenderInfoLoader INSTANCE = new MaterialRenderInfoLoader();
 
   /** Folder to scan for material render info JSONS */
-  private static final String FOLDER = "toolmaterials";
+  private static final String FOLDER = "models/tool_materials";
   /** GSON adapter for material info deserializing */
   private static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ModResourceLocationSerializer(TConstruct.modID))
@@ -90,7 +89,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
       try (
         IResource iresource = manager.getResource(location);
         InputStream inputstream = iresource.getInputStream();
-        Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
+        Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8))
       ) {
         MaterialRenderInfoJson json = GSON.fromJson(reader, MaterialRenderInfoJson.class);
         if (json == null) {

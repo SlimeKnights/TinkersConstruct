@@ -1,4 +1,22 @@
 {
+  "condition": {
+    "value": {
+      "tag": "forge:ingots/bronze",
+      "type": "forge:tag_empty"
+    },
+    "type": "forge:not"
+  },
   "craftable": false,
-  "textColor": "#E3BD68"
+  "tier": 3,
+  "sortOrder": 1,
+  "fluid": "tconstruct:molten_bronze",
+  "fluidPerUnit": 144,
+  "textColor": "#CEA179",
+  "temperature": 700,
+  "traits": [
+    {
+      "name": "tconstruct:maintained_2",
+      "level": 1
+    }
+  ]
 }

@@ -40,22 +40,21 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenObsidian = FLUIDS.register("molten_obsidian",  stoneBuilder().color(0xff2c0d59).temperature(1300), Material.LAVA, 11);
   public static final FluidObject<ForgeFlowingFluid> moltenEmerald  = FLUIDS.register("molten_emerald",  moltenBuilder().color(0xff41f384).temperature(1234), Material.LAVA,  4);
   public static final FluidObject<ForgeFlowingFluid> moltenEnder    = FLUIDS.register("molten_ender",     stoneBuilder().color(0xff105e51).temperature( 777), Material.LAVA,  7);
-  public static final FluidObject<ForgeFlowingFluid> moltenBlaze    = FLUIDS.register("molten_blaze",    hotBuilder(FluidIcons.BLAZE_STILL, FluidIcons.BLAZE_FLOWING).temperature(1800), Material.LAVA, 14);
+  public static final FluidObject<ForgeFlowingFluid> moltenBlaze    = FLUIDS.register("molten_blaze",    hotBuilder(FluidIcons.BLAZE_STILL, FluidIcons.BLAZE_FLOWING).temperature(1800).density(3500), Material.LAVA, 14);
 
   // ores
   public static final FluidObject<ForgeFlowingFluid> moltenIron   = FLUIDS.register("molten_iron",   moltenBuilder().color(0xffa81212).temperature(1100), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenGold   = FLUIDS.register("molten_gold",   moltenBuilder().color(0xfff6d609).temperature(1000), Material.LAVA, 13);
-  public static final FluidObject<ForgeFlowingFluid> moltenCopper = FLUIDS.register("molten_copper", moltenBuilder().color(0xffed9f07).temperature( 800), Material.LAVA, 11);
-  public static final FluidObject<ForgeFlowingFluid> moltenCobalt = FLUIDS.register("molten_cobalt", moltenBuilder().color(0xff2882d4).temperature(1250), Material.LAVA, 10);
-  public static final FluidObject<ForgeFlowingFluid> moltenArdite = FLUIDS.register("molten_ardite", moltenBuilder().color(0xffd14210).temperature(1400), Material.LAVA,  8);
+  public static final FluidObject<ForgeFlowingFluid> moltenCopper = FLUIDS.register("molten_copper", moltenBuilder().color(0xfffba165).temperature( 800), Material.LAVA, 11);
+  public static final FluidObject<ForgeFlowingFluid> moltenCobalt = FLUIDS.register("molten_cobalt", moltenBuilder().color(0xff2376dd).temperature(1250), Material.LAVA, 10);
   public static final FluidObject<ForgeFlowingFluid> moltenDebris = FLUIDS.register("molten_debris", moltenBuilder().color(0xff5d342c).temperature(1475), Material.LAVA,  9);
   // alloys
   public static final FluidObject<ForgeFlowingFluid> moltenSlimesteel    = FLUIDS.register("molten_slimesteel",     moltenBuilder().color(0xffb3e0dc).temperature(1200), Material.LAVA, 10);
   public static final FluidObject<ForgeFlowingFluid> moltenTinkersBronze = FLUIDS.register("molten_tinkers_bronze", moltenBuilder().color(0xfff9cf72).temperature(1000), Material.LAVA, 12);
-  public static final FluidObject<ForgeFlowingFluid> moltenRoseGold      = FLUIDS.register("molten_rose_gold",      moltenBuilder().color(0xffffdbcc).temperature( 850), Material.LAVA, 12);
-  public static final FluidObject<ForgeFlowingFluid> moltenPigIron       = FLUIDS.register("molten_pig_iron",       moltenBuilder().color(0xffef9e9b).temperature(1111), Material.LAVA, 10);
+  public static final FluidObject<ForgeFlowingFluid> moltenRoseGold      = FLUIDS.register("molten_rose_gold",      moltenBuilder().color(0xfff7cdbb).temperature( 850), Material.LAVA, 12);
+  public static final FluidObject<ForgeFlowingFluid> moltenPigIron       = FLUIDS.register("molten_pig_iron",       moltenBuilder().color(0xfff0a8a4).temperature(1111), Material.LAVA, 10);
 
-  public static final FluidObject<ForgeFlowingFluid> moltenManyullyn   = FLUIDS.register("molten_manyullyn",    moltenBuilder().color(0xffa15cf8).temperature(1500), Material.LAVA,  9);
+  public static final FluidObject<ForgeFlowingFluid> moltenManyullyn   = FLUIDS.register("molten_manyullyn",    moltenBuilder().color(0xff9261cc).temperature(1500), Material.LAVA,  9);
   public static final FluidObject<ForgeFlowingFluid> moltenHepatizon   = FLUIDS.register("molten_hepatizon",    moltenBuilder().color(0xff60496b).temperature(1700), Material.LAVA,  5);
   public static final FluidObject<ForgeFlowingFluid> moltenQueensSlime = FLUIDS.register("molten_queens_slime", moltenBuilder().color(0xff236c45).temperature(1450), Material.LAVA,  7);
   public static final FluidObject<ForgeFlowingFluid> moltenSoulsteel   = FLUIDS.register("molten_soulsteel",    moltenBuilder().color(0xc46a5244).temperature(1500), Material.LAVA,  9);
@@ -75,7 +74,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenUranium  = FLUIDS.register("molten_uranium",  moltenBuilder().color(0xff7f9374).temperature(1130), Material.LAVA, 12);
 
   // compat alloys
-  public static final FluidObject<ForgeFlowingFluid> moltenBronze     = FLUIDS.register("molten_bronze",     moltenBuilder().color(0xffe3bd68).temperature(1000), Material.LAVA, 12);
+  public static final FluidObject<ForgeFlowingFluid> moltenBronze     = FLUIDS.register("molten_bronze",     moltenBuilder().color(0xffcea179).temperature(1000), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenBrass      = FLUIDS.register("molten_brass",      moltenBuilder().color(0xffede38b).temperature( 905), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenElectrum   = FLUIDS.register("molten_electrum",   moltenBuilder().color(0xffe8db49).temperature(1060), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenInvar      = FLUIDS.register("molten_invar",      moltenBuilder().color(0xffbab29b).temperature(1200), Material.LAVA, 12);

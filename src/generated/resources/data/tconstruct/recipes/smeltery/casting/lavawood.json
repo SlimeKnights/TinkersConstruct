@@ -6,8 +6,8 @@
   "cast_consumed": true,
   "fluid": {
     "name": "minecraft:lava",
-    "amount": 250
+    "amount": 100
   },
   "result": "tconstruct:lavawood",
-  "cooling_time": 87
+  "cooling_time": 55
 }

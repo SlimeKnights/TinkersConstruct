@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JSONUtils;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 
 import java.util.List;
 

@@ -2,5 +2,6 @@
     "craftable": true,
     "fluid": "minecraft:water",
     "textColor": "#1234ab",
-    "temperature": 1234
+    "temperature": 1234,
+    "traits": [{ "name": "test:modifier_2", "level": 2 }]
 }

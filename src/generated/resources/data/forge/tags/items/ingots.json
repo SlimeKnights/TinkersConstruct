@@ -2,11 +2,9 @@
   "replace": false,
   "values": [
     "tconstruct:dried_brick",
-    "tconstruct:mud_brick",
     "tconstruct:seared_brick",
     "#forge:ingots/copper",
     "#forge:ingots/cobalt",
-    "#forge:ingots/ardite",
     "#forge:ingots/slimesteel",
     "#forge:ingots/tinkers_bronze",
     "#forge:ingots/rose_gold",

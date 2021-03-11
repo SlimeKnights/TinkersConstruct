@@ -17,8 +17,8 @@ import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.ValidationResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
@@ -31,9 +31,12 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 
 public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
-
-  public static final int TINKER_SLOT = 5;
-  public static final int OUTPUT_SLOT = 0;
+  /** Slot index of the tool slot */
+  public static final int TINKER_SLOT = 0;
+  /** Slot index of the first input slot */
+  public static final int INPUT_SLOT = 1;
+  /** Slot index of the first input slot */
+  public static final int INPUT_COUNT = 5;
 
   /** Last crafted crafting recipe */
   @Nullable
@@ -86,25 +89,28 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
       // if we have a recipe, fetch its result
       if (recipe != null) {
-        ValidationResult validationResult = recipe.validate(this.inventoryWrapper);
+        // sync if the recipe is different
+        if (lastRecipe != recipe) {
+          this.lastRecipe = recipe;
+          this.syncToRelevantPlayers(this::syncRecipe);
+        }
 
-        if (validationResult.isSuccess()) {
-          result = recipe.getCraftingResult(this.inventoryWrapper);
-          // sync if the recipe is different
-          if (recipe != this.lastRecipe) {
-            this.lastRecipe = recipe;
-            this.syncToRelevantPlayers(this::syncRecipe);
-          }
-        } else if (validationResult.hasMessage()) {
+        // try for UI errors
+        ValidatedResult validatedResult = recipe.getValidatedResult(this.inventoryWrapper);
+        if (validatedResult.isSuccess()) {
+          result = validatedResult.getResult();
+        } else if (validatedResult.hasError()) {
           this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
-          this.screenSyncMessage = validationResult.getMessage();
+          this.screenSyncMessage = validatedResult.getMessage();
         }
       }
     }
     // client side only needs to update result, server syncs message elsewhere
-    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)
-             && this.lastRecipe.validate(this.inventoryWrapper).isSuccess()) {
-      result = this.lastRecipe.getCraftingResult(this.inventoryWrapper);
+    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)) {
+      ValidatedResult validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
+      if (validatedResult.isSuccess()) {
+        result = validatedResult.getResult();
+      }
     }
 
     this.syncToRelevantPlayers(this::syncScreen);

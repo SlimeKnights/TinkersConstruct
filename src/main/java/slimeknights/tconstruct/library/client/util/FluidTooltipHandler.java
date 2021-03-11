@@ -27,8 +27,6 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -211,12 +209,12 @@ public class FluidTooltipHandler {
       }
     }
 
-    // important that the largest value is first, as that is how the entries are processed
-    list.sort(Collections.reverseOrder(Comparator.comparingInt(FluidGuiEntry::getNeeded)));
+    // sort using the fluid entry comparable
+    list.sort(null);
     return list;
   }
 
-  private static class FluidGuiEntry {
+  private static class FluidGuiEntry implements Comparable<FluidGuiEntry> {
     private final String translationKey;
     @Getter
     private final int needed;
@@ -263,6 +261,16 @@ public class FluidTooltipHandler {
         tooltip.add(new TranslationTextComponent(translationKey, full).mergeStyle(TextFormatting.GRAY));
       }
       return amount % needed;
+    }
+
+    @Override
+    public int compareTo(FluidGuiEntry other) {
+      if (this.needed != other.needed) {
+        // reverse order so highest sorts first
+        return Integer.compare(other.needed, this.needed);
+      }
+      // fallback to translation key, so ingot sorts before pane if both are present
+      return this.translationKey.compareTo(other.translationKey);
     }
   }
 }

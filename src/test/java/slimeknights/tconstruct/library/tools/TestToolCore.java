@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.utils.TooltipType;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class TestToolCore extends ToolCore {
   }
 
   @Override
-  public boolean isEffective(BlockState state) {
+  public boolean canHarvestBlock(BlockState state) {
     return state.getBlock() == Blocks.DIRT;
   }
 

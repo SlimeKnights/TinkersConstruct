@@ -10,6 +10,7 @@ import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
@@ -37,7 +38,11 @@ public class HeadMaterialStats extends BaseMaterialStats {
   private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip("head.mining_speed.description");
   private static final ITextComponent ATTACK_DESCRIPTION = makeTooltip("head.attack.description");
   private static final ITextComponent HARVEST_LEVEL_DESCRIPTION = makeTooltip("head.harvest_level.description");
-  private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, MINING_SPEED_DESCRIPTION, ATTACK_DESCRIPTION, HARVEST_LEVEL_DESCRIPTION);
+  private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, HARVEST_LEVEL_DESCRIPTION, MINING_SPEED_DESCRIPTION, ATTACK_DESCRIPTION);
+  /** Formateed broken string */
+  private static final ITextComponent TOOLTIP_BROKEN = Util.makeTranslation("tooltip", "tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED);
+  /** Prefixed broken string */
+  private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = new TranslationTextComponent(HeadMaterialStats.DURABILITY_PREFIX).append(TOOLTIP_BROKEN);
 
   public final static Color DURABILITY_COLOR = Color.fromInt(0xFF47cc47);
   public final static Color MINING_SPEED_COLOR = Color.fromInt(0xFF78A0CD);
@@ -90,7 +95,10 @@ public class HeadMaterialStats extends BaseMaterialStats {
   }
 
   /** Applies formatting for durability with a reference durability */
-  public static ITextComponent formatDurability(int durability, int ref) {
+  public static ITextComponent formatDurability(int durability, int ref, boolean textIfBroken) {
+    if (textIfBroken && durability == 0) {
+      return TOOLTIP_BROKEN_PREFIXED;
+    }
     return new TranslationTextComponent(DURABILITY_PREFIX).append(CustomFontColor.formatPartialAmount(durability, ref));
   }
 

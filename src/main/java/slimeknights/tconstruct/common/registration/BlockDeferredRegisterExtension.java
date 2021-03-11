@@ -9,10 +9,27 @@ import slimeknights.mantle.registration.deferred.BlockDeferredRegister;
 import slimeknights.mantle.registration.object.ItemObject;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
   public BlockDeferredRegisterExtension(String modID) {
     super(modID);
+  }
+
+  /**
+   * Creates a new metal item object
+   * @param name           Metal name
+   * @param blockSupplier  Supplier for the block
+   * @param blockItem      Block item
+   * @param itemProps      Properties for the item
+   * @return  Metal item object
+   */
+  public MetalItemObject registerMetal(String name, Supplier<Block> blockSupplier, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
+    ItemObject<Block> block = register(name + "_block", blockSupplier, blockItem);
+    Supplier<Item> itemSupplier = () -> new Item(itemProps);
+    RegistryObject<Item> ingot = itemRegister.register(name + "_ingot", itemSupplier);
+    RegistryObject<Item> nugget = itemRegister.register(name + "_nugget", itemSupplier);
+    return new MetalItemObject(name, block, ingot, nugget);
   }
 
   /**
@@ -24,9 +41,6 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @return  Metal item object
    */
   public MetalItemObject registerMetal(String name, AbstractBlock.Properties blockProps, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
-    ItemObject<Block> block = register(name + "_block", blockProps, blockItem);
-    RegistryObject<Item> ingot = itemRegister.register(name + "_ingot", () -> new Item(itemProps));
-    RegistryObject<Item> nugget = itemRegister.register(name + "_nugget", () -> new Item(itemProps));
-    return new MetalItemObject(name, block, ingot, nugget);
+    return registerMetal(name, () -> new Block(blockProps), blockItem, itemProps);
   }
 }

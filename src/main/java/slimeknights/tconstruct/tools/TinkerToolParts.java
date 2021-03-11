@@ -9,7 +9,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.tools.ToolPartItem;
+import slimeknights.tconstruct.library.tools.item.ToolPartItem;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -30,7 +30,6 @@ public final class TinkerToolParts extends TinkerModule {
 
   public static final ItemObject<ToolPartItem> pickaxeHead = ITEMS.register("pickaxe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> hammerHead = ITEMS.register("hammer_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
-  public static final ItemObject<ToolPartItem> shovelHead = ITEMS.register("shovel_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> excavatorHead = ITEMS.register("excavator_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> axeHead = ITEMS.register("axe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> kamaHead = ITEMS.register("kama_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
