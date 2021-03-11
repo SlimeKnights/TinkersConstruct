@@ -65,7 +65,8 @@ public class SlimeSlingItem extends TooltipItem {
     }
 
     switch (this.slimeType) {
-      case GREEN:
+      case GREEN: // might need to be scaled down
+      case BLOOD: // Leaving this with old functionality for now. Should be removed when/if SlimeTypes changes
         // check if player was targeting a block
         RayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
         if (mop.getType() == RayTraceResult.Type.BLOCK) {
@@ -84,24 +85,16 @@ public class SlimeSlingItem extends TooltipItem {
           SlimeBounceHandler.addBounceHandler(player);
         }
         break;
-      case BLUE:
-        if(f > 5) {
+      case BLUE: // needs to be scaled up
+        if (f > 5) {
           player.addExhaustion(0.2F);
           player.getCooldownTracker().setCooldown(stack.getItem(), 3);
           player.setSprinting(true);
 
-          float increase = (float) (0.02 * f + 0.2);
-          if(increase > 0.56f) {
-            increase = 0.56f;
-          }
-
-          float speed = 0.05F * f;
-          if(speed > 0.925f) {
-            speed = 0.925f;
-          }
+          float speed = f / 3F;
           player.setVelocity(
             (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed),
-            player.getMotion().getY() + increase,
+            player.getMotion().getY() + speed,
             (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed));
 
           if (player instanceof ServerPlayerEntity) {
@@ -119,12 +112,8 @@ public class SlimeSlingItem extends TooltipItem {
       case PURPLE:
 
         break;
-      case BLOOD:
 
-        break;
     }
-
-
   }
 
   /**
