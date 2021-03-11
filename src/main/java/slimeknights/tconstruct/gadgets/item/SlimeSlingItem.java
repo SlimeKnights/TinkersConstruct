@@ -49,8 +49,8 @@ public class SlimeSlingItem extends TooltipItem {
     }
 
     PlayerEntity player = (PlayerEntity) entityLiving;
-    // has to be on ground to do something
-    if (!player.isOnGround()) {
+    // has to be on ground to do something (except Blue)
+    if ((!player.isOnGround() && this.slimeType != StickySlimeBlock.SlimeType.BLUE) || player.isElytraFlying()) {
       return;
     }
 
