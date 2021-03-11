@@ -48,5 +48,4 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
       SlimeBounceHandler.addBounceHandler(player);
     }
   }
-
 }
