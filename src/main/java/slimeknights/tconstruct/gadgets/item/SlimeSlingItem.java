@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -8,15 +9,18 @@ import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.utils.EntityUtil;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
@@ -25,6 +29,9 @@ import javax.annotation.Nonnull;
 public class SlimeSlingItem extends TooltipItem {
 
   StickySlimeBlock.SlimeType slimeType;
+  LivingEntity magmaSlingTarget;
+  Vector3d magmaSlingVec;
+
 
   public SlimeSlingItem(StickySlimeBlock.SlimeType slimeType, Properties props) {
     super(props);
@@ -39,11 +46,23 @@ public class SlimeSlingItem extends TooltipItem {
     return new ActionResult<>(ActionResultType.SUCCESS, itemStackIn);
   }
 
+
+//  /**
+//   * Called when the player interacts with an entity
+//   */
+//  @Override
+//  public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+//    magmaSlingTarget = target;
+//    magmaSlingVec = playerIn.getLookVec().normalize();
+//    return ActionResultType.PASS;
+//  }
+
   /**
    * Called when the player stops using an Item (stops holding the right mouse button).
    */
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+
     if (!(entityLiving instanceof PlayerEntity)) {
       return;
     }
@@ -107,10 +126,22 @@ public class SlimeSlingItem extends TooltipItem {
         }
         break;
       case MAGMA:
-
+        // TODO: Finish implementing
+        mop = EntityUtil.raytraceEntityPlayerLook(player, 3.2F);
+        if (mop == null) {
+          return;
+        }
+        if (mop.getType() == RayTraceResult.Type.ENTITY) {
+          Entity entity = ((EntityRayTraceResult) mop).getEntity();
+          Vector3d vec = player.getLookVec().normalize();
+          entity.setVelocity(vec.x * f,
+            vec.y * f / 3f,
+            vec.z * f);
+          player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+        }
         break;
       case PURPLE:
-
+        // TODO: Implement
         break;
 
     }
