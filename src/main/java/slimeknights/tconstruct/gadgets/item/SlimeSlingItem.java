@@ -16,14 +16,18 @@ import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 import javax.annotation.Nonnull;
 
 public class SlimeSlingItem extends TooltipItem {
 
-  public SlimeSlingItem(Properties props) {
+  StickySlimeBlock.SlimeType slimeType;
+
+  public SlimeSlingItem(StickySlimeBlock.SlimeType slimeType, Properties props) {
     super(props);
+    this.slimeType = slimeType;
   }
 
   @Nonnull
@@ -59,23 +63,41 @@ public class SlimeSlingItem extends TooltipItem {
       f = 6f;
     }
 
-    // check if player was targeting a block
-    RayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
-    if (mop.getType() == RayTraceResult.Type.BLOCK) {
-      // we fling the inverted player look vector
-      Vector3d vec = player.getLookVec().normalize();
-      player.addVelocity(vec.x * -f,
-        vec.y * -f / 3f,
-        vec.z * -f);
+    switch (this.slimeType) {
+      case GREEN:
+        // check if player was targeting a block
+        RayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
+        if (mop.getType() == RayTraceResult.Type.BLOCK) {
+          // we fling the inverted player look vector
+          Vector3d vec = player.getLookVec().normalize();
+          player.addVelocity(vec.x * -f,
+            vec.y * -f / 3f,
+            vec.z * -f);
 
-      if (player instanceof ServerPlayerEntity) {
-        ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
-        TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
-      }
+          if (player instanceof ServerPlayerEntity) {
+            ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
+            TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
+          }
 
-      player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
-      SlimeBounceHandler.addBounceHandler(player);
+          player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+          SlimeBounceHandler.addBounceHandler(player);
+        }
+        break;
+      case BLUE:
+        
+        break;
+      case MAGMA:
+
+        break;
+      case PURPLE:
+
+        break;
+      case BLOOD:
+
+        break;
     }
+
+
   }
 
   /**
