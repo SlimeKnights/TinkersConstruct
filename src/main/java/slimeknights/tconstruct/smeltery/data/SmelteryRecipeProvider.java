@@ -465,11 +465,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     addMetalMelting(consumer, TinkerFluids.moltenGold.get(),   "gold",   true, metalFolder, false);
     addMetalMelting(consumer, TinkerFluids.moltenCopper.get(), "copper", true, metalFolder, false);
     addMetalMelting(consumer, TinkerFluids.moltenCobalt.get(), "cobalt", true, metalFolder, false);
-    ITag<Item> ore = Tags.Items.ORES_NETHERITE_SCRAP;
-    MeltingRecipeBuilder.melting(Ingredient.fromTag(ore), TinkerFluids.moltenDebris.get(), MaterialValues.INGOT, 2.0f)
+    MeltingRecipeBuilder.melting(Ingredient.fromTag(Tags.Items.ORES_NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), MaterialValues.INGOT, 2.0f)
                         .setOre()
                         .build(consumer, location(metalFolder + "molten_debris/ore"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), MaterialValues.INGOT, 1.0f)
+    MeltingRecipeBuilder.melting(Ingredient.fromTag(TinkerTags.Items.INGOTS_NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), MaterialValues.INGOT, 1.0f)
                         .build(consumer, location(metalFolder + "molten_debris/scrap"));
     // tier 3
     addMetalMelting(consumer, TinkerFluids.moltenSlimesteel.get(),    "slimesteel",     false, metalFolder, false);
