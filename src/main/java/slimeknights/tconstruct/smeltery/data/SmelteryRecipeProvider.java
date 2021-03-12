@@ -653,6 +653,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                       .addInput(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL)
                       .addInput(TinkerFluids.moltenClay.get(), MaterialValues.SLIMEBALL)
                       .build(consumer, prefixR(TinkerFluids.moltenPigIron, folder));
+    // obsidian: 1 water + 1 lava = 2
+    // note this is not a progression break, as the same tier lets you combine glass and copper for same mining level
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK / 10)
+                      .addInput(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 10)
+                      .addInput(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 10)
+                      .build(consumer, prefixR(TinkerFluids.moltenObsidian, folder));
 
     // tier 4
 
