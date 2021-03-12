@@ -71,6 +71,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> MAGMA_SLIMEBALL = forgeTag("slimeball/magma");
 
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE = forgeTag("nuggets/netherite");
+    public static final IOptionalNamedTag<Item> INGOTS_NETHERITE_SCRAP = forgeTag("ingots/netherite_scrap");
 
     public static final IOptionalNamedTag<Item> CASTS = tag("casts");
     public static final IOptionalNamedTag<Item> GOLD_CASTS = tag("casts/gold");
@@ -114,9 +115,11 @@ public class TinkerTags {
 
   public static class Fluids {
 
+    public static final IOptionalNamedTag<Fluid> SLIMELIKE = tag("slimelike");
+    public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
+    public static final IOptionalNamedTag<Fluid> GREEN_SLIME = tag("green_slime");
     public static final IOptionalNamedTag<Fluid> BLUE_SLIME = tag("blue_slime");
     public static final IOptionalNamedTag<Fluid> PURPLE_SLIME = tag("purple_slime");
-    public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
 
     private static IOptionalNamedTag<Fluid> tag(String name) {
       return FluidTags.createOptional(Util.getResource(name));

@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -32,7 +33,6 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FluidTooltipHandler {
@@ -47,11 +47,11 @@ public class FluidTooltipHandler {
   private static final FluidGuiEntry MILLIBUCKET = new FluidGuiEntry("millibucket", 1);
   private static final FluidGuiEntry INGOT = new FluidGuiEntry("ingot", MaterialValues.INGOT);
   private static final FluidGuiEntry BLOCK = new FluidGuiEntry("block", MaterialValues.METAL_BLOCK);
+  private static final FluidGuiEntry PANE = new FluidGuiEntry("pane", MaterialValues.GLASS_PANE);
+  private static final FluidGuiEntry SLIMEBALL = new FluidGuiEntry("slimeball", MaterialValues.SLIMEBALL);
 
   /** List of options to check for table cast recipes */
   private static final Map<Item,FluidGuiEntry> TOOLTIP_OPTIONS = new IdentityHashMap<>();
-  /** List of options to check for table with no cast recipes */
-  private static final Map<Integer,FluidGuiEntry> TABLE_TOP_OPTIONS = new HashMap<>();
 
   /** Initializes the tooltip handler */
   public static void init() {
@@ -59,12 +59,6 @@ public class FluidTooltipHandler {
     TOOLTIP_OPTIONS.put(TinkerSmeltery.ingotCast.get(), INGOT);
     TOOLTIP_OPTIONS.put(TinkerSmeltery.nuggetCast.get(), new FluidGuiEntry("nugget", MaterialValues.NUGGET));
     TOOLTIP_OPTIONS.put(TinkerSmeltery.gemCast.get(), new FluidGuiEntry("gem", MaterialValues.GEM));
-    for (FluidGuiEntry entry : new FluidGuiEntry[] {
-      new FluidGuiEntry("pane", MaterialValues.GLASS_PANE),
-      new FluidGuiEntry("slimeball", MaterialValues.SLIMEBALL)
-    }) {
-      TABLE_TOP_OPTIONS.put(entry.needed, entry);
-    }
   }
 
   /**
@@ -188,7 +182,8 @@ public class FluidTooltipHandler {
         Ingredient cast = recipe.getCast();
         // if empty, add an entry if a table recipe matches an expected unit
         if (cast == Ingredient.EMPTY) {
-          Optional.ofNullable(TABLE_TOP_OPTIONS.get(ingredient.getAmount(fluid))).ifPresent(list::add);
+          FluidGuiEntry entry = fluid.isIn(TinkerTags.Fluids.SLIMELIKE) ? SLIMEBALL : PANE;
+          list.add(entry.withAmount(ingredient.getAmount(fluid)));
         } else {
           // if a cast, check for a matching item in the map
           Arrays.stream(recipe.getCast().getMatchingStacks())

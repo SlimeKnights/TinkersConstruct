@@ -3,7 +3,7 @@
   "input": "tconstruct:wood",
   "fluid": {
     "name": "tconstruct:molten_obsidian",
-    "amount": 144
+    "amount": 250
   },
   "result": "tconstruct:nahuatl",
   "temperature": 1300

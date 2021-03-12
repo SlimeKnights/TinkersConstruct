@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#tconstruct:green_slime",
     "#tconstruct:blue_slime",
     "#tconstruct:purple_slime"
   ]
