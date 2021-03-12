@@ -105,25 +105,23 @@ public class SlimeSlingItem extends TooltipItem {
         }
         break;
       case BLUE: // needs to be scaled up
-        if (f > 5) {
-          player.addExhaustion(0.2F);
-          player.getCooldownTracker().setCooldown(stack.getItem(), 3);
-          player.setSprinting(true);
+        player.addExhaustion(0.2F);
+        player.getCooldownTracker().setCooldown(stack.getItem(), 3);
+        player.setSprinting(true);
 
-          float speed = f / 3F;
-          player.setVelocity(
-            (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed),
-            player.getMotion().getY() + speed,
-            (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed));
+        float speed = f / 3F;
+        player.setVelocity(
+          (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed),
+          player.getMotion().getY() + speed,
+          (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed));
 
-          if (player instanceof ServerPlayerEntity) {
-            ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
-            TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
-          }
-
-          player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
-          SlimeBounceHandler.addBounceHandler(player);
+        if (player instanceof ServerPlayerEntity) {
+          ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
+          TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
         }
+
+        player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+        SlimeBounceHandler.addBounceHandler(player);
         break;
       case MAGMA:
         // TODO: Finish implementing
