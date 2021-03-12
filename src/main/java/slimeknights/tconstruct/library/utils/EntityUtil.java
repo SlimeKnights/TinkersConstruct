@@ -72,6 +72,7 @@ public final class EntityUtil {
     if (pointedEntity != null && range2 < range) {
       return new EntityRayTraceResult(pointedEntity, hit);
     }
+//    return new EntityRayTraceResult(null, null);
     return null;
   }
 }
