@@ -1,9 +1,13 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.BucketItem;
+import net.minecraft.item.FishBucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
@@ -124,19 +128,34 @@ public class SlimeSlingItem extends TooltipItem {
         SlimeBounceHandler.addBounceHandler(player);
         break;
       case MAGMA:
+        EntityRenderer
+        RayTraceResult mouseOver = Minecraft.getInstance().objectMouseOver;
+
+        if (mouseOver != null) {
+          if (mouseOver.getType() == RayTraceResult.Type.ENTITY) {
+            Entity entity = ((EntityRayTraceResult) mouseOver).getEntity();
+            Vector3d vec = player.getLookVec().normalize();
+            entity.setVelocity(vec.x * f,
+              vec.y * f / 3f,
+              vec.z * f);
+            player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+
+          }
+        }
+
         // TODO: Finish implementing
-        mop = EntityUtil.raytraceEntityPlayerLook(player, 3.2F);
-        if (mop == null) {
-          return;
-        }
-        if (mop.getType() == RayTraceResult.Type.ENTITY) {
-          Entity entity = ((EntityRayTraceResult) mop).getEntity();
-          Vector3d vec = player.getLookVec().normalize();
-          entity.setVelocity(vec.x * f,
-            vec.y * f / 3f,
-            vec.z * f);
-          player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
-        }
+//        mop = EntityUtil.raytraceEntityPlayerLook(player, 3.2F);
+//        if (mop == null) {
+//          return;
+//        }
+//        if (mop.getType() == RayTraceResult.Type.ENTITY) {
+//          Entity entity = ((EntityRayTraceResult) mop).getEntity();
+//          Vector3d vec = player.getLookVec().normalize();
+//          entity.setVelocity(vec.x * f,
+//            vec.y * f / 3f,
+//            vec.z * f);
+//          player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+//        }
         break;
       case PURPLE:
         // TODO: Implement
