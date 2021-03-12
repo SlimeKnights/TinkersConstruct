@@ -51,15 +51,16 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Blocks
    */
-  private static final Block.Properties TOOL_TABLE = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).hardnessAndResistance(1.0F, 5.0F).notSolid();
+  private static final Block.Properties WOOD_TABLE = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).hardnessAndResistance(1.0F, 5.0F).notSolid();
+  private static final Block.Properties STONE_TABLE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).notSolid();
   /** Call with .apply to set the tag type for a block item provider */
   private static final Function<ITag<Item>, Function<Block, RetexturedTableBlockItem>> RETEXTURED_BLOCK_ITEM = (tag) -> (block) -> new RetexturedTableBlockItem(block, tag, GENERAL_PROPS);
-  public static final ItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<TableBlock> tinkerStation = BLOCKS.register("tinker_station", () -> new TinkerStationBlock(TOOL_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS));
-  public static final ItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(TOOL_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS));
-  public static final ItemObject<TableBlock> modifierChest = BLOCKS.register("modifier_chest", () -> new TinkerChestBlock(TOOL_TABLE, ModifierChestTileEntity::new, TableSortKeys.MODIFIER_CHEST), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new TinkerChestBlock(TOOL_TABLE, PartChestTileEntity::new, TableSortKeys.PART_CHEST), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<TableBlock> castChest = BLOCKS.register("cast_chest", () -> new TinkerChestBlock(TOOL_TABLE, CastChestTileEntity::new, TableSortKeys.CAST_CHEST), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(WOOD_TABLE), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> tinkerStation = BLOCKS.register("tinker_station", () -> new TinkerStationBlock(WOOD_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS));
+  public static final ItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(WOOD_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS));
+  public static final ItemObject<TableBlock> modifierChest = BLOCKS.register("modifier_chest", () -> new TinkerChestBlock(WOOD_TABLE, ModifierChestTileEntity::new, TableSortKeys.MODIFIER_CHEST), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new TinkerChestBlock(WOOD_TABLE, PartChestTileEntity::new, TableSortKeys.PART_CHEST), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> castChest = BLOCKS.register("cast_chest", () -> new TinkerChestBlock(STONE_TABLE, CastChestTileEntity::new, TableSortKeys.CAST_CHEST), GENERAL_BLOCK_ITEM);
 
   /*
    * Items
