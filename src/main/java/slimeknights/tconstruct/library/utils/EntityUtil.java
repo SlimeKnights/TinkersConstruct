@@ -23,10 +23,8 @@ public final class EntityUtil {
 
   // based on EntityRenderer.getMouseOver
   public static RayTraceResult raytraceEntity(Entity entity, Vector3d start, Vector3d look, double range, boolean ignoreCanBeCollidedWith) {
-    //Vec3 look = entity.getLook(partialTicks);
     Vector3d direction = start.add(look.x * range, look.y * range, look.z * range);
 
-    //Vec3 direction = vec3.addVector(vec31.x * d0, vec31.y * d0, vec31.z * d0);
     Entity pointedEntity = null;
     Vector3d hit = null;
     AxisAlignedBB bb = entity.getBoundingBox().expand(look.x * range, look.y * range, look.z * range).expand(1, 1, 1);
@@ -39,9 +37,7 @@ public final class EntityUtil {
         double colBorder = candidate.getCollisionBorderSize();
         AxisAlignedBB entityBB = candidate.getBoundingBox().expand(colBorder, colBorder, colBorder);
 
-//        RayTraceResult movingobjectposition = entityBB.calculateIntercept(start, direction);
         RayTraceResult movingobjectposition = entityBB.intersects(start, direction) ? new EntityRayTraceResult(entity, direction) : null;
-        System.out.println(movingobjectposition.getHitVec());
 
         // needs special casing: vector starts inside the entity
         if (entityBB.contains(start)) {
@@ -72,7 +68,7 @@ public final class EntityUtil {
     if (pointedEntity != null && range2 < range) {
       return new EntityRayTraceResult(pointedEntity, hit);
     }
-//    return new EntityRayTraceResult(null, null);
-    return null;
+    // TODO: Make better return
+    return new EntityRayTraceResult(null, null);
   }
 }
