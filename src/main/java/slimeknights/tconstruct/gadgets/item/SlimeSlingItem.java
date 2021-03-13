@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.gadgets.item;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -49,17 +50,6 @@ public class SlimeSlingItem extends TooltipItem {
     playerIn.setActiveHand(hand);
     return new ActionResult<>(ActionResultType.SUCCESS, itemStackIn);
   }
-
-
-//  /**
-//   * Called when the player interacts with an entity
-//   */
-//  @Override
-//  public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
-//    magmaSlingTarget = target;
-//    magmaSlingVec = playerIn.getLookVec().normalize();
-//    return ActionResultType.PASS;
-//  }
 
   /**
    * Called when the player stops using an Item (stops holding the right mouse button).
@@ -128,34 +118,20 @@ public class SlimeSlingItem extends TooltipItem {
         SlimeBounceHandler.addBounceHandler(player);
         break;
       case MAGMA:
-        EntityRenderer
-        RayTraceResult mouseOver = Minecraft.getInstance().objectMouseOver;
-
-        if (mouseOver != null) {
-          if (mouseOver.getType() == RayTraceResult.Type.ENTITY) {
-            Entity entity = ((EntityRayTraceResult) mouseOver).getEntity();
+        // TODO: Fix miss on negative pitch
+        mop = EntityUtil.raytraceEntityPlayerLook(player, 5F);
+        if (mop != null) {
+//          System.out.println(mop.getType());
+          if (mop.getType() == RayTraceResult.Type.ENTITY) {
+            Entity entity = ((EntityRayTraceResult) mop).getEntity();
             Vector3d vec = player.getLookVec().normalize();
+            System.out.println(vec.x + " " + vec.y + " " + vec.z);
             entity.setVelocity(vec.x * f,
               vec.y * f / 3f,
               vec.z * f);
             player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
-
           }
         }
-
-        // TODO: Finish implementing
-//        mop = EntityUtil.raytraceEntityPlayerLook(player, 3.2F);
-//        if (mop == null) {
-//          return;
-//        }
-//        if (mop.getType() == RayTraceResult.Type.ENTITY) {
-//          Entity entity = ((EntityRayTraceResult) mop).getEntity();
-//          Vector3d vec = player.getLookVec().normalize();
-//          entity.setVelocity(vec.x * f,
-//            vec.y * f / 3f,
-//            vec.z * f);
-//          player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
-//        }
         break;
       case PURPLE:
         // TODO: Implement
