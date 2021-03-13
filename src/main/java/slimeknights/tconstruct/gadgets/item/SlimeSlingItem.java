@@ -4,13 +4,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.EnderPearlItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
@@ -31,9 +29,6 @@ import java.util.List;
 public class SlimeSlingItem extends TooltipItem {
 
   StickySlimeBlock.SlimeType slimeType;
-  LivingEntity magmaSlingTarget;
-  Vector3d magmaSlingVec;
-
 
   public SlimeSlingItem(StickySlimeBlock.SlimeType slimeType, Properties props) {
     super(props);
@@ -53,7 +48,6 @@ public class SlimeSlingItem extends TooltipItem {
    */
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
-
     if (!(entityLiving instanceof PlayerEntity)) {
       return;
     }
@@ -76,7 +70,6 @@ public class SlimeSlingItem extends TooltipItem {
 
     switch (this.slimeType) {
       case GREEN: // might need to be scaled down
-      case BLOOD: // Leaving this with old functionality for now. Should be removed when/if SlimeTypes changes
         // check if player was targeting a block
         BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
         if (mop.getType() == RayTraceResult.Type.BLOCK) {
@@ -95,7 +88,7 @@ public class SlimeSlingItem extends TooltipItem {
           SlimeBounceHandler.addBounceHandler(player);
         }
         break;
-      case BLUE: // needs to be scaled up
+      case BLUE:
         player.addExhaustion(0.2F);
         player.getCooldownTracker().setCooldown(stack.getItem(), 3);
         player.setSprinting(true);
@@ -141,14 +134,12 @@ public class SlimeSlingItem extends TooltipItem {
         break;
       case PURPLE:
         look = player.getLookVec();
-        dist = 5;
         double offX = look.x * f;
         double offY = look.y * f;
         double offZ = look.z * f;
 
         player.setPosition(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ);
         player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
-        player.playSound(SoundEvents.ENTITY_ENDER_PEARL_THROW, 1f, 1f);
         break;
 
     }
