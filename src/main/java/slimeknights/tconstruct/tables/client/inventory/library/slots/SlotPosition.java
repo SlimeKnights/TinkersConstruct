@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class SlotPosition {
+  public static final SlotPosition EMPTY = new SlotPosition(0, 0);
 
   private final int x;
   private final int y;
@@ -27,6 +28,7 @@ public class SlotPosition {
    * @param key the key to read from
    * @return a list of SlotPositions
    */
+  @SuppressWarnings("Convert2MethodRef")
   public static List<SlotPosition> listFromJson(JsonObject parent, String key) {
     JsonElement json = parent.get(key);
 

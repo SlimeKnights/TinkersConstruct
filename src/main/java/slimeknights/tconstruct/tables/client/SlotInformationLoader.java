@@ -9,7 +9,6 @@ import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInformation;
 
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class SlotInformationLoader extends JsonReloadListener {
    * @return the slot information
    */
   public static SlotInformation get(ResourceLocation registryKey) {
-    return INSTANCE.slotInformationMap.get(registryKey);
+    return INSTANCE.slotInformationMap.getOrDefault(registryKey, SlotInformation.EMPTY);
   }
 
   /**

@@ -169,7 +169,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     // set items for display
     IGuiItemStackGroup items = layout.getItemStacks();
     items.init(0, true, 104, 33);
-    items.init(1, true, 24, 37);
+    items.init(1, true, 24, 36);
     items.init(2, true,  2, 32);
     items.init(3, true, 24, 14);
     items.init(4, true, 46, 32);

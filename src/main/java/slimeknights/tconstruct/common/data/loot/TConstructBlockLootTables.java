@@ -121,6 +121,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
                     .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).addOperation("LegTexture", "TinkerData.LegTexture", Action.REPLACE)));
     this.registerLootTable(TinkerTables.partBuilder.get(), addTable);
     this.registerLootTable(TinkerTables.tinkerStation.get(), addTable);
+    this.registerLootTable(TinkerTables.tinkersAnvil.get(), addTable);
 
     // normal tables
     this.registerLootTable(TinkerTables.craftingStation.get(), block ->

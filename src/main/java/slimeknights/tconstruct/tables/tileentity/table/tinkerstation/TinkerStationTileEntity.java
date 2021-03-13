@@ -1,12 +1,14 @@
 package slimeknights.tconstruct.tables.tileentity.table.tinkerstation;
 
 import lombok.Getter;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.GameRules;
@@ -35,8 +37,6 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   public static final int TINKER_SLOT = 0;
   /** Slot index of the first input slot */
   public static final int INPUT_SLOT = 1;
-  /** Slot index of the first input slot */
-  public static final int INPUT_COUNT = 5;
 
   /** Last crafted crafting recipe */
   @Nullable
@@ -51,11 +51,37 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   private ITextComponent screenSyncMessage = StringTextComponent.EMPTY;
 
   public TinkerStationTileEntity() {
-    super(TinkerTables.tinkerStationTile.get(), "gui.tconstruct.tinker_station", 6);
+    this(6); // default to more slots
+  }
+
+  public TinkerStationTileEntity(int slots) {
+    super(TinkerTables.tinkerStationTile.get(), "gui.tconstruct.tinker_station", slots);
     this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
     this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
     this.inventoryWrapper = new TinkerStationInventoryWrapper(this);
     this.craftingResult = new LazyResultInventory(this);
+  }
+
+  @Override
+  public ITextComponent getDefaultName() {
+    if (this.world == null) {
+      return super.getDefaultName();
+    }
+    return this.getBlockState().getBlock().getTranslatedName();
+  }
+
+  /**
+   * Gets the number of item input slots, ignoring the tool
+   * @return  Input count
+   */
+  public int getInputCount() {
+    return getSizeInventory() - 1;
+  }
+
+  @Override
+  public void resize(int size) {
+    super.resize(size);
+    inventoryWrapper.resize();
   }
 
   @Nullable
@@ -211,5 +237,11 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
    */
   protected void playCraftSound(PlayerEntity player) {
     SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
+  }
+
+  @Override
+  public void read(BlockState blockState, CompoundNBT tags) {
+    super.read(blockState, tags);
+    inventoryWrapper.resize();
   }
 }

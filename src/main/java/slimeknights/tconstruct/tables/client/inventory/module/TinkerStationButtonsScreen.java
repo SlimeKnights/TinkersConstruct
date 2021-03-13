@@ -57,25 +57,30 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
     };
 
     for (SlotInformation slotInformation : SlotInformationLoader.getSlotInformationList()) {
-      SlotButtonItem slotButtonItem;
-
-      if (slotInformation == SlotInformationLoader.get(TinkerStationScreen.REPAIR_NAME)) {
-        slotButtonItem = new SlotButtonItem(index++, -1, -1, new TranslationTextComponent("gui.tconstruct.repair"), slotInformation, onPressed) {
-          @Override
-          protected void drawIcon(MatrixStack matrices, Minecraft minecraft) {
-            minecraft.getTextureManager().bindTexture(Icons.ICONS);
-            Icons.ANVIL.draw(matrices, this.x, this.y);
-          }
-        };
+      SlotButtonItem slotButtonItem = null;
+      if (slotInformation.isRepair()) {
+        // there are multiple repair slots, one for each relevant size
+        if (slotInformation.getPoints().size() == parent.getMaxInputs()) {
+          slotButtonItem = new SlotButtonItem(index++, -1, -1, new TranslationTextComponent("gui.tconstruct.repair"), slotInformation, onPressed) {
+            @Override
+            protected void drawIcon(MatrixStack matrices, Minecraft minecraft) {
+              minecraft.getTextureManager().bindTexture(Icons.ICONS);
+              Icons.ANVIL.draw(matrices, this.x, this.y);
+            }
+          };
+        }
       }
-      else {
+      // only slow tools if few enough inputs
+      else if (slotInformation.getPoints().size() <= parent.getMaxInputs()) {
         slotButtonItem = new SlotButtonItem(index++, -1, -1, slotInformation.getToolForRendering(), slotInformation, onPressed);
       }
 
-      this.addInfoButton(slotButtonItem);
-
-      if (index - 1 == selected) {
-        slotButtonItem.pressed = true;
+      // may skip some tools
+      if (slotButtonItem != null) {
+        this.addInfoButton(slotButtonItem);
+        if (index - 1 == selected) {
+          slotButtonItem.pressed = true;
+        }
       }
     }
 

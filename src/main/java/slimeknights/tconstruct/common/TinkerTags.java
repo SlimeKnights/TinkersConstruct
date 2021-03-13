@@ -18,6 +18,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> WORKBENCHES = forgeTag("workbenches");
     public static final IOptionalNamedTag<Block> TABLES = tag("tables");
 
+    public static final IOptionalNamedTag<Block> ANVIL_METAL = tag("anvil_metal");
+
     public static final IOptionalNamedTag<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Block> SLIMY_LOGS = tag("slimy_logs");
     public static final IOptionalNamedTag<Block> SLIMY_LEAVES = tag("slimy_leaves");
@@ -51,6 +53,8 @@ public class TinkerTags {
   public static class Items {
     public static final IOptionalNamedTag<Item> WORKBENCHES = forgeTag("workbenches");
     public static final IOptionalNamedTag<Item> TABLES = tag("tables");
+
+    public static final IOptionalNamedTag<Item> ANVIL_METAL = tag("anvil_metal");
 
     public static final IOptionalNamedTag<Item> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Item> SLIMY_LOGS = tag("slimy_logs");

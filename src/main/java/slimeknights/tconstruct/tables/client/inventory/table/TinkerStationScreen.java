@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tables.client.inventory.table;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import lombok.Getter;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.renderer.RenderHelper;
@@ -47,7 +48,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_COUNT;
 import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_SLOT;
 import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.TINKER_SLOT;
 
@@ -78,10 +78,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   private static final ElementScreen RIGHT_BEAM = new ElementScreen(131, 180, 2, 7);
   private static final ScalableElementScreen CENTER_BEAM = new ScalableElementScreen(2, 180, 129, 7);
 
-  public static final ResourceLocation REPAIR_NAME = Util.getResource("repair");
-
   public static final int COLUMN_COUNT = 5;
-  private static final int TABLE_SLOT_COUNT = INPUT_COUNT + 1;
 
   protected ElementScreen buttonDecorationTop = SLOT_SPACE_TOP;
   protected ElementScreen buttonDecorationBot = SLOT_SPACE_BOTTOM;
@@ -97,8 +94,13 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   protected InfoPanelScreen modifierInfo;
 
   protected TinkerStationButtonsScreen buttonsScreen;
-  protected int activeSlots; // how many of the available slots are active
-  public SlotInformation currentData;
+  /** Maximum available slots */
+  @Getter
+  private final int maxInputs;
+  /** How many of the available slots are active */
+  protected int activeSlots;
+  /** Currently selected tool */
+  private SlotInformation currentData;
 
   public TinkerStationScreen(TinkerStationContainer container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
@@ -117,12 +119,23 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     this.ySize = 174;
 
-    this.wood();
+    // determine number of inputs
+    int max = 5;
+    if (container.getTile() != null) {
+      max = container.getTile().getInputCount();
+    }
+    this.maxInputs = max;
 
-    SlotInformation slotInformation = SlotInformationLoader.get(TinkerStationScreen.REPAIR_NAME);
-
-    this.activeSlots = Math.min(slotInformation.getPoints().size(), INPUT_COUNT);
+    // large if at least 4
+    if (max > 3) {
+      this.metal();
+    } else {
+      this.wood();
+    }
+    // apply base slot information
+    SlotInformation slotInformation = SlotInformationLoader.get(Util.getResource("repair_" + max));
     this.currentData = slotInformation;
+    this.activeSlots = Math.min(slotInformation.getPoints().size(), max);
   }
 
   @Override
@@ -199,7 +212,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     }
 
     // hidden slots
-    for (; i < INPUT_COUNT; i++) {
+    for (; i < maxInputs; i++) {
       Slot currentSlot = this.container.getSlot(i + INPUT_SLOT);
       if (currentSlot instanceof TinkerStationInputSlot) {
         ((TinkerStationInputSlot) currentSlot).deactivate();
@@ -249,7 +262,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       this.modifierInfo.setText(modifiers, modifierInfo);
     }
     // Repair info
-    else if (this.currentData.getItemStack().isEmpty()) {
+    else if (this.currentData.isRepair()) {
       this.tinkerInfo.setCaption(REPAIR_TEXT);
       this.tinkerInfo.setText();
 
@@ -259,7 +272,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     // tool build info
     // TODO: not all tinkerable is tool core, switch to IModifyable?
     else {
-      ToolCore tool = (ToolCore) this.currentData.getItemStack().getItem();
+      ToolCore tool = (ToolCore) this.currentData.getItem();
       this.tinkerInfo.setCaption(new TranslationTextComponent(tool.getTranslationKey()));
       this.tinkerInfo.setText(new TranslationTextComponent(tool.getTranslationKey() + ".description"));
 
@@ -317,13 +330,13 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     int logoY = (int) (this.cornerY / scale);
 
     if (this.currentData != null) {
-      if (!this.currentData.getItemStack().isEmpty()) {
-        this.itemRenderer.renderItemIntoGUI(this.currentData.getToolForRendering(), logoX, logoY);
-      }
-      else if (this.currentData == SlotInformationLoader.get(TinkerStationScreen.REPAIR_NAME)) {
+      if (this.currentData.isRepair()) {
         assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
         Icons.ANVIL.draw(matrices, logoX, logoY);
+      }
+      else {
+        this.itemRenderer.renderItemIntoGUI(this.currentData.getToolForRendering(), logoX, logoY);
       }
     }
 
@@ -357,7 +370,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     // full opaque. Draw the borders of the slots
     RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-    for (int i = 0; i <= INPUT_COUNT; i++) {
+    for (int i = 0; i <= maxInputs; i++) {
       Slot slot = this.container.getSlot(i);
       if ((slot instanceof TinkerStationSlot && (!((TinkerStationSlot) slot).isDormant() || slot.getHasStack()))) {
         SLOT_BORDER.draw(matrices, x + this.cornerX + slot.xPos - 1, y + this.cornerY + slot.yPos - 1);
@@ -366,10 +379,10 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
 
-    if (this.currentData == SlotInformationLoader.get(TinkerStationScreen.REPAIR_NAME)) {
+    if (this.currentData.isRepair()) {
       this.drawRepairSlotIcons(matrices);
     }
-    else if (this.currentData.getItemStack().getItem() instanceof ToolCore) {
+    else if (this.currentData.getItem() instanceof ToolCore) {
       for (int i = 0; i < this.activeSlots; i++) {
         Slot slot = this.container.getSlot(i + INPUT_SLOT);
         if (slot.getHasStack() || !(slot instanceof TinkerStationInputSlot)) {
@@ -645,18 +658,12 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
    * @param data  Info from the pressed button
    */
   public void onToolSelection(SlotInformation data) {
-    this.activeSlots = Math.min(data.getPoints().size(), TABLE_SLOT_COUNT);
+    this.activeSlots = Math.min(data.getPoints().size(), maxInputs);
     this.currentData = data;
 
-    ItemStack tool = ItemStack.EMPTY;
-
-    if (data.getItemStack().getItem() instanceof ToolCore) {
-      tool = data.getItemStack();
-    }
-
     List<IToolPart> requiredComponents = null;
-    if (tool != ItemStack.EMPTY && tool.getItem() instanceof ToolCore) {
-      requiredComponents = ((ToolCore)tool.getItem()).getToolDefinition().getRequiredComponents();
+    if (!currentData.isRepair() && currentData.getItem() instanceof ToolCore) {
+      requiredComponents = ((ToolCore)currentData.getItem()).getToolDefinition().getRequiredComponents();
     }
 
     Slot slot = this.container.getSlot(TINKER_SLOT);
@@ -670,7 +677,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       }
     }
 
-    for (int i = 0; i < INPUT_COUNT; i++) {
+    for (int i = 0; i < maxInputs; i++) {
       // set part icons for the slots
       slot = this.container.getSlot(i + INPUT_SLOT);
       if (slot instanceof TinkerStationInputSlot) {

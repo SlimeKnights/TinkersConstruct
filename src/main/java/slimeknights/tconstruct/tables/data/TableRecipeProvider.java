@@ -121,6 +121,18 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerSmeltery.blankCast))
                        .build(consumer, prefix(TinkerTables.castChest, folder));
 
+    // tinker anvil
+    ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkersAnvil)
+                         .key('m', TinkerTags.Items.ANVIL_METAL)
+                         .key('s', TinkerTags.Items.SEARED_BLOCKS)
+                         .patternLine("mmm")
+                         .patternLine(" s ")
+                         .patternLine("sss")
+                         .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
+                                 .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .build(consumer, prefix(TinkerTables.tinkersAnvil, folder));
+
     // tool repair recipe
     CustomRecipeBuilder.customRecipe(TinkerTables.tinkerStationRepairSerializer.get())
                        .build(consumer, locationString(folder + "tinker_station_repair"));

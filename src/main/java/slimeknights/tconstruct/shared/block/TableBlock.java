@@ -25,7 +25,7 @@ import slimeknights.mantle.block.InventoryBlock;
  */
 public abstract class TableBlock extends InventoryBlock implements IWaterLoggable {
 
-  private static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+  protected static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
   private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
   private static final VoxelShape TABLE_SHAPE = VoxelShapes.or(

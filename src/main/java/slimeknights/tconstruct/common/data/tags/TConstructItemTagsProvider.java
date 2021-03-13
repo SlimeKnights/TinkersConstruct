@@ -82,6 +82,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     copy(Tags.Blocks.STAINED_GLASS_PANES, Tags.Items.STAINED_GLASS_PANES);
     copy(TinkerTags.Blocks.WORKBENCHES, TinkerTags.Items.WORKBENCHES);
     copy(TinkerTags.Blocks.TABLES, TinkerTags.Items.TABLES);
+    copy(TinkerTags.Blocks.ANVIL_METAL, TinkerTags.Items.ANVIL_METAL);
   }
 
   private void addWorld() {
