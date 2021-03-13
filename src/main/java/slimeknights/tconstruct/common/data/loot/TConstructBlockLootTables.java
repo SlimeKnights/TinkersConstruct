@@ -14,9 +14,9 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.conditions.TableBonus;
 import net.minecraft.loot.functions.CopyName;
 import net.minecraft.loot.functions.CopyNbt;
-import net.minecraft.loot.functions.CopyNbt.Action;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.loot.RetexturedLootFunction;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
@@ -117,8 +117,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
     // tables with legs
     Function<Block, LootTable.Builder> addTable = block -> droppingWithFunctions(block, (builder) ->
-      builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
-                    .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).addOperation("LegTexture", "TinkerData.LegTexture", Action.REPLACE)));
+      builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY)).acceptFunction(RetexturedLootFunction::new));
     this.registerLootTable(TinkerTables.partBuilder.get(), addTable);
     this.registerLootTable(TinkerTables.tinkerStation.get(), addTable);
     this.registerLootTable(TinkerTables.tinkersAnvil.get(), addTable);
