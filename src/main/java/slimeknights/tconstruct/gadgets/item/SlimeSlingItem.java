@@ -4,11 +4,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.EnderPearlItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
@@ -138,7 +140,15 @@ public class SlimeSlingItem extends TooltipItem {
         }
         break;
       case PURPLE:
-        // TODO: Implement
+        look = player.getLookVec();
+        dist = 5;
+        double offX = look.x * f;
+        double offY = look.y * f;
+        double offZ = look.z * f;
+
+        player.setPosition(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ);
+        player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+        player.playSound(SoundEvents.ENTITY_ENDER_PEARL_THROW, 1f, 1f);
         break;
 
     }
