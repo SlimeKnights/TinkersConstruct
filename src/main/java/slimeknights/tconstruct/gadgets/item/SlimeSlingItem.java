@@ -94,9 +94,9 @@ public class SlimeSlingItem extends TooltipItem {
         player.setSprinting(true);
 
         float speed = f / 3F;
-        player.setVelocity(
+        player.addVelocity(
           (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed),
-          player.getMotion().getY() + speed,
+          speed,
           (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed));
 
         if (player instanceof ServerPlayerEntity) {
@@ -117,7 +117,7 @@ public class SlimeSlingItem extends TooltipItem {
         double dist = range;
         Entity closestEntity = null;
         for (Entity entity : entitiesInArea) {
-          if (entity.getBoundingBox().intersects(start, direction)) {
+          if (entity.getBoundingBox().intersects(Math.min(start.x, direction.x), Math.min(start.y, direction.y), Math.min(start.z, direction.z), Math.max(start.x, direction.x), Math.max(start.y, direction.y), Math.max(start.z, direction.z))) {
             if (look.distanceTo(entity.getLookVec()) < dist) {
               dist = look.distanceTo(entity.getLookVec());
               closestEntity = entity;
@@ -129,6 +129,12 @@ public class SlimeSlingItem extends TooltipItem {
           closestEntity.addVelocity(look.x * f,
             look.y * f / 3f,
             look.z * f);
+
+          if (closestEntity instanceof ServerPlayerEntity) {
+            ServerPlayerEntity playerMP = (ServerPlayerEntity) closestEntity;
+            TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(closestEntity), playerMP);
+          }
+
           player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
         }
         break;
@@ -139,6 +145,12 @@ public class SlimeSlingItem extends TooltipItem {
         double offZ = look.z * f;
 
         player.setPosition(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ);
+
+        if (player instanceof ServerPlayerEntity) {
+          ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
+          TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
+        }
+
         player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
         break;
 
