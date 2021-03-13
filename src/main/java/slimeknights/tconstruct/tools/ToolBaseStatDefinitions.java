@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 public final class ToolBaseStatDefinitions {
   // pickaxes
   static final ToolBaseStatDefinition PICKAXE = new ToolBaseStatDefinition.Builder().setDamageBonus(1f).setAttackSpeed(1.2f).build();
-  static final ToolBaseStatDefinition HAMMER = new ToolBaseStatDefinition.Builder()
+  static final ToolBaseStatDefinition SLEDGE_HAMMER = new ToolBaseStatDefinition.Builder()
     .setDamageBonus(1f).setDamageModifier(1.25f).setAttackSpeed(0.8f).setMiningSpeedModifier(0.4f).setDurabilityModifier(2.5f).build();
 
   // shovels

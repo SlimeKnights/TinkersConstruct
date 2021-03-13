@@ -10,9 +10,9 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class HammerTool extends HarvestTool {
+public class SledgeHammerTool extends HarvestTool {
   private static final AOEToolHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(PickaxeTool.EXTRA_MATERIALS, 3, 3, 1);
-  public HammerTool(Properties properties, ToolDefinition toolDefinition) {
+  public SledgeHammerTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 

@@ -22,8 +22,8 @@ public final class ToolDefinitions {
     ToolBaseStatDefinitions.PICKAXE,
     requirements(TinkerToolParts.pickaxeHead, TinkerToolParts.toolRod, TinkerToolParts.smallBinding));
 
-  public static final ToolDefinition HAMMER = new ToolDefinition(
-    ToolBaseStatDefinitions.HAMMER,
+  public static final ToolDefinition SLEDGE_HAMMER = new ToolDefinition(
+    ToolBaseStatDefinitions.SLEDGE_HAMMER,
     requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughToolRod, TinkerToolParts.largePlate, TinkerToolParts.largePlate));
 
   public static final ToolDefinition MATTOCK = new ToolDefinition(

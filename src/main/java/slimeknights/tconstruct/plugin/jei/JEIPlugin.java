@@ -198,7 +198,7 @@ public class JEIPlugin implements IModPlugin {
     // tools
     ISubtypeInterpreter toolInterpreter = new ToolSubtypeInterpreter();
     registry.registerSubtypeInterpreter(TinkerTools.pickaxe.get(), toolInterpreter);
-    registry.registerSubtypeInterpreter(TinkerTools.hammer.get(), toolInterpreter);
+    registry.registerSubtypeInterpreter(TinkerTools.sledgeHammer.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.mattock.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.excavator.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.axe.get(), toolInterpreter);

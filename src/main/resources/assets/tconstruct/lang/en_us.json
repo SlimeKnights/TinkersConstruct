@@ -686,7 +686,7 @@
     "_comment": "Tinkers Tools",
     
     "item.tconstruct.pickaxe": "Pickaxe",
-    "item.tconstruct.hammer": "Hammer",
+    "item.tconstruct.sledge_hammer": "Sledge Hammer",
     "item.tconstruct.mattock": "Mattock",
     "item.tconstruct.excavator": "Excavator",
     "item.tconstruct.axe": "Hand Axe",
@@ -710,7 +710,7 @@
     "_conment": "Tool Descriptions",
 
     "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
-    "item.tconstruct.hammer.description": "The Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.",
+    "item.tconstruct.sledge_hammer.description": "The Sledge Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.",
     "item.tconstruct.mattock.description": "The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, sand, gravel, and plants.\nJust don't dig your own grave!",
     "item.tconstruct.excavator.description": "The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!",
     "item.tconstruct.axe.description": "The Hand Axe chops up wood and makes short work of leaves. It also makes for an effective weapon.\nChop chop!",

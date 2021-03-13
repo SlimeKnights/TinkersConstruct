@@ -197,6 +197,8 @@ public class TConstruct {
         case "molten_ardite_bucket": return TinkerFluids.moltenCobalt.asItem();
         // mud bricks
         case "mud_brick": return TinkerCommons.mudBricks.asItem();
+        // hammer more specific name
+        case "hammer": return TinkerTools.sledgeHammer.get();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

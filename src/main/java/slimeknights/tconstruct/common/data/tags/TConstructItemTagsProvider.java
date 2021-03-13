@@ -106,22 +106,22 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     // multipart is basically all our tools right now, but future armor/shields won't be
     // required for part swapping and a few other things
     this.getOrCreateBuilder(TinkerTags.Items.MULTIPART_TOOL)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
+        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
 						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.broadSword.get());
     // mine blocks
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
+        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
 						 TinkerTools.axe.get(), TinkerTools.kama.get());
     // support expanders
     this.getOrCreateBuilder(TinkerTags.Items.AOE)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
+        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
 						 TinkerTools.axe.get(), TinkerTools.kama.get());
     // support all weapon modifiers
     this.getOrCreateBuilder(TinkerTags.Items.COMBAT)
-        .add(TinkerTools.hammer.get(), TinkerTools.axe.get(), TinkerTools.broadSword.get());
+        .add(TinkerTools.sledgeHammer.get(), TinkerTools.axe.get(), TinkerTools.broadSword.get());
     // can receive damage boosts
     this.getOrCreateBuilder(TinkerTags.Items.MELEE)
         .addTag(TinkerTags.Items.COMBAT)

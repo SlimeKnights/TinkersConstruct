@@ -63,7 +63,7 @@ public class ToolClientEvents extends ClientEventBase {
 
     // tint tool textures for fallback
     registerToolItemColors(colors, TinkerTools.pickaxe);
-    registerToolItemColors(colors, TinkerTools.hammer);
+    registerToolItemColors(colors, TinkerTools.sledgeHammer);
     registerToolItemColors(colors, TinkerTools.mattock);
     registerToolItemColors(colors, TinkerTools.excavator);
     registerToolItemColors(colors, TinkerTools.axe);

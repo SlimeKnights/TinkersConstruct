@@ -6,28 +6,28 @@
             "loader": "tconstruct:material",
             "index": 0,
             "textures": {
-                "texture": "tconstruct:item/tool/hammer/head"
+                "texture": "tconstruct:item/tool/sledge_hammer/head"
             }
         },
         "handle": {
             "loader": "tconstruct:material",
             "index": 1,
             "textures": {
-                "texture": "tconstruct:item/tool/hammer/handle"
+                "texture": "tconstruct:item/tool/sledge_hammer/handle"
             }
         },
         "plate1": {
             "loader": "tconstruct:material",
             "index": 2,
             "textures": {
-                "texture": "tconstruct:item/tool/hammer/back"
+                "texture": "tconstruct:item/tool/sledge_hammer/back"
             }
         },
         "plate2": {
             "loader": "tconstruct:material",
             "index": 3,
             "textures": {
-                "texture": "tconstruct:item/tool/hammer/front"
+                "texture": "tconstruct:item/tool/sledge_hammer/front"
             }
         }
     }
