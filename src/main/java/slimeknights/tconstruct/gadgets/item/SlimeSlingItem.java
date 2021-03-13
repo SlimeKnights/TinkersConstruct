@@ -1,35 +1,30 @@
 package slimeknights.tconstruct.gadgets.item;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.PlayerController;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.FishBucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.library.utils.EntityUtil;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class SlimeSlingItem extends TooltipItem {
 
@@ -81,7 +76,7 @@ public class SlimeSlingItem extends TooltipItem {
       case GREEN: // might need to be scaled down
       case BLOOD: // Leaving this with old functionality for now. Should be removed when/if SlimeTypes changes
         // check if player was targeting a block
-        RayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
+        BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
         if (mop.getType() == RayTraceResult.Type.BLOCK) {
           // we fling the inverted player look vector
           Vector3d vec = player.getLookVec().normalize();
@@ -118,19 +113,28 @@ public class SlimeSlingItem extends TooltipItem {
         SlimeBounceHandler.addBounceHandler(player);
         break;
       case MAGMA:
-        // TODO: Fix miss on negative pitch
-        mop = EntityUtil.raytraceEntityPlayerLook(player, 5F);
-        if (mop != null) {
-//          System.out.println(mop.getType());
-          if (mop.getType() == RayTraceResult.Type.ENTITY) {
-            Entity entity = ((EntityRayTraceResult) mop).getEntity();
-            Vector3d vec = player.getLookVec().normalize();
-            System.out.println(vec.x + " " + vec.y + " " + vec.z);
-            entity.setVelocity(vec.x * f,
-              vec.y * f / 3f,
-              vec.z * f);
-            player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+        float range = 5F;
+        Vector3d start = player.getEyePosition(1F);
+        Vector3d look = player.getLookVec();
+        Vector3d direction = start.add(look.x * range, look.y * range, look.z * range);
+        AxisAlignedBB bb = player.getBoundingBox().expand(look.x * range, look.y * range, look.z * range).expand(1, 1, 1);
+        List<Entity> entitiesInArea = player.getEntityWorld().getEntitiesWithinAABBExcludingEntity(player, bb);
+        double dist = range;
+        Entity closestEntity = null;
+        for (Entity entity : entitiesInArea) {
+          if (entity.getBoundingBox().intersects(start, direction)) {
+            if (look.distanceTo(entity.getLookVec()) < dist) {
+              dist = look.distanceTo(entity.getLookVec());
+              closestEntity = entity;
+            }
           }
+        }
+        // TODO: Ensure there isn't a block in the way
+        if (closestEntity != null) {
+          closestEntity.addVelocity(look.x * f,
+            look.y * f / 3f,
+            look.z * f);
+          player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
         }
         break;
       case PURPLE:
