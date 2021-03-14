@@ -49,7 +49,7 @@ public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
     // TODO: Ensure there isn't a block in the way
     if (closestEntity != null) {
       if (closestEntity instanceof LivingEntity) {
-        ((LivingEntity) closestEntity).applyKnockback(f, look.x, look.z);
+        ((LivingEntity) closestEntity).applyKnockback(f , -look.x, -look.z);
 
         // TODO: Test on other players (I wasn't able to figure out setting that up)
         if (closestEntity instanceof ServerPlayerEntity) {
