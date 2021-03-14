@@ -17,7 +17,6 @@ import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 import javax.annotation.Nonnull;
 
 public abstract class BaseSlimeSlingItem extends TooltipItem {
-
   public BaseSlimeSlingItem(Properties props) {
     super(props);
   }
