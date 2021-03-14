@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
 
-  public MagmaSlimeSlingItem(Item.Properties props) {
+  public MagmaSlimeSlingItem(Properties props) {
     super(props);
   }
 
