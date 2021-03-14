@@ -51,6 +51,7 @@ public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
       if (closestEntity instanceof LivingEntity) {
         ((LivingEntity) closestEntity).applyKnockback(f, look.x, look.z);
 
+        // TODO: Test on other players (I wasn't able to figure out setting that up)
         if (closestEntity instanceof ServerPlayerEntity) {
           ServerPlayerEntity playerMP = (ServerPlayerEntity) closestEntity;
           TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(closestEntity), playerMP);
