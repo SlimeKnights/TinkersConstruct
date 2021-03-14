@@ -35,6 +35,8 @@ public class PurpleSlimeSlingItem extends BaseSlimeSlingItem {
     double offY = look.y * f;
     double offZ = look.z * f;
 
+
+    // TODO: Ensure that this is a good location, and I won't end up 5 meters underground
     player.setPosition(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ);
 
     if (player instanceof ServerPlayerEntity) {
