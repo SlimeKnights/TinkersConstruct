@@ -17,9 +17,7 @@ public class PurpleSlimeSlingItem extends BaseSlimeSlingItem {
     super(props);
   }
 
-  /**
-   * Called when the player stops using an Item (stops holding the right mouse button).
-   */
+  /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
     if (!(entityLiving instanceof PlayerEntity)) {

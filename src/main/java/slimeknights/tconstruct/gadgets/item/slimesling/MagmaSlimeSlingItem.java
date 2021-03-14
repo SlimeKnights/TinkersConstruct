@@ -21,9 +21,7 @@ public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
     super(props);
   }
 
-  /**
-   * Called when the player stops using an Item (stops holding the right mouse button).
-   */
+  /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
     if (!(entityLiving instanceof PlayerEntity)) {
@@ -51,16 +49,16 @@ public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
     }
     // TODO: Ensure there isn't a block in the way
     if (closestEntity != null) {
-      closestEntity.addVelocity(look.x * f,
-        look.y * f / 3f,
-        look.z * f);
+      if (closestEntity instanceof LivingEntity) {
+        ((LivingEntity) closestEntity).applyKnockback(f, look.x, look.z);
 
-      if (closestEntity instanceof ServerPlayerEntity) {
-        ServerPlayerEntity playerMP = (ServerPlayerEntity) closestEntity;
-        TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(closestEntity), playerMP);
+        if (closestEntity instanceof ServerPlayerEntity) {
+          ServerPlayerEntity playerMP = (ServerPlayerEntity) closestEntity;
+          TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(closestEntity), playerMP);
+        }
+
+        player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
       }
-
-      player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
     }
   }
 }
