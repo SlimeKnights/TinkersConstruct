@@ -104,7 +104,7 @@ public final class TinkerGadgets extends TinkerModule {
     .put(SlimeType.MAGMA, ITEMS.register("magma_slime_sling", () -> new MagmaSlimeSlingItem(UNSTACKABLE_PROPS)))
     .put(SlimeType.PURPLE, ITEMS.register("purple_slime_sling", () -> new PurpleSlimeSlingItem(UNSTACKABLE_PROPS)))
     .build();
-  public static final EnumObject<SlimeType, SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.values(), "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
+  public static final EnumObject<SlimeType, SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.TRUE_SLIME, "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
   // throwballs
   public static final ItemObject<GlowBallItem> glowBall = ITEMS.register("glow_ball", GlowBallItem::new);
   public static final ItemObject<EflnBallItem> efln = ITEMS.register("efln_ball", EflnBallItem::new);

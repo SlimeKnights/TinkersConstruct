@@ -214,6 +214,9 @@ public class TConstruct {
         case "earth_slime_bucket": return TinkerFluids.earthSlime.asItem();
         case "sky_slime_bucket": return TinkerFluids.skySlime.asItem();
         case "ender_slime_bucket": return TinkerFluids.enderSlime.asItem();
+        // blood slime tools
+        case "blood_slime_sling": return TinkerGadgets.slimeSling.get(SlimeType.EARTH);
+        case "blood_slime_boots": return TinkerGadgets.slimeBoots.get(SlimeType.EARTH);
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
