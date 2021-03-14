@@ -13,7 +13,7 @@ import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 public class PurpleSlimeSlingItem extends BaseSlimeSlingItem {
 
-  public PurpleSlimeSlingItem(Item.Properties props) {
+  public PurpleSlimeSlingItem(Properties props) {
     super(props);
   }
 
