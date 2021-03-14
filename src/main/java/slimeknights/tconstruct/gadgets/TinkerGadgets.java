@@ -99,20 +99,11 @@ public final class TinkerGadgets extends TinkerModule {
 
   // slime tools
   public static final EnumObject<SlimeType, Item> slimeSling = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
-    .put(SlimeType.GREEN, () -> new GreenSlimeSlingItem(UNSTACKABLE_PROPS))
+    .put(SlimeType.GREEN, ITEMS.register("green_slime_sling", () -> new GreenSlimeSlingItem(UNSTACKABLE_PROPS)))
+    .put(SlimeType.BLUE, ITEMS.register("blue_slime_sling", () -> new BlueSlimeSlingItem(UNSTACKABLE_PROPS)))
+    .put(SlimeType.MAGMA, ITEMS.register("magma_slime_sling", () -> new MagmaSlimeSlingItem(UNSTACKABLE_PROPS)))
+    .put(SlimeType.PURPLE, ITEMS.register("purple_slime_sling", () -> new PurpleSlimeSlingItem(UNSTACKABLE_PROPS)))
     .build();
-
-//    .put(SlimeType.GREEN, () -> new GreenSlimeSlingItem(UNSTACKABLE_PROPS))
-//    .put(SlimeType.BLUE, () -> new BlueSlimeSlingItem(UNSTACKABLE_PROPS))
-//    .put(SlimeType.MAGMA, () -> new MagmaSlimeSlingItem(UNSTACKABLE_PROPS))
-//    .put(SlimeType.PURPLE, () -> new PurpleSlimeSlingItem(UNSTACKABLE_PROPS))
-//    .build();
-
-//  public static final ItemObject<BaseSlimeSlingItem> greenSlimeSling = ITEMS.register("green_slime_sling", () -> new GreenSlimeSlingItem(UNSTACKABLE_PROPS));
-//  public static final ItemObject<BaseSlimeSlingItem> blueSlimeSling = ITEMS.register("blue_slime_sling", () -> new BlueSlimeSlingItem(UNSTACKABLE_PROPS));
-//  public static final ItemObject<BaseSlimeSlingItem> magmaSlimeSling = ITEMS.register("magma_slime_sling", () -> new MagmaSlimeSlingItem(UNSTACKABLE_PROPS));
-//  public static final ItemObject<BaseSlimeSlingItem> purpleSlimeSling = ITEMS.register("purple_slime_sling", () -> new PurpleSlimeSlingItem(UNSTACKABLE_PROPS));
-
   public static final EnumObject<SlimeType, SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.values(), "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
   // throwballs
   public static final ItemObject<GlowBallItem> glowBall = ITEMS.register("glow_ball", GlowBallItem::new);
