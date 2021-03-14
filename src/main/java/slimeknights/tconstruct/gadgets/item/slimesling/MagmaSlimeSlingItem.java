@@ -53,9 +53,9 @@ public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
     }
     // TODO: Ensure there isn't a block in the way
     if (closestEntity != null) {
-      closestEntity.addVelocity(look.x * f * 10,
-        look.y * f * 10 / 3f,
-        look.z * f * 10);
+      closestEntity.addVelocity(look.x * f,
+        look.y * f / 3f,
+        look.z * f);
 
       if (closestEntity instanceof ServerPlayerEntity) {
         ServerPlayerEntity playerMP = (ServerPlayerEntity) closestEntity;
