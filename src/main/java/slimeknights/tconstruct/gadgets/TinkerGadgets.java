@@ -98,7 +98,7 @@ public final class TinkerGadgets extends TinkerModule {
   public static final EnumObject<FrameType, FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
 
   // slime tools
-  public static final EnumObject<SlimeType, Item> slimeSling = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
+  public static final EnumObject<SlimeType, BaseSlimeSlingItem> slimeSling = new EnumObject.Builder<SlimeType, BaseSlimeSlingItem>(SlimeType.class)
     .put(SlimeType.GREEN, ITEMS.register("green_slime_sling", () -> new GreenSlimeSlingItem(UNSTACKABLE_PROPS)))
     .put(SlimeType.BLUE, ITEMS.register("blue_slime_sling", () -> new BlueSlimeSlingItem(UNSTACKABLE_PROPS)))
     .put(SlimeType.MAGMA, ITEMS.register("magma_slime_sling", () -> new MagmaSlimeSlingItem(UNSTACKABLE_PROPS)))

@@ -8,11 +8,8 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import slimeknights.mantle.item.TooltipItem;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class BaseSlimeSlingItem extends TooltipItem {
 
