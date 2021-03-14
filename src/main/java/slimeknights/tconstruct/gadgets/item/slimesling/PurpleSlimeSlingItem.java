@@ -12,8 +12,6 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
-import java.util.Random;
-
 public class PurpleSlimeSlingItem extends BaseSlimeSlingItem {
 
   public PurpleSlimeSlingItem(Properties props) {
@@ -45,9 +43,8 @@ public class PurpleSlimeSlingItem extends BaseSlimeSlingItem {
     }
 
     // particle effect from EnderPearlEntity
-    Random rand = new Random();
     for (int i = 0; i < 32; ++i) {
-      worldIn.addParticle(ParticleTypes.PORTAL, player.getPosX(), player.getPosY() + rand.nextDouble() * 2.0D, player.getPosZ(), rand.nextGaussian(), 0.0D, rand.nextGaussian());
+      worldIn.addParticle(ParticleTypes.PORTAL, player.getPosX(), player.getPosY() + worldIn.rand.nextDouble() * 2.0D, player.getPosZ(), worldIn.rand.nextGaussian(), 0.0D, worldIn.rand.nextGaussian());
     }
 
     player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
