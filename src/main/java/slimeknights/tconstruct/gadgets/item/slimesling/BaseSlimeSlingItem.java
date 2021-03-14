@@ -16,13 +16,6 @@ import java.util.Map;
 
 public abstract class BaseSlimeSlingItem extends TooltipItem {
 
-  public static Map<StickySlimeBlock.SlimeType, Class> classes = new HashMap<StickySlimeBlock.SlimeType, Class>() {{
-    put(StickySlimeBlock.SlimeType.GREEN, GreenSlimeSlingItem.class);
-    put(StickySlimeBlock.SlimeType.BLUE, BlueSlimeSlingItem.class);
-    put(StickySlimeBlock.SlimeType.MAGMA, MagmaSlimeSlingItem.class);
-    put(StickySlimeBlock.SlimeType.PURPLE, PurpleSlimeSlingItem.class);
-  }};
-
   public BaseSlimeSlingItem(Properties props) {
     super(props);
   }
@@ -35,17 +28,13 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
     return new ActionResult<>(ActionResultType.SUCCESS, itemStackIn);
   }
 
-  /**
-   * How long it takes to use or consume an item
-   */
+  /** How long it takes to use or consume an item */
   @Override
   public int getUseDuration(ItemStack stack) {
     return 72000;
   }
 
-  /**
-   * returns the action that specifies what animation to play when the items is being used
-   */
+  /** returns the action that specifies what animation to play when the items is being used */
   @Override
   public UseAction getUseAction(ItemStack stack) {
     return UseAction.BOW;
@@ -55,8 +44,7 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
    * To be used in conjunction with onPlayerStoppedUsing
    * @param stack - Item used (get from onPlayerStoppedUsing)
    * @param timeLeft - (get from onPlayerStoppedUsing)
-   * @return appropriate charge for item
-   */
+   * @return appropriate charge for item */
   public float getForce(ItemStack stack, int timeLeft) {
     int i = this.getUseDuration(stack) - timeLeft;
     float f = i / 20.0F;
