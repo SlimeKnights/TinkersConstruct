@@ -31,9 +31,7 @@ public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
     }
 
     PlayerEntity player = (PlayerEntity) entityLiving;
-
-    int i = this.getUseDuration(stack) - timeLeft;
-    float f = getForce(i);
+    float f = getForce(stack, timeLeft);
 
     float range = 5F;
     Vector3d start = player.getEyePosition(1F);
