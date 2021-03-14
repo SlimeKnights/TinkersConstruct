@@ -30,24 +30,24 @@ public class PurpleSlimeSlingItem extends BaseSlimeSlingItem {
 
     Vector3d look = player.getLookVec();
     double offX = look.x * f;
-    double offY = look.y * f;
+    double offY = look.y * f + 1;
     double offZ = look.z * f;
 
-
     // TODO: Ensure that this is a good location, and I won't end up 5 meters underground
-    player.setPosition(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ);
+    // attemptTeleport seems a little bit too restrictive to me. It will still be something to play with
+    if (player.attemptTeleport(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ, true)) {
+      if (player instanceof ServerPlayerEntity) {
+        ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
+        TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
+      }
 
-    if (player instanceof ServerPlayerEntity) {
-      ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
-      TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
+      // particle effect from EnderPearlEntity
+      for (int i = 0; i < 32; ++i) {
+        worldIn.addParticle(ParticleTypes.PORTAL, player.getPosX(), player.getPosY() + worldIn.rand.nextDouble() * 2.0D, player.getPosZ(), worldIn.rand.nextGaussian(), 0.0D, worldIn.rand.nextGaussian());
+      }
+
+      player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+      player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
     }
-
-    // particle effect from EnderPearlEntity
-    for (int i = 0; i < 32; ++i) {
-      worldIn.addParticle(ParticleTypes.PORTAL, player.getPosX(), player.getPosY() + worldIn.rand.nextDouble() * 2.0D, player.getPosZ(), worldIn.rand.nextGaussian(), 0.0D, worldIn.rand.nextGaussian());
-    }
-
-    player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
-    player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
   }
 }
