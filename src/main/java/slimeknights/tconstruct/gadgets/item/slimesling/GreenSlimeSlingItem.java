@@ -17,7 +17,7 @@ import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 public class GreenSlimeSlingItem extends BaseSlimeSlingItem {
 
-  public GreenSlimeSlingItem(Item.Properties props) {
+  public GreenSlimeSlingItem(Properties props) {
     super(props);
   }
 
@@ -31,9 +31,6 @@ public class GreenSlimeSlingItem extends BaseSlimeSlingItem {
     }
 
     PlayerEntity player = (PlayerEntity) entityLiving;
-    if (player.isAirBorne) {
-      return;
-    }
 
     int i = this.getUseDuration(stack) - timeLeft;
     float f = getForce(i);
