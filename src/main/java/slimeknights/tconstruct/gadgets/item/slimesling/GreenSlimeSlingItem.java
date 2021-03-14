@@ -31,9 +31,7 @@ public class GreenSlimeSlingItem extends BaseSlimeSlingItem {
     }
 
     PlayerEntity player = (PlayerEntity) entityLiving;
-
-    int i = this.getUseDuration(stack) - timeLeft;
-    float f = getForce(i);
+    float f = getForce(stack, timeLeft);
 
     // check if player was targeting a block
     BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);

@@ -51,7 +51,14 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
     return UseAction.BOW;
   }
 
-  public float getForce(int i) {
+  /** Determines how much force a charged right click item will release on player letting go
+   * To be used in conjunction with onPlayerStoppedUsing
+   * @param stack - Item used (get from onPlayerStoppedUsing)
+   * @param timeLeft - (get from onPlayerStoppedUsing)
+   * @return appropriate charge for item
+   */
+  public float getForce(ItemStack stack, int timeLeft) {
+    int i = this.getUseDuration(stack) - timeLeft;
     float f = i / 20.0F;
     f = (f * f + f * 2.0F) / 3.0F;
     f *= 4f;
