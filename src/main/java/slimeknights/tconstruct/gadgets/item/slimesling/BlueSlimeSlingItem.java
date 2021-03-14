@@ -31,8 +31,7 @@ public class BlueSlimeSlingItem extends BaseSlimeSlingItem {
       return;
     }
 
-    int i = this.getUseDuration(stack) - timeLeft;
-    float f = getForce(i);
+    float f = getForce(stack, timeLeft);
 
     player.addExhaustion(0.2F);
     player.getCooldownTracker().setCooldown(stack.getItem(), 3);
