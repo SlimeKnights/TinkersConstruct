@@ -45,7 +45,11 @@ import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem.CarryPotionEffect;
 import slimeknights.tconstruct.gadgets.item.ShurikenItem;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
-import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.BaseSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.BlueSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.GreenSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.MagmaSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.PurpleSlimeSlingItem;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.shared.TinkerFood;
@@ -67,8 +71,8 @@ public final class TinkerGadgets extends TinkerModule {
    */
   private static final Item.Properties GADGET_PROPS = new Item.Properties().group(TAB_GADGETS);
   private static final Item.Properties UNSTACKABLE_PROPS = new Item.Properties().group(TAB_GADGETS).maxStackSize(1);
-  private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GADGET_PROPS);
-  private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GADGET_PROPS);
+  private static final Function<Block, ? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GADGET_PROPS);
+  private static final Function<Block, ? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GADGET_PROPS);
 
   /*
    * Blocks
@@ -79,8 +83,8 @@ public final class TinkerGadgets extends TinkerModule {
   private static final Block.Properties STONE_TORCH = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.STONE).doesNotBlockMovement().hardnessAndResistance(0.0F).setLightLevel(s -> 14);
   public static final RegistryObject<WallTorchBlock> wallStoneTorch = BLOCKS.registerNoItem("wall_stone_torch", () -> new WallTorchBlock(STONE_TORCH, ParticleTypes.FLAME) {});
   public static final ItemObject<TorchBlock> stoneTorch = BLOCKS.register("stone_torch",
-                                                                               () -> new TorchBlock(STONE_TORCH, ParticleTypes.FLAME) {},
-                                                                               (block) -> new WallOrFloorItem(block, wallStoneTorch.get(), GADGET_PROPS));
+    () -> new TorchBlock(STONE_TORCH, ParticleTypes.FLAME) {},
+    (block) -> new WallOrFloorItem(block, wallStoneTorch.get(), GADGET_PROPS));
   // rails
   private static final Block.Properties WOODEN_RAIL = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.WOOD).doesNotBlockMovement().hardnessAndResistance(0.2F);
   public static final ItemObject<DropperRailBlock> woodenDropperRail = BLOCKS.register("wooden_dropper_rail", () -> new DropperRailBlock(WOODEN_RAIL), TOOLTIP_BLOCK_ITEM);
@@ -91,16 +95,31 @@ public final class TinkerGadgets extends TinkerModule {
    */
   public static final ItemObject<Item> stoneStick = ITEMS.register("stone_stick", GADGET_PROPS);
   public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", PiggyBackPackItem::new);
-  public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
+  public static final EnumObject<FrameType, FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
+
   // slime tools
-  public static final EnumObject<SlimeType,SlimeSlingItem> slimeSling = ITEMS.registerEnum(SlimeType.TRUE_SLIME, "slime_sling", (type) -> new SlimeSlingItem(type, UNSTACKABLE_PROPS));
-  public static final EnumObject<SlimeType,SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.TRUE_SLIME, "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
+  public static final EnumObject<SlimeType, Item> slimeSling = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
+    .put(SlimeType.GREEN, () -> new GreenSlimeSlingItem(UNSTACKABLE_PROPS))
+    .build();
+
+//    .put(SlimeType.GREEN, () -> new GreenSlimeSlingItem(UNSTACKABLE_PROPS))
+//    .put(SlimeType.BLUE, () -> new BlueSlimeSlingItem(UNSTACKABLE_PROPS))
+//    .put(SlimeType.MAGMA, () -> new MagmaSlimeSlingItem(UNSTACKABLE_PROPS))
+//    .put(SlimeType.PURPLE, () -> new PurpleSlimeSlingItem(UNSTACKABLE_PROPS))
+//    .build();
+
+//  public static final ItemObject<BaseSlimeSlingItem> greenSlimeSling = ITEMS.register("green_slime_sling", () -> new GreenSlimeSlingItem(UNSTACKABLE_PROPS));
+//  public static final ItemObject<BaseSlimeSlingItem> blueSlimeSling = ITEMS.register("blue_slime_sling", () -> new BlueSlimeSlingItem(UNSTACKABLE_PROPS));
+//  public static final ItemObject<BaseSlimeSlingItem> magmaSlimeSling = ITEMS.register("magma_slime_sling", () -> new MagmaSlimeSlingItem(UNSTACKABLE_PROPS));
+//  public static final ItemObject<BaseSlimeSlingItem> purpleSlimeSling = ITEMS.register("purple_slime_sling", () -> new PurpleSlimeSlingItem(UNSTACKABLE_PROPS));
+
+  public static final EnumObject<SlimeType, SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.values(), "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
   // throwballs
   public static final ItemObject<GlowBallItem> glowBall = ITEMS.register("glow_ball", GlowBallItem::new);
   public static final ItemObject<EflnBallItem> efln = ITEMS.register("efln_ball", EflnBallItem::new);
 
   // foods
-  public static final EnumObject<SlimeType,EdibleItem> slimeDrop = ITEMS.registerEnum(SlimeType.values(), "slime_drop", (type) -> new EdibleItem(type.getSlimeDropFood(type), TAB_GADGETS));
+  public static final EnumObject<SlimeType, EdibleItem> slimeDrop = ITEMS.registerEnum(SlimeType.values(), "slime_drop", (type) -> new EdibleItem(type.getSlimeDropFood(type), TAB_GADGETS));
   // jerkies
   public static final ItemObject<EdibleItem> monsterJerky = ITEMS.register("monster_jerky", () -> new EdibleItem(TinkerFood.MONSTER_JERKY, TAB_GADGETS));
   public static final ItemObject<EdibleItem> beefJerky = ITEMS.register("beef_jerky", () -> new EdibleItem(TinkerFood.BEEF_JERKY, TAB_GADGETS));
