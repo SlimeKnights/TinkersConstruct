@@ -27,9 +27,7 @@ public class PurpleSlimeSlingItem extends BaseSlimeSlingItem {
     }
 
     PlayerEntity player = (PlayerEntity) entityLiving;
-
-    int i = this.getUseDuration(stack) - timeLeft;
-    float f = getForce(i);
+    float f = getForce(stack, timeLeft);
 
     Vector3d look = player.getLookVec();
     double offX = look.x * f;
