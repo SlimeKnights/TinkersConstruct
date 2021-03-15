@@ -71,8 +71,8 @@ public final class TinkerGadgets extends TinkerModule {
    */
   private static final Item.Properties GADGET_PROPS = new Item.Properties().group(TAB_GADGETS);
   private static final Item.Properties UNSTACKABLE_PROPS = new Item.Properties().group(TAB_GADGETS).maxStackSize(1);
-  private static final Function<Block, ? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GADGET_PROPS);
-  private static final Function<Block, ? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GADGET_PROPS);
+  private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GADGET_PROPS);
+  private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GADGET_PROPS);
 
   /*
    * Blocks
@@ -95,7 +95,7 @@ public final class TinkerGadgets extends TinkerModule {
    */
   public static final ItemObject<Item> stoneStick = ITEMS.register("stone_stick", GADGET_PROPS);
   public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", PiggyBackPackItem::new);
-  public static final EnumObject<FrameType, FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
+  public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
 
   // slime tools
   public static final EnumObject<SlimeType, BaseSlimeSlingItem> slimeSling = new EnumObject.Builder<SlimeType, BaseSlimeSlingItem>(SlimeType.class)
@@ -110,7 +110,7 @@ public final class TinkerGadgets extends TinkerModule {
   public static final ItemObject<EflnBallItem> efln = ITEMS.register("efln_ball", EflnBallItem::new);
 
   // foods
-  public static final EnumObject<SlimeType, EdibleItem> slimeDrop = ITEMS.registerEnum(SlimeType.values(), "slime_drop", (type) -> new EdibleItem(type.getSlimeDropFood(type), TAB_GADGETS));
+  public static final EnumObject<SlimeType,EdibleItem> slimeDrop = ITEMS.registerEnum(SlimeType.values(), "slime_drop", (type) -> new EdibleItem(type.getSlimeDropFood(type), TAB_GADGETS));
   // jerkies
   public static final ItemObject<EdibleItem> monsterJerky = ITEMS.register("monster_jerky", () -> new EdibleItem(TinkerFood.MONSTER_JERKY, TAB_GADGETS));
   public static final ItemObject<EdibleItem> beefJerky = ITEMS.register("beef_jerky", () -> new EdibleItem(TinkerFood.BEEF_JERKY, TAB_GADGETS));
