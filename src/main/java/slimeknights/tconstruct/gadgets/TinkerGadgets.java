@@ -83,8 +83,8 @@ public final class TinkerGadgets extends TinkerModule {
   private static final Block.Properties STONE_TORCH = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.STONE).doesNotBlockMovement().hardnessAndResistance(0.0F).setLightLevel(s -> 14);
   public static final RegistryObject<WallTorchBlock> wallStoneTorch = BLOCKS.registerNoItem("wall_stone_torch", () -> new WallTorchBlock(STONE_TORCH, ParticleTypes.FLAME) {});
   public static final ItemObject<TorchBlock> stoneTorch = BLOCKS.register("stone_torch",
-    () -> new TorchBlock(STONE_TORCH, ParticleTypes.FLAME) {},
-    (block) -> new WallOrFloorItem(block, wallStoneTorch.get(), GADGET_PROPS));
+                                                                               () -> new TorchBlock(STONE_TORCH, ParticleTypes.FLAME) {},
+                                                                               (block) -> new WallOrFloorItem(block, wallStoneTorch.get(), GADGET_PROPS));
   // rails
   private static final Block.Properties WOODEN_RAIL = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.WOOD).doesNotBlockMovement().hardnessAndResistance(0.2F);
   public static final ItemObject<DropperRailBlock> woodenDropperRail = BLOCKS.register("wooden_dropper_rail", () -> new DropperRailBlock(WOODEN_RAIL), TOOLTIP_BLOCK_ITEM);
