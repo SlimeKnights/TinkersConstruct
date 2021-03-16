@@ -46,7 +46,6 @@ public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
         }
       }
     }
-    // TODO: Ensure there isn't a block in the way
     if (closestEntity != null) {
       if (closestEntity instanceof LivingEntity) {
         ((LivingEntity) closestEntity).applyKnockback(f , -look.x, -look.z);

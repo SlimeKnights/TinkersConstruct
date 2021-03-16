@@ -33,8 +33,6 @@ public class PurpleSlimeSlingItem extends BaseSlimeSlingItem {
     double offY = look.y * f + 1;
     double offZ = look.z * f;
 
-    // TODO: Ensure that this is a good location, and I won't end up 5 meters underground
-    // attemptTeleport seems a little bit too restrictive to me. It will still be something to play with
     if (player.attemptTeleport(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ, true)) {
       if (player instanceof ServerPlayerEntity) {
         ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
