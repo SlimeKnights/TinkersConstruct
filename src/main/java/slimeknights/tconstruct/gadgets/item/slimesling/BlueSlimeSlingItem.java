@@ -25,6 +25,8 @@ public class BlueSlimeSlingItem extends BaseSlimeSlingItem {
     }
 
     PlayerEntity player = (PlayerEntity) entityLiving;
+
+    // don't allow free flight when using an elytra, should use fireworks
     if (player.isElytraFlying()) {
       return;
     }
