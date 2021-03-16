@@ -35,11 +35,17 @@ public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
     Vector3d look = player.getLookVec();
     Vector3d direction = start.add(look.x * range, look.y * range, look.z * range);
     AxisAlignedBB bb = player.getBoundingBox().expand(look.x * range, look.y * range, look.z * range).expand(1, 1, 1);
+    double minX = Math.min(start.x, direction.x);
+    double maxX = Math.max(start.x, direction.x);
+    double minY = Math.min(start.y, direction.y);
+    double maxY = Math.max(start.y, direction.y);
+    double minZ = Math.min(start.z, direction.z);
+    double maxZ = Math.max(start.z, direction.z);
     List<Entity> entitiesInArea = player.getEntityWorld().getEntitiesWithinAABBExcludingEntity(player, bb);
     double dist = range;
     Entity closestEntity = null;
     for (Entity entity : entitiesInArea) {
-      if (entity.getBoundingBox().intersects(Math.min(start.x, direction.x), Math.min(start.y, direction.y), Math.min(start.z, direction.z), Math.max(start.x, direction.x), Math.max(start.y, direction.y), Math.max(start.z, direction.z))) {
+      if (entity.getBoundingBox().intersects(minX, minY, minZ, maxX, maxY, maxZ)) {
         if (look.distanceTo(entity.getLookVec()) < dist) {
           dist = look.distanceTo(entity.getLookVec());
           closestEntity = entity;
