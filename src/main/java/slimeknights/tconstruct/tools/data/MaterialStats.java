@@ -127,7 +127,7 @@ final class MaterialStats {
 //                     ExtraMaterialStats.DEFAULT);
     // tier 3 (nether)
     addMaterialStats(MaterialIds.cobalt,
-                     new HeadMaterialStats(1250, 8f, DIAMOND, 3f),
+                     new HeadMaterialStats(1250, 8.5f, DIAMOND, 3f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withAttackSpeed(1.1f).withMiningSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
     // tier 4
@@ -141,7 +141,7 @@ final class MaterialStats {
                      HandleMaterialStats.DEFAULT.withDurability(1.2f).withAttackDamage(1.2f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.hepatizon,
-                     new HeadMaterialStats(1250, 9f, NETHERITE, 3.5f),
+                     new HeadMaterialStats(1450, 10f, NETHERITE, 3f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withAttackSpeed(0.9f).withMiningSpeed(1.4f),
                      ExtraMaterialStats.DEFAULT);
 //    addMaterialStats(MaterialIds.soulsteel,
