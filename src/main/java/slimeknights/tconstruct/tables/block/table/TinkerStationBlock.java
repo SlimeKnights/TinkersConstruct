@@ -4,7 +4,6 @@ import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import slimeknights.tconstruct.tables.block.TableSortKeys;
 import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
 
 public class TinkerStationBlock extends RetexturedTableBlock {
@@ -19,10 +18,5 @@ public class TinkerStationBlock extends RetexturedTableBlock {
   @Override
   public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
     return new TinkerStationTileEntity(getSlotCount());
-  }
-
-  @Override
-  public int getSortKey() {
-    return TableSortKeys.TINKER_STATION;
   }
 }

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.block;
 
-import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -39,12 +38,9 @@ public class TinkerChestBlock extends TinkerTableBlock {
                                                         );
 
   private final Supplier<? extends TileEntity> te;
-  @Getter
-  private final int sortKey;
-  public TinkerChestBlock(Properties builder, Supplier<? extends TileEntity> te, int sortKey) {
+  public TinkerChestBlock(Properties builder, Supplier<? extends TileEntity> te) {
     super(builder);
     this.te = te;
-    this.sortKey = sortKey;
   }
 
   @Nonnull

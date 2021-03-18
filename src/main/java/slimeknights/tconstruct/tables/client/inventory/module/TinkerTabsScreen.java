@@ -8,21 +8,23 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.TabsWidget;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
 import java.util.List;
 
 public class TinkerTabsScreen extends ModuleScreen {
-
-  protected static final ElementScreen TAB_ELEMENT = new ElementScreen(0, 2, 28, 28, 256, 256);
-  protected static final ElementScreen ACTIVE_TAB_L_ELEMENT = new ElementScreen(0, 32, 28, 32, 256, 256);
-  protected static final ElementScreen ACTIVE_TAB_C_ELEMENT = new ElementScreen(28, 32, 28, 32, 256, 256);
-  protected static final ElementScreen ACTIVE_TAB_R_ELEMENT = new ElementScreen(140, 32, 28, 32, 256, 256);
+  private static final ResourceLocation TAB_IMAGE = Util.getResource("textures/gui/icons.png");
+  protected static final ElementScreen TAB_ELEMENT = new ElementScreen(0, 18, 26, 30, 256, 256);
+  protected static final ElementScreen ACTIVE_TAB_L_ELEMENT = new ElementScreen(26, 18, 26, 30, 256, 256);
+  protected static final ElementScreen ACTIVE_TAB_C_ELEMENT = new ElementScreen(52, 18, 26, 30, 256, 256);
+  protected static final ElementScreen ACTIVE_TAB_R_ELEMENT = new ElementScreen(78, 18, 26, 30, 256, 256);
 
   public TabsWidget tabs;
   public List<BlockPos> tabData;
@@ -38,6 +40,7 @@ public class TinkerTabsScreen extends ModuleScreen {
     this.ySize = ACTIVE_TAB_C_ELEMENT.h;
 
     this.tabs = new TabsWidget(parent, TAB_ELEMENT, TAB_ELEMENT, TAB_ELEMENT, ACTIVE_TAB_L_ELEMENT, ACTIVE_TAB_C_ELEMENT, ACTIVE_TAB_R_ELEMENT);
+    this.tabs.tabsResource = TAB_IMAGE;
     this.tabData = Lists.newArrayList();
   }
 
