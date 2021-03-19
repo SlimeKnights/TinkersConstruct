@@ -11,6 +11,7 @@ import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
@@ -67,7 +68,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     if (this.world == null) {
       return super.getDefaultName();
     }
-    return this.getBlockState().getBlock().getTranslatedName();
+    return new TranslationTextComponent(this.getBlockState().getBlock().getTranslationKey());
   }
 
   /**
