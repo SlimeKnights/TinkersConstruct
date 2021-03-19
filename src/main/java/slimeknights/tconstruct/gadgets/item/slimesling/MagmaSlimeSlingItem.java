@@ -4,12 +4,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -38,42 +41,35 @@ public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
     Vector3d look = player.getLookVec();
     Vector3d direction = start.add(look.x * range, look.y * range, look.z * range);
     AxisAlignedBB bb = player.getBoundingBox().expand(look.x * range, look.y * range, look.z * range).expand(1, 1, 1);
-    double minX = Math.min(start.x, direction.x);
-    double maxX = Math.max(start.x, direction.x);
-    double minY = Math.min(start.y, direction.y);
-    double maxY = Math.max(start.y, direction.y);
-    double minZ = Math.min(start.z, direction.z);
-    double maxZ = Math.max(start.z, direction.z);
-    List<Entity> entitiesInArea = player.getEntityWorld().getEntitiesWithinAABBExcludingEntity(player, bb);
-    double dist = range;
-    Entity closestEntity = null;
-    for (Entity entity : entitiesInArea) {
-      if (entity.getBoundingBox().intersects(minX, minY, minZ, maxX, maxY, maxZ)) {
-        if (look.distanceTo(entity.getLookVec()) < dist) {
-          dist = look.distanceTo(entity.getLookVec());
-          closestEntity = entity;
-        }
+
+    EntityRayTraceResult emop = ProjectileHelper.rayTraceEntities(worldIn, player, start, direction, bb, (e) -> e instanceof LivingEntity);
+    if (emop != null && emop.getEntity() != null) {
+      LivingEntity target = (LivingEntity) emop.getEntity();
+      double targetDist = start.squareDistanceTo(target.getEyePosition(1F));
+
+      // cancel if there's a block in the way
+      BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
+      double blockDist = mop.getPos().distanceSq(start.x, start.y, start.z, true);
+      if (mop.getType() == RayTraceResult.Type.BLOCK && targetDist > blockDist) {
+        playMissSound(player);
+        return;
       }
-    }
 
-    // cancel if there's a block in the way
-    BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
-    if (mop.getType() == RayTraceResult.Type.BLOCK && dist * dist < mop.getPos().distanceSq(player.getPosX(), player.getPosY(), player.getPosZ(), true)) {
-      return;
-    }
-
-    if (closestEntity != null) {
-      if (closestEntity instanceof LivingEntity) {
-        ((LivingEntity) closestEntity).applyKnockback(f , -look.x, -look.z);
-
-        // TODO: Test on other players (I wasn't able to figure out setting that up)
-        if (closestEntity instanceof ServerPlayerEntity) {
-          ServerPlayerEntity playerMP = (ServerPlayerEntity) closestEntity;
-          TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(closestEntity), playerMP);
-        }
-
-        player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+      target.applyKnockback(f , -look.x, -look.z);
+      if (target instanceof ServerPlayerEntity) {
+        ServerPlayerEntity playerMP = (ServerPlayerEntity) target;
+        TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(target), playerMP);
       }
+
+      player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+    } else {
+      playMissSound(player);
     }
+  }
+
+  // Using function for consistency
+  public void playMissSound(PlayerEntity player) {
+    // subject to change
+    player.playSound(Sounds.SLIME_SLING.getSound(), 1f, .5f);
   }
 }
