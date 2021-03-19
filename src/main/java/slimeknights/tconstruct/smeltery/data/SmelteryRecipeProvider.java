@@ -851,7 +851,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
       addMetalBase(consumer, fluid, MaterialValues.INGOT, true, "ores/" + name, 1.5f, prefix + "ore", isOptional);
     }
     // dust is always optional, as we don't do dust
-    addMetalBase(consumer, fluid, MaterialValues.INGOT, false, "dusts/" + name, 1.5f, prefix + "dust", true);
+    addMetalBase(consumer, fluid, MaterialValues.INGOT, false, "dusts/" + name, 0.75f, prefix + "dust", true);
   }
 
 
