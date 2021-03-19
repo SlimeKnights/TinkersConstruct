@@ -61,6 +61,16 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       .patternLine("w")
       .addCriterion("has_item", hasItem(TinkerTables.pattern))
       .build(consumer, prefix(TinkerTables.craftingStation, folder));
+    // station with log texture
+    ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.craftingStation)
+                         .key('p', TinkerTables.pattern)
+                         .key('w', ItemTags.LOGS)
+                         .patternLine("p")
+                         .patternLine("w")
+                         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
+      .setSource(ItemTags.LOGS)
+      .build(consumer, wrap(TinkerTables.craftingStation, folder, "_from_logs"));
 
     // part builder
     ShapedRetexturedRecipeBuilder.fromShaped(
