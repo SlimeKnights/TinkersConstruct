@@ -6,6 +6,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.common.Sounds;
@@ -52,6 +55,13 @@ public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
         }
       }
     }
+
+    // cancel if there's a block in the way
+    BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
+    if (mop.getType() == RayTraceResult.Type.BLOCK && dist * dist < mop.getPos().distanceSq(player.getPosX(), player.getPosY(), player.getPosZ(), true)) {
+      return;
+    }
+
     if (closestEntity != null) {
       if (closestEntity instanceof LivingEntity) {
         ((LivingEntity) closestEntity).applyKnockback(f , -look.x, -look.z);
