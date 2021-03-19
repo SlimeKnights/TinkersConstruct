@@ -3,14 +3,16 @@ package slimeknights.tconstruct.tables.client.inventory.module;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.TabsWidget;
@@ -47,6 +49,7 @@ public class TinkerTabsScreen extends ModuleScreen {
   public void addTab(ItemStack icon, BlockPos data) {
     this.tabData.add(data);
     this.tabs.addTab(icon);
+    this.xSize += ACTIVE_TAB_C_ELEMENT.w + this.tabs.spacing;
   }
 
   @Override
@@ -90,14 +93,20 @@ public class TinkerTabsScreen extends ModuleScreen {
   @Override
   protected void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
     // highlighted tooltip
-    if (this.tabs.highlighted > -1) {
+    World world = Minecraft.getInstance().world;
+    if (this.tabs.highlighted > -1 && world != null) {
       BlockPos pos = this.tabData.get(this.tabs.highlighted);
-      BlockState state = Minecraft.getInstance().player.getEntityWorld().getBlockState(pos);
-      ItemStack stack = new ItemStack(state.getBlock(), 1);
+      ITextComponent title;
+      TileEntity te = world.getTileEntity(pos);
+      if (te instanceof INamedContainerProvider) {
+        title = ((INamedContainerProvider)te).getDisplayName();
+      } else {
+        title = world.getBlockState(pos).getBlock().getTranslatedName();
+      }
 
       // the origin has been translated to the top left of this gui rather than the screen, so we have to adjust
       // TODO: func_243308_b->renderTooltip
-      this.func_243308_b(matrices, Lists.newArrayList(stack.getDisplayName()), mouseX - this.guiLeft, mouseY - this.guiTop);
+      this.func_243308_b(matrices, Lists.newArrayList(title), mouseX - this.guiLeft, mouseY - this.guiTop);
     }
   }
 }
