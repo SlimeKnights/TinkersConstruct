@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -23,6 +24,8 @@ import java.util.List;
  */
 @AllArgsConstructor
 public class TinkerStationPartSwapping implements ITinkerStationRecipe {
+  private static final ValidatedResult TOO_MANY_PARTS = ValidatedResult.failure(Util.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
+
   @Getter
   protected final ResourceLocation id;
 
@@ -51,7 +54,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         foundItem = true;
       }
     }
-    return true;
+    return foundItem;
   }
 
   /** @deprecated Use {@link #getCraftingResult(ITinkerStationInventory)}  */
@@ -66,6 +69,13 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
     // copy the tool NBT to ensure the original tool is intact
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     List<IToolPart> parts = tool.getDefinition().getRequiredComponents();
+
+    // prevent part swapping on large tools in small tables
+    if (parts.size() > inv.getInputCount()) {
+      return TOO_MANY_PARTS;
+    }
+
+    // actual part swap logic
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
       if (!stack.isEmpty()) {

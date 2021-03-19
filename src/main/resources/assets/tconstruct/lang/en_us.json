@@ -1184,6 +1184,8 @@
 
     "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
 
+    "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
+
     "recipe.tconstruct.modifier.not_enough_upgrades": "Need at least %s upgrade slots to add this modifier",
     "recipe.tconstruct.modifier.not_enough_abilities": "Need at least %s ability slots to add this modifier",
     "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
