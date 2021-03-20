@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.molding;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,6 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.RecipeSerializer;
@@ -48,24 +46,6 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
   @Override
   public ItemStack getRecipeOutput() {
     return recipeOutput.get();
-  }
-
-  /**
-   * Reads the result from the given JSON
-   * @param parent  Parent JSON
-   * @param name    Tag name
-   * @return  Item stack result
-   * @throws com.google.gson.JsonSyntaxException If the syntax is invalid
-   */
-  public static ItemStack deseralizeResultItem(JsonObject parent, String name) {
-    JsonElement element = JsonHelper.getElement(parent, name);
-    if (element.isJsonPrimitive()) {
-      return new ItemStack(JSONUtils.getItem(element, name));
-    } else {
-      ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(element, name), true);
-      result.setCount(1);
-      return result;
-    }
   }
 
   /** Subclass for table recipes */

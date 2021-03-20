@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.library.recipe.molding;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
@@ -96,24 +93,6 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "molding");
     consumer.accept(new FinishedRecipe(id, advancementId));
-  }
-
-  /**
-   * Serializes the given result to JSON
-   * @param result  Result
-   * @return  JSON element
-   */
-  public static JsonElement serializeResult(ItemStack result) {
-    // if the item has NBT, write both, else write just the name
-    String itemName = Objects.requireNonNull(result.getItem().getRegistryName()).toString();
-    if (result.hasTag()) {
-      JsonObject jsonResult = new JsonObject();
-      jsonResult.addProperty("item", itemName);
-      jsonResult.addProperty("nbt", Objects.requireNonNull(result.getTag()).toString());
-      return jsonResult;
-    } else {
-      return new JsonPrimitive(itemName);
-    }
   }
 
   private class FinishedRecipe extends AbstractFinishedRecipe {

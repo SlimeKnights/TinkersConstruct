@@ -5,6 +5,7 @@ import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
@@ -179,6 +180,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_REDSTONE, 9, 45)
+                                    .setLeftover(new ItemStack(Items.REDSTONE))
                                     .setMaxLevel(10)
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_block"));
@@ -244,6 +246,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_QUARTZ, 4, 36)
+                                    .setLeftover(new ItemStack(Items.QUARTZ))
                                     .setMaxLevel(10)
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.sharpness, upgradeFolder, "_from_block"));

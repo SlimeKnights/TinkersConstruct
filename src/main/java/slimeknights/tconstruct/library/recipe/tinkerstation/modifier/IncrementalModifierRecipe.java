@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import com.google.common.collect.ImmutableList.Builder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.item.ItemStack;
@@ -10,6 +11,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.util.JsonHelper;
@@ -34,12 +36,15 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   private final int amountPerInput;
   /** Number needed for each level */
   private final int neededPerLevel;
+  /** Item stack to use when a partial amount is leftover */
+  private final ItemStack leftover;
 
-  public IncrementalModifierRecipe(ResourceLocation id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
+  public IncrementalModifierRecipe(ResourceLocation id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots, ItemStack leftover) {
     super(id, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     this.input = input;
     this.amountPerInput = amountPerInput;
     this.neededPerLevel = neededPerLevel;
+    this.leftover = leftover;
     ModifierRecipeLookup.addIngredient(input);
     ModifierRecipeLookup.setNeededPerLevel(result.getModifier(), neededPerLevel);
   }
@@ -125,7 +130,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
     // subtract the inputs
     if (needed > 0) {
-      updateInputs(inv, input, needed, amountPerInput);
+      updateInputs(inv, input, needed, amountPerInput, leftover);
     }
   }
 
@@ -211,11 +216,16 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
    * @param ingredient      Ingredient
    * @param amountNeeded    Total number needed
    * @param amountPerInput  Number each item gives
+   * @param leftover        Itemstack to use if amountNeeded is too much to match amountPerInput
    */
-  public static void updateInputs(IMutableTinkerStationInventory inv, Ingredient ingredient, int amountNeeded, int amountPerInput) {
+  public static void updateInputs(IMutableTinkerStationInventory inv, Ingredient ingredient, int amountNeeded, int amountPerInput, ItemStack leftover) {
     int itemsNeeded = amountNeeded / amountPerInput;
-    if (amountNeeded % amountPerInput != 0) {
+    int leftoverAmount = amountNeeded % amountPerInput;
+    if (leftoverAmount > 0) {
       itemsNeeded++;
+      if (!leftover.isEmpty()) {
+        inv.giveItem(ItemHandlerHelper.copyStackWithSize(leftover, leftoverAmount * leftover.getCount()));
+      }
     }
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
@@ -233,6 +243,22 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
   }
 
+  /**
+   * Reads the result from the given JSON
+   * @param parent  Parent JSON
+   * @param name    Tag name
+   * @return  Item stack result
+   * @throws com.google.gson.JsonSyntaxException If the syntax is invalid
+   */
+  public static ItemStack deseralizeResultItem(JsonObject parent, String name) {
+    JsonElement element = JsonHelper.getElement(parent, name);
+    if (element.isJsonPrimitive()) {
+      return new ItemStack(JSONUtils.getItem(element, name));
+    } else {
+      return CraftingHelper.getItemStack(JSONUtils.getJsonObject(element, name), true);
+    }
+  }
+
   public static class Serializer extends AbstractModifierRecipe.Serializer<IncrementalModifierRecipe> {
     @Override
     public IncrementalModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
@@ -246,7 +272,11 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       if (neededPerLevel <= amountPerInput) {
         throw new JsonSyntaxException("needed_per_level must be greater than amount_per_item");
       }
-      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+      ItemStack leftover = ItemStack.EMPTY;
+      if (amountPerInput > 1 && json.has("leftover")) {
+        leftover = deseralizeResultItem(json, "leftover");
+      }
+      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots, leftover);
     }
 
     @Override
@@ -255,7 +285,8 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       Ingredient input = Ingredient.read(buffer);
       int amountPerInput = buffer.readVarInt();
       int neededPerLevel = buffer.readVarInt();
-      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+      ItemStack leftover = buffer.readItemStack();
+      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots, leftover);
     }
 
     @Override
@@ -264,6 +295,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       recipe.input.write(buffer);
       buffer.writeVarInt(recipe.amountPerInput);
       buffer.writeVarInt(recipe.neededPerLevel);
+      buffer.writeItemStack(recipe.leftover);
     }
   }
 }
