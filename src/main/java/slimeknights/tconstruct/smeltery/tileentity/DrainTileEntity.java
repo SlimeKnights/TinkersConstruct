@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.tileentity;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -25,7 +26,7 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
   @Getter
   private final IModelData modelData = new SinglePropertyData<>(IDisplayFluidListener.PROPERTY);
   @Getter
-  private Fluid displayFluid;
+  private Fluid displayFluid = Fluids.EMPTY;
 
   public DrainTileEntity() {
     super(TinkerSmeltery.drain.get());
