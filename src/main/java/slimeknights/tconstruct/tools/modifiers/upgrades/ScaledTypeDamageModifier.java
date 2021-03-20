@@ -16,7 +16,7 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
   @Override
   public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attackerLiving, LivingEntity targetLiving, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
     if (targetLiving.getCreatureAttribute() == type) {
-      damage += getScaledLevel(tool.getPersistentData(), level) * 2.5f;
+      damage += getScaledLevel(tool, level) * 2.5f;
     }
     return damage;
   }

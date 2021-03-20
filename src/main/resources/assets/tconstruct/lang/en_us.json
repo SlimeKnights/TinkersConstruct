@@ -1023,6 +1023,12 @@
     "modifier.tconstruct.expanded": "Expanded",
     "modifier.tconstruct.expanded.flavor": "Did not skip leg day!",
     "modifier.tconstruct.expanded.description": "Tool's area of effect is larger than before",
+    "modifier.tconstruct.fiery": "Fiery",
+    "modifier.tconstruct.fiery.flavor": "Infused with the fires of hell!",
+    "modifier.tconstruct.fiery.description": "Ignites targets",
+    "modifier.tconstruct.necrotic": "Necrotic",
+    "modifier.tconstruct.necrotic.flavor": "Vampiric!",
+    "modifier.tconstruct.necrotic.description": "Hitting enemies drains their life to heal you",
 
     "modifier.tconstruct.sharpness": "Sharpness",
     "modifier.tconstruct.sharpness.1": "Sharp",

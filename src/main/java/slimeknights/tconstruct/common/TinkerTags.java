@@ -83,6 +83,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> RED_SAND_CASTS = tag("casts/red_sand");
 
     public static final IOptionalNamedTag<Item> RODS_STONE = forgeTag("rods/stone");
+    public static final IOptionalNamedTag<Item> WITHER_BONES = forgeTag("wither_bones");
 
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");

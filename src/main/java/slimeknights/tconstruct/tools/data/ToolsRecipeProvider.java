@@ -235,6 +235,18 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .setTools(TinkerTags.Items.AOE)
                          .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_magma"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Items.BLAZE_POWDER, 1, 25)
+                                    .setMaxLevel(10)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.fiery, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.necrotic.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(TinkerTags.Items.WITHER_BONES, 1, 10)
+                                    .setMaxLevel(10)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.necrotic, upgradeFolder));
 
     // sharpness can use shards or blocks
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())

@@ -22,7 +22,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
@@ -309,7 +308,6 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but effect shows in the tooltip.</li>
-   *   <li>{@link #beforeBlockBreak(IModifierToolStack, int, BreakEvent)}: Can directly prevent block breaking instead of just change breaking speed. Called just once per block break</li>
    * </ul>
    * @param tool   Current tool instance
    * @param level  Modifier level
@@ -341,12 +339,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /* Attack hooks */
 
   /**
-   * Called when a living entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt.
+   * Called when a living entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt. Do not modify the entity here, its possible the attack will still be canceled
    * <br>
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
    *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, boolean)}: Perform special attacks on entity hit beyond damage boosts</li>
+   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Apply effects that must run before hit</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
@@ -363,7 +362,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
-   * Called when a living entity is attacked. Used to calculate the knockback this attack will do. Damage is final damage including critical damage.
+   * Called right before an entity is hit, used to modify knockback applied or to apply special effects that need to run before damage. Damage is final damage including critical damage.
+   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean)} will run.
    * <br>
    * Alternatives:
    * <ul>
@@ -380,7 +380,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param fullyCharged   If true, this attack was fully charged (could perform a sword sweep)
    * @return  New knockback to apply. 0.5 is equivelent to 1 level of the vanilla enchant
    */
-  public float applyLivingKnockback(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged) {
+  public float beforeLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged) {
     return knockback;
   }
 
@@ -391,7 +391,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <ul>
    *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Adjusts the base tool stats that affect damage</li>
    *   <li>{@link #applyLivingDamage(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, boolean, boolean)}: Change the amount of damage dealt with attacker context</li>
-   *   <li>{@link #applyLivingKnockback(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Change the amount of knockback dealt</li>
+   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Change the amount of knockback dealt</li>
+   *   <li>{@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean)}: Called after living hit when damage was not dealt</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
@@ -405,6 +406,17 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
     return 0;
   }
+
+  /**
+   * Called after attacking an entity when no damage was dealt
+   * @param tool          Tool used to attack
+   * @param level         Modifier level
+   * @param attacker      Entity doing the attacking
+   * @param target        Entity being attacked
+   * @param isCritical    If true, this attack is a critical hit
+   * @param fullyCharged  If true, this attack was fully charged (could perform a sword sweep)
+   */
+  public void failedLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, boolean isCritical, boolean fullyCharged) {}
 
 
   /* Display */

@@ -86,6 +86,16 @@ public class IncrementalModifier extends Modifier {
   }
 
   /**
+   * Gets the level scaled based on the current amount into the level
+   * @param tool   Tool instance
+   * @param level  Modifier level
+   * @return  Level, possibly reduced by an incomplete level
+   */
+  public float getScaledLevel(IModifierToolStack tool, int level) {
+    return getScaledLevel(tool.getPersistentData(), level);
+  }
+
+  /**
    * Sets the amount on the tool
    * @param persistentData  Tool NBT
    * @param modifier        Modifier to set
