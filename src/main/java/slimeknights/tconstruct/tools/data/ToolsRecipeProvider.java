@@ -184,6 +184,21 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(10)
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_block"));
+
+    // luck can use lapis or blocks
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
+                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                                    .setInput(Tags.Items.GEMS_LAPIS, 1, 108) // 36 per effective level
+                                    .setMaxLevel(3)
+                                    .setAbilitySlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_dust"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
+                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                                    .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 108)
+                                    .setLeftover(new ItemStack(Items.LAPIS_LAZULI))
+                                    .setMaxLevel(3)
+                                    .setAbilitySlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_block"));
     // mob damage
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.smite.get())
                                     .setTools(TinkerTags.Items.MELEE)

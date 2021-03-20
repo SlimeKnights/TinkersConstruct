@@ -1005,12 +1005,20 @@
     "modifier.tconstruct.haste.flavor": "Science!",
     "modifier.tconstruct.haste.description": "Magic red dust makes tool swing and mine faster!",
 
+    "modifier.tconstruct.luck": "Luck",
+    "modifier.tconstruct.luck.1": "Luck",
+    "modifier.tconstruct.luck.2": "Luckier",
+    "modifier.tconstruct.luck.3": "Luckiest",
+    "modifier.tconstruct.luck.beyond": "Lucky++",
+    "modifier.tconstruct.luck.flavor": "Flashy!",
+    "modifier.tconstruct.luck.description": "Gives you more nice things when mining or killing mobs!",
+
     "__comment": "Tier 3 Upgrades",
     "modifier.tconstruct.silky": "Silky",
     "modifier.tconstruct.silky.flavor": "Smooth as silk!",
     "modifier.tconstruct.silky.description": "Mined blocks drop themselves instead of the usual items",
     "modifier.tconstruct.diamond": "Diamond",
-    "modifier.tconstruct.diamond.flavor": "Shiny!",
+    "modifier.tconstruct.diamond.flavor": "Rich!",
     "modifier.tconstruct.diamond.description": "Increased durability and stats!",
 
     "__comment": "Tier 4 Upgrades",

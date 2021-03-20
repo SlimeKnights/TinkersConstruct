@@ -316,12 +316,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
 
   /**
-   * Adds harvest related enchantments from this modifier's effect. Needed to add enchantments for silk touch and fortune. Can add conditionally if needed
+   * Adds loot table related enchantments from this modifier's effect, called before attacking an entity or breaking a block.
+   * Needed to add enchantments for silk touch, fortune, and looting. Can add conditionally if needed.
    * @param tool      Tool used
    * @param level     Modifier level
    * @param consumer  Consumer accepting any enchantments
    */
-  public void addHarvestEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment, Integer> consumer) {}
+  public void applyEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment, Integer> consumer) {}
 
   /**
    * Called after a block is broken to apply special effects

@@ -230,6 +230,12 @@ public class ToolAttackUtil {
     // actual attack //
     ///////////////////
 
+    // apply enchants before attack, so looting works
+    boolean enchantsApplied = false;
+    if (attackerLiving.isServerWorld()) {
+      enchantsApplied = ModifierUtil.applyEnchantments(tool, stack, attackerPlayer);
+    }
+
     // removed: sword special attack check and logic, replaced by this
     boolean didHit = weapon.dealDamage(tool, attackerLiving, targetEntity, damage, isCritical, fullyCharged);
     if (!didHit) {
@@ -239,6 +245,11 @@ public class ToolAttackUtil {
         for (ModifierEntry entry : modifiers) {
           entry.getModifier().failedLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, isCritical, fullyCharged);
         }
+      }
+
+      // no longer need enchants, done here
+      if (enchantsApplied) {
+        ModifierUtil.clearEnchantments(stack);
       }
       return true;
     }
@@ -304,6 +315,11 @@ public class ToolAttackUtil {
       }
     }
 
+    // wait to clear enchants until the last modifier callback, in case damage is dealt there
+    if (enchantsApplied) {
+      ModifierUtil.clearEnchantments(stack);
+    }
+
     // final attack hooks
     if (attackerPlayer != null) {
       if (targetLiving != null) {
@@ -314,7 +330,6 @@ public class ToolAttackUtil {
       }
       // removed: fire damage, handled in modifier hook above
       attackerPlayer.addExhaustion(0.1F);
-
     }
 
     // damage the tool

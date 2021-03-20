@@ -53,6 +53,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.ExpanderModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.FieryModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.HasteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.LuckModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
@@ -112,6 +113,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ScaledTypeDamageModifier> smite = MODIFIERS.register("smite", () -> new ScaledTypeDamageModifier(0xCC9720, CreatureAttribute.UNDEAD));
   public static final RegistryObject<BaneOfArthropodsModifier> baneOfArthropods = MODIFIERS.register("bane_of_arthropods", BaneOfArthropodsModifier::new);
   public static final RegistryObject<ScaledTypeDamageModifier> antiaquatic = MODIFIERS.register("antiaquatic", () -> new ScaledTypeDamageModifier(0x91C5B7, CreatureAttribute.WATER));
+  public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);
 
   // upgrades - tier 3
   public static final RegistryObject<DiamondModifier> diamond = MODIFIERS.register("diamond", DiamondModifier::new);
