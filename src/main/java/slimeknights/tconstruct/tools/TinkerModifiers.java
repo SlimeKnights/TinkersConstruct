@@ -13,6 +13,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipe;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
@@ -45,12 +46,16 @@ import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TastyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TemperateModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TypeDamageModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.BaneOfArthropodsModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ExpanderModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.HasteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.SharpnessModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SilkyModifier;
 
 import java.util.function.IntFunction;
@@ -101,6 +106,10 @@ public final class TinkerModifiers extends TinkerModule {
   // upgrades - tier 2
   public static final RegistryObject<EmeraldModifier> emerald = MODIFIERS.register("emerald", EmeraldModifier::new);
   public static final RegistryObject<MagneticModifier> magnetic = MODIFIERS.register("magnetic", MagneticModifier::new);
+  public static final RegistryObject<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
+  public static final RegistryObject<ScaledTypeDamageModifier> smite = MODIFIERS.register("smite", () -> new ScaledTypeDamageModifier(0xCC9720, CreatureAttribute.UNDEAD));
+  public static final RegistryObject<BaneOfArthropodsModifier> baneOfArthropods = MODIFIERS.register("bane_of_arthropods", BaneOfArthropodsModifier::new);
+  public static final RegistryObject<ScaledTypeDamageModifier> antiaquatic = MODIFIERS.register("antiaquatic", () -> new ScaledTypeDamageModifier(0x91C5B7, CreatureAttribute.WATER));
 
   // upgrades - tier 3
   public static final RegistryObject<DiamondModifier> diamond = MODIFIERS.register("diamond", DiamondModifier::new);
@@ -108,6 +117,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<KnockbackModifier> knockback = MODIFIERS.register("knockback", KnockbackModifier::new);
 
   // upgrades - tier 4
+  public static final RegistryObject<SharpnessModifier> sharpness = MODIFIERS.register("sharpness", SharpnessModifier::new);
   public static final RegistryObject<WorldboundModifier> worldbound = MODIFIERS.register("worldbound", () -> new WorldboundModifier(0x7E6059));
   public static final RegistryObject<NetheriteModifier> netherite = MODIFIERS.register("netherite", NetheriteModifier::new);
   public static final RegistryObject<ExpanderModifier> expanded = MODIFIERS.register("expanded", ExpanderModifier::new);
@@ -142,7 +152,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // traits - mod compat tier 2
   public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
-  public static final RegistryObject<TypeDamageModifier> smite = MODIFIERS.register("smite", () -> new TypeDamageModifier(0xd1ecf6, CreatureAttribute.UNDEAD));
+  public static final RegistryObject<TypeDamageModifier> holy = MODIFIERS.register("holy", () -> new TypeDamageModifier(0xd1ecf6, CreatureAttribute.UNDEAD));
   // traits - mod compat tier 3
   public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
   public static final RegistryObject<MaintainedModifier2> wellMaintained2 = MODIFIERS.register("maintained_2", MaintainedModifier2::new);
@@ -161,5 +171,6 @@ public final class TinkerModifiers extends TinkerModule {
    * Recipes
    */
   public static final RegistryObject<ModifierRecipe.Serializer> modifierSerializer = RECIPE_SERIALIZERS.register("modifier", ModifierRecipe.Serializer::new);
+  public static final RegistryObject<IncrementalModifierRecipe.Serializer> incrementalModifierSerializer = RECIPE_SERIALIZERS.register("incremental_modifier", IncrementalModifierRecipe.Serializer::new);
   public static final RegistryObject<OverslimeModifierRecipe.Serializer> overslimeSerializer = RECIPE_SERIALIZERS.register("overslime_modifier", OverslimeModifierRecipe.Serializer::new);
 }

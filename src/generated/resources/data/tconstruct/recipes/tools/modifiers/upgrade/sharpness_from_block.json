@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "tag": "forge:storage_blocks/quartz"
+  },
+  "amount_per_item": 4,
+  "needed_per_level": 36,
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
+  "result": {
+    "name": "tconstruct:sharpness",
+    "level": 1
+  },
+  "max_level": 10,
+  "upgrade_slots": 1
+}

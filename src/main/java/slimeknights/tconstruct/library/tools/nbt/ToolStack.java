@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRequirementLookup;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
@@ -476,7 +476,7 @@ public class ToolStack implements IModifierToolStack {
         return result;
       }
     }
-    return ModifierRequirementLookup.checkRequirements(getUpgrades().getModifiers(), mods);
+    return ModifierRecipeLookup.checkRequirements(getUpgrades().getModifiers(), mods);
   }
 
   /**

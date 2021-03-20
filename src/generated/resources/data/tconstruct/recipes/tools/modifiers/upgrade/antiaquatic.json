@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "minecraft:prismarine_crystals"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 16,
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
+  "result": {
+    "name": "tconstruct:antiaquatic",
+    "level": 1
+  },
+  "max_level": 10,
+  "upgrade_slots": 1
+}

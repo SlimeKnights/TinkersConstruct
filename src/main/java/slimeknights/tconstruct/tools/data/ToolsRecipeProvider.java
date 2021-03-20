@@ -26,6 +26,7 @@ import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuild
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipeBuilder;
@@ -148,19 +149,19 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.EXPERIENCE_BOTTLE, 5)
                          .setMaxLevel(3)
                          .setUpgradeSlots(1)
-                         .setToolTag(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.experienced, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
                          .addInput(Items.PISTON)
                          .setMaxLevel(5)
                          .setUpgradeSlots(1)
-                         .setToolTag(TinkerTags.Items.MELEE)
+                         .setTools(TinkerTags.Items.MELEE)
                          .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic.get())
                          .addInput(Items.COMPASS)
                          .setMaxLevel(3)
                          .setUpgradeSlots(1)
-                         .setToolTag(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.magnetic, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.emerald.get())
                          .addInput(Tags.Items.GEMS_EMERALD)
@@ -168,12 +169,45 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setUpgradeSlots(1)
                          .build(consumer, prefixR(TinkerModifiers.emerald, upgradeFolder));
 
+    // haste can use redstone or blocks
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
+                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                                    .setInput(Tags.Items.DUSTS_REDSTONE, 1, 45)
+                                    .setMaxLevel(10)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_dust"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
+                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                                    .setInput(Tags.Items.STORAGE_BLOCKS_REDSTONE, 9, 45)
+                                    .setMaxLevel(10)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_block"));
+    // mob damage
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.smite.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Items.GLISTERING_MELON_SLICE, 1, 5)
+                                    .setMaxLevel(10)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.smite, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.baneOfArthropods.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Items.FERMENTED_SPIDER_EYE, 1, 15)
+                                    .setMaxLevel(10)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.baneOfArthropods, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.antiaquatic.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Items.PRISMARINE_CRYSTALS, 1, 16)
+                                    .setMaxLevel(10)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.antiaquatic, upgradeFolder));
+
     // tier 3
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())
                          .addInput(TinkerModifiers.silkyJewel)
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
-                         .setToolTag(TinkerTags.Items.HARVEST)
+                         .setTools(TinkerTags.Items.HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.silky, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.diamond.get())
                          .addInput(Tags.Items.GEMS_DIAMOND)
@@ -197,8 +231,22 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerModifiers.magmaExpander)
                          .setAbilitySlots(1)
                          .setMaxLevel(1)
-                         .setToolTag(TinkerTags.Items.AOE)
+                         .setTools(TinkerTags.Items.AOE)
                          .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_magma"));
+
+    // sharpness can use shards or blocks
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Tags.Items.GEMS_QUARTZ, 1, 36)
+                                    .setMaxLevel(10)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.sharpness, upgradeFolder, "_from_shard"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Tags.Items.STORAGE_BLOCKS_QUARTZ, 4, 36)
+                                    .setMaxLevel(10)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.sharpness, upgradeFolder, "_from_block"));
 
     // tier 5
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
@@ -207,7 +255,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.ender_expander_requirements"))
                          .setAbilitySlots(1)
                          .setMaxLevel(2)
-                         .setToolTag(TinkerTags.Items.AOE)
+                         .setTools(TinkerTags.Items.AOE)
                          .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ender"));
 
     // extra modifiers
