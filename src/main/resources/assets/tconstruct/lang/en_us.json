@@ -1263,5 +1263,6 @@
     "jei.tconstruct.modifiers.upgrade": "Modifier requires 1 upgrade slot to apply",
     "jei.tconstruct.modifiers.upgrades": "Modifier requires %s upgrade slots to apply",
     "jei.tconstruct.modifiers.free": "No modifier slots are required to apply",
+    "jei.tconstruct.modifiers.incremental": "Recipe is incremental, you can apply part of the input for a partial effect",
     "jei.tconstruct.modifiers.max": "Max: "
 }

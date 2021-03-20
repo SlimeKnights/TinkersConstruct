@@ -52,6 +52,11 @@ public interface IDisplayModifierRecipe {
     return "";
   }
 
+  /** If true, this recipe can be applied incrementally */
+  default boolean isIncremental() {
+    return false;
+  }
+
 
   /* Helpers */
 

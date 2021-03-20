@@ -143,6 +143,11 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   /* JEI display */
 
   @Override
+  public boolean isIncremental() {
+    return true;
+  }
+
+  @Override
   protected void addIngredients(Builder<List<ItemStack>> builder) {
     // fill extra item slots
     List<ItemStack> items = Arrays.asList(input.getMatchingStacks());
