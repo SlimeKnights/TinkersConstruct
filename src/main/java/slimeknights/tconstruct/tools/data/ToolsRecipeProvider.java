@@ -214,10 +214,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                                     .build(consumer, prefixR(TinkerModifiers.baneOfArthropods, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.antiaquatic.get())
                                     .setTools(TinkerTags.Items.MELEE)
-                                    .setInput(Items.PRISMARINE_CRYSTALS, 1, 16)
+                                    .setInput(Blocks.CACTUS, 1, 40)
                                     .setMaxLevel(10)
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.antiaquatic, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.cooling.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Items.PRISMARINE_CRYSTALS, 1, 25)
+                                    .setMaxLevel(10)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.cooling, upgradeFolder));
 
     // tier 3
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())
@@ -250,6 +256,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .setTools(TinkerTags.Items.AOE)
                          .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ichor"));
+    // fiery
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.BLAZE_POWDER, 1, 25)

@@ -1,15 +1,15 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "item": "minecraft:cactus"
+    "item": "minecraft:prismarine_crystals"
   },
   "amount_per_item": 1,
-  "needed_per_level": 40,
+  "needed_per_level": 25,
   "tools": {
     "tag": "tconstruct:modifiable/melee"
   },
   "result": {
-    "name": "tconstruct:antiaquatic",
+    "name": "tconstruct:cooling",
     "level": 1
   },
   "max_level": 10,

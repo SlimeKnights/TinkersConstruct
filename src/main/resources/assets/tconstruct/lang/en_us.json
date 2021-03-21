@@ -983,6 +983,9 @@
     "modifier.tconstruct.antiaquatic": "Antiaquatic",
     "modifier.tconstruct.antiaquatic.flavor": "Basically a Fishing Rod!",
     "modifier.tconstruct.antiaquatic.description": "Tool does bonus damage to sea creatures!",
+    "modifier.tconstruct.cooling": "Cooling",
+    "modifier.tconstruct.cooling.flavor": "Frosty!",
+    "modifier.tconstruct.cooling.description": "Tool does bonus damage to fire based creatures!",
 
     "modifier.tconstruct.haste": "Haste",
     "modifier.tconstruct.haste.1": "Haste",
