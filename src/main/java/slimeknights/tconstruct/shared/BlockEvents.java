@@ -31,7 +31,7 @@ public class BlockEvents {
 
     if (TinkerWorld.congealedSlime.contains(block)) {
       bounce(event.getEntity(), 0.25f);
-    } else if (TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.greenSlimeGrass.contains(block) || TinkerWorld.blueSlimeGrass.contains(block) || TinkerWorld.purpleSlimeGrass.contains(block) || TinkerWorld.magmaSlimeGrass.contains(block)) {
+    } else if (TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.earthSlimeGrass.contains(block) || TinkerWorld.skySlimeGrass.contains(block) || TinkerWorld.enderSlimeGrass.contains(block) || TinkerWorld.ichorSlimeGrass.contains(block)) {
       bounce(event.getEntity(), 0.06f);
     }
   }

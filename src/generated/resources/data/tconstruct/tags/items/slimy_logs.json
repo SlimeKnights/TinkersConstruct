@@ -1,10 +1,10 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:green_congealed_slime",
-    "tconstruct:blue_congealed_slime",
-    "tconstruct:purple_congealed_slime",
-    "tconstruct:blood_congealed_slime",
-    "tconstruct:magma_congealed_slime"
+    "tconstruct:earth_congealed_slime",
+    "tconstruct:sky_congealed_slime",
+    "tconstruct:ichor_congealed_slime",
+    "tconstruct:ender_congealed_slime",
+    "tconstruct:blood_congealed_slime"
   ]
 }

@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRec
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipe;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
@@ -83,7 +83,7 @@ public final class TinkerModifiers extends TinkerModule {
   /*
    * Items
    */
-  public static final ItemObject<Item> magmaExpander = ITEMS.register("magma_expander", TOOLTIP_ITEM);
+  public static final ItemObject<Item> ichorExpander = ITEMS.register("ichor_expander", TOOLTIP_ITEM);
   public static final ItemObject<Item> enderExpander = ITEMS.register("ender_expander", TOOLTIP_ITEM);
   public static final ItemObject<Item> reinforcement = ITEMS.register("reinforcement", GENERAL_PROPS);
   public static final ItemObject<Item> silkyCloth = ITEMS.register("silky_cloth", GENERAL_PROPS);

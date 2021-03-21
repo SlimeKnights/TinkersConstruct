@@ -18,7 +18,7 @@ import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.tables.TinkerTables;

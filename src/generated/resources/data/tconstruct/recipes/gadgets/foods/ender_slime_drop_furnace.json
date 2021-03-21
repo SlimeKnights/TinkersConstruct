@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "tconstruct:ender_slime_ball"
+  },
+  "result": "tconstruct:ender_slime_drop",
+  "experience": 0.35,
+  "cookingtime": 200
+}

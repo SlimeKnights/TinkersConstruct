@@ -67,12 +67,11 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> SEARED_BLOCKS = tag("seared_blocks");
 
     public static final IOptionalNamedTag<Item> SEARED_BRICKS = tag("seared_bricks");
-    public static final IOptionalNamedTag<Item> GREEN_SLIMEBALL = forgeTag("slimeball/green");
-    public static final IOptionalNamedTag<Item> BLUE_SLIMEBALL = forgeTag("slimeball/blue");
-    public static final IOptionalNamedTag<Item> PURPLE_SLIMEBALL = forgeTag("slimeball/purple");
+    public static final IOptionalNamedTag<Item> EARTH_SLIMEBALL = forgeTag("slimeball/green");
+    public static final IOptionalNamedTag<Item> SKY_SLIMEBALL = forgeTag("slimeball/sky");
+    public static final IOptionalNamedTag<Item> ICHOR_SLIMEBALL = forgeTag("slimeball/ichor");
+    public static final IOptionalNamedTag<Item> ENDER_SLIMEBALL = forgeTag("slimeball/ender");
     public static final IOptionalNamedTag<Item> BLOOD_SLIMEBALL = forgeTag("slimeball/blood");
-
-    public static final IOptionalNamedTag<Item> MAGMA_SLIMEBALL = forgeTag("slimeball/magma");
 
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE = forgeTag("nuggets/netherite");
     public static final IOptionalNamedTag<Item> INGOTS_NETHERITE_SCRAP = forgeTag("ingots/netherite_scrap");
@@ -122,9 +121,9 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Fluid> SLIMELIKE = tag("slimelike");
     public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
-    public static final IOptionalNamedTag<Fluid> GREEN_SLIME = tag("green_slime");
-    public static final IOptionalNamedTag<Fluid> BLUE_SLIME = tag("blue_slime");
-    public static final IOptionalNamedTag<Fluid> PURPLE_SLIME = tag("purple_slime");
+    public static final IOptionalNamedTag<Fluid> EARTH_SLIME = tag("earth_slime");
+    public static final IOptionalNamedTag<Fluid> SKY_SLIME = tag("sky_slime");
+    public static final IOptionalNamedTag<Fluid> ENDER_SLIME = tag("ender_slime");
 
     private static IOptionalNamedTag<Fluid> tag(String name) {
       return FluidTags.createOptional(Util.getResource(name));

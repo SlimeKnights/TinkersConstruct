@@ -9,7 +9,7 @@ import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 import javax.annotation.Nullable;
 
@@ -32,7 +32,7 @@ public class SlimeParticle extends BreakingParticle {
     @Nullable
     @Override
     public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-      return new SlimeParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, new ItemStack(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLUE)));
+      return new SlimeParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, new ItemStack(TinkerCommons.slimeball.get(SlimeType.SKY)));
     }
   }
 }

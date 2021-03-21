@@ -1,7 +1,0 @@
-{
-  "type": "tconstruct:overslime_modifier",
-  "ingredient": {
-    "item": "tconstruct:green_slime_crystal"
-  },
-  "restore_amount": 10
-}

@@ -4,7 +4,7 @@
     "type": "minecraft:slime"
   },
   "result": {
-    "fluid": "tconstruct:green_slime",
+    "fluid": "tconstruct:earth_slime",
     "amount": 25
   },
   "damage": 2

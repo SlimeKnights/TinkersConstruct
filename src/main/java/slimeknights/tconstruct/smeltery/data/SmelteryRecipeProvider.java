@@ -39,7 +39,7 @@ import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
@@ -299,9 +299,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // Slime
     String slimeFolder = folder + "slime/";
     this.addSlimeCastingRecipe(consumer, TinkerFluids.blood, SlimeType.BLOOD, slimeFolder);
-    this.addSlimeCastingRecipe(consumer, TinkerFluids.greenSlime, SlimeType.GREEN, slimeFolder);
-    this.addSlimeCastingRecipe(consumer, TinkerFluids.blueSlime, SlimeType.BLUE, slimeFolder);
-    this.addSlimeCastingRecipe(consumer, TinkerFluids.purpleSlime, SlimeType.PURPLE, slimeFolder);
+    this.addSlimeCastingRecipe(consumer, TinkerFluids.earthSlime, SlimeType.EARTH, slimeFolder);
+    this.addSlimeCastingRecipe(consumer, TinkerFluids.skySlime, SlimeType.SKY, slimeFolder);
+    this.addSlimeCastingRecipe(consumer, TinkerFluids.enderSlime, SlimeType.ENDER, slimeFolder);
     // magma cream
     addBlockCastingRecipe(consumer, TinkerFluids.magmaCream, MaterialValues.SLIME_CONGEALED, Blocks.MAGMA_BLOCK, slimeFolder + "magma_cream/block");
     ItemCastingRecipeBuilder.tableRecipe(Items.MAGMA_CREAM)
@@ -434,7 +434,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                                  .setFluid(new FluidStack(TinkerFluids.moltenClay.get(), MaterialValues.SLIMEBALL / 2))
                                  .build(consumer, location(compositeFolder + "seared_stone"));
     CompositeCastingRecipeBuilder.table(MaterialIds.wood, MaterialIds.slimewood)
-                                 .setFluid(new FluidStack(TinkerFluids.greenSlime.get(), MaterialValues.SLIMEBALL))
+                                 .setFluid(new FluidStack(TinkerFluids.earthSlime.get(), MaterialValues.SLIMEBALL))
                                  .build(consumer, location(compositeFolder + "slimewood"));
     CompositeCastingRecipeBuilder.table(MaterialIds.wood, MaterialIds.nahuatl)
                                  .setFluid(new FluidStack(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_PANE))
@@ -585,9 +585,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // slime
     String slimeFolder = folder + "slime/";
-    addSlimeMeltingRecipe(consumer, TinkerFluids.greenSlime,  SlimeType.GREEN,  TinkerTags.Items.GREEN_SLIMEBALL,  slimeFolder);
-    addSlimeMeltingRecipe(consumer, TinkerFluids.blueSlime,   SlimeType.BLUE,   TinkerTags.Items.BLUE_SLIMEBALL,   slimeFolder);
-    addSlimeMeltingRecipe(consumer, TinkerFluids.purpleSlime, SlimeType.PURPLE, TinkerTags.Items.PURPLE_SLIMEBALL, slimeFolder);
+    addSlimeMeltingRecipe(consumer, TinkerFluids.earthSlime, SlimeType.EARTH, TinkerTags.Items.EARTH_SLIMEBALL, slimeFolder);
+    addSlimeMeltingRecipe(consumer, TinkerFluids.skySlime, SlimeType.SKY, TinkerTags.Items.SKY_SLIMEBALL, slimeFolder);
+    addSlimeMeltingRecipe(consumer, TinkerFluids.enderSlime, SlimeType.ENDER, TinkerTags.Items.ENDER_SLIMEBALL, slimeFolder);
     // magma cream
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.MAGMA_CREAM), TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL, 1.0f)
                         .build(consumer, location(slimeFolder + "magma_cream/ball"));
@@ -629,10 +629,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // tier 3
 
-    // slimesteel: 1 iron + 1 blueslime + 1 seared brick = 2
+    // slimesteel: 1 iron + 1 skyslime + 1 seared brick = 2
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenSlimesteel.get(), MaterialValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenIron.get(), MaterialValues.INGOT)
-                      .addInput(TinkerFluids.blueSlime.get(), MaterialValues.SLIMEBALL)
+                      .addInput(TinkerFluids.skySlime.get(), MaterialValues.SLIMEBALL)
                       .addInput(TinkerFluids.searedStone.get(), MaterialValues.INGOT)
                       .build(consumer, prefixR(TinkerFluids.moltenSlimesteel, folder));
 
@@ -747,10 +747,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                               .build(consumer, location(folder + "skeletons"));
 
     // slimes melt into slime, shocker
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SLIME), new FluidStack(TinkerFluids.greenSlime.get(), MaterialValues.SLIMEBALL / 10))
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SLIME), new FluidStack(TinkerFluids.earthSlime.get(), MaterialValues.SLIMEBALL / 10))
                               .build(consumer, prefixR(EntityType.SLIME, folder));
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(TinkerWorld.blueSlimeEntity.get()), new FluidStack(TinkerFluids.blueSlime.get(), MaterialValues.SLIMEBALL / 10))
-                              .build(consumer, prefixR(TinkerWorld.blueSlimeEntity, folder));
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(TinkerWorld.skySlimeEntity.get()), new FluidStack(TinkerFluids.skySlime.get(), MaterialValues.SLIMEBALL / 10))
+                              .build(consumer, prefixR(TinkerWorld.skySlimeEntity, folder));
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.MAGMA_CUBE), new FluidStack(TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL / 10))
                               .build(consumer, prefixR(EntityType.MAGMA_CUBE, folder));
 

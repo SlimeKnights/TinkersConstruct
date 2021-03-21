@@ -104,7 +104,7 @@ public class WorldEvents {
     else if (event.getCategory() != Biome.Category.THEEND) {
       if (Config.COMMON.generateSlimeIslands.get()) {
         generation.withStructure(TinkerStructures.SLIME_ISLAND);
-        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.blueSlimeEntity.get(), 15, 2, 4));
+        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 15, 2, 4));
       }
 
       if (Config.COMMON.generateCopper.get()) {

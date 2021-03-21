@@ -7,6 +7,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
@@ -51,7 +52,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -59,6 +60,7 @@ import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -164,13 +166,43 @@ public class TConstruct {
   private static Block missingBlock(String name) {
     switch (name) {
       // slimy mud
-      case "slimy_mud_green": return TinkerWorld.congealedSlime.get(SlimeType.GREEN);
-      case "slimy_mud_blue": return TinkerWorld.congealedSlime.get(SlimeType.BLUE);
-      case "slimy_mud_magma": return TinkerWorld.congealedSlime.get(SlimeType.MAGMA);
+      case "slimy_mud_green": return TinkerWorld.congealedSlime.get(SlimeType.EARTH);
+      case "slimy_mud_blue": return TinkerWorld.congealedSlime.get(SlimeType.SKY);
+      case "slimy_mud_magma": return TinkerWorld.congealedSlime.get(SlimeType.ICHOR);
       // ardite
       case "ardite_ore": return TinkerWorld.cobaltOre.get();
       case "ardite_block": return TinkerMaterials.cobalt.get();
       case "molten_ardite_fluid": return TinkerFluids.moltenCobalt.getBlock();
+      // slime vine rename
+      case "blue_slime_vine": return TinkerWorld.skySlimeVine.get();
+      case "purple_slime_vine": return TinkerWorld.enderSlimeVine.get();
+      case "green_slime_fluid": return TinkerFluids.earthSlime.getBlock();
+      case "blue_slime_fluid": return TinkerFluids.skySlime.getBlock();
+      case "purple_slime_fluid": return TinkerFluids.enderSlime.getBlock();
+    }
+    // other slime changes:
+    // green -> earth
+    // blue -> sky
+    // magma -> ichor
+    // purple -> ender
+    for (SlimeType type : SlimeType.TRUE_SLIME) {
+      String typeName = type.getOriginalName();
+      if (name.equals(typeName + "_slime")) return TinkerWorld.slime.get(type);
+      if (name.equals(typeName + "_congealed_slime")) return TinkerWorld.congealedSlime.get(type);
+      if (name.equals(typeName + "_slime_dirt")) return TinkerWorld.slimeDirt.get(type);
+    }
+    for (FoliageType foliage : FoliageType.values()) {
+      String foliageName = foliage.getOriginalName();
+      if (name.equals(foliageName + "_slime_fern")) return TinkerWorld.slimeFern.get(foliage);
+      if (name.equals(foliageName + "_slime_tall_grass")) return TinkerWorld.slimeTallGrass.get(foliage);
+      if (name.equals(foliageName + "_slime_sapling")) return TinkerWorld.slimeSapling.get(foliage);
+      if (name.equals(foliageName + "_slime_leaves")) return TinkerWorld.slimeLeaves.get(foliage);
+      // note blood is included in the loop, blood = vanilla here
+      for (SlimeType type : SlimeType.values()) {
+        if (name.equals(foliageName + "_" + type.getOriginalName() + "_slime_grass")) {
+          return TinkerWorld.slimeGrass.get(type).get(foliage);
+        }
+      }
     }
     return null;
   }
@@ -188,7 +220,7 @@ public class TConstruct {
         case "shovel_head_sand_cast": return TinkerSmeltery.axeHeadCast.getSand();
         case "shovel_head_red_sand_cast": return TinkerSmeltery.axeHeadCast.getRedSand();
         // modifiers
-        case "width_expander": return TinkerModifiers.magmaExpander.get();
+        case "width_expander": return TinkerModifiers.ichorExpander.get();
         case "height_expander": return TinkerModifiers.enderExpander.get();
         case "creative_modifier": return TinkerModifiers.creativeUpgradeItem.get();
         // ardite
@@ -199,9 +231,27 @@ public class TConstruct {
         case "mud_brick": return TinkerCommons.mudBricks.asItem();
         // hammer more specific name
         case "hammer": return TinkerTools.sledgeHammer.get();
+        // slime renames
+        case "magma_expander": return TinkerModifiers.ichorExpander.get();
+        case "blue_slime_ball": return TinkerCommons.slimeball.get(SlimeType.SKY);
+        case "magma_slime_ball": return TinkerCommons.slimeball.get(SlimeType.ICHOR);
+        case "purple_slime_ball": return TinkerCommons.slimeball.get(SlimeType.ENDER);
+        case "earth_slime_bucket": return TinkerFluids.earthSlime.asItem();
+        case "sky_slime_bucket": return TinkerFluids.skySlime.asItem();
+        case "ender_slime_bucket": return TinkerFluids.enderSlime.asItem();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
+    });
+  }
+
+  @SubscribeEvent
+  void missingEntity(final MissingMappings<EntityType<?>> event) {
+    RegistrationHelper.handleMissingMappings(event, modID, name -> {
+      if ("blue_slime".equals(name)) {
+        return TinkerWorld.skySlimeEntity.get();
+      }
+      return null;
     });
   }
 
@@ -212,10 +262,15 @@ public class TConstruct {
         case "milk":
           assert ForgeMod.MILK.isPresent();
           return ForgeMod.MILK.get();
-        case "molten_ardite":
-          return TinkerFluids.moltenCobalt.get();
-        case "flowing_molten_ardite":
-          return TinkerFluids.moltenCobalt.getFlowing();
+        case "molten_ardite": return TinkerFluids.moltenCobalt.get();
+        case "flowing_molten_ardite": return TinkerFluids.moltenCobalt.getFlowing();
+          // slime renames
+        case "green_slime":          return TinkerFluids.earthSlime.get();
+        case "flowing_green_slime":  return TinkerFluids.earthSlime.getFlowing();
+        case "blue_slime":           return TinkerFluids.skySlime.get();
+        case "flowing_blue_slime":   return TinkerFluids.skySlime.getFlowing();
+        case "purple_slime":         return TinkerFluids.enderSlime.get();
+        case "flowing_purple_slime": return TinkerFluids.enderSlime.getFlowing();
       }
       return null;
     });

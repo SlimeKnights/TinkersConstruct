@@ -12,11 +12,11 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import slimeknights.mantle.item.ArmorTooltipItem;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class SlimeBootsItem extends ArmorTooltipItem {
 
-  public SlimeBootsItem(StickySlimeBlock.SlimeType slimeType, Properties props) {
+  public SlimeBootsItem(SlimeType slimeType, Properties props) {
     super(new SlimeArmorMaterial(slimeType.getString() + "_slime"), EquipmentSlotType.FEET, props);
   }
 

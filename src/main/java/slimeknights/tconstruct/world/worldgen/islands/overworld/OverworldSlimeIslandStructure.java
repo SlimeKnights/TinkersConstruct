@@ -24,7 +24,7 @@ import java.util.List;
 public class OverworldSlimeIslandStructure extends Structure<NoFeatureConfig> {
 
   private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
-    new MobSpawnInfo.Spawners(TinkerWorld.blueSlimeEntity.get(), 30, 4, 4)
+    new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 30, 4, 4)
   );
 
   public OverworldSlimeIslandStructure(Codec<NoFeatureConfig> configCodec) {

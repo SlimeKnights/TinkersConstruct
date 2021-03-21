@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:slimeball/ender"
+  },
+  "result": {
+    "fluid": "tconstruct:ender_slime",
+    "amount": 250
+  },
+  "temperature": 70,
+  "time": 32
+}

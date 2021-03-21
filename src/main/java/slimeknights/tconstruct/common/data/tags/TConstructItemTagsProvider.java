@@ -20,7 +20,7 @@ import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -45,15 +45,15 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
   private void addCommon() {
     this.getOrCreateBuilder(Tags.Items.SLIMEBALLS)
-        .addTag(TinkerTags.Items.BLUE_SLIMEBALL)
-        .addTag(TinkerTags.Items.PURPLE_SLIMEBALL)
+        .addTag(TinkerTags.Items.SKY_SLIMEBALL)
+        .addTag(TinkerTags.Items.ENDER_SLIMEBALL)
         .addTag(TinkerTags.Items.BLOOD_SLIMEBALL)
-        .addTag(TinkerTags.Items.MAGMA_SLIMEBALL);
-    this.getOrCreateBuilder(TinkerTags.Items.GREEN_SLIMEBALL).add(Items.SLIME_BALL);
-    this.getOrCreateBuilder(TinkerTags.Items.BLUE_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLUE));
-    this.getOrCreateBuilder(TinkerTags.Items.PURPLE_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.PURPLE));
-    this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLOOD));
-    this.getOrCreateBuilder(TinkerTags.Items.MAGMA_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.MAGMA));
+        .addTag(TinkerTags.Items.ICHOR_SLIMEBALL);
+    this.getOrCreateBuilder(TinkerTags.Items.EARTH_SLIMEBALL).add(Items.SLIME_BALL);
+    this.getOrCreateBuilder(TinkerTags.Items.SKY_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.SKY));
+    this.getOrCreateBuilder(TinkerTags.Items.ENDER_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ENDER));
+    this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.BLOOD));
+    this.getOrCreateBuilder(TinkerTags.Items.ICHOR_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ICHOR));
 
     this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerCommons.driedBrick.get(), TinkerSmeltery.searedBrick.get());
     this.getOrCreateBuilder(TinkerTags.Items.WITHER_BONES).add(TinkerModifiers.necroticBone.get());

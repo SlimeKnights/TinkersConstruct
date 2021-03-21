@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.world.block;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -15,8 +16,8 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.lighting.LightEngine;
 import net.minecraft.world.server.ServerWorld;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeDirtBlock.SlimeDirtType;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -121,7 +122,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
    */
   public static BlockState getDirtState(BlockState grassState) {
     Block block = grassState.getBlock();
-    for (SlimeDirtType type : SlimeDirtType.values()) {
+    for (SlimeType type : SlimeType.values()) {
       if (TinkerWorld.slimeGrass.get(type).contains(block)) {
         return TinkerWorld.slimeDirt.get(type).getDefaultState();
       }
@@ -138,11 +139,8 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
   @Nullable
   private BlockState getStateFromDirt(BlockState dirtState) {
     Block block = dirtState.getBlock();
-    if (block == Blocks.DIRT) {
-      return TinkerWorld.vanillaSlimeGrass.get(this.foliageType).getDefaultState();
-    }
     if (TinkerWorld.slimeDirt.contains(block)) {
-      for (SlimeDirtType type : SlimeDirtType.values()) {
+      for (SlimeType type : SlimeType.values()) {
         if (TinkerWorld.slimeDirt.get(type) == block) {
           return TinkerWorld.slimeGrass.get(type).get(this.foliageType).getDefaultState();
         }
@@ -151,16 +149,16 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
     return null;
   }
 
+  @RequiredArgsConstructor
   public enum FoliageType implements IStringSerializable {
-    BLUE(0x00F4DA),
-    PURPLE(0xa92dff),
-    ORANGE(0xd09800);
+    SKY(0x00F4DA, "blue"),
+    ICHOR(0xd09800, "magma"),
+    ENDER(0xa92dff, "purple");
 
     @Getter
     private final int defaultColor;
-    FoliageType(int color) {
-      this.defaultColor = color;
-    }
+    @Getter @Deprecated
+    private final String originalName;
 
     @Override
     public String getString() {

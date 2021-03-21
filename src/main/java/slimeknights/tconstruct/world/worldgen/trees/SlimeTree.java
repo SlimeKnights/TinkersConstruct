@@ -38,11 +38,11 @@ public class SlimeTree extends Tree {
   @Nullable
   public ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random randomIn, boolean largeHive) {
     switch (this.foliageType) {
-      case BLUE:
+      case SKY:
         return TinkerStructures.BLUE_SLIME_TREE;
-      case PURPLE:
+      case ENDER:
         return TinkerStructures.PURPLE_SLIME_TREE;
-      case ORANGE:
+      case ICHOR:
         return TinkerStructures.MAGMA_SLIME_TREE;
     }
 

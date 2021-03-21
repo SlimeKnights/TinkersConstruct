@@ -31,7 +31,7 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.shared.data.CommonRecipeProvider;
 
 /**
@@ -71,7 +71,7 @@ public final class TinkerCommons extends TinkerModule {
 
   /* Slime Balls are edible, believe it or not */
   public static final EnumObject<SlimeType, Item> slimeball = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
-    .put(SlimeType.GREEN, Items.SLIME_BALL.delegate)
+    .put(SlimeType.EARTH, Items.SLIME_BALL.delegate)
     .putAll(ITEMS.registerEnum(SlimeType.TINKER, "slime_ball", (type) -> new EdibleItem(type.getSlimeFood(type), TAB_GENERAL)))
     .build();
 

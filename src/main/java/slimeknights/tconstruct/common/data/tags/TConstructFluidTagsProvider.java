@@ -16,16 +16,16 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
   @Override
   public void registerTags() {
     this.getOrCreateBuilder(TinkerTags.Fluids.SLIME)
-        .addTag(TinkerTags.Fluids.GREEN_SLIME)
-        .addTag(TinkerTags.Fluids.BLUE_SLIME)
-        .addTag(TinkerTags.Fluids.PURPLE_SLIME);
+        .addTag(TinkerTags.Fluids.EARTH_SLIME)
+        .addTag(TinkerTags.Fluids.SKY_SLIME)
+        .addTag(TinkerTags.Fluids.ENDER_SLIME);
     this.getOrCreateBuilder(TinkerTags.Fluids.SLIMELIKE)
         .add(TinkerFluids.magmaCream.get(), TinkerFluids.magmaCream.getFlowing())
         .addTag(TinkerTags.Fluids.SLIME);
 
-    this.getOrCreateBuilder(TinkerTags.Fluids.GREEN_SLIME).add(TinkerFluids.greenSlime.get(), TinkerFluids.greenSlime.getFlowing());
-    this.getOrCreateBuilder(TinkerTags.Fluids.BLUE_SLIME).add(TinkerFluids.blueSlime.get(), TinkerFluids.blueSlime.getFlowing());
-    this.getOrCreateBuilder(TinkerTags.Fluids.PURPLE_SLIME).add(TinkerFluids.purpleSlime.get(), TinkerFluids.purpleSlime.getFlowing());
+    this.getOrCreateBuilder(TinkerTags.Fluids.EARTH_SLIME).add(TinkerFluids.earthSlime.get(), TinkerFluids.earthSlime.getFlowing());
+    this.getOrCreateBuilder(TinkerTags.Fluids.SKY_SLIME).add(TinkerFluids.skySlime.get(), TinkerFluids.skySlime.getFlowing());
+    this.getOrCreateBuilder(TinkerTags.Fluids.ENDER_SLIME).add(TinkerFluids.enderSlime.get(), TinkerFluids.enderSlime.getFlowing());
   }
 
   @Override

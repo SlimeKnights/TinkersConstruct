@@ -1,5 +1,0 @@
-{
-    "parent": "forge:item/bucket_drip",
-    "loader": "forge:bucket",
-    "fluid": "tconstruct:blue_slime_fluid"
-}

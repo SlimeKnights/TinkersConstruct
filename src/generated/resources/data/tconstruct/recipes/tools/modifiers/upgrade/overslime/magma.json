@@ -1,7 +1,0 @@
-{
-  "type": "tconstruct:overslime_modifier",
-  "ingredient": {
-    "item": "tconstruct:magma_slime_crystal"
-  },
-  "restore_amount": 100
-}

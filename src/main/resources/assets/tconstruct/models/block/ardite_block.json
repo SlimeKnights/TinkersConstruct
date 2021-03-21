@@ -1,7 +1,0 @@
-{
-    "parent": "block/cube_column",
-    "textures": {
-        "end": "tconstruct:block/ardite_block_top",
-        "side": "tconstruct:block/ardite_block"
-    }
-}

@@ -45,10 +45,9 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
-import slimeknights.tconstruct.world.block.SlimeDirtBlock.SlimeDirtType;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
@@ -96,8 +95,8 @@ public final class TinkerWorld extends TinkerModule {
   // slime
   private static final Block.Properties SLIME = Block.Properties.from(Blocks.SLIME_BLOCK);
   public static final EnumObject<SlimeType, SlimeBlock> slime = new EnumObject.Builder<SlimeType, SlimeBlock>(SlimeType.class)
-    .putDelegate(SlimeType.GREEN, Blocks.SLIME_BLOCK.delegate)
-    .putAll(BLOCKS.registerEnum(StickySlimeBlock.SlimeType.TINKER, "slime", (type) -> new StickySlimeBlock(SLIME), TOOLTIP_BLOCK_ITEM))
+    .putDelegate(SlimeType.EARTH, Blocks.SLIME_BLOCK.delegate)
+    .putAll(BLOCKS.registerEnum(SlimeType.TINKER, "slime", (type) -> new StickySlimeBlock(SLIME), TOOLTIP_BLOCK_ITEM))
     .build();
   private static final Block.Properties CONGEALED_SLIME = builder(Material.CLAY, NO_TOOL, SoundType.SLIME).hardnessAndResistance(0.5F).slipperiness(0.5F);
   public static final EnumObject<SlimeType, CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(CONGEALED_SLIME), TOOLTIP_BLOCK_ITEM);
@@ -105,19 +104,23 @@ public final class TinkerWorld extends TinkerModule {
   // island blocks
   private static final Block.Properties SLIME_DIRT = builder(Material.EARTH, ToolType.SHOVEL, SoundType.SLIME).hardnessAndResistance(0.55F);
   private static final Block.Properties SLIME_GRASS = builder(Material.ORGANIC, ToolType.SHOVEL, SoundType.SLIME).hardnessAndResistance(0.65F).tickRandomly();
-  public static final EnumObject<SlimeDirtType, SlimeDirtBlock> slimeDirt = BLOCKS.registerEnum(SlimeDirtBlock.SlimeDirtType.values(), "slime_dirt", (type) -> new SlimeDirtBlock(SLIME_DIRT), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<SlimeType, Block> slimeDirt = new EnumObject.Builder<SlimeType, Block>(SlimeType.class)
+    .put(SlimeType.BLOOD, Blocks.DIRT.delegate) // not exact match, but whatever
+    .putAll(BLOCKS.registerEnum(SlimeType.TRUE_SLIME, "slime_dirt", (type) -> new SlimeDirtBlock(SLIME_DIRT), TOOLTIP_BLOCK_ITEM))
+    .build();
   public static final EnumObject<FoliageType, SlimeGrassBlock> vanillaSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "vanilla_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
-  public static final EnumObject<FoliageType, SlimeGrassBlock> greenSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "green_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
-  public static final EnumObject<FoliageType, SlimeGrassBlock> blueSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "blue_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
-  public static final EnumObject<FoliageType, SlimeGrassBlock> purpleSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "purple_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
-  public static final EnumObject<FoliageType, SlimeGrassBlock> magmaSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "magma_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
-  public static final Map<SlimeDirtType, EnumObject<FoliageType, SlimeGrassBlock>> slimeGrass;
+  public static final EnumObject<FoliageType, SlimeGrassBlock> earthSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "earth_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeGrassBlock> skySlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "sky_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeGrassBlock> enderSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "ender_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeGrassBlock> ichorSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "ichor_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
+  public static final Map<SlimeType, EnumObject<FoliageType, SlimeGrassBlock>> slimeGrass;
   static {
-    slimeGrass = new EnumMap<>(SlimeDirtType.class);
-    slimeGrass.put(SlimeDirtType.GREEN, greenSlimeGrass);
-    slimeGrass.put(SlimeDirtType.BLUE, blueSlimeGrass);
-    slimeGrass.put(SlimeDirtType.PURPLE, purpleSlimeGrass);
-    slimeGrass.put(SlimeDirtType.MAGMA, magmaSlimeGrass);
+    slimeGrass = new EnumMap<>(SlimeType.class);
+    slimeGrass.put(SlimeType.BLOOD, vanillaSlimeGrass); // not exact match, but whatever
+    slimeGrass.put(SlimeType.EARTH, earthSlimeGrass);
+    slimeGrass.put(SlimeType.SKY, skySlimeGrass);
+    slimeGrass.put(SlimeType.ENDER, enderSlimeGrass);
+    slimeGrass.put(SlimeType.ICHOR, ichorSlimeGrass);
   }
 
   // plants
@@ -133,19 +136,19 @@ public final class TinkerWorld extends TinkerModule {
 
   // slime vines
   private static final Block.Properties VINE = builder(Material.TALL_PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).doesNotBlockMovement().tickRandomly();
-  public static final ItemObject<SlimeVineBlock> purpleSlimeVine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE), DEFAULT_BLOCK_ITEM);
-  public static final ItemObject<SlimeVineBlock> blueSlimeVine = BLOCKS.register("blue_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<SlimeVineBlock> enderSlimeVine = BLOCKS.register("ender_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.ENDER), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<SlimeVineBlock> skySlimeVine = BLOCKS.register("sky_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.SKY), DEFAULT_BLOCK_ITEM);
 
   /*
    * Entities
    */
-  public static final RegistryObject<EntityType<BlueSlimeEntity>> blueSlimeEntity = ENTITIES.registerWithEgg("blue_slime", () -> {
+  public static final RegistryObject<EntityType<BlueSlimeEntity>> skySlimeEntity = ENTITIES.registerWithEgg("sky_slime", () -> {
     return EntityType.Builder.create(BlueSlimeEntity::new, EntityClassification.MONSTER)
       .setShouldReceiveVelocityUpdates(true)
       .setUpdateInterval(5)
       .setTrackingRange(64)
       .size(2.04F, 2.04F)
-      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.blueSlimeEntity.get().create(world));
+      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.skySlimeEntity.get().create(world));
   }, 0x47eff5, 0xacfff4);
 
   /*
@@ -166,16 +169,16 @@ public final class TinkerWorld extends TinkerModule {
    */
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
-    GlobalEntityTypeAttributes.put(blueSlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
-    EntitySpawnPlacementRegistry.register(blueSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
+    GlobalEntityTypeAttributes.put(skySlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
+    EntitySpawnPlacementRegistry.register(skySlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
 
     // compostables
     slimeLeaves.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
     slimeSapling.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
     slimeTallGrass.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
     slimeFern.forEach(block -> ComposterBlock.registerCompostable(0.65f, block));
-    ComposterBlock.registerCompostable(0.5f, blueSlimeVine);
-    ComposterBlock.registerCompostable(0.5f, purpleSlimeVine);
+    ComposterBlock.registerCompostable(0.5f, skySlimeVine);
+    ComposterBlock.registerCompostable(0.5f, enderSlimeVine);
 
     // ores
     COPPER_ORE_FEATURE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("copper_ore"),

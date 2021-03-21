@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "tconstruct:block/slime/green_slime_dirt"
-    }
-}

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "tconstruct:ender_congealed_slime"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:ender_slime",
+    "amount": 1250
+  },
+  "result": "tconstruct:ender_slime",
+  "cooling_time": 94
+}

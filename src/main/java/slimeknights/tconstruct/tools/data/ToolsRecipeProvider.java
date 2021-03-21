@@ -35,7 +35,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
@@ -89,23 +89,23 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(TinkerModifiers.reinforcement, folder));
 
     // expanders
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.magmaExpander)
+    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.ichorExpander)
                        .key('P', Items.PISTON)
                        .key('L', TinkerMaterials.tinkersBronze.getIngotTag())
-                       .key('S', TinkerTags.Items.MAGMA_SLIMEBALL)
+                       .key('S', TinkerTags.Items.ICHOR_SLIMEBALL)
                        .patternLine(" P ")
                        .patternLine("SLS")
                        .patternLine(" P ")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.MAGMA_SLIMEBALL))
-                       .build(consumer, prefix(TinkerModifiers.magmaExpander, folder));
+                       .addCriterion("has_item", hasItem(TinkerTags.Items.ICHOR_SLIMEBALL))
+                       .build(consumer, prefix(TinkerModifiers.ichorExpander, folder));
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.enderExpander)
                        .key('P', Items.PISTON)
                        .key('L', TinkerMaterials.manyullyn.getIngotTag())
-                       .key('S', TinkerTags.Items.PURPLE_SLIMEBALL)
+                       .key('S', TinkerTags.Items.ENDER_SLIMEBALL)
                        .patternLine(" P ")
                        .patternLine("SLS")
                        .patternLine(" P ")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.PURPLE_SLIMEBALL))
+                       .addCriterion("has_item", hasItem(TinkerTags.Items.ENDER_SLIMEBALL))
                        .build(consumer, prefix(TinkerModifiers.enderExpander, folder));
 
     // silky cloth
@@ -245,11 +245,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.netherite_requirements"))
                          .build(consumer, prefixR(TinkerModifiers.netherite, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
-                         .addInput(TinkerModifiers.magmaExpander)
+                         .addInput(TinkerModifiers.ichorExpander)
                          .setAbilitySlots(1)
                          .setMaxLevel(1)
                          .setTools(TinkerTags.Items.AOE)
-                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_magma"));
+                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ichor"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.BLAZE_POWDER, 1, 25)
@@ -312,14 +312,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefixR(TinkerModifiers.creativeAbility, upgradeFolder));
 
     // overslime
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.GREEN), 10)
-                                  .build(consumer, location(upgradeFolder + "overslime/green"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.BLUE), 40)
-                                  .build(consumer, location(upgradeFolder + "overslime/blue"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.MAGMA), 100)
-                                  .build(consumer, location(upgradeFolder + "overslime/magma"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.PURPLE), 200)
-                                  .build(consumer, location(upgradeFolder + "overslime/purple"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.EARTH), 10)
+                                  .build(consumer, location(upgradeFolder + "overslime/earth"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.SKY), 40)
+                                  .build(consumer, location(upgradeFolder + "overslime/sky"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.ICHOR), 100)
+                                  .build(consumer, location(upgradeFolder + "overslime/ichor"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.ENDER), 200)
+                                  .build(consumer, location(upgradeFolder + "overslime/ender"));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -351,9 +351,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick), 1, 1, "seared_stone/brick");
     registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 4, 1, "seared_stone/block");
     registerMetalMaterial(consumer, MaterialIds.copper, "copper", false);
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.GREEN_SLIMEBALL), 1, 1, "slimewood/ball");
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.GREEN)), 4, 1, "slimewood/congealed");
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.GREEN)), 5, 1, "slimewood/block");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.EARTH_SLIMEBALL), 1, 1, "slimewood/ball");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.EARTH)), 4, 1, "slimewood/congealed");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.EARTH)), 5, 1, "slimewood/block");
     registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
     // tier 3
     registerMetalMaterial(consumer, MaterialIds.slimesteel, "slimesteel", false);
@@ -383,8 +383,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMetalMaterial(consumer, MaterialIds.constantan, "constantan", true);
 
     //registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
-    //registerMaterial(consumer, MaterialIds.slimevine_blue, Ingredient.fromItems(TinkerWorld.blueSlimeVine), 1, 1, "slimevine_blue");
-    //registerMaterial(consumer, MaterialIds.slimevine_purple, Ingredient.fromItems(TinkerWorld.purpleSlimeVine), 1, 1, "slimevine_purple");
+    //registerMaterial(consumer, MaterialIds.slimevine_sky, Ingredient.fromItems(TinkerWorld.skySlimeVine), 1, 1, "slimevine_sky");
+    //registerMaterial(consumer, MaterialIds.slimevine_ender, Ingredient.fromItems(TinkerWorld.enderSlimeVine), 1, 1, "slimevine_ender");
   }
 
   private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {

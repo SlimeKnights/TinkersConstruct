@@ -8,7 +8,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.StructureProcessor;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
@@ -19,39 +19,39 @@ import java.util.Locale;
 
 public enum SlimeIslandVariant implements IStringSerializable {
   BLUE(0,
-    TinkerWorld.blueSlimeGrass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(),
-    TinkerFluids.blueSlime.getBlock(),
-    createArray(TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.BLUE).getDefaultState(), TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.GREEN).getDefaultState()),
-    TinkerWorld.blueSlimeVine.get().getDefaultState(),
-    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState()),
+    TinkerWorld.skySlimeGrass.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState(),
+    TinkerFluids.skySlime.getBlock(),
+    createArray(TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
+    TinkerWorld.skySlimeVine.get().getDefaultState(),
+    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState()),
     TinkerStructures.BLUE_SLIME_TREE_ISLAND,
     BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
 
   GREEN(1,
-    TinkerWorld.greenSlimeGrass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(),
-    TinkerFluids.blueSlime.getBlock(),
-    createArray(TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.BLUE).getDefaultState(), TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.GREEN).getDefaultState()),
-    TinkerWorld.blueSlimeVine.get().getDefaultState(),
-    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState()),
+    TinkerWorld.earthSlimeGrass.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState(),
+    TinkerFluids.skySlime.getBlock(),
+    createArray(TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
+    TinkerWorld.skySlimeVine.get().getDefaultState(),
+    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState()),
     TinkerStructures.BLUE_SLIME_TREE_ISLAND,
     BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
 
   PURPLE(2,
-    TinkerWorld.purpleSlimeGrass.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(),
-    TinkerFluids.purpleSlime.getBlock(),
-    createArray(TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.PURPLE).getDefaultState()),
-    TinkerWorld.purpleSlimeVine.get().getDefaultState(),
-    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState()),
+    TinkerWorld.enderSlimeGrass.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState(),
+    TinkerFluids.enderSlime.getBlock(),
+    createArray(TinkerWorld.congealedSlime.get(SlimeType.ENDER).getDefaultState()),
+    TinkerWorld.enderSlimeVine.get().getDefaultState(),
+    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
     TinkerStructures.PURPLE_SLIME_TREE_ISLAND,
     BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
 
   MAGMA(3,
-    TinkerWorld.magmaSlimeGrass.get(SlimeGrassBlock.FoliageType.ORANGE).getDefaultState(),
+    TinkerWorld.ichorSlimeGrass.get(SlimeGrassBlock.FoliageType.ICHOR).getDefaultState(),
     Blocks.LAVA,
-    createArray(TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.MAGMA).getDefaultState(),
-      TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.BLOOD).getDefaultState()),
+    createArray(TinkerWorld.congealedSlime.get(SlimeType.ICHOR).getDefaultState(),
+      TinkerWorld.congealedSlime.get(SlimeType.BLOOD).getDefaultState()),
     null,
-    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.ORANGE).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.ORANGE).getDefaultState()),
+    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.ICHOR).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.ICHOR).getDefaultState()),
     TinkerStructures.MAGMA_SLIME_TREE,
     BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK);
 

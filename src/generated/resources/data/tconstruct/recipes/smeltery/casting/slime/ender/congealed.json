@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "name": "tconstruct:ender_slime",
+    "amount": 1000
+  },
+  "result": "tconstruct:ender_congealed_slime",
+  "cooling_time": 84
+}
