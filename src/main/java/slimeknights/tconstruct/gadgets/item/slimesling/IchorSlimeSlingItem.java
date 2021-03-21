@@ -68,7 +68,7 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
   }
 
   // Using function for consistency
-  public void playMissSound(PlayerEntity player) {
+  private void playMissSound(PlayerEntity player) {
     // subject to change
     player.playSound(Sounds.SLIME_SLING.getSound(), 1f, .5f);
   }
