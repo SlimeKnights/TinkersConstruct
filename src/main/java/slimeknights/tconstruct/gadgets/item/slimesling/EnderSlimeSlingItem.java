@@ -29,9 +29,11 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
     float f = getForce(stack, timeLeft);
 
     Vector3d look = player.getLookVec();
-    double offX = look.x * f;
-    double offY = look.y * f + 1;
-    double offZ = look.z * f;
+
+    int crouchingFactor = (player.isCrouching() ? 2 : 1);
+    double offX = look.x * f / crouchingFactor;
+    double offY = look.y * f / crouchingFactor + 1;
+    double offZ = look.z * f / crouchingFactor;
 
     if (player.attemptTeleport(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ, true)) {
       if (player instanceof ServerPlayerEntity) {
