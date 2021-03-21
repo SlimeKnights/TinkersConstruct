@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.gadgets.item.slimesling;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -12,7 +11,6 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
