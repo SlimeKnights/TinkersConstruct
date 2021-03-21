@@ -15,6 +15,7 @@ import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
@@ -48,11 +49,11 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
       posAttempt = new BlockPos(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ);
     }
 
-    // filter to only teleportable blocks
-    posToCheck = posToCheck.stream().distinct().filter(block -> !worldIn.getBlockState(block).isSuffocating(worldIn, block)).collect(Collectors.toList());
-
-    if (!posToCheck.isEmpty()) {
-      player.setPosition(posToCheck.get(0).getX(), posToCheck.get(0).getY(), posToCheck.get(0).getZ());
+    // get furthest teleportable block
+    Optional<BlockPos> furthestPosOp  = posToCheck.stream().distinct().filter(block -> !worldIn.getBlockState(block).isSuffocating(worldIn, block)).findFirst();
+    if (furthestPosOp.isPresent()) {
+      BlockPos furthestPos = furthestPosOp.get();
+      player.setPosition(furthestPos.getX(), furthestPos.getY(), furthestPos.getZ());
 
       if (player instanceof ServerPlayerEntity) {
         ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
