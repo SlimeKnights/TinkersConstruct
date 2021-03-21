@@ -50,7 +50,6 @@ public class ToolDamageUtil {
 
   /**
    * Gets the current damage the tool has taken. Essentially the reverse of {@link #getCurrentDurability(ItemStack)}
-   * TODO: consider replacing definition of {@link net.minecraft.item.Item#getDamage(ItemStack)} with this, will that cause vanilla to delete the stack?
    *
    * @param stack the tool stack to use
    * @return the currently durability of the tool stack
@@ -157,14 +156,7 @@ public class ToolDamageUtil {
       return;
     }
 
-    // try each modifier
-    for (ModifierEntry entry : tool.getModifierList()) {
-      amount = entry.getModifier().onRepairTool(tool, entry.getLevel(), amount);
-      // if no more damage, done
-      if (amount < 0) {
-        return;
-      }
-    }
+    // note modifiers are run in the recipe instead
 
     // ensure we never repair more than max durability
     int newDamage = damage - Math.min(amount, damage);

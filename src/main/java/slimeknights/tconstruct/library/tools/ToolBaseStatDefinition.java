@@ -35,6 +35,9 @@ public final class ToolBaseStatDefinition {
   /** Number of abilities new tools start with */
   private final int defaultAbilities;
 
+  /** All heads after the first are divided by this number on repairs, and the first stats are duplicated this many times on stat build */
+  private final int primaryHeadWeight;
+
   /** Factory to create the tool stats from the material data, used for minor fine adjustments */
   private final IStatFactory statFactory;
 
@@ -66,6 +69,9 @@ public final class ToolBaseStatDefinition {
     private float attackSpeed = 1f;
 
     /** See comment on {@link ToolBaseStatDefinition} */
+    private int primaryHeadWeight = 1;
+
+    /** See comment on {@link ToolBaseStatDefinition} */
     private float knockbackBonus = 0;
     /** See comment on {@link ToolBaseStatDefinition} */
     private int defaultModifiers = 3;
@@ -81,7 +87,7 @@ public final class ToolBaseStatDefinition {
       IStatFactory factory = (durability, harvestLevel, attackDamage, miningSpeed, attackSpeed)
         -> new StatsNBT((int)(durability * durabilityModifier), harvestLevel, (attackDamage + damageBonus) * damageModifier,
                         miningSpeed * miningSpeedModifier, attackSpeed * this.attackSpeed);
-      return new ToolBaseStatDefinition(damageCutoff, knockbackBonus, defaultModifiers, defaultAbilities, factory);
+      return new ToolBaseStatDefinition(damageCutoff, knockbackBonus, defaultModifiers, defaultAbilities, primaryHeadWeight, factory);
     }
   }
 }

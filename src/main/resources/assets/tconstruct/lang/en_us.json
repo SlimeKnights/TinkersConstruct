@@ -254,16 +254,14 @@
     "_comment": "Large Head Gold Casts",
     
     "item.tconstruct.hammer_head_cast": "Hammer Head Gold Cast",
-    "item.tconstruct.excavator_head_cast": "Excavator Head Gold Cast",
     "item.tconstruct.broad_axe_head_cast": "Broad Axe Head Gold Cast",
     "item.tconstruct.scythe_head_cast": "Scythe Head Gold Cast",
     "item.tconstruct.large_sword_blade_cast": "Large Sword Blade Gold Cast",
-    "item.tconstruct.large_plate_cast": "Large Plate Gold Cast",
     
     "_comment": "Binding Gold Casts",
     
-    "item.tconstruct.small_binding_cast": "Binding Gold Cast",
-    "item.tconstruct.tough_binding_cast": "Tough Binding Gold Cast",
+    "item.tconstruct.tool_binding_cast": "Tool Binding Gold Cast",
+    "item.tconstruct.large_plate_cast": "Large Plate Gold Cast",
     
     "_comment": "Tool Rod Gold Casts",
     
@@ -293,16 +291,14 @@
     "_comment": "Large Head Sand Casts",
     
     "item.tconstruct.hammer_head_sand_cast": "Hammer Head Sand Cast",
-    "item.tconstruct.excavator_head_sand_cast": "Excavator Head Sand Cast",
     "item.tconstruct.broad_axe_head_sand_cast": "Broad Axe Head Sand Cast",
     "item.tconstruct.scythe_head_sand_cast": "Scythe Head Sand Cast",
     "item.tconstruct.large_sword_blade_sand_cast": "Large Sword Blade Sand Cast",
-    "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
     
     "_comment": "Binding Sand Casts",
     
-    "item.tconstruct.small_binding_sand_cast": "Binding Sand Cast",
-    "item.tconstruct.tough_binding_sand_cast": "Tough Binding Sand Cast",
+    "item.tconstruct.tool_binding_sand_cast": "Binding Sand Cast",
+    "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
     
     "_comment": "Tool Rod Sand Casts",
     
@@ -332,16 +328,14 @@
     "_comment": "Large Head Red Sand Casts",
     
     "item.tconstruct.hammer_head_red_sand_cast": "Hammer Head Red Sand Cast",
-    "item.tconstruct.excavator_head_red_sand_cast": "Excavator Head Red Sand Cast",
     "item.tconstruct.broad_axe_head_red_sand_cast": "Broad Axe Head Red Sand Cast",
     "item.tconstruct.scythe_head_red_sand_cast": "Scythe Head Red Sand Cast",
     "item.tconstruct.large_sword_blade_red_sand_cast": "Large Sword Blade Red Sand Cast",
-    "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
     
     "_comment": "Binding Red Sand Casts",
     
-    "item.tconstruct.small_binding_red_sand_cast": "Binding Red Sand Cast",
-    "item.tconstruct.tough_binding_red_sand_cast": "Tough Binding Red Sand Cast",
+    "item.tconstruct.tool_binding_red_sand_cast": "Tool Binding Red Sand Cast",
+    "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
     
     "_comment": "Tool Rod Red Sand Casts",
     
@@ -692,14 +686,12 @@
 
     "item.tconstruct.pickaxe_head": "Pickaxe Head",
     "item.tconstruct.hammer_head": "Hammer Head",
-    "item.tconstruct.excavator_head": "Excavator Head",
     "item.tconstruct.axe_head": "Axe Head",
     "item.tconstruct.kama_head": "Kama Head",
     "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.tool_rod": "Tool Rod",
     "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
-    "item.tconstruct.small_binding": "Small Binding",
-    "item.tconstruct.tough_binding": "Tough Binding",
+    "item.tconstruct.tool_binding": "Tool Binding",
     "item.tconstruct.large_plate": "Large Plate",
 
     "_conment": "Tool Descriptions",

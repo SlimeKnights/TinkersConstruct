@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:part_builder",
-  "pattern": "tconstruct:excavator_head",
-  "cost": 8,
-  "result": {
-    "item": "tconstruct:excavator_head"
-  }
-}

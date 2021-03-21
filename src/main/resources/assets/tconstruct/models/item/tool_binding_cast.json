@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "tconstruct:item/cast/small_binding"
+        "layer0": "tconstruct:item/cast/tool_binding"
     }
 }

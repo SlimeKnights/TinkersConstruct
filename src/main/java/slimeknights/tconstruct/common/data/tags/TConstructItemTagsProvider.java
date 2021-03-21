@@ -169,11 +169,9 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.swordBladeCast);
     // large heads
     addCast.accept(TinkerSmeltery.hammerHeadCast);
-    addCast.accept(TinkerSmeltery.excavatorHeadCast);
-    addCast.accept(TinkerSmeltery.largePlateCast);
     // bindings
-    addCast.accept(TinkerSmeltery.smallBindingCast);
-    addCast.accept(TinkerSmeltery.toughBindingCast);
+    addCast.accept(TinkerSmeltery.toolBindingCast);
+    addCast.accept(TinkerSmeltery.largePlateCast);
     // tool rods
     addCast.accept(TinkerSmeltery.toolRodCast);
     addCast.accept(TinkerSmeltery.toughToolRodCast);

@@ -333,12 +333,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
     addPartRecipe(consumer, TinkerToolParts.axeHead, 2, TinkerSmeltery.axeHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.excavatorHead, 8, TinkerSmeltery.excavatorHeadCast);
     addPartRecipe(consumer, TinkerToolParts.kamaHead, 2, TinkerSmeltery.kamaHeadCast);
     addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, TinkerSmeltery.swordBladeCast);
-    addPartRecipe(consumer, TinkerToolParts.smallBinding, 1, TinkerSmeltery.smallBindingCast);
-    addPartRecipe(consumer, TinkerToolParts.toughBinding, 3, TinkerSmeltery.toughBindingCast);
-    addPartRecipe(consumer, TinkerToolParts.largePlate, 8, TinkerSmeltery.largePlateCast);
+    addPartRecipe(consumer, TinkerToolParts.toolBinding, 1, TinkerSmeltery.toolBindingCast);
+    addPartRecipe(consumer, TinkerToolParts.largePlate, 4, TinkerSmeltery.largePlateCast);
     addPartRecipe(consumer, TinkerToolParts.toolRod, 1, TinkerSmeltery.toolRodCast);
     addPartRecipe(consumer, TinkerToolParts.toughToolRod, 3, TinkerSmeltery.toughToolRodCast);
   }

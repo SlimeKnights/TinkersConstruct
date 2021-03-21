@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:table_casting_material",
-  "cast": {
-    "item": "tconstruct:excavator_head_cast"
-  },
-  "item_cost": 8,
-  "result": "tconstruct:excavator_head"
-}

@@ -276,14 +276,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
    * Called when the tool is repair. Can be used to decrease, increase, or cancel the repair.
-   * Note canceling it may give unexpected behavior at the tool station.
    * @param toolStack  Tool stack
    * @param level      Tool level
-   * @param amount     Amount of damage to deal
-   * @return  Replacement damage. Returning 0 cancels the repair and stops other modifiers from processing.
+   * @param factor     Original factor
+   * @return  Replacement factor. Returning 0 prevents repair
    */
-  public int onRepairTool(IModifierToolStack toolStack, int level, int amount) {
-    return amount;
+  public float getRepairFactor(IModifierToolStack toolStack, int level, float factor) {
+    return factor;
   }
 
   /**

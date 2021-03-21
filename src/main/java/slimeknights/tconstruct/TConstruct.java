@@ -176,6 +176,24 @@ public class TConstruct {
         case "shovel_head_cast": return TinkerSmeltery.axeHeadCast.get();
         case "shovel_head_sand_cast": return TinkerSmeltery.axeHeadCast.getSand();
         case "shovel_head_red_sand_cast": return TinkerSmeltery.axeHeadCast.getRedSand();
+        // small binding -> tool binding
+        case "small_binding": return TinkerToolParts.toolBinding.get();
+        case "small_binding_cast": return TinkerSmeltery.toolBindingCast.get();
+        case "small_binding_sand_cast": return TinkerSmeltery.toolBindingCast.getSand();
+        case "small_binding_red_sand_cast": return TinkerSmeltery.toolBindingCast.getRedSand();
+        // tough binding/excavator head -> large plate
+        case "tough_binding":
+        case "excavator_head":
+          return TinkerToolParts.largePlate.get();
+        case "tough_binding_cast":
+        case "excavator_head_cast":
+          return TinkerSmeltery.largePlateCast.get();
+        case "tough_binding_sand_cast":
+        case "excavator_head_sand_cast":
+          return TinkerSmeltery.largePlateCast.getSand();
+        case "tough_binding_red_sand_cast":
+        case "excavator_head_red_sand_cast":
+          return TinkerSmeltery.largePlateCast.getRedSand();
         // modifiers
         case "width_expander": return TinkerModifiers.ichorExpander.get();
         case "height_expander": return TinkerModifiers.enderExpander.get();

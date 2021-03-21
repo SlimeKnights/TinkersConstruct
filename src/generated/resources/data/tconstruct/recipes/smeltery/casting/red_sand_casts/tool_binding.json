@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_red_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:small_binding",
+    "item": "tconstruct:tool_binding",
     "type": "tconstruct:material"
   },
-  "result": "tconstruct:small_binding_red_sand_cast"
+  "result": "tconstruct:tool_binding_red_sand_cast"
 }

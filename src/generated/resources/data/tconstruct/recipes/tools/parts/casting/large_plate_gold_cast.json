@@ -3,6 +3,6 @@
   "cast": {
     "item": "tconstruct:large_plate_cast"
   },
-  "item_cost": 8,
+  "item_cost": 4,
   "result": "tconstruct:large_plate"
 }
