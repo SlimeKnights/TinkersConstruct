@@ -16,8 +16,6 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
-import java.util.List;
-
 public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
   public IchorSlimeSlingItem(Properties props) {
