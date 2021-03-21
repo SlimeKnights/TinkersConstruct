@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
 
@@ -62,7 +61,7 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
       for (int i = 0; i < 32; ++i) {
         worldIn.addParticle(ParticleTypes.PORTAL, player.getPosX(), player.getPosY() + worldIn.rand.nextDouble() * 2.0D, player.getPosZ(), worldIn.rand.nextGaussian(), 0.0D, worldIn.rand.nextGaussian());
       }
-      playerServerMovement(player);
+      playerServerMovement(player);1f);
       player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
       playSuccessSound(player);
     } else {
