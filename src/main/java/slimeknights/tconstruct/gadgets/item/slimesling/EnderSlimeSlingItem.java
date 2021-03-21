@@ -48,6 +48,8 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
     // get furthest teleportable block
     Optional<BlockPos> furthestPosOp  = posToCheck.stream().distinct().filter(block -> !worldIn.getBlockState(block).isSuffocating(worldIn, block)).findFirst();
     if (furthestPosOp.isPresent()) {
+      player.getCooldownTracker().setCooldown(stack.getItem(), 3);
+
       BlockPos furthestPos = furthestPosOp.get();
       player.setPosition(furthestPos.getX(), furthestPos.getY(), furthestPos.getZ());
 
