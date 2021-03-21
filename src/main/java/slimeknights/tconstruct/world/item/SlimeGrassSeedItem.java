@@ -26,7 +26,7 @@ public class SlimeGrassSeedItem extends TooltipItem {
   @Nullable
   private SlimeType getSlimeType(Block block) {
     for (SlimeType type : SlimeType.values()) {
-      if (TinkerWorld.slimeDirt.get(type) == block) {
+      if (TinkerWorld.allDirt.get(type) == block) {
         return type;
       }
     }

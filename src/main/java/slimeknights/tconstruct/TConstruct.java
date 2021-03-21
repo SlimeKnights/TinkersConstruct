@@ -146,7 +146,7 @@ public class TConstruct {
       String typeName = type.getOriginalName();
       if (name.equals(typeName + "_slime")) return TinkerWorld.slime.get(type);
       if (name.equals(typeName + "_congealed_slime")) return TinkerWorld.congealedSlime.get(type);
-      if (name.equals(typeName + "_slime_dirt")) return TinkerWorld.slimeDirt.get(type);
+      if (name.equals(typeName + "_slime_dirt")) return TinkerWorld.allDirt.get(type);
     }
     for (FoliageType foliage : FoliageType.values()) {
       String foliageName = foliage.getOriginalName();

@@ -124,7 +124,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
     Block block = grassState.getBlock();
     for (SlimeType type : SlimeType.values()) {
       if (TinkerWorld.slimeGrass.get(type).contains(block)) {
-        return TinkerWorld.slimeDirt.get(type).getDefaultState();
+        return TinkerWorld.allDirt.get(type).getDefaultState();
       }
     }
     // includes vanilla slime grass
@@ -139,11 +139,9 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
   @Nullable
   private BlockState getStateFromDirt(BlockState dirtState) {
     Block block = dirtState.getBlock();
-    if (TinkerWorld.slimeDirt.contains(block)) {
-      for (SlimeType type : SlimeType.values()) {
-        if (TinkerWorld.slimeDirt.get(type) == block) {
-          return TinkerWorld.slimeGrass.get(type).get(this.foliageType).getDefaultState();
-        }
+    for (SlimeType type : SlimeType.values()) {
+      if (TinkerWorld.allDirt.get(type) == block) {
+        return TinkerWorld.slimeGrass.get(type).get(this.foliageType).getDefaultState();
       }
     }
     return null;

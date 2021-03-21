@@ -43,7 +43,7 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
                 world.setBlockState(pos.down(), dirt);
               }
               if (dirt.getBlock() == TinkerWorld.earthSlimeGrass.get(SlimeGrassBlock.FoliageType.SKY)) {
-                world.setBlockState(pos.down(), TinkerWorld.earthSlimeGrass.get(SlimeGrassBlock.FoliageType.SKY).getDirtState(dirt));
+                world.setBlockState(pos.down(), SlimeGrassBlock.getDirtState(dirt));
               }
             }
           }
