@@ -8,6 +8,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import slimeknights.mantle.item.TooltipItem;
+import slimeknights.tconstruct.common.Sounds;
 
 import javax.annotation.Nonnull;
 
@@ -52,5 +53,11 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
       f = 6f;
     }
     return f;
+  }
+
+  // Using function for consistency
+  protected void playMissSound(PlayerEntity player) {
+    // subject to change
+    player.playSound(Sounds.SLIME_SLING.getSound(), 1f, .5f);
   }
 }
