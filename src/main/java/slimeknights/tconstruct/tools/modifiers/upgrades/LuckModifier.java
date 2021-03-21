@@ -6,7 +6,6 @@ import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -85,7 +84,6 @@ public class LuckModifier extends IncrementalModifier {
     }
     // apply level if we still have any
     if (applyLevel > 0) {
-      TConstruct.log.info("Luck {}", applyLevel);
       consumer.accept(Enchantments.LOOTING, applyLevel);
       consumer.accept(Enchantments.FORTUNE, applyLevel);
     }
