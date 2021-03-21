@@ -2,7 +2,6 @@ package slimeknights.tconstruct.gadgets.item.slimesling;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -11,8 +10,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
 
@@ -39,11 +36,7 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
         vec.y * -f / 3f,
         vec.z * -f);
 
-      if (player instanceof ServerPlayerEntity) {
-        ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
-        TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
-      }
-
+      playerServerMovement(player);
       player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
       SlimeBounceHandler.addBounceHandler(player);
     }
