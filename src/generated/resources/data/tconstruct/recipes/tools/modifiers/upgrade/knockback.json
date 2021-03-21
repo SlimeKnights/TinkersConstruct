@@ -12,6 +12,6 @@
     "name": "tconstruct:knockback",
     "level": 1
   },
-  "max_level": 5,
+  "max_level": 10,
   "upgrade_slots": 1
 }

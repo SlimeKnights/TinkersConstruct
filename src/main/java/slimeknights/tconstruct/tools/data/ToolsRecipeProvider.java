@@ -143,24 +143,24 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     // tier 2
     ModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
                          .addInput(TinkerModifiers.reinforcement)
-                         .setMaxLevel(3)
+                         .setMaxLevel(10) // max 91% resistant to damage
                          .setUpgradeSlots(1)
                          .build(consumer, prefixR(TinkerModifiers.reinforced, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.experienced.get())
                          .addInput(Items.EXPERIENCE_BOTTLE, 5)
-                         .setMaxLevel(3)
+                         .setMaxLevel(10) // max +500%
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.experienced, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
                          .addInput(Items.PISTON)
-                         .setMaxLevel(5)
+                         .setMaxLevel(10) // max +5 knockback points (whatever that number means in vanilla)
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE)
                          .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic.get())
                          .addInput(Items.COMPASS)
-                         .setMaxLevel(3)
+                         .setMaxLevel(5)
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.magnetic, upgradeFolder));
