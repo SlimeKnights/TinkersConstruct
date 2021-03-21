@@ -11,7 +11,6 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.common.Sounds;
 
 public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
