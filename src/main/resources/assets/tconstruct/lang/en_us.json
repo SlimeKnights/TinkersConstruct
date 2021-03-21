@@ -625,7 +625,7 @@
     "item.tconstruct.sky_slime_sling": "Skyslime Sling",
     "item.tconstruct.sky_slime_sling.tooltip": "Charge up, let go, get back in the air!\nUse Slime Boots if you value your life!",
     "item.tconstruct.ender_slime_sling": "Enderslime Sling",
-    "item.tconstruct.ender_slime_sling.tooltip": "Charge up, point it at a wall, come out the other side!",
+    "item.tconstruct.ender_slime_sling.tooltip": "Charge up, point it at a wall, come out the other side!\nCrouch for a little more control.",
     "item.tconstruct.ichor_slime_sling": "Ichor Sling",
     "item.tconstruct.ichor_slime_sling.tooltip": "Charge up, point at a creature, and send it flying!",
 
