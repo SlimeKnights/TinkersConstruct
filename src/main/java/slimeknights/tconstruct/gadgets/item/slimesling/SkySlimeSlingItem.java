@@ -2,14 +2,11 @@ package slimeknights.tconstruct.gadgets.item.slimesling;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 public class SkySlimeSlingItem extends BaseSlimeSlingItem {
 
@@ -43,11 +40,7 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
       speed,
       (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed));
 
-    if (player instanceof ServerPlayerEntity) {
-      ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
-      TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
-    }
-
+    playerServerMovement(player);
     player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
     SlimeBounceHandler.addBounceHandler(player);
   }

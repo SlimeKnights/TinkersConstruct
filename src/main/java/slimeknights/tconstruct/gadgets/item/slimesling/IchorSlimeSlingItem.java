@@ -2,7 +2,6 @@ package slimeknights.tconstruct.gadgets.item.slimesling;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -13,8 +12,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
@@ -39,7 +36,7 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
     AxisAlignedBB bb = player.getBoundingBox().expand(look.x * range, look.y * range, look.z * range).expand(1, 1, 1);
 
     EntityRayTraceResult emop = ProjectileHelper.rayTraceEntities(worldIn, player, start, direction, bb, (e) -> e instanceof LivingEntity);
-    if (emop != null && emop.getEntity() != null) {
+    if (emop != null) {
       LivingEntity target = (LivingEntity) emop.getEntity();
       double targetDist = start.squareDistanceTo(target.getEyePosition(1F));
 
@@ -52,11 +49,7 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
       }
 
       target.applyKnockback(f , -look.x, -look.z);
-      if (target instanceof ServerPlayerEntity) {
-        ServerPlayerEntity playerMP = (ServerPlayerEntity) target;
-        TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(target), playerMP);
-      }
-
+      playerServerMovement(target);
       player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
     } else {
       playMissSound(player);
