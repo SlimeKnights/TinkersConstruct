@@ -50,9 +50,7 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
       target.applyKnockback(f , -look.x, -look.z);
       playerServerMovement(target);
-      player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
-    } else {
-      playMissSound(player);
     }
+    playSlingSound(player, emop != null);
   }
 }

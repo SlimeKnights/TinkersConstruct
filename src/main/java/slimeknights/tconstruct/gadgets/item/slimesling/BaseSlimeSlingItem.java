@@ -68,9 +68,19 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
     }
   }
 
-  // Using function for consistency
+  protected void playSlingSound(PlayerEntity player, boolean isSuccess) {
+    if (isSuccess) {
+      playSuccessSound(player);
+    } else {
+      playMissSound(player);
+    }
+  }
+
+  protected void playSuccessSound(PlayerEntity player) {
+    player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+  }
+
   protected void playMissSound(PlayerEntity player) {
-    // subject to change
     player.playSound(Sounds.SLIME_SLING.getSound(), 1f, .5f);
   }
 }
