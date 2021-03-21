@@ -20,9 +20,9 @@ import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 import java.util.List;
 
-public class MagmaSlimeSlingItem extends BaseSlimeSlingItem {
+public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
-  public MagmaSlimeSlingItem(Properties props) {
+  public IchorSlimeSlingItem(Properties props) {
     super(props);
   }
 

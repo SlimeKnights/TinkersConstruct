@@ -11,9 +11,9 @@ import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
-public class BlueSlimeSlingItem extends BaseSlimeSlingItem {
+public class SkySlimeSlingItem extends BaseSlimeSlingItem {
 
-  public BlueSlimeSlingItem(Properties props) {
+  public SkySlimeSlingItem(Properties props) {
     super(props);
   }
 

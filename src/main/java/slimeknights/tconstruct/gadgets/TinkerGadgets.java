@@ -46,10 +46,10 @@ import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem.CarryPotionEffect;
 import slimeknights.tconstruct.gadgets.item.ShurikenItem;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.BaseSlimeSlingItem;
-import slimeknights.tconstruct.gadgets.item.slimesling.BlueSlimeSlingItem;
-import slimeknights.tconstruct.gadgets.item.slimesling.GreenSlimeSlingItem;
-import slimeknights.tconstruct.gadgets.item.slimesling.MagmaSlimeSlingItem;
-import slimeknights.tconstruct.gadgets.item.slimesling.PurpleSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.SkySlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.EnderSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.EarthSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.IchorSlimeSlingItem;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.shared.TinkerFood;
@@ -98,10 +98,10 @@ public final class TinkerGadgets extends TinkerModule {
   public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
   // slime tools
   public static final EnumObject<SlimeType, BaseSlimeSlingItem> slimeSling = new EnumObject.Builder<SlimeType, BaseSlimeSlingItem>(SlimeType.class)
-    .put(SlimeType.GREEN, ITEMS.register("green_slime_sling", () -> new GreenSlimeSlingItem(UNSTACKABLE_PROPS)))
-    .put(SlimeType.BLUE, ITEMS.register("blue_slime_sling", () -> new BlueSlimeSlingItem(UNSTACKABLE_PROPS)))
-    .put(SlimeType.MAGMA, ITEMS.register("magma_slime_sling", () -> new MagmaSlimeSlingItem(UNSTACKABLE_PROPS)))
-    .put(SlimeType.PURPLE, ITEMS.register("purple_slime_sling", () -> new PurpleSlimeSlingItem(UNSTACKABLE_PROPS)))
+    .put(SlimeType.GREEN, ITEMS.register("green_slime_sling", () -> new EarthSlimeSlingItem(UNSTACKABLE_PROPS)))
+    .put(SlimeType.BLUE, ITEMS.register("blue_slime_sling", () -> new SkySlimeSlingItem(UNSTACKABLE_PROPS)))
+    .put(SlimeType.MAGMA, ITEMS.register("magma_slime_sling", () -> new IchorSlimeSlingItem(UNSTACKABLE_PROPS)))
+    .put(SlimeType.PURPLE, ITEMS.register("purple_slime_sling", () -> new EnderSlimeSlingItem(UNSTACKABLE_PROPS)))
     .build();
   public static final EnumObject<SlimeType,SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.values(), "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
   // throwballs
