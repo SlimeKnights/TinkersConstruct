@@ -179,6 +179,7 @@ public final class TinkerWorld extends TinkerModule {
     slimeSapling.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
     slimeTallGrass.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
     slimeFern.forEach(block -> ComposterBlock.registerCompostable(0.65f, block));
+    slimeGrassSeeds.forEach(block -> ComposterBlock.registerCompostable(0.35F, block));
     ComposterBlock.registerCompostable(0.5f, skySlimeVine);
     ComposterBlock.registerCompostable(0.5f, enderSlimeVine);
 
