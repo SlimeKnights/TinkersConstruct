@@ -67,5 +67,12 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
     } else {
       playMissSound(player);
     }
+    playSlingSound(player, furthestPosOp.isPresent());
+  }
+
+  @Override
+  protected void playSuccessSound(PlayerEntity player) {
+    player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+    player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
   }
 }
