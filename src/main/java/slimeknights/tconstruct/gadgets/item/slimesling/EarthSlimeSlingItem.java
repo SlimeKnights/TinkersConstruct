@@ -4,17 +4,19 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
-public class PurpleSlimeSlingItem extends BaseSlimeSlingItem {
+public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
 
-  public PurpleSlimeSlingItem(Properties props) {
+  public EarthSlimeSlingItem(Properties props) {
     super(props);
   }
 
@@ -28,24 +30,23 @@ public class PurpleSlimeSlingItem extends BaseSlimeSlingItem {
     PlayerEntity player = (PlayerEntity) entityLiving;
     float f = getForce(stack, timeLeft);
 
-    Vector3d look = player.getLookVec();
-    double offX = look.x * f;
-    double offY = look.y * f + 1;
-    double offZ = look.z * f;
+    // check if player was targeting a block
+    BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
+    if (mop.getType() == RayTraceResult.Type.BLOCK) {
+      // we fling the inverted player look vector
+      Vector3d vec = player.getLookVec().normalize();
+      player.addVelocity(vec.x * -f,
+        vec.y * -f / 3f,
+        vec.z * -f);
 
-    if (player.attemptTeleport(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ, true)) {
       if (player instanceof ServerPlayerEntity) {
         ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
         TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
       }
 
-      // particle effect from EnderPearlEntity
-      for (int i = 0; i < 32; ++i) {
-        worldIn.addParticle(ParticleTypes.PORTAL, player.getPosX(), player.getPosY() + worldIn.rand.nextDouble() * 2.0D, player.getPosZ(), worldIn.rand.nextGaussian(), 0.0D, worldIn.rand.nextGaussian());
-      }
-
       player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
-      player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
+      SlimeBounceHandler.addBounceHandler(player);
     }
   }
+
 }
