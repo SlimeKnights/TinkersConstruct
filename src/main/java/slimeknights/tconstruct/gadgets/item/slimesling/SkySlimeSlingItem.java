@@ -41,7 +41,7 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
       (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed));
 
     playerServerMovement(player);
-    player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+    playSlingSound(player, true);
     SlimeBounceHandler.addBounceHandler(player);
   }
 }
