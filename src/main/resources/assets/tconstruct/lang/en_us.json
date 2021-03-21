@@ -864,6 +864,13 @@
     "block.tconstruct.ender_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ichor_ichor_slime_grass": "Ichor Slimy Grass",
     "block.tconstruct.ichor_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
+    
+    "item.tconstruct.sky_slime_grass_seeds": "Slimy Grass Seeds",
+    "item.tconstruct.sky_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
+    "item.tconstruct.ichor_slime_grass_seeds": "Slimy Grass Seeds",
+    "item.tconstruct.ichor_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
+    "item.tconstruct.ender_slime_grass_seeds": "Slimy Grass Seeds",
+    "item.tconstruct.ender_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
 
     "block.tconstruct.sky_slime_leaves": "Slimy Leaves",
     "block.tconstruct.ender_slime_leaves": "Slimy Leaves",

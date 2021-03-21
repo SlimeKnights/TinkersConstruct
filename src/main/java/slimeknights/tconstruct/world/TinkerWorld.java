@@ -56,6 +56,7 @@ import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.data.WorldRecipeProvider;
 import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
+import slimeknights.tconstruct.world.item.SlimeGrassSeedItem;
 import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
 import java.util.EnumMap;
@@ -122,6 +123,7 @@ public final class TinkerWorld extends TinkerModule {
     slimeGrass.put(SlimeType.ENDER, enderSlimeGrass);
     slimeGrass.put(SlimeType.ICHOR, ichorSlimeGrass);
   }
+  public static final EnumObject<FoliageType, SlimeGrassSeedItem> slimeGrassSeeds = ITEMS.registerEnum(FoliageType.values(), "slime_grass_seeds", type -> new SlimeGrassSeedItem(WORLD_PROPS, type));
 
   // plants
   private static final Block.Properties GRASS = builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.1F).doesNotBlockMovement().tickRandomly();
