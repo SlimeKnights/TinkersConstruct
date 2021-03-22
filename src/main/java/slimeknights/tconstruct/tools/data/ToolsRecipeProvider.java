@@ -140,36 +140,62 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     // upgrades
     String upgradeFolder = folder + "upgrade/";
 
+    /*
+     * durability
+     */
     // tier 2
     ModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
                          .addInput(TinkerModifiers.reinforcement)
                          .setMaxLevel(5) // max 83% resistant to damage
                          .setUpgradeSlots(1)
                          .build(consumer, prefixR(TinkerModifiers.reinforced, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.emerald.get())
+                         .addInput(Tags.Items.GEMS_EMERALD)
+                         .setMaxLevel(1)
+                         .setUpgradeSlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.emerald, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.diamond.get())
+                         .addInput(Tags.Items.GEMS_DIAMOND)
+                         .setMaxLevel(1)
+                         .setUpgradeSlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.diamond, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.worldbound.get())
+                         .addInput(Items.NETHERITE_SCRAP)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.worldbound, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.netherite.get())
+                         .addInput(Tags.Items.INGOTS_NETHERITE)
+                         .setMaxLevel(1)
+                         .setUpgradeSlots(1)
+                         .setRequirements(ModifierMatch.list(1, ModifierMatch.entry(TinkerModifiers.diamond.get()), ModifierMatch.entry(TinkerModifiers.emerald.get())))
+                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.netherite_requirements"))
+                         .build(consumer, prefixR(TinkerModifiers.netherite, upgradeFolder));
+
+    // overslime
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.EARTH), 10)
+                                  .build(consumer, location(upgradeFolder + "overslime/earth"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.SKY), 40)
+                                  .build(consumer, location(upgradeFolder + "overslime/sky"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.ICHOR), 100)
+                                  .build(consumer, location(upgradeFolder + "overslime/ichor"));
+    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.ENDER), 200)
+                                  .build(consumer, location(upgradeFolder + "overslime/ender"));
+
+    /*
+     * general effects
+     */
     ModifierRecipeBuilder.modifier(TinkerModifiers.experienced.get())
                          .addInput(Items.EXPERIENCE_BOTTLE, 5)
                          .setMaxLevel(5) // max +250%
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.experienced, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
-                         .addInput(Items.PISTON)
-                         .setMaxLevel(5) // max +2.5 knockback points (knockback 5) (whatever that number means in vanilla)
-                         .setUpgradeSlots(1)
-                         .setTools(TinkerTags.Items.MELEE)
-                         .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic.get())
                          .addInput(Items.COMPASS)
                          .setMaxLevel(5)
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.magnetic, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.emerald.get())
-                         .addInput(Tags.Items.GEMS_EMERALD)
-                         .setMaxLevel(1)
-                         .setUpgradeSlots(1)
-                         .build(consumer, prefixR(TinkerModifiers.emerald, upgradeFolder));
-
     // haste can use redstone or blocks
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
@@ -185,21 +211,31 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_block"));
 
-    // luck can use lapis or blocks
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
-                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
-                                    .setInput(Tags.Items.GEMS_LAPIS, 1, 108) // 36 per effective level
-                                    .setMaxLevel(2)
-                                    .setAbilitySlots(1)
-                                    .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_dust"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
-                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
-                                    .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 108)
-                                    .setLeftover(new ItemStack(Items.LAPIS_LAZULI))
-                                    .setMaxLevel(2)
-                                    .setAbilitySlots(1)
-                                    .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_block"));
-    // mob damage
+    /*
+     * weapon
+     */
+    ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
+                         .addInput(Items.PISTON)
+                         .setMaxLevel(5) // max +2.5 knockback points (knockback 5) (whatever that number means in vanilla)
+                         .setUpgradeSlots(1)
+                         .setTools(TinkerTags.Items.MELEE)
+                         .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Items.BLAZE_POWDER, 1, 25)
+                                    .setMaxLevel(5) // +25 seconds fire damage
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.fiery, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.necrotic.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(TinkerTags.Items.WITHER_BONES, 1, 10)
+                                    .setMaxLevel(5) // +50% chance for 10% life steel
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.necrotic, upgradeFolder));
+
+    /*
+     * damage boost
+     */
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.smite.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.GLISTERING_MELON_SLICE, 1, 5)
@@ -224,52 +260,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(5) // +5.5 fire mob damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.cooling, upgradeFolder));
-
-    // tier 3
-    ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())
-                         .addInput(TinkerModifiers.silkyJewel)
-                         .setMaxLevel(1)
-                         .setAbilitySlots(1)
-                         .setTools(TinkerTags.Items.HARVEST)
-                         .build(consumer, prefixR(TinkerModifiers.silky, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.diamond.get())
-                         .addInput(Tags.Items.GEMS_DIAMOND)
-                         .setMaxLevel(1)
-                         .setUpgradeSlots(1)
-                         .build(consumer, prefixR(TinkerModifiers.diamond, upgradeFolder));
-
-    // tier 4
-    ModifierRecipeBuilder.modifier(TinkerModifiers.worldbound.get())
-                         .addInput(Items.NETHERITE_SCRAP)
-                         .setMaxLevel(1)
-                         .build(consumer, prefixR(TinkerModifiers.worldbound, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.netherite.get())
-                         .addInput(Tags.Items.INGOTS_NETHERITE)
-                         .setMaxLevel(1)
-                         .setUpgradeSlots(1)
-                         .setRequirements(ModifierMatch.list(1, ModifierMatch.entry(TinkerModifiers.diamond.get()), ModifierMatch.entry(TinkerModifiers.emerald.get())))
-                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.netherite_requirements"))
-                         .build(consumer, prefixR(TinkerModifiers.netherite, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
-                         .addInput(TinkerModifiers.ichorExpander)
-                         .setAbilitySlots(1)
-                         .setMaxLevel(1)
-                         .setTools(TinkerTags.Items.AOE)
-                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ichor"));
-    // fiery
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery.get())
-                                    .setTools(TinkerTags.Items.MELEE)
-                                    .setInput(Items.BLAZE_POWDER, 1, 25)
-                                    .setMaxLevel(5) // +25 seconds fire damage
-                                    .setUpgradeSlots(1)
-                                    .build(consumer, prefixR(TinkerModifiers.fiery, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.necrotic.get())
-                                    .setTools(TinkerTags.Items.MELEE)
-                                    .setInput(TinkerTags.Items.WITHER_BONES, 1, 10)
-                                    .setMaxLevel(5) // +50% chance for 10% life steel
-                                    .setUpgradeSlots(1)
-                                    .build(consumer, prefixR(TinkerModifiers.necrotic, upgradeFolder));
-
     // sharpness can use shards or blocks
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())
                                     .setTools(TinkerTags.Items.MELEE)
@@ -285,7 +275,36 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.sharpness, upgradeFolder, "_from_block"));
 
-    // tier 5
+    /*
+     * ability
+     */
+    // luck can use lapis or blocks
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
+                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                                    .setInput(Tags.Items.GEMS_LAPIS, 1, 108) // 36 per effective level
+                                    .setMaxLevel(2)
+                                    .setAbilitySlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_dust"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
+                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                                    .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 108)
+                                    .setLeftover(new ItemStack(Items.LAPIS_LAZULI))
+                                    .setMaxLevel(2)
+                                    .setAbilitySlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_block"));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())
+                         .addInput(TinkerModifiers.silkyJewel)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .setTools(TinkerTags.Items.HARVEST)
+                         .build(consumer, prefixR(TinkerModifiers.silky, upgradeFolder));
+    // expanders
+    ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
+                         .addInput(TinkerModifiers.ichorExpander)
+                         .setAbilitySlots(1)
+                         .setMaxLevel(1)
+                         .setTools(TinkerTags.Items.AOE)
+                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ichor"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
                          .addInput(TinkerModifiers.enderExpander)
                          .setRequirements(ModifierMatch.entry(TinkerModifiers.expanded.get(), 1))
@@ -295,7 +314,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.AOE)
                          .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ender"));
 
-    // extra modifiers
+    /*
+     * extra modifiers
+     */
     ModifierRecipeBuilder.modifier(TinkerModifiers.writable.get())
                          .addInput(Items.WRITABLE_BOOK)
                          .setMaxLevel(1)
@@ -309,7 +330,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.HEADS)
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.recapitated, upgradeFolder));
-
     // creative
     ModifierRecipeBuilder.modifier(TinkerModifiers.creativeUpgrade.get())
                          .addInput(TinkerModifiers.creativeUpgradeItem)
@@ -317,16 +337,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.creativeAbility.get())
                          .addInput(TinkerModifiers.creativeAbilityItem)
                          .build(consumer, prefixR(TinkerModifiers.creativeAbility, upgradeFolder));
-
-    // overslime
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.EARTH), 10)
-                                  .build(consumer, location(upgradeFolder + "overslime/earth"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.SKY), 40)
-                                  .build(consumer, location(upgradeFolder + "overslime/sky"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.ICHOR), 100)
-                                  .build(consumer, location(upgradeFolder + "overslime/ichor"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerModifiers.slimeCrystal.get(SlimeType.ENDER), 200)
-                                  .build(consumer, location(upgradeFolder + "overslime/ender"));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
