@@ -43,7 +43,5 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
     } else {
       playMissSound(player);
     }
-    playSlingSound(player, mop.getType() == RayTraceResult.Type.BLOCK);
-
   }
 }

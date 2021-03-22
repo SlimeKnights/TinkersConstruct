@@ -54,6 +54,5 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
     } else {
       playMissSound(player);
     }
-    playSlingSound(player, emop != null);
   }
 }
