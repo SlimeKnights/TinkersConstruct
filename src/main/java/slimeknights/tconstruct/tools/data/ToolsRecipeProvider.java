@@ -143,18 +143,18 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     // tier 2
     ModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
                          .addInput(TinkerModifiers.reinforcement)
-                         .setMaxLevel(10) // max 91% resistant to damage
+                         .setMaxLevel(5) // max 83% resistant to damage
                          .setUpgradeSlots(1)
                          .build(consumer, prefixR(TinkerModifiers.reinforced, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.experienced.get())
                          .addInput(Items.EXPERIENCE_BOTTLE, 5)
-                         .setMaxLevel(10) // max +500%
+                         .setMaxLevel(5) // max +250%
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.experienced, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
                          .addInput(Items.PISTON)
-                         .setMaxLevel(10) // max +5 knockback points (whatever that number means in vanilla)
+                         .setMaxLevel(5) // max +2.5 knockback points (knockback 5) (whatever that number means in vanilla)
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE)
                          .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
@@ -174,14 +174,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                                     .setInput(Tags.Items.DUSTS_REDSTONE, 1, 45)
-                                    .setMaxLevel(10)
+                                    .setMaxLevel(5) // +25 mining speed, vanilla +26
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_dust"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_REDSTONE, 9, 45)
                                     .setLeftover(new ItemStack(Items.REDSTONE))
-                                    .setMaxLevel(10)
+                                    .setMaxLevel(5)
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_block"));
 
@@ -189,39 +189,39 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                                     .setInput(Tags.Items.GEMS_LAPIS, 1, 108) // 36 per effective level
-                                    .setMaxLevel(3)
+                                    .setMaxLevel(2)
                                     .setAbilitySlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_dust"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 108)
                                     .setLeftover(new ItemStack(Items.LAPIS_LAZULI))
-                                    .setMaxLevel(3)
+                                    .setMaxLevel(2)
                                     .setAbilitySlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_block"));
     // mob damage
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.smite.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.GLISTERING_MELON_SLICE, 1, 5)
-                                    .setMaxLevel(10)
+                                    .setMaxLevel(5) // +12.5 undead damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.smite, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.baneOfArthropods.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.FERMENTED_SPIDER_EYE, 1, 15)
-                                    .setMaxLevel(10)
+                                    .setMaxLevel(5) // +12.5 spider damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.baneOfArthropods, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.antiaquatic.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Blocks.CACTUS, 1, 40)
-                                    .setMaxLevel(10)
+                                    .setMaxLevel(5) // +12.5 fish damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.antiaquatic, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.cooling.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.PRISMARINE_CRYSTALS, 1, 25)
-                                    .setMaxLevel(10)
+                                    .setMaxLevel(5) // +5.5 fire mob damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.cooling, upgradeFolder));
 
@@ -260,13 +260,13 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.BLAZE_POWDER, 1, 25)
-                                    .setMaxLevel(10)
+                                    .setMaxLevel(5) // +25 seconds fire damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.fiery, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.necrotic.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(TinkerTags.Items.WITHER_BONES, 1, 10)
-                                    .setMaxLevel(10)
+                                    .setMaxLevel(5) // +50% chance for 10% life steel
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.necrotic, upgradeFolder));
 
@@ -274,14 +274,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Tags.Items.GEMS_QUARTZ, 1, 36)
-                                    .setMaxLevel(10)
+                                    .setMaxLevel(5) // +3 damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.sharpness, upgradeFolder, "_from_shard"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_QUARTZ, 4, 36)
                                     .setLeftover(new ItemStack(Items.QUARTZ))
-                                    .setMaxLevel(10)
+                                    .setMaxLevel(5)
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.sharpness, upgradeFolder, "_from_block"));
 
