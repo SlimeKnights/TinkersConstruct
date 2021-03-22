@@ -38,8 +38,9 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
 
       playerServerMovement(player);
       SlimeBounceHandler.addBounceHandler(player);
+      playSuccessSound(player);
+    } else {
+      playMissSound(player);
     }
-    playSlingSound(player, mop.getType() == RayTraceResult.Type.BLOCK);
-
   }
 }
