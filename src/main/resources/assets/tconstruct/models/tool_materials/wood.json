@@ -1,4 +1,4 @@
 {
-  "fallback": "wood",
+  "fallbacks": ["wood"],
   "color": "745f38"
 }

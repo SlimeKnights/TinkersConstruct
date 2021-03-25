@@ -6,6 +6,6 @@ import net.minecraft.util.ResourceLocation;
 @Data
 public class MaterialRenderInfoJson {
   private final ResourceLocation texture;
-  private final String fallback;
+  private final String[] fallbacks;
   private final String color;
 }

@@ -1,4 +1,4 @@
 {
-  "fallback": "rock",
+  "fallbacks": ["rock"],
   "color": "3f3f3f"
 }
