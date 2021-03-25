@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "conditions": [
     {
-      "config_setting": "addGravelToFlintRecipe",
-      "type": "tconstruct:config_option_enabled"
+      "prop": "gravel_to_flint",
+      "type": "tconstruct:config"
     }
   ],
   "ingredients": [
