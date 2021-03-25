@@ -69,7 +69,7 @@ public class EndSlimeIslandStructure extends Structure<NoFeatureConfig> {
 
       int y = Math.min(Math.min(i1, j1), Math.min(k1, l1)) + 50 + this.rand.nextInt(50) + 11;
 
-      SlimeIslandVariant variant = SlimeIslandVariant.PURPLE;
+      SlimeIslandVariant variant = SlimeIslandVariant.ENDER;
       String[] sizes = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
 
       BlockPos pos = new BlockPos(x, y, z);

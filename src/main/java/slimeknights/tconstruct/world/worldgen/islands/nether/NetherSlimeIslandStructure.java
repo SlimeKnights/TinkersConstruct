@@ -64,7 +64,7 @@ public class NetherSlimeIslandStructure extends Structure<NoFeatureConfig> {
 
       Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
 
-      SlimeIslandVariant variant = SlimeIslandVariant.MAGMA;
+      SlimeIslandVariant variant = SlimeIslandVariant.ICHOR;
       String[] sizes = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
 
       BlockPos pos = new BlockPos(x, y, z);

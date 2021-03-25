@@ -84,11 +84,11 @@ public class OverworldSlimeIslandStructure extends Structure<NoFeatureConfig> {
       int y = Math.min(Math.min(i1, j1), Math.min(k1, l1)) + 50 + this.rand.nextInt(50) + 11;
 
       int rnr = this.rand.nextInt(10);
-      SlimeIslandVariant variant = SlimeIslandVariant.BLUE;
+      SlimeIslandVariant variant = SlimeIslandVariant.SKY;
       String[] sizes = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
 
       if (rnr < 6) {
-        variant = SlimeIslandVariant.GREEN;
+        variant = SlimeIslandVariant.EARTH;
       }
 
       SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, sizes[this.rand.nextInt(sizes.length)], new BlockPos(x, y, z), rotation);

@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 import java.util.Locale;
 
 public enum SlimeIslandVariant implements IStringSerializable {
-  BLUE(0,
+  SKY(0,
     TinkerWorld.skySlimeGrass.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState(),
     TinkerFluids.skySlime.getBlock(),
     createArray(TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
@@ -27,7 +27,7 @@ public enum SlimeIslandVariant implements IStringSerializable {
     TinkerStructures.BLUE_SLIME_TREE_ISLAND,
     BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
 
-  GREEN(1,
+  EARTH(1,
     TinkerWorld.earthSlimeGrass.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState(),
     TinkerFluids.skySlime.getBlock(),
     createArray(TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
@@ -36,7 +36,7 @@ public enum SlimeIslandVariant implements IStringSerializable {
     TinkerStructures.BLUE_SLIME_TREE_ISLAND,
     BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
 
-  PURPLE(2,
+  ENDER(2,
     TinkerWorld.enderSlimeGrass.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState(),
     TinkerFluids.enderSlime.getBlock(),
     createArray(TinkerWorld.congealedSlime.get(SlimeType.ENDER).getDefaultState()),
@@ -45,7 +45,7 @@ public enum SlimeIslandVariant implements IStringSerializable {
     TinkerStructures.PURPLE_SLIME_TREE_ISLAND,
     BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
 
-  MAGMA(3,
+  ICHOR(3,
     TinkerWorld.ichorSlimeGrass.get(SlimeGrassBlock.FoliageType.ICHOR).getDefaultState(),
     Blocks.LAVA,
     createArray(TinkerWorld.congealedSlime.get(SlimeType.ICHOR).getDefaultState(),
@@ -121,13 +121,13 @@ public enum SlimeIslandVariant implements IStringSerializable {
   public static SlimeIslandVariant getVariantFromIndex(int index) {
     switch (index) {
       case 0:
-        return BLUE;
+        return SKY;
       case 1:
-        return GREEN;
+        return EARTH;
       case 2:
-        return PURPLE;
+        return ENDER;
       case 3:
-        return MAGMA;
+        return ICHOR;
       default:
         throw new IllegalStateException("Unexpected variant: " + index);
     }
