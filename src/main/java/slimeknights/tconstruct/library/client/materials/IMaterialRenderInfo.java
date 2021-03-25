@@ -4,7 +4,6 @@ import lombok.Getter;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
 import javax.annotation.Nullable;
@@ -75,9 +74,9 @@ public interface IMaterialRenderInfo {
 
   /** Render information for a material with a falllback texture */
   class Fallback extends Default {
-    private final ResourceLocation fallback;
+    private final String fallback;
 
-    public Fallback(MaterialId identifier, ResourceLocation texture, ResourceLocation fallback, int color) {
+    public Fallback(MaterialId identifier, ResourceLocation texture, String fallback, int color) {
       super(identifier, texture, color);
       this.fallback = fallback;
     }
@@ -101,14 +100,20 @@ public interface IMaterialRenderInfo {
   /**
    * Gets a material for the given resource locations
    * @param texture   Texture path
+   * @param name      Material or fallback name
+   * @return  Material instance
+   */
+  static RenderMaterial getMaterial(ResourceLocation texture, String name) {
+    return ModelLoaderRegistry.blockMaterial(new ResourceLocation(texture.getNamespace(), texture.getPath() + "_" + name));
+  }
+
+  /**
+   * Gets a material for the given resource locations
+   * @param texture   Texture path
    * @param material  Material ID
    * @return  Material instance
    */
   static RenderMaterial getMaterial(ResourceLocation texture, ResourceLocation material) {
-    String prefix = "";
-    if (!TConstruct.modID.equals(material.getNamespace())) {
-      prefix = material.getNamespace() + "_";
-    }
-    return ModelLoaderRegistry.blockMaterial(new ResourceLocation(texture.getNamespace(), texture.getPath() + "_" + prefix + material.getPath()));
+    return getMaterial(texture, material.getNamespace() + "_" + material.getPath());
   }
 }

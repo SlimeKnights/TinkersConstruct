@@ -130,7 +130,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     // parse fallback if present
     MaterialId id = new MaterialId(loc);
     ResourceLocation texture = json.getTexture();
-    ResourceLocation fallback = json.getFallback();
+    String fallback = json.getFallback();
     if (fallback != null) {
       return new IMaterialRenderInfo.Fallback(id, texture, fallback, color);
     }
