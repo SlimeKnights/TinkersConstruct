@@ -11,7 +11,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
-import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
+import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -116,7 +116,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                           .addCriterion("has_item", hasItem(Blocks.GRAVEL))
                           .build(
                             ConsumerWrapperBuilder.wrap()
-                                                  .addCondition(new ConfigOptionEnabledCondition("addGravelToFlintRecipe"))
+                                                  .addCondition(ConfigEnabledCondition.GRAVEL_TO_FLINT)
                                                   .build(consumer),
                             location("common/flint"));
   }

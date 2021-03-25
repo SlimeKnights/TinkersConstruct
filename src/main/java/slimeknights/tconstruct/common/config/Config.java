@@ -16,11 +16,9 @@ public class Config {
 
     public final BooleanValue shouldSpawnWithTinkersBook;
 
+    // recipes
     public final BooleanValue addGravelToFlintRecipe;
-
-    public final BooleanValue requireSlimeballsToMatchInVanillaRecipe;
-
-    public final BooleanValue registerAllRecipes;
+    public final BooleanValue cheaperNetheriteAlloy;
 
     public final ConfigValue<Integer> melterNuggetsPerOre;
     public final ConfigValue<Integer> smelteryNuggetsPerOre;
@@ -50,24 +48,6 @@ public class Config {
         .worldRestart()
         .define("shouldSpawnWithTinkersBook", true);
 
-      this.addGravelToFlintRecipe = builder
-        .comment("Add a recipe that allows you to craft a piece of flint using 3 gravel")
-        .translation("tconstruct.configgui.addGravelToFlintRecipe")
-        .worldRestart()
-        .define("addGravelToFlintRecipe", true);
-
-      this.requireSlimeballsToMatchInVanillaRecipe = builder
-        .comment("If true, requires slimeballs in the vanilla slimeblock recipe to match in color, otherwise gives a pink slimeblock")
-        .translation("tconstruct.configgui.requireSlimeballsToMatchInVanillaRecipe")
-        .worldRestart()
-        .define("requireSlimeballsToMatchInVanillaRecipe", true);
-
-      this.registerAllRecipes = builder
-        .comment("If true, all recipes will be added even if the modules required are disabled.")
-        .translation("tconstruct.configgui.registerAllRecipes")
-        .worldRestart()
-        .define("registerAllRecipes", false);
-
       this.chestsKeepInventory = builder
         .comment("Pattern and Part chests keep their inventory when harvested.")
         .translation("tconstruct.configgui.chestsKeepInventory")
@@ -91,6 +71,22 @@ public class Config {
         .translation("tconstruct.configgui.listAllPartMaterials")
         .worldRestart()
         .define("listAllPartMaterials", true);
+
+      builder.pop();
+
+      builder.comment("Options related to recipes, limited options as a datapack allows most recipes to be modified").push("recipes");
+
+      this.addGravelToFlintRecipe = builder
+        .comment("Add a recipe that allows you to craft a piece of flint using 3 gravel")
+        .translation("tconstruct.configgui.addGravelToFlintRecipe")
+        .worldRestart()
+        .define("addGravelToFlintRecipe", true);
+
+      this.cheaperNetheriteAlloy = builder
+        .comment("Makes the recipe to alloy netherite in the smeltery only cost 2 gold per netherite ingot. If false uses the vanilla rate of 4 gold per ingot. Disable if there are crafting duplications.")
+        .translation("tconstruct.configgui.cheaperNetheriteAlloy")
+        .worldRestart()
+        .define("cheaperNetheriteAlloy", true);
 
       this.melterNuggetsPerOre = builder
         .comment("Number of nuggets produced when an ore block is melted in the melter. 9 would give 1 ingot")

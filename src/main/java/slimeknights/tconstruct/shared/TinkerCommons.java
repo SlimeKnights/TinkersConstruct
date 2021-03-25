@@ -8,6 +8,8 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.loot.LootConditionType;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -23,7 +25,7 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.IngredientWithout;
 import slimeknights.tconstruct.common.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
+import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
@@ -69,6 +71,9 @@ public final class TinkerCommons extends TinkerModule {
   public static final ItemObject<TinkerBookItem> book = ITEMS.register("book", () -> new TinkerBookItem(new Item.Properties().group(TAB_GENERAL).maxStackSize(1)));
   public static final ItemObject<Item> driedBrick = ITEMS.register("dried_brick", GENERAL_PROPS);
 
+  /* Loot conditions */
+  public static LootConditionType lootConfig;
+
   /* Slime Balls are edible, believe it or not */
   public static final EnumObject<SlimeType, Item> slimeball = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
     .put(SlimeType.EARTH, Items.SLIME_BALL.delegate)
@@ -82,7 +87,8 @@ public final class TinkerCommons extends TinkerModule {
 
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
-    CraftingHelper.register(ConfigOptionEnabledCondition.Serializer.INSTANCE);
+    CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
+    lootConfig = Registry.register(Registry.LOOT_CONDITION_TYPE, ConfigEnabledCondition.ID, new LootConditionType(ConfigEnabledCondition.SERIALIZER));
   }
 
   @SubscribeEvent

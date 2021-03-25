@@ -20,10 +20,13 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
@@ -437,7 +440,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                                  .setFluid(new FluidStack(TinkerFluids.earthSlime.get(), MaterialValues.SLIMEBALL))
                                  .build(consumer, location(compositeFolder + "slimewood"));
     CompositeCastingRecipeBuilder.table(MaterialIds.wood, MaterialIds.nahuatl)
-                                 .setFluid(new FluidStack(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_PANE))
+                                 .setFluid(new FluidStack(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK))
                                  .build(consumer, location(compositeFolder + "nahuatl"));
   }
 
@@ -683,10 +686,18 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                       .build(consumer, prefixR(TinkerFluids.moltenHepatizon, folder));
 
     // netherrite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenNetherite.get(), MaterialValues.NUGGET)
-                      .addInput(TinkerFluids.moltenDebris.get(), MaterialValues.NUGGET * 4)
-                      .addInput(TinkerFluids.moltenGold.get(), MaterialValues.NUGGET * 4)
-                      .build(consumer, prefixR(TinkerFluids.moltenNetherite, folder));
+    ConditionalRecipe.builder()
+                     .addCondition(ConfigEnabledCondition.CHEAPER_NETHERITE_ALLOY)
+                     .addRecipe(
+                       AlloyRecipeBuilder.alloy(TinkerFluids.moltenNetherite.get(), MaterialValues.NUGGET)
+                                         .addInput(TinkerFluids.moltenDebris.get(), MaterialValues.NUGGET * 4)
+                                         .addInput(TinkerFluids.moltenGold.get(), MaterialValues.NUGGET * 2)::build)
+                     .addCondition(TrueCondition.INSTANCE) // fallback
+                     .addRecipe(
+                       AlloyRecipeBuilder.alloy(TinkerFluids.moltenNetherite.get(), MaterialValues.NUGGET)
+                                         .addInput(TinkerFluids.moltenDebris.get(), MaterialValues.NUGGET * 4)
+                                         .addInput(TinkerFluids.moltenGold.get(), MaterialValues.NUGGET * 4)::build)
+                     .build(consumer, prefixR(TinkerFluids.moltenNetherite, folder));
 
 
     // tier 3 compat
