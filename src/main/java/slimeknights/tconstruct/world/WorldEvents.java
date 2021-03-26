@@ -84,7 +84,7 @@ public class WorldEvents {
       try {
         if (provider instanceof NetherBiomeProvider) {
           if (!configuredStructures.containsKey(TinkerStructures.netherSlimeIsland.get())) {
-            configuredStructures.put(TinkerStructures.netherSlimeIsland.get(), new StructureSeparationSettings(30, 22, 14357800));
+            configuredStructures.put(TinkerStructures.netherSlimeIsland.get(), new StructureSeparationSettings(15, 11, 14357800));
           }
         } else if (provider instanceof EndBiomeProvider) {
           if (!configuredStructures.containsKey(TinkerStructures.endSlimeIsland.get())) {
@@ -210,8 +210,8 @@ public class WorldEvents {
     injectInto(event, "chests/simple_dungeon", "pool1", () -> makeSeed.apply(FoliageType.SKY, 10));
     injectInto(event, "chests/simple_dungeon", "main", () -> makeSapling.apply(FoliageType.SKY, 10));
     // ichor
-    injectInto(event, "chests/nether_bridge", "main", () -> makeSeed.apply(FoliageType.ICHOR, 5));
-    injectInto(event, "chests/bastion_bridge", "pool2", () -> makeSapling.apply(FoliageType.ICHOR, 1));
+    injectInto(event, "chests/nether_bridge", "main", () -> makeSeed.apply(FoliageType.BLOOD, 5));
+    injectInto(event, "chests/bastion_bridge", "pool2", () -> makeSapling.apply(FoliageType.BLOOD, 1));
     // ender
     injectInto(event, "chests/end_city_treasure", "main", () -> makeSeed.apply(FoliageType.ENDER, 5));
     injectInto(event, "chests/end_city_treasure", "main", () -> makeSapling.apply(FoliageType.ENDER, 3));

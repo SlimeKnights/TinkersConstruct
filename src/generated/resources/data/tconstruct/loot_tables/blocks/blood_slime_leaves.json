@@ -35,7 +35,7 @@
                   ]
                 }
               ],
-              "name": "tconstruct:ender_slime_leaves"
+              "name": "tconstruct:blood_slime_leaves"
             },
             {
               "type": "minecraft:item",
@@ -54,7 +54,7 @@
                   ]
                 }
               ],
-              "name": "tconstruct:ender_slime_sapling"
+              "name": "tconstruct:blood_slime_sapling"
             }
           ]
         }
@@ -81,7 +81,7 @@
               ]
             }
           ],
-          "name": "tconstruct:ender_slime_ball"
+          "name": "tconstruct:ichor_slime_ball"
         }
       ],
       "conditions": [

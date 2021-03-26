@@ -22,6 +22,7 @@ import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
 import java.util.List;
 
 public class OverworldSlimeIslandStructure extends Structure<NoFeatureConfig> {
+  private static final String[] SIZES = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
 
   private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
     new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 30, 4, 4)
@@ -85,13 +86,12 @@ public class OverworldSlimeIslandStructure extends Structure<NoFeatureConfig> {
 
       int rnr = this.rand.nextInt(10);
       SlimeIslandVariant variant = SlimeIslandVariant.SKY;
-      String[] sizes = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
 
       if (rnr < 6) {
         variant = SlimeIslandVariant.EARTH;
       }
 
-      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, sizes[this.rand.nextInt(sizes.length)], new BlockPos(x, y, z), rotation);
+      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, SIZES[this.rand.nextInt(SIZES.length)], new BlockPos(x, y, z), rotation);
       this.components.add(slimeIslandPiece);
       this.recalculateStructureSize();
     }

@@ -151,7 +151,12 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
   public enum FoliageType implements IStringSerializable {
     SKY(0x00F4DA, "blue"),
     ICHOR(0xd09800, "magma"),
-    ENDER(0xa92dff, "purple");
+    ENDER(0xa92dff, "purple"),
+    BLOOD(0xb80000, "blood");
+
+    /** Original foliage types for migration */
+    @Deprecated
+    public static FoliageType[] ORIGINAL = {SKY, ICHOR, ENDER};
 
     @Getter
     private final int defaultColor;
