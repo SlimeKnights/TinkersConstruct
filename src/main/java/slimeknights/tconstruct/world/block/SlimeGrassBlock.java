@@ -7,9 +7,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SnowyDirtBlock;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
@@ -145,6 +148,13 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
       }
     }
     return null;
+  }
+
+  @Override
+  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+    if (this.foliageType != FoliageType.ICHOR) {
+      super.fillItemGroup(group, items);
+    }
   }
 
   @RequiredArgsConstructor
