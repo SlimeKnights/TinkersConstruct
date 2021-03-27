@@ -475,7 +475,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, location(metalFolder + "molten_debris/scrap"));
     // tier 3
     addMetalMelting(consumer, TinkerFluids.moltenSlimesteel.get(),    "slimesteel",     false, metalFolder, false);
-    addMetalMelting(consumer, TinkerFluids.moltenTinkersBronze.get(), "tinkers_bronze", false, metalFolder, false);
+    addMetalMelting(consumer, TinkerFluids.moltenTinkersBronze.get(), "silicon_bronze", false, metalFolder, false);
     addMetalMelting(consumer, TinkerFluids.moltenRoseGold.get(),      "rose_gold",      false, metalFolder, false);
     addMetalMelting(consumer, TinkerFluids.moltenPigIron.get(),       "pig_iron",       false, metalFolder, false);
     // tier 4
