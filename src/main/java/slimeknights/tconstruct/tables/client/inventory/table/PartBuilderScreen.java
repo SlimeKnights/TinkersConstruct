@@ -56,6 +56,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     super(container, playerInventory, title);
 
     this.infoPanelScreen = new PartInfoPanelScreen(this, container, playerInventory, title);
+    this.infoPanelScreen.setTextScale(7/9f);
     this.infoPanelScreen.ySize = this.ySize;
     this.addModule(this.infoPanelScreen);
   }
