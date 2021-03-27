@@ -278,6 +278,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     /*
      * ability
      */
+    ModifierRecipeBuilder.modifier(TinkerModifiers.gilded.get())
+                         .addInput(Items.GOLDEN_APPLE)
+                         .setMaxLevel(2)
+                         .setAbilitySlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.gilded, upgradeFolder));
     // luck can use lapis or blocks
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
@@ -330,6 +335,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.HEADS)
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.recapitated, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.resurrected.get())
+                         .addInput(Items.END_CRYSTAL)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.resurrected, upgradeFolder));
     // creative
     ModifierRecipeBuilder.modifier(TinkerModifiers.creativeUpgrade.get())
                          .addInput(TinkerModifiers.creativeUpgradeItem)

@@ -1066,6 +1066,13 @@
     "modifier.tconstruct.recapitated": "Recapitated",
     "modifier.tconstruct.recapitated.flavor": "Put the Head Back On!",
     "modifier.tconstruct.recapitated.description": "Sets this tool ahead by one upgrade!",
+    "modifier.tconstruct.resurrected": "Resurrected",
+    "modifier.tconstruct.resurrected.flavor": "Bring it back to live!",
+    "modifier.tconstruct.resurrected.description": "Respawns one of this tool's upgrade slots!",
+
+    "modifier.tconstruct.gilded": "Gilded",
+    "modifier.tconstruct.gilded.flavor": "Equivelent Exchange!",
+    "modifier.tconstruct.gilded.description": "Trades an ability slot for two upgrade slots!",
 
     "__comment": "Tier 1 Traits",
     "modifier.tconstruct.cultivated": "Cultivated",

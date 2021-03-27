@@ -26,6 +26,8 @@ import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.free.WorldboundModifier;
 import slimeknights.tconstruct.tools.modifiers.shared.ExperiencedModifier;
 import slimeknights.tconstruct.tools.modifiers.shared.ExtraModifier;
+import slimeknights.tconstruct.tools.modifiers.shared.ExtraModifier.ExtraType;
+import slimeknights.tconstruct.tools.modifiers.shared.ExtraModifier.ModifierSource;
 import slimeknights.tconstruct.tools.modifiers.shared.LevelDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.shared.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
@@ -132,12 +134,14 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ExpanderModifier> expanded = MODIFIERS.register("expanded", ExpanderModifier::new);
 
   // bonus modifier slots
-  public static final RegistryObject<ExtraModifier> writable = MODIFIERS.register("writable", () -> new ExtraModifier(0xffffff, true));
-  public static final RegistryObject<ExtraModifier> recapitated = MODIFIERS.register("recapitated", () -> new ExtraModifier(0xa6dc9d, true));
-  public static final RegistryObject<ExtraModifier> harmonious = MODIFIERS.register("harmonious", () -> new ExtraModifier(0xffd800, true));
+  public static final RegistryObject<ExtraModifier> writable = MODIFIERS.register("writable", () -> new ExtraModifier(0xffffff));
+  public static final RegistryObject<ExtraModifier> recapitated = MODIFIERS.register("recapitated", () -> new ExtraModifier(0x67d755));
+  public static final RegistryObject<ExtraModifier> harmonious = MODIFIERS.register("harmonious", () -> new ExtraModifier(0xffd800));
+  public static final RegistryObject<ExtraModifier> resurrected = MODIFIERS.register("resurrected", () -> new ExtraModifier(0xbe95d4));
+  public static final RegistryObject<ExtraModifier> gilded = MODIFIERS.register("gilded", () -> new ExtraModifier(0xeccb45, ExtraType.UPGRADE, ModifierSource.MULTI_USE, 2));
   // creative
-  public static final RegistryObject<ExtraModifier> creativeUpgrade = MODIFIERS.register("creative_upgrade", () -> new ExtraModifier(0xCCBA47, false));
-  public static final RegistryObject<ExtraModifier> creativeAbility = MODIFIERS.register("creative_ability", () -> new ExtraModifier(0xB8A0FF, false, true));
+  public static final RegistryObject<ExtraModifier> creativeUpgrade = MODIFIERS.register("creative_upgrade", () -> new ExtraModifier(0xCCBA47, ExtraType.UPGRADE, ModifierSource.MULTI_USE));
+  public static final RegistryObject<ExtraModifier> creativeAbility = MODIFIERS.register("creative_ability", () -> new ExtraModifier(0xB8A0FF, ExtraType.ABILITY, ModifierSource.MULTI_USE));
 
   // traits - tier 1
   public static final RegistryObject<CultivatedModifier> cultivated = MODIFIERS.register("cultivated", CultivatedModifier::new);
@@ -153,7 +157,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
   public static final RegistryObject<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
   public static final RegistryObject<MaintainedModifier> wellMaintained = MODIFIERS.register("maintained", MaintainedModifier::new);
-  public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(0xffdbcc, false));
+  public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(0xffdbcc, ExtraType.UPGRADE, ModifierSource.TRAIT));
   public static final RegistryObject<TastyModifier> tasty = MODIFIERS.register("tasty", TastyModifier::new);
 
   public static final RegistryObject<LightweightModifier> lightweight = MODIFIERS.register("lightweight", LightweightModifier::new);
