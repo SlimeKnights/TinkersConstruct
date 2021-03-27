@@ -1067,7 +1067,7 @@
     "modifier.tconstruct.recapitated.flavor": "Put the Head Back On!",
     "modifier.tconstruct.recapitated.description": "Sets this tool ahead by one upgrade!",
     "modifier.tconstruct.resurrected": "Resurrected",
-    "modifier.tconstruct.resurrected.flavor": "Bring it back to live!",
+    "modifier.tconstruct.resurrected.flavor": "Bring it back to life!",
     "modifier.tconstruct.resurrected.description": "Respawns one of this tool's upgrade slots!",
 
     "modifier.tconstruct.gilded": "Gilded",
