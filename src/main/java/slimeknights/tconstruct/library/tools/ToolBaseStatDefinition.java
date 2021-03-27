@@ -33,11 +33,12 @@ public final class ToolBaseStatDefinition {
    * TODO: move to tool stats? This and reach */
   private final float knockbackBonus;
 
-  /** Number of modifiers new tools start with */
-  private final int defaultModifiers;
-
+  /** Number of upgrades new tools start with */
+  private final int defaultUpgrades;
   /** Number of abilities new tools start with */
   private final int defaultAbilities;
+  /** Number of trait slots for the tool forge the tool starts with */
+  private final int defaultTraits;
 
   /** All heads after the first are divided by this number on repairs, and the first stats are duplicated this many times on stat build */
   private final int primaryHeadWeight;
@@ -78,9 +79,11 @@ public final class ToolBaseStatDefinition {
     /** See comment on {@link ToolBaseStatDefinition} */
     private float knockbackBonus = 0;
     /** See comment on {@link ToolBaseStatDefinition} */
-    private int defaultModifiers = 3;
+    private int defaultUpgrades = 3;
     /** See comment on {@link ToolBaseStatDefinition} */
     private int defaultAbilities = 1;
+    /** See comment on {@link ToolBaseStatDefinition} */
+    private int defaultTraits = 1;
 
     /** Creates the tool stat definition */
     public ToolBaseStatDefinition build() {
@@ -92,7 +95,7 @@ public final class ToolBaseStatDefinition {
       IStatFactory factory = (durability, harvestLevel, attackDamage, miningSpeed, attackSpeed)
         -> new StatsNBT((int)(durability * durabilityModifier), harvestLevel, (attackDamage + damageBonus) * damageModifier,
                         miningSpeed * miningSpeedModifier, attackSpeed * this.attackSpeed);
-      return new ToolBaseStatDefinition(durabilityModifier, damageCutoff, knockbackBonus, defaultModifiers, defaultAbilities, primaryHeadWeight, factory);
+      return new ToolBaseStatDefinition(durabilityModifier, damageCutoff, knockbackBonus, defaultUpgrades, defaultAbilities, defaultTraits, primaryHeadWeight, factory);
     }
   }
 }

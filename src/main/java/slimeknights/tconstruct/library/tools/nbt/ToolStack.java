@@ -166,8 +166,9 @@ public class ToolStack implements IModifierToolStack {
     // update modifier data
     ToolBaseStatDefinition baseStats = definition.getBaseStatDefinition();
     ModDataNBT data = tool.getPersistentData();
-    data.setUpgrades(baseStats.getDefaultModifiers());
+    data.setUpgrades(baseStats.getDefaultUpgrades());
     data.setAbilities(baseStats.getDefaultAbilities());
+    data.setTraits(baseStats.getDefaultTraits());
     return tool;
   }
 
