@@ -83,7 +83,7 @@ public final class ToolBaseStatDefinition {
     /** See comment on {@link ToolBaseStatDefinition} */
     private int defaultAbilities = 1;
     /** See comment on {@link ToolBaseStatDefinition} */
-    private int defaultTraits = 1;
+    private int defaultTraits = 0;
 
     /** Creates the tool stat definition */
     public ToolBaseStatDefinition build() {
