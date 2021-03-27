@@ -127,13 +127,13 @@ final class MaterialStats {
 //                     ExtraMaterialStats.DEFAULT);
     // tier 3 (nether)
     addMaterialStats(MaterialIds.cobalt,
-                     new HeadMaterialStats(1250, 8.5f, DIAMOND, 3f),
+                     new HeadMaterialStats(800, 8f, DIAMOND, 2.5f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withAttackSpeed(1.1f).withMiningSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
     // tier 4
     // vanilla netherite: 2031, 9f, NETHERITE, 4f
     addMaterialStats(MaterialIds.queensSlime,
-                     new HeadMaterialStats(1750, 8f, NETHERITE, 3f),
+                     new HeadMaterialStats(1750, 7f, NETHERITE, 2f),
                      HandleMaterialStats.DEFAULT.withDurability(1.4f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.manyullyn,

@@ -665,21 +665,21 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // tier 4
 
-    // queens slime: 1 cobalt + 1 gold + 1 magma cream
+    // queens slime: 1 cobalt + 1 gold + 1 magma cream = 2
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenQueensSlime.get(), MaterialValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.INGOT)
                       .addInput(TinkerFluids.moltenGold.get(), MaterialValues.INGOT)
                       .addInput(TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL)
                       .build(consumer, prefixR(TinkerFluids.moltenQueensSlime, folder));
 
-    // manyullyn: 3 cobalt + 1 debris = 4
+    // manyullyn: 3 cobalt + 1 debris = 3
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenManyullyn.get(), MaterialValues.INGOT * 4)
                       .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.INGOT * 3)
                       .addInput(TinkerFluids.moltenDebris.get(), MaterialValues.INGOT)
                       .build(consumer, prefixR(TinkerFluids.moltenManyullyn, folder));
 
-    // heptazion: 2 copper + 1 cobalt + 1/4 obsidian = 4
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenHepatizon.get(), MaterialValues.INGOT * 4)
+    // heptazion: 2 copper + 1 cobalt + 1/4 obsidian = 2
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenHepatizon.get(), MaterialValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.INGOT)
                       .addInput(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK)
