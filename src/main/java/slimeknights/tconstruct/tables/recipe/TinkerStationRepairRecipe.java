@@ -150,7 +150,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
           // main example is wood, +25% per level
           for (ModifierEntry entry : tool.getModifierList()) {
             durabilityPerItem = entry.getModifier().getRepairFactor(tool, entry.getLevel(), durabilityPerItem);
-            if (durabilityPerItem == 0) {
+            if (durabilityPerItem <= 0) {
               return 0;
             }
           }
