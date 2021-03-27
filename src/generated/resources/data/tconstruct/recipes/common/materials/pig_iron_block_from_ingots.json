@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "tconstruct:pigiron_block",
+  "group": "tconstruct:pig_iron_block",
   "pattern": [
     "###",
     "#*#",
@@ -8,13 +8,13 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:ingots/pigiron"
+      "tag": "forge:ingots/pig_iron"
     },
     "*": {
-      "item": "tconstruct:pigiron_ingot"
+      "item": "tconstruct:pig_iron_ingot"
     }
   },
   "result": {
-    "item": "tconstruct:pigiron_block"
+    "item": "tconstruct:pig_iron_block"
   }
 }

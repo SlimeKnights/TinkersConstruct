@@ -65,7 +65,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addMetalTags(TinkerMaterials.slimesteel);
     addMetalTags(TinkerMaterials.tinkersBronze);
     addMetalTags(TinkerMaterials.roseGold);
-    addMetalTags(TinkerMaterials.pigiron);
+    addMetalTags(TinkerMaterials.pigIron);
     // tier 4
     addMetalTags(TinkerMaterials.queensSlime);
     addMetalTags(TinkerMaterials.manyullyn);

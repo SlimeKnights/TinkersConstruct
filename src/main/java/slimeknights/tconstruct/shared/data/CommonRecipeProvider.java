@@ -131,7 +131,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     registerMineralRecipes(consumer, TinkerMaterials.slimesteel,    folder);
     registerMineralRecipes(consumer, TinkerMaterials.tinkersBronze, folder);
     registerMineralRecipes(consumer, TinkerMaterials.roseGold,      folder);
-    registerMineralRecipes(consumer, TinkerMaterials.pigiron,       folder);
+    registerMineralRecipes(consumer, TinkerMaterials.pigIron,       folder);
     // tier 4
     registerMineralRecipes(consumer, TinkerMaterials.queensSlime, folder);
     registerMineralRecipes(consumer, TinkerMaterials.manyullyn,   folder);
@@ -162,9 +162,8 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
    * @param folder    Folder for recipes
    */
   protected void registerMineralRecipes(Consumer<IFinishedRecipe> consumer, MetalItemObject metal, String folder) {
-    String name = metal.getName();
     IItemProvider ingot = metal.getIngot();
-    registerPackingRecipe(consumer, "block", metal.get(), "ingot", ingot, getTag("forge", "ingots/" + name), folder);
-    registerPackingRecipe(consumer, "ingot", ingot, "nugget", metal.getNugget(), getTag("forge", "nuggets/" + name), folder);
+    registerPackingRecipe(consumer, "block", metal.get(), "ingot", ingot, metal.getIngotTag(), folder);
+    registerPackingRecipe(consumer, "ingot", ingot, "nugget", metal.getNugget(), metal.getNuggetTag(), folder);
   }
 }

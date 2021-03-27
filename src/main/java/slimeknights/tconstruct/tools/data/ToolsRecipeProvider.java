@@ -373,8 +373,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     // tier 3
     registerMetalMaterial(consumer, MaterialIds.slimesteel, "slimesteel", false);
     registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
-    registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "tinkers_bronze", false);
-    registerMetalMaterial(consumer, MaterialIds.pigIron, "pigiron", false);
+    registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "silicon_bronze", false);
+    registerMetalMaterial(consumer, MaterialIds.pigIron, "pig_iron", false);
 
     // tier 2 (nether)
     // tier 3 (nether)
@@ -507,10 +507,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
    */
   private void registerMetalMaterial(Consumer<IFinishedRecipe> consumer, MaterialId material, String name, boolean optional) {
     Consumer<IFinishedRecipe> wrapped = optional ? withCondition(consumer, tagCondition("ingots/" + name)) : consumer;
-    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "ingots/" + name)), 1, 1, name + "/ingot");
+    String matName = material.getPath();
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "ingots/" + name)), 1, 1, matName + "/ingot");
     wrapped = optional ? withCondition(consumer, tagCondition("nuggets/" + name)) : consumer;
-    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, name + "/nugget");
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, matName + "/nugget");
     wrapped = optional ? withCondition(consumer, tagCondition("storage_blocks/" + name)) : consumer;
-    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, name + "/block");
+    registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, matName + "/block");
   }
 }

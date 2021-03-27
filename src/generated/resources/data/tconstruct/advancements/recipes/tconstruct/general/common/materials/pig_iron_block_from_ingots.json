@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/materials/pigiron_nugget_from_ingot"
+      "tconstruct:common/materials/pig_iron_block_from_ingots"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:pigiron_ingot"
+            "item": "tconstruct:pig_iron_ingot"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/materials/pigiron_nugget_from_ingot"
+        "recipe": "tconstruct:common/materials/pig_iron_block_from_ingots"
       }
     }
   },

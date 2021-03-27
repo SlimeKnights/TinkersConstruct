@@ -136,6 +136,8 @@ public class TConstruct {
       case "green_slime_fluid": return TinkerFluids.earthSlime.getBlock();
       case "blue_slime_fluid": return TinkerFluids.skySlime.getBlock();
       case "purple_slime_fluid": return TinkerFluids.enderSlime.getBlock();
+      // pig iron underscore
+      case "pigiron_block": return TinkerMaterials.pigIron.get();
     }
     // other slime changes:
     // green -> earth
@@ -214,6 +216,9 @@ public class TConstruct {
         case "earth_slime_bucket": return TinkerFluids.earthSlime.asItem();
         case "sky_slime_bucket": return TinkerFluids.skySlime.asItem();
         case "ender_slime_bucket": return TinkerFluids.enderSlime.asItem();
+        // pig iron underscore
+        case "pigiron_ingot": return TinkerMaterials.pigIron.getIngot();
+        case "pigiron_nugget": return TinkerMaterials.pigIron.getNugget();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

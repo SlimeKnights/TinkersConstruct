@@ -117,10 +117,10 @@
     "item.tconstruct.rose_gold_ingot": "Rose Gold Ingot",
     "item.tconstruct.rose_gold_nugget": "Rose Gold Nugget",
     
-    "block.tconstruct.pigiron_block": "Block of Pig Iron",
-    "block.tconstruct.pigiron_block.tooltip": "Can be used as beacon base",
-    "item.tconstruct.pigiron_ingot": "Pig Iron Ingot",
-    "item.tconstruct.pigiron_nugget": "Pig Iron Nugget",
+    "block.tconstruct.pig_iron_block": "Block of Pig Iron",
+    "block.tconstruct.pig_iron_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.pig_iron_ingot": "Pig Iron Ingot",
+    "item.tconstruct.pig_iron_nugget": "Pig Iron Nugget",
 
     
     "__comment": "Tier 4 Metals",

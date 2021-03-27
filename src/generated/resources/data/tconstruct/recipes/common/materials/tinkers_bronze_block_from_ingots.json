@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:ingots/tinkers_bronze"
+      "tag": "forge:ingots/silicon_bronze"
     },
     "*": {
       "item": "tconstruct:tinkers_bronze_ingot"

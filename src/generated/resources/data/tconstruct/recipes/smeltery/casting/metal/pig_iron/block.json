@@ -4,6 +4,6 @@
     "name": "tconstruct:molten_pig_iron",
     "amount": 1296
   },
-  "result": "tconstruct:pigiron_block",
+  "result": "tconstruct:pig_iron_block",
   "cooling_time": 181
 }

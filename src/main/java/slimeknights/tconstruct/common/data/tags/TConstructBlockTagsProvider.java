@@ -50,7 +50,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     addMetalTags(TinkerMaterials.slimesteel);
     addMetalTags(TinkerMaterials.tinkersBronze);
     addMetalTags(TinkerMaterials.roseGold);
-    addMetalTags(TinkerMaterials.pigiron);
+    addMetalTags(TinkerMaterials.pigIron);
     // tier 4
     addMetalTags(TinkerMaterials.queensSlime);
     addMetalTags(TinkerMaterials.manyullyn);
@@ -77,7 +77,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
         .addTag(TinkerMaterials.slimesteel.getBlockTag())
         .addTag(TinkerMaterials.tinkersBronze.getBlockTag())
         .addTag(TinkerMaterials.roseGold.getBlockTag())
-        .addTag(TinkerMaterials.pigiron.getBlockTag())
+        .addTag(TinkerMaterials.pigIron.getBlockTag())
         // tier 4
         .addTag(TinkerMaterials.queensSlime.getBlockTag())
         .addTag(TinkerMaterials.manyullyn.getBlockTag())

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/pigiron",
+        "tag": "forge:dusts/pig_iron",
         "type": "forge:tag_empty"
       },
       "type": "forge:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/pigiron"
+    "tag": "forge:dusts/pig_iron"
   },
   "result": {
     "fluid": "tconstruct:molten_pig_iron",

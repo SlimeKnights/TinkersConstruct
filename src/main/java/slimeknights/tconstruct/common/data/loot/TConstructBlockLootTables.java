@@ -76,7 +76,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerMaterials.slimesteel.get());
     this.registerDropSelfLootTable(TinkerMaterials.tinkersBronze.get());
     this.registerDropSelfLootTable(TinkerMaterials.roseGold.get());
-    this.registerDropSelfLootTable(TinkerMaterials.pigiron.get());
+    this.registerDropSelfLootTable(TinkerMaterials.pigIron.get());
     // tier 4
     this.registerDropSelfLootTable(TinkerMaterials.manyullyn.get());
     this.registerDropSelfLootTable(TinkerMaterials.hepatizon.get());

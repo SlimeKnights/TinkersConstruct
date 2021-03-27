@@ -8,6 +8,6 @@
     "name": "tconstruct:molten_pig_iron",
     "amount": 144
   },
-  "result": "tconstruct:pigiron_ingot",
+  "result": "tconstruct:pig_iron_ingot",
   "cooling_time": 60
 }

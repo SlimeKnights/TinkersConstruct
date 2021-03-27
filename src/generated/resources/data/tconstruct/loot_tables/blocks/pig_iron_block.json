@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tconstruct:pigiron_block"
+          "name": "tconstruct:pig_iron_block"
         }
       ],
       "conditions": [

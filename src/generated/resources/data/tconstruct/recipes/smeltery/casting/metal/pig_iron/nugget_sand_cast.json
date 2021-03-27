@@ -8,6 +8,6 @@
     "name": "tconstruct:molten_pig_iron",
     "amount": 16
   },
-  "result": "tconstruct:pigiron_nugget",
+  "result": "tconstruct:pig_iron_nugget",
   "cooling_time": 20
 }
