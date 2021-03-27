@@ -98,6 +98,14 @@ public class ModifierRecipe extends AbstractModifierRecipe {
         return false;
       }
     }
+
+    // ensure there are no unused inputs, makes recipes work together awkwardly
+    for (int i = 0; i < inv.getInputCount(); i++) {
+      if (!used.get(i) && !inv.getInput(i).isEmpty()) {
+        return false;
+      }
+    }
+
     // goal of matches is to see if this works for any tool, so ignore current tool NBT
     return true;
   }
