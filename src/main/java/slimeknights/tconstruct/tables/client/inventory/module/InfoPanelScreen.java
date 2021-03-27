@@ -404,10 +404,10 @@ public class InfoPanelScreen extends ModuleScreen {
 
   @Override
   public boolean handleMouseScrolled(double mouseX, double mouseY, double scrollData) {
-    if (!this.slider.isEnabled()) {
+    if (!this.slider.isEnabled() || !this.isMouseInModule((int) mouseX, (int) mouseY) || this.isMouseOverFullSlot(mouseX, mouseY)) {
       return false;
     }
 
-    return this.slider.mouseScrolled(scrollData, !this.isMouseOverFullSlot(mouseX, mouseY) && this.isMouseInModule((int) mouseX, (int) mouseY));
+    return this.slider.mouseScrolled(scrollData, true);
   }
 }
