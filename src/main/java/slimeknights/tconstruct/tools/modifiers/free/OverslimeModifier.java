@@ -7,6 +7,7 @@ import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -37,15 +38,15 @@ public class OverslimeModifier extends SingleUseModifier {
   /* Tool building */
 
   @Override
-  public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolDefinition toolDefinition, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     // add overslime cap if missing, just a consistency thing really
     if (!volatileData.contains(KEY_OVERSLIME_CAP, NBT.TAG_ANY_NUMERIC)) {
-      volatileData.putInt(KEY_OVERSLIME_CAP, getDefaultCap(volatileData));
+      volatileData.putInt(KEY_OVERSLIME_CAP, getDefaultCap(toolDefinition));
     }
   }
 
   @Override
-  public void addToolStats(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
+  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
     if (!volatileData.getBoolean(KEY_OVERSLIME_FRIEND)) {
       builder.multiplyAttackDamage(0.9f);
       builder.multiplyMiningSpeed(0.9f);
@@ -124,12 +125,12 @@ public class OverslimeModifier extends SingleUseModifier {
 
   /**
    * Gets the default overslime cap
-   * @param volatileData  Volatile data instance
+   * @param toolDefinition  Tool definiton
    * @return  Default cap
    */
-  private static int getDefaultCap(IModDataReadOnly volatileData) {
+  private static int getDefaultCap(ToolDefinition toolDefinition) {
     // cap is 10% of base durability
-    return volatileData.getInt(ToolStack.ORIGINAL_DURABILITY_KEY) / 10;
+    return (int)(50 * toolDefinition.getBaseStatDefinition().getDurabilityModifier());
   }
 
   /**
@@ -137,11 +138,11 @@ public class OverslimeModifier extends SingleUseModifier {
    * @param volatileData  Volatile data instance
    * @return  Current cap
    */
-  public static int getCap(IModDataReadOnly volatileData) {
+  public static int getCap(ToolDefinition toolDefinition, IModDataReadOnly volatileData) {
     if (volatileData.contains(KEY_OVERSLIME_CAP, NBT.TAG_ANY_NUMERIC)) {
       return volatileData.getInt(KEY_OVERSLIME_CAP);
     }
-    return getDefaultCap(volatileData);
+    return getDefaultCap(toolDefinition);
   }
 
   /**
@@ -150,12 +151,12 @@ public class OverslimeModifier extends SingleUseModifier {
    * @return  Overslime cap
    */
   public static int getCap(IModifierToolStack tool) {
-    return getCap(tool.getVolatileData());
+    return getCap(tool.getDefinition(), tool.getVolatileData());
   }
 
   /**
    * Sets the given amount to the cap, if you are going to use this method, your modifier should be high priority to prevent blocking others
-   * In general, {@link #addCap(ModDataNBT, int)} or {@link #multiplyCap(ModDataNBT, float)} will serve you better
+   * In general, {@link #addCap(ToolDefinition, ModDataNBT, int)} or {@link #multiplyCap(ToolDefinition, ModDataNBT, float)} will serve you better
    * @param volatileData  Volatile data instance
    * @param amount        Amount to set
    */
@@ -168,8 +169,8 @@ public class OverslimeModifier extends SingleUseModifier {
    * @param volatileData  Volatile data instance
    * @param amount        Amount to add
    */
-  public static void addCap(ModDataNBT volatileData, int amount) {
-    setCap(volatileData, getCap(volatileData) + amount);
+  public static void addCap(ToolDefinition toolDefinition, ModDataNBT volatileData, int amount) {
+    setCap(volatileData, getCap(toolDefinition, volatileData) + amount);
   }
 
   /**
@@ -177,8 +178,8 @@ public class OverslimeModifier extends SingleUseModifier {
    * @param volatileData  Volatile data instance
    * @param factor        Multiplication factor
    */
-  public static void multiplyCap(ModDataNBT volatileData, float factor) {
-    volatileData.putInt(KEY_OVERSLIME_CAP, (int)(getCap(volatileData) * factor));
+  public static void multiplyCap(ToolDefinition toolDefinition, ModDataNBT volatileData, float factor) {
+    volatileData.putInt(KEY_OVERSLIME_CAP, (int)(getCap(toolDefinition, volatileData) * factor));
   }
 
   /**
@@ -193,15 +194,15 @@ public class OverslimeModifier extends SingleUseModifier {
   /**
    * Sets the overslime on a tool
    */
-  public static void setOverslime(ModDataNBT persistentData, IModDataReadOnly volatileData, int amount) {
-    persistentData.putInt(KEY_OVERSLIME, MathHelper.clamp(amount, 0, getCap(volatileData)));
+  public static void setOverslime(ToolDefinition toolDefinition, ModDataNBT persistentData, IModDataReadOnly volatileData, int amount) {
+    persistentData.putInt(KEY_OVERSLIME, MathHelper.clamp(amount, 0, getCap(toolDefinition, volatileData)));
   }
 
   /**
    * Sets the overslime on a tool
    */
   public static void setOverslime(IModifierToolStack tool, int amount) {
-    setOverslime(tool.getPersistentData(), tool.getVolatileData(), amount);
+    setOverslime(tool.getDefinition(), tool.getPersistentData(), tool.getVolatileData(), amount);
   }
 
   /**

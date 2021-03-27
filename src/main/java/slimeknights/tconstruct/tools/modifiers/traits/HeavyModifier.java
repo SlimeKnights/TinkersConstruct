@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
@@ -20,13 +21,8 @@ public class HeavyModifier extends Modifier {
     super(0x4d4968);
   }
 
-  /**
-   * Adds raw stats to the tool. Called whenever modifiers are rebuilt
-   * @param level    Modifier level
-   * @param builder  Tool stat builder
-   */
   @Override
-  public void addToolStats(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
+  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
     builder.multiplyAttackDamage(1 + (0.2f * level));
   }
 

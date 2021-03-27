@@ -16,6 +16,10 @@ import slimeknights.tconstruct.tools.ToolStatsBuilder.IStatFactory;
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public final class ToolBaseStatDefinition {
+  /** Durability modifier, stored separately to allow accessing separately
+   * TODO: can we extract this from the factory instead? Maybe a method to get a single stat instead of all */
+  private final float durabilityModifier;
+
   /**
    * A fixed damage value where the calculations start to apply dimishing returns.
    * Basically if you'd hit more than that damage with this tool, the damage is gradually reduced depending on how much the cutoff is exceeded.
@@ -84,10 +88,11 @@ public final class ToolBaseStatDefinition {
         throw new TinkerAPIException("Trying to define a tool without damage modifier set. Damage modifier has to be defined per tool and should be greater than 0.001 and non-negative.");
       }
       // bake the multipliers into the stats factory
+      // TODO: cleanup: should use a builder
       IStatFactory factory = (durability, harvestLevel, attackDamage, miningSpeed, attackSpeed)
         -> new StatsNBT((int)(durability * durabilityModifier), harvestLevel, (attackDamage + damageBonus) * damageModifier,
                         miningSpeed * miningSpeedModifier, attackSpeed * this.attackSpeed);
-      return new ToolBaseStatDefinition(damageCutoff, knockbackBonus, defaultModifiers, defaultAbilities, primaryHeadWeight, factory);
+      return new ToolBaseStatDefinition(durabilityModifier, damageCutoff, knockbackBonus, defaultModifiers, defaultAbilities, primaryHeadWeight, factory);
     }
   }
 }

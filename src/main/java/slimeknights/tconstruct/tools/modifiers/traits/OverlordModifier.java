@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -13,20 +14,20 @@ public class OverlordModifier extends Modifier {
   }
 
   /** Gets the durability boost per level */
-  private int getBoost(IModDataReadOnly volatileData, int level) {
-    return (int)(volatileData.getInt(ToolStack.ORIGINAL_DURABILITY_KEY) * .15f * level);
+  private int getBoost(IModDataReadOnly volatileData, int level, float perLevel) {
+    return (int)(volatileData.getInt(ToolStack.ORIGINAL_DURABILITY_KEY) * perLevel * level);
   }
 
   @Override
-  public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolDefinition toolDefinition, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     volatileData.putBoolean(OverslimeModifier.KEY_OVERSLIME_FRIEND, true);
     // gains +15% of the durability per level
-    OverslimeModifier.addCap(volatileData, getBoost(volatileData, level));
+    OverslimeModifier.addCap(toolDefinition, volatileData, getBoost(volatileData, level, 0.10f));
   }
 
   @Override
-  public void addToolStats(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
+  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
     // at most subtract 90% durability
-    builder.addDurability(-getBoost(volatileData, Math.min(level, 6)));
+    builder.addDurability(-getBoost(volatileData, Math.min(level, 6), 0.15f));
   }
 }

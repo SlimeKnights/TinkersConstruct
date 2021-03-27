@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
@@ -14,7 +15,7 @@ public class EmeraldModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addToolStats(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
+  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
     builder.multiplyDurability(1.5f);
     builder.setHarvestLevel(HarvestLevels.IRON);
   }

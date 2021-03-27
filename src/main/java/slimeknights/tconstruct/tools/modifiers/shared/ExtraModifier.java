@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.shared;
 
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
@@ -29,7 +30,7 @@ public class ExtraModifier extends Modifier {
   }
 
   @Override
-  public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT data) {
+  public void addVolatileData(ToolDefinition toolDefinition, IModDataReadOnly persistentData, int level, ModDataNBT data) {
     if (isAbility) {
       data.addAbilities(singleUse ? 1 : level);
     } else {

@@ -4,6 +4,7 @@ import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
@@ -23,7 +24,7 @@ public class SharpnessModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addToolStats(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
+  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
     // vanilla give +1, 1.5, 2, 2.5, 3
     // to make up for that 0.5 on the first level, we give a small bonus after the first level
     float scaledLevel = getScaledLevel(persistentData, level);

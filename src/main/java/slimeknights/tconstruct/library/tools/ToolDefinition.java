@@ -21,7 +21,7 @@ import java.util.stream.IntStream;
  */
 public class ToolDefinition {
   private static final Set<MaterialStatsId> REPAIR_STATS = ImmutableSet.of(HeadMaterialStats.ID);
-  public static final ToolDefinition EMPTY = new ToolDefinition(new ToolBaseStatDefinition.Builder().setDamageModifier(1f).build(), Collections::emptyList);
+  public static final ToolDefinition EMPTY = new ToolDefinition(new ToolBaseStatDefinition.Builder().build(), Collections::emptyList);
 
   /** Inherent stats of the tool. */
   private final ToolBaseStatDefinition baseStatDefinition;

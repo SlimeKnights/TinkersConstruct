@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.shared;
 
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
@@ -12,7 +13,7 @@ public class LevelDamageModifier extends Modifier {
   }
 
   @Override
-  public void addToolStats(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
+  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
     builder.addAttackDamage(damage * level);
   }
 }
