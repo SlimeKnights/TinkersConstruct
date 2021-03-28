@@ -84,22 +84,23 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       return height;
     }
 
+    int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasCaption()) {
-      neededHeight += this.font.FONT_HEIGHT;
+      neededHeight += scaledFontHeight;
       neededHeight += 3;
     }
 
     if (this.hasPatternCost()) {
-      neededHeight += this.font.FONT_HEIGHT;
+      neededHeight += scaledFontHeight;
       neededHeight += 3;
     }
 
     if (this.hasMaterialValue()) {
-      neededHeight += this.font.FONT_HEIGHT;
+      neededHeight += scaledFontHeight;
       neededHeight += 3;
     }
 
-    neededHeight += (this.font.FONT_HEIGHT + 0.5f) * this.getTotalLines().size();
+    neededHeight += (scaledFontHeight + 0.5f) * this.getTotalLines().size();
 
     return neededHeight;
   }
@@ -107,11 +108,12 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
   @Override
   protected float getTooltipStart(float y) {
     y = super.getTooltipStart(y);
+    int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasPatternCost()) {
-      y += this.font.FONT_HEIGHT + 3;
+      y += scaledFontHeight + 3;
     }
     if (this.hasMaterialValue()) {
-      y += this.font.FONT_HEIGHT + 3;
+      y += scaledFontHeight + 3;
     }
     return y;
   }
@@ -133,13 +135,13 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       this.font.drawString(matrices, "?", guiRight() - this.border.w - this.font.getStringWidth("?") / 2f, this.guiTop + 5, 0xff5f5f5f);
     }
 
-    // draw caption
+    int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasCaption()) {
       int x2 = this.xSize / 2;
       x2 -= this.font.getStringPropertyWidth(this.caption) / 2;
 
       this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE).func_241878_f(), (float) this.guiLeft + x2, y, color);
-      y += this.font.FONT_HEIGHT + 3;
+      y += scaledFontHeight + 3;
     }
 
     // Draw pattern cost
@@ -148,7 +150,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       x2 -= this.font.getStringPropertyWidth(this.patternCost) / 2;
 
       this.font.func_238407_a_(matrices, this.patternCost.mergeStyle(TextFormatting.GOLD).func_241878_f(), (float) this.guiLeft + x2, y, color);
-      y += this.font.FONT_HEIGHT + 3;
+      y += scaledFontHeight + 3;
     }
 
     // Draw material value
@@ -157,7 +159,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       x2 -= this.font.getStringPropertyWidth(this.materialValue) / 2;
 
       this.font.func_238407_a_(matrices, this.materialValue.modifyStyle(style -> style.setColor(Color.fromInt(0x7fffff))).func_241878_f(), (float) this.guiLeft + x2, y, color);
-      y += this.font.FONT_HEIGHT + 3;
+      y += scaledFontHeight + 3;
     }
 
     if (this.text == null || this.text.size() == 0) {
@@ -165,7 +167,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       return;
     }
 
-    float textHeight = this.font.FONT_HEIGHT * this.textScale + 0.5f;
+    float textHeight = font.FONT_HEIGHT + 0.5f;
     float lowerBound = (this.guiTop + this.ySize - 5) / this.textScale;
     RenderSystem.scalef(this.textScale, this.textScale, 1.0f);
     x /= this.textScale;

@@ -20,7 +20,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.materials.IMaterialRenderInfo;
+import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModelLoader;
@@ -63,7 +63,7 @@ public class ToolClientEvents extends ClientEventBase {
 
     // tint tool textures for fallback
     registerToolItemColors(colors, TinkerTools.pickaxe);
-    registerToolItemColors(colors, TinkerTools.hammer);
+    registerToolItemColors(colors, TinkerTools.sledgeHammer);
     registerToolItemColors(colors, TinkerTools.mattock);
     registerToolItemColors(colors, TinkerTools.excavator);
     registerToolItemColors(colors, TinkerTools.axe);
@@ -73,12 +73,10 @@ public class ToolClientEvents extends ClientEventBase {
     // tint tool part textures for fallback
     registerMaterialItemColors(colors, TinkerToolParts.pickaxeHead);
     registerMaterialItemColors(colors, TinkerToolParts.hammerHead);
-    registerMaterialItemColors(colors, TinkerToolParts.excavatorHead);
     registerMaterialItemColors(colors, TinkerToolParts.axeHead);
     registerMaterialItemColors(colors, TinkerToolParts.kamaHead);
     registerMaterialItemColors(colors, TinkerToolParts.swordBlade);
-    registerMaterialItemColors(colors, TinkerToolParts.smallBinding);
-    registerMaterialItemColors(colors, TinkerToolParts.toughBinding);
+    registerMaterialItemColors(colors, TinkerToolParts.toolBinding);
     registerMaterialItemColors(colors, TinkerToolParts.largePlate);
     registerMaterialItemColors(colors, TinkerToolParts.toolRod);
     registerMaterialItemColors(colors, TinkerToolParts.toughToolRod);
@@ -98,7 +96,7 @@ public class ToolClientEvents extends ClientEventBase {
       .filter((material) -> IMaterial.UNKNOWN != material)
       .map(IMaterial::getIdentifier)
       .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
-      .map(IMaterialRenderInfo::getVertexColor)
+      .map(MaterialRenderInfo::getVertexColor)
       .orElse(-1);
   };
 
@@ -107,7 +105,7 @@ public class ToolClientEvents extends ClientEventBase {
     MaterialId material = MaterialIdNBT.from(stack).getMaterial(index);
     if (!IMaterial.UNKNOWN_ID.equals(material)) {
       return MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material)
-                                              .map(IMaterialRenderInfo::getVertexColor)
+                                              .map(MaterialRenderInfo::getVertexColor)
                                               .orElse(-1);
     }
     return -1;

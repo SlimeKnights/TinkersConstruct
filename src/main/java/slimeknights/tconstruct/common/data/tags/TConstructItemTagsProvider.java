@@ -20,8 +20,9 @@ import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.Locale;
@@ -44,17 +45,18 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
   private void addCommon() {
     this.getOrCreateBuilder(Tags.Items.SLIMEBALLS)
-        .addTag(TinkerTags.Items.BLUE_SLIMEBALL)
-        .addTag(TinkerTags.Items.PURPLE_SLIMEBALL)
+        .addTag(TinkerTags.Items.SKY_SLIMEBALL)
+        .addTag(TinkerTags.Items.ENDER_SLIMEBALL)
         .addTag(TinkerTags.Items.BLOOD_SLIMEBALL)
-        .addTag(TinkerTags.Items.MAGMA_SLIMEBALL);
-    this.getOrCreateBuilder(TinkerTags.Items.GREEN_SLIMEBALL).add(Items.SLIME_BALL);
-    this.getOrCreateBuilder(TinkerTags.Items.BLUE_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLUE));
-    this.getOrCreateBuilder(TinkerTags.Items.PURPLE_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.PURPLE));
-    this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLOOD));
-    this.getOrCreateBuilder(TinkerTags.Items.MAGMA_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.MAGMA));
+        .addTag(TinkerTags.Items.ICHOR_SLIMEBALL);
+    this.getOrCreateBuilder(TinkerTags.Items.EARTH_SLIMEBALL).add(Items.SLIME_BALL);
+    this.getOrCreateBuilder(TinkerTags.Items.SKY_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.SKY));
+    this.getOrCreateBuilder(TinkerTags.Items.ENDER_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ENDER));
+    this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.BLOOD));
+    this.getOrCreateBuilder(TinkerTags.Items.ICHOR_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ICHOR));
 
     this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerCommons.driedBrick.get(), TinkerSmeltery.searedBrick.get());
+    this.getOrCreateBuilder(TinkerTags.Items.WITHER_BONES).add(TinkerModifiers.necroticBone.get());
 
     // ores
     addMetalTags(TinkerMaterials.copper);
@@ -63,7 +65,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addMetalTags(TinkerMaterials.slimesteel);
     addMetalTags(TinkerMaterials.tinkersBronze);
     addMetalTags(TinkerMaterials.roseGold);
-    addMetalTags(TinkerMaterials.pigiron);
+    addMetalTags(TinkerMaterials.pigIron);
     // tier 4
     addMetalTags(TinkerMaterials.queensSlime);
     addMetalTags(TinkerMaterials.manyullyn);
@@ -71,8 +73,10 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addMetalTags(TinkerMaterials.soulsteel);
     // tier 5
     addMetalTags(TinkerMaterials.knightslime);
-    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
+
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_NETHERITE_SCRAP).add(Items.NETHERITE_SCRAP);
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
 
     copyColored(Tags.Blocks.GLASS, Tags.Items.GLASS);
     copyColored(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
@@ -80,6 +84,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     copy(Tags.Blocks.STAINED_GLASS_PANES, Tags.Items.STAINED_GLASS_PANES);
     copy(TinkerTags.Blocks.WORKBENCHES, TinkerTags.Items.WORKBENCHES);
     copy(TinkerTags.Blocks.TABLES, TinkerTags.Items.TABLES);
+    copy(TinkerTags.Blocks.ANVIL_METAL, TinkerTags.Items.ANVIL_METAL);
   }
 
   private void addWorld() {
@@ -104,22 +109,22 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     // multipart is basically all our tools right now, but future armor/shields won't be
     // required for part swapping and a few other things
     this.getOrCreateBuilder(TinkerTags.Items.MULTIPART_TOOL)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
+        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
 						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.broadSword.get());
     // mine blocks
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
+        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
 						 TinkerTools.axe.get(), TinkerTools.kama.get());
     // support expanders
     this.getOrCreateBuilder(TinkerTags.Items.AOE)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.hammer.get(),
+        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
 						 TinkerTools.axe.get(), TinkerTools.kama.get());
     // support all weapon modifiers
     this.getOrCreateBuilder(TinkerTags.Items.COMBAT)
-        .add(TinkerTools.hammer.get(), TinkerTools.axe.get(), TinkerTools.broadSword.get());
+        .add(TinkerTools.sledgeHammer.get(), TinkerTools.axe.get(), TinkerTools.broadSword.get());
     // can receive damage boosts
     this.getOrCreateBuilder(TinkerTags.Items.MELEE)
         .addTag(TinkerTags.Items.COMBAT)
@@ -164,11 +169,9 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.swordBladeCast);
     // large heads
     addCast.accept(TinkerSmeltery.hammerHeadCast);
-    addCast.accept(TinkerSmeltery.excavatorHeadCast);
-    addCast.accept(TinkerSmeltery.largePlateCast);
     // bindings
-    addCast.accept(TinkerSmeltery.smallBindingCast);
-    addCast.accept(TinkerSmeltery.toughBindingCast);
+    addCast.accept(TinkerSmeltery.toolBindingCast);
+    addCast.accept(TinkerSmeltery.largePlateCast);
     // tool rods
     addCast.accept(TinkerSmeltery.toolRodCast);
     addCast.accept(TinkerSmeltery.toughToolRodCast);

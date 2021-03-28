@@ -61,6 +61,16 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       .patternLine("w")
       .addCriterion("has_item", hasItem(TinkerTables.pattern))
       .build(consumer, prefix(TinkerTables.craftingStation, folder));
+    // station with log texture
+    ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.craftingStation)
+                         .key('p', TinkerTables.pattern)
+                         .key('w', ItemTags.LOGS)
+                         .patternLine("p")
+                         .patternLine("w")
+                         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
+      .setSource(ItemTags.LOGS)
+      .build(consumer, wrap(TinkerTables.craftingStation, folder, "_from_logs"));
 
     // part builder
     ShapedRetexturedRecipeBuilder.fromShaped(
@@ -120,6 +130,18 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                        .patternLine("bBb")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.blankCast))
                        .build(consumer, prefix(TinkerTables.castChest, folder));
+
+    // tinker anvil
+    ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkersAnvil)
+                         .key('m', TinkerTags.Items.ANVIL_METAL)
+                         .key('s', TinkerTags.Items.SEARED_BLOCKS)
+                         .patternLine("mmm")
+                         .patternLine(" s ")
+                         .patternLine("sss")
+                         .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
+                                 .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .build(consumer, prefix(TinkerTables.tinkersAnvil, folder));
 
     // tool repair recipe
     CustomRecipeBuilder.customRecipe(TinkerTables.tinkerStationRepairSerializer.get())

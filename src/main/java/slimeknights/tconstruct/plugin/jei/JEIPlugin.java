@@ -36,6 +36,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -170,10 +171,18 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructRecipeCategoryUid.melting, TConstructRecipeCategoryUid.alloy, TConstructRecipeCategoryUid.entityMelting);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructRecipeCategoryUid.modifiers);
+    registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructRecipeCategoryUid.modifiers);
   }
 
   @Override
   public void registerItemSubtypes(ISubtypeRegistration registry) {
+    // retexturable blocks
+    ISubtypeInterpreter tables = new RetexturedSubtypeInterpreter();
+    registry.registerSubtypeInterpreter(TinkerTables.craftingStation.asItem(), tables);
+    registry.registerSubtypeInterpreter(TinkerTables.partBuilder.asItem(), tables);
+    registry.registerSubtypeInterpreter(TinkerTables.tinkerStation.asItem(), tables);
+    registry.registerSubtypeInterpreter(TinkerTables.tinkersAnvil.asItem(), tables);
+
     ISubtypeInterpreter toolPartInterpreter = itemStack -> {
       IMaterial material = IMaterialItem.getMaterialFromStack(itemStack);
       if (material == IMaterial.UNKNOWN) {
@@ -185,12 +194,10 @@ public class JEIPlugin implements IModPlugin {
     // parts
     registry.registerSubtypeInterpreter(TinkerToolParts.pickaxeHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.hammerHead.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.excavatorHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.axeHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.kamaHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.swordBlade.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.smallBinding.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.toughBinding.get(), toolPartInterpreter);
+    registry.registerSubtypeInterpreter(TinkerToolParts.toolBinding.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.largePlate.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.toolRod.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.toughToolRod.get(), toolPartInterpreter);
@@ -198,7 +205,7 @@ public class JEIPlugin implements IModPlugin {
     // tools
     ISubtypeInterpreter toolInterpreter = new ToolSubtypeInterpreter();
     registry.registerSubtypeInterpreter(TinkerTools.pickaxe.get(), toolInterpreter);
-    registry.registerSubtypeInterpreter(TinkerTools.hammer.get(), toolInterpreter);
+    registry.registerSubtypeInterpreter(TinkerTools.sledgeHammer.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.mattock.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.excavator.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.axe.get(), toolInterpreter);
@@ -275,6 +282,21 @@ public class JEIPlugin implements IModPlugin {
           }
         }
         return builder.toString();
+      }
+      return NONE;
+    }
+  }
+
+  public static class RetexturedSubtypeInterpreter implements ISubtypeInterpreter {
+    @Override
+    public String apply(ItemStack itemStack) {
+      return NONE;
+    }
+
+    @Override
+    public String apply(ItemStack itemStack, UidContext context) {
+      if (context == UidContext.Ingredient) {
+        return RetexturedBlockItem.getTextureName(itemStack);
       }
       return NONE;
     }

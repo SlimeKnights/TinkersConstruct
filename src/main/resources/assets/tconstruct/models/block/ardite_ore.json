@@ -1,7 +1,0 @@
-{
-    "parent": "tconstruct:block/cube_overlay_all",
-    "textures": {
-        "all": "minecraft:block/netherrack",
-        "overlay": "tconstruct:block/ardite_ore"
-    }
-}

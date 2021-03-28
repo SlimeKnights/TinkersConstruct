@@ -25,9 +25,9 @@ public final class TinkerMaterials extends TinkerModule {
   public static final MetalItemObject cobalt = BLOCKS.registerMetal("cobalt", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   // tier 3
   public static final MetalItemObject slimesteel    = BLOCKS.registerMetal("slimesteel", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
-  public static final MetalItemObject tinkersBronze = BLOCKS.registerMetal("tinkers_bronze", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject tinkersBronze = BLOCKS.registerMetal("tinkers_bronze", "silicon_bronze", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   public static final MetalItemObject roseGold      = BLOCKS.registerMetal("rose_gold", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
-  public static final MetalItemObject pigiron       = BLOCKS.registerMetal("pigiron", () -> new OrientableBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
+  public static final MetalItemObject pigIron       = BLOCKS.registerMetal("pig_iron", () -> new OrientableBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);
   // tier 4
   private static final Block.Properties SOUL_STEEL = builder(Material.IRON, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(5.0f).notSolid();
   public static final MetalItemObject queensSlime = BLOCKS.registerMetal("queens_slime", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM, GENERAL_PROPS);

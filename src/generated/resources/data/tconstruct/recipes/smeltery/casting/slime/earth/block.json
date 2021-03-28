@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "tconstruct:earth_congealed_slime"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:earth_slime",
+    "amount": 1250
+  },
+  "result": "minecraft:slime_block",
+  "cooling_time": 91
+}

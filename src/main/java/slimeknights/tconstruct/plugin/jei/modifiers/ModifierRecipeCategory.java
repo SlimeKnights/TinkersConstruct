@@ -39,6 +39,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   // translation
   private static final List<ITextComponent> TEXT_FREE = Collections.singletonList(Util.makeTranslation("jei", "modifiers.free"));
   private static final List<ITextComponent> TEXT_SINGLE_UPGRADE = Collections.singletonList(Util.makeTranslation("jei", "modifiers.upgrade"));
+  private static final List<ITextComponent> TEXT_INCREMENTAL = Collections.singletonList(Util.makeTranslation("jei", "modifiers.incremental"));
   private static final String KEY_UPGRADES = Util.makeTranslationKey("jei", "modifiers.upgrades");
   private static final List<ITextComponent> TEXT_SINGLE_ABILITY = Collections.singletonList(Util.makeTranslation("jei", "modifiers.ability"));
   private static final String KEY_ABILITIES = Util.makeTranslationKey("jei", "modifiers.abilities");
@@ -53,7 +54,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   @Getter
   private final String title;
   private final String maxPrefix;
-  private final IDrawable requirements;
+  private final IDrawable requirements, incremental;
   private final IDrawable[] slotIcons;
   private final IDrawable slotUpgrade, slotAbility, slotFree;
   public ModifierRecipeCategory(IGuiHelper helper) {
@@ -66,6 +67,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
       slotIcons[i] = helper.createDrawable(BACKGROUND_LOC, 128 + i * 16, 0, 16, 16);
     }
     this.requirements = helper.createDrawable(BACKGROUND_LOC, 128, 17, 16, 16);
+    this.incremental = helper.createDrawable(BACKGROUND_LOC, 128, 33, 16, 16);
     this.slotUpgrade = helper.createDrawable(BACKGROUND_LOC, 144, 17, 8, 8);
     this.slotAbility = helper.createDrawable(BACKGROUND_LOC, 152, 17, 8, 8);
     this.slotFree    = helper.createDrawable(BACKGROUND_LOC, 160, 17, 8, 8);
@@ -104,9 +106,12 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     drawSlot(matrices, inputs, 5, 42, 57);
     drawSlot(matrices, inputs, 6,  6, 57);
 
-    // draw requirements icon if needed
+    // draw info icons
     if (recipe.hasRequirements()) {
       requirements.draw(matrices, 66, 58);
+    }
+    if (recipe.isIncremental()) {
+      incremental.draw(matrices, 83, 59);
     }
 
     // draw max count
@@ -145,6 +150,8 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     int checkY = (int) mouseY;
     if (recipe.hasRequirements() && GuiUtil.isHovered(checkX, checkY, 66, 58, 16, 16)) {
       return Collections.singletonList(new TranslationTextComponent(recipe.getRequirementsError()));
+    } else if (recipe.isIncremental() && GuiUtil.isHovered(checkX, checkY, 83, 59, 16, 16)) {
+      return TEXT_INCREMENTAL;
     } else if (GuiUtil.isHovered(checkX, checkY, 98, 61, 24, 8)) {
       // slot tooltip over icon
       int upgrades = recipe.getUpgradeSlots();
@@ -169,7 +176,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     // set items for display
     IGuiItemStackGroup items = layout.getItemStacks();
     items.init(0, true, 104, 33);
-    items.init(1, true, 24, 37);
+    items.init(1, true, 24, 36);
     items.init(2, true,  2, 32);
     items.init(3, true, 24, 14);
     items.init(4, true, 46, 32);

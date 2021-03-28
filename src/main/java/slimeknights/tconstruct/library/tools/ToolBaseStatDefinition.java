@@ -16,6 +16,10 @@ import slimeknights.tconstruct.tools.ToolStatsBuilder.IStatFactory;
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public final class ToolBaseStatDefinition {
+  /** Durability modifier, stored separately to allow accessing separately
+   * TODO: can we extract this from the factory instead? Maybe a method to get a single stat instead of all */
+  private final float durabilityModifier;
+
   /**
    * A fixed damage value where the calculations start to apply dimishing returns.
    * Basically if you'd hit more than that damage with this tool, the damage is gradually reduced depending on how much the cutoff is exceeded.
@@ -29,11 +33,15 @@ public final class ToolBaseStatDefinition {
    * TODO: move to tool stats? This and reach */
   private final float knockbackBonus;
 
-  /** Number of modifiers new tools start with */
-  private final int defaultModifiers;
-
+  /** Number of upgrades new tools start with */
+  private final int defaultUpgrades;
   /** Number of abilities new tools start with */
   private final int defaultAbilities;
+  /** Number of trait slots for the tool forge the tool starts with */
+  private final int defaultTraits;
+
+  /** All heads after the first are divided by this number on repairs, and the first stats are duplicated this many times on stat build */
+  private final int primaryHeadWeight;
 
   /** Factory to create the tool stats from the material data, used for minor fine adjustments */
   private final IStatFactory statFactory;
@@ -66,11 +74,16 @@ public final class ToolBaseStatDefinition {
     private float attackSpeed = 1f;
 
     /** See comment on {@link ToolBaseStatDefinition} */
+    private int primaryHeadWeight = 1;
+
+    /** See comment on {@link ToolBaseStatDefinition} */
     private float knockbackBonus = 0;
     /** See comment on {@link ToolBaseStatDefinition} */
-    private int defaultModifiers = 3;
+    private int defaultUpgrades = 3;
     /** See comment on {@link ToolBaseStatDefinition} */
     private int defaultAbilities = 1;
+    /** See comment on {@link ToolBaseStatDefinition} */
+    private int defaultTraits = 0;
 
     /** Creates the tool stat definition */
     public ToolBaseStatDefinition build() {
@@ -78,10 +91,11 @@ public final class ToolBaseStatDefinition {
         throw new TinkerAPIException("Trying to define a tool without damage modifier set. Damage modifier has to be defined per tool and should be greater than 0.001 and non-negative.");
       }
       // bake the multipliers into the stats factory
+      // TODO: cleanup: should use a builder
       IStatFactory factory = (durability, harvestLevel, attackDamage, miningSpeed, attackSpeed)
         -> new StatsNBT((int)(durability * durabilityModifier), harvestLevel, (attackDamage + damageBonus) * damageModifier,
                         miningSpeed * miningSpeedModifier, attackSpeed * this.attackSpeed);
-      return new ToolBaseStatDefinition(damageCutoff, knockbackBonus, defaultModifiers, defaultAbilities, factory);
+      return new ToolBaseStatDefinition(durabilityModifier, damageCutoff, knockbackBonus, defaultUpgrades, defaultAbilities, defaultTraits, primaryHeadWeight, factory);
     }
   }
 }

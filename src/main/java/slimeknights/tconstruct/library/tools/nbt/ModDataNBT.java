@@ -16,10 +16,11 @@ import java.util.function.BiFunction;
  * Note unlike other NBT classes, the data inside this one is mutable as most of it is directly used by the tools.
  */
 @EqualsAndHashCode
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ModDataNBT implements IModDataReadOnly {
   protected static final String TAG_UPGRADES = "upgrades";
   protected static final String TAG_ABILITIES = "abilities";
+  protected static final String TAG_TRAITS = "traits";
 
   /** Compound representing modifier data */
   @Getter(AccessLevel.PROTECTED)
@@ -31,12 +32,15 @@ public class ModDataNBT implements IModDataReadOnly {
   /** Abilities remaining in this data */
   @Getter
   private int abilities;
+  /** Trait remaining in this data, for use in the soul forge */
+  @Getter
+  private int traits;
 
   /**
    * Creates a new mod data containing empty data
    */
   public ModDataNBT() {
-    this(new CompoundNBT(), 0, 0);
+    this(new CompoundNBT(), 0, 0, 0);
   }
 
   /** Updates the upgrade slots */
@@ -62,6 +66,19 @@ public class ModDataNBT implements IModDataReadOnly {
   public void addAbilities(int add) {
     if (add != 0) {
       setAbilities(abilities + add);
+    }
+  }
+
+  /** Updates the bonus trait slots, used in the soul forge */
+  public void setTraits(int value) {
+    this.traits = value;
+    data.putInt(TAG_TRAITS, value);
+  }
+
+  /** Adds the given number of trait slots, use negative to remove */
+  public void addTraits(int add) {
+    if (add != 0) {
+      setTraits(traits + add);
     }
   }
 
@@ -128,6 +145,7 @@ public class ModDataNBT implements IModDataReadOnly {
   public static ModDataNBT readFromNBT(CompoundNBT data) {
     int upgrades = data.getInt(TAG_UPGRADES);
     int abilities = data.getInt(TAG_ABILITIES);
-    return new ModDataNBT(data, upgrades, abilities);
+    int traits = data.getInt(TAG_TRAITS);
+    return new ModDataNBT(data, upgrades, abilities, traits);
   }
 }

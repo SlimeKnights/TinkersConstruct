@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "tconstruct:sky_slime_ball"
+  },
+  "result": "tconstruct:sky_slime_drop",
+  "experience": 0.35,
+  "cookingtime": 200
+}

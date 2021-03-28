@@ -3,13 +3,17 @@ package slimeknights.tconstruct.world.block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import java.util.Random;
 
@@ -79,5 +83,12 @@ public class SlimeLeavesBlock extends LeavesBlock {
   @Override
   public boolean canBeReplacedByLeaves(BlockState state, IWorldReader world, BlockPos pos) {
     return this.isAir(state, world, pos) || state.isIn(BlockTags.LEAVES) || state.isIn(TinkerTags.Blocks.SLIMY_LEAVES);
+  }
+
+  @Override
+  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+    if (this.foliageType != FoliageType.ICHOR) {
+      super.fillItemGroup(group, items);
+    }
   }
 }

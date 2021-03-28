@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "minecraft:fermented_spider_eye"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 15,
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
+  "result": {
+    "name": "tconstruct:bane_of_arthropods",
+    "level": 1
+  },
+  "max_level": 5,
+  "upgrade_slots": 1
+}

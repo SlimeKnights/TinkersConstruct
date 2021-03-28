@@ -187,6 +187,16 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       }
     }
   }
+
+  @Override
+  public void setInventorySlotContents(int slot, ItemStack stack) {
+    ItemStack original = getStackInSlot(slot);
+    super.setInventorySlotContents(slot, stack);
+    // if the stack changed emptiness, update
+    if (original.isEmpty() != stack.isEmpty() && world != null && !world.isRemote) {
+      world.updateComparatorOutputLevel(pos, this.getBlockState().getBlock());
+    }
+  }
   
   @Override
   @Nonnull

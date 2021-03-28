@@ -13,7 +13,7 @@ public class SilkyModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addHarvestEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment,Integer> consumer) {
+  public void applyEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment,Integer> consumer) {
     consumer.accept(Enchantments.SILK_TOUCH, 1);
   }
 }

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:magma_cream",
+    "tconstruct:flowing_magma_cream",
+    "#tconstruct:slime"
+  ]
+}

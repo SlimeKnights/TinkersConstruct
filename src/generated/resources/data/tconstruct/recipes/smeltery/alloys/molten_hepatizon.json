@@ -11,12 +11,12 @@
     },
     {
       "name": "tconstruct:molten_obsidian",
-      "amount": 576
+      "amount": 1000
     }
   ],
   "result": {
     "fluid": "tconstruct:molten_hepatizon",
-    "amount": 576
+    "amount": 288
   },
   "temperature": 1400
 }

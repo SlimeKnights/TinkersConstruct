@@ -11,12 +11,12 @@
     }
   },
   "result": {
-    "item": "tconstruct:green_congealed_slime"
+    "item": "tconstruct:earth_congealed_slime"
   },
   "alternatives": [
-    "tconstruct:common/slime/blue/congealed",
-    "tconstruct:common/slime/purple/congealed",
+    "tconstruct:common/slime/sky/congealed",
+    "tconstruct:common/slime/ender/congealed",
     "tconstruct:common/slime/blood/congealed",
-    "tconstruct:common/slime/magma/congealed"
+    "tconstruct:common/slime/ichor/congealed"
   ]
 }

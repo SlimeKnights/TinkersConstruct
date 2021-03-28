@@ -22,13 +22,13 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -217,11 +217,12 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <ul>
    *   <li>Persistent mod data (accessed via {@link IModifierToolStack}): Can be written to freely, but will not automatically remove if the modifier is removed.</li>
    * </ul>
+   * @param toolDefinition  Tool definition, will be empty for non-multitools
    * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
    * @param level           Modifier level
    * @param volatileData    Mutable mod NBT data, result of this method
    */
-  public void addVolatileData(IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {}
+  public void addVolatileData(ToolDefinition toolDefinition, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {}
 
   /**
    * Adds raw stats to the tool. Called whenever tool stats are rebuilt.
@@ -231,19 +232,20 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    *   <li>{@link #addAttributes(IModifierToolStack, int, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
    *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
+   * @param toolDefinition  Tool definition, will be empty for non-multitools
    * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
-   * @param volatileData    Modifier NBT calculated from modifiers in {@link #addVolatileData(IModDataReadOnly, int, ModDataNBT)}
+   * @param volatileData    Modifier NBT calculated from modifiers in {@link #addVolatileData(ToolDefinition, IModDataReadOnly, int, ModDataNBT)}
    * @param level           Modifier level
    * @param builder         Tool stat builder
    */
-  public void addToolStats(IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {}
+  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {}
 
   /**
    * Adds attributes from this modifier's effect. Called whenever the item stack refreshes capabilities.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but can affect durability, mining level, and mining speed.</li>
+   *   <li>{@link #addToolStats(ToolDefinition, IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but can affect durability, mining level, and mining speed.</li>
    * </ul>
    * @param tool      Current tool instance
    * @param level     Modifier level
@@ -277,14 +279,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
    * Called when the tool is repair. Can be used to decrease, increase, or cancel the repair.
-   * Note canceling it may give unexpected behavior at the tool station.
    * @param toolStack  Tool stack
    * @param level      Tool level
-   * @param amount     Amount of damage to deal
-   * @return  Replacement damage. Returning 0 cancels the repair and stops other modifiers from processing.
+   * @param factor     Original factor
+   * @return  Replacement factor. Returning 0 prevents repair
    */
-  public int onRepairTool(IModifierToolStack toolStack, int level, int amount) {
-    return amount;
+  public float getRepairFactor(IModifierToolStack toolStack, int level, float factor) {
+    return factor;
   }
 
   /**
@@ -308,8 +309,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but effect shows in the tooltip.</li>
-   *   <li>{@link #beforeBlockBreak(IModifierToolStack, int, BreakEvent)}: Can directly prevent block breaking instead of just change breaking speed. Called just once per block break</li>
+   *   <li>{@link #addToolStats(ToolDefinition, IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but effect shows in the tooltip.</li>
    * </ul>
    * @param tool   Current tool instance
    * @param level  Modifier level
@@ -318,12 +318,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
 
   /**
-   * Adds harvest related enchantments from this modifier's effect. Needed to add enchantments for silk touch and fortune. Can add conditionally if needed
+   * Adds loot table related enchantments from this modifier's effect, called before attacking an entity or breaking a block.
+   * Needed to add enchantments for silk touch, fortune, and looting. Can add conditionally if needed.
    * @param tool      Tool used
    * @param level     Modifier level
    * @param consumer  Consumer accepting any enchantments
    */
-  public void addHarvestEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment, Integer> consumer) {}
+  public void applyEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment, Integer> consumer) {}
 
   /**
    * Called after a block is broken to apply special effects
@@ -341,12 +342,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /* Attack hooks */
 
   /**
-   * Called when a living entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt.
+   * Called when a living entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt. Do not modify the entity here, its possible the attack will still be canceled
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
+   *   <li>{@link #addToolStats(ToolDefinition, IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
    *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, boolean)}: Perform special attacks on entity hit beyond damage boosts</li>
+   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Apply effects that must run before hit</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
@@ -363,7 +365,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
-   * Called when a living entity is attacked. Used to calculate the knockback this attack will do. Damage is final damage including critical damage.
+   * Called right before an entity is hit, used to modify knockback applied or to apply special effects that need to run before damage. Damage is final damage including critical damage.
+   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean)} will run.
    * <br>
    * Alternatives:
    * <ul>
@@ -380,7 +383,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param fullyCharged   If true, this attack was fully charged (could perform a sword sweep)
    * @return  New knockback to apply. 0.5 is equivelent to 1 level of the vanilla enchant
    */
-  public float applyLivingKnockback(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged) {
+  public float beforeLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged) {
     return knockback;
   }
 
@@ -389,9 +392,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addToolStats(IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Adjusts the base tool stats that affect damage</li>
+   *   <li>{@link #addToolStats(ToolDefinition, IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Adjusts the base tool stats that affect damage</li>
    *   <li>{@link #applyLivingDamage(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, boolean, boolean)}: Change the amount of damage dealt with attacker context</li>
-   *   <li>{@link #applyLivingKnockback(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Change the amount of knockback dealt</li>
+   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Change the amount of knockback dealt</li>
+   *   <li>{@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean)}: Called after living hit when damage was not dealt</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
@@ -405,6 +409,17 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
     return 0;
   }
+
+  /**
+   * Called after attacking an entity when no damage was dealt
+   * @param tool          Tool used to attack
+   * @param level         Modifier level
+   * @param attacker      Entity doing the attacking
+   * @param target        Entity being attacked
+   * @param isCritical    If true, this attack is a critical hit
+   * @param fullyCharged  If true, this attack was fully charged (could perform a sword sweep)
+   */
+  public void failedLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, boolean isCritical, boolean fullyCharged) {}
 
 
   /* Display */

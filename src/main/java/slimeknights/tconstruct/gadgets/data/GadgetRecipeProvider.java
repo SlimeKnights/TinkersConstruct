@@ -22,7 +22,7 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -44,7 +44,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     // slime
     String folder = "gadgets/slimeboots/";
     ShapedFallbackRecipeBuilder slimeBoots = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(SlimeType.GREEN))
+      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(SlimeType.EARTH))
                          .setGroup("tconstruct:slime_boots")
                          .key('#', TinkerTags.Items.CONGEALED_SLIME)
                          .key('X', Tags.Items.SLIMEBALLS)
@@ -67,7 +67,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
     folder = "gadgets/slimesling/";
     ShapedFallbackRecipeBuilder slimeSling = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(SlimeType.GREEN))
+      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(SlimeType.EARTH))
                          .setGroup("tconstruct:slimesling")
                          .key('#', Tags.Items.STRING)
                          .key('X', TinkerTags.Items.CONGEALED_SLIME)

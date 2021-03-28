@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:nugget_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_pig_iron",
+    "amount": 16
+  },
+  "result": "tconstruct:pig_iron_nugget",
+  "cooling_time": 20
+}

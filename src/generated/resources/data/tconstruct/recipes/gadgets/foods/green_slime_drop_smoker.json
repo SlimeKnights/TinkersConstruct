@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smoking",
-  "ingredient": {
-    "item": "minecraft:slime_ball"
-  },
-  "result": "tconstruct:green_slime_drop",
-  "experience": 0.35,
-  "cookingtime": 100
-}

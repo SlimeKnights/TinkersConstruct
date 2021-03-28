@@ -2,20 +2,13 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.SizedIngredient;
-import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -25,21 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-@Accessors(chain = true)
-@RequiredArgsConstructor(staticName = "modifier")
-public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeBuilder> {
-  private static final Lazy<Ingredient> DEFAULT_TOOL = Lazy.of(() -> Ingredient.fromTag(TinkerTags.Items.MODIFIABLE));
+public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<ModifierRecipeBuilder> {
   private final List<SizedIngredient> inputs = new ArrayList<>();
-  private final ModifierEntry result;
-  @Setter
-  private Ingredient tools = Ingredient.EMPTY;
-  @Setter
-  private ModifierMatch requirements = ModifierMatch.ALWAYS;
-  @Setter
-  private String requirementsError;
-  private int maxLevel = 0;
-  private int upgradeSlots = 0;
-  private int abilitySlots = 0;
+  protected ModifierRecipeBuilder(ModifierEntry result) {
+    super(result);
+  }
+
+  /**
+   * Creates a new recipe for multiple levels of a modifier
+   * @param modifier  Modifier
+   * @return  Recipe for multiple levels of the modifier
+   */
+  public static ModifierRecipeBuilder modifier(ModifierEntry modifier) {
+    return new ModifierRecipeBuilder(modifier);
+  }
 
   /**
    * Creates a new recipe for 1 level of a modifier
@@ -52,15 +44,6 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
 
 
   /* Inputs */
-
-  /**
-   * Sets the tag for applicable tools
-   * @param tag  Tag
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder setToolTag(ITag<Item> tag) {
-    return this.setTools(Ingredient.fromTag(tag));
-  }
 
   /**
    * Adds an input to the recipe
@@ -110,61 +93,6 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
     return addInput(tag, 1);
   }
 
-
-  /* Slots */
-
-  /**
-   * Sets the number of upgrade slots required by this recipe
-   * @param slots  Upgrade slot count
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder setUpgradeSlots(int slots) {
-    if (slots < 0) {
-      throw new IllegalArgumentException("Slots must be positive");
-    }
-    if (abilitySlots != 0) {
-      throw new IllegalStateException("Cannot set both upgrade and ability slots");
-    }
-    this.upgradeSlots = slots;
-    return this;
-  }
-
-  /**
-   * Sets the number of ability slots required by this recipe
-   * @param slots  Ability slot count
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder setAbilitySlots(int slots) {
-    if (slots < 0) {
-      throw new IllegalArgumentException("Slots must be positive");
-    }
-    if (upgradeSlots != 0) {
-      throw new IllegalStateException("Cannot set both upgrade and ability slots");
-    }
-    this.abilitySlots = slots;
-    return this;
-  }
-
-  /* Other setters */
-
-  /**
-   * Sets the max level for this modifier
-   * @param level  Max level
-   * @return  Builder instance
-   */
-  public ModifierRecipeBuilder setMaxLevel(int level) {
-    if (level < 0) {
-      throw new IllegalArgumentException("Level must be non-negative");
-    }
-    this.maxLevel = level;
-    return this;
-  }
-
-  @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
-    build(consumer, result.getModifier().getId());
-  }
-
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
     if (inputs.isEmpty()) {
@@ -174,7 +102,7 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
     consumer.accept(new FinishedRecipe(id, advancementId));
   }
 
-  private class FinishedRecipe extends AbstractFinishedRecipe {
+  private class FinishedRecipe extends ModifierFinishedRecipe {
     public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
       super(ID, advancementID);
     }
@@ -186,26 +114,7 @@ public class ModifierRecipeBuilder extends AbstractRecipeBuilder<ModifierRecipeB
         array.add(ingredient.serialize());
       }
       json.add("inputs", array);
-      if (tools == Ingredient.EMPTY) {
-        json.add("tools", DEFAULT_TOOL.get().serialize());
-      } else {
-        json.add("tools", tools.serialize());
-      }
-      if (requirements != ModifierMatch.ALWAYS) {
-        JsonObject reqJson = requirements.serialize();
-        reqJson.addProperty("error", requirementsError);
-        json.add("requirements", reqJson);
-      }
-      json.add("result", result.toJson());
-      if (maxLevel != 0) {
-        json.addProperty("max_level", maxLevel);
-      }
-      if (upgradeSlots != 0) {
-        json.addProperty("upgrade_slots", upgradeSlots);
-      }
-      if (abilitySlots != 0) {
-        json.addProperty("ability_slots", abilitySlots);
-      }
+      super.serialize(json);
     }
 
     @Override

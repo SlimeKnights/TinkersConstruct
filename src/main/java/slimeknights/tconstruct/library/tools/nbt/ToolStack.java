@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRequirementLookup;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
@@ -166,8 +166,9 @@ public class ToolStack implements IModifierToolStack {
     // update modifier data
     ToolBaseStatDefinition baseStats = definition.getBaseStatDefinition();
     ModDataNBT data = tool.getPersistentData();
-    data.setUpgrades(baseStats.getDefaultModifiers());
+    data.setUpgrades(baseStats.getDefaultUpgrades());
     data.setAbilities(baseStats.getDefaultAbilities());
+    data.setTraits(baseStats.getDefaultTraits());
     return tool;
   }
 
@@ -476,7 +477,7 @@ public class ToolStack implements IModifierToolStack {
         return result;
       }
     }
-    return ModifierRequirementLookup.checkRequirements(getUpgrades().getModifiers(), mods);
+    return ModifierRecipeLookup.checkRequirements(getUpgrades().getModifiers(), mods);
   }
 
   /**
@@ -511,8 +512,9 @@ public class ToolStack implements IModifierToolStack {
 
       // build persistent data first, its a parameter to the other two hooks
       IModDataReadOnly persistentData = getPersistentData();
+      ToolDefinition toolDefinition = getDefinition();
       for (ModifierEntry entry : modifierList) {
-        entry.getModifier().addVolatileData(persistentData, entry.getLevel(), volatileData);
+        entry.getModifier().addVolatileData(toolDefinition, persistentData, entry.getLevel(), volatileData);
       }
 
       // regular stats last so we can include volatile data
@@ -520,7 +522,7 @@ public class ToolStack implements IModifierToolStack {
       for (ModifierEntry entry : modifierList) {
         Modifier mod = entry.getModifier();
         int level = entry.getLevel();
-        mod.addToolStats(persistentData, volatileData, level, statBuilder);
+        mod.addToolStats(toolDefinition, persistentData, volatileData, level, statBuilder);
       }
 
       // set into NBT

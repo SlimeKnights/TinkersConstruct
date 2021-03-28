@@ -1,7 +1,0 @@
-{
-    "parent": "block/slime_block",
-    "textures": {
-        "particle": "tconstruct:block/slime/blue_slime",
-        "texture": "tconstruct:block/slime/blue_slime"
-    }
-}

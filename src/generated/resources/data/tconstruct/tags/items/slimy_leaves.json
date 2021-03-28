@@ -1,8 +1,9 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:blue_slime_leaves",
-    "tconstruct:purple_slime_leaves",
-    "tconstruct:orange_slime_leaves"
+    "tconstruct:sky_slime_leaves",
+    "tconstruct:ichor_slime_leaves",
+    "tconstruct:ender_slime_leaves",
+    "tconstruct:blood_slime_leaves"
   ]
 }

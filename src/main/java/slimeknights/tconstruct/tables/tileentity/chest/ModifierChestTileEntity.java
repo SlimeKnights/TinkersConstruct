@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tables.tileentity.chest;
 
 import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierItemLookup;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 public class ModifierChestTileEntity extends TinkerChestTileEntity {
@@ -14,6 +14,6 @@ public class ModifierChestTileEntity extends TinkerChestTileEntity {
   @Override
   public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
     // no duplicate limit, the limit to 64 stacks handles that
-    return ModifierItemLookup.isModifier(itemstack.getItem());
+    return ModifierRecipeLookup.isModifier(itemstack.getItem());
   }
 }

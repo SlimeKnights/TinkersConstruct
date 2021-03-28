@@ -44,8 +44,15 @@ public final class ToolStatsBuilder {
       throw TinkerAPIMaterialException.statBuilderWithInvalidMaterialCount();
     }
 
-    return new ToolStatsBuilder(
-      listOfCompatibleWith(HeadMaterialStats.ID, materials, requiredComponents),
+    List<HeadMaterialStats> headStats = listOfCompatibleWith(HeadMaterialStats.ID, materials, requiredComponents);
+    int primaryWeight = toolDefinition.getBaseStatDefinition().getPrimaryHeadWeight();
+    if (primaryWeight > 1 && headStats.size() > 1) {
+      for (int i = 1; i < primaryWeight; i++) {
+        headStats.add(headStats.get(0));
+      }
+    }
+
+    return new ToolStatsBuilder(headStats,
       listOfCompatibleWith(HandleMaterialStats.ID, materials, requiredComponents),
       listOfCompatibleWith(ExtraMaterialStats.ID, materials, requiredComponents)
     );

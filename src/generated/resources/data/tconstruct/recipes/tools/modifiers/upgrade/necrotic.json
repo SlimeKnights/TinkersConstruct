@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "tag": "forge:wither_bones"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 10,
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
+  "result": {
+    "name": "tconstruct:necrotic",
+    "level": 1
+  },
+  "max_level": 5,
+  "upgrade_slots": 1
+}

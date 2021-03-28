@@ -1,4 +1,4 @@
 {
-  "fallback": "bone_base",
+  "fallbacks": ["bone", "rock"],
   "color": "ede6bf"
 }

@@ -157,7 +157,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   public boolean func_230383_a_(ISeedReader world, StructureManager manager, ChunkGenerator generator, Random rand, MutableBoundingBox bounds, ChunkPos chunk, BlockPos pos) {
     this.chunkGenerator = generator;
 
-    if (this.variant == SlimeIslandVariant.MAGMA) {
+    if (this.variant == SlimeIslandVariant.BLOOD) {
       BlockPos up = this.templatePosition.up();
 
       if (this.isLava(world, up)) {

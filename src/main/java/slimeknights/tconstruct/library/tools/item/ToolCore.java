@@ -39,7 +39,6 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -68,7 +67,7 @@ import java.util.function.Consumer;
  * This class handles how all the data for items made out of different
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
-public abstract class ToolCore extends Item implements IRepairable, ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
+public abstract class ToolCore extends Item implements ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
@@ -269,30 +268,6 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
     return this.getToolHarvestLogic().getDestroySpeed(stack, state);
   }
 
-
-  /* Repairing */
-
-  @Override
-  public boolean canRepairWith(ItemStack repairable, IMaterial material) {
-    ToolStack tool = ToolStack.from(repairable);
-    for (int part : this.getToolDefinition().getRepairParts()) {
-      if (tool.getMaterial(part) == material) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  @Override
-  public boolean needsRepair(ItemStack repairable) {
-    return ToolDamageUtil.needsRepair(repairable);
-  }
-
-  @Override
-  public ItemStack repairItem(ItemStack repairable, int amount) {
-    ToolDamageUtil.repair(ToolStack.from(repairable), amount);
-    return repairable;
-  }
 
   /* Attacking */
 
@@ -574,6 +549,11 @@ public abstract class ToolCore extends Item implements IRepairable, ITinkerStati
     }
 
     return true;
+  }
+  
+  @Override
+  public boolean isEnchantable(ItemStack stack) {
+    return false;
   }
 
   @Override

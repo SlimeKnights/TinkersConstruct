@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tconstruct:slime_balls",
+  "ingredients": [
+    {
+      "item": "tconstruct:earth_congealed_slime"
+    }
+  ],
+  "result": {
+    "item": "minecraft:slime_ball",
+    "count": 4
+  }
+}

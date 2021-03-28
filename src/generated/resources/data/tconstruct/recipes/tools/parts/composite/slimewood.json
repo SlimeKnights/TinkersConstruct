@@ -2,7 +2,7 @@
   "type": "tconstruct:table_casting_composite",
   "input": "tconstruct:wood",
   "fluid": {
-    "name": "tconstruct:green_slime",
+    "name": "tconstruct:earth_slime",
     "amount": 250
   },
   "result": "tconstruct:slimewood",

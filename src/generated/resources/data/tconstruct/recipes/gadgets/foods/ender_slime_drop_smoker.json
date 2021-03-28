@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "tconstruct:ender_slime_ball"
+  },
+  "result": "tconstruct:ender_slime_drop",
+  "experience": 0.35,
+  "cookingtime": 100
+}

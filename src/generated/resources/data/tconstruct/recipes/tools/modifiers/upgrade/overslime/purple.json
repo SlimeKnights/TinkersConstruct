@@ -1,7 +1,0 @@
-{
-  "type": "tconstruct:overslime_modifier",
-  "ingredient": {
-    "item": "tconstruct:purple_slime_crystal"
-  },
-  "restore_amount": 200
-}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:slime_boots",
+  "pattern": [
+    "X X",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:sky_congealed_slime"
+    },
+    "X": {
+      "tag": "forge:slimeball/sky"
+    }
+  },
+  "result": {
+    "item": "tconstruct:sky_slime_boots"
+  }
+}

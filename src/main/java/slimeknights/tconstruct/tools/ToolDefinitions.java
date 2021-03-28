@@ -20,10 +20,10 @@ public final class ToolDefinitions {
 
   public static final ToolDefinition PICKAXE = new ToolDefinition(
     ToolBaseStatDefinitions.PICKAXE,
-    requirements(TinkerToolParts.pickaxeHead, TinkerToolParts.toolRod, TinkerToolParts.smallBinding));
+    requirements(TinkerToolParts.pickaxeHead, TinkerToolParts.toolRod, TinkerToolParts.toolBinding));
 
-  public static final ToolDefinition HAMMER = new ToolDefinition(
-    ToolBaseStatDefinitions.HAMMER,
+  public static final ToolDefinition SLEDGE_HAMMER = new ToolDefinition(
+    ToolBaseStatDefinitions.SLEDGE_HAMMER,
     requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughToolRod, TinkerToolParts.largePlate, TinkerToolParts.largePlate));
 
   public static final ToolDefinition MATTOCK = new ToolDefinition(
@@ -32,15 +32,15 @@ public final class ToolDefinitions {
 
   public static final ToolDefinition EXCAVATOR = new ToolDefinition(
     ToolBaseStatDefinitions.EXCAVATOR,
-    requirements(TinkerToolParts.excavatorHead, TinkerToolParts.toughToolRod, TinkerToolParts.largePlate, TinkerToolParts.toughBinding));
+    requirements(TinkerToolParts.largePlate, TinkerToolParts.toughToolRod, TinkerToolParts.largePlate, TinkerToolParts.toughToolRod));
 
   public static final ToolDefinition AXE = new ToolDefinition(
     ToolBaseStatDefinitions.AXE,
-    requirements(TinkerToolParts.axeHead, TinkerToolParts.toolRod, TinkerToolParts.smallBinding));
+    requirements(TinkerToolParts.axeHead, TinkerToolParts.toolRod, TinkerToolParts.toolBinding));
 
   public static final ToolDefinition KAMA = new ToolDefinition(
     ToolBaseStatDefinitions.KAMA,
-    requirements(TinkerToolParts.kamaHead, TinkerToolParts.toolRod, TinkerToolParts.smallBinding));
+    requirements(TinkerToolParts.kamaHead, TinkerToolParts.toolRod, TinkerToolParts.toolBinding));
 
   public static final ToolDefinition BROADSWORD = new ToolDefinition(
     ToolBaseStatDefinitions.BROADSWORD,

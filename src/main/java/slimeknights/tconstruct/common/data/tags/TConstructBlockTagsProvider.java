@@ -18,8 +18,9 @@ import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
@@ -49,7 +50,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     addMetalTags(TinkerMaterials.slimesteel);
     addMetalTags(TinkerMaterials.tinkersBronze);
     addMetalTags(TinkerMaterials.roseGold);
-    addMetalTags(TinkerMaterials.pigiron);
+    addMetalTags(TinkerMaterials.pigIron);
     // tier 4
     addMetalTags(TinkerMaterials.queensSlime);
     addMetalTags(TinkerMaterials.manyullyn);
@@ -70,6 +71,23 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
         .addOptionalTag(new ResourceLocation("forge:workbench")); // some mods use a non-standard name here, so support it I guess
     this.getOrCreateBuilder(TinkerTags.Blocks.TABLES)
         .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
+
+    TagsProvider.Builder<Block> builder = this.getOrCreateBuilder(TinkerTags.Blocks.ANVIL_METAL)
+        // tier 3
+        .addTag(TinkerMaterials.slimesteel.getBlockTag())
+        .addTag(TinkerMaterials.tinkersBronze.getBlockTag())
+        .addTag(TinkerMaterials.roseGold.getBlockTag())
+        .addTag(TinkerMaterials.pigIron.getBlockTag())
+        // tier 4
+        .addTag(TinkerMaterials.queensSlime.getBlockTag())
+        .addTag(TinkerMaterials.manyullyn.getBlockTag())
+        .addTag(TinkerMaterials.hepatizon.getBlockTag())
+        .addTag(Tags.Blocks.STORAGE_BLOCKS_NETHERITE);
+    for (SmelteryCompat compat : SmelteryCompat.values()) {
+      if (!compat.isOre()) {
+        builder.addOptionalTag(new ResourceLocation("forge", "storage_blocks/" + compat.getName()));
+      }
+    }
   }
 
   private void addWorld() {

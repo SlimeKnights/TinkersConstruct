@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "tconstruct:purple_slime_ball"
-  },
-  "result": "tconstruct:purple_slime_drop",
-  "experience": 0.35,
-  "cookingtime": 200
-}

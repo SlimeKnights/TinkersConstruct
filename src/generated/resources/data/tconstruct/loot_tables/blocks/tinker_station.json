@@ -12,15 +12,7 @@
               "source": "block_entity"
             },
             {
-              "function": "minecraft:copy_nbt",
-              "source": "block_entity",
-              "ops": [
-                {
-                  "source": "LegTexture",
-                  "target": "TinkerData.LegTexture",
-                  "op": "replace"
-                }
-              ]
+              "function": "mantle:fill_retextured_block"
             }
           ],
           "name": "tconstruct:tinker_station"

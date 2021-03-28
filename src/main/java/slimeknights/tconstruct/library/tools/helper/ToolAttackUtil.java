@@ -183,15 +183,7 @@ public class ToolAttackUtil {
       knockback += tool.getDefinition().getBaseStatDefinition().getKnockbackBonus();
     }
 
-    // removed: vanilla knockback enchant support
-    // changed: knockback halved for simplicity
-    // apply modifier knockback
-    float baseKnockback = knockback;
-    if (targetLiving != null) {
-      for (ModifierEntry entry : modifiers) {
-        knockback = entry.getModifier().applyLivingKnockback(tool, entry.getLevel(), attackerLiving, targetLiving, damage, baseKnockback, knockback, isCritical, fullyCharged);
-      }
-    }
+    // knockback moved lower
 
     // apply critical boost
     float criticalModifier = isCritical ? 1.5f : 1.0f;
@@ -206,8 +198,8 @@ public class ToolAttackUtil {
       damage *= criticalModifier;
     }
 
-    // removed: sword check hook
-    // removed: fire aspect check
+    // removed: sword check hook, replaced by weapon callback
+    // removed: fire aspect check, replaced by before damage lower
 
     // apply cutoff and cooldown, store if damage was above base for magic particles
     boolean isMagic = damage > baseDamage;
@@ -223,26 +215,42 @@ public class ToolAttackUtil {
       oldHealth = targetLiving.getHealth();
     }
 
-    // apply special effects from modifiers
-    // removed: fire aspect handling, replaced by this
-    // TODO: still needed? after hit hool seems to take care of it
-    // if (targetLiving != null) {
-    //   int hurtResistantTime = targetLiving.hurtResistantTime;
-    //   for (ModifierEntry entry : modifiers) {
-    //     entry.getModifier().beforeLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damage, isCritical, fullyCharged);
-    //     // reset hurt resistant time
-    //     targetLiving.hurtResistantTime = hurtResistantTime;
-    //   }
-    // }
+    // removed: vanilla knockback enchant support
+    // changed: knockback halved for simplicity
+
+    // apply modifier knockback and special effects
+    float baseKnockback = knockback;
+    if (targetLiving != null) {
+      for (ModifierEntry entry : modifiers) {
+        knockback = entry.getModifier().beforeLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damage, baseKnockback, knockback, isCritical, fullyCharged);
+      }
+    }
 
     ///////////////////
     // actual attack //
     ///////////////////
 
+    // apply enchants before attack, so looting works
+    boolean enchantsApplied = false;
+    if (attackerLiving.isServerWorld()) {
+      enchantsApplied = ModifierUtil.applyEnchantments(tool, stack, attackerPlayer);
+    }
+
     // removed: sword special attack check and logic, replaced by this
     boolean didHit = weapon.dealDamage(tool, attackerLiving, targetEntity, damage, isCritical, fullyCharged);
     if (!didHit) {
       attackerLiving.world.playSound(null, attackerLiving.getPosX(), attackerLiving.getPosY(), attackerLiving.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_NODAMAGE, attackerLiving.getSoundCategory(), 1.0F, 1.0F);
+      // alert modifiers nothing was hit, mainly used for fiery
+      if (targetLiving != null) {
+        for (ModifierEntry entry : modifiers) {
+          entry.getModifier().failedLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, isCritical, fullyCharged);
+        }
+      }
+
+      // no longer need enchants, done here
+      if (enchantsApplied) {
+        ModifierUtil.clearEnchantments(stack);
+      }
       return true;
     }
 
@@ -307,6 +315,11 @@ public class ToolAttackUtil {
       }
     }
 
+    // wait to clear enchants until the last modifier callback, in case damage is dealt there
+    if (enchantsApplied) {
+      ModifierUtil.clearEnchantments(stack);
+    }
+
     // final attack hooks
     if (attackerPlayer != null) {
       if (targetLiving != null) {
@@ -317,7 +330,6 @@ public class ToolAttackUtil {
       }
       // removed: fire damage, handled in modifier hook above
       attackerPlayer.addExhaustion(0.1F);
-
     }
 
     // damage the tool

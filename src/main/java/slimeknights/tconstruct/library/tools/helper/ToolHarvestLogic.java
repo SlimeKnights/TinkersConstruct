@@ -2,13 +2,9 @@ package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemStack.TooltipDisplayFlags;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SChangeBlockPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Hand;
@@ -24,17 +20,12 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
 
 /**
  * External logic for the ToolCore that handles mining calculations and breaking blocks.
  */
 public class ToolHarvestLogic {
-  private static final String TAG_ENCHANTMENTS = "Enchantments";
-  private static final String TAG_HIDE_FLAGS = "HideFlags";
 
   /** Default harvest logic object */
   public static final ToolHarvestLogic DEFAULT = new ToolHarvestLogic();
@@ -272,28 +263,8 @@ public class ToolHarvestLogic {
       breakBlock(tool, ItemStack.EMPTY, serverPlayer, world, pos, state);
       player.setHeldItem(Hand.MAIN_HAND, stack);
     } else {
-      // add enchants if not creative
-      boolean addedEnchants = false;
-      if (!player.isCreative()) {
-        Map<Enchantment, Integer> enchantments = new HashMap<>();
-        BiConsumer<Enchantment,Integer> enchantmentConsumer = (ench, add) -> {
-          if (ench != null && add != null) {
-            Integer level = enchantments.get(ench);
-            if (level != null) {
-              add += level;
-            }
-            enchantments.put(ench, add);
-          }
-        };
-        for (ModifierEntry entry : tool.getModifierList()) {
-          entry.getModifier().addHarvestEnchantments(tool, entry.getLevel(), enchantmentConsumer);
-        }
-        if (!enchantments.isEmpty()) {
-          addedEnchants = true;
-          EnchantmentHelper.setEnchantments(enchantments, stack);
-          stack.getOrCreateTag().putInt(TAG_HIDE_FLAGS, TooltipDisplayFlags.ENCHANTMENTS.func_242397_a());
-        }
-      }
+      // add enchants
+      boolean addedEnchants = ModifierUtil.applyEnchantments(tool, stack, player);
 
       // need to calculate these before we break the block
       float refStrength = state.getPlayerRelativeBlockHardness(player, world, pos);
@@ -307,25 +278,10 @@ public class ToolHarvestLogic {
 
       // blocks done being broken, clear extra enchants added
       if (addedEnchants) {
-        clearEnchantments(stack);
+        ModifierUtil.clearEnchantments(stack);
       }
     }
 
     return true;
-  }
-
-
-  /* Helpers */
-
-  /**
-   * Quick method to remove enchants from a stack
-   * @param stack  Stack
-   */
-  private static void clearEnchantments(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    if (nbt != null) {
-      nbt.remove(TAG_ENCHANTMENTS);
-      nbt.remove(TAG_HIDE_FLAGS);
-    }
   }
 }

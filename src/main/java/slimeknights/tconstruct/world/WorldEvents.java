@@ -1,6 +1,11 @@
 package slimeknights.tconstruct.world;
 
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.loot.ItemLootEntry;
+import net.minecraft.loot.LootEntry;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.RandomValueRange;
+import net.minecraft.loot.functions.SetCount;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -14,15 +19,23 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper.UnableToFindFieldException;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -71,7 +84,7 @@ public class WorldEvents {
       try {
         if (provider instanceof NetherBiomeProvider) {
           if (!configuredStructures.containsKey(TinkerStructures.netherSlimeIsland.get())) {
-            configuredStructures.put(TinkerStructures.netherSlimeIsland.get(), new StructureSeparationSettings(30, 22, 14357800));
+            configuredStructures.put(TinkerStructures.netherSlimeIsland.get(), new StructureSeparationSettings(15, 11, 14357800));
           }
         } else if (provider instanceof EndBiomeProvider) {
           if (!configuredStructures.containsKey(TinkerStructures.endSlimeIsland.get())) {
@@ -104,7 +117,7 @@ public class WorldEvents {
     else if (event.getCategory() != Biome.Category.THEEND) {
       if (Config.COMMON.generateSlimeIslands.get()) {
         generation.withStructure(TinkerStructures.SLIME_ISLAND);
-        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.blueSlimeEntity.get(), 15, 2, 4));
+        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 15, 2, 4));
       }
 
       if (Config.COMMON.generateCopper.get()) {
@@ -130,5 +143,77 @@ public class WorldEvents {
       }
     }
     return false;
+  }
+
+
+  /* Loot injection */
+  private static boolean foundField = false;
+  private static Field lootEntries = null;
+
+  /**
+   * Adds a loot entry to the given loot pool
+   * @param pool   Pool
+   * @param entry  Entry
+   */
+  @SuppressWarnings("unchecked")
+  private static void addEntry(LootPool pool, LootEntry entry) {
+    // fetch field
+    if (!foundField) {
+      try {
+        lootEntries = ObfuscationReflectionHelper.findField(LootPool.class, "field_186453_a");
+        lootEntries.setAccessible(true);
+        foundField = true;
+      } catch (UnableToFindFieldException ex) {
+        TConstruct.log.error("Failed to find field", ex);
+        foundField = true;
+        return;
+      }
+    }
+    // access field
+    try {
+      Object field = lootEntries.get(pool);
+      if (field instanceof List) {
+        List<LootEntry> entries = (List<LootEntry>) field;
+        entries.add(entry);
+      }
+    } catch (IllegalAccessException|ClassCastException ex) {
+      TConstruct.log.error("Failed to access field", ex);
+      lootEntries = null;
+    }
+  }
+
+  /**
+   * Injects an entry into a loot pool
+   * @param event      Loot table evnet
+   * @param tableName  Loot table name
+   * @param poolName   Pool name
+   * @param entry      Entry to inject
+   */
+  private static void injectInto(LootTableLoadEvent event, String tableName, String poolName, Supplier<LootEntry> entry) {
+    ResourceLocation name = event.getName();
+    if ("minecraft".equals(name.getNamespace()) && tableName.equals(name.getPath())) {
+      LootPool pool = event.getTable().getPool(poolName);
+      //noinspection ConstantConditions method is annotated wrongly
+      if (pool != null) {
+        addEntry(pool, entry.get());
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void onLootTableLoad(LootTableLoadEvent event) {
+    BiFunction<FoliageType, Integer, LootEntry> makeSeed = (type, weight) ->
+      ItemLootEntry.builder(TinkerWorld.slimeGrassSeeds.get(type)).weight(weight)
+                   .acceptFunction(SetCount.builder(new RandomValueRange(2, 4))).build();
+    BiFunction<FoliageType, Integer, LootEntry> makeSapling = (type, weight) -> ItemLootEntry.builder(TinkerWorld.slimeSapling.get(type)).weight(weight).build();
+    // sky
+    injectInto(event, "chests/simple_dungeon", "pool1", () -> makeSeed.apply(FoliageType.SKY, 10));
+    injectInto(event, "chests/simple_dungeon", "main", () -> makeSapling.apply(FoliageType.SKY, 10));
+    // ichor
+    injectInto(event, "chests/nether_bridge", "main", () -> makeSeed.apply(FoliageType.BLOOD, 5));
+    injectInto(event, "chests/bastion_bridge", "pool2", () -> makeSapling.apply(FoliageType.BLOOD, 1));
+    // ender
+    injectInto(event, "chests/end_city_treasure", "main", () -> makeSeed.apply(FoliageType.ENDER, 5));
+    injectInto(event, "chests/end_city_treasure", "main", () -> makeSapling.apply(FoliageType.ENDER, 3));
   }
 }
