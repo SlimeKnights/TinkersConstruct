@@ -30,6 +30,8 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
     // check if player was targeting a block
     BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
     if (mop.getType() == RayTraceResult.Type.BLOCK) {
+      player.getCooldownTracker().setCooldown(stack.getItem(), 3);
+
       // we fling the inverted player look vector
       Vector3d vec = player.getLookVec().normalize();
       player.addVelocity(vec.x * -f,
