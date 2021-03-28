@@ -214,7 +214,6 @@ public class TConstruct {
         case "earth_slime_bucket": return TinkerFluids.earthSlime.asItem();
         case "sky_slime_bucket": return TinkerFluids.skySlime.asItem();
         case "ender_slime_bucket": return TinkerFluids.enderSlime.asItem();
-        // slime tools
         case "green_slime_sling":
         case "blood_slime_sling": 
           return TinkerGadgets.slimeSling.get(SlimeType.EARTH);

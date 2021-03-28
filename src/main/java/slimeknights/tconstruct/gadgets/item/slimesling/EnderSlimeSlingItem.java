@@ -8,11 +8,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.common.Sounds;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import java.util.ArrayList;
 import java.util.List;

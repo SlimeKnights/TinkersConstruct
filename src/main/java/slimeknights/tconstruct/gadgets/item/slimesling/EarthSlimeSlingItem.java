@@ -8,7 +8,6 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 
 public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
@@ -31,7 +30,7 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
     BlockRayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
     if (mop.getType() == RayTraceResult.Type.BLOCK) {
       player.getCooldownTracker().setCooldown(stack.getItem(), 3);
-      
+
       // we fling the inverted player look vector
       Vector3d vec = player.getLookVec().normalize();
       player.addVelocity(vec.x * -f,
