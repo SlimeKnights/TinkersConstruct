@@ -48,6 +48,7 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
         return;
       }
 
+      player.getCooldownTracker().setCooldown(stack.getItem(), 3);
       target.applyKnockback(f , -look.x, -look.z);
       playerServerMovement(target);
       playSuccessSound(player);
