@@ -12,6 +12,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.recipe.SizedIngredient;
+import slimeknights.tconstruct.common.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.CastItemObject;
@@ -330,15 +332,18 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(ItemTags.MUSIC_DISCS)
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.harmonious, upgradeFolder));
-    // TODO: dragon head is currently included in this, do we want a different item for dragon kill?
     ModifierRecipeBuilder.modifier(TinkerModifiers.recapitated.get())
-                         .addInput(Tags.Items.HEADS)
+                         .addInput(SizedIngredient.of(new IngredientWithout(Ingredient.fromTag(Tags.Items.HEADS), Ingredient.fromItems(Items.DRAGON_HEAD))))
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.recapitated, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.resurrected.get())
                          .addInput(Items.END_CRYSTAL)
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.resurrected, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.draconic.get())
+                         .addInput(Items.DRAGON_HEAD)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.draconic, upgradeFolder));
     // creative
     ModifierRecipeBuilder.modifier(TinkerModifiers.creativeUpgrade.get())
                          .addInput(TinkerModifiers.creativeUpgradeItem)

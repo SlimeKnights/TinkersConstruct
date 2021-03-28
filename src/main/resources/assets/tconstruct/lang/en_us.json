@@ -1074,6 +1074,10 @@
     "modifier.tconstruct.gilded.flavor": "Equivelent Exchange!",
     "modifier.tconstruct.gilded.description": "Trades an ability slot for two upgrade slots!",
 
+    "modifier.tconstruct.draconic": "Draconic",
+    "modifier.tconstruct.draconic.flavor": "Conquered the End!",
+    "modifier.tconstruct.draconic.description": "The head of the great beast allows your tool a second ability slot!",
+
     "__comment": "Tier 1 Traits",
     "modifier.tconstruct.cultivated": "Cultivated",
     "modifier.tconstruct.cultivated.flavor": "Economical!",
