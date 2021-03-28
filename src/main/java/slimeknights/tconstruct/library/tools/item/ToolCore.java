@@ -550,6 +550,11 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
     return true;
   }
+  
+  @Override
+  public boolean isEnchantable(ItemStack stack) {
+    return false;
+  }
 
   @Override
   public boolean isBookEnchantable(ItemStack stack, ItemStack book) {

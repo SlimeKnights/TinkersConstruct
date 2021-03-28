@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:nuggets/tinkers_bronze"
+      "tag": "forge:nuggets/silicon_bronze"
     },
     "*": {
       "item": "tconstruct:tinkers_bronze_nugget"

@@ -5,8 +5,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Items;
-import net.minecraft.loot.AlternativesLootEntry;
 import net.minecraft.loot.ConstantRange;
 import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootPool;
@@ -78,7 +76,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerMaterials.slimesteel.get());
     this.registerDropSelfLootTable(TinkerMaterials.tinkersBronze.get());
     this.registerDropSelfLootTable(TinkerMaterials.roseGold.get());
-    this.registerDropSelfLootTable(TinkerMaterials.pigiron.get());
+    this.registerDropSelfLootTable(TinkerMaterials.pigIron.get());
     // tier 4
     this.registerDropSelfLootTable(TinkerMaterials.manyullyn.get());
     this.registerDropSelfLootTable(TinkerMaterials.hepatizon.get());
@@ -219,15 +217,25 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private static LootTable.Builder randomDropSlimeBallOrSapling(SlimeGrassBlock.FoliageType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
+    SlimeType slime = SlimeType.EARTH;
     switch (foliageType) {
-      case ENDER:
-        return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(SlimeType.ENDER))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
+      case ICHOR: case BLOOD:
+        slime = SlimeType.ICHOR;
+        break;
       case SKY:
-        return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(AlternativesLootEntry.builder(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(SlimeType.SKY))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), withSurvivesExplosion(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
-      case ICHOR:
-      default:
-        return dropSapling(blockIn, sapling, fortuneIn);
+        slime = SlimeType.SKY;
+        break;
+      case ENDER:
+        slime = SlimeType.ENDER;
+        break;
     }
+    return dropSapling(blockIn, sapling, fortuneIn)
+      .addLootPool(LootPool.builder()
+                           .rolls(ConstantRange.of(1))
+                           .acceptCondition(NOT_SILK_TOUCH_OR_SHEARS)
+                           .addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(slime)))
+                                       .acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 1/50f, 1/45f, 1/40f, 1/30f, 1/20f))));
+
   }
 
   private static LootTable.Builder droppingWithFunctions(Block block, Function<ItemLootEntry.Builder<?>,ItemLootEntry.Builder<?>> mapping) {

@@ -1,4 +1,4 @@
 {
-  "fallback": "contrast",
+  "fallbacks": ["contrast"],
   "color": "8f60d4"
 }

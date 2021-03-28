@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.world.worldgen.islands;
 
+import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
@@ -11,58 +11,66 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
+import java.util.Objects;
 
+@Getter
 public enum SlimeIslandVariant implements IStringSerializable {
-  BLUE(0,
-    TinkerWorld.skySlimeGrass.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState(),
+  SKY(0,
+    TinkerWorld.skySlimeGrass.get(FoliageType.SKY).getDefaultState(),
+    Objects.requireNonNull(TinkerFluids.skySlime.getBlock()),
+    createArray(TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
+    TinkerWorld.skySlimeVine.get().getDefaultState(),
+    createArray(TinkerWorld.slimeFern.get(FoliageType.SKY).getDefaultState(), TinkerWorld.slimeTallGrass.get(FoliageType.SKY).getDefaultState()),
+    TinkerStructures.SKY_SLIME_ISLAND_TREE,
+    BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
+
+  EARTH(1,
+    TinkerWorld.earthSlimeGrass.get(FoliageType.SKY).getDefaultState(),
     TinkerFluids.skySlime.getBlock(),
     createArray(TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
     TinkerWorld.skySlimeVine.get().getDefaultState(),
-    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState()),
-    TinkerStructures.BLUE_SLIME_TREE_ISLAND,
+    createArray(TinkerWorld.slimeFern.get(FoliageType.SKY).getDefaultState(), TinkerWorld.slimeTallGrass.get(FoliageType.SKY).getDefaultState()),
+    TinkerStructures.SKY_SLIME_ISLAND_TREE,
     BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
 
-  GREEN(1,
-    TinkerWorld.earthSlimeGrass.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState(),
-    TinkerFluids.skySlime.getBlock(),
-    createArray(TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
-    TinkerWorld.skySlimeVine.get().getDefaultState(),
-    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState()),
-    TinkerStructures.BLUE_SLIME_TREE_ISLAND,
+  ENDER(2,
+    TinkerWorld.enderSlimeGrass.get(FoliageType.ENDER).getDefaultState(),
+    Objects.requireNonNull(TinkerFluids.enderSlime.getBlock()),
+    createArray(TinkerWorld.congealedSlime.get(SlimeType.ENDER).getDefaultState()), TinkerWorld.enderSlimeVine.get().getDefaultState(),
+    createArray(TinkerWorld.slimeFern.get(FoliageType.ENDER).getDefaultState(), TinkerWorld.slimeTallGrass.get(FoliageType.ENDER).getDefaultState()),
+    TinkerStructures.ENDER_SLIME_ISLAND_TREE,
     BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
 
-  PURPLE(2,
-    TinkerWorld.enderSlimeGrass.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState(),
-    TinkerFluids.enderSlime.getBlock(),
-    createArray(TinkerWorld.congealedSlime.get(SlimeType.ENDER).getDefaultState()),
-    TinkerWorld.enderSlimeVine.get().getDefaultState(),
-    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
-    TinkerStructures.PURPLE_SLIME_TREE_ISLAND,
-    BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
-
-  MAGMA(3,
-    TinkerWorld.ichorSlimeGrass.get(SlimeGrassBlock.FoliageType.ICHOR).getDefaultState(),
-    Blocks.LAVA,
-    createArray(TinkerWorld.congealedSlime.get(SlimeType.ICHOR).getDefaultState(),
-      TinkerWorld.congealedSlime.get(SlimeType.BLOOD).getDefaultState()),
+  BLOOD(3,
+    TinkerWorld.ichorSlimeGrass.get(FoliageType.BLOOD).getDefaultState(),
+    Objects.requireNonNull(TinkerFluids.magmaCream.getBlock()),
+    createArray(TinkerWorld.congealedSlime.get(SlimeType.ICHOR).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeType.BLOOD).getDefaultState()),
     null,
-    createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.ICHOR).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.ICHOR).getDefaultState()),
-    TinkerStructures.MAGMA_SLIME_TREE,
+    createArray(TinkerWorld.slimeFern.get(FoliageType.BLOOD).getDefaultState(), TinkerWorld.slimeTallGrass.get(FoliageType.BLOOD).getDefaultState()),
+    TinkerStructures.BLOOD_SLIME_TREE,
     BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK);
 
+  @Getter
   private final int index;
+  @Getter
   private final BlockState lakeBottom;
+  @Getter
   private final BlockState lakeFluid;
+  @Getter
   private final BlockState[] congealedSlime;
   @Nullable
+  @Getter
   private final BlockState vine;
+  @Getter
   private final BlockState[] tallGrass;
+  @Getter
   private final ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> configuredTreeFeature;
+  @Getter
   private final StructureProcessor structureProcessor;
 
   SlimeIslandVariant(int index, BlockState lakeBottom, Block lakeFluid, BlockState[] congealedSlime, @Nullable BlockState vine, BlockState[] tallGrass, ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> configuredTreeFeature, StructureProcessor structureProcessor) {
@@ -80,54 +88,21 @@ public enum SlimeIslandVariant implements IStringSerializable {
     return states;
   }
 
-  public BlockState getLakeBottom() {
-    return this.lakeBottom;
-  }
-
-  public BlockState getLakeFluid() {
-    return this.lakeFluid;
-  }
-
-  public BlockState[] getCongealedSlime() {
-    return this.congealedSlime;
-  }
-
-  @Nullable
-  public BlockState getVine() {
-    return this.vine;
-  }
-
-  public BlockState[] getTallGrass() {
-    return this.tallGrass;
-  }
-
   @Override
   public String getString() {
     return this.toString().toLowerCase(Locale.US);
   }
 
-  public int getIndex() {
-    return this.index;
-  }
-
-  public ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> getConfiguredTreeFeature() {
-    return this.configuredTreeFeature;
-  }
-
-  public StructureProcessor getStructureProcessor() {
-    return this.structureProcessor;
-  }
-
   public static SlimeIslandVariant getVariantFromIndex(int index) {
     switch (index) {
       case 0:
-        return BLUE;
+        return SKY;
       case 1:
-        return GREEN;
+        return EARTH;
       case 2:
-        return PURPLE;
+        return ENDER;
       case 3:
-        return MAGMA;
+        return BLOOD;
       default:
         throw new IllegalStateException("Unexpected variant: " + index);
     }

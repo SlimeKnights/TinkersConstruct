@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "forge:ingots/tinkers_bronze"
+    "tag": "forge:ingots/silicon_bronze"
   },
   "value": 1,
   "needed": 1,

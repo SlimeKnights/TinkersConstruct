@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStatio
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -135,10 +136,10 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     if (displayItems == null) {
       // set cap and amount based on the restore amount for output
       CompoundNBT volatileNBT = new CompoundNBT();
-      ModDataNBT volatileData = new ModDataNBT(volatileNBT, 0, 0);
+      ModDataNBT volatileData = ModDataNBT.readFromNBT(volatileNBT);
       OverslimeModifier.setCap(volatileData, 500);
       CompoundNBT persistentNBT = new CompoundNBT();
-      OverslimeModifier.setOverslime(new ModDataNBT(persistentNBT, 0, 0), volatileData, restoreAmount);
+      OverslimeModifier.setOverslime(ToolDefinition.EMPTY, ModDataNBT.readFromNBT(persistentNBT), volatileData, restoreAmount);
       List<ItemStack> displayOutputs = IDisplayModifierRecipe.getAllModifiable()
                                                              .map(MAP_TOOL_FOR_RENDERING)
                                                              .map(stack -> {

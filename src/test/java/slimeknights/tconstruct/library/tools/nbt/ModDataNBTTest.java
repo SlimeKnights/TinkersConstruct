@@ -37,12 +37,14 @@ class ModDataNBTTest extends BaseMcTest {
     ModDataNBT modData = new ModDataNBT();
     modData.setUpgrades(2);
     modData.setAbilities(3);
+    modData.setTraits(4);
     modData.putInt(testKey, 1);
     modData.put(testKey2, new CompoundNBT());
 
     CompoundNBT nbt = modData.getData();
     assertThat(nbt.getInt(ModDataNBT.TAG_UPGRADES)).isEqualTo(2);
     assertThat(nbt.getInt(ModDataNBT.TAG_ABILITIES)).isEqualTo(3);
+    assertThat(nbt.getInt(ModDataNBT.TAG_TRAITS)).isEqualTo(4);
     assertThat(nbt.getInt(testKey.toString())).isEqualTo(1);
     assertThat(nbt.contains(testKey2.toString(), NBT.TAG_COMPOUND)).isTrue();
   }
@@ -52,6 +54,7 @@ class ModDataNBTTest extends BaseMcTest {
     CompoundNBT nbt = new CompoundNBT();
     nbt.putInt(ModDataNBT.TAG_UPGRADES, 4);
     nbt.putInt(ModDataNBT.TAG_ABILITIES, 5);
+    nbt.putInt(ModDataNBT.TAG_TRAITS, 6);
     nbt.putString(testKey.toString(), "Not sure why you need strings");
     CompoundNBT tag = new CompoundNBT();
     tag.putInt("test", 1);
@@ -60,6 +63,7 @@ class ModDataNBTTest extends BaseMcTest {
     ModDataNBT modData = ModDataNBT.readFromNBT(nbt);
     assertThat(modData.getUpgrades()).isEqualTo(4);
     assertThat(modData.getAbilities()).isEqualTo(5);
+    assertThat(modData.getTraits()).isEqualTo(6);
     assertThat(modData.getString(testKey)).isEqualTo("Not sure why you need strings");
 
     tag = modData.getCompound(testKey2);

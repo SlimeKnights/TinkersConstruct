@@ -12,6 +12,6 @@
     "name": "tconstruct:cooling",
     "level": 1
   },
-  "max_level": 10,
+  "max_level": 5,
   "upgrade_slots": 1
 }

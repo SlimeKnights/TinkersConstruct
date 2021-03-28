@@ -109,9 +109,11 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.addModule(this.buttonsScreen);
 
     this.tinkerInfo = new InfoPanelScreen(this, container, playerInventory, title);
+    this.tinkerInfo.setTextScale(8/9f);
     this.addModule(this.tinkerInfo);
 
     this.modifierInfo = new InfoPanelScreen(this, container, playerInventory, title);
+    this.modifierInfo.setTextScale(7/9f);
     this.addModule(this.modifierInfo);
 
     this.tinkerInfo.yOffset = 5;

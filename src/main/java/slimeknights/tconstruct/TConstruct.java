@@ -136,6 +136,8 @@ public class TConstruct {
       case "green_slime_fluid": return TinkerFluids.earthSlime.getBlock();
       case "blue_slime_fluid": return TinkerFluids.skySlime.getBlock();
       case "purple_slime_fluid": return TinkerFluids.enderSlime.getBlock();
+      // pig iron underscore
+      case "pigiron_block": return TinkerMaterials.pigIron.get();
     }
     // other slime changes:
     // green -> earth
@@ -148,7 +150,7 @@ public class TConstruct {
       if (name.equals(typeName + "_congealed_slime")) return TinkerWorld.congealedSlime.get(type);
       if (name.equals(typeName + "_slime_dirt")) return TinkerWorld.allDirt.get(type);
     }
-    for (FoliageType foliage : FoliageType.values()) {
+    for (FoliageType foliage : FoliageType.ORIGINAL) {
       String foliageName = foliage.getOriginalName();
       if (name.equals(foliageName + "_slime_fern")) return TinkerWorld.slimeFern.get(foliage);
       if (name.equals(foliageName + "_slime_tall_grass")) return TinkerWorld.slimeTallGrass.get(foliage);
@@ -220,6 +222,9 @@ public class TConstruct {
         case "blue_slime_sling": return TinkerGadgets.slimeSling.get(SlimeType.SKY);
         case "magma_slime_sling": return TinkerGadgets.slimeSling.get(SlimeType.ICHOR);
         case "purple_slime_sling": return TinkerGadgets.slimeSling.get(SlimeType.ENDER);
+        // pig iron underscore
+        case "pigiron_ingot": return TinkerMaterials.pigIron.getIngot();
+        case "pigiron_nugget": return TinkerMaterials.pigIron.getNugget();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

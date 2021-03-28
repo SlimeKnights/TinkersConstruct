@@ -2,7 +2,13 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "tag": "forge:heads"
+      "type": "tconstruct:without",
+      "base": {
+        "tag": "forge:heads"
+      },
+      "without": {
+        "item": "minecraft:dragon_head"
+      }
     }
   ],
   "tools": {

@@ -3,13 +3,16 @@ package slimeknights.tconstruct.smeltery.inventory;
 import lombok.Getter;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.IntReferenceHolder;
 import slimeknights.mantle.inventory.MultiModuleContainer;
+import slimeknights.tconstruct.library.utils.ValidZeroIntReference;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 
 import javax.annotation.Nullable;
+import java.util.function.Consumer;
 
 public class SmelteryContainer extends MultiModuleContainer<SmelteryTileEntity> {
   @Getter
@@ -22,8 +25,10 @@ public class SmelteryContainer extends MultiModuleContainer<SmelteryTileEntity> 
       MeltingModuleInventory inventory = smeltery.getMeltingInventory();
       sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer.get(), id, inv, smeltery, 0, 0, calcColumns(inventory.getSlots()));
       addSubContainer(sideInventory, true);
-      this.trackIntArray(smeltery.getFuelModule());
-      inventory.trackInts(this::trackIntArray);
+
+      Consumer<IntReferenceHolder> referenceConsumer = this::trackInt;
+      ValidZeroIntReference.trackIntArray(referenceConsumer, smeltery.getFuelModule());
+      inventory.trackInts(array -> ValidZeroIntReference.trackIntArray(referenceConsumer, array));
     } else {
       sideInventory = null;
     }

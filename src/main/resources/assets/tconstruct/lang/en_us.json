@@ -117,10 +117,10 @@
     "item.tconstruct.rose_gold_ingot": "Rose Gold Ingot",
     "item.tconstruct.rose_gold_nugget": "Rose Gold Nugget",
     
-    "block.tconstruct.pigiron_block": "Block of Pig Iron",
-    "block.tconstruct.pigiron_block.tooltip": "Can be used as beacon base",
-    "item.tconstruct.pigiron_ingot": "Pig Iron Ingot",
-    "item.tconstruct.pigiron_nugget": "Pig Iron Nugget",
+    "block.tconstruct.pig_iron_block": "Block of Pig Iron",
+    "block.tconstruct.pig_iron_block.tooltip": "Can be used as beacon base",
+    "item.tconstruct.pig_iron_ingot": "Pig Iron Ingot",
+    "item.tconstruct.pig_iron_nugget": "Pig Iron Nugget",
 
     
     "__comment": "Tier 4 Metals",
@@ -818,6 +818,7 @@
     "_comment": "Tinkers World",
 
     "entity.tconstruct.sky_slime": "Skyslime",
+    "item.tconstruct.sky_slime_spawn_egg": "Skyslime Spawn Egg",
 
     "block.tconstruct.earth_slime_dirt": "Earth Slimy Dirt",
     "block.tconstruct.earth_slime_dirt.tooltip": "Slimy, but lets you jump higher",
@@ -830,6 +831,8 @@
 
     "block.tconstruct.sky_vanilla_slime_grass": "Slimy Grass",
     "block.tconstruct.sky_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
+    "block.tconstruct.blood_vanilla_slime_grass": "Slimy Grass",
+    "block.tconstruct.blood_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ender_vanilla_slime_grass": "Slimy Grass",
     "block.tconstruct.ender_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ichor_vanilla_slime_grass": "Slimy Grass",
@@ -837,6 +840,8 @@
 
     "block.tconstruct.sky_earth_slime_grass": "Earth Slimy Grass",
     "block.tconstruct.sky_earth_slime_grass.tooltip": "So soft! Lets you jump higher",
+    "block.tconstruct.blood_earth_slime_grass": "Earth Slimy Grass",
+    "block.tconstruct.blood_earth_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ender_earth_slime_grass": "Earth Slimy Grass",
     "block.tconstruct.ender_earth_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ichor_earth_slime_grass": "Earth Slimy Grass",
@@ -844,6 +849,8 @@
 
     "block.tconstruct.sky_sky_slime_grass": "Sky Slimy Grass",
     "block.tconstruct.sky_sky_slime_grass.tooltip": "So soft! Lets you jump higher",
+    "block.tconstruct.blood_sky_slime_grass": "Sky Slimy Grass",
+    "block.tconstruct.blood_sky_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ender_sky_slime_grass": "Sky Slimy Grass",
     "block.tconstruct.ender_sky_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ichor_sky_slime_grass": "Sky Slimy Grass",
@@ -851,6 +858,8 @@
 
     "block.tconstruct.sky_ender_slime_grass": "Ender Slimy Grass",
     "block.tconstruct.sky_ender_slime_grass.tooltip": "So soft! Lets you jump higher",
+    "block.tconstruct.blood_ender_slime_grass": "Ender Slimy Grass",
+    "block.tconstruct.blood_ender_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ender_ender_slime_grass": "Ender Slimy Grass",
     "block.tconstruct.ender_ender_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ichor_ender_slime_grass": "Ender Slimy Grass",
@@ -858,6 +867,8 @@
 
     "block.tconstruct.sky_ichor_slime_grass": "Ichor Slimy Grass",
     "block.tconstruct.sky_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
+    "block.tconstruct.blood_ichor_slime_grass": "Ichor Slimy Grass",
+    "block.tconstruct.blood_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ender_ichor_slime_grass": "Ichor Slimy Grass",
     "block.tconstruct.ender_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.ichor_ichor_slime_grass": "Ichor Slimy Grass",
@@ -865,25 +876,32 @@
     
     "item.tconstruct.sky_slime_grass_seeds": "Slimy Grass Seeds",
     "item.tconstruct.sky_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
+    "item.tconstruct.blood_slime_grass_seeds": "Slimy Grass Seeds",
+    "item.tconstruct.blood_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
     "item.tconstruct.ichor_slime_grass_seeds": "Slimy Grass Seeds",
     "item.tconstruct.ichor_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
     "item.tconstruct.ender_slime_grass_seeds": "Slimy Grass Seeds",
     "item.tconstruct.ender_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
 
     "block.tconstruct.sky_slime_leaves": "Slimy Leaves",
+    "block.tconstruct.blood_slime_leaves": "Slimy Leaves",
     "block.tconstruct.ender_slime_leaves": "Slimy Leaves",
     "block.tconstruct.ichor_slime_leaves": "Slimy Leaves",
 
     "block.tconstruct.sky_slime_tall_grass": "Tall Slimy Grass",
+    "block.tconstruct.blood_slime_tall_grass": "Tall Slimy Grass",
     "block.tconstruct.ender_slime_tall_grass": "Tall Slimy Grass",
     "block.tconstruct.ichor_slime_tall_grass": "Tall Slimy Grass",
 
     "block.tconstruct.sky_slime_fern": "Slimy Fern",
+    "block.tconstruct.blood_slime_fern": "Slimy Fern",
     "block.tconstruct.ender_slime_fern": "Slimy Fern",
     "block.tconstruct.ichor_slime_fern": "Slimy Fern",
 
     "block.tconstruct.sky_slime_sapling": "Skyslime Sapling",
     "block.tconstruct.sky_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
+    "block.tconstruct.blood_slime_sapling": "Blood Sapling",
+    "block.tconstruct.blood_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
     "block.tconstruct.ender_slime_sapling": "Enderslime Sapling",
     "block.tconstruct.ender_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
     "block.tconstruct.ichor_slime_sapling": "Ichor Sapling",
@@ -891,8 +909,6 @@
 
     "block.tconstruct.ender_slime_vine": "Slimy Vine",
     "block.tconstruct.sky_slime_vine": "Slimy Vine",
-
-    "item.tconstruct.sky_slime_spawn_egg": "Skyslime Spawn Egg",
     
     
     "__comment": "Tier 1 Materials",
@@ -1048,6 +1064,17 @@
     "modifier.tconstruct.recapitated": "Recapitated",
     "modifier.tconstruct.recapitated.flavor": "Put the Head Back On!",
     "modifier.tconstruct.recapitated.description": "Sets this tool ahead by one upgrade!",
+    "modifier.tconstruct.resurrected": "Resurrected",
+    "modifier.tconstruct.resurrected.flavor": "Bring it back to life!",
+    "modifier.tconstruct.resurrected.description": "Respawns one of this tool's upgrade slots!",
+
+    "modifier.tconstruct.gilded": "Gilded",
+    "modifier.tconstruct.gilded.flavor": "Equivelent Exchange!",
+    "modifier.tconstruct.gilded.description": "Trades an ability slot for two upgrade slots!",
+
+    "modifier.tconstruct.draconic": "Draconic",
+    "modifier.tconstruct.draconic.flavor": "Conquered the End!",
+    "modifier.tconstruct.draconic.description": "The head of the great beast allows your tool a second ability slot!",
 
     "__comment": "Tier 1 Traits",
     "modifier.tconstruct.cultivated": "Cultivated",

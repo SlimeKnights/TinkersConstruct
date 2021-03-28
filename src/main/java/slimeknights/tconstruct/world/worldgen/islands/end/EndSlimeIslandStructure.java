@@ -17,6 +17,7 @@ import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandPiece;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
 
 public class EndSlimeIslandStructure extends Structure<NoFeatureConfig> {
+  private static final String[] SIZES = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
 
   public EndSlimeIslandStructure(Codec<NoFeatureConfig> configCodec) {
     super(configCodec);
@@ -69,12 +70,9 @@ public class EndSlimeIslandStructure extends Structure<NoFeatureConfig> {
 
       int y = Math.min(Math.min(i1, j1), Math.min(k1, l1)) + 50 + this.rand.nextInt(50) + 11;
 
-      SlimeIslandVariant variant = SlimeIslandVariant.PURPLE;
-      String[] sizes = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
-
+      SlimeIslandVariant variant = SlimeIslandVariant.ENDER;
       BlockPos pos = new BlockPos(x, y, z);
-
-      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, sizes[this.rand.nextInt(sizes.length)], pos, rotation);
+      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, SIZES[this.rand.nextInt(SIZES.length)], pos, rotation);
       this.components.add(slimeIslandPiece);
       this.recalculateStructureSize();
     }
