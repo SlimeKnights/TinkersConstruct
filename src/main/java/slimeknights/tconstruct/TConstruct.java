@@ -216,6 +216,12 @@ public class TConstruct {
         case "earth_slime_bucket": return TinkerFluids.earthSlime.asItem();
         case "sky_slime_bucket": return TinkerFluids.skySlime.asItem();
         case "ender_slime_bucket": return TinkerFluids.enderSlime.asItem();
+        case "green_slime_sling":
+        case "blood_slime_sling": 
+          return TinkerGadgets.slimeSling.get(SlimeType.EARTH);
+        case "blue_slime_sling": return TinkerGadgets.slimeSling.get(SlimeType.SKY);
+        case "magma_slime_sling": return TinkerGadgets.slimeSling.get(SlimeType.ICHOR);
+        case "purple_slime_sling": return TinkerGadgets.slimeSling.get(SlimeType.ENDER);
         // pig iron underscore
         case "pigiron_ingot": return TinkerMaterials.pigIron.getIngot();
         case "pigiron_nugget": return TinkerMaterials.pigIron.getNugget();

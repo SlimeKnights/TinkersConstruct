@@ -45,7 +45,11 @@ import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem.CarryPotionEffect;
 import slimeknights.tconstruct.gadgets.item.ShurikenItem;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
-import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.BaseSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.SkySlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.EnderSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.EarthSlimeSlingItem;
+import slimeknights.tconstruct.gadgets.item.slimesling.IchorSlimeSlingItem;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.shared.TinkerFood;
@@ -93,7 +97,12 @@ public final class TinkerGadgets extends TinkerModule {
   public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", PiggyBackPackItem::new);
   public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
   // slime tools
-  public static final EnumObject<SlimeType,SlimeSlingItem> slimeSling = ITEMS.registerEnum(SlimeType.values(), "slime_sling", (type) -> new SlimeSlingItem(UNSTACKABLE_PROPS));
+  public static final EnumObject<SlimeType, BaseSlimeSlingItem> slimeSling = new EnumObject.Builder<SlimeType, BaseSlimeSlingItem>(SlimeType.class)
+    .put(SlimeType.EARTH, ITEMS.register("earth_slime_sling", () -> new EarthSlimeSlingItem(UNSTACKABLE_PROPS)))
+    .put(SlimeType.SKY, ITEMS.register("sky_slime_sling", () -> new SkySlimeSlingItem(UNSTACKABLE_PROPS)))
+    .put(SlimeType.ICHOR, ITEMS.register("ichor_slime_sling", () -> new IchorSlimeSlingItem(UNSTACKABLE_PROPS)))
+    .put(SlimeType.ENDER, ITEMS.register("ender_slime_sling", () -> new EnderSlimeSlingItem(UNSTACKABLE_PROPS)))
+    .build();
   public static final EnumObject<SlimeType,SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.values(), "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
   // throwballs
   public static final ItemObject<GlowBallItem> glowBall = ITEMS.register("glow_ball", GlowBallItem::new);
