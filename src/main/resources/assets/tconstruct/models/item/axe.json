@@ -2,18 +2,18 @@
     "loader": "tconstruct:tool",
     "parent": "forge:item/default-tool",
     "parts": {
-        "head": {
-            "loader": "tconstruct:material",
-            "index": 0,
-            "textures": {
-                "texture": "tconstruct:item/tool/axe/head"
-            }
-        },
         "handle": {
             "loader": "tconstruct:material",
             "index": 1,
             "textures": {
                 "texture": "tconstruct:item/tool/pickaxe/handle"
+            }
+        },
+        "head": {
+            "loader": "tconstruct:material",
+            "index": 0,
+            "textures": {
+                "texture": "tconstruct:item/tool/axe/head"
             }
         },
         "binding": {
