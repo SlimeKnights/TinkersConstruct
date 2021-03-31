@@ -76,7 +76,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                          .patternLine("L L")
                          .patternLine(" L ")
                          .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS)));
-    for (SlimeType slime : SlimeType.TINKER) {
+    for (SlimeType slime : new SlimeType[]{SlimeType.SKY, SlimeType.ENDER, SlimeType.ICHOR}) {
       ResourceLocation name = location(folder + slime.getString());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(slime))
                          .setGroup("tconstruct:slimesling")

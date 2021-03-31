@@ -23,7 +23,6 @@
   "alternatives": [
     "tconstruct:gadgets/slimesling/sky",
     "tconstruct:gadgets/slimesling/ender",
-    "tconstruct:gadgets/slimesling/blood",
     "tconstruct:gadgets/slimesling/ichor"
   ]
 }
