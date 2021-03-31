@@ -318,7 +318,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
 
   /**
-   * Adds loot table related enchantments from this modifier's effect, called before attacking an entity or breaking a block.
+   * Adds loot table related enchantments from this modifier's effect, called before breaking a block.
+   * For looting, see {@link net.minecraftforge.event.entity.living.LootingLevelEvent}.
    * Needed to add enchantments for silk touch, fortune, and looting. Can add conditionally if needed.
    * @param tool      Tool used
    * @param level     Modifier level

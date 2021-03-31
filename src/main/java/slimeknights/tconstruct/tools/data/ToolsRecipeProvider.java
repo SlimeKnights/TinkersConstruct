@@ -289,14 +289,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                                     .setInput(Tags.Items.GEMS_LAPIS, 1, 108) // 36 per effective level
-                                    .setMaxLevel(2)
+                                    .setMaxLevel(1)
                                     .setAbilitySlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_dust"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 108)
                                     .setLeftover(new ItemStack(Items.LAPIS_LAZULI))
-                                    .setMaxLevel(2)
+                                    .setMaxLevel(1)
                                     .setAbilitySlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_block"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())

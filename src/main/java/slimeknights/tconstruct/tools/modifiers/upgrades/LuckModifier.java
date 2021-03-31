@@ -2,19 +2,31 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LootingLevelEvent;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
+import java.util.Random;
 import java.util.function.BiConsumer;
 
 public class LuckModifier extends IncrementalModifier {
+  /** Random instance we can freely change the seed on */
+  private static final Random LOOTING_RANDOM = new Random();
+
   public LuckModifier() {
     super(0x345EC3);
+    MinecraftForge.EVENT_BUS.addListener(this::onLooting);
   }
 
   @Override
@@ -52,8 +64,14 @@ public class LuckModifier extends IncrementalModifier {
     return name;
   }
 
-  @Override
-  public void applyEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment,Integer> consumer) {
+  /**
+   * Gets the looting level for the given modifier level and tool data
+   * @param tool     Tool instance
+   * @param level    Modifier level
+   * @param random   Random instance, for partial levels
+   * @return  Looting level
+   */
+  private int getEffectiveLevel(IModifierToolStack tool, int level, Random random) {
     // each level of the modifier is worth 3 levels of the enchant
     int applyLevel = level * 3;
     int neededPerSlot = ModifierRecipeLookup.getNeededPerLevel(this);
@@ -78,14 +96,43 @@ public class LuckModifier extends IncrementalModifier {
       }
 
       // for the remainder, if we don't have a full level left decrease it
-      if (amount < neededPerLevel && amount < RANDOM.nextInt(neededPerLevel)) {
+      if (amount < neededPerLevel && amount < random.nextInt(neededPerLevel)) {
         applyLevel--;
       }
     }
+    return applyLevel;
+  }
+
+  @Override
+  public void applyEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment,Integer> consumer) {
     // apply level if we still have any
+    int applyLevel = getEffectiveLevel(tool, level, RANDOM);
     if (applyLevel > 0) {
-      consumer.accept(Enchantments.LOOTING, applyLevel);
       consumer.accept(Enchantments.FORTUNE, applyLevel);
+    }
+  }
+
+  /** Applies the looting bonus for this modifier */
+  private void onLooting(LootingLevelEvent event) {
+    // TODO: make common modifier event if this becomes used elsewhere
+    // must be an attacker with our tool
+    Entity source = event.getDamageSource().getTrueSource();
+    if (source instanceof LivingEntity) {
+      ItemStack held = ((LivingEntity)source).getHeldItemMainhand();
+      if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
+        // non broken, has modifier
+        ToolStack tool = ToolStack.from(held);
+        if (!tool.isBroken()) {
+          int level = tool.getModifierLevel(this);
+          if (level > 0) {
+            // we use a random instance seeded from the current game time
+            // its important so the value is consistent between the multiple calls of this event in one kill
+            LOOTING_RANDOM.setSeed(source.getEntityWorld().getGameTime());
+            // calculate the effective level from the modifier
+            event.setLootingLevel(getEffectiveLevel(tool, level, LOOTING_RANDOM));
+          }
+        }
+      }
     }
   }
 }
