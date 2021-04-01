@@ -4,9 +4,10 @@ import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 public class HasteModifier extends IncrementalModifier {
   public HasteModifier() {
@@ -24,7 +25,7 @@ public class HasteModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
+  public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
     float scaledLevel = getScaledLevel(persistentData, level);
     // currently gives +5 speed per level
     // for comparison, vanilla gives +2, 5, 10, 17, 26 for efficiency I to V

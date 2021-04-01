@@ -14,10 +14,10 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
+import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
-import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -496,38 +496,36 @@ public class ToolStack implements IModifierToolStack {
 
     // for stats, use empty if no materials, in case we have invalid NBT
     StatsNBT stats = materials.isEmpty() ? StatsNBT.EMPTY : definition.buildStats(materials);
+    ModifierStatsBuilder statBuilder = ModifierStatsBuilder.builder();
+    definition.getBaseStatDefinition().buildStats(statBuilder);
+
     // next, update modifier related properties
     List<ModifierEntry> modifierList = allMods.getModifiers();
     if (modifierList.isEmpty()) {
-      setStats(stats);
       // if no modifiers, clear out data that only exists with modifiers
       nbt.remove(TAG_VOLATILE_MOD_DATA);
       volatileModData = IModDataReadOnly.EMPTY;
     } else {
       ModDataNBT volatileData = new ModDataNBT();
 
-      // store original durability in volatile data, allows mods to scale based on original durability and "overclock" based on mods
-      // also used for overslime cap base
-      volatileData.putInt(ORIGINAL_DURABILITY_KEY, stats.getDurability());
-
       // build persistent data first, its a parameter to the other two hooks
       IModDataReadOnly persistentData = getPersistentData();
       ToolDefinition toolDefinition = getDefinition();
       for (ModifierEntry entry : modifierList) {
-        entry.getModifier().addVolatileData(toolDefinition, persistentData, entry.getLevel(), volatileData);
+        entry.getModifier().addVolatileData(toolDefinition, stats, persistentData, entry.getLevel(), volatileData);
       }
 
       // regular stats last so we can include volatile data
-      ToolStatsModifierBuilder statBuilder = ToolStatsModifierBuilder.builder();
       for (ModifierEntry entry : modifierList) {
         Modifier mod = entry.getModifier();
         int level = entry.getLevel();
-        mod.addToolStats(toolDefinition, persistentData, volatileData, level, statBuilder);
+        mod.addToolStats(toolDefinition, stats, persistentData, volatileData, level, statBuilder);
       }
 
       // set into NBT
-      setStats(statBuilder.build(stats));
       setVolatileModData(volatileData);
     }
+    // build stats from the tool stats
+    setStats(statBuilder.build(stats));
   }
 }

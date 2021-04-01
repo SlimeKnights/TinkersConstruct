@@ -58,7 +58,7 @@ public class ToolDefinition {
    * @return  Stats NBT
    */
   public StatsNBT buildStats(List<IMaterial> materials) {
-    return ToolStatsBuilder.from(materials, this).buildStats(baseStatDefinition.getStatFactory());
+    return ToolStatsBuilder.from(materials, this).buildStats();
   }
 
   /* Repairing */

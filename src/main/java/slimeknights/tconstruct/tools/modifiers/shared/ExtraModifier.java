@@ -5,6 +5,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 /**
  * Shared logic for all modifiers that just grant a bonus modifier
@@ -34,7 +35,7 @@ public class ExtraModifier extends Modifier {
   }
 
   @Override
-  public void addVolatileData(ToolDefinition toolDefinition, IModDataReadOnly persistentData, int level, ModDataNBT data) {
+  public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT data) {
     type.add(data, source.isSingleUse() ? slotsPerLevel : level * slotsPerLevel);
   }
 

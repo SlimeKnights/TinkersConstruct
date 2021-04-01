@@ -7,12 +7,13 @@ import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 import javax.annotation.Nullable;
 
@@ -38,7 +39,7 @@ public class OverslimeModifier extends SingleUseModifier {
   /* Tool building */
 
   @Override
-  public void addVolatileData(ToolDefinition toolDefinition, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     // add overslime cap if missing, just a consistency thing really
     if (!volatileData.contains(KEY_OVERSLIME_CAP, NBT.TAG_ANY_NUMERIC)) {
       volatileData.putInt(KEY_OVERSLIME_CAP, getDefaultCap(toolDefinition));
@@ -46,7 +47,7 @@ public class OverslimeModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
+  public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
     if (!volatileData.getBoolean(KEY_OVERSLIME_FRIEND)) {
       builder.multiplyAttackDamage(0.9f);
       builder.multiplyMiningSpeed(0.9f);

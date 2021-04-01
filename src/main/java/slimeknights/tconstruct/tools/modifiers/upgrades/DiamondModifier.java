@@ -1,10 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
-import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 public class DiamondModifier extends SingleUseModifier {
   public DiamondModifier() {
@@ -12,7 +13,7 @@ public class DiamondModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
+  public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
     builder.addDurability(500);
     builder.addAttackDamage(0.5f);
     builder.addMiningSpeed(1f);

@@ -1,21 +1,31 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 /** Well maintained for Tinkers Bronze */
 public class MaintainedModifier extends Modifier {
   public static final String KEY_MINING_BOOST = Util.makeTranslationKey("modifier", "maintained.boost");
+  private static final ResourceLocation KEY_ORIGINAL_DURABILITY = Util.getResource("durability");
   public MaintainedModifier() {
     super(0xe3bd68);
   }
   protected MaintainedModifier(int color) {
     super(color);
+  }
+
+  @Override
+  public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+    volatileData.putInt(KEY_ORIGINAL_DURABILITY, (int)(baseStats.getDurability() * toolDefinition.getBaseStatDefinition().getDurabilityModifier()));
   }
 
   /**
@@ -44,7 +54,7 @@ public class MaintainedModifier extends Modifier {
    */
   protected float getTotalBoost(IModifierToolStack tool, int level) {
     int durability = tool.getCurrentDurability();
-    int baseMax = tool.getVolatileData().getInt(ToolStack.ORIGINAL_DURABILITY_KEY);
+    int baseMax = tool.getVolatileData().getInt(KEY_ORIGINAL_DURABILITY);
 
     // from 50% to 100%: 20% boost
     float boost = boost(durability, 0.2f, baseMax / 2, baseMax);

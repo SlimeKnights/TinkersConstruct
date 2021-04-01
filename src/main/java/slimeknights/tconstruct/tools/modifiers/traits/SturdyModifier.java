@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
-import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 public class SturdyModifier extends Modifier {
   public SturdyModifier() {
@@ -11,7 +12,7 @@ public class SturdyModifier extends Modifier {
   }
 
   @Override
-  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {
+  public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
     builder.multiplyDurability(1 + (level * 0.1f));
   }
 }

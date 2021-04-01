@@ -28,12 +28,13 @@ import org.apache.logging.log4j.LogManager;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.ToolStatsModifierBuilder;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -218,11 +219,12 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    *   <li>Persistent mod data (accessed via {@link IModifierToolStack}): Can be written to freely, but will not automatically remove if the modifier is removed.</li>
    * </ul>
    * @param toolDefinition  Tool definition, will be empty for non-multitools
+   * @param baseStats       Base material stats. Does not take tool definition or other modifiers into account. Not stored, so if you want any data store it in volatile data
    * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
    * @param level           Modifier level
    * @param volatileData    Mutable mod NBT data, result of this method
    */
-  public void addVolatileData(ToolDefinition toolDefinition, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {}
+  public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {}
 
   /**
    * Adds raw stats to the tool. Called whenever tool stats are rebuilt.
@@ -233,19 +235,20 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
    * @param toolDefinition  Tool definition, will be empty for non-multitools
+   * @param baseStats       Base material stats. Does not take tool definition or other modifiers into account
    * @param persistentData  Extra modifier NBT. Note that if you rely on a value in persistent data, it is up to you to ensure tool stats refresh if it changes
-   * @param volatileData    Modifier NBT calculated from modifiers in {@link #addVolatileData(ToolDefinition, IModDataReadOnly, int, ModDataNBT)}
+   * @param volatileData    Modifier NBT calculated from modifiers in {@link #addVolatileData(ToolDefinition, StatsNBT, IModDataReadOnly, int, ModDataNBT)}
    * @param level           Modifier level
    * @param builder         Tool stat builder
    */
-  public void addToolStats(ToolDefinition toolDefinition, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ToolStatsModifierBuilder builder) {}
+  public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {}
 
   /**
    * Adds attributes from this modifier's effect. Called whenever the item stack refreshes capabilities.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addToolStats(ToolDefinition, IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but can affect durability, mining level, and mining speed.</li>
+   *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Limited context, but can affect durability, mining level, and mining speed.</li>
    * </ul>
    * @param tool      Current tool instance
    * @param level     Modifier level
@@ -309,7 +312,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addToolStats(ToolDefinition, IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Limited context, but effect shows in the tooltip.</li>
+   *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Limited context, but effect shows in the tooltip.</li>
    * </ul>
    * @param tool   Current tool instance
    * @param level  Modifier level
@@ -347,7 +350,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addToolStats(ToolDefinition, IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
+   *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
    *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, boolean)}: Perform special attacks on entity hit beyond damage boosts</li>
    *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Apply effects that must run before hit</li>
    * </ul>
@@ -393,7 +396,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addToolStats(ToolDefinition, IModDataReadOnly, IModDataReadOnly, int, ToolStatsModifierBuilder)}: Adjusts the base tool stats that affect damage</li>
+   *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Adjusts the base tool stats that affect damage</li>
    *   <li>{@link #applyLivingDamage(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, boolean, boolean)}: Change the amount of damage dealt with attacker context</li>
    *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Change the amount of knockback dealt</li>
    *   <li>{@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean)}: Called after living hit when damage was not dealt</li>

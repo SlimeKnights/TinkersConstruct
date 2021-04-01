@@ -5,6 +5,7 @@ import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 public class WorldboundModifier extends SingleUseModifier {
   public WorldboundModifier(int color) {
@@ -12,7 +13,7 @@ public class WorldboundModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addVolatileData(ToolDefinition toolDefinition, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     volatileData.putBoolean(ToolCore.INDESTRUCTIBLE_ENTITY, true);
   }
 }
