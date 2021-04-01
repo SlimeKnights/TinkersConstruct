@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "item": "tconstruct:ender_slime_sling"
+  },
+  "result": {
+    "fluid": "tconstruct:ender_slime",
+    "amount": 1750
+  },
+  "temperature": 70,
+  "time": 111
+}

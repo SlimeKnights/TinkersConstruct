@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:earth_slime_boots"
+  },
+  "result": {
+    "fluid": "tconstruct:earth_slime",
+    "amount": 2500
+  },
+  "temperature": 50,
+  "time": 128
+}

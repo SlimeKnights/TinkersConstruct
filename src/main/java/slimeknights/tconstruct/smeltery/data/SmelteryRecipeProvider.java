@@ -31,6 +31,7 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
@@ -48,6 +49,7 @@ import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.tools.data.MaterialIds;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -753,7 +755,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.BELL), TinkerFluids.moltenGold.get(), MaterialValues.INGOT * 4) // bit arbitrary, I am happy to change the value if someone has a better one
                         .build(consumer, location(metalFolder + "gold/bell"));
 
-
     // netherite
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.LODESTONE), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT)
                         .build(consumer, location(metalFolder + "netherite/lodestone"));
@@ -763,6 +764,28 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                                                      ), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT, 1.0f)
                         .setDamagable()
                         .build(consumer, location(metalFolder + "netherite/tools_and_armor"));
+
+    // slime
+    TinkerGadgets.slimeBoots.forEach((type, boots) -> {
+      if (type != SlimeType.ICHOR) { // no ichor fluid
+        MeltingRecipeBuilder.melting(Ingredient.fromItems(boots), TinkerFluids.slime.get(type).get(), MaterialValues.SLIMEBALL * 2 + MaterialValues.SLIME_CONGEALED * 2)
+                            .build(consumer, location(slimeFolder + type.getString() + "/boots"));
+      }
+    });
+    TinkerGadgets.slimeSling.forEach((type, sling) -> {
+      if (type != SlimeType.ICHOR) { // no ichor fluid
+        MeltingRecipeBuilder.melting(Ingredient.fromItems(sling), TinkerFluids.slime.get(type).get(), MaterialValues.SLIMEBALL * 3 + MaterialValues.SLIME_CONGEALED)
+                            .setDamagable()
+                            .build(consumer, location(slimeFolder + type.getString() + "/sling"));
+      }
+    });
+    // recycle saplings
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerWorld.slimeSapling.get(FoliageType.SKY)), TinkerFluids.skySlime.get(), MaterialValues.SLIMEBALL)
+                        .build(consumer, location(slimeFolder + "sky/sapling"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerWorld.slimeSapling.get(FoliageType.ENDER)), TinkerFluids.enderSlime.get(), MaterialValues.SLIMEBALL)
+                        .build(consumer, location(slimeFolder + "ender/sapling"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerWorld.slimeSapling.get(FoliageType.BLOOD)), TinkerFluids.blood.get(), MaterialValues.SLIMEBALL)
+                        .build(consumer, location(slimeFolder + "blood/sapling"));
 
     // fuels
     MeltingFuelBuilder.fuel(new FluidStack(Fluids.LAVA, 50), 100)

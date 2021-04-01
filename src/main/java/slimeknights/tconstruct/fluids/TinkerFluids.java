@@ -11,6 +11,10 @@ import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.fluids.fluids.SlimeFluid;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.block.SlimeType;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * Contains all fluids used throughout the mod
@@ -31,6 +35,14 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> enderSlime = FLUIDS.register("ender_slime", coolBuilder().color(0xefd236ff).density(1600).viscosity(1600).temperature(370), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
   public static final FluidObject<ForgeFlowingFluid> magmaCream  = FLUIDS.register("magma_cream", FluidAttributes
     .builder(FluidIcons.MAGMA_CREAM_STILL, FluidIcons.MAGMA_CREAM_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY).density(1900).viscosity(1900).temperature(600), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 4);
+  public static final Map<SlimeType, FluidObject<ForgeFlowingFluid>> slime;
+  static {
+    slime = new EnumMap<>(SlimeType.class);
+    slime.put(SlimeType.EARTH, earthSlime);
+    slime.put(SlimeType.SKY, skySlime);
+    slime.put(SlimeType.ENDER, enderSlime);
+    slime.put(SlimeType.BLOOD, blood);
+  }
 
   // molten
   public static final FluidObject<ForgeFlowingFluid> searedStone    = FLUIDS.register("seared_stone",     stoneBuilder().color(0xff777777).temperature( 900), Material.LAVA,  7);
