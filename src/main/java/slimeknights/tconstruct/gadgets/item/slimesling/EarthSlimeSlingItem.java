@@ -9,11 +9,12 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
 
   public EarthSlimeSlingItem(Properties props) {
-    super(props);
+    super(props, SlimeType.EARTH);
   }
 
   /** Called when the player stops using an Item (stops holding the right mouse button). */
@@ -39,7 +40,7 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
 
       playerServerMovement(player);
       SlimeBounceHandler.addBounceHandler(player);
-      playSuccessSound(player);
+      onSuccess(player, stack);
     } else {
       playMissSound(player);
     }

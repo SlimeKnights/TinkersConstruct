@@ -8,6 +8,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.Optional;
 public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
 
   public EnderSlimeSlingItem(Properties props) {
-    super(props);
+    super(props, SlimeType.ENDER);
   }
 
   /** Called when the player stops using an Item (stops holding the right mouse button). */
@@ -58,7 +59,7 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
       }
       playerServerMovement(player);
       player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
-      playSuccessSound(player);
+      onSuccess(player, stack);
     } else {
       playMissSound(player);
     }

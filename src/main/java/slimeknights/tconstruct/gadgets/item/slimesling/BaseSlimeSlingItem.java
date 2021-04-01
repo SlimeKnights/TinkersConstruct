@@ -12,14 +12,23 @@ import net.minecraft.world.World;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 import javax.annotation.Nonnull;
 
 public abstract class BaseSlimeSlingItem extends TooltipItem {
 
-  public BaseSlimeSlingItem(Properties props) {
+  private final SlimeType type;
+  public BaseSlimeSlingItem(Properties props, SlimeType type) {
     super(props);
+    this.type = type;
+  }
+
+  @Override
+  public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    return repair.getItem() == TinkerCommons.slimeball.get(type);
   }
 
   @Nonnull
@@ -61,15 +70,17 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
 
   /** Send EntityMovementChangePacket if player is on a server
    * @param player player to potentially send a packet for */
-  public void playerServerMovement(LivingEntity player) {
+  protected void playerServerMovement(LivingEntity player) {
     if (player instanceof ServerPlayerEntity) {
       ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
       TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
     }
   }
 
-  protected void playSuccessSound(PlayerEntity player) {
+  /** Plays the success sound and damages the sling */
+  protected void onSuccess(PlayerEntity player, ItemStack sling) {
     player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
+    sling.damageItem(1, player, p -> p.sendBreakAnimation(p.getActiveHand()));
   }
 
   protected void playMissSound(PlayerEntity player) {

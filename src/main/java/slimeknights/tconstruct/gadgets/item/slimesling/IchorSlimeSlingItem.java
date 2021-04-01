@@ -11,11 +11,12 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
 
   public IchorSlimeSlingItem(Properties props) {
-    super(props);
+    super(props, SlimeType.ICHOR);
   }
 
   /** Called when the player stops using an Item (stops holding the right mouse button). */
@@ -50,7 +51,7 @@ public class IchorSlimeSlingItem extends BaseSlimeSlingItem {
       player.getCooldownTracker().setCooldown(stack.getItem(), 3);
       target.applyKnockback(f , -look.x, -look.z);
       playerServerMovement(target);
-      playSuccessSound(player);
+      onSuccess(player, stack);
     } else {
       playMissSound(player);
     }

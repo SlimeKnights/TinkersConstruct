@@ -6,11 +6,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class SkySlimeSlingItem extends BaseSlimeSlingItem {
 
   public SkySlimeSlingItem(Properties props) {
-    super(props);
+    super(props, SlimeType.SKY);
   }
 
   /** Called when the player stops using an Item (stops holding the right mouse button). */
@@ -40,7 +41,7 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
       (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed));
 
     playerServerMovement(player);
-    playSuccessSound(player);
+    onSuccess(player, stack);
     SlimeBounceHandler.addBounceHandler(player);
   }
 }
