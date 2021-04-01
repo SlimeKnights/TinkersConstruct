@@ -5,6 +5,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -23,14 +24,17 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -49,6 +53,8 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
   private static final ITextComponent TOOLTIP_ORE = new TranslationTextComponent(Util.makeTranslationKey("jei", "melting.ore"));
   private static final ITextComponent SOLID_TEMPERATURE = new TranslationTextComponent(KEY_TEMPERATURE, FuelModule.SOLID_TEMPERATURE).mergeStyle(TextFormatting.GRAY);
   private static final ITextComponent SOLID_MULTIPLIER = new TranslationTextComponent(KEY_MULTIPLIER, FuelModule.SOLID_TEMPERATURE / 1000f).mergeStyle(TextFormatting.GRAY);
+  private static final ITextComponent TOOLTIP_SMELTERY = Util.makeTranslation("jei", "melting.smeltery").mergeStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
+  private static final ITextComponent TOOLTIP_MELTER = Util.makeTranslation("jei", "melting.melter").mergeStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
 
   /** Tooltip callback for items */
   private static final ITooltipCallback<ItemStack> ITEM_TOOLTIP = (index, isInput, stack, list) -> {
@@ -60,26 +66,8 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
   };
 
   /** Tooltip callback for fluids */
-  private static final ITooltipCallback<FluidStack> FLUID_TOOLTIP = (index, isInput, stack, list) -> {
-    ITextComponent name = list.get(0);
-    ITextComponent modId = list.get(list.size() - 1);
-    list.clear();
-    list.add(name);
-
-    // outputs show amounts
-    if (index == 0) {
-      FluidTooltipHandler.appendMaterial(stack, list);
-    }
-
-    // fuels show temperature and quality
-    if (index == 1) {
-      MeltingFuelHandler.getTemperature(stack.getFluid()).ifPresent(temperature -> {
-        list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY));
-        list.add(new TranslationTextComponent(KEY_MULTIPLIER, temperature / 1000f).mergeStyle(TextFormatting.GRAY));
-      });
-    }
-    list.add(modId);
-  };
+  private static final ITooltipCallback<FluidStack> FLUID_TOOLTIP = new MeltingFluidCallback(false);
+  private static final ITooltipCallback<FluidStack> ORE_FLUID_TOOLTIP = new MeltingFluidCallback(true);
 
   @Getter
   private final String title;
@@ -183,6 +171,45 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
     // liquid fuel
     fluids.init(1, true, 4, 4, 12, fluidHeight, 1, false, null);
     fluids.set(1, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
-    fluids.addTooltipCallback(FLUID_TOOLTIP);
+    fluids.addTooltipCallback(recipe.isOre() ? ORE_FLUID_TOOLTIP : FLUID_TOOLTIP);
+  }
+
+  /** Adds amounts to outputs and temperatures to fuels */
+  @RequiredArgsConstructor
+  public static class MeltingFluidCallback implements ITooltipCallback<FluidStack> {
+    private final boolean isOre;
+
+    @Override
+    public void onTooltip(int index, boolean input, FluidStack stack, List<ITextComponent> list) {
+      ITextComponent name = list.get(0);
+      ITextComponent modId = list.get(list.size() - 1);
+      list.clear();
+      list.add(name);
+
+      // outputs show amounts
+      if (index == 0) {
+        if (isOre) {
+          list.add(TOOLTIP_SMELTERY);
+          boolean shift = FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingInventory.applyOreBoost(stack.getAmount(), Config.COMMON.smelteryNuggetsPerOre.get()), list);
+          list.add(StringTextComponent.EMPTY);
+          list.add(TOOLTIP_MELTER);
+          shift = FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingInventory.applyOreBoost(stack.getAmount(), Config.COMMON.melterNuggetsPerOre.get()), list) || shift;
+          if (shift) {
+            FluidTooltipHandler.appendShift(list);
+          }
+        } else {
+          FluidTooltipHandler.appendMaterial(stack, list);
+        }
+      }
+
+      // fuels show temperature and quality
+      if (index == 1) {
+        MeltingFuelHandler.getTemperature(stack.getFluid()).ifPresent(temperature -> {
+          list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY));
+          list.add(new TranslationTextComponent(KEY_MULTIPLIER, temperature / 1000f).mergeStyle(TextFormatting.GRAY));
+        });
+      }
+      list.add(modId);
+    }
   }
 }

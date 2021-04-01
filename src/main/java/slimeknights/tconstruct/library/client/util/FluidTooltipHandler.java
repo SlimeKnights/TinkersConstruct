@@ -113,6 +113,19 @@ public class FluidTooltipHandler {
    * @param tooltip    Tooltip to append information
    */
   public static void appendMaterial(Fluid fluid, int original, List<ITextComponent> tooltip) {
+    if (appendMaterialNoShift(fluid, original, tooltip)) {
+      appendShift(tooltip);
+    }
+  }
+
+  /**
+   * Adds information for the tooltip based on material units, does not show "hold shift for buckets"
+   * @param fluid      Input fluid
+   * @param original   Input amount
+   * @param tooltip    Tooltip to append information
+   * @return  True if the amount is not in buckets
+   */
+  public static boolean appendMaterialNoShift(Fluid fluid, int original, List<ITextComponent> tooltip) {
     int amount = original;
 
     // if holding shift, skip specific units
@@ -126,10 +139,8 @@ public class FluidTooltipHandler {
     // standard display stuff: bucket amounts
     appendBuckets(amount, tooltip);
 
-    // add hold shift message
-    if (amount != original) {
-      appendShift(tooltip);
-    }
+    //
+    return amount != original;
   }
 
   /**
@@ -138,7 +149,7 @@ public class FluidTooltipHandler {
    */
   public static void appendShift(List<ITextComponent> tooltip) {
     if(!Screen.hasShiftDown()) {
-      tooltip.add(new StringTextComponent(""));
+      tooltip.add(StringTextComponent.EMPTY);
       tooltip.add(HOLD_SHIFT);
     }
   }
