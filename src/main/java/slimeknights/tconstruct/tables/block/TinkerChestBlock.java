@@ -19,8 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.mantle.tileentity.InventoryTileEntity;
-import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
 import javax.annotation.Nonnull;
@@ -89,14 +87,5 @@ public class TinkerChestBlock extends TinkerTableBlock {
     }
 
     return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-  }
-
-  @SuppressWarnings("deprecation")
-  @Override
-  @Deprecated
-  public void dropInventoryItems(BlockState state, World worldIn, BlockPos pos, InventoryTileEntity te) {
-    if (!Config.COMMON.chestsKeepInventory.get()) {
-      super.dropInventoryItems(state, worldIn, pos, te);
-    }
   }
 }

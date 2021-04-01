@@ -1,6 +1,7 @@
 package slimeknights.tconstruct;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
@@ -138,6 +139,8 @@ public class TConstruct {
       case "purple_slime_fluid": return TinkerFluids.enderSlime.getBlock();
       // pig iron underscore
       case "pigiron_block": return TinkerMaterials.pigIron.get();
+      // soils
+      case "graveyard_soil": case "consecrated_soil": return Blocks.DIRT;
     }
     // other slime changes:
     // green -> earth

@@ -31,7 +31,7 @@ public class Config {
 
     public final BooleanValue generateSlimeIslands;
 
-    public final BooleanValue chestsKeepInventory;
+    // public final BooleanValue chestsKeepInventory;
 
     public final ConfigValue<List<String>> craftingStationBlacklist;
 
@@ -48,11 +48,11 @@ public class Config {
         .worldRestart()
         .define("shouldSpawnWithTinkersBook", true);
 
-      this.chestsKeepInventory = builder
-        .comment("Pattern and Part chests keep their inventory when harvested.")
-        .translation("tconstruct.configgui.chestsKeepInventory")
-        .worldRestart()
-        .define("chestsKeepInventory", true);
+//      this.chestsKeepInventory = builder
+//        .comment("Pattern and Part chests keep their inventory when harvested.")
+//        .translation("tconstruct.configgui.chestsKeepInventory")
+//        .worldRestart()
+//        .define("chestsKeepInventory", true);
 
       this.craftingStationBlacklist = builder
         .comment("Blacklist of registry names for the crafting station to connect to. Mainly for compatibility.")
@@ -137,11 +137,8 @@ public class Config {
    * Client specific configuration - only loaded clientside from tconstruct-client.toml
    */
   public static class Client {
+    //public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
 
-    public final ForgeConfigSpec.BooleanValue renderInventoryInWorld;
-    public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
-
-    public final ForgeConfigSpec.BooleanValue renderTableItems;
     public final ForgeConfigSpec.BooleanValue tankFluidModel;
 
     public final ForgeConfigSpec.BooleanValue extraToolTips;
@@ -149,20 +146,10 @@ public class Config {
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
 
-      this.renderInventoryInWorld = builder
-        .comment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world")
-        .translation("tconstruct.configgui.renderInventoryInWorld")
-        .define("renderInventoryInWorld", true);
-
-      this.temperatureInCelsius = builder
-        .comment("If true, temperatures in the smeltery and in JEI will display in celsius. If false they will use the internal units of Kelvin, which may be better for developers")
-        .translation("tconstruct.configgui.temperatureInCelsius")
-        .define("temperatureInCelsius", true);
-
-      this.renderTableItems = builder
-        .comment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world")
-        .translation("tconstruct.configgui.renderTableItems")
-        .define("renderTableItems", true);
+//      this.temperatureInCelsius = builder
+//        .comment("If true, temperatures in the smeltery and in JEI will display in celsius. If false they will use the internal units of Kelvin, which may be better for developers")
+//        .translation("tconstruct.configgui.temperatureInCelsius")
+//        .define("temperatureInCelsius", true);
 
       this.tankFluidModel = builder
         .comment(

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/soil/consecrated_soil"
+      "tconstruct:common/mud_bricks_stairs"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:graveyard_soil"
+            "item": "tconstruct:mud_bricks"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/soil/consecrated_soil"
+        "recipe": "tconstruct:common/mud_bricks_stairs"
       }
     }
   },

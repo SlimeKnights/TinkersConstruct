@@ -18,7 +18,6 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
@@ -45,23 +44,8 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     registerSlabStair(consumer, TinkerCommons.firewood, folder, false);
     registerSlabStair(consumer, TinkerCommons.lavawood, folder, false);
 
-    // graveyard soil
-    folder = "common/soil/";
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerModifiers.graveyardSoil)
-                          .addIngredient(Blocks.DIRT)
-                          .addIngredient(Items.ROTTEN_FLESH)
-                          .addIngredient(Items.BONE_MEAL)
-                          .addCriterion("has_dirt", hasItem(Blocks.DIRT))
-                          .addCriterion("has_rotten_flesh", hasItem(Items.ROTTEN_FLESH))
-                          .addCriterion("has_bone_meal", hasItem(Items.BONE_MEAL))
-                          .build(consumer, prefix(TinkerModifiers.graveyardSoil, folder));
-    // consecrated soil
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerModifiers.graveyardSoil), TinkerModifiers.consecratedSoil, 0.1f, 200)
-                        .addCriterion("has_item", hasItem(TinkerModifiers.graveyardSoil))
-                        .build(consumer, prefix(TinkerModifiers.consecratedSoil, folder));
-
     // mud bricks
-    registerSlabStair(consumer, TinkerCommons.mudBricks, folder, false);
+    registerSlabStair(consumer, TinkerCommons.mudBricks, "common/", false);
 
     // book
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.book)
