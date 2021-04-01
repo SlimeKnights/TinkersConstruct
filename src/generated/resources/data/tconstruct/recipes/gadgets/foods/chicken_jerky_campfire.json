@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:campfire_cooking",
-  "ingredient": {
-    "item": "minecraft:cooked_chicken"
-  },
-  "result": "tconstruct:chicken_jerky",
-  "experience": 0.35,
-  "cookingtime": 600
-}

@@ -108,18 +108,6 @@
     },
     {
       "item": "minecraft:black_glazed_terracotta"
-    },
-    {
-      "item": "tconstruct:dried_clay"
-    },
-    {
-      "item": "tconstruct:dried_clay_bricks"
-    },
-    {
-      "item": "tconstruct:dried_clay_stairs"
-    },
-    {
-      "item": "tconstruct:dried_clay_bricks_stairs"
     }
   ],
   "result": {

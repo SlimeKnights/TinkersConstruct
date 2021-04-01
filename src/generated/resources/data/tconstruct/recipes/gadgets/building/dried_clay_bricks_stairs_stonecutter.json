@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "tconstruct:dried_clay_bricks"
-  },
-  "result": "tconstruct:dried_clay_bricks_stairs",
-  "count": 1
-}

@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "tconstruct:blood_slime_ball"
-  },
-  "result": "tconstruct:blood_slime_drop",
-  "experience": 0.35,
-  "cookingtime": 200
-}
