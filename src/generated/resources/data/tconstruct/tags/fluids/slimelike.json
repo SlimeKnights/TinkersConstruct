@@ -3,6 +3,8 @@
   "values": [
     "tconstruct:magma_cream",
     "tconstruct:flowing_magma_cream",
+    "tconstruct:blood",
+    "tconstruct:flowing_blood",
     "#tconstruct:slime"
   ]
 }

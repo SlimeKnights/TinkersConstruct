@@ -20,7 +20,7 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
         .addTag(TinkerTags.Fluids.SKY_SLIME)
         .addTag(TinkerTags.Fluids.ENDER_SLIME);
     this.getOrCreateBuilder(TinkerTags.Fluids.SLIMELIKE)
-        .add(TinkerFluids.magmaCream.get(), TinkerFluids.magmaCream.getFlowing())
+        .add(TinkerFluids.magmaCream.get(), TinkerFluids.magmaCream.getFlowing(), TinkerFluids.blood.get(), TinkerFluids.blood.getFlowing())
         .addTag(TinkerTags.Fluids.SLIME);
 
     this.getOrCreateBuilder(TinkerTags.Fluids.EARTH_SLIME).add(TinkerFluids.earthSlime.get(), TinkerFluids.earthSlime.getFlowing());
