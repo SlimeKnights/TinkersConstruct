@@ -24,6 +24,7 @@ import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.IngredientWithout;
 import slimeknights.tconstruct.common.RecipeCacheInvalidator;
+import slimeknights.tconstruct.common.ReplaceItemLootModifier;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
@@ -72,6 +73,11 @@ public final class TinkerCommons extends TinkerModule {
   public static final ItemObject<TinkerBookItem> book = ITEMS.register("book", () -> new TinkerBookItem(new Item.Properties().group(TAB_GENERAL).maxStackSize(1)));
   // TODO: move to natura
   public static final ItemObject<Item> driedBrick = ITEMS.register("dried_brick", HIDDEN_PROPS);
+
+  /*
+   * Misc
+   */
+  public static final RegistryObject<ReplaceItemLootModifier.Serializer> replaceItemLootModifier = GLOBAL_LOOT_MODIFIERS.register("replace_item", ReplaceItemLootModifier.Serializer::new);
 
   /* Loot conditions */
   public static LootConditionType lootConfig;

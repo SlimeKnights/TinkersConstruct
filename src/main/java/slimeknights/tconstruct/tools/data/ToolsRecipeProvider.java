@@ -5,6 +5,7 @@ import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -15,6 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.tconstruct.common.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -128,6 +130,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                           .addCriterion("has_item", hasItem(slimeball))
                           .build(consumer, folder + "slime_crystal/" + type.getString());
     });
+
+    // wither bone purifying
+    ShapelessRecipeBuilder.shapelessRecipe(Items.BONE)
+                          .addIngredient(TinkerTags.Items.WITHER_BONES)
+                          .addCriterion("has_bone", hasItem(TinkerTags.Items.WITHER_BONES))
+                          .build(withCondition(consumer, ConfigEnabledCondition.WITHER_BONE_CONVERSION), location(folder + "wither_bone_conversion"));
 
     // upgrades
     String upgradeFolder = folder + "upgrade/";

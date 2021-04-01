@@ -19,6 +19,8 @@ public class Config {
     // recipes
     public final BooleanValue addGravelToFlintRecipe;
     public final BooleanValue cheaperNetheriteAlloy;
+    public final BooleanValue witherBoneDrop;
+    public final BooleanValue witherBoneConversion;
 
     public final ConfigValue<Integer> melterNuggetsPerOre;
     public final ConfigValue<Integer> smelteryNuggetsPerOre;
@@ -87,6 +89,18 @@ public class Config {
         .translation("tconstruct.configgui.cheaperNetheriteAlloy")
         .worldRestart()
         .define("cheaperNetheriteAlloy", true);
+
+      this.witherBoneDrop = builder
+        .comment("Makes wither skeletons drop necrotic bones")
+        .translation("tconstruct.configgui.witherBoneDrop")
+        .worldRestart()
+        .define("witherBoneDrop", true);
+
+      this.witherBoneConversion = builder
+        .comment("Allows converting wither bones to regular bones")
+        .translation("tconstruct.configgui.witherBoneConversion")
+        .worldRestart()
+        .define("witherBoneConversion", true);
 
       this.melterNuggetsPerOre = builder
         .comment("Number of nuggets produced when an ore block is melted in the melter. 9 would give 1 ingot")
