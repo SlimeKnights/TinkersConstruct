@@ -6,6 +6,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeMod;
@@ -228,6 +229,8 @@ public class TConstruct {
         // pig iron underscore
         case "pigiron_ingot": return TinkerMaterials.pigIron.getIngot();
         case "pigiron_nugget": return TinkerMaterials.pigIron.getNugget();
+        // moss removed
+        case "moss": case "mending_moss": return Items.MOSSY_COBBLESTONE;
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

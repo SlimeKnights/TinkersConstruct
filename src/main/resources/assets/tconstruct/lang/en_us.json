@@ -3,10 +3,6 @@
 
     "block.tconstruct.grout": "Grout",
     "block.tconstruct.grout.tooltip": "I am Grout!",
-    "block.tconstruct.graveyard_soil": "Graveyard Soil",
-    "block.tconstruct.graveyard_soil.tooltip": "Heals undead",
-    "block.tconstruct.consecrated_soil": "Consecrated Soil",
-    "block.tconstruct.consecrated_soil.tooltip": "Hurts undead",
 
     "block.tconstruct.sky_slime": "Skyslime Block",
     "block.tconstruct.sky_slime.tooltip": "Works with pistons",
@@ -218,10 +214,6 @@
     "item.tconstruct.silky_jewel": "Silky Jewel",
     "item.tconstruct.silky_jewel.tooltip": "Prevents a tool from damaging block drops",
     "item.tconstruct.necrotic_bone": "Necrotic Bone",
-    "item.tconstruct.moss": "Ball of Moss",
-    "item.tconstruct.moss.tooltip": "Right click a Bookshelf with this\nto convert it into Mending Moss.\n§oConsumes 10 Levels",
-    "item.tconstruct.mending_moss": "Mending Moss",
-    "item.tconstruct.mending_moss.tooltip": "Mending Moss Modifier",
     "item.tconstruct.creative_upgrade": "Creative Upgrade",
     "item.tconstruct.creative_upgrade.tooltip": "Adds an additional upgrade slot to a tool",    
     "item.tconstruct.creative_ability": "Creative Ability",

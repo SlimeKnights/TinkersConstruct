@@ -70,16 +70,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   private void addModifierRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "tools/modifiers/";
 
-    // ball of moss
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.moss)
-                       .key('m', Ingredient.fromItems(Blocks.MOSSY_COBBLESTONE, Blocks.MOSSY_STONE_BRICKS))
-                       .patternLine("mmm")
-                       .patternLine("mmm")
-                       .patternLine("mmm")
-                       .addCriterion("has_cobble", hasItem(Blocks.MOSSY_COBBLESTONE))
-                       .addCriterion("has_bricks", hasItem(Blocks.MOSSY_STONE_BRICKS))
-                       .build(consumer, prefix(TinkerModifiers.moss, folder));
-
     // reinforcement
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.reinforcement)
                        .key('O', Items.OBSIDIAN)
