@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:ore_melting",
+  "ingredient": {
+    "item": "minecraft:gilded_blackstone"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 96
+  },
+  "temperature": 700,
+  "time": 46
+}

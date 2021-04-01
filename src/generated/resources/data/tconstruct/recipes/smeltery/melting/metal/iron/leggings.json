@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "item": "minecraft:iron_leggings"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_iron",
+    "amount": 1008
+  },
+  "temperature": 800,
+  "time": 159
+}

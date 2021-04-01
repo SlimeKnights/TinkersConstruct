@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "item": "minecraft:iron_boots"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_iron",
+    "amount": 576
+  },
+  "temperature": 800,
+  "time": 120
+}

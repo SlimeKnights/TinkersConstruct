@@ -1,0 +1,38 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": [
+    {
+      "item": "minecraft:netherite_helmet"
+    },
+    {
+      "item": "minecraft:netherite_chestplate"
+    },
+    {
+      "item": "minecraft:netherite_leggings"
+    },
+    {
+      "item": "minecraft:netherite_boots"
+    },
+    {
+      "item": "minecraft:netherite_hoe"
+    },
+    {
+      "item": "minecraft:netherite_axe"
+    },
+    {
+      "item": "minecraft:netherite_pickaxe"
+    },
+    {
+      "item": "minecraft:netherite_shovel"
+    },
+    {
+      "item": "minecraft:netherite_sword"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_netherite",
+    "amount": 144
+  },
+  "temperature": 1250,
+  "time": 74
+}

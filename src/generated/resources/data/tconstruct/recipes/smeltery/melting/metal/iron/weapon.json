@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": [
+    {
+      "item": "minecraft:iron_sword"
+    },
+    {
+      "item": "minecraft:iron_hoe"
+    },
+    {
+      "item": "minecraft:shears"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_iron",
+    "amount": 288
+  },
+  "temperature": 800,
+  "time": 85
+}

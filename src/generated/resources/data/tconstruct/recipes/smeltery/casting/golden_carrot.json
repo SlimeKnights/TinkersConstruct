@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:carrot"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_gold",
+    "amount": 128
+  },
+  "result": "minecraft:golden_carrot",
+  "cooling_time": 54
+}

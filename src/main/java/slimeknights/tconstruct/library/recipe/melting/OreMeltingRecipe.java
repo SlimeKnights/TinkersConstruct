@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,6 +39,11 @@ public class OreMeltingRecipe extends MeltingRecipe {
   @Override
   public boolean isOre() {
     return true;
+  }
+
+  @Override
+  public IRecipeSerializer<?> getSerializer() {
+    return TinkerSmeltery.oreMeltingSerializer.get();
   }
 
   /** Gets the recipe output for display in JEI */
