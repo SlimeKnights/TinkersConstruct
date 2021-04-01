@@ -2,7 +2,7 @@
 name: 1.16 Issue Report
 about: Report an issue with the 1.16 version of Minecraft
 title: ''
-labels: 1.16, Bug
+labels: Bug, Unreviewed, 1.16
 assignees: ''
 
 ---
