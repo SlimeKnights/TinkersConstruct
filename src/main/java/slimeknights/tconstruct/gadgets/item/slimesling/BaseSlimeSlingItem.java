@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
+import net.minecraft.network.play.server.SEntityVelocityPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -14,7 +15,6 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
-import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 import javax.annotation.Nonnull;
 
@@ -73,7 +73,7 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
   protected void playerServerMovement(LivingEntity player) {
     if (player instanceof ServerPlayerEntity) {
       ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
-      TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
+      TinkerNetwork.getInstance().sendVanillaPacket(new SEntityVelocityPacket(player), playerMP);
     }
   }
 
