@@ -109,13 +109,20 @@ public class EntityMeltingModule {
     Boolean canMelt = null;
     boolean melted = false;
     for (Entity entity : getWorld().getEntitiesWithinAABB(Entity.class, boundingBox)) {
+      if (!entity.isAlive()) {
+        continue;
+      }
+
       // items are placed inside the smeltery
       EntityType<?> type = entity.getType();
       if (entity instanceof ItemEntity) {
-        ItemStack stack = insertFunction.apply(((ItemEntity) entity).getItem());
+        ItemEntity itemEntity = (ItemEntity) entity;
+        ItemStack stack = insertFunction.apply(itemEntity.getItem());
+        // picked up whole stack
         if (stack.isEmpty()) {
-          // picked up whole stack
           entity.remove();
+        } else {
+          itemEntity.setItem(stack);
         }
       }
 
