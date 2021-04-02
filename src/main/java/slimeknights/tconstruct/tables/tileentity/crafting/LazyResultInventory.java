@@ -75,18 +75,16 @@ public class LazyResultInventory implements IInventory {
   }
 
   /**
-   * Returns the result stack from the inventory with the given size. This will not consume inputs
+   * Returns the result stack from the inventory. This will not consume inputs OR edit size
    * @param index  Unused
-   * @param count  Preferred result count
+   * @param count  Unused as output sizes should never change
    * @return  Result stack
    * @deprecated use {@link #craftResult(PlayerEntity, int)} or {@link #getResult()}
    */
   @Deprecated
   @Override
   public ItemStack decrStackSize(int index, int count) {
-    ItemStack stack = getResult().copy();
-    stack.setCount(count);
-    return stack;
+    return getResult().copy();
   }
 
   /**
