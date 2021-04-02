@@ -13,8 +13,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.EmptyHandler;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -129,7 +127,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
   }
 
   private static boolean hasItemHandler(TileEntity te, @Nullable Direction direction) {
-    return te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).orElse(EmptyHandler.INSTANCE) instanceof IItemHandlerModifiable;
+    return te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).isPresent();
   }
 
   @Override
