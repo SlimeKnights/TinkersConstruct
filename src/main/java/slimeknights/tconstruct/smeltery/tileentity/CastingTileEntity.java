@@ -223,25 +223,39 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     // fully filled
     if (tank.getFluidAmount() == tank.getCapacity() && !tank.getFluid().isEmpty()) {
       timer++;
-      if (!world.isRemote && timer >= currentRecipe.getCoolingTime(castingInventory)) {
-        ItemStack output = currentRecipe.getCraftingResult(castingInventory);
-        if (currentRecipe.switchSlots()) {
-          if (!currentRecipe.isConsumed()) {
-            setInventorySlotContents(OUTPUT, getStackInSlot(INPUT));
+      if (!world.isRemote) {
+        castingInventory.setFluid(tank.getFluid().getFluid());
+        if (timer >= currentRecipe.getCoolingTime(castingInventory)) {
+          if (!currentRecipe.matches(castingInventory, world)) {
+            // if lost our recipe or the recipe needs more fluid then we have, we are done
+            // will come around later for the proper fluid amount
+            currentRecipe = findCastingRecipe();
+            recipeName = null;
+            if (currentRecipe == null || currentRecipe.getFluidAmount(castingInventory) > tank.getFluidAmount()) {
+              timer = 0;
+              return;
+            }
           }
-          setInventorySlotContents(INPUT, output);
-        }
-        else {
-          if (currentRecipe.isConsumed()) {
-            setInventorySlotContents(INPUT, ItemStack.EMPTY);
+
+          // actual recipe result
+          ItemStack output = currentRecipe.getCraftingResult(castingInventory);
+          if (currentRecipe.switchSlots()) {
+            if (!currentRecipe.isConsumed()) {
+              setInventorySlotContents(OUTPUT, getStackInSlot(INPUT));
+            }
+            setInventorySlotContents(INPUT, output);
+          } else {
+            if (currentRecipe.isConsumed()) {
+              setInventorySlotContents(INPUT, ItemStack.EMPTY);
+            }
+            setInventorySlotContents(OUTPUT, output);
           }
-          setInventorySlotContents(OUTPUT, output);
+          world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
+
+          reset();
+
+          world.notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
         }
-        world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
-
-        reset();
-
-        world.notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
       }
       else if (world.rand.nextFloat() > 0.9f) {
         world.addParticle(ParticleTypes.SMOKE, pos.getX() + world.rand.nextDouble(), pos.getY() + 1.1d, pos.getZ() + world.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
@@ -293,11 +307,11 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       return 0;
     }
     this.castingInventory.setFluid(fluid);
-
     ICastingRecipe castingRecipe = findCastingRecipe();
     if (castingRecipe != null) {
       if (action == IFluidHandler.FluidAction.EXECUTE) {
         this.currentRecipe = castingRecipe;
+        this.recipeName = null;
         this.lastOutput = null;
       }
       return castingRecipe.getFluidAmount(castingInventory);
@@ -311,7 +325,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   public void reset() {
     timer = 0;
     currentRecipe = null;
-    this.lastOutput = null;
+    recipeName = null;
+    lastOutput = null;
     tank.setCapacity(0);
     tank.setFluid(FluidStack.EMPTY);
     tank.setRenderOffset(0);
@@ -356,6 +371,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       if (currentRecipe == null) {
         return ItemStack.EMPTY;
       }
+      castingInventory.setFluid(tank.getFluid().getFluid());
       lastOutput = currentRecipe.getCraftingResult(castingInventory);
     }
     return lastOutput;
@@ -371,7 +387,6 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     }
     return currentRecipe.getCoolingTime(castingInventory);
   }
-
 
 
   /* NBT */
