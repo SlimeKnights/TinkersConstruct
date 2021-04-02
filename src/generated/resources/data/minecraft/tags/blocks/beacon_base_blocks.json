@@ -11,6 +11,7 @@
     "#forge:storage_blocks/manyullyn",
     "#forge:storage_blocks/hepatizon",
     "#forge:storage_blocks/soulsteel",
-    "#forge:storage_blocks/knightslime"
+    "#forge:storage_blocks/knightslime",
+    "tconstruct:silky_jewel_block"
   ]
 }
