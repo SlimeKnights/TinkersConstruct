@@ -13,7 +13,7 @@ public class InsatibleModifier extends Modifier {
   @Override
   public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
     // gives +3 damage per level at max
-    int effectLevel = TinkerModifiers.momentumEffect.get().getLevel(attacker) + 1;
+    int effectLevel = TinkerModifiers.insatiableEffect.get().getLevel(attacker) + 1;
     return damage + level * effectLevel / 3f;
   }
 
