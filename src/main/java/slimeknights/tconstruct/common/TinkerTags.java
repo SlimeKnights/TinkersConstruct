@@ -87,6 +87,9 @@ public class TinkerTags {
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");
 
+    /** Items that cannot be autosmelted */
+    public static final IOptionalNamedTag<Item> AUTOSMELT_BLACKLIST = tag("autosmelt_blacklist");
+
     /*
      * Tool tags
      */

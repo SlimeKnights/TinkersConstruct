@@ -8,6 +8,7 @@ import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.loot.LootContext;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.recipe.SingleItemInventory;
@@ -74,6 +75,10 @@ public class AutosmeltModifier extends SingleUseModifier {
    * @return  Smelted item, or original if no recipe
    */
   private ItemStack smeltItem(ItemStack stack, World world) {
+    // skip blacklisted entries
+    if (TinkerTags.Items.AUTOSMELT_BLACKLIST.contains(stack.getItem())) {
+      return stack;
+    }
     FurnaceRecipe recipe = findCachedRecipe(stack, world);
     if (recipe != null) {
       inventory.setStack(stack);
