@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.plugin.jei.entitymelting;
+package slimeknights.tconstruct.plugin.jei.entity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.RequiredArgsConstructor;

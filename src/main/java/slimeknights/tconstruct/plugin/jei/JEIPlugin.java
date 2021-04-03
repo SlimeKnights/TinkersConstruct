@@ -38,6 +38,7 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -48,16 +49,19 @@ import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
-import slimeknights.tconstruct.plugin.jei.entitymelting.DefaultEntityMeltingRecipe;
-import slimeknights.tconstruct.plugin.jei.entitymelting.EntityIngredientHelper;
-import slimeknights.tconstruct.plugin.jei.entitymelting.EntityIngredientRenderer;
-import slimeknights.tconstruct.plugin.jei.entitymelting.EntityMeltingRecipeCategory;
+import slimeknights.tconstruct.plugin.jei.entity.BeheadingCategory;
+import slimeknights.tconstruct.plugin.jei.entity.DefaultEntityMeltingRecipe;
+import slimeknights.tconstruct.plugin.jei.entity.EntityIngredientHelper;
+import slimeknights.tconstruct.plugin.jei.entity.EntityIngredientRenderer;
+import slimeknights.tconstruct.plugin.jei.entity.EntityMeltingRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientHelper;
@@ -102,6 +106,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new EntityMeltingRecipeCategory(guiHelper));
     // tinker station
     registry.addRecipeCategories(new ModifierRecipeCategory(guiHelper));
+    registry.addRecipeCategories(new BeheadingCategory(guiHelper));
   }
 
   @Override
@@ -145,6 +150,10 @@ public class JEIPlugin implements IModPlugin {
     // modifiers
     List<IDisplayModifierRecipe> modifierRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class);
     register.addRecipes(modifierRecipes, TConstructRecipeCategoryUid.modifiers);
+
+    // beheading
+    List<BeheadingRecipe> beheadingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.BEHEADING, BeheadingRecipe.class);
+    register.addRecipes(beheadingRecipes, TConstructRecipeCategoryUid.beheading);
   }
 
   /**
@@ -172,6 +181,10 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructRecipeCategoryUid.modifiers);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructRecipeCategoryUid.modifiers);
+    for (Item item : TinkerTags.Items.MELEE.getAllElements()) {
+      ItemStack stack = item instanceof ToolCore ? ((ToolCore)item).buildToolForRendering() : new ItemStack(item);
+      registry.addRecipeCatalyst(stack, TConstructRecipeCategoryUid.beheading);
+    }
   }
 
   @Override

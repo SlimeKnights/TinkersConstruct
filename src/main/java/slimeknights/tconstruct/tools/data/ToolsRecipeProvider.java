@@ -2,10 +2,12 @@ package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.data.CookingRecipeBuilder;
+import net.minecraft.data.CustomRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -13,6 +15,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
@@ -28,6 +31,7 @@ import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRe
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
@@ -66,8 +70,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     this.addMaterialsRecipes(consumer);
     this.addPartRecipes(consumer);
     this.addTinkerStationRecipes(consumer);
+    this.addHeadRecipes(consumer);
   }
-
 
   private void addModifierRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "tools/modifiers/";
@@ -219,6 +223,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE)
                          .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.beheading.get())
+                         .addInput(TinkerTags.Items.WITHER_BONES)
+                         .addInput(TinkerMaterials.copper.getIngotTag())
+                         .addInput(TinkerTags.Items.WITHER_BONES)
+                         .addInput(Items.TNT)
+                         .addInput(Items.TNT)
+                         .setMaxLevel(5) // max +25% head drop chance, combine with +15% chance from luck
+                         .setUpgradeSlots(1)
+                         .setTools(TinkerTags.Items.MELEE)
+                         .build(consumer, prefixR(TinkerModifiers.beheading, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.BLAZE_POWDER, 1, 25)
@@ -437,6 +451,15 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerBuildingRecipe(consumer, TinkerTools.broadSword);
   }
 
+  private void addHeadRecipes(Consumer<IFinishedRecipe> consumer) {
+    String folder = "tools/beheading/";
+    addHead(consumer, EntityType.ZOMBIE, Items.ZOMBIE_HEAD, folder);
+    addHead(consumer, EntityType.CREEPER, Items.CREEPER_HEAD, folder);
+    addHead(consumer, EntityType.SKELETON, Items.SKELETON_SKULL, folder);
+    addHead(consumer, EntityType.WITHER_SKELETON, Items.WITHER_SKELETON_SKULL, folder);
+    CustomRecipeBuilder.customRecipe(TinkerModifiers.playerBeheadingSerializer.get()).build(consumer, locationString(folder + "player"));
+  }
+
   private void registerBuildingRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends ToolCore> sup) {
     // Base data
     ToolCore toolCore = sup.get();
@@ -534,5 +557,17 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, matName + "/nugget");
     wrapped = optional ? withCondition(consumer, tagCondition("storage_blocks/" + name)) : consumer;
     registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, matName + "/block");
+  }
+
+  /**
+   * Adds a head recipe
+   * @param consumer  Consumer
+   * @param entity    Entity
+   * @param head      Head for the entity
+   * @param folder    Output folder
+   */
+  private void addHead(Consumer<IFinishedRecipe> consumer, EntityType<?> entity, IItemProvider head, String folder) {
+    BeheadingRecipeBuilder.beheading(EntityIngredient.of(entity), head)
+                          .build(consumer, prefix(head, folder));
   }
 }

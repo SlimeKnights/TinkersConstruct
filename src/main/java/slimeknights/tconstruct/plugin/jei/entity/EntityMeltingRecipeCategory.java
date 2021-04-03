@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.plugin.jei.entitymelting;
+package slimeknights.tconstruct.plugin.jei.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -15,7 +15,6 @@ import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.gui.ingredient.ITooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -105,14 +104,9 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     // inputs
     // if we have a spawn egg focus, filter the displayed entities
     IGuiIngredientGroup<EntityType> entityTypes = layout.getIngredientsGroup(JEIPlugin.ENTITY_TYPE);
-    IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
     entityTypes.init(0, true, entityRenderer, 19, 11, 32, 32, 0, 0);
-    if (focus != null && focus.getValue().getItem() instanceof SpawnEggItem) {
-      EntityType<?> type = ((SpawnEggItem) focus.getValue().getItem()).getType(null);
-      entityTypes.set(0, recipe.getInputs().stream().filter(type::equals).collect(Collectors.toList()));
-    } else {
-      entityTypes.set(ingredients);
-    }
+    entityTypes.set(ingredients);
+    EntityIngredientHelper.setFocus(layout, entityTypes, recipe.getInputs(), 0);
 
     // output
     IGuiFluidStackGroup fluids = layout.getFluidStacks();

@@ -19,4 +19,5 @@ public class TConstructRecipeCategoryUid {
 
   // tinker station
   public static final ResourceLocation modifiers = Util.getResource("modifiers");
+  public static final ResourceLocation beheading = Util.getResource("beheading");
 }

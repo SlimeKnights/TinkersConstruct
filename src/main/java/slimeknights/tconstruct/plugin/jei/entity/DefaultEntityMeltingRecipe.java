@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.plugin.jei.entitymelting;
+package slimeknights.tconstruct.plugin.jei.entity;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityClassification;

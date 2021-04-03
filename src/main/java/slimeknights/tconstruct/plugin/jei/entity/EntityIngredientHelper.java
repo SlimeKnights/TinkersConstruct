@@ -1,11 +1,19 @@
-package slimeknights.tconstruct.plugin.jei.entitymelting;
+package slimeknights.tconstruct.plugin.jei.entity;
 
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.ingredients.IIngredientHelper;
+import mezz.jei.api.recipe.IFocus;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /** Handler for working with entity types as ingredients */
 @SuppressWarnings("rawtypes")
@@ -62,5 +70,20 @@ public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
       return "unnamed sadface :(";
     }
     return name.toString();
+  }
+
+  /**
+   * Sets the entity focus based on the item list
+   * @param layout       Recipe layout
+   * @param group        Entity type group
+   * @param entities     Entities to focus
+   * @param index        Index of entity slot
+   */
+  public static void setFocus(IRecipeLayout layout, IGuiIngredientGroup<EntityType> group, Collection<EntityType<?>> entities, int index) {
+    IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
+    if (focus != null && focus.getValue().getItem() instanceof SpawnEggItem) {
+      EntityType<?> type = ((SpawnEggItem) focus.getValue().getItem()).getType(null);
+      group.set(index, entities.stream().filter(type::equals).collect(Collectors.toList()));
+    }
   }
 }

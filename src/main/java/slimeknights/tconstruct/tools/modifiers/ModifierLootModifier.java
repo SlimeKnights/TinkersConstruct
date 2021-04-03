@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers;
 
 import com.google.gson.JsonObject;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
@@ -21,7 +23,16 @@ public class ModifierLootModifier extends LootModifier {
 
   @Override
   protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+    // tool is for harvest
     ItemStack stack = context.get(LootParameters.TOOL);
+    // if null, try entity held item
+    if (stack == null) {
+      Entity entity = context.get(LootParameters.KILLER_ENTITY);
+      if (entity instanceof LivingEntity) {
+        stack = ((LivingEntity)entity).getHeldItemMainhand();
+      }
+    }
+    // hopefully one of the two worked
     if (stack != null) {
       ToolStack tool = ToolStack.from(stack);
       if (!tool.isBroken()) {

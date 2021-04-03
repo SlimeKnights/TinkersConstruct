@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.plugin.jei.entitymelting;
+package slimeknights.tconstruct.plugin.jei.entity;
 
 import mcp.MethodsReturnNonnullByDefault;
 
