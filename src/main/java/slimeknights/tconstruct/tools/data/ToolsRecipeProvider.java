@@ -14,10 +14,10 @@ import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.SizedIngredient;
-import slimeknights.tconstruct.common.recipe.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.recipe.IngredientWithout;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
@@ -143,7 +143,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     /*
      * durability
      */
-    // tier 2
     ModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
                          .addInput(TinkerModifiers.reinforcement)
                          .setMaxLevel(5) // max 83% resistant to damage
@@ -303,6 +302,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setAbilitySlots(1)
                          .setTools(TinkerTags.Items.HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.silky, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.autosmelt.get())
+                         .addInput(Items.FIRE_CHARGE)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
+                         .addInput(Items.FIRE_CHARGE)
+                         .addInput(TinkerCommons.blazewood)
+                         .addInput(TinkerCommons.blazewood)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .setTools(TinkerTags.Items.HARVEST)
+                         .build(consumer, prefixR(TinkerModifiers.autosmelt, upgradeFolder));
     // expanders
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
                          .addInput(TinkerModifiers.ichorExpander)

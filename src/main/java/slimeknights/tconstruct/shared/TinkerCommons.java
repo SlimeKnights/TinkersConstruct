@@ -25,6 +25,7 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
+import slimeknights.tconstruct.common.recipe.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.recipe.IngredientIntersection;
 import slimeknights.tconstruct.common.recipe.IngredientWithout;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
@@ -82,6 +83,7 @@ public final class TinkerCommons extends TinkerModule {
 
   /* Loot conditions */
   public static LootConditionType lootConfig;
+  public static LootConditionType lootBlockOrEntity;
 
   /* Slime Balls are edible, believe it or not */
   public static final EnumObject<SlimeType, Item> slimeball = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
@@ -99,6 +101,7 @@ public final class TinkerCommons extends TinkerModule {
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
     CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
     lootConfig = Registry.register(Registry.LOOT_CONDITION_TYPE, ConfigEnabledCondition.ID, new LootConditionType(ConfigEnabledCondition.SERIALIZER));
+    lootBlockOrEntity = Registry.register(Registry.LOOT_CONDITION_TYPE, BlockOrEntityCondition.ID, new LootConditionType(BlockOrEntityCondition.SERIALIZER));
   }
 
   @SubscribeEvent

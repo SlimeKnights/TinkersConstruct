@@ -11,6 +11,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
@@ -303,6 +304,18 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param stack          Item stack instance to check other slots for the tool. Do not modify
    */
   public void onInventoryTick(IModifierToolStack tool, int level, World world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {}
+
+  /**
+   * Called on entity or block loot to allow modifying loot
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param generatedLoot  Current loot list before this modifier
+   * @param context        Full loot context
+   * @return  Loot replacement
+   */
+  public List<ItemStack> processLoot(ToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+    return generatedLoot;
+  }
 
 
   /* Harvest hooks */

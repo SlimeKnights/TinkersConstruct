@@ -1032,6 +1032,9 @@
     "modifier.tconstruct.expanded": "Expanded",
     "modifier.tconstruct.expanded.flavor": "Did not skip leg day!",
     "modifier.tconstruct.expanded.description": "Tool's area of effect is larger than before",
+    "modifier.tconstruct.autosmelt": "Autosmelt",
+    "modifier.tconstruct.autosmelt.flavor": "Fires of the Nether in your tool!",
+    "modifier.tconstruct.autosmelt.description": "Tool automatically smelts all drops",
 
     "modifier.tconstruct.luck": "Luck",
     "modifier.tconstruct.luck.1": "Luck",

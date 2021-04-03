@@ -18,6 +18,8 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRec
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipe;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
+import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.SilkyModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
@@ -124,6 +126,7 @@ public final class TinkerModifiers extends TinkerModule {
   // abilities
   public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
+  public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
   public static final RegistryObject<ExpanderModifier> expanded = MODIFIERS.register("expanded", ExpanderModifier::new);
 
   // bonus modifier slots
@@ -184,4 +187,5 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ModifierRecipe.Serializer> modifierSerializer = RECIPE_SERIALIZERS.register("modifier", ModifierRecipe.Serializer::new);
   public static final RegistryObject<IncrementalModifierRecipe.Serializer> incrementalModifierSerializer = RECIPE_SERIALIZERS.register("incremental_modifier", IncrementalModifierRecipe.Serializer::new);
   public static final RegistryObject<OverslimeModifierRecipe.Serializer> overslimeSerializer = RECIPE_SERIALIZERS.register("overslime_modifier", OverslimeModifierRecipe.Serializer::new);
+  public static final RegistryObject<ModifierLootModifier.Serializer> modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", ModifierLootModifier.Serializer::new);
 }
