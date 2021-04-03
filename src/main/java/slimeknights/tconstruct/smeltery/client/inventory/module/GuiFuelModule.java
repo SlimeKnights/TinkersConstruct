@@ -61,8 +61,9 @@ public class GuiFuelModule {
   public void draw(MatrixStack matrices) {
     // draw fire
     int fuel = fuelModule.getFuel();
-    if (fuel > 0) {
-      FIRE.drawScaledYUp(matrices, fireX + screen.guiLeft, fireY + screen.guiTop, 14 * fuel / fuelModule.getFuelQuality());
+    int fuelQuality = fuelModule.getFuelQuality();
+    if (fuel > 0 && fuelQuality > 0) {
+      FIRE.drawScaledYUp(matrices, fireX + screen.guiLeft, fireY + screen.guiTop, 14 * fuel / fuelQuality);
     }
 
     // draw tank second, it changes the image
