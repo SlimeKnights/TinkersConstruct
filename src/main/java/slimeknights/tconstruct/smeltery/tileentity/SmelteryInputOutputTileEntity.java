@@ -59,11 +59,8 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   protected void setMaster(@Nullable BlockPos master, @Nullable Block block) {
     assert world != null;
 
-    // invalidate handlers if the master changed
-    if (!Objects.equals(getMasterPos(), master)) {
-      clearHandler();
-      world.notifyNeighborsOfStateChange(pos, getBlockState().getBlock());
-    }
+    // keep track of master before it changed
+    boolean masterChanged = !Objects.equals(getMasterPos(), master);
     // update the master
     boolean hadMaster = getMasterPos() != null;
     super.setMaster(master, block);
@@ -71,6 +68,11 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
     boolean hasMaster = getMasterPos() != null;
     if (hadMaster != hasMaster) {
       world.setBlockState(pos, getBlockState().with(SmelteryIOBlock.ACTIVE, hasMaster));
+    }
+    // if we have a new master, invalidate handlers
+    if (masterChanged) {
+      clearHandler();
+      world.notifyNeighborsOfStateChange(pos, getBlockState().getBlock());
     }
   }
 
