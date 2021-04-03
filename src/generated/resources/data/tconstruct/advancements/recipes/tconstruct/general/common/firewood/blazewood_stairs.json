@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/firewood/firewood_slab"
+      "tconstruct:common/firewood/blazewood_stairs"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:firewood"
+            "item": "tconstruct:blazewood"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/firewood/firewood_slab"
+        "recipe": "tconstruct:common/firewood/blazewood_stairs"
       }
     }
   },

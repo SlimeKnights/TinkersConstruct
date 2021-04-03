@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "tconstruct:firewood_slab",
+  "group": "tconstruct:blazewood_slab",
   "pattern": [
     "BBB"
   ],
   "key": {
     "B": {
-      "item": "tconstruct:firewood"
+      "item": "tconstruct:blazewood"
     }
   },
   "result": {
-    "item": "tconstruct:firewood_slab",
+    "item": "tconstruct:blazewood_slab",
     "count": 6
   }
 }

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "type": "tconstruct:intersection",
+    "ingredients": [
+      {
+        "tag": "minecraft:planks"
+      },
+      {
+        "tag": "minecraft:non_flammable_wood"
+      }
+    ]
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_blaze",
+    "amount": 100
+  },
+  "result": "tconstruct:blazewood",
+  "cooling_time": 67
+}

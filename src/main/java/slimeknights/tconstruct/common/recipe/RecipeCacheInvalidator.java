@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.common;
+package slimeknights.tconstruct.common.recipe;
 
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import lombok.AccessLevel;

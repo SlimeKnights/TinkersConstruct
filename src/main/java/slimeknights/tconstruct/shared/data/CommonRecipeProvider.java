@@ -41,7 +41,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
   private void addCommonRecipes(Consumer<IFinishedRecipe> consumer) {
     // firewood and lavawood
     String folder = "common/firewood/";
-    registerSlabStair(consumer, TinkerCommons.firewood, folder, false);
+    registerSlabStair(consumer, TinkerCommons.blazewood, folder, false);
     registerSlabStair(consumer, TinkerCommons.lavawood, folder, false);
 
     // mud bricks

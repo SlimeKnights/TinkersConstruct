@@ -28,6 +28,7 @@ import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.recipe.IngredientIntersection;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -413,10 +414,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                             .setFluid(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 10))
                             .setCast(ItemTags.PLANKS, true)
                             .build(consumer, prefix(TinkerCommons.lavawood, folder));
-    ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.firewood)
+    ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.blazewood)
                             .setFluid(new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 10))
-                            .setCast(ItemTags.PLANKS, true)
-                            .build(consumer, prefix(TinkerCommons.firewood, folder));
+                            .setCast(new IngredientIntersection(Ingredient.fromTag(ItemTags.PLANKS), Ingredient.fromTag(ItemTags.NON_FLAMMABLE_WOOD)), true)
+                            .build(consumer, prefix(TinkerCommons.blazewood, folder));
     ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.mudBricks)
                             .setFluid(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 10))
                             .setCast(Items.DIRT, true)

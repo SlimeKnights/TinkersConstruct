@@ -142,6 +142,10 @@ public class TConstruct {
       case "pigiron_block": return TinkerMaterials.pigIron.get();
       // soils
       case "graveyard_soil": case "consecrated_soil": return Blocks.DIRT;
+      // firewood to blazewood
+      case "firewood": return TinkerCommons.blazewood.get();
+      case "firewood_slab": return TinkerCommons.blazewood.getSlab();
+      case "firewood_stairs": return TinkerCommons.blazewood.getStairs();
     }
     // other slime changes:
     // green -> earth

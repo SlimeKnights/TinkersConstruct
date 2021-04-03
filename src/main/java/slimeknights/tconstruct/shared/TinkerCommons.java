@@ -22,12 +22,13 @@ import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
-import slimeknights.tconstruct.common.IngredientWithout;
-import slimeknights.tconstruct.common.RecipeCacheInvalidator;
-import slimeknights.tconstruct.common.ReplaceItemLootModifier;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
+import slimeknights.tconstruct.common.recipe.IngredientIntersection;
+import slimeknights.tconstruct.common.recipe.IngredientWithout;
+import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
+import slimeknights.tconstruct.common.recipe.ReplaceItemLootModifier;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
@@ -64,7 +65,7 @@ public final class TinkerCommons extends TinkerModule {
   // wood
   private static final Block.Properties WOOD = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).setRequiresTool().hardnessAndResistance(2.0F, 7.0F).setLightLevel(s -> 7);
   public static final BuildingBlockObject lavawood = BLOCKS.registerBuilding("lavawood", WOOD, GENERAL_BLOCK_ITEM);
-  public static final BuildingBlockObject firewood = BLOCKS.registerBuilding("firewood", WOOD, GENERAL_BLOCK_ITEM);
+  public static final BuildingBlockObject blazewood = BLOCKS.registerBuilding("blazewood", WOOD, GENERAL_BLOCK_ITEM);
 
   /*
    * Items
@@ -91,6 +92,7 @@ public final class TinkerCommons extends TinkerModule {
   public TinkerCommons() {
     MinecraftForge.EVENT_BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
     CraftingHelper.register(IngredientWithout.ID, IngredientWithout.SERIALIZER);
+    CraftingHelper.register(IngredientIntersection.ID, IngredientIntersection.SERIALIZER);
   }
 
   @SubscribeEvent

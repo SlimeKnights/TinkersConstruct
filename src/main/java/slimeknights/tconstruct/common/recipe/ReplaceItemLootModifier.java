@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.common;
+package slimeknights.tconstruct.common.recipe;
 
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;

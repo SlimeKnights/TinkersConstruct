@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tconstruct:firewood_stairs"
+          "name": "tconstruct:blazewood_stairs"
         }
       ],
       "conditions": [

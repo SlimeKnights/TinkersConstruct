@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "tconstruct:firewood_stairs",
+  "group": "tconstruct:blazewood_stairs",
   "pattern": [
     "B  ",
     "BB ",
@@ -8,11 +8,11 @@
   ],
   "key": {
     "B": {
-      "item": "tconstruct:firewood"
+      "item": "tconstruct:blazewood"
     }
   },
   "result": {
-    "item": "tconstruct:firewood_stairs",
+    "item": "tconstruct:blazewood_stairs",
     "count": 4
   }
 }

@@ -5,8 +5,8 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import slimeknights.tconstruct.common.RecipeCacheInvalidator;
-import slimeknights.tconstruct.common.RecipeCacheInvalidator.DuelSidedListener;
+import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
+import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 import java.util.Collection;
