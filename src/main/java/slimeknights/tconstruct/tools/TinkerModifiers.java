@@ -18,6 +18,8 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRec
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipe;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.SilkyModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
@@ -54,13 +56,11 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.ExpanderModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.FieryModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.HasteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.LuckModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SharpnessModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.SilkyModifier;
 
 import java.util.function.IntFunction;
 import java.util.function.Supplier;

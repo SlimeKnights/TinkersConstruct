@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.upgrades;
+package slimeknights.tconstruct.tools.modifiers.ability;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
