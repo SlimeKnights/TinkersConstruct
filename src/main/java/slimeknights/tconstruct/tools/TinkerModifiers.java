@@ -66,6 +66,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SharpnessModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.SoulboundModifier;
 import slimeknights.tconstruct.tools.recipe.PlayerBeheadingRecipe;
 
 import java.util.function.IntFunction;
@@ -107,6 +108,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<EmeraldModifier> emerald = MODIFIERS.register("emerald", EmeraldModifier::new);
   public static final RegistryObject<DiamondModifier> diamond = MODIFIERS.register("diamond", DiamondModifier::new);
   public static final RegistryObject<WorldboundModifier> worldbound = MODIFIERS.register("worldbound", () -> new WorldboundModifier(0x7E6059));
+  public static final RegistryObject<SoulboundModifier> soulbound = MODIFIERS.register("soulbound", SoulboundModifier::new);
   public static final RegistryObject<NetheriteModifier> netherite = MODIFIERS.register("netherite", NetheriteModifier::new);
   public static final RegistryObject<OverslimeModifier> overslime = MODIFIERS.register("overslime", OverslimeModifier::new);
 

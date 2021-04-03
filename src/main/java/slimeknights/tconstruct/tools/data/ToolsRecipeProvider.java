@@ -166,6 +166,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.NETHERITE_SCRAP)
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.worldbound, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.soulbound.get())
+                         .addInput(Items.TOTEM_OF_UNDYING)
+                         .setUpgradeSlots(1)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.soulbound, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.netherite.get())
                          .addInput(Tags.Items.INGOTS_NETHERITE)
                          .setMaxLevel(1)
