@@ -4,13 +4,13 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
-public class DwarfishModifier extends Modifier {
+public class DwarvenModifier extends Modifier {
   /** Baseline height where boost is 1 */
   private static final int SEA_LEVEL = 64;
   /** Max percentage bonus per level when y = 0 */
   private static final float BOOST_AT_0 = 0.2f;
 
-  public DwarfishModifier() {
+  public DwarvenModifier() {
     super(0xed9f07);
   }
 

@@ -36,7 +36,7 @@ import slimeknights.tconstruct.tools.modifiers.shared.LevelDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.shared.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.DwarfishModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.DwarvenModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.InsatibleModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.LaceratingModifier;
@@ -155,7 +155,7 @@ public final class TinkerModifiers extends TinkerModule {
   // traits - tier 2
   // reinforced is also an upgrade
   public static final RegistryObject<SearingModifier> searing = MODIFIERS.register("searing", SearingModifier::new);
-  public static final RegistryObject<DwarfishModifier> dwarfish = MODIFIERS.register("dwarfish", DwarfishModifier::new);
+  public static final RegistryObject<DwarvenModifier> dwarven = MODIFIERS.register("dwarven", DwarvenModifier::new);
   public static final RegistryObject<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
   // traits - tier 3
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
