@@ -29,11 +29,11 @@ public final class TinkerFluids extends TinkerModule {
   // basic
   public static final FluidObject<ForgeFlowingFluid> blood = FLUIDS.register("blood", coolBuilder().color(0xff540000).density(1200).viscosity(1200).temperature(336), Material.WATER, 0);
 
-  // slime
-  public static final FluidObject<ForgeFlowingFluid> earthSlime = FLUIDS.register("earth_slime", coolBuilder().color(0xef76be6d).density(1400).viscosity(1400).temperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  // slime -  note second name parameter is forge tag name
+  public static final FluidObject<ForgeFlowingFluid> earthSlime = FLUIDS.register("earth_slime", "slime", coolBuilder().color(0xef76be6d).density(1400).viscosity(1400).temperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
   public static final FluidObject<ForgeFlowingFluid> skySlime = FLUIDS.register("sky_slime", coolBuilder().color(0xef67f0f5).density(1500).viscosity(1500).temperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
   public static final FluidObject<ForgeFlowingFluid> enderSlime = FLUIDS.register("ender_slime", coolBuilder().color(0xefd236ff).density(1600).viscosity(1600).temperature(370), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<ForgeFlowingFluid> magmaCream  = FLUIDS.register("magma_cream", FluidAttributes
+  public static final FluidObject<ForgeFlowingFluid> magmaCream  = FLUIDS.register("magma_cream", "magma", FluidAttributes
     .builder(FluidIcons.MAGMA_CREAM_STILL, FluidIcons.MAGMA_CREAM_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY).density(1900).viscosity(1900).temperature(600), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 4);
   public static final Map<SlimeType, FluidObject<ForgeFlowingFluid>> slime;
   static {
