@@ -138,6 +138,8 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     SlotInformation slotInformation = SlotInformationLoader.get(Util.getResource("repair_" + max));
     this.currentData = slotInformation;
     this.activeSlots = Math.min(slotInformation.getPoints().size(), max);
+
+    this.passEvents = false;
   }
 
   @Override
@@ -496,6 +498,10 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     if (this.modifierInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
       return false;
     }
+    
+    if(this.buttonsScreen.handleMouseClicked(mouseX, mouseY, mouseButton)) {
+      return false;
+    }
 
     return this.textField.mouseClicked(mouseX, mouseY, mouseButton) || super.mouseClicked(mouseX, mouseY, mouseButton);
   }
@@ -533,6 +539,10 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     }
 
     if (this.modifierInfo.handleMouseReleased(mouseX, mouseY, state)) {
+      return false;
+    }
+
+    if (this.buttonsScreen.handleMouseReleased(mouseX, mouseY, state)) {
       return false;
     }
 
