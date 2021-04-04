@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:replace_item",
+  "type": "mantle:replace_item",
   "conditions": [
     {
       "condition": "forge:loot_table_id",
