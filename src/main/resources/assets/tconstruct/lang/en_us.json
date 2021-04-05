@@ -5,14 +5,14 @@
     "block.tconstruct.grout.tooltip": "I am Grout!",
 
     "block.tconstruct.sky_slime": "Skyslime Block",
-    "block.tconstruct.sky_slime.tooltip": "Works with pistons",
-    "block.tconstruct.ender_slime": "Enderslime Block",
-    "block.tconstruct.ender_slime.tooltip": "Works with pistons",
-    "block.tconstruct.blood_slime": "Blood Block",
-    "block.tconstruct.blood_slime.tooltip": "Works with pistons",
+    "block.tconstruct.sky_slime.tooltip": "Sticks to both slime and honey",
     "block.tconstruct.ichor_slime": "Ichor Block",
-    "block.tconstruct.ichor_slime.tooltip": "Works with pistons",
-
+    "block.tconstruct.ichor_slime.tooltip": "Sticks all sticky blocks besides ichor",
+    "block.tconstruct.ender_slime": "Enderslime Block",
+    "block.tconstruct.ender_slime.tooltip": "Sticks when pushed, but not when adjacent to a sticky block",
+    "block.tconstruct.blood_slime": "Blood Block",
+    "block.tconstruct.blood_slime.tooltip": "Bouncy, but not sticky",
+    
     "block.tconstruct.earth_congealed_slime": "Congealed Slime Block",
     "block.tconstruct.earth_congealed_slime.tooltip": "Lets you jump really high",
     "block.tconstruct.sky_congealed_slime": "Congealed Skyslime Block",

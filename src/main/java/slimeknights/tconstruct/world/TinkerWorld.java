@@ -46,7 +46,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
 import slimeknights.tconstruct.shared.block.SlimeType;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock;
+import slimeknights.tconstruct.world.block.BloodSlimeBlock;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
@@ -54,6 +54,7 @@ import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
 import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
+import slimeknights.tconstruct.world.block.StickySlimeBlock;
 import slimeknights.tconstruct.world.data.WorldRecipeProvider;
 import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
 import slimeknights.tconstruct.world.item.SlimeGrassSeedItem;
@@ -97,7 +98,14 @@ public final class TinkerWorld extends TinkerModule {
   private static final Block.Properties SLIME = Block.Properties.from(Blocks.SLIME_BLOCK);
   public static final EnumObject<SlimeType, SlimeBlock> slime = new EnumObject.Builder<SlimeType, SlimeBlock>(SlimeType.class)
     .putDelegate(SlimeType.EARTH, Blocks.SLIME_BLOCK.delegate)
-    .putAll(BLOCKS.registerEnum(SlimeType.TINKER, "slime", (type) -> new StickySlimeBlock(SLIME), TOOLTIP_BLOCK_ITEM))
+    // sky slime: sticks to anything, but will not pull back
+    .put(SlimeType.SKY,   BLOCKS.register("sky_slime", () -> new StickySlimeBlock(SLIME, (state, other) -> true), TOOLTIP_BLOCK_ITEM))
+    // ichor: does not stick to self, but sticks to anything else
+    .put(SlimeType.ICHOR, BLOCKS.register("ichor_slime", () -> new StickySlimeBlock(SLIME, (state, other) -> other.getBlock() != state.getBlock()), TOOLTIP_BLOCK_ITEM))
+    // ender: only sticks to self
+    .put(SlimeType.ENDER, BLOCKS.register("ender_slime", () -> new StickySlimeBlock(SLIME, (state, other) -> other.getBlock() == state.getBlock()), TOOLTIP_BLOCK_ITEM))
+    // blood slime: not sticky, and honey won't stick to it, good for bounce pads
+    .put(SlimeType.BLOOD, BLOCKS.register("blood_slime", () -> new BloodSlimeBlock(SLIME), TOOLTIP_BLOCK_ITEM))
     .build();
   private static final Block.Properties CONGEALED_SLIME = builder(Material.CLAY, NO_TOOL, SoundType.SLIME).hardnessAndResistance(0.5F).slipperiness(0.5F);
   public static final EnumObject<SlimeType, CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(CONGEALED_SLIME), TOOLTIP_BLOCK_ITEM);
