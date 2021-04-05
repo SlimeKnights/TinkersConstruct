@@ -6,8 +6,8 @@ import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
-import slimeknights.tconstruct.library.tools.item.SwordCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.item.SwordCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 public class BroadSword extends SwordCore {
@@ -30,7 +30,8 @@ public class BroadSword extends SwordCore {
         if (livingEntity != living && livingEntity != targetEntity && !living.isOnSameTeam(livingEntity)
             && (!(livingEntity instanceof ArmorStandEntity) || !((ArmorStandEntity) livingEntity).hasMarker()) && living.getDistanceSq(livingEntity) < 9.0D) {
           livingEntity.applyKnockback(0.4F, MathHelper.sin(living.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(living.rotationYaw * ((float) Math.PI / 180F)));
-          super.dealDamage(tool, living, targetEntity, damage, false, true);
+          // TODO: boost this damage somehow using a modifier
+          super.dealDamage(tool, living, livingEntity, 1.0f, false, true);
         }
       }
 
