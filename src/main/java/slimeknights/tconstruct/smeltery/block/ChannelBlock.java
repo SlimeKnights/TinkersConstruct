@@ -194,6 +194,11 @@ public class ChannelBlock extends Block {
 		BlockState state = this.getDefaultState().with(POWERED, world.isBlockPowered(pos));
 		Direction side = context.getFace();
 
+    // we cannot connect upwards, so done here
+		if (side == Direction.DOWN) {
+		  return state;
+    }
+
 		// if placed on the top face, try to connect down
 		if (side == Direction.UP) {
 			return state.with(DOWN, canConnect(world, pos, Direction.DOWN));
@@ -201,17 +206,15 @@ public class ChannelBlock extends Block {
 
 		// if placed on a fluid handler, connect to that
 		ChannelConnection connection = ChannelConnection.NONE;
-		if (side != Direction.DOWN) {
-			BlockPos placedOn = pos.offset(side.getOpposite());
-			// on another channel means in or out
-			if (world.getBlockState(placedOn).isIn(this)) {
-				PlayerEntity player = context.getPlayer();
-				connection = player != null && player.isSneaking() ? ChannelConnection.IN : ChannelConnection.OUT;
-			} else if (isFluidHandler(world, side, placedOn)) {
-				connection = ChannelConnection.OUT;
-			}
-		}
-		return state.with(DIRECTION_MAP.get(side.getOpposite()), connection);
+    BlockPos placedOn = pos.offset(side.getOpposite());
+    // on another channel means in or out
+    if (world.getBlockState(placedOn).isIn(this)) {
+      PlayerEntity player = context.getPlayer();
+      connection = player != null && player.isSneaking() ? ChannelConnection.IN : ChannelConnection.OUT;
+    } else if (isFluidHandler(world, side, placedOn)) {
+      connection = ChannelConnection.OUT;
+    }
+    return state.with(DIRECTION_MAP.get(side.getOpposite()), connection);
 	}
 
 	@SuppressWarnings("deprecation")
