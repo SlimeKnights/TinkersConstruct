@@ -33,7 +33,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -60,8 +59,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
 
   /** Special casting fluid tank */
   @Getter
-  private final FluidTankAnimated tank = new FluidTankAnimated(0, this);
-  private final LazyOptional<CastingFluidHandler> holder = LazyOptional.of(() -> new CastingFluidHandler(this, tank));
+  private final CastingFluidHandler tank = new CastingFluidHandler(this);
+  private final LazyOptional<CastingFluidHandler> holder = LazyOptional.of(() -> tank);
 
   /* Casting recipes */
   /** Recipe type for casting recipes, may be basin or table */
@@ -114,7 +113,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       return;
     }
     // can't interact if liquid inside
-    if (tank.getFluidAmount() > 0) {
+    if (!tank.isEmpty()) {
       return;
     }
 
@@ -206,12 +205,12 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
 
   @Override
   public boolean canInsertItem(int index, ItemStack itemStackIn, @Nullable Direction direction) {
-    return index == INPUT && !isStackInSlot(OUTPUT);
+    return tank.isEmpty() && index == INPUT && !isStackInSlot(OUTPUT);
   }
 
   @Override
   public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-    return index == OUTPUT;
+    return tank.isEmpty() && index == OUTPUT;
   }
 
   @Override
@@ -221,17 +220,18 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
       return;
     }
     // fully filled
-    if (tank.getFluidAmount() == tank.getCapacity() && !tank.getFluid().isEmpty()) {
+    FluidStack currentFluid = tank.getFluid();
+    if (currentFluid.getAmount() >= tank.getCapacity() && !currentFluid.isEmpty()) {
       timer++;
       if (!world.isRemote) {
-        castingInventory.setFluid(tank.getFluid().getFluid());
+        castingInventory.setFluid(currentFluid.getFluid());
         if (timer >= currentRecipe.getCoolingTime(castingInventory)) {
           if (!currentRecipe.matches(castingInventory, world)) {
             // if lost our recipe or the recipe needs more fluid then we have, we are done
             // will come around later for the proper fluid amount
             currentRecipe = findCastingRecipe();
             recipeName = null;
-            if (currentRecipe == null || currentRecipe.getFluidAmount(castingInventory) > tank.getFluidAmount()) {
+            if (currentRecipe == null || currentRecipe.getFluidAmount(castingInventory) > currentFluid.getAmount()) {
               timer = 0;
               return;
             }
@@ -327,11 +327,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     currentRecipe = null;
     recipeName = null;
     lastOutput = null;
-    tank.setCapacity(0);
-    tank.setFluid(FluidStack.EMPTY);
-    tank.setRenderOffset(0);
+    tank.reset();
     castingInventory.setFluid(Fluids.EMPTY);
-
     if (world != null && !world.isRemote && world instanceof ServerWorld) {
       TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(getPos(), FluidStack.EMPTY), (ServerWorld) world, getPos());
     }
@@ -341,9 +338,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   public void updateFluidTo(FluidStack fluid) {
     if (fluid.isEmpty()) {
       reset();
-      tank.setRenderOffset(0);
     } else {
-      tank.setRenderOffset(tank.getRenderOffset() + fluid.getAmount() - tank.getFluidAmount());
       int capacity = initNewCasting(fluid.getFluid(), FluidAction.EXECUTE);
       if (capacity > 0) {
         tank.setCapacity(capacity);
