@@ -1,8 +1,7 @@
 package slimeknights.tconstruct.library.tools;
 
 import org.junit.jupiter.api.Test;
-import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,22 +9,22 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
 
   @Test
   void testNewToolDurability() {
-    int statDurability = ToolData.from(testItemStack).getStats().durability;
+    int statDurability = ToolStack.from(testItemStack).getStats().getDurability();
 
     assertThat(testItemStack.getDamage()).isEqualTo(0);
     assertThat(testItemStack.getMaxDamage()).isEqualTo(statDurability);
-    assertThat(isTestitemBroken()).isFalse();
+    assertThat(IsTestItemBroken()).isFalse();
   }
 
   @Test
   void testSettingDamage() {
-    int statDurability = ToolData.from(testItemStack).getStats().durability;
+    int statDurability = ToolStack.from(testItemStack).getStats().getDurability();
 
     testItemStack.setDamage(1);
 
     assertThat(testItemStack.getDamage()).isEqualTo(1);
     assertThat(testItemStack.getMaxDamage()).isEqualTo(statDurability);
-    assertThat(isTestitemBroken()).isFalse();
+    assertThat(IsTestItemBroken()).isFalse();
   }
 
   /*
@@ -40,22 +39,24 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
 
   @Test
   void testMaxDamageBreaksTool() {
-    int statDurability = ToolData.from(testItemStack).getStats().durability;
+    ToolStack tool = ToolStack.from(testItemStack);
+    int statDurability = tool.getStats().getDurability();
 
-    testItemStack.setDamage(statDurability);
+    tool.setDamage(statDurability);
 
-    assertThat(ToolDamageUtil.getCurrentDamage(testItemStack)).isEqualTo(statDurability);
-    assertThat(isTestitemBroken()).isTrue();
+    assertThat(tool.getDamage()).isEqualTo(statDurability);
+    assertThat(tool.isBroken()).isTrue();
   }
 
   @Test
   void testMoreThanMaxDamageBreaksTool() {
-    int statDurability = ToolData.from(testItemStack).getStats().durability;
+    ToolStack tool = ToolStack.from(testItemStack);
+    int statDurability = tool.getStats().getDurability();
 
     testItemStack.setDamage(99999999);
 
-    assertThat(ToolDamageUtil.getCurrentDamage(testItemStack)).isEqualTo(statDurability);
-    assertThat(isTestitemBroken()).isTrue();
+    assertThat(tool.getDamage()).isEqualTo(statDurability);
+    assertThat(tool.isBroken()).isTrue();
   }
 
   /*

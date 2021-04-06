@@ -5,8 +5,8 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -14,56 +14,45 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.ToolsRecipeProvider;
 import slimeknights.tconstruct.tools.harvest.AxeTool;
 import slimeknights.tconstruct.tools.harvest.ExcavatorTool;
-import slimeknights.tconstruct.tools.harvest.HammerTool;
+import slimeknights.tconstruct.tools.harvest.HarvestTool;
 import slimeknights.tconstruct.tools.harvest.KamaTool;
+import slimeknights.tconstruct.tools.harvest.MattockTool;
 import slimeknights.tconstruct.tools.harvest.PickaxeTool;
-import slimeknights.tconstruct.tools.harvest.ShovelTool;
+import slimeknights.tconstruct.tools.harvest.SledgeHammerTool;
 import slimeknights.tconstruct.tools.melee.BroadSword;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Contains all complete tool items
  */
-@SuppressWarnings("unused")
 public final class TinkerTools extends TinkerModule {
 
   /** Creative tab for all tool items */
-  public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.modID, "tools", () -> {
-    List<IMaterial> materials = new ArrayList<>(MaterialRegistry.getInstance().getMaterials());
-
-    if (materials.isEmpty()) {
-      return new ItemStack(TinkerTools.pickaxe);
-    }
-
-    return TinkerTools.pickaxe.get().buildToolForRendering();
-  });
+  public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.modID, "tools", () -> TinkerTools.pickaxe.get().buildToolForRendering());
 
   /*
    * Items
    */
-  private static final Item.Properties TOOL = new Item.Properties().group(TAB_TOOLS);
+  private static final Supplier<Item.Properties> TOOL = () -> new Item.Properties().group(TAB_TOOLS);
 
-  public static final ItemObject<PickaxeTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(TOOL, ToolDefinitions.PICKAXE));
-  public static final ItemObject<HammerTool> hammer = ITEMS.register("hammer", () -> new HammerTool(TOOL, ToolDefinitions.HAMMER));
+  public static final ItemObject<HarvestTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.PICKAXE));
+  public static final ItemObject<SledgeHammerTool> sledgeHammer = ITEMS.register("sledge_hammer", () -> new SledgeHammerTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.SLEDGE_HAMMER));
 
-  public static final ItemObject<ShovelTool> shovel = ITEMS.register("shovel", () -> new ShovelTool(TOOL, ToolDefinitions.SHOVEL));
-  public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(TOOL, ToolDefinitions.EXCAVATOR));
+  public static final ItemObject<MattockTool> mattock = ITEMS.register("mattock", () -> new MattockTool(TOOL.get().addToolType(ToolType.SHOVEL, 0), ToolDefinitions.MATTOCK));
+  public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(TOOL.get().addToolType(ToolType.SHOVEL, 0), ToolDefinitions.EXCAVATOR));
 
-  public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(TOOL, ToolDefinitions.AXE));
+  public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(TOOL.get().addToolType(ToolType.AXE, 0), ToolDefinitions.AXE));
 
-  public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL, ToolDefinitions.KAMA));
+  public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get().addToolType(ToolType.HOE, 0).addToolType(ToolType.get("shears"), 0), ToolDefinitions.KAMA));
 
-  public static final ItemObject<BroadSword> broadSword = ITEMS.register("broad_sword", () -> new BroadSword(TOOL, ToolDefinitions.BROADSWORD));
+  public static final ItemObject<BroadSword> broadSword = ITEMS.register("broad_sword", () -> new BroadSword(TOOL.get().addToolType(ToolType.get("sword"), 0), ToolDefinitions.BROADSWORD));
 
   /*
    * Particles

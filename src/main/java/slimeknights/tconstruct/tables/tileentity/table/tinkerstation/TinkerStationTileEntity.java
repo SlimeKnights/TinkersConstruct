@@ -1,14 +1,17 @@
 package slimeknights.tconstruct.tables.tileentity.table.tinkerstation;
 
 import lombok.Getter;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
@@ -17,8 +20,8 @@ import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.ValidationResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
@@ -31,9 +34,10 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 
 public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
-
-  public static final int TINKER_SLOT = 5;
-  public static final int OUTPUT_SLOT = 0;
+  /** Slot index of the tool slot */
+  public static final int TINKER_SLOT = 0;
+  /** Slot index of the first input slot */
+  public static final int INPUT_SLOT = 1;
 
   /** Last crafted crafting recipe */
   @Nullable
@@ -48,11 +52,37 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   private ITextComponent screenSyncMessage = StringTextComponent.EMPTY;
 
   public TinkerStationTileEntity() {
-    super(TinkerTables.tinkerStationTile.get(), "gui.tconstruct.tinker_station", 6);
+    this(6); // default to more slots
+  }
+
+  public TinkerStationTileEntity(int slots) {
+    super(TinkerTables.tinkerStationTile.get(), "gui.tconstruct.tinker_station", slots);
     this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
     this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
     this.inventoryWrapper = new TinkerStationInventoryWrapper(this);
     this.craftingResult = new LazyResultInventory(this);
+  }
+
+  @Override
+  public ITextComponent getDefaultName() {
+    if (this.world == null) {
+      return super.getDefaultName();
+    }
+    return new TranslationTextComponent(this.getBlockState().getBlock().getTranslationKey());
+  }
+
+  /**
+   * Gets the number of item input slots, ignoring the tool
+   * @return  Input count
+   */
+  public int getInputCount() {
+    return getSizeInventory() - 1;
+  }
+
+  @Override
+  public void resize(int size) {
+    super.resize(size);
+    inventoryWrapper.resize();
   }
 
   @Nullable
@@ -86,25 +116,28 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
       // if we have a recipe, fetch its result
       if (recipe != null) {
-        ValidationResult validationResult = recipe.validate(this.inventoryWrapper);
+        // sync if the recipe is different
+        if (lastRecipe != recipe) {
+          this.lastRecipe = recipe;
+          this.syncToRelevantPlayers(this::syncRecipe);
+        }
 
-        if (validationResult.isSuccess()) {
-          result = recipe.getCraftingResult(this.inventoryWrapper);
-          // sync if the recipe is different
-          if (recipe != this.lastRecipe) {
-            this.lastRecipe = recipe;
-            this.syncToRelevantPlayers(this::syncRecipe);
-          }
-        } else if (validationResult.hasMessage()) {
+        // try for UI errors
+        ValidatedResult validatedResult = recipe.getValidatedResult(this.inventoryWrapper);
+        if (validatedResult.isSuccess()) {
+          result = validatedResult.getResult();
+        } else if (validatedResult.hasError()) {
           this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
-          this.screenSyncMessage = validationResult.getMessage();
+          this.screenSyncMessage = validatedResult.getMessage();
         }
       }
     }
     // client side only needs to update result, server syncs message elsewhere
-    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)
-             && this.lastRecipe.validate(this.inventoryWrapper).isSuccess()) {
-      result = this.lastRecipe.getCraftingResult(this.inventoryWrapper);
+    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)) {
+      ValidatedResult validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
+      if (validatedResult.isSuccess()) {
+        result = validatedResult.getResult();
+      }
     }
 
     this.syncToRelevantPlayers(this::syncScreen);
@@ -205,5 +238,11 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
    */
   protected void playCraftSound(PlayerEntity player) {
     SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
+  }
+
+  @Override
+  public void read(BlockState blockState, CompoundNBT tags) {
+    super.read(blockState, tags);
+    inventoryWrapper.resize();
   }
 }

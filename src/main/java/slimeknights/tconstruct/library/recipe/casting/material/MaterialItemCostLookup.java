@@ -5,7 +5,8 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import slimeknights.tconstruct.common.RecipeCacheInvalidator;
+import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
+import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 import java.util.Collection;
@@ -20,12 +21,11 @@ public class MaterialItemCostLookup {
   /** Map containing a lookup from a material item to the cost in mb, for basin parts */
   private static final Object2IntMap<IMaterialItem> BASIN_LOOKUP = new Object2IntOpenHashMap<>(50);
 
-  static {
-    RecipeCacheInvalidator.addReloadListener(() -> {
-      TABLE_LOOKUP.clear();
-      BASIN_LOOKUP.clear();
-    });
-  }
+  /** Listener for clearing the recipe cache on recipe reload */
+  private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
+    TABLE_LOOKUP.clear();
+    BASIN_LOOKUP.clear();
+  });
 
   /**
    * Registers a new basin material item
@@ -33,6 +33,7 @@ public class MaterialItemCostLookup {
    * @param cost  Cost in mb for that item
    */
   public static void registerBasin(IMaterialItem item, int cost) {
+    LISTENER.checkClear();
     BASIN_LOOKUP.put(item, cost);
   }
 
@@ -42,6 +43,7 @@ public class MaterialItemCostLookup {
    * @param cost  Cost in mb for that item
    */
   public static void registerTable(IMaterialItem item, int cost) {
+    LISTENER.checkClear();
     TABLE_LOOKUP.put(item, cost);
   }
 

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:slime_boots",
+  "pattern": [
+    "X X",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:ichor_congealed_slime"
+    },
+    "X": {
+      "tag": "forge:slimeball/ichor"
+    }
+  },
+  "result": {
+    "item": "tconstruct:ichor_slime_boots"
+  }
+}

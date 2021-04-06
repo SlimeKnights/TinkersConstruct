@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.MissingTextureSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
@@ -38,19 +37,19 @@ import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
-import slimeknights.tconstruct.library.client.materials.IMaterialRenderInfo;
+import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
+import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.shared.TinkerClient;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -125,23 +124,13 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     // if the base material is non-null, try to find the sprite for that material
     if (material != null) {
       // first, find a render info
-      Optional<IMaterialRenderInfo> renderInfo = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
+      Optional<MaterialRenderInfo> renderInfo = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
       if(renderInfo.isPresent()) {
-        // get a list of texture options
-        List<RenderMaterial> textureOptions = renderInfo.get().getTextureChoices(texture);
-        // find first present texture
-        Optional<TextureAtlasSprite> sprite = textureOptions.stream()
-                                                            .map(spriteGetter)
-                                                            .filter(s -> !MissingTextureSprite.getLocation().equals(s.getName()))
-                                                            .findFirst();
-        // if something was found, use that sprite
-        if(sprite.isPresent()) {
-          finalSprite = sprite.get();
-          // if the sprite was not the first, set the tint index so it gets colored
-          // TODO: want a cleaner way to do this, maybe embed in the texture sprite choices whether to tint?
-          if(!finalSprite.getName().equals(textureOptions.get(0).getTextureLocation())) {
-            tintIndex = index;
-          }
+        // determine the texture to use and whether or not to tint it
+        TintedSprite sprite = renderInfo.get().getSprite(texture, spriteGetter);
+        finalSprite = sprite.getSprite();
+        if(sprite.isTinted()) {
+          tintIndex = index;
         }
       }
     }
@@ -204,31 +193,25 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     @Override
     public IBakedModel getOverrideModel(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       // fetch the material from the stack
-      IMaterial material = IMaterialItem.getMaterialFromStack(stack);
+      MaterialId material = IMaterialItem.getMaterialFromStack(stack).getIdentifier();
       // if no material on the stack, try to fetch from the tool model
-      if (material == IMaterial.UNKNOWN) {
+      // TODO: transfer into tool model to safe a ton of effort
+      if (IMaterial.UNKNOWN_ID.equals(material)) {
         // needs to have a valid index
         int index = this.index;
         if (index < 0) {
           return originalModel;
         }
         // fetch the tool material at the given index
-        Optional<IMaterial> toolMaterial = Optional.ofNullable(stack.getTag())
-                                                   .map(ToolData::readFromNBT)
-                                                   .map(ToolData::getMaterials)
-                                                   .filter((mats) -> mats.size() > index)
-                                                   .map((mats) -> mats.get(index))
-                                                   .filter((mat) -> mat != IMaterial.UNKNOWN);
+        material = MaterialIdNBT.from(stack).getMaterial(index);
+
         // material must exist
-        if (toolMaterial.isPresent()) {
-          material = toolMaterial.get();
-        } else {
+        if (IMaterial.UNKNOWN_ID.equals(material)) {
           return originalModel;
         }
       }
-
       // cache all baked material models, they will not need to be recreated as materials will not change
-      return cache.computeIfAbsent(material.getIdentifier(), this::bakeDynamic);
+      return cache.computeIfAbsent(material, this::bakeDynamic);
     }
 
     /**

@@ -1,0 +1,34 @@
+{
+    "loader": "tconstruct:tool",
+    "parent": "forge:item/default-tool",
+    "parts": {
+        "handle": {
+            "loader": "tconstruct:material",
+            "index": 1,
+            "textures": {
+                "texture": "tconstruct:item/tool/sledge_hammer/handle"
+            }
+        },
+        "head": {
+            "loader": "tconstruct:material",
+            "index": 0,
+            "textures": {
+                "texture": "tconstruct:item/tool/sledge_hammer/head"
+            }
+        },
+        "plate1": {
+            "loader": "tconstruct:material",
+            "index": 2,
+            "textures": {
+                "texture": "tconstruct:item/tool/sledge_hammer/back"
+            }
+        },
+        "plate2": {
+            "loader": "tconstruct:material",
+            "index": 3,
+            "textures": {
+                "texture": "tconstruct:item/tool/sledge_hammer/front"
+            }
+        }
+    }
+}

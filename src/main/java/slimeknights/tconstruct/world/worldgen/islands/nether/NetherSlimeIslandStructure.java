@@ -21,6 +21,7 @@ import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
 import java.util.List;
 
 public class NetherSlimeIslandStructure extends Structure<NoFeatureConfig> {
+  private static final String[] SIZES = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
 
   private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
     new MobSpawnInfo.Spawners(EntityType.MAGMA_CUBE, 150, 4, 6)
@@ -64,12 +65,10 @@ public class NetherSlimeIslandStructure extends Structure<NoFeatureConfig> {
 
       Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
 
-      SlimeIslandVariant variant = SlimeIslandVariant.MAGMA;
-      String[] sizes = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
+      SlimeIslandVariant variant = SlimeIslandVariant.BLOOD;
 
       BlockPos pos = new BlockPos(x, y, z);
-
-      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, sizes[this.rand.nextInt(sizes.length)], pos, rotation);
+      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, SIZES[this.rand.nextInt(SIZES.length)], pos, rotation);
       this.components.add(slimeIslandPiece);
       this.recalculateStructureSize();
     }

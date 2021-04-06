@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "SLS",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "L": {
+      "tag": "forge:ingots/manyullyn"
+    },
+    "S": {
+      "tag": "forge:slimeball/ender"
+    }
+  },
+  "result": {
+    "item": "tconstruct:ender_expander"
+  }
+}

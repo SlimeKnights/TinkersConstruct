@@ -1,4 +1,16 @@
 {
   "craftable": false,
-  "textColor": "#82C873"
+  "tier": 2,
+  "sortOrder": 3,
+  "textColor": "#82C873",
+  "traits": [
+    {
+      "name": "tconstruct:overgrowth",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:overslime",
+      "level": 1
+    }
+  ]
 }

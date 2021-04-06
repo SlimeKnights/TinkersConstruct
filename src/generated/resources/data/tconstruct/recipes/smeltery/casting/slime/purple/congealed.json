@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:casting_basin",
-  "fluid": {
-    "name": "tconstruct:purple_slime",
-    "amount": 1000
-  },
-  "result": "tconstruct:purple_congealed_slime",
-  "cooling_time": 84
-}

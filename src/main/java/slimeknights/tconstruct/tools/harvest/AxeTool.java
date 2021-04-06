@@ -1,127 +1,50 @@
 package slimeknights.tconstruct.tools.harvest;
 
-import com.google.common.collect.ImmutableSet;
-import net.minecraft.block.BlockState;
+import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.util.Constants;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.tinkering.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-import java.util.List;
+import java.util.Set;
 
-public class AxeTool extends ToolCore implements IAoeTool {
-
-  public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
-    ImmutableSet.of(Material.WOOD,
-      Material.TALL_PLANTS,
-      Material.PLANTS,
-      Material.GOURD,
-      Material.CACTUS,
-      Material.BAMBOO);
-
+public class AxeTool extends HarvestTool {
+  private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.PLANTS, Material.TALL_PLANTS, Material.BAMBOO, Material.GOURD, Material.LEAVES);
+  public static final AOEToolHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(EXTRA_MATERIALS, 1, 1, 1);
   public AxeTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 
   @Override
-  public boolean isEffective(BlockState state) {
-    return EFFECTIVE_MATERIALS.contains(state.getMaterial()) || AxeItem.EFFECTIVE_ON_BLOCKS.contains(state.getBlock());
+  public AOEToolHarvestLogic getToolHarvestLogic() {
+    return HARVEST_LOGIC;
   }
 
   @Override
   public ActionResultType onItemUse(ItemUseContext context) {
-    PlayerEntity player = context.getPlayer();
-
-    if (player == null || player.isSneaking()) {
-      return ActionResultType.PASS;
-    }
-
-    Hand hand = context.getHand();
-    ItemStack stack = player.getHeldItem(hand);
-
-    if (ToolData.from(stack).getStats().broken) {
-      return ActionResultType.FAIL;
-    }
-
-    World world = context.getWorld();
-    BlockPos pos = context.getPos();
-    BlockState clickedState = world.getBlockState(pos);
-    BlockState strippedState = clickedState.getToolModifiedState(world, pos, player, stack, ToolType.AXE);
-
-    if (strippedState == null) {
-      return ActionResultType.PASS;
-    }
-
-    if (world.isRemote) {
-      return ActionResultType.SUCCESS;
-    }
-
-    world.setBlockState(pos, strippedState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
-    world.playSound(null, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-    context.getItem().damageItem(1, player, (onBroken) -> onBroken.sendBreakAnimation(context.getHand()));
-
-    return ActionResultType.SUCCESS;
+    return this.getToolHarvestLogic().transformBlocks(context, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false);
   }
 
   @Override
-  public float getDestroySpeed(ItemStack stack, BlockState state) {
-    if (state.getMaterial() == Material.LEAVES) {
-      return this.getToolMiningLogic().calcDigSpeed(stack, state);
-    }
-
-    return super.getDestroySpeed(stack, state);
-  }
-
-  @Override
-  public void afterBlockBreak(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity player, int damage, boolean wasEffective) {
-    if (state.getBlock().isIn(BlockTags.LEAVES)) {
-      damage = 0;
-    }
-
-    super.afterBlockBreak(stack, world, state, pos, player, damage, wasEffective);
-  }
-
-  @Override
-  public boolean dealDamage(ItemStack stack, LivingEntity player, Entity entity, float damage) {
-    boolean hit = super.dealDamage(stack, player, entity, damage);
-
-    if (hit && this.readyForSpecialAttack(player)) {
+  public boolean dealDamage(ToolStack tool, LivingEntity player, Entity entity, float damage, boolean isCriticalHit, boolean fullyCharged) {
+    boolean hit = super.dealDamage(tool, player, entity, damage, isCriticalHit, fullyCharged);
+    if (hit && fullyCharged) {
       ToolAttackUtil.spawnAttachParticle(TinkerTools.axeAttackParticle.get(), player, 0.8d);
     }
-
     return hit;
   }
 
   @Override
   public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
     return true;
-  }
-
-  @Override
-  public StatsNBT buildToolStats(List<IMaterial> materials) {
-    StatsNBT statsNBT = super.buildToolStats(materials);
-
-    return new StatsNBT(statsNBT.durability, statsNBT.harvestLevel, (int) (statsNBT.attack + 0.5f),
-      statsNBT.miningSpeed, statsNBT.attackSpeedMultiplier, statsNBT.freeModifiers, statsNBT.broken);
   }
 }

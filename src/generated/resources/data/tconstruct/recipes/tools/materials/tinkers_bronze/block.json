@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "forge:storage_blocks/tinkers_bronze"
+    "tag": "forge:storage_blocks/silicon_bronze"
   },
   "value": 9,
   "needed": 1,

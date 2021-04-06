@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:casting_table",
-  "fluid": {
-    "name": "tconstruct:green_slime",
-    "amount": 250
-  },
-  "result": "minecraft:slime_ball",
-  "cooling_time": 41
-}

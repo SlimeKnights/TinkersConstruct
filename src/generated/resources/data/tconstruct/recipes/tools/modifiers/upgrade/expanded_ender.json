@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:ender_expander"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/aoe"
+  },
+  "requirements": {
+    "name": "tconstruct:expanded",
+    "level": 1,
+    "error": "recipe.tconstruct.modifier.ender_expander_requirements"
+  },
+  "result": {
+    "name": "tconstruct:expanded",
+    "level": 1
+  },
+  "max_level": 2,
+  "ability_slots": 1
+}

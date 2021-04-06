@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "minecraft:pufferfish"
-  },
-  "result": "tconstruct:pufferfish_jerky",
-  "experience": 0.35,
-  "cookingtime": 200
-}

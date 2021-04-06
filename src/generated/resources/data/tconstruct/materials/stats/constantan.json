@@ -1,0 +1,22 @@
+{
+  "materialId": "tconstruct:constantan",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 675,
+      "miningSpeed": 6.5,
+      "harvestLevel": 3,
+      "attack": 2.5
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 0.9,
+      "miningSpeed": 1.3,
+      "attackSpeed": 1.0,
+      "attackDamage": 1.0
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

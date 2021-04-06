@@ -5,16 +5,19 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.inventory.ItemHandlerSlot;
+import slimeknights.tconstruct.library.utils.ValidZeroIntReference;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
 import javax.annotation.Nullable;
+import java.util.function.Consumer;
 
 public class MelterContainer extends BaseContainer<MelterTileEntity> {
   @SuppressWarnings("MismatchedReadAndWriteOfArray")
@@ -49,8 +52,9 @@ public class MelterContainer extends BaseContainer<MelterTileEntity> {
       this.addInventorySlots();
 
       // syncing
-      this.trackIntArray(melter.getFuelModule());
-      inventory.trackInts(this::trackIntArray);
+      Consumer<IntReferenceHolder> referenceConsumer = this::trackInt;
+      ValidZeroIntReference.trackIntArray(referenceConsumer, melter.getFuelModule());
+      inventory.trackInts(array -> ValidZeroIntReference.trackIntArray(referenceConsumer, array));
     } else {
       inputs = new Slot[0];
     }

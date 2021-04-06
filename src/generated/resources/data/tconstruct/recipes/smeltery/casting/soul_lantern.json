@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:soul_torch"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_iron",
+    "amount": 128
+  },
+  "result": "minecraft:soul_lantern",
+  "cooling_time": 57
+}

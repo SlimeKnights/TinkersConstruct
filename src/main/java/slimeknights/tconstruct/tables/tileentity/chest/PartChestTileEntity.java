@@ -1,24 +1,19 @@
 package slimeknights.tconstruct.tables.tileentity.chest;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tables.inventory.chest.PartChestContainer;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class PartChestTileEntity extends TinkerChestTileEntity {
 
   public PartChestTileEntity() {
-    super(TinkerTables.partChestTile.get(), "gui.tconstruct.part_chest");
+    // limit of 4 parts per slot
+    super(TinkerTables.partChestTile.get(), Util.makeTranslationKey("gui", "part_chest"), DEFAULT_MAX, 16);
   }
 
   @Override
-  public boolean isItemValidForSlot(int slot, @Nonnull ItemStack itemstack) {
+  public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
     // check if there is no other slot containing that item
     for (int i = 0; i < this.getSizeInventory(); i++) {
       // don't compare count
@@ -27,13 +22,6 @@ public class PartChestTileEntity extends TinkerChestTileEntity {
         return i == slot; // only allowed in the same slot
       }
     }
-
-    return itemstack.getItem() instanceof IToolPart;
-  }
-
-  @Nullable
-  @Override
-  public Container createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-    return new PartChestContainer(menuId, playerInventory, this);
+    return itemstack.getItem() instanceof IMaterialItem;
   }
 }

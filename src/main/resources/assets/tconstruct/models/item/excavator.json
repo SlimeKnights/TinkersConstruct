@@ -4,23 +4,16 @@
     "parts": {
         "handle": {
             "loader": "tconstruct:material",
-            "index": 0,
+            "index": 1,
             "textures": {
                 "texture": "tconstruct:item/tool/excavator/handle"
             }
         },
         "head": {
             "loader": "tconstruct:material",
-            "index": 1,
+            "index": 0,
             "textures": {
                 "texture": "tconstruct:item/tool/excavator/head"
-            }
-        },
-        "binding": {
-            "loader": "tconstruct:material",
-            "index": 2,
-            "textures": {
-                "texture": "tconstruct:item/tool/excavator/binding"
             }
         },
         "grip": {
@@ -28,6 +21,13 @@
             "index": 3,
             "textures": {
                 "texture": "tconstruct:item/tool/excavator/grip"
+            }
+        },
+        "binding": {
+            "loader": "tconstruct:material",
+            "index": 2,
+            "textures": {
+                "texture": "tconstruct:item/tool/excavator/binding"
             }
         }
     }

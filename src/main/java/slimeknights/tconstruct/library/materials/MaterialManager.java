@@ -1,28 +1,40 @@
 package slimeknights.tconstruct.library.materials;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Color;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
 import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,16 +51,18 @@ import java.util.stream.Collectors;
  */
 @Log4j2
 public class MaterialManager extends SyncingJsonReloadListener {
-
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+    .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
+    .registerTypeAdapter(ICondition.class, new ConditionSerializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
 
-  private Map<MaterialId, IMaterial> materials = ImmutableMap.of();
-  private Map<Fluid, IMaterial> fluidLookup = ImmutableMap.of();
+  private Map<MaterialId, IMaterial> materials = Collections.emptyMap();
+  private Map<Fluid, IMaterial> fluidLookup = Collections.emptyMap();
+  private List<IMaterial> sortedMaterials = Collections.emptyList();
 
   public MaterialManager() {
     this(TinkerNetwork.getInstance());
@@ -60,11 +74,11 @@ public class MaterialManager extends SyncingJsonReloadListener {
   }
 
   /**
-   * Gets a collection of all loaded materials
+   * Gets a collection of all loaded materials, sorted by tier and sort orders
    * @return  All loaded materials
    */
   public Collection<IMaterial> getAllMaterials() {
-    return materials.values();
+    return sortedMaterials;
   }
 
   /**
@@ -86,12 +100,13 @@ public class MaterialManager extends SyncingJsonReloadListener {
   }
 
   /**
-   * Recreates the fluid lookup using the new materials map
+   * Recreates the fluid lookup and sorted list using the new materials list
    */
-  private void reloadFluidLookup() {
+  private void onMaterialUpdate() {
     this.fluidLookup = this.materials.values().stream()
                                      .filter((mat) -> mat.getFluid() != Fluids.EMPTY)
                                      .collect(Collectors.toMap(IMaterial::getFluid, Function.identity()));
+    this.sortedMaterials = this.materials.values().stream().sorted().collect(Collectors.toList());
   }
 
   /**
@@ -105,7 +120,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
         IMaterial::getIdentifier,
         Function.identity())
       );
-    reloadFluidLookup();
+    onMaterialUpdate();
   }
 
   @Override
@@ -118,7 +133,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
         IMaterial::getIdentifier,
         material -> material)
       );
-    reloadFluidLookup();
+    onMaterialUpdate();
     
     log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet()));
     log.info("{} materials loaded", materials.size());
@@ -129,10 +144,21 @@ public class MaterialManager extends SyncingJsonReloadListener {
     return new UpdateMaterialsPacket(materials.values());
   }
 
+  /** Gets an int value or a default */
+  private static int orDefault(@Nullable Integer integer, int def) {
+    return integer == null ? def : integer;
+  }
+
   @Nullable
   private IMaterial loadMaterial(ResourceLocation materialId, JsonObject jsonObject) {
     try {
       MaterialJson materialJson = GSON.fromJson(jsonObject, MaterialJson.class);
+      // condition
+      ICondition condition = materialJson.getCondition();
+      if (condition != null && !condition.test()) {
+        log.debug("Skipped loading material {} as it did not match the condition", materialId);
+        return null;
+      }
 
       if (materialJson.getCraftable() == null) {
         throw TinkerJSONException.materialJsonWithoutCraftingInformation(materialId);
@@ -153,7 +179,9 @@ public class MaterialManager extends SyncingJsonReloadListener {
                             .map(Color::fromHex)
                             .orElse(Material.WHITE);
 
-      return new Material(materialId, fluid, fluidPerUnit, isCraftable, color, temperature);
+      // parse trait
+      ModifierEntry[] traits = materialJson.getTraits();
+      return new Material(materialId, orDefault(materialJson.getTier(), 0), orDefault(materialJson.getSortOrder(), 100), fluid, fluidPerUnit, isCraftable, color, temperature, traits == null ? Collections.emptyList() : ImmutableList.copyOf(traits));
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;
@@ -177,5 +205,17 @@ public class MaterialManager extends SyncingJsonReloadListener {
       }
     }
     return fluid;
+  }
+
+  private static class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> {
+    @Override
+    public ICondition deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+      return CraftingHelper.getCondition(JSONUtils.getJsonObject(json, "condition"));
+    }
+
+    @Override
+    public JsonElement serialize(ICondition condition, Type type, JsonSerializationContext context) {
+      return CraftingHelper.serialize(condition);
+    }
   }
 }

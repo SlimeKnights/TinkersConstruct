@@ -6,15 +6,12 @@
     "tconstruct:nugget_cast",
     "tconstruct:gem_cast",
     "tconstruct:pickaxe_head_cast",
-    "tconstruct:shovel_head_cast",
     "tconstruct:axe_head_cast",
     "tconstruct:kama_head_cast",
     "tconstruct:sword_blade_cast",
     "tconstruct:hammer_head_cast",
-    "tconstruct:excavator_head_cast",
+    "tconstruct:tool_binding_cast",
     "tconstruct:large_plate_cast",
-    "tconstruct:small_binding_cast",
-    "tconstruct:tough_binding_cast",
     "tconstruct:tool_rod_cast",
     "tconstruct:tough_tool_rod_cast"
   ]

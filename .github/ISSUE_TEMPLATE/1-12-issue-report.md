@@ -12,7 +12,7 @@ assignees: ''
 **If crashed, link to crash report (use a site such as pastebin):**
 
 **Versions:**
-* Minecraft: 
+* Minecraft: 1.12.2
 * Forge: 
 * Mantle: 
 * Tinkers Construct: 

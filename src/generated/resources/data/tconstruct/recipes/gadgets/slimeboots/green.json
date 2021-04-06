@@ -14,12 +14,12 @@
     }
   },
   "result": {
-    "item": "tconstruct:green_slime_boots"
+    "item": "tconstruct:earth_slime_boots"
   },
   "alternatives": [
-    "tconstruct:gadgets/slimeboots/blue",
-    "tconstruct:gadgets/slimeboots/purple",
+    "tconstruct:gadgets/slimeboots/sky",
+    "tconstruct:gadgets/slimeboots/ender",
     "tconstruct:gadgets/slimeboots/blood",
-    "tconstruct:gadgets/slimeboots/magma"
+    "tconstruct:gadgets/slimeboots/ichor"
   ]
 }

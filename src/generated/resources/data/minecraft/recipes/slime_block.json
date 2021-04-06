@@ -15,9 +15,9 @@
     "item": "minecraft:slime_block"
   },
   "alternatives": [
-    "tconstruct:common/slime/blue/slimeblock",
-    "tconstruct:common/slime/purple/slimeblock",
+    "tconstruct:common/slime/sky/slimeblock",
+    "tconstruct:common/slime/ender/slimeblock",
     "tconstruct:common/slime/blood/slimeblock",
-    "tconstruct:common/slime/magma/slimeblock"
+    "tconstruct:common/slime/ichor/slimeblock"
   ]
 }

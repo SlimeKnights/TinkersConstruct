@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:blood_slime_sapling"
+  },
+  "result": {
+    "fluid": "tconstruct:blood",
+    "amount": 250
+  },
+  "temperature": 36,
+  "time": 40
+}

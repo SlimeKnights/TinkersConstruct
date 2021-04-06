@@ -1,0 +1,27 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "parts": {
+    "handle": {
+      "loader": "tconstruct:material",
+      "index": 1,
+      "textures": {
+        "texture": "tconstruct:item/tool/pickaxe/handle"
+      }
+    },
+    "axe": {
+      "loader": "tconstruct:material",
+      "index": 0,
+      "textures": {
+        "texture": "tconstruct:item/tool/mattock/axe"
+      }
+    },
+    "kama": {
+      "loader": "tconstruct:material",
+      "index": 2,
+      "textures": {
+        "texture": "tconstruct:item/tool/mattock/kama"
+      }
+    }
+  }
+}

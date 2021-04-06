@@ -1,4 +1,22 @@
 {
+  "condition": {
+    "value": {
+      "tag": "forge:ingots/lead",
+      "type": "forge:tag_empty"
+    },
+    "type": "forge:not"
+  },
   "craftable": false,
-  "textColor": "#4D4968"
+  "tier": 2,
+  "sortOrder": 5,
+  "fluid": "tconstruct:molten_lead",
+  "fluidPerUnit": 144,
+  "textColor": "#4D4968",
+  "temperature": 330,
+  "traits": [
+    {
+      "name": "tconstruct:heavy",
+      "level": 1
+    }
+  ]
 }

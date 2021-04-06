@@ -10,7 +10,7 @@ import net.minecraftforge.common.Tags;
 import slimeknights.mantle.recipe.crafting.ShapedFallbackRecipeBuilder;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
@@ -30,7 +30,7 @@ public class WorldRecipeProvider extends BaseRecipeProvider {
     // Add recipe for all slimeball <-> congealed and slimeblock <-> slimeball
     // fallback: green slime
     ShapedFallbackRecipeBuilder congealed = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(SlimeType.GREEN))
+      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
                          .key('#', Tags.Items.SLIMEBALLS)
                          .patternLine("##")
                          .patternLine("##")

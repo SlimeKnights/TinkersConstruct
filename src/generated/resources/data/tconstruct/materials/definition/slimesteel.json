@@ -1,7 +1,19 @@
 {
   "craftable": false,
+  "tier": 3,
+  "sortOrder": 0,
   "fluid": "tconstruct:molten_slimesteel",
   "fluidPerUnit": 144,
   "textColor": "#74C8C7",
-  "temperature": 900
+  "temperature": 900,
+  "traits": [
+    {
+      "name": "tconstruct:overcast",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:overslime",
+      "level": 1
+    }
+  ]
 }

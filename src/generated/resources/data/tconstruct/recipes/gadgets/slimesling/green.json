@@ -18,12 +18,11 @@
     }
   },
   "result": {
-    "item": "tconstruct:green_slime_sling"
+    "item": "tconstruct:earth_slime_sling"
   },
   "alternatives": [
-    "tconstruct:gadgets/slimesling/blue",
-    "tconstruct:gadgets/slimesling/purple",
-    "tconstruct:gadgets/slimesling/blood",
-    "tconstruct:gadgets/slimesling/magma"
+    "tconstruct:gadgets/slimesling/sky",
+    "tconstruct:gadgets/slimesling/ender",
+    "tconstruct:gadgets/slimesling/ichor"
   ]
 }

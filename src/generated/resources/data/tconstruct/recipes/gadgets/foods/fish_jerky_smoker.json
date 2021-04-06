@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smoking",
-  "ingredient": {
-    "item": "minecraft:cooked_cod"
-  },
-  "result": "tconstruct:fish_jerky",
-  "experience": 0.35,
-  "cookingtime": 100
-}

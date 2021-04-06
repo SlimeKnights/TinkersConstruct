@@ -1,7 +1,15 @@
 {
   "craftable": false,
+  "tier": 2,
+  "sortOrder": 0,
   "fluid": "tconstruct:molten_iron",
   "fluidPerUnit": 144,
   "textColor": "#CACACA",
-  "temperature": 800
+  "temperature": 800,
+  "traits": [
+    {
+      "name": "tconstruct:reinforced",
+      "level": 1
+    }
+  ]
 }

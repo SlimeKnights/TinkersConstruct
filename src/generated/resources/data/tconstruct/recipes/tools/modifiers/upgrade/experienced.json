@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:experience_bottle",
+      "amount_needed": 5
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee_or_harvest"
+  },
+  "result": {
+    "name": "tconstruct:experienced",
+    "level": 1
+  },
+  "max_level": 5,
+  "upgrade_slots": 1
+}

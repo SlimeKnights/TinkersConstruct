@@ -6,7 +6,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.ValidationResult;
 
 /**
  * Main interface for all recipes in the Tinker Station
@@ -23,17 +22,28 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
   @Override
   boolean matches(ITinkerStationInventory inv, World world);
 
-  /** Validates the recipe, returning success, or failure with a possible message */
-  default ValidationResult validate(ITinkerStationInventory inv) {
-    return ValidationResult.SUCCESS;
-  }
-
   /**
-   * Gets the recipe result, assumes matches is true and validate returned SUCCESS
+   * Gets the recipe result. Return {@link ItemStack#EMPTY) to represent {@link ValidatedResult#PASS}, or a non-empty stack to represent success.
+   * For more complex recipes, override {@link #getValidatedResult(ITinkerStationInventory)} instead.
+   *
+   * Do not call this method directly, but it is okay to override it.
+   * @return  Recipe result, may be empty.
    */
   @Override
   default ItemStack getCraftingResult(ITinkerStationInventory inv) {
     return getRecipeOutput().copy();
+  }
+
+  /**
+   * Gets the recipe result, or an object containing an error message if the recipe matches but cannot be applied.
+   * @return Validated result
+   */
+  default ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
+    ItemStack result = getCraftingResult(inv);
+    if (result.isEmpty()) {
+      return ValidatedResult.PASS;
+    }
+    return ValidatedResult.success(result);
   }
 
   /**
@@ -47,6 +57,9 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
       inv.shrinkInput(index, 1);
     }
   }
+
+
+  /* Deprecated */
 
   /** @deprecated use {@link #updateInputs(ItemStack, IMutableTinkerStationInventory)} */
   @Override

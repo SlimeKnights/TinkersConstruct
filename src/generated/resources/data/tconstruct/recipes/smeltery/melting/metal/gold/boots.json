@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "item": "minecraft:golden_boots"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 576
+  },
+  "temperature": 700,
+  "time": 114
+}

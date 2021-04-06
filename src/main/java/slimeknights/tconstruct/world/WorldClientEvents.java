@@ -18,7 +18,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.particle.SlimeParticle;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 import slimeknights.tconstruct.world.client.SlimeColorReloadListener;
@@ -46,29 +46,28 @@ public class WorldClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(FMLClientSetupEvent event) {
-    RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.blueSlimeEntity.get(), TinkerSlimeRenderer.BLUE_SLIME_FACTORY);
+    RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.skySlimeEntity.get(), TinkerSlimeRenderer.BLUE_SLIME_FACTORY);
 
     // render types - ores
     RenderTypeLookup.setRenderLayer(TinkerWorld.cobaltOre.get(), RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(TinkerWorld.arditeOre.get(), RenderType.getCutoutMipped());
 
     // render types - slime plants
     for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
       RenderTypeLookup.setRenderLayer(TinkerWorld.slimeLeaves.get(type), RenderType.getCutoutMipped());
       RenderTypeLookup.setRenderLayer(TinkerWorld.vanillaSlimeGrass.get(type), RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.greenSlimeGrass.get(type), RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.blueSlimeGrass.get(type), RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.purpleSlimeGrass.get(type), RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.magmaSlimeGrass.get(type), RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(TinkerWorld.earthSlimeGrass.get(type), RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(TinkerWorld.skySlimeGrass.get(type), RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(TinkerWorld.enderSlimeGrass.get(type), RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(TinkerWorld.ichorSlimeGrass.get(type), RenderType.getCutoutMipped());
       RenderTypeLookup.setRenderLayer(TinkerWorld.slimeFern.get(type), RenderType.getCutout());
       RenderTypeLookup.setRenderLayer(TinkerWorld.slimeTallGrass.get(type), RenderType.getCutout());
       RenderTypeLookup.setRenderLayer(TinkerWorld.slimeSapling.get(type), RenderType.getCutout());
     }
-    RenderTypeLookup.setRenderLayer(TinkerWorld.purpleSlimeVine.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerWorld.blueSlimeVine.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(TinkerWorld.enderSlimeVine.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(TinkerWorld.skySlimeVine.get(), RenderType.getCutout());
 
     // render types - slime blocks
-    for (StickySlimeBlock.SlimeType type : StickySlimeBlock.SlimeType.TINKER) {
+    for (SlimeType type : SlimeType.TINKER) {
       RenderTypeLookup.setRenderLayer(TinkerWorld.slime.get(type), RenderType.getTranslucent());
     }
   }
@@ -81,8 +80,8 @@ public class WorldClientEvents extends ClientEventBase {
     for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
       blockColors.register(
         (state, reader, pos, index) -> getSlimeColorByPos(pos, type, null),
-        TinkerWorld.vanillaSlimeGrass.get(type), TinkerWorld.greenSlimeGrass.get(type), TinkerWorld.blueSlimeGrass.get(type),
-        TinkerWorld.purpleSlimeGrass.get(type), TinkerWorld.magmaSlimeGrass.get(type));
+        TinkerWorld.vanillaSlimeGrass.get(type), TinkerWorld.earthSlimeGrass.get(type), TinkerWorld.skySlimeGrass.get(type),
+        TinkerWorld.enderSlimeGrass.get(type), TinkerWorld.ichorSlimeGrass.get(type));
       blockColors.register(
         (state, reader, pos, index) -> getSlimeColorByPos(pos, type, SlimeColorizer.LOOP_OFFSET),
         TinkerWorld.slimeLeaves.get(type));
@@ -93,11 +92,11 @@ public class WorldClientEvents extends ClientEventBase {
 
     // vines
     blockColors.register(
-      (state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeGrassBlock.FoliageType.BLUE, SlimeColorizer.LOOP_OFFSET),
-      TinkerWorld.blueSlimeVine.get());
+      (state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeGrassBlock.FoliageType.SKY, SlimeColorizer.LOOP_OFFSET),
+      TinkerWorld.skySlimeVine.get());
     blockColors.register(
-      (state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeGrassBlock.FoliageType.PURPLE, SlimeColorizer.LOOP_OFFSET),
-      TinkerWorld.purpleSlimeVine.get());
+      (state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeGrassBlock.FoliageType.ENDER, SlimeColorizer.LOOP_OFFSET),
+      TinkerWorld.enderSlimeVine.get());
   }
 
   @SubscribeEvent
@@ -106,16 +105,16 @@ public class WorldClientEvents extends ClientEventBase {
     ItemColors itemColors = event.getItemColors();
     // slime grass items
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.vanillaSlimeGrass);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.greenSlimeGrass);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.blueSlimeGrass);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.purpleSlimeGrass);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.magmaSlimeGrass);
+    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.earthSlimeGrass);
+    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.skySlimeGrass);
+    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.enderSlimeGrass);
+    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.ichorSlimeGrass);
     // plant items
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeLeaves);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeFern);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeTallGrass);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.blueSlimeVine);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.purpleSlimeVine);
+    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.skySlimeVine);
+    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.enderSlimeVine);
   }
 
   /**

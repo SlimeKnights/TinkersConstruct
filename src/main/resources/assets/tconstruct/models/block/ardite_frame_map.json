@@ -1,8 +1,0 @@
-{
-    "parent": "minecraft:block/item_frame_map",
-    "textures": {
-        "particle": "tconstruct:block/ardite_block",
-        "wood": "tconstruct:block/ardite_block",
-        "back": "tconstruct:block/item_frame_background"
-    }
-}

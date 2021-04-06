@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smoking",
-  "ingredient": {
-    "item": "minecraft:cooked_mutton"
-  },
-  "result": "tconstruct:mutton_jerky",
-  "experience": 0.35,
-  "cookingtime": 100
-}

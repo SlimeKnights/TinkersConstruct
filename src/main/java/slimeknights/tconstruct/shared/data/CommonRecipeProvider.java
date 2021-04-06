@@ -11,14 +11,13 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
-import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
+import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
@@ -42,42 +41,11 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
   private void addCommonRecipes(Consumer<IFinishedRecipe> consumer) {
     // firewood and lavawood
     String folder = "common/firewood/";
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.firewood)
-                          .addIngredient(Items.BLAZE_POWDER)
-                          .addIngredient(TinkerCommons.lavawood)
-                          .addIngredient(Items.BLAZE_POWDER)
-                          .addCriterion("has_lavawood", hasItem(TinkerCommons.lavawood))
-                          .build(consumer, prefix(TinkerCommons.firewood, folder));
-    registerSlabStair(consumer, TinkerCommons.firewood, folder, false);
+    registerSlabStair(consumer, TinkerCommons.blazewood, folder, false);
     registerSlabStair(consumer, TinkerCommons.lavawood, folder, false);
 
-    // graveyard soil
-    folder = "common/soil/";
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerModifiers.graveyardSoil)
-                          .addIngredient(Blocks.DIRT)
-                          .addIngredient(Items.ROTTEN_FLESH)
-                          .addIngredient(Items.BONE_MEAL)
-                          .addCriterion("has_dirt", hasItem(Blocks.DIRT))
-                          .addCriterion("has_rotten_flesh", hasItem(Items.ROTTEN_FLESH))
-                          .addCriterion("has_bone_meal", hasItem(Items.BONE_MEAL))
-                          .build(consumer, prefix(TinkerModifiers.graveyardSoil, folder));
-    // consecrated soil
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerModifiers.graveyardSoil), TinkerModifiers.consecratedSoil, 0.1f, 200)
-                        .addCriterion("has_item", hasItem(TinkerModifiers.graveyardSoil))
-                        .build(consumer, prefix(TinkerModifiers.consecratedSoil, folder));
-
     // mud bricks
-    ShapedRecipeBuilder.shapedRecipe(TinkerCommons.mudBricks)
-                       .key('#', TinkerCommons.mudBrick.get())
-                       .patternLine("##")
-                       .patternLine("##")
-                       .addCriterion("has_mud_brick", hasItem(TinkerCommons.mudBrick))
-                       .build(consumer, prefix(TinkerCommons.mudBricks, folder));
-    registerSlabStair(consumer, TinkerCommons.mudBricks, folder, false);
-    // FIXME: temporary mud brick item recipe
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Blocks.DIRT), TinkerCommons.mudBrick, 0.3f, 200)
-                        .addCriterion("has_item", hasItem(Blocks.DIRT))
-                        .build(consumer, prefix(TinkerCommons.mudBrick, folder));
+    registerSlabStair(consumer, TinkerCommons.mudBricks, "common/", false);
 
     // book
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.book)
@@ -132,7 +100,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                           .addCriterion("has_item", hasItem(Blocks.GRAVEL))
                           .build(
                             ConsumerWrapperBuilder.wrap()
-                                                  .addCondition(new ConfigOptionEnabledCondition("addGravelToFlintRecipe"))
+                                                  .addCondition(ConfigEnabledCondition.GRAVEL_TO_FLINT)
                                                   .build(consumer),
                             location("common/flint"));
   }
@@ -143,30 +111,25 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     // ores
     registerMineralRecipes(consumer, TinkerMaterials.copper, folder);
     registerMineralRecipes(consumer, TinkerMaterials.cobalt, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.ardite, folder);
     // tier 3
     registerMineralRecipes(consumer, TinkerMaterials.slimesteel,    folder);
     registerMineralRecipes(consumer, TinkerMaterials.tinkersBronze, folder);
     registerMineralRecipes(consumer, TinkerMaterials.roseGold,      folder);
-    registerMineralRecipes(consumer, TinkerMaterials.pigiron,       folder);
+    registerMineralRecipes(consumer, TinkerMaterials.pigIron,       folder);
     // tier 4
     registerMineralRecipes(consumer, TinkerMaterials.queensSlime, folder);
     registerMineralRecipes(consumer, TinkerMaterials.manyullyn,   folder);
     registerMineralRecipes(consumer, TinkerMaterials.hepatizon,   folder);
-    registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
+    //registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
     registerPackingRecipe(consumer, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, folder);
     // tier 5
-    registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
+    //registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
 
     // smelt ore into ingots, must use a blast furnace for nether ores
     IItemProvider cobaltIngot = TinkerMaterials.cobalt.getIngot();
     CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.cobaltOre))
                         .build(consumer, wrap(cobaltIngot, folder, "_smelting"));
-    IItemProvider arditeIngot = TinkerMaterials.ardite.getIngot();
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.arditeOre), arditeIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.arditeOre))
-                        .build(consumer, wrap(arditeIngot, folder, "_smelting"));
     IItemProvider copperIngot = TinkerMaterials.copper.getIngot();
     CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
@@ -183,9 +146,8 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
    * @param folder    Folder for recipes
    */
   protected void registerMineralRecipes(Consumer<IFinishedRecipe> consumer, MetalItemObject metal, String folder) {
-    String name = metal.getName();
     IItemProvider ingot = metal.getIngot();
-    registerPackingRecipe(consumer, "block", metal.get(), "ingot", ingot, getTag("forge", "ingots/" + name), folder);
-    registerPackingRecipe(consumer, "ingot", ingot, "nugget", metal.getNugget(), getTag("forge", "nuggets/" + name), folder);
+    registerPackingRecipe(consumer, "block", metal.get(), "ingot", ingot, metal.getIngotTag(), folder);
+    registerPackingRecipe(consumer, "ingot", ingot, "nugget", metal.getNugget(), metal.getNuggetTag(), folder);
   }
 }

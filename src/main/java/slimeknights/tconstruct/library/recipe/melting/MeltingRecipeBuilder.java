@@ -27,6 +27,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   private final int temperature;
   private final int time;
   private boolean isOre = false;
+  private boolean isDamagable = false;
 
   /**
    * Creates a new builder instance using a specific temperature
@@ -86,6 +87,15 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
     return this;
   }
 
+  /**
+   * Marks this item as damagable, the output should scale based on the input damage
+   * @return  Builder instance
+   */
+  public MeltingRecipeBuilder setDamagable() {
+    this.isDamagable = true;
+    return this;
+  }
+
   @Override
   public void build(Consumer<IFinishedRecipe> consumer) {
     build(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
@@ -93,6 +103,9 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+    if (isOre && isDamagable) {
+      throw new IllegalStateException("Builder cannot be both ore and damagable");
+    }
     // only build JSON if needed
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "melting");
     consumer.accept(new Result(id, advancementId));
@@ -116,7 +129,13 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-      return isOre ? TinkerSmeltery.oreMeltingSerializer.get() : TinkerSmeltery.meltingSerializer.get();
+      if (isOre) {
+        return TinkerSmeltery.oreMeltingSerializer.get();
+      }
+      if (isDamagable) {
+        return TinkerSmeltery.damagableMeltingSerializer.get();
+      }
+      return TinkerSmeltery.meltingSerializer.get();
     }
   }
 }

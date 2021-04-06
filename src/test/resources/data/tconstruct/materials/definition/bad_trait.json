@@ -1,0 +1,7 @@
+{
+    "craftable": "blue",
+    "fluid": "in:valid",
+    "textColor": "theBestColor",
+    "temperature": -100,
+    "traits": [{ "name": "in:valid" }]
+}

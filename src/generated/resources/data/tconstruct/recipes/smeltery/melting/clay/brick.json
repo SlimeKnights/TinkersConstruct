@@ -1,13 +1,8 @@
 {
   "type": "tconstruct:melting",
-  "ingredient": [
-    {
-      "item": "minecraft:brick"
-    },
-    {
-      "item": "tconstruct:dried_brick"
-    }
-  ],
+  "ingredient": {
+    "item": "minecraft:brick"
+  },
   "result": {
     "fluid": "tconstruct:molten_clay",
     "amount": 250

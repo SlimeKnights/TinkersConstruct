@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:table_casting_material",
-  "cast": {
-    "item": "tconstruct:tough_binding_cast"
-  },
-  "item_cost": 3,
-  "result": "tconstruct:tough_binding"
-}

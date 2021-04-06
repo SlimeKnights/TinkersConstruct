@@ -1,0 +1,37 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:storage_blocks/slimesteel",
+    "#forge:storage_blocks/silicon_bronze",
+    "#forge:storage_blocks/rose_gold",
+    "#forge:storage_blocks/pig_iron",
+    "#forge:storage_blocks/queens_slime",
+    "#forge:storage_blocks/manyullyn",
+    "#forge:storage_blocks/hepatizon",
+    "#forge:storage_blocks/netherite",
+    {
+      "id": "#forge:storage_blocks/bronze",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/brass",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/electrum",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/invar",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/constantan",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/steel",
+      "required": false
+    }
+  ]
+}

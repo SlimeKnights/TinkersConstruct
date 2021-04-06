@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#tconstruct:blue_slime",
-    "#tconstruct:purple_slime"
+    "#forge:slime",
+    "#tconstruct:sky_slime",
+    "#tconstruct:ender_slime"
   ]
 }

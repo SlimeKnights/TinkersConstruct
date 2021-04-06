@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:modifiable/multipart",
+    "#tconstruct:modifiable/melee_or_harvest",
+    "#tconstruct:modifiable/aoe"
+  ]
+}

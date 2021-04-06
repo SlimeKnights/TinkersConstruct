@@ -248,7 +248,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
   @Override
   public void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
     if (this.shouldDrawName()) {
-      this.font.drawString(matrices, this.getTitle().getString(), this.guiLeft + this.border.w, this.guiTop + this.border.h - 1, 0x404040);
+      this.font.drawString(matrices, this.getTitle().getString(), this.border.w, this.border.h - 1, 0x404040);
     }
   }
 

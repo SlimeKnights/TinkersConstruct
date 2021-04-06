@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.crafting.RecipeManager;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.tconstruct.common.RecipeCacheInvalidator;
+import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 
 import javax.annotation.Nullable;
@@ -21,7 +21,7 @@ public class MeltingFuelCache {
 
   static {
     // register listener to reset on cache clear
-    RecipeCacheInvalidator.addReloadListener(CACHE::clear);
+    RecipeCacheInvalidator.addReloadListener(client -> CACHE.clear());
   }
 
   /**

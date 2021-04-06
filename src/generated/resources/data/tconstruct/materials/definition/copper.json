@@ -1,7 +1,15 @@
 {
   "craftable": true,
+  "tier": 2,
+  "sortOrder": 1,
   "fluid": "tconstruct:molten_copper",
   "fluidPerUnit": 144,
-  "textColor": "#ED9F07",
-  "temperature": 500
+  "textColor": "#FBA165",
+  "temperature": 500,
+  "traits": [
+    {
+      "name": "tconstruct:dwarven",
+      "level": 1
+    }
+  ]
 }

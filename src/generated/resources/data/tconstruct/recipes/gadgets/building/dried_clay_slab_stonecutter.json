@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "tconstruct:dried_clay"
-  },
-  "result": "tconstruct:dried_clay_slab",
-  "count": 2
-}

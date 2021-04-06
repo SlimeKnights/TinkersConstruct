@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "minecraft:slime_ball"
+  },
+  "result": "tconstruct:earth_slime_drop",
+  "experience": 0.35,
+  "cookingtime": 600
+}

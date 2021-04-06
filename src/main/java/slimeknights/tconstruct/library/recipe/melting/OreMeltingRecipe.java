@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,15 +38,8 @@ public class OreMeltingRecipe extends MeltingRecipe {
     return true;
   }
 
-  /** Gets the recipe output for display in JEI */
   @Override
-  public List<List<FluidStack>> getDisplayOutput() {
-    if (displayOutput == null) {
-      FluidStack output = getOutput();
-      displayOutput = Collections.singletonList(Arrays.asList(
-        boost(output, Config.COMMON.melterNuggetsPerOre.get()),
-        boost(output, Config.COMMON.smelteryNuggetsPerOre.get())));
-    }
-    return displayOutput;
+  public IRecipeSerializer<?> getSerializer() {
+    return TinkerSmeltery.oreMeltingSerializer.get();
   }
 }

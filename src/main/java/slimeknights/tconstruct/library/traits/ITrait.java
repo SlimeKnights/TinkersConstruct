@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import slimeknights.tconstruct.library.modifiers.IToolMod;
 
 import javax.annotation.Nonnull;
 
@@ -25,7 +24,7 @@ import javax.annotation.Nonnull;
  * The trait object contains basic information about the trait.
  * The corresponding trait object gets events forwarded to it when a tool with that trait executes them
  */
-public interface ITrait extends IToolMod {
+public interface ITrait {
   /* Updating */
 
   /**

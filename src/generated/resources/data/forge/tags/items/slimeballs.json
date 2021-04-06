@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#forge:slimeball/blue",
-    "#forge:slimeball/purple",
+    "#forge:slimeball/sky",
+    "#forge:slimeball/ender",
     "#forge:slimeball/blood",
-    "#forge:slimeball/magma"
+    "#forge:slimeball/ichor"
   ]
 }

@@ -1,17 +1,14 @@
 package slimeknights.tconstruct.gadgets.data;
 
 import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
@@ -22,12 +19,11 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 public class GadgetRecipeProvider extends BaseRecipeProvider {
   public GadgetRecipeProvider(DataGenerator generator) {
@@ -44,7 +40,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     // slime
     String folder = "gadgets/slimeboots/";
     ShapedFallbackRecipeBuilder slimeBoots = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(SlimeType.GREEN))
+      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(SlimeType.EARTH))
                          .setGroup("tconstruct:slime_boots")
                          .key('#', TinkerTags.Items.CONGEALED_SLIME)
                          .key('X', Tags.Items.SLIMEBALLS)
@@ -67,7 +63,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
     folder = "gadgets/slimesling/";
     ShapedFallbackRecipeBuilder slimeSling = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(SlimeType.GREEN))
+      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(SlimeType.EARTH))
                          .setGroup("tconstruct:slimesling")
                          .key('#', Tags.Items.STRING)
                          .key('X', TinkerTags.Items.CONGEALED_SLIME)
@@ -76,7 +72,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                          .patternLine("L L")
                          .patternLine(" L ")
                          .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS)));
-    for (SlimeType slime : SlimeType.TINKER) {
+    for (SlimeType slime : new SlimeType[]{SlimeType.SKY, SlimeType.ENDER, SlimeType.ICHOR}) {
       ResourceLocation name = location(folder + slime.getString());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(slime))
                          .setGroup("tconstruct:slimesling")
@@ -93,6 +89,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     slimeSling.build(consumer, location(folder + "green"));
 
     // rails
+    /* TODO: moving to tinkers' mechworks
     folder = "gadgets/rail/";
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.woodenRail, 4)
                        .key('#', ItemTags.PLANKS)
@@ -111,8 +108,10 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine("# #")
                        .addCriterion("has_item", hasItem(ItemTags.PLANKS))
                        .build(consumer, prefix(TinkerGadgets.woodenDropperRail, folder));
+     */
 
     // stone
+    /* TODO: moving to natura
     folder = "gadgets/stone/";
     ShapedRecipeBuilder.shapedRecipe(Blocks.JACK_O_LANTERN)
                        .key('#', Blocks.CARVED_PUMPKIN)
@@ -147,6 +146,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine("X")
                        .addCriterion("has_item", hasItem(TinkerTags.Items.RODS_STONE))
                        .build(consumer, prefix(TinkerGadgets.stoneTorch, folder));
+    */
 
     // throw balls
     folder = "gadgets/throwball/";
@@ -194,6 +194,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine(" X ")
                        .addCriterion("has_item", hasItem(Tags.Items.RODS_WOODEN))
                        .build(consumer, prefix(TinkerGadgets.piggyBackpack, folder));
+    /* TODO: moving to natura
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.punji.get(), 3)
                        .key('#', Items.SUGAR_CANE)
                        .patternLine("# #")
@@ -201,12 +202,11 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine("# #")
                        .addCriterion("has_item", hasItem(Items.SUGAR_CANE))
                        .build(consumer, prefix(TinkerGadgets.punji, folder));
-
+     */
     // frames
     folder = "gadgets/fancy_frame/";
     registerFrameRecipes(consumer, TinkerModifiers.silkyCloth, FrameType.JEWEL);
     registerFrameRecipes(consumer, TinkerMaterials.cobalt.getNugget(), FrameType.COBALT);
-    registerFrameRecipes(consumer, TinkerMaterials.ardite.getNugget(), FrameType.ARDITE);
     registerFrameRecipes(consumer, TinkerMaterials.manyullyn.getNugget(), FrameType.MANYULLYN);
     registerFrameRecipes(consumer, Items.GOLD_NUGGET, FrameType.GOLD);
     Item clearFrame = TinkerGadgets.itemFrame.get(FrameType.CLEAR);
@@ -221,6 +221,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(clearFrame, folder));
 
     // dried clay
+    /* TODO: move to natura
     folder = "gadgets/building/";
     ShapedRecipeBuilder.shapedRecipe(TinkerCommons.driedClayBricks)
                        .key('b', TinkerCommons.driedBrick)
@@ -230,26 +231,13 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(TinkerCommons.driedClayBricks, folder));
     registerSlabStair(consumer, TinkerCommons.driedClay, folder, true);
     registerSlabStair(consumer, TinkerCommons.driedClayBricks, folder, true);
+     */
 
-    // FIXME: temporary dried clay recipes
-    addCampfireCooking(consumer, Blocks.CLAY, TinkerCommons.driedClay, 0.3f, folder);
-    addCampfireCooking(consumer, Items.CLAY_BALL, TinkerCommons.driedBrick, 0.3f, folder);
-
-    // FIXME: temporary jerky recipes
-    folder = "gadgets/foods/";
-    addFoodCooking(consumer, Items.COOKED_BEEF, TinkerGadgets.beefJerky, 0.35f, folder);
-    addFoodCooking(consumer, Items.COOKED_CHICKEN, TinkerGadgets.chickenJerky, 0.35f, folder);
-    addFoodCooking(consumer, Items.COOKED_PORKCHOP, TinkerGadgets.porkJerky, 0.35f, folder);
-    addFoodCooking(consumer, Items.COOKED_MUTTON, TinkerGadgets.muttonJerky, 0.35f, folder);
-    addFoodCooking(consumer, Items.COOKED_RABBIT, TinkerGadgets.rabbitJerky, 0.35f, folder);
-    addFoodCooking(consumer, Items.COOKED_COD, TinkerGadgets.fishJerky, 0.35f, folder);
-    addFoodCooking(consumer, Items.COOKED_SALMON, TinkerGadgets.salmonJerky, 0.35f, folder);
-    addFoodCooking(consumer, Items.ROTTEN_FLESH, TinkerGadgets.monsterJerky, 0.35f, folder);
-    addFoodCooking(consumer, Items.TROPICAL_FISH, TinkerGadgets.clownfishJerky, 0.35f, folder);
-    addFoodCooking(consumer, Items.PUFFERFISH, TinkerGadgets.pufferfishJerky, 0.35f, folder);
+    // TODO: natura support: use drying rack instead
     // slime drops
+    folder = "gadgets/foods/";
     for (SlimeType slime : SlimeType.values()) {
-      addFoodCooking(consumer, TinkerCommons.slimeball.get(slime), TinkerGadgets.slimeDrop.get(slime), 0.35f, folder);
+      addCampfireCooking(consumer, TinkerCommons.slimeball.get(slime), TinkerGadgets.slimeDrop.get(slime), 0.35f, folder);
     }
   }
 

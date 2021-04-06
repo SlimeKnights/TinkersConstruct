@@ -17,11 +17,12 @@ public final class MaterialIds {
   public static final MaterialId searedStone = id("seared_stone");
   public static final MaterialId copper = id("copper");
   public static final MaterialId slimewood = id("slimewood");
+  // tier 2.5 - its an alloy but its not a higher mining level
+  public static final MaterialId roseGold = id("rose_gold");
   // tier 3
   public static final MaterialId slimesteel = id("slimesteel");
   public static final MaterialId nahuatl = id("nahuatl");
   public static final MaterialId tinkersBronze = id("tinkers_bronze");
-  public static final MaterialId roseGold = id("rose_gold");
   public static final MaterialId pigIron = id("pig_iron");
 
   // tier 2 (nether)
@@ -34,7 +35,7 @@ public final class MaterialIds {
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
   public static final MaterialId queensSlime = id("queens_slime");
-  public static final MaterialId soulsteel = id("soulsteel");
+  //public static final MaterialId soulsteel = id("soulsteel");
 
   // tier 2 (end)
   //public static final MaterialId endstone = id("endstone");
@@ -47,6 +48,7 @@ public final class MaterialIds {
   public static final MaterialId electrum = id("electrum");
   public static final MaterialId bronze = id("bronze");
   public static final MaterialId steel = id("steel");
+  public static final MaterialId constantan = id("constantan");
 
   // bowstring materials
   //public static final MaterialId string = id("string");

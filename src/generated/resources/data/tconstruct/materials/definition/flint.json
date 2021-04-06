@@ -1,4 +1,12 @@
 {
   "craftable": true,
-  "textColor": "#696969"
+  "tier": 1,
+  "sortOrder": 2,
+  "textColor": "#696969",
+  "traits": [
+    {
+      "name": "tconstruct:jagged",
+      "level": 1
+    }
+  ]
 }

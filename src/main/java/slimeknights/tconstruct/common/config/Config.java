@@ -16,11 +16,11 @@ public class Config {
 
     public final BooleanValue shouldSpawnWithTinkersBook;
 
+    // recipes
     public final BooleanValue addGravelToFlintRecipe;
-
-    public final BooleanValue requireSlimeballsToMatchInVanillaRecipe;
-
-    public final BooleanValue registerAllRecipes;
+    public final BooleanValue cheaperNetheriteAlloy;
+    public final BooleanValue witherBoneDrop;
+    public final BooleanValue witherBoneConversion;
 
     public final ConfigValue<Integer> melterNuggetsPerOre;
     public final ConfigValue<Integer> smelteryNuggetsPerOre;
@@ -28,15 +28,12 @@ public class Config {
     public final BooleanValue generateCobalt;
     public final ConfigValue<Integer> veinCountCobalt;
 
-    public final BooleanValue generateArdite;
-    public final ConfigValue<Integer> veinCountArdite;
-
     public final BooleanValue generateCopper;
     public final ConfigValue<Integer> veinCountCopper;
 
     public final BooleanValue generateSlimeIslands;
 
-    public final BooleanValue chestsKeepInventory;
+    // public final BooleanValue chestsKeepInventory;
 
     public final ConfigValue<List<String>> craftingStationBlacklist;
 
@@ -53,29 +50,11 @@ public class Config {
         .worldRestart()
         .define("shouldSpawnWithTinkersBook", true);
 
-      this.addGravelToFlintRecipe = builder
-        .comment("Add a recipe that allows you to craft a piece of flint using 3 gravel")
-        .translation("tconstruct.configgui.addGravelToFlintRecipe")
-        .worldRestart()
-        .define("addGravelToFlintRecipe", true);
-
-      this.requireSlimeballsToMatchInVanillaRecipe = builder
-        .comment("If true, requires slimeballs in the vanilla slimeblock recipe to match in color, otherwise gives a pink slimeblock")
-        .translation("tconstruct.configgui.requireSlimeballsToMatchInVanillaRecipe")
-        .worldRestart()
-        .define("requireSlimeballsToMatchInVanillaRecipe", true);
-
-      this.registerAllRecipes = builder
-        .comment("If true, all recipes will be added even if the modules required are disabled.")
-        .translation("tconstruct.configgui.registerAllRecipes")
-        .worldRestart()
-        .define("registerAllRecipes", false);
-
-      this.chestsKeepInventory = builder
-        .comment("Pattern and Part chests keep their inventory when harvested.")
-        .translation("tconstruct.configgui.chestsKeepInventory")
-        .worldRestart()
-        .define("chestsKeepInventory", true);
+//      this.chestsKeepInventory = builder
+//        .comment("Pattern and Part chests keep their inventory when harvested.")
+//        .translation("tconstruct.configgui.chestsKeepInventory")
+//        .worldRestart()
+//        .define("chestsKeepInventory", true);
 
       this.craftingStationBlacklist = builder
         .comment("Blacklist of registry names for the crafting station to connect to. Mainly for compatibility.")
@@ -95,14 +74,42 @@ public class Config {
         .worldRestart()
         .define("listAllPartMaterials", true);
 
+      builder.pop();
+
+      builder.comment("Options related to recipes, limited options as a datapack allows most recipes to be modified").push("recipes");
+
+      this.addGravelToFlintRecipe = builder
+        .comment("Add a recipe that allows you to craft a piece of flint using 3 gravel")
+        .translation("tconstruct.configgui.addGravelToFlintRecipe")
+        .worldRestart()
+        .define("addGravelToFlintRecipe", true);
+
+      this.cheaperNetheriteAlloy = builder
+        .comment("Makes the recipe to alloy netherite in the smeltery only cost 2 gold per netherite ingot. If false uses the vanilla rate of 4 gold per ingot. Disable if there are crafting duplications.")
+        .translation("tconstruct.configgui.cheaperNetheriteAlloy")
+        .worldRestart()
+        .define("cheaperNetheriteAlloy", true);
+
+      this.witherBoneDrop = builder
+        .comment("Makes wither skeletons drop necrotic bones")
+        .translation("tconstruct.configgui.witherBoneDrop")
+        .worldRestart()
+        .define("witherBoneDrop", true);
+
+      this.witherBoneConversion = builder
+        .comment("Allows converting wither bones to regular bones")
+        .translation("tconstruct.configgui.witherBoneConversion")
+        .worldRestart()
+        .define("witherBoneConversion", true);
+
       this.melterNuggetsPerOre = builder
         .comment("Number of nuggets produced when an ore block is melted in the melter. 9 would give 1 ingot")
         .translation("tconstruct.configgui.melterNuggetsPerOre")
-        .defineInRange("melterNuggetsPerOre", 9, 1, 45);
+        .defineInRange("melterNuggetsPerOre", 12, 1, 45);
       this.smelteryNuggetsPerOre = builder
         .comment("Number of nuggets produced when an ore block is melted in the smeltery. 9 nuggets would give 1 ingot")
         .translation("tconstruct.configgui.smelteryNuggetsPerOre")
-        .defineInRange("smelteryNuggetsPerOre", 15, 1, 45);
+        .defineInRange("smelteryNuggetsPerOre", 18, 1, 45);
 
       builder.pop();
 
@@ -113,7 +120,6 @@ public class Config {
         .translation("tconstruct.configgui.generateCopper")
         .worldRestart()
         .define("generateCopper", true);
-
       this.veinCountCopper = builder
         .comment("Approx Ores per Chunk")
         .translation("tconstruct.configgui.veinCountCopper")
@@ -125,24 +131,11 @@ public class Config {
         .translation("tconstruct.configgui.generateCobalt")
         .worldRestart()
         .define("generateCobalt", true);
-
       this.veinCountCobalt = builder
         .comment("Approx Ores per Chunk")
         .translation("tconstruct.configgui.veinCountCobalt")
         .worldRestart()
-        .define("veinCountCobalt", 20);
-
-      this.generateArdite = builder
-        .comment("Generate Ardite")
-        .translation("tconstruct.configgui.generateArdite")
-        .worldRestart()
-        .define("generateArdite", true);
-
-      this.veinCountArdite = builder
-        .comment("Approx Ores per Chunk")
-        .translation("tconstruct.configgui.veinCountArdite")
-        .worldRestart()
-        .define("veinCountArdite", 20);
+        .define("veinCountCobalt", 8);
 
       this.generateSlimeIslands = builder
         .comment("Set this to false to disable slime islands spawning in the world")
@@ -158,11 +151,8 @@ public class Config {
    * Client specific configuration - only loaded clientside from tconstruct-client.toml
    */
   public static class Client {
+    //public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
 
-    public final ForgeConfigSpec.BooleanValue renderInventoryInWorld;
-    public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
-
-    public final ForgeConfigSpec.BooleanValue renderTableItems;
     public final ForgeConfigSpec.BooleanValue tankFluidModel;
 
     public final ForgeConfigSpec.BooleanValue extraToolTips;
@@ -170,20 +160,10 @@ public class Config {
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
 
-      this.renderInventoryInWorld = builder
-        .comment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world")
-        .translation("tconstruct.configgui.renderInventoryInWorld")
-        .define("renderInventoryInWorld", true);
-
-      this.temperatureInCelsius = builder
-        .comment("If true, temperatures in the smeltery and in JEI will display in celsius. If false they will use the internal units of Kelvin, which may be better for developers")
-        .translation("tconstruct.configgui.temperatureInCelsius")
-        .define("temperatureInCelsius", true);
-
-      this.renderTableItems = builder
-        .comment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world")
-        .translation("tconstruct.configgui.renderTableItems")
-        .define("renderTableItems", true);
+//      this.temperatureInCelsius = builder
+//        .comment("If true, temperatures in the smeltery and in JEI will display in celsius. If false they will use the internal units of Kelvin, which may be better for developers")
+//        .translation("tconstruct.configgui.temperatureInCelsius")
+//        .define("temperatureInCelsius", true);
 
       this.tankFluidModel = builder
         .comment(

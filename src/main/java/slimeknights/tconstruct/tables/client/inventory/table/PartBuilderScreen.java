@@ -15,12 +15,13 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
@@ -31,6 +32,8 @@ import java.util.List;
 import java.util.function.Function;
 
 public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
+  private static final ITextComponent INFO_TEXT = Util.makeTranslation("gui", "part_builder.info");
+  private static final ITextComponent TRAIT_TITLE = Util.makeTranslation("gui", "part_builder.trait").mergeStyle(TextFormatting.UNDERLINE);
 
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/partbuilder.png");
 
@@ -53,6 +56,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     super(container, playerInventory, title);
 
     this.infoPanelScreen = new PartInfoPanelScreen(this, container, playerInventory, title);
+    this.infoPanelScreen.setTextScale(7/9f);
     this.infoPanelScreen.ySize = this.ySize;
     this.addModule(this.infoPanelScreen);
   }
@@ -66,6 +70,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     this.drawIconEmpty(matrices, this.container.getInputSlot(), Icons.INGOT);
 
     // draw scrollbar
+    assert this.minecraft != null;
     this.minecraft.getTextureManager().bindTexture(BACKGROUND);
     this.blit(matrices, this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
     this.drawRecipesBackground(matrices, mouseX, mouseY, this.cornerX + 51, this.cornerY + 15);
@@ -136,7 +141,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     } else {
       // default text
       this.infoPanelScreen.setCaption(this.getTitle());
-      this.infoPanelScreen.setText(new TranslationTextComponent("gui.tconstruct.part_builder.info"));
+      this.infoPanelScreen.setText(INFO_TEXT);
       this.infoPanelScreen.clearMaterialValue();
     }
   }
@@ -167,16 +172,31 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     List<ITextComponent> stats = Lists.newLinkedList();
     List<ITextComponent> tips = Lists.newArrayList();
 
+    List<ModifierEntry> traits = material.getTraits();
+    if (!traits.isEmpty()) {
+      stats.add(TRAIT_TITLE);
+      tips.add(StringTextComponent.EMPTY);
+      for (ModifierEntry trait : traits) {
+        Modifier mod = trait.getModifier();
+        stats.add(mod.getDisplayName(trait.getLevel()));
+        tips.add(mod.getDescription());
+      }
+      stats.add(StringTextComponent.EMPTY);
+      tips.add(StringTextComponent.EMPTY);
+    }
+
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
       List<ITextComponent> info = stat.getLocalizedInfo();
 
       if (!info.isEmpty()) {
         stats.add(stat.getLocalizedName().mergeStyle(TextFormatting.UNDERLINE));
+        tips.add(StringTextComponent.EMPTY);
+
         stats.addAll(info);
-        stats.add(new StringTextComponent(""));
-        tips.add(new StringTextComponent(""));
         tips.addAll(stat.getLocalizedDescriptions());
-        tips.add(new StringTextComponent(""));
+
+        stats.add(StringTextComponent.EMPTY);
+        tips.add(StringTextComponent.EMPTY);
       }
     }
 
@@ -275,13 +295,13 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
 
   @Override
   public void error(ITextComponent message) {
-    this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.error"));
+    this.infoPanelScreen.setCaption(COMPONENT_ERROR);
     this.infoPanelScreen.setText(message);
   }
 
   @Override
   public void warning(ITextComponent message) {
-    this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.warning"));
+    this.infoPanelScreen.setCaption(COMPONENT_WARNING);
     this.infoPanelScreen.setText(message);
   }
 

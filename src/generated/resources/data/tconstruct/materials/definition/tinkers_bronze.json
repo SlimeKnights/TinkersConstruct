@@ -1,7 +1,15 @@
 {
   "craftable": false,
+  "tier": 3,
+  "sortOrder": 1,
   "fluid": "tconstruct:molten_tinkers_bronze",
   "fluidPerUnit": 144,
   "textColor": "#F9CF72",
-  "temperature": 700
+  "temperature": 700,
+  "traits": [
+    {
+      "name": "tconstruct:maintained",
+      "level": 1
+    }
+  ]
 }

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:ingot_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_debris",
+    "amount": 144
+  },
+  "result": "minecraft:netherite_scrap",
+  "cooling_time": 71
+}

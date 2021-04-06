@@ -26,23 +26,24 @@ public class CongealedSlimeBlock extends Block {
   }
 
   @Override
-  public void onLanded(IBlockReader worldIn, Entity entityIn) {
-    if (!(entityIn instanceof LivingEntity) && !(entityIn instanceof ItemEntity)) {
-      super.onLanded(worldIn, entityIn);
+  public void onLanded(IBlockReader worldIn, Entity entity) {
+    if (!(entity instanceof LivingEntity) && !(entity instanceof ItemEntity)) {
+      super.onLanded(worldIn, entity);
       // this is mostly needed to prevent XP orbs from bouncing. which completely breaks the game.
       return;
     }
 
-    Vector3d vec3d = entityIn.getMotion();
+    Vector3d vec3d = entity.getMotion();
 
-    if (vec3d.y < -0.25D) {
-      entityIn.setMotion(vec3d.x, -vec3d.y * -1.2D, vec3d.z);
-      entityIn.fallDistance = 0;
-      if (entityIn instanceof ItemEntity) {
-        entityIn.setOnGround(false);
+    if (vec3d.y < 0) {
+      double speed = entity instanceof LivingEntity ? 1.0D : 0.8D;
+      entity.setMotion(vec3d.x, -vec3d.y * speed, vec3d.z);
+      entity.fallDistance = 0;
+      if (entity instanceof ItemEntity) {
+        entity.setOnGround(false);
       }
     } else {
-      super.onLanded(worldIn, entityIn);
+      super.onLanded(worldIn, entity);
     }
   }
 

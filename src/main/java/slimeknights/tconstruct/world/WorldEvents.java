@@ -1,33 +1,43 @@
 package slimeknights.tconstruct.world;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.loot.ItemLootEntry;
+import net.minecraft.loot.LootEntry;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.RandomValueRange;
+import net.minecraft.loot.functions.SetCount;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.EndBiomeProvider;
 import net.minecraft.world.biome.provider.NetherBiomeProvider;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.OreFeatureConfig.FillerBlockType;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.placement.TopSolidRangeConfig;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper.UnableToFindFieldException;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
+import javax.annotation.Nullable;
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WorldEvents {
 
@@ -69,15 +79,23 @@ public class WorldEvents {
   static void addDimensionalSpacing(WorldEvent.Load event) {
     if (event.getWorld() instanceof ServerWorld) {
       ServerWorld serverWorld = (ServerWorld) event.getWorld();
-      if (serverWorld.getChunkProvider().generator.getBiomeProvider() instanceof NetherBiomeProvider) {
-        if (!serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_().containsKey(TinkerStructures.netherSlimeIsland.get())) {
-          serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_().put(TinkerStructures.netherSlimeIsland.get(), new StructureSeparationSettings(30, 22, 14357800));
+      Map<Structure<?>, StructureSeparationSettings> configuredStructures = serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_();
+      BiomeProvider provider = serverWorld.getChunkProvider().generator.getBiomeProvider();
+      try {
+        if (provider instanceof NetherBiomeProvider) {
+          if (!configuredStructures.containsKey(TinkerStructures.netherSlimeIsland.get())) {
+            configuredStructures.put(TinkerStructures.netherSlimeIsland.get(), new StructureSeparationSettings(15, 11, 14357800));
+          }
+        } else if (provider instanceof EndBiomeProvider) {
+          if (!configuredStructures.containsKey(TinkerStructures.endSlimeIsland.get())) {
+            configuredStructures.put(TinkerStructures.endSlimeIsland.get(), new StructureSeparationSettings(30, 22, 14357800));
+          }
         }
-      }
-      else if (serverWorld.getChunkProvider().generator.getBiomeProvider() instanceof EndBiomeProvider) {
-        if (!serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_().containsKey(TinkerStructures.endSlimeIsland.get())) {
-          serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_().put(TinkerStructures.endSlimeIsland.get(), new StructureSeparationSettings(30, 22, 14357800));
-        }
+      } catch (UnsupportedOperationException ex) {
+        // everywhere in vanilla uses hashmaps, yet somehow I keep getting reports of an immutable map ending up in the stream
+        // so just catch and log the exception, not sure what else we can do
+        // TODO: can we just add this to the default configs instead?
+        TConstruct.log.error("Failed to add slime island placement to world", ex);
       }
     }
   }
@@ -92,19 +110,18 @@ public class WorldEvents {
       }
 
       if (Config.COMMON.generateCobalt.get()) {
-        addNetherOre(generation, TinkerWorld.cobaltOre, Config.COMMON.veinCountCobalt);
+        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_SMALL);
+        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_LARGE);
       }
     }
     else if (event.getCategory() != Biome.Category.THEEND) {
       if (Config.COMMON.generateSlimeIslands.get()) {
         generation.withStructure(TinkerStructures.SLIME_ISLAND);
-        event.getSpawns().getSpawner(EntityClassification.MONSTER).add(new MobSpawnInfo.Spawners(TinkerWorld.blueSlimeEntity.get(), 15, 2, 4));
+        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 15, 2, 4));
       }
 
       if (Config.COMMON.generateCopper.get()) {
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-          Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.BASE_STONE_OVERWORLD, TinkerWorld.copperOre.get().getDefaultState(), 17))
-            .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(30, 0, 90))).square().func_242731_b(Config.COMMON.veinCountCopper.get()));
+        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, TinkerWorld.COPPER_ORE_FEATURE);
       }
     }
     else if (event.getCategory() == Biome.Category.THEEND && doesNameMatchBiomes(event.getName(), Biomes.END_MIDLANDS, Biomes.END_HIGHLANDS, Biomes.END_BARRENS, Biomes.SMALL_END_ISLANDS)) {
@@ -115,35 +132,88 @@ public class WorldEvents {
   }
 
   /**
-   * Adds an ore with nether placement
-   * @param generation  biome generation settings
-   * @param block  Block to generate
-   * @param count  Vein side config
-   */
-  private static void addNetherOre(BiomeGenerationSettingsBuilder generation, Supplier<? extends Block> block, ForgeConfigSpec.ConfigValue<Integer> count) {
-    // FIXME: constant config
-    int veinCount = count.get() / 2;
-
-    generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION,
-      Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.NETHERRACK, block.get().getDefaultState(), 5))
-        .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(32, 0, 64))).square().func_242731_b(veinCount));
-
-    generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION,
-      Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, block.get().getDefaultState(), 5))
-        .range(128).square().func_242731_b(veinCount));
-  }
-
-  /**
    * Helper method to determine the the given Name matches that of any of the given Biomes
    * @param name - The Name that will be compared to the given Biomes names
    * @param biomes - The Biome that will be used for the check
    */
-  private static boolean doesNameMatchBiomes(ResourceLocation name, RegistryKey<?>... biomes) {
+  private static boolean doesNameMatchBiomes(@Nullable ResourceLocation name, RegistryKey<?>... biomes) {
     for (RegistryKey<?> biome : biomes) {
       if (biome.getLocation().equals(name)) {
         return true;
       }
     }
     return false;
+  }
+
+
+  /* Loot injection */
+  private static boolean foundField = false;
+  private static Field lootEntries = null;
+
+  /**
+   * Adds a loot entry to the given loot pool
+   * @param pool   Pool
+   * @param entry  Entry
+   */
+  @SuppressWarnings("unchecked")
+  private static void addEntry(LootPool pool, LootEntry entry) {
+    // fetch field
+    if (!foundField) {
+      try {
+        lootEntries = ObfuscationReflectionHelper.findField(LootPool.class, "field_186453_a");
+        lootEntries.setAccessible(true);
+        foundField = true;
+      } catch (UnableToFindFieldException ex) {
+        TConstruct.log.error("Failed to find field", ex);
+        foundField = true;
+        return;
+      }
+    }
+    // access field
+    try {
+      Object field = lootEntries.get(pool);
+      if (field instanceof List) {
+        List<LootEntry> entries = (List<LootEntry>) field;
+        entries.add(entry);
+      }
+    } catch (IllegalAccessException|ClassCastException ex) {
+      TConstruct.log.error("Failed to access field", ex);
+      lootEntries = null;
+    }
+  }
+
+  /**
+   * Injects an entry into a loot pool
+   * @param event      Loot table evnet
+   * @param tableName  Loot table name
+   * @param poolName   Pool name
+   * @param entry      Entry to inject
+   */
+  private static void injectInto(LootTableLoadEvent event, String tableName, String poolName, Supplier<LootEntry> entry) {
+    ResourceLocation name = event.getName();
+    if ("minecraft".equals(name.getNamespace()) && tableName.equals(name.getPath())) {
+      LootPool pool = event.getTable().getPool(poolName);
+      //noinspection ConstantConditions method is annotated wrongly
+      if (pool != null) {
+        addEntry(pool, entry.get());
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void onLootTableLoad(LootTableLoadEvent event) {
+    BiFunction<FoliageType, Integer, LootEntry> makeSeed = (type, weight) ->
+      ItemLootEntry.builder(TinkerWorld.slimeGrassSeeds.get(type)).weight(weight)
+                   .acceptFunction(SetCount.builder(new RandomValueRange(2, 4))).build();
+    BiFunction<FoliageType, Integer, LootEntry> makeSapling = (type, weight) -> ItemLootEntry.builder(TinkerWorld.slimeSapling.get(type)).weight(weight).build();
+    // sky
+    injectInto(event, "chests/simple_dungeon", "pool1", () -> makeSeed.apply(FoliageType.SKY, 10));
+    injectInto(event, "chests/simple_dungeon", "main", () -> makeSapling.apply(FoliageType.SKY, 10));
+    // ichor
+    injectInto(event, "chests/nether_bridge", "main", () -> makeSeed.apply(FoliageType.BLOOD, 5));
+    injectInto(event, "chests/bastion_bridge", "pool2", () -> makeSapling.apply(FoliageType.BLOOD, 1));
+    // ender
+    injectInto(event, "chests/end_city_treasure", "main", () -> makeSeed.apply(FoliageType.ENDER, 5));
+    injectInto(event, "chests/end_city_treasure", "main", () -> makeSapling.apply(FoliageType.ENDER, 3));
   }
 }

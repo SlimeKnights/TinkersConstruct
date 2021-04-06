@@ -44,8 +44,15 @@ public final class ToolStatsBuilder {
       throw TinkerAPIMaterialException.statBuilderWithInvalidMaterialCount();
     }
 
-    return new ToolStatsBuilder(
-      listOfCompatibleWith(HeadMaterialStats.ID, materials, requiredComponents),
+    List<HeadMaterialStats> headStats = listOfCompatibleWith(HeadMaterialStats.ID, materials, requiredComponents);
+    int primaryWeight = toolDefinition.getBaseStatDefinition().getPrimaryHeadWeight();
+    if (primaryWeight > 1 && headStats.size() > 1) {
+      for (int i = 1; i < primaryWeight; i++) {
+        headStats.add(headStats.get(0));
+      }
+    }
+
+    return new ToolStatsBuilder(headStats,
       listOfCompatibleWith(HandleMaterialStats.ID, materials, requiredComponents),
       listOfCompatibleWith(ExtraMaterialStats.ID, materials, requiredComponents)
     );
@@ -68,16 +75,9 @@ public final class ToolStatsBuilder {
     }
   }
 
-  public StatsNBT buildDefaultStats() {
-    return new StatsNBT(
-      buildDurability(),
-      buildHarvestLevel(),
-      buildAttack(),
-      buildMiningSpeed(),
-      buildAttackSpeed(),
-      StatsNBT.DEFAULT_MODIFIERS,
-      false
-    );
+  /** Builds default stats */
+  public StatsNBT buildStats() {
+    return new StatsNBT(buildDurability(), buildHarvestLevel(), buildAttack(), buildMiningSpeed(), buildAttackSpeed());
   }
 
   public int buildDurability() {
@@ -109,7 +109,7 @@ public final class ToolStatsBuilder {
   public float buildAttack() {
     double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack);
     double averageHandle = getAverageValue(handles, HandleMaterialStats::getAttackDamage, 1.0f);
-    return (float)Math.max(0.1d, averageHeadAttack * averageHandle);
+    return (float)Math.max(0.0d, averageHeadAttack * averageHandle);
   }
 
   /**

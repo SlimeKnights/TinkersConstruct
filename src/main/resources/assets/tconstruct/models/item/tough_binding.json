@@ -1,7 +1,0 @@
-{
-  "loader": "tconstruct:material",
-  "parent": "forge:item/default",
-  "textures": {
-    "texture": "tconstruct:item/tool/parts/tough_binding"
-  }
-}

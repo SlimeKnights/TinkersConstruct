@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "SLS",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "L": {
+      "tag": "forge:ingots/silicon_bronze"
+    },
+    "S": {
+      "tag": "forge:slimeball/ichor"
+    }
+  },
+  "result": {
+    "item": "tconstruct:ichor_expander"
+  }
+}

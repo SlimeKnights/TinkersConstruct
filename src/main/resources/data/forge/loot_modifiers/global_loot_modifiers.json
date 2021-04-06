@@ -1,0 +1,7 @@
+{
+	"replace": false,
+	"entries": [
+        "tconstruct:modifier_hook",
+		"tconstruct:wither_bone"
+	]
+}

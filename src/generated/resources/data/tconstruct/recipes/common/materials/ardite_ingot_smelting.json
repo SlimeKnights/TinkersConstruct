@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "tconstruct:ardite_ore"
-  },
-  "result": "tconstruct:ardite_ingot",
-  "experience": 1.5,
-  "cookingtime": 200
-}

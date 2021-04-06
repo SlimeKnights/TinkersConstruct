@@ -67,7 +67,7 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
    */
   public CompositeCastingRecipeBuilder setFluid(FluidStack fluidStack) {
     if (this.temperature == -1) {
-      this.temperature = fluidStack.getFluid().getAttributes().getTemperature(fluidStack);
+      this.temperature = fluidStack.getFluid().getAttributes().getTemperature(fluidStack) - 300;
     }
     return setFluid(FluidIngredient.of(fluidStack));
   }

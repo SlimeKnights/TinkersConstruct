@@ -3,11 +3,10 @@
   "values": [
     "#forge:storage_blocks/copper",
     "#forge:storage_blocks/cobalt",
-    "#forge:storage_blocks/ardite",
     "#forge:storage_blocks/slimesteel",
-    "#forge:storage_blocks/tinkers_bronze",
+    "#forge:storage_blocks/silicon_bronze",
     "#forge:storage_blocks/rose_gold",
-    "#forge:storage_blocks/pigiron",
+    "#forge:storage_blocks/pig_iron",
     "#forge:storage_blocks/queens_slime",
     "#forge:storage_blocks/manyullyn",
     "#forge:storage_blocks/hepatizon",

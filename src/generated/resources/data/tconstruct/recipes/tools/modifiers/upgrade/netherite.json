@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:ingots/netherite"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
+  "requirements": {
+    "options": [
+      {
+        "name": "tconstruct:diamond",
+        "level": 1
+      },
+      {
+        "name": "tconstruct:emerald",
+        "level": 1
+      }
+    ],
+    "matches_needed": 1,
+    "error": "recipe.tconstruct.modifier.netherite_requirements"
+  },
+  "result": {
+    "name": "tconstruct:netherite",
+    "level": 1
+  },
+  "max_level": 1,
+  "upgrade_slots": 1
+}

@@ -1,16 +1,22 @@
 package slimeknights.tconstruct.library.materials.json;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.conditions.ICondition;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
 
-@AllArgsConstructor
-@Getter
+@Data
 public class MaterialJson {
   @Nullable
+  private final ICondition condition;
+  @Nullable
   private final Boolean craftable;
+  @Nullable
+  private final Integer tier;
+  @Nullable
+  private final Integer sortOrder;
   @Nullable
   private final ResourceLocation fluid;
   @Nullable
@@ -19,4 +25,6 @@ public class MaterialJson {
   private final String textColor;
   @Nullable
   private final Integer temperature;
+  @Nullable
+  private final ModifierEntry[] traits;
 }

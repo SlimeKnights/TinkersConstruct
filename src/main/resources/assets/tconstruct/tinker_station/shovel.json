@@ -1,9 +1,0 @@
-{
-    "slots": [
-        { "position": [ 51, 24 ] },
-        { "position": [ 33, 42 ] },
-        { "position": [ 13, 62 ] }
-    ],
-    "item": "tconstruct:shovel",
-    "sortIndex": 1
-}

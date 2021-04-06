@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "type": "mantle:without",
+      "base": {
+        "tag": "forge:heads"
+      },
+      "without": {
+        "item": "minecraft:dragon_head"
+      }
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
+  "result": {
+    "name": "tconstruct:recapitated",
+    "level": 1
+  },
+  "max_level": 1
+}

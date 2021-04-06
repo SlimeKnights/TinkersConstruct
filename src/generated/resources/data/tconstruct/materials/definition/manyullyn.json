@@ -1,7 +1,15 @@
 {
   "craftable": false,
+  "tier": 4,
+  "sortOrder": 2,
   "fluid": "tconstruct:molten_manyullyn",
   "fluidPerUnit": 144,
-  "textColor": "#A15CF8",
-  "temperature": 1200
+  "textColor": "#9261CC",
+  "temperature": 1200,
+  "traits": [
+    {
+      "name": "tconstruct:insatiable",
+      "level": 1
+    }
+  ]
 }

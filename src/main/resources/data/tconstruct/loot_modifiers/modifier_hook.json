@@ -1,0 +1,30 @@
+{
+    "type": "tconstruct:modifier_hook",
+    "conditions": [
+        {
+            "condition": "tconstruct:block_or_entity"
+        },
+        {
+            "condition": "minecraft:alternative",
+            "terms": [
+                {
+                    "condition": "minecraft:match_tool",
+                    "predicate": {
+                        "tag": "tconstruct:modifiable/melee_or_harvest"
+                    }
+                },
+                {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "killer",
+                    "predicate": {
+                        "equipment": {
+                            "mainhand": {
+                                "tag": "tconstruct:modifiable/melee_or_harvest"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

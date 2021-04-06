@@ -1,8 +1,0 @@
-{
-    "parent": "tconstruct:block/fancy_item_frame",
-    "textures": {
-        "particle": "tconstruct:block/ardite_block",
-        "wood": "tconstruct:block/ardite_block",
-        "back": "tconstruct:block/item_frame_background"
-    }
-}

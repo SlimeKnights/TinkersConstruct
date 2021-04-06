@@ -101,11 +101,6 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
     if (inputs.size() < 2) {
       throw new IllegalStateException("Invalid alloying recipe " + id + ", must have at least two inputs");
     }
-    for (FluidIngredient input : inputs) {
-      if (input.test(output)) {
-        throw new IllegalStateException("Invalid alloying recipe " + id + ", output contained in inputs");
-      }
-    }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "alloys");
     consumer.accept(new Result(id, advancementId));
   }

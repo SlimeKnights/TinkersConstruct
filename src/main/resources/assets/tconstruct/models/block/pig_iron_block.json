@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "tconstruct:block/pigiron_block_top",
+        "down": "tconstruct:block/pigiron_block_bottom",
+        "up": "tconstruct:block/pigiron_block_top",
+        "north": "tconstruct:block/pigiron_block_front",
+        "east": "tconstruct:block/pigiron_block_right",
+        "south": "tconstruct:block/pigiron_block_back",
+        "west": "tconstruct:block/pigiron_block_left"
+    }
+}

@@ -1,4 +1,12 @@
 {
   "craftable": true,
-  "textColor": "#8E661B"
+  "tier": 1,
+  "sortOrder": 0,
+  "textColor": "#8E661B",
+  "traits": [
+    {
+      "name": "tconstruct:cultivated",
+      "level": 1
+    }
+  ]
 }

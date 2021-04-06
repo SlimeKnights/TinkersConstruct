@@ -1,4 +1,22 @@
 {
+  "condition": {
+    "value": {
+      "tag": "forge:ingots/silver",
+      "type": "forge:tag_empty"
+    },
+    "type": "forge:not"
+  },
   "craftable": false,
-  "textColor": "#D1ECF6"
+  "tier": 2,
+  "sortOrder": 5,
+  "fluid": "tconstruct:molten_silver",
+  "fluidPerUnit": 144,
+  "textColor": "#D1ECF6",
+  "temperature": 790,
+  "traits": [
+    {
+      "name": "tconstruct:holy",
+      "level": 1
+    }
+  ]
 }

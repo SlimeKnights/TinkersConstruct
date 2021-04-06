@@ -1,30 +1,19 @@
 package slimeknights.tconstruct.tables.tileentity.chest;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tables.inventory.chest.ModifierChestContainer;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ModifierChestTileEntity extends TinkerChestTileEntity {
-
   public ModifierChestTileEntity() {
-    super(TinkerTables.modifierChestTile.get(), "gui.tconstruct.modifier_chest", TinkerChestTileEntity.MAX_INVENTORY, 1);
-  }
-
-  @Nullable
-  @Override
-  public Container createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-    return new ModifierChestContainer(menuId, playerInventory, this);
+    // max 64 stacks for the modifier chest
+    super(TinkerTables.modifierChestTile.get(), Util.makeTranslationKey("gui", "modifier_chest"), 64, 64);
   }
 
   @Override
-  public boolean isItemValidForSlot(int slot, @Nonnull ItemStack itemstack) {
-    return itemstack.getItem() instanceof IModifier;
+  public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+    // no duplicate limit, the limit to 64 stacks handles that
+    return ModifierRecipeLookup.isModifier(itemstack.getItem());
   }
 }
