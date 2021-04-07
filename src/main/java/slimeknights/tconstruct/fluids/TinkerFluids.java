@@ -82,7 +82,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenZinc     = FLUIDS.register("molten_zinc",     moltenBuilder().color(0xffd3efe8).temperature( 720), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenPlatinum = FLUIDS.register("molten_platinum", moltenBuilder().color(0xffb5aea4).temperature(1270), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenTungsten = FLUIDS.register("molten_tungsten", moltenBuilder().color(0xffd1c08b).temperature(1250), Material.LAVA, 12);
-  public static final FluidObject<ForgeFlowingFluid> moltenOsmium   = FLUIDS.register("molten_osmium",   moltenBuilder().color(0xffbed3cd).temperature(1700), Material.LAVA, 12);
+  public static final FluidObject<ForgeFlowingFluid> moltenOsmium   = FLUIDS.register("molten_osmium",   moltenBuilder().color(0xffbed3cd).temperature(1275), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenUranium  = FLUIDS.register("molten_uranium",  moltenBuilder().color(0xff7f9374).temperature(1130), Material.LAVA, 12);
 
   // compat alloys
