@@ -2,11 +2,11 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:gadgets/slimeboots/green"
+      "tconstruct:common/slime/sticky_piston"
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_slime_ball": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:gadgets/slimeboots/green"
+        "recipe": "tconstruct:common/slime/sticky_piston"
       }
     }
   },
   "requirements": [
     [
-      "has_item",
+      "has_slime_ball",
       "has_the_recipe"
     ]
   ]

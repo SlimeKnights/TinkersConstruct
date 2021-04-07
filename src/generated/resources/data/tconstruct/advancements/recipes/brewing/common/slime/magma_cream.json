@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:gadgets/slimesling/green"
+      "tconstruct:common/slime/magma_cream"
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_blaze_powder": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "forge:slimeballs"
+            "item": "minecraft:blaze_powder"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:gadgets/slimesling/green"
+        "recipe": "tconstruct:common/slime/magma_cream"
       }
     }
   },
   "requirements": [
     [
-      "has_item",
+      "has_blaze_powder",
       "has_the_recipe"
     ]
   ]
