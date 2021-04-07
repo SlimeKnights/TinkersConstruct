@@ -29,6 +29,7 @@ public enum SmelteryCompat {
   ELECTRUM(TinkerFluids.moltenElectrum, false),
   INVAR(TinkerFluids.moltenInvar, false),
   CONSTANTAN(TinkerFluids.moltenConstantan, false),
+  PEWTER(TinkerFluids.moltenPewter, false),
   STEEL(TinkerFluids.moltenSteel, false);
 
   @Getter

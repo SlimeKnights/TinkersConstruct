@@ -68,6 +68,7 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
     tagLocal(TinkerFluids.moltenElectrum);
     tagLocal(TinkerFluids.moltenInvar);
     tagLocal(TinkerFluids.moltenConstantan);
+    tagLocal(TinkerFluids.moltenPewter);
     tagLocal(TinkerFluids.moltenSteel);
 
     /* Normal tags */

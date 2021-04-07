@@ -907,6 +907,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                       .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.INGOT)
                       .addInput(TinkerFluids.moltenNickel.get(), MaterialValues.INGOT)
                       .build(wrapped, prefixR(TinkerFluids.moltenConstantan, folder));
+
+    // pewter
+    wrapped = withCondition(consumer, tagCondition("ingots/pewter"), tagCondition("ingots/lead"));
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenPewter.get(), MaterialValues.INGOT * 2)
+                      .addInput(TinkerFluids.moltenIron.get(), MaterialValues.INGOT)
+                      .addInput(TinkerFluids.moltenLead.get(), MaterialValues.INGOT)
+                      .build(wrapped, prefixR(TinkerFluids.moltenPewter, folder));
   }
 
   private void addEntityMeltingRecipes(Consumer<IFinishedRecipe> consumer) {

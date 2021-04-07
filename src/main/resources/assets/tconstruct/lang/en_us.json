@@ -568,6 +568,11 @@
     "fluid.tconstruct.flowing_molten_constantan": "Flowing Molten Constantan",
     "item.tconstruct.molten_constantan_bucket": "Molten Constantan Bucket",
 
+    "block.tconstruct.molten_pewter_fluid": "Molten Pewter",
+    "fluid.tconstruct.molten_pewter": "Molten Pewter",
+    "fluid.tconstruct.flowing_molten_pewter": "Flowing Molten Pewter",
+    "item.tconstruct.molten_pewter_bucket": "Molten Pewter Bucket",
+
     "block.tconstruct.molten_steel_fluid": "Molten Steel",
     "fluid.tconstruct.molten_steel": "Molten Steel",
     "fluid.tconstruct.flowing_molten_steel": "Flowing Molten Steel",
