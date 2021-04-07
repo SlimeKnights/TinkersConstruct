@@ -556,7 +556,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, location(folder + "soul/sand"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerCommons.soulGlass), TinkerFluids.liquidSoul.get(), MaterialValues.GLASS_BLOCK, 1.0f)
                         .build(consumer, location(folder + "soul/glass"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerCommons.soulGlassPane), TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_PANE, 0.5f)
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerCommons.soulGlassPane), TinkerFluids.liquidSoul.get(), MaterialValues.GLASS_PANE, 0.5f)
                         .build(consumer, location(folder + "soul/pane"));
 
     // clay

@@ -4,9 +4,9 @@
     "item": "tconstruct:soul_glass_pane"
   },
   "result": {
-    "fluid": "tconstruct:molten_glass",
+    "fluid": "tconstruct:liquid_soul",
     "amount": 250
   },
-  "temperature": 750,
-  "time": 29
+  "temperature": 400,
+  "time": 23
 }
