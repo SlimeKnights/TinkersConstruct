@@ -32,7 +32,7 @@ import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 
 public class MelterTileEntity extends NamableTileEntity implements ITankTileEntity, Tickable {

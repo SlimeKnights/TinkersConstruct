@@ -8,7 +8,7 @@ import net.minecraftforge.fml.hooks.BasicEventHooks;
 import slimeknights.mantle.inventory.CraftingCustomSlot;
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 /**
  * Same as {@link CraftingCustomSlot}, but does not require an crafting inventory

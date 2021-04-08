@@ -33,7 +33,7 @@ import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketRe
 import slimeknights.tconstruct.smeltery.tileentity.tank.ChannelSideTank;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ChannelTank;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 

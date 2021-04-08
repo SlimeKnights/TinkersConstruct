@@ -29,7 +29,7 @@ import slimeknights.mantle.client.model.util.SimpleBlockModel;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;

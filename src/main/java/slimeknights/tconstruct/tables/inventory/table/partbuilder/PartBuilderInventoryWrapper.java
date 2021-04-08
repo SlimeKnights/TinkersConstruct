@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderInventory;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class PartBuilderInventoryWrapper implements IPartBuilderInventory {
   private final PartBuilderTileEntity builder;

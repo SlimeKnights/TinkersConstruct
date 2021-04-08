@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.materials;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.InvalidIdentifierException;
 

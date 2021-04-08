@@ -4,7 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.extensions.IForgeTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 // TODO: move back to Mantle after smeltery is updated
 public interface IServantLogic extends IForgeTileEntity {

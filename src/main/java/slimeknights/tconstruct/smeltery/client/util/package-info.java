@@ -4,4 +4,4 @@ package slimeknights.tconstruct.smeltery.client.util;
 
 import mcp.MethodsReturnNonnullByDefault;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jetbrains.annotations.ParametersAreNonnullByDefault;

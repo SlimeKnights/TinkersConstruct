@@ -38,7 +38,7 @@ import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 public class PiggyBackPackItem extends ArmorTooltipItem {
 

@@ -44,8 +44,8 @@ import slimeknights.tconstruct.smeltery.recipe.TileCastingWrapper;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.MoldingInventoryWrapper;
 import slimeknights.tconstruct.smeltery.tileentity.tank.CastingFluidHandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public abstract class CastingTileEntity extends TableTileEntity implements Tickable, SidedInventory, FluidUpdatePacket.IFluidPacketReceiver {

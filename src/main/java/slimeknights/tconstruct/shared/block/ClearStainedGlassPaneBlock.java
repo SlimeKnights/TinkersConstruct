@@ -5,7 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldView;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class ClearStainedGlassPaneBlock extends ClearGlassPaneBlock {
 

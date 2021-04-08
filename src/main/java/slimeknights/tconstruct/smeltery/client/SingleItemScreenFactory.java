@@ -9,7 +9,7 @@ import slimeknights.mantle.client.screen.BackgroundContainerScreen;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Screen factory for the single item container, one container for multiple backgrounds

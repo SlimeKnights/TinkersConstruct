@@ -23,7 +23,7 @@ import slimeknights.mantle.inventory.MultiModuleContainer;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.ArrayDeque;
 import java.util.Comparator;
 import java.util.List;

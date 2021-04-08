@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /** Capability handler instance for the copper can item */
 @AllArgsConstructor

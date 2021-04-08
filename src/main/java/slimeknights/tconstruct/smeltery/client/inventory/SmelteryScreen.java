@@ -18,7 +18,7 @@ import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> implements IScreenWithFluidTank {
   public static final Identifier BACKGROUND = Util.getResource("textures/gui/smeltery.png");

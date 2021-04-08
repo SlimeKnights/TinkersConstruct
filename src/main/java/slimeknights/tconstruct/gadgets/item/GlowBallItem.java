@@ -20,7 +20,7 @@ import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.GlowballEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class GlowBallItem extends SnowballItem {

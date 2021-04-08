@@ -24,7 +24,7 @@ import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 // TODO: move to common
 public class TinkerNetwork extends NetworkWrapper {

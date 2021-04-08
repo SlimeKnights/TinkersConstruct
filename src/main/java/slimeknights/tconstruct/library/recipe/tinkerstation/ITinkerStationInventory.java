@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Inventory interface for all Tinker Station containers to use

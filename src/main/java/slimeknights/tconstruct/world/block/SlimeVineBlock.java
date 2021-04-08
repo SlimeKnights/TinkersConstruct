@@ -19,7 +19,7 @@ import net.minecraft.world.WorldView;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 import java.util.Random;
 

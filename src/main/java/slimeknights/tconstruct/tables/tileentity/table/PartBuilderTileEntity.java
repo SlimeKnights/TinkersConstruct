@@ -8,7 +8,7 @@ import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class PartBuilderTileEntity extends RetexturedTableTileEntity {
   public static final int MATERIAL_SLOT = 0;

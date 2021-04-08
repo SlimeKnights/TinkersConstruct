@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.materials.json;
 
 import slimeknights.tconstruct.library.materials.MaterialId;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.util.Identifier;
 import java.util.List;
 

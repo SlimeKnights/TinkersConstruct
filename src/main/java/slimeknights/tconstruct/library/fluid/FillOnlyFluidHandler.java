@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 /**
  * Fluid handler wrapper that only allows filling

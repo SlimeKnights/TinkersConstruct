@@ -10,7 +10,7 @@ import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class TinkerChestContainer extends BaseStationContainer<TinkerChestTileEntity> {
   protected SideInventoryContainer<TinkerChestTileEntity> inventory;

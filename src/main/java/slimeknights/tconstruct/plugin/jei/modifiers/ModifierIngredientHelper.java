@@ -4,7 +4,7 @@ import mezz.jei.api.ingredients.IIngredientHelper;
 import net.minecraft.util.Identifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry> {
 

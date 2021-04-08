@@ -18,7 +18,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 

@@ -28,7 +28,7 @@ import slimeknights.tconstruct.smeltery.tileentity.inventory.DuctItemHandler;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.DuctTankWrapper;
 import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Filtered drain tile entity

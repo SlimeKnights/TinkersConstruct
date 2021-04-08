@@ -17,7 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.gadgets.entity.shuriken.ShurikenEntityBase;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.BiFunction;
 

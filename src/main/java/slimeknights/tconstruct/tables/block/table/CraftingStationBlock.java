@@ -5,7 +5,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 public class CraftingStationBlock extends RetexturedTableBlock {
 

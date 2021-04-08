@@ -4,4 +4,4 @@ package slimeknights.tconstruct.shared.tileentity;
 
 import mcp.MethodsReturnNonnullByDefault;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jetbrains.annotations.ParametersAreNonnullByDefault;

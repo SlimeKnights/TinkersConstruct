@@ -14,7 +14,7 @@ import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 // TODO: move back to Mantle after smeltery is updated

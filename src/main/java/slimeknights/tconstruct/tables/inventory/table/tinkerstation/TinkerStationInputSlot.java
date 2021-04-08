@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /** Represents an input slot on the Tinker Station */
 public class TinkerStationInputSlot extends TinkerStationSlot {
