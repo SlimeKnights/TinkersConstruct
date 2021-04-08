@@ -34,7 +34,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Map;

@@ -13,7 +13,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.world.IBlockReader;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 /** Shared logic for smeltery blocks with four directions to face */

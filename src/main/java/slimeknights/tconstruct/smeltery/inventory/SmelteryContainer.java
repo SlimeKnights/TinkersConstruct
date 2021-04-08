@@ -11,7 +11,7 @@ import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class SmelteryContainer extends MultiModuleContainer<SmelteryTileEntity> {

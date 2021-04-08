@@ -22,7 +22,7 @@ import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 import java.util.Random;
 

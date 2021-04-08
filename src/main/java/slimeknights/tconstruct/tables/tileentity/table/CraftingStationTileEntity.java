@@ -23,7 +23,7 @@ import slimeknights.tconstruct.tables.network.UpdateCraftingRecipePacket;
 import slimeknights.tconstruct.tables.tileentity.crafting.CraftingInventoryWrapper;
 import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 
 public class CraftingStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {

@@ -13,7 +13,7 @@ import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.inventory.ItemHandlerSlot;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class SideInventoryContainer<TILE extends TileEntity> extends BaseContainer<TILE> {
 

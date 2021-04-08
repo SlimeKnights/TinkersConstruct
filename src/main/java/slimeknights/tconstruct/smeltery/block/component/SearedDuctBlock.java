@@ -21,7 +21,7 @@ import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.DuctTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /** Filtering drain block, have to reimplement either inventory block logic or seared block logic unfortunately */
 public class SearedDuctBlock extends InventoryBlock {

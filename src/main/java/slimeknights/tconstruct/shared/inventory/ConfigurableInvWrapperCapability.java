@@ -4,7 +4,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 public class ConfigurableInvWrapperCapability extends InvWrapper {
 

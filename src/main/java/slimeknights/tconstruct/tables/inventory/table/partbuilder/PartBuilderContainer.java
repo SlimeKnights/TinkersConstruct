@@ -22,7 +22,7 @@ import slimeknights.tconstruct.tables.client.inventory.table.ResultSlot;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 

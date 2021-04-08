@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 // not part of the tic particle system since it uses vanilla particles
 @OnlyIn(Dist.CLIENT)

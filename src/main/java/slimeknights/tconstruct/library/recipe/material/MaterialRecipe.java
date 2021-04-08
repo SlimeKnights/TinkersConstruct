@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 /**

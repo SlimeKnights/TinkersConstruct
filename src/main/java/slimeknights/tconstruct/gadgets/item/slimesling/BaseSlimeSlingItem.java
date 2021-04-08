@@ -16,7 +16,7 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 public abstract class BaseSlimeSlingItem extends TooltipItem {
 

@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import slimeknights.mantle.block.RetexturedBlock;
 import slimeknights.tconstruct.tables.block.TinkerTableBlock;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class RetexturedTableBlock extends TinkerTableBlock {
   public RetexturedTableBlock(Properties builder) {

@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class OverslimeModifier extends SingleUseModifier {
   private static final String KEY_OVERSLIME_AMOUNT = Util.makeTranslationKey("gui", "amount");

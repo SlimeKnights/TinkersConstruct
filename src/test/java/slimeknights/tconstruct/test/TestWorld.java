@@ -24,7 +24,7 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.WorldInfo;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;

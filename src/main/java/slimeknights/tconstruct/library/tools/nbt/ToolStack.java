@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**

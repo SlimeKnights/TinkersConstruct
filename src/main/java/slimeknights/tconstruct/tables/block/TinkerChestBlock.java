@@ -21,8 +21,8 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 public class TinkerChestBlock extends TinkerTableBlock {

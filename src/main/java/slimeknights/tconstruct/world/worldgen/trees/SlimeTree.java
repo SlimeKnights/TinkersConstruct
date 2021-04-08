@@ -14,7 +14,7 @@ import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 public class SlimeTree extends Tree {

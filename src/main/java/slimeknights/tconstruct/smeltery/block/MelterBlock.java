@@ -18,7 +18,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 import java.util.Random;
 
 public class MelterBlock extends ControllerBlock {

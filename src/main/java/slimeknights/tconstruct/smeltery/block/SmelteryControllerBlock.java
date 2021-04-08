@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 public class SmelteryControllerBlock extends ControllerBlock {

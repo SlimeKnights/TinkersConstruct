@@ -30,7 +30,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;

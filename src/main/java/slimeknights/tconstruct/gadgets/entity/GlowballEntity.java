@@ -17,7 +17,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 public class GlowballEntity extends ProjectileItemEntity implements IEntityAdditionalSpawnData {
 

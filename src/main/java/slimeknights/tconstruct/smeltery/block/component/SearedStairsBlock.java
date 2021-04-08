@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 // TODO: reassess the need

@@ -25,7 +25,7 @@ import slimeknights.tconstruct.world.client.SlimeColorReloadListener;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.client.TinkerSlimeRenderer;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)

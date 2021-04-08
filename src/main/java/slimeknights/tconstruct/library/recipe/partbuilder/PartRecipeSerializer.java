@@ -9,7 +9,7 @@ import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class PartRecipeSerializer extends RecipeSerializer<PartRecipe> {
   @Override

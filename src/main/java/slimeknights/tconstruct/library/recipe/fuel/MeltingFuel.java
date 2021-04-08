@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**

@@ -12,8 +12,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.UUID;
 

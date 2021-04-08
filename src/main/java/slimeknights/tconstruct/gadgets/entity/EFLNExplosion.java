@@ -23,7 +23,7 @@ import net.minecraft.world.ExplosionContext;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 
 public class EFLNExplosion extends Explosion {

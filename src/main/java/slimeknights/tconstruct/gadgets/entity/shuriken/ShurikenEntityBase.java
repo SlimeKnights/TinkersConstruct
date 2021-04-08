@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 public abstract class ShurikenEntityBase extends ProjectileItemEntity implements IEntityAdditionalSpawnData {
 

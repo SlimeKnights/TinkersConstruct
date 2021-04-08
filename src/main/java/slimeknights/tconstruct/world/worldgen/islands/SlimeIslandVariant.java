@@ -14,7 +14,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 import java.util.Objects;
 

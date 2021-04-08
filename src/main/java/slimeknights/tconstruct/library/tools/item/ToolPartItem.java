@@ -28,7 +28,7 @@ import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ToolPartItem extends MaterialItem implements IToolPart {

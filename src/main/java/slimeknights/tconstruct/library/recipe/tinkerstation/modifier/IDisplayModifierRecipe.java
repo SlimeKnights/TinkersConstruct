@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;

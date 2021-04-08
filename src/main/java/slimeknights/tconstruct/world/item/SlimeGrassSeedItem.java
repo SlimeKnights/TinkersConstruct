@@ -16,7 +16,7 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class SlimeGrassSeedItem extends TooltipItem {
   private final FoliageType foliage;

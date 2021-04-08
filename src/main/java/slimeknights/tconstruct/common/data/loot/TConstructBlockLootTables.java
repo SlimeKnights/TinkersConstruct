@@ -31,7 +31,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;

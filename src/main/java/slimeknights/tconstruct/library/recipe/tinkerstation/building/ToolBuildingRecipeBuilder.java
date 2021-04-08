@@ -9,7 +9,7 @@ import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 

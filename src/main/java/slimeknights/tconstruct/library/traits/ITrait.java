@@ -15,7 +15,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 // todo: move defaults to abstractTrait or all abstract to defaults
 

@@ -44,8 +44,8 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;

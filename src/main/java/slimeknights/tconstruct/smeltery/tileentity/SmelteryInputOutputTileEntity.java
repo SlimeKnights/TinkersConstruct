@@ -19,7 +19,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SmelteryIOBlock;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 /**

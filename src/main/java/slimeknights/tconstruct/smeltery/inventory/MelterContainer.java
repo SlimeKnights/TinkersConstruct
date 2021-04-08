@@ -16,7 +16,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class MelterContainer extends BaseContainer<MelterTileEntity> {

@@ -9,7 +9,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 @RequiredArgsConstructor

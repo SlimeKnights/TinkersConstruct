@@ -9,7 +9,7 @@ import net.minecraft.nbt.INBT;
 import net.minecraftforge.common.util.Constants;
 import slimeknights.tconstruct.library.utils.NBTUtil;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * All the stats that every tool must have.

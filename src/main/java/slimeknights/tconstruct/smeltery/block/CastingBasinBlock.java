@@ -11,7 +11,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 public class CastingBasinBlock extends AbstractCastingBlock {
 

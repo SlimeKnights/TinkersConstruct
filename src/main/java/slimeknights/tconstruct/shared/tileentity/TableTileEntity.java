@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 import java.util.function.Consumer;
 
 /**

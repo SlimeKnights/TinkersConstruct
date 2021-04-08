@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.materials;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This is just a copy of ResourceLocation for type safety.

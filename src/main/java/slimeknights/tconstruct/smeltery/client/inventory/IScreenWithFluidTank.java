@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.smeltery.client.inventory;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Interface for JEI support to determine the ingredient under the mouse

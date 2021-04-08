@@ -34,8 +34,8 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 import java.util.function.Supplier;
 

@@ -9,7 +9,7 @@ import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class ToolBuildingRecipeSerializer extends RecipeSerializer<ToolBuildingRecipe> {
 

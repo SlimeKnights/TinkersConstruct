@@ -19,7 +19,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /** Recipe to combine two items on the top of a casting table, changing the first */
 @RequiredArgsConstructor

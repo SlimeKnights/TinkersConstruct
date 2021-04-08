@@ -17,7 +17,7 @@ import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity
 import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Fluid IO extension to display controller fluid

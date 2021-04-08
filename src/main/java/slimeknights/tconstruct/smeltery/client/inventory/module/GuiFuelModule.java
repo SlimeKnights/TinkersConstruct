@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule.FuelInfo;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

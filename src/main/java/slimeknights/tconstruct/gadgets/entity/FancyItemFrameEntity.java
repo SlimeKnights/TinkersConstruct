@@ -22,8 +22,8 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.Nullable;
 
 public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAdditionalSpawnData {
 

@@ -14,7 +14,7 @@ import net.minecraftforge.common.PlantType;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.Nonnull;
 
 public class SlimeSaplingBlock extends SaplingBlock {
 

@@ -52,7 +52,7 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.library.utils.TooltipType;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

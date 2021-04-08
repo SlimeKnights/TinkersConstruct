@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;

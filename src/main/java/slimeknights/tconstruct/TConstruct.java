@@ -49,7 +49,7 @@ import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 /**
@@ -58,7 +58,6 @@ import java.util.Random;
  * @author mDiyo
  */
 
-@SuppressWarnings("unused")
 @Mod(TConstruct.modID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TConstruct {

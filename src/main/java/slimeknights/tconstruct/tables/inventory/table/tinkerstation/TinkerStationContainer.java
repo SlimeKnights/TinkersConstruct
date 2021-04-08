@@ -9,7 +9,7 @@ import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.LazyResultSlot;
 import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class TinkerStationContainer extends BaseStationContainer<TinkerStationTileEntity> {
   private final LazyResultSlot resultSlot;

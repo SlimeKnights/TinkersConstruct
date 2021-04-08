@@ -9,7 +9,7 @@ import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.Constants.NBT;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TagUtil {
