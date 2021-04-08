@@ -1,5 +1,6 @@
 package slimeknights.tconstruct;
 
+import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
@@ -58,10 +59,7 @@ import java.util.Random;
  * @author mDiyo
  */
 
-@SuppressWarnings("unused")
-@Mod(TConstruct.modID)
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class TConstruct {
+public class TConstruct implements ModInitializer {
 
   public static final String modID = Util.MODID;
 
@@ -71,9 +69,8 @@ public class TConstruct {
   /* Instance of this mod, used for grabbing prototype fields */
   public static TConstruct instance;
 
-  public TConstruct() {
-    instance = this;
-
+  @Override
+  public void onInitialize() {
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
 
@@ -100,6 +97,10 @@ public class TConstruct {
     // init client logic
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
     MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  public TConstruct() {
+    instance = this;
   }
 
   @SubscribeEvent

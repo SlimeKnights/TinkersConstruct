@@ -1,7 +1,7 @@
 modLoader="javafml"
 loaderVersion="${loader_range}"
 issueTrackerURL="https://github.com/SlimeKnights/TinkersConstruct/issues"
-logoFile="logo.png"
+logoFile= "../assets/tconstruct/logo.png"
 license="MIT"
 
 [[mods]]

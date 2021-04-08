@@ -1,0 +1,38 @@
+{
+    "schemaVersion": 1,
+    "id": "tconstruct",
+    "version": "${version}",
+
+    "name": "Tinkers' Construct",
+    "description": "A little of this, a little of that, a lot of tinkering, and a lot of tools",
+    "authors": [
+        "Slime Knights",
+        "hydos",
+        "waterpicker"
+    ],
+    "contact": {
+        "homepage": "https://www.curseforge.com/minecraft/mc-mods/tinkers-construct",
+        "sources": "https://github.com/DimensionalDevelopment/TinkersConstruct"
+    },
+
+    "license": "MIT",
+    "icon": "assets/tconstruct/logo.png",
+
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "slimeknights.tconstruct.TConstruct"
+        ]
+    },
+    "mixins": [
+        "tconstruct.mixins.json"
+    ],
+
+    "depends": {
+        "fabricloader": ">=0.7.4",
+        "fabric": "*",
+        "minecraft": "1.16.x"
+    },
+    "suggests": {
+    }
+}
