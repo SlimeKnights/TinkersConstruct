@@ -1,4 +1,4 @@
-# [Tinkers' Construct](http://minecraft.curseforge.com/projects/tinkers-construct)
+# Tinkers' Construct Fabric go brrrr
 
 Modify all the things, then do it again!   
 Melt down any metals you find. 	 
