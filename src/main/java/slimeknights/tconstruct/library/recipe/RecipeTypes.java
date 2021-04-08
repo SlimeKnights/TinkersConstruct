@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe;
 
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -18,24 +18,24 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe
  * Class containing all of Tinkers Construct recipe types
  */
 public interface RecipeTypes {
-  IRecipeType<PartRecipe> PART_BUILDER = register("part_builder");
-  IRecipeType<MaterialRecipe> MATERIAL = register("material");
-  IRecipeType<ITinkerStationRecipe> TINKER_STATION = register("tinker_station");
+  RecipeType<PartRecipe> PART_BUILDER = register("part_builder");
+  RecipeType<MaterialRecipe> MATERIAL = register("material");
+  RecipeType<ITinkerStationRecipe> TINKER_STATION = register("tinker_station");
 
   // casting
-  IRecipeType<ICastingRecipe> CASTING_BASIN = register("casting_basin");
-  IRecipeType<ICastingRecipe> CASTING_TABLE = register("casting_table");
-  IRecipeType<MoldingRecipe> MOLDING_TABLE = register("molding_table");
-  IRecipeType<MoldingRecipe> MOLDING_BASIN = register("molding_basin");
+  RecipeType<ICastingRecipe> CASTING_BASIN = register("casting_basin");
+  RecipeType<ICastingRecipe> CASTING_TABLE = register("casting_table");
+  RecipeType<MoldingRecipe> MOLDING_TABLE = register("molding_table");
+  RecipeType<MoldingRecipe> MOLDING_BASIN = register("molding_basin");
 
   // smeltery
-  IRecipeType<IMeltingRecipe> MELTING = register("melting");
-  IRecipeType<EntityMeltingRecipe> ENTITY_MELTING = register("entity_melting");
-  IRecipeType<MeltingFuel> FUEL = register("fuel");
-  IRecipeType<AlloyRecipe> ALLOYING = register("alloying");
+  RecipeType<IMeltingRecipe> MELTING = register("melting");
+  RecipeType<EntityMeltingRecipe> ENTITY_MELTING = register("entity_melting");
+  RecipeType<MeltingFuel> FUEL = register("fuel");
+  RecipeType<AlloyRecipe> ALLOYING = register("alloying");
 
   // modifiers
-  IRecipeType<BeheadingRecipe> BEHEADING = register("beheading");
+  RecipeType<BeheadingRecipe> BEHEADING = register("beheading");
 
   /**
    * Registers a new recipe type, prefixing with the mod ID
@@ -43,7 +43,7 @@ public interface RecipeTypes {
    * @param <T>   Recipe type
    * @return  Registered recipe type
    */
-  static <T extends IRecipe<?>> IRecipeType<T> register(String name) {
-    return IRecipeType.register(TConstruct.modID + ":" + name);
+  static <T extends Recipe<?>> RecipeType<T> register(String name) {
+    return RecipeType.register(TConstruct.modID + ":" + name);
   }
 }

@@ -1,20 +1,20 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.Setter;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.OrderedText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
@@ -22,7 +22,7 @@ import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
 import slimeknights.tconstruct.library.Util;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +33,7 @@ public class InfoPanelScreen extends ModuleScreen {
   private static final int resW = 118;
   private static final int resH = 75;
 
-  protected static ResourceLocation BACKGROUND_IMAGE = Util.getResource("textures/gui/panel.png");
+  protected static Identifier BACKGROUND_IMAGE = Util.getResource("textures/gui/panel.png");
 
   protected static final ElementScreen TOP_LEFT = new ElementScreen(0, 0, 4, 4, 256, 256);
   protected static final ElementScreen TOP_RIGHT = new ElementScreen(resW + 4, 0, 4, 4);
@@ -58,15 +58,15 @@ public class InfoPanelScreen extends ModuleScreen {
 
   protected SliderWidget slider = new SliderWidget(SLIDER_NORMAL, SLIDER_HOVER, SLIDER_HOVER, SLIDER_TOP, SLIDER_BOTTOM, SLIDER_BAR);
 
-  protected ITextComponent caption;
-  protected List<ITextComponent> text;
-  protected List<ITextComponent> tooltips;
+  protected Text caption;
+  protected List<Text> text;
+  protected List<Text> tooltips;
 
   protected List<Integer> tooltipLines = Lists.newLinkedList();
 
   @Setter
   protected float textScale = 1.0f;
-  public InfoPanelScreen(MultiModuleScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
+  public InfoPanelScreen(MultiModuleScreen parent, ScreenHandler container, PlayerInventory playerInventory, Text title) {
     super(parent, container, playerInventory, title, true, false);
 
     this.border.borderTop = TOP;
@@ -79,20 +79,20 @@ public class InfoPanelScreen extends ModuleScreen {
     this.border.cornerBottomLeft = BOTTOM_LEFT;
     this.border.cornerBottomRight = BOTTOM_RIGHT;
 
-    this.xSize = resW + 8;
-    this.ySize = resH + 8;
+    this.backgroundWidth = resW + 8;
+    this.backgroundHeight = resH + 8;
 
-    this.caption = new TranslationTextComponent("gui.tconstruct.caption");
+    this.caption = new TranslatableText("gui.tconstruct.caption");
     this.text = Lists.newLinkedList();
   }
 
   /** Gets the height to render fonts scaled by the text scale */
   public int getScaledFontHeight() {
-    return (int)Math.ceil(this.font.FONT_HEIGHT * textScale);
+    return (int)Math.ceil(this.textRenderer.fontHeight * textScale);
   }
 
   @Override
-  public void init(Minecraft mc, int width, int height) {
+  public void init(MinecraftClient mc, int width, int height) {
     super.init(mc, width, height);
   }
 
@@ -100,36 +100,36 @@ public class InfoPanelScreen extends ModuleScreen {
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
     super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
 
-    this.border.setPosition(this.guiLeft, this.guiTop);
-    this.border.setSize(this.xSize, this.ySize);
-    this.slider.setPosition(this.guiRight() - this.border.w - 2, this.guiTop + this.border.h + 12);
-    this.slider.setSize(this.ySize - this.border.h * 2 - 2 - 12);
+    this.border.setPosition(this.x, this.y);
+    this.border.setSize(this.backgroundWidth, this.backgroundHeight);
+    this.slider.setPosition(this.guiRight() - this.border.w - 2, this.y + this.border.h + 12);
+    this.slider.setSize(this.backgroundHeight - this.border.h * 2 - 2 - 12);
     this.updateSliderParameters();
   }
 
-  public void setCaption(ITextComponent caption) {
-    this.caption = (IFormattableTextComponent) caption;
+  public void setCaption(Text caption) {
+    this.caption = (MutableText) caption;
     this.updateSliderParameters();
   }
 
-  public void setText(ITextComponent... text) {
-    List<ITextComponent> textComponents = new ArrayList<>(Arrays.asList(text));
+  public void setText(Text... text) {
+    List<Text> textComponents = new ArrayList<>(Arrays.asList(text));
 
     this.setText(textComponents, null);
   }
 
-  public void setText(List<ITextComponent> text) {
+  public void setText(List<Text> text) {
     this.setText(text, null);
   }
 
-  public void setText(List<ITextComponent> text, @Nullable List<ITextComponent> tooltips) {
+  public void setText(List<Text> text, @Nullable List<Text> tooltips) {
     this.text = text;
     this.updateSliderParameters();
 
     this.setTooltips(tooltips);
   }
 
-  protected void setTooltips(@Nullable List<ITextComponent> tooltips) {
+  protected void setTooltips(@Nullable List<Text> tooltips) {
     this.tooltips = tooltips;
   }
 
@@ -142,7 +142,7 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   public boolean hasInitialized() {
-    return this.font != null;
+    return this.textRenderer != null;
   }
 
   public int calcNeededHeight() {
@@ -167,7 +167,7 @@ public class InfoPanelScreen extends ModuleScreen {
     // we assume slider not shown
     this.slider.hide();
 
-    int h = ySize - 2 * 5; // we use 5 as border thickness
+    int h = backgroundHeight - 2 * 5; // we use 5 as border thickness
 
     // check if we can display all lines
     if (this.calcNeededHeight() <= h)
@@ -190,8 +190,8 @@ public class InfoPanelScreen extends ModuleScreen {
     this.slider.setSliderParameters(0, hiddenRows, 1);
   }
 
-  protected List<IReorderingProcessor> getTotalLines() {
-    int w = this.xSize - this.border.w * 2 + 2;
+  protected List<OrderedText> getTotalLines() {
+    int w = this.backgroundWidth - this.border.w * 2 + 2;
 
     if (!this.slider.isHidden()) {
       w -= this.slider.width + 3;
@@ -199,18 +199,18 @@ public class InfoPanelScreen extends ModuleScreen {
 
     w = (int) ((float) w / this.textScale);
 
-    List<IReorderingProcessor> lines = Lists.newLinkedList();
+    List<OrderedText> lines = Lists.newLinkedList();
     this.tooltipLines.clear();
 
-    for (ITextComponent textComponent : this.text) {
+    for (Text textComponent : this.text) {
       this.tooltipLines.add(lines.size());
 
       if (textComponent.getString().isEmpty()) {
-        lines.add(StringTextComponent.EMPTY.func_241878_f());
+        lines.add(LiteralText.EMPTY.asOrderedText());
         continue;
       }
 
-      lines.addAll(this.font.trimStringToWidth(textComponent, w));
+      lines.addAll(this.textRenderer.wrapLines(textComponent, w));
     }
 
     return lines;
@@ -245,37 +245,37 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+  protected void drawForeground(MatrixStack matrixStack, int x, int y) {
    // no-op
   }
 
   @Override
-  protected void renderHoveredTooltip(MatrixStack matrices, int mouseX, int mouseY) {
-    super.renderHoveredTooltip(matrices, mouseX, mouseY);
+  protected void drawMouseoverTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+    super.drawMouseoverTooltip(matrices, mouseX, mouseY);
 
     if (this.tooltips == null) {
       return;
     }
 
-    if (mouseX < this.guiLeft || mouseX > this.guiRight()) {
+    if (mouseX < this.x || mouseX > this.guiRight()) {
       return;
     }
 
     // floating over tooltip info?
     int scaledFontHeight = this.getScaledFontHeight();
-    if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.getStringWidth("?") / 2 && mouseX < this.guiRight()
-        && mouseY > this.guiTop + 5 && mouseY < this.guiTop + 5 + scaledFontHeight) {
-      this.renderTooltip(matrices, this.font.trimStringToWidth(new TranslationTextComponent("gui.tconstruct.general.hover"), 150), mouseX - 155, mouseY);
+    if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.textRenderer.getWidth("?") / 2 && mouseX < this.guiRight()
+        && mouseY > this.y + 5 && mouseY < this.y + 5 + scaledFontHeight) {
+      this.renderOrderedTooltip(matrices, this.textRenderer.wrapLines(new TranslatableText("gui.tconstruct.general.hover"), 150), mouseX - 155, mouseY);
     }
 
     // are we hovering over an entry?
-    float y = getTooltipStart(5 + this.guiTop);
-    float textHeight = (font.FONT_HEIGHT + 0.5f) * this.textScale;
-    float lowerBound = (this.guiTop + this.ySize - 5);
+    float y = getTooltipStart(5 + this.y);
+    float textHeight = (textRenderer.fontHeight + 0.5f) * this.textScale;
+    float lowerBound = (this.y + this.backgroundHeight - 5);
 
     // get the index of the currently hovered line
     int index = -1;
-    ListIterator<IReorderingProcessor> iter = this.getTotalLines().listIterator(slider.getValue());
+    ListIterator<OrderedText> iter = this.getTotalLines().listIterator(slider.getValue());
 
     while (iter.hasNext()) {
       if (y + textHeight > lowerBound) {
@@ -314,9 +314,9 @@ public class InfoPanelScreen extends ModuleScreen {
       w = 100;
     }
 
-    List<IReorderingProcessor> lines = this.font.trimStringToWidth(this.tooltips.get(i), w);
+    List<OrderedText> lines = this.textRenderer.wrapLines(this.tooltips.get(i), w);
 
-    this.renderTooltip(matrices, lines, mouseX, (mouseY - lines.size() * this.getScaledFontHeight() / 2));
+    this.renderOrderedTooltip(matrices, lines, mouseX, (mouseY - lines.size() * this.getScaledFontHeight() / 2));
   }
 
   /**
@@ -330,28 +330,28 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
-    this.minecraft.getTextureManager().bindTexture(BACKGROUND_IMAGE);
+  protected void drawBackground(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+    this.client.getTextureManager().bindTexture(BACKGROUND_IMAGE);
 
     this.border.draw(matrices);
-    BACKGROUND.drawScaled(matrices, this.guiLeft + 4, this.guiTop + 4, this.xSize - 8, this.ySize - 8);
+    BACKGROUND.drawScaled(matrices, this.x + 4, this.y + 4, this.backgroundWidth - 8, this.backgroundHeight - 8);
 
-    float y = 5 + this.guiTop;
-    float x = 5 + this.guiLeft;
+    float y = 5 + this.y;
+    float x = 5 + this.x;
     int color = 0xfff0f0f0;
 
     // info ? in the top right corner
     if (this.hasTooltips()) {
-      this.font.drawString(matrices, "?", guiRight() - this.border.w - this.font.getStringWidth("?") / 2f, this.guiTop + 5, 0xff5f5f5f);
+      this.textRenderer.draw(matrices, "?", guiRight() - this.border.w - this.textRenderer.getWidth("?") / 2f, this.y + 5, 0xff5f5f5f);
     }
 
     // draw caption
     int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasCaption()) {
-      int x2 = this.xSize / 2;
-      x2 -= this.font.getStringPropertyWidth(this.caption) / 2;
+      int x2 = this.backgroundWidth / 2;
+      x2 -= this.textRenderer.getWidth(this.caption) / 2;
 
-      this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE).func_241878_f(), (float) this.guiLeft + x2, y, color);
+      this.textRenderer.drawWithShadow(matrices, this.caption.copy().formatted(Formatting.UNDERLINE).asOrderedText(), (float) this.x + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
@@ -360,27 +360,27 @@ public class InfoPanelScreen extends ModuleScreen {
       return;
     }
 
-    float textHeight = font.FONT_HEIGHT + 0.5f;
-    float lowerBound = (this.guiTop + this.ySize - 5) / this.textScale;
+    float textHeight = textRenderer.fontHeight + 0.5f;
+    float lowerBound = (this.y + this.backgroundHeight - 5) / this.textScale;
     RenderSystem.scalef(this.textScale, this.textScale, 1.0f);
     x /= this.textScale;
     y /= this.textScale;
 
     // render shown lines
-    ListIterator<IReorderingProcessor> iter = this.getTotalLines().listIterator(this.slider.getValue());
+    ListIterator<OrderedText> iter = this.getTotalLines().listIterator(this.slider.getValue());
     while (iter.hasNext()) {
       if (y + textHeight - 0.5f > lowerBound) {
         break;
       }
 
-      IReorderingProcessor line = iter.next();
-      this.font.func_238407_a_(matrices, line, x, y, color);
+      OrderedText line = iter.next();
+      this.textRenderer.drawWithShadow(matrices, line, x, y, color);
       y += textHeight;
     }
 
     RenderSystem.scalef(1f / textScale, 1f / textScale, 1.0f);
 
-    this.minecraft.getTextureManager().bindTexture(BACKGROUND_IMAGE);
+    this.client.getTextureManager().bindTexture(BACKGROUND_IMAGE);
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     this.slider.update(mouseX, mouseY);
     this.slider.draw(matrices);

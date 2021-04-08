@@ -13,12 +13,12 @@ public class PartChestTileEntity extends TinkerChestTileEntity {
   }
 
   @Override
-  public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+  public boolean isValid(int slot, ItemStack itemstack) {
     // check if there is no other slot containing that item
-    for (int i = 0; i < this.getSizeInventory(); i++) {
+    for (int i = 0; i < this.size(); i++) {
       // don't compare count
-      if (ItemStack.areItemsEqual(itemstack, this.getStackInSlot(i))
-        && ItemStack.areItemStackTagsEqual(itemstack, this.getStackInSlot(i))) {
+      if (ItemStack.areItemsEqualIgnoreDamage(itemstack, this.getStack(i))
+        && ItemStack.areTagsEqual(itemstack, this.getStack(i))) {
         return i == slot; // only allowed in the same slot
       }
     }

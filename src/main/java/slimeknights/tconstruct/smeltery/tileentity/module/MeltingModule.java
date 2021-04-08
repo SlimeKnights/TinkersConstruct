@@ -3,8 +3,8 @@ package slimeknights.tconstruct.smeltery.tileentity.module;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.IIntArray;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  * This class represents a single item slot that can melt into a liquid
  */
 @RequiredArgsConstructor
-public class MeltingModule implements IMeltingInventory, IIntArray {
+public class MeltingModule implements IMeltingInventory, PropertyDelegate {
   public static final int NO_SPACE = -1;
 
   private static final String TAG_CURRENT_TIME = "time";
@@ -81,7 +81,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
   public void setStack(ItemStack newStack) {
     // send a slot update to the client when items change, so we can update the TESR
     World world = parent.getWorld();
-    if (slotIndex != -1 && world != null && !world.isRemote && !ItemStack.areItemStacksEqual(stack, newStack)) {
+    if (slotIndex != -1 && world != null && !world.isClient && !ItemStack.areEqual(stack, newStack)) {
       TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, slotIndex, parent.getPos()), world, parent.getPos());
     }
 
@@ -178,7 +178,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
       return last;
     }
     // if that fails, try to find a new recipe
-    Optional<IMeltingRecipe> newRecipe = world.getRecipeManager().getRecipe(RecipeTypes.MELTING, this, world);
+    Optional<IMeltingRecipe> newRecipe = world.getRecipeManager().getFirstMatch(RecipeTypes.MELTING, this, world);
     if (newRecipe.isPresent()) {
       lastRecipe = newRecipe.get();
       return lastRecipe;
@@ -216,10 +216,10 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    * Writes this module to NBT
    * @return  Module in NBT
    */
-  public CompoundNBT writeToNBT() {
-    CompoundNBT nbt = new CompoundNBT();
+  public CompoundTag writeToNBT() {
+    CompoundTag nbt = new CompoundTag();
     if (!stack.isEmpty()) {
-      stack.write(nbt);
+      stack.toTag(nbt);
       nbt.putInt(TAG_CURRENT_TIME, currentTime);
       nbt.putInt(TAG_REQUIRED_TIME, requiredTime);
       nbt.putInt(TAG_REQUIRED_TEMP, requiredTemp);
@@ -231,8 +231,8 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
    * Reads this module from NBT
    * @param nbt  NBT
    */
-  public void readFromNBT(CompoundNBT nbt) {
-    stack = ItemStack.read(nbt);
+  public void readFromNBT(CompoundTag nbt) {
+    stack = ItemStack.fromTag(nbt);
     if (!stack.isEmpty()) {
       currentTime = nbt.getInt(TAG_CURRENT_TIME);
       requiredTime = nbt.getInt(TAG_REQUIRED_TIME);

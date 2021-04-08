@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.resources.IResourceManager;
+import net.minecraft.resource.ResourceManager;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
 
@@ -48,7 +48,7 @@ public class RecipeCacheInvalidator implements IEarlySafeManagerReloadListener {
   }
 
   @Override
-  public void onReloadSafe(IResourceManager resourceManager) {
+  public void onReloadSafe(ResourceManager resourceManager) {
     reload(false);
   }
 

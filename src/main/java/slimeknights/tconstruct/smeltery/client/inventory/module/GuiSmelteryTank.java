@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClickedPacket;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -28,7 +28,7 @@ public class GuiSmelteryTank {
   public static final String TOOLTIP_AVAILABLE = Util.makeTranslationKey("gui", "melting.available");
   public static final String TOOLTIP_USED = Util.makeTranslationKey("gui", "melting.used");
 
-  private final ContainerScreen<?> parent;
+  private final HandledScreen<?> parent;
   private final SmelteryTank tank;
   private final int x, y, width, height;
 
@@ -110,8 +110,8 @@ public class GuiSmelteryTank {
    * @param mouseY    Mouse Y
    */
   public void renderHighlight(MatrixStack matrices, int mouseX, int mouseY) {
-    int checkX = mouseX - parent.guiLeft;
-    int checkY = mouseY - parent.guiTop;
+    int checkX = mouseX - parent.x;
+    int checkY = mouseY - parent.y;
     if (withinTank(checkX, checkY)) {
       int[] heights = calcLiquidHeights(false);
       int hovered = getFluidFromMouse(heights, checkY);
@@ -139,27 +139,27 @@ public class GuiSmelteryTank {
    */
   public void drawTooltip(MatrixStack matrices, int mouseX, int mouseY) {
     // Liquids
-    int checkX = mouseX - parent.guiLeft;
-    int checkY = mouseY - parent.guiTop;
+    int checkX = mouseX - parent.x;
+    int checkY = mouseY - parent.y;
     if (withinTank(checkX, checkY)) {
       int hovered = getFluidFromMouse(calcLiquidHeights(false), checkY);
-      List<ITextComponent> tooltip;
+      List<Text> tooltip;
       if (hovered == -1) {
-        BiConsumer<Integer, List<ITextComponent>> formatter =
+        BiConsumer<Integer, List<Text>> formatter =
           Util.isShiftKeyDown() ? FluidTooltipHandler::appendBuckets : FluidTooltipHandler::appendIngots;
 
         tooltip = new ArrayList<>();
-        tooltip.add(new TranslationTextComponent(TOOLTIP_CAPACITY));
+        tooltip.add(new TranslatableText(TOOLTIP_CAPACITY));
 
         formatter.accept(tank.getCapacity(), tooltip);
         int remaining = tank.getRemainingSpace();
         if (remaining > 0) {
-          tooltip.add(new TranslationTextComponent(TOOLTIP_AVAILABLE));
+          tooltip.add(new TranslatableText(TOOLTIP_AVAILABLE));
           formatter.accept(remaining, tooltip);
         }
         int used = tank.getContained();
         if (used > 0) {
-          tooltip.add(new TranslationTextComponent(TOOLTIP_USED));
+          tooltip.add(new TranslatableText(TOOLTIP_USED));
           formatter.accept(used, tooltip);
         }
         FluidTooltipHandler.appendShift(tooltip);
@@ -167,7 +167,7 @@ public class GuiSmelteryTank {
       else {
         tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluidInTank(hovered));
       }
-      parent.func_243308_b(matrices, tooltip, mouseX, mouseY);
+      parent.renderTooltip(matrices, tooltip, mouseX, mouseY);
     }
   }
 

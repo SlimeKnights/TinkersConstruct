@@ -1,33 +1,35 @@
 package slimeknights.tconstruct.smeltery.block;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 
-import org.jetbrains.annotations.Nonnull;
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class MelterBlock extends ControllerBlock {
-  public MelterBlock(Properties props) {
+  public MelterBlock(Settings props) {
     super(props);
   }
 
   @Override
-  public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+  public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
     if (state.get(ACTIVE)) {
       double x = pos.getX() + 0.5D;
       double y = (double) pos.getY() + (rand.nextFloat() * 6F) / 16F;
@@ -53,17 +55,17 @@ public class MelterBlock extends ControllerBlock {
   }
 
   @Override
-  public BlockState getStateForPlacement(BlockItemUseContext context) {
-    BlockState state = super.getStateForPlacement(context);
+  public BlockState getPlacementState(ItemPlacementContext context) {
+    BlockState state = super.getPlacementState(context);
     if (state != null) {
-      return state.with(ACTIVE, isValidFuelSource(context.getWorld().getBlockState(context.getPos().down())));
+      return state.with(ACTIVE, isValidFuelSource(context.getWorld().getBlockState(context.getBlockPos().down())));
     }
     return null;
   }
 
   @Deprecated
   @Override
-  public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState neighbor, IWorld world, BlockPos pos, BlockPos neighborPos) {
+  public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighbor, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
     if (direction == Direction.DOWN) {
       return state.with(ACTIVE, isValidFuelSource(neighbor));
     }
@@ -77,13 +79,13 @@ public class MelterBlock extends ControllerBlock {
 
   @Deprecated
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+  @Environment(EnvType.CLIENT)
+  public float getAmbientOcclusionLightLevel(BlockState state, BlockView worldIn, BlockPos pos) {
     return 1.0F;
   }
 
   @Override
-  public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+  public boolean isTranslucent(BlockState state, BlockView reader, BlockPos pos) {
     return true;
   }
 
@@ -94,17 +96,17 @@ public class MelterBlock extends ControllerBlock {
 
   @Nonnull
   @Override
-  public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
+  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
     return new MelterTileEntity();
   }
 
   @Deprecated
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+  public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
     if (ITankTileEntity.interactWithTank(world, pos, player, hand, hit)) {
-      return ActionResultType.SUCCESS;
+      return ActionResult.SUCCESS;
     }
-    return super.onBlockActivated(state, world, pos, player, hand, hit);
+    return super.onUse(state, world, pos, player, hand, hit);
   }
 
 
@@ -114,13 +116,13 @@ public class MelterBlock extends ControllerBlock {
 
   @Deprecated
   @Override
-  public boolean hasComparatorInputOverride(BlockState state) {
+  public boolean hasComparatorOutput(BlockState state) {
     return true;
   }
 
   @Deprecated
   @Override
-  public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
+  public int getComparatorOutput(BlockState blockState, World worldIn, BlockPos pos) {
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 }

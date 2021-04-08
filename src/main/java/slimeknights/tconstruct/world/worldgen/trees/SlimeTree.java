@@ -2,22 +2,22 @@ package slimeknights.tconstruct.world.worldgen.trees;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.trees.Tree;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Random;
 
-public class SlimeTree extends Tree {
+public class SlimeTree extends SaplingGenerator {
 
   private final SlimeGrassBlock.FoliageType foliageType;
 
@@ -28,12 +28,12 @@ public class SlimeTree extends Tree {
   @Deprecated
   @Nullable
   @Override
-  protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
+  protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random randomIn, boolean largeHive) {
     return null;
   }
 
   /**
-   * Get a {@link net.minecraft.world.gen.feature.ConfiguredFeature} of tree
+   * Get a {@link ConfiguredFeature} of tree
    */
   @Nullable
   public ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random randomIn, boolean largeHive) {
@@ -52,8 +52,8 @@ public class SlimeTree extends Tree {
   }
 
   @Override
-  public boolean attemptGrowTree(ServerWorld world, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, Random rand) {
-    ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> configuredFeature = this.getSlimeTreeFeature(rand, this.hasNearbyFlora(world, pos));
+  public boolean generate(ServerWorld world, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, Random rand) {
+    ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> configuredFeature = this.getSlimeTreeFeature(rand, this.method_24282(world, pos));
     if (configuredFeature == null) {
       return false;
     }
@@ -72,8 +72,8 @@ public class SlimeTree extends Tree {
     }
   }
 
-  private boolean hasNearbyFlora(IWorld world, BlockPos pos) {
-    for (BlockPos blockpos : BlockPos.Mutable.getAllInBoxMutable(pos.down().north(2).west(2), pos.up().south(2).east(2))) {
+  private boolean method_24282(WorldAccess world, BlockPos pos) {
+    for (BlockPos blockpos : BlockPos.Mutable.iterate(pos.down().north(2).west(2), pos.up().south(2).east(2))) {
       if (world.getBlockState(blockpos).isIn(BlockTags.FLOWERS)) {
         return true;
       }

@@ -2,14 +2,14 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import lombok.Getter;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Tickable;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -32,10 +32,10 @@ import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Collections;
 
-public class MelterTileEntity extends NamableTileEntity implements ITankTileEntity, ITickableTileEntity {
+public class MelterTileEntity extends NamableTileEntity implements ITankTileEntity, Tickable {
   /** Max capacity for the tank */
   private static final int TANK_CAPACITY = MaterialValues.METAL_BLOCK;
   /* tags */
@@ -75,13 +75,13 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
 
   /** Extendable constructor */
   @SuppressWarnings("WeakerAccess")
-  protected MelterTileEntity(TileEntityType<? extends MelterTileEntity> type) {
-    super(type, new TranslationTextComponent(Util.makeTranslationKey("gui", "melter")));
+  protected MelterTileEntity(BlockEntityType<? extends MelterTileEntity> type) {
+    super(type, new TranslatableText(Util.makeTranslationKey("gui", "melter")));
   }
 
   @Nullable
   @Override
-  public Container createMenu(int id, PlayerInventory inv, PlayerEntity playerEntity) {
+  public ScreenHandler createMenu(int id, PlayerInventory inv, PlayerEntity playerEntity) {
     return new MelterContainer(id, inv, this);
   }
 
@@ -128,8 +128,8 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
 
   /** Checks if the tile entity is active */
   private boolean isActive() {
-    BlockState state = this.getBlockState();
-    return state.hasProperty(MelterBlock.ACTIVE) && state.get(MelterBlock.ACTIVE);
+    BlockState state = this.getCachedState();
+    return state.contains(MelterBlock.ACTIVE) && state.get(MelterBlock.ACTIVE);
   }
 
   @Override
@@ -166,8 +166,8 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
    */
 
   @Override
-  public void read(BlockState state, CompoundNBT tag) {
-    super.read(state, tag);
+  public void fromTag(BlockState state, CompoundTag tag) {
+    super.fromTag(state, tag);
     tank.readFromNBT(tag.getCompound(Tags.TANK));
     fuelModule.readFromNBT(tag);
     if (tag.contains(TAG_INVENTORY, NBT.TAG_COMPOUND)) {
@@ -176,14 +176,14 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   }
 
   @Override
-  public void writeSynced(CompoundNBT tag) {
-    tag.put(Tags.TANK, tank.writeToNBT(new CompoundNBT()));
+  public void writeSynced(CompoundTag tag) {
+    tag.put(Tags.TANK, tank.writeToNBT(new CompoundTag()));
     tag.put(TAG_INVENTORY, meltingInventory.writeToNBT());
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    tag = super.write(tag);
+  public CompoundTag toTag(CompoundTag tag) {
+    tag = super.toTag(tag);
     fuelModule.writeToNBT(tag);
     return tag;
   }
@@ -193,6 +193,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
    */
   /** Checks if we are on a server world */
   private boolean isServerWorld() {
-    return this.getWorld() != null && !this.getWorld().isRemote;
+    return this.getWorld() != null && !this.getWorld().isClient;
   }
 }

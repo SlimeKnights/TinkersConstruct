@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.fluid;
 
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -24,7 +24,7 @@ public class FluidTankBase<T extends MantleTileEntity> extends FluidTank {
 
     parent.markDirty();
     World world = parent.getWorld();
-    if(!world.isRemote) {
+    if(!world.isClient) {
       TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(parent.getPos(), this.getFluid()), (ServerWorld) world, parent.getPos());
     }
   }

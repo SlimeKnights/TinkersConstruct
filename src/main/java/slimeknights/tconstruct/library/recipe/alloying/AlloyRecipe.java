@@ -5,11 +5,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -23,7 +21,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
@@ -35,7 +33,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   @Getter
-  private final ResourceLocation id;
+  private final Identifier id;
   /**
    * List of input ingredients.
    * Order matters, as if a fluid matches multiple ingredients it may produce unexpected behavior.
@@ -200,19 +198,19 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   }
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RecipeTypes.ALLOYING;
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.alloyingSerializer.get();
   }
 
   public static class Serializer extends RecipeSerializer<AlloyRecipe> {
     @Override
-    public AlloyRecipe read(ResourceLocation id, JsonObject json) {
-      FluidStack result = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
+    public AlloyRecipe read(Identifier id, JsonObject json) {
+      FluidStack result = RecipeHelper.deserializeFluidStack(net.minecraft.util.JsonHelper.getObject(json, "result"));
       List<FluidIngredient> inputs = JsonHelper.parseList(json, "inputs", FluidIngredient::deserialize);
 
       // ensure result is not part of any inputs, that would be bad and not clear to the user whats happening
@@ -224,12 +222,12 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
           throw new JsonSyntaxException("Result fluid contained in input in alloy recipe " + id);
         }
       }
-      int temperature = JSONUtils.getInt(json, "temperature");
+      int temperature = net.minecraft.util.JsonHelper.getInt(json, "temperature");
       return new AlloyRecipe(id, inputs, result, temperature);
     }
 
     @Override
-    public void write(PacketBuffer buffer, AlloyRecipe recipe) {
+    public void write(PacketByteBuf buffer, AlloyRecipe recipe) {
       buffer.writeFluidStack(recipe.output);
       buffer.writeVarInt(recipe.inputs.size());
       for (FluidIngredient input : recipe.inputs) {
@@ -240,7 +238,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
 
     @Nullable
     @Override
-    public AlloyRecipe read(ResourceLocation id, PacketBuffer buffer) {
+    public AlloyRecipe read(Identifier id, PacketByteBuf buffer) {
       FluidStack output = buffer.readFluidStack();
       int inputCount = buffer.readVarInt();
       ImmutableList.Builder<FluidIngredient> builder = ImmutableList.builder();

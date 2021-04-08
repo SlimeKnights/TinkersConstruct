@@ -6,13 +6,13 @@ import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldView;
 import net.minecraftforge.fluids.FluidAttributes;
 
 import java.util.function.Supplier;
@@ -24,27 +24,27 @@ public class UnplaceableFluid extends Fluid {
   private final FluidAttributes.Builder builder;
 
   @Override
-  public Item getFilledBucket() {
+  public Item getBucketItem() {
     return bucket.get();
   }
 
   @Override
-  protected boolean canDisplace(FluidState p_215665_1_, IBlockReader p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
+  protected boolean canBeReplacedWith(FluidState p_215665_1_, BlockView p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
     return false;
   }
 
   @Override
-  public int getTickRate(IWorldReader p_205569_1_) {
+  public int getTickRate(WorldView p_205569_1_) {
     return 5;
   }
 
   @Override
-  protected float getExplosionResistance() {
+  protected float getBlastResistance() {
     return 100;
   }
 
   @Override
-  protected BlockState getBlockState(FluidState state) {
+  protected BlockState toBlockState(FluidState state) {
     return Blocks.AIR.getDefaultState();
   }
 
@@ -57,12 +57,12 @@ public class UnplaceableFluid extends Fluid {
   /* Required methods */
 
   @Override
-  protected Vector3d getFlow(IBlockReader p_215663_1_, BlockPos p_215663_2_, FluidState p_215663_3_) {
-    return new Vector3d(0, 0, 0);
+  protected Vec3d getVelocity(BlockView p_215663_1_, BlockPos p_215663_2_, FluidState p_215663_3_) {
+    return new Vec3d(0, 0, 0);
   }
 
   @Override
-  public boolean isSource(FluidState state) {
+  public boolean isStill(FluidState state) {
     return false;
   }
 
@@ -72,7 +72,7 @@ public class UnplaceableFluid extends Fluid {
   }
 
   @Override
-  public float getActualHeight(FluidState p_215662_1_, IBlockReader p_215662_2_, BlockPos p_215662_3_) {
+  public float getHeight(FluidState p_215662_1_, BlockView p_215662_2_, BlockPos p_215662_3_) {
     return 1;
   }
 
@@ -82,7 +82,7 @@ public class UnplaceableFluid extends Fluid {
   }
 
   @Override
-  public VoxelShape func_215664_b(FluidState p_215664_1_, IBlockReader p_215664_2_, BlockPos p_215664_3_) {
+  public VoxelShape getShape(FluidState p_215664_1_, BlockView p_215664_2_, BlockPos p_215664_3_) {
     return VoxelShapes.fullCube();
   }
 }

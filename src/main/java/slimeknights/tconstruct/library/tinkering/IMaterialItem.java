@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.tinkering;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IItemProvider;
 import slimeknights.tconstruct.library.materials.IMaterial;
 
 /**
  * Items implementing this interface contain a material
  */
-public interface IMaterialItem extends IItemProvider {
+public interface IMaterialItem extends ItemConvertible {
   /**
    * Returns the material of the part this itemstack holds.
    *
@@ -53,7 +53,7 @@ public interface IMaterialItem extends IItemProvider {
       if (stack.hasTag()) {
         assert stack.getTag() != null;
         assert output.getTag() != null;
-        output.getTag().merge(stack.getTag());
+        output.getTag().copyFrom(stack.getTag());
       }
       return output;
     }

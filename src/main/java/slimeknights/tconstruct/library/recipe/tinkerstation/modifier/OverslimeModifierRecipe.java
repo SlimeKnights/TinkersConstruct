@@ -3,12 +3,10 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.RecipeSerializer;
@@ -26,7 +24,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,11 +36,11 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   private static final ValidatedResult AT_CAPACITY = ValidatedResult.failure(Util.makeTranslationKey("recipe", "overslime.at_capacity"));
 
   @Getter
-  private final ResourceLocation id;
+  private final Identifier id;
   private final Ingredient ingredient;
   private final int restoreAmount;
 
-  public OverslimeModifierRecipe(ResourceLocation id, Ingredient ingredient, int restoreAmount) {
+  public OverslimeModifierRecipe(Identifier id, Ingredient ingredient, int restoreAmount) {
     this.id = id;
     this.ingredient = ingredient;
     this.restoreAmount = restoreAmount;
@@ -114,12 +112,12 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   /** @deprecated use {@link #getCraftingResult(ITinkerStationInventory)} */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getOutput() {
     return ItemStack.EMPTY;
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.overslimeSerializer.get();
   }
 
@@ -135,16 +133,16 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   public List<List<ItemStack>> getDisplayItems() {
     if (displayItems == null) {
       // set cap and amount based on the restore amount for output
-      CompoundNBT volatileNBT = new CompoundNBT();
+      CompoundTag volatileNBT = new CompoundTag();
       ModDataNBT volatileData = ModDataNBT.readFromNBT(volatileNBT);
       OverslimeModifier.setCap(volatileData, 500);
-      CompoundNBT persistentNBT = new CompoundNBT();
+      CompoundTag persistentNBT = new CompoundTag();
       OverslimeModifier.setOverslime(ToolDefinition.EMPTY, ModDataNBT.readFromNBT(persistentNBT), volatileData, restoreAmount);
       List<ItemStack> displayOutputs = IDisplayModifierRecipe.getAllModifiable()
                                                              .map(MAP_TOOL_FOR_RENDERING)
                                                              .map(stack -> {
                                                                ItemStack result = IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get());
-                                                               CompoundNBT nbt = result.getOrCreateTag();
+                                                               CompoundTag nbt = result.getOrCreateTag();
                                                                nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
                                                                nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);
                                                                return result;
@@ -153,7 +151,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
       displayItems = Arrays.asList(
         displayOutputs,
         DISPLAY_TOOLS.get(),
-        Arrays.asList(ingredient.getMatchingStacks()));
+        Arrays.asList(ingredient.getMatchingStacksClient()));
     }
     return displayItems;
   }
@@ -165,22 +163,22 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
   public static class Serializer extends RecipeSerializer<OverslimeModifierRecipe> {
     @Override
-    public OverslimeModifierRecipe read(ResourceLocation id, JsonObject json) {
-      Ingredient ingredient = Ingredient.deserialize(JsonHelper.getElement(json, "ingredient"));
-      int restoreAmount = JSONUtils.getInt(json, "restore_amount");
+    public OverslimeModifierRecipe read(Identifier id, JsonObject json) {
+      Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
+      int restoreAmount = net.minecraft.util.JsonHelper.getInt(json, "restore_amount");
       return new OverslimeModifierRecipe(id, ingredient, restoreAmount);
     }
 
     @Nullable
     @Override
-    public OverslimeModifierRecipe read(ResourceLocation id, PacketBuffer buffer) {
-      Ingredient ingredient = Ingredient.read(buffer);
+    public OverslimeModifierRecipe read(Identifier id, PacketByteBuf buffer) {
+      Ingredient ingredient = Ingredient.fromPacket(buffer);
       int restoreAmount = buffer.readVarInt();
       return new OverslimeModifierRecipe(id, ingredient, restoreAmount);
     }
 
     @Override
-    public void write(PacketBuffer buffer, OverslimeModifierRecipe recipe) {
+    public void write(PacketByteBuf buffer, OverslimeModifierRecipe recipe) {
       recipe.ingredient.write(buffer);
       buffer.writeVarInt(recipe.restoreAmount);
     }

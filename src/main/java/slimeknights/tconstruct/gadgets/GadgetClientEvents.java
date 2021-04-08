@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.gadgets;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.entity.SpriteRenderer;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -35,25 +35,25 @@ public class GadgetClientEvents extends ClientEventBase {
     //}
 
     for (FrameType frameType : FrameType.values()) {
-      ModelLoader.addSpecialModel(new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getString() + "_frame_empty"), "inventory"));
-      ModelLoader.addSpecialModel(new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getString() + "_frame_map"), "inventory"));
+      ModelLoader.addSpecialModel(new ModelIdentifier(new Identifier(TConstruct.modID, frameType.asString() + "_frame_empty"), "inventory"));
+      ModelLoader.addSpecialModel(new ModelIdentifier(new Identifier(TConstruct.modID, frameType.asString() + "_frame_map"), "inventory"));
     }
   }
 
   @SubscribeEvent
   static void clientSetup(FMLClientSetupEvent event) {
-    Minecraft mc = Minecraft.getInstance();
+    MinecraftClient mc = MinecraftClient.getInstance();
 
-    RenderTypeLookup.setRenderLayer(TinkerGadgets.stoneLadder.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerGadgets.stoneTorch.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerGadgets.wallStoneTorch.get(), RenderType.getCutout());
+    RenderLayers.setRenderLayer(TinkerGadgets.stoneLadder.get(), RenderLayer.getCutout());
+    RenderLayers.setRenderLayer(TinkerGadgets.stoneTorch.get(), RenderLayer.getCutout());
+    RenderLayers.setRenderLayer(TinkerGadgets.wallStoneTorch.get(), RenderLayer.getCutout());
 
-    RenderTypeLookup.setRenderLayer(TinkerGadgets.woodenRail.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerGadgets.woodenDropperRail.get(), RenderType.getCutout());
+    RenderLayers.setRenderLayer(TinkerGadgets.woodenRail.get(), RenderLayer.getCutout());
+    RenderLayers.setRenderLayer(TinkerGadgets.woodenDropperRail.get(), RenderLayer.getCutout());
 
     RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.itemFrameEntity.get(), (manager) -> new FancyItemFrameRenderer(manager, mc.getItemRenderer()));
-    RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.glowBallEntity.get(), (manager) -> new SpriteRenderer<>(manager, mc.getItemRenderer()));
-    RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.eflnEntity.get(), (manager) -> new SpriteRenderer<>(manager, mc.getItemRenderer()));
+    RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.glowBallEntity.get(), (manager) -> new FlyingItemEntityRenderer<>(manager, mc.getItemRenderer()));
+    RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.eflnEntity.get(), (manager) -> new FlyingItemEntityRenderer<>(manager, mc.getItemRenderer()));
     RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.quartzShurikenEntity.get(), (manager) -> new RenderShuriken(manager, mc.getItemRenderer()));
     RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.flintShurikenEntity.get(), (manager) -> new RenderShuriken(manager, mc.getItemRenderer()));
   }

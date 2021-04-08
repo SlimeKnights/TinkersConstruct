@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 
 import java.util.Collections;
@@ -40,7 +40,7 @@ public class SlotInformation {
     Item item = Items.AIR;
 
     if (json.has("item")) {
-      item = JSONUtils.getItem(json, "item");
+      item = JsonHelper.getItem(json, "item");
     }
 
     SlotPosition slotPosition = new SlotPosition(-1, -1);
@@ -49,7 +49,7 @@ public class SlotInformation {
       slotPosition = SlotPosition.fromJson(json.get("tool").getAsJsonObject());
     }
 
-    int sortIndex = JSONUtils.getInt(json, "sortIndex");
+    int sortIndex = JsonHelper.getInt(json, "sortIndex");
 
     return new SlotInformation(slots, slotPosition, item, sortIndex);
   }

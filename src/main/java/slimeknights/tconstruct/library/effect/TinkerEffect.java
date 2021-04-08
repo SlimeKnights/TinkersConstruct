@@ -1,19 +1,19 @@
 package slimeknights.tconstruct.library.effect;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectType;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffectType;
 
-public class TinkerEffect extends Effect {
+public class TinkerEffect extends StatusEffect {
 
   private final boolean show;
 
-  public TinkerEffect(EffectType typeIn, boolean show) {
+  public TinkerEffect(StatusEffectType typeIn, boolean show) {
     this(typeIn, 0xffffff, show);
   }
 
-  public TinkerEffect(EffectType typeIn, int color, boolean show) {
+  public TinkerEffect(StatusEffectType typeIn, int color, boolean show) {
     super(typeIn, color);
     this.show = show;
   }
@@ -21,17 +21,17 @@ public class TinkerEffect extends Effect {
   /* Visibility */
 
   @Override
-  public boolean shouldRender(EffectInstance effect) {
+  public boolean shouldRender(StatusEffectInstance effect) {
     return this.show;
   }
 
   @Override
-  public boolean shouldRenderInvText(EffectInstance effect) {
+  public boolean shouldRenderInvText(StatusEffectInstance effect) {
     return this.show;
   }
 
   @Override
-  public boolean shouldRenderHUD(EffectInstance effect) {
+  public boolean shouldRenderHUD(StatusEffectInstance effect) {
     return this.show;
   }
 
@@ -44,7 +44,7 @@ public class TinkerEffect extends Effect {
    * @param duration  Duration
    * @return  Applied instance
    */
-  public EffectInstance apply(LivingEntity entity, int duration) {
+  public StatusEffectInstance apply(LivingEntity entity, int duration) {
     return this.apply(entity, duration, 0);
   }
 
@@ -55,9 +55,9 @@ public class TinkerEffect extends Effect {
    * @param level     Effect level
    * @return  Applied instance
    */
-  public EffectInstance apply(LivingEntity entity, int duration, int level) {
-    EffectInstance effect = new EffectInstance(this, duration, level, false, false);
-    entity.addPotionEffect(effect);
+  public StatusEffectInstance apply(LivingEntity entity, int duration, int level) {
+    StatusEffectInstance effect = new StatusEffectInstance(this, duration, level, false, false);
+    entity.addStatusEffect(effect);
     return effect;
   }
 
@@ -67,7 +67,7 @@ public class TinkerEffect extends Effect {
    * @return  Level, or -1 if inactive
    */
   public int getLevel(LivingEntity entity) {
-    EffectInstance effect = entity.getActivePotionEffect(this);
+    StatusEffectInstance effect = entity.getStatusEffect(this);
     if (effect != null) {
       return effect.getAmplifier();
     }

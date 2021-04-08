@@ -4,4 +4,4 @@ package slimeknights.tconstruct.library.client.renderer.font;
 
 import mcp.MethodsReturnNonnullByDefault;
 
-import org.jetbrains.annotations.ParametersAreNonnullByDefault;
+import javax.annotation.ParametersAreNonnullByDefault;

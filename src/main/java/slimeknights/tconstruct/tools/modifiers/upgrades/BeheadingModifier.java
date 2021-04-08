@@ -2,8 +2,8 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
 import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
@@ -20,7 +20,7 @@ public class BeheadingModifier extends Modifier {
   @Override
   public List<ItemStack> processLoot(ToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // must have an entity
-    Entity entity = context.get(LootParameters.THIS_ENTITY);
+    Entity entity = context.get(LootContextParameters.THIS_ENTITY);
     if (entity != null) {
       // ensure no head so far
       if (generatedLoot.stream().noneMatch(stack -> Tags.Items.HEADS.contains(stack.getItem()))) {

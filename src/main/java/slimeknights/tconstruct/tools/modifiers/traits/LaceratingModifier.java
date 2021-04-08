@@ -15,7 +15,7 @@ public class LaceratingModifier extends Modifier {
     // 25% chance of applying per level
     if (fullyCharged && target.isAlive() && RANDOM.nextFloat() < 0.50f) {
       // set entity so the potion is attributed as a player kill
-      target.setLastAttackedEntity(attacker);
+      target.onAttacking(attacker);
       // potions are 0 indexed instead of 1 indexed
       // 81 ticks will do about 5 damage at level 1
       TinkerModifiers.bleeding.get().apply(target, 1 + 20 * (2 + (RANDOM.nextInt(level + 3))), level - 1);

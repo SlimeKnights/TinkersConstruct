@@ -2,30 +2,29 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.DyeColor;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
-
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.WorldView;
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 public class ClearStainedGlassBlock extends AbstractGlassBlock {
 
   private final GlassColor glassColor;
-  public ClearStainedGlassBlock(Properties properties, GlassColor glassColor) {
+  public ClearStainedGlassBlock(Settings properties, GlassColor glassColor) {
     super(properties);
     this.glassColor = glassColor;
   }
 
   @Nullable
   @Override
-  public float[] getBeaconColorMultiplier(BlockState state, IWorldReader world, BlockPos pos, BlockPos beaconPos) {
+  public float[] getBeaconColorMultiplier(BlockState state, WorldView world, BlockPos pos, BlockPos beaconPos) {
     return this.glassColor.getRgb();
   }
 
   /** Enum used for registration of this and the pane block */
-  public enum GlassColor implements IStringSerializable {
+  public enum GlassColor implements StringIdentifiable {
     WHITE(0xffffff, DyeColor.WHITE),
     ORANGE(0xd87f33, DyeColor.ORANGE),
     MAGENTA(0xb24cd8, DyeColor.MAGENTA),
@@ -90,7 +89,7 @@ public class ClearStainedGlassBlock extends AbstractGlassBlock {
     }
 
     @Override
-    public String getString() {
+    public String asString() {
       return name;
     }
 

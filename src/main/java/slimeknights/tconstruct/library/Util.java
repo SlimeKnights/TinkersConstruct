@@ -5,18 +5,18 @@
 package slimeknights.tconstruct.library;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.InputMappings;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.fml.ForgeI18n;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -70,15 +70,15 @@ public class Util {
     return String.format("%s:%s", RESOURCE, res);
   }
 
-  public static ResourceLocation getResource(String res) {
-    return new ResourceLocation(RESOURCE, res);
+  public static Identifier getResource(String res) {
+    return new Identifier(RESOURCE, res);
   }
 
-  public static ModelResourceLocation getModelResource(String res, String variant) {
-    return new ModelResourceLocation(resource(res), variant);
+  public static ModelIdentifier getModelResource(String res, String variant) {
+    return new ModelIdentifier(resource(res), variant);
   }
 
-  public static ResourceLocation getModifierResource(String res) {
+  public static Identifier getModifierResource(String res) {
     return getResource("models/item/modifiers/" + res);
   }
 
@@ -106,7 +106,7 @@ public class Util {
    * @return  Translation key
    */
   public static String makeTranslationKey(String base, String name) {
-    return net.minecraft.util.Util.makeTranslationKey(base, getResource(name));
+    return net.minecraft.util.Util.createTranslationKey(base, getResource(name));
   }
 
   /**
@@ -115,8 +115,8 @@ public class Util {
    * @param name  Object name
    * @return  Translation key
    */
-  public static IFormattableTextComponent makeTranslation(String base, String name) {
-    return new TranslationTextComponent(makeTranslationKey(base, name));
+  public static MutableText makeTranslation(String base, String name) {
+    return new TranslatableText(makeTranslationKey(base, name));
   }
 
 
@@ -133,7 +133,7 @@ public class Util {
    */
   public static String translate(String key, Object... pars) {
     // translates twice to allow rerouting/alias
-    return I18n.format(I18n.format(String.format(key, pars)).trim()).trim();
+    return I18n.translate(I18n.translate(String.format(key, pars)).trim()).trim();
   }
 
   /**
@@ -141,7 +141,7 @@ public class Util {
    */
   public static String translateFormatted(String key, Object... pars) {
     // translates twice to allow rerouting/alias
-    return I18n.format(I18n.format(key, pars).trim()).trim();
+    return I18n.translate(I18n.translate(key, pars).trim()).trim();
   }
 
   /* Code for ctl and shift down  from TicTooltips by squeek502
@@ -149,22 +149,22 @@ public class Util {
    */
   public static boolean isCtrlKeyDown() {
     // prioritize CONTROL, but allow OPTION as well on Mac (note: GuiScreen's isCtrlKeyDown only checks for the OPTION key on Mac)
-    boolean isCtrlKeyDown = InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_CONTROL) || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_CONTROL);
-    if (!isCtrlKeyDown && Minecraft.IS_RUNNING_ON_MAC) {
-      isCtrlKeyDown = InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_ALT) || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_ALT);
+    boolean isCtrlKeyDown = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_CONTROL) || InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_CONTROL);
+    if (!isCtrlKeyDown && MinecraftClient.IS_SYSTEM_MAC) {
+      isCtrlKeyDown = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_ALT) || InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_ALT);
     }
 
     return isCtrlKeyDown;
   }
 
   public static boolean isShiftKeyDown() {
-    return InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT);
+    return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT);
   }
 
   /**
    * Returns the actual color value for a chatformatting
    */
-  public static int enumChatFormattingToColor(TextFormatting color) {
+  public static int enumChatFormattingToColor(Formatting color) {
     int i = color.getColorIndex();
     int j = (i >> 3 & 1) * 85;
     int k = (i >> 2 & 1) * 170 + j;
@@ -183,12 +183,12 @@ public class Util {
   }
 
   /* Position helpers */
-  private static ImmutableMap<Vector3i, Direction> offsetMap;
+  private static ImmutableMap<Vec3i, Direction> offsetMap;
 
   static {
-    ImmutableMap.Builder<Vector3i, Direction> builder = ImmutableMap.builder();
+    ImmutableMap.Builder<Vec3i, Direction> builder = ImmutableMap.builder();
     for (Direction facing : Direction.values()) {
-      builder.put(facing.getDirectionVec(), facing);
+      builder.put(facing.getVector(), facing);
     }
     offsetMap = builder.build();
   }
@@ -224,7 +224,7 @@ public class Util {
    * @param hitZ Z hit location
    * @return True if the click was within the box
    */
-  public static boolean clickedAABB(AxisAlignedBB aabb, float hitX, float hitY, float hitZ) {
+  public static boolean clickedAABB(Box aabb, float hitX, float hitY, float hitZ) {
     return aabb.minX <= hitX && hitX <= aabb.maxX
       && aabb.minY <= hitY && hitY <= aabb.maxY
       && aabb.minZ <= hitZ && hitZ <= aabb.maxZ;

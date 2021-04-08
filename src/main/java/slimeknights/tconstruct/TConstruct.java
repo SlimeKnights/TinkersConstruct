@@ -6,8 +6,8 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
-import net.minecraft.util.IItemProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
@@ -49,7 +49,7 @@ import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 /**
@@ -58,6 +58,7 @@ import java.util.Random;
  * @author mDiyo
  */
 
+@SuppressWarnings("unused")
 @Mod(TConstruct.modID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TConstruct {
@@ -112,11 +113,11 @@ public class TConstruct {
       DataGenerator datagenerator = event.getGenerator();
       ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
       TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator, existingFileHelper);
-      datagenerator.addProvider(blockTags);
-      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags, existingFileHelper));
-      datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator, existingFileHelper));
-      datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator, existingFileHelper));
-      datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
+      datagenerator.install(blockTags);
+      datagenerator.install(new TConstructItemTagsProvider(datagenerator, blockTags, existingFileHelper));
+      datagenerator.install(new TConstructFluidTagsProvider(datagenerator, existingFileHelper));
+      datagenerator.install(new TConstructEntityTypeTagsProvider(datagenerator, existingFileHelper));
+      datagenerator.install(new TConstructLootTableProvider(datagenerator));
     }
   }
 
@@ -235,7 +236,7 @@ public class TConstruct {
         // moss removed
         case "moss": case "mending_moss": return Items.MOSSY_COBBLESTONE;
       }
-      IItemProvider block = missingBlock(name);
+      ItemConvertible block = missingBlock(name);
       return block == null ? null : block.asItem();
     });
   }

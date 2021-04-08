@@ -3,24 +3,23 @@ package slimeknights.tconstruct.gadgets.entity.shuriken;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.entity.projectile.SnowballEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.network.Packet;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
-import org.jetbrains.annotations.Nonnull;
+import javax.annotation.Nonnull;
 
-public abstract class ShurikenEntityBase extends ProjectileItemEntity implements IEntityAdditionalSpawnData {
+public abstract class ShurikenEntityBase extends ThrownItemEntity implements IEntityAdditionalSpawnData {
 
   public ShurikenEntityBase(EntityType<? extends ShurikenEntityBase> type, World worldIn) {
     super(type, worldIn);
@@ -50,46 +49,46 @@ public abstract class ShurikenEntityBase extends ProjectileItemEntity implements
   public abstract float getKnockback();
 
   @Override
-  protected void onImpact(RayTraceResult result) {
-    super.onImpact(result);
+  protected void onCollision(HitResult result) {
+    super.onCollision(result);
 
-    if (!this.world.isRemote) {
-      this.world.setEntityState(this, (byte) 3);
+    if (!this.world.isClient) {
+      this.world.sendEntityStatus(this, (byte) 3);
       this.remove();
     }
   }
 
   @Override
-  protected void func_230299_a_(BlockRayTraceResult result) {
-    super.func_230299_a_(result);
+  protected void onBlockHit(BlockHitResult result) {
+    super.onBlockHit(result);
 
-    this.entityDropItem(getDefaultItem());
+    this.dropItem(getDefaultItem());
   }
 
   @Override
-  protected void onEntityHit(EntityRayTraceResult result) {
+  protected void onEntityHit(EntityHitResult result) {
     Entity entity = result.getEntity();
-    entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.func_234616_v_()), this.getDamage());
+    entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), this.getDamage());
 
     if (entity instanceof LivingEntity) {
-      Vector3d motion = this.getMotion().normalize();
-      ((LivingEntity) entity).applyKnockback(this.getKnockback(), -motion.x, -motion.z);
+      Vec3d motion = this.getVelocity().normalize();
+      ((LivingEntity) entity).takeKnockback(this.getKnockback(), -motion.x, -motion.z);
     }
   }
 
   @Override
-  public void writeSpawnData(PacketBuffer buffer) {
-    buffer.writeItemStack(this.func_213882_k());
+  public void writeSpawnData(PacketByteBuf buffer) {
+    buffer.writeItemStack(this.getItem());
   }
 
   @Override
-  public void readSpawnData(PacketBuffer additionalData) {
+  public void readSpawnData(PacketByteBuf additionalData) {
     this.setItem(additionalData.readItemStack());
   }
 
   @Nonnull
   @Override
-  public IPacket<?> createSpawnPacket() {
+  public Packet<?> createSpawnPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

@@ -1,22 +1,24 @@
 package slimeknights.tconstruct.smeltery.item;
 
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,12 +28,12 @@ import java.util.Objects;
 public class CopperCanItem extends Item {
   private static final String TAG_FLUID = "fluid";
 
-  public CopperCanItem(Properties properties) {
+  public CopperCanItem(Settings properties) {
     super(properties);
   }
 
   @Override
-  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
     return new CopperCanFluidHandler(stack);
   }
 
@@ -50,20 +52,20 @@ public class CopperCanItem extends Item {
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  @Environment(EnvType.CLIENT)
+  public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
     Fluid fluid = getFluid(stack);
     if (fluid != Fluids.EMPTY) {
-      tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".contents", new TranslationTextComponent(fluid.getAttributes().getTranslationKey())).mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslatableText(this.getTranslationKey() + ".contents", new TranslatableText(fluid.getAttributes().getTranslationKey())).formatted(Formatting.GRAY));
     } else {
-      tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip").mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslatableText(this.getTranslationKey() + ".tooltip").formatted(Formatting.GRAY));
     }
   }
 
   /** Sets the fluid on the given stack */
   public static ItemStack setFluid(ItemStack stack, Fluid fluid) {
     if (stack.hasTag() || fluid != Fluids.EMPTY) {
-      CompoundNBT nbt = stack.getOrCreateTag();
+      CompoundTag nbt = stack.getOrCreateTag();
       nbt.putString(TAG_FLUID, Objects.requireNonNull(fluid.getRegistryName()).toString());
     }
     return stack;
@@ -71,9 +73,9 @@ public class CopperCanItem extends Item {
 
   /** Gets the fluid from the given stack */
   public static Fluid getFluid(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
+    CompoundTag nbt = stack.getTag();
     if (nbt != null) {
-      ResourceLocation location = ResourceLocation.tryCreate(nbt.getString(TAG_FLUID));
+      Identifier location = Identifier.tryParse(nbt.getString(TAG_FLUID));
       if (location != null && ForgeRegistries.FLUIDS.containsKey(location)) {
         Fluid fluid = ForgeRegistries.FLUIDS.getValue(location);
         if (fluid != null) {
@@ -90,7 +92,7 @@ public class CopperCanItem extends Item {
    * @return  String variant name
    */
   public static String getSubtype(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
+    CompoundTag nbt = stack.getTag();
     if (nbt != null) {
       return nbt.getString(TAG_FLUID);
     }

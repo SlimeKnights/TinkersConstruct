@@ -5,30 +5,30 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.IGrowable;
-import net.minecraft.block.SnowyDirtBlock;
+import net.minecraft.block.Fertilizable;
+import net.minecraft.block.SnowyBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.lighting.LightEngine;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.chunk.light.ChunkLightProvider;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 
-public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
+public class SlimeGrassBlock extends SnowyBlock implements Fertilizable {
   private final FoliageType foliageType;
-  public SlimeGrassBlock(Properties properties, FoliageType foliageType) {
+  public SlimeGrassBlock(Settings properties, FoliageType foliageType) {
     super(properties);
     this.foliageType = foliageType;
   }
@@ -40,12 +40,12 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
   /* Bonemeal interactions */
 
   @Override
-  public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+  public boolean isFertilizable(BlockView worldIn, BlockPos pos, BlockState state, boolean isClient) {
     return true;
   }
 
   @Override
-  public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+  public boolean canGrow(World worldIn, Random rand, BlockPos pos, BlockState state) {
     return true;
   }
 
@@ -62,11 +62,11 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
         if (j < i / 16) {
           target = target.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
 
-          if (worldIn.getBlockState(target.down()).getBlock() == this && !worldIn.getBlockState(target).isNormalCube(worldIn, pos)) {
+          if (worldIn.getBlockState(target.down()).getBlock() == this && !worldIn.getBlockState(target).isSolidBlock(worldIn, pos)) {
             ++j;
             continue;
           }
-        } else if (worldIn.isAirBlock(target)) {
+        } else if (worldIn.isAir(target)) {
           BlockState plantState;
 
           if (rand.nextInt(8) == 0) {
@@ -75,7 +75,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
             plantState = TinkerWorld.slimeTallGrass.get(this.foliageType).getDefaultState();
           }
 
-          if (plantState.isValidPosition(worldIn, target)) {
+          if (plantState.canPlaceAt(worldIn, target)) {
             worldIn.setBlockState(target, plantState, 3);
           }
         }
@@ -95,7 +95,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
     if (!worldIn.isAreaLoaded(pos, 3)) return;
     if (!canBecomeSlimeGrass(state, worldIn, pos)) {
       worldIn.setBlockState(pos, getDirtState(state));
-    } else if (worldIn.getLight(pos.up()) >= 9) {
+    } else if (worldIn.getLightLevel(pos.up()) >= 9) {
       for (int i = 0; i < 4; ++i) {
         BlockPos newGrass = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
         BlockState newState = this.getStateFromDirt(worldIn.getBlockState(newGrass));
@@ -106,16 +106,16 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
     }
   }
 
-  private static boolean canBecomeSlimeGrass(BlockState stateIn, IWorldReader worldReader, BlockPos pos) {
+  private static boolean canBecomeSlimeGrass(BlockState stateIn, WorldView worldReader, BlockPos pos) {
     BlockPos blockpos = pos.up();
     BlockState state = worldReader.getBlockState(blockpos);
-    int i = LightEngine.func_215613_a(worldReader, stateIn, pos, state, blockpos, Direction.UP, state.getOpacity(worldReader, blockpos));
+    int i = ChunkLightProvider.getRealisticOpacity(worldReader, stateIn, pos, state, blockpos, Direction.UP, state.getOpacity(worldReader, blockpos));
     return i < worldReader.getMaxLightLevel();
   }
 
-  private static boolean canSlimeGrassSpread(BlockState state, IWorldReader worldReader, BlockPos pos) {
+  private static boolean canSlimeGrassSpread(BlockState state, WorldView worldReader, BlockPos pos) {
     BlockPos blockpos = pos.up();
-    return canBecomeSlimeGrass(state, worldReader, pos) && !worldReader.getFluidState(blockpos).isTagged(FluidTags.WATER);
+    return canBecomeSlimeGrass(state, worldReader, pos) && !worldReader.getFluidState(blockpos).isIn(FluidTags.WATER);
   }
 
   /**
@@ -151,14 +151,14 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+  public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
     if (this.foliageType != FoliageType.ICHOR) {
-      super.fillItemGroup(group, items);
+      super.addStacksForDisplay(group, items);
     }
   }
 
   @RequiredArgsConstructor
-  public enum FoliageType implements IStringSerializable {
+  public enum FoliageType implements StringIdentifiable {
     SKY(0x00F4DA, "blue"),
     ICHOR(0xd09800, "magma"),
     ENDER(0xa92dff, "purple"),
@@ -174,7 +174,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
     private final String originalName;
 
     @Override
-    public String getString() {
+    public String asString() {
       return this.toString();
     }
 

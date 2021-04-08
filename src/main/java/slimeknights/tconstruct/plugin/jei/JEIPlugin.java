@@ -19,21 +19,21 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IJeiRuntime;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.TagCollectionManager;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeManager;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.tag.ServerTagManagerHolder;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.item.RetexturedBlockItem;
@@ -77,7 +77,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -89,7 +89,7 @@ public class JEIPlugin implements IModPlugin {
   public static final IIngredientType<ModifierEntry> MODIFIER_TYPE = () -> ModifierEntry.class;
 
   @Override
-  public ResourceLocation getPluginUid() {
+  public Identifier getPluginUid() {
     return TConstructRecipeCategoryUid.pluginUid;
   }
 
@@ -117,8 +117,8 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void registerRecipes(IRecipeRegistration register) {
-    assert Minecraft.getInstance().world != null;
-    RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
+    assert MinecraftClient.getInstance().world != null;
+    RecipeManager manager = MinecraftClient.getInstance().world.getRecipeManager();
     // casting
     List<IDisplayableCastingRecipe> castingBasinRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.CASTING_BASIN, IDisplayableCastingRecipe.class);
     register.addRecipes(castingBasinRecipes, TConstructRecipeCategoryUid.castingBasin);
@@ -163,11 +163,11 @@ public class JEIPlugin implements IModPlugin {
    * @param ownCategory  Category to always add
    * @param type         Molding recipe type
    */
-  private static <T extends IRecipe<C>, C extends IInventory> void addCastingCatalyst(IRecipeCatalystRegistration registry, IItemProvider item, ResourceLocation ownCategory, IRecipeType<T> type) {
+  private static <T extends Recipe<C>, C extends Inventory> void addCastingCatalyst(IRecipeCatalystRegistration registry, ItemConvertible item, Identifier ownCategory, RecipeType<T> type) {
     ItemStack stack = new ItemStack(item);
     registry.addRecipeCatalyst(stack, ownCategory);
-    assert Minecraft.getInstance().world != null;
-    if (!Minecraft.getInstance().world.getRecipeManager().getRecipes(type).isEmpty()) {
+    assert MinecraftClient.getInstance().world != null;
+    if (!MinecraftClient.getInstance().world.getRecipeManager().getAllOfType(type).isEmpty()) {
       registry.addRecipeCatalyst(stack, TConstructRecipeCategoryUid.molding);
     }
   }
@@ -181,7 +181,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructRecipeCategoryUid.modifiers);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructRecipeCategoryUid.modifiers);
-    for (Item item : TinkerTags.Items.MELEE.getAllElements()) {
+    for (Item item : TinkerTags.Items.MELEE.values()) {
       ItemStack stack = item instanceof ToolCore ? ((ToolCore)item).buildToolForRendering() : new ItemStack(item);
       registry.addRecipeCatalyst(stack, TConstructRecipeCategoryUid.beheading);
     }
@@ -258,15 +258,15 @@ public class JEIPlugin implements IModPlugin {
     removeFluid(manager, TinkerFluids.moltenKnightslime.get(), TinkerFluids.moltenKnightslime.asItem());
     // hide compat that is not present
     for (SmelteryCompat compat : SmelteryCompat.values()) {
-      ITag<Item> ingot = TagCollectionManager.getManager().getItemTags().get(new ResourceLocation("forge", "ingots/" + compat.getName()));
-      if (ingot == null || ingot.getAllElements().isEmpty()) {
+      Tag<Item> ingot = ServerTagManagerHolder.getTagManager().getItems().getTag(new Identifier("forge", "ingots/" + compat.getName()));
+      if (ingot == null || ingot.values().isEmpty()) {
         removeFluid(manager, compat.getFluid(), compat.getBucket());
       }
     }
   }
 
   /** Class to pass {@link IScreenWithFluidTank} into JEI */
-  public static class GuiContainerTankHandler<C extends Container, T extends ContainerScreen<C> & IScreenWithFluidTank> implements IGuiContainerHandler<T> {
+  public static class GuiContainerTankHandler<C extends ScreenHandler, T extends HandledScreen<C> & IScreenWithFluidTank> implements IGuiContainerHandler<T> {
     @Override
     @Nullable
     public Object getIngredientUnderMouse(T containerScreen, double mouseX, double mouseY) {

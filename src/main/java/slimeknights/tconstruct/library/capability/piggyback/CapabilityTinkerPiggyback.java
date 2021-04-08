@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.library.capability.piggyback;
 
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.Tag;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class CapabilityTinkerPiggyback implements Capability.IStorage<ITinkerPiggyback> {
 
@@ -24,12 +24,12 @@ public class CapabilityTinkerPiggyback implements Capability.IStorage<ITinkerPig
 
   @Nullable
   @Override
-  public INBT writeNBT(Capability<ITinkerPiggyback> capability, ITinkerPiggyback instance, Direction side) {
+  public Tag writeNBT(Capability<ITinkerPiggyback> capability, ITinkerPiggyback instance, Direction side) {
     return null;
   }
 
   @Override
-  public void readNBT(Capability<ITinkerPiggyback> capability, ITinkerPiggyback instance, Direction side, INBT nbt) {
+  public void readNBT(Capability<ITinkerPiggyback> capability, ITinkerPiggyback instance, Direction side, Tag nbt) {
 
   }
 }

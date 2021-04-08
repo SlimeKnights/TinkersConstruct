@@ -3,24 +3,24 @@ package slimeknights.tconstruct.tools.harvest;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.ToolType;
@@ -40,7 +40,7 @@ public class KamaTool extends HarvestTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
   public static final AOEToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(1, 1, 1);
 
-  public KamaTool(Properties properties, ToolDefinition toolDefinition) {
+  public KamaTool(Settings properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 
@@ -50,20 +50,20 @@ public class KamaTool extends HarvestTool {
   }
 
   @Override
-  public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+  public ActionResult useOnEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     // only run AOE on shearable entities
     if (target instanceof IForgeShearable) {
-      int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+      int fortune = EnchantmentHelper.getLevel(Enchantments.FORTUNE, stack);
 
       ToolStack tool = ToolStack.from(stack);
       if (!tool.isBroken() && this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, fortune)) {
-        ToolDamageUtil.damageAnimated(tool, 1, playerIn, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND);
+        ToolDamageUtil.damageAnimated(tool, 1, playerIn, hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
         this.swingTool(playerIn, hand);
-        return ActionResultType.SUCCESS;
+        return ActionResult.SUCCESS;
       }
     }
 
-    return ActionResultType.PASS;
+    return ActionResult.PASS;
   }
 
   /**
@@ -73,8 +73,8 @@ public class KamaTool extends HarvestTool {
    * @param hand the given hand the tool is in
    */
   protected void swingTool(PlayerEntity player, Hand hand) {
-    player.swingArm(hand);
-    player.spawnSweepParticles();
+    player.swingHand(hand);
+    player.spawnSweepAttackParticles();
   }
 
   /**
@@ -94,16 +94,16 @@ public class KamaTool extends HarvestTool {
 
     IForgeShearable target = (IForgeShearable) entity;
 
-    if (target.isShearable(itemStack, world, entity.getPosition())) {
-      if (!world.isRemote) {
-        List<ItemStack> drops = target.onSheared(playerEntity, itemStack, world, entity.getPosition(), fortune);
-        Random rand = world.rand;
+    if (target.isShearable(itemStack, world, entity.getBlockPos())) {
+      if (!world.isClient) {
+        List<ItemStack> drops = target.onSheared(playerEntity, itemStack, world, entity.getBlockPos(), fortune);
+        Random rand = world.random;
 
         drops.forEach(d -> {
-          ItemEntity ent = entity.entityDropItem(d, 1.0F);
+          ItemEntity ent = entity.dropStack(d, 1.0F);
 
           if (ent != null) {
-            ent.setMotion(ent.getMotion().add((rand.nextFloat() - rand.nextFloat()) * 0.1F, rand.nextFloat() * 0.05F, (rand.nextFloat() - rand.nextFloat()) * 0.1F));
+            ent.setVelocity(ent.getVelocity().add((rand.nextFloat() - rand.nextFloat()) * 0.1F, rand.nextFloat() * 0.05F, (rand.nextFloat() - rand.nextFloat()) * 0.1F));
           }
         });
       }
@@ -114,10 +114,10 @@ public class KamaTool extends HarvestTool {
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-    ItemStack itemStackIn = playerIn.getHeldItem(handIn);
+  public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack itemStackIn = playerIn.getStackInHand(handIn);
     if (ToolDamageUtil.isBroken(itemStackIn)) {
-      return ActionResult.resultFail(itemStackIn);
+      return TypedActionResult.fail(itemStackIn);
     }
 
 //    BlockRayTraceResult rayTraceResult = blockRayTrace(worldIn, playerIn, RayTraceContext.FluidMode.NONE);
@@ -139,18 +139,18 @@ public class KamaTool extends HarvestTool {
 //      return ActionResult.resultSuccess(itemStackIn);
 //    }
 
-    return ActionResult.resultPass(itemStackIn);
+    return TypedActionResult.pass(itemStackIn);
   }
 
   @Override
-  public ActionResultType onItemUse(ItemUseContext context) {
+  public ActionResult useOnBlock(ItemUsageContext context) {
     return getToolHarvestLogic().transformBlocks(context, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true);
   }
 
   public static class HarvestLogic extends AOEToolHarvestLogic {
     private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(
-      Material.LEAVES, Material.WEB, Material.WOOL,
-      Material.TALL_PLANTS, Material.NETHER_PLANTS, Material.OCEAN_PLANT);
+      Material.LEAVES, Material.COBWEB, Material.WOOL,
+      Material.REPLACEABLE_PLANT, Material.NETHER_SHOOTS, Material.UNDERWATER_PLANT);
 
     public HarvestLogic(int width, int height, int depth) {
       super(width, height, depth);
@@ -176,7 +176,7 @@ public class KamaTool extends HarvestTool {
     }
 
     @Override
-    public List<BlockPos> getAOEBlocks(ToolStack tool, PlayerEntity player, BlockPos origin, Direction sideHit, Vector3d hitVec, Predicate<BlockState> predicate) {
+    public List<BlockPos> getAOEBlocks(ToolStack tool, PlayerEntity player, BlockPos origin, Direction sideHit, Vec3d hitVec, Predicate<BlockState> predicate) {
       // only works with modifiable harvest
       if (tool.isBroken()) {
         return Collections.emptyList();

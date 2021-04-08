@@ -4,4 +4,4 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import mcp.MethodsReturnNonnullByDefault;
 
-import org.jetbrains.annotations.ParametersAreNonnullByDefault;
+import javax.annotation.ParametersAreNonnullByDefault;

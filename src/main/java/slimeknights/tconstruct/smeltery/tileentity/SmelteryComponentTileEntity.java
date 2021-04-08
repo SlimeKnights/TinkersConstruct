@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
@@ -18,7 +18,7 @@ public class SmelteryComponentTileEntity extends ServantTileEntity {
     this(TinkerSmeltery.smelteryComponent.get());
   }
 
-  protected SmelteryComponentTileEntity(TileEntityType<?> tileEntityTypeIn) {
+  protected SmelteryComponentTileEntity(BlockEntityType<?> tileEntityTypeIn) {
     super(tileEntityTypeIn);
   }
 
@@ -30,9 +30,9 @@ public class SmelteryComponentTileEntity extends ServantTileEntity {
   public static void updateNeighbors(World world, BlockPos pos, BlockState state) {
     for (Direction direction : Direction.values()) {
       // if the neighbor is a master, notify it we exist
-      TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
+      BlockEntity tileEntity = world.getBlockEntity(pos.offset(direction));
       if (tileEntity instanceof IMasterLogic) {
-        TileEntity servant = world.getTileEntity(pos);
+        BlockEntity servant = world.getBlockEntity(pos);
         if (servant instanceof IServantLogic) {
           ((IMasterLogic) tileEntity).notifyChange((IServantLogic) servant, pos, state);
           break;

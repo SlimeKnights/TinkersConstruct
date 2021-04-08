@@ -4,14 +4,14 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -25,7 +25,7 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
   @Setter @Accessors(chain = true)
   private int cost = 1;
   @Setter @Accessors(chain = true)
-  private ResourceLocation pattern = null;
+  private Identifier pattern = null;
 
   /**
    * Creates a new part recipe that outputs a single item
@@ -37,12 +37,12 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumerIn) {
+  public void build(Consumer<RecipeJsonProvider> consumerIn) {
     this.build(consumerIn, Objects.requireNonNull(this.output.asItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+  public void build(Consumer<RecipeJsonProvider> consumerIn, Identifier id) {
     if (this.outputAmount <= 0) {
       throw new IllegalStateException("recipe " + id + " must output at least 1");
     }
@@ -52,12 +52,12 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
     if (this.pattern == null) {
       throw new IllegalStateException("recipe " + id + " has no pattern associated with it");
     }
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "parts");
+    Identifier advancementId = this.buildOptionalAdvancement(id, "parts");
     consumerIn.accept(new Result(id, advancementId));
   }
 
   private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public Result(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
@@ -78,7 +78,7 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerTables.partRecipeSerializer.get();
     }
   }

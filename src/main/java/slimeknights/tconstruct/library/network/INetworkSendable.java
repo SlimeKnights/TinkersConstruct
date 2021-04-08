@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.network;
 
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
 
 /** @deprecated  Migrate to constructor registration */
 @Deprecated
 public interface INetworkSendable {
-  void encode(PacketBuffer buffer);
+  void encode(PacketByteBuf buffer);
 
-  void decode(PacketBuffer buffer);
+  void decode(PacketByteBuf buffer);
 }

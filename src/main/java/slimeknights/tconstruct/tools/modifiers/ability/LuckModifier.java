@@ -4,12 +4,12 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
+import net.minecraft.text.TranslatableText;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -31,20 +31,20 @@ public class LuckModifier extends IncrementalModifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(int level) {
-    IFormattableTextComponent name;
+  public Text getDisplayName(int level) {
+    MutableText name;
     if (level > 3) {
-      name = new TranslationTextComponent(getTranslationKey() + ".beyond");
+      name = new TranslatableText(getTranslationKey() + ".beyond");
     } else {
-      name = new TranslationTextComponent(getTranslationKey() + "." + level);
+      name = new TranslatableText(getTranslationKey() + "." + level);
     }
-    return name.modifyStyle(style -> style.setColor(Color.fromInt(getColor())));
+    return name.styled(style -> style.withColor(TextColor.fromRgb(getColor())));
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
+  public Text getDisplayName(IModifierToolStack tool, int level) {
     int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this);
-    ITextComponent name = this.getDisplayName(level);
+    Text name = this.getDisplayName(level);
     if (neededPerLevel > 0) {
       // display the numeral based on percentage into the level
       int amount = getAmount(tool);
@@ -54,11 +54,11 @@ public class LuckModifier extends IncrementalModifier {
         dispLevel += (level - 4) * 3;
       }
       // finally build the string
-      IFormattableTextComponent formattable = name.deepCopy();
-      formattable = formattable.appendString(" ").append(new TranslationTextComponent(KEY_LEVEL + dispLevel));
+      MutableText formattable = name.shallowCopy();
+      formattable = formattable.append(" ").append(new TranslatableText(KEY_LEVEL + dispLevel));
       // if not at a full level, add that info too
       if (amount < neededPerLevel) {
-        return formattable.appendString(": " + amount + " / " + neededPerLevel);
+        return formattable.append(": " + amount + " / " + neededPerLevel);
       }
       return formattable;
     }
@@ -121,9 +121,9 @@ public class LuckModifier extends IncrementalModifier {
     if (damageSource == null) {
       return;
     }
-    Entity source = event.getDamageSource().getTrueSource();
+    Entity source = event.getDamageSource().getAttacker();
     if (source instanceof LivingEntity) {
-      ItemStack held = ((LivingEntity)source).getHeldItemMainhand();
+      ItemStack held = ((LivingEntity)source).getMainHandStack();
       if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
         // non broken, has modifier
         ToolStack tool = ToolStack.from(held);
@@ -132,7 +132,7 @@ public class LuckModifier extends IncrementalModifier {
           if (level > 0) {
             // we use a random instance seeded from the current game time
             // its important so the value is consistent between the multiple calls of this event in one kill
-            LOOTING_RANDOM.setSeed(source.getEntityWorld().getGameTime());
+            LOOTING_RANDOM.setSeed(source.getEntityWorld().getTime());
             // calculate the effective level from the modifier
             event.setLootingLevel(getEffectiveLevel(tool, level, LOOTING_RANDOM));
           }

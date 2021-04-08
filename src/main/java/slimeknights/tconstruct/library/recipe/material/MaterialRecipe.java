@@ -2,12 +2,12 @@ package slimeknights.tconstruct.library.recipe.material;
 
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Lazy;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 /**
@@ -26,7 +26,7 @@ import java.util.Optional;
  */
 public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory> {
   @Getter
-  protected final ResourceLocation id;
+  protected final Identifier id;
   @Getter
   protected final String group;
   protected final Ingredient ingredient;
@@ -39,7 +39,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   /** Material ID for the recipe return */
   protected final MaterialId materialId;
   /** Material returned by this recipe, lazy loaded */
-  private final LazyValue<IMaterial> material;
+  private final Lazy<IMaterial> material;
   /** Durability restored per item input, lazy loaded */
   @Nullable
   private Float repairPerItem;
@@ -48,30 +48,30 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    * Creates a new material recipe
    */
   @SuppressWarnings("WeakerAccess")
-  public MaterialRecipe(ResourceLocation id, String group, Ingredient ingredient, int value, int needed, MaterialId materialId) {
+  public MaterialRecipe(Identifier id, String group, Ingredient ingredient, int value, int needed, MaterialId materialId) {
     this.id = id;
     this.group = group;
     this.ingredient = ingredient;
     this.value = value;
     this.needed = needed;
     this.materialId = materialId;
-    this.material = new LazyValue<>(() -> MaterialRegistry.getMaterial(materialId));
+    this.material = new Lazy<>(() -> MaterialRegistry.getMaterial(materialId));
   }
 
   /* Basic */
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RecipeTypes.MATERIAL;
   }
 
   @Override
-  public ItemStack getIcon() {
+  public ItemStack getRecipeKindIcon() {
     return new ItemStack(TinkerTables.partBuilder);
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.materialRecipeSerializer.get();
   }
 
@@ -83,8 +83,8 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   }
 
   @Override
-  public NonNullList<Ingredient> getIngredients() {
-    return NonNullList.from(Ingredient.EMPTY, ingredient);
+  public DefaultedList<Ingredient> getPreviewInputs() {
+    return DefaultedList.copyOf(Ingredient.EMPTY, ingredient);
   }
 
   /**
@@ -92,7 +92,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    * @return  Material for the recipe
    */
   public IMaterial getMaterial() {
-    return material.getValue();
+    return material.get();
   }
 
   /**

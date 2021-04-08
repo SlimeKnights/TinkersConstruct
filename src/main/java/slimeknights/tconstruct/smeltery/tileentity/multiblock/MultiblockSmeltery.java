@@ -3,10 +3,10 @@ package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 import com.google.common.collect.ImmutableList;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery.StructureData;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,7 +66,7 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
    */
   @Override
   @Nullable
-  public StructureData readFromNBT(CompoundNBT nbt) {
+  public StructureData readFromNBT(CompoundTag nbt) {
     // add all tanks from NBT, will be picked up in the create call
     tanks.clear();
     tanks.addAll(readPosList(nbt, TAG_TANKS));
@@ -83,7 +83,7 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
    * @return   True if its a valid slave
    */
   protected boolean isValidSlave(World world, BlockPos pos) {
-    TileEntity te = world.getTileEntity(pos);
+    BlockEntity te = world.getBlockEntity(pos);
 
     // slave-blocks are only allowed if they already belong to this smeltery
     if (te instanceof IServantLogic) {
@@ -224,8 +224,8 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
     }
 
     @Override
-    public CompoundNBT writeClientNBT() {
-      CompoundNBT nbt = super.writeClientNBT();
+    public CompoundTag writeClientNBT() {
+      CompoundTag nbt = super.writeClientNBT();
       nbt.put(TAG_TANKS, writePosList(tanks));
       return nbt;
     }
@@ -235,8 +235,8 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
      * @return  structure as NBT
      */
     @Override
-    public CompoundNBT writeToNBT() {
-      CompoundNBT nbt = super.writeToNBT();
+    public CompoundTag writeToNBT() {
+      CompoundTag nbt = super.writeToNBT();
       if (insideCheck != null) {
         nbt.put(TAG_INSIDE_CHECK, TagUtil.writePos(insideCheck));
       }

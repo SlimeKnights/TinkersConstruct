@@ -28,10 +28,10 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
   @Override
   public void setStack(ItemStack newStack) {
     World world = parent.getWorld();
-    boolean hasChange = world != null && !ItemStack.areItemStacksEqual(getStack(), newStack);
+    boolean hasChange = world != null && !ItemStack.areEqual(getStack(), newStack);
     super.setStack(newStack);
     if (hasChange) {
-      if (!world.isRemote) {
+      if (!world.isClient) {
         BlockPos pos = parent.getPos();
         TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, 0, pos), world, pos);
       } else {

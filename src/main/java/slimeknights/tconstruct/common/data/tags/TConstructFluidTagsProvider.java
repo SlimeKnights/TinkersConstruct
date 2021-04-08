@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.common.data.tags;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.FluidTagsProvider;
+import net.minecraft.data.server.FluidTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
@@ -15,7 +15,7 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
   }
 
   @Override
-  public void registerTags() {
+  public void configure() {
     // first, register common tags
     // slime
     tagLocal(TinkerFluids.blood);
@@ -68,14 +68,15 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
     tagLocal(TinkerFluids.moltenElectrum);
     tagLocal(TinkerFluids.moltenInvar);
     tagLocal(TinkerFluids.moltenConstantan);
+    tagLocal(TinkerFluids.moltenPewter);
     tagLocal(TinkerFluids.moltenSteel);
 
     /* Normal tags */
-    this.getOrCreateBuilder(TinkerTags.Fluids.SLIME)
+    this.getOrCreateTagBuilder(TinkerTags.Fluids.SLIME)
         .addTag(TinkerFluids.earthSlime.getForgeTag())
         .addTag(TinkerFluids.skySlime.getLocalTag())
         .addTag(TinkerFluids.enderSlime.getLocalTag());
-    this.getOrCreateBuilder(TinkerTags.Fluids.SLIMELIKE)
+    this.getOrCreateTagBuilder(TinkerTags.Fluids.SLIMELIKE)
         .addTag(TinkerFluids.magmaCream.getForgeTag())
         .addTag(TinkerFluids.blood.getLocalTag())
         .addTag(TinkerTags.Fluids.SLIME);
@@ -88,12 +89,12 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
 
   /** Tags this fluid using local tags */
   private void tagLocal(FluidObject<?> fluid) {
-    getOrCreateBuilder(fluid.getLocalTag()).add(fluid.getStill(), fluid.getFlowing());
+    getOrCreateTagBuilder(fluid.getLocalTag()).add(fluid.getStill(), fluid.getFlowing());
   }
 
   /** Tags this fluid with local and forge tags */
   private void tagAll(FluidObject<?> fluid) {
     tagLocal(fluid);
-    getOrCreateBuilder(fluid.getForgeTag()).addTag(fluid.getLocalTag());
+    getOrCreateTagBuilder(fluid.getForgeTag()).addTag(fluid.getLocalTag());
   }
 }

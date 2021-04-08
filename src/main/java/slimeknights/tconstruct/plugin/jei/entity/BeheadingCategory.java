@@ -10,7 +10,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
@@ -19,7 +19,7 @@ import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class BeheadingCategory implements IRecipeCategory<BeheadingRecipe> {
-  public static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/tinker_station.png");
+  public static final Identifier BACKGROUND_LOC = Util.getResource("textures/gui/jei/tinker_station.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "beheading.title");
 
   /** Renderer instance to use in this category */
@@ -38,7 +38,7 @@ public class BeheadingCategory implements IRecipeCategory<BeheadingRecipe> {
   }
 
   @Override
-  public ResourceLocation getUid() {
+  public Identifier getUid() {
     return TConstructRecipeCategoryUid.beheading;
   }
 

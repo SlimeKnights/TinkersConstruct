@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -11,13 +10,14 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
@@ -33,15 +33,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierRecipe> {
-  private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/tinker_station.png");
+  private static final Identifier BACKGROUND_LOC = Util.getResource("textures/gui/jei/tinker_station.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "modifiers.title");
 
   // translation
-  private static final List<ITextComponent> TEXT_FREE = Collections.singletonList(Util.makeTranslation("jei", "modifiers.free"));
-  private static final List<ITextComponent> TEXT_SINGLE_UPGRADE = Collections.singletonList(Util.makeTranslation("jei", "modifiers.upgrade"));
-  private static final List<ITextComponent> TEXT_INCREMENTAL = Collections.singletonList(Util.makeTranslation("jei", "modifiers.incremental"));
+  private static final List<Text> TEXT_FREE = Collections.singletonList(Util.makeTranslation("jei", "modifiers.free"));
+  private static final List<Text> TEXT_SINGLE_UPGRADE = Collections.singletonList(Util.makeTranslation("jei", "modifiers.upgrade"));
+  private static final List<Text> TEXT_INCREMENTAL = Collections.singletonList(Util.makeTranslation("jei", "modifiers.incremental"));
   private static final String KEY_UPGRADES = Util.makeTranslationKey("jei", "modifiers.upgrades");
-  private static final List<ITextComponent> TEXT_SINGLE_ABILITY = Collections.singletonList(Util.makeTranslation("jei", "modifiers.ability"));
+  private static final List<Text> TEXT_SINGLE_ABILITY = Collections.singletonList(Util.makeTranslation("jei", "modifiers.ability"));
   private static final String KEY_ABILITIES = Util.makeTranslationKey("jei", "modifiers.abilities");
   private static final String KEY_MAX = Util.makeTranslationKey("jei", "modifiers.max");
 
@@ -74,7 +74,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   }
 
   @Override
-  public ResourceLocation getUid() {
+  public Identifier getUid() {
     return TConstructRecipeCategoryUid.modifiers;
   }
 
@@ -115,10 +115,10 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     }
 
     // draw max count
-    FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+    TextRenderer fontRenderer = MinecraftClient.getInstance().textRenderer;
     int max = recipe.getMaxLevel();
     if (max > 0) {
-      fontRenderer.drawString(matrices, maxPrefix + max, 66, 16, Color.GRAY.getRGB());
+      fontRenderer.draw(matrices, maxPrefix + max, 66, 16, Color.GRAY.getRGB());
     }
 
     // draw slot cost
@@ -139,17 +139,17 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     // draw number for quick info, free has no number
     icon.draw(matrices, 114, 61);
     if (text != null) {
-      int x = 112 - fontRenderer.getStringWidth(text);
-      fontRenderer.drawString(matrices, text, x, 62, Color.GRAY.getRGB());
+      int x = 112 - fontRenderer.getWidth(text);
+      fontRenderer.draw(matrices, text, x, 62, Color.GRAY.getRGB());
     }
   }
 
   @Override
-  public List<ITextComponent> getTooltipStrings(IDisplayModifierRecipe recipe, double mouseX, double mouseY) {
+  public List<Text> getTooltipStrings(IDisplayModifierRecipe recipe, double mouseX, double mouseY) {
     int checkX = (int) mouseX;
     int checkY = (int) mouseY;
     if (recipe.hasRequirements() && GuiUtil.isHovered(checkX, checkY, 66, 58, 16, 16)) {
-      return Collections.singletonList(new TranslationTextComponent(recipe.getRequirementsError()));
+      return Collections.singletonList(new TranslatableText(recipe.getRequirementsError()));
     } else if (recipe.isIncremental() && GuiUtil.isHovered(checkX, checkY, 83, 59, 16, 16)) {
       return TEXT_INCREMENTAL;
     } else if (GuiUtil.isHovered(checkX, checkY, 98, 61, 24, 8)) {
@@ -158,9 +158,9 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
       int abilities = recipe.getAbilitySlots();
       // ability take precedence again, not that both can be set
       if (abilities > 0) {
-        return abilities == 1 ? TEXT_SINGLE_ABILITY : Collections.singletonList(new TranslationTextComponent(KEY_ABILITIES, abilities));
+        return abilities == 1 ? TEXT_SINGLE_ABILITY : Collections.singletonList(new TranslatableText(KEY_ABILITIES, abilities));
       } else if (upgrades > 0) {
-        return upgrades == 1 ? TEXT_SINGLE_UPGRADE : Collections.singletonList(new TranslationTextComponent(KEY_UPGRADES, upgrades));
+        return upgrades == 1 ? TEXT_SINGLE_UPGRADE : Collections.singletonList(new TranslatableText(KEY_UPGRADES, upgrades));
       } else {
         return TEXT_FREE;
       }

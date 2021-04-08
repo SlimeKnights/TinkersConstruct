@@ -2,8 +2,8 @@ package slimeknights.tconstruct.common.registration;
 
 import lombok.Getter;
 import net.minecraft.item.Item;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.mantle.registration.object.ItemObject;
 
@@ -16,13 +16,13 @@ import java.util.function.Supplier;
  * Deferred wrapper holding gold, sand, and red sand casts
  */
 public class CastItemObject extends ItemObject<Item> {
-  private final ResourceLocation name;
+  private final Identifier name;
   private final Supplier<? extends Item> sand;
   private final Supplier<? extends Item> redSand;
   @Getter
   private final IOptionalNamedTag<Item> singleUseTag;
 
-  public CastItemObject(ResourceLocation name, Item gold, Item sand, Item redSand) {
+  public CastItemObject(Identifier name, Item gold, Item sand, Item redSand) {
     super(gold);
     this.name = name;
     this.sand = sand.delegate;
@@ -30,7 +30,7 @@ public class CastItemObject extends ItemObject<Item> {
     singleUseTag = makeSingleUseTag();
   }
 
-  public CastItemObject(ResourceLocation name, ItemObject<? extends Item> gold, Supplier<? extends Item> sand, Supplier<? extends Item> redSand) {
+  public CastItemObject(Identifier name, ItemObject<? extends Item> gold, Supplier<? extends Item> sand, Supplier<? extends Item> redSand) {
     super(gold);
     this.name = name;
     this.sand = sand;
@@ -43,7 +43,7 @@ public class CastItemObject extends ItemObject<Item> {
    * @return  Single use tag
    */
   protected IOptionalNamedTag<Item> makeSingleUseTag() {
-    return ItemTags.createOptional(new ResourceLocation(name.getNamespace(), "casts/single_use/" + name.getPath()));
+    return ItemTags.createOptional(new Identifier(name.getNamespace(), "casts/single_use/" + name.getPath()));
   }
 
   /**

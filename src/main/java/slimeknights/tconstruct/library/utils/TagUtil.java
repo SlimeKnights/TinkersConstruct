@@ -3,178 +3,178 @@ package slimeknights.tconstruct.library.utils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.Constants.NBT;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TagUtil {
-  public static int TAG_TYPE_STRING = (StringNBT.valueOf("")).getId();
-  public static int TAG_TYPE_COMPOUND = (new CompoundNBT()).getId();
+  public static int TAG_TYPE_STRING = (StringTag.of("")).getType();
+  public static int TAG_TYPE_COMPOUND = (new CompoundTag()).getType();
 
   /* Generic Tag Operations */
 
   @Deprecated
-  public static CompoundNBT getTagSafe(ItemStack stack) {
+  public static CompoundTag getTagSafe(ItemStack stack) {
     if (stack.isEmpty() || !stack.hasTag()) {
-      return new CompoundNBT();
+      return new CompoundTag();
     }
     return stack.getTag();
   }
 
   @Deprecated
-  public static CompoundNBT getTagSafe(CompoundNBT tag, String key) {
+  public static CompoundTag getTagSafe(CompoundTag tag, String key) {
     if (tag == null) {
-      return new CompoundNBT();
+      return new CompoundTag();
     }
 
     return tag.getCompound(key);
   }
 
   @Deprecated
-  public static ListNBT getTagListSafe(CompoundNBT tag, String key, int type) {
+  public static ListTag getTagListSafe(CompoundTag tag, String key, int type) {
     if (tag == null) {
-      return new ListNBT();
+      return new ListTag();
     }
 
     return tag.getList(key, type);
   }
 
   /* Operations concerning the base-data of the tool */
-  public static CompoundNBT getBaseTag(ItemStack stack) {
+  public static CompoundTag getBaseTag(ItemStack stack) {
     return getBaseTag(getTagSafe(stack));
   }
 
-  public static CompoundNBT getBaseTag(CompoundNBT root) {
+  public static CompoundTag getBaseTag(CompoundTag root) {
     return getTagSafe(root, Tags.BASE);
   }
 
-  public static void setBaseTag(ItemStack stack, CompoundNBT tag) {
-    CompoundNBT root = TagUtil.getTagSafe(stack);
+  public static void setBaseTag(ItemStack stack, CompoundTag tag) {
+    CompoundTag root = TagUtil.getTagSafe(stack);
     setBaseTag(root, tag);
 
     stack.setTag(root);
   }
 
-  public static void setBaseTag(CompoundNBT root, CompoundNBT tag) {
+  public static void setBaseTag(CompoundTag root, CompoundTag tag) {
     if (root != null) {
       root.put(Tags.BASE, tag);
     }
   }
 
-  public static ListNBT getBaseModifiersTagList(ItemStack stack) {
+  public static ListTag getBaseModifiersTagList(ItemStack stack) {
     return getBaseModifiersTagList(getTagSafe(stack));
   }
 
-  public static ListNBT getBaseModifiersTagList(CompoundNBT root) {
+  public static ListTag getBaseModifiersTagList(CompoundTag root) {
     return getTagListSafe(getBaseTag(root), Tags.BASE_MODIFIERS, TAG_TYPE_STRING);
   }
 
-  public static void setBaseModifiersTagList(ItemStack stack, ListNBT tagList) {
-    CompoundNBT root = TagUtil.getTagSafe(stack);
+  public static void setBaseModifiersTagList(ItemStack stack, ListTag tagList) {
+    CompoundTag root = TagUtil.getTagSafe(stack);
     setBaseModifiersTagList(root, tagList);
 
     stack.setTag(root);
   }
 
-  public static void setBaseModifiersTagList(CompoundNBT root, ListNBT tagList) {
-    CompoundNBT baseTag = getBaseTag(root);
+  public static void setBaseModifiersTagList(CompoundTag root, ListTag tagList) {
+    CompoundTag baseTag = getBaseTag(root);
     baseTag.put(Tags.BASE_MODIFIERS, tagList);
     setBaseTag(root, baseTag);
   }
 
-  public static ListNBT getBaseMaterialsTagList(ItemStack stack) {
+  public static ListTag getBaseMaterialsTagList(ItemStack stack) {
     return getBaseMaterialsTagList(getTagSafe(stack));
   }
 
-  public static ListNBT getBaseMaterialsTagList(CompoundNBT root) {
+  public static ListTag getBaseMaterialsTagList(CompoundTag root) {
     return getTagListSafe(getBaseTag(root), Tags.BASE_MATERIALS, TAG_TYPE_STRING);
   }
 
-  public static void setBaseMaterialsTagList(ItemStack stack, ListNBT tagList) {
-    CompoundNBT root = TagUtil.getTagSafe(stack);
+  public static void setBaseMaterialsTagList(ItemStack stack, ListTag tagList) {
+    CompoundTag root = TagUtil.getTagSafe(stack);
     setBaseMaterialsTagList(root, tagList);
 
     stack.setTag(root);
   }
 
-  public static void setBaseMaterialsTagList(CompoundNBT root, ListNBT tagList) {
+  public static void setBaseMaterialsTagList(CompoundTag root, ListTag tagList) {
     getBaseTag(root).put(Tags.BASE_MATERIALS, tagList);
   }
 
-  public static int getBaseModifiersUsed(CompoundNBT root) {
+  public static int getBaseModifiersUsed(CompoundTag root) {
     return getBaseTag(root).getInt(Tags.BASE_USED_MODIFIERS);
   }
 
-  public static void setBaseModifiersUsed(CompoundNBT root, int count) {
+  public static void setBaseModifiersUsed(CompoundTag root, int count) {
     getBaseTag(root).putInt(Tags.BASE_USED_MODIFIERS, count);
   }
 
   /* Operations concerning the calculated tool data */
-  public static CompoundNBT getToolTag(ItemStack stack) {
+  public static CompoundTag getToolTag(ItemStack stack) {
     return getToolTag(getTagSafe(stack));
   }
 
-  public static CompoundNBT getToolTag(CompoundNBT root) {
+  public static CompoundTag getToolTag(CompoundTag root) {
     return getTagSafe(root, Tags.TOOL_STATS);
   }
 
-  public static void setToolTag(ItemStack stack, CompoundNBT tag) {
-    CompoundNBT root = TagUtil.getTagSafe(stack);
+  public static void setToolTag(ItemStack stack, CompoundTag tag) {
+    CompoundTag root = TagUtil.getTagSafe(stack);
     setToolTag(root, tag);
 
     stack.setTag(root);
   }
 
-  public static void setToolTag(CompoundNBT root, CompoundNBT tag) {
+  public static void setToolTag(CompoundTag root, CompoundTag tag) {
     if (root != null) {
       root.put(Tags.TOOL_STATS, tag);
     }
   }
 
   /* Operations concerning the data of modifiers */
-  public static ListNBT getModifiersTagList(ItemStack stack) {
+  public static ListTag getModifiersTagList(ItemStack stack) {
     return getModifiersTagList(getTagSafe(stack));
   }
 
-  public static ListNBT getModifiersTagList(CompoundNBT root) {
+  public static ListTag getModifiersTagList(CompoundTag root) {
     return getTagListSafe(root, Tags.TOOL_MODIFIERS, TAG_TYPE_COMPOUND);
   }
 
-  public static void setModifiersTagList(ItemStack stack, ListNBT tagList) {
-    CompoundNBT root = TagUtil.getTagSafe(stack);
+  public static void setModifiersTagList(ItemStack stack, ListTag tagList) {
+    CompoundTag root = TagUtil.getTagSafe(stack);
     setModifiersTagList(root, tagList);
 
     stack.setTag(root);
   }
 
-  public static void setModifiersTagList(CompoundNBT root, ListNBT tagList) {
+  public static void setModifiersTagList(CompoundTag root, ListTag tagList) {
     if (root != null) {
       root.put(Tags.TOOL_MODIFIERS, tagList);
     }
   }
 
   /* Operations concerning the list of traits present on the tool */
-  public static ListNBT getTraitsTagList(ItemStack stack) {
+  public static ListTag getTraitsTagList(ItemStack stack) {
     return getTraitsTagList(getTagSafe(stack));
   }
 
-  public static ListNBT getTraitsTagList(CompoundNBT root) {
+  public static ListTag getTraitsTagList(CompoundTag root) {
     return getTagListSafe(root, Tags.TOOL_TRAITS, TAG_TYPE_STRING);
   }
 
-  public static void setTraitsTagList(ItemStack stack, ListNBT tagList) {
-    CompoundNBT root = TagUtil.getTagSafe(stack);
+  public static void setTraitsTagList(ItemStack stack, ListTag tagList) {
+    CompoundTag root = TagUtil.getTagSafe(stack);
     setTraitsTagList(root, tagList);
 
     stack.setTag(root);
   }
 
-  public static void setTraitsTagList(CompoundNBT root, ListNBT tagList) {
+  public static void setTraitsTagList(CompoundTag root, ListTag tagList) {
     if (root != null) {
       root.put(Tags.TOOL_TRAITS, tagList);
     }
@@ -198,21 +198,21 @@ public final class TagUtil {
   }*/
 
   /* Extra data */
-  public static CompoundNBT getExtraTag(ItemStack stack) {
+  public static CompoundTag getExtraTag(ItemStack stack) {
     return getExtraTag(getTagSafe(stack));
   }
 
-  public static CompoundNBT getExtraTag(CompoundNBT root) {
+  public static CompoundTag getExtraTag(CompoundTag root) {
     return getTagSafe(root, Tags.TINKER_EXTRA);
   }
 
-  public static void setExtraTag(ItemStack stack, CompoundNBT tag) {
-    CompoundNBT root = getTagSafe(stack);
+  public static void setExtraTag(ItemStack stack, CompoundTag tag) {
+    CompoundTag root = getTagSafe(stack);
     setExtraTag(root, tag);
     stack.setTag(root);
   }
 
-  public static void setExtraTag(CompoundNBT root, CompoundNBT tag) {
+  public static void setExtraTag(CompoundTag root, CompoundTag tag) {
     root.put(Tags.TINKER_EXTRA, tag);
   }
 
@@ -244,12 +244,12 @@ public final class TagUtil {
   }*/
 
   public static void setEnchantEffect(ItemStack stack, boolean active) {
-    CompoundNBT root = getTagSafe(stack);
+    CompoundTag root = getTagSafe(stack);
     setEnchantEffect(root, active);
     stack.setTag(root);
   }
 
-  public static void setEnchantEffect(CompoundNBT root, boolean active) {
+  public static void setEnchantEffect(CompoundTag root, boolean active) {
     if (active) {
       root.putBoolean(Tags.ENCHANT_EFFECT, true);
     } else {
@@ -261,12 +261,12 @@ public final class TagUtil {
     return hasEnchantEffect(getTagSafe(stack));
   }
 
-  public static boolean hasEnchantEffect(CompoundNBT root) {
+  public static boolean hasEnchantEffect(CompoundTag root) {
     return root.getBoolean(Tags.ENCHANT_EFFECT);
   }
 
   public static void setResetFlag(ItemStack stack, boolean active) {
-    CompoundNBT root = getTagSafe(stack);
+    CompoundTag root = getTagSafe(stack);
     root.putBoolean(Tags.RESET_FLAG, active);
     stack.setTag(root);
   }
@@ -276,13 +276,13 @@ public final class TagUtil {
   }
 
   public static void setNoRenameFlag(ItemStack stack, boolean active) {
-    CompoundNBT root = getTagSafe(stack);
+    CompoundTag root = getTagSafe(stack);
     setNoRenameFlag(root, active);
     stack.setTag(root);
   }
 
-  public static void setNoRenameFlag(CompoundNBT root, boolean active) {
-    CompoundNBT displayTag = root.getCompound("display");
+  public static void setNoRenameFlag(CompoundTag root, boolean active) {
+    CompoundTag displayTag = root.getCompound("display");
     if (displayTag.contains("Name")) {
       displayTag.putBoolean(Tags.NO_RENAME, active);
       root.put("display", displayTag);
@@ -290,8 +290,8 @@ public final class TagUtil {
   }
 
   public static boolean getNoRenameFlag(ItemStack stack) {
-    CompoundNBT root = getTagSafe(stack);
-    CompoundNBT displayTag = root.getCompound("display");
+    CompoundTag root = getTagSafe(stack);
+    CompoundTag displayTag = root.getCompound("display");
     return displayTag.getBoolean(Tags.NO_RENAME);
   }
 
@@ -302,8 +302,8 @@ public final class TagUtil {
    * @param pos  Position to write
    * @return  Position in NBT
    */
-  public static CompoundNBT writePos(BlockPos pos) {
-    CompoundNBT tag = new CompoundNBT();
+  public static CompoundTag writePos(BlockPos pos) {
+    CompoundTag tag = new CompoundTag();
     tag.putInt("x", pos.getX());
     tag.putInt("y", pos.getY());
     tag.putInt("z", pos.getZ());
@@ -316,7 +316,7 @@ public final class TagUtil {
    * @return  Block position, or null if invalid
    */
   @Nullable
-  public static BlockPos readPos(CompoundNBT tag) {
+  public static BlockPos readPos(CompoundTag tag) {
     if (tag.contains("x", NBT.TAG_ANY_NUMERIC) && tag.contains("y", NBT.TAG_ANY_NUMERIC) && tag.contains("z", NBT.TAG_ANY_NUMERIC)) {
       return new BlockPos(tag.getInt("x"), tag.getInt("y"), tag.getInt("z"));
     }
@@ -330,7 +330,7 @@ public final class TagUtil {
    * @return  Block position, or null if invalid or missing
    */
   @Nullable
-  public static BlockPos readPos(CompoundNBT parent, String key) {
+  public static BlockPos readPos(CompoundTag parent, String key) {
     if (parent.contains(key, NBT.TAG_COMPOUND)) {
       return readPos(parent.getCompound(key));
     }

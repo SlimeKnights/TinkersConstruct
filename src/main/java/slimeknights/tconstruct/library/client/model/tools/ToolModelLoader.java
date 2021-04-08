@@ -7,11 +7,11 @@ import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.minecraft.client.renderer.model.BlockModel;
-import net.minecraft.client.renderer.model.IModelTransform;
-import net.minecraft.client.renderer.model.IUnbakedModel;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.math.vector.TransformationMatrix;
+import net.minecraft.client.render.model.ModelBakeSettings;
+import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.JsonUnbakedModel;
+import net.minecraft.client.util.math.AffineTransformation;
+import net.minecraft.resource.ResourceManager;
 import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.SimpleModelTransform;
 
@@ -25,7 +25,7 @@ public class ToolModelLoader implements IModelLoader<ToolModelGeometry> {
     public static final ToolModelLoader INSTANCE = new ToolModelLoader();
 
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {}
+    public void apply(ResourceManager resourceManager) {}
 
     @Override
     public ToolModelGeometry read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
@@ -33,20 +33,20 @@ public class ToolModelLoader implements IModelLoader<ToolModelGeometry> {
         throw new RuntimeException("Composite model requires a \"parts\" element.");
       ImmutableMap.Builder<String, Submodel> parts = ImmutableMap.builder();
       for(Map.Entry<String, JsonElement> part : modelContents.get("parts").getAsJsonObject().entrySet()) {
-        IUnbakedModel subPartModel = deserializationContext.deserialize(part.getValue(), BlockModel.class);
-        IModelTransform modelTransform = SimpleModelTransform.IDENTITY;
+        UnbakedModel subPartModel = deserializationContext.deserialize(part.getValue(), JsonUnbakedModel.class);
+        ModelBakeSettings modelTransform = SimpleModelTransform.IDENTITY;
         parts.put(part.getKey(), new Submodel(part.getKey(), subPartModel, modelTransform));
       }
       return new ToolModelGeometry(parts.build());
     }
 
-  private IModelTransform getModelTransform(JsonDeserializationContext deserializationContext, JsonElement partJson) {
+  private ModelBakeSettings getModelTransform(JsonDeserializationContext deserializationContext, JsonElement partJson) {
     JsonElement transform = partJson.getAsJsonObject().get("transform");
     if(transform == null) {
       return SimpleModelTransform.IDENTITY;
     }
 
-    TransformationMatrix matrix = deserializationContext.deserialize(transform, TransformationMatrix.class);
+    AffineTransformation matrix = deserializationContext.deserialize(transform, AffineTransformation.class);
     return new SimpleModelTransform(matrix);
   }
 
@@ -72,6 +72,6 @@ public class ToolModelLoader implements IModelLoader<ToolModelGeometry> {
        *   "scale": [x,y,z]
        * }
        */
-      private final TransformationMatrix transform;
+      private final AffineTransformation transform;
     }
 }

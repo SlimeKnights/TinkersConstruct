@@ -2,12 +2,12 @@ package slimeknights.tconstruct.library.client.model.block;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import net.minecraft.client.renderer.model.BlockFaceUV;
-import net.minecraft.client.renderer.model.BlockPart;
-import net.minecraft.client.renderer.model.BlockPartFace;
-import net.minecraft.util.Direction;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.render.model.json.ModelElement;
+import net.minecraft.client.render.model.json.ModelElementFace;
+import net.minecraft.client.render.model.json.ModelElementTexture;
+import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.math.Direction;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.mantle.client.model.util.ModelHelper;
 
@@ -31,7 +31,7 @@ public class IncrementalFluidCuboid extends FluidCuboid {
    * @return  Fluid part
    */
   @SuppressWarnings("WeakerAccess")
-  public BlockPart getPart(int amount, boolean gas) {
+  public ModelElement getPart(int amount, boolean gas) {
     // set cube height based on stack amount
     Vector3f from = getFrom();
     Vector3f to = getTo();
@@ -47,20 +47,20 @@ public class IncrementalFluidCuboid extends FluidCuboid {
     }
 
     // create faces based on face data
-    Map<Direction,BlockPartFace> faces = new EnumMap<>(Direction.class);
+    Map<Direction,ModelElementFace> faces = new EnumMap<>(Direction.class);
     for (Entry<Direction, FluidFace> entry : this.getFaces().entrySet()) {
       // only add the face if requested
       Direction dir = entry.getKey();
       FluidFace face = entry.getValue();
       // calculate in flowing and rotations
       boolean isFlowing = face.isFlowing();
-      faces.put(dir, new BlockPartFace(
+      faces.put(dir, new ModelElementFace(
         null, 0, isFlowing ? "flowing_fluid" : "fluid",
         getFaceUvs(from ,to, dir, face.getRotation(), isFlowing ? 0.5f : 1f)));
     }
 
     // create the part with the fluid
-    return new BlockPart(from, to, faces, null, false);
+    return new ModelElement(from, to, faces, null, false);
   }
 
   /**
@@ -72,7 +72,7 @@ public class IncrementalFluidCuboid extends FluidCuboid {
    * @param scale     UV scale, set to 0.5 for flowing fluids
    * @return  BlockFaceUV instance
    */
-  private static BlockFaceUV getFaceUvs(Vector3f from, Vector3f to, Direction side, int rotation, float scale) {
+  private static ModelElementTexture getFaceUvs(Vector3f from, Vector3f to, Direction side, int rotation, float scale) {
     // first, translate from and to into texture coords
     float u1, u2, v1, v2;
     switch(side) {
@@ -126,7 +126,7 @@ public class IncrementalFluidCuboid extends FluidCuboid {
     } else {
       uv = new float[] {u1 * scale, v1 * scale, u2 * scale, v2 * scale};
     }
-    return new BlockFaceUV(uv, rotation);
+    return new ModelElementTexture(uv, rotation);
   }
 
   /**
@@ -138,7 +138,7 @@ public class IncrementalFluidCuboid extends FluidCuboid {
     Vector3f from = ModelHelper.arrayToVector(json, "from");
     Vector3f to = ModelHelper.arrayToVector(json, "to");
     Map<Direction,FluidFace> faces = getFaces(json);
-    int increments = JSONUtils.getInt(json, "increments");
+    int increments = JsonHelper.getInt(json, "increments");
     return new IncrementalFluidCuboid(from, to, faces, increments);
   }
 }

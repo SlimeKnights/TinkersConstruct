@@ -2,11 +2,11 @@ package slimeknights.tconstruct.library.tinkering;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.DamageSource;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -19,15 +19,15 @@ public class IndestructibleEntityItem extends ItemEntity {
 
   public IndestructibleEntityItem(World worldIn, double x, double y, double z, ItemStack stack) {
     super(TinkerTools.indestructibleItem.get(), worldIn);
-    this.setPosition(x, y, z);
-    this.rotationYaw = this.rand.nextFloat() * 360.0F;
-    this.setMotion(this.rand.nextDouble() * 0.2D - 0.1D, 0.2D, this.rand.nextDouble() * 0.2D - 0.1D);
-    this.setItem(stack);
-    this.setNoDespawn();
+    this.updatePosition(x, y, z);
+    this.yaw = this.random.nextFloat() * 360.0F;
+    this.setVelocity(this.random.nextDouble() * 0.2D - 0.1D, 0.2D, this.random.nextDouble() * 0.2D - 0.1D);
+    this.setStack(stack);
+    this.setCovetedItem();
   }
 
   @Override
-  public IPacket<?> createSpawnPacket() {
+  public Packet<?> createSpawnPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 
@@ -36,27 +36,27 @@ public class IndestructibleEntityItem extends ItemEntity {
       short pickupDelay = this.getPickupDelay((ItemEntity) reference);
       this.setPickupDelay(pickupDelay);
     }
-    setMotion(reference.getMotion());
+    setVelocity(reference.getVelocity());
   }
 
   /**
    * workaround for private access on pickup delay. We simply read it from the items NBT representation ;)
    */
   private short getPickupDelay(ItemEntity reference) {
-    CompoundNBT tag = new CompoundNBT();
-    reference.writeAdditional(tag);
+    CompoundTag tag = new CompoundTag();
+    reference.writeCustomDataToTag(tag);
     return tag.getShort("PickupDelay");
   }
 
   @Override
-  public boolean isImmuneToFire() {
+  public boolean isFireImmune() {
     return true;
   }
 
   @Override
-  public boolean attackEntityFrom(DamageSource source, float amount) {
+  public boolean damage(DamageSource source, float amount) {
     // prevent any damage besides out of world
-    return source.getDamageType().equals(DamageSource.OUT_OF_WORLD.damageType);
+    return source.getName().equals(DamageSource.OUT_OF_WORLD.name);
   }
 /*
   @SubscribeEvent

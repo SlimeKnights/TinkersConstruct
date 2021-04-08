@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.recipe.partbuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -22,11 +22,11 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
   @Getter
-  protected final ResourceLocation id;
+  protected final Identifier id;
   @Getter
   protected final String group;
   @Getter
-  protected final ResourceLocation pattern;
+  protected final Identifier pattern;
   /** Recipe material cost */
   @Getter
   protected final int cost;
@@ -36,17 +36,17 @@ public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
   protected final int outputCount;
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RecipeTypes.PART_BUILDER;
   }
 
   @Override
-  public ItemStack getIcon() {
+  public ItemStack getRecipeKindIcon() {
     return new ItemStack(TinkerTables.partBuilder);
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.partRecipeSerializer.get();
   }
 
@@ -92,7 +92,7 @@ public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
   /** @deprecated use {@link #getRecipeOutput(IMaterial)} */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getOutput() {
     return new ItemStack(output);
   }
 

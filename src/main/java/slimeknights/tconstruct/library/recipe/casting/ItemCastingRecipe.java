@@ -4,12 +4,11 @@ import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
@@ -19,7 +18,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
   protected final ItemOutput result;
   @Getter
   protected final int coolingTime;
-  public ItemCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+  public ItemCastingRecipe(RecipeType<?> type, Identifier id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
     super(type, id, group, cast, consumed, switchSlots);
     this.fluid = fluid;
     this.result = result;
@@ -50,7 +49,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
   }
 
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getOutput() {
     return this.result.get();
   }
 
@@ -69,7 +68,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
 
   @Override
   public List<ItemStack> getCastItems() {
-    return Arrays.asList(cast.getMatchingStacks());
+    return Arrays.asList(cast.getMatchingStacksClient());
   }
 
   @Override
@@ -88,24 +87,24 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
 
   /** Subclass for basin recipes */
   public static class Basin extends ItemCastingRecipe {
-    public Basin(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+    public Basin(Identifier id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
       super(RecipeTypes.CASTING_BASIN, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.basinRecipeSerializer.get();
     }
   }
 
   /** Subclass for table recipes */
   public static class Table extends ItemCastingRecipe {
-    public Table(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+    public Table(Identifier id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
       super(RecipeTypes.CASTING_TABLE, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.tableRecipeSerializer.get();
     }
   }
@@ -115,15 +114,15 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
     private final IFactory<T> factory;
 
     @Override
-    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
+    protected T create(Identifier idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
       FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
       ItemOutput output = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
-      int coolingTime = JSONUtils.getInt(json, "cooling_time");
+      int coolingTime = net.minecraft.util.JsonHelper.getInt(json, "cooling_time");
       return factory.create(idIn, groupIn, cast, fluid, output, coolingTime, consumed, switchSlots);
     }
 
     @Override
-    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, PacketBuffer buffer) {
+    protected T create(Identifier idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, PacketByteBuf buffer) {
       FluidIngredient fluid = FluidIngredient.read(buffer);
       ItemOutput result = ItemOutput.read(buffer);
       int coolingTime = buffer.readInt();
@@ -131,7 +130,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
     }
 
     @Override
-    public void writeExtra(PacketBuffer buffer, T recipe) {
+    public void writeExtra(PacketByteBuf buffer, T recipe) {
       recipe.fluid.write(buffer);
       recipe.result.write(buffer);
       buffer.writeInt(recipe.coolingTime);
@@ -144,6 +143,6 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
    */
   public interface IFactory<T extends AbstractCastingRecipe> {
     /** Creates a new instance of this factory */
-    T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, FluidIngredient fluidIn, ItemOutput output, int coolingTime, boolean consumed, boolean switchSlots);
+    T create(Identifier idIn, String groupIn, @Nullable Ingredient cast, FluidIngredient fluidIn, ItemOutput output, int coolingTime, boolean consumed, boolean switchSlots);
   }
 }

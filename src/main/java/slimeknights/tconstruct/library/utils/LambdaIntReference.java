@@ -1,13 +1,12 @@
 package slimeknights.tconstruct.library.utils;
 
 import lombok.AllArgsConstructor;
-import net.minecraft.util.IntReferenceHolder;
-
+import net.minecraft.screen.Property;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 
 @AllArgsConstructor
-public class LambdaIntReference extends IntReferenceHolder {
+public class LambdaIntReference extends Property {
   private final IntSupplier getter;
   private final IntConsumer setter;
 

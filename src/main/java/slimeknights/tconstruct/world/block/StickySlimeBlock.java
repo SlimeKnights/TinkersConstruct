@@ -8,7 +8,7 @@ import java.util.function.BiPredicate;
 public class StickySlimeBlock extends SlimeBlock {
 
   private final BiPredicate<BlockState, BlockState> stickyPredicate;
-  public StickySlimeBlock(Properties properties, BiPredicate<BlockState, BlockState> stickyPredicate) {
+  public StickySlimeBlock(Settings properties, BiPredicate<BlockState, BlockState> stickyPredicate) {
     super(properties);
     this.stickyPredicate = stickyPredicate;
   }

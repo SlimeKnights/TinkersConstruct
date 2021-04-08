@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.shared;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,18 +21,18 @@ public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(TinkerCommons.glow.get(), RenderType.getTranslucent());
+    RenderLayers.setRenderLayer(TinkerCommons.glow.get(), RenderLayer.getTranslucent());
 
     // glass
-    RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlass.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlassPane.get(), RenderType.getCutout());
-    for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
-      RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderType.getTranslucent());
-      RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlassPane.get(color), RenderType.getTranslucent());
+    RenderLayers.setRenderLayer(TinkerCommons.clearGlass.get(), RenderLayer.getCutout());
+    RenderLayers.setRenderLayer(TinkerCommons.clearGlassPane.get(), RenderLayer.getCutout());
+    for (GlassColor color : GlassColor.values()) {
+      RenderLayers.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderLayer.getTranslucent());
+      RenderLayers.setRenderLayer(TinkerCommons.clearStainedGlassPane.get(color), RenderLayer.getTranslucent());
     }
-    RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlass.get(), RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.getTranslucent());
+    RenderLayers.setRenderLayer(TinkerCommons.soulGlass.get(), RenderLayer.getTranslucent());
+    RenderLayers.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderLayer.getTranslucent());
+    RenderLayers.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderLayer.getTranslucent());
   }
 
   @SubscribeEvent
@@ -43,7 +43,7 @@ public class CommonsClientEvents extends ClientEventBase {
     for (GlassColor color : GlassColor.values()) {
       Block block = TinkerCommons.clearStainedGlass.get(color);
       Block pane = TinkerCommons.clearStainedGlassPane.get(color);
-      blockColors.register((state, reader, pos, index) -> color.getColor(), block, pane);
+      blockColors.registerColorProvider((state, reader, pos, index) -> color.getColor(), block, pane);
       registerBlockItemColorAlias(blockColors, itemColors, block);
       registerBlockItemColorAlias(blockColors, itemColors, pane);
     }

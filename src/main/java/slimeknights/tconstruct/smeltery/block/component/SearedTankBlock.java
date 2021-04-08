@@ -2,18 +2,20 @@ package slimeknights.tconstruct.smeltery.block.component;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -24,21 +26,21 @@ import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 public class SearedTankBlock extends SearedBlock {
   @Getter
   private final int capacity;
-  public SearedTankBlock(Properties properties, int capacity) {
+  public SearedTankBlock(Settings properties, int capacity) {
     super(properties);
     this.capacity = capacity;
   }
 
   @Deprecated
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+  @Environment(EnvType.CLIENT)
+  public float getAmbientOcclusionLightLevel(BlockState state, BlockView worldIn, BlockPos pos) {
     return 1.0F;
   }
 
@@ -48,22 +50,22 @@ public class SearedTankBlock extends SearedBlock {
   }
 
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader worldIn) {
+  public BlockEntity createTileEntity(BlockState state, BlockView worldIn) {
     return new TankTileEntity(this);
   }
 
   @Deprecated
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+  public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
     if (ITankTileEntity.interactWithTank(world, pos, player, hand, hit)) {
-      return ActionResultType.SUCCESS;
+      return ActionResult.SUCCESS;
     }
-    return super.onBlockActivated(state, world, pos, player, hand, hit);
+    return super.onUse(state, world, pos, player, hand, hit);
   }
 
   @Override
-  public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-    TileEntity te = world.getTileEntity(pos);
+  public int getLightValue(BlockState state, BlockView world, BlockPos pos) {
+    BlockEntity te = world.getBlockEntity(pos);
     if (te instanceof TankTileEntity) {
       FluidStack fluid = ((TankTileEntity) te).getTank().getFluid();
       return fluid.getFluid().getAttributes().getLuminosity(fluid);
@@ -72,28 +74,28 @@ public class SearedTankBlock extends SearedBlock {
   }
 
   @Override
-  public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
+  public void onPlaced(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+    CompoundTag nbt = stack.getTag();
     if (nbt != null) {
       TileEntityHelper.getTile(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(Tags.TANK)));
     }
-    super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+    super.onPlaced(worldIn, pos, state, placer, stack);
   }
 
   @Deprecated
   @Override
-  public boolean hasComparatorInputOverride(BlockState state) {
+  public boolean hasComparatorOutput(BlockState state) {
     return true;
   }
 
   @Deprecated
   @Override
-  public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
+  public int getComparatorOutput(BlockState blockState, World worldIn, BlockPos pos) {
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 
   @AllArgsConstructor
-  public enum TankType implements IStringSerializable {
+  public enum TankType implements StringIdentifiable {
     TANK(TankTileEntity.DEFAULT_CAPACITY),
     GAUGE(MaterialValues.METAL_BLOCK * 3),
     WINDOW(TankTileEntity.DEFAULT_CAPACITY);
@@ -102,7 +104,7 @@ public class SearedTankBlock extends SearedBlock {
     private final int capacity;
 
     @Override
-    public String getString() {
+    public String asString() {
       return this.toString().toLowerCase(Locale.US);
     }
   }

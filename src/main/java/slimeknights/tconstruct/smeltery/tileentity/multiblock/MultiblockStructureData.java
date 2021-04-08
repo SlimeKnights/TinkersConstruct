@@ -1,17 +1,17 @@
 package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 
 import lombok.Getter;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -55,7 +55,7 @@ public class MultiblockStructureData {
 
   /** Bounding box representing the area inside the structure */
   @Getter
-  private final AxisAlignedBB bounds;
+  private final Box bounds;
 
   public MultiblockStructureData(BlockPos minPos, BlockPos maxPos, Set<BlockPos> extraPositons, boolean hasFloor, boolean hasFrame, boolean hasCeiling) {
     this.minPos = minPos;
@@ -71,7 +71,7 @@ public class MultiblockStructureData {
     internalSize = (maxInside.getX() - minInside.getX() + 1)
                    * (maxInside.getY() - minInside.getY() + 1)
                    * (maxInside.getZ() - minInside.getZ() + 1);
-    bounds = new AxisAlignedBB(minInside, maxInside.add(1, 1, 1));
+    bounds = new Box(minInside, maxInside.add(1, 1, 1));
   }
 
   /**
@@ -163,7 +163,7 @@ public class MultiblockStructureData {
     for (int x = minPos.getX(); x <= maxPos.getX(); x++) {
       for (int y = minPos.getY(); y <= maxPos.getY(); y++) {
         for (int z = minPos.getZ(); z <= maxPos.getZ(); z++) {
-          mutable.setPos(x, y, z);
+          mutable.set(x, y, z);
           if (containsBase(mutable)) {
             consumer.accept(mutable);
           }
@@ -191,7 +191,7 @@ public class MultiblockStructureData {
 
     // assign master to each servant
     forEachContained(pos -> {
-      if (shouldUpdate.test(pos) && world.isBlockLoaded(pos)) {
+      if (shouldUpdate.test(pos) && world.isChunkLoaded(pos)) {
         TileEntityHelper.getTile(IServantLogic.class, world, pos).ifPresent(te -> te.setPotentialMaster(master));
       }
     });
@@ -199,7 +199,7 @@ public class MultiblockStructureData {
     // remove master from anything only in the old structure
     if (oldStructure != null) {
       oldStructure.forEachContained(pos -> {
-        if (!contains(pos) && world.isBlockLoaded(pos)) {
+        if (!contains(pos) && world.isChunkLoaded(pos)) {
           TileEntityHelper.getTile(IServantLogic.class, world, pos).ifPresent(te -> te.removeMaster(master));
         }
       });
@@ -214,7 +214,7 @@ public class MultiblockStructureData {
     World world = master.getTileEntity().getWorld();
     assert world != null;
     forEachContained(pos -> {
-      if (world.isBlockLoaded(pos)) {
+      if (world.isChunkLoaded(pos)) {
         TileEntityHelper.getTile(IServantLogic.class, world, pos).ifPresent(te -> te.removeMaster(master));
       }
     });
@@ -224,8 +224,8 @@ public class MultiblockStructureData {
    * Writes this structure to NBT for the client, client does not need a full list of positions, just render bounds
    * @return  structure as NBT
    */
-  public CompoundNBT writeClientNBT() {
-    CompoundNBT nbt = new CompoundNBT();
+  public CompoundTag writeClientNBT() {
+    CompoundTag nbt = new CompoundTag();
     nbt.put(TAG_MIN, TagUtil.writePos(minPos));
     nbt.put(TAG_MAX, TagUtil.writePos(maxPos));
     return nbt;
@@ -235,8 +235,8 @@ public class MultiblockStructureData {
    * Writes the full NBT data for writing to disk
    * @return  structure as NBT
    */
-  public CompoundNBT writeToNBT() {
-    CompoundNBT nbt = writeClientNBT();
+  public CompoundTag writeToNBT() {
+    CompoundTag nbt = writeClientNBT();
     if (!extra.isEmpty()) {
       nbt.put(TAG_EXTRA_POS, writePosList(extra));
     }
@@ -248,8 +248,8 @@ public class MultiblockStructureData {
    * @param collection  Position collection
    * @return  NBT list
    */
-  protected static ListNBT writePosList(Collection<BlockPos> collection) {
-    ListNBT list = new ListNBT();
+  protected static ListTag writePosList(Collection<BlockPos> collection) {
+    ListTag list = new ListTag();
     for (BlockPos pos : collection) {
       list.add(TagUtil.writePos(pos));
     }

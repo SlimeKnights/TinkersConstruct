@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
@@ -19,7 +19,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SmelteryIOBlock;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
@@ -35,7 +35,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   @Nullable
   private LazyOptional<T> capabilityHolder = null;
 
-  protected SmelteryInputOutputTileEntity(TileEntityType<?> type, Capability<T> capability, T emptyInstance) {
+  protected SmelteryInputOutputTileEntity(BlockEntityType<?> type, Capability<T> capability, T emptyInstance) {
     super(type);
     this.capability = capability;
     this.emptyInstance = emptyInstance;
@@ -67,12 +67,12 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
     // update the active state
     boolean hasMaster = getMasterPos() != null;
     if (hadMaster != hasMaster) {
-      world.setBlockState(pos, getBlockState().with(SmelteryIOBlock.ACTIVE, hasMaster));
+      world.setBlockState(pos, getCachedState().with(SmelteryIOBlock.ACTIVE, hasMaster));
     }
     // if we have a new master, invalidate handlers
     if (masterChanged) {
       clearHandler();
-      world.notifyNeighborsOfStateChange(pos, getBlockState().getBlock());
+      world.updateNeighborsAlways(pos, getCachedState().getBlock());
     }
   }
 
@@ -81,7 +81,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
    * @param parent  Parent tile entity
    * @return  Capability from parent, or empty if absent
    */
-  protected LazyOptional<T> getCapability(TileEntity parent) {
+  protected LazyOptional<T> getCapability(BlockEntity parent) {
     LazyOptional<T> handler = parent.getCapability(capability);
     if (handler.isPresent()) {
       handler.addListener(listener);
@@ -99,7 +99,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
       if (validateMaster()) {
         BlockPos master = getMasterPos();
         if (master != null && this.world != null) {
-          TileEntity te = world.getTileEntity(master);
+          BlockEntity te = world.getBlockEntity(master);
           if (te != null) {
             capabilityHolder = getCapability(te);
             return capabilityHolder;
@@ -121,7 +121,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
 
   /** Fluid implementation of smeltery IO */
   public static abstract class SmelteryFluidIO extends SmelteryInputOutputTileEntity<IFluidHandler> {
-    protected SmelteryFluidIO(TileEntityType<?> type) {
+    protected SmelteryFluidIO(BlockEntityType<?> type) {
       super(type, CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EmptyFluidHandler.INSTANCE);
     }
 
@@ -131,7 +131,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
     }
 
     @Override
-    protected LazyOptional<IFluidHandler> getCapability(TileEntity parent) {
+    protected LazyOptional<IFluidHandler> getCapability(BlockEntity parent) {
       // fluid capability is not exposed directly in the smeltery
       if (parent instanceof ISmelteryTankHandler) {
         LazyOptional<IFluidHandler> capability = ((ISmelteryTankHandler) parent).getFluidCapability();
@@ -150,7 +150,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
       this(TinkerSmeltery.chute.get());
     }
 
-    protected ChuteTileEntity(TileEntityType<?> type) {
+    protected ChuteTileEntity(BlockEntityType<?> type) {
       super(type, CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EmptyItemHandler.INSTANCE);
     }
   }

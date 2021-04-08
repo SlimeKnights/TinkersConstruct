@@ -1,14 +1,16 @@
 package slimeknights.tconstruct.library.book.elements;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.gui.FontRenderer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class ListingLeftElement extends TextElement {
 
   public ListingLeftElement(int x, int y, int width, int height, TextData... text) {
@@ -19,7 +21,7 @@ public class ListingLeftElement extends TextElement {
   }
 
   @Override
-  public void draw(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
+  public void draw(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, TextRenderer fontRenderer) {
     if (this.isHovered(mouseX, mouseY)) {
       this.text[0].text = " > ";
       for (int i = 1; i < this.text.length; i++) {

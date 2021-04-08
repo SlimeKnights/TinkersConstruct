@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.text.TextColor;
 import net.minecraft.util.Util;
-import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
@@ -57,14 +57,14 @@ public interface IMaterial extends Comparable<IMaterial> {
    * @return the translation key
    */
   default String getTranslationKey() {
-    return Util.makeTranslationKey("material", getIdentifier());
+    return Util.createTranslationKey("material", getIdentifier());
   }
 
   /**
    * Gets the text color for this material
    * @return the text color
    */
-  Color getColor();
+  TextColor getColor();
 
   /**
    * Gets the temperature of this material for use in melting and casting recipes.

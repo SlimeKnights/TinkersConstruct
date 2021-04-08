@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Identifier;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
@@ -11,11 +11,11 @@ import slimeknights.tconstruct.tables.client.inventory.module.SideInventoryScree
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 
 public class SmelterySideInventoryScreen extends SideInventoryScreen<SmelteryScreen,SideInventoryContainer<SmelteryTileEntity>> {
-  public static final ResourceLocation SLOT_LOCATION = SmelteryScreen.BACKGROUND;
+  public static final Identifier SLOT_LOCATION = SmelteryScreen.BACKGROUND;
 
   // TODO: read from a proper place
   public SmelterySideInventoryScreen(SmelteryScreen parent, SideInventoryContainer<SmelteryTileEntity> container, PlayerInventory playerInventory, int slotCount, int columns) {
-    super(parent, container, playerInventory, StringTextComponent.EMPTY, slotCount, columns, false, true);
+    super(parent, container, playerInventory, LiteralText.EMPTY, slotCount, columns, false, true);
     slot = new ScalableElementScreen(0, 166, 22, 18, 256, 256);
     slotEmpty = new ScalableElementScreen(22, 166, 22, 18, 256, 256);
     yOffset = 0;
@@ -36,21 +36,21 @@ public class SmelterySideInventoryScreen extends SideInventoryScreen<SmelteryScr
 
   @Override
   protected int drawSlots(MatrixStack matrices, int xPos, int yPos) {
-    assert minecraft != null;
-    minecraft.getTextureManager().bindTexture(SLOT_LOCATION);
+    assert client != null;
+    client.getTextureManager().bindTexture(SLOT_LOCATION);
     int ret = super.drawSlots(matrices, xPos, yPos);
-    minecraft.getTextureManager().bindTexture(GENERIC_INVENTORY);
+    client.getTextureManager().bindTexture(GENERIC_INVENTORY);
     return ret;
   }
 
   @Override
-  public void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
-    super.drawGuiContainerForegroundLayer(matrices, mouseX, mouseY);
+  public void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
+    super.drawForeground(matrices, mouseX, mouseY);
   }
 
   @Override
-  protected void renderHoveredTooltip(MatrixStack matrices, int mouseX, int mouseY) {
-    super.renderHoveredTooltip(matrices, mouseX, mouseY);
+  protected void drawMouseoverTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+    super.drawMouseoverTooltip(matrices, mouseX, mouseY);
     if (parent.melting != null) {
       parent.melting.drawHeatTooltips(matrices, mouseX, mouseY);
     }

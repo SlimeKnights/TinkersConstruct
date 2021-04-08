@@ -6,19 +6,18 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +27,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MeltingRecipe implements IMeltingRecipe {
   @Getter
-  private final ResourceLocation id;
+  private final Identifier id;
   @Getter
   private final String group;
   private final Ingredient input;
@@ -61,12 +60,12 @@ public class MeltingRecipe implements IMeltingRecipe {
   }
 
   @Override
-  public NonNullList<Ingredient> getIngredients() {
-    return NonNullList.from(Ingredient.EMPTY, input);
+  public DefaultedList<Ingredient> getPreviewInputs() {
+    return DefaultedList.copyOf(Ingredient.EMPTY, input);
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.meltingSerializer.get();
   }
 
@@ -84,7 +83,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   @FunctionalInterface
   public interface IFactory<T extends MeltingRecipe> {
     /** Creates a new instance of this recipe */
-    T create(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time);
+    T create(Identifier id, String group, Ingredient input, FluidStack output, int temperature, int time);
   }
 
   /**
@@ -95,14 +94,14 @@ public class MeltingRecipe implements IMeltingRecipe {
     private final IFactory<T> factory;
 
     @Override
-    public T read(ResourceLocation id, JsonObject json) {
-      String group = JSONUtils.getString(json, "group", "");
-      Ingredient input = Ingredient.deserialize(json.get("ingredient"));
-      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
+    public T read(Identifier id, JsonObject json) {
+      String group = JsonHelper.getString(json, "group", "");
+      Ingredient input = Ingredient.fromJson(json.get("ingredient"));
+      FluidStack output = RecipeHelper.deserializeFluidStack(JsonHelper.getObject(json, "result"));
 
       // temperature calculates
-      int temperature = JSONUtils.getInt(json, "temperature");
-      int time = JSONUtils.getInt(json, "time");
+      int temperature = JsonHelper.getInt(json, "temperature");
+      int time = JsonHelper.getInt(json, "time");
       // validate values
       if (temperature < 0) throw new JsonSyntaxException("Melting temperature must be greater than zero");
       if (time <= 0) throw new JsonSyntaxException("Melting time must be greater than zero");
@@ -112,9 +111,9 @@ public class MeltingRecipe implements IMeltingRecipe {
 
     @Nullable
     @Override
-    public T read(ResourceLocation id, PacketBuffer buffer) {
+    public T read(Identifier id, PacketByteBuf buffer) {
       String group = buffer.readString(Short.MAX_VALUE);
-      Ingredient input = Ingredient.read(buffer);
+      Ingredient input = Ingredient.fromPacket(buffer);
       FluidStack output = FluidStack.readFromPacket(buffer);
       int temperature = buffer.readInt();
       int time = buffer.readVarInt();
@@ -122,7 +121,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     }
 
     @Override
-    public void write(PacketBuffer buffer, MeltingRecipe recipe) {
+    public void write(PacketByteBuf buffer, MeltingRecipe recipe) {
       buffer.writeString(recipe.group);
       recipe.input.write(buffer);
       recipe.output.writeToPacket(buffer);

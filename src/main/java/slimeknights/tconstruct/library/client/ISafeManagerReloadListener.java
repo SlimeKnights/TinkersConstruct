@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.library.client;
 
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.resources.IResourceManagerReloadListener;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.SynchronousResourceReloadListener;
 import net.minecraftforge.fml.ModLoader;
 
 /**
- * Same as {@link IResourceManagerReloadListener}, but only runs if the mod loader state is valid
+ * Same as {@link SynchronousResourceReloadListener}, but only runs if the mod loader state is valid
  */
-public interface ISafeManagerReloadListener extends IResourceManagerReloadListener {
+public interface ISafeManagerReloadListener extends SynchronousResourceReloadListener {
   @Override
-  default void onResourceManagerReload(IResourceManager resourceManager) {
+  default void apply(ResourceManager resourceManager) {
     if (ModLoader.isLoadingStateValid()) {
       onReloadSafe(resourceManager);
     }
@@ -19,5 +19,5 @@ public interface ISafeManagerReloadListener extends IResourceManagerReloadListen
    * Safely handle a resource manager reload. Only runs if the mod loading state is valid
    * @param resourceManager  Resource manager
    */
-  void onReloadSafe(IResourceManager resourceManager);
+  void onReloadSafe(ResourceManager resourceManager);
 }

@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 /** Melting recipe that scale output based on input damage */
 public class DamagableMeltingRecipe extends MeltingRecipe {
-  public DamagableMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time) {
+  public DamagableMeltingRecipe(Identifier id, String group, Ingredient input, FluidStack output, int temperature, int time) {
     super(id, group, input, output, temperature, time);
   }
 
@@ -26,7 +26,7 @@ public class DamagableMeltingRecipe extends MeltingRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.damagableMeltingSerializer.get();
   }
 }

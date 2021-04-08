@@ -3,14 +3,14 @@ package slimeknights.tconstruct.tables.tileentity.table;
 import lombok.Getter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.RecipeManager;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.GameRules;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
@@ -23,14 +23,14 @@ import slimeknights.tconstruct.tables.network.UpdateCraftingRecipePacket;
 import slimeknights.tconstruct.tables.tileentity.crafting.CraftingInventoryWrapper;
 import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Collections;
 
 public class CraftingStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
 
   /** Last crafted crafting recipe */
   @Nullable
-  private ICraftingRecipe lastRecipe;
+  private CraftingRecipe lastRecipe;
   /** Result inventory, lazy loads results */
   @Getter
   private final LazyResultInventory craftingResult;
@@ -47,13 +47,13 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
 
   @Nullable
   @Override
-  public Container createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+  public ScreenHandler createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
     return new CraftingStationContainer(menuId, playerInventory, this);
   }
 
   @Override
-  public AxisAlignedBB getRenderBoundingBox() {
-    return new AxisAlignedBB(pos, pos.add(1, 2, 1));
+  public Box getRenderBoundingBox() {
+    return new Box(pos, pos.add(1, 2, 1));
   }
 
   /* Crafting */
@@ -65,19 +65,19 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
     }
     // assume empty unless we learn otherwise
     ItemStack result = ItemStack.EMPTY;
-    if (!this.world.isRemote && this.world.getServer() != null) {
+    if (!this.world.isClient && this.world.getServer() != null) {
       RecipeManager manager = this.world.getServer().getRecipeManager();
 
       // first, try the cached recipe
-      ICraftingRecipe recipe = lastRecipe;
+      CraftingRecipe recipe = lastRecipe;
       // if it does not match, find a new recipe
       if (recipe == null || !recipe.matches(this.craftingInventory, this.world)) {
-        recipe = manager.getRecipe(IRecipeType.CRAFTING, this.craftingInventory, this.world).orElse(null);
+        recipe = manager.getFirstMatch(RecipeType.CRAFTING, this.craftingInventory, this.world).orElse(null);
       }
 
       // if we have a recipe, fetch its result
       if (recipe != null) {
-        result = recipe.getCraftingResult(this.craftingInventory);
+        result = recipe.craft(this.craftingInventory);
         // sync if the recipe is different
         if (recipe != lastRecipe) {
           this.lastRecipe = recipe;
@@ -86,7 +86,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       }
     }
     else if (this.lastRecipe != null && this.lastRecipe.matches(this.craftingInventory, this.world)) {
-      result = this.lastRecipe.getCraftingResult(this.craftingInventory);
+      result = this.lastRecipe.craft(this.craftingInventory);
     }
     return result;
   }
@@ -101,48 +101,48 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
     if (player instanceof ServerPlayerEntity) {
       if (this.lastRecipe != null) {
         // if the player cannot craft this, block crafting
-        if (!this.lastRecipe.isDynamic() && world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING) && !((ServerPlayerEntity) player).getRecipeBook().isUnlocked(this.lastRecipe)) {
+        if (!this.lastRecipe.isIgnoredInRecipeBook() && world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING) && !((ServerPlayerEntity) player).getRecipeBook().contains(this.lastRecipe)) {
           return ItemStack.EMPTY;
         }
         // unlock the recipe if it was not unlocked
-        if (this.lastRecipe != null && !this.lastRecipe.isDynamic()) {
+        if (this.lastRecipe != null && !this.lastRecipe.isIgnoredInRecipeBook()) {
           player.unlockRecipes(Collections.singleton(this.lastRecipe));
         }
       }
 
       // fire crafting events
-      result.onCrafting(this.world, player, amount);
+      result.onCraft(this.world, player, amount);
       BasicEventHooks.firePlayerCraftingEvent(player, result, this.craftingInventory);
     }
 
     // update all slots in the inventory
     // remove remaining items
     ForgeHooks.setCraftingPlayer(player);
-    NonNullList<ItemStack> remaining = this.lastRecipe.getRemainingItems(craftingInventory);
+    DefaultedList<ItemStack> remaining = this.lastRecipe.getRemainingStacks(craftingInventory);
     ForgeHooks.setCraftingPlayer(null);
     for (int i = 0; i < remaining.size(); ++i) {
-      ItemStack original = this.getStackInSlot(i);
+      ItemStack original = this.getStack(i);
       ItemStack newStack = remaining.get(i);
 
       // if the slot contains a stack, decrease by 1
       if (!original.isEmpty()) {
-        original.shrink(1);
+        original.decrement(1);
       }
 
       // if we have a new item, try merging it in
       if (!newStack.isEmpty()) {
         // if empty, set directly
         if (original.isEmpty()) {
-          this.setInventorySlotContents(i, newStack);
+          this.setStack(i, newStack);
         }
-        else if (ItemStack.areItemsEqual(original, newStack) && ItemStack.areItemStackTagsEqual(original, newStack)) {
+        else if (ItemStack.areItemsEqualIgnoreDamage(original, newStack) && ItemStack.areTagsEqual(original, newStack)) {
           // if matching, merge
-          newStack.grow(original.getCount());
-          this.setInventorySlotContents(i, newStack);
+          newStack.increment(original.getCount());
+          this.setStack(i, newStack);
         }
         else {
           // otherwise, drop the item as the player
-          if (!player.inventory.addItemStackToInventory(newStack)) {
+          if (!player.inventory.insertStack(newStack)) {
             player.dropItem(newStack, false);
           }
         }
@@ -153,8 +153,8 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
   }
 
   @Override
-  public void setInventorySlotContents(int slot, ItemStack itemstack) {
-    super.setInventorySlotContents(slot, itemstack);
+  public void setStack(int slot, ItemStack itemstack) {
+    super.setStack(slot, itemstack);
     // clear the crafting result when the matrix changes so we recalculate the result
     this.craftingResult.clear();
   }
@@ -168,7 +168,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
    */
   public void syncRecipe(PlayerEntity player) {
     // must have a last recipe and a server world
-    if (this.lastRecipe != null && this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
+    if (this.lastRecipe != null && this.world != null && !this.world.isClient && player instanceof ServerPlayerEntity) {
       TinkerNetwork.getInstance().sendTo(new UpdateCraftingRecipePacket(this.pos, this.lastRecipe), (ServerPlayerEntity) player);
     }
   }
@@ -177,7 +177,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
    * Updates the recipe from the server
    * @param recipe  New recipe
    */
-  public void updateRecipe(ICraftingRecipe recipe) {
+  public void updateRecipe(CraftingRecipe recipe) {
     this.lastRecipe = recipe;
     this.craftingResult.clear();
   }

@@ -2,16 +2,16 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -24,13 +24,13 @@ public class OverslimeModifierRecipeBuilder extends AbstractRecipeBuilder<Oversl
   private final int restoreAmount;
 
   /** Creates a new builder for the given item */
-  public static OverslimeModifierRecipeBuilder modifier(IItemProvider item, int restoreAmount) {
-    return modifier(Ingredient.fromItems(item), restoreAmount);
+  public static OverslimeModifierRecipeBuilder modifier(ItemConvertible item, int restoreAmount) {
+    return modifier(Ingredient.ofItems(item), restoreAmount);
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
-    ItemStack[] stacks = ingredient.getMatchingStacks();
+  public void build(Consumer<RecipeJsonProvider> consumer) {
+    ItemStack[] stacks = ingredient.getMatchingStacksClient();
     if (stacks.length == 0) {
       throw new IllegalStateException("Empty ingredient not allowed");
     }
@@ -38,27 +38,27 @@ public class OverslimeModifierRecipeBuilder extends AbstractRecipeBuilder<Oversl
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+  public void build(Consumer<RecipeJsonProvider> consumer, Identifier id) {
     if (ingredient == Ingredient.EMPTY) {
       throw new IllegalStateException("Empty ingredient not allowed");
     }
-    ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
+    Identifier advancementId = buildOptionalAdvancement(id, "modifiers");
     consumer.accept(new FinishedRecipe(id, advancementId));
   }
 
   private class FinishedRecipe extends AbstractFinishedRecipe {
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public FinishedRecipe(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
     @Override
     public void serialize(JsonObject json) {
-      json.add("ingredient", ingredient.serialize());
+      json.add("ingredient", ingredient.toJson());
       json.addProperty("restore_amount", restoreAmount);
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerModifiers.overslimeSerializer.get();
     }
   }

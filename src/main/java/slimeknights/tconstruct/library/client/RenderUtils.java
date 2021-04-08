@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
@@ -23,15 +23,15 @@ public final class RenderUtils {
    * @param light     Quad lighting
    * @param cube      Fluid cuboid instance
    */
-  public static void renderTransparentCuboid(MatrixStack matrices, IRenderTypeBuffer buffer, FluidCuboid cube, FluidStack fluid, int opacity, int light) {
+  public static void renderTransparentCuboid(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidStack fluid, int opacity, int light) {
     // nothing to render? skip
     if (opacity < 0 || fluid.isEmpty()) {
       return;
     }
 
     FluidAttributes attributes = fluid.getFluid().getAttributes();
-    TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
-    TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
+    Sprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
+    Sprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
     boolean isGas = attributes.isGaseous(fluid);
     light = FluidRenderer.withBlockLight(light, attributes.getLuminosity(fluid));
 
@@ -56,7 +56,7 @@ public final class RenderUtils {
    * @param partialTicks  Partial ticks
    * @param flipGas       If true, flips gas cubes
    */
-  public static void renderFluidTank(MatrixStack matrices, IRenderTypeBuffer buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
+  public static void renderFluidTank(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
     // render liquid if present
     FluidStack liquid = tank.getFluid();
     int capacity = tank.getCapacity();

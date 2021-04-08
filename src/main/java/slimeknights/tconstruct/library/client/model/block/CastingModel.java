@@ -3,15 +3,14 @@ package slimeknights.tconstruct.library.client.model.block;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.IModelTransform;
-import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.render.model.ModelBakeSettings;
+import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.render.model.json.ModelOverrideList;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
@@ -38,8 +37,8 @@ public class CastingModel extends InventoryModel {
   }
 
   @Override
-  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation location) {
-    IBakedModel baked = model.bakeModel(owner, transform, overrides, spriteGetter, location);
+  public net.minecraft.client.render.model.BakedModel bake(IModelConfiguration owner, ModelLoader bakery, Function<SpriteIdentifier,Sprite> spriteGetter, ModelBakeSettings transform, ModelOverrideList overrides, Identifier location) {
+    net.minecraft.client.render.model.BakedModel baked = model.bakeModel(owner, transform, overrides, spriteGetter, location);
     return new BakedModel(baked, items, fluid);
   }
 
@@ -47,7 +46,7 @@ public class CastingModel extends InventoryModel {
   public static class BakedModel extends InventoryModel.BakedModel {
     @Getter
     private final FluidCuboid fluid;
-    private BakedModel(IBakedModel originalModel, List<ModelItem> items, FluidCuboid fluid) {
+    private BakedModel(net.minecraft.client.render.model.BakedModel originalModel, List<ModelItem> items, FluidCuboid fluid) {
       super(originalModel, items);
       this.fluid = fluid;
     }
@@ -56,13 +55,13 @@ public class CastingModel extends InventoryModel {
   /** Loader for this model */
   public static class Loader implements IModelLoader<InventoryModel> {
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {}
+    public void apply(ResourceManager resourceManager) {}
 
     @Override
     public InventoryModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
       SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
       List<ModelItem> items = ModelItem.listFromJson(modelContents, "items");
-      FluidCuboid fluid = FluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
+      FluidCuboid fluid = FluidCuboid.fromJson(JsonHelper.getObject(modelContents, "fluid"));
       return new CastingModel(model, items, fluid);
     }
   }

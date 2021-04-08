@@ -1,23 +1,23 @@
 package slimeknights.tconstruct.world;
 
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootEntry;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.loot.LootPool;
-import net.minecraft.loot.RandomValueRange;
-import net.minecraft.loot.functions.SetCount;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.loot.UniformLootTableRange;
+import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.entry.LootPoolEntry;
+import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.biome.provider.BiomeProvider;
-import net.minecraft.world.biome.provider.EndBiomeProvider;
-import net.minecraft.world.biome.provider.NetherBiomeProvider;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.biome.source.MultiNoiseBiomeSource;
+import net.minecraft.world.biome.source.TheEndBiomeSource;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.chunk.StructureConfig;
+import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -30,7 +30,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -79,16 +79,16 @@ public class WorldEvents {
   static void addDimensionalSpacing(WorldEvent.Load event) {
     if (event.getWorld() instanceof ServerWorld) {
       ServerWorld serverWorld = (ServerWorld) event.getWorld();
-      Map<Structure<?>, StructureSeparationSettings> configuredStructures = serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_();
-      BiomeProvider provider = serverWorld.getChunkProvider().generator.getBiomeProvider();
+      Map<StructureFeature<?>, StructureConfig> configuredStructures = serverWorld.getChunkManager().chunkGenerator.getStructuresConfig().getStructures();
+      BiomeSource provider = serverWorld.getChunkManager().chunkGenerator.getBiomeSource();
       try {
-        if (provider instanceof NetherBiomeProvider) {
+        if (provider instanceof MultiNoiseBiomeSource) {
           if (!configuredStructures.containsKey(TinkerStructures.netherSlimeIsland.get())) {
-            configuredStructures.put(TinkerStructures.netherSlimeIsland.get(), new StructureSeparationSettings(15, 11, 14357800));
+            configuredStructures.put(TinkerStructures.netherSlimeIsland.get(), new StructureConfig(15, 11, 14357800));
           }
-        } else if (provider instanceof EndBiomeProvider) {
+        } else if (provider instanceof TheEndBiomeSource) {
           if (!configuredStructures.containsKey(TinkerStructures.endSlimeIsland.get())) {
-            configuredStructures.put(TinkerStructures.endSlimeIsland.get(), new StructureSeparationSettings(30, 22, 14357800));
+            configuredStructures.put(TinkerStructures.endSlimeIsland.get(), new StructureConfig(30, 22, 14357800));
           }
         }
       } catch (UnsupportedOperationException ex) {
@@ -106,27 +106,27 @@ public class WorldEvents {
 
     if (event.getCategory() == Biome.Category.NETHER) {
       if (Config.COMMON.generateSlimeIslands.get()) {
-        generation.withStructure(TinkerStructures.NETHER_SLIME_ISLAND);
+        generation.structureFeature(TinkerStructures.NETHER_SLIME_ISLAND);
       }
 
       if (Config.COMMON.generateCobalt.get()) {
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_SMALL);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_LARGE);
+        generation.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_SMALL);
+        generation.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_LARGE);
       }
     }
     else if (event.getCategory() != Biome.Category.THEEND) {
       if (Config.COMMON.generateSlimeIslands.get()) {
-        generation.withStructure(TinkerStructures.SLIME_ISLAND);
-        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 15, 2, 4));
+        generation.structureFeature(TinkerStructures.SLIME_ISLAND);
+        event.getSpawns().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(TinkerWorld.skySlimeEntity.get(), 15, 2, 4));
       }
 
       if (Config.COMMON.generateCopper.get()) {
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, TinkerWorld.COPPER_ORE_FEATURE);
+        generation.feature(GenerationStep.Feature.UNDERGROUND_ORES, TinkerWorld.COPPER_ORE_FEATURE);
       }
     }
-    else if (event.getCategory() == Biome.Category.THEEND && doesNameMatchBiomes(event.getName(), Biomes.END_MIDLANDS, Biomes.END_HIGHLANDS, Biomes.END_BARRENS, Biomes.SMALL_END_ISLANDS)) {
+    else if (event.getCategory() == Biome.Category.THEEND && doesNameMatchBiomes(event.getName(), BiomeKeys.END_MIDLANDS, BiomeKeys.END_HIGHLANDS, BiomeKeys.END_BARRENS, BiomeKeys.SMALL_END_ISLANDS)) {
       if (Config.COMMON.generateSlimeIslands.get()) {
-        generation.withStructure(TinkerStructures.END_SLIME_ISLAND);
+        generation.structureFeature(TinkerStructures.END_SLIME_ISLAND);
       }
     }
   }
@@ -136,9 +136,9 @@ public class WorldEvents {
    * @param name - The Name that will be compared to the given Biomes names
    * @param biomes - The Biome that will be used for the check
    */
-  private static boolean doesNameMatchBiomes(@Nullable ResourceLocation name, RegistryKey<?>... biomes) {
+  private static boolean doesNameMatchBiomes(@Nullable Identifier name, RegistryKey<?>... biomes) {
     for (RegistryKey<?> biome : biomes) {
-      if (biome.getLocation().equals(name)) {
+      if (biome.getValue().equals(name)) {
         return true;
       }
     }
@@ -156,7 +156,7 @@ public class WorldEvents {
    * @param entry  Entry
    */
   @SuppressWarnings("unchecked")
-  private static void addEntry(LootPool pool, LootEntry entry) {
+  private static void addEntry(LootPool pool, LootPoolEntry entry) {
     // fetch field
     if (!foundField) {
       try {
@@ -173,7 +173,7 @@ public class WorldEvents {
     try {
       Object field = lootEntries.get(pool);
       if (field instanceof List) {
-        List<LootEntry> entries = (List<LootEntry>) field;
+        List<LootPoolEntry> entries = (List<LootPoolEntry>) field;
         entries.add(entry);
       }
     } catch (IllegalAccessException|ClassCastException ex) {
@@ -189,8 +189,8 @@ public class WorldEvents {
    * @param poolName   Pool name
    * @param entry      Entry to inject
    */
-  private static void injectInto(LootTableLoadEvent event, String tableName, String poolName, Supplier<LootEntry> entry) {
-    ResourceLocation name = event.getName();
+  private static void injectInto(LootTableLoadEvent event, String tableName, String poolName, Supplier<LootPoolEntry> entry) {
+    Identifier name = event.getName();
     if ("minecraft".equals(name.getNamespace()) && tableName.equals(name.getPath())) {
       LootPool pool = event.getTable().getPool(poolName);
       //noinspection ConstantConditions method is annotated wrongly
@@ -202,10 +202,10 @@ public class WorldEvents {
 
   @SubscribeEvent
   static void onLootTableLoad(LootTableLoadEvent event) {
-    BiFunction<FoliageType, Integer, LootEntry> makeSeed = (type, weight) ->
-      ItemLootEntry.builder(TinkerWorld.slimeGrassSeeds.get(type)).weight(weight)
-                   .acceptFunction(SetCount.builder(new RandomValueRange(2, 4))).build();
-    BiFunction<FoliageType, Integer, LootEntry> makeSapling = (type, weight) -> ItemLootEntry.builder(TinkerWorld.slimeSapling.get(type)).weight(weight).build();
+    BiFunction<FoliageType, Integer, LootPoolEntry> makeSeed = (type, weight) ->
+      ItemEntry.builder(TinkerWorld.slimeGrassSeeds.get(type)).weight(weight)
+                   .apply(SetCountLootFunction.builder(new UniformLootTableRange(2, 4))).build();
+    BiFunction<FoliageType, Integer, LootPoolEntry> makeSapling = (type, weight) -> ItemEntry.builder(TinkerWorld.slimeSapling.get(type)).weight(weight).build();
     // sky
     injectInto(event, "chests/simple_dungeon", "pool1", () -> makeSeed.apply(FoliageType.SKY, 10));
     injectInto(event, "chests/simple_dungeon", "main", () -> makeSapling.apply(FoliageType.SKY, 10));

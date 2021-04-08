@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -40,7 +40,7 @@ public final class TinkerTools extends TinkerModule {
   /*
    * Items
    */
-  private static final Supplier<Item.Properties> TOOL = () -> new Item.Properties().group(TAB_TOOLS);
+  private static final Supplier<Item.Settings> TOOL = () -> new Item.Settings().group(TAB_TOOLS);
 
   public static final ItemObject<HarvestTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.PICKAXE));
   public static final ItemObject<SledgeHammerTool> sledgeHammer = ITEMS.register("sledge_hammer", () -> new SledgeHammerTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.SLEDGE_HAMMER));
@@ -57,16 +57,16 @@ public final class TinkerTools extends TinkerModule {
   /*
    * Particles
    */
-  public static final RegistryObject<BasicParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new BasicParticleType(false));
-  public static final RegistryObject<BasicParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new BasicParticleType(false));
+  public static final RegistryObject<DefaultParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new DefaultParticleType(false));
+  public static final RegistryObject<DefaultParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new DefaultParticleType(false));
 
   /*
    * Entities
    */
   public static final RegistryObject<EntityType<IndestructibleEntityItem>> indestructibleItem = ENTITIES.register("indestructible_item", () -> {
-    return EntityType.Builder.<IndestructibleEntityItem>create(IndestructibleEntityItem::new, EntityClassification.MISC)
-      .size(0.25F, 0.25F)
-      .immuneToFire();
+    return EntityType.Builder.<IndestructibleEntityItem>create(IndestructibleEntityItem::new, SpawnGroup.MISC)
+      .setDimensions(0.25F, 0.25F)
+      .makeFireImmune();
   });
 
   /*
@@ -77,9 +77,9 @@ public final class TinkerTools extends TinkerModule {
   void gatherData(final GatherDataEvent event) {
     if (event.includeServer()) {
       DataGenerator datagenerator = event.getGenerator();
-      datagenerator.addProvider(new ToolsRecipeProvider(datagenerator));
-      datagenerator.addProvider(new MaterialDataProvider(datagenerator));
-      datagenerator.addProvider(new MaterialStatsDataProvider(datagenerator));
+      datagenerator.install(new ToolsRecipeProvider(datagenerator));
+      datagenerator.install(new MaterialDataProvider(datagenerator));
+      datagenerator.install(new MaterialStatsDataProvider(datagenerator));
     }
   }
 }

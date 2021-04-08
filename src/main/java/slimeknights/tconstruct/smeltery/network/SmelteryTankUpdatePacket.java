@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.smeltery.network;
 
 import lombok.AllArgsConstructor;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
@@ -21,7 +21,7 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
   private final BlockPos pos;
   private final List<FluidStack> fluids;
 
-  public SmelteryTankUpdatePacket(PacketBuffer buffer) {
+  public SmelteryTankUpdatePacket(PacketByteBuf buffer) {
     pos = buffer.readBlockPos();
     int size = buffer.readVarInt();
     fluids = new ArrayList<>(size);
@@ -31,7 +31,7 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(PacketByteBuf buffer) {
     buffer.writeBlockPos(pos);
     buffer.writeVarInt(fluids.size());
     for (FluidStack fluid : fluids) {
@@ -46,7 +46,7 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
 
   private static class HandleClient {
     private static void handle(SmelteryTankUpdatePacket packet) {
-      TileEntityHelper.getTile(ISmelteryTankHandler.class, Minecraft.getInstance().world, packet.pos).ifPresent(te -> te.updateFluidsFromPacket(packet.fluids));
+      TileEntityHelper.getTile(ISmelteryTankHandler.class, MinecraftClient.getInstance().world, packet.pos).ifPresent(te -> te.updateFluidsFromPacket(packet.fluids));
     }
   }
 }

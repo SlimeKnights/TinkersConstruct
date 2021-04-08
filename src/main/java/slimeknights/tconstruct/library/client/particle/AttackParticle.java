@@ -1,48 +1,50 @@
 package slimeknights.tconstruct.library.client.particle;
 
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.particle.SpriteTexturedParticle;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.particle.ParticleTextureSheet;
+import net.minecraft.client.particle.SpriteBillboardParticle;
+import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
-public abstract class AttackParticle extends SpriteTexturedParticle {
+@Environment(EnvType.CLIENT)
+public abstract class AttackParticle extends SpriteBillboardParticle {
 
-  private final IAnimatedSprite spriteList;
+  private final SpriteProvider spriteList;
 
   public AttackParticle(ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed,
-    IAnimatedSprite spriteList) {
+    SpriteProvider spriteList) {
     super(world, x, y, z, xSpeed, ySpeed, zSpeed);
     this.spriteList = spriteList;
 
     this.maxAge = 4;
-    this.particleScale = 1.0F;
+    this.scale = 1.0F;
 
-    this.selectSpriteWithAge(spriteList);
+    this.setSpriteForAge(spriteList);
   }
 
   @Override
-  public IParticleRenderType getRenderType() {
-    return IParticleRenderType.PARTICLE_SHEET_LIT;
+  public ParticleTextureSheet getType() {
+    return ParticleTextureSheet.PARTICLE_SHEET_LIT;
   }
 
   @Override
-  public int getBrightnessForRender(float partialTicks) {
+  public int getColorMultiplier(float partialTicks) {
     return 61680;
   }
 
   public void tick() {
-    this.prevPosX = this.posX;
-    this.prevPosY = this.posY;
-    this.prevPosZ = this.posZ;
+    this.prevPosX = this.x;
+    this.prevPosY = this.y;
+    this.prevPosZ = this.z;
 
     if (this.age++ >= this.maxAge) {
-      this.setExpired();
+      this.markDead();
     }
     else {
-      this.selectSpriteWithAge(this.spriteList);
+      this.setSpriteForAge(this.spriteList);
     }
   }
 }

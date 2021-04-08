@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.text.Text;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -14,13 +14,13 @@ public class IncrementalModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
+  public Text getDisplayName(IModifierToolStack tool, int level) {
     int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this);
-    ITextComponent name = this.getDisplayName(level);
+    Text name = this.getDisplayName(level);
     if (neededPerLevel > 0) {
       int amount = getAmount(tool);
       if (amount < neededPerLevel) {
-        return name.deepCopy().appendString(": " + amount + " / " + neededPerLevel);
+        return name.shallowCopy().append(": " + amount + " / " + neededPerLevel);
       }
     }
     return name;

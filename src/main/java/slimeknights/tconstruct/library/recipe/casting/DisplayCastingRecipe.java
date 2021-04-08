@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.recipe.casting;
 
 import lombok.Data;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.recipe.RecipeType;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Data
 public class DisplayCastingRecipe implements IDisplayableCastingRecipe {
-  private final IRecipeType<?> type;
+  private final RecipeType<?> type;
   private final List<ItemStack> castItems;
   private final List<FluidStack> fluids;
   private final ItemStack output;

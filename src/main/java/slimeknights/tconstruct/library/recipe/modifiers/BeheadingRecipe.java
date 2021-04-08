@@ -7,10 +7,9 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
@@ -21,7 +20,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,7 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   @Getter
-  private final ResourceLocation id;
+  private final Identifier id;
   private final EntityIngredient ingredient;
   private final ItemOutput output;
 
@@ -82,12 +81,12 @@ public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.beheadingSerializer.get();
   }
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RecipeTypes.BEHEADING;
   }
 
@@ -101,7 +100,7 @@ public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   /** Serializer for this recipe */
   public static class Serializer extends RecipeSerializer<BeheadingRecipe> {
     @Override
-    public BeheadingRecipe read(ResourceLocation id, JsonObject json) {
+    public BeheadingRecipe read(Identifier id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
       ItemOutput output = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
       return new BeheadingRecipe(id, ingredient, output);
@@ -109,14 +108,14 @@ public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
 
     @Nullable
     @Override
-    public BeheadingRecipe read(ResourceLocation id, PacketBuffer buffer) {
+    public BeheadingRecipe read(Identifier id, PacketByteBuf buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       ItemOutput output = ItemOutput.read(buffer);
       return new BeheadingRecipe(id, ingredient, output);
     }
 
     @Override
-    public void write(PacketBuffer buffer, BeheadingRecipe recipe) {
+    public void write(PacketByteBuf buffer, BeheadingRecipe recipe) {
       recipe.ingredient.write(buffer);
       recipe.output.write(buffer);
     }

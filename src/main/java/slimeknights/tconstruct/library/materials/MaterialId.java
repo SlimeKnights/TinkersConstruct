@@ -1,14 +1,13 @@
 package slimeknights.tconstruct.library.materials;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.ResourceLocationException;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.InvalidIdentifierException;
 
 /**
  * This is just a copy of ResourceLocation for type safety.
  */
-public class MaterialId extends ResourceLocation {
+public class MaterialId extends Identifier {
 
   public MaterialId(String resourceName) {
     super(resourceName);
@@ -18,7 +17,7 @@ public class MaterialId extends ResourceLocation {
     super(namespaceIn, pathIn);
   }
 
-  public MaterialId(ResourceLocation resourceLocation) {
+  public MaterialId(Identifier resourceLocation) {
     super(resourceLocation.getNamespace(), resourceLocation.getPath());
   }
 
@@ -28,10 +27,10 @@ public class MaterialId extends ResourceLocation {
    * @return  Material ID, or null if invalid
    */
   @Nullable
-  public static MaterialId tryCreate(String string) {
+  public static MaterialId tryParse(String string) {
     try {
       return new MaterialId(string);
-    } catch (ResourceLocationException resourcelocationexception) {
+    } catch (InvalidIdentifierException resourcelocationexception) {
       return null;
     }
   }

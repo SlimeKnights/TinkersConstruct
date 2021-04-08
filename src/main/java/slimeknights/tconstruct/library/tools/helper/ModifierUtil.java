@@ -6,12 +6,12 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemStack.TooltipDisplayFlags;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.item.ItemStack.TooltipSection;
+import net.minecraft.nbt.CompoundTag;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -48,8 +48,8 @@ public final class ModifierUtil {
       }
       if (!enchantments.isEmpty()) {
         addedEnchants = true;
-        EnchantmentHelper.setEnchantments(enchantments, stack);
-        stack.getOrCreateTag().putInt(TAG_HIDE_FLAGS, TooltipDisplayFlags.ENCHANTMENTS.func_242397_a());
+        EnchantmentHelper.set(enchantments, stack);
+        stack.getOrCreateTag().putInt(TAG_HIDE_FLAGS, TooltipSection.ENCHANTMENTS.getFlag());
       }
     }
     return addedEnchants;
@@ -60,7 +60,7 @@ public final class ModifierUtil {
    * @param stack  Stack to clear enchants
    */
   public static void clearEnchantments(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
+    CompoundTag nbt = stack.getTag();
     if (nbt != null) {
       nbt.remove(TAG_ENCHANTMENTS);
       nbt.remove(TAG_HIDE_FLAGS);

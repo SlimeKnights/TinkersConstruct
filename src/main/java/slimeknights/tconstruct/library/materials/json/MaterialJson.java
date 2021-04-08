@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.materials.json;
 
 import lombok.Data;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 @Data
 public class MaterialJson {
@@ -18,7 +18,7 @@ public class MaterialJson {
   @Nullable
   private final Integer sortOrder;
   @Nullable
-  private final ResourceLocation fluid;
+  private final Identifier fluid;
   @Nullable
   private final Integer fluidPerUnit;
   @Nullable

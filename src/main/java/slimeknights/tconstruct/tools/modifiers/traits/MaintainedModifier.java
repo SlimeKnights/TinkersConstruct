@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 /** Well maintained for Tinkers Bronze */
 public class MaintainedModifier extends Modifier {
   public static final String KEY_MINING_BOOST = Util.makeTranslationKey("modifier", "maintained.boost");
-  private static final ResourceLocation KEY_ORIGINAL_DURABILITY = Util.getResource("durability");
+  private static final Identifier KEY_ORIGINAL_DURABILITY = Util.getResource("durability");
   public MaintainedModifier() {
     super(0xe3bd68);
   }
@@ -70,11 +70,11 @@ public class MaintainedModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
+  public Text getDisplayName(IModifierToolStack tool, int level) {
     float boost = getTotalBoost(tool, level);
-    ITextComponent name = super.getDisplayName(level);
+    Text name = super.getDisplayName(level);
     if (boost > 0) {
-      name = name.deepCopy().append(new TranslationTextComponent(KEY_MINING_BOOST, Util.dfPercent.format(boost)));
+      name = name.shallowCopy().append(new TranslatableText(KEY_MINING_BOOST, Util.dfPercent.format(boost)));
     }
     return name;
   }

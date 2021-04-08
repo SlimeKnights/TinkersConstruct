@@ -3,14 +3,14 @@ package slimeknights.tconstruct.library.client.model.tools;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.IModelTransform;
-import net.minecraft.client.renderer.model.IUnbakedModel;
-import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.ModelBakeSettings;
+import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.ModelOverrideList;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.geometry.IModelGeometryPart;
 import net.minecraftforge.client.model.geometry.IMultipartModelGeometry;
@@ -38,8 +38,8 @@ public class ToolModelGeometry implements IMultipartModelGeometry<ToolModelGeome
   }
 
   @Override
-  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ItemOverrideList overrides, ResourceLocation modelLocation) {
-    ImmutableMap.Builder<String, IBakedModel> bakedParts = ImmutableMap.builder();
+  public BakedModel bake(IModelConfiguration owner, ModelLoader bakery, Function<SpriteIdentifier, Sprite> spriteGetter, ModelBakeSettings modelTransform, ModelOverrideList overrides, Identifier modelLocation) {
+    ImmutableMap.Builder<String, BakedModel> bakedParts = ImmutableMap.builder();
     for (Map.Entry<String, Submodel> part : parts.entrySet()) {
       Submodel submodel = part.getValue();
       if (!owner.getPartVisibility(submodel)) continue;
@@ -48,13 +48,13 @@ public class ToolModelGeometry implements IMultipartModelGeometry<ToolModelGeome
 
     // place names in an array so we can maintain order
     String[] partNames = this.parts.keySet().toArray(new String[0]);
-    IModelTransform transforms = owner.getCombinedTransform();
+    ModelBakeSettings transforms = owner.getCombinedTransform();
     return new ToolModel(owner.isShadedInGui(), owner.isSideLit(), owner.useSmoothLighting(), bakedParts.build(), transforms, partNames);
   }
 
   @Override
-  public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
-    Set<RenderMaterial> textures = new HashSet<>();
+  public Collection<SpriteIdentifier> getTextures(IModelConfiguration owner, Function<Identifier, UnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
+    Set<SpriteIdentifier> textures = new HashSet<>();
     for (Submodel part : parts.values()) {
       textures.addAll(part.getTextures(owner, modelGetter, missingTextureErrors));
     }

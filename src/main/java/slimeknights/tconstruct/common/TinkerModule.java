@@ -1,19 +1,19 @@
 package slimeknights.tconstruct.common;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.particles.ParticleType;
-import net.minecraft.potion.Effect;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
+import net.minecraft.particle.ParticleType;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.stateprovider.BlockStateProviderType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -34,8 +34,8 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
-import org.jetbrains.annotations.Nonnull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -50,28 +50,28 @@ public abstract class TinkerModule {
   protected static final TileEntityTypeDeferredRegister TILE_ENTITIES = new TileEntityTypeDeferredRegister(TConstruct.modID);
   protected static final EntityTypeDeferredRegister ENTITIES = new EntityTypeDeferredRegister(TConstruct.modID);
   protected static final ContainerTypeDeferredRegister CONTAINERS = new ContainerTypeDeferredRegister(TConstruct.modID);
-  protected static final DeferredRegister<Effect> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, TConstruct.modID);
+  protected static final DeferredRegister<StatusEffect> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, TConstruct.modID);
   protected static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TConstruct.modID);
-  protected static final DeferredRegister<Structure<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.modID);
+  protected static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.modID);
   protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
-  protected static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
+  protected static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
   protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TConstruct.modID);
   protected static final DeferredRegister<Modifier> MODIFIERS = DeferredRegister.create(Modifier.class, TConstruct.modID);
   protected static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, TConstruct.modID);
 
   // base block properties
-  protected static final Block.Properties GENERIC_SAND_BLOCK = builder(Material.SAND, ToolType.SHOVEL, SoundType.SAND).hardnessAndResistance(3.0f).slipperiness(0.8F);
-  protected static final Block.Properties GENERIC_METAL_BLOCK = builder(Material.IRON, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(5.0f);
+  protected static final Block.Properties GENERIC_SAND_BLOCK = builder(Material.AGGREGATE, ToolType.SHOVEL, BlockSoundGroup.SAND).strength(3.0f).slipperiness(0.8F);
+  protected static final Block.Properties GENERIC_METAL_BLOCK = builder(Material.METAL, ToolType.PICKAXE, BlockSoundGroup.METAL).requiresTool().strength(5.0f);
   protected static final Block.Properties GENERIC_GEM_BLOCK = GENERIC_METAL_BLOCK;
-  protected static final Block.Properties GENERIC_GLASS_BLOCK = builder(Material.GLASS, ToolType.PICKAXE, SoundType.GLASS).setRequiresTool().hardnessAndResistance(0.3F).notSolid(); //TODO: .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+  protected static final Block.Properties GENERIC_GLASS_BLOCK = builder(Material.GLASS, ToolType.PICKAXE, BlockSoundGroup.GLASS).requiresTool().strength(0.3F).nonOpaque(); //TODO: .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
 
   /** Creative tab for items that do not fit in another tab */
   @SuppressWarnings("WeakerAccess")
   public static final ItemGroup TAB_GENERAL = new SupplierItemGroup(TConstruct.modID, "general", () -> new ItemStack(TinkerCommons.slimeball.get(SlimeType.SKY)));
 
   // base item properties
-  protected static final Item.Properties HIDDEN_PROPS = new Item.Properties();
-  protected static final Item.Properties GENERAL_PROPS = new Item.Properties().group(TAB_GENERAL);
+  protected static final Item.Settings HIDDEN_PROPS = new Item.Settings();
+  protected static final Item.Settings GENERAL_PROPS = new Item.Settings().group(TAB_GENERAL);
   protected static final Function<Block,? extends BlockItem> HIDDEN_BLOCK_ITEM = (b) -> new BlockItem(b, HIDDEN_PROPS);
   protected static final Function<Block,? extends BlockItem> GENERAL_BLOCK_ITEM = (b) -> new BlockItem(b, GENERAL_PROPS);
   protected static final Function<Block,? extends BlockItem> GENERAL_TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GENERAL_PROPS);
@@ -116,9 +116,9 @@ public abstract class TinkerModule {
    * It may be a bit less clear at first, since the actual builder methods tell you what each value means,
    * but as long as we don't statically import the enums it should be just as readable.
    */
-  protected static Block.Properties builder(Material material, @Nullable ToolType toolType, SoundType soundType) {
+  protected static Block.Properties builder(Material material, @Nullable ToolType toolType, BlockSoundGroup soundType) {
     //noinspection ConstantConditions
-    return Block.Properties.create(material).harvestTool(toolType).sound(soundType);
+    return Block.Properties.of(material).harvestTool(toolType).sounds(soundType);
   }
 
   /**
@@ -126,8 +126,8 @@ public abstract class TinkerModule {
    * @param id  Resource path
    * @return  Tinkers Construct resource location
    */
-  protected static ResourceLocation location(String id) {
-    return new ResourceLocation(TConstruct.modID, id);
+  protected static Identifier location(String id) {
+    return new Identifier(TConstruct.modID, id);
   }
 
   /**

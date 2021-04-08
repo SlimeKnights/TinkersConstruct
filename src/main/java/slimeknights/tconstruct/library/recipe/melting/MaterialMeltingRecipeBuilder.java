@@ -2,14 +2,14 @@ package slimeknights.tconstruct.library.recipe.melting;
 
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -22,18 +22,18 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
   private final int cost;
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<RecipeJsonProvider> consumer) {
     build(consumer, Objects.requireNonNull(item.asItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "melting");
+  public void build(Consumer<RecipeJsonProvider> consumer, Identifier id) {
+    Identifier advancementId = this.buildOptionalAdvancement(id, "melting");
     consumer.accept(new Result(id, advancementId));
   }
 
   private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public Result(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
@@ -47,7 +47,7 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.materialMeltingSerializer.get();
     }
   }

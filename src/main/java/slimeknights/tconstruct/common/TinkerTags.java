@@ -4,11 +4,11 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.EntityTypeTags;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.tconstruct.library.Util;
 
@@ -46,7 +46,7 @@ public class TinkerTags {
     }
 
     private static IOptionalNamedTag<Block> forgeTag(String name) {
-      return BlockTags.createOptional(new ResourceLocation("forge", name));
+      return BlockTags.createOptional(new Identifier("forge", name));
     }
   }
 
@@ -116,7 +116,7 @@ public class TinkerTags {
     }
 
     private static IOptionalNamedTag<Item> forgeTag(String name) {
-      return ItemTags.createOptional(new ResourceLocation("forge", name));
+      return ItemTags.createOptional(new Identifier("forge", name));
     }
   }
 
@@ -130,7 +130,7 @@ public class TinkerTags {
     }
 
     private static IOptionalNamedTag<Fluid> forgeTag(String name) {
-      return FluidTags.createOptional(new ResourceLocation("forge", name));
+      return FluidTags.createOptional(new Identifier("forge", name));
     }
   }
 
@@ -145,7 +145,7 @@ public class TinkerTags {
     }
 
     private static IOptionalNamedTag<EntityType<?>> forgeTag(String name) {
-      return EntityTypeTags.createOptional(new ResourceLocation("forge", name));
+      return EntityTypeTags.createOptional(new Identifier("forge", name));
     }
   }
 }

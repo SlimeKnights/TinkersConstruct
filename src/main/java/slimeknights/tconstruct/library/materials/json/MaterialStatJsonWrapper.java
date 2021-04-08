@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.materials.json;
 
-import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
+import net.minecraft.util.Identifier;
 import java.util.List;
 
 /**
@@ -12,10 +12,10 @@ import java.util.List;
  */
 public class MaterialStatJsonWrapper {
 
-  private final ResourceLocation materialId;
+  private final Identifier materialId;
   private final List<BaseMaterialStatsJson> stats;
 
-  public MaterialStatJsonWrapper(ResourceLocation materialId, List<BaseMaterialStatsJson> stats) {
+  public MaterialStatJsonWrapper(Identifier materialId, List<BaseMaterialStatsJson> stats) {
     this.materialId = materialId;
     this.stats = stats;
   }
@@ -32,14 +32,14 @@ public class MaterialStatJsonWrapper {
 
   public static class BaseMaterialStatsJson {
 
-    private final ResourceLocation id;
+    private final Identifier id;
 
-    protected BaseMaterialStatsJson(ResourceLocation id) {
+    protected BaseMaterialStatsJson(Identifier id) {
       this.id = id;
     }
 
     @Nullable
-    public ResourceLocation getId() {
+    public Identifier getId() {
       return id;
     }
   }

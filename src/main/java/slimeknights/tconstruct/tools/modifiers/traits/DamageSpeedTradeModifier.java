@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -26,11 +26,11 @@ public class DamageSpeedTradeModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
+  public Text getDisplayName(IModifierToolStack tool, int level) {
     double boost = Math.abs(Math.sqrt(tool.getDamage() * level) * multiplier);
-    ITextComponent name = super.getDisplayName(level);
+    Text name = super.getDisplayName(level);
     if (boost > 0) {
-      name = name.deepCopy().append(new TranslationTextComponent(KEY_MINING_BOOST, Util.dfPercent.format(boost)));
+      name = name.shallowCopy().append(new TranslatableText(KEY_MINING_BOOST, Util.dfPercent.format(boost)));
     }
     return name;
   }

@@ -12,7 +12,7 @@ public class ModifierChestTileEntity extends TinkerChestTileEntity {
   }
 
   @Override
-  public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+  public boolean isValid(int slot, ItemStack itemstack) {
     // no duplicate limit, the limit to 64 stacks handles that
     return ModifierRecipeLookup.isModifier(itemstack.getItem());
   }

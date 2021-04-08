@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.RequiredArgsConstructor;
 import mezz.jei.api.ingredients.IIngredientRenderer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,15 +19,15 @@ public class ModifierIngredientRenderer implements IIngredientRenderer<ModifierE
   @Override
   public void render(MatrixStack matrices, int x, int y, @Nullable ModifierEntry entry) {
     if (entry != null) {
-      ITextComponent name = entry.getModifier().getDisplayName(entry.getLevel());
-      FontRenderer fontRenderer = getFontRenderer(Minecraft.getInstance(), entry);
-      x += (width - fontRenderer.getStringPropertyWidth(name)) / 2;
-      fontRenderer.func_243246_a(matrices, name, x, y + 1, -1);
+      Text name = entry.getModifier().getDisplayName(entry.getLevel());
+      TextRenderer fontRenderer = getFontRenderer(MinecraftClient.getInstance(), entry);
+      x += (width - fontRenderer.getWidth(name)) / 2;
+      fontRenderer.drawWithShadow(matrices, name, x, y + 1, -1);
     }
   }
 
   @Override
-  public List<ITextComponent> getTooltip(ModifierEntry entry, ITooltipFlag iTooltipFlag) {
+  public List<Text> getTooltip(ModifierEntry entry, TooltipContext iTooltipFlag) {
     return entry.getModifier().getDescriptionList();
   }
 }

@@ -2,16 +2,16 @@ package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.SChangeBlockPacket;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameType;
+import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Constants.WorldEvents;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -39,7 +39,7 @@ public class ToolHarvestLogic {
    * @return  Damage to deal
    */
   public int getDamage(ToolStack tool, ItemStack stack, World world, BlockPos pos, BlockState state) {
-    if (state.getBlockHardness(world, pos) == 0) {
+    if (state.getHardness(world, pos) == 0) {
       return 0;
     }
     // if it lacks the harvest tag, it takes double damage (swords for instance)
@@ -70,7 +70,7 @@ public class ToolHarvestLogic {
     }
 
     // harvest level too low -> not effective
-    if (state.getRequiresTool() && tool.getStats().getHarvestLevel() < state.getHarvestLevel()) {
+    if (state.isToolRequired() && tool.getStats().getHarvestLevel() < state.getHarvestLevel()) {
       return false;
     }
 
@@ -133,7 +133,7 @@ public class ToolHarvestLogic {
   }
 
   /**
-   * Actually removes a block from the world. Cloned from {@link net.minecraft.server.management.PlayerInteractionManager}
+   * Actually removes a block from the world. Cloned from {@link net.minecraft.server.network.ServerPlayerInteractionManager}
    * @param player      Player breaking
    * @param world       World
    * @param pos         Position to break
@@ -144,7 +144,7 @@ public class ToolHarvestLogic {
     BlockState state = world.getBlockState(pos);
     boolean removed = state.removedByPlayer(world, pos, player, canHarvest, world.getFluidState(pos));
     if (removed) {
-      state.getBlock().onPlayerDestroy(world, pos, state);
+      state.getBlock().onBroken(world, pos, state);
     }
     return removed;
   }
@@ -161,13 +161,13 @@ public class ToolHarvestLogic {
    */
   protected boolean breakBlock(ToolStack tool, ItemStack stack, ServerPlayerEntity player, ServerWorld world, BlockPos pos, BlockState state) {
     // have to rerun the event to get the EXP, also ensures extra blocks broken get EXP properly
-    GameType type = player.interactionManager.getGameType();
+    GameMode type = player.interactionManager.getGameMode();
     int exp = ForgeHooks.onBlockBreakEvent(world, type, player, pos);
     if (exp == -1) {
       return false;
     }
     // checked after the Forge hook, so we have to recheck
-    if (player.blockActionRestricted(world, pos, type)) {
+    if (player.isBlockBreakingRestricted(world, pos, type)) {
       return false;
     }
 
@@ -183,15 +183,15 @@ public class ToolHarvestLogic {
     int damage = getDamage(tool, stack, world, pos, state);
 
     // block harvest callbacks
-    TileEntity te = canHarvest ? world.getTileEntity(pos) : null;
+    BlockEntity te = canHarvest ? world.getBlockEntity(pos) : null;
     boolean removed = removeBlock(player, world, pos, canHarvest);
     if (removed && canHarvest) {
-      state.getBlock().harvestBlock(world, player, pos, state, te, stack);
+      state.getBlock().afterBreak(world, player, pos, state, te, stack);
     }
 
     // drop XP
     if (removed && exp > 0) {
-      state.getBlock().dropXpOnBlockBreak(world, pos, exp);
+      state.getBlock().dropExperience(world, pos, exp);
     }
 
     // handle modifiers if not broken
@@ -220,28 +220,28 @@ public class ToolHarvestLogic {
       return;
     }
     // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
-    if (world.isAirBlock(pos)) {
+    if (world.isAir(pos)) {
       return;
     }
 
     // if the block is a lot slower, skip harvesting
     BlockState state = world.getBlockState(pos);
-    if (refStrength / state.getPlayerRelativeBlockHardness(player, world, pos) > 3) {
+    if (refStrength / state.calcBlockBreakingDelta(player, world, pos) > 3) {
       return;
     }
 
     // break the actual block
     if (breakBlock(tool, stack, player, world, pos, state)) {
-      world.playEvent(WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getStateId(state));
-      TinkerNetwork.getInstance().sendVanillaPacket(player, new SChangeBlockPacket(world, pos));
+      world.syncWorldEvent(WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getRawIdFromState(state));
+      TinkerNetwork.getInstance().sendVanillaPacket(player, new BlockUpdateS2CPacket(world, pos));
     }
   }
 
   /**
    * Call on block break to break a block.
    * Used in {@link net.minecraftforge.common.extensions.IForgeItem#onBlockStartBreak(ItemStack, BlockPos, PlayerEntity)}.
-   * See also {@link net.minecraft.client.multiplayer.PlayerController#onPlayerDestroyBlock(BlockPos)} (client)
-   * and {@link net.minecraft.server.management.PlayerInteractionManager#tryHarvestBlock(BlockPos)} (server)
+   * See also {@link net.minecraft.client.network.ClientPlayerInteractionManager#breakBlock(BlockPos)} (client)
+   * and {@link net.minecraft.server.network.ServerPlayerInteractionManager#tryBreakBlock(BlockPos)} (server)
    * @param stack   Stack instance
    * @param pos     Position to break
    * @param player  Player instance
@@ -249,7 +249,7 @@ public class ToolHarvestLogic {
    */
   public boolean handleBlockBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
     // client can run normal block breaking
-    if (player.getEntityWorld().isRemote || !(player instanceof ServerPlayerEntity)) {
+    if (player.getEntityWorld().isClient || !(player instanceof ServerPlayerEntity)) {
       return false;
     }
 
@@ -259,15 +259,15 @@ public class ToolHarvestLogic {
     BlockState state = world.getBlockState(pos);
     // if broken, clear the item stack temporarily then break
     if (tool.isBroken()) {
-      player.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
+      player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
       breakBlock(tool, ItemStack.EMPTY, serverPlayer, world, pos, state);
-      player.setHeldItem(Hand.MAIN_HAND, stack);
+      player.setStackInHand(Hand.MAIN_HAND, stack);
     } else {
       // add enchants
       boolean addedEnchants = ModifierUtil.applyEnchantments(tool, stack, player);
 
       // need to calculate these before we break the block
-      float refStrength = state.getPlayerRelativeBlockHardness(player, world, pos);
+      float refStrength = state.calcBlockBreakingDelta(player, world, pos);
       List<BlockPos> extraBlocks = getAOEBlocks(tool, stack, world, player, pos);
       // actually break the block, run AOE if successful
       if (breakBlock(tool, stack, serverPlayer, world, pos, state)) {

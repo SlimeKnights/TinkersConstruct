@@ -25,7 +25,7 @@ public interface IMoldingInventory extends IReadOnlyInventory {
   /** @deprecated use {@link #getMaterial()} and {@link #getPattern()} */
   @Deprecated
   @Override
-  default ItemStack getStackInSlot(int index) {
+  default ItemStack getStack(int index) {
     switch (index) {
       case 0:
         return getMaterial();
@@ -36,7 +36,7 @@ public interface IMoldingInventory extends IReadOnlyInventory {
   }
 
   @Override
-  default int getSizeInventory() {
+  default int size() {
     return 2;
   }
 

@@ -11,25 +11,24 @@ import com.google.gson.JsonParseException;
 import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.IModelTransform;
-import net.minecraft.client.renderer.model.IUnbakedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.render.model.ModelBakeSettings;
+import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.ModelOverrideList;
+import net.minecraft.client.render.model.json.ModelTransformation.Mode;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.client.util.math.AffineTransformation;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.TransformationMatrix;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.math.Vec2f;
 import net.minecraftforge.client.model.BakedItemModel;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
@@ -46,7 +45,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.shared.TinkerClient;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -68,22 +67,22 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
   /** Tint index and index of part in tool */
   private final int index;
   /** Transform matrix to apply to child parts */
-  private final Vector2f offset;
+  private final Vec2f offset;
 
   @Override
-  public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
-    Set<RenderMaterial> allTextures = Sets.newHashSet();
-    RenderMaterial texture = owner.resolveTexture("texture");
+  public Collection<SpriteIdentifier> getTextures(IModelConfiguration owner, Function<Identifier,UnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
+    Set<SpriteIdentifier> allTextures = Sets.newHashSet();
+    SpriteIdentifier texture = owner.resolveTexture("texture");
     allTextures.add(texture);
     // texture should exist in item/tool, or the validator cannot handle them
-    Consumer<RenderMaterial> textureAdder;
-    if (texture.getTextureLocation().getPath().startsWith("item/tool")) {
+    Consumer<SpriteIdentifier> textureAdder;
+    if (texture.getTextureId().getPath().startsWith("item/tool")) {
       // keep track of skipped textures, so we do not debug print the same resource twice
-      Set<ResourceLocation> skipped = new HashSet<>();
+      Set<Identifier> skipped = new HashSet<>();
       textureAdder = mat -> {
         // either must be non-blocks, or must exist. We have fallbacks if it does not exist
-        ResourceLocation loc = mat.getTextureLocation();
-        if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || TinkerClient.textureValidator.test(loc)) {
+        Identifier loc = mat.getTextureId();
+        if (!PlayerScreenHandler.BLOCK_ATLAS_TEXTURE.equals(mat.getAtlasId()) || TinkerClient.textureValidator.test(loc)) {
           allTextures.add(mat);
         } else if (!skipped.contains(loc)) {
           skipped.add(loc);
@@ -93,7 +92,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     } else {
       // just directly add with no filter, nothing we can do
       textureAdder = allTextures::add;
-      log.error("Texture '{}' is not in item/tool, unable to safely validate optional material textures", texture.getTextureLocation());
+      log.error("Texture '{}' is not in item/tool, unable to safely validate optional material textures", texture.getTextureId());
     }
 
     // if no specific material is set, load all materials as dependencies. If just one material, use just that one
@@ -108,7 +107,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
   }
 
   /**
-   * Same as {@link #bake(IModelConfiguration, ModelBakery, Function, IModelTransform, ItemOverrideList, ResourceLocation)}, but uses fewer arguments and does not require an instance
+   * Same as {@link #bake(IModelConfiguration, net.minecraft.client.render.model.ModelLoader, Function, ModelBakeSettings, ModelOverrideList, Identifier)}, but uses fewer arguments and does not require an instance
    * @param owner          Model configuration
    * @param spriteGetter   Sprite getter function
    * @param transform      Transform to apply to the quad fetching. Should not include rotation or it will look wrong in UIs
@@ -117,10 +116,10 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @param overrides      Override instance to use, will either be empty or {@link MaterialOverrideHandler}
    * @return  Baked model
    */
-  private static IBakedModel bakeInternal(IModelConfiguration owner, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, TransformationMatrix transform, @Nullable MaterialId material, int index, ItemOverrideList overrides) {
-    RenderMaterial texture = owner.resolveTexture("texture");
+  private static BakedModel bakeInternal(IModelConfiguration owner, Function<SpriteIdentifier, Sprite> spriteGetter, AffineTransformation transform, @Nullable MaterialId material, int index, ModelOverrideList overrides) {
+    SpriteIdentifier texture = owner.resolveTexture("texture");
     int tintIndex = -1;
-    TextureAtlasSprite finalSprite = null;
+    Sprite finalSprite = null;
     // if the base material is non-null, try to find the sprite for that material
     if (material != null) {
       // first, find a render info
@@ -142,7 +141,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     }
 
     // get transform data
-    ImmutableMap<TransformType, TransformationMatrix> transformMap = PerspectiveMapWrapper.getTransforms(owner.getCombinedTransform());
+    ImmutableMap<Mode, AffineTransformation> transformMap = PerspectiveMapWrapper.getTransforms(owner.getCombinedTransform());
 
     // get quads
     ImmutableList<BakedQuad> quads = ItemLayerModel.getQuadsForSprite(tintIndex, finalSprite, transform);
@@ -152,19 +151,19 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
   }
 
   @Override
-  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ItemOverrideList vanillaOverrides, ResourceLocation modelLocation) {
+  public BakedModel bake(IModelConfiguration owner, net.minecraft.client.render.model.ModelLoader bakery, Function<SpriteIdentifier, Sprite> spriteGetter, ModelBakeSettings modelTransform, ModelOverrideList vanillaOverrides, Identifier modelLocation) {
     // create transforms from offset
-    TransformationMatrix transforms;
-    if (Vector2f.ZERO.equals(offset)) {
-      transforms = TransformationMatrix.identity();
+    AffineTransformation transforms;
+    if (Vec2f.ZERO.equals(offset)) {
+      transforms = AffineTransformation.identity();
     } else {
       // divide by 16 to convert from pixels to base values
       // negate Y as positive is up for transforms but down for pixels
-      transforms = new TransformationMatrix(new Vector3f(offset.x / 16, -offset.y / 16, 0), null, null, null);
+      transforms = new AffineTransformation(new Vector3f(offset.x / 16, -offset.y / 16, 0), null, null, null);
     }
 
     // if the material is already set, no need to set overrides
-    ItemOverrideList overrides = ItemOverrideList.EMPTY;
+    ModelOverrideList overrides = ModelOverrideList.EMPTY;
     if (material == null) {
       overrides = new MaterialOverrideHandler(owner, index, transforms);
     }
@@ -176,22 +175,22 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
   /**
    * Dynamic override handler to swap in the material texture
    */
-  private static final class MaterialOverrideHandler extends ItemOverrideList {
+  private static final class MaterialOverrideHandler extends ModelOverrideList {
     // contains all the baked models since they'll never change, cleared automatically as the baked model is discarded
-    private final Map<MaterialId, IBakedModel> cache = new HashMap<>();
+    private final Map<MaterialId, BakedModel> cache = new HashMap<>();
 
     // parameters needed for rebaking
     private final IModelConfiguration owner;
     private final int index;
-    private final TransformationMatrix itemTransform;
-    private MaterialOverrideHandler(IModelConfiguration owner, int index, TransformationMatrix itemTransform) {
+    private final AffineTransformation itemTransform;
+    private MaterialOverrideHandler(IModelConfiguration owner, int index, AffineTransformation itemTransform) {
       this.owner = owner;
       this.index = index;
       this.itemTransform = itemTransform;
     }
 
     @Override
-    public IBakedModel getOverrideModel(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
+    public BakedModel apply(BakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       // fetch the material from the stack
       MaterialId material = IMaterialItem.getMaterialFromStack(stack).getIdentifier();
       // if no material on the stack, try to fetch from the tool model
@@ -219,10 +218,10 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
      * @param material  New material for the model
      * @return  Baked model
      */
-    private IBakedModel bakeDynamic(MaterialId material) {
+    private BakedModel bakeDynamic(MaterialId material) {
       // bake internal does not require an instance to bake, we can pass in whatever material we want
       // use empty override list as the sub model never calls overrides, and already has a material
-      return bakeInternal(owner, ModelLoader.defaultTextureGetter(), itemTransform, material, index, ItemOverrideList.EMPTY);
+      return bakeInternal(owner, ModelLoader.defaultTextureGetter(), itemTransform, material, index, ModelOverrideList.EMPTY);
     }
   }
 
@@ -231,20 +230,20 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    */
   private static class Loader implements IModelLoader<MaterialModel> {
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {}
+    public void apply(ResourceManager resourceManager) {}
 
     @Override
     public MaterialModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
       // need tint index for tool models, doubles as part index
-      int index = JSONUtils.getInt(modelContents, "index", 0);
+      int index = JsonHelper.getInt(modelContents, "index", 0);
 
       // static material can be defined, if unset uses dynamic material
       MaterialId material = null;
       if (modelContents.has("material")) {
-        material = new MaterialId(JSONUtils.getString(modelContents, "material"));
+        material = new MaterialId(JsonHelper.getString(modelContents, "material"));
       }
 
-      Vector2f offset = Vector2f.ZERO;
+      Vec2f offset = Vec2f.ZERO;
       if (modelContents.has("offset")) {
         offset = arrayToObject(modelContents, "offset");
       }
@@ -259,16 +258,16 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
      * @return  Vector3f of data
      * @throws JsonParseException  If there is no array or the length is wrong
      */
-    private static Vector2f arrayToObject(JsonObject json, String name) {
-      JsonArray array = JSONUtils.getJsonArray(json, name);
+    private static Vec2f arrayToObject(JsonObject json, String name) {
+      JsonArray array = JsonHelper.getArray(json, name);
       if (array.size() != 2) {
         throw new JsonParseException("Expected " + 2 + " " + name + " values, found: " + array.size());
       }
       float[] vec = new float[2];
       for(int i = 0; i < 2; ++i) {
-        vec[i] = JSONUtils.getFloat(array.get(i), name + "[" + i + "]");
+        vec[i] = JsonHelper.asFloat(array.get(i), name + "[" + i + "]");
       }
-      return new Vector2f(vec[0], vec[1]);
+      return new Vec2f(vec[0], vec[1]);
     }
   }
 }

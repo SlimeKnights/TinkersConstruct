@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class OreMeltingRecipe extends MeltingRecipe {
   private List<List<FluidStack>> displayOutput;
-  public OreMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time) {
+  public OreMeltingRecipe(Identifier id, String group, Ingredient input, FluidStack output, int temperature, int time) {
     super(id, group, input, output, temperature, time);
   }
 
@@ -39,7 +39,7 @@ public class OreMeltingRecipe extends MeltingRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.oreMeltingSerializer.get();
   }
 }

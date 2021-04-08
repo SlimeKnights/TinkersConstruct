@@ -3,11 +3,11 @@ package slimeknights.tconstruct.library.tinkering;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -22,7 +22,7 @@ import java.util.Optional;
  */
 public class MaterialItem extends Item implements IMaterialItem {
 
-  public MaterialItem(Properties properties) {
+  public MaterialItem(Settings properties) {
     super(properties);
   }
 
@@ -40,15 +40,15 @@ public class MaterialItem extends Item implements IMaterialItem {
   public ItemStack getItemstackWithMaterial(IMaterial material) {
     ItemStack stack = new ItemStack(this);
     if (canUseMaterial(material)) {
-      CompoundNBT nbt = stack.getOrCreateTag();
+      CompoundTag nbt = stack.getOrCreateTag();
       nbt.putString(Tags.PART_MATERIAL, material.getIdentifier().toString());
     }
     return stack;
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group)) {
+  public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+    if (this.isIn(group)) {
       if (MaterialRegistry.initialized()) {
         for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
           if (this.canUseMaterial(material)) {
@@ -62,26 +62,26 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Override
-  public ITextComponent getDisplayName(ItemStack stack) {
+  public Text getName(ItemStack stack) {
     // if no material, return part name directly
     IMaterial material = getMaterial(stack);
     if (material == IMaterial.UNKNOWN) {
-      return super.getDisplayName(stack);
+      return super.getName(stack);
     }
     String key = this.getTranslationKey(stack);
-    ResourceLocation loc = material.getIdentifier();
+    Identifier loc = material.getIdentifier();
     // if there is a specific name, use that
     String fullKey = String.format("%s.%s.%s", key, loc.getNamespace(), loc.getPath());
     if (Util.canTranslate(fullKey)) {
-      return new TranslationTextComponent(fullKey);
+      return new TranslatableText(fullKey);
     }
     // try material name prefix next
     String materialKey = material.getTranslationKey();
     String materialPrefix = materialKey + ".format";
     if (Util.canTranslate(materialPrefix)) {
-      return new TranslationTextComponent(materialPrefix, new TranslationTextComponent(key));
+      return new TranslatableText(materialPrefix, new TranslatableText(key));
     }
     // format as "<material> <item name>"
-    return new TranslationTextComponent(materialKey).appendString(" ").append(new TranslationTextComponent(key));
+    return new TranslatableText(materialKey).append(" ").append(new TranslatableText(key));
   }
 }

@@ -7,11 +7,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
@@ -34,19 +34,19 @@ public class HeadMaterialStats extends BaseMaterialStats {
   private static final String ATTACK_PREFIX = makeTooltipKey("head.attack");
   private static final String HARVEST_LEVEL_PREFIX = makeTooltipKey("head.harvest_level");
   // tooltip descriptions
-  private static final ITextComponent DURABILITY_DESCRIPTION = makeTooltip("head.durability.description");
-  private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip("head.mining_speed.description");
-  private static final ITextComponent ATTACK_DESCRIPTION = makeTooltip("head.attack.description");
-  private static final ITextComponent HARVEST_LEVEL_DESCRIPTION = makeTooltip("head.harvest_level.description");
-  private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, HARVEST_LEVEL_DESCRIPTION, MINING_SPEED_DESCRIPTION, ATTACK_DESCRIPTION);
+  private static final Text DURABILITY_DESCRIPTION = makeTooltip("head.durability.description");
+  private static final Text MINING_SPEED_DESCRIPTION = makeTooltip("head.mining_speed.description");
+  private static final Text ATTACK_DESCRIPTION = makeTooltip("head.attack.description");
+  private static final Text HARVEST_LEVEL_DESCRIPTION = makeTooltip("head.harvest_level.description");
+  private static final List<Text> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, HARVEST_LEVEL_DESCRIPTION, MINING_SPEED_DESCRIPTION, ATTACK_DESCRIPTION);
   /** Formateed broken string */
-  private static final ITextComponent TOOLTIP_BROKEN = Util.makeTranslation("tooltip", "tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED);
+  private static final Text TOOLTIP_BROKEN = Util.makeTranslation("tooltip", "tool.broken").formatted(Formatting.BOLD, Formatting.DARK_RED);
   /** Prefixed broken string */
-  private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = new TranslationTextComponent(HeadMaterialStats.DURABILITY_PREFIX).append(TOOLTIP_BROKEN);
+  private static final Text TOOLTIP_BROKEN_PREFIXED = new TranslatableText(HeadMaterialStats.DURABILITY_PREFIX).append(TOOLTIP_BROKEN);
 
-  public final static Color DURABILITY_COLOR = Color.fromInt(0xFF47cc47);
-  public final static Color MINING_SPEED_COLOR = Color.fromInt(0xFF78A0CD);
-  public final static Color ATTACK_COLOR = Color.fromInt(0xFFD76464);
+  public final static TextColor DURABILITY_COLOR = TextColor.fromRgb(0xFF47cc47);
+  public final static TextColor MINING_SPEED_COLOR = TextColor.fromRgb(0xFF78A0CD);
+  public final static TextColor ATTACK_COLOR = TextColor.fromRgb(0xFFD76464);
 
   private int durability;
   private float miningSpeed;
@@ -54,7 +54,7 @@ public class HeadMaterialStats extends BaseMaterialStats {
   private float attack;
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(PacketByteBuf buffer) {
     buffer.writeInt(this.durability);
     buffer.writeFloat(this.miningSpeed);
     buffer.writeInt(this.harvestLevel);
@@ -62,7 +62,7 @@ public class HeadMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public void decode(PacketBuffer buffer) {
+  public void decode(PacketByteBuf buffer) {
     this.durability = buffer.readInt();
     this.miningSpeed = buffer.readFloat();
     this.harvestLevel = buffer.readInt();
@@ -75,8 +75,8 @@ public class HeadMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<ITextComponent> getLocalizedInfo() {
-    List<ITextComponent> info = Lists.newArrayList();
+  public List<Text> getLocalizedInfo() {
+    List<Text> info = Lists.newArrayList();
     info.add(formatDurability(this.durability));
     info.add(formatHarvestLevel(this.harvestLevel));
     info.add(formatMiningSpeed(this.miningSpeed));
@@ -85,35 +85,35 @@ public class HeadMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<ITextComponent> getLocalizedDescriptions() {
+  public List<Text> getLocalizedDescriptions() {
     return DESCRIPTION;
   }
 
   /** Applies formatting for durability */
-  public static ITextComponent formatDurability(int durability) {
+  public static Text formatDurability(int durability) {
     return formatNumber(DURABILITY_PREFIX, DURABILITY_COLOR, durability);
   }
 
   /** Applies formatting for durability with a reference durability */
-  public static ITextComponent formatDurability(int durability, int ref, boolean textIfBroken) {
+  public static Text formatDurability(int durability, int ref, boolean textIfBroken) {
     if (textIfBroken && durability == 0) {
       return TOOLTIP_BROKEN_PREFIXED;
     }
-    return new TranslationTextComponent(DURABILITY_PREFIX).append(CustomFontColor.formatPartialAmount(durability, ref));
+    return new TranslatableText(DURABILITY_PREFIX).append(CustomFontColor.formatPartialAmount(durability, ref));
   }
 
   /** Applies formatting for harvest level */
-  public static ITextComponent formatHarvestLevel(int level) {
-    return new TranslationTextComponent(HARVEST_LEVEL_PREFIX).append(HarvestLevels.getHarvestLevelName(level));
+  public static Text formatHarvestLevel(int level) {
+    return new TranslatableText(HARVEST_LEVEL_PREFIX).append(HarvestLevels.getHarvestLevelName(level));
   }
 
   /** Applies formatting for mining speed */
-  public static ITextComponent formatMiningSpeed(float speed) {
+  public static Text formatMiningSpeed(float speed) {
     return formatNumber(MINING_SPEED_PREFIX, MINING_SPEED_COLOR, speed);
   }
 
   /** Applies formatting for attack */
-  public static ITextComponent formatAttack(float attack) {
+  public static Text formatAttack(float attack) {
     return formatNumber(ATTACK_PREFIX, ATTACK_COLOR, attack);
   }
 }

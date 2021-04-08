@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.shared;
 
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.text.Text;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -40,7 +40,7 @@ public class ExtraModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(int level) {
+  public Text getDisplayName(int level) {
     if (source.isSingleUse()) {
       return getDisplayName();
     }

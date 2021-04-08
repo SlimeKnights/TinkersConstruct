@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.effect;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.EntityDamageSource;
+import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -21,7 +21,7 @@ import java.util.List;
 public class BleedingEffect extends TinkerEffect {
   private static final String SOURCE_KEY = Util.prefix("bleed");
   public BleedingEffect() {
-    super(EffectType.HARMFUL, 0xa80000, false);
+    super(StatusEffectType.HARMFUL, 0xa80000, false);
   }
 
   @Override
@@ -30,15 +30,15 @@ public class BleedingEffect extends TinkerEffect {
   }
 
   @Override
-  public boolean isReady(int tick, int level) {
+  public boolean canApplyUpdateEffect(int tick, int level) {
     // every half second
     return tick > 0 && tick % 20 == 0;
   }
 
   @Override
-  public void performEffect(LivingEntity target, int level) {
+  public void applyUpdateEffect(LivingEntity target, int level) {
     // attribute to player kill
-    LivingEntity lastAttacker = target.getLastAttackedEntity();
+    LivingEntity lastAttacker = target.getAttacking();
     DamageSource source;
     if(lastAttacker != null) {
       source = new EntityDamageSource(SOURCE_KEY, lastAttacker);
@@ -48,13 +48,13 @@ public class BleedingEffect extends TinkerEffect {
     }
 
     // perform damage
-    int hurtResistantTime = target.hurtResistantTime;
+    int hurtResistantTime = target.timeUntilRegen;
     Modifier.attackEntitySecondary(source, (level + 1f) / 2f, target, true);
-    target.hurtResistantTime = hurtResistantTime;
+    target.timeUntilRegen = hurtResistantTime;
 
     // damage particles
     if (target.world instanceof ServerWorld) {
-      ((ServerWorld)target.world).spawnParticle(ParticleTypes.DAMAGE_INDICATOR, target.getPosX(), target.getPosYHeight(0.5), target.getPosZ(), 1, 0.1, 0, 0.1, 0.2);
+      ((ServerWorld)target.world).spawnParticles(ParticleTypes.DAMAGE_INDICATOR, target.getX(), target.getBodyY(0.5), target.getZ(), 1, 0.1, 0, 0.1, 0.2);
     }
   }
 }

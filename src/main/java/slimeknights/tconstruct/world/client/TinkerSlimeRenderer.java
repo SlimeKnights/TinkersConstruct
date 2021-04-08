@@ -1,38 +1,40 @@
 package slimeknights.tconstruct.world.client;
 
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.SlimeRenderer;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.util.ResourceLocation;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.SlimeEntityRenderer;
+import net.minecraft.entity.mob.SlimeEntity;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import slimeknights.tconstruct.library.Util;
 
-@OnlyIn(Dist.CLIENT)
-public class TinkerSlimeRenderer extends SlimeRenderer {
+@Environment(EnvType.CLIENT)
+public class TinkerSlimeRenderer extends SlimeEntityRenderer {
   public static final Factory BLUE_SLIME_FACTORY = new Factory(Util.getResource("textures/entity/blue_slime.png"));
 
-  private final ResourceLocation texture;
-  public TinkerSlimeRenderer(EntityRendererManager renderManagerIn, ResourceLocation texture) {
+  private final Identifier texture;
+  public TinkerSlimeRenderer(EntityRenderDispatcher renderManagerIn, Identifier texture) {
     super(renderManagerIn);
     this.texture = texture;
   }
 
   @Override
-  public ResourceLocation getEntityTexture(SlimeEntity entity) {
+  public Identifier getTexture(SlimeEntity entity) {
     return texture;
   }
 
   private static class Factory implements IRenderFactory<SlimeEntity> {
-    private final ResourceLocation texture;
-    public Factory(ResourceLocation texture) {
+    private final Identifier texture;
+    public Factory(Identifier texture) {
       this.texture = texture;
     }
 
     @Override
-    public EntityRenderer<? super SlimeEntity> createRenderFor(EntityRendererManager manager) {
+    public EntityRenderer<? super SlimeEntity> createRenderFor(EntityRenderDispatcher manager) {
       return new TinkerSlimeRenderer(manager, this.texture);
     }
   }

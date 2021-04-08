@@ -3,7 +3,6 @@ package slimeknights.tconstruct.plugin.jei.casting;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -16,13 +15,14 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
@@ -41,7 +41,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   private static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "time");
   private static final String KEY_CAST_KEPT = Util.makeTranslationKey("jei", "casting.cast_kept");
   private static final String KEY_CAST_CONSUMED = Util.makeTranslationKey("jei", "casting.cast_consumed");
-  protected static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/casting.png");
+  protected static final Identifier BACKGROUND_LOC = Util.getResource("textures/gui/jei/casting.png");
 
   @Getter
   private final IDrawable background;
@@ -95,16 +95,16 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
     }
 
     int coolingTime = recipe.getCoolingTime() / 20;
-    String coolingString = I18n.format(KEY_COOLING_TIME, coolingTime);
-    FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-    int x = 72 - fontRenderer.getStringWidth(coolingString) / 2;
-    fontRenderer.drawString(matrixStack, coolingString, x, 2, Color.GRAY.getRGB());
+    String coolingString = I18n.translate(KEY_COOLING_TIME, coolingTime);
+    TextRenderer fontRenderer = MinecraftClient.getInstance().textRenderer;
+    int x = 72 - fontRenderer.getWidth(coolingString) / 2;
+    fontRenderer.draw(matrixStack, coolingString, x, 2, Color.GRAY.getRGB());
   }
 
   @Override
-  public List<ITextComponent> getTooltipStrings(IDisplayableCastingRecipe recipe, double mouseX, double mouseY) {
+  public List<Text> getTooltipStrings(IDisplayableCastingRecipe recipe, double mouseX, double mouseY) {
     if (recipe.hasCast() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 63, 39, 13, 11)) {
-      return Collections.singletonList(new TranslationTextComponent(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
+      return Collections.singletonList(new TranslatableText(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
     }
     return Collections.emptyList();
   }
@@ -130,9 +130,9 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   }
 
   @Override
-  public void onTooltip(int index, boolean input, FluidStack stack, List<ITextComponent> list) {
-    ITextComponent name = list.get(0);
-    ITextComponent modId = list.get(list.size() - 1);
+  public void onTooltip(int index, boolean input, FluidStack stack, List<Text> list) {
+    Text name = list.get(0);
+    Text modId = list.get(list.size() - 1);
     list.clear();
     list.add(name);
     FluidTooltipHandler.appendMaterial(stack, list);

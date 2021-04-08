@@ -4,4 +4,4 @@ package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 
 import mcp.MethodsReturnNonnullByDefault;
 
-import org.jetbrains.annotations.ParametersAreNonnullByDefault;
+import javax.annotation.ParametersAreNonnullByDefault;

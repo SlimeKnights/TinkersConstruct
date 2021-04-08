@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -11,15 +10,16 @@ import mezz.jei.api.gui.ingredient.ITooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
@@ -35,7 +35,7 @@ import java.util.List;
  * Alloy recipe category for JEI display
  */
 public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, ITooltipCallback<FluidStack> {
-  private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/alloy.png");
+  private static final Identifier BACKGROUND_LOC = Util.getResource("textures/gui/jei/alloy.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "alloy.title");
   private static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "temperature");
 
@@ -57,7 +57,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
   }
 
   @Override
-  public ResourceLocation getUid() {
+  public Identifier getUid() {
     return TConstructRecipeCategoryUid.alloy;
   }
 
@@ -69,7 +69,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
   @Override
   public void setIngredients(AlloyRecipe recipe, IIngredients ingredients) {
     ingredients.setInputLists(VanillaTypes.FLUID, recipe.getDisplayInputs());
-    ingredients.setInputIngredients(recipe.getIngredients());
+    ingredients.setInputIngredients(recipe.getPreviewInputs());
     ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutput());
   }
 
@@ -77,10 +77,10 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
   public void draw(AlloyRecipe recipe, MatrixStack matrices, double mouseX, double mouseY) {
     arrow.draw(matrices, 90, 21);
     // temperature info
-    FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-    String tempString = I18n.format(KEY_TEMPERATURE, recipe.getTemperature());
-    int x = 102 - (fontRenderer.getStringWidth(tempString) / 2);
-    fontRenderer.drawString(matrices, tempString, x, 5, Color.GRAY.getRGB());
+    TextRenderer fontRenderer = MinecraftClient.getInstance().textRenderer;
+    String tempString = I18n.translate(KEY_TEMPERATURE, recipe.getTemperature());
+    int x = 102 - (fontRenderer.getWidth(tempString) / 2);
+    fontRenderer.draw(matrices, tempString, x, 5, Color.GRAY.getRGB());
   }
 
   @Override
@@ -116,11 +116,11 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
   }
 
   @Override
-  public void onTooltip(int index, boolean input, FluidStack stack, List<ITextComponent> list) {
+  public void onTooltip(int index, boolean input, FluidStack stack, List<Text> list) {
     Fluid fluid = stack.getFluid();
     if (fluid != null) {
-      ITextComponent name = list.get(0);
-      ITextComponent modId = list.get(list.size() - 1);
+      Text name = list.get(0);
+      Text modId = list.get(list.size() - 1);
       list.clear();
       list.add(name);
 
@@ -130,7 +130,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
       } else {
         // add temperature to fuels
         MeltingFuelHandler.getTemperature(stack.getFluid())
-                          .ifPresent(temperature -> list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY)));
+                          .ifPresent(temperature -> list.add(new TranslatableText(KEY_TEMPERATURE, temperature).formatted(Formatting.GRAY)));
       }
       list.add(modId);
     }

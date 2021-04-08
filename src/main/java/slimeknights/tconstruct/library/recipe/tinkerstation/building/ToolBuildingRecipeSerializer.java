@@ -1,31 +1,31 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
 import com.google.gson.JsonObject;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 
 public class ToolBuildingRecipeSerializer extends RecipeSerializer<ToolBuildingRecipe> {
 
   @Override
-  public ToolBuildingRecipe read(ResourceLocation recipeId, JsonObject json) {
-    String group = JSONUtils.getString(json, "group", "");
+  public ToolBuildingRecipe read(Identifier recipeId, JsonObject json) {
+    String group = JsonHelper.getString(json, "group", "");
 
     // output fetch as a toolcore item, its an error if it does not implement that interface
-    ToolCore item = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", ToolCore.class);
+    ToolCore item = RecipeHelper.deserializeItem(JsonHelper.getString(json, "result"), "result", ToolCore.class);
 
     return new ToolBuildingRecipe(recipeId, group, item);
   }
 
   @Nullable
   @Override
-  public ToolBuildingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+  public ToolBuildingRecipe read(Identifier recipeId, PacketByteBuf buffer) {
     try {
       String group = buffer.readString(Short.MAX_VALUE);
       ToolCore result = RecipeHelper.readItem(buffer, ToolCore.class);
@@ -39,7 +39,7 @@ public class ToolBuildingRecipeSerializer extends RecipeSerializer<ToolBuildingR
   }
 
   @Override
-  public void write(PacketBuffer buffer, ToolBuildingRecipe recipe) {
+  public void write(PacketByteBuf buffer, ToolBuildingRecipe recipe) {
     try {
       buffer.writeString(recipe.group);
       RecipeHelper.writeItem(buffer, recipe.output);

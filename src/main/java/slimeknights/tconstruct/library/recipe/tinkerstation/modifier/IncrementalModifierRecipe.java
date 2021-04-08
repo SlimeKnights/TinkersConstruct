@@ -5,11 +5,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.util.Lazy;
@@ -39,7 +38,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   /** Item stack to use when a partial amount is leftover */
   private final ItemStack leftover;
 
-  public IncrementalModifierRecipe(ResourceLocation id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots, ItemStack leftover) {
+  public IncrementalModifierRecipe(Identifier id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots, ItemStack leftover) {
     super(id, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     this.input = input;
     this.amountPerInput = amountPerInput;
@@ -135,7 +134,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.incrementalModifierSerializer.get();
   }
 
@@ -150,8 +149,8 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   @Override
   protected void addIngredients(Builder<List<ItemStack>> builder) {
     // fill extra item slots
-    List<ItemStack> items = Arrays.asList(input.getMatchingStacks());
-    int maxStackSize = items.stream().mapToInt(ItemStack::getMaxStackSize).min().orElse(64);
+    List<ItemStack> items = Arrays.asList(input.getMatchingStacksClient());
+    int maxStackSize = items.stream().mapToInt(ItemStack::getMaxCount).min().orElse(64);
 
     // split the stacks out if we need more than 1
     int needed = neededPerLevel / amountPerInput;
@@ -253,27 +252,27 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
    * @param parent  Parent JSON
    * @param name    Tag name
    * @return  Item stack result
-   * @throws com.google.gson.JsonSyntaxException If the syntax is invalid
+   * @throws JsonSyntaxException If the syntax is invalid
    */
   public static ItemStack deseralizeResultItem(JsonObject parent, String name) {
     JsonElement element = JsonHelper.getElement(parent, name);
     if (element.isJsonPrimitive()) {
-      return new ItemStack(JSONUtils.getItem(element, name));
+      return new ItemStack(net.minecraft.util.JsonHelper.asItem(element, name));
     } else {
-      return CraftingHelper.getItemStack(JSONUtils.getJsonObject(element, name), true);
+      return CraftingHelper.getItemStack(net.minecraft.util.JsonHelper.asObject(element, name), true);
     }
   }
 
   public static class Serializer extends AbstractModifierRecipe.Serializer<IncrementalModifierRecipe> {
     @Override
-    public IncrementalModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+    public IncrementalModifierRecipe read(Identifier id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
                                           String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
-      Ingredient input = Ingredient.deserialize(JsonHelper.getElement(json, "input"));
-      int amountPerInput = JSONUtils.getInt(json, "amount_per_item", 1);
+      Ingredient input = Ingredient.fromJson(JsonHelper.getElement(json, "input"));
+      int amountPerInput = net.minecraft.util.JsonHelper.getInt(json, "amount_per_item", 1);
       if (amountPerInput < 1) {
         throw new JsonSyntaxException("amount_per_item must be positive");
       }
-      int neededPerLevel = JSONUtils.getInt(json, "needed_per_level");
+      int neededPerLevel = net.minecraft.util.JsonHelper.getInt(json, "needed_per_level");
       if (neededPerLevel <= amountPerInput) {
         throw new JsonSyntaxException("needed_per_level must be greater than amount_per_item");
       }
@@ -285,9 +284,9 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    public IncrementalModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+    public IncrementalModifierRecipe read(Identifier id, PacketByteBuf buffer, Ingredient toolRequirement, ModifierMatch requirements,
                                           String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
-      Ingredient input = Ingredient.read(buffer);
+      Ingredient input = Ingredient.fromPacket(buffer);
       int amountPerInput = buffer.readVarInt();
       int neededPerLevel = buffer.readVarInt();
       ItemStack leftover = buffer.readItemStack();
@@ -295,7 +294,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    public void write(PacketBuffer buffer, IncrementalModifierRecipe recipe) {
+    public void write(PacketByteBuf buffer, IncrementalModifierRecipe recipe) {
       super.write(buffer, recipe);
       recipe.input.write(buffer);
       buffer.writeVarInt(recipe.amountPerInput);

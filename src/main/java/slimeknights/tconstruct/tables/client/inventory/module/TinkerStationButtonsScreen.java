@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
@@ -25,7 +25,7 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   public static final int WOOD_STYLE = 2;
   public static final int METAL_STYLE = 1;
 
-  public TinkerStationButtonsScreen(TinkerStationScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
+  public TinkerStationButtonsScreen(TinkerStationScreen parent, ScreenHandler container, PlayerInventory playerInventory, Text title) {
     super(parent, container, playerInventory, title, TinkerStationScreen.COLUMN_COUNT, false);
 
     this.parent = parent;
@@ -38,8 +38,8 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
     int index = 0;
     this.buttonCount = 0;
 
-    Button.IPressable onPressed = button -> {
-      for (Widget widget : TinkerStationButtonsScreen.this.buttons) {
+    ButtonWidget.PressAction onPressed = button -> {
+      for (AbstractButtonWidget widget : TinkerStationButtonsScreen.this.buttons) {
         if (widget instanceof SlotButtonItem) {
           ((SlotButtonItem) widget).pressed = false;
         }
@@ -61,9 +61,9 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
       if (slotInformation.isRepair()) {
         // there are multiple repair slots, one for each relevant size
         if (slotInformation.getPoints().size() == parent.getMaxInputs()) {
-          slotButtonItem = new SlotButtonItem(index++, -1, -1, new TranslationTextComponent("gui.tconstruct.repair"), slotInformation, onPressed) {
+          slotButtonItem = new SlotButtonItem(index++, -1, -1, new TranslatableText("gui.tconstruct.repair"), slotInformation, onPressed) {
             @Override
-            protected void drawIcon(MatrixStack matrices, Minecraft minecraft) {
+            protected void drawIcon(MatrixStack matrices, MinecraftClient minecraft) {
               minecraft.getTextureManager().bindTexture(Icons.ICONS);
               Icons.ANVIL.draw(matrices, this.x, this.y);
             }
@@ -93,7 +93,7 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   }
 
   public void shiftStyle(int style) {
-    for (Widget widget : this.buttons) {
+    for (AbstractButtonWidget widget : this.buttons) {
       if (widget instanceof SlotButtonItem) {
         this.shiftButton((SlotButtonItem) widget, 0, -18);
       }
@@ -109,7 +109,7 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
       Icons.ICONS);
   }
 
-  public List<Widget> getButtons() {
+  public List<AbstractButtonWidget> getButtons() {
     return this.buttons;
   }
 }

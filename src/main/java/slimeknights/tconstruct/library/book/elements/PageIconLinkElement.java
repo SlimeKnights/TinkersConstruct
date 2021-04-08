@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.library.book.elements;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.text.StringTextComponent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.action.StringActionProcessor;
@@ -13,7 +15,7 @@ import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
 
 // TODO: name as ITextComponent?
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class PageIconLinkElement extends SizedBookElement {
 
   public PageData pageData;
@@ -36,7 +38,7 @@ public class PageIconLinkElement extends SizedBookElement {
   }
 
   @Override
-  public void draw(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
+  public void draw(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, TextRenderer fontRenderer) {
     boolean hover = this.isHovered(mouseX, mouseY);
     RenderSystem.color4f(1F, 1F, 1F, hover ? 1F : 0.5F);
     //RenderSystem.scale(scale, scale, 1f);
@@ -49,9 +51,9 @@ public class PageIconLinkElement extends SizedBookElement {
   }
 
   @Override
-  public void drawOverlay(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
+  public void drawOverlay(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, TextRenderer fontRenderer) {
     if (this.name != null && !this.name.isEmpty() && this.isHovered(mouseX, mouseY)) {
-      this.drawHoveringText(matrices, ImmutableList.of(new StringTextComponent(name)), mouseX, mouseY, fontRenderer);
+      this.drawHoveringText(matrices, ImmutableList.of(new LiteralText(name)), mouseX, mouseY, fontRenderer);
     }
   }
 

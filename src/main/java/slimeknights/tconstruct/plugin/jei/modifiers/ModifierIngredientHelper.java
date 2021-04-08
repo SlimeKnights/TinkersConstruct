@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
 import mezz.jei.api.ingredients.IIngredientHelper;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry> {
 
@@ -49,7 +49,7 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
     if (entry == null) {
       return "null";
     }
-    ResourceLocation id = entry.getModifier().getRegistryName();
+    Identifier id = entry.getModifier().getRegistryName();
     return id == null ? "unregistered" : id.toString();
   }
 }

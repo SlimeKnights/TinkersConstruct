@@ -5,7 +5,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.recipe.Ingredient;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
@@ -60,7 +60,7 @@ public class ModifierRecipeLookup {
     LISTENER.checkClear();
     // this should work on both client and server
     // server just pulls from the tag, client does not use tags directly at this stage
-    for (ItemStack stack : ingredient.getMatchingStacks()) {
+    for (ItemStack stack : ingredient.getMatchingStacksClient()) {
       MODIFIERS.add(stack.getItem());
     }
   }

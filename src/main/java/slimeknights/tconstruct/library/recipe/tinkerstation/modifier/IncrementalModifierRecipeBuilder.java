@@ -5,19 +5,19 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -80,8 +80,8 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
    * @param neededPerLevel Total number needed for this modifier
    * @return  Builder instance
    */
-  public IncrementalModifierRecipeBuilder setInput(IItemProvider item, int amountPerItem, int neededPerLevel) {
-    return setInput(Ingredient.fromItems(item), amountPerItem, neededPerLevel);
+  public IncrementalModifierRecipeBuilder setInput(ItemConvertible item, int amountPerItem, int neededPerLevel) {
+    return setInput(Ingredient.ofItems(item), amountPerItem, neededPerLevel);
   }
 
   /**
@@ -91,16 +91,16 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
    * @param neededPerLevel Total number needed for this modifier
    * @return  Builder instance
    */
-  public IncrementalModifierRecipeBuilder setInput(ITag<Item> tag, int amountPerItem, int neededPerLevel) {
+  public IncrementalModifierRecipeBuilder setInput(Tag<Item> tag, int amountPerItem, int neededPerLevel) {
     return setInput(Ingredient.fromTag(tag), amountPerItem, neededPerLevel);
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+  public void build(Consumer<RecipeJsonProvider> consumer, Identifier id) {
     if (input == Ingredient.EMPTY) {
       throw new IllegalStateException("Must set input");
     }
-    ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
+    Identifier advancementId = buildOptionalAdvancement(id, "modifiers");
     consumer.accept(new FinishedRecipe(id, advancementId));
   }
 
@@ -127,13 +127,13 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
   }
 
   private class FinishedRecipe extends ModifierFinishedRecipe {
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public FinishedRecipe(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
     @Override
     public void serialize(JsonObject json) {
-      json.add("input", input.serialize());
+      json.add("input", input.toJson());
       json.addProperty("amount_per_item", amountPerItem);
       json.addProperty("needed_per_level", neededPerLevel);
       if (leftover != ItemStack.EMPTY) {
@@ -143,7 +143,7 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerModifiers.incrementalModifierSerializer.get();
     }
   }

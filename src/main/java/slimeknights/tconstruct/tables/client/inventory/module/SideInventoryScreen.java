@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.Getter;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
@@ -16,7 +16,7 @@ import slimeknights.mantle.client.screen.SliderWidget;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.library.Util;
 
-public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Container> extends ModuleScreen<P,C> {
+public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends ScreenHandler> extends ModuleScreen<P,C> {
 
   protected ScalableElementScreen overlap = GenericScreen.overlap;
   protected ElementScreen overlapTopLeft = GenericScreen.overlapTopLeft;
@@ -37,7 +37,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
   protected ElementScreen sliderBottom = GenericScreen.sliderBottom;
   protected ScalableElementScreen sliderBackground = GenericScreen.sliderBackground;
 
-  protected static final ResourceLocation GENERIC_INVENTORY = Util.getResource("textures/gui/generic.png");
+  protected static final Identifier GENERIC_INVENTORY = Util.getResource("textures/gui/generic.png");
 
   protected BorderWidget border = new BorderWidget();
 
@@ -54,11 +54,11 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
 
   protected SliderWidget slider = new SliderWidget(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
-  public SideInventoryScreen(P parent, C container, PlayerInventory playerInventory, ITextComponent title, int slotCount, int columns) {
+  public SideInventoryScreen(P parent, C container, PlayerInventory playerInventory, Text title, int slotCount, int columns) {
     this(parent, container, playerInventory, title, slotCount, columns, false, false);
   }
 
-  public SideInventoryScreen(P parent, C container, PlayerInventory playerInventory, ITextComponent title, int slotCount, int columns, boolean rightSide, boolean connected) {
+  public SideInventoryScreen(P parent, C container, PlayerInventory playerInventory, Text title, int slotCount, int columns, boolean rightSide, boolean connected) {
     super(parent, container, playerInventory, title, rightSide, false);
 
     this.connected = connected;
@@ -66,8 +66,8 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
     this.columns = columns;
     this.slotCount = slotCount;
 
-    this.xSize = columns * this.slot.w + this.border.w * 2;
-    this.ySize = this.calcCappedYSize(this.slot.h * 10);
+    this.backgroundWidth = columns * this.slot.w + this.border.w * 2;
+    this.backgroundHeight = this.calcCappedYSize(this.slot.h * 10);
 
     if (connected) {
       if (this.right) {
@@ -88,7 +88,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
   }
 
   protected boolean shouldDrawName() {
-    return this.container instanceof BaseContainer;
+    return this.handler instanceof BaseContainer;
   }
 
   @Override
@@ -106,8 +106,8 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
   }
 
   @Override
-  public boolean isSlotSelected(Slot slotIn, double mouseX, double mouseY) {
-    return super.isSlotSelected(slotIn, mouseX, mouseY) && this.shouldDrawSlot(slotIn);
+  public boolean isPointOverSlot(Slot slotIn, double mouseX, double mouseY) {
+    return super.isPointOverSlot(slotIn, mouseX, mouseY) && this.shouldDrawSlot(slotIn);
   }
 
   public void updateSlotCount(int newSlotCount) {
@@ -125,15 +125,15 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
   @Override
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
     // at most as big as the parent
-    this.ySize = this.calcCappedYSize(parentSizeY - 10);
+    this.backgroundHeight = this.calcCappedYSize(parentSizeY - 10);
     // slider needed?
     if (this.getDisplayedRows() < this.getTotalRows()) {
       this.slider.enable();
-      this.xSize = this.columns * this.slot.w + this.slider.width + 2 * this.border.w;
+      this.backgroundWidth = this.columns * this.slot.w + this.slider.width + 2 * this.border.w;
     }
     else {
       this.slider.disable();
-      this.xSize = this.columns * this.slot.w + this.border.w * 2;
+      this.backgroundWidth = this.columns * this.slot.w + this.border.w * 2;
     }
 
     // update position
@@ -151,27 +151,27 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
       }
 
       this.xOffset = (this.border.w - 1) * (this.right ? -1 : 1);
-      this.guiLeft += this.xOffset;
+      this.x += this.xOffset;
     }
     else {
       this.xOffset = 0;
     }
 
     // move it a bit
-    this.guiTop += this.yOffset;
+    this.y += this.yOffset;
 
-    this.border.setPosition(this.guiLeft, this.guiTop);
-    this.border.setSize(this.xSize, this.ySize);
+    this.border.setPosition(this.x, this.y);
+    this.border.setSize(this.backgroundWidth, this.backgroundHeight);
 
-    int y = this.guiTop + this.border.h;
-    int h = this.ySize - this.border.h * 2;
+    int y = this.y + this.border.h;
+    int h = this.backgroundHeight - this.border.h * 2;
 
     if (this.shouldDrawName()) {
       y += this.textBackground.h;
       h -= this.textBackground.h;
     }
 
-    this.slider.setPosition(this.guiLeft + this.columns * this.slot.w + this.border.w, y);
+    this.slider.setPosition(this.x + this.columns * this.slot.w + this.border.w, y);
     this.slider.setSize(h);
     this.slider.setSliderParameters(0, this.getTotalRows() - this.getDisplayedRows(), 1);
 
@@ -221,48 +221,48 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
       yd += this.textBackground.h;
     }
 
-    for (Slot slot : this.container.inventorySlots) {
+    for (Slot slot : this.handler.slots) {
       if (this.shouldDrawSlot(slot)) {
         // calc position of the slot
         int offset = slot.getSlotIndex() - this.firstSlotId;
         int x = (offset % this.columns) * this.slot.w;
         int y = (offset / this.columns) * this.slot.h;
 
-        slot.xPos = xd + x + 1;
-        slot.yPos = yd + y + 1;
+        slot.x = xd + x + 1;
+        slot.y = yd + y + 1;
 
         if (this.right) {
-          slot.xPos += this.parent.realWidth;
+          slot.x += this.parent.realWidth;
         }
         else {
-          slot.xPos -= this.xSize;
+          slot.x -= this.backgroundWidth;
         }
       }
       else {
-        slot.xPos = 0;
-        slot.yPos = 0;
+        slot.x = 0;
+        slot.y = 0;
       }
     }
   }
 
   @Override
-  public void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
+  public void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
     if (this.shouldDrawName()) {
-      this.font.drawString(matrices, this.getTitle().getString(), this.border.w, this.border.h - 1, 0x404040);
+      this.textRenderer.draw(matrices, this.getTitle().getString(), this.border.w, this.border.h - 1, 0x404040);
     }
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
-    this.guiLeft += this.border.w;
-    this.guiTop += this.border.h;
+  protected void drawBackground(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+    this.x += this.border.w;
+    this.y += this.border.h;
 
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    this.minecraft.getTextureManager().bindTexture(GENERIC_INVENTORY);
+    this.client.getTextureManager().bindTexture(GENERIC_INVENTORY);
 
-    int x = this.guiLeft;
-    int y = this.guiTop;
-    int midW = this.xSize - this.border.w * 2;
+    int x = this.x;
+    int y = this.y;
+    int midW = this.backgroundWidth - this.border.w * 2;
 
     this.border.draw(matrices);
 
@@ -271,7 +271,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
       y += this.textBackground.h;
     }
 
-    this.minecraft.getTextureManager().bindTexture(GENERIC_INVENTORY);
+    this.client.getTextureManager().bindTexture(GENERIC_INVENTORY);
     this.drawSlots(matrices, x, y);
 
     // slider
@@ -282,13 +282,13 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
       this.updateSlots();
     }
 
-    this.guiLeft -= this.border.w;
-    this.guiTop -= this.border.h;
+    this.x -= this.border.w;
+    this.y -= this.border.h;
   }
 
   protected int drawSlots(MatrixStack matrices, int xPos, int yPos) {
     int width = this.columns * this.slot.w;
-    int height = this.ySize - this.border.h * 2;
+    int height = this.backgroundHeight - this.border.h * 2;
     int fullRows = (this.lastSlotId - this.firstSlotId) / this.columns;
     int y;
 

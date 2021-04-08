@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.plugin.jei.entity;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.EntityIngredient;
@@ -30,7 +30,7 @@ public class DefaultEntityMeltingRecipe extends EntityMeltingRecipe {
     for (EntityType<?> type : ForgeRegistries.ENTITIES) {
       // use tag overrides for default recipe
       if (TinkerTags.EntityTypes.MELTING_HIDE.contains(type)) continue;
-      if (type.getClassification() == EntityClassification.MISC && !TinkerTags.EntityTypes.MELTING_SHOW.contains(type)) continue;
+      if (type.getSpawnGroup() == SpawnGroup.MISC && !TinkerTags.EntityTypes.MELTING_SHOW.contains(type)) continue;
       for (EntityMeltingRecipe recipe : recipes) {
         if (recipe.matches(type)) {
           continue typeLoop;

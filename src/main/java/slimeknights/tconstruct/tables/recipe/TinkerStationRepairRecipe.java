@@ -3,8 +3,8 @@ package slimeknights.tconstruct.tables.recipe;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -31,7 +31,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   private static final IntConsumer NO_ACTION = i -> {};
 
   @Getter
-  private final ResourceLocation id;
+  private final Identifier id;
 
   /**
    * Checks if the tool can be repaired with the given material
@@ -185,14 +185,14 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.tinkerStationRepairSerializer.get();
   }
 
   /** @deprecated Use {@link #getCraftingResult(ITinkerStationInventory)} */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getOutput() {
     return ItemStack.EMPTY;
   }
 }

@@ -6,16 +6,16 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -54,7 +54,7 @@ public class ModifierNBT {
 
   /**
    * Creates a copy of this NBT with the given modifier added. Result will be unsorted
-   * Do not use if you need to make multiple additions, use {@link ModifierNBT.Builder}
+   * Do not use if you need to make multiple additions, use {@link Builder}
    * @param modifier  Modifier
    * @param level     Levels of the modifier to add
    * @return  Instance with the given modifier
@@ -86,21 +86,21 @@ public class ModifierNBT {
   }
 
   /** Re-adds the modifier list from NBT */
-  public static ModifierNBT readFromNBT(@Nullable INBT inbt) {
-    if (inbt == null || inbt.getId() != NBT.TAG_LIST) {
+  public static ModifierNBT readFromNBT(@Nullable Tag inbt) {
+    if (inbt == null || inbt.getType() != NBT.TAG_LIST) {
       return EMPTY;
     }
 
-    ListNBT listNBT = (ListNBT)inbt;
-    if (listNBT.getTagType() != NBT.TAG_COMPOUND) {
+    ListTag listNBT = (ListTag)inbt;
+    if (listNBT.getElementType() != NBT.TAG_COMPOUND) {
       return EMPTY;
     }
 
     ImmutableList.Builder<ModifierEntry> builder = ImmutableList.builder();
     for (int i = 0; i < listNBT.size(); i++) {
-      CompoundNBT tag = listNBT.getCompound(i);
+      CompoundTag tag = listNBT.getCompound(i);
       if (tag.contains(TAG_MODIFIER) && tag.contains(TAG_LEVEL)) {
-        ModifierId id = ModifierId.tryCreate(tag.getString(TAG_MODIFIER));
+        ModifierId id = ModifierId.tryParse(tag.getString(TAG_MODIFIER));
         int level = tag.getInt(TAG_LEVEL);
         if (id != null && level > 0) {
           Modifier modifier = TinkerRegistries.MODIFIERS.getValue(id);
@@ -114,10 +114,10 @@ public class ModifierNBT {
   }
 
   /** Writes these modifiers to NBT */
-  public ListNBT serializeToNBT() {
-    ListNBT list = new ListNBT();
+  public ListTag serializeToNBT() {
+    ListTag list = new ListTag();
     for (ModifierEntry entry : modifiers) {
-      CompoundNBT tag = new CompoundNBT();
+      CompoundTag tag = new CompoundTag();
       tag.putString(TAG_MODIFIER, entry.getModifier().getId().toString());
       tag.putShort(TAG_LEVEL, (short)entry.getLevel());
       list.add(tag);

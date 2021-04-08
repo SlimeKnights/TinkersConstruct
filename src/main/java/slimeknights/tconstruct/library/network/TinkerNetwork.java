@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.network;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.IPacket;
+import net.minecraft.network.Packet;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.WorldAccess;
 import net.minecraftforge.fml.network.NetworkDirection;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.library.Util;
@@ -24,7 +24,7 @@ import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 // TODO: move to common
 public class TinkerNetwork extends NetworkWrapper {
@@ -68,9 +68,9 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(SmelteryFluidClickedPacket.class, SmelteryFluidClickedPacket::new, NetworkDirection.PLAY_TO_SERVER);
   }
 
-  public void sendVanillaPacket(Entity player, IPacket<?> packet) {
-    if (player instanceof ServerPlayerEntity && ((ServerPlayerEntity) player).connection != null) {
-      ((ServerPlayerEntity) player).connection.sendPacket(packet);
+  public void sendVanillaPacket(Entity player, Packet<?> packet) {
+    if (player instanceof ServerPlayerEntity && ((ServerPlayerEntity) player).networkHandler != null) {
+      ((ServerPlayerEntity) player).networkHandler.sendPacket(packet);
     }
   }
 
@@ -81,7 +81,7 @@ public class TinkerNetwork extends NetworkWrapper {
    * @param world     World instance
    * @param position  Target position
    */
-  public void sendToClientsAround(Object msg, @Nullable IWorld world, BlockPos position) {
+  public void sendToClientsAround(Object msg, @Nullable WorldAccess world, BlockPos position) {
     if (world instanceof ServerWorld) {
       sendToClientsAround(msg, (ServerWorld)world, position);
     }

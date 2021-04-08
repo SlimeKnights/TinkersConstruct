@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.materials.stats;
 
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.network.INetworkSendable;
 
 import java.util.List;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 
 /**
  * Basic interface for all material stats.
@@ -20,7 +20,7 @@ public interface IMaterialStats extends INetworkSendable {
   /**
    * Returns the name of the stat type, to be displayed to the player.
    */
-  IFormattableTextComponent getLocalizedName();
+  MutableText getLocalizedName();
 
   /**
    * Returns a list containing a String for each player-relevant value.</br>
@@ -29,7 +29,7 @@ public interface IMaterialStats extends INetworkSendable {
    * </br>
    * This is used to display properties of materials to the user.
    */
-  List<ITextComponent> getLocalizedInfo();
+  List<Text> getLocalizedInfo();
 
   /**
    * Returns a list containing a Text Component describing each player-relevant value.</br>
@@ -38,5 +38,5 @@ public interface IMaterialStats extends INetworkSendable {
    * This is used to display properties of materials to the user.
    * @return a list of Text Components
    */
-  List<ITextComponent> getLocalizedDescriptions();
+  List<Text> getLocalizedDescriptions();
 }

@@ -8,9 +8,9 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
@@ -26,7 +26,7 @@ public class MaterialStatsDataProvider extends GenericDataProvider {
 
   private static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(JsonStatWrapper.class, new StatSerializer(MaterialStatsManager.GSON))
-    .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+    .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -36,7 +36,7 @@ public class MaterialStatsDataProvider extends GenericDataProvider {
   }
 
   @Override
-  public void act(DirectoryCache cache) {
+  public void run(DataCache cache) {
     MaterialStats.allMaterialStats.forEach(
       (materialId, iMaterialStats) -> saveThing(cache, materialId, convert(materialId, iMaterialStats))
     );
@@ -61,7 +61,7 @@ public class MaterialStatsDataProvider extends GenericDataProvider {
   @AllArgsConstructor
   private static class JsonWrapper {
 
-    private final ResourceLocation materialId;
+    private final Identifier materialId;
     private final List<JsonStatWrapper> stats;
   }
 

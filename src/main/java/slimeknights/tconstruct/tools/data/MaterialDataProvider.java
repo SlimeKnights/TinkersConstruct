@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.data;
 
+import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
 import net.minecraft.fluid.Fluids;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.materials.MaterialManager;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class MaterialDataProvider extends GenericDataProvider {
@@ -20,7 +20,7 @@ public class MaterialDataProvider extends GenericDataProvider {
   }
 
   @Override
-  public void act(DirectoryCache cache) {
+  public void run(DataCache cache) {
     Materials.allMaterials.forEach(pair -> saveThing(cache, pair.getFirst().getIdentifier(), convert(pair.getFirst(), pair.getSecond())));
   }
 

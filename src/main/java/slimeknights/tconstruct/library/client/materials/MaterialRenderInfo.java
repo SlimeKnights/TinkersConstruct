@@ -3,14 +3,14 @@ package slimeknights.tconstruct.library.client.materials;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.MissingTextureSprite;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.texture.MissingSprite;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -22,7 +22,7 @@ public class MaterialRenderInfo {
   /** ID of this render info */
   @Getter
   private final MaterialId identifier;
-  private final ResourceLocation texture;
+  private final Identifier texture;
   private final String[] fallbacks;
   /* color used to tint this model as an item colors handler */
   @Getter
@@ -36,9 +36,9 @@ public class MaterialRenderInfo {
    * @return  Sprite if valid, null if missing
    */
   @Nullable
-  private TextureAtlasSprite tryTexture(RenderMaterial base, String suffix, Function<RenderMaterial,TextureAtlasSprite> spriteGetter) {
-    TextureAtlasSprite sprite = spriteGetter.apply(getMaterial(base.getTextureLocation(), suffix));
-    if (!MissingTextureSprite.getLocation().equals(sprite.getName())) {
+  private Sprite tryTexture(SpriteIdentifier base, String suffix, Function<SpriteIdentifier,Sprite> spriteGetter) {
+    Sprite sprite = spriteGetter.apply(getMaterial(base.getTextureId(), suffix));
+    if (!MissingSprite.getMissingSpriteId().equals(sprite.getId())) {
       return sprite;
     }
     return null;
@@ -50,8 +50,8 @@ public class MaterialRenderInfo {
    * @param spriteGetter  Logic to get a sprite
    * @return  Pair of the sprite, and a boolean indicating whether the sprite should be tinted
    */
-  public TintedSprite getSprite(RenderMaterial base, Function<RenderMaterial,TextureAtlasSprite> spriteGetter) {
-    TextureAtlasSprite sprite = tryTexture(base, getSuffix(texture), spriteGetter);
+  public TintedSprite getSprite(SpriteIdentifier base, Function<SpriteIdentifier,Sprite> spriteGetter) {
+    Sprite sprite = tryTexture(base, getSuffix(texture), spriteGetter);
     if (sprite != null) {
       return TintedSprite.of(sprite, false);
     }
@@ -69,10 +69,10 @@ public class MaterialRenderInfo {
    * @param textures  Texture consumer
    * @param base      Base texture, will be used to generate texture names
    */
-  public void getTextureDependencies(Consumer<RenderMaterial> textures, RenderMaterial base) {
-    textures.accept(getMaterial(base.getTextureLocation(), getSuffix(texture)));
+  public void getTextureDependencies(Consumer<SpriteIdentifier> textures, SpriteIdentifier base) {
+    textures.accept(getMaterial(base.getTextureId(), getSuffix(texture)));
     for (String fallback : fallbacks) {
-      textures.accept(getMaterial(base.getTextureLocation(), fallback));
+      textures.accept(getMaterial(base.getTextureId(), fallback));
     }
   }
 
@@ -81,7 +81,7 @@ public class MaterialRenderInfo {
    * @param material  Material ID
    * @return  Sprite name
    */
-  private static String getSuffix(ResourceLocation material) {
+  private static String getSuffix(Identifier material) {
     // namespace will only be minecraft for a texture override, so this lets you select to always use an untinted base texture as the materials texture
     if ("minecraft".equals(material.getNamespace())) {
       return material.getPath();
@@ -95,13 +95,13 @@ public class MaterialRenderInfo {
    * @param suffix    Material or fallback suffix name
    * @return  Material instance
    */
-  private static RenderMaterial getMaterial(ResourceLocation texture, String suffix) {
-    return ModelLoaderRegistry.blockMaterial(new ResourceLocation(texture.getNamespace(), texture.getPath() + "_" + suffix));
+  private static SpriteIdentifier getMaterial(Identifier texture, String suffix) {
+    return ModelLoaderRegistry.blockMaterial(new Identifier(texture.getNamespace(), texture.getPath() + "_" + suffix));
   }
 
   @Data(staticConstructor = "of")
   public static class TintedSprite {
-    private final TextureAtlasSprite sprite;
+    private final Sprite sprite;
     private final boolean isTinted;
   }
 }

@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -33,7 +33,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   private static final ValidatedResult TOO_MANY_PARTS = ValidatedResult.failure(Util.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
 
   @Getter
-  protected final ResourceLocation id;
+  protected final Identifier id;
 
   @Override
   public boolean matches(ITinkerStationInventory inv, World world) {
@@ -66,7 +66,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   /** @deprecated Use {@link #getCraftingResult(ITinkerStationInventory)}  */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getOutput() {
     return ItemStack.EMPTY;
   }
 
@@ -154,7 +154,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.tinkerStationPartSwappingSerializer.get();
   }
 }

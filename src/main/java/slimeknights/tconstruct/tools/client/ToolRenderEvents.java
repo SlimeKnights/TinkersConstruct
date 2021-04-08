@@ -1,23 +1,23 @@
 package slimeknights.tconstruct.tools.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.mojang.blaze3d.vertex.MatrixApplyingVertexBuilder;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.PlayerController;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerInteractionManager;
+import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.OverlayVertexConsumer;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.render.block.BlockRenderManager;
+import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.DrawHighlightEvent;
@@ -39,11 +39,11 @@ public class ToolRenderEvents {
    */
   @SubscribeEvent
   static void renderBlockHighlights(DrawHighlightEvent.HighlightBlock event) {
-    PlayerEntity player = Minecraft.getInstance().player;
+    PlayerEntity player = MinecraftClient.getInstance().player;
     if (player == null) {
       return;
     }
-    ItemStack tool = player.getHeldItemMainhand();
+    ItemStack tool = player.getMainHandStack();
     if (tool.isEmpty()) {
       return;
     }
@@ -51,18 +51,18 @@ public class ToolRenderEvents {
     // AOE preview
     if (tool.getItem() instanceof IModifiableHarvest) {
       World world = player.world;
-      List<BlockPos> extraBlocks = ((IModifiableHarvest) tool.getItem()).getToolHarvestLogic().getAOEBlocks(tool, world, player, event.getTarget().getPos());
+      List<BlockPos> extraBlocks = ((IModifiableHarvest) tool.getItem()).getToolHarvestLogic().getAOEBlocks(tool, world, player, event.getTarget().getBlockPos());
       if (extraBlocks.isEmpty()) {
         return;
       }
 
       WorldRenderer worldRender = event.getContext();
       MatrixStack matrix = event.getMatrix();
-      IVertexBuilder vertexBuilder = worldRender.renderTypeTextures.getBufferSource().getBuffer(RenderType.getLines());
+      VertexConsumer vertexBuilder = worldRender.bufferBuilders.getEntityVertexConsumers().getBuffer(RenderLayer.getLines());
 
-      ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
-      Entity viewEntity = renderInfo.getRenderViewEntity();
-      Vector3d vector3d = renderInfo.getProjectedView();
+      Camera renderInfo = MinecraftClient.getInstance().gameRenderer.getCamera();
+      Entity viewEntity = renderInfo.getFocusedEntity();
+      Vec3d vector3d = renderInfo.getPos();
 
       double x = vector3d.getX();
       double y = vector3d.getY();
@@ -71,7 +71,7 @@ public class ToolRenderEvents {
       matrix.push();
       for (BlockPos pos : extraBlocks) {
         if (world.getWorldBorder().contains(pos)) {
-          worldRender.drawSelectionBox(matrix, vertexBuilder, viewEntity, x, y, z, pos, world.getBlockState(pos));
+          worldRender.drawBlockOutline(matrix, vertexBuilder, viewEntity, x, y, z, pos, world.getBlockState(pos));
         }
       }
       matrix.pop();
@@ -86,30 +86,30 @@ public class ToolRenderEvents {
   @SubscribeEvent
   static void renderBlockDamageProgress(RenderWorldLastEvent event) {
     // validate required variables are set
-    PlayerController controller = Minecraft.getInstance().playerController;
-    if (controller == null || !controller.isHittingBlock) {
+    ClientPlayerInteractionManager controller = MinecraftClient.getInstance().interactionManager;
+    if (controller == null || !controller.breakingBlock) {
       return;
     }
-    PlayerEntity player = Minecraft.getInstance().player;
-    if (player == null || Minecraft.getInstance().getRenderViewEntity() == null) {
+    PlayerEntity player = MinecraftClient.getInstance().player;
+    if (player == null || MinecraftClient.getInstance().getCameraEntity() == null) {
       return;
     }
-    ItemStack tool = player.getHeldItemMainhand();
+    ItemStack tool = player.getMainHandStack();
     if (tool.isEmpty()) {
       return;
     }
 
     if (tool.getItem() instanceof IModifiableHarvest) {
-      BlockRayTraceResult traceResult = RayTracer.retrace(player, RayTraceContext.FluidMode.NONE);
-      if (traceResult.getType() != RayTraceResult.Type.BLOCK) {
+      BlockHitResult traceResult = RayTracer.retrace(player, RaycastContext.FluidHandling.NONE);
+      if (traceResult.getType() != HitResult.Type.BLOCK) {
         return;
       }
 
-      List<BlockPos> extraBlocks = ((IModifiableHarvest) tool.getItem()).getToolHarvestLogic().getAOEBlocks(tool, player.world, player, traceResult.getPos());
+      List<BlockPos> extraBlocks = ((IModifiableHarvest) tool.getItem()).getToolHarvestLogic().getAOEBlocks(tool, player.world, player, traceResult.getBlockPos());
       if (extraBlocks.isEmpty()) {
         return;
       }
-      drawBlockDamageTexture(event.getContext(), event.getMatrixStack(), Minecraft.getInstance().gameRenderer.getActiveRenderInfo(), player.getEntityWorld(), extraBlocks);
+      drawBlockDamageTexture(event.getContext(), event.getMatrixStack(), MinecraftClient.getInstance().gameRenderer.getCamera(), player.getEntityWorld(), extraBlocks);
     }
   }
 
@@ -122,13 +122,13 @@ public class ToolRenderEvents {
    * @param world the active world
    * @param extraBlocks the list of blocks
    */
-  private static void drawBlockDamageTexture(WorldRenderer worldRender, MatrixStack matrixStackIn, ActiveRenderInfo renderInfo, World world, Iterable<BlockPos> extraBlocks) {
-    double d0 = renderInfo.getProjectedView().x;
-    double d1 = renderInfo.getProjectedView().y;
-    double d2 = renderInfo.getProjectedView().z;
+  private static void drawBlockDamageTexture(WorldRenderer worldRender, MatrixStack matrixStackIn, Camera renderInfo, World world, Iterable<BlockPos> extraBlocks) {
+    double d0 = renderInfo.getPos().x;
+    double d1 = renderInfo.getPos().y;
+    double d2 = renderInfo.getPos().z;
 
-    assert Minecraft.getInstance().playerController != null;
-    int progress = (int) (Minecraft.getInstance().playerController.curBlockDamageMP * 10.0F) - 1;
+    assert MinecraftClient.getInstance().interactionManager != null;
+    int progress = (int) (MinecraftClient.getInstance().interactionManager.currentBreakingProgress * 10.0F) - 1;
 
     if (progress < 0) {
       return;
@@ -136,14 +136,14 @@ public class ToolRenderEvents {
 
     progress = Math.min(progress, 10); // Ensure that for whatever reason the progress level doesn't go OOB.
 
-    BlockRendererDispatcher dispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
-    IVertexBuilder vertexBuilder = worldRender.renderTypeTextures.getCrumblingBufferSource().getBuffer(ModelBakery.DESTROY_RENDER_TYPES.get(progress));
+    BlockRenderManager dispatcher = MinecraftClient.getInstance().getBlockRenderManager();
+    VertexConsumer vertexBuilder = worldRender.bufferBuilders.getEffectVertexConsumers().getBuffer(ModelLoader.BLOCK_DESTRUCTION_RENDER_LAYERS.get(progress));
 
     for (BlockPos pos : extraBlocks) {
       matrixStackIn.push();
       matrixStackIn.translate((double) pos.getX() - d0, (double) pos.getY() - d1, (double) pos.getZ() - d2);
-      IVertexBuilder matrixBuilder = new MatrixApplyingVertexBuilder(vertexBuilder, matrixStackIn.getLast().getMatrix(), matrixStackIn.getLast().getNormal());
-      dispatcher.renderBlockDamage(world.getBlockState(pos), pos, world, matrixStackIn, matrixBuilder);
+      VertexConsumer matrixBuilder = new OverlayVertexConsumer(vertexBuilder, matrixStackIn.peek().getModel(), matrixStackIn.peek().getNormal());
+      dispatcher.renderDamage(world.getBlockState(pos), pos, world, matrixStackIn, matrixBuilder);
       matrixStackIn.pop();
     }
   }

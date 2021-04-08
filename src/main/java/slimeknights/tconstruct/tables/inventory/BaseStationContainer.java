@@ -2,16 +2,18 @@ package slimeknights.tconstruct.tables.inventory;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,18 +23,18 @@ import slimeknights.mantle.inventory.MultiModuleContainer;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayDeque;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-public class BaseStationContainer<TILE extends TileEntity & IInventory> extends MultiModuleContainer<TILE> {
+public class BaseStationContainer<TILE extends BlockEntity & Inventory> extends MultiModuleContainer<TILE> {
   private static final TinkerBlockComp COMPARATOR = new TinkerBlockComp();
   public final List<Pair<BlockPos, BlockState>> stationBlocks;
 
-  public BaseStationContainer(ContainerType<?> containerType, int id, @Nullable PlayerInventory inv, @Nullable TILE tile) {
+  public BaseStationContainer(ScreenHandlerType<?> containerType, int id, @Nullable PlayerInventory inv, @Nullable TILE tile) {
     super(containerType, id, inv, tile);
 
     this.stationBlocks = Lists.newLinkedList();
@@ -98,7 +100,7 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
   public void updateScreen() {
     if (this.tile != null) {
       if (this.tile.getWorld() != null) {
-        if (this.tile.getWorld().isRemote) {
+        if (this.tile.getWorld().isClient) {
           DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> BaseStationContainer::clientScreenUpdate);
         }
       }
@@ -108,10 +110,10 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
   /**
    * Tells the client to display the LOCALIZED error message
    */
-  public void error(final IFormattableTextComponent message) {
+  public void error(final MutableText message) {
     if (this.tile != null) {
       if (this.tile.getWorld() != null) {
-        if (this.tile.getWorld().isRemote) {
+        if (this.tile.getWorld().isClient) {
           DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientError(message));
         }
       }
@@ -121,10 +123,10 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
   /**
    * Tells the client to display the LOCALIZED warning message
    */
-  public void warning(final IFormattableTextComponent message) {
+  public void warning(final MutableText message) {
     if (this.tile != null) {
       if (this.tile.getWorld() != null) {
-        if (this.tile.getWorld().isRemote) {
+        if (this.tile.getWorld().isClient) {
           DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientWarning(message));
         }
       }
@@ -134,9 +136,9 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
   /**
    * Updates the client's screen
    */
-  @OnlyIn(Dist.CLIENT)
+  @Environment(EnvType.CLIENT)
   private static void clientScreenUpdate() {
-    Screen screen = Minecraft.getInstance().currentScreen;
+    Screen screen = MinecraftClient.getInstance().currentScreen;
     if (screen instanceof BaseStationScreen) {
       ((BaseStationScreen) screen).updateDisplay();
     }
@@ -147,9 +149,9 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
    *
    * @param errorMessage the error message to send to the client
    */
-  @OnlyIn(Dist.CLIENT)
-  private static void clientError(IFormattableTextComponent errorMessage) {
-    Screen screen = Minecraft.getInstance().currentScreen;
+  @Environment(EnvType.CLIENT)
+  private static void clientError(MutableText errorMessage) {
+    Screen screen = MinecraftClient.getInstance().currentScreen;
     if (screen instanceof BaseStationScreen) {
       ((BaseStationScreen) screen).error(errorMessage);
     }
@@ -160,9 +162,9 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
    *
    * @param warningMessage the warning message to send to the client
    */
-  @OnlyIn(Dist.CLIENT)
-  private static void clientWarning(IFormattableTextComponent warningMessage) {
-    Screen screen = Minecraft.getInstance().currentScreen;
+  @Environment(EnvType.CLIENT)
+  private static void clientWarning(MutableText warningMessage) {
+    Screen screen = MinecraftClient.getInstance().currentScreen;
     if (screen instanceof BaseStationScreen) {
       ((BaseStationScreen) screen).warning(warningMessage);
     }

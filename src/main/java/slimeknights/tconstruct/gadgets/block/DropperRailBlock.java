@@ -2,12 +2,12 @@ package slimeknights.tconstruct.gadgets.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RailBlock;
-import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.Hopper;
+import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.IHopper;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -15,16 +15,16 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 public class DropperRailBlock extends RailBlock {
 
-  public DropperRailBlock(Properties properties) {
+  public DropperRailBlock(Settings properties) {
     super(properties);
   }
 
   @Override
   public void onMinecartPass(BlockState state, World world, BlockPos pos, AbstractMinecartEntity cart) {
-    if (!cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent() || !(cart instanceof IHopper)) {
+    if (!cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent() || !(cart instanceof Hopper)) {
       return;
     }
-    TileEntity tileEntity = world.getTileEntity(pos.down());
+    BlockEntity tileEntity = world.getBlockEntity(pos.down());
     if (tileEntity == null || !tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent()) {
       return;
     }

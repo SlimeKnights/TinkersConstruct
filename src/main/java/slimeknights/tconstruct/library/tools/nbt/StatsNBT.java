@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraftforge.common.util.Constants;
 import slimeknights.tconstruct.library.utils.NBTUtil;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * All the stats that every tool must have.
@@ -44,12 +44,12 @@ public class StatsNBT {
   private final float attackSpeed;
 
   /** Parses the stats from NBT */
-  public static StatsNBT readFromNBT(@Nullable INBT inbt) {
-    if (inbt == null || inbt.getId() != Constants.NBT.TAG_COMPOUND) {
+  public static StatsNBT readFromNBT(@Nullable Tag inbt) {
+    if (inbt == null || inbt.getType() != Constants.NBT.TAG_COMPOUND) {
       return EMPTY;
     }
 
-    CompoundNBT nbt = (CompoundNBT)inbt;
+    CompoundTag nbt = (CompoundTag)inbt;
     int durability = NBTUtil.getInt(nbt, TAG_DURABILITY, EMPTY.durability);
     int harvestLevel = NBTUtil.getInt(nbt, TAG_HARVEST_LEVEL, EMPTY.harvestLevel);
     float attack = NBTUtil.getFloat(nbt, TAG_ATTACK_DAMAGE, EMPTY.attackDamage);
@@ -60,8 +60,8 @@ public class StatsNBT {
   }
 
   /** Writes these stats to NBT */
-  public CompoundNBT serializeToNBT() {
-    CompoundNBT nbt = new CompoundNBT();
+  public CompoundTag serializeToNBT() {
+    CompoundTag nbt = new CompoundTag();
     nbt.putInt(TAG_DURABILITY, durability);
     nbt.putInt(TAG_HARVEST_LEVEL, harvestLevel);
     nbt.putFloat(TAG_ATTACK_DAMAGE, attackDamage);

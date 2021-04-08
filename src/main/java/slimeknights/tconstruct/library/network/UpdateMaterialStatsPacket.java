@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.network;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
@@ -27,15 +27,15 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
 
   protected final Map<MaterialId, Collection<IMaterialStats>> materialToStats;
 
-  public UpdateMaterialStatsPacket(PacketBuffer buffer) {
+  public UpdateMaterialStatsPacket(PacketByteBuf buffer) {
     this(buffer, MaterialRegistry::getClassForStat);
   }
 
-  public UpdateMaterialStatsPacket(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
+  public UpdateMaterialStatsPacket(PacketByteBuf buffer, Function<MaterialStatsId, Class<?>> classResolver) {
     int materialCount = buffer.readInt();
     materialToStats = new HashMap<>(materialCount);
     for (int i = 0; i < materialCount; i++) {
-      MaterialId id = new MaterialId(buffer.readResourceLocation());
+      MaterialId id = new MaterialId(buffer.readIdentifier());
       int statCount = buffer.readInt();
       List<IMaterialStats> statList = new ArrayList<>();
       for (int j = 0; j < statCount; j++) {
@@ -51,8 +51,8 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
    * @param classResolver  Stat to decode
    * @return
    */
-  private Optional<IMaterialStats> decodeStat(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
-    MaterialStatsId statsId = new MaterialStatsId(buffer.readResourceLocation());
+  private Optional<IMaterialStats> decodeStat(PacketByteBuf buffer, Function<MaterialStatsId, Class<?>> classResolver) {
+    MaterialStatsId statsId = new MaterialStatsId(buffer.readIdentifier());
     try {
       Class<?> clazz = classResolver.apply(statsId);
       IMaterialStats stats = (IMaterialStats) clazz.newInstance();
@@ -65,10 +65,10 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(PacketByteBuf buffer) {
     buffer.writeInt(materialToStats.size());
     materialToStats.forEach((materialId, stats) -> {
-      buffer.writeResourceLocation(materialId);
+      buffer.writeIdentifier(materialId);
       buffer.writeInt(stats.size());
       stats.forEach(stat -> encodeStat(buffer, stat));
     });
@@ -79,8 +79,8 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
    * @param buffer  Buffer instance
    * @param stat    Stat to encode
    */
-  private void encodeStat(PacketBuffer buffer, IMaterialStats stat) {
-    buffer.writeResourceLocation(stat.getIdentifier());
+  private void encodeStat(PacketByteBuf buffer, IMaterialStats stat) {
+    buffer.writeIdentifier(stat.getIdentifier());
     stat.encode(buffer);
   }
 

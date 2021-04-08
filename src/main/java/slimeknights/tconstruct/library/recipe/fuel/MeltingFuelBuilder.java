@@ -2,15 +2,15 @@ package slimeknights.tconstruct.library.recipe.fuel;
 
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -34,7 +34,7 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<RecipeJsonProvider> consumer) {
     if (input.getFluids().isEmpty()) {
       throw new IllegalStateException("Must have at least one fluid for dynamic input");
     }
@@ -42,13 +42,13 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "melting_fuel");
+  public void build(Consumer<RecipeJsonProvider> consumer, Identifier id) {
+    Identifier advancementId = this.buildOptionalAdvancement(id, "melting_fuel");
     consumer.accept(new Result(id, advancementId));
   }
 
   private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public Result(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
@@ -63,7 +63,7 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.fuelSerializer.get();
     }
   }

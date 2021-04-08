@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
  */
 public class TinkerRegistries {
   /** Resource location for empty objects */
-  public static final ResourceLocation EMPTY = Util.getResource("empty");
+  public static final Identifier EMPTY = Util.getResource("empty");
 
   /** Register for modifiers */
   public static final IForgeRegistry<Modifier> MODIFIERS = RegistryManager.ACTIVE.getRegistry(Modifier.class);

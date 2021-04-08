@@ -4,18 +4,18 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /** Builder for composite recipes */
@@ -56,7 +56,7 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
    * @param amount  amount of fluid
    * @return  Builder instance
    */
-  public CompositeCastingRecipeBuilder setFluid(ITag<Fluid> tagIn, int amount) {
+  public CompositeCastingRecipeBuilder setFluid(Tag<Fluid> tagIn, int amount) {
     return this.setFluid(FluidIngredient.of(tagIn, amount));
   }
 
@@ -74,29 +74,29 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
 
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<RecipeJsonProvider> consumer) {
     build(consumer, output);
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+  public void build(Consumer<RecipeJsonProvider> consumer, Identifier id) {
     if (this.fluid == FluidIngredient.EMPTY) {
       throw new IllegalStateException("Composite recipes require a fluid input");
     }
     if (this.temperature < 0) {
       throw new IllegalStateException("Cooling time is too low, must be at least 0");
     }
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
+    Identifier advancementId = this.buildOptionalAdvancement(id, "casting");
     consumer.accept(new Result(id, advancementId));
   }
 
   private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public Result(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return recipeSerializer;
     }
 

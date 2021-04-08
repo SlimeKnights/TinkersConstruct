@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.GameRules;
@@ -36,12 +36,12 @@ public class SoulboundModifier extends SingleUseModifier {
       Iterator<ItemEntity> iter = event.getDrops().iterator();
       while (iter.hasNext()) {
         ItemEntity itemEntity = iter.next();
-        ItemStack stack = itemEntity.getItem();
+        ItemStack stack = itemEntity.getStack();
         // find tools with soulbound
         if (TinkerTags.Items.MODIFIABLE.contains(stack.getItem())) {
           ToolStack tool = ToolStack.from(stack);
           if (tool.getModifierLevel(this) > 0) {
-            player.inventory.addItemStackToInventory(stack);
+            player.inventory.insertStack(stack);
             iter.remove();
           }
         }
@@ -61,13 +61,13 @@ public class SoulboundModifier extends SingleUseModifier {
       return;
     }
     // find the soulbound items
-    for(int i = 0; i < original.inventory.getSizeInventory(); i++) {
+    for(int i = 0; i < original.inventory.size(); i++) {
       // find tools with soulbound
-      ItemStack stack = original.inventory.getStackInSlot(i);
+      ItemStack stack = original.inventory.getStack(i);
       if (!stack.isEmpty() && TinkerTags.Items.MODIFIABLE.contains(stack.getItem())) {
         ToolStack tool = ToolStack.from(stack);
         if (tool.getModifierLevel(this) > 0) {
-          clone.inventory.addItemStackToInventory(stack);
+          clone.inventory.insertStack(stack);
         }
       }
     }

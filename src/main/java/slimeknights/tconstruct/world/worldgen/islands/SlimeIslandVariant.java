@@ -3,10 +3,10 @@ package slimeknights.tconstruct.world.worldgen.islands;
 import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
+import net.minecraft.structure.processor.StructureProcessor;
+import net.minecraft.util.StringIdentifiable;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
-import net.minecraft.world.gen.feature.template.StructureProcessor;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
@@ -14,12 +14,12 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Objects;
 
 @Getter
-public enum SlimeIslandVariant implements IStringSerializable {
+public enum SlimeIslandVariant implements StringIdentifiable {
   SKY(0,
     TinkerWorld.skySlimeGrass.get(FoliageType.SKY).getDefaultState(),
     Objects.requireNonNull(TinkerFluids.skySlime.getBlock()),
@@ -27,7 +27,7 @@ public enum SlimeIslandVariant implements IStringSerializable {
     TinkerWorld.skySlimeVine.get().getDefaultState(),
     createArray(TinkerWorld.slimeFern.get(FoliageType.SKY).getDefaultState(), TinkerWorld.slimeTallGrass.get(FoliageType.SKY).getDefaultState()),
     TinkerStructures.SKY_SLIME_ISLAND_TREE,
-    BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
+    BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS),
 
   EARTH(1,
     TinkerWorld.earthSlimeGrass.get(FoliageType.SKY).getDefaultState(),
@@ -36,7 +36,7 @@ public enum SlimeIslandVariant implements IStringSerializable {
     TinkerWorld.skySlimeVine.get().getDefaultState(),
     createArray(TinkerWorld.slimeFern.get(FoliageType.SKY).getDefaultState(), TinkerWorld.slimeTallGrass.get(FoliageType.SKY).getDefaultState()),
     TinkerStructures.SKY_SLIME_ISLAND_TREE,
-    BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
+    BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS),
 
   ENDER(2,
     TinkerWorld.enderSlimeGrass.get(FoliageType.ENDER).getDefaultState(),
@@ -44,7 +44,7 @@ public enum SlimeIslandVariant implements IStringSerializable {
     createArray(TinkerWorld.congealedSlime.get(SlimeType.ENDER).getDefaultState()), TinkerWorld.enderSlimeVine.get().getDefaultState(),
     createArray(TinkerWorld.slimeFern.get(FoliageType.ENDER).getDefaultState(), TinkerWorld.slimeTallGrass.get(FoliageType.ENDER).getDefaultState()),
     TinkerStructures.ENDER_SLIME_ISLAND_TREE,
-    BlockIgnoreStructureProcessor.STRUCTURE_BLOCK),
+    BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS),
 
   BLOOD(3,
     TinkerWorld.ichorSlimeGrass.get(FoliageType.BLOOD).getDefaultState(),
@@ -53,7 +53,7 @@ public enum SlimeIslandVariant implements IStringSerializable {
     null,
     createArray(TinkerWorld.slimeFern.get(FoliageType.BLOOD).getDefaultState(), TinkerWorld.slimeTallGrass.get(FoliageType.BLOOD).getDefaultState()),
     TinkerStructures.BLOOD_SLIME_TREE,
-    BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK);
+    BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
 
   @Getter
   private final int index;
@@ -89,7 +89,7 @@ public enum SlimeIslandVariant implements IStringSerializable {
   }
 
   @Override
-  public String getString() {
+  public String asString() {
     return this.toString().toLowerCase(Locale.US);
   }
 

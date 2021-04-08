@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
-import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
+import net.minecraft.util.Identifier;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.library.Util;
 
 public class GenericScreen {
 
-  public static final ResourceLocation LOCATION = Util.getResource("textures/gui/generic.png");
+  public static final Identifier LOCATION = Util.getResource("textures/gui/generic.png");
 
   // first one sets default texture w/h
   public static final ElementScreen cornerTopLeft = new ElementScreen(0, 0, 7, 7, 64, 64);

@@ -1,9 +1,8 @@
 package slimeknights.tconstruct.tables.network;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
@@ -19,21 +18,21 @@ import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStati
  */
 public class UpdateTinkerStationRecipePacket implements IThreadsafePacket {
   private final BlockPos pos;
-  private final ResourceLocation recipe;
+  private final Identifier recipe;
   public UpdateTinkerStationRecipePacket(BlockPos pos, ITinkerStationRecipe recipe) {
     this.pos = pos;
     this.recipe = recipe.getId();
   }
 
-  public UpdateTinkerStationRecipePacket(PacketBuffer buffer) {
+  public UpdateTinkerStationRecipePacket(PacketByteBuf buffer) {
     this.pos = buffer.readBlockPos();
-    this.recipe = buffer.readResourceLocation();
+    this.recipe = buffer.readIdentifier();
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(PacketByteBuf buffer) {
     buffer.writeBlockPos(pos);
-    buffer.writeResourceLocation(recipe);
+    buffer.writeIdentifier(recipe);
   }
 
   @Override
@@ -44,7 +43,7 @@ public class UpdateTinkerStationRecipePacket implements IThreadsafePacket {
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(UpdateTinkerStationRecipePacket packet) {
-      World world = Minecraft.getInstance().world;
+      World world = MinecraftClient.getInstance().world;
       if (world != null) {
         TileEntityHelper.getTile(TinkerStationTileEntity.class, world, packet.pos).ifPresent(te ->
           RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, ITinkerStationRecipe.class).ifPresent(te::updateRecipe));

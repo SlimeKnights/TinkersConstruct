@@ -39,7 +39,7 @@ public interface IMutableTinkerStationInventory extends ITinkerStationInventory 
       } else {
         // otherwise, shrink the stack and add the container
         stack = stack.copy();
-        stack.shrink(amount);
+        stack.decrement(amount);
         setInput(slot, stack);
         if (!container.isEmpty()) {
           giveItem(container);

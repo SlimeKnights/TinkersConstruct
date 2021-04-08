@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
@@ -25,13 +25,13 @@ import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
 
 import java.util.function.Function;
 
-public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntity> {
-  public FaucetTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
+public class FaucetTileEntityRenderer extends BlockEntityRenderer<FaucetTileEntity> {
+  public FaucetTileEntityRenderer(BlockEntityRenderDispatcher rendererDispatcherIn) {
     super(rendererDispatcherIn);
   }
 
   @Override
-  public void render(FaucetTileEntity tileEntity, float partialTicks, MatrixStack matrices, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+  public void render(FaucetTileEntity tileEntity, float partialTicks, MatrixStack matrices, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
     FluidStack renderFluid = tileEntity.getRenderFluid();
     if (!tileEntity.isPouring() || renderFluid.isEmpty()) {
       return;
@@ -44,7 +44,7 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
     }
 
     // fetch faucet model to determine where to render fluids
-    BlockState state = tileEntity.getBlockState();
+    BlockState state = tileEntity.getCachedState();
     FluidsModel.BakedModel model = ModelHelper.getBakedModel(state, FluidsModel.BakedModel.class);
     if (model != null) {
       // if side, rotate fluid model
@@ -54,14 +54,14 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
       // fluid props
       FluidAttributes attributes = renderFluid.getFluid().getAttributes();
       int color = attributes.getColor(renderFluid);
-      Function<ResourceLocation, TextureAtlasSprite> spriteGetter = Minecraft.getInstance().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-      TextureAtlasSprite still = spriteGetter.apply(attributes.getStillTexture(renderFluid));
-      TextureAtlasSprite flowing = spriteGetter.apply(attributes.getFlowingTexture(renderFluid));
+      Function<Identifier, Sprite> spriteGetter = MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
+      Sprite still = spriteGetter.apply(attributes.getStillTexture(renderFluid));
+      Sprite flowing = spriteGetter.apply(attributes.getFlowingTexture(renderFluid));
       boolean isGas = attributes.isGaseous(renderFluid);
       combinedLightIn = FluidRenderer.withBlockLight(combinedLightIn, attributes.getLuminosity(renderFluid));
 
       // render all cubes in the model
-      IVertexBuilder buffer = bufferIn.getBuffer(FluidRenderer.RENDER_TYPE);
+      VertexConsumer buffer = bufferIn.getBuffer(FluidRenderer.RENDER_TYPE);
       for (FluidCuboid cube : model.getFluids()) {
         FluidRenderer.renderCuboid(matrices, buffer, cube, 0, still, flowing, color, combinedLightIn, isGas);
       }

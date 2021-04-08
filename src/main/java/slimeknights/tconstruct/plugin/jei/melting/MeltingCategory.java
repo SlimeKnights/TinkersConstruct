@@ -3,7 +3,6 @@ package slimeknights.tconstruct.plugin.jei.melting;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import mezz.jei.api.constants.VanillaTypes;
@@ -18,15 +17,16 @@ import mezz.jei.api.gui.ingredient.ITooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.common.config.Config;
@@ -45,16 +45,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
-  private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/melting.png");
+  private static final Identifier BACKGROUND_LOC = Util.getResource("textures/gui/jei/melting.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "melting.title");
   private static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "melting.time");
   private static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "temperature");
   private static final String KEY_MULTIPLIER = Util.makeTranslationKey("jei", "melting.multiplier");
-  private static final ITextComponent TOOLTIP_ORE = new TranslationTextComponent(Util.makeTranslationKey("jei", "melting.ore"));
-  private static final ITextComponent SOLID_TEMPERATURE = new TranslationTextComponent(KEY_TEMPERATURE, FuelModule.SOLID_TEMPERATURE).mergeStyle(TextFormatting.GRAY);
-  private static final ITextComponent SOLID_MULTIPLIER = new TranslationTextComponent(KEY_MULTIPLIER, FuelModule.SOLID_TEMPERATURE / 1000f).mergeStyle(TextFormatting.GRAY);
-  private static final ITextComponent TOOLTIP_SMELTERY = Util.makeTranslation("jei", "melting.smeltery").mergeStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
-  private static final ITextComponent TOOLTIP_MELTER = Util.makeTranslation("jei", "melting.melter").mergeStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
+  private static final Text TOOLTIP_ORE = new TranslatableText(Util.makeTranslationKey("jei", "melting.ore"));
+  private static final Text SOLID_TEMPERATURE = new TranslatableText(KEY_TEMPERATURE, FuelModule.SOLID_TEMPERATURE).formatted(Formatting.GRAY);
+  private static final Text SOLID_MULTIPLIER = new TranslatableText(KEY_MULTIPLIER, FuelModule.SOLID_TEMPERATURE / 1000f).formatted(Formatting.GRAY);
+  private static final Text TOOLTIP_SMELTERY = Util.makeTranslation("jei", "melting.smeltery").formatted(Formatting.GRAY, Formatting.UNDERLINE);
+  private static final Text TOOLTIP_MELTER = Util.makeTranslation("jei", "melting.melter").formatted(Formatting.GRAY, Formatting.UNDERLINE);
 
   /** Tooltip callback for items */
   private static final ITooltipCallback<ItemStack> ITEM_TOOLTIP = (index, isInput, stack, list) -> {
@@ -96,7 +96,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
   }
 
   @Override
-  public ResourceLocation getUid() {
+  public Identifier getUid() {
     return TConstructRecipeCategoryUid.melting;
   }
 
@@ -107,7 +107,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
 
   @Override
   public void setIngredients(MeltingRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputIngredients(recipe.getIngredients());
+    ingredients.setInputIngredients(recipe.getPreviewInputs());
     ingredients.setOutputLists(VanillaTypes.FLUID, recipe.getDisplayOutput());
   }
 
@@ -126,14 +126,14 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
     }
 
     // temperature
-    FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-    String tempString = I18n.format(KEY_TEMPERATURE, temperature);
-    int x = 56 - fontRenderer.getStringWidth(tempString) / 2;
-    fontRenderer.drawString(matrices, tempString, x, 3, Color.GRAY.getRGB());
+    TextRenderer fontRenderer = MinecraftClient.getInstance().textRenderer;
+    String tempString = I18n.translate(KEY_TEMPERATURE, temperature);
+    int x = 56 - fontRenderer.getWidth(tempString) / 2;
+    fontRenderer.draw(matrices, tempString, x, 3, Color.GRAY.getRGB());
   }
 
   @Override
-  public List<ITextComponent> getTooltipStrings(MeltingRecipe recipe, double mouseXD, double mouseYD) {
+  public List<Text> getTooltipStrings(MeltingRecipe recipe, double mouseXD, double mouseYD) {
     int mouseX = (int)mouseXD;
     int mouseY = (int)mouseYD;
     if (recipe.isOre() && GuiUtil.isHovered(mouseX, mouseY, 87, 31, 16, 16)) {
@@ -141,7 +141,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
     }
     // time tooltip
     if (GuiUtil.isHovered(mouseX, mouseY, 56, 18, 24, 17)) {
-      return Collections.singletonList(new TranslationTextComponent(KEY_COOLING_TIME, recipe.getTime() / 4));
+      return Collections.singletonList(new TranslatableText(KEY_COOLING_TIME, recipe.getTime() / 4));
     }
     return Collections.emptyList();
   }
@@ -180,9 +180,9 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
     private final boolean isOre;
 
     @Override
-    public void onTooltip(int index, boolean input, FluidStack stack, List<ITextComponent> list) {
-      ITextComponent name = list.get(0);
-      ITextComponent modId = list.get(list.size() - 1);
+    public void onTooltip(int index, boolean input, FluidStack stack, List<Text> list) {
+      Text name = list.get(0);
+      Text modId = list.get(list.size() - 1);
       list.clear();
       list.add(name);
 
@@ -191,7 +191,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
         if (isOre) {
           list.add(TOOLTIP_SMELTERY);
           boolean shift = FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingInventory.applyOreBoost(stack.getAmount(), Config.COMMON.smelteryNuggetsPerOre.get()), list);
-          list.add(StringTextComponent.EMPTY);
+          list.add(LiteralText.EMPTY);
           list.add(TOOLTIP_MELTER);
           shift = FluidTooltipHandler.appendMaterialNoShift(stack.getFluid(), IMeltingInventory.applyOreBoost(stack.getAmount(), Config.COMMON.melterNuggetsPerOre.get()), list) || shift;
           if (shift) {
@@ -205,8 +205,8 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
       // fuels show temperature and quality
       if (index == 1) {
         MeltingFuelHandler.getTemperature(stack.getFluid()).ifPresent(temperature -> {
-          list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY));
-          list.add(new TranslationTextComponent(KEY_MULTIPLIER, temperature / 1000f).mergeStyle(TextFormatting.GRAY));
+          list.add(new TranslatableText(KEY_TEMPERATURE, temperature).formatted(Formatting.GRAY));
+          list.add(new TranslatableText(KEY_MULTIPLIER, temperature / 1000f).formatted(Formatting.GRAY));
         });
       }
       list.add(modId);

@@ -1,14 +1,16 @@
 package slimeknights.tconstruct.shared.block;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PaneBlock;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer.Builder;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Plane;
+import net.minecraft.state.StateManager.Builder;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Direction.Type;
+import net.minecraft.world.WorldAccess;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.block.IMultipartConnectedBlock;
@@ -27,20 +29,20 @@ public class ClearGlassPaneBlock extends PaneBlock implements IMultipartConnecte
     DIRECTIONS.put(Direction.WEST, WEST);
   }
 
-  public ClearGlassPaneBlock(Properties builder) {
+  public ClearGlassPaneBlock(Settings builder) {
     super(builder);
     this.setDefaultState(IMultipartConnectedBlock.defaultConnections(this.getDefaultState()));
   }
 
   @Override
-  protected void fillStateContainer(Builder<Block, BlockState> builder) {
-    super.fillStateContainer(builder);
+  protected void appendProperties(Builder<Block, BlockState> builder) {
+    super.appendProperties(builder);
     IMultipartConnectedBlock.fillStateContainer(builder);
   }
 
   @Override
-  public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
-    BlockState state = super.updatePostPlacement(stateIn, facing, facingState, world, currentPos, facingPos);
+  public BlockState getStateForNeighborUpdate(BlockState stateIn, Direction facing, BlockState facingState, WorldAccess world, BlockPos currentPos, BlockPos facingPos) {
+    BlockState state = super.getStateForNeighborUpdate(stateIn, facing, facingState, world, currentPos, facingPos);
     return getConnectionUpdate(state, facing, facingState);
   }
 
@@ -50,11 +52,11 @@ public class ClearGlassPaneBlock extends PaneBlock implements IMultipartConnecte
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
+  @Environment(EnvType.CLIENT)
   public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
     // cull top and bottom if all props that we have are contained in the above or below
     if (adjacentBlockState.getBlock() == this && side.getAxis().isVertical()) {
-      for (Direction dir : Plane.HORIZONTAL) {
+      for (Direction dir : Type.HORIZONTAL) {
         BooleanProperty prop = DIRECTIONS.get(dir);
         if (state.get(prop) && !adjacentBlockState.get(prop)) {
           return false;

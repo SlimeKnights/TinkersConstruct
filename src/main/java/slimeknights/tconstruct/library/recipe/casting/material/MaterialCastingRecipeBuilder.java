@@ -4,19 +4,19 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRecipe.Serializer;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -55,7 +55,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
    * @param consumed  If true, cast is consumed
    * @return  Builder instance
    */
-  public MaterialCastingRecipeBuilder setCast(ITag<Item> tag, boolean consumed) {
+  public MaterialCastingRecipeBuilder setCast(Tag<Item> tag, boolean consumed) {
     return this.setCast(Ingredient.fromTag(tag), consumed);
   }
 
@@ -65,8 +65,8 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
    * @param consumed  If true, cast is consumed
    * @return  Builder instance
    */
-  public MaterialCastingRecipeBuilder setCast(IItemProvider item, boolean consumed) {
-    return this.setCast(Ingredient.fromItems(item), consumed);
+  public MaterialCastingRecipeBuilder setCast(ItemConvertible item, boolean consumed) {
+    return this.setCast(Ingredient.ofItems(item), consumed);
   }
 
   /**
@@ -91,26 +91,26 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<RecipeJsonProvider> consumer) {
     this.build(consumer, Objects.requireNonNull(this.result.asItem().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+  public void build(Consumer<RecipeJsonProvider> consumer, Identifier id) {
     if (this.itemCost <= 0) {
       throw new IllegalStateException("Material casting recipes require a positive amount of fluid");
     }
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
+    Identifier advancementId = this.buildOptionalAdvancement(id, "casting");
     consumer.accept(new Result(id, advancementId));
   }
 
   private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public Result(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return recipeSerializer;
     }
 
@@ -120,7 +120,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
         json.addProperty("group", group);
       }
       if (cast != Ingredient.EMPTY) {
-        json.add("cast", cast.serialize());
+        json.add("cast", cast.toJson());
         if (consumed) {
           json.addProperty("cast_consumed", true);
         }

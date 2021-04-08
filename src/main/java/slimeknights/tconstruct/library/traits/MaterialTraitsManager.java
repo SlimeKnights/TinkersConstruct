@@ -6,17 +6,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resource.JsonDataLoader;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.profiler.Profiler;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.traits.json.TraitMappingJson;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -40,13 +40,13 @@ import java.util.stream.Stream;
  * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/traits".
  */
 @Log4j2
-public class MaterialTraitsManager extends JsonReloadListener {
+public class MaterialTraitsManager extends JsonDataLoader {
 
   @VisibleForTesting
   protected static final String FOLDER = "materials/traits";
   @VisibleForTesting
   protected static final Gson GSON = (new GsonBuilder())
-    .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+    .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -68,7 +68,7 @@ public class MaterialTraitsManager extends JsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation,JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+  protected void apply(Map<Identifier,JsonElement> splashList, ResourceManager resourceManagerIn, Profiler profilerIn) {
     List<TraitMappingJson> parsedSplashList = parseSplashlist(splashList);
 
     materialDefaultTraits = parsedSplashList.stream()
@@ -107,7 +107,7 @@ public class MaterialTraitsManager extends JsonReloadListener {
       );
   }
 
-  private List<TraitMappingJson> parseSplashlist(Map<ResourceLocation, JsonElement> splashList) {
+  private List<TraitMappingJson> parseSplashlist(Map<Identifier, JsonElement> splashList) {
     return splashList.entrySet().stream()
       .map(this::parseJsonEntry)
       .filter(Objects::nonNull)
@@ -119,7 +119,7 @@ public class MaterialTraitsManager extends JsonReloadListener {
   }
 
   @Nullable
-  private TraitMappingJson parseJsonEntry(Map.Entry<ResourceLocation, JsonElement> entry) {
+  private TraitMappingJson parseJsonEntry(Map.Entry<Identifier, JsonElement> entry) {
     if (!entry.getValue().isJsonObject()) {
       return null;
     }

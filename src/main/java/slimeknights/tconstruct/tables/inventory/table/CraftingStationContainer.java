@@ -1,17 +1,17 @@
 package slimeknights.tconstruct.tables.inventory.table;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
@@ -22,7 +22,7 @@ import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,11 +53,11 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
       this.addSlot(resultSlot = new LazyResultSlot(tile.getCraftingResult(), 124, 35));
 
       // detect side inventory
-      TileEntity inventoryTE = null;
+      BlockEntity inventoryTE = null;
       Direction accessDir = null;
 
       BlockPos pos = tile.getPos();
-      horizontals: for (Direction dir : Direction.Plane.HORIZONTAL) {
+      horizontals: for (Direction dir : Direction.Type.HORIZONTAL) {
         // skip any tables in this multiblock
         BlockPos neighbor = pos.offset(dir);
         for (Pair<BlockPos, BlockState> tinkerPos : this.stationBlocks) {
@@ -67,7 +67,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
         }
 
         // fetch tile entity
-        TileEntity te = Objects.requireNonNull(tile.getWorld()).getTileEntity(neighbor);
+        BlockEntity te = Objects.requireNonNull(tile.getWorld()).getBlockEntity(neighbor);
         if (te != null && isUsable(te, inv.player)) {
           // try internal access first
           if (hasItemHandler(te, null)) {
@@ -104,7 +104,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
    * @param inv  Player inventory
    * @param buf  Buffer for fetching tile
    */
-  public CraftingStationContainer(int id, PlayerInventory inv, PacketBuffer buf) {
+  public CraftingStationContainer(int id, PlayerInventory inv, PacketByteBuf buf) {
     this(id, inv, getTileEntityFromBuf(buf, CraftingStationTileEntity.class));
   }
 
@@ -113,7 +113,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
    * @param tileEntity  Tile to check
    * @return  True if blacklisted
    */
-  private static boolean isUsable(TileEntity tileEntity, PlayerEntity player) {
+  private static boolean isUsable(BlockEntity tileEntity, PlayerEntity player) {
     if (tileEntity instanceof CraftingStationTileEntity) {
       return false;
     }
@@ -125,13 +125,13 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
 
     List<String> blacklist = Config.COMMON.craftingStationBlacklist.get();
     if (!blacklist.isEmpty()) {
-      ResourceLocation registryName = TileEntityType.getId(tileEntity.getType());
+      Identifier registryName = BlockEntityType.getId(tileEntity.getType());
       if (registryName == null || blacklist.contains(registryName.toString())) {
         return false;
       }
     }
     // if inventory, check usable
-    return !(tileEntity instanceof IInventory) || ((IInventory)tileEntity).isUsableByPlayer(player);
+    return !(tileEntity instanceof Inventory) || ((Inventory)tileEntity).canPlayerUse(player);
   }
 
   /**
@@ -141,17 +141,17 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
    * @param direction the given direction
    * @return True if compatible.
    */
-  private static boolean hasItemHandler(TileEntity tileEntity, @Nullable Direction direction) {
+  private static boolean hasItemHandler(BlockEntity tileEntity, @Nullable Direction direction) {
     return tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).filter(cap -> cap instanceof IItemHandlerModifiable).isPresent();
   }
 
   @Override
-  public void onCraftMatrixChanged(IInventory inventoryIn) {
+  public void onContentChanged(Inventory inventoryIn) {
     // handled in TE item display logic
   }
 
   @Override
-  public boolean canMergeSlot(ItemStack stack, Slot slot) {
-    return slot != this.resultSlot && super.canMergeSlot(stack, slot);
+  public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
+    return slot != this.resultSlot && super.canInsertIntoSlot(stack, slot);
   }
 }

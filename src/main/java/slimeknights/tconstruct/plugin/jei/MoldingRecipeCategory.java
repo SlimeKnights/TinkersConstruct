@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -9,10 +8,11 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
@@ -25,9 +25,9 @@ import java.util.List;
 
 /** Recipe category for molding casts */
 public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
-  private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/casting.png");
+  private static final Identifier BACKGROUND_LOC = Util.getResource("textures/gui/jei/casting.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "molding.title");
-  private static final ITextComponent TOOLTIP_PATTERN_CONSUMED = new TranslationTextComponent(Util.makeTranslationKey("jei", "molding.pattern_consumed"));
+  private static final Text TOOLTIP_PATTERN_CONSUMED = new TranslatableText(Util.makeTranslationKey("jei", "molding.pattern_consumed"));
 
   @Getter
   private final IDrawable background;
@@ -47,7 +47,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   }
 
   @Override
-  public ResourceLocation getUid() {
+  public Identifier getUid() {
     return TConstructRecipeCategoryUid.molding;
   }
 
@@ -72,7 +72,7 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   }
 
   @Override
-  public List<ITextComponent> getTooltipStrings(MoldingRecipe recipe, double mouseX, double mouseY) {
+  public List<Text> getTooltipStrings(MoldingRecipe recipe, double mouseX, double mouseY) {
     if (recipe.isPatternConsumed() && !recipe.getPattern().hasNoMatchingItems() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 50, 7, 18, 18)) {
       return Collections.singletonList(TOOLTIP_PATTERN_CONSUMED);
     }
@@ -81,8 +81,8 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
 
   @Override
   public void setIngredients(MoldingRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+    ingredients.setInputIngredients(recipe.getPreviewInputs());
+    ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
   }
 
   @Override

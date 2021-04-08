@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.shared;
 
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementProgress;
+import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -51,18 +51,18 @@ public final class AchievementEvents {
   @SubscribeEvent
   public static void onDamageEntity(LivingHurtEvent event) {
     DamageSource source = event.getSource();
-    if (source.isProjectile() && !(source.getTrueSource() instanceof FakePlayer) && source.getTrueSource() instanceof ServerPlayerEntity) {// && source.getImmediateSource() instanceof EntityArrow) {
-      grantAdvancement((ServerPlayerEntity) source.getTrueSource(), ADVANCEMENT_SHOOT_ARROW);
+    if (source.isProjectile() && !(source.getAttacker() instanceof FakePlayer) && source.getAttacker() instanceof ServerPlayerEntity) {// && source.getImmediateSource() instanceof EntityArrow) {
+      grantAdvancement((ServerPlayerEntity) source.getAttacker(), ADVANCEMENT_SHOOT_ARROW);
     }
   }
 
   private static void grantAdvancement(ServerPlayerEntity playerMP, String advancementResource) {
-    Advancement advancement = playerMP.getServer().getAdvancementManager().getAdvancement(new ResourceLocation(advancementResource));
+    Advancement advancement = playerMP.getServer().getAdvancementLoader().get(new Identifier(advancementResource));
     if (advancement != null) {
-      AdvancementProgress advancementProgress = playerMP.getAdvancements().getProgress(advancement);
+      AdvancementProgress advancementProgress = playerMP.getAdvancementTracker().getProgress(advancement);
       if (!advancementProgress.isDone()) {
         // we use playerAdvancements.grantCriterion instead of progress.grantCriterion for the visibility stuff and toasts
-        advancementProgress.getRemaningCriteria().forEach(criterion -> playerMP.getAdvancements().grantCriterion(advancement, criterion));
+        advancementProgress.getUnobtainedCriteria().forEach(criterion -> playerMP.getAdvancementTracker().grantCriterion(advancement, criterion));
       }
     }
   }

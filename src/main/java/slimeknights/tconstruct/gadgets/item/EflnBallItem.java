@@ -1,16 +1,18 @@
 package slimeknights.tconstruct.gadgets.item;
 
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SnowballItem;
-import net.minecraft.stats.Stats;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -18,39 +20,39 @@ import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class EflnBallItem extends SnowballItem {
 
   public EflnBallItem() {
-    super((new Properties()).maxStackSize(16).group(TinkerGadgets.TAB_GADGETS));
+    super((new Settings()).maxCount(16).group(TinkerGadgets.TAB_GADGETS));
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-    ItemStack itemstack = playerIn.getHeldItem(handIn);
-    if (!playerIn.abilities.isCreativeMode) {
-      itemstack.shrink(1);
+  public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack itemstack = playerIn.getStackInHand(handIn);
+    if (!playerIn.abilities.creativeMode) {
+      itemstack.decrement(1);
     }
 
-    worldIn.playSound((PlayerEntity) null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+    worldIn.playSound((PlayerEntity) null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
 
-    if (!worldIn.isRemote) {
+    if (!worldIn.isClient) {
       EflnBallEntity eflnBallEntity = new EflnBallEntity(worldIn, playerIn);
       eflnBallEntity.setItem(itemstack);
-      eflnBallEntity.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-      worldIn.addEntity(eflnBallEntity);
+      eflnBallEntity.setProperties(playerIn, playerIn.pitch, playerIn.yaw, 0.0F, 1.5F, 1.0F);
+      worldIn.spawnEntity(eflnBallEntity);
     }
 
-    playerIn.addStat(Stats.ITEM_USED.get(this));
-    return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+    playerIn.incrementStat(Stats.USED.getOrCreateStat(this));
+    return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  @Environment(EnvType.CLIENT)
+  public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
     TranslationHelper.addOptionalTooltip(stack, tooltip);
-    super.addInformation(stack, worldIn, tooltip, flagIn);
+    super.appendTooltip(stack, worldIn, tooltip, flagIn);
   }
 }

@@ -4,15 +4,15 @@ import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraftforge.common.util.Constants;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -87,18 +87,18 @@ public class MaterialNBT {
    * @param nbt  NBT instance
    * @return  MaterialNBT instance
    */
-  public static MaterialNBT readFromNBT(@Nullable INBT nbt) {
-    if (nbt == null || nbt.getId() != Constants.NBT.TAG_LIST) {
+  public static MaterialNBT readFromNBT(@Nullable Tag nbt) {
+    if (nbt == null || nbt.getType() != Constants.NBT.TAG_LIST) {
       return EMPTY;
     }
-    ListNBT listNBT = (ListNBT) nbt;
-    if (listNBT.getTagType() != Constants.NBT.TAG_STRING) {
+    ListTag listNBT = (ListTag) nbt;
+    if (listNBT.getElementType() != Constants.NBT.TAG_STRING) {
       return EMPTY;
     }
 
     List<IMaterial> materials = listNBT.stream()
-      .map(INBT::getString)
-      .map(MaterialId::tryCreate)
+      .map(Tag::asString)
+      .map(MaterialId::tryParse)
       .filter(Objects::nonNull)
       .map(MaterialRegistry::getMaterial)
       .collect(Collectors.toList());
@@ -110,11 +110,11 @@ public class MaterialNBT {
    * Writes this material list to NBT
    * @return  List of materials
    */
-  public ListNBT serializeToNBT() {
+  public ListTag serializeToNBT() {
     return materials.stream()
       .map(IMaterial::getIdentifier)
       .map(MaterialId::toString)
-      .map(StringNBT::valueOf)
-      .collect(Collectors.toCollection(ListNBT::new));
+      .map(StringTag::of)
+      .collect(Collectors.toCollection(ListTag::new));
   }
 }

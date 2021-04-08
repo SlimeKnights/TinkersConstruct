@@ -25,7 +25,7 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @param itemProps      Properties for the item
    * @return  Metal item object
    */
-  public MetalItemObject registerMetal(String name, String tagName, Supplier<Block> blockSupplier, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
+  public MetalItemObject registerMetal(String name, String tagName, Supplier<Block> blockSupplier, Function<Block,? extends BlockItem> blockItem, Item.Settings itemProps) {
     ItemObject<Block> block = register(name + "_block", blockSupplier, blockItem);
     Supplier<Item> itemSupplier = () -> new Item(itemProps);
     RegistryObject<Item> ingot = itemRegister.register(name + "_ingot", itemSupplier);
@@ -41,7 +41,7 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @param itemProps      Properties for the item
    * @return  Metal item object
    */
-  public MetalItemObject registerMetal(String name, Supplier<Block> blockSupplier, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
+  public MetalItemObject registerMetal(String name, Supplier<Block> blockSupplier, Function<Block,? extends BlockItem> blockItem, Item.Settings itemProps) {
     return registerMetal(name, name, blockSupplier, blockItem, itemProps);
   }
 
@@ -54,7 +54,7 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @param itemProps   Properties for the item
    * @return  Metal item object
    */
-  public MetalItemObject registerMetal(String name, String tagName, AbstractBlock.Properties blockProps, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
+  public MetalItemObject registerMetal(String name, String tagName, AbstractBlock.Settings blockProps, Function<Block,? extends BlockItem> blockItem, Item.Settings itemProps) {
     return registerMetal(name, tagName, () -> new Block(blockProps), blockItem, itemProps);
   }
 
@@ -66,7 +66,7 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @param itemProps   Properties for the item
    * @return  Metal item object
    */
-  public MetalItemObject registerMetal(String name, AbstractBlock.Properties blockProps, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
+  public MetalItemObject registerMetal(String name, AbstractBlock.Settings blockProps, Function<Block,? extends BlockItem> blockItem, Item.Settings itemProps) {
     return registerMetal(name, name, blockProps, blockItem, itemProps);
   }
 }

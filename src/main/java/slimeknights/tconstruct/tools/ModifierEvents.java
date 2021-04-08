@@ -20,7 +20,7 @@ public class ModifierEvents {
 
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
-    ItemStack stack = event.getPlayer().getHeldItemMainhand();
+    ItemStack stack = event.getPlayer().getMainHandStack();
     if (!TinkerTags.Items.HARVEST.contains(stack.getItem())) {
       return;
     }

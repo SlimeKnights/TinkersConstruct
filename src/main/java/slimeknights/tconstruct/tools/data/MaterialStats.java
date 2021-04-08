@@ -21,7 +21,7 @@ import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.WOOD;
 
 /**
- * See also {@link net.minecraft.item.ItemTier}
+ * See also {@link net.minecraft.item.ToolMaterials}
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class MaterialStats {

@@ -10,9 +10,9 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import slimeknights.tconstruct.library.TinkerRegistries;
 
 import java.lang.reflect.Type;
@@ -48,9 +48,9 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Parsed JSON
    */
   public static ModifierEntry fromJson(JsonObject json) {
-    ResourceLocation name = new ResourceLocation(JSONUtils.getString(json, "name"));
+    Identifier name = new Identifier(JsonHelper.getString(json, "name"));
     if (!TinkerRegistries.EMPTY.equals(name) && TinkerRegistries.MODIFIERS.containsKey(name)) {
-      return new ModifierEntry(TinkerRegistries.MODIFIERS.getValue(name), JSONUtils.getInt(json, "level", 1));
+      return new ModifierEntry(TinkerRegistries.MODIFIERS.getValue(name), JsonHelper.getInt(json, "level", 1));
     }
     throw new JsonSyntaxException("Unable to find modifier " + name);
   }
@@ -71,7 +71,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @param buffer  Buffer instance
    * @return  Read entry
    */
-  public static ModifierEntry read(PacketBuffer buffer) {
+  public static ModifierEntry read(PacketByteBuf buffer) {
     return new ModifierEntry(buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS), buffer.readVarInt());
   }
 
@@ -79,7 +79,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * Writes this modifier entry to the packet buffer
    * @param buffer  Buffer instance
    */
-  public void write(PacketBuffer buffer) {
+  public void write(PacketByteBuf buffer) {
     buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, modifier);
     buffer.writeVarInt(level);
   }
@@ -87,7 +87,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   private static class Serializer implements JsonDeserializer<ModifierEntry>, JsonSerializer<ModifierEntry> {
     @Override
     public ModifierEntry deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      return fromJson(JSONUtils.getJsonObject(json, "modifier"));
+      return fromJson(JsonHelper.asObject(json, "modifier"));
     }
 
     @Override

@@ -4,4 +4,4 @@ package slimeknights.tconstruct.library.recipe.entitymelting;
 
 import mcp.MethodsReturnNonnullByDefault;
 
-import org.jetbrains.annotations.ParametersAreNonnullByDefault;
+import javax.annotation.ParametersAreNonnullByDefault;

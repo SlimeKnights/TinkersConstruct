@@ -2,12 +2,12 @@ package slimeknights.tconstruct.world.data;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
+import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.Tags;
-import slimeknights.mantle.recipe.crafting.ShapedFallbackRecipeBuilder;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -26,65 +26,72 @@ public class WorldRecipeProvider extends BaseRecipeProvider {
   }
 
   @Override
-  protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+  protected void generate(Consumer<RecipeJsonProvider> consumer) {
     // Add recipe for all slimeball <-> congealed and slimeblock <-> slimeball
-    // fallback: green slime
-    ShapedFallbackRecipeBuilder congealed = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
-                         .key('#', Tags.Items.SLIMEBALLS)
-                         .patternLine("##")
-                         .patternLine("##")
-                         .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS))
-                         .setGroup("tconstruct:congealed_slime"));
-    // replace vanilla recipe to prevent it from conflicting with our slime blocks
-    ShapedFallbackRecipeBuilder slimeBlock = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(Blocks.SLIME_BLOCK)
-                         .key('#', Tags.Items.SLIMEBALLS)
-                         .patternLine("###")
-                         .patternLine("###")
-                         .patternLine("###")
-                         .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS))
-                         .setGroup("slime_blocks"));
+    // only earth slime recipe we need here slime
+    ShapedRecipeJsonFactory.create(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
+                       .input('#', SlimeType.EARTH.getSlimeBallTag())
+                       .pattern("##")
+                       .pattern("##")
+                       .criterion("has_item", conditionsFromTag(SlimeType.EARTH.getSlimeBallTag()))
+                       .group("tconstruct:congealed_slime")
+                       .offerTo(consumer, location("common/slime/earth/congealed"));
+
     // does not need green as its the fallback
     for (SlimeType slimeType : SlimeType.TINKER) {
-      ResourceLocation name = location("common/slime/" + slimeType.getString() + "/congealed");
-      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(slimeType))
-                         .key('#', slimeType.getSlimeBallTag())
-                         .patternLine("##")
-                         .patternLine("##")
-                         .addCriterion("has_item", hasItem(slimeType.getSlimeBallTag()))
-                         .setGroup("tconstruct:congealed_slime")
-                         .build(consumer, name);
-      congealed.addAlternative(name);
-      ResourceLocation blockName = location("common/slime/" + slimeType.getString() + "/slimeblock");
-      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.slime.get(slimeType))
-                         .key('#', slimeType.getSlimeBallTag())
-                         .patternLine("###")
-                         .patternLine("###")
-                         .patternLine("###")
-                         .addCriterion("has_item", hasItem(slimeType.getSlimeBallTag()))
-                         .setGroup("slime_blocks")
-                         .build(consumer, blockName);
-      slimeBlock.addAlternative(blockName);
+      Identifier name = location("common/slime/" + slimeType.asString() + "/congealed");
+      ShapedRecipeJsonFactory.create(TinkerWorld.congealedSlime.get(slimeType))
+                         .input('#', slimeType.getSlimeBallTag())
+                         .pattern("##")
+                         .pattern("##")
+                         .criterion("has_item", conditionsFromTag(slimeType.getSlimeBallTag()))
+                         .group("tconstruct:congealed_slime")
+                         .offerTo(consumer, name);
+      Identifier blockName = location("common/slime/" + slimeType.asString() + "/slimeblock");
+      ShapedRecipeJsonFactory.create(TinkerWorld.slime.get(slimeType))
+                         .input('#', slimeType.getSlimeBallTag())
+                         .pattern("###")
+                         .pattern("###")
+                         .pattern("###")
+                         .criterion("has_item", conditionsFromTag(slimeType.getSlimeBallTag()))
+                         .group("slime_blocks")
+                         .offerTo(consumer, blockName);
       // green already can craft into slime balls
-      ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 9)
-                            .addIngredient(TinkerWorld.slime.get(slimeType))
-                            .addCriterion("has_item", hasItem(TinkerWorld.slime.get(slimeType)))
-                            .setGroup("tconstruct:slime_balls")
-                            .build(consumer, "tconstruct:common/slime/" + slimeType.getString() + "/slimeball_from_block");
+      ShapelessRecipeJsonFactory.create(TinkerCommons.slimeball.get(slimeType), 9)
+                            .input(TinkerWorld.slime.get(slimeType))
+                            .criterion("has_item", conditionsFromItem(TinkerWorld.slime.get(slimeType)))
+                            .group("tconstruct:slime_balls")
+                            .offerTo(consumer, "tconstruct:common/slime/" + slimeType.asString() + "/slimeball_from_block");
     }
     // all types of congealed need a recipe to a block
     for (SlimeType slimeType : SlimeType.values()) {
-      ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 4)
-                            .addIngredient(TinkerWorld.congealedSlime.get(slimeType))
-                            .addCriterion("has_item", hasItem(TinkerWorld.congealedSlime.get(slimeType)))
-                            .setGroup("tconstruct:slime_balls")
-                            .build(consumer, "tconstruct:common/slime/" + slimeType.getString() + "/slimeball_from_congealed");
+      ShapelessRecipeJsonFactory.create(TinkerCommons.slimeball.get(slimeType), 4)
+                            .input(TinkerWorld.congealedSlime.get(slimeType))
+                            .criterion("has_item", conditionsFromItem(TinkerWorld.congealedSlime.get(slimeType)))
+                            .group("tconstruct:slime_balls")
+                            .offerTo(consumer, "tconstruct:common/slime/" + slimeType.asString() + "/slimeball_from_congealed");
     }
 
-    // build fallback recipes
-    congealed.build(consumer, location("common/slime/green/congealed"));
-    // block fallback replaces the vanilla recipe
-    slimeBlock.build(consumer);
+    // craft other slime based items, forge does not automatically add recipes using the tag anymore
+    ShapedRecipeJsonFactory.create(Blocks.STICKY_PISTON)
+                       .pattern("#")
+                       .pattern("P")
+                       .input('#', Tags.Items.SLIMEBALLS)
+                       .input('P', Blocks.PISTON)
+                       .criterion("has_slime_ball", conditionsFromTag(Tags.Items.SLIMEBALLS))
+                       .offerTo(consumer, location("common/slime/sticky_piston"));
+    ShapedRecipeJsonFactory.create(Items.LEAD, 2)
+                       .input('~', Items.STRING)
+                       .input('O', Tags.Items.SLIMEBALLS)
+                       .pattern("~~ ")
+                       .pattern("~O ")
+                       .pattern("  ~")
+                       .criterion("has_slime_ball", conditionsFromTag(Tags.Items.SLIMEBALLS))
+                       .offerTo(consumer, location("common/slime/lead"));
+    ShapelessRecipeJsonFactory.create(Items.MAGMA_CREAM)
+                          .input(Items.BLAZE_POWDER)
+                          .input(Tags.Items.SLIMEBALLS)
+                          .criterion("has_blaze_powder", conditionsFromItem(Items.BLAZE_POWDER))
+                          .offerTo(consumer, location("common/slime/magma_cream"));
   }
 }

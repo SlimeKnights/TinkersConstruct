@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.library.utils;
 
 import lombok.AllArgsConstructor;
-import net.minecraft.util.IIntArray;
-
+import net.minecraft.screen.PropertyDelegate;
 import java.util.function.Supplier;
 
 @AllArgsConstructor
-public class IntArrayWrapper implements IIntArray {
+public class IntArrayWrapper implements PropertyDelegate {
   private final Supplier<int[]> sup;
 
   @Override

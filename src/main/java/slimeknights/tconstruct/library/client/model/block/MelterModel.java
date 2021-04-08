@@ -2,21 +2,20 @@ package slimeknights.tconstruct.library.client.model.block;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.IModelTransform;
-import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.render.model.ModelBakeSettings;
+import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.render.model.json.ModelOverrideList;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
 import slimeknights.mantle.client.model.inventory.ModelItem;
 import slimeknights.mantle.client.model.util.SimpleBlockModel;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Function;
 
@@ -35,10 +34,10 @@ public class MelterModel extends TankModel {
   }
 
   @Override
-  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation location) {
-    IBakedModel baked = model.bakeModel(owner, transform, overrides, spriteGetter, location);
+  public net.minecraft.client.render.model.BakedModel bake(IModelConfiguration owner, ModelLoader bakery, Function<SpriteIdentifier,Sprite> spriteGetter, ModelBakeSettings transform, ModelOverrideList overrides, Identifier location) {
+    net.minecraft.client.render.model.BakedModel baked = model.bakeModel(owner, transform, overrides, spriteGetter, location);
     // bake the GUI model if present
-    IBakedModel bakedGui = baked;
+    net.minecraft.client.render.model.BakedModel bakedGui = baked;
     if (gui != null) {
       bakedGui = gui.bakeModel(owner, transform, overrides, spriteGetter, location);
     }
@@ -48,7 +47,7 @@ public class MelterModel extends TankModel {
   /** Baked variant to allow access to items */
   public static final class BakedModel extends TankModel.BakedModel<MelterModel> {
     @SuppressWarnings("WeakerAccess")
-    protected BakedModel(IModelConfiguration owner, IModelTransform transforms, IBakedModel baked, IBakedModel gui, MelterModel original) {
+    protected BakedModel(IModelConfiguration owner, ModelBakeSettings transforms, net.minecraft.client.render.model.BakedModel baked, net.minecraft.client.render.model.BakedModel gui, MelterModel original) {
       super(owner, transforms, baked, gui, original);
     }
 
@@ -64,16 +63,16 @@ public class MelterModel extends TankModel {
   /** Loader for this model */
   public static class Loader implements IModelLoader<TankModel> {
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {}
+    public void apply(ResourceManager resourceManager) {}
 
     @Override
     public TankModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
       SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
       SimpleBlockModel gui = null;
       if (modelContents.has("gui")) {
-        gui = SimpleBlockModel.deserialize(deserializationContext, JSONUtils.getJsonObject(modelContents, "gui"));
+        gui = SimpleBlockModel.deserialize(deserializationContext, JsonHelper.getObject(modelContents, "gui"));
       }
-      IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
+      IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JsonHelper.getObject(modelContents, "fluid"));
       List<ModelItem> items = ModelItem.listFromJson(modelContents, "items");
       return new MelterModel(model, gui, fluid, items);
     }

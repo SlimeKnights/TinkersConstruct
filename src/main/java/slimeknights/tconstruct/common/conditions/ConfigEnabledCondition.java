@@ -6,12 +6,12 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import net.minecraft.loot.ILootSerializer;
-import net.minecraft.loot.LootConditionType;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.loot.condition.LootCondition;
+import net.minecraft.loot.condition.LootConditionType;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.JsonSerializer;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
@@ -25,8 +25,8 @@ import java.util.Map;
 import java.util.function.BooleanSupplier;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class ConfigEnabledCondition implements ICondition, ILootCondition {
-  public static final ResourceLocation ID = Util.getResource("config");
+public class ConfigEnabledCondition implements ICondition, LootCondition {
+  public static final Identifier ID = Util.getResource("config");
   public static final Serializer SERIALIZER = new Serializer();
   /* Map of config names to condition cache */
   private static final Map<String,ConfigEnabledCondition> PROPS = new HashMap<>();
@@ -35,7 +35,7 @@ public class ConfigEnabledCondition implements ICondition, ILootCondition {
   private final BooleanSupplier supplier;
 
   @Override
-  public ResourceLocation getID() {
+  public Identifier getID() {
     return ID;
   }
 
@@ -50,13 +50,13 @@ public class ConfigEnabledCondition implements ICondition, ILootCondition {
   }
 
   @Override
-  public LootConditionType func_230419_b_() {
+  public LootConditionType getType() {
     return TinkerCommons.lootConfig;
   }
 
-  private static class Serializer implements ILootSerializer<ConfigEnabledCondition>, IConditionSerializer<ConfigEnabledCondition> {
+  private static class Serializer implements JsonSerializer<ConfigEnabledCondition>, IConditionSerializer<ConfigEnabledCondition> {
     @Override
-    public ResourceLocation getID() {
+    public Identifier getID() {
       return ID;
     }
 
@@ -67,7 +67,7 @@ public class ConfigEnabledCondition implements ICondition, ILootCondition {
 
     @Override
     public ConfigEnabledCondition read(JsonObject json) {
-      String prop = JSONUtils.getString(json, "prop");
+      String prop = JsonHelper.getString(json, "prop");
       ConfigEnabledCondition config = PROPS.get(prop.toLowerCase(Locale.ROOT));
       if (config == null) {
         throw new JsonSyntaxException("Invalid property name '" + prop + "'");
@@ -81,7 +81,7 @@ public class ConfigEnabledCondition implements ICondition, ILootCondition {
     }
 
     @Override
-    public ConfigEnabledCondition deserialize(JsonObject json, JsonDeserializationContext context) {
+    public ConfigEnabledCondition fromJson(JsonObject json, JsonDeserializationContext context) {
       return read(json);
     }
   }

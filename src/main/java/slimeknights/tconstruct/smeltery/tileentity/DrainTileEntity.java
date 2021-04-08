@@ -2,12 +2,12 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import lombok.Getter;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.ClientConnection;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.data.IModelData;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
@@ -17,7 +17,7 @@ import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity
 import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * Fluid IO extension to display controller fluid
@@ -32,7 +32,7 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
     super(TinkerSmeltery.drain.get());
   }
 
-  protected DrainTileEntity(TileEntityType<?> type) {
+  protected DrainTileEntity(BlockEntityType<?> type) {
     super(type);
   }
 
@@ -43,8 +43,8 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
       modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
       requestModelDataUpdate();
       assert world != null;
-      BlockState state = getBlockState();
-      world.notifyBlockUpdate(pos, state, state, 48);
+      BlockState state = getCachedState();
+      world.updateListeners(pos, state, state, 48);
     }
   }
 
@@ -59,33 +59,33 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
   /** Attaches this TE to the master as a display fluid listener */
   private void attachFluidListener() {
     BlockPos masterPos = getMasterPos();
-    if (masterPos != null && world != null && world.isRemote) {
+    if (masterPos != null && world != null && world.isClient) {
       TileEntityHelper.getTile(ISmelteryTankHandler.class, world, masterPos).ifPresent(te -> te.addDisplayListener(this));
     }
   }
 
   @Override
-  public CompoundNBT getUpdateTag() {
-    CompoundNBT nbt = super.getUpdateTag();
+  public CompoundTag toInitialChunkDataTag() {
+    CompoundTag nbt = super.toInitialChunkDataTag();
     writeMaster(nbt);
     return nbt;
   }
 
   @Override
-  public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+  public void handleUpdateTag(BlockState state, CompoundTag tag) {
     super.handleUpdateTag(state, tag);
     attachFluidListener();
   }
 
   @Override
   @Nullable
-  public SUpdateTileEntityPacket getUpdatePacket() {
-    return new SUpdateTileEntityPacket(pos, 0, writeMaster(new CompoundNBT()));
+  public BlockEntityUpdateS2CPacket toUpdatePacket() {
+    return new BlockEntityUpdateS2CPacket(pos, 0, writeMaster(new CompoundTag()));
   }
 
   @Override
-  public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-    readMaster(pkt.getNbtCompound());
+  public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket pkt) {
+    readMaster(pkt.getCompoundTag());
     attachFluidListener();
   }
 }

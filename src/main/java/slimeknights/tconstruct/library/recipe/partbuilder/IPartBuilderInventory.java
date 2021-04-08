@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * Inventory interface for the part builder

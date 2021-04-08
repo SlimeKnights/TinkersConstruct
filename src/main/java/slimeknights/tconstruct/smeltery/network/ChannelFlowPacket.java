@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.smeltery.network;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.Direction;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.TileEntityHelper;
@@ -20,16 +20,16 @@ public class ChannelFlowPacket implements IThreadsafePacket {
 		this.flow = flow;
 	}
 
-	public ChannelFlowPacket(PacketBuffer buffer) {
+	public ChannelFlowPacket(PacketByteBuf buffer) {
 		pos = buffer.readBlockPos();
-		side = buffer.readEnumValue(Direction.class);
+		side = buffer.readEnumConstant(Direction.class);
 		flow = buffer.readBoolean();
 	}
 
 	@Override
-	public void encode(PacketBuffer buffer) {
+	public void encode(PacketByteBuf buffer) {
 		buffer.writeBlockPos(pos);
-		buffer.writeEnumValue(side);
+		buffer.writeEnumConstant(side);
 		buffer.writeBoolean(flow);
 	}
 
@@ -40,7 +40,7 @@ public class ChannelFlowPacket implements IThreadsafePacket {
 
 	private static class HandleClient {
 		private static void handle(ChannelFlowPacket packet) {
-			TileEntityHelper.getTile(ChannelTileEntity.class, Minecraft.getInstance().world, packet.pos).ifPresent(te -> te.setFlow(packet.side, packet.flow));
+			TileEntityHelper.getTile(ChannelTileEntity.class, MinecraftClient.getInstance().world, packet.pos).ifPresent(te -> te.setFlow(packet.side, packet.flow));
 		}
 	}
 }

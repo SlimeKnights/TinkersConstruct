@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tables.inventory.table;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.Slot;
 import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 
 /**
@@ -18,34 +18,34 @@ public class LazyResultSlot extends Slot {
   }
 
   @Override
-  public boolean isItemValid(ItemStack stack) {
+  public boolean canInsert(ItemStack stack) {
     return false;
   }
 
   @Override
-  public ItemStack decrStackSize(int amount) {
-    if (this.getHasStack()) {
+  public ItemStack takeStack(int amount) {
+    if (this.hasStack()) {
       this.amountCrafted += Math.min(amount, this.getStack().getCount());
     }
 
-    return super.decrStackSize(amount);
+    return super.takeStack(amount);
   }
 
   @Override
-  public ItemStack onTake(PlayerEntity player, ItemStack stack) {
+  public ItemStack onTakeItem(PlayerEntity player, ItemStack stack) {
     ItemStack result = inventory.craftResult(player, amountCrafted);
     amountCrafted = 0;
     return result;
   }
 
   @Override
-  protected void onCrafting(ItemStack stack, int amount) {
+  protected void onCrafted(ItemStack stack, int amount) {
     this.amountCrafted += amount;
-    this.onCrafting(stack);
+    this.onCrafted(stack);
   }
 
   @Override
-  protected void onSwapCraft(int numItemsCrafted) {
+  protected void onTake(int numItemsCrafted) {
     this.amountCrafted += numItemsCrafted;
   }
 }

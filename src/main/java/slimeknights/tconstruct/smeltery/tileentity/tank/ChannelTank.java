@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
@@ -65,14 +65,14 @@ public class ChannelTank extends FluidTank {
 	}
 
 	@Override
-	public FluidTank readFromNBT(CompoundNBT nbt) {
+	public FluidTank readFromNBT(CompoundTag nbt) {
 		this.locked = nbt.getInt(TAG_LOCKED);
 		super.readFromNBT(nbt);
 		return this;
 	}
 
 	@Override
-	public CompoundNBT writeToNBT(CompoundNBT nbt) {
+	public CompoundTag writeToNBT(CompoundTag nbt) {
 		nbt = super.writeToNBT(nbt);
 		nbt.putInt(TAG_LOCKED, locked);
 		return nbt;

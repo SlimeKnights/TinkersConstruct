@@ -1,14 +1,13 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.ResourceLocationException;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.InvalidIdentifierException;
 
 /**
  * This is just a copy of ResourceLocation for type safety.
  */
-public class ModifierId extends ResourceLocation {
+public class ModifierId extends Identifier {
 
   public ModifierId(String resourceName) {
     super(resourceName);
@@ -18,7 +17,7 @@ public class ModifierId extends ResourceLocation {
     super(namespaceIn, pathIn);
   }
 
-  public ModifierId(ResourceLocation resourceLocation) {
+  public ModifierId(Identifier resourceLocation) {
     super(resourceLocation.getNamespace(), resourceLocation.getPath());
   }
 
@@ -28,10 +27,10 @@ public class ModifierId extends ResourceLocation {
    * @return  Material ID, or null if invalid
    */
   @Nullable
-  public static ModifierId tryCreate(String string) {
+  public static ModifierId tryParse(String string) {
     try {
       return new ModifierId(string);
-    } catch (ResourceLocationException resourcelocationexception) {
+    } catch (InvalidIdentifierException resourcelocationexception) {
       return null;
     }
   }

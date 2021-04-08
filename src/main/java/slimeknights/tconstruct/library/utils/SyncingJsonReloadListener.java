@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.utils;
 
 import com.google.gson.Gson;
-import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.resource.JsonDataLoader;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 import slimeknights.mantle.network.NetworkWrapper;
@@ -11,7 +11,7 @@ import slimeknights.mantle.network.NetworkWrapper;
 /**
  * Extension of JsonReloadListener which syncs loaded data to the client on player connect
  */
-public abstract class SyncingJsonReloadListener extends JsonReloadListener {
+public abstract class SyncingJsonReloadListener extends JsonDataLoader {
   private final NetworkWrapper network;
   public SyncingJsonReloadListener(NetworkWrapper network, Gson gson, String folder) {
     super(gson, folder);

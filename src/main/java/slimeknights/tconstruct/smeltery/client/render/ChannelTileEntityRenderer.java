@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Plane;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Direction.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
@@ -23,13 +23,13 @@ import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
-public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEntity> {
-	public ChannelTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
+public class ChannelTileEntityRenderer extends BlockEntityRenderer<ChannelTileEntity> {
+	public ChannelTileEntityRenderer(BlockEntityRenderDispatcher rendererDispatcherIn) {
 		super(rendererDispatcherIn);
 	}
 
 	@Override
-	public void render(ChannelTileEntity te, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int light, int combinedOverlayIn)  {
+	public void render(ChannelTileEntity te, float partialTicks, MatrixStack matrices, VertexConsumerProvider buffer, int light, int combinedOverlayIn)  {
 		FluidStack fluid = te.getFluid();
 		if (fluid.isEmpty()) {
 			return;
@@ -41,7 +41,7 @@ public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEnt
 			return;
 		}
 		BlockPos pos = te.getPos();
-		BlockState state = te.getBlockState();
+		BlockState state = te.getCachedState();
 		ChannelModel.BakedModel model = ModelHelper.getBakedModel(state, ChannelModel.BakedModel.class);
 		if (model == null) {
 			return;
@@ -49,9 +49,9 @@ public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEnt
 
 		// fluid attributes
 		FluidAttributes attributes = fluid.getFluid().getAttributes();
-		TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
-		TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
-		IVertexBuilder builder = buffer.getBuffer(FluidRenderer.RENDER_TYPE);
+		Sprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
+		Sprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
+		VertexConsumer builder = buffer.getBuffer(FluidRenderer.RENDER_TYPE);
 		int color = attributes.getColor(fluid);
 		light = FluidRenderer.withBlockLight(light, attributes.getLuminosity(fluid));
 
@@ -59,7 +59,7 @@ public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEnt
 		FluidCuboid cube;
 		boolean isRotated;
 		Direction centerFlow = Direction.UP;
-		for (Direction direction : Plane.HORIZONTAL) {
+		for (Direction direction : Type.HORIZONTAL) {
 			// check if we have that side on the block
 			ChannelConnection connection = state.get(ChannelBlock.DIRECTION_MAP.get(direction));
 			if (connection.canFlow()) {
@@ -84,7 +84,7 @@ public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEnt
 				}
 				FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
 				// render the extra edge against other blocks
-				if (!world.getBlockState(pos.offset(direction)).isIn(state.getBlock())) {
+				if (!world.getBlockState(pos.offset(direction)).isOf(state.getBlock())) {
 					FluidRenderer.renderCuboid(matrices, builder, model.getSideEdge(), 0, still, flowing, color, light, false);
 				}
 				// undo rotation

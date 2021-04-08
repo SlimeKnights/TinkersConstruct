@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.library.tools.helper;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.network.ServerPlayerEntity;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * Handles tool damage and repair, along with a quick broken check
@@ -30,7 +30,7 @@ public class ToolDamageUtil {
    * @return  True if broken
    */
   public static boolean isBroken(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
+    CompoundTag nbt = stack.getTag();
     return nbt != null && nbt.getBoolean(ToolStack.TAG_BROKEN);
   }
 
@@ -105,9 +105,9 @@ public class ToolDamageUtil {
       // TODO: needed?
       if (entity instanceof ServerPlayerEntity) {
         if (stack == null) {
-          stack = entity.getHeldItemMainhand();
+          stack = entity.getMainHandStack();
         }
-        CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((ServerPlayerEntity)entity, stack, newDamage);
+        Criteria.ITEM_DURABILITY_CHANGED.trigger((ServerPlayerEntity)entity, stack, newDamage);
       }
 
       tool.setDamage(newDamage);
@@ -123,9 +123,9 @@ public class ToolDamageUtil {
    * @param entity  Entity for animation
    * @param slot    Slot containing the stack
    */
-  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, EquipmentSlotType slot) {
-    if (damage(tool, amount, entity, entity.getItemStackFromSlot(slot))) {
-      entity.sendBreakAnimation(slot);
+  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, EquipmentSlot slot) {
+    if (damage(tool, amount, entity, entity.getEquippedStack(slot))) {
+      entity.sendEquipmentBreakStatus(slot);
       return true;
     }
     return false;
@@ -138,7 +138,7 @@ public class ToolDamageUtil {
    * @param entity  Entity for animation
    */
   public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity) {
-    return damageAnimated(tool, amount, entity, EquipmentSlotType.MAINHAND);
+    return damageAnimated(tool, amount, entity, EquipmentSlot.MAINHAND);
   }
 
   /**

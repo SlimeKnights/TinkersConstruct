@@ -1,26 +1,26 @@
 package slimeknights.tconstruct.gadgets.item;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.HangingEntity;
+import net.minecraft.entity.decoration.AbstractDecorationEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-import org.jetbrains.annotations.Nonnull;
+import javax.annotation.Nonnull;
 
 public class FancyItemFrameItem extends Item {
 
-  private final TriFunction<? extends HangingEntity, World, BlockPos, Direction> entityProvider;
+  private final TriFunction<? extends AbstractDecorationEntity, World, BlockPos, Direction> entityProvider;
 
-  public FancyItemFrameItem(TriFunction<? extends HangingEntity, World, BlockPos, Direction> entityProvider) {
-    super(new Properties().group(ItemGroup.DECORATIONS));
+  public FancyItemFrameItem(TriFunction<? extends AbstractDecorationEntity, World, BlockPos, Direction> entityProvider) {
+    super(new Settings().group(ItemGroup.DECORATIONS));
     this.entityProvider = entityProvider;
   }
 
@@ -29,38 +29,38 @@ public class FancyItemFrameItem extends Item {
    */
   @Override
   @Nonnull
-  public ActionResultType onItemUse(ItemUseContext context) {
-    BlockPos pos = context.getPos();
-    Direction facing = context.getFace();
+  public ActionResult useOnBlock(ItemUsageContext context) {
+    BlockPos pos = context.getBlockPos();
+    Direction facing = context.getSide();
     BlockPos placeLocation = pos.offset(facing);
     PlayerEntity player = context.getPlayer();
-    ItemStack stack = context.getItem();
+    ItemStack stack = context.getStack();
     if (player != null && !this.canPlace(player, facing, stack, placeLocation)) {
-      return ActionResultType.FAIL;
+      return ActionResult.FAIL;
     } else {
       World world = context.getWorld();
-      HangingEntity frame = this.entityProvider.apply(world, placeLocation, facing);
+      AbstractDecorationEntity frame = this.entityProvider.apply(world, placeLocation, facing);
 
-      CompoundNBT tag = stack.getTag();
+      CompoundTag tag = stack.getTag();
       if (tag != null) {
-        EntityType.applyItemNBT(world, player, frame, tag);
+        EntityType.loadFromEntityTag(world, player, frame, tag);
       }
 
-      if (frame.onValidSurface()) {
-        if (!world.isRemote) {
-          frame.playPlaceSound();
-          world.addEntity(frame);
+      if (frame.canStayAttached()) {
+        if (!world.isClient) {
+          frame.onPlace();
+          world.spawnEntity(frame);
         }
 
-        stack.shrink(1);
+        stack.decrement(1);
       }
 
-      return ActionResultType.SUCCESS;
+      return ActionResult.SUCCESS;
     }
   }
 
   private boolean canPlace(PlayerEntity player, Direction facing, ItemStack stack, BlockPos pos) {
-    return !World.isOutsideBuildHeight(pos) && player.canPlayerEdit(pos, facing, stack);
+    return !World.isOutOfBuildLimitVertically(pos) && player.canPlaceOn(pos, facing, stack);
   }
 
   @FunctionalInterface

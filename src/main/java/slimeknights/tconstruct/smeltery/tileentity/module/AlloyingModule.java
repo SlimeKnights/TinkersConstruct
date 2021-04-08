@@ -7,7 +7,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.alloying.IAlloyTank;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -47,7 +47,7 @@ public class AlloyingModule {
    */
   private List<AlloyRecipe> getRecipes() {
     if (lastRecipes == null) {
-      lastRecipes = getWorld().getRecipeManager().getRecipes(RecipeTypes.ALLOYING, alloyTank, getWorld());
+      lastRecipes = getWorld().getRecipeManager().getAllMatches(RecipeTypes.ALLOYING, alloyTank, getWorld());
     }
     return lastRecipes;
   }

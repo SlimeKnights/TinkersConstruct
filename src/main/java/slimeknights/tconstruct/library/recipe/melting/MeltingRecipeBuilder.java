@@ -3,17 +3,17 @@ package slimeknights.tconstruct.library.recipe.melting;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -97,22 +97,22 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<RecipeJsonProvider> consumer) {
     build(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+  public void build(Consumer<RecipeJsonProvider> consumer, Identifier id) {
     if (isOre && isDamagable) {
       throw new IllegalStateException("Builder cannot be both ore and damagable");
     }
     // only build JSON if needed
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "melting");
+    Identifier advancementId = this.buildOptionalAdvancement(id, "melting");
     consumer.accept(new Result(id, advancementId));
   }
 
   private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public Result(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
@@ -121,14 +121,14 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
-      json.add("ingredient", input.serialize());
+      json.add("ingredient", input.toJson());
       json.add("result", RecipeHelper.serializeFluidStack(output));
       json.addProperty("temperature", temperature);
       json.addProperty("time", time);
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       if (isOre) {
         return TinkerSmeltery.oreMeltingSerializer.get();
       }

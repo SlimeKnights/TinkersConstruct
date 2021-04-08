@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.data;
 import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.util.text.Color;
+import net.minecraft.text.TextColor;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -27,7 +27,7 @@ public class DataMaterial implements IMaterial {
   @Getter
   private final boolean craftable;
   @Getter
-  private final Color color;
+  private final TextColor color;
   private final Supplier<List<ModifierEntry>> traits;
 
   public DataMaterial(MaterialId identifier, int tier, int sortOrder, Supplier<? extends Fluid> fluid, int fluidPerUnit, boolean craftable, int color, Supplier<List<ModifierEntry>> traits) {
@@ -37,7 +37,7 @@ public class DataMaterial implements IMaterial {
     this.fluid = fluid;
     this.fluidPerUnit = fluidPerUnit;
     this.craftable = craftable;
-    this.color = Color.fromInt(color);
+    this.color = TextColor.fromRgb(color);
     this.traits = traits;
   }
 

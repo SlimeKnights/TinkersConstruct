@@ -1,14 +1,13 @@
 package slimeknights.tconstruct.library.utils;
 
-import net.minecraft.util.NonNullList;
-
 import java.util.Arrays;
+import net.minecraft.util.collection.DefaultedList;
 
 public final class ListUtil {
 
   @SafeVarargs
-  public static <E> NonNullList<E> getListFrom(E... element) {
-    NonNullList<E> list = NonNullList.create();
+  public static <E> DefaultedList<E> getListFrom(E... element) {
+    DefaultedList<E> list = DefaultedList.of();
     list.addAll(Arrays.asList(element));
     return list;
   }

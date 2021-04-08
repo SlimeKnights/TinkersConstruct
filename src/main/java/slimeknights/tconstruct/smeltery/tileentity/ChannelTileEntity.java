@@ -1,14 +1,16 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Plane;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Tickable;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Direction.Type;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -31,14 +33,14 @@ import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketRe
 import slimeknights.tconstruct.smeltery.tileentity.tank.ChannelSideTank;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ChannelTank;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 
 /**
  * Logic for channel fluid transfer
  */
-public class ChannelTileEntity extends TileEntity implements ITickableTileEntity, IFluidPacketReceiver {
+public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPacketReceiver {
 	public static final int LIQUID_TRANSFER = 16;
 
 	/** Channel internal tank */
@@ -47,7 +49,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 	private final LazyOptional<IFluidHandler> topHandler = LazyOptional.of(() -> new FillOnlyFluidHandler(tank));
 	/** Tanks for inserting on each side */
 	private final Map<Direction,LazyOptional<IFluidHandler>> sideTanks = Util.make(new EnumMap<>(Direction.class), map -> {
-		for (Direction direction : Plane.HORIZONTAL) {
+		for (Direction direction : Type.HORIZONTAL) {
 			map.put(direction, LazyOptional.of(() -> new ChannelSideTank(this, tank, direction)));
 		}
 	});
@@ -64,7 +66,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 		this(TinkerSmeltery.channel.get());
 	}
 
-	protected ChannelTileEntity(TileEntityType<?> type) {
+	protected ChannelTileEntity(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -77,9 +79,9 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public AxisAlignedBB getRenderBoundingBox() {
-		return new AxisAlignedBB(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
+	@Environment(EnvType.CLIENT)
+	public Box getRenderBoundingBox() {
+		return new Box(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
 	}
 
 
@@ -93,7 +95,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
         return topHandler.cast();
       }
       // side tanks keep track of which side inserts
-      if (side != Direction.DOWN && getBlockState().get(ChannelBlock.DIRECTION_MAP.get(side)) == ChannelConnection.IN) {
+      if (side != Direction.DOWN && getCachedState().get(ChannelBlock.DIRECTION_MAP.get(side)) == ChannelConnection.IN) {
         return sideTanks.get(side).cast();
       }
     }
@@ -109,7 +111,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 	private LazyOptional<IFluidHandler> getNeighborHandlerUncached(Direction side) {
 		assert world != null;
 		// must have a TE with a fluid handler
-		TileEntity te = world.getTileEntity(pos.offset(side));
+		BlockEntity te = world.getBlockEntity(pos.offset(side));
 		if (te != null) {
 			LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
 			if (handler.isPresent()) {
@@ -159,7 +161,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 		if (side.getAxis().isVertical()) {
 			return 0;
 		}
-		return side.getIndex() - 1;
+		return side.getId() - 1;
 	}
 
 	/**
@@ -177,7 +179,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 		isFlowing[index] = (byte)(flowing ? 2 : 0);
 
 		// send packet to client if it changed
-		if(wasFlowing != flowing && world != null && !world.isRemote) {
+		if(wasFlowing != flowing && world != null && !world.isClient) {
 			syncFlowToClient(side, flowing);
 		}
 	}
@@ -210,9 +212,9 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 		}
 		// down is boolean, sides is multistate
 		if(side == Direction.DOWN) {
-			return this.getBlockState().get(ChannelBlock.DOWN);
+			return this.getCachedState().get(ChannelBlock.DOWN);
 		}
-		return this.getBlockState().get(ChannelBlock.DIRECTION_MAP.get(side)) == ChannelConnection.OUT;
+		return this.getCachedState().get(ChannelBlock.DIRECTION_MAP.get(side)) == ChannelConnection.OUT;
 	}
 
 	/**
@@ -222,7 +224,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 	 */
 	private static int countOutputs(BlockState state) {
 		int count = 0;
-		for (Direction direction : Plane.HORIZONTAL) {
+		for (Direction direction : Type.HORIZONTAL) {
 			if (state.get(ChannelBlock.DIRECTION_MAP.get(direction)) == ChannelConnection.OUT) {
 				count++;
 			}
@@ -247,7 +249,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 	 */
 	@Override
 	public void tick() {
-		if(world == null || world.isRemote) {
+		if(world == null || world.isClient) {
 			return;
 		}
 
@@ -257,7 +259,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 
 			// if we have down and can flow, skip sides
 			boolean hasFlown = false;
-			BlockState state = getBlockState();
+			BlockState state = getCachedState();
 			if(state.get(ChannelBlock.DOWN)) {
 				hasFlown = trySide(Direction.DOWN, FaucetTileEntity.MB_PER_TICK);
 			}
@@ -267,7 +269,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 				// split the fluid evenly between sides
 				int flowRate = MathHelper.clamp(tank.getMaxUsable() / outputs, 1, FaucetTileEntity.MB_PER_TICK);
 				// then transfer on each side
-				for(Direction side : Plane.HORIZONTAL) {
+				for(Direction side : Type.HORIZONTAL) {
 					trySide(side, flowRate);
 				}
 			}
@@ -282,7 +284,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 					if (i == 0) {
 						direction = Direction.DOWN;
 					} else {
-						direction = Direction.byIndex(i + 1);
+						direction = Direction.byId(i + 1);
 					}
 					syncFlowToClient(direction, false);
 				}
@@ -347,7 +349,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 	 * Sends a fluid update to the client with the current fluid
 	 */
 	public void sendFluidUpdate() {
-		if (world != null && !world.isRemote) {
+		if (world != null && !world.isClient) {
 			TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(pos, getFluid()), world, pos);
 		}
 	}
@@ -358,24 +360,24 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 	}
 
 	@Override
-	public CompoundNBT getUpdateTag() {
+	public CompoundTag toInitialChunkDataTag() {
 		// new tag instead of super since default implementation calls the super of writeToNBT
-		return write(new CompoundNBT());
+		return toTag(new CompoundTag());
 	}
 
 	@Override
-	public CompoundNBT write(CompoundNBT nbt) {
-		nbt = super.write(nbt);
+	public CompoundTag toTag(CompoundTag nbt) {
+		nbt = super.toTag(nbt);
 
 		nbt.putByteArray(TAG_IS_FLOWING, isFlowing);
-		nbt.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
+		nbt.put(TAG_TANK, tank.writeToNBT(new CompoundTag()));
 
 		return nbt;
 	}
 
 	@Override
-	public void read(BlockState state, CompoundNBT nbt) {
-		super.read(state, nbt);
+	public void fromTag(BlockState state, CompoundTag nbt) {
+		super.fromTag(state, nbt);
 
 		// isFlowing
 		if (nbt.contains(TAG_IS_FLOWING)) {
@@ -394,7 +396,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 		}
 
 		// tank
-		CompoundNBT tankTag = nbt.getCompound(TAG_TANK);
+		CompoundTag tankTag = nbt.getCompound(TAG_TANK);
 		tank.readFromNBT(tankTag);
 	}
 }

@@ -7,11 +7,11 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -33,7 +33,7 @@ public class MaterialIngredient extends Ingredient {
   private final MaterialId materialID;
   @Nullable
   private ItemStack[] materialStacks;
-  protected MaterialIngredient(Stream<? extends Ingredient.IItemList> itemLists, MaterialId material) {
+  protected MaterialIngredient(Stream<? extends Ingredient.Entry> itemLists, MaterialId material) {
     super(itemLists);
     this.materialID = material;
   }
@@ -45,7 +45,7 @@ public class MaterialIngredient extends Ingredient {
    * @return  Material ingredient instance
    */
   public static MaterialIngredient fromItem(IMaterialItem item, MaterialId material) {
-    return new MaterialIngredient(Stream.of(new SingleItemList(new ItemStack(item))), material);
+    return new MaterialIngredient(Stream.of(new StackEntry(new ItemStack(item))), material);
   }
 
   /**
@@ -63,8 +63,8 @@ public class MaterialIngredient extends Ingredient {
    * @param material  Material value
    * @return  Material with tag
    */
-  public static MaterialIngredient fromTag(ITag<Item> tag, MaterialId material) {
-    return new MaterialIngredient(Stream.of(new TagList(tag)), material);
+  public static MaterialIngredient fromTag(Tag<Item> tag, MaterialId material) {
+    return new MaterialIngredient(Stream.of(new TagEntry(tag)), material);
   }
 
   /**
@@ -72,7 +72,7 @@ public class MaterialIngredient extends Ingredient {
    * @param tag       Tag instance
    * @return  Material with tag
    */
-  public static MaterialIngredient fromTag(ITag<Item> tag) {
+  public static MaterialIngredient fromTag(Tag<Item> tag) {
     return fromTag(tag, WILDCARD);
   }
 
@@ -90,7 +90,7 @@ public class MaterialIngredient extends Ingredient {
   }
 
   @Override
-  public ItemStack[] getMatchingStacks() {
+  public ItemStack[] getMatchingStacksClient() {
     if (materialStacks == null) {
       // no material? apply all materials for variants
       Stream<ItemStack> items = Arrays.stream(getPlainMatchingStacks());
@@ -113,12 +113,12 @@ public class MaterialIngredient extends Ingredient {
    * @return  Matching stacks with no materials
    */
   private ItemStack[] getPlainMatchingStacks() {
-    return super.getMatchingStacks();
+    return super.getMatchingStacksClient();
   }
 
   @Override
-  public JsonElement serialize() {
-    JsonElement parent = super.serialize();
+  public JsonElement toJson() {
+    JsonElement parent = super.toJson();
     if (!parent.isJsonObject()) {
       throw new JsonIOException("Cannot serialize an array of material ingredients, use CompoundIngredient instead");
     }
@@ -151,30 +151,30 @@ public class MaterialIngredient extends Ingredient {
    */
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Serializer implements IIngredientSerializer<MaterialIngredient> {
-    public static final ResourceLocation ID = Util.getResource("material");
+    public static final Identifier ID = Util.getResource("material");
     public static final Serializer INSTANCE = new Serializer();
 
     @Override
     public MaterialIngredient parse(JsonObject json) {
       MaterialId material;
       if (json.has("material")) {
-        material = new MaterialId(JSONUtils.getString(json, "material"));
+        material = new MaterialId(JsonHelper.getString(json, "material"));
       } else {
         material = WILDCARD;
       }
-      return new MaterialIngredient(Stream.of(Ingredient.deserializeItemList(json)), material);
+      return new MaterialIngredient(Stream.of(Ingredient.entryFromJson(json)), material);
     }
 
     @Override
-    public MaterialIngredient parse(PacketBuffer buffer) {
-      MaterialId material = new MaterialId(buffer.readResourceLocation());
-      return new MaterialIngredient(Stream.generate(() -> new SingleItemList(buffer.readItemStack())).limit(buffer.readVarInt()), material);
+    public MaterialIngredient parse(PacketByteBuf buffer) {
+      MaterialId material = new MaterialId(buffer.readIdentifier());
+      return new MaterialIngredient(Stream.generate(() -> new StackEntry(buffer.readItemStack())).limit(buffer.readVarInt()), material);
     }
 
     @Override
-    public void write(PacketBuffer buffer, MaterialIngredient ingredient) {
+    public void write(PacketByteBuf buffer, MaterialIngredient ingredient) {
       // write first as the order of the stream is uncertain
-      buffer.writeResourceLocation(ingredient.materialID);
+      buffer.writeIdentifier(ingredient.materialID);
       // write stacks
       ItemStack[] items = ingredient.getPlainMatchingStacks();
       buffer.writeVarInt(items.length);

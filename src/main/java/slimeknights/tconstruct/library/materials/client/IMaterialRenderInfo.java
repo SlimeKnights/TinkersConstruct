@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.materials.client;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.util.Identifier;
 
 /**
  * Determines the type of texture used for rendering a specific material
  */
 public interface IMaterialRenderInfo {
 
-  TextureAtlasSprite getTexture(ResourceLocation baseTexture, String location);
+  Sprite getTexture(Identifier baseTexture, String location);
 
   boolean isStitched();
 

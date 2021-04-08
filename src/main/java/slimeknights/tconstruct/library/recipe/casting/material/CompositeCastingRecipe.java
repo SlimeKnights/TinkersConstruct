@@ -6,11 +6,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.FluidStack;
@@ -39,9 +38,9 @@ import java.util.stream.Collectors;
  */
 public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRecipe<IDisplayableCastingRecipe> {
   @Getter
-  protected final IRecipeType<?> type;
+  protected final RecipeType<?> type;
   @Getter
-  private final ResourceLocation id;
+  private final Identifier id;
   /** Material type to check from the input stack */
   protected final MaterialId inputId;
   /** Fluid required to make the upgrade, size determines cost per ingot */
@@ -54,7 +53,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
   private final Lazy<IMaterial> inputMaterial, outputMaterial;
   /** Cached list of recipes used for display in JEI */
   private List<IDisplayableCastingRecipe> multiRecipes;
-  protected CompositeCastingRecipe(IRecipeType<?> type, ResourceLocation id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {
+  protected CompositeCastingRecipe(RecipeType<?> type, Identifier id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {
     this.type = type;
     this.id = id;
     this.inputId = inputId;
@@ -102,7 +101,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
   }
 
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getOutput() {
     return ItemStack.EMPTY;
   }
 
@@ -158,7 +157,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
 
   /** Implementaiton for casting basins */
   public static class Basin extends CompositeCastingRecipe {
-    public Basin(ResourceLocation id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {
+    public Basin(Identifier id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {
       super(RecipeTypes.CASTING_BASIN, id, inputId, fluid, outputId, coolingTemperature);
     }
 
@@ -168,7 +167,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.basinCompositeSerializer.get();
     }
 
@@ -180,7 +179,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
 
   /** Implementaiton for casting tables */
   public static class Table extends CompositeCastingRecipe {
-    public Table(ResourceLocation id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {
+    public Table(Identifier id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {
       super(RecipeTypes.CASTING_TABLE, id, inputId, fluid, outputId, coolingTemperature);
     }
 
@@ -190,7 +189,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.tableCompositeSerializer.get();
     }
 
@@ -202,7 +201,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
 
   /** Constructor factory for this casting recipe */
   public interface IFactory<T extends CompositeCastingRecipe> {
-    T create(ResourceLocation id, MaterialId input, FluidIngredient fluid, MaterialId output, int coolingTemperature);
+    T create(Identifier id, MaterialId input, FluidIngredient fluid, MaterialId output, int coolingTemperature);
   }
 
   /** Serializer for casting tables and basins */
@@ -211,16 +210,16 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     private final IFactory<T> factory;
 
     @Override
-    public T read(ResourceLocation id, JsonObject json) {
+    public T read(Identifier id, JsonObject json) {
       MaterialId input = MaterialRecipeSerializer.getMaterial(json, "input");
       FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
       MaterialId output = MaterialRecipeSerializer.getMaterial(json, "result");
-      int coolingTemperature = JSONUtils.getInt(json, "temperature");
+      int coolingTemperature = JsonHelper.getInt(json, "temperature");
       return factory.create(id, input, fluid, output, coolingTemperature);
     }
 
     @Override
-    public T read(ResourceLocation id, PacketBuffer buffer) {
+    public T read(Identifier id, PacketByteBuf buffer) {
       MaterialId input = new MaterialId(buffer.readString(Short.MAX_VALUE));
       FluidIngredient fluid = FluidIngredient.read(buffer);
       MaterialId output = new MaterialId(buffer.readString(Short.MAX_VALUE));
@@ -229,7 +228,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     }
 
     @Override
-    public void write(PacketBuffer buffer, T recipe) {
+    public void write(PacketByteBuf buffer, T recipe) {
       buffer.writeString(recipe.inputId.toString());
       recipe.fluid.write(buffer);
       buffer.writeString(recipe.outputId.toString());

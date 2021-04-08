@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.library.materials.stats;
 
 import lombok.EqualsAndHashCode;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
 
 /**
@@ -17,22 +17,22 @@ import slimeknights.tconstruct.library.Util;
 public abstract class BaseMaterialStats implements IMaterialStats {
 
   @Override
-  public IFormattableTextComponent getLocalizedName() {
-    return new TranslationTextComponent(String.format("stat.tconstruct.%s", this.getIdentifier().getPath()));
+  public MutableText getLocalizedName() {
+    return new TranslatableText(String.format("stat.tconstruct.%s", this.getIdentifier().getPath()));
   }
 
-  public static ITextComponent formatNumber(String loc, Color color, int number) {
+  public static Text formatNumber(String loc, TextColor color, int number) {
     return formatNumber(loc, color, (float) number);
   }
 
-  public static ITextComponent formatNumber(String loc, Color color, float number) {
-    return new TranslationTextComponent(loc)
-      .append(new StringTextComponent(Util.df.format(number)).modifyStyle(style -> style.setColor(color)));
+  public static Text formatNumber(String loc, TextColor color, float number) {
+    return new TranslatableText(loc)
+      .append(new LiteralText(Util.df.format(number)).styled(style -> style.withColor(color)));
   }
 
-  public static ITextComponent formatNumberPercent(String loc, Color color, float number) {
-    return new TranslationTextComponent(loc)
-      .append(new StringTextComponent(Util.dfPercent.format(number)).modifyStyle(style -> style.setColor(color)));
+  public static Text formatNumberPercent(String loc, TextColor color, float number) {
+    return new TranslatableText(loc)
+      .append(new LiteralText(Util.dfPercent.format(number)).styled(style -> style.withColor(color)));
   }
 
   /**
@@ -41,10 +41,10 @@ public abstract class BaseMaterialStats implements IMaterialStats {
    * @param number  Percentage
    * @return  Colored percent with prefix
    */
-  public static ITextComponent formatColoredMultiplier(String loc, float number) {
+  public static Text formatColoredMultiplier(String loc, float number) {
     // 0.5 is red, 1.0 should be roughly green, 1.5 is blue
-    float hue = MathHelper.positiveModulo(number - 0.5f, 2f);
-    return new TranslationTextComponent(loc).append(new StringTextComponent(Util.dfMultiplier.format(number)).modifyStyle(style -> style.setColor(Color.fromInt(MathHelper.hsvToRGB(hue / 1.5f, 1.0f, 1.0f)))));
+    float hue = MathHelper.floorMod(number - 0.5f, 2f);
+    return new TranslatableText(loc).append(new LiteralText(Util.dfMultiplier.format(number)).styled(style -> style.withColor(TextColor.fromRgb(MathHelper.hsvToRgb(hue / 1.5f, 1.0f, 1.0f)))));
   }
 
   /**
@@ -61,8 +61,8 @@ public abstract class BaseMaterialStats implements IMaterialStats {
    * @param name  name
    * @return  Text component
    */
-  protected static ITextComponent makeTooltip(String name) {
-    return new TranslationTextComponent(makeTooltipKey(name));
+  protected static Text makeTooltip(String name) {
+    return new TranslatableText(makeTooltipKey(name));
   }
 
 }

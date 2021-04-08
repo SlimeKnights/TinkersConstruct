@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import slimeknights.mantle.client.model.inventory.ModelItem;
 import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.mantle.client.render.RenderingHelper;
@@ -15,14 +15,14 @@ import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 
 import java.util.List;
 
-public class MelterTileEntityRenderer extends TileEntityRenderer<MelterTileEntity> {
-  public MelterTileEntityRenderer(TileEntityRendererDispatcher dispatcher) {
+public class MelterTileEntityRenderer extends BlockEntityRenderer<MelterTileEntity> {
+  public MelterTileEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
     super(dispatcher);
   }
 
   @Override
-  public void render(MelterTileEntity melter, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int light, int combinedOverlayIn) {
-    BlockState state = melter.getBlockState();
+  public void render(MelterTileEntity melter, float partialTicks, MatrixStack matrices, VertexConsumerProvider buffer, int light, int combinedOverlayIn) {
+    BlockState state = melter.getCachedState();
     MelterModel.BakedModel model = ModelHelper.getBakedModel(state, MelterModel.BakedModel.class);
     if (model != null) {
       // rotate the matrix

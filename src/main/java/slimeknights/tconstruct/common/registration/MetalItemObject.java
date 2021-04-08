@@ -3,9 +3,9 @@ package slimeknights.tconstruct.common.registration;
 import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.mantle.registration.object.ItemObject;
 
@@ -28,7 +28,7 @@ public class MetalItemObject extends ItemObject<Block> {
     super(block);
     this.ingot = ingot;
     this.nugget = nugget;
-    this.blockTag = BlockTags.createOptional(new ResourceLocation("forge", "storage_blocks/" + tagName));
+    this.blockTag = BlockTags.createOptional(new Identifier("forge", "storage_blocks/" + tagName));
     this.blockItemTag = getTag("storage_blocks/" + tagName);
     this.ingotTag = getTag("ingots/" + tagName);
     this.nuggetTag = getTag("nuggets/" + tagName);
@@ -50,6 +50,6 @@ public class MetalItemObject extends ItemObject<Block> {
    * @return  Tag
    */
   private static IOptionalNamedTag<Item> getTag(String name) {
-    return ItemTags.createOptional(new ResourceLocation("forge", name));
+    return ItemTags.createOptional(new Identifier("forge", name));
   }
 }

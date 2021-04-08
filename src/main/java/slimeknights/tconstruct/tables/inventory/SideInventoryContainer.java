@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tables.inventory;
 
 import lombok.Getter;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -13,9 +13,9 @@ import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.inventory.ItemHandlerSlot;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
-public class SideInventoryContainer<TILE extends TileEntity> extends BaseContainer<TILE> {
+public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContainer<TILE> {
 
   @Getter
   private final int columns;
@@ -23,11 +23,11 @@ public class SideInventoryContainer<TILE extends TileEntity> extends BaseContain
   private final int slotCount;
   protected final LazyOptional<IItemHandler> itemHandler;
 
-  public SideInventoryContainer(ContainerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, int x, int y, int columns) {
+  public SideInventoryContainer(ScreenHandlerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, int x, int y, int columns) {
     this(containerType, windowId, inv, tile, null, x, y, columns);
   }
 
-  public SideInventoryContainer(ContainerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
+  public SideInventoryContainer(ScreenHandlerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
     super(containerType, windowId, inv, tile);
 
     // must have a TE

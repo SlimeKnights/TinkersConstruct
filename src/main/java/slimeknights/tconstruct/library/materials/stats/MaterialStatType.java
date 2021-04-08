@@ -1,11 +1,9 @@
 package slimeknights.tconstruct.library.materials.stats;
 
-// todo: possibly switch this directly to a class and implement an interface that signifies the registry stuff?
-
-import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.Util;
 
 import java.util.Objects;
+import net.minecraft.util.Identifier;
 
 /**
  * <p>Part types are actually different material stat types.
@@ -27,14 +25,14 @@ public final class MaterialStatType {
   public static final MaterialStatType SHAFT = new MaterialStatType(Util.getResource("shaft"));
   public static final MaterialStatType FLETCHING = new MaterialStatType(Util.getResource("fletching"));
 
-  private final ResourceLocation identifier;
+  private final Identifier identifier;
 
   // todo: keep a set of all created identifiers and throw an exception or log error if one is created twice. Each one should only exist once.
-  public MaterialStatType(ResourceLocation identifier) {
+  public MaterialStatType(Identifier identifier) {
     this.identifier = identifier;
   }
 
-  public ResourceLocation getIdentifier() {
+  public Identifier getIdentifier() {
     return identifier;
   }
 

@@ -72,7 +72,7 @@ public class SlimeColorizer {
   /**
    * Gets the position independent slime foliage color
    */
-  public static int getColorStatic(SlimeGrassBlock.FoliageType type) {
+  public static int getColorStatic(FoliageType type) {
     return type.getDefaultColor();
   }
 }

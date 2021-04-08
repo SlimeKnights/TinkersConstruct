@@ -5,10 +5,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -34,7 +34,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   protected static final ValidatedResult REQUIREMENTS_ERROR = ValidatedResult.failure(ModifierRecipeLookup.DEFAULT_ERROR_KEY);
 
   @Getter
-  private final ResourceLocation id;
+  private final Identifier id;
   /** Ingredient representing the required tool, typically a tag */
   protected final Ingredient toolRequirement;
   /** Modifiers that must match for this recipe */
@@ -53,7 +53,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   @Getter
   private final int abilitySlots;
 
-  protected AbstractModifierRecipe(ResourceLocation id, Ingredient toolRequirement, ModifierMatch requirements,
+  protected AbstractModifierRecipe(Identifier id, Ingredient toolRequirement, ModifierMatch requirements,
                                    String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
     this.id = id;
     this.toolRequirement = toolRequirement;
@@ -71,7 +71,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
   /** @deprecated */
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getOutput() {
     return ItemStack.EMPTY;
   }
 
@@ -106,7 +106,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   public List<List<ItemStack>> getDisplayItems() {
     if (displayItems == null) {
       // if empty requirement, assume any modifiable
-      List<ItemStack> toolInputs = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(stack -> {
+      List<ItemStack> toolInputs = Arrays.stream(this.toolRequirement.getMatchingStacksClient()).map(stack -> {
         if (stack.getItem() instanceof ToolCore) {
           return ((ToolCore)stack.getItem()).buildToolForRendering();
         }
@@ -169,36 +169,36 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
      */
-    public abstract T read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+    public abstract T read(Identifier id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
                            String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots);
 
     /**
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
      */
-    public abstract T read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+    public abstract T read(Identifier id, PacketByteBuf buffer, Ingredient toolRequirement, ModifierMatch requirements,
                            String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots);
 
     @Override
-    public final T read(ResourceLocation id, JsonObject json) {
-      Ingredient toolRequirement = Ingredient.deserialize(json.get("tools"));
+    public final T read(Identifier id, JsonObject json) {
+      Ingredient toolRequirement = Ingredient.fromJson(json.get("tools"));
       ModifierMatch requirements = ModifierMatch.ALWAYS;
       String requirementsError = "";
       if (json.has("requirements")) {
-        JsonObject reqJson = JSONUtils.getJsonObject(json, "requirements");
+        JsonObject reqJson = JsonHelper.getObject(json, "requirements");
         requirements = ModifierMatch.deserialize(reqJson);
-        requirementsError = JSONUtils.getString(reqJson, "error", "");
+        requirementsError = JsonHelper.getString(reqJson, "error", "");
       }
-      ModifierEntry result = ModifierEntry.fromJson(JSONUtils.getJsonObject(json, "result"));
-      int maxLevel = JSONUtils.getInt(json, "max_level", 0);
+      ModifierEntry result = ModifierEntry.fromJson(JsonHelper.getObject(json, "result"));
+      int maxLevel = JsonHelper.getInt(json, "max_level", 0);
       if (maxLevel < 0) {
         throw new JsonSyntaxException("max must be non-negative");
       }
-      int upgradeSlots = JSONUtils.getInt(json, "upgrade_slots", 0);
+      int upgradeSlots = JsonHelper.getInt(json, "upgrade_slots", 0);
       if (upgradeSlots < 0) {
         throw new JsonSyntaxException("upgrade_slots must be non-negative");
       }
-      int abilitySlots = JSONUtils.getInt(json, "ability_slots", 0);
+      int abilitySlots = JsonHelper.getInt(json, "ability_slots", 0);
       if (abilitySlots < 0) {
         throw new JsonSyntaxException("ability_slots must be non-negative");
       }
@@ -209,8 +209,8 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     }
 
     @Override
-    public final T read(ResourceLocation id, PacketBuffer buffer) {
-      Ingredient toolRequirement = Ingredient.read(buffer);
+    public final T read(Identifier id, PacketByteBuf buffer) {
+      Ingredient toolRequirement = Ingredient.fromPacket(buffer);
       ModifierMatch requirements = ModifierMatch.read(buffer);
       String requirementsError = buffer.readString(Short.MAX_VALUE);
       ModifierEntry result = ModifierEntry.read(buffer);
@@ -220,9 +220,9 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       return read(id, buffer, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     }
 
-    /** Writes relevant packet data. When overriding, call super first for consistency with {@link #read(ResourceLocation, PacketBuffer)} */
+    /** Writes relevant packet data. When overriding, call super first for consistency with {@link #read(Identifier, PacketByteBuf)} */
     @Override
-    public void write(PacketBuffer buffer, T recipe) {
+    public void write(PacketByteBuf buffer, T recipe) {
       recipe.toolRequirement.write(buffer);
       recipe.requirements.write(buffer);
       buffer.writeString(recipe.requirementsError);

@@ -2,25 +2,25 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class ConsecratedSoilBlock extends Block {
 
-  public ConsecratedSoilBlock(Properties properties) {
+  public ConsecratedSoilBlock(Settings properties) {
     super(properties);
   }
 
   @Override
-  public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+  public void onSteppedOn(World worldIn, BlockPos pos, Entity entityIn) {
     this.processConsecratedSoil(entityIn);
   }
 
@@ -28,9 +28,9 @@ public class ConsecratedSoilBlock extends Block {
   private void processConsecratedSoil(Entity entity) {
     if (entity instanceof MobEntity) {
       LivingEntity entityLiving = (LivingEntity) entity;
-      if (entityLiving.getCreatureAttribute() == CreatureAttribute.UNDEAD) {
-        entityLiving.attackEntityFrom(DamageSource.MAGIC, 1);
-        entityLiving.setFire(1);
+      if (entityLiving.getGroup() == EntityGroup.UNDEAD) {
+        entityLiving.damage(DamageSource.MAGIC, 1);
+        entityLiving.setOnFireFor(1);
       }
     }
   }

@@ -2,18 +2,18 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -61,7 +61,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param amount  Amount required
    * @return  Builder instance
    */
-  public ModifierRecipeBuilder addInput(IItemProvider item, int amount) {
+  public ModifierRecipeBuilder addInput(ItemConvertible item, int amount) {
     return addInput(SizedIngredient.fromItems(amount, item));
   }
 
@@ -70,7 +70,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param item    Item input
    * @return  Builder instance
    */
-  public ModifierRecipeBuilder addInput(IItemProvider item) {
+  public ModifierRecipeBuilder addInput(ItemConvertible item) {
     return addInput(item, 1);
   }
 
@@ -80,7 +80,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param amount  Amount required
    * @return  Builder instance
    */
-  public ModifierRecipeBuilder addInput(ITag<Item> tag, int amount) {
+  public ModifierRecipeBuilder addInput(Tag<Item> tag, int amount) {
     return addInput(SizedIngredient.fromTag(tag, amount));
   }
 
@@ -89,21 +89,21 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @param tag     Tag input
    * @return  Builder instance
    */
-  public ModifierRecipeBuilder addInput(ITag<Item> tag) {
+  public ModifierRecipeBuilder addInput(Tag<Item> tag) {
     return addInput(tag, 1);
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+  public void build(Consumer<RecipeJsonProvider> consumer, Identifier id) {
     if (inputs.isEmpty()) {
       throw new IllegalStateException("Must have at least 1 input");
     }
-    ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
+    Identifier advancementId = buildOptionalAdvancement(id, "modifiers");
     consumer.accept(new FinishedRecipe(id, advancementId));
   }
 
   private class FinishedRecipe extends ModifierFinishedRecipe {
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public FinishedRecipe(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
@@ -118,7 +118,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerModifiers.modifierSerializer.get();
     }
   }

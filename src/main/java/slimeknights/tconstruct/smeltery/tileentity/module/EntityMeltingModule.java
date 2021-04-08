@@ -3,13 +3,13 @@ package slimeknights.tconstruct.smeltery.tileentity.module;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -22,7 +22,7 @@ import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
@@ -34,9 +34,9 @@ import java.util.function.Supplier;
 @RequiredArgsConstructor
 public class EntityMeltingModule {
   /** Standard damage source for melting most mobs */
-  public static final DamageSource SMELTERY_DAMAGE = new DamageSource(Util.prefix("smeltery_heat")).setFireDamage();
+  public static final DamageSource SMELTERY_DAMAGE = new DamageSource(Util.prefix("smeltery_heat")).setFire();
   /** Special damage source for "absorbing" hot entities */
-  public static final DamageSource SMELTERY_MAGIC = new DamageSource(Util.prefix("smeltery_magic")).setMagicDamage();
+  public static final DamageSource SMELTERY_MAGIC = new DamageSource(Util.prefix("smeltery_magic")).setUsesMagic();
 
   private final MantleTileEntity parent;
   private final IFluidHandler tank;
@@ -45,7 +45,7 @@ public class EntityMeltingModule {
   /** Function that tries to insert an item into the inventory */
   private final Function<ItemStack, ItemStack> insertFunction;
   /** Function that returns the bounds to check for entities */
-  private final Supplier<AxisAlignedBB> bounds;
+  private final Supplier<Box> bounds;
 
   @Nullable
   private EntityMeltingRecipe lastRecipe;
@@ -89,11 +89,11 @@ public class EntityMeltingModule {
    */
   private boolean canMeltEntity(LivingEntity entity) {
     // fire based mobs are absorbed instead of damaged
-    return !entity.isInvulnerableTo(entity.isImmuneToFire() ? SMELTERY_MAGIC : SMELTERY_DAMAGE)
+    return !entity.isInvulnerableTo(entity.isFireImmune() ? SMELTERY_MAGIC : SMELTERY_DAMAGE)
            // have to special case players because for some dumb reason creative players do not return true to invulnerable to
-           && !(entity instanceof PlayerEntity && ((PlayerEntity)entity).abilities.disableDamage)
+           && !(entity instanceof PlayerEntity && ((PlayerEntity)entity).abilities.invulnerable)
            // also have to special case fire resistance, so a blaze with fire resistance is immune to the smeltery
-           && !entity.isPotionActive(Effects.FIRE_RESISTANCE);
+           && !entity.hasStatusEffect(StatusEffects.FIRE_RESISTANCE);
   }
 
   /**
@@ -101,14 +101,14 @@ public class EntityMeltingModule {
    * @return True if something was melted and fuel is needed
    */
   public boolean interactWithEntities() {
-    AxisAlignedBB boundingBox = bounds.get();
+    Box boundingBox = bounds.get();
     if (boundingBox == null) {
       return false;
     }
 
     Boolean canMelt = null;
     boolean melted = false;
-    for (Entity entity : getWorld().getEntitiesWithinAABB(Entity.class, boundingBox)) {
+    for (Entity entity : getWorld().getNonSpectatingEntities(Entity.class, boundingBox)) {
       if (!entity.isAlive()) {
         continue;
       }
@@ -117,12 +117,12 @@ public class EntityMeltingModule {
       EntityType<?> type = entity.getType();
       if (entity instanceof ItemEntity) {
         ItemEntity itemEntity = (ItemEntity) entity;
-        ItemStack stack = insertFunction.apply(itemEntity.getItem());
+        ItemStack stack = insertFunction.apply(itemEntity.getStack());
         // picked up whole stack
         if (stack.isEmpty()) {
           entity.remove();
         } else {
-          itemEntity.setItem(stack);
+          itemEntity.setStack(stack);
         }
       }
 
@@ -148,7 +148,7 @@ public class EntityMeltingModule {
           }
 
           // if the entity is successfully damaged, fill the tank with fluid
-          if (entity.attackEntityFrom(entity.isImmuneToFire() ? SMELTERY_MAGIC : SMELTERY_DAMAGE, damage)) {
+          if (entity.damage(entity.isFireImmune() ? SMELTERY_MAGIC : SMELTERY_DAMAGE, damage)) {
             // its fine if we don't fill it all, leftover fluid is just lost
             tank.fill(fluid, FluidAction.EXECUTE);
             melted = true;

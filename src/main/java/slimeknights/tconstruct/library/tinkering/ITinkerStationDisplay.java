@@ -1,8 +1,7 @@
 package slimeknights.tconstruct.library.tinkering;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-
+import net.minecraft.text.Text;
 import java.util.List;
 
 public interface ITinkerStationDisplay {
@@ -10,11 +9,11 @@ public interface ITinkerStationDisplay {
   /**
    * The "title" displayed in the GUI
    */
-  ITextComponent getLocalizedName();
+  Text getLocalizedName();
 
   /**
    * Returns an List of ITextComponent, where each Text Component represents an information about the tool. Used to display
    * Information about the item in the GUI
    */
-  List<ITextComponent> getInformation(ItemStack stack);
+  List<Text> getInformation(ItemStack stack);
 }

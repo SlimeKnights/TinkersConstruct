@@ -3,11 +3,11 @@ package slimeknights.tconstruct.library.traits;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -15,7 +15,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
-import org.jetbrains.annotations.Nonnull;
+import javax.annotation.Nonnull;
 
 // todo: move defaults to abstractTrait or all abstract to defaults
 
@@ -50,7 +50,7 @@ public interface ITrait {
   void beforeBlockBreak(ItemStack tool, BlockEvent.BreakEvent event);
 
   /**
-   * Called after the block has been destroyed. See {@link net.minecraft.item.Item#onBlockDestroyed(ItemStack, World, BlockState, BlockPos, LivingEntity)}
+   * Called after the block has been destroyed. See {@link net.minecraft.item.Item#postMine(ItemStack, World, BlockState, BlockPos, LivingEntity)}
    * Called before the tools durability is reduced.
    */
   void afterBlockBreak(ItemStack tool, World world, BlockState state, BlockPos pos, LivingEntity player, boolean wasEffective);
@@ -173,13 +173,13 @@ public interface ITrait {
 
   /**
    * When the tool is equipped, this is called to set the players attributes.
-   * See {@link net.minecraft.item.Item#getAttributeModifiers(EquipmentSlotType, ItemStack)}
+   * See {@link net.minecraft.item.Item#getAttributeModifiers(EquipmentSlot, ItemStack)}
    *
    * @param slot         Analogous to Item.getAttributeModifiers
    * @param stack        Item.getAttributeModifiers
    * @param attributeMap The map you usually return. Fill in your stuff, if needed
    */
-  default void getAttributeModifiers(@Nonnull EquipmentSlotType slot, ItemStack stack, Multimap<Attribute, AttributeModifier> attributeMap) {}
+  default void getAttributeModifiers(@Nonnull EquipmentSlot slot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributeMap) {}
 
   /**
    * Determines the order in which traits/modifiers are processed. Higher priority gets processed first.

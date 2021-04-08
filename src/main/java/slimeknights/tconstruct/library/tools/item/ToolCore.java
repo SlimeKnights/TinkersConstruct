@@ -4,30 +4,32 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import lombok.Getter;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Rarity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -52,7 +54,7 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.library.utils.TooltipType;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -69,14 +71,14 @@ import java.util.function.Consumer;
  */
 public abstract class ToolCore extends Item implements ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
   /** Modifier key to make a tool spawn an indestructable entity */
-  public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
-  protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
-  private static final ITextComponent TOOLTIP_HOLD_CTRL;
+  public static final Identifier INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
+  protected static final Text TOOLTIP_HOLD_SHIFT;
+  private static final Text TOOLTIP_HOLD_CTRL;
   static {
-    ITextComponent shift = Util.makeTranslation("key", "shift").mergeStyle(TextFormatting.YELLOW, TextFormatting.ITALIC);
-    TOOLTIP_HOLD_SHIFT = new TranslationTextComponent(Util.makeTranslationKey("tooltip", "hold_shift"), shift);
-    ITextComponent ctrl = Util.makeTranslation("key", "ctrl").mergeStyle(TextFormatting.AQUA, TextFormatting.ITALIC);
-    TOOLTIP_HOLD_CTRL = new TranslationTextComponent(Util.makeTranslationKey("tooltip", "hold_ctrl"), ctrl);
+    Text shift = Util.makeTranslation("key", "shift").formatted(Formatting.YELLOW, Formatting.ITALIC);
+    TOOLTIP_HOLD_SHIFT = new TranslatableText(Util.makeTranslationKey("tooltip", "hold_shift"), shift);
+    Text ctrl = Util.makeTranslation("key", "ctrl").formatted(Formatting.AQUA, Formatting.ITALIC);
+    TOOLTIP_HOLD_CTRL = new TranslatableText(Util.makeTranslationKey("tooltip", "hold_ctrl"), ctrl);
   }
 
 
@@ -87,13 +89,13 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   /** Cached tool for rendering on UIs */
   private ItemStack toolForRendering;
 
-  protected ToolCore(Properties properties, ToolDefinition toolDefinition) {
+  protected ToolCore(Settings properties, ToolDefinition toolDefinition) {
     super(properties);
     this.toolDefinition = toolDefinition;
   }
 
   @Override
-  public boolean hasEffect(ItemStack stack) {
+  public boolean hasGlint(ItemStack stack) {
     // we use enchantments to handle some modifiers, don't glow from them
     return false;
   }
@@ -119,7 +121,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   @Override
   public Entity createEntity(World world, Entity original, ItemStack stack) {
     if (ToolStack.from(stack).getVolatileData().getBoolean(INDESTRUCTIBLE_ENTITY)) {
-      IndestructibleEntityItem entity = new IndestructibleEntityItem(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
+      IndestructibleEntityItem entity = new IndestructibleEntityItem(world, original.getX(), original.getY(), original.getZ(), stack);
       entity.setPickupDelayFrom(original);
       return entity;
     }
@@ -215,7 +217,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
         return rgb;
       }
     }
-    return MathHelper.hsvToRGB(Math.max(0.0f, (float) (1.0f - getDamagePercentage(tool))) / 3.0f, 1.0f, 1.0f);
+    return MathHelper.hsvToRgb(Math.max(0.0f, (float) (1.0f - getDamagePercentage(tool))) / 3.0f, 1.0f, 1.0f);
   }
 
   /* Mining */
@@ -241,13 +243,13 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
-  public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+  public boolean postMine(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
       return false;
     }
 
-    if (!worldIn.isRemote) {
+    if (!worldIn.isClient) {
       boolean isEffective = getToolHarvestLogic().isEffective(tool, stack, state);
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().afterBlockBreak(tool, entry.getLevel(), worldIn, state, pos, entityLiving, isEffective);
@@ -264,7 +266,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
-  public final float getDestroySpeed(ItemStack stack, BlockState state) {
+  public final float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
     return this.getToolHarvestLogic().getDestroySpeed(stack, state);
   }
 
@@ -277,15 +279,15 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
-  public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+  public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
     float speed = ToolStack.from(stack).getStats().getAttackSpeed();
     int time = Math.round(20f / speed);
-    if (time < target.hurtResistantTime / 2) {
-      target.hurtResistantTime = (target.hurtResistantTime + time) / 2;
+    if (time < target.timeUntilRegen / 2) {
+      target.timeUntilRegen = (target.timeUntilRegen + time) / 2;
       target.hurtTime = (target.hurtTime + time) / 2;
     }
 
-    return super.hitEntity(stack, target, attacker);
+    return super.postHit(stack, target, attacker);
   }
 
   @Override
@@ -294,22 +296,22 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
-  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
+  public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+    CompoundTag nbt = stack.getTag();
     if (nbt == null || nbt.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
       return ImmutableMultimap.of();
     }
 
-    ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+    ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
     ToolStack tool = ToolStack.from(stack);
-    if (slot == EquipmentSlotType.MAINHAND && !tool.isBroken()) {
+    if (slot == EquipmentSlot.MAINHAND && !tool.isBroken()) {
       // base stats
       StatsNBT statsNBT = tool.getStats();
-      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", statsNBT.getAttackDamage(), AttributeModifier.Operation.ADDITION));
-      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", statsNBT.getAttackSpeed() - 4d, AttributeModifier.Operation.ADDITION));
+      builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", statsNBT.getAttackDamage(), EntityAttributeModifier.Operation.ADDITION));
+      builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", statsNBT.getAttackSpeed() - 4d, EntityAttributeModifier.Operation.ADDITION));
 
       // grab attributes from modifiers
-      BiConsumer<Attribute, AttributeModifier> attributeConsumer = builder::put;
+      BiConsumer<EntityAttribute, EntityAttributeModifier> attributeConsumer = builder::put;
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().addAttributes(tool, entry.getLevel(), attributeConsumer);
       }
@@ -358,7 +360,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       if (!modifiers.isEmpty()) {
         LivingEntity living = (LivingEntity) entityIn;
         // we pass in the stack for most custom context, but for the sake of armor its easier to tell them that this is the correct slot for effects
-        boolean isHeld = isSelected || living.getHeldItemOffhand() == stack;
+        boolean isHeld = isSelected || living.getOffHandStack() == stack;
         for (ModifierEntry entry : modifiers) {
           entry.getModifier().onInventoryTick(tool, entry.getLevel(), worldIn, living, itemSlot, isSelected, isHeld, stack);
         }
@@ -370,9 +372,9 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   /* Information */
 
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    CompoundNBT tag = stack.getTag();
+  @Environment(EnvType.CLIENT)
+  public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
+    CompoundTag tag = stack.getTag();
     // if the display tag is set, hide material info
     if (tag != null && tag.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
       ToolStack tool = ToolStack.from(stack);
@@ -389,7 +391,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       this.getTooltip(stack, tooltip, TooltipType.CONTROL);
     } else {
       this.getTooltip(stack, tooltip, TooltipType.NORMAL);
-      tooltip.add(StringTextComponent.EMPTY);
+      tooltip.add(LiteralText.EMPTY);
       tooltip.add(TOOLTIP_HOLD_SHIFT);
       tooltip.add(TOOLTIP_HOLD_CTRL);
     }
@@ -406,7 +408,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
    * @param tooltips the list of tooltips to add to
    * @param tooltipType the tooltip type to display
    */
-  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType) {
+  public void getTooltip(ItemStack stack, List<Text> tooltips, TooltipType tooltipType) {
     switch (tooltipType) {
       case NORMAL: {
         ToolStack tool = ToolStack.from(stack);
@@ -429,7 +431,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
         ToolStack tool = ToolStack.from(stack);
         List<IMaterial> materials = tool.getMaterialsList();
         if (materials.isEmpty()) {
-          tooltips.add(new StringTextComponent("No tool data. NBT missing."));
+          tooltips.add(new LiteralText("No tool data. NBT missing."));
           return;
         }
 
@@ -441,9 +443,9 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
           IToolPart requirement = components.get(i);
           IMaterial material = materials.get(i);
           ItemStack partStack = requirement.getItemstackWithMaterial(material);
-          tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
+          tooltips.add(partStack.getName().shallowCopy().formatted(Formatting.UNDERLINE).styled(style -> style.withColor(material.getColor())));
           MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
-          tooltips.add(StringTextComponent.EMPTY);
+          tooltips.add(LiteralText.EMPTY);
         }
         break;
       }
@@ -451,12 +453,12 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
-  public ITextComponent getLocalizedName() {
-    return new TranslationTextComponent(this.getTranslationKey());
+  public Text getLocalizedName() {
+    return new TranslatableText(this.getTranslationKey());
   }
 
   @Override
-  public List<ITextComponent> getInformation(ItemStack stack) {
+  public List<Text> getInformation(ItemStack stack) {
     return this.getInformation(stack, true);
   }
 
@@ -467,7 +469,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
    * @param detailed if it should be detailed or not, used for durability
    * @return the information for the given stack
    */
-  public List<ITextComponent> getInformation(ItemStack stack, boolean detailed) {
+  public List<Text> getInformation(ItemStack stack, boolean detailed) {
     ToolStack tool = ToolStack.from(stack);
     TooltipBuilder builder = new TooltipBuilder(tool);
     builder.addDurability();
@@ -491,8 +493,8 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group)) {
+  public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+    if (this.isIn(group)) {
       this.addDefaultSubItems(items);
     }
   }
@@ -562,7 +564,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
-  public ITextComponent getDisplayName(ItemStack stack) {
+  public Text getName(ItemStack stack) {
     // if the tool is not named we use the repair tools for a prefix like thing
     List<IMaterial> materials = ToolStack.from(stack).getMaterialsList();
     List<IToolPart> components = getToolDefinition().getRequiredComponents();
@@ -578,7 +580,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       }
     }
 
-    return ToolCore.getCombinedItemName(super.getDisplayName(stack), nameMaterials);
+    return ToolCore.getCombinedItemName(super.getName(stack), nameMaterials);
   }
 
   /**
@@ -588,7 +590,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
    * @param materials the list of materials
    * @return the combined item name
    */
-  public static ITextComponent getCombinedItemName(ITextComponent itemName, Collection<IMaterial> materials) {
+  public static Text getCombinedItemName(Text itemName, Collection<IMaterial> materials) {
     if (materials.isEmpty() || materials.stream().allMatch(IMaterial.UNKNOWN::equals)) {
       return itemName;
     }
@@ -597,26 +599,26 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       IMaterial material = materials.iterator().next();
 
       if (Util.canTranslate(material.getTranslationKey() + ".format")) {
-        return new TranslationTextComponent(material.getTranslationKey() + ".format", itemName);
+        return new TranslatableText(material.getTranslationKey() + ".format", itemName);
       }
 
-      return new TranslationTextComponent(materials.iterator().next().getTranslationKey()).append(new StringTextComponent(" ")).append(itemName);
+      return new TranslatableText(materials.iterator().next().getTranslationKey()).append(new LiteralText(" ")).append(itemName);
     }
 
     // multiple materials. we'll have to combine
-    StringTextComponent name = new StringTextComponent("");
+    LiteralText name = new LiteralText("");
 
     Iterator<IMaterial> iter = materials.iterator();
 
     IMaterial material = iter.next();
-    name.append(new TranslationTextComponent(material.getTranslationKey()));
+    name.append(new TranslatableText(material.getTranslationKey()));
 
     while (iter.hasNext()) {
       material = iter.next();
-      name.appendString("-").append(new TranslationTextComponent(material.getTranslationKey()));
+      name.append("-").append(new TranslatableText(material.getTranslationKey()));
     }
 
-    name.appendString(" ").append(itemName);
+    name.append(" ").append(itemName);
 
     return name;
   }
@@ -642,7 +644,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   /* NBT loading */
 
   @Override
-  public boolean updateItemStackNBT(CompoundNBT nbt) {
+  public boolean postProcessTag(CompoundTag nbt) {
     // when the itemstack is loaded from NBT we recalculate all the data
     // stops things from being wrong if modifiers or materials change
     ToolStack tool = ToolStack.from(this, getToolDefinition(), nbt.getCompound("tag"));
@@ -663,8 +665,8 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
    *
    * @return  Raytrace
    */
-  public static BlockRayTraceResult blockRayTrace(World worldIn, PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
-    return Item.rayTrace(worldIn, player, fluidMode);
+  public static BlockHitResult blockRayTrace(World worldIn, PlayerEntity player, RaycastContext.FluidHandling fluidMode) {
+    return Item.raycast(worldIn, player, fluidMode);
   }
 
   @Override
@@ -695,17 +697,17 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     }
 
     // if the attributes changed, reequip
-    Multimap<Attribute, AttributeModifier> attributesNew = newStack.getAttributeModifiers(EquipmentSlotType.MAINHAND);
-    Multimap<Attribute, AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EquipmentSlotType.MAINHAND);
+    Multimap<EntityAttribute, EntityAttributeModifier> attributesNew = newStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
+    Multimap<EntityAttribute, EntityAttributeModifier> attributesOld = oldStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
     if (attributesNew.size() != attributesOld.size()) {
       return true;
     }
-    for (Attribute attribute : attributesOld.keySet()) {
+    for (EntityAttribute attribute : attributesOld.keySet()) {
       if (!attributesNew.containsKey(attribute)) {
         return true;
       }
-      Iterator<AttributeModifier> iter1 = attributesNew.get(attribute).iterator();
-      Iterator<AttributeModifier> iter2 = attributesOld.get(attribute).iterator();
+      Iterator<EntityAttributeModifier> iter1 = attributesNew.get(attribute).iterator();
+      Iterator<EntityAttributeModifier> iter2 = attributesOld.get(attribute).iterator();
       while (iter1.hasNext() && iter2.hasNext()) {
         if (!iter1.next().equals(iter2.next())) {
           return true;

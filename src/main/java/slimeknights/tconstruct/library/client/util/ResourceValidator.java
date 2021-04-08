@@ -1,22 +1,22 @@
 package slimeknights.tconstruct.library.client.util;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
 
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
 
 /**
  * Utility that handles checking if a resource exists in any resource pack
  */
-public class ResourceValidator implements IEarlySafeManagerReloadListener, Predicate<ResourceLocation> {
+public class ResourceValidator implements IEarlySafeManagerReloadListener, Predicate<Identifier> {
   private final String folder;
   private final int trim;
   private final String extension;
-  protected Set<ResourceLocation> resources;
+  protected Set<Identifier> resources;
 
   /**
    * Gets a resource validator instance
@@ -32,15 +32,15 @@ public class ResourceValidator implements IEarlySafeManagerReloadListener, Predi
   }
 
   @Override
-  public void onReloadSafe(IResourceManager manager) {
+  public void onReloadSafe(ResourceManager manager) {
     int extensionLength = extension.length();
     // FIXME: this does not validate folder names
-    this.resources = manager.getAllResourceLocations(folder, (loc) -> {
+    this.resources = manager.findResources(folder, (loc) -> {
       // must have proper extension and contain valid characters
       return loc.endsWith(extension) && isPathValid(loc);
     }).stream().map((location) -> {
       String path = location.getPath();
-      return new ResourceLocation(location.getNamespace(), path.substring(trim, path.length() - extensionLength));
+      return new Identifier(location.getNamespace(), path.substring(trim, path.length() - extensionLength));
     }).collect(Collectors.toSet());
   }
 
@@ -51,7 +51,7 @@ public class ResourceValidator implements IEarlySafeManagerReloadListener, Predi
   }
 
   @Override
-  public boolean test(ResourceLocation location) {
+  public boolean test(Identifier location) {
     return resources.contains(location);
   }
 

@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.slot.Slot;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.LazyResultSlot;
 import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class TinkerStationContainer extends BaseStationContainer<TinkerStationTileEntity> {
   private final LazyResultSlot resultSlot;
@@ -32,7 +32,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       this.addSlot(new TinkerableSlot(tile, TinkerStationTileEntity.TINKER_SLOT, 0, 0));
 
       int index;
-      for (index = 0; index < tile.getSizeInventory() - 1; index++) {
+      for (index = 0; index < tile.size() - 1; index++) {
         this.addSlot(new TinkerStationInputSlot(tile, index + TinkerStationTileEntity.INPUT_SLOT, 0, 0));
       }
 
@@ -53,7 +53,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
    * @param inv  Player inventory
    * @param buf  Buffer for fetching tile
    */
-  public TinkerStationContainer(int id, PlayerInventory inv, PacketBuffer buf) {
+  public TinkerStationContainer(int id, PlayerInventory inv, PacketByteBuf buf) {
     this(id, inv, getTileEntityFromBuf(buf, TinkerStationTileEntity.class));
   }
 
@@ -63,8 +63,8 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
   }
 
   @Override
-  public boolean canMergeSlot(ItemStack stack, Slot slot) {
-    return slot != this.resultSlot && super.canMergeSlot(stack, slot);
+  public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
+    return slot != this.resultSlot && super.canInsertIntoSlot(stack, slot);
   }
 
   /**
@@ -75,12 +75,12 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
   public void setToolSelection(int activeSlots, boolean mainSlotHidden) {
     assert this.tile != null;
 
-    if (activeSlots > this.tile.getSizeInventory()) {
-      activeSlots = this.tile.getSizeInventory();
+    if (activeSlots > this.tile.size()) {
+      activeSlots = this.tile.size();
     }
 
-    for (int i = 0; i < this.tile.getSizeInventory(); i++) {
-      Slot slot = this.inventorySlots.get(i);
+    for (int i = 0; i < this.tile.size(); i++) {
+      Slot slot = this.slots.get(i);
 
       if (slot instanceof TinkerStationSlot) {
         TinkerStationSlot slotToolPart = (TinkerStationSlot) slot;

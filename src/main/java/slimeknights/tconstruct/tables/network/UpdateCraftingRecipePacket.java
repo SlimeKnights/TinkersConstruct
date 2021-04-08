@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tables.network;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
@@ -17,21 +17,21 @@ import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity
  */
 public class UpdateCraftingRecipePacket implements IThreadsafePacket {
   private final BlockPos pos;
-  private final ResourceLocation recipe;
-  public UpdateCraftingRecipePacket(BlockPos pos, ICraftingRecipe recipe) {
+  private final Identifier recipe;
+  public UpdateCraftingRecipePacket(BlockPos pos, CraftingRecipe recipe) {
     this.pos = pos;
     this.recipe = recipe.getId();
   }
 
-  public UpdateCraftingRecipePacket(PacketBuffer buffer) {
+  public UpdateCraftingRecipePacket(PacketByteBuf buffer) {
     this.pos = buffer.readBlockPos();
-    this.recipe = buffer.readResourceLocation();
+    this.recipe = buffer.readIdentifier();
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(PacketByteBuf buffer) {
     buffer.writeBlockPos(pos);
-    buffer.writeResourceLocation(recipe);
+    buffer.writeIdentifier(recipe);
   }
 
   @Override
@@ -42,10 +42,10 @@ public class UpdateCraftingRecipePacket implements IThreadsafePacket {
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(UpdateCraftingRecipePacket packet) {
-      World world = Minecraft.getInstance().world;
+      World world = MinecraftClient.getInstance().world;
       if (world != null) {
         TileEntityHelper.getTile(CraftingStationTileEntity.class, world, packet.pos).ifPresent(te ->
-          RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, ICraftingRecipe.class).ifPresent(te::updateRecipe));
+          RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, CraftingRecipe.class).ifPresent(te::updateRecipe));
       }
     }
   }

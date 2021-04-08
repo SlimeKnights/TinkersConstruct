@@ -2,14 +2,14 @@ package slimeknights.tconstruct.world.worldgen.trees.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
-public class BaseSlimeTreeFeatureConfig implements IFeatureConfig {
+public class BaseSlimeTreeFeatureConfig implements FeatureConfig {
 
-  public static final Codec<BaseSlimeTreeFeatureConfig> CODEC = RecordCodecBuilder.create((treeConfig) -> treeConfig.group(BlockStateProvider.CODEC.fieldOf("trunk_provider").forGetter((object) -> object.trunkProvider),
-    BlockStateProvider.CODEC.fieldOf("leaves_provider").forGetter((instance) -> instance.leavesProvider),
-    BlockStateProvider.CODEC.fieldOf("vines_provider").forGetter((instance) -> instance.vinesProvider),
+  public static final Codec<BaseSlimeTreeFeatureConfig> CODEC = RecordCodecBuilder.create((treeConfig) -> treeConfig.group(BlockStateProvider.TYPE_CODEC.fieldOf("trunk_provider").forGetter((object) -> object.trunkProvider),
+    BlockStateProvider.TYPE_CODEC.fieldOf("leaves_provider").forGetter((instance) -> instance.leavesProvider),
+    BlockStateProvider.TYPE_CODEC.fieldOf("vines_provider").forGetter((instance) -> instance.vinesProvider),
     Codec.INT.fieldOf("base_height").orElse(0).forGetter((instance) -> instance.baseHeight),
     Codec.INT.fieldOf("random_height").orElse(0).forGetter((instance) -> instance.randomHeight),
     Codec.BOOL.fieldOf("has_vines").orElse(false).forGetter((instance) -> instance.hasVines)

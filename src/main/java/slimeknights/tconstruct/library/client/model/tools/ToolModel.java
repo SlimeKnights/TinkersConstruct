@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.library.client.model.tools;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.IModelTransform;
-import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.ModelBakeSettings;
+import net.minecraft.client.render.model.json.ModelOverrideList;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.CompositeModel;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,50 +19,50 @@ import java.util.Map;
  * Extension of the Forge class to redirect the particle texture to the first submodel
  */
 public class ToolModel extends CompositeModel {
-  private final IBakedModel particleModel;
+  private final BakedModel particleModel;
 
   @SuppressWarnings("ConstantConditions")
-  private ToolModel(boolean isGui3d, boolean isSideLit, boolean isAmbientOcclusion, IBakedModel particleModel, ImmutableMap<String,IBakedModel> bakedParts, IModelTransform combinedTransform, CompositeOverrides overrides) {
+  private ToolModel(boolean isGui3d, boolean isSideLit, boolean isAmbientOcclusion, BakedModel particleModel, ImmutableMap<String,BakedModel> bakedParts, ModelBakeSettings combinedTransform, CompositeOverrides overrides) {
     super(isGui3d, isSideLit, isAmbientOcclusion, null, bakedParts, combinedTransform, overrides);
     this.particleModel = particleModel;
   }
 
-  public ToolModel(boolean isGui3d, boolean isSideLit, boolean isAmbientOcclusion, ImmutableMap<String,IBakedModel> bakedParts, IModelTransform combinedTransform, String[] partNames) {
+  public ToolModel(boolean isGui3d, boolean isSideLit, boolean isAmbientOcclusion, ImmutableMap<String,BakedModel> bakedParts, ModelBakeSettings combinedTransform, String[] partNames) {
     this(isGui3d, isSideLit, isAmbientOcclusion, bakedParts.get(partNames[0]), bakedParts, combinedTransform, new CompositeOverrides(partNames, combinedTransform));
   }
 
   @SuppressWarnings("deprecation")
   @Override
-  public TextureAtlasSprite getParticleTexture() {
-    return particleModel.getParticleTexture();
+  public Sprite getSprite() {
+    return particleModel.getSprite();
   }
 
   /**
    * Handles loading overrides for each of the contained submodels
    */
-  private static final class CompositeOverrides extends ItemOverrideList {
+  private static final class CompositeOverrides extends ModelOverrideList {
     private final String[] partNames;
-    private final IModelTransform originalTransform;
-    private final Map<QuickHash, IBakedModel> cache;
+    private final ModelBakeSettings originalTransform;
+    private final Map<QuickHash, BakedModel> cache;
 
-    private CompositeOverrides(String[] partNames, IModelTransform transforms) {
+    private CompositeOverrides(String[] partNames, ModelBakeSettings transforms) {
       this.partNames = partNames;
       this.originalTransform = transforms;
       this.cache = new HashMap<>();
     }
 
     @Override
-    public IBakedModel getOverrideModel(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
+    public BakedModel apply(BakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       ToolModel model = (ToolModel) originalModel;
-      ImmutableMap.Builder<String, IBakedModel> bakedParts = ImmutableMap.builder();
+      ImmutableMap.Builder<String, BakedModel> bakedParts = ImmutableMap.builder();
       // store all the baked models in an array to use as a hash key
       Object[] hashKey = new Object[partNames.length];
       for (int i = 0; i < partNames.length; i++) {
         String key = partNames[i];
-        IBakedModel part = model.getPart(key);
+        BakedModel part = model.getPart(key);
         if (part != null) {
           // apply the overrides on the model
-          IBakedModel override = part.getOverrides().getOverrideModel(part, stack, world, entity);
+          BakedModel override = part.getOverrides().apply(part, stack, world, entity);
           // fallback to the untextured model if none
           if (override != null) {
             hashKey[i] = override;
@@ -75,7 +75,7 @@ public class ToolModel extends CompositeModel {
       }
       // skip overrides, we already have them
       // TODO: modifier model
-      return cache.computeIfAbsent(new QuickHash(hashKey), (key) -> new ToolModel(model.isGui3d(), model.isSideLit(), model.isAmbientOcclusion(), model.particleModel, bakedParts.build(), originalTransform, this));
+      return cache.computeIfAbsent(new QuickHash(hashKey), (key) -> new ToolModel(model.hasDepth(), model.isSideLit(), model.useAmbientOcclusion(), model.particleModel, bakedParts.build(), originalTransform, this));
     }
   }
 

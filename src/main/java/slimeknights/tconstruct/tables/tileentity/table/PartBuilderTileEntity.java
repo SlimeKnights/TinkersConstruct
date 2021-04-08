@@ -2,13 +2,13 @@ package slimeknights.tconstruct.tables.tileentity.table;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class PartBuilderTileEntity extends RetexturedTableTileEntity {
   public static final int MATERIAL_SLOT = 0;
@@ -23,7 +23,7 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity {
 
   @Nullable
   @Override
-  public Container createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+  public ScreenHandler createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
     return new PartBuilderContainer(menuId, playerInventory, this);
   }
 }

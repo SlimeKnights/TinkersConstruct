@@ -1,15 +1,17 @@
 package slimeknights.tconstruct.library.tools.item;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -28,22 +30,22 @@ import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ToolPartItem extends MaterialItem implements IToolPart {
 
   public final MaterialStatsId materialStatId;
 
-  public ToolPartItem(Properties properties, MaterialStatsId id) {
+  public ToolPartItem(Settings properties, MaterialStatsId id) {
     super(properties);
 
     this.materialStatId = id;
   }
 
   @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group)) {
+  public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+    if (this.isIn(group)) {
       if (MaterialRegistry.initialized()) {
         for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
           if (this.canUseMaterial(material)) {
@@ -68,9 +70,9 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    super.addInformation(stack, worldIn, tooltip, flagIn);
+  @Environment(EnvType.CLIENT)
+  public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
+    super.appendTooltip(stack, worldIn, tooltip, flagIn);
     IMaterial material = this.getMaterial(stack);
 
     // Material traits/info
@@ -86,7 +88,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     if (Config.CLIENT.extraToolTips.get()) {
       if (!shift) {
         // info tooltip for detailed and component info
-        tooltip.add(StringTextComponent.EMPTY);
+        tooltip.add(LiteralText.EMPTY);
         tooltip.add(ToolCore.TOOLTIP_HOLD_SHIFT);
       }
       else {
@@ -97,14 +99,14 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     tooltip.addAll(this.getAddedByInfo(material));
   }
 
-  public List<ITextComponent> getTooltipStatsInfo(IMaterial material) {
-    ImmutableList.Builder<ITextComponent> builder = ImmutableList.builder();
+  public List<Text> getTooltipStatsInfo(IMaterial material) {
+    ImmutableList.Builder<Text> builder = ImmutableList.builder();
 
     MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), this.materialStatId).ifPresent((stat) -> {
-      List<ITextComponent> text = stat.getLocalizedInfo();
+      List<Text> text = stat.getLocalizedInfo();
       if (!text.isEmpty()) {
-        builder.add(new StringTextComponent(""));
-        builder.add(stat.getLocalizedName().mergeStyle(TextFormatting.WHITE, TextFormatting.UNDERLINE));
+        builder.add(new LiteralText(""));
+        builder.add(stat.getLocalizedName().formatted(Formatting.WHITE, Formatting.UNDERLINE));
         builder.addAll(stat.getLocalizedInfo());
       }
     });
@@ -112,14 +114,14 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     return builder.build();
   }
 
-  public List<ITextComponent> getAddedByInfo(IMaterial material) {
-    ImmutableList.Builder<ITextComponent> builder = ImmutableList.builder();
+  public List<Text> getAddedByInfo(IMaterial material) {
+    ImmutableList.Builder<Text> builder = ImmutableList.builder();
 
     if (MaterialRegistry.getInstance().getMaterial(material.getIdentifier()) != IMaterial.UNKNOWN) {
-      builder.add(new StringTextComponent(""));
+      builder.add(new LiteralText(""));
       for (ModInfo modInfo : ModList.get().getMods()) {
         if (modInfo.getModId().equalsIgnoreCase(material.getIdentifier().getNamespace())) {
-          builder.add(new TranslationTextComponent("tooltip.part.material_added_by", modInfo.getDisplayName()));
+          builder.add(new TranslatableText("tooltip.part.material_added_by", modInfo.getDisplayName()));
         }
       }
     }
@@ -127,17 +129,17 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     return builder.build();
   }
 
-  public boolean checkMissingMaterialTooltip(ItemStack stack, List<ITextComponent> tooltip) {
+  public boolean checkMissingMaterialTooltip(ItemStack stack, List<Text> tooltip) {
     IMaterial material = this.getMaterial(stack);
 
     if (material == IMaterial.UNKNOWN) {
-      CompoundNBT tagSafe = TagUtil.getTagSafe(stack);
+      CompoundTag tagSafe = TagUtil.getTagSafe(stack);
       String materialId = tagSafe.getString(Tags.PART_MATERIAL);
       if (!materialId.isEmpty()) {
-        tooltip.add(new TranslationTextComponent("tooltip.part.missing_material", materialId));
+        tooltip.add(new TranslatableText("tooltip.part.missing_material", materialId));
       }
       else {
-        tooltip.add(new TranslationTextComponent("tooltip.part.missing_info"));
+        tooltip.add(new TranslatableText("tooltip.part.missing_info"));
       }
       return true;
     }

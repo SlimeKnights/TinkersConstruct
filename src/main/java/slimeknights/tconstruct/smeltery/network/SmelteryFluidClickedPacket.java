@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.smeltery.network;
 
 import lombok.AllArgsConstructor;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
@@ -17,12 +17,12 @@ import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 public class SmelteryFluidClickedPacket implements IThreadsafePacket {
   private final int index;
 
-  public SmelteryFluidClickedPacket(PacketBuffer buffer) {
+  public SmelteryFluidClickedPacket(PacketByteBuf buffer) {
     index = buffer.readVarInt();
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(PacketByteBuf buffer) {
     buffer.writeVarInt(index);
   }
 
@@ -30,9 +30,9 @@ public class SmelteryFluidClickedPacket implements IThreadsafePacket {
   public void handleThreadsafe(Context context) {
     ServerPlayerEntity sender = context.getSender();
     if (sender != null) {
-      Container container = sender.openContainer;
+      ScreenHandler container = sender.currentScreenHandler;
       if (container instanceof BaseContainer<?>) {
-        TileEntity te = ((BaseContainer<?>)container).getTile();
+        BlockEntity te = ((BaseContainer<?>)container).getTile();
         if (te instanceof ISmelteryTankHandler) {
           ((ISmelteryTankHandler) te).getTank().moveFluidToBottom(index);
         }

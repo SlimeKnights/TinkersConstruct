@@ -14,11 +14,11 @@ import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.Color;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.profiler.Profiler;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -30,7 +30,7 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
 import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,7 +53,7 @@ import java.util.stream.Collectors;
 public class MaterialManager extends SyncingJsonReloadListener {
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
-    .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+    .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
     .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
     .registerTypeAdapter(ICondition.class, new ConditionSerializer())
     .setPrettyPrinting()
@@ -124,7 +124,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation, JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+  protected void apply(Map<Identifier, JsonElement> splashList, ResourceManager resourceManagerIn, Profiler profilerIn) {
     this.materials = splashList.entrySet().stream()
       .filter(entry -> entry.getValue().isJsonObject())
       .map(entry -> loadMaterial(entry.getKey(), entry.getValue().getAsJsonObject()))
@@ -150,7 +150,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
   }
 
   @Nullable
-  private IMaterial loadMaterial(ResourceLocation materialId, JsonObject jsonObject) {
+  private IMaterial loadMaterial(Identifier materialId, JsonObject jsonObject) {
     try {
       MaterialJson materialJson = GSON.fromJson(jsonObject, MaterialJson.class);
       // condition
@@ -174,9 +174,9 @@ public class MaterialManager extends SyncingJsonReloadListener {
       }
 
       // parse color from string
-      Color color = Optional.ofNullable(materialJson.getTextColor())
+      TextColor color = Optional.ofNullable(materialJson.getTextColor())
                             .filter(str -> !str.isEmpty())
-                            .map(Color::fromHex)
+                            .map(TextColor::parse)
                             .orElse(Material.WHITE);
 
       // parse trait
@@ -194,8 +194,8 @@ public class MaterialManager extends SyncingJsonReloadListener {
    * @param materialJson  Material JSON
    * @return  Fluid, or Fluids.EMPTY if none
    */
-  private Fluid loadFluid(ResourceLocation materialId, MaterialJson materialJson) {
-    ResourceLocation fluidId = materialJson.getFluid();
+  private Fluid loadFluid(Identifier materialId, MaterialJson materialJson) {
+    Identifier fluidId = materialJson.getFluid();
     Fluid fluid = Fluids.EMPTY;
     if (fluidId != null) {
       fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
@@ -210,7 +210,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
   private static class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> {
     @Override
     public ICondition deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      return CraftingHelper.getCondition(JSONUtils.getJsonObject(json, "condition"));
+      return CraftingHelper.getCondition(JsonHelper.asObject(json, "condition"));
     }
 
     @Override

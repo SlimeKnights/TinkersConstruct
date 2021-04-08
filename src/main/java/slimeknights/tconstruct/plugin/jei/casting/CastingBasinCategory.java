@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.plugin.jei.casting;
 
 import mezz.jei.api.helpers.IGuiHelper;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
@@ -14,7 +14,7 @@ public class CastingBasinCategory extends AbstractCastingCategory {
   }
 
   @Override
-  public ResourceLocation getUid() {
+  public Identifier getUid() {
     return TConstructRecipeCategoryUid.castingBasin;
   }
 

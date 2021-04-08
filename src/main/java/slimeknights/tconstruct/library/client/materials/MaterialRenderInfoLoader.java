@@ -5,10 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResource;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resource.ReloadableResourceManager;
+import net.minecraft.resource.Resource;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -39,7 +39,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   private static final String FOLDER = "models/tool_materials";
   /** GSON adapter for material info deserializing */
   private static final Gson GSON = (new GsonBuilder())
-    .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+    .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -47,8 +47,8 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   /**
    * Called on mod construct to register the resource listener
    */
-  public static void addResourceListener(IReloadableResourceManager manager)  {
-    manager.addReloadListener(INSTANCE);
+  public static void addResourceListener(ReloadableResourceManager manager)  {
+    manager.registerListener(INSTANCE);
   }
 
   /** Map of all loaded materials */
@@ -74,18 +74,18 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   }
 
   @Override
-  public void onReloadSafe(IResourceManager manager) {
+  public void onReloadSafe(ResourceManager manager) {
     // first, we need to fetch all relevant JSON files
     int trim = FOLDER.length() + 1;
     Map<MaterialId,MaterialRenderInfo> map = new HashMap<>();
-    for(ResourceLocation location : manager.getAllResourceLocations(FOLDER, (loc) -> loc.endsWith(".json"))) {
+    for(Identifier location : manager.findResources(FOLDER, (loc) -> loc.endsWith(".json"))) {
       // clean up ID by trimming off the extension
       String path = location.getPath();
       MaterialId id = new MaterialId(location.getNamespace(), path.substring(trim, path.length() - 5));
 
       // read in the JSON data
       try (
-        IResource iresource = manager.getResource(location);
+        Resource iresource = manager.getResource(location);
         InputStream inputstream = iresource.getInputStream();
         Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8))
       ) {
@@ -115,7 +115,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
    * @param json  Render info JSON data
    * @return  Material render info data
    */
-  private MaterialRenderInfo loadRenderInfo(ResourceLocation loc, MaterialRenderInfoJson json) {
+  private MaterialRenderInfo loadRenderInfo(Identifier loc, MaterialRenderInfoJson json) {
     // parse color
     int color = 0xFFFFFFFF;
     if (json.getColor() != null) {
@@ -126,7 +126,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     }
 
     MaterialId id = new MaterialId(loc);
-    ResourceLocation texture = json.getTexture();
+    Identifier texture = json.getTexture();
     if (texture == null) {
       texture = id;
     }

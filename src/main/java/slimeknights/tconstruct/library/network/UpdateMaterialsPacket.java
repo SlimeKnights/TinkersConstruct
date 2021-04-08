@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.Color;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.TextColor;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
@@ -25,12 +25,12 @@ import java.util.List;
 public class UpdateMaterialsPacket implements IThreadsafePacket {
   private final Collection<IMaterial> materials;
 
-  public UpdateMaterialsPacket(PacketBuffer buffer) {
+  public UpdateMaterialsPacket(PacketByteBuf buffer) {
     int materialCount = buffer.readInt();
     this.materials = new ArrayList<>(materialCount);
 
     for (int i = 0; i < materialCount; i++) {
-      MaterialId id = new MaterialId(buffer.readResourceLocation());
+      MaterialId id = new MaterialId(buffer.readIdentifier());
       int tier = buffer.readVarInt();
       int sortOrder = buffer.readVarInt();
       boolean craftable = buffer.readBoolean();
@@ -47,22 +47,22 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       for (int t = 0; t < size; t++) {
         builder.add(ModifierEntry.read(buffer));
       }
-      this.materials.add(new Material(id, tier, sortOrder, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, builder.build()));
+      this.materials.add(new Material(id, tier, sortOrder, fluid, fluidPerUnit, craftable, TextColor.fromRgb(color), temperature, builder.build()));
     }
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(PacketByteBuf buffer) {
     buffer.writeInt(this.materials.size());
     this.materials.forEach(material -> {
-      buffer.writeResourceLocation(material.getIdentifier());
+      buffer.writeIdentifier(material.getIdentifier());
       buffer.writeVarInt(material.getTier());
       buffer.writeVarInt(material.getSortOrder());
       buffer.writeBoolean(material.isCraftable());
       buffer.writeRegistryIdUnsafe(ForgeRegistries.FLUIDS, material.getFluid());
       buffer.writeVarInt(material.getFluidPerUnit());
       // the color int getter is private
-      buffer.writeInt(material.getColor().color);
+      buffer.writeInt(material.getColor().rgb);
       buffer.writeInt(material.getTemperature());
       List<ModifierEntry> traits = material.getTraits();
       buffer.writeVarInt(traits.size());

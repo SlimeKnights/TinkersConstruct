@@ -5,11 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
@@ -19,7 +18,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
   @Getter
-  private final ResourceLocation id;
+  private final Identifier id;
   @Getter
   private final String group;
   private final FluidIngredient input;
@@ -82,17 +81,17 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
   /* Recipe type methods */
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RecipeTypes.FUEL;
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.fuelSerializer.get();
   }
 
   @Override
-  public ItemStack getIcon() {
+  public ItemStack getRecipeKindIcon() {
     return new ItemStack(TinkerSmeltery.searedTank.get(TankType.TANK));
   }
 
@@ -101,16 +100,16 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
    */
   public static class Serializer extends RecipeSerializer<MeltingFuel> {
     @Override
-    public MeltingFuel read(ResourceLocation id, JsonObject json) {
-      String group = JSONUtils.getString(json, "group", "");
+    public MeltingFuel read(Identifier id, JsonObject json) {
+      String group = JsonHelper.getString(json, "group", "");
       FluidIngredient input = FluidIngredient.deserialize(json, "fluid");
-      int duration = JSONUtils.getInt(json, "duration");
-      int temperature = JSONUtils.getInt(json, "temperature");
+      int duration = JsonHelper.getInt(json, "duration");
+      int temperature = JsonHelper.getInt(json, "temperature");
       return new MeltingFuel(id, group, input, duration, temperature);
     }
 
     @Override
-    public void write(PacketBuffer buffer, MeltingFuel recipe) {
+    public void write(PacketByteBuf buffer, MeltingFuel recipe) {
       buffer.writeString(recipe.group);
       recipe.input.write(buffer);
       buffer.writeInt(recipe.duration);
@@ -119,7 +118,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
 
     @Nullable
     @Override
-    public MeltingFuel read(ResourceLocation id, PacketBuffer buffer) {
+    public MeltingFuel read(Identifier id, PacketByteBuf buffer) {
       String group = buffer.readString(Short.MAX_VALUE);
       FluidIngredient input = FluidIngredient.read(buffer);
       int duration = buffer.readInt();

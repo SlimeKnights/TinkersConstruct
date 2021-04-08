@@ -7,7 +7,7 @@ import slimeknights.tconstruct.shared.block.TableBlock;
 
 public abstract class TinkerTableBlock extends TableBlock implements ITinkerStationBlock {
 
-  public TinkerTableBlock(Properties builder) {
+  public TinkerTableBlock(Settings builder) {
     super(builder);
   }
 

@@ -15,7 +15,7 @@ public class TileCastingWrapper implements ICastingInventory {
 
   @Override
   public ItemStack getStack() {
-    return tile.getStackInSlot(CastingTileEntity.INPUT);
+    return tile.getStack(CastingTileEntity.INPUT);
   }
 
   @Override

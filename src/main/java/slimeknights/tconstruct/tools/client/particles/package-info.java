@@ -4,4 +4,4 @@ package slimeknights.tconstruct.tools.client.particles;
 
 import mcp.MethodsReturnNonnullByDefault;
 
-import org.jetbrains.annotations.ParametersAreNonnullByDefault;
+import javax.annotation.ParametersAreNonnullByDefault;

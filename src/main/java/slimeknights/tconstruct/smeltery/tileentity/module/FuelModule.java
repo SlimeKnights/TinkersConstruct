@@ -4,11 +4,11 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIntArray;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -28,7 +28,7 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelCache;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +39,7 @@ import java.util.function.Supplier;
  * Module handling fuel consumption for the melter and smeltery
  */
 @RequiredArgsConstructor
-public class FuelModule implements IIntArray {
+public class FuelModule implements PropertyDelegate {
   /** Block position that will never be valid in world, used for sync */
   private static final BlockPos NULL_POS = new BlockPos(0, -1, 0);
   /** Temperature used for solid fuels, hot enough to melt iron */
@@ -157,7 +157,7 @@ public class FuelModule implements IIntArray {
       if (time > 0) {
         if (consume) {
           ItemStack extracted = handler.extractItem(i, 1, false);
-          if (extracted.isItemEqual(stack)) {
+          if (extracted.isItemEqualIgnoreDamage(stack)) {
             fuel += time;
             fuelQuality = time;
             temperature = SOLID_TEMPERATURE;
@@ -225,7 +225,7 @@ public class FuelModule implements IIntArray {
    * @return   Temperature of the consumed fuel, 0 if none found
    */
   private int tryFindFuel(BlockPos pos, boolean consume) {
-    TileEntity te = getWorld().getTileEntity(pos);
+    BlockEntity te = getWorld().getBlockEntity(pos);
     if (te != null) {
       // if we find a valid cap, try to consume fuel from it
       LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
@@ -304,7 +304,7 @@ public class FuelModule implements IIntArray {
    * Reads the fuel from NBT
    * @param nbt  NBT to read from
    */
-  public void readFromNBT(CompoundNBT nbt) {
+  public void readFromNBT(CompoundTag nbt) {
     fuel = nbt.getInt(TAG_FUEL);
     temperature = nbt.getInt(TAG_TEMPERATURE);
     lastPos = TagUtil.readPos(nbt, TAG_LAST_FUEL);
@@ -315,7 +315,7 @@ public class FuelModule implements IIntArray {
    * @param nbt  NBT to write to
    * @return  NBT written to
    */
-  public CompoundNBT writeToNBT(CompoundNBT nbt) {
+  public CompoundTag writeToNBT(CompoundTag nbt) {
     nbt.putInt(TAG_FUEL, fuel);
     nbt.putInt(TAG_TEMPERATURE, temperature);
     // technically unneeded for melters, but does not hurt to add
@@ -425,7 +425,7 @@ public class FuelModule implements IIntArray {
 
     // fetch primary fuel handler
     if (fluidHandler == null && itemHandler == null) {
-      TileEntity te = getWorld().getTileEntity(mainTank);
+      BlockEntity te = getWorld().getBlockEntity(mainTank);
       if (te != null) {
         LazyOptional<IFluidHandler> fluidCap = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
         if (fluidCap.isPresent()) {
@@ -472,7 +472,7 @@ public class FuelModule implements IIntArray {
         if (positions == null) positions = tankSupplier.get();
         for (BlockPos pos : positions) {
           if (!pos.equals(mainTank)) {
-            TileEntity te = world.getTileEntity(pos);
+            BlockEntity te = world.getBlockEntity(pos);
             if (te != null) {
               LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
               if (handler.isPresent()) {

@@ -4,14 +4,14 @@ import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.recipe.RecipeManager;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.world.GameRules;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
@@ -30,7 +30,7 @@ import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
 import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 import slimeknights.tconstruct.tables.tileentity.table.RetexturedTableTileEntity;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Collections;
 
 public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
@@ -49,7 +49,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   private final TinkerStationInventoryWrapper inventoryWrapper;
 
   private UpdateStationScreenPacket.PacketType screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
-  private ITextComponent screenSyncMessage = StringTextComponent.EMPTY;
+  private Text screenSyncMessage = LiteralText.EMPTY;
 
   public TinkerStationTileEntity() {
     this(6); // default to more slots
@@ -64,11 +64,11 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   }
 
   @Override
-  public ITextComponent getDefaultName() {
+  public Text getDefaultName() {
     if (this.world == null) {
       return super.getDefaultName();
     }
-    return new TranslationTextComponent(this.getBlockState().getBlock().getTranslationKey());
+    return new TranslatableText(this.getCachedState().getBlock().getTranslationKey());
   }
 
   /**
@@ -76,7 +76,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
    * @return  Input count
    */
   public int getInputCount() {
-    return getSizeInventory() - 1;
+    return size() - 1;
   }
 
   @Override
@@ -87,7 +87,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
   @Nullable
   @Override
-  public Container createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+  public ScreenHandler createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
     return new TinkerStationContainer(menuId, playerInventory, this);
   }
 
@@ -102,16 +102,16 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     // assume empty unless we learn otherwise
     ItemStack result = ItemStack.EMPTY;
     this.screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
-    this.screenSyncMessage = StringTextComponent.EMPTY;
+    this.screenSyncMessage = LiteralText.EMPTY;
 
-    if (!this.world.isRemote && this.world.getServer() != null) {
+    if (!this.world.isClient && this.world.getServer() != null) {
       RecipeManager manager = this.world.getServer().getRecipeManager();
 
       // first, try the cached recipe
       ITinkerStationRecipe recipe = lastRecipe;
       // if it does not match, find a new recipe
       if (recipe == null || !recipe.matches(this.inventoryWrapper, this.world)) {
-        recipe = manager.getRecipe(RecipeTypes.TINKER_STATION, this.inventoryWrapper, this.world).orElse(null);
+        recipe = manager.getFirstMatch(RecipeTypes.TINKER_STATION, this.inventoryWrapper, this.world).orElse(null);
       }
 
       // if we have a recipe, fetch its result
@@ -156,17 +156,17 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     if (player instanceof ServerPlayerEntity) {
       if (this.lastRecipe != null) {
         // if the player cannot craft this, block crafting
-        if (!this.lastRecipe.isDynamic() && world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING) && !((ServerPlayerEntity) player).getRecipeBook().isUnlocked(this.lastRecipe)) {
+        if (!this.lastRecipe.isIgnoredInRecipeBook() && world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING) && !((ServerPlayerEntity) player).getRecipeBook().contains(this.lastRecipe)) {
           return ItemStack.EMPTY;
         }
         // unlock the recipe if it was not unlocked
-        if (this.lastRecipe != null && !this.lastRecipe.isDynamic()) {
+        if (this.lastRecipe != null && !this.lastRecipe.isIgnoredInRecipeBook()) {
           player.unlockRecipes(Collections.singleton(this.lastRecipe));
         }
       }
 
       // fire crafting events
-      result.onCrafting(this.world, player, amount);
+      result.onCraft(this.world, player, amount);
       BasicEventHooks.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
     }
 
@@ -180,18 +180,18 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
     // shrink the center slot and return the result
     // TODO: consider modifying a stack of items
-    ItemStack centerSlotItem = this.getStackInSlot(TINKER_SLOT);
+    ItemStack centerSlotItem = this.getStack(TINKER_SLOT);
     if (!centerSlotItem.isEmpty()) {
-      centerSlotItem.shrink(1);
-      this.setInventorySlotContents(TINKER_SLOT, centerSlotItem);
+      centerSlotItem.decrement(1);
+      this.setStack(TINKER_SLOT, centerSlotItem);
     }
 
     return result;
   }
 
   @Override
-  public void setInventorySlotContents(int slot, ItemStack itemstack) {
-    super.setInventorySlotContents(slot, itemstack);
+  public void setStack(int slot, ItemStack itemstack) {
+    super.setStack(slot, itemstack);
     // clear the crafting result when the matrix changes so we recalculate the result
     this.craftingResult.clear();
     this.inventoryWrapper.refreshInput(slot);
@@ -207,7 +207,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
    */
   public void syncRecipe(PlayerEntity player) {
     // must have a last recipe and a server world
-    if (this.lastRecipe != null && this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
+    if (this.lastRecipe != null && this.world != null && !this.world.isClient && player instanceof ServerPlayerEntity) {
       TinkerNetwork.getInstance().sendTo(new UpdateTinkerStationRecipePacket(this.pos, this.lastRecipe), (ServerPlayerEntity) player);
     }
   }
@@ -226,7 +226,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
    * @param player  Player to send an update to
    */
   public void syncScreen(PlayerEntity player) {
-    if (this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
+    if (this.world != null && !this.world.isClient && player instanceof ServerPlayerEntity) {
       TinkerNetwork.getInstance().sendTo(new UpdateStationScreenPacket(this.screenSyncType, this.screenSyncMessage), (ServerPlayerEntity) player);
     }
   }
@@ -241,8 +241,8 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   }
 
   @Override
-  public void read(BlockState blockState, CompoundNBT tags) {
-    super.read(blockState, tags);
+  public void fromTag(BlockState blockState, CompoundTag tags) {
+    super.fromTag(blockState, tags);
     inventoryWrapper.resize();
   }
 }

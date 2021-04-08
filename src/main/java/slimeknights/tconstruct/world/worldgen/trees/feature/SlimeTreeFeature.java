@@ -6,25 +6,25 @@ import com.mojang.serialization.Codec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.block.VineBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Direction;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.structure.Structure;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.util.math.shapes.BitSetVoxelShapePart;
-import net.minecraft.util.math.shapes.VoxelShapePart;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldWriter;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.IWorldGenerationBaseReader;
-import net.minecraft.world.gen.IWorldGenerationReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.BitSetVoxelSet;
+import net.minecraft.util.shape.VoxelSet;
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.ModifiableTestableWorld;
+import net.minecraft.world.ModifiableWorld;
+import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.TestableWorld;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.template.Template;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
@@ -39,16 +39,16 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
   }
 
   @Override
-  public final boolean generate(ISeedReader seedReader, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, BaseSlimeTreeFeatureConfig config) {
+  public final boolean generate(StructureWorldAccess seedReader, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, BaseSlimeTreeFeatureConfig config) {
     Set<BlockPos> set = Sets.newHashSet();
     Set<BlockPos> set1 = Sets.newHashSet();
     Set<BlockPos> set2 = Sets.newHashSet();
-    MutableBoundingBox mutableboundingbox = MutableBoundingBox.getNewBoundingBox();
+    BlockBox mutableboundingbox = BlockBox.empty();
     boolean flag = this.place(seedReader, random, blockPos, set, set1, mutableboundingbox, config);
 
     if (mutableboundingbox.minX <= mutableboundingbox.maxX && flag && !set.isEmpty()) {
-      VoxelShapePart voxelshapepart = this.func_236403_a_(seedReader, mutableboundingbox, set, set2);
-      Template.func_222857_a(seedReader, 3, voxelshapepart, mutableboundingbox.minX, mutableboundingbox.minY, mutableboundingbox.minZ);
+      VoxelSet voxelshapepart = this.func_236403_a_(seedReader, mutableboundingbox, set, set2);
+      Structure.updateCorner(seedReader, 3, voxelshapepart, mutableboundingbox.minX, mutableboundingbox.minY, mutableboundingbox.minZ);
       return true;
     }
     else {
@@ -56,16 +56,16 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
     }
   }
 
-  private boolean place(IWorldGenerationReader generationReader, Random rand, BlockPos positionIn, Set<BlockPos> trunkBlockPosSet, Set<BlockPos> p_225557_5_, MutableBoundingBox boundingBoxIn, BaseSlimeTreeFeatureConfig configIn) {
+  private boolean place(ModifiableTestableWorld generationReader, Random rand, BlockPos positionIn, Set<BlockPos> trunkBlockPosSet, Set<BlockPos> p_225557_5_, BlockBox boundingBoxIn, BaseSlimeTreeFeatureConfig configIn) {
     int height = rand.nextInt(configIn.randomHeight) + configIn.baseHeight;
 
-    if (!(generationReader instanceof IWorld)) {
+    if (!(generationReader instanceof WorldAccess)) {
       return false;
     }
 
     BlockPos blockpos;
     if (!configIn.forcePlacement) {
-      int oceanFloorHeight = generationReader.getHeight(Heightmap.Type.OCEAN_FLOOR, positionIn).getY();
+      int oceanFloorHeight = generationReader.getTopPosition(Heightmap.Type.OCEAN_FLOOR, positionIn).getY();
 
       blockpos = new BlockPos(positionIn.getX(), oceanFloorHeight, positionIn.getZ());
     }
@@ -92,15 +92,15 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
     }
   }
 
-  protected void setDirtAt(IWorldGenerationReader reader, BlockPos pos, BlockPos origin) {
-    if (!(reader instanceof IWorld)) {
+  protected void setDirtAt(ModifiableTestableWorld reader, BlockPos pos, BlockPos origin) {
+    if (!(reader instanceof WorldAccess)) {
       return;
     }
 
-    ((IWorld) reader).getBlockState(pos).getBlock().onPlantGrow(((IWorld) reader).getBlockState(pos), (IWorld) reader, pos, origin);
+    ((WorldAccess) reader).getBlockState(pos).getBlock().onPlantGrow(((WorldAccess) reader).getBlockState(pos), (WorldAccess) reader, pos, origin);
   }
 
-  protected void placeTrunk(IWorldGenerationReader worldIn, Random randomIn, int treeHeight, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {
+  protected void placeTrunk(ModifiableTestableWorld worldIn, Random randomIn, int treeHeight, BlockPos blockPos, Set<BlockPos> blockPosSet, BlockBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {
     while (treeHeight > 0) {
       this.setLog(worldIn, randomIn, blockPos, blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
 
@@ -109,7 +109,7 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
     }
   }
 
-  protected void placeCanopy(IWorldGenerationReader worldIn, Random randomIn, int treeHeight, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {
+  protected void placeCanopy(ModifiableTestableWorld worldIn, Random randomIn, int treeHeight, BlockPos blockPos, Set<BlockPos> blockPosSet, BlockBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {
     blockPos = blockPos.up(treeHeight);
     for (int i = 0; i < 4; i++) {
       this.placeDiamondLayer(worldIn, randomIn, i + 1, blockPos.down(i), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
@@ -184,7 +184,7 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
     }
   }
 
-  private void placeDiamondLayer(IWorldGenerationReader worldIn, Random randomIn, int range, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {
+  private void placeDiamondLayer(ModifiableTestableWorld worldIn, Random randomIn, int range, BlockPos blockPos, Set<BlockPos> blockPosSet, BlockBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {
     for (int x = -range; x <= range; x++) {
       for (int z = -range; z <= range; z++) {
         if (Math.abs(x) + Math.abs(z) <= range) {
@@ -195,49 +195,49 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
     }
   }
 
-  protected boolean setLog(IWorldGenerationReader worldIn, Random randomIn, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {
+  protected boolean setLog(ModifiableTestableWorld worldIn, Random randomIn, BlockPos blockPos, Set<BlockPos> blockPosSet, BlockBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {
     if (!isAirOrLeavesAt(worldIn, blockPos)) {
       return false;
     }
     else {
       this.setBlockState(worldIn, blockPos, treeFeatureConfigIn.trunkProvider.getBlockState(randomIn, blockPos));
-      mutableBoundingBoxIn.expandTo(new MutableBoundingBox(blockPos, blockPos));
+      mutableBoundingBoxIn.encompass(new BlockBox(blockPos, blockPos));
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
   }
 
-  protected boolean placeAir(IWorldGenerationReader worldIn, Random randomIn, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn) {
+  protected boolean placeAir(ModifiableTestableWorld worldIn, Random randomIn, BlockPos blockPos, Set<BlockPos> blockPosSet, BlockBox mutableBoundingBoxIn) {
     if (!isAirOrLeavesAt(worldIn, blockPos)) {
       return false;
     }
     else {
       this.setBlockState(worldIn, blockPos, Blocks.AIR.getDefaultState());
-      mutableBoundingBoxIn.expandTo(new MutableBoundingBox(blockPos, blockPos));
+      mutableBoundingBoxIn.encompass(new BlockBox(blockPos, blockPos));
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
   }
 
-  protected boolean setLeaf(IWorldGenerationReader worldIn, Random random, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {
+  protected boolean setLeaf(ModifiableTestableWorld worldIn, Random random, BlockPos blockPos, Set<BlockPos> blockPosSet, BlockBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {
     if (!isAirOrLeavesAt(worldIn, blockPos)) {
       return false;
     }
     else {
       this.setBlockState(worldIn, blockPos, treeFeatureConfigIn.leavesProvider.getBlockState(random, blockPos));
-      mutableBoundingBoxIn.expandTo(new MutableBoundingBox(blockPos, blockPos));
+      mutableBoundingBoxIn.encompass(new BlockBox(blockPos, blockPos));
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
   }
 
-  protected boolean placeVine(IWorldGenerationReader worldIn, Random random, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, BlockState vineState) {
+  protected boolean placeVine(ModifiableTestableWorld worldIn, Random random, BlockPos blockPos, Set<BlockPos> blockPosSet, BlockBox mutableBoundingBoxIn, BlockState vineState) {
     if (!isAirOrLeavesAt(worldIn, blockPos)) {
       return false;
     }
     else {
       this.setBlockState(worldIn, blockPos, vineState);
-      mutableBoundingBoxIn.expandTo(new MutableBoundingBox(blockPos, blockPos));
+      mutableBoundingBoxIn.encompass(new BlockBox(blockPos, blockPos));
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
@@ -259,47 +259,47 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
     return state;
   }
 
-  public static boolean isEmptyOrLogAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return isReplaceableAt(reader, blockPos) || reader.hasBlockState(blockPos, (p_236417_0_) -> p_236417_0_.isIn(BlockTags.LOGS));
+  public static boolean isEmptyOrLogAt(TestableWorld reader, BlockPos blockPos) {
+    return isReplaceableAt(reader, blockPos) || reader.testBlockState(blockPos, (p_236417_0_) -> p_236417_0_.isIn(BlockTags.LOGS));
   }
 
-  private static boolean isVineAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return reader.hasBlockState(blockPos, (p_236415_0_) -> p_236415_0_.isIn(Blocks.VINE));
+  private static boolean isVineAt(TestableWorld reader, BlockPos blockPos) {
+    return reader.testBlockState(blockPos, (p_236415_0_) -> p_236415_0_.isOf(Blocks.VINE));
   }
 
-  private static boolean isWaterAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return reader.hasBlockState(blockPos, (p_236413_0_) -> p_236413_0_.isIn(Blocks.WATER));
+  private static boolean isWaterAt(TestableWorld reader, BlockPos blockPos) {
+    return reader.testBlockState(blockPos, (p_236413_0_) -> p_236413_0_.isOf(Blocks.WATER));
   }
 
-  public static boolean isAirOrLeavesAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return reader.hasBlockState(blockPos, (p_236411_0_) -> p_236411_0_.isAir() || p_236411_0_.isIn(BlockTags.LEAVES));
+  public static boolean isAirOrLeavesAt(TestableWorld reader, BlockPos blockPos) {
+    return reader.testBlockState(blockPos, (p_236411_0_) -> p_236411_0_.isAir() || p_236411_0_.isIn(BlockTags.LEAVES));
   }
 
-  private static boolean isDirtOrFarmlandAt(IWorldGenerationBaseReader p_236418_0_, BlockPos blockPos) {
-    return p_236418_0_.hasBlockState(blockPos, (p_236409_0_) -> {
+  private static boolean isDirtOrFarmlandAt(TestableWorld p_236418_0_, BlockPos blockPos) {
+    return p_236418_0_.testBlockState(blockPos, (p_236409_0_) -> {
       Block block = p_236409_0_.getBlock();
       return (TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.earthSlimeGrass.contains(block) || TinkerWorld.skySlimeGrass.contains(block) || TinkerWorld.enderSlimeGrass.contains(block) || TinkerWorld.ichorSlimeGrass.contains(block));
     });
   }
 
-  private static boolean isTallPlantAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
-    return reader.hasBlockState(blockPos, (p_236406_0_) -> {
+  private static boolean isTallPlantAt(TestableWorld reader, BlockPos blockPos) {
+    return reader.testBlockState(blockPos, (p_236406_0_) -> {
       Material material = p_236406_0_.getMaterial();
-      return material == Material.TALL_PLANTS;
+      return material == Material.REPLACEABLE_PLANT;
     });
   }
 
-  public static boolean isReplaceableAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
+  public static boolean isReplaceableAt(TestableWorld reader, BlockPos blockPos) {
     return isAirOrLeavesAt(reader, blockPos) || isTallPlantAt(reader, blockPos) || isWaterAt(reader, blockPos);
   }
 
-  public static void setBlockStateAt(IWorldWriter writer, BlockPos blockPos, BlockState state) {
+  public static void setBlockStateAt(ModifiableWorld writer, BlockPos blockPos, BlockState state) {
     writer.setBlockState(blockPos, state, 19);
   }
 
-  private VoxelShapePart func_236403_a_(IWorld world, MutableBoundingBox boundingBox, Set<BlockPos> logs, Set<BlockPos> leaves) {
+  private VoxelSet func_236403_a_(WorldAccess world, BlockBox boundingBox, Set<BlockPos> logs, Set<BlockPos> leaves) {
     List<Set<BlockPos>> list = Lists.newArrayList();
-    VoxelShapePart voxelshapepart = new BitSetVoxelShapePart(boundingBox.getXSize(), boundingBox.getYSize(), boundingBox.getZSize());
+    VoxelSet voxelshapepart = new BitSetVoxelSet(boundingBox.getBlockCountX(), boundingBox.getBlockCountY(), boundingBox.getBlockCountZ());
     int i = 6;
 
     for (int j = 0; j < 6; ++j) {
@@ -309,25 +309,25 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
     BlockPos.Mutable mutable = new BlockPos.Mutable();
 
     for (BlockPos blockpos : Lists.newArrayList(leaves)) {
-      if (boundingBox.isVecInside(blockpos)) {
-        voxelshapepart.setFilled(blockpos.getX() - boundingBox.minX, blockpos.getY() - boundingBox.minY, blockpos.getZ() - boundingBox.minZ, true, true);
+      if (boundingBox.contains(blockpos)) {
+        voxelshapepart.set(blockpos.getX() - boundingBox.minX, blockpos.getY() - boundingBox.minY, blockpos.getZ() - boundingBox.minZ, true, true);
       }
     }
 
     for (BlockPos blockpos1 : Lists.newArrayList(logs)) {
-      if (boundingBox.isVecInside(blockpos1)) {
-        voxelshapepart.setFilled(blockpos1.getX() - boundingBox.minX, blockpos1.getY() - boundingBox.minY, blockpos1.getZ() - boundingBox.minZ, true, true);
+      if (boundingBox.contains(blockpos1)) {
+        voxelshapepart.set(blockpos1.getX() - boundingBox.minX, blockpos1.getY() - boundingBox.minY, blockpos1.getZ() - boundingBox.minZ, true, true);
       }
 
       for (Direction direction : Direction.values()) {
-        mutable.setAndMove(blockpos1, direction);
+        mutable.set(blockpos1, direction);
         if (!logs.contains(mutable)) {
           BlockState blockstate = world.getBlockState(mutable);
-          if (blockstate.hasProperty(BlockStateProperties.DISTANCE_1_7)) {
+          if (blockstate.contains(Properties.DISTANCE_1_7)) {
             list.get(0).add(mutable.toImmutable());
-            setBlockStateAt(world, mutable, blockstate.with(BlockStateProperties.DISTANCE_1_7, Integer.valueOf(1)));
-            if (boundingBox.isVecInside(mutable)) {
-              voxelshapepart.setFilled(mutable.getX() - boundingBox.minX, mutable.getY() - boundingBox.minY, mutable.getZ() - boundingBox.minZ, true, true);
+            setBlockStateAt(world, mutable, blockstate.with(Properties.DISTANCE_1_7, Integer.valueOf(1)));
+            if (boundingBox.contains(mutable)) {
+              voxelshapepart.set(mutable.getX() - boundingBox.minX, mutable.getY() - boundingBox.minY, mutable.getZ() - boundingBox.minZ, true, true);
             }
           }
         }
@@ -339,21 +339,21 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
       Set<BlockPos> set1 = list.get(l);
 
       for (BlockPos blockpos2 : set) {
-        if (boundingBox.isVecInside(blockpos2)) {
-          voxelshapepart.setFilled(blockpos2.getX() - boundingBox.minX, blockpos2.getY() - boundingBox.minY, blockpos2.getZ() - boundingBox.minZ, true, true);
+        if (boundingBox.contains(blockpos2)) {
+          voxelshapepart.set(blockpos2.getX() - boundingBox.minX, blockpos2.getY() - boundingBox.minY, blockpos2.getZ() - boundingBox.minZ, true, true);
         }
 
         for (Direction direction1 : Direction.values()) {
-          mutable.setAndMove(blockpos2, direction1);
+          mutable.set(blockpos2, direction1);
           if (!set.contains(mutable) && !set1.contains(mutable)) {
             BlockState blockstate1 = world.getBlockState(mutable);
-            if (blockstate1.hasProperty(BlockStateProperties.DISTANCE_1_7)) {
-              int k = blockstate1.get(BlockStateProperties.DISTANCE_1_7);
+            if (blockstate1.contains(Properties.DISTANCE_1_7)) {
+              int k = blockstate1.get(Properties.DISTANCE_1_7);
               if (k > l + 1) {
-                BlockState blockstate2 = blockstate1.with(BlockStateProperties.DISTANCE_1_7, Integer.valueOf(l + 1));
+                BlockState blockstate2 = blockstate1.with(Properties.DISTANCE_1_7, Integer.valueOf(l + 1));
                 setBlockStateAt(world, mutable, blockstate2);
-                if (boundingBox.isVecInside(mutable)) {
-                  voxelshapepart.setFilled(mutable.getX() - boundingBox.minX, mutable.getY() - boundingBox.minY, mutable.getZ() - boundingBox.minZ, true, true);
+                if (boundingBox.contains(mutable)) {
+                  voxelshapepart.set(mutable.getX() - boundingBox.minX, mutable.getY() - boundingBox.minY, mutable.getZ() - boundingBox.minZ, true, true);
                 }
 
                 set1.add(mutable.toImmutable());

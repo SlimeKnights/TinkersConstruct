@@ -1,20 +1,20 @@
 package slimeknights.tconstruct.tables.client.inventory.table;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
@@ -32,10 +32,10 @@ import java.util.List;
 import java.util.function.Function;
 
 public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
-  private static final ITextComponent INFO_TEXT = Util.makeTranslation("gui", "part_builder.info");
-  private static final ITextComponent TRAIT_TITLE = Util.makeTranslation("gui", "part_builder.trait").mergeStyle(TextFormatting.UNDERLINE);
+  private static final Text INFO_TEXT = Util.makeTranslation("gui", "part_builder.info");
+  private static final Text TRAIT_TITLE = Util.makeTranslation("gui", "part_builder.trait").formatted(Formatting.UNDERLINE);
 
-  private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/partbuilder.png");
+  private static final Identifier BACKGROUND = Util.getResource("textures/gui/partbuilder.png");
 
   /** Part builder side panel */
   protected PartInfoPanelScreen infoPanelScreen;
@@ -52,31 +52,31 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
   private int recipeIndexOffset = 0;
   private boolean hasPatternInPatternSlot;
 
-  public PartBuilderScreen(PartBuilderContainer container, PlayerInventory playerInventory, ITextComponent title) {
+  public PartBuilderScreen(PartBuilderContainer container, PlayerInventory playerInventory, Text title) {
     super(container, playerInventory, title);
 
     this.infoPanelScreen = new PartInfoPanelScreen(this, container, playerInventory, title);
     this.infoPanelScreen.setTextScale(7/9f);
-    this.infoPanelScreen.ySize = this.ySize;
+    this.infoPanelScreen.backgroundHeight = this.backgroundHeight;
     this.addModule(this.infoPanelScreen);
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+  protected void drawBackground(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     this.drawBackground(matrices, BACKGROUND);
 
     // draw slot icons
-    this.drawIconEmpty(matrices, this.container.getPatternSlot(), Icons.PATTERN);
-    this.drawIconEmpty(matrices, this.container.getInputSlot(), Icons.INGOT);
+    this.drawIconEmpty(matrices, this.handler.getPatternSlot(), Icons.PATTERN);
+    this.drawIconEmpty(matrices, this.handler.getInputSlot(), Icons.INGOT);
 
     // draw scrollbar
-    assert this.minecraft != null;
-    this.minecraft.getTextureManager().bindTexture(BACKGROUND);
-    this.blit(matrices, this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
+    assert this.client != null;
+    this.client.getTextureManager().bindTexture(BACKGROUND);
+    this.drawTexture(matrices, this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
     this.drawRecipesBackground(matrices, mouseX, mouseY, this.cornerX + 51, this.cornerY + 15);
     this.drawRecipesItems(matrices, this.cornerX + 51, this.cornerY + 15);
 
-    super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
+    super.drawBackground(matrices, partialTicks, mouseX, mouseY);
   }
 
   /** Draw backgrounds for all patterns */
@@ -86,24 +86,24 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       int relative = i - this.recipeIndexOffset;
       int x = left + relative % 4 * 18;
       int y = top + (relative / 4) * 18;
-      int u = this.ySize;
-      if (i == this.container.getSelectedPartRecipe()) {
+      int u = this.backgroundHeight;
+      if (i == this.handler.getSelectedPartRecipe()) {
         u += 18;
       } else if (mouseX >= x && mouseY >= y && mouseX < x + 18 && mouseY < y + 18) {
         u += 36;
       }
-      this.blit(matrices, x, y, 0, u, 18, 18);
+      this.drawTexture(matrices, x, y, 0, u, 18, 18);
     }
   }
 
   /** Draw slot icons for all patterns */
   private void drawRecipesItems(MatrixStack matrices, int left, int top) {
     // use block texture list
-    assert this.minecraft != null;
-    this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-    Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+    assert this.client != null;
+    this.client.getTextureManager().bindTexture(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
+    Function<Identifier, Sprite> spriteGetter = this.client.getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
     // iterate all recipes
-    List<PartRecipe> list = this.container.getPartRecipes();
+    List<PartRecipe> list = this.handler.getPartRecipes();
     int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
     for (int i = this.recipeIndexOffset; i < max; ++i) {
       int relative = i - this.recipeIndexOffset;
@@ -111,23 +111,23 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       int y = top + (relative / 4) * 18 + 1;
       // get the sprite for the pattern and draw
       PartRecipe recipe = list.get(i);
-      ResourceLocation pattern = recipe.getPattern();
-      TextureAtlasSprite sprite = spriteGetter.apply(new ResourceLocation(pattern.getNamespace(), "gui/tinker_pattern/" + pattern.getPath()));
-      blit(matrices, x, y, 100, 16, 16, sprite);
+      Identifier pattern = recipe.getPattern();
+      Sprite sprite = spriteGetter.apply(new Identifier(pattern.getNamespace(), "gui/tinker_pattern/" + pattern.getPath()));
+      drawSprite(matrices, x, y, 100, 16, 16, sprite);
     }
   }
 
   @Override
   public void updateDisplay() {
     // update slider
-    this.hasPatternInPatternSlot = this.container.hasPatternInPatternSlot();
+    this.hasPatternInPatternSlot = this.handler.hasPatternInPatternSlot();
     if (!this.hasPatternInPatternSlot) {
       this.sliderProgress = 0.0F;
       this.recipeIndexOffset = 0;
     }
 
     // update part recipe cost
-    PartRecipe partRecipe = this.container.getPartRecipe();
+    PartRecipe partRecipe = this.handler.getPartRecipe();
     if (partRecipe != null) {
       this.infoPanelScreen.setPatternCost(partRecipe.getCost());
     } else {
@@ -135,7 +135,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     }
 
     // update material
-    MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
+    MaterialRecipe materialRecipe = this.handler.getMaterialRecipe();
     if (materialRecipe != null) {
       this.setDisplayForMaterial(materialRecipe.getMaterial());
     } else {
@@ -151,52 +151,52 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
    * @param material  New materia
    */
   private void setDisplayForMaterial(IMaterial material) {
-    this.infoPanelScreen.setCaption(new TranslationTextComponent(material.getTranslationKey()).modifyStyle(style -> style.setColor(material.getColor())));
+    this.infoPanelScreen.setCaption(new TranslatableText(material.getTranslationKey()).styled(style -> style.withColor(material.getColor())));
 
     // determine how much material we have
-    MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
+    MaterialRecipe materialRecipe = this.handler.getMaterialRecipe();
     if (materialRecipe != null) {
       // get exact number of material, rather than rounded
-      float value = materialRecipe.getMaterialValue(this.container.getCraftInventory());
-      IFormattableTextComponent formatted = new StringTextComponent(Util.df.format(value));
+      float value = materialRecipe.getMaterialValue(this.handler.getCraftInventory());
+      MutableText formatted = new LiteralText(Util.df.format(value));
 
       // if we have a part recipe, mark material red when not enough
-      PartRecipe partRecipe = this.container.getPartRecipe();
+      PartRecipe partRecipe = this.handler.getPartRecipe();
       if (partRecipe != null && value < partRecipe.getCost()) {
-        formatted = formatted.mergeStyle(TextFormatting.DARK_RED);
+        formatted = formatted.formatted(Formatting.DARK_RED);
       }
       this.infoPanelScreen.setMaterialValue(formatted);
     }
 
     // update stats and traits
-    List<ITextComponent> stats = Lists.newLinkedList();
-    List<ITextComponent> tips = Lists.newArrayList();
+    List<Text> stats = Lists.newLinkedList();
+    List<Text> tips = Lists.newArrayList();
 
     List<ModifierEntry> traits = material.getTraits();
     if (!traits.isEmpty()) {
       stats.add(TRAIT_TITLE);
-      tips.add(StringTextComponent.EMPTY);
+      tips.add(LiteralText.EMPTY);
       for (ModifierEntry trait : traits) {
         Modifier mod = trait.getModifier();
         stats.add(mod.getDisplayName(trait.getLevel()));
         tips.add(mod.getDescription());
       }
-      stats.add(StringTextComponent.EMPTY);
-      tips.add(StringTextComponent.EMPTY);
+      stats.add(LiteralText.EMPTY);
+      tips.add(LiteralText.EMPTY);
     }
 
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
-      List<ITextComponent> info = stat.getLocalizedInfo();
+      List<Text> info = stat.getLocalizedInfo();
 
       if (!info.isEmpty()) {
-        stats.add(stat.getLocalizedName().mergeStyle(TextFormatting.UNDERLINE));
-        tips.add(StringTextComponent.EMPTY);
+        stats.add(stat.getLocalizedName().formatted(Formatting.UNDERLINE));
+        tips.add(LiteralText.EMPTY);
 
         stats.addAll(info);
         tips.addAll(stat.getLocalizedDescriptions());
 
-        stats.add(StringTextComponent.EMPTY);
-        tips.add(StringTextComponent.EMPTY);
+        stats.add(LiteralText.EMPTY);
+        tips.add(LiteralText.EMPTY);
       }
     }
 
@@ -229,11 +229,11 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
         double buttonX = mouseX - (double) (x + relative % 4 * 18);
         double buttonY = mouseY - (double) (y + relative / 4 * 18);
 
-        assert this.minecraft != null;
-        if (buttonX >= 0.0D && buttonY >= 0.0D && buttonX < 18.0D && buttonY < 18.0D && this.container.enchantItem(this.minecraft.player, l)) {
-          Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
-          assert this.minecraft.playerController != null;
-          this.minecraft.playerController.sendEnchantPacket((this.container).windowId, l);
+        assert this.client != null;
+        if (buttonX >= 0.0D && buttonY >= 0.0D && buttonX < 18.0D && buttonY < 18.0D && this.handler.onButtonClick(this.client.player, l)) {
+          MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+          assert this.client.interactionManager != null;
+          this.client.interactionManager.clickButton((this.handler).syncId, l);
           return true;
         }
       }
@@ -294,13 +294,13 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
   /* Update error logic */
 
   @Override
-  public void error(ITextComponent message) {
+  public void error(Text message) {
     this.infoPanelScreen.setCaption(COMPONENT_ERROR);
     this.infoPanelScreen.setText(message);
   }
 
   @Override
-  public void warning(ITextComponent message) {
+  public void warning(Text message) {
     this.infoPanelScreen.setCaption(COMPONENT_WARNING);
     this.infoPanelScreen.setText(message);
   }
@@ -310,7 +310,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
 
   /** Gets the number of part recipes */
   private int getPartRecipeCount() {
-    return container.getPartRecipes().size();
+    return handler.getPartRecipes().size();
   }
 
   /** If true, we can scroll */

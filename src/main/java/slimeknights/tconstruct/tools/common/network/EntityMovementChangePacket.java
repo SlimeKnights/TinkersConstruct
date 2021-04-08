@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.common.network;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 
@@ -17,14 +17,14 @@ public class EntityMovementChangePacket implements IThreadsafePacket {
 
   public EntityMovementChangePacket(Entity entity) {
     this.entityID = entity.getEntityId();
-    this.x = entity.getMotion().x;
-    this.y = entity.getMotion().y;
-    this.z = entity.getMotion().z;
-    this.yaw = entity.rotationYaw;
-    this.pitch = entity.rotationPitch;
+    this.x = entity.getVelocity().x;
+    this.y = entity.getVelocity().y;
+    this.z = entity.getVelocity().z;
+    this.yaw = entity.yaw;
+    this.pitch = entity.pitch;
   }
 
-  public EntityMovementChangePacket(PacketBuffer buffer) {
+  public EntityMovementChangePacket(PacketByteBuf buffer) {
     this.entityID = buffer.readInt();
     this.x = buffer.readDouble();
     this.y = buffer.readDouble();
@@ -34,7 +34,7 @@ public class EntityMovementChangePacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(PacketBuffer packetBuffer) {
+  public void encode(PacketByteBuf packetBuffer) {
     packetBuffer.writeInt(this.entityID);
     packetBuffer.writeDouble(this.x);
     packetBuffer.writeDouble(this.y);
@@ -53,12 +53,12 @@ public class EntityMovementChangePacket implements IThreadsafePacket {
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(EntityMovementChangePacket packet) {
-      assert Minecraft.getInstance().world != null;
-      Entity entity = Minecraft.getInstance().world.getEntityByID(packet.entityID);
+      assert MinecraftClient.getInstance().world != null;
+      Entity entity = MinecraftClient.getInstance().world.getEntityById(packet.entityID);
       if (entity != null) {
-        entity.setMotion(packet.x, packet.y, packet.z);
-        entity.rotationYaw = packet.yaw;
-        entity.rotationPitch = packet.pitch;
+        entity.setVelocity(packet.x, packet.y, packet.z);
+        entity.yaw = packet.yaw;
+        entity.pitch = packet.pitch;
       }
     }
   }

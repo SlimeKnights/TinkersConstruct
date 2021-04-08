@@ -2,25 +2,25 @@ package slimeknights.tconstruct.smeltery.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import slimeknights.mantle.block.InventoryBlock;
 
 /** Shared logic for all multiblock structure controllers */
 public abstract class ControllerBlock extends InventoryBlock {
-  public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
-  public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
-  protected ControllerBlock(Properties builder) {
+  public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+  public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
+  protected ControllerBlock(Settings builder) {
     super(builder);
     this.setDefaultState(this.getDefaultState().with(ACTIVE, false));
   }
@@ -31,25 +31,25 @@ public abstract class ControllerBlock extends InventoryBlock {
    */
 
   @Override
-  protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+  protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
     builder.add(FACING, ACTIVE);
   }
 
   @Override
-  public BlockState getStateForPlacement(BlockItemUseContext context) {
-    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
+  public BlockState getPlacementState(ItemPlacementContext context) {
+    return this.getDefaultState().with(FACING, context.getPlayerFacing().getOpposite());
   }
 
   @Deprecated
   @Override
-  public BlockState rotate(BlockState state, Rotation rotation) {
+  public BlockState rotate(BlockState state, BlockRotation rotation) {
     return state.with(FACING, rotation.rotate(state.get(FACING)));
   }
 
   @Deprecated
   @Override
-  public BlockState mirror(BlockState state, Mirror mirror) {
-    return state.with(FACING, mirror.mirror(state.get(FACING)));
+  public BlockState mirror(BlockState state, BlockMirror mirror) {
+    return state.with(FACING, mirror.apply(state.get(FACING)));
   }
 
 
@@ -87,7 +87,7 @@ public abstract class ControllerBlock extends InventoryBlock {
    * @param front  Block front
    * @param side   Block side offset
    */
-  protected void spawnFireParticles(IWorld world, BlockState state, double x, double y, double z, double front, double side) {
+  protected void spawnFireParticles(WorldAccess world, BlockState state, double x, double y, double z, double front, double side) {
     switch(state.get(FACING)) {
       case WEST:
         world.addParticle(ParticleTypes.SMOKE, x - front, y, z + side, 0.0D, 0.0D, 0.0D);

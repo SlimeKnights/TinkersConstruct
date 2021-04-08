@@ -2,8 +2,8 @@ package slimeknights.tconstruct.plugin.jei;
 
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.Identifier;
 import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
   }
 
   @Override
-  public ResourceLocation getRecipeCategoryUid() {
+  public Identifier getRecipeCategoryUid() {
     return VanillaRecipeCategoryUid.CRAFTING;
   }
 
@@ -43,7 +43,7 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
     List<Slot> slots = new ArrayList<>();
 
     // 36 for player inventory
-    int totalSize = craftingStationContainer.inventorySlots.size();
+    int totalSize = craftingStationContainer.slots.size();
     int sideInventoryEnd = totalSize - 36;
 
     // first, add all inventory slots, ensures they are first for emptying the table

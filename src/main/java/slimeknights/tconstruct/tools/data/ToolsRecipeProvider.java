@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.data.CookingRecipeBuilder;
-import net.minecraft.data.CustomRecipeBuilder;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.data.server.recipe.ComplexRecipeJsonFactory;
+import net.minecraft.data.server.recipe.CookingRecipeJsonFactory;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.ItemTags;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
@@ -65,7 +65,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   }
 
   @Override
-  protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+  protected void generate(Consumer<RecipeJsonProvider> consumer) {
     this.addModifierRecipes(consumer);
     this.addMaterialsRecipes(consumer);
     this.addPartRecipes(consumer);
@@ -73,73 +73,73 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     this.addHeadRecipes(consumer);
   }
 
-  private void addModifierRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addModifierRecipes(Consumer<RecipeJsonProvider> consumer) {
     String folder = "tools/modifiers/";
 
     // reinforcement
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.reinforcement)
-                       .key('O', Items.OBSIDIAN)
-                       .key('G', TinkerSmeltery.blankCast)
-                       .patternLine("OOO")
-                       .patternLine("OGO")
-                       .patternLine("OOO")
-                       .addCriterion("has_center", hasItem(Tags.Items.INGOTS_GOLD))
-                       .build(consumer, prefix(TinkerModifiers.reinforcement, folder));
+    ShapedRecipeJsonFactory.create(TinkerModifiers.reinforcement)
+                       .input('O', Items.OBSIDIAN)
+                       .input('G', TinkerSmeltery.blankCast)
+                       .pattern("OOO")
+                       .pattern("OGO")
+                       .pattern("OOO")
+                       .criterion("has_center", conditionsFromTag(Tags.Items.INGOTS_GOLD))
+                       .offerTo(consumer, prefix(TinkerModifiers.reinforcement, folder));
 
     // expanders
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.ichorExpander)
-                       .key('P', Items.PISTON)
-                       .key('L', TinkerMaterials.tinkersBronze.getIngotTag())
+    ShapedRecipeJsonFactory.create(TinkerModifiers.ichorExpander)
+                       .input('P', Items.PISTON)
+                       .input('L', TinkerMaterials.tinkersBronze.getIngotTag())
                        .key('S', TinkerTags.Items.ICHOR_SLIMEBALL)
                        .patternLine(" P ")
                        .patternLine("SLS")
                        .patternLine(" P ")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.ICHOR_SLIMEBALL))
+                       .addCriterion("has_item", conditionsFromTag(TinkerTags.Items.ICHOR_SLIMEBALL))
                        .build(consumer, prefix(TinkerModifiers.ichorExpander, folder));
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.enderExpander)
-                       .key('P', Items.PISTON)
-                       .key('L', TinkerMaterials.manyullyn.getIngotTag())
+    ShapedRecipeJsonFactory.create(TinkerModifiers.enderExpander)
+                       .input('P', Items.PISTON)
+                       .input('L', TinkerMaterials.manyullyn.getIngotTag())
                        .key('S', TinkerTags.Items.ENDER_SLIMEBALL)
                        .patternLine(" P ")
                        .patternLine("SLS")
                        .patternLine(" P ")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.ENDER_SLIMEBALL))
+                       .addCriterion("has_item", conditionsFromTag(TinkerTags.Items.ENDER_SLIMEBALL))
                        .build(consumer, prefix(TinkerModifiers.enderExpander, folder));
 
     // silky cloth
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyCloth)
-                       .key('s', Tags.Items.STRING)
-                       .key('g', Tags.Items.INGOTS_GOLD)
-                       .patternLine("sss")
-                       .patternLine("sgs")
-                       .patternLine("sss")
-                       .addCriterion("has_item", hasItem(Tags.Items.INGOTS_GOLD))
-                       .build(consumer, prefix(TinkerModifiers.silkyCloth, folder));
+    ShapedRecipeJsonFactory.create(TinkerModifiers.silkyCloth)
+                       .input('s', Tags.Items.STRING)
+                       .input('g', Tags.Items.INGOTS_GOLD)
+                       .pattern("sss")
+                       .pattern("sgs")
+                       .pattern("sss")
+                       .criterion("has_item", conditionsFromTag(Tags.Items.INGOTS_GOLD))
+                       .offerTo(consumer, prefix(TinkerModifiers.silkyCloth, folder));
     // silky jewel
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyJewel)
-                       .key('c', TinkerModifiers.silkyCloth)
-                       .key('E', Items.EMERALD)
-                       .patternLine(" c ")
-                       .patternLine("cEc")
-                       .patternLine(" c ")
-                       .addCriterion("has_item", hasItem(TinkerModifiers.silkyCloth))
-                       .setGroup(TinkerModifiers.silkyJewel.getRegistryName().toString())
-                       .build(consumer, prefix(TinkerModifiers.silkyJewel, folder));
+    ShapedRecipeJsonFactory.create(TinkerModifiers.silkyJewel)
+                       .input('c', TinkerModifiers.silkyCloth)
+                       .input('E', Items.EMERALD)
+                       .pattern(" c ")
+                       .pattern("cEc")
+                       .pattern(" c ")
+                       .criterion("has_item", conditionsFromItem(TinkerModifiers.silkyCloth))
+                       .group(TinkerModifiers.silkyJewel.getRegistryName().toString())
+                       .offerTo(consumer, prefix(TinkerModifiers.silkyJewel, folder));
     registerPackingRecipe(consumer, "block", TinkerModifiers.silkyJewelBlock, "gem", TinkerModifiers.silkyJewel, folder);
 
     // slime crystals
     TinkerModifiers.slimeCrystal.forEach((type, crystal) -> {
-      IItemProvider slimeball = TinkerCommons.slimeball.get(type);
-      CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(slimeball), crystal, 1.0f, 400)
-                          .addCriterion("has_item", hasItem(slimeball))
-                          .build(consumer, folder + "slime_crystal/" + type.getString());
+      ItemConvertible slimeball = TinkerCommons.slimeball.get(type);
+      CookingRecipeJsonFactory.createBlasting(Ingredient.ofItems(slimeball), crystal, 1.0f, 400)
+                          .criterion("has_item", conditionsFromItem(slimeball))
+                          .offerTo(consumer, folder + "slime_crystal/" + type.asString());
     });
 
     // wither bone purifying
-    ShapelessRecipeBuilder.shapelessRecipe(Items.BONE)
-                          .addIngredient(TinkerTags.Items.WITHER_BONES)
-                          .addCriterion("has_bone", hasItem(TinkerTags.Items.WITHER_BONES))
-                          .build(withCondition(consumer, ConfigEnabledCondition.WITHER_BONE_CONVERSION), location(folder + "wither_bone_conversion"));
+    ShapelessRecipeJsonFactory.create(Items.BONE)
+                          .input(TinkerTags.Items.WITHER_BONES)
+                          .criterion("has_bone", conditionsFromTag(TinkerTags.Items.WITHER_BONES))
+                          .offerTo(withCondition(consumer, ConfigEnabledCondition.WITHER_BONE_CONVERSION), location(folder + "wither_bone_conversion"));
 
     // upgrades
     String upgradeFolder = folder + "upgrade/";
@@ -359,7 +359,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.harmonious, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.recapitated.get())
-                         .addInput(SizedIngredient.of(new IngredientWithout(Ingredient.fromTag(Tags.Items.HEADS), Ingredient.fromItems(Items.DRAGON_HEAD))))
+                         .addInput(SizedIngredient.of(new IngredientWithout(Ingredient.fromTag(Tags.Items.HEADS), Ingredient.ofItems(Items.DRAGON_HEAD))))
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.recapitated, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.resurrected.get())
@@ -379,7 +379,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefixR(TinkerModifiers.creativeAbility, upgradeFolder));
   }
 
-  private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addPartRecipes(Consumer<RecipeJsonProvider> consumer) {
     addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
     addPartRecipe(consumer, TinkerToolParts.axeHead, 2, TinkerSmeltery.axeHeadCast);
@@ -391,28 +391,28 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     addPartRecipe(consumer, TinkerToolParts.toughToolRod, 3, TinkerSmeltery.toughToolRodCast);
   }
 
-  private void addMaterialsRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addMaterialsRecipes(Consumer<RecipeJsonProvider> consumer) {
     // tier 1
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(Tags.Items.RODS_WOODEN), 1, 2, "wood/sticks");
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood/planks");
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood/logs");
     registerMaterial(consumer, MaterialIds.stone, new CompoundIngredient(
-      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.BASALT, Blocks.POLISHED_BASALT, Blocks.POLISHED_BLACKSTONE)
+      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.ofItems(Blocks.BASALT, Blocks.POLISHED_BASALT, Blocks.POLISHED_BLACKSTONE)
     ), 1, 1, "stone");
-    registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT), 1, 1, "flint");
+    registerMaterial(consumer, MaterialIds.flint, Ingredient.ofItems(Items.FLINT), 1, 1, "flint");
     registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone");
     // tier 2
     registerMetalMaterial(consumer, MaterialIds.iron, "iron", false);
-    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick), 1, 1, "seared_stone/brick");
+    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.ofItems(TinkerSmeltery.searedBrick), 1, 1, "seared_stone/brick");
     registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 4, 1, "seared_stone/block");
     registerMetalMaterial(consumer, MaterialIds.copper, "copper", false);
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.EARTH_SLIMEBALL), 1, 1, "slimewood/ball");
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.EARTH)), 4, 1, "slimewood/congealed");
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.EARTH)), 5, 1, "slimewood/block");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.ofItems(TinkerWorld.congealedSlime.get(SlimeType.EARTH)), 4, 1, "slimewood/congealed");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.ofItems(TinkerWorld.slime.get(SlimeType.EARTH)), 5, 1, "slimewood/block");
     registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
     // tier 3
     registerMetalMaterial(consumer, MaterialIds.slimesteel, "slimesteel", false);
-    registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
+    registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.ofItems(Items.OBSIDIAN), 1, 1, "nahuatl");
     registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "silicon_bronze", false);
     registerMetalMaterial(consumer, MaterialIds.pigIron, "pig_iron", false);
 
@@ -442,7 +442,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     //registerMaterial(consumer, MaterialIds.slimevine_ender, Ingredient.fromItems(TinkerWorld.enderSlimeVine), 1, 1, "slimevine_ender");
   }
 
-  private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addTinkerStationRecipes(Consumer<RecipeJsonProvider> consumer) {
     registerBuildingRecipe(consumer, TinkerTools.pickaxe);
     registerBuildingRecipe(consumer, TinkerTools.sledgeHammer);
 
@@ -456,16 +456,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerBuildingRecipe(consumer, TinkerTools.broadSword);
   }
 
-  private void addHeadRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addHeadRecipes(Consumer<RecipeJsonProvider> consumer) {
     String folder = "tools/beheading/";
     addHead(consumer, EntityType.ZOMBIE, Items.ZOMBIE_HEAD, folder);
     addHead(consumer, EntityType.CREEPER, Items.CREEPER_HEAD, folder);
     addHead(consumer, EntityType.SKELETON, Items.SKELETON_SKULL, folder);
     addHead(consumer, EntityType.WITHER_SKELETON, Items.WITHER_SKELETON_SKULL, folder);
-    CustomRecipeBuilder.customRecipe(TinkerModifiers.playerBeheadingSerializer.get()).build(consumer, locationString(folder + "player"));
+    ComplexRecipeJsonFactory.create(TinkerModifiers.playerBeheadingSerializer.get()).offerTo(consumer, locationString(folder + "player"));
   }
 
-  private void registerBuildingRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends ToolCore> sup) {
+  private void registerBuildingRecipe(Consumer<RecipeJsonProvider> consumer, Supplier<? extends ToolCore> sup) {
     // Base data
     ToolCore toolCore = sup.get();
     String name = Objects.requireNonNull(toolCore.getRegistryName()).getPath();
@@ -485,7 +485,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
    * @param cost      Part cost
    * @param cast      Part cast
    */
-  private void addPartRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends IMaterialItem> sup, int cost, CastItemObject cast) {
+  private void addPartRecipe(Consumer<RecipeJsonProvider> consumer, Supplier<? extends IMaterialItem> sup, int cost, CastItemObject cast) {
     String folder = "tools/parts/";
     // Base data
     IMaterialItem part = sup.get();
@@ -540,7 +540,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
    * @param needed    Number of items needed
    * @param saveName  Material save name
    */
-  private void registerMaterial(Consumer<IFinishedRecipe> consumer, MaterialId material, Ingredient input, int value, int needed, String saveName) {
+  private void registerMaterial(Consumer<RecipeJsonProvider> consumer, MaterialId material, Ingredient input, int value, int needed, String saveName) {
     MaterialRecipeBuilder.materialRecipe(material)
                          .setIngredient(input)
                          .setValue(value)
@@ -554,8 +554,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
    * @param material  Material
    * @param name      Material name
    */
-  private void registerMetalMaterial(Consumer<IFinishedRecipe> consumer, MaterialId material, String name, boolean optional) {
-    Consumer<IFinishedRecipe> wrapped = optional ? withCondition(consumer, tagCondition("ingots/" + name)) : consumer;
+  private void registerMetalMaterial(Consumer<RecipeJsonProvider> consumer, MaterialId material, String name, boolean optional) {
+    Consumer<RecipeJsonProvider> wrapped = optional ? withCondition(consumer, tagCondition("ingots/" + name)) : consumer;
     String matName = material.getPath();
     registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "ingots/" + name)), 1, 1, matName + "/ingot");
     wrapped = optional ? withCondition(consumer, tagCondition("nuggets/" + name)) : consumer;
@@ -571,7 +571,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
    * @param head      Head for the entity
    * @param folder    Output folder
    */
-  private void addHead(Consumer<IFinishedRecipe> consumer, EntityType<?> entity, IItemProvider head, String folder) {
+  private void addHead(Consumer<RecipeJsonProvider> consumer, EntityType<?> entity, ItemConvertible head, String folder) {
     BeheadingRecipeBuilder.beheading(EntityIngredient.of(entity), head)
                           .build(consumer, prefix(head, folder));
   }

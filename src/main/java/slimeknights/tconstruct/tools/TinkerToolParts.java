@@ -26,7 +26,7 @@ public final class TinkerToolParts extends TinkerModule {
     }
     return TinkerToolParts.pickaxeHead.get().getItemstackWithMaterial(materials.get(TConstruct.random.nextInt(materials.size())));
   });
-  private static final Item.Properties PARTS_PROPS = new Item.Properties().group(TAB_TOOL_PARTS);
+  private static final Item.Settings PARTS_PROPS = new Item.Settings().group(TAB_TOOL_PARTS);
 
   public static final ItemObject<ToolPartItem> pickaxeHead = ITEMS.register("pickaxe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> hammerHead = ITEMS.register("hammer_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));

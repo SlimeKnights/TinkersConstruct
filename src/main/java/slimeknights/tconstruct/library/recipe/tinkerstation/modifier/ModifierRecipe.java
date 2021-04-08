@@ -4,10 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
@@ -34,7 +34,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    */
   private final List<SizedIngredient> inputs;
 
-  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
+  public ModifierRecipe(Identifier id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
     super(id, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     this.inputs = inputs;
 
@@ -165,7 +165,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.modifierSerializer.get();
   }
 
@@ -181,17 +181,17 @@ public class ModifierRecipe extends AbstractModifierRecipe {
 
   public static class Serializer extends AbstractModifierRecipe.Serializer<ModifierRecipe> {
     @Override
-    public ModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+    public ModifierRecipe read(Identifier id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
                                String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
       return new ModifierRecipe(id, ingredients, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     }
 
     @Override
-    public ModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+    public ModifierRecipe read(Identifier id, PacketByteBuf buffer, Ingredient toolRequirement, ModifierMatch requirements,
                                String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
       int size = buffer.readVarInt();
-      ImmutableList.Builder<SizedIngredient> builder = ImmutableList.builder();
+      Builder<SizedIngredient> builder = ImmutableList.builder();
       for (int i = 0; i < size; i++) {
         builder.add(SizedIngredient.read(buffer));
       }
@@ -199,7 +199,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    public void write(PacketBuffer buffer, ModifierRecipe recipe) {
+    public void write(PacketByteBuf buffer, ModifierRecipe recipe) {
       super.write(buffer, recipe);
       buffer.writeVarInt(recipe.inputs.size());
       for (SizedIngredient ingredient : recipe.inputs) {

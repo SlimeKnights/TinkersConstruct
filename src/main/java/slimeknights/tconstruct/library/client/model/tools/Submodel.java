@@ -2,15 +2,15 @@ package slimeknights.tconstruct.library.client.model.tools;
 
 import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
-import net.minecraft.client.renderer.model.BlockModel;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.IModelTransform;
-import net.minecraft.client.renderer.model.IUnbakedModel;
-import net.minecraft.client.renderer.model.ItemModelGenerator;
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.ModelBakeSettings;
+import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.ItemModelGenerator;
+import net.minecraft.client.render.model.json.JsonUnbakedModel;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.client.model.IModelBuilder;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.ModelTransformComposition;
@@ -20,14 +20,14 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.function.Function;
 
-import static net.minecraft.client.renderer.model.ModelBakery.MODEL_GENERATED;
+import static net.minecraft.client.render.model.ModelLoader.GENERATION_MARKER;
 
 @AllArgsConstructor
 public class Submodel implements IModelGeometryPart {
 
   private final String name;
-  private final IUnbakedModel model;
-  private final IModelTransform modelTransform;
+  private final UnbakedModel model;
+  private final ModelBakeSettings modelTransform;
 
   @Override
   public String name() {
@@ -35,25 +35,25 @@ public class Submodel implements IModelGeometryPart {
   }
 
   @Override
-  public void addQuads(IModelConfiguration owner, IModelBuilder<?> modelBuilder, ModelBakery bakery, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ResourceLocation modelLocation) {
+  public void addQuads(IModelConfiguration owner, IModelBuilder<?> modelBuilder, ModelLoader bakery, Function<SpriteIdentifier, Sprite> spriteGetter, ModelBakeSettings modelTransform, Identifier modelLocation) {
     throw new UnsupportedOperationException("Attempted to call adQuads on a Submodel instance. Please don't.");
   }
 
-  public IBakedModel bakeModel(ModelBakery bakery, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ResourceLocation modelLocation) {
-    IUnbakedModel unbakedModel = model;
-    boolean uvLock = this.modelTransform.isUvLock() || modelTransform.isUvLock();
-    IModelTransform transform = new ModelTransformComposition(this.modelTransform, modelTransform, uvLock);
-    if (model instanceof BlockModel) {
-      BlockModel blockmodel = (BlockModel)model;
-      if (blockmodel.getRootModel() == MODEL_GENERATED) {
-        unbakedModel = new ItemModelGenerator().makeItemModel(spriteGetter, blockmodel);
+  public BakedModel bakeModel(ModelLoader bakery, Function<SpriteIdentifier, Sprite> spriteGetter, ModelBakeSettings modelTransform, Identifier modelLocation) {
+    UnbakedModel unbakedModel = model;
+    boolean uvLock = this.modelTransform.isShaded() || modelTransform.isShaded();
+    ModelBakeSettings transform = new ModelTransformComposition(this.modelTransform, modelTransform, uvLock);
+    if (model instanceof JsonUnbakedModel) {
+      JsonUnbakedModel blockmodel = (JsonUnbakedModel)model;
+      if (blockmodel.getRootModel() == GENERATION_MARKER) {
+        unbakedModel = new ItemModelGenerator().create(spriteGetter, blockmodel);
       }
     }
-    return unbakedModel.bakeModel(bakery, spriteGetter, transform, modelLocation);
+    return unbakedModel.bake(bakery, spriteGetter, transform, modelLocation);
   }
 
   @Override
-  public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
-    return model.getTextures(modelGetter, missingTextureErrors);
+  public Collection<SpriteIdentifier> getTextures(IModelConfiguration owner, Function<Identifier, UnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
+    return model.getTextureDependencies(modelGetter, missingTextureErrors);
   }
 }

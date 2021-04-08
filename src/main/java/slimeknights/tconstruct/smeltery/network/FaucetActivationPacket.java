@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.smeltery.network;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
@@ -17,13 +17,13 @@ public class FaucetActivationPacket extends FluidUpdatePacket {
     this.isPouring = isPouring;
   }
 
-  public FaucetActivationPacket(PacketBuffer buffer) {
+  public FaucetActivationPacket(PacketByteBuf buffer) {
     super(buffer);
     this.isPouring = buffer.readBoolean();
   }
 
   @Override
-  public void encode(PacketBuffer packetBuffer) {
+  public void encode(PacketByteBuf packetBuffer) {
     super.encode(packetBuffer);
     packetBuffer.writeBoolean(isPouring);
   }
@@ -36,8 +36,8 @@ public class FaucetActivationPacket extends FluidUpdatePacket {
   /** Safely runs client side only code in a method only called on client */
   private static class HandleClient {
     private static void handle(FaucetActivationPacket packet) {
-      assert Minecraft.getInstance().world != null;
-      TileEntity te = Minecraft.getInstance().world.getTileEntity(packet.pos);
+      assert MinecraftClient.getInstance().world != null;
+      BlockEntity te = MinecraftClient.getInstance().world.getBlockEntity(packet.pos);
       if (te instanceof FaucetTileEntity) {
         ((FaucetTileEntity) te).onActivationPacket(packet.fluid, packet.isPouring);
       }

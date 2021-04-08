@@ -3,14 +3,14 @@ package slimeknights.tconstruct.library.recipe.casting.container;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import net.minecraft.item.Item;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * Serializer for {@link ContainerFillingRecipe}
@@ -18,19 +18,19 @@ import org.jetbrains.annotations.Nullable;
  */
 @AllArgsConstructor
 public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> extends RecipeSerializer<T> {
-  private final ContainerFillingRecipeSerializer.IFactory<T> factory;
+  private final IFactory<T> factory;
 
   @Override
-  public T read(ResourceLocation recipeId, JsonObject json) {
-    String group = JSONUtils.getString(json, "group", "");
-    int fluidAmount = JSONUtils.getInt(json, "fluid_amount");
-    Item result = JSONUtils.getItem(json, "container");
+  public T read(Identifier recipeId, JsonObject json) {
+    String group = JsonHelper.getString(json, "group", "");
+    int fluidAmount = JsonHelper.getInt(json, "fluid_amount");
+    Item result = JsonHelper.getItem(json, "container");
     return this.factory.create(recipeId, group, fluidAmount, result);
   }
 
   @Nullable
   @Override
-  public T read(ResourceLocation recipeId, PacketBuffer buffer) {
+  public T read(Identifier recipeId, PacketByteBuf buffer) {
     try {
       String group = buffer.readString(Short.MAX_VALUE);
       int fluidAmount = buffer.readInt();
@@ -43,7 +43,7 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
   }
 
   @Override
-  public void write(PacketBuffer buffer, T recipe) {
+  public void write(PacketByteBuf buffer, T recipe) {
     try {
       buffer.writeString(recipe.group);
       buffer.writeInt(recipe.fluidAmount);
@@ -59,6 +59,6 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
    * @param <T>  Recipe class type
    */
   public interface IFactory<T extends ContainerFillingRecipe> {
-    T create(ResourceLocation idIn, String groupIn, int fluidAmount, Item resultIn);
+    T create(Identifier idIn, String groupIn, int fluidAmount, Item resultIn);
   }
 }

@@ -2,16 +2,16 @@ package slimeknights.tconstruct.library.recipe.entitymelting;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -28,18 +28,18 @@ public class EntityMeltingRecipeBuilder extends AbstractRecipeBuilder<EntityMelt
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<RecipeJsonProvider> consumer) {
     build(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "entity_melting");
+  public void build(Consumer<RecipeJsonProvider> consumer, Identifier id) {
+    Identifier advancementId = this.buildOptionalAdvancement(id, "entity_melting");
     consumer.accept(new FinishedRecipe(id, advancementId));
   }
 
   private class FinishedRecipe extends AbstractFinishedRecipe {
-    public FinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public FinishedRecipe(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
@@ -51,7 +51,7 @@ public class EntityMeltingRecipeBuilder extends AbstractRecipeBuilder<EntityMelt
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.entityMeltingSerializer.get();
     }
   }

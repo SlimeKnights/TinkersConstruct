@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.free;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
@@ -15,24 +15,24 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class OverslimeModifier extends SingleUseModifier {
   private static final String KEY_OVERSLIME_AMOUNT = Util.makeTranslationKey("gui", "amount");
   /** Key for remaining overslime on a tool */
-  private static final ResourceLocation KEY_OVERSLIME = Util.getResource("overslime");
+  private static final Identifier KEY_OVERSLIME = Util.getResource("overslime");
   /** Key for max overslime on a tool */
-  private static final ResourceLocation KEY_OVERSLIME_CAP = Util.getResource("overslime_cap");
+  private static final Identifier KEY_OVERSLIME_CAP = Util.getResource("overslime_cap");
   /** Key marking another modifier as an overslime "friend". If no friends exist, overslime causes some debuffs */
-  public static final ResourceLocation KEY_OVERSLIME_FRIEND = Util.getResource("overslime_friend");
+  public static final Identifier KEY_OVERSLIME_FRIEND = Util.getResource("overslime_friend");
 
   public OverslimeModifier() {
     super(0x71DC85);
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
-    return getDisplayName().deepCopy().appendString(": " + getOverslime(tool) + " / " + getCap(tool));
+  public Text getDisplayName(IModifierToolStack tool, int level) {
+    return getDisplayName().shallowCopy().append(": " + getOverslime(tool) + " / " + getCap(tool));
   }
 
 

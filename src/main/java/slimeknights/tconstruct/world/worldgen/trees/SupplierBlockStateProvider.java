@@ -3,8 +3,8 @@ package slimeknights.tconstruct.world.worldgen.trees;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.world.gen.stateprovider.BlockStateProviderType;
 import slimeknights.tconstruct.world.TinkerStructures;
 
 import java.util.Random;
@@ -27,7 +27,7 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
   }
 
   @Override
-  protected BlockStateProviderType<?> getProviderType() {
+  protected BlockStateProviderType<?> getType() {
     return TinkerStructures.supplierBlockstateProvider.get();
   }
 

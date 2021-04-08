@@ -2,11 +2,11 @@ package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -44,9 +44,9 @@ public class SmelteryTank implements IFluidHandler {
    * Called when the fluids change to sync to client
    */
   public void syncFluids() {
-    TileEntity te = parent.getTileEntity();
+    BlockEntity te = parent.getTileEntity();
     World world = te.getWorld();
-    if (world != null && !world.isRemote) {
+    if (world != null && !world.isClient) {
       BlockPos pos = te.getPos();
       TinkerNetwork.getInstance().sendToClientsAround(new SmelteryTankUpdatePacket(pos, fluids), world, pos);
     }
@@ -263,10 +263,10 @@ public class SmelteryTank implements IFluidHandler {
   }
 
   /** Writes the tank to NBT */
-  public CompoundNBT write(CompoundNBT nbt) {
-    ListNBT list = new ListNBT();
+  public CompoundTag write(CompoundTag nbt) {
+    ListTag list = new ListTag();
     for (FluidStack liquid : fluids) {
-      CompoundNBT fluidTag = new CompoundNBT();
+      CompoundTag fluidTag = new CompoundTag();
       liquid.writeToNBT(fluidTag);
       list.add(fluidTag);
     }
@@ -276,12 +276,12 @@ public class SmelteryTank implements IFluidHandler {
   }
 
   /** Reads the tank from NBT */
-  public void read(CompoundNBT tag) {
-    ListNBT list = tag.getList(TAG_FLUIDS, NBT.TAG_COMPOUND);
+  public void read(CompoundTag tag) {
+    ListTag list = tag.getList(TAG_FLUIDS, NBT.TAG_COMPOUND);
     fluids.clear();
     contained = 0;
     for (int i = 0; i < list.size(); i++) {
-      CompoundNBT fluidTag = list.getCompound(i);
+      CompoundTag fluidTag = list.getCompound(i);
       FluidStack fluid = FluidStack.loadFluidStackFromNBT(fluidTag);
       if (!fluid.isEmpty()) {
         fluids.add(fluid);

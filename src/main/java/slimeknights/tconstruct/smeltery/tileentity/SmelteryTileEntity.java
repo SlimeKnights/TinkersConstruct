@@ -2,20 +2,20 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import lombok.Getter;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.property.Properties;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -48,7 +48,7 @@ import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,7 +56,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class SmelteryTileEntity extends NamableTileEntity implements ITickableTileEntity, IMasterLogic, ISmelteryTankHandler {
+public class SmelteryTileEntity extends NamableTileEntity implements Tickable, IMasterLogic, ISmelteryTankHandler {
   private static final String TAG_STRUCTURE = "structure";
   private static final String TAG_TANK = "tank";
   private static final String TAG_INVENTORY = "inventory";
@@ -103,7 +103,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /** If true, fluids have changed since the last update and should be synced to the client, synced at most once every 4 ticks */
   private boolean fluidUpdateQueued = false;
   /** Cache of the bounds for the case of no structure */
-  private AxisAlignedBB defaultBounds;
+  private Box defaultBounds;
 
   /** Module handling alloys */
   private final SmelteryAlloyTank alloyTank = new SmelteryAlloyTank(tank);
@@ -122,12 +122,12 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   private final Consumer<ItemStack> dropItem = this::dropItem;
 
   public SmelteryTileEntity() {
-    super(TinkerSmeltery.smeltery.get(), new TranslationTextComponent(Util.makeTranslationKey("gui", "smeltery")));
+    super(TinkerSmeltery.smeltery.get(), new TranslatableText(Util.makeTranslationKey("gui", "smeltery")));
   }
 
   @Override
   public void tick() {
-    if (world == null || world.isRemote) {
+    if (world == null || world.isClient) {
       return;
     }
 
@@ -224,14 +224,14 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
    */
   protected void dropItem(ItemStack stack) {
     assert world != null;
-    if (!world.isRemote && !stack.isEmpty()) {
-      double x = (double)(world.rand.nextFloat() * 0.5F) + 0.25D;
-      double y = (double)(world.rand.nextFloat() * 0.5F) + 0.25D;
-      double z = (double)(world.rand.nextFloat() * 0.5F) + 0.25D;
-      BlockPos pos = this.pos.offset(getBlockState().get(ControllerBlock.FACING));
+    if (!world.isClient && !stack.isEmpty()) {
+      double x = (double)(world.random.nextFloat() * 0.5F) + 0.25D;
+      double y = (double)(world.random.nextFloat() * 0.5F) + 0.25D;
+      double z = (double)(world.random.nextFloat() * 0.5F) + 0.25D;
+      BlockPos pos = this.pos.offset(getCachedState().get(ControllerBlock.FACING));
       ItemEntity itementity = new ItemEntity(world, (double)pos.getX() + x, (double)pos.getY() + y, (double)pos.getZ() + z, stack);
-      itementity.setDefaultPickupDelay();
-      world.addEntity(itementity);
+      itementity.setToDefaultPickupDelay();
+      world.spawnEntity(itementity);
     }
   }
 
@@ -281,19 +281,19 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
    * Attempts to locate a valid smeltery structure
    */
   protected void checkStructure() {
-    if (world == null || world.isRemote) {
+    if (world == null || world.isClient) {
       return;
     }
 
     // TODO: validate the block is correct?
-    boolean wasActive = getBlockState().get(ControllerBlock.ACTIVE);
+    boolean wasActive = getCachedState().get(ControllerBlock.ACTIVE);
     StructureData oldStructure = structure;
-    StructureData newStructure = multiblock.detectMultiblock(world, pos, getBlockState().get(BlockStateProperties.HORIZONTAL_FACING));
+    StructureData newStructure = multiblock.detectMultiblock(world, pos, getCachedState().get(Properties.HORIZONTAL_FACING));
 
     // update block state
     boolean active = newStructure != null;
     if (active != wasActive) {
-      world.setBlockState(pos, getBlockState().with(ControllerBlock.ACTIVE, active));
+      world.setBlockState(pos, getCachedState().with(ControllerBlock.ACTIVE, active));
     }
 
     // structure info updates
@@ -363,12 +363,12 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
    * @param fluid  Fluid
    */
   private void updateDisplayFluid(Fluid fluid) {
-    if (world != null && world.isRemote) {
+    if (world != null && world.isClient) {
       // update ourself
       modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
       this.requestModelDataUpdate();
-      BlockState state = getBlockState();
-      world.notifyBlockUpdate(pos, state, state, 48);
+      BlockState state = getCachedState();
+      world.updateListeners(pos, state, state, 48);
 
       // update all listeners
       Iterator<WeakReference<IDisplayFluidListener>> iterator = fluidDisplayListeners.iterator();
@@ -407,11 +407,11 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   }
 
   @Override
-  public AxisAlignedBB getRenderBoundingBox() {
+  public Box getRenderBoundingBox() {
     if (structure != null) {
       return structure.getBounds();
     } else if (defaultBounds == null) {
-      defaultBounds = new AxisAlignedBB(pos, pos.add(1, 1, 1));
+      defaultBounds = new Box(pos, pos.add(1, 1, 1));
     }
     return defaultBounds;
   }
@@ -446,7 +446,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
 
   @Nullable
   @Override
-  public Container createMenu(int id, PlayerInventory inv, PlayerEntity player) {
+  public ScreenHandler createMenu(int id, PlayerInventory inv, PlayerEntity player) {
     return new SmelteryContainer(id, inv, this);
   }
 
@@ -472,8 +472,8 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /* NBT */
 
   @Override
-  public void read(BlockState state, CompoundNBT nbt) {
-    super.read(state, nbt);
+  public void fromTag(BlockState state, CompoundTag nbt) {
+    super.fromTag(state, nbt);
     if (nbt.contains(TAG_TANK, NBT.TAG_COMPOUND)) {
       tank.read(nbt.getCompound(TAG_TANK));
       Fluid first = tank.getFluidInTank(0).getFluid();
@@ -494,9 +494,9 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT compound) {
+  public CompoundTag toTag(CompoundTag compound) {
     // NBT that just writes to disk
-    compound = super.write(compound);
+    compound = super.toTag(compound);
     if (structure != null) {
       compound.put(TAG_STRUCTURE, structure.writeToNBT());
     }
@@ -505,17 +505,17 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   }
 
   @Override
-  public void writeSynced(CompoundNBT compound) {
+  public void writeSynced(CompoundTag compound) {
     // NBT that writes to disk and syncs to client
     super.writeSynced(compound);
-    compound.put(TAG_TANK, tank.write(new CompoundNBT()));
+    compound.put(TAG_TANK, tank.write(new CompoundTag()));
     compound.put(TAG_INVENTORY, meltingInventory.writeToNBT());
   }
 
   @Override
-  public CompoundNBT getUpdateTag() {
+  public CompoundTag toInitialChunkDataTag() {
     // NBT that just syncs to client
-    CompoundNBT nbt = super.getUpdateTag();
+    CompoundTag nbt = super.toInitialChunkDataTag();
     if (structure != null) {
       nbt.put(TAG_STRUCTURE, structure.writeClientNBT());
     }

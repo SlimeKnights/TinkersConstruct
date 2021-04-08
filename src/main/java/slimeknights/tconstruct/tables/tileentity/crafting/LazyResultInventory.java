@@ -2,10 +2,10 @@ package slimeknights.tconstruct.tables.tileentity.crafting;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +13,7 @@ import java.util.Objects;
  * It will calculate the result when requested based on the methods in {@link ILazyCrafter}, and update other slots on recipe take
  */
 @RequiredArgsConstructor
-public class LazyResultInventory implements IInventory {
+public class LazyResultInventory implements Inventory {
   private final ILazyCrafter crafter;
 
   /** Cache of the last result */
@@ -34,12 +34,12 @@ public class LazyResultInventory implements IInventory {
   /* Inventory logic */
 
   @Override
-  public ItemStack getStackInSlot(int index) {
+  public ItemStack getStack(int index) {
     return getResult();
   }
 
   @Override
-  public int getSizeInventory() {
+  public int size() {
     return 1;
   }
 
@@ -70,7 +70,7 @@ public class LazyResultInventory implements IInventory {
    */
   @Deprecated
   @Override
-  public ItemStack removeStackFromSlot(int index) {
+  public ItemStack removeStack(int index) {
     return getResult().copy();
   }
 
@@ -83,7 +83,7 @@ public class LazyResultInventory implements IInventory {
    */
   @Deprecated
   @Override
-  public ItemStack decrStackSize(int index, int count) {
+  public ItemStack removeStack(int index, int count) {
     return getResult().copy();
   }
 
@@ -100,7 +100,7 @@ public class LazyResultInventory implements IInventory {
   /** @deprecated Unsupported method */
   @Deprecated
   @Override
-  public void setInventorySlotContents(int index, ItemStack stack) {}
+  public void setStack(int index, ItemStack stack) {}
 
   /** @deprecated Unused method */
   @Deprecated
@@ -108,7 +108,7 @@ public class LazyResultInventory implements IInventory {
   public void markDirty() {}
 
   @Override
-  public boolean isUsableByPlayer(PlayerEntity player) {
+  public boolean canPlayerUse(PlayerEntity player) {
     return true;
   }
 

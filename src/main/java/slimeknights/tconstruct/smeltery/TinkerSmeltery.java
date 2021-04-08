@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.smeltery;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -93,20 +93,20 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Block base properties
    */
-  private static final Item.Properties SMELTERY_PROPS = new Item.Properties().group(TAB_SMELTERY);
+  private static final Item.Settings SMELTERY_PROPS = new Item.Settings().group(TAB_SMELTERY);
   private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, SMELTERY_PROPS);
 
   /*
    * Blocks
    */
-  private static final Block.Properties SMELTERY_GLASS = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).notSolid().setSuffocates((s,w,p) -> false);
+  private static final Block.Properties SMELTERY_GLASS = builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.METAL).requiresTool().strength(3.0F, 9.0F).nonOpaque().suffocates((s,w,p) -> false);
   public static final ItemObject<Block> grout = BLOCKS.register("grout", GENERIC_SAND_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<ClearGlassPaneBlock> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
 
   // seared
   /** Properties for all smeltery blocks */
-  private static final Block.Properties SMELTERY = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F);
+  private static final Block.Properties SMELTERY = builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.METAL).requiresTool().strength(3.0F, 9.0F);
   /** Constructor to create a seared block */
   private static final Supplier<SearedBlock> SEARED_BLOCK = () -> new SearedBlock(SMELTERY);
   public static final BuildingBlockObject searedStone = BLOCKS.registerBuilding("seared_stone", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
@@ -116,7 +116,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Block> searedCrackedBricks = BLOCKS.register("seared_cracked_bricks", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> searedFancyBricks = BLOCKS.register("seared_fancy_bricks", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> searedTriangleBricks = BLOCKS.register("seared_triangle_bricks", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> searedLadder = BLOCKS.register("seared_ladder", () -> new SearedLadderBlock(builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).notSolid()), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> searedLadder = BLOCKS.register("seared_ladder", () -> new SearedLadderBlock(builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.METAL).requiresTool().strength(3.0F, 9.0F).nonOpaque()), TOOLTIP_BLOCK_ITEM);
 
   // peripherals
   public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
@@ -124,16 +124,16 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new SmelteryIOBlock(SMELTERY, ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
 
   /** Properties for a faucet block */
-  private static final Block.Properties FAUCET = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).notSolid();
-  public static final EnumObject<TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), type -> new SearedTankBlock(SMELTERY_GLASS, type.getCapacity()), b -> new TankItem(b, SMELTERY_PROPS));
+  private static final Block.Properties FAUCET = builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.METAL).requiresTool().strength(3.0F, 9.0F).nonOpaque();
+  public static final EnumObject<TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", TankType.values(), type -> new SearedTankBlock(SMELTERY_GLASS, type.getCapacity()), b -> new TankItem(b, SMELTERY_PROPS));
   public static final ItemObject<FaucetBlock> searedFaucet = BLOCKS.register("faucet", () -> new FaucetBlock(FAUCET), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<ChannelBlock> searedChannel = BLOCKS.register("channel", () -> new ChannelBlock(FAUCET), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<CastingBasinBlock> castingBasin = BLOCKS.register("casting_basin", () -> new CastingBasinBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<CastingTableBlock> castingTable = BLOCKS.register("casting_table", () -> new CastingTableBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
 
   // controllers
-  private static final Supplier<Block.Properties> CONTROLLER = () -> builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).setLightLevel(s -> s.get(ControllerBlock.ACTIVE) ? 13 : 0);
-  public static final ItemObject<MelterBlock> searedMelter = BLOCKS.register("melter", () -> new MelterBlock(CONTROLLER.get().notSolid()), TOOLTIP_BLOCK_ITEM);
+  private static final Supplier<Block.Properties> CONTROLLER = () -> builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.METAL).requiresTool().strength(3.0F, 9.0F).luminance(s -> s.get(ControllerBlock.ACTIVE) ? 13 : 0);
+  public static final ItemObject<MelterBlock> searedMelter = BLOCKS.register("melter", () -> new MelterBlock(CONTROLLER.get().nonOpaque()), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<SmelteryControllerBlock> smelteryController = BLOCKS.register("smeltery_controller", () -> new SmelteryControllerBlock(CONTROLLER.get()), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<HeaterBlock> searedHeater = BLOCKS.register("seared_heater", () -> new HeaterBlock(CONTROLLER.get()), TOOLTIP_BLOCK_ITEM);
 
@@ -141,33 +141,33 @@ public final class TinkerSmeltery extends TinkerModule {
    * Tile entities
    */
   // smeltery
-  public static final RegistryObject<TileEntityType<SmelteryComponentTileEntity>> smelteryComponent = TILE_ENTITIES.register("smeltery_component", SmelteryComponentTileEntity::new, (set) -> {
+  public static final RegistryObject<BlockEntityType<SmelteryComponentTileEntity>> smelteryComponent = TILE_ENTITIES.register("smeltery_component", SmelteryComponentTileEntity::new, (set) -> {
     set.addAll(searedStone.values());
     set.addAll(searedCobble.values());
     set.addAll(searedBricks.values());
     set.addAll(searedPaver.values());
     set.add(searedCrackedBricks.get(), searedFancyBricks.get(), searedTriangleBricks.get(), searedLadder.get(), searedGlass.get());
   });
-  public static final RegistryObject<TileEntityType<SmelteryFluidIO>> drain = TILE_ENTITIES.register("drain", DrainTileEntity::new, searedDrain);
-  public static final RegistryObject<TileEntityType<ChuteTileEntity>> chute = TILE_ENTITIES.register("chute", ChuteTileEntity::new, searedChute);
-  public static final RegistryObject<TileEntityType<DuctTileEntity>> duct = TILE_ENTITIES.register("duct", DuctTileEntity::new, searedDuct);
-  public static final RegistryObject<TileEntityType<TankTileEntity>> tank = TILE_ENTITIES.register("tank", TankTileEntity::new, (set) -> set.addAll(searedTank.values()));
+  public static final RegistryObject<BlockEntityType<SmelteryFluidIO>> drain = TILE_ENTITIES.register("drain", DrainTileEntity::new, searedDrain);
+  public static final RegistryObject<BlockEntityType<ChuteTileEntity>> chute = TILE_ENTITIES.register("chute", ChuteTileEntity::new, searedChute);
+  public static final RegistryObject<BlockEntityType<DuctTileEntity>> duct = TILE_ENTITIES.register("duct", DuctTileEntity::new, searedDuct);
+  public static final RegistryObject<BlockEntityType<TankTileEntity>> tank = TILE_ENTITIES.register("tank", TankTileEntity::new, (set) -> set.addAll(searedTank.values()));
   // controller
-  public static final RegistryObject<TileEntityType<MelterTileEntity>> melter = TILE_ENTITIES.register("melter", MelterTileEntity::new, searedMelter);
-  public static final RegistryObject<TileEntityType<SmelteryTileEntity>> smeltery = TILE_ENTITIES.register("smeltery", SmelteryTileEntity::new, smelteryController);
-  public static final RegistryObject<TileEntityType<HeaterTileEntity>> heater = TILE_ENTITIES.register("heater", HeaterTileEntity::new, searedHeater);
+  public static final RegistryObject<BlockEntityType<MelterTileEntity>> melter = TILE_ENTITIES.register("melter", MelterTileEntity::new, searedMelter);
+  public static final RegistryObject<BlockEntityType<SmelteryTileEntity>> smeltery = TILE_ENTITIES.register("smeltery", SmelteryTileEntity::new, smelteryController);
+  public static final RegistryObject<BlockEntityType<HeaterTileEntity>> heater = TILE_ENTITIES.register("heater", HeaterTileEntity::new, searedHeater);
   // fluid transfer
-  public static final RegistryObject<TileEntityType<FaucetTileEntity>> faucet = TILE_ENTITIES.register("faucet", FaucetTileEntity::new, searedFaucet);
-  public static final RegistryObject<TileEntityType<ChannelTileEntity>> channel = TILE_ENTITIES.register("channel", ChannelTileEntity::new, searedChannel);
+  public static final RegistryObject<BlockEntityType<FaucetTileEntity>> faucet = TILE_ENTITIES.register("faucet", FaucetTileEntity::new, searedFaucet);
+  public static final RegistryObject<BlockEntityType<ChannelTileEntity>> channel = TILE_ENTITIES.register("channel", ChannelTileEntity::new, searedChannel);
   // casting
-  public static final RegistryObject<TileEntityType<CastingTileEntity>> basin = TILE_ENTITIES.register("basin", CastingTileEntity.Basin::new, castingBasin);
-  public static final RegistryObject<TileEntityType<CastingTileEntity>> table = TILE_ENTITIES.register("table", CastingTileEntity.Table::new, castingTable);
+  public static final RegistryObject<BlockEntityType<CastingTileEntity>> basin = TILE_ENTITIES.register("basin", CastingTileEntity.Basin::new, castingBasin);
+  public static final RegistryObject<BlockEntityType<CastingTileEntity>> table = TILE_ENTITIES.register("table", CastingTileEntity.Table::new, castingTable);
 
   /*
    * Items
    */
   public static final ItemObject<Item> searedBrick = ITEMS.register("seared_brick", SMELTERY_PROPS);
-  public static final ItemObject<Item> copperCan = ITEMS.register("copper_can", () -> new CopperCanItem(new Item.Properties().maxStackSize(16).group(TAB_SMELTERY)));
+  public static final ItemObject<Item> copperCan = ITEMS.register("copper_can", () -> new CopperCanItem(new Item.Settings().maxCount(16).group(TAB_SMELTERY)));
 
   // casts
   // basic
@@ -213,27 +213,27 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<MoldingRecipe.Serializer<MoldingRecipe.Table>> moldingTableSerializer = RECIPE_SERIALIZERS.register("molding_table", () -> new MoldingRecipe.Serializer<>(MoldingRecipe.Table::new));
   public static final RegistryObject<MoldingRecipe.Serializer<MoldingRecipe.Basin>> moldingBasinSerializer = RECIPE_SERIALIZERS.register("molding_basin", () -> new MoldingRecipe.Serializer<>(MoldingRecipe.Basin::new));
   // melting
-  public static final RegistryObject<IRecipeSerializer<MeltingRecipe>> meltingSerializer = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipe.Serializer<>(MeltingRecipe::new));
-  public static final RegistryObject<IRecipeSerializer<MeltingRecipe>> oreMeltingSerializer = RECIPE_SERIALIZERS.register("ore_melting", () -> new MeltingRecipe.Serializer<>(OreMeltingRecipe::new));
-  public static final RegistryObject<IRecipeSerializer<MeltingRecipe>> damagableMeltingSerializer = RECIPE_SERIALIZERS.register("damagable_melting", () -> new MeltingRecipe.Serializer<>(DamagableMeltingRecipe::new));
-  public static final RegistryObject<IRecipeSerializer<MaterialMeltingRecipe>> materialMeltingSerializer = RECIPE_SERIALIZERS.register("material_melting", MaterialMeltingRecipe.Serializer::new);
-  public static final RegistryObject<IRecipeSerializer<MeltingFuel>> fuelSerializer = RECIPE_SERIALIZERS.register("melting_fuel", MeltingFuel.Serializer::new);
-  public static final RegistryObject<IRecipeSerializer<EntityMeltingRecipe>> entityMeltingSerializer = RECIPE_SERIALIZERS.register("entity_melting", EntityMeltingRecipe.Serializer::new);
+  public static final RegistryObject<RecipeSerializer<MeltingRecipe>> meltingSerializer = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipe.Serializer<>(MeltingRecipe::new));
+  public static final RegistryObject<RecipeSerializer<MeltingRecipe>> oreMeltingSerializer = RECIPE_SERIALIZERS.register("ore_melting", () -> new MeltingRecipe.Serializer<>(OreMeltingRecipe::new));
+  public static final RegistryObject<RecipeSerializer<MeltingRecipe>> damagableMeltingSerializer = RECIPE_SERIALIZERS.register("damagable_melting", () -> new MeltingRecipe.Serializer<>(DamagableMeltingRecipe::new));
+  public static final RegistryObject<RecipeSerializer<MaterialMeltingRecipe>> materialMeltingSerializer = RECIPE_SERIALIZERS.register("material_melting", MaterialMeltingRecipe.Serializer::new);
+  public static final RegistryObject<RecipeSerializer<MeltingFuel>> fuelSerializer = RECIPE_SERIALIZERS.register("melting_fuel", MeltingFuel.Serializer::new);
+  public static final RegistryObject<RecipeSerializer<EntityMeltingRecipe>> entityMeltingSerializer = RECIPE_SERIALIZERS.register("entity_melting", EntityMeltingRecipe.Serializer::new);
   // alloying
-  public static final RegistryObject<IRecipeSerializer<AlloyRecipe>> alloyingSerializer = RECIPE_SERIALIZERS.register("alloy", AlloyRecipe.Serializer::new);
+  public static final RegistryObject<RecipeSerializer<AlloyRecipe>> alloyingSerializer = RECIPE_SERIALIZERS.register("alloy", AlloyRecipe.Serializer::new);
 
   /*
    * Inventory
    */
-  public static final RegistryObject<ContainerType<MelterContainer>> melterContainer = CONTAINERS.register("melter", MelterContainer::new);
-  public static final RegistryObject<ContainerType<SmelteryContainer>> smelteryContainer = CONTAINERS.register("smeltery", SmelteryContainer::new);
-  public static final RegistryObject<ContainerType<SingleItemContainer>> singleItemContainer = CONTAINERS.register("single_item", SingleItemContainer::new);
+  public static final RegistryObject<ScreenHandlerType<MelterContainer>> melterContainer = CONTAINERS.register("melter", MelterContainer::new);
+  public static final RegistryObject<ScreenHandlerType<SmelteryContainer>> smelteryContainer = CONTAINERS.register("smeltery", SmelteryContainer::new);
+  public static final RegistryObject<ScreenHandlerType<SingleItemContainer>> singleItemContainer = CONTAINERS.register("single_item", SingleItemContainer::new);
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
     if (event.includeServer()) {
       DataGenerator datagenerator = event.getGenerator();
-      datagenerator.addProvider(new SmelteryRecipeProvider(datagenerator));
+      datagenerator.install(new SmelteryRecipeProvider(datagenerator));
     }
   }
 }

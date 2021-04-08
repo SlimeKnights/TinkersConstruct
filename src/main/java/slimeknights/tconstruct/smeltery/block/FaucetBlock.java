@@ -2,63 +2,65 @@ package slimeknights.tconstruct.smeltery.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.particles.RedstoneParticleData;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.function.BooleanBiFunction;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.WorldAccess;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Optional;
 import java.util.Random;
 
 public class FaucetBlock extends Block {
-  public static final DirectionProperty FACING = BlockStateProperties.FACING_EXCEPT_UP;
+  public static final DirectionProperty FACING = Properties.HOPPER_FACING;
   private static final EnumMap<Direction,VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(
-    Direction.DOWN,  VoxelShapes.combineAndSimplify(makeCuboidShape( 4, 10,  4, 12, 16, 12), makeCuboidShape( 6, 10,  6, 10, 16, 10), IBooleanFunction.ONLY_FIRST),
-    Direction.NORTH, VoxelShapes.combineAndSimplify(makeCuboidShape( 4,  4, 10, 12, 10, 16), makeCuboidShape( 6,  6, 10, 10, 10, 16), IBooleanFunction.ONLY_FIRST),
-    Direction.SOUTH, VoxelShapes.combineAndSimplify(makeCuboidShape( 4,  4,  0, 12, 10,  6), makeCuboidShape( 6,  6,  0, 10, 10,  6), IBooleanFunction.ONLY_FIRST),
-    Direction.WEST,  VoxelShapes.combineAndSimplify(makeCuboidShape(10,  4,  4, 16, 10, 12), makeCuboidShape(10,  6,  6, 16, 10, 10), IBooleanFunction.ONLY_FIRST),
-    Direction.EAST,  VoxelShapes.combineAndSimplify(makeCuboidShape( 0,  4,  4,  6, 10, 12), makeCuboidShape( 0,  6,  6,  6, 10, 10), IBooleanFunction.ONLY_FIRST)));
+    Direction.DOWN,  VoxelShapes.combineAndSimplify(createCuboidShape( 4, 10,  4, 12, 16, 12), createCuboidShape( 6, 10,  6, 10, 16, 10), BooleanBiFunction.ONLY_FIRST),
+    Direction.NORTH, VoxelShapes.combineAndSimplify(createCuboidShape( 4,  4, 10, 12, 10, 16), createCuboidShape( 6,  6, 10, 10, 10, 16), BooleanBiFunction.ONLY_FIRST),
+    Direction.SOUTH, VoxelShapes.combineAndSimplify(createCuboidShape( 4,  4,  0, 12, 10,  6), createCuboidShape( 6,  6,  0, 10, 10,  6), BooleanBiFunction.ONLY_FIRST),
+    Direction.WEST,  VoxelShapes.combineAndSimplify(createCuboidShape(10,  4,  4, 16, 10, 12), createCuboidShape(10,  6,  6, 16, 10, 10), BooleanBiFunction.ONLY_FIRST),
+    Direction.EAST,  VoxelShapes.combineAndSimplify(createCuboidShape( 0,  4,  4,  6, 10, 12), createCuboidShape( 0,  6,  6,  6, 10, 10), BooleanBiFunction.ONLY_FIRST)));
 
-  public FaucetBlock(Properties properties) {
+  public FaucetBlock(Settings properties) {
     super(properties);
-    this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
   }
 
   /* Blockstate */
 
   @Override
-  protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+  protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
     builder.add(FACING);
   }
 
   @Nullable
   @Override
-  public BlockState getStateForPlacement(BlockItemUseContext context) {
-    Direction dir = context.getFace();
+  public BlockState getPlacementState(ItemPlacementContext context) {
+    Direction dir = context.getSide();
     if (dir == Direction.UP) {
       dir = Direction.DOWN;
     }
@@ -68,7 +70,7 @@ public class FaucetBlock extends Block {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+  public VoxelShape getOutlineShape(BlockState state, BlockView worldIn, BlockPos pos, ShapeContext context) {
     return SHAPES.get(state.get(FACING));
   }
 
@@ -81,23 +83,23 @@ public class FaucetBlock extends Block {
   }
 
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+  public BlockEntity createTileEntity(BlockState state, BlockView world) {
     return new FaucetTileEntity();
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+  public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockHitResult hit) {
     if (player.isSneaking()) {
-      return ActionResultType.PASS;
+      return ActionResult.PASS;
     }
     getFaucet(worldIn, pos).ifPresent(FaucetTileEntity::activate);
-    return ActionResultType.SUCCESS;
+    return ActionResult.SUCCESS;
   }
 
   @Override
-  public boolean canConnectRedstone(BlockState state, IBlockReader world, BlockPos pos, @Nullable Direction side) {
+  public boolean canConnectRedstone(BlockState state, BlockView world, BlockPos pos, @Nullable Direction side) {
     // TODO: keep?
     return true;
   }
@@ -105,20 +107,20 @@ public class FaucetBlock extends Block {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-    if (worldIn.isRemote()) {
+  public void neighborUpdate(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    if (worldIn.isClient()) {
       return;
     }
     getFaucet(worldIn, pos).ifPresent(faucet -> {
       faucet.neighborChanged(fromPos);
-      faucet.handleRedstone(worldIn.isBlockPowered(pos));
+      faucet.handleRedstone(worldIn.isReceivingRedstonePower(pos));
     });
   }
 
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+  public void scheduledTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
     getFaucet(worldIn, pos).ifPresent(FaucetTileEntity::activate);
   }
 
@@ -140,17 +142,17 @@ public class FaucetBlock extends Block {
    * @param worldIn  World instance
    * @param pos      Faucet position
    */
-  private static void addParticles(BlockState state, IWorld worldIn, BlockPos pos) {
+  private static void addParticles(BlockState state, WorldAccess worldIn, BlockPos pos) {
     Direction direction = state.get(FACING);
-    double x = (double)pos.getX() + 0.5D - 0.3D * (double)direction.getXOffset();
-    double y = (double)pos.getY() + 0.5D - 0.3D * (double)direction.getYOffset();
-    double z = (double)pos.getZ() + 0.5D - 0.3D * (double)direction.getZOffset();
-    worldIn.addParticle(new RedstoneParticleData(1.0F, 0.0F, 0.0F, 0.5f), x, y, z, 0.0D, 0.0D, 0.0D);
+    double x = (double)pos.getX() + 0.5D - 0.3D * (double)direction.getOffsetX();
+    double y = (double)pos.getY() + 0.5D - 0.3D * (double)direction.getOffsetY();
+    double z = (double)pos.getZ() + 0.5D - 0.3D * (double)direction.getOffsetZ();
+    worldIn.addParticle(new DustParticleEffect(1.0F, 0.0F, 0.0F, 0.5f), x, y, z, 0.0D, 0.0D, 0.0D);
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+  @Environment(EnvType.CLIENT)
+  public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
     getFaucet(worldIn, pos).ifPresent(faucet -> {
       if (faucet.isPouring() && faucet.getRenderFluid().isEmpty() && rand.nextFloat() < 0.25F) {
         addParticles(stateIn, worldIn, pos);

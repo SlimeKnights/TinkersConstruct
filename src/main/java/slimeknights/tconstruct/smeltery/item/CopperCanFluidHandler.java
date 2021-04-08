@@ -5,7 +5,7 @@ import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /** Capability handler instance for the copper can item */
 @AllArgsConstructor

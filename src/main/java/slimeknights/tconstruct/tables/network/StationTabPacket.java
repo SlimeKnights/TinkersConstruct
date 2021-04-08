@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tables.network;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.server.SSetSlotPacket;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -20,12 +20,12 @@ public class StationTabPacket implements IThreadsafePacket {
     this.pos = blockPos;
   }
 
-  public StationTabPacket(PacketBuffer buffer) {
+  public StationTabPacket(PacketByteBuf buffer) {
     this.pos = buffer.readBlockPos();
   }
 
   @Override
-  public void encode(PacketBuffer buffer) {
+  public void encode(PacketByteBuf buffer) {
     buffer.writeBlockPos(pos);
   }
 
@@ -33,25 +33,25 @@ public class StationTabPacket implements IThreadsafePacket {
   public void handleThreadsafe(Context context) {
     ServerPlayerEntity sender = context.getSender();
     if (sender != null) {
-      ItemStack heldStack = sender.inventory.getItemStack();
+      ItemStack heldStack = sender.inventory.getCursorStack();
       if (!heldStack.isEmpty()) {
         // set it to empty, so it's doesn't get dropped
-        sender.inventory.setItemStack(ItemStack.EMPTY);
+        sender.inventory.setCursorStack(ItemStack.EMPTY);
       }
 
       BlockState state = sender.getEntityWorld().getBlockState(pos);
       if (state.getBlock() instanceof ITinkerStationBlock) {
         ((ITinkerStationBlock) state.getBlock()).openGui(sender, sender.getEntityWorld(), pos);
       } else {
-        INamedContainerProvider provider = state.getContainer(sender.getEntityWorld(), pos);
+        NamedScreenHandlerFactory provider = state.createScreenHandlerFactory(sender.getEntityWorld(), pos);
         if (provider != null) {
           NetworkHooks.openGui(sender, provider, pos);
         }
       }
 
       if (!heldStack.isEmpty()) {
-        sender.inventory.setItemStack(heldStack);
-        TinkerNetwork.getInstance().sendVanillaPacket(sender, new SSetSlotPacket(-1, -1, heldStack));
+        sender.inventory.setCursorStack(heldStack);
+        TinkerNetwork.getInstance().sendVanillaPacket(sender, new ScreenHandlerSlotUpdateS2CPacket(-1, -1, heldStack));
       }
     }
   }

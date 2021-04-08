@@ -1,24 +1,24 @@
 package slimeknights.tconstruct.gadgets.block;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.shared.block.TableBlock;
 
-import org.jetbrains.annotations.Nonnull;
+import javax.annotation.Nonnull;
 
 public class RackBlock extends TableBlock {
 
-  protected RackBlock(Properties builder) {
+  protected RackBlock(Settings builder) {
     super(builder);
   }
 
   @Nonnull
   @Override
-  public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
+  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
     return null;
   }
 

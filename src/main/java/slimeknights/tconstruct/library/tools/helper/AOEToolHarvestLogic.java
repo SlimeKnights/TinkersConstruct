@@ -4,21 +4,21 @@ import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants;
@@ -63,16 +63,16 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
     }
 
     // raytrace to get the side, but has to result in the same block
-    BlockRayTraceResult mop = ToolCore.blockRayTrace(world, player, RayTraceContext.FluidMode.ANY);
-    if (!origin.equals(mop.getPos())) {
-      mop = ToolCore.blockRayTrace(world, player, RayTraceContext.FluidMode.NONE);
-      if (!origin.equals(mop.getPos())) {
+    BlockHitResult mop = ToolCore.blockRayTrace(world, player, RaycastContext.FluidHandling.ANY);
+    if (!origin.equals(mop.getBlockPos())) {
+      mop = ToolCore.blockRayTrace(world, player, RaycastContext.FluidHandling.NONE);
+      if (!origin.equals(mop.getBlockPos())) {
         return Collections.emptyList();
       }
     }
 
     // return default method
-    return getAOEBlocks(tool, player, origin, mop.getFace(), mop.getHitVec(), check -> isEffective(tool, stack, check));
+    return getAOEBlocks(tool, player, origin, mop.getSide(), mop.getPos(), check -> isEffective(tool, stack, check));
   }
 
   /**
@@ -84,7 +84,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
    * @param hitVec   Where the block was hit
    * @return A list of BlockPos's that the AOE tool can affect.
    */
-  protected List<BlockPos> getAOEBlocks(ToolStack tool, PlayerEntity player, BlockPos origin, Direction sideHit, Vector3d hitVec, Predicate<BlockState> predicate) {
+  protected List<BlockPos> getAOEBlocks(ToolStack tool, PlayerEntity player, BlockPos origin, Direction sideHit, Vec3d hitVec, Predicate<BlockState> predicate) {
     // only works with modifiable harvest
     if (tool.isBroken()) {
       return Collections.emptyList();
@@ -107,15 +107,15 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
    * @param hitVec  hit vector
    * @return a list of BlockPoses
    */
-  protected final List<BlockPos> calculateAOEBlocks(PlayerEntity player, BlockPos origin, int width, int height, int depth, Direction sideHit, Vector3d hitVec, Predicate<BlockState> predicate) {
+  protected final List<BlockPos> calculateAOEBlocks(PlayerEntity player, BlockPos origin, int width, int height, int depth, Direction sideHit, Vec3d hitVec, Predicate<BlockState> predicate) {
     // we know the block and we know which side of the block we're hitting. time to calculate the depth along the different axes
     int x, y, z;
     BlockPos start = origin;
-    int offset = sideHit.getAxisDirection().getOffset();
+    int offset = sideHit.getDirection().offset();
     switch (sideHit.getAxis()) {
       case Y:
         // x y depends on the angle we look
-        Vector3i vec = player.getHorizontalFacing().getDirectionVec();
+        Vec3i vec = player.getHorizontalFacing().getVector();
         x = vec.getX() * height + vec.getZ() * width;
         y = offset * -depth;
         z = vec.getX() * width + vec.getZ() * height;
@@ -142,7 +142,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
       case Z:
         x = width;
         y = height;
-        z = sideHit.getAxisDirection().getOffset() * -depth;
+        z = sideHit.getDirection().offset() * -depth;
         start = start.add(-x / 2, -y / 2, 0);
         // for even numbers, offset based on where we hit
         if (x % 2 == 0 && hitVec.getX() - origin.getX() > 0.5d) {
@@ -204,31 +204,31 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
    * @param sound     Sound to play on tilling
    * @return  Action result from tilling
    */
-  public ActionResultType transformBlocks(ItemUseContext context, ToolType toolType, SoundEvent sound, boolean requireGround) {
+  public ActionResult transformBlocks(ItemUsageContext context, ToolType toolType, SoundEvent sound, boolean requireGround) {
     PlayerEntity player = context.getPlayer();
     if (player == null || player.isSneaking()) {
-      return ActionResultType.PASS;
+      return ActionResult.PASS;
     }
 
     // for hoes and shovels, must have nothing but plants above
     World world = context.getWorld();
-    BlockPos pos = context.getPos();
+    BlockPos pos = context.getBlockPos();
     if (requireGround) {
-      if (context.getFace() == Direction.DOWN) {
-        return ActionResultType.PASS;
+      if (context.getSide() == Direction.DOWN) {
+        return ActionResult.PASS;
       }
       Material material = world.getBlockState(pos.up()).getMaterial();
-      if (!material.isReplaceable() && material != Material.PLANTS) {
-        return ActionResultType.PASS;
+      if (!material.isReplaceable() && material != Material.PLANT) {
+        return ActionResult.PASS;
       }
     }
 
     // tool must not be broken
     Hand hand = context.getHand();
-    ItemStack stack = player.getHeldItem(hand);
+    ItemStack stack = player.getStackInHand(hand);
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
-      return ActionResultType.FAIL;
+      return ActionResult.FAIL;
     }
 
     // must actually transform
@@ -240,8 +240,8 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
       // shovel special case: campfires
       if (toolType == ToolType.SHOVEL && original.getBlock() instanceof CampfireBlock && original.get(CampfireBlock.LIT)) {
         isCampfire = true;
-        if (!world.isRemote()) {
-          world.playEvent(null, WorldEvents.FIRE_EXTINGUISH_SOUND, pos, 0);
+        if (!world.isClient()) {
+          world.syncWorldEvent(null, WorldEvents.FIRE_EXTINGUISH_SOUND, pos, 0);
           CampfireBlock.extinguish(world, pos, original);
         }
         transformed = original.with(CampfireBlock.LIT, false);
@@ -252,16 +252,16 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
     }
 
     // if we made a successful transform, client can stop early
-    EquipmentSlotType slot = hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND;
+    EquipmentSlot slot = hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
     if (didTransform || isCampfire) {
-      if (world.isRemote()) {
-        return ActionResultType.SUCCESS;
+      if (world.isClient()) {
+        return ActionResult.SUCCESS;
       }
 
       // change the block state
       world.setBlockState(pos, transformed, Constants.BlockFlags.DEFAULT_AND_RERENDER);
       if (requireGround) {
-        world.destroyBlock(pos.up(), true);
+        world.breakBlock(pos.up(), true);
       }
 
       // play sound
@@ -271,13 +271,13 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
 
       // damage the tool, if it breaks or if we changed a campfire, we are done
       if ((!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) || isCampfire) {
-        return ActionResultType.SUCCESS;
+        return ActionResult.SUCCESS;
       }
     }
 
     // AOE transforming, run even if we did not transform the center
     // note we consider anything effective, as hoes are not effective on all tillable blocks
-    for (BlockPos newPos : getAOEBlocks(tool, player, pos, context.getFace(), context.getHitVec(), state -> true)) {
+    for (BlockPos newPos : getAOEBlocks(tool, player, pos, context.getSide(), context.getHitPos(), state -> true)) {
       if (pos.equals(newPos)) {
         //in case it attempts to run the same position twice
         continue;
@@ -287,7 +287,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
       BlockPos above = newPos.up();
       if (requireGround) {
         Material material = world.getBlockState(above).getMaterial();
-        if (!material.isReplaceable() && material != Material.PLANTS) {
+        if (!material.isReplaceable() && material != Material.PLANT) {
           continue;
         }
       }
@@ -295,8 +295,8 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
       // block type must be the same
       BlockState newState = world.getBlockState(newPos).getToolModifiedState(world, newPos, player, stack, toolType);
       if (newState != null && transformed.getBlock() == newState.getBlock()) {
-        if (world.isRemote()) {
-          return ActionResultType.SUCCESS;
+        if (world.isClient()) {
+          return ActionResult.SUCCESS;
         }
         didTransform = true;
         world.setBlockState(newPos, newState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
@@ -304,7 +304,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
 
         // if required, break the block above (typically plants)
         if (requireGround) {
-          world.destroyBlock(above, true);
+          world.breakBlock(above, true);
         }
 
         // stop if the tool broke
@@ -315,6 +315,6 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
     }
 
     // if anything happened, return success
-    return didTransform ? ActionResultType.SUCCESS : ActionResultType.PASS;
+    return didTransform ? ActionResult.SUCCESS : ActionResult.PASS;
   }
 }

@@ -4,11 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IDataProvider;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.data.DataProvider;
+import net.minecraft.util.Identifier;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,10 +17,10 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 @Log4j2
-public abstract class GenericDataProvider implements IDataProvider {
+public abstract class GenericDataProvider implements DataProvider {
 
   private static final Gson GSON = (new GsonBuilder())
-    .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+    .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -34,12 +33,12 @@ public abstract class GenericDataProvider implements IDataProvider {
     this(generator, folder, GSON);
   }
 
-  protected void saveThing(DirectoryCache cache, ResourceLocation location, Object materialJson) {
+  protected void saveThing(DataCache cache, Identifier location, Object materialJson) {
     try {
       String json = gson.toJson(materialJson);
-      Path path = this.generator.getOutputFolder().resolve(Paths.get("data", location.getNamespace(), folder, location.getPath() + ".json"));
-      String hash = HASH_FUNCTION.hashUnencodedChars(json).toString();
-      if (!Objects.equals(cache.getPreviousHash(path), hash) || !Files.exists(path)) {
+      Path path = this.generator.getOutput().resolve(Paths.get("data", location.getNamespace(), folder, location.getPath() + ".json"));
+      String hash = SHA1.hashUnencodedChars(json).toString();
+      if (!Objects.equals(cache.getOldSha1(path), hash) || !Files.exists(path)) {
         Files.createDirectories(path.getParent());
 
         try (BufferedWriter bufferedwriter = Files.newBufferedWriter(path)) {
@@ -47,7 +46,7 @@ public abstract class GenericDataProvider implements IDataProvider {
         }
       }
 
-      cache.recordHash(path, hash);
+      cache.updateSha1(path, hash);
     } catch (IOException e) {
       log.error("Couldn't create data for {}", location, e);
     }

@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.book;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.content.PageContent;
@@ -10,7 +12,7 @@ import slimeknights.mantle.client.screen.book.element.TextElement;
 
 import java.util.ArrayList;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public abstract class TinkerPage extends PageContent {
 
   public static final transient int TITLE_HEIGHT = 28;
@@ -25,7 +27,7 @@ public abstract class TinkerPage extends PageContent {
     title.underlined = true;
     title.dropshadow = dropShadow;
 
-    int w = (int) Math.ceil(this.parent.parent.parent.fontRenderer.getStringWidth(titleText) * title.scale);
+    int w = (int) Math.ceil(this.parent.parent.parent.fontRenderer.getWidth(titleText) * title.scale);
     int x = (BookScreen.PAGE_WIDTH - w) / 2;
 
     list.add(new TextElement(x, y, w, 24, title));

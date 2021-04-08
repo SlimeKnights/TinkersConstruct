@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.util.math.MatrixStack;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
@@ -42,11 +42,11 @@ public class BorderWidget extends Widget {
   }
 
   public void updateParent(ModuleScreen gui) {
-    gui.guiLeft -= this.borderLeft.w;
-    gui.guiTop -= this.borderTop.h;
+    gui.x -= this.borderLeft.w;
+    gui.y -= this.borderTop.h;
 
-    gui.xSize += this.borderLeft.w + this.borderRight.w;
-    gui.ySize += this.borderTop.h + this.borderBottom.h;
+    gui.backgroundWidth += this.borderLeft.w + this.borderRight.w;
+    gui.backgroundHeight += this.borderTop.h + this.borderBottom.h;
   }
 
   @Override

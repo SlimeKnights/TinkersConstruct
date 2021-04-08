@@ -3,12 +3,12 @@ package slimeknights.tconstruct.library.recipe.entitymelting;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.recipe.RecipeManager;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 

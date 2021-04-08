@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderState.TextureState;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderType.State;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.util.Direction;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayer.MultiPhaseParameters;
+import net.minecraft.client.render.RenderPhase.Texture;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Matrix4f;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.render.FluidRenderer;
@@ -25,15 +25,15 @@ import java.util.List;
 /** Helper class to render the smeltery tank */
 public class SmelteryTankRenderer {
   /** Like {@link FluidRenderer#RENDER_TYPE}, but disables cull so both sides show */
-  private static final RenderType RENDER_TYPE = RenderType.makeType(
-    Util.resource("smeltery_fluid"), DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP, 7, 256, true, false,
-    State.getBuilder()
-         .texture(new TextureState(PlayerContainer.LOCATION_BLOCKS_TEXTURE, false, false))
-         .shadeModel(RenderType.SHADE_ENABLED)
-         .lightmap(RenderType.LIGHTMAP_ENABLED)
-         .texture(RenderType.BLOCK_SHEET_MIPPED)
-         .transparency(RenderType.TRANSLUCENT_TRANSPARENCY)
-         .cull(RenderType.CULL_DISABLED)
+  private static final RenderLayer RENDER_TYPE = RenderLayer.of(
+    Util.resource("smeltery_fluid"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT, 7, 256, true, false,
+    MultiPhaseParameters.builder()
+         .texture(new Texture(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, false, false))
+         .shadeModel(RenderLayer.SMOOTH_SHADE_MODEL)
+         .lightmap(RenderLayer.ENABLE_LIGHTMAP)
+         .texture(RenderLayer.MIPMAP_BLOCK_ATLAS_TEXTURE)
+         .transparency(RenderLayer.TRANSLUCENT_TRANSPARENCY)
+         .cull(RenderLayer.DISABLE_CULLING)
          .build(false));
 
   /** Distance between the liquid and the edge of the block */
@@ -75,7 +75,7 @@ public class SmelteryTankRenderer {
    * @param tankMinPos  Min position for fluid rendering
    * @param tankMaxPos  Max position for fluid rendering
    */
-  public static void renderFluids(MatrixStack matrices, IRenderTypeBuffer buffer, SmelteryTank tank,
+  public static void renderFluids(MatrixStack matrices, VertexConsumerProvider buffer, SmelteryTank tank,
                                   BlockPos tankMinPos, BlockPos tankMaxPos, int brightness) {
     List<FluidStack> fluids = tank.getFluids();
     // empty smeltery :(
@@ -92,7 +92,7 @@ public class SmelteryTankRenderer {
       int[] heights = GuiSmelteryTank.calcLiquidHeights(fluids, tank.getCapacity(), yd * 1000 - HEIGHT_OFFSET, 100);
 
       // rendering time
-      IVertexBuilder builder = buffer.getBuffer(RENDER_TYPE);
+      VertexConsumer builder = buffer.getBuffer(RENDER_TYPE);
       float curY = FLUID_OFFSET;
       for (int i = 0; i < fluids.size(); i++) {
         float h = (float) heights[i] / 1000f;
@@ -115,14 +115,14 @@ public class SmelteryTankRenderer {
    * @param yMin       Min y position
    * @param yMax       Max y position
    */
-  private static void renderLargeFluidCuboid(MatrixStack matrices, IVertexBuilder builder, FluidStack fluid, int brightness,
+  private static void renderLargeFluidCuboid(MatrixStack matrices, VertexConsumer builder, FluidStack fluid, int brightness,
                                              int xd, float[] xBounds, int zd, float[] zBounds, float yMin, float yMax) {
     if(yMin >= yMax || fluid.isEmpty()) {
       return;
     }
     // fluid attributes
     FluidAttributes attributes = fluid.getFluid().getAttributes();
-    TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
+    Sprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
     int color = attributes.getColor(fluid);
     brightness = FluidRenderer.withBlockLight(brightness, attributes.getLuminosity(fluid));
     boolean upsideDown = attributes.isGaseous(fluid);
@@ -137,7 +137,7 @@ public class SmelteryTankRenderer {
     float[] yBounds = getBlockBounds(yd, yMin, yMax);
 
     // render each side
-    Matrix4f matrix = matrices.getLast().getMatrix();
+    Matrix4f matrix = matrices.peek().getModel();
     Vector3f from = new Vector3f();
     Vector3f to = new Vector3f();
     int rotation = upsideDown ? 180 : 0;

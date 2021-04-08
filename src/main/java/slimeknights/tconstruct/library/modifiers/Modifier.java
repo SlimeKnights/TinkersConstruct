@@ -5,22 +5,22 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -37,7 +37,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -51,7 +51,7 @@ import java.util.function.BiConsumer;
  */
 @RequiredArgsConstructor
 public class Modifier implements IForgeRegistryEntry<Modifier> {
-  private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.modID + ".anti_knockback", 1f, Operation.ADDITION);
+  private static final EntityAttributeModifier ANTI_KNOCKBACK_MODIFIER = new EntityAttributeModifier(TConstruct.modID + ".anti_knockback", 1f, Operation.ADDITION);
 
   /** Modifier random instance, use for chance based effects */
   protected static Random RANDOM = new Random();
@@ -72,13 +72,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   private String translationKey;
   /** Cached text component for display names */
   @Nullable
-  private ITextComponent displayName;
+  private Text displayName;
   /** Cached text component for description */
   @Nullable
-  private List<ITextComponent> descriptionList;
+  private List<Text> descriptionList;
   /** Cached text component for description */
   @Nullable
-  private ITextComponent description;
+  private Text description;
 
   /**
    * Override this method to make your modifier run earlier or later.
@@ -93,7 +93,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /* Registry methods */
 
   @Override
-  public final Modifier setRegistryName(ResourceLocation name) {
+  public final Modifier setRegistryName(Identifier name) {
     if (registryName != null) {
       throw new IllegalStateException("Attempted to set registry name with existing registry name! New: " + name + " Old: " + registryName);
     }
@@ -128,7 +128,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  Translation key
    */
   protected String makeTranslationKey() {
-    return Util.makeTranslationKey("modifier", registryName);
+    return Util.createTranslationKey("modifier", registryName);
   }
 
   /**
@@ -146,17 +146,17 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Overridable method to create the display name for this modifier, ideal to modify colors
    * @return  Display name
    */
-  protected ITextComponent makeDisplayName() {
-    return new TranslationTextComponent(getTranslationKey());
+  protected Text makeDisplayName() {
+    return new TranslatableText(getTranslationKey());
   }
 
   /**
    * Gets the display name for this modifier
    * @return  Display name for this modifier
    */
-  public final ITextComponent getDisplayName() {
+  public final Text getDisplayName() {
     if (displayName == null) {
-      displayName = new TranslationTextComponent(getTranslationKey()).modifyStyle(style -> style.setColor(Color.fromInt(getColor())));
+      displayName = new TranslatableText(getTranslationKey()).styled(style -> style.withColor(TextColor.fromRgb(getColor())));
     }
     return displayName;
   }
@@ -166,11 +166,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level  Modifier level
    * @return  Display name
    */
-  public ITextComponent getDisplayName(int level) {
-    return new TranslationTextComponent(getTranslationKey())
-      .appendString(" ")
-      .append(new TranslationTextComponent(KEY_LEVEL + level))
-      .modifyStyle(style -> style.setColor(Color.fromInt(color)));
+  public Text getDisplayName(int level) {
+    return new TranslatableText(getTranslationKey())
+      .append(" ")
+      .append(new TranslatableText(KEY_LEVEL + level))
+      .styled(style -> style.withColor(TextColor.fromRgb(color)));
   }
 
   /**
@@ -179,7 +179,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level  Tool level
    * @return  Stack sensitive display name
    */
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
+  public Text getDisplayName(IModifierToolStack tool, int level) {
     return getDisplayName(level);
   }
 
@@ -187,11 +187,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Gets the description for this modifier
    * @return  Description for this modifier
    */
-  public final List<ITextComponent> getDescriptionList() {
+  public final List<Text> getDescriptionList() {
     if (descriptionList == null) {
       descriptionList = Arrays.asList(
-        new TranslationTextComponent(getTranslationKey() + ".flavor").mergeStyle(TextFormatting.ITALIC),
-        new TranslationTextComponent(getTranslationKey() + ".description"));
+        new TranslatableText(getTranslationKey() + ".flavor").formatted(Formatting.ITALIC),
+        new TranslatableText(getTranslationKey() + ".description"));
     }
     return descriptionList;
   }
@@ -200,11 +200,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Gets the description for this modifier
    * @return  Description for this modifier
    */
-  public final ITextComponent getDescription() {
+  public final Text getDescription() {
     if (description == null) {
       description = getDescriptionList().stream()
-                                        .reduce((c1, c2) -> new StringTextComponent("").append(c1).appendString("\n").append(c2))
-                                        .orElse(StringTextComponent.EMPTY);
+                                        .reduce((c1, c2) -> new LiteralText("").append(c1).append("\n").append(c2))
+                                        .orElse(LiteralText.EMPTY);
     }
     return description;
   }
@@ -255,7 +255,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level     Modifier level
    * @param consumer  Attribute consumer
    */
-  public void addAttributes(IModifierToolStack tool, int level, BiConsumer<Attribute,AttributeModifier> consumer) {}
+  public void addAttributes(IModifierToolStack tool, int level, BiConsumer<EntityAttribute,EntityAttributeModifier> consumer) {}
 
   /**
    * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
@@ -493,21 +493,21 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  True if damaged
    */
   public static boolean attackEntitySecondary(DamageSource source, float damage, LivingEntity target, boolean noKnockback) {
-    Optional<ModifiableAttributeInstance> knockbackResistance = Optional.ofNullable(target.getAttribute(Attributes.KNOCKBACK_RESISTANCE))
+    Optional<EntityAttributeInstance> knockbackResistance = Optional.ofNullable(target.getAttributeInstance(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE))
                                                                         .filter(attribute -> !attribute.hasModifier(ANTI_KNOCKBACK_MODIFIER));
     // store last damage before secondary attack
-    float oldLastDamage = target.lastDamage;
+    float oldLastDamage = target.lastDamageTaken;
 
     // prevent knockback in secondary attacks, if requested
     if (noKnockback) {
-      knockbackResistance.ifPresent(attribute -> attribute.applyNonPersistentModifier(ANTI_KNOCKBACK_MODIFIER));
+      knockbackResistance.ifPresent(attribute -> attribute.addTemporaryModifier(ANTI_KNOCKBACK_MODIFIER));
     }
 
     // set hurt resistance time to 0 because we always want to deal damage in traits
-    target.hurtResistantTime = 0;
-    boolean hit = target.attackEntityFrom(source, damage);
+    target.timeUntilRegen = 0;
+    boolean hit = target.damage(source, damage);
     // set total received damage, important for AI and stuff
-    target.lastDamage += oldLastDamage;
+    target.lastDamageTaken += oldLastDamage;
 
     // remove no knockback marker
     if (noKnockback) {
@@ -527,7 +527,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     if (living == null) {
       return null;
     }
-    ItemStack stack = living.getHeldItemMainhand();
+    ItemStack stack = living.getMainHandStack();
     if (stack.isEmpty() || !stack.getItem().isIn(TinkerTags.Items.MODIFIABLE)) {
       return null;
     }

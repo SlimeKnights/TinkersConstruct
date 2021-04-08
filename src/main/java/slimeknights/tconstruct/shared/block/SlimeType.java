@@ -3,17 +3,17 @@ package slimeknights.tconstruct.shared.block;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.Food;
+import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.StringIdentifiable;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.TinkerFood;
 
 import java.util.Locale;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum SlimeType implements IStringSerializable {
+public enum SlimeType implements StringIdentifiable {
   EARTH(0x01cd4e, "green", TinkerTags.Items.EARTH_SLIMEBALL),
   SKY(0x01cbcd, "blue", TinkerTags.Items.SKY_SLIMEBALL),
   ICHOR(0xff970d, "magma", TinkerTags.Items.ICHOR_SLIMEBALL),
@@ -35,9 +35,9 @@ public enum SlimeType implements IStringSerializable {
   private final int color;
   @Getter @Deprecated
   private final String originalName;
-  private final ITag<Item> slimeBallTag;
+  private final Tag<Item> slimeBallTag;
 
-  public ITag<Item> getSlimeBallTag() {
+  public Tag<Item> getSlimeBallTag() {
     return slimeBallTag;
   }
 
@@ -46,7 +46,7 @@ public enum SlimeType implements IStringSerializable {
    * @param type SlimeType
    * @return Appropriate TinkerFood
    */
-  public Food getSlimeFood(SlimeType type) {
+  public FoodComponent getSlimeFood(SlimeType type) {
     switch (type) {
       case SKY:
       default:
@@ -65,7 +65,7 @@ public enum SlimeType implements IStringSerializable {
    * @param type SlimeType
    * @return Appropriate TinkerFood
    */
-  public Food getSlimeDropFood(SlimeType type) {
+  public FoodComponent getSlimeDropFood(SlimeType type) {
     switch (type) {
       case EARTH:
       default:
@@ -82,7 +82,7 @@ public enum SlimeType implements IStringSerializable {
   }
 
   @Override
-  public String getString() {
+  public String asString() {
     return this.name().toLowerCase(Locale.US);
   }
 }

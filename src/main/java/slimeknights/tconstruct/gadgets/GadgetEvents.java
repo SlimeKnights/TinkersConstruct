@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.gadgets;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.sound.SoundEvents;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,32 +32,32 @@ public class GadgetEvents {
       return;
     }
 
-    ItemStack feet = entity.getItemStackFromSlot(EquipmentSlotType.FEET);
+    ItemStack feet = entity.getEquippedStack(EquipmentSlot.FEET);
     if (!(feet.getItem() instanceof SlimeBootsItem)) {
       return;
     }
 
     // thing is wearing slime boots. let's get bouncyyyyy
-    boolean isClient = entity.getEntityWorld().isRemote;
-    if (!entity.isCrouching() && event.getDistance() > 2) {
+    boolean isClient = entity.getEntityWorld().isClient;
+    if (!entity.isInSneakingPose() && event.getDistance() > 2) {
       event.setDamageMultiplier(0);
       entity.fallDistance =  0.0F;
 
       if (isClient) {
-        entity.setMotion(entity.getMotion().x, entity.getMotion().y * -0.9, entity.getMotion().z);
-        entity.isAirBorne = true;
+        entity.setVelocity(entity.getVelocity().x, entity.getVelocity().y * -0.9, entity.getVelocity().z);
+        entity.velocityDirty = true;
         entity.setOnGround(false);
         double f = 0.91d + 0.04d;
         // only slow down half as much when bouncing
-        entity.setMotion(entity.getMotion().x / f, entity.getMotion().y, entity.getMotion().z / f);
+        entity.setVelocity(entity.getVelocity().x / f, entity.getVelocity().y, entity.getVelocity().z / f);
         TinkerNetwork.getInstance().sendToServer(new BouncedPacket());
       } else {
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
       }
 
       entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
-      SlimeBounceHandler.addBounceHandler(entity, entity.getMotion().y);
-    } else if (!isClient && entity.isCrouching()) {
+      SlimeBounceHandler.addBounceHandler(entity, entity.getVelocity().y);
+    } else if (!isClient && entity.isInSneakingPose()) {
       event.setDamageMultiplier(0.2f);
     }
   }

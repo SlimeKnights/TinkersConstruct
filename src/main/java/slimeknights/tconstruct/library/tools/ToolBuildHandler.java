@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.tools;
 import com.google.common.collect.Streams;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.collection.DefaultedList;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -33,7 +33,7 @@ public final class ToolBuildHandler {
    * @param stacks Items to build with. Have to be in the correct order and contain material items.
    * @return The built item or null if invalid input.
    */
-  public static ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks, ToolCore tool) {
+  public static ItemStack buildItemFromStacks(DefaultedList<ItemStack> stacks, ToolCore tool) {
     if (!canToolBeBuilt(stacks, tool)) {
       return ItemStack.EMPTY;
     }
@@ -82,7 +82,7 @@ public final class ToolBuildHandler {
    * @param tool the tool
    * @return if the given tool can be built from the items
    */
-  public static boolean canToolBeBuilt(NonNullList<ItemStack> stacks, ToolCore tool) {
+  public static boolean canToolBeBuilt(DefaultedList<ItemStack> stacks, ToolCore tool) {
     List<IToolPart> requiredComponents = tool.getToolDefinition().getRequiredComponents();
     return stacks.size() == requiredComponents.size() && canBeBuiltFromParts(stacks, requiredComponents);
   }
@@ -94,7 +94,7 @@ public final class ToolBuildHandler {
    * @param requiredComponents the required components
    * @return if the given tool can be built from the given parts
    */
-  private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<IToolPart> requiredComponents) {
+  private static boolean canBeBuiltFromParts(DefaultedList<ItemStack> stacks, List<IToolPart> requiredComponents) {
     return Streams.zip(requiredComponents.stream(), stacks.stream(), (part, stack) -> part.asItem() == stack.getItem() && part.getMaterial(stack) != IMaterial.UNKNOWN).allMatch(Boolean::booleanValue);
   }
 

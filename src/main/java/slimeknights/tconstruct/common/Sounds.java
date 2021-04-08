@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.common;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -22,7 +22,7 @@ public enum Sounds {
   private SoundEvent sound;
 
   Sounds(String name) {
-    ResourceLocation loc = new ResourceLocation(TConstruct.modID, name);
+    Identifier loc = new Identifier(TConstruct.modID, name);
     sound = new SoundEvent(loc).setRegistryName(name);
   }
 

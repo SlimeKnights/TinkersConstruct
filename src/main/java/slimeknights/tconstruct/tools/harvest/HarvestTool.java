@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.harvest;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
 import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
@@ -14,7 +14,7 @@ import java.util.Set;
  * Simple class that swaps the harvest logic for the AOE logic
  */
 public class HarvestTool extends ToolCore {
-  public HarvestTool(Properties properties, ToolDefinition toolDefinition) {
+  public HarvestTool(Settings properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 

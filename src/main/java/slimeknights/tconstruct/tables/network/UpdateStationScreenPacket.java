@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tables.network;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraftforge.fml.network.NetworkEvent;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
@@ -12,39 +12,39 @@ import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 public class UpdateStationScreenPacket implements IThreadsafePacket {
 
   private final PacketType type;
-  private final ITextComponent message;
+  private final Text message;
 
   /**
    *
    * @param type the type of sync the packet is, can be NO_TYPE, ERROR OR WARNING
    * @param message the message to display if a warning or error occurred
    */
-  public UpdateStationScreenPacket(PacketType type, ITextComponent message) {
+  public UpdateStationScreenPacket(PacketType type, Text message) {
     this.type = type;
     this.message = message;
   }
 
-  public UpdateStationScreenPacket(PacketBuffer buffer) {
-    this.type = buffer.readEnumValue(PacketType.class);
+  public UpdateStationScreenPacket(PacketByteBuf buffer) {
+    this.type = buffer.readEnumConstant(PacketType.class);
 
     if (buffer.readBoolean()) {
-      this.message = buffer.readTextComponent();
+      this.message = buffer.readText();
     }
     else {
-      this.message = StringTextComponent.EMPTY;
+      this.message = LiteralText.EMPTY;
     }
   }
 
   @Override
-  public void encode(PacketBuffer packetBuffer) {
-    packetBuffer.writeEnumValue(this.type);
+  public void encode(PacketByteBuf packetBuffer) {
+    packetBuffer.writeEnumConstant(this.type);
 
-    if (this.message == StringTextComponent.EMPTY) {
+    if (this.message == LiteralText.EMPTY) {
       packetBuffer.writeBoolean(false);
     }
     else {
       packetBuffer.writeBoolean(true);
-      packetBuffer.writeTextComponent(this.message);
+      packetBuffer.writeText(this.message);
     }
   }
 
@@ -57,7 +57,7 @@ public class UpdateStationScreenPacket implements IThreadsafePacket {
   private static class HandleClient {
 
     private static void handle(UpdateStationScreenPacket packet) {
-      Screen screen = Minecraft.getInstance().currentScreen;
+      Screen screen = MinecraftClient.getInstance().currentScreen;
       if (screen != null) {
         if (screen instanceof BaseStationScreen) {
           switch (packet.type) {

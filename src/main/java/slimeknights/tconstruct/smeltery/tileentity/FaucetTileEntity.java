@@ -1,14 +1,16 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -26,7 +28,7 @@ import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 
 import static slimeknights.tconstruct.smeltery.block.FaucetBlock.FACING;
 
-public class FaucetTileEntity extends TileEntity implements ITickableTileEntity {
+public class FaucetTileEntity extends BlockEntity implements Tickable {
   /** Transfer rate of the faucet */
   public static final int MB_PER_TICK = 12;
   /** amount of MB to extract from the input at a time */
@@ -63,7 +65,7 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
   }
 
   @SuppressWarnings("WeakerAccess")
-  protected FaucetTileEntity(TileEntityType<?> tileEntityTypeIn) {
+  protected FaucetTileEntity(BlockEntityType<?> tileEntityTypeIn) {
     super(tileEntityTypeIn);
   }
 
@@ -77,7 +79,7 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
    */
   private LazyOptional<IFluidHandler> findFluidHandler(Direction side) {
     assert world != null;
-    TileEntity te = world.getTileEntity(pos.offset(side));
+    BlockEntity te = world.getBlockEntity(pos.offset(side));
     if (te != null) {
       LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
       if (handler.isPresent()) {
@@ -93,7 +95,7 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
    */
   private LazyOptional<IFluidHandler> getInputHandler() {
     if (inputHandler == null) {
-      inputHandler = findFluidHandler(getBlockState().get(FACING).getOpposite());
+      inputHandler = findFluidHandler(getCachedState().get(FACING).getOpposite());
       if (inputHandler.isPresent()) {
         inputHandler.addListener(inputListener);
       }
@@ -124,7 +126,7 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
     if (pos.equals(neighbor.up())) {
       outputHandler = null;
       // neighbor behind us
-    } else if (pos.equals(neighbor.offset(getBlockState().get(FACING)))) {
+    } else if (pos.equals(neighbor.offset(getCachedState().get(FACING)))) {
       inputHandler = null;
     }
   }
@@ -155,7 +157,7 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
    */
   public void activate() {
     // don't run on client
-    if (world == null || world.isRemote) {
+    if (world == null || world.isClient) {
       return;
     }
     // already pouring? we want to start
@@ -186,7 +188,7 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
       lastRedstoneState = hasSignal;
       if (hasSignal) {
         if (world != null){
-          world.getPendingBlockTicks().scheduleTick(pos, this.getBlockState().getBlock(), 2);
+          world.getBlockTickScheduler().schedule(pos, this.getCachedState().getBlock(), 2);
         }
       } else if (faucetState == FaucetState.POWERED) {
         faucetState = FaucetState.OFF;
@@ -200,7 +202,7 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
 
   @Override
   public void tick() {
-    if (world == null || world.isRemote) {
+    if (world == null || world.isClient) {
       return;
     }
 
@@ -323,9 +325,9 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public AxisAlignedBB getRenderBoundingBox() {
-    return new AxisAlignedBB(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
+  @Environment(EnvType.CLIENT)
+  public Box getRenderBoundingBox() {
+    return new Box(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
   }
 
 
@@ -354,29 +356,29 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
   }
 
   @Override
-  public CompoundNBT getUpdateTag() {
+  public CompoundTag toInitialChunkDataTag() {
     // new tag instead of super since default implementation calls the super of writeToNBT
-    return write(new CompoundNBT());
+    return toTag(new CompoundTag());
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT compound) {
-    compound = super.write(compound);
+  public CompoundTag toTag(CompoundTag compound) {
+    compound = super.toTag(compound);
     compound.putByte(TAG_STATE, (byte)faucetState.ordinal());
     compound.putBoolean(TAG_STOP, stopPouring);
     compound.putBoolean(TAG_LAST_REDSTONE, lastRedstoneState);
     if (!drained.isEmpty()) {
-      compound.put(TAG_DRAINED, drained.writeToNBT(new CompoundNBT()));
+      compound.put(TAG_DRAINED, drained.writeToNBT(new CompoundTag()));
     }
     if (!renderFluid.isEmpty()) {
-      compound.put(TAG_RENDER_FLUID, renderFluid.writeToNBT(new CompoundNBT()));
+      compound.put(TAG_RENDER_FLUID, renderFluid.writeToNBT(new CompoundTag()));
     }
     return compound;
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT compound) {
-    super.read(state, compound);
+  public void fromTag(BlockState state, CompoundTag compound) {
+    super.fromTag(state, compound);
 
     faucetState = FaucetState.fromIndex(compound.getByte(TAG_STATE));
     stopPouring = compound.getBoolean(TAG_STOP);

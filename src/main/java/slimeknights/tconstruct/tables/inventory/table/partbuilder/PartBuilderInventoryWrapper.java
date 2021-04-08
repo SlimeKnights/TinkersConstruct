@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderInventory;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class PartBuilderInventoryWrapper implements IPartBuilderInventory {
   private final PartBuilderTileEntity builder;
@@ -24,18 +24,18 @@ public class PartBuilderInventoryWrapper implements IPartBuilderInventory {
 
   @Override
   public ItemStack getStack() {
-    return builder.getStackInSlot(PartBuilderTileEntity.MATERIAL_SLOT);
+    return builder.getStack(PartBuilderTileEntity.MATERIAL_SLOT);
   }
 
   @Override
   public ItemStack getPatternStack() {
-    return builder.getStackInSlot(PartBuilderTileEntity.PATTERN_SLOT);
+    return builder.getStack(PartBuilderTileEntity.PATTERN_SLOT);
   }
 
   /**
    * Updates the material based on the current material slot contents
    */
   public void updateMaterial() {
-    this.material = world.getRecipeManager().getRecipe(RecipeTypes.MATERIAL, this, world).orElse(null);
+    this.material = world.getRecipeManager().getFirstMatch(RecipeTypes.MATERIAL, this, world).orElse(null);
   }
 }

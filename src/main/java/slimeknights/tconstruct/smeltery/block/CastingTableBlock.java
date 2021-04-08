@@ -2,40 +2,40 @@ package slimeknights.tconstruct.smeltery.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 
-import org.jetbrains.annotations.Nonnull;
+import javax.annotation.Nonnull;
 
 public class CastingTableBlock extends AbstractCastingBlock {
 
   private static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(
     VoxelShapes.fullCube(),
-    VoxelShapes.or(
-      Block.makeCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 10.0D, 16.0D),
-      Block.makeCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 10.0D, 12.0D),
-      Block.makeCuboidShape(1.0D, 15.0D, 1.0D, 15.0D, 16.0D, 15.0D)
-    ), IBooleanFunction.ONLY_FIRST);
+    VoxelShapes.union(
+      Block.createCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 10.0D, 16.0D),
+      Block.createCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 10.0D, 12.0D),
+      Block.createCuboidShape(1.0D, 15.0D, 1.0D, 15.0D, 16.0D, 15.0D)
+    ), BooleanBiFunction.ONLY_FIRST);
 
-  public CastingTableBlock(Properties builder) {
+  public CastingTableBlock(Settings builder) {
     super(builder);
   }
 
   @Deprecated
   @Override
-  public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+  public VoxelShape getOutlineShape(BlockState state, BlockView worldIn, BlockPos pos, ShapeContext context) {
     return SHAPE;
   }
 
   @Nonnull
   @Override
-  public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
+  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
     return new CastingTileEntity.Table();
   }
 }

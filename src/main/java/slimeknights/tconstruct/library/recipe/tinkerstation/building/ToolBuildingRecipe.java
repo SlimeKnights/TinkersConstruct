@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
@@ -25,13 +25,13 @@ import java.util.stream.IntStream;
 @AllArgsConstructor
 public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Getter
-  protected final ResourceLocation id;
+  protected final Identifier id;
   @Getter
   protected final String group;
   protected final ToolCore output;
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return TinkerTables.toolBuildingRecipeSerializer.get();
   }
 
@@ -72,7 +72,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   /** @deprecated Use {@link #getCraftingResult(ITinkerStationInventory)} */
   @Deprecated
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getOutput() {
     return new ItemStack(this.output);
   }
 }

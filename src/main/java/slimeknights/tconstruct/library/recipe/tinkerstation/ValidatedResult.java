@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 /**
  * This class represents the result of a tinker station recipe, which is one of:
@@ -28,7 +28,7 @@ public class ValidatedResult {
    * @return  Validation result with the given message
    */
   public static ValidatedResult success(ItemStack result) {
-    return new ValidatedResult.Success(result);
+    return new Success(result);
   }
 
   /**
@@ -38,7 +38,7 @@ public class ValidatedResult {
    * @return  Validation result with the given message
    */
   public static ValidatedResult failure(String translationKey, Object... params) {
-    return new ValidatedResult.Failure(translationKey, params);
+    return new Failure(translationKey, params);
   }
 
   /** If true, this recipe passed and can be crafted for the given input */
@@ -66,7 +66,7 @@ public class ValidatedResult {
    * @return  result message
    * @throws UnsupportedOperationException  if this result is success or pass
    */
-  public ITextComponent getMessage() {
+  public Text getMessage() {
     throw new UnsupportedOperationException("Cannot show error message on success");
   }
 
@@ -84,11 +84,11 @@ public class ValidatedResult {
   /** Class for failure, which has a message */
   private static class Failure extends ValidatedResult {
     @Getter
-    private final ITextComponent message;
+    private final Text message;
 
     private Failure(String translationKey, Object[] params) {
       super(false);
-      this.message = new TranslationTextComponent(translationKey, params);
+      this.message = new TranslatableText(translationKey, params);
     }
 
     @Override

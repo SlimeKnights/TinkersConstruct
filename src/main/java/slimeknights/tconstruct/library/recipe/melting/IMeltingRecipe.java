@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.recipe.RecipeType;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.tconstruct.library.materials.MaterialValues;
@@ -36,12 +36,12 @@ public interface IMeltingRecipe extends ICustomOutputRecipe<IMeltingInventory> {
   /* Recipe data */
 
   @Override
-  default IRecipeType<?> getType() {
+  default RecipeType<?> getType() {
     return RecipeTypes.MELTING;
   }
 
   @Override
-  default ItemStack getIcon() {
+  default ItemStack getRecipeKindIcon() {
     return new ItemStack(TinkerSmeltery.searedMelter);
   }
 

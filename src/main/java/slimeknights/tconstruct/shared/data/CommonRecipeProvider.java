@@ -2,14 +2,14 @@ package slimeknights.tconstruct.shared.data;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.data.server.recipe.CookingRecipeJsonFactory;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.recipe.Ingredient;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -33,12 +33,12 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
   }
 
   @Override
-  protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+  protected void generate(Consumer<RecipeJsonProvider> consumer) {
     this.addCommonRecipes(consumer);
     this.addMaterialRecipes(consumer);
   }
 
-  private void addCommonRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addCommonRecipes(Consumer<RecipeJsonProvider> consumer) {
     // firewood and lavawood
     String folder = "common/firewood/";
     registerSlabStair(consumer, TinkerCommons.blazewood, folder, false);
@@ -48,64 +48,64 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     registerSlabStair(consumer, TinkerCommons.mudBricks, "common/", false);
 
     // book
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.book)
-                          .addIngredient(Items.BOOK)
-                          .addIngredient(TinkerTables.pattern)
-                          .addCriterion("has_item", hasItem(TinkerTables.pattern))
-                          .build(consumer, prefix(TinkerCommons.book, "common/"));
+    ShapelessRecipeJsonFactory.create(TinkerCommons.book)
+                          .input(Items.BOOK)
+                          .input(TinkerTables.pattern)
+                          .criterion("has_item", conditionsFromItem(TinkerTables.pattern))
+                          .offerTo(consumer, prefix(TinkerCommons.book, "common/"));
 
     // glass
     folder = "common/glass/";
-    ShapedRecipeBuilder.shapedRecipe(TinkerCommons.clearGlassPane, 16)
-                       .key('#', TinkerCommons.clearGlass)
-                       .patternLine("###")
-                       .patternLine("###")
-                       .addCriterion("has_block", hasItem(TinkerCommons.clearGlass))
-                       .build(consumer, prefix(TinkerCommons.clearGlassPane, folder));
+    ShapedRecipeJsonFactory.create(TinkerCommons.clearGlassPane, 16)
+                       .input('#', TinkerCommons.clearGlass)
+                       .pattern("###")
+                       .pattern("###")
+                       .criterion("has_block", conditionsFromItem(TinkerCommons.clearGlass))
+                       .offerTo(consumer, prefix(TinkerCommons.clearGlassPane, folder));
     for (GlassColor color : GlassColor.values()) {
       Block block = TinkerCommons.clearStainedGlass.get(color);
-      ShapedRecipeBuilder.shapedRecipe(block, 8)
-                         .key('#', TinkerCommons.clearGlass)
-                         .key('X', color.getDye().getTag())
-                         .patternLine("###")
-                         .patternLine("#X#")
-                         .patternLine("###")
-                         .setGroup(locationString("stained_clear_glass"))
-                         .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlass))
-                         .build(consumer, prefix(block, folder));
+      ShapedRecipeJsonFactory.create(block, 8)
+                         .input('#', TinkerCommons.clearGlass)
+                         .input('X', color.getDye().getTag())
+                         .pattern("###")
+                         .pattern("#X#")
+                         .pattern("###")
+                         .group(locationString("stained_clear_glass"))
+                         .criterion("has_clear_glass", conditionsFromItem(TinkerCommons.clearGlass))
+                         .offerTo(consumer, prefix(block, folder));
       Block pane = TinkerCommons.clearStainedGlassPane.get(color);
-      ShapedRecipeBuilder.shapedRecipe(pane, 16)
-                         .key('#', block)
-                         .patternLine("###")
-                         .patternLine("###")
-                         .setGroup(locationString("stained_clear_glass_pane"))
-                         .addCriterion("has_block", hasItem(block))
-                         .build(consumer, prefix(pane, folder));
-      ShapedRecipeBuilder.shapedRecipe(pane, 8)
-                         .key('#', TinkerCommons.clearGlassPane)
-                         .key('X', color.getDye().getTag())
-                         .patternLine("###")
-                         .patternLine("#X#")
-                         .patternLine("###")
-                         .setGroup(locationString("stained_clear_glass_pane"))
-                         .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlassPane))
-                         .build(consumer, wrap(pane, folder, "_from_panes"));
+      ShapedRecipeJsonFactory.create(pane, 16)
+                         .input('#', block)
+                         .pattern("###")
+                         .pattern("###")
+                         .group(locationString("stained_clear_glass_pane"))
+                         .criterion("has_block", conditionsFromItem(block))
+                         .offerTo(consumer, prefix(pane, folder));
+      ShapedRecipeJsonFactory.create(pane, 8)
+                         .input('#', TinkerCommons.clearGlassPane)
+                         .input('X', color.getDye().getTag())
+                         .pattern("###")
+                         .pattern("#X#")
+                         .pattern("###")
+                         .group(locationString("stained_clear_glass_pane"))
+                         .criterion("has_clear_glass", conditionsFromItem(TinkerCommons.clearGlassPane))
+                         .offerTo(consumer, wrap(pane, folder, "_from_panes"));
     }
 
     // vanilla recipes
-    ShapelessRecipeBuilder.shapelessRecipe(Items.FLINT)
-                          .addIngredient(Blocks.GRAVEL)
-                          .addIngredient(Blocks.GRAVEL)
-                          .addIngredient(Blocks.GRAVEL)
-                          .addCriterion("has_item", hasItem(Blocks.GRAVEL))
-                          .build(
+    ShapelessRecipeJsonFactory.create(Items.FLINT)
+                          .input(Blocks.GRAVEL)
+                          .input(Blocks.GRAVEL)
+                          .input(Blocks.GRAVEL)
+                          .criterion("has_item", conditionsFromItem(Blocks.GRAVEL))
+                          .offerTo(
                             ConsumerWrapperBuilder.wrap()
                                                   .addCondition(ConfigEnabledCondition.GRAVEL_TO_FLINT)
                                                   .build(consumer),
                             location("common/flint"));
   }
 
-  private void addMaterialRecipes(Consumer<IFinishedRecipe> consumer) {
+  private void addMaterialRecipes(Consumer<RecipeJsonProvider> consumer) {
     String folder = "common/materials/";
 
     // ores
@@ -126,17 +126,17 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     //registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
 
     // smelt ore into ingots, must use a blast furnace for nether ores
-    IItemProvider cobaltIngot = TinkerMaterials.cobalt.getIngot();
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.cobaltOre))
-                        .build(consumer, wrap(cobaltIngot, folder, "_smelting"));
-    IItemProvider copperIngot = TinkerMaterials.copper.getIngot();
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
-                        .build(consumer, wrap(copperIngot, folder, "_smelting"));
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 100)
-                        .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
-                        .build(consumer, wrap(copperIngot, folder, "_blasting"));
+    ItemConvertible cobaltIngot = TinkerMaterials.cobalt.getIngot();
+    CookingRecipeJsonFactory.createBlasting(Ingredient.ofItems(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
+                        .criterion("has_item", conditionsFromItem(TinkerWorld.cobaltOre))
+                        .offerTo(consumer, wrap(cobaltIngot, folder, "_smelting"));
+    ItemConvertible copperIngot = TinkerMaterials.copper.getIngot();
+    CookingRecipeJsonFactory.createSmelting(Ingredient.ofItems(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
+                        .criterion("has_item", conditionsFromItem(TinkerWorld.copperOre))
+                        .offerTo(consumer, wrap(copperIngot, folder, "_smelting"));
+    CookingRecipeJsonFactory.createBlasting(Ingredient.ofItems(TinkerWorld.copperOre), copperIngot, 1.5f, 100)
+                        .criterion("has_item", conditionsFromItem(TinkerWorld.copperOre))
+                        .offerTo(consumer, wrap(copperIngot, folder, "_blasting"));
   }
 
   /**
@@ -145,8 +145,8 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
    * @param metal     Metal object
    * @param folder    Folder for recipes
    */
-  protected void registerMineralRecipes(Consumer<IFinishedRecipe> consumer, MetalItemObject metal, String folder) {
-    IItemProvider ingot = metal.getIngot();
+  protected void registerMineralRecipes(Consumer<RecipeJsonProvider> consumer, MetalItemObject metal, String folder) {
+    ItemConvertible ingot = metal.getIngot();
     registerPackingRecipe(consumer, "block", metal.get(), "ingot", ingot, metal.getIngotTag(), folder);
     registerPackingRecipe(consumer, "ingot", ingot, "nugget", metal.getNugget(), metal.getNuggetTag(), folder);
   }

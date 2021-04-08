@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.potion.EffectType;
+import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
@@ -124,9 +124,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<BeheadingModifier> beheading = MODIFIERS.register("beheading", BeheadingModifier::new);
 
   // damage boost
-  public static final RegistryObject<ScaledTypeDamageModifier> smite = MODIFIERS.register("smite", () -> new ScaledTypeDamageModifier(0xCC9720, CreatureAttribute.UNDEAD));
+  public static final RegistryObject<ScaledTypeDamageModifier> smite = MODIFIERS.register("smite", () -> new ScaledTypeDamageModifier(0xCC9720, EntityGroup.UNDEAD));
   public static final RegistryObject<BaneOfArthropodsModifier> baneOfArthropods = MODIFIERS.register("bane_of_arthropods", BaneOfArthropodsModifier::new);
-  public static final RegistryObject<ScaledTypeDamageModifier> antiaquatic = MODIFIERS.register("antiaquatic", () -> new ScaledTypeDamageModifier(0xD58520, CreatureAttribute.WATER));
+  public static final RegistryObject<ScaledTypeDamageModifier> antiaquatic = MODIFIERS.register("antiaquatic", () -> new ScaledTypeDamageModifier(0xD58520, EntityGroup.AQUATIC));
   public static final RegistryObject<CoolingModifier> cooling = MODIFIERS.register("cooling", CoolingModifier::new);
   public static final RegistryObject<SharpnessModifier> sharpness = MODIFIERS.register("sharpness", SharpnessModifier::new);
 
@@ -172,7 +172,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // traits - mod compat tier 2
   public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
-  public static final RegistryObject<TypeDamageModifier> holy = MODIFIERS.register("holy", () -> new TypeDamageModifier(0xd1ecf6, CreatureAttribute.UNDEAD));
+  public static final RegistryObject<TypeDamageModifier> holy = MODIFIERS.register("holy", () -> new TypeDamageModifier(0xd1ecf6, EntityGroup.UNDEAD));
   // experienced is also an upgrade
   // traits - mod compat tier 3
   public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
@@ -182,7 +182,7 @@ public final class TinkerModifiers extends TinkerModule {
   /*
    * Internal effects
    */
-  private static final IntFunction<Supplier<TinkerEffect>> MARKER_EFFECT = color -> () -> new TinkerEffect(EffectType.BENEFICIAL, color, false);
+  private static final IntFunction<Supplier<TinkerEffect>> MARKER_EFFECT = color -> () -> new TinkerEffect(StatusEffectType.BENEFICIAL, color, false);
   public static RegistryObject<BleedingEffect> bleeding = POTIONS.register("bleeding", BleedingEffect::new);
   public static RegistryObject<MagneticEffect> magneticEffect = POTIONS.register("magnetic", MagneticEffect::new);
   public static RegistryObject<TinkerEffect> momentumEffect = POTIONS.register("momentum", MARKER_EFFECT.apply(0x60496b));

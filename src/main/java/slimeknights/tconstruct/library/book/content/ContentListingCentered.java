@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.Lists;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.action.protocol.ProtocolGoToPage;
@@ -15,7 +17,7 @@ import slimeknights.tconstruct.library.book.elements.ListingCenteredElement;
 import java.util.ArrayList;
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class ContentListingCentered extends TinkerPage {
 
   private String title;
@@ -42,7 +44,7 @@ public class ContentListingCentered extends TinkerPage {
     int w = BookScreen.PAGE_WIDTH;
 
     for (TextData data : this.entries) {
-      int ex = x + w / 2 - book.fontRenderer.getStringWidth(data.text) / 2;
+      int ex = x + w / 2 - book.fontRenderer.getWidth(data.text) / 2;
 
       list.add(new ListingCenteredElement(ex, y, w, 9, data));
       y += 9;

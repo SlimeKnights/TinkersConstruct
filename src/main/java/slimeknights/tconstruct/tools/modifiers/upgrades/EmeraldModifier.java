@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
-import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
@@ -23,7 +23,7 @@ public class EmeraldModifier extends SingleUseModifier {
 
   @Override
   public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
-    if (target.getCreatureAttribute() == CreatureAttribute.ILLAGER) {
+    if (target.getGroup() == EntityGroup.ILLAGER) {
       damage += 2.5f;
     }
     return damage;

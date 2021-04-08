@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -62,7 +62,7 @@ public interface IDisplayModifierRecipe {
 
   /** Gets a stream of all modifiable items for display */
   static Stream<Item> getAllModifiable() {
-    return TinkerTags.Items.MODIFIABLE.getAllElements().stream();
+    return TinkerTags.Items.MODIFIABLE.values().stream();
   }
 
   /** Maps the stream from tool items to applicable tool stacks */

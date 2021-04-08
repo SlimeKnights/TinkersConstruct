@@ -11,10 +11,10 @@ public class CastChestTileEntity extends TinkerChestTileEntity {
   }
 
   @Override
-  public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+  public boolean isValid(int slot, ItemStack itemstack) {
     // check if there is no other slot containing that item
-    for (int i = 0; i < this.getSizeInventory(); i++) {
-      if (ItemStack.areItemsEqual(itemstack, this.getStackInSlot(i))) {
+    for (int i = 0; i < this.size(); i++) {
+      if (ItemStack.areItemsEqualIgnoreDamage(itemstack, this.getStack(i))) {
         return i == slot;
       }
     }

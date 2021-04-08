@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.common;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColors;
 import slimeknights.mantle.registration.object.EnumObject;
 
 import java.util.function.Supplier;

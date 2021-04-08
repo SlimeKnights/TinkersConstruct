@@ -10,13 +10,13 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class SkySlimeSlingItem extends BaseSlimeSlingItem {
 
-  public SkySlimeSlingItem(Properties props) {
+  public SkySlimeSlingItem(Settings props) {
     super(props, SlimeType.SKY);
   }
 
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
-  public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+  public void onStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
     if (!(entityLiving instanceof PlayerEntity)) {
       return;
     }
@@ -24,21 +24,21 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
     PlayerEntity player = (PlayerEntity) entityLiving;
 
     // don't allow free flight when using an elytra, should use fireworks
-    if (player.isElytraFlying()) {
+    if (player.isFallFlying()) {
       return;
     }
 
     float f = getForce(stack, timeLeft) / 2;
 
     player.addExhaustion(0.2F);
-    player.getCooldownTracker().setCooldown(stack.getItem(), 3);
+    player.getItemCooldownManager().set(stack.getItem(), 3);
     player.setSprinting(true);
 
     float speed = f / 3F;
     player.addVelocity(
-      (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed),
+      (-MathHelper.sin(player.yaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.pitch / 180.0F * (float) Math.PI) * speed),
       speed,
-      (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed));
+      (MathHelper.cos(player.yaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.pitch / 180.0F * (float) Math.PI) * speed));
 
     playerServerMovement(player);
     onSuccess(player, stack);

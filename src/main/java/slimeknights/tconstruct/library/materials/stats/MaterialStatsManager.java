@@ -9,9 +9,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.profiler.Profiler;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
 import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -53,7 +53,7 @@ public class MaterialStatsManager extends SyncingJsonReloadListener {
 
   public static final String FOLDER = "materials/stats";
   public static final Gson GSON = (new GsonBuilder())
-    .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+    .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -115,7 +115,7 @@ public class MaterialStatsManager extends SyncingJsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation, JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+  protected void apply(Map<Identifier, JsonElement> splashList, ResourceManager resourceManagerIn, Profiler profilerIn) {
     // Combine all loaded material files into one map, removing possible conflicting stats and printing a warning about them
     // this map can't contain any duplicate material stats in one material anymore.
     Map<MaterialId, Map<MaterialStatsId, StatContent>> statContentMappedByMaterial = splashList.entrySet().stream()
@@ -184,7 +184,7 @@ public class MaterialStatsManager extends SyncingJsonReloadListener {
   }
 
   @Nullable
-  private StatsFileContent loadFileContent(ResourceLocation file, JsonObject jsonObject) {
+  private StatsFileContent loadFileContent(Identifier file, JsonObject jsonObject) {
     try {
       MaterialStatJsonWrapper materialStatJsonWrapper = GSON.fromJson(jsonObject, MaterialStatJsonWrapper.class);
       MaterialId materialId = materialStatJsonWrapper.getMaterialId();
@@ -213,7 +213,7 @@ public class MaterialStatsManager extends SyncingJsonReloadListener {
 
   private StatContent loadStatContent(JsonElement statsJson) {
     MaterialStatJsonWrapper.BaseMaterialStatsJson IMaterialStatsJson = GSON.fromJson(statsJson, MaterialStatJsonWrapper.BaseMaterialStatsJson.class);
-    ResourceLocation statsId = IMaterialStatsJson.getId();
+    Identifier statsId = IMaterialStatsJson.getId();
     if (statsId == null) {
       throw TinkerJSONException.materialStatsJsonWithoutId();
     }

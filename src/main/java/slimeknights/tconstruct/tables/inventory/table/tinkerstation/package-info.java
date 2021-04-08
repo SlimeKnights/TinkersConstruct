@@ -4,4 +4,4 @@ package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 
 import mcp.MethodsReturnNonnullByDefault;
 
-import org.jetbrains.annotations.ParametersAreNonnullByDefault;
+import javax.annotation.ParametersAreNonnullByDefault;

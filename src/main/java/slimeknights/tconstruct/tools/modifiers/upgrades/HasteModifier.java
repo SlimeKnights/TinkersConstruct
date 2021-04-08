@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
+import net.minecraft.text.TranslatableText;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -15,11 +15,11 @@ public class HasteModifier extends IncrementalModifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(int level) {
+  public Text getDisplayName(int level) {
     // displays special names for levels of haste
     if (level <= 5) {
-      return new TranslationTextComponent(getTranslationKey() + "." + level)
-        .modifyStyle(style -> style.setColor(Color.fromInt(getColor())));
+      return new TranslatableText(getTranslationKey() + "." + level)
+        .styled(style -> style.withColor(TextColor.fromRgb(getColor())));
     }
     return super.getDisplayName(level);
   }

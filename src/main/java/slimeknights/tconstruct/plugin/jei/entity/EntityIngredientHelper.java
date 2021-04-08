@@ -8,9 +8,8 @@ import mezz.jei.api.recipe.IFocus;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraft.util.ResourceLocation;
-
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.util.Identifier;
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -65,7 +64,7 @@ public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
     if (type == null) {
       return "null";
     }
-    ResourceLocation name = type.getRegistryName();
+    Identifier name = type.getRegistryName();
     if (name == null) {
       return "unnamed sadface :(";
     }
@@ -82,7 +81,7 @@ public class EntityIngredientHelper implements IIngredientHelper<EntityType> {
   public static void setFocus(IRecipeLayout layout, IGuiIngredientGroup<EntityType> group, Collection<EntityType<?>> entities, int index) {
     IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
     if (focus != null && focus.getValue().getItem() instanceof SpawnEggItem) {
-      EntityType<?> type = ((SpawnEggItem) focus.getValue().getItem()).getType(null);
+      EntityType<?> type = ((SpawnEggItem) focus.getValue().getItem()).getEntityType(null);
       group.set(index, entities.stream().filter(type::equals).collect(Collectors.toList()));
     }
   }

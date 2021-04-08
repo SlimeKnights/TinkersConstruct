@@ -1,12 +1,14 @@
 package slimeknights.tconstruct.smeltery.item;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,7 +21,7 @@ import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class TankItem extends BlockTooltipItem {
@@ -28,27 +30,27 @@ public class TankItem extends BlockTooltipItem {
   private static final String KEY_INGOTS = Util.makeTranslationKey("block", "tank.ingots");
   private static final String KEY_MIXED = Util.makeTranslationKey("block", "tank.mixed");
 
-  public TankItem(Block blockIn, Properties builder) {
+  public TankItem(Block blockIn, Settings builder) {
     super(blockIn, builder);
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+  @Environment(EnvType.CLIENT)
+  public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
     if (stack.hasTag()) {
       FluidTank tank = getFluidTank(stack);
       if (tank.getFluidAmount() > 0) {
-        tooltip.add(new TranslationTextComponent(KEY_FLUID, tank.getFluid().getDisplayName()).mergeStyle(TextFormatting.GRAY));
+        tooltip.add(new TranslatableText(KEY_FLUID, tank.getFluid().getDisplayName()).formatted(Formatting.GRAY));
         int amount = tank.getFluidAmount();
         if (tank.getCapacity() % FluidAttributes.BUCKET_VOLUME == 0 || Screen.hasShiftDown()) {
-          tooltip.add(new TranslationTextComponent(KEY_MB, amount).mergeStyle(TextFormatting.GRAY));
+          tooltip.add(new TranslatableText(KEY_MB, amount).formatted(Formatting.GRAY));
         } else {
           int ingots = amount / MaterialValues.INGOT;
           int mb = amount % MaterialValues.INGOT;
           if (mb == 0) {
-            tooltip.add(new TranslationTextComponent(KEY_INGOTS, ingots).mergeStyle(TextFormatting.GRAY));
+            tooltip.add(new TranslatableText(KEY_INGOTS, ingots).formatted(Formatting.GRAY));
           } else {
-            tooltip.add(new TranslationTextComponent(KEY_MIXED, ingots, mb).mergeStyle(TextFormatting.GRAY));
+            tooltip.add(new TranslatableText(KEY_MIXED, ingots, mb).formatted(Formatting.GRAY));
           }
           tooltip.add(FluidTooltipHandler.HOLD_SHIFT);
         }
@@ -56,7 +58,7 @@ public class TankItem extends BlockTooltipItem {
       }
     }
     else {
-      super.addInformation(stack, worldIn, tooltip, flagIn);
+      super.appendTooltip(stack, worldIn, tooltip, flagIn);
     }
   }
 

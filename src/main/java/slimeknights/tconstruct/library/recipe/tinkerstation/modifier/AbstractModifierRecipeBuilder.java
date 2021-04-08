@@ -3,17 +3,17 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /** Shared logic between normal and incremental modifier recipe builders */
@@ -45,7 +45,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
    * @param tag  Tag
    * @return  Builder instance
    */
-  public T setTools(ITag<Item> tag) {
+  public T setTools(Tag<Item> tag) {
     return this.setTools(Ingredient.fromTag(tag));
   }
 
@@ -118,22 +118,22 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumer) {
+  public void build(Consumer<RecipeJsonProvider> consumer) {
     build(consumer, result.getModifier().getId());
   }
 
   /** Base logic to write all relevant builder fields to JSON */
   protected abstract class ModifierFinishedRecipe extends AbstractFinishedRecipe {
-    public ModifierFinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+    public ModifierFinishedRecipe(Identifier ID, @Nullable Identifier advancementID) {
       super(ID, advancementID);
     }
 
     @Override
     public void serialize(JsonObject json) {
       if (tools == Ingredient.EMPTY) {
-        json.add("tools", DEFAULT_TOOL.get().serialize());
+        json.add("tools", DEFAULT_TOOL.get().toJson());
       } else {
-        json.add("tools", tools.serialize());
+        json.add("tools", tools.toJson());
       }
       if (requirements != ModifierMatch.ALWAYS) {
         JsonObject reqJson = requirements.serialize();

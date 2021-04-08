@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.common.data.tags;
 
 import net.minecraft.block.Block;
-import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.ItemTagsProvider;
-import net.minecraft.data.TagsProvider;
-import net.minecraft.item.DyeColor;
+import net.minecraft.data.server.AbstractTagProvider;
+import net.minecraft.data.server.BlockTagsProvider;
+import net.minecraft.data.server.ItemTagsProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag.INamedTag;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.tag.Tag.Identified;
+import net.minecraft.util.DyeColor;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -35,7 +35,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   }
 
   @Override
-  protected void registerTags() {
+  protected void configure() {
     this.addCommon();
     this.addGadgets();
     this.addWorld();
@@ -44,19 +44,19 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   }
 
   private void addCommon() {
-    this.getOrCreateBuilder(Tags.Items.SLIMEBALLS)
+    this.getOrCreateTagBuilder(Tags.Items.SLIMEBALLS)
         .addTag(TinkerTags.Items.SKY_SLIMEBALL)
         .addTag(TinkerTags.Items.ENDER_SLIMEBALL)
         .addTag(TinkerTags.Items.BLOOD_SLIMEBALL)
         .addTag(TinkerTags.Items.ICHOR_SLIMEBALL);
-    this.getOrCreateBuilder(TinkerTags.Items.EARTH_SLIMEBALL).add(Items.SLIME_BALL);
-    this.getOrCreateBuilder(TinkerTags.Items.SKY_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.SKY));
-    this.getOrCreateBuilder(TinkerTags.Items.ENDER_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ENDER));
-    this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.BLOOD));
-    this.getOrCreateBuilder(TinkerTags.Items.ICHOR_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ICHOR));
+    this.getOrCreateTagBuilder(TinkerTags.Items.EARTH_SLIMEBALL).add(Items.SLIME_BALL);
+    this.getOrCreateTagBuilder(TinkerTags.Items.SKY_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.SKY));
+    this.getOrCreateTagBuilder(TinkerTags.Items.ENDER_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ENDER));
+    this.getOrCreateTagBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.BLOOD));
+    this.getOrCreateTagBuilder(TinkerTags.Items.ICHOR_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ICHOR));
 
-    this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerCommons.driedBrick.get(), TinkerSmeltery.searedBrick.get());
-    this.getOrCreateBuilder(TinkerTags.Items.WITHER_BONES).add(TinkerModifiers.necroticBone.get());
+    this.getOrCreateTagBuilder(Tags.Items.INGOTS).add(TinkerCommons.driedBrick.get(), TinkerSmeltery.searedBrick.get());
+    this.getOrCreateTagBuilder(TinkerTags.Items.WITHER_BONES).add(TinkerModifiers.necroticBone.get());
 
     // ores
     addMetalTags(TinkerMaterials.copper);
@@ -75,8 +75,8 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addMetalTags(TinkerMaterials.knightslime);
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
-    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_NETHERITE_SCRAP).add(Items.NETHERITE_SCRAP);
-    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
+    this.getOrCreateTagBuilder(TinkerTags.Items.INGOTS_NETHERITE_SCRAP).add(Items.NETHERITE_SCRAP);
+    this.getOrCreateTagBuilder(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
 
     copyColored(Tags.Blocks.GLASS, Tags.Items.GLASS);
     copyColored(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
@@ -100,49 +100,49 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
   private void addGadgets() {
     this.copy(BlockTags.RAILS, ItemTags.RAILS);
-    this.getOrCreateBuilder(Tags.Items.RODS).addTag(TinkerTags.Items.RODS_STONE);
-    this.getOrCreateBuilder(TinkerTags.Items.RODS_STONE).add(TinkerGadgets.stoneStick.get());
+    this.getOrCreateTagBuilder(Tags.Items.RODS).addTag(TinkerTags.Items.RODS_STONE);
+    this.getOrCreateTagBuilder(TinkerTags.Items.RODS_STONE).add(TinkerGadgets.stoneStick.get());
   }
 
 
   private void addTools() {
     // multipart is basically all our tools right now, but future armor/shields won't be
     // required for part swapping and a few other things
-    this.getOrCreateBuilder(TinkerTags.Items.MULTIPART_TOOL)
+    this.getOrCreateTagBuilder(TinkerTags.Items.MULTIPART_TOOL)
         .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
 						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.broadSword.get());
     // mine blocks
-    this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
+    this.getOrCreateTagBuilder(TinkerTags.Items.HARVEST)
         .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
 						 TinkerTools.axe.get(), TinkerTools.kama.get());
     // support expanders
-    this.getOrCreateBuilder(TinkerTags.Items.AOE)
+    this.getOrCreateTagBuilder(TinkerTags.Items.AOE)
         .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
 						 TinkerTools.axe.get(), TinkerTools.kama.get());
     // support all weapon modifiers
-    this.getOrCreateBuilder(TinkerTags.Items.COMBAT)
+    this.getOrCreateTagBuilder(TinkerTags.Items.COMBAT)
         .add(TinkerTools.sledgeHammer.get(), TinkerTools.axe.get(), TinkerTools.broadSword.get());
     // can receive damage boosts
-    this.getOrCreateBuilder(TinkerTags.Items.MELEE)
+    this.getOrCreateTagBuilder(TinkerTags.Items.MELEE)
         .addTag(TinkerTags.Items.COMBAT)
         .add(TinkerTools.pickaxe.get(), TinkerTools.kama.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get());
     // supports modifiers
-    this.getOrCreateBuilder(TinkerTags.Items.MELEE_OR_HARVEST)
+    this.getOrCreateTagBuilder(TinkerTags.Items.MELEE_OR_HARVEST)
         .addTag(TinkerTags.Items.MELEE)
         .addTag(TinkerTags.Items.HARVEST);
-    this.getOrCreateBuilder(TinkerTags.Items.MODIFIABLE)
+    this.getOrCreateTagBuilder(TinkerTags.Items.MODIFIABLE)
         .addTag(TinkerTags.Items.MULTIPART_TOOL)
         .addTag(TinkerTags.Items.MELEE_OR_HARVEST)
         .addTag(TinkerTags.Items.AOE);
 
     // kamas are a shear type, when broken we don't pass it to loot tables
-    this.getOrCreateBuilder(Tags.Items.SHEARS).add(TinkerTools.kama.get());
+    this.getOrCreateTagBuilder(Tags.Items.SHEARS).add(TinkerTools.kama.get());
     // nothing to blacklist, just want the empty tag so it appears in datapacks
-    this.getOrCreateBuilder(TinkerTags.Items.AUTOSMELT_BLACKLIST);
+    this.getOrCreateTagBuilder(TinkerTags.Items.AUTOSMELT_BLACKLIST);
   }
 
   private void addSmeltery() {
@@ -150,14 +150,14 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.copy(TinkerTags.Blocks.SEARED_BLOCKS, TinkerTags.Items.SEARED_BLOCKS);
 
     // tag each type of cast
-    TagsProvider.Builder<Item> goldCasts = this.getOrCreateBuilder(TinkerTags.Items.GOLD_CASTS);
-    TagsProvider.Builder<Item> sandCasts = this.getOrCreateBuilder(TinkerTags.Items.SAND_CASTS);
-    TagsProvider.Builder<Item> redSandCasts = this.getOrCreateBuilder(TinkerTags.Items.RED_SAND_CASTS);
+    ObjectBuilder<Item> goldCasts = this.getOrCreateTagBuilder(TinkerTags.Items.GOLD_CASTS);
+    ObjectBuilder<Item> sandCasts = this.getOrCreateTagBuilder(TinkerTags.Items.SAND_CASTS);
+    ObjectBuilder<Item> redSandCasts = this.getOrCreateTagBuilder(TinkerTags.Items.RED_SAND_CASTS);
     Consumer<CastItemObject> addCast = cast -> {
       goldCasts.add(cast.get());
       sandCasts.add(cast.getSand());
       redSandCasts.add(cast.getRedSand());
-      this.getOrCreateBuilder(cast.getSingleUseTag()).add(cast.getSand(), cast.getRedSand());
+      this.getOrCreateTagBuilder(cast.getSingleUseTag()).add(cast.getSand(), cast.getRedSand());
     };
     // basic
     addCast.accept(TinkerSmeltery.blankCast);
@@ -179,12 +179,12 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.toughToolRodCast);
 
     // add all casts to a common tag
-    this.getOrCreateBuilder(TinkerTags.Items.CASTS)
+    this.getOrCreateTagBuilder(TinkerTags.Items.CASTS)
         .addTag(TinkerTags.Items.GOLD_CASTS)
         .addTag(TinkerTags.Items.SAND_CASTS)
         .addTag(TinkerTags.Items.RED_SAND_CASTS);
 
-    this.getOrCreateBuilder(TinkerTags.Items.DUCT_CONTAINERS).add(Items.BUCKET, TinkerSmeltery.copperCan.get());
+    this.getOrCreateTagBuilder(TinkerTags.Items.DUCT_CONTAINERS).add(Items.BUCKET, TinkerSmeltery.copperCan.get());
   }
 
   @Override
@@ -199,22 +199,22 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
    * @param metal  Metal object
    */
   private void addMetalTags(MetalItemObject metal) {
-    this.getOrCreateBuilder(metal.getIngotTag()).add(metal.getIngot());
-    this.getOrCreateBuilder(Tags.Items.INGOTS).addTag(metal.getIngotTag());
-    this.getOrCreateBuilder(metal.getNuggetTag()).add(metal.getNugget());
-    this.getOrCreateBuilder(Tags.Items.NUGGETS).addTag(metal.getNuggetTag());
+    this.getOrCreateTagBuilder(metal.getIngotTag()).add(metal.getIngot());
+    this.getOrCreateTagBuilder(Tags.Items.INGOTS).addTag(metal.getIngotTag());
+    this.getOrCreateTagBuilder(metal.getNuggetTag()).add(metal.getNugget());
+    this.getOrCreateTagBuilder(Tags.Items.NUGGETS).addTag(metal.getNuggetTag());
     this.copy(metal.getBlockTag(), metal.getBlockItemTag());
   }
 
   /*
    * Credit to forge for this code to generate the tags.
    */
-  private void copyColored(INamedTag<Block> blockGroup, INamedTag<Item> itemGroup) {
-    String blockPre = blockGroup.getName().getPath().toUpperCase(Locale.ENGLISH) + '_';
-    String itemPre = itemGroup.getName().getPath().toUpperCase(Locale.ENGLISH) + '_';
+  private void copyColored(Identified<Block> blockGroup, Identified<Item> itemGroup) {
+    String blockPre = blockGroup.getId().getPath().toUpperCase(Locale.ENGLISH) + '_';
+    String itemPre = itemGroup.getId().getPath().toUpperCase(Locale.ENGLISH) + '_';
     for (DyeColor color : DyeColor.values()) {
-      INamedTag<Block> from = getForgeBlockTag(blockPre + color.getTranslationKey());
-      INamedTag<Item> to = getForgeItemTag(itemPre + color.getTranslationKey());
+      Identified<Block> from = getForgeBlockTag(blockPre + color.getName());
+      Identified<Item> to = getForgeItemTag(itemPre + color.getName());
       copy(from, to);
     }
     copy(getForgeBlockTag(blockPre + "colorless"), getForgeItemTag(itemPre + "colorless"));
@@ -224,10 +224,10 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
    * Credit to forge for this code to generate the tags.
    */
   @SuppressWarnings("unchecked")
-  private INamedTag<Block> getForgeBlockTag(String name) {
+  private Identified<Block> getForgeBlockTag(String name) {
     try {
       name = name.toUpperCase(Locale.ENGLISH);
-      return (INamedTag<Block>) Tags.Blocks.class.getDeclaredField(name).get(null);
+      return (Identified<Block>) Tags.Blocks.class.getDeclaredField(name).get(null);
     } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
       throw new IllegalStateException(Tags.Blocks.class.getName() + " is missing tag name: " + name);
     }
@@ -237,10 +237,10 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
    * Credit to forge for this code to generate the tags.
    */
   @SuppressWarnings("unchecked")
-  private INamedTag<Item> getForgeItemTag(String name) {
+  private Identified<Item> getForgeItemTag(String name) {
     try {
       name = name.toUpperCase(Locale.ENGLISH);
-      return (INamedTag<Item>) Tags.Items.class.getDeclaredField(name).get(null);
+      return (Identified<Item>) Tags.Items.class.getDeclaredField(name).get(null);
     } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
       throw new IllegalStateException(Tags.Items.class.getName() + " is missing tag name: " + name);
     }

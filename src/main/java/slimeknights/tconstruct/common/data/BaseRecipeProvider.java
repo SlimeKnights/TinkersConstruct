@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.common.data;
 
-import net.minecraft.advancements.ICriterionInstance;
+import net.minecraft.advancement.criterion.CriterionConditions;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.data.SingleItemRecipeBuilder;
+import net.minecraft.data.server.RecipesProvider;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
+import net.minecraft.data.server.recipe.SingleItemRecipeJsonFactory;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
@@ -32,13 +32,13 @@ import java.util.function.Supplier;
 /**
  * Shared logic for each module's recipe provider
  */
-public abstract class BaseRecipeProvider extends RecipeProvider implements IConditionBuilder {
+public abstract class BaseRecipeProvider extends RecipesProvider implements IConditionBuilder {
   public BaseRecipeProvider(DataGenerator generator) {
     super(generator);
   }
 
   @Override
-  protected abstract void registerRecipes(Consumer<IFinishedRecipe> consumer);
+  protected abstract void generate(Consumer<RecipeJsonProvider> consumer);
 
   @Override
   public abstract String getName();
@@ -51,8 +51,8 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param id  Location path
    * @return  Location for Tinkers
    */
-  protected static ResourceLocation location(String id) {
-    return new ResourceLocation(TConstruct.modID, id);
+  protected static Identifier location(String id) {
+    return new Identifier(TConstruct.modID, id);
   }
 
   /**
@@ -70,8 +70,8 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param prefix  Prefix value
    * @return  Resource location path
    */
-  protected static ResourceLocation wrap(IItemProvider item, String prefix, String suffix) {
-    ResourceLocation loc = Objects.requireNonNull(item.asItem().getRegistryName());
+  protected static Identifier wrap(ItemConvertible item, String prefix, String suffix) {
+    Identifier loc = Objects.requireNonNull(item.asItem().getRegistryName());
     return location(prefix + loc.getPath() + suffix);
   }
 
@@ -81,8 +81,8 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param prefix  Prefix value
    * @return  Resource location path
    */
-  protected static ResourceLocation wrapR(Supplier<? extends IForgeRegistryEntry<?>> entry, String prefix, String suffix) {
-    ResourceLocation loc = Objects.requireNonNull(entry.get().getRegistryName());
+  protected static Identifier wrapR(Supplier<? extends IForgeRegistryEntry<?>> entry, String prefix, String suffix) {
+    Identifier loc = Objects.requireNonNull(entry.get().getRegistryName());
     return location(prefix + loc.getPath() + suffix);
   }
 
@@ -92,8 +92,8 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param prefix  Prefix value
    * @return  Resource location path
    */
-  protected static ResourceLocation prefix(IItemProvider item, String prefix) {
-    ResourceLocation loc = Objects.requireNonNull(item.asItem().getRegistryName());
+  protected static Identifier prefix(ItemConvertible item, String prefix) {
+    Identifier loc = Objects.requireNonNull(item.asItem().getRegistryName());
     return location(prefix + loc.getPath());
   }
 
@@ -103,8 +103,8 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param prefix  Prefix value
    * @return  Resource location path
    */
-  protected static ResourceLocation prefixR(Supplier<? extends IForgeRegistryEntry<?>> entry, String prefix) {
-    ResourceLocation loc = Objects.requireNonNull(entry.get().getRegistryName());
+  protected static Identifier prefixR(Supplier<? extends IForgeRegistryEntry<?>> entry, String prefix) {
+    Identifier loc = Objects.requireNonNull(entry.get().getRegistryName());
     return location(prefix + loc.getPath());
   }
 
@@ -114,8 +114,8 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param prefix  Prefix value
    * @return  Resource location path
    */
-  protected static ResourceLocation prefixR(IForgeRegistryEntry<?> entry, String prefix) {
-    ResourceLocation loc = Objects.requireNonNull(entry.getRegistryName());
+  protected static Identifier prefixR(IForgeRegistryEntry<?> entry, String prefix) {
+    Identifier loc = Objects.requireNonNull(entry.getRegistryName());
     return location(prefix + loc.getPath());
   }
 
@@ -125,8 +125,8 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param name   Tag name
    * @return  Tag instance
    */
-  protected static ITag<Item> getTag(String modId, String name) {
-    return ItemTags.makeWrapperTag(modId + ":" + name);
+  protected static Tag<Item> getTag(String modId, String name) {
+    return ItemTags.register(modId + ":" + name);
   }
 
 
@@ -137,37 +137,37 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param consumer  Recipe consumer
    * @param building  Building object instance
    */
-  protected void registerSlabStair(Consumer<IFinishedRecipe> consumer, BuildingBlockObject building, String folder, boolean addStonecutter) {
+  protected void registerSlabStair(Consumer<RecipeJsonProvider> consumer, BuildingBlockObject building, String folder, boolean addStonecutter) {
     Item item = building.asItem();
-    ICriterionInstance hasBlock = hasItem(item);
+    CriterionConditions hasBlock = conditionsFromItem(item);
     // slab
-    IItemProvider slab = building.getSlab();
-    ShapedRecipeBuilder.shapedRecipe(slab, 6)
-                       .key('B', item)
-                       .patternLine("BBB")
-                       .addCriterion("has_item", hasBlock)
-                       .setGroup(Objects.requireNonNull(slab.asItem().getRegistryName()).toString())
-                       .build(consumer, wrap(item, folder, "_slab"));
+    ItemConvertible slab = building.getSlab();
+    ShapedRecipeJsonFactory.create(slab, 6)
+                       .input('B', item)
+                       .pattern("BBB")
+                       .criterion("has_item", hasBlock)
+                       .group(Objects.requireNonNull(slab.asItem().getRegistryName()).toString())
+                       .offerTo(consumer, wrap(item, folder, "_slab"));
     // stairs
-    IItemProvider stairs = building.getStairs();
-    ShapedRecipeBuilder.shapedRecipe(stairs, 4)
-                       .key('B', item)
-                       .patternLine("B  ")
-                       .patternLine("BB ")
-                       .patternLine("BBB")
-                       .addCriterion("has_item", hasBlock)
-                       .setGroup(Objects.requireNonNull(stairs.asItem().getRegistryName()).toString())
-                       .build(consumer, wrap(item, folder, "_stairs"));
+    ItemConvertible stairs = building.getStairs();
+    ShapedRecipeJsonFactory.create(stairs, 4)
+                       .input('B', item)
+                       .pattern("B  ")
+                       .pattern("BB ")
+                       .pattern("BBB")
+                       .criterion("has_item", hasBlock)
+                       .group(Objects.requireNonNull(stairs.asItem().getRegistryName()).toString())
+                       .offerTo(consumer, wrap(item, folder, "_stairs"));
 
     // only add stonecutter if relevant
     if (addStonecutter) {
-      Ingredient ingredient = Ingredient.fromItems(item);
-      SingleItemRecipeBuilder.stonecuttingRecipe(ingredient, slab, 2)
-                             .addCriterion("has_item", hasBlock)
-                             .build(consumer, wrap(item, folder, "_slab_stonecutter"));
-      SingleItemRecipeBuilder.stonecuttingRecipe(ingredient, stairs)
-                             .addCriterion("has_item", hasBlock)
-                             .build(consumer, wrap(item, folder, "_stairs_stonecutter"));
+      Ingredient ingredient = Ingredient.ofItems(item);
+      SingleItemRecipeJsonFactory.create(ingredient, slab, 2)
+                             .create("has_item", hasBlock)
+                             .offerTo(consumer, wrap(item, folder, "_slab_stonecutter"));
+      SingleItemRecipeJsonFactory.create(ingredient, stairs)
+                             .create("has_item", hasBlock)
+                             .offerTo(consumer, wrap(item, folder, "_stairs_stonecutter"));
     }
   }
 
@@ -176,25 +176,25 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param consumer  Recipe consumer
    * @param building  Building object instance
    */
-  protected void registerSlabStairWall(Consumer<IFinishedRecipe> consumer, WallBuildingBlockObject building, String folder, boolean addStonecutter) {
+  protected void registerSlabStairWall(Consumer<RecipeJsonProvider> consumer, WallBuildingBlockObject building, String folder, boolean addStonecutter) {
     registerSlabStair(consumer, building, folder, addStonecutter);
     // wall
     Item item = building.asItem();
-    ICriterionInstance hasBlock = hasItem(item);
-    IItemProvider wall = building.getWall();
-    ShapedRecipeBuilder.shapedRecipe(wall, 4)
-                       .key('B', item)
-                       .patternLine("BBB")
-                       .patternLine("BBB")
-                       .addCriterion("has_item", hasBlock)
-                       .setGroup(Objects.requireNonNull(wall.asItem().getRegistryName()).toString())
-                       .build(consumer, wrap(item, folder, "_wall"));
+    CriterionConditions hasBlock = conditionsFromItem(item);
+    ItemConvertible wall = building.getWall();
+    ShapedRecipeJsonFactory.create(wall, 4)
+                       .input('B', item)
+                       .pattern("BBB")
+                       .pattern("BBB")
+                       .criterion("has_item", hasBlock)
+                       .group(Objects.requireNonNull(wall.asItem().getRegistryName()).toString())
+                       .offerTo(consumer, wrap(item, folder, "_wall"));
     // only add stonecutter if relevant
     if (addStonecutter) {
-      Ingredient ingredient = Ingredient.fromItems(item);
-      SingleItemRecipeBuilder.stonecuttingRecipe(ingredient, wall)
-                             .addCriterion("has_item", hasBlock)
-                             .build(consumer, wrap(item, folder, "_wall_stonecutter"));
+      Ingredient ingredient = Ingredient.ofItems(item);
+      SingleItemRecipeJsonFactory.create(ingredient, wall)
+                             .create("has_item", hasBlock)
+                             .offerTo(consumer, wrap(item, folder, "_wall_stonecutter"));
     }
   }
 
@@ -207,22 +207,22 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param smallName  Small name
    * @param folder     Recipe folder
    */
-  protected void registerPackingRecipe(Consumer<IFinishedRecipe> consumer, String largeName, IItemProvider large, String smallName, IItemProvider small, String folder) {
+  protected void registerPackingRecipe(Consumer<RecipeJsonProvider> consumer, String largeName, ItemConvertible large, String smallName, ItemConvertible small, String folder) {
     // ingot to block
-    ShapedRecipeBuilder.shapedRecipe(large)
-                       .key('#', small)
-                       .patternLine("###")
-                       .patternLine("###")
-                       .patternLine("###")
-                       .addCriterion("has_item", hasItem(small))
-                       .setGroup(Objects.requireNonNull(large.asItem().getRegistryName()).toString())
-                       .build(consumer, wrap(large, folder, String.format("_from_%ss", smallName)));
+    ShapedRecipeJsonFactory.create(large)
+                       .input('#', small)
+                       .pattern("###")
+                       .pattern("###")
+                       .pattern("###")
+                       .criterion("has_item", conditionsFromItem(small))
+                       .group(Objects.requireNonNull(large.asItem().getRegistryName()).toString())
+                       .offerTo(consumer, wrap(large, folder, String.format("_from_%ss", smallName)));
     // block to ingot
-    ShapelessRecipeBuilder.shapelessRecipe(small, 9)
-                          .addIngredient(large)
-                          .addCriterion("has_item", hasItem(large))
-                          .setGroup(Objects.requireNonNull(small.asItem().getRegistryName()).toString())
-                          .build(consumer, wrap(small, folder, String.format("_from_%s", largeName)));
+    ShapelessRecipeJsonFactory.create(small, 9)
+                          .input(large)
+                          .criterion("has_item", conditionsFromItem(large))
+                          .group(Objects.requireNonNull(small.asItem().getRegistryName()).toString())
+                          .offerTo(consumer, wrap(small, folder, String.format("_from_%s", largeName)));
   }
 
   /**
@@ -235,24 +235,24 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param smallName  Small name
    * @param folder     Recipe folder
    */
-  protected void registerPackingRecipe(Consumer<IFinishedRecipe> consumer, String largeName, IItemProvider largeItem, String smallName, IItemProvider smallItem, ITag<Item> smallTag, String folder) {
+  protected void registerPackingRecipe(Consumer<RecipeJsonProvider> consumer, String largeName, ItemConvertible largeItem, String smallName, ItemConvertible smallItem, Tag<Item> smallTag, String folder) {
     // ingot to block
     // note our item is in the center, any mod allowed around the edges
-    ShapedRecipeBuilder.shapedRecipe(largeItem)
-                       .key('#', smallTag)
-                       .key('*', smallItem)
-                       .patternLine("###")
-                       .patternLine("#*#")
-                       .patternLine("###")
-                       .addCriterion("has_item", hasItem(smallItem))
-                       .setGroup(Objects.requireNonNull(largeItem.asItem().getRegistryName()).toString())
-                       .build(consumer, wrap(largeItem, folder, String.format("_from_%ss", smallName)));
+    ShapedRecipeJsonFactory.create(largeItem)
+                       .input('#', smallTag)
+                       .input('*', smallItem)
+                       .pattern("###")
+                       .pattern("#*#")
+                       .pattern("###")
+                       .criterion("has_item", conditionsFromItem(smallItem))
+                       .group(Objects.requireNonNull(largeItem.asItem().getRegistryName()).toString())
+                       .offerTo(consumer, wrap(largeItem, folder, String.format("_from_%ss", smallName)));
     // block to ingot
-    ShapelessRecipeBuilder.shapelessRecipe(smallItem, 9)
-                          .addIngredient(largeItem)
-                          .addCriterion("has_item", hasItem(largeItem))
-                          .setGroup(Objects.requireNonNull(smallItem.asItem().getRegistryName()).toString())
-                          .build(consumer, wrap(smallItem, folder, String.format("_from_%s", largeName)));
+    ShapelessRecipeJsonFactory.create(smallItem, 9)
+                          .input(largeItem)
+                          .criterion("has_item", conditionsFromItem(largeItem))
+                          .group(Objects.requireNonNull(smallItem.asItem().getRegistryName()).toString())
+                          .offerTo(consumer, wrap(smallItem, folder, String.format("_from_%s", largeName)));
   }
 
 
@@ -264,7 +264,7 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param conditions  Extra conditions
    * @return  Wrapped consumer
    */
-  protected static Consumer<IFinishedRecipe> withCondition(Consumer<IFinishedRecipe> consumer, ICondition... conditions) {
+  protected static Consumer<RecipeJsonProvider> withCondition(Consumer<RecipeJsonProvider> consumer, ICondition... conditions) {
     ConsumerWrapperBuilder builder = ConsumerWrapperBuilder.wrap();
     for (ICondition condition : conditions) {
       builder.addCondition(condition);

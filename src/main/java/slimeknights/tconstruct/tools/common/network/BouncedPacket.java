@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.common.network;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 
@@ -10,10 +10,10 @@ public class BouncedPacket implements IThreadsafePacket {
 
   public BouncedPacket() {}
 
-  public BouncedPacket(PacketBuffer buffer) {}
+  public BouncedPacket(PacketByteBuf buffer) {}
 
   @Override
-  public void encode(PacketBuffer packetBuffer) {}
+  public void encode(PacketByteBuf packetBuffer) {}
 
   @Override
   public void handleThreadsafe(Context context) {

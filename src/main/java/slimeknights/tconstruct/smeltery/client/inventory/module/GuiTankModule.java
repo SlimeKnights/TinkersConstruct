@@ -1,17 +1,17 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -21,7 +21,7 @@ import java.util.function.BiConsumer;
  */
 @RequiredArgsConstructor
 public class GuiTankModule {
-  private final ContainerScreen<?> screen;
+  private final HandledScreen<?> screen;
   private final IFluidTank tank;
   private final int x, y, width, height;
 
@@ -80,29 +80,29 @@ public class GuiTankModule {
    * @param mouseY    Global mouse Y position
    */
   public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
-    int checkX = mouseX - screen.guiLeft;
-    int checkY = mouseY - screen.guiTop;
+    int checkX = mouseX - screen.x;
+    int checkY = mouseY - screen.y;
 
     if (isHovered(checkX, checkY)) {
       int amount = tank.getFluidAmount();
       int capacity = tank.getCapacity();
 
       // if hovering over the fluid, display with name
-      final List<ITextComponent> tooltip;
+      final List<Text> tooltip;
       if (checkY > (y + height) - getFluidHeight()) {
         tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluid());
       } else {
         // function to call for amounts
-        BiConsumer<Integer, List<ITextComponent>> formatter = Util.isShiftKeyDown()
+        BiConsumer<Integer, List<Text>> formatter = Util.isShiftKeyDown()
                                                               ? FluidTooltipHandler::appendBuckets
                                                               : FluidTooltipHandler::appendIngots;
 
         // add tooltips
         tooltip = new ArrayList<>();
-        tooltip.add(new TranslationTextComponent(GuiSmelteryTank.TOOLTIP_CAPACITY));
+        tooltip.add(new TranslatableText(GuiSmelteryTank.TOOLTIP_CAPACITY));
         formatter.accept(capacity, tooltip);
         if (capacity != amount) {
-          tooltip.add(new TranslationTextComponent(GuiSmelteryTank.TOOLTIP_AVAILABLE));
+          tooltip.add(new TranslatableText(GuiSmelteryTank.TOOLTIP_AVAILABLE));
           formatter.accept(capacity - amount, tooltip);
         }
 
@@ -112,7 +112,7 @@ public class GuiTankModule {
       }
 
       // TODO: func_243308_b->renderTooltip
-      screen.func_243308_b(matrices, tooltip, mouseX, mouseY);
+      screen.renderTooltip(matrices, tooltip, mouseX, mouseY);
     }
   }
 

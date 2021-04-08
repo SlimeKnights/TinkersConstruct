@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.tools.item;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -17,10 +17,10 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
  */
 public abstract class SwordCore extends ToolCore {
   public static final ToolType TOOL_TYPE = ToolType.get("sword");
-  public static final ImmutableSet<Material> EFFECTIVE_MATERIALS = ImmutableSet.of(Material.WEB, Material.TALL_PLANTS, Material.CORAL, Material.GOURD, Material.LEAVES);
+  public static final ImmutableSet<Material> EFFECTIVE_MATERIALS = ImmutableSet.of(Material.COBWEB, Material.REPLACEABLE_PLANT, Material.UNUSED_PLANT, Material.GOURD, Material.LEAVES);
   public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic();
 
-  public SwordCore(Properties properties, ToolDefinition toolDefinition) {
+  public SwordCore(Settings properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 
@@ -30,7 +30,7 @@ public abstract class SwordCore extends ToolCore {
   }
 
   @Override
-  public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
+  public boolean canMine(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
     return !player.isCreative();
   }
 
@@ -46,7 +46,7 @@ public abstract class SwordCore extends ToolCore {
     public float getDestroySpeed(ItemStack stack, BlockState state) {
       // webs are slow
       float speed = super.getDestroySpeed(stack, state);
-      if (state.getMaterial() == Material.WEB) {
+      if (state.getMaterial() == Material.COBWEB) {
         speed *= 7.5f;
       }
       return speed;

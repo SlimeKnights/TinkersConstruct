@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tables;
 
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.resource.ReloadableResourceManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -29,9 +29,9 @@ public class TableClientEvents extends ClientEventBase {
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor
    */
-  public static void addResourceListener(IReloadableResourceManager manager) {
-    manager.addReloadListener(PatternGuiTextureLoader.INSTANCE);
-    manager.addReloadListener(SlotInformationLoader.INSTANCE);
+  public static void addResourceListener(ReloadableResourceManager manager) {
+    manager.registerListener(PatternGuiTextureLoader.INSTANCE);
+    manager.registerListener(SlotInformationLoader.INSTANCE);
   }
 
   @SubscribeEvent
@@ -41,10 +41,10 @@ public class TableClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void setupClient(final FMLClientSetupEvent event) {
-    ScreenManager.registerFactory(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
-    ScreenManager.registerFactory(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
-    ScreenManager.registerFactory(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
-    ScreenManager.registerFactory(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
+    HandledScreens.register(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
+    HandledScreens.register(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
+    HandledScreens.register(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
+    HandledScreens.register(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
 
     ClientRegistry.bindTileEntityRenderer(TinkerTables.craftingStationTile.get(), TableTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);

@@ -1,14 +1,16 @@
 package slimeknights.tconstruct.library.book.elements;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.gui.FontRenderer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class ListingCenteredElement extends TextElement {
 
   private final int originalX;
@@ -25,7 +27,7 @@ public class ListingCenteredElement extends TextElement {
   }
 
   @Override
-  public void draw(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
+  public void draw(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, TextRenderer fontRenderer) {
     if (this.isHovered(mouseX, mouseY)) {
       this.text[0].text = "> ";
       this.text[this.text.length - 1].text = " <";
@@ -33,7 +35,7 @@ public class ListingCenteredElement extends TextElement {
         this.text[i].color = "dark red";
       }
 
-      this.x = this.originalX - fontRenderer.getStringWidth(this.text[0].text);
+      this.x = this.originalX - fontRenderer.getWidth(this.text[0].text);
     } else {
       this.text[0].text = "";
       this.text[this.text.length - 1].text = "";

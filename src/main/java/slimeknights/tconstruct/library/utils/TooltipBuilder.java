@@ -2,10 +2,10 @@ package slimeknights.tconstruct.library.utils;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -23,12 +23,12 @@ public class TooltipBuilder {
   private final static String KEY_FREE_ABILITIES = Util.makeTranslationKey("tooltip", "tool.abilities");
   private final static String KEY_ATTACK_SPEED = Util.makeTranslationKey("stat", "attack_speed");
 
-  private final static Color UPGRADE_COLOR = Color.fromInt(0xFFCCBA47);
-  private final static Color ABILITY_COLOR = Color.fromInt(0xFFB8A0FF);
-  private final static Color ATTACK_SPEED_COLOR = Color.fromInt(0xFF8547CC);
+  private final static TextColor UPGRADE_COLOR = TextColor.fromRgb(0xFFCCBA47);
+  private final static TextColor ABILITY_COLOR = TextColor.fromRgb(0xFFB8A0FF);
+  private final static TextColor ATTACK_SPEED_COLOR = TextColor.fromRgb(0xFF8547CC);
 
   /** Final list of tooltips */
-  private final List<ITextComponent> tips = Lists.newLinkedList();
+  private final List<Text> tips = Lists.newLinkedList();
   private final ToolStack tool;
 
 
@@ -37,7 +37,7 @@ public class TooltipBuilder {
    *
    * @return the list of tooltips
    */
-  public List<ITextComponent> getTooltips() {
+  public List<Text> getTooltips() {
     return this.tips;
   }
 
@@ -47,7 +47,7 @@ public class TooltipBuilder {
    * @param textComponent the text component to add
    * @return the tooltip builder
    */
-  public TooltipBuilder add(ITextComponent textComponent) {
+  public TooltipBuilder add(Text textComponent) {
     this.tips.add(textComponent);
 
     return this;
@@ -90,7 +90,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addAttackDamage() {
-    float attack = ToolAttackUtil.getActualDamage(tool, Minecraft.getInstance().player);
+    float attack = ToolAttackUtil.getActualDamage(tool, MinecraftClient.getInstance().player);
     this.tips.add(HeadMaterialStats.formatAttack(attack));
     return this;
   }
@@ -154,7 +154,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addDrawSpeed() {
-    this.tips.add(new StringTextComponent("TODO: implement getting draw speed"));
+    this.tips.add(new LiteralText("TODO: implement getting draw speed"));
 
     //todo implement code below and remove line above.
     /*float speed = ProjectileLauncherNBT.from(stack).drawSpeed;
@@ -173,7 +173,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addRange() {
-    this.tips.add(new StringTextComponent("TODO: implement getting range"));
+    this.tips.add(new LiteralText("TODO: implement getting range"));
 
     //todo implement code below and remove line above.
     //this.tips.add(BowMaterialStats.formatRange(ProjectileLauncherNBT.from(stack).range));

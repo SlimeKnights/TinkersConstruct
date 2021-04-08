@@ -5,24 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /** Shared logic between item and material casting */
 @AllArgsConstructor
 public abstract class AbstractCastingRecipe implements ICastingRecipe {
   @Getter
-  protected final IRecipeType<?> type;
+  protected final RecipeType<?> type;
   @Getter
-  protected final ResourceLocation id;
+  protected final Identifier id;
   @Getter
   protected final String group;
   /** 'cast' item for recipe (doesn't have to be an actual 'cast') */
@@ -34,7 +33,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
   protected final boolean switchSlots;
 
   @Override
-  public abstract ItemStack getRecipeOutput();
+  public abstract ItemStack getOutput();
 
   /**
    * Seralizer for {@link ItemCastingRecipe}.
@@ -43,33 +42,33 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
   @AllArgsConstructor
   public abstract static class Serializer<T extends AbstractCastingRecipe> extends RecipeSerializer<T> {
     /** Creates a new instance from JSON */
-    protected abstract T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json);
+    protected abstract T create(Identifier idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json);
 
     /** Creates a new instance from the packet buffer */
-    protected abstract T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, PacketBuffer buffer);
+    protected abstract T create(Identifier idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, PacketByteBuf buffer);
 
     /** Writes extra data to the packet buffer */
-    protected abstract void writeExtra(PacketBuffer buffer, T recipe);
+    protected abstract void writeExtra(PacketByteBuf buffer, T recipe);
 
     @Override
-    public T read(ResourceLocation recipeId, JsonObject json) {
+    public T read(Identifier recipeId, JsonObject json) {
       Ingredient cast = Ingredient.EMPTY;
-      String group = JSONUtils.getString(json, "group", "");
+      String group = net.minecraft.util.JsonHelper.getString(json, "group", "");
       boolean consumed = false;
-      boolean switchSlots = JSONUtils.getBoolean(json, "switch_slots", false);
+      boolean switchSlots = net.minecraft.util.JsonHelper.getBoolean(json, "switch_slots", false);
       if (json.has("cast")) {
-        cast = Ingredient.deserialize(JsonHelper.getElement(json, "cast"));
-        consumed = JSONUtils.getBoolean(json, "cast_consumed", false);
+        cast = Ingredient.fromJson(JsonHelper.getElement(json, "cast"));
+        consumed = net.minecraft.util.JsonHelper.getBoolean(json, "cast_consumed", false);
       }
       return create(recipeId, group, cast, consumed, switchSlots, json);
     }
 
     @Nullable
     @Override
-    public T read(ResourceLocation recipeId, PacketBuffer buffer) {
+    public T read(Identifier recipeId, PacketByteBuf buffer) {
       try {
         String group = buffer.readString(Short.MAX_VALUE);
-        Ingredient cast = Ingredient.read(buffer);
+        Ingredient cast = Ingredient.fromPacket(buffer);
         boolean consumed = buffer.readBoolean();
         boolean switchSlots = buffer.readBoolean();
         return create(recipeId, group, cast, consumed, switchSlots, buffer);
@@ -80,7 +79,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
     }
 
     @Override
-    public void write(PacketBuffer buffer, T recipe) {
+    public void write(PacketByteBuf buffer, T recipe) {
       try {
         buffer.writeString(recipe.group);
         recipe.cast.write(buffer);

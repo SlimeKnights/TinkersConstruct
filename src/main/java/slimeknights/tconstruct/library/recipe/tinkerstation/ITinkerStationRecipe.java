@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.NonNullList;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -14,7 +14,7 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
   /* Recipe data */
 
   @Override
-  default IRecipeType<?> getType() {
+  default RecipeType<?> getType() {
     return RecipeTypes.TINKER_STATION;
   }
 
@@ -31,7 +31,7 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
    */
   @Override
   default ItemStack getCraftingResult(ITinkerStationInventory inv) {
-    return getRecipeOutput().copy();
+    return getOutput().copy();
   }
 
   /**
@@ -64,7 +64,7 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
   /** @deprecated use {@link #updateInputs(ItemStack, IMutableTinkerStationInventory)} */
   @Override
   @Deprecated
-  default NonNullList<ItemStack> getRemainingItems(ITinkerStationInventory inv) {
-    return NonNullList.from(ItemStack.EMPTY);
+  default DefaultedList<ItemStack> getRemainingItems(ITinkerStationInventory inv) {
+    return DefaultedList.copyOf(ItemStack.EMPTY);
   }
 }

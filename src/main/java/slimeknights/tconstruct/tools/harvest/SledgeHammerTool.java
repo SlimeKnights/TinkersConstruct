@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.harvest;
 
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -12,14 +12,14 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class SledgeHammerTool extends HarvestTool {
   private static final AOEToolHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(PickaxeTool.EXTRA_MATERIALS, 3, 3, 1);
-  public SledgeHammerTool(Properties properties, ToolDefinition toolDefinition) {
+  public SledgeHammerTool(Settings properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 
   @Override
   public boolean dealDamage(ToolStack tool, LivingEntity player, Entity entity, float damage, boolean isCriticalHit, boolean fullyCharged) {
     // bonus damage vs. undead!
-    if (entity instanceof LivingEntity && ((LivingEntity) entity).getCreatureAttribute() == CreatureAttribute.UNDEAD) {
+    if (entity instanceof LivingEntity && ((LivingEntity) entity).getGroup() == EntityGroup.UNDEAD) {
       damage += 3 + TConstruct.random.nextInt(4);
     }
     boolean hit = super.dealDamage(tool, player, entity, damage, isCriticalHit, fullyCharged);
