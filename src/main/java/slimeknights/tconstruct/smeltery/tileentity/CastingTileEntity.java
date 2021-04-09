@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import lombok.Getter;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;

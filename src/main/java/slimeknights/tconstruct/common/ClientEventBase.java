@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 /**
  * Contains helpers to use for registering client events
  */
-public abstract class ClientEventBase implements ClientModInitializer {
+public abstract class ClientEventBase {
   /**
    * Registers a block colors alias for the given block
    * @param blockColors  BlockColors instance
