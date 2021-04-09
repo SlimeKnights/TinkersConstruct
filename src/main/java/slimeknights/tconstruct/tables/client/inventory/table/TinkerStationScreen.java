@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tables.client.inventory.table;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.Getter;
-import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -89,7 +88,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   protected ElementScreen rightBeam = new ElementScreen(0, 0, 0, 0);
   protected ScalableElementScreen centerBeam = new ScalableElementScreen(0, 0, 0, 0);
 
-  public TextFieldWidget textField;
+  //public TextFieldWidget textField;
   protected InfoPanelScreen tinkerInfo;
   protected InfoPanelScreen modifierInfo;
 
@@ -153,9 +152,9 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.guiTop += 4;
     this.cornerY += 4;
 
-    this.textField = new TextFieldWidget(this.font, this.cornerX + 81, this.cornerY + 7, 91, 12, StringTextComponent.EMPTY);
-    this.textField.setEnableBackgroundDrawing(false);
-    this.textField.setMaxStringLength(40);
+    //this.textField = new TextFieldWidget(this.font, this.cornerX + 81, this.cornerY + 7, 91, 12, StringTextComponent.EMPTY);
+    //this.textField.setEnableBackgroundDrawing(false);
+    //this.textField.setMaxStringLength(40);
 
     this.buttonsScreen.xOffset = -2;
     this.buttonsScreen.yOffset = this.centerBeam.h + this.buttonDecorationTop.h;
@@ -310,6 +309,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.drawBackground(matrices, TINKER_STATION_TEXTURE);
 
     // looks like there's a weird case where this is called before init? Not reproducible but meh.
+    /* TODO: keep this?
     if (this.textField != null) {
       if (this.textField.isFocused()) {
         ACTIVE_TEXT_FIELD.draw(matrices, cornerX + 79, cornerY + 6);
@@ -318,6 +318,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       // draw textField
       this.textField.render(matrices, mouseX, mouseY, partialTicks);
     }
+    */
 
     int x = 0;
     int y = 0;
@@ -503,7 +504,9 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       return false;
     }
 
-    return this.textField.mouseClicked(mouseX, mouseY, mouseButton) || super.mouseClicked(mouseX, mouseY, mouseButton);
+    // TODO: textField
+    // this.textField.mouseClicked(mouseX, mouseY, mouseButton)
+    return super.mouseClicked(mouseX, mouseY, mouseButton);
   }
 
   @Override
@@ -557,16 +560,17 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       this.minecraft.player.closeScreen();
     }
 
-    boolean keyPressed = this.textField.keyPressed(keyCode, scanCode, modifiers);
-
+    // TODO: textField
+    //boolean keyPressed = this.textField.keyPressed(keyCode, scanCode, modifiers);
     //if (keyPressed) {
       //TinkerNetwork.getInstance().sendToServer(new ToolStationTextPacket(this.textField.getText()));
       //this.container.setToolName(textField.getText());
     //}
-
-    return keyPressed || this.textField.canWrite() || super.keyPressed(keyCode, scanCode, modifiers);
+    // keyPressed || this.textField.canWrite() ||
+    return super.keyPressed(keyCode, scanCode, modifiers);
   }
 
+  /* TODO: textField
   @Override
   public boolean charTyped(char typedChar, int keyCode) {
     if (!this.textField.isFocused()) {
@@ -599,6 +603,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     this.textField.tick();
   }
+  */
 
   @Override
   public void moveItems(MatrixStack matrixStack, Slot slotIn) {
