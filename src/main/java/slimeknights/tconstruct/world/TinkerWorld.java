@@ -208,7 +208,7 @@ public final class TinkerWorld extends TinkerModule implements ModInitializer {
     COBALT_ORE_FEATURE_LARGE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("cobalt_ore_large"),
                                                  Feature.ORE.configure(new OreFeatureConfig(Rules.NETHERRACK, cobaltOre.get().getDefaultState(), 8))
                                                             .decorate(Decorator.DEPTH_AVERAGE.configure(new DepthAverageDecoratorConfig(32, 16)))
-                                                            .spreadHorizontally().repeat(Config.COMMON.veinCountCobalt.get() / 2));
+                                                            .spreadHorizontally().repeat(Config.veinCountCobalt.get() / 2));
   }
 
   @Override

@@ -1,21 +1,27 @@
 package slimeknights.tconstruct.world;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.color.block.BlockColorProvider;
 import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.resource.ReloadableResourceManager;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 import slimeknights.tconstruct.world.client.SlimeColorReloadListener;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.client.TinkerSlimeRenderer;
+
+import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public class WorldClientEvents extends ClientEventBase {
@@ -30,7 +36,7 @@ public class WorldClientEvents extends ClientEventBase {
 
   @Override
   public void onInitializeClient() {
-    RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.skySlimeEntity, TinkerSlimeRenderer.BLUE_SLIME_FACTORY);
+    EntityRendererRegistry.INSTANCE.register(TinkerWorld.skySlimeEntity, (entityRenderDispatcher, context) -> new TinkerSlimeRenderer(entityRenderDispatcher, Util.getResource("textures/entity/blue_slime.png")));
 
     // render types - ores
     BlockRenderLayerMap.INSTANCE.putBlock(TinkerWorld.cobaltOre.get(), RenderLayer.getCutoutMipped());
@@ -88,9 +94,9 @@ public class WorldClientEvents extends ClientEventBase {
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.enderSlimeGrass);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.ichorSlimeGrass);
     // plant items
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeLeaves);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeFern);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeTallGrass);
+    registerBlockItemColorAlias(blockColors, itemColors, (Supplier<? extends Block>) TinkerWorld.slimeLeaves);
+    registerBlockItemColorAlias(blockColors, itemColors, (Supplier<? extends Block>) TinkerWorld.slimeFern);
+    registerBlockItemColorAlias(blockColors, itemColors, (Supplier<? extends Block>) TinkerWorld.slimeTallGrass);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.skySlimeVine);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.enderSlimeVine);
   }
