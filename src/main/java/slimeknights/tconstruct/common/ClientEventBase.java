@@ -9,6 +9,7 @@ import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.item.ItemConvertible;
 import slimeknights.mantle.registration.object.EnumObject;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Supplier;
 
@@ -23,7 +24,7 @@ public abstract class ClientEventBase implements ClientModInitializer {
    * @param block        Block to register
    */
   protected static void registerBlockItemColorAlias(ColorProviderRegistry<Block, BlockColorProvider> blockColors, ColorProviderRegistry<ItemConvertible, ItemColorProvider> itemColors, Block block) {
-    itemColors.register((stack, index) -> blockColors.getColor(block.getDefaultState(), null, null, index), block);
+    itemColors.register((stack, index) -> blockColors.get(block).getColor(block.getDefaultState(), null, null, index), block);
   }
 
   /**
@@ -32,7 +33,7 @@ public abstract class ClientEventBase implements ClientModInitializer {
    * @param itemColors   ItemColors instance
    * @param block        Block to register
    */
-  protected static void registerBlockItemColorAlias(BlockColors blockColors, ItemColors itemColors, Supplier<? extends Block> block) {
+  protected static void registerBlockItemColorAlias(ColorProviderRegistry<Block, BlockColorProvider> blockColors, ColorProviderRegistry<ItemConvertible, ItemColorProvider> itemColors, Supplier<? extends Block> block) {
     registerBlockItemColorAlias(blockColors, itemColors, block.get());
   }
 
@@ -42,8 +43,8 @@ public abstract class ClientEventBase implements ClientModInitializer {
    * @param itemColors   ItemColors instance
    * @param blocks       EnumBlock instance
    */
-  protected static <B extends Block> void registerBlockItemColorAlias(BlockColors blockColors, ItemColors itemColors, EnumObject<?,B> blocks) {
-    for (B block : blocks.values()) {
+  protected static void registerBlockItemColorAlias(ColorProviderRegistry<Block, BlockColorProvider> blockColors, ColorProviderRegistry<ItemConvertible, ItemColorProvider> itemColors, EnumObject<?,Block> blocks) {
+    for (Block block : blocks.values()) {
       registerBlockItemColorAlias(blockColors, itemColors, block);
     }
   }

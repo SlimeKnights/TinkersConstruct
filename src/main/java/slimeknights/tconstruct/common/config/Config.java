@@ -1,10 +1,5 @@
 package slimeknights.tconstruct.common.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import org.apache.commons.lang3.tuple.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,32 +9,32 @@ public class Config {
    */
   public static class Common {
 
-    public final BooleanValue shouldSpawnWithTinkersBook;
+    public final boolean shouldSpawnWithTinkersBook;
 
     // recipes
-    public final BooleanValue addGravelToFlintRecipe;
-    public final BooleanValue cheaperNetheriteAlloy;
-    public final BooleanValue witherBoneDrop;
-    public final BooleanValue witherBoneConversion;
+    public final boolean addGravelToFlintRecipe;
+    public final boolean cheaperNetheriteAlloy;
+    public final boolean witherBoneDrop;
+    public final boolean witherBoneConversion;
 
-    public final ConfigValue<Integer> melterNuggetsPerOre;
-    public final ConfigValue<Integer> smelteryNuggetsPerOre;
+    public final int melterNuggetsPerOre;
+    public final int smelteryNuggetsPerOre;
 
-    public final BooleanValue generateCobalt;
-    public final ConfigValue<Integer> veinCountCobalt;
+    public final boolean generateCobalt;
+    public final int veinCountCobalt;
 
-    public final BooleanValue generateCopper;
-    public final ConfigValue<Integer> veinCountCopper;
+    public final boolean generateCopper;
+    public final int veinCountCopper;
 
-    public final BooleanValue generateSlimeIslands;
+    public final boolean generateSlimeIslands;
 
-    // public final BooleanValue chestsKeepInventory;
+    // public final boolean chestsKeepInventory;
 
-    public final ConfigValue<List<String>> craftingStationBlacklist;
+    public final List<String> craftingStationBlacklist;
 
-    public final BooleanValue listAllToolMaterials;
+    public final boolean listAllToolMaterials;
 
-    public final BooleanValue listAllPartMaterials;
+    public final boolean listAllPartMaterials;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -151,11 +146,11 @@ public class Config {
    * Client specific configuration - only loaded clientside from tconstruct-client.toml
    */
   public static class Client {
-    //public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
+    //public final ForgeConfigSpec.boolean temperatureInCelsius;
 
-    public final ForgeConfigSpec.BooleanValue tankFluidModel;
+    public final ForgeConfigSpec.boolean tankFluidModel;
 
-    public final ForgeConfigSpec.BooleanValue extraToolTips;
+    public final ForgeConfigSpec.boolean extraToolTips;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -181,23 +176,4 @@ public class Config {
       builder.pop();
     }
   }
-
-  public static final ForgeConfigSpec clientSpec;
-  public static final Client CLIENT;
-
-  static {
-    final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
-    clientSpec = specPair.getRight();
-    CLIENT = specPair.getLeft();
-  }
-
-  public static final ForgeConfigSpec commonSpec;
-  public static final Common COMMON;
-
-  static {
-    final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
-    commonSpec = specPair.getRight();
-    COMMON = specPair.getLeft();
-  }
-
 }

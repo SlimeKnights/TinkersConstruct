@@ -13,11 +13,8 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.CopyNameLootFunction;
 import net.minecraft.loot.function.CopyNbtLootFunction;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.loot.RetexturedLootFunction;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -31,17 +28,14 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
-import org.jetbrains.annotations.Nonnull;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class TConstructBlockLootTables extends BlockLootTableGenerator {
 
   private final Map<Identifier, LootTable.Builder> loot_tables = Maps.newHashMap();
 
-  @NotNull
+/*  @NotNull
   @Override
   protected Iterable<Block> getKnownBlocks() {
     return ForgeRegistries.BLOCKS.getValues().stream()
@@ -57,7 +51,7 @@ public class TConstructBlockLootTables extends BlockLootTableGenerator {
     this.addWorld();
     this.addTools();
     this.addSmeltery();
-  }
+  }*/
 
   private void addCommon() {
     this.addDrop(TinkerSmeltery.grout.get());
@@ -160,7 +154,7 @@ public class TConstructBlockLootTables extends BlockLootTableGenerator {
 
     this.addDrop(TinkerGadgets.stoneTorch.get());
 
-    this.addDrop(TinkerGadgets.wallStoneTorch.get(), TinkerGadgets.stoneTorch.get());
+    this.addDrop(TinkerGadgets.wallStoneTorch, TinkerGadgets.stoneTorch.get());
 
     this.addDrop(TinkerGadgets.punji.get());
 

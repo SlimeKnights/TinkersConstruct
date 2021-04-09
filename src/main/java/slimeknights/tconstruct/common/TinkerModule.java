@@ -23,6 +23,7 @@ import slimeknights.mantle.registration.deferred.TileEntityTypeDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.BlockDeferredRegisterExtension;
 import slimeknights.tconstruct.common.registration.ItemDeferredRegisterExtension;
+import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
@@ -69,6 +70,7 @@ public abstract class TinkerModule {
 
   /** Called during construction to initialize the registers for this mod */
   public static void initRegisters() {
+    CapabilityTinkerPiggyback.register();
 /*//    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
     BLOCKS.register(TConstruct.modID);
     ITEMS.register();
@@ -98,7 +100,7 @@ public abstract class TinkerModule {
   }
 
   /** Constant to use for blocks with no tool for more readable code */
-  protected static final FabricToolTags NO_TOOL = null;
+  protected static final Tag<Item> NO_TOOL = null;
 
   /**
    * We use this builder to ensure that our blocks all have the most important properties set.
@@ -107,7 +109,6 @@ public abstract class TinkerModule {
    * but as long as we don't statically import the enums it should be just as readable.
    */
   protected static Block.Settings builder(Material material, @Nullable Tag<Item> toolType, BlockSoundGroup soundType) {
-    //noinspection ConstantConditions
     return FabricBlockSettings.of(material).breakByTool(toolType).sounds(soundType);
   }
 

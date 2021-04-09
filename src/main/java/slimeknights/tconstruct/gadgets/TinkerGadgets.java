@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets;
 
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.LadderBlock;
@@ -7,7 +8,6 @@ import net.minecraft.block.Material;
 import net.minecraft.block.RailBlock;
 import net.minecraft.block.TorchBlock;
 import net.minecraft.block.WallTorchBlock;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.BlockItem;
@@ -19,22 +19,16 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.registration.object.EnumObject;
+import slimeknights.mantle.registration.object.ItemEnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
-import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.gadgets.block.DropperRailBlock;
 import slimeknights.tconstruct.gadgets.block.PunjiBlock;
-import slimeknights.tconstruct.gadgets.data.GadgetRecipeProvider;
 import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
@@ -54,7 +48,6 @@ import slimeknights.tconstruct.gadgets.item.slimesling.EnderSlimeSlingItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.IchorSlimeSlingItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.SkySlimeSlingItem;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.shared.TinkerFood;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
@@ -66,7 +59,10 @@ import java.util.function.Function;
 @SuppressWarnings("unused")
 public final class TinkerGadgets extends TinkerModule {
   /** Tab for all special tools added by the mod */
-  public static final ItemGroup TAB_GADGETS = new SupplierItemGroup(TConstruct.modID, "gadgets", () -> new ItemStack(TinkerGadgets.slimeSling.get(SlimeType.EARTH)));
+  public static final ItemGroup TAB_GADGETS = FabricItemGroupBuilder.create(new Identifier(TConstruct.modID, "gadgets"))
+    .icon(() -> new ItemStack(TinkerGadgets.slimeSling.get(SlimeType.EARTH)))
+    .build();
+
   static final Logger log = Util.getLogger("tinker_gadgets");
 
   /*
@@ -81,21 +77,21 @@ public final class TinkerGadgets extends TinkerModule {
    * Blocks
    */
   // TODO: moving to natura
-  public static final ItemObject<LadderBlock> stoneLadder = BLOCKS.register("stone_ladder", () -> new LadderBlock(builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.STONE).strength(0.1F).nonOpaque()) {}, HIDDEN_BLOCK_ITEM);
+  public static final ItemObject<Block> stoneLadder = BLOCKS.register("stone_ladder", () -> new LadderBlock(builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.STONE).strength(0.1F).nonOpaque()) {}, HIDDEN_BLOCK_ITEM);
   // TODO: moving to natura
-  public static final ItemObject<PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(Material.PLANT, NO_TOOL, BlockSoundGroup.GRASS).strength(3.0F).nonOpaque()), HIDDEN_BLOCK_ITEM);
+  public static final ItemObject<Block> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(Material.PLANT, NO_TOOL, BlockSoundGroup.GRASS).strength(3.0F).nonOpaque()), HIDDEN_BLOCK_ITEM);
   // torch
   // TODO: moving to natura
   private static final AbstractBlock.Settings STONE_TORCH = builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.STONE).noCollision().strength(0.0F).luminance(s -> 14);
-  public static final RegistryObject<WallTorchBlock> wallStoneTorch = BLOCKS.registerNoItem("wall_stone_torch", () -> new WallTorchBlock(STONE_TORCH, ParticleTypes.FLAME) {});
-  public static final ItemObject<TorchBlock> stoneTorch = BLOCKS.register("stone_torch",
+  public static final WallTorchBlock wallStoneTorch = (WallTorchBlock) BLOCKS.registerNoItem("wall_stone_torch", () -> new WallTorchBlock(STONE_TORCH, ParticleTypes.FLAME) {});
+  public static final ItemObject<Block> stoneTorch = BLOCKS.register("stone_torch",
                                                                                () -> new TorchBlock(STONE_TORCH, ParticleTypes.FLAME) {},
-                                                                               (block) -> new WallStandingBlockItem(block, wallStoneTorch.get(), HIDDEN_PROPS));
+                                                                               (block) -> new WallStandingBlockItem(block, wallStoneTorch, HIDDEN_PROPS));
   // rails
   // TODO: moving to tinkers' mechworks
   private static final AbstractBlock.Settings WOODEN_RAIL = builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.WOOD).noCollision().strength(0.2F);
-  public static final ItemObject<DropperRailBlock> woodenDropperRail = BLOCKS.register("wooden_dropper_rail", () -> new DropperRailBlock(WOODEN_RAIL), HIDDEN_BLOCK_ITEM);
-  public static final ItemObject<RailBlock> woodenRail = BLOCKS.register("wooden_rail", () -> new RailBlock(WOODEN_RAIL) {}, HIDDEN_BLOCK_ITEM);
+  public static final ItemObject<Block> woodenDropperRail = BLOCKS.register("wooden_dropper_rail", () -> new DropperRailBlock(WOODEN_RAIL), HIDDEN_BLOCK_ITEM);
+  public static final ItemObject<Block> woodenRail = BLOCKS.register("wooden_rail", () -> new RailBlock(WOODEN_RAIL) {}, HIDDEN_BLOCK_ITEM);
 
   /*
    * Items
@@ -103,22 +99,22 @@ public final class TinkerGadgets extends TinkerModule {
   // TODO: moving to natura
   public static final ItemObject<Item> stoneStick = ITEMS.register("stone_stick", HIDDEN_PROPS);
   public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", PiggyBackPackItem::new);
-  public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
+//  public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
   // slime tools
   private static final Item.Settings SLING_PROPS = new Item.Settings().group(TAB_GADGETS).maxCount(1).maxDamage(250);
-  public static final EnumObject<SlimeType, BaseSlimeSlingItem> slimeSling = new EnumObject.Builder<SlimeType, BaseSlimeSlingItem>(SlimeType.class)
+  public static final ItemEnumObject<SlimeType, BaseSlimeSlingItem> slimeSling = new ItemEnumObject.Builder<SlimeType, BaseSlimeSlingItem>(SlimeType.class)
     .put(SlimeType.EARTH, ITEMS.register("earth_slime_sling", () -> new EarthSlimeSlingItem(SLING_PROPS)))
     .put(SlimeType.SKY, ITEMS.register("sky_slime_sling", () -> new SkySlimeSlingItem(SLING_PROPS)))
     .put(SlimeType.ICHOR, ITEMS.register("ichor_slime_sling", () -> new IchorSlimeSlingItem(SLING_PROPS)))
     .put(SlimeType.ENDER, ITEMS.register("ender_slime_sling", () -> new EnderSlimeSlingItem(SLING_PROPS)))
     .build();
-  public static final EnumObject<SlimeType,SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.values(), "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
+//  public static final EnumObject<SlimeType,SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.values(), "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
   // throwballs
   public static final ItemObject<GlowBallItem> glowBall = ITEMS.register("glow_ball", GlowBallItem::new);
   public static final ItemObject<EflnBallItem> efln = ITEMS.register("efln_ball", EflnBallItem::new);
 
   // foods
-  public static final EnumObject<SlimeType,EdibleItem> slimeDrop = ITEMS.registerEnum(SlimeType.values(), "slime_drop", (type) -> new EdibleItem(type.getSlimeDropFood(type), TAB_GADGETS));
+  public static final ItemEnumObject<SlimeType,EdibleItem> slimeDrop = ITEMS.registerEnum(SlimeType.values(), "slime_drop", (type) -> new EdibleItem(type.getSlimeDropFood(type), TAB_GADGETS));
   // jerkies
   // TODO: moving to natura
   public static final ItemObject<EdibleItem> monsterJerky = ITEMS.register("monster_jerky", () -> new EdibleItem(TinkerFood.MONSTER_JERKY, null));
@@ -145,68 +141,50 @@ public final class TinkerGadgets extends TinkerModule {
   /*
    * Entities
    */
-  public static final RegistryObject<EntityType<FancyItemFrameEntity>> itemFrameEntity = ENTITIES.register("fancy_item_frame", () -> {
+  public static final EntityType<FancyItemFrameEntity> itemFrameEntity = ENTITIES.register("fancy_item_frame", () -> {
     return EntityType.Builder.<FancyItemFrameEntity>create(
       FancyItemFrameEntity::new, SpawnGroup.MISC)
       .setDimensions(0.5F, 0.5F)
-      .maxTrackingRange(160)
-      .setUpdateInterval(Integer.MAX_VALUE)
-      .setCustomClientFactory((spawnEntity, world) -> new FancyItemFrameEntity(TinkerGadgets.itemFrameEntity.get(), world))
-      .setShouldReceiveVelocityUpdates(false);
+      .maxTrackingRange(160);
+//      .setUpdateInterval(Integer.MAX_VALUE)
+//      .setCustomClientFactory((spawnEntity, world) -> new FancyItemFrameEntity(TinkerGadgets.itemFrameEntity.get(), world))
+//      .setShouldReceiveVelocityUpdates(false);
   });
   public static final EntityType<GlowballEntity> glowBallEntity = ENTITIES.register("glow_ball", () -> {
     return EntityType.Builder.<GlowballEntity>create(GlowballEntity::new, SpawnGroup.MISC)
-      .setDimensions(0.25F, 0.25F)
-      .setTrackingRange(64)
-      .setUpdateInterval(10)
-      .setCustomClientFactory((spawnEntity, world) -> new GlowballEntity(TinkerGadgets.glowBallEntity.get(), world))
-      .setShouldReceiveVelocityUpdates(true);
+      .setDimensions(0.25F, 0.25F);
+//      .setTrackingRange(64)
+//      .setUpdateInterval(10)
+//      .setCustomClientFactory((spawnEntity, world) -> new GlowballEntity(TinkerGadgets.glowBallEntity.get(), world))
+//      .setShouldReceiveVelocityUpdates(true);
   });
   public static final EntityType<EflnBallEntity> eflnEntity = ENTITIES.register("efln_ball", () -> {
     return EntityType.Builder.<EflnBallEntity>create(EflnBallEntity::new, SpawnGroup.MISC)
-      .setDimensions(0.25F, 0.25F)
-      .setTrackingRange(64)
-      .setUpdateInterval(10)
-      .setCustomClientFactory((spawnEntity, world) -> new EflnBallEntity(TinkerGadgets.eflnEntity.get(), world))
-      .setShouldReceiveVelocityUpdates(true);
+      .setDimensions(0.25F, 0.25F);
+//      .setTrackingRange(64)
+//      .setUpdateInterval(10)
+//      .setCustomClientFactory((spawnEntity, world) -> new EflnBallEntity(TinkerGadgets.eflnEntity.get(), world))
+//      .setShouldReceiveVelocityUpdates(true);
   });
-  public static final RegistryObject<EntityType<QuartzShurikenEntity>> quartzShurikenEntity = ENTITIES.register("quartz_shuriken", () -> {
+  public static final EntityType<QuartzShurikenEntity> quartzShurikenEntity = ENTITIES.register("quartz_shuriken", () -> {
     return EntityType.Builder.<QuartzShurikenEntity>create(QuartzShurikenEntity::new, SpawnGroup.MISC)
-      .setDimensions(0.25F, 0.25F)
-      .setTrackingRange(64)
-      .setUpdateInterval(10)
-      .setCustomClientFactory((spawnEntity, world) -> new QuartzShurikenEntity(TinkerGadgets.quartzShurikenEntity.get(), world))
-      .setShouldReceiveVelocityUpdates(true);
+      .setDimensions(0.25F, 0.25F);
+//      .setTrackingRange(64)
+//      .setUpdateInterval(10)
+//      .setCustomClientFactory((spawnEntity, world) -> new QuartzShurikenEntity(TinkerGadgets.quartzShurikenEntity.get(), world))
+//      .setShouldReceiveVelocityUpdates(true);
   });
-  public static final EntityType<FlintShurikenEntity> flintShurikenEntity = Registry.register(Registry.ENTITY_TYPE ,new Identifier(TConstruct.modID, "flint_shuriken"), () -> {
+  public static final EntityType<FlintShurikenEntity> flintShurikenEntity = ENTITIES.register("flint_shuriken", () -> {
     return EntityType.Builder.<FlintShurikenEntity>create(FlintShurikenEntity::new, SpawnGroup.MISC)
-      .setDimensions(0.25F, 0.25F)
-      .maxTrackingRange(64)
+      .setDimensions(0.25F, 0.25F);
 
-      .setUpdateInterval(10)
-      .setCustomClientFactory((spawnEntity, world) -> new FlintShurikenEntity(TinkerGadgets.flintShurikenEntity.get(), world))
-      .setShouldReceiveVelocityUpdates(true);
+//      .setUpdateInterval(10)
+//      .setCustomClientFactory((spawnEntity, world) -> new FlintShurikenEntity(TinkerGadgets.flintShurikenEntity.get(), world))
+//      .setShouldReceiveVelocityUpdates(true);
   });
 
   /**
    * Potions
    */
   public static final CarryPotionEffect carryEffect = Registry.register(Registry.POTION,new Identifier(TConstruct.modID,"carry"), CarryPotionEffect::new);
-
-  /*
-   * Events
-   */
-  @SubscribeEvent
-  void commonSetup(final FMLCommonSetupEvent event) {
-    CapabilityTinkerPiggyback.register();
-    MinecraftForge.EVENT_BUS.register(new GadgetEvents());
-  }
-
-  @SubscribeEvent
-  void gatherData(final GatherDataEvent event) {
-    if (event.includeServer()) {
-      DataGenerator datagenerator = event.getGenerator();
-      datagenerator.install(new GadgetRecipeProvider(datagenerator));
-    }
-  }
 }
