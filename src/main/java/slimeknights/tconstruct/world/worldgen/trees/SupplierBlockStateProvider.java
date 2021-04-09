@@ -28,7 +28,7 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
 
   @Override
   protected BlockStateProviderType<?> getType() {
-    return TinkerStructures.supplierBlockstateProvider.get();
+    return TinkerStructures.supplierBlockstateProvider;
   }
 
   @Override

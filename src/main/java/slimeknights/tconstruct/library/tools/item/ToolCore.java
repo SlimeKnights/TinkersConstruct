@@ -519,7 +519,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
         // only valid ones
         if (this.hasValidMaterials(tool)) {
           items.add(tool);
-          if (!Config.COMMON.listAllToolMaterials.get()) {
+          if (!Config.common.listAllToolMaterials) {
             break;
           }
         }

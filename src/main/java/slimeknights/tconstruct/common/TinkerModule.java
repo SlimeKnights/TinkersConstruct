@@ -71,21 +71,6 @@ public abstract class TinkerModule {
   /** Called during construction to initialize the registers for this mod */
   public static void initRegisters() {
     CapabilityTinkerPiggyback.register();
-/*//    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-    BLOCKS.register(TConstruct.modID);
-    ITEMS.register();
-//    FLUIDS.register(bus);
-    TILE_ENTITIES.register();
-    ENTITIES.register();
-    CONTAINERS.register();
-//    POTIONS.register(bus);
-//    FEATURES.register(bus);
-//    STRUCTURE_FEATURES.register(bus);
-//    BLOCK_STATE_PROVIDER_TYPES.register(bus);
-//    RECIPE_SERIALIZERS.register(bus);
-//    PARTICLE_TYPES.register(bus);
-//    MODIFIERS.register(bus);
-//    GLOBAL_LOOT_MODIFIERS.register(bus);*/
   }
 
   /**

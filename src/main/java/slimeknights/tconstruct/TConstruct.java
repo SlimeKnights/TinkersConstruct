@@ -52,20 +52,6 @@ public class TConstruct implements ModInitializer {
     instance = this;
   }
 
-//  @SubscribeEvent
-//  static void gatherData(final GatherDataEvent event) {
-//    if (event.includeServer()) {
-//      DataGenerator datagenerator = event.getGenerator();
-//      ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-//      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator, existingFileHelper);
-//      datagenerator.install(blockTags);
-//      datagenerator.install(new TConstructItemTagsProvider(datagenerator, blockTags, existingFileHelper));
-//      datagenerator.install(new TConstructFluidTagsProvider(datagenerator, existingFileHelper));
-//      datagenerator.install(new TConstructEntityTypeTagsProvider(datagenerator, existingFileHelper));
-//      datagenerator.install(new TConstructLootTableProvider(datagenerator));
-//    }
-//  }
-
   @Nullable
   private static Block missingBlock(String name) {
     switch (name) {

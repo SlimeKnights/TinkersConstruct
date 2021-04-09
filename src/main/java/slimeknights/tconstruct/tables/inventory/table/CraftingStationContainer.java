@@ -123,7 +123,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
       return false;
     }
 
-    List<String> blacklist = Config.COMMON.craftingStationBlacklist.get();
+    List<String> blacklist = Config.common.craftingStationBlacklist;
     if (!blacklist.isEmpty()) {
       Identifier registryName = BlockEntityType.getId(tileEntity.getType());
       if (registryName == null || blacklist.contains(registryName.toString())) {

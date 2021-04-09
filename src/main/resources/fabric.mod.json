@@ -21,7 +21,12 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "slimeknights.tconstruct.TConstruct"
+            "slimeknights.tconstruct.TConstruct",
+            "slimeknights.tconstruct.shared.TinkerCommons",
+            "slimeknights.tconstruct.fluids.TinkerFluids",
+            "slimeknights.tconstruct.gadgets.TinkerGadgets",
+            "slimeknights.tconstruct.shared.TinkerMaterials",
+            "slimeknights.tconstruct.tools.TinkerModifiers"
         ]
     },
     "mixins": [

@@ -19,7 +19,7 @@ public class PlayerDataEvents {
 
   @SubscribeEvent
   public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-    if (Config.COMMON.shouldSpawnWithTinkersBook.get()) {
+    if (Config.common.shouldSpawnWithTinkersBook) {
       CompoundTag playerData = event.getPlayer().getPersistentData();
       CompoundTag data = TagUtil.getTagSafe(playerData, PlayerEntity.PERSISTED_NBT_TAG);
 

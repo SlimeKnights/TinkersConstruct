@@ -8,12 +8,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
 import slimeknights.tconstruct.library.TinkerRegistries;
 
 import java.lang.reflect.Type;
@@ -21,8 +18,6 @@ import java.lang.reflect.Type;
 /**
  * Data class holding a modifier with a level
  */
-@Data
-@EqualsAndHashCode
 public class ModifierEntry implements Comparable<ModifierEntry> {
   /** JSON serialzier instance for GSON */
   public static final Serializer SERIALIZER = new Serializer();
@@ -88,6 +83,14 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   public void write(PacketByteBuf buffer) {
     buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, modifier);
     buffer.writeVarInt(level);
+  }
+
+  public Modifier getModifier() {
+    return modifier;
+  }
+
+  public int getLevel() {
+    return level;
   }
 
   private static class Serializer implements JsonDeserializer<ModifierEntry>, JsonSerializer<ModifierEntry> {
