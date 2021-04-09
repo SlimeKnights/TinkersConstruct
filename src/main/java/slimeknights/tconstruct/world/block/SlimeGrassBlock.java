@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.world.block;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -19,10 +17,10 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.chunk.light.ChunkLightProvider;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 import java.util.Random;
 
@@ -157,7 +155,6 @@ public class SlimeGrassBlock extends SnowyBlock implements Fertilizable {
     }
   }
 
-  @RequiredArgsConstructor
   public enum FoliageType implements StringIdentifiable {
     SKY(0x00F4DA, "blue"),
     ICHOR(0xd09800, "magma"),
@@ -168,17 +165,23 @@ public class SlimeGrassBlock extends SnowyBlock implements Fertilizable {
     @Deprecated
     public static FoliageType[] ORIGINAL = {SKY, ICHOR, ENDER};
 
-    @Getter
     private final int defaultColor;
-    @Getter @Deprecated
+    @Deprecated
     private final String originalName;
 
-    FoilageType(int defaultColor, String originalName) {
+    FoliageType(int defaultColor, String originalName) {
       this.defaultColor = defaultColor;
       this.originalName = originalName;
     }
 
+    public int getDefaultColor() {
+      return defaultColor;
+    }
 
+    @Deprecated
+    public String getOriginalName() {
+      return originalName;
+    }
 
     @Override
     public String asString() {

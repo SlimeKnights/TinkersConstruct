@@ -13,6 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.mixin.ItemTagsAccessor;
 
 public class TinkerTags {
 
@@ -114,12 +115,13 @@ public class TinkerTags {
 
 
     private static Tag.Identified<Item> tag(String name) {
-      Registry.register(Registry.BLOCK)
-      return ItemTags.createOptional(Util.getResource(name));
+      return ((It))
+      return BlockTags.REQUIRED_TAGS.add(Util.getResource(name));
     }
 
     private static Tag.Identified<Item> forgeTag(String name) {
-      return ItemTags.createOptional(new Identifier("forge", name));
+      return ItemTagsAccessor.invokeRegister(name);
+      //return ItemTags.createOptional(new Identifier("forge", name));
     }
   }
 
