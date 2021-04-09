@@ -39,13 +39,12 @@ public class PageIconLinkElement extends SizedBookElement {
   public void draw(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
     boolean hover = this.isHovered(mouseX, mouseY);
     RenderSystem.color4f(1F, 1F, 1F, hover ? 1F : 0.5F);
-    //RenderSystem.scale(scale, scale, 1f);
+
     if (this.isHovered(mouseX, mouseY)) {
       fill(matrices, this.x, this.y, this.x + this.width, this.y + this.height, this.parent.book.appearance.hoverColor | (0x77 << 24));
     }
 
     this.displayElement.draw(matrices, mouseX, mouseY, partialTicks, fontRenderer);
-    //RenderSystem.scale(1/scale, 1/scale, 1f);
   }
 
   @Override

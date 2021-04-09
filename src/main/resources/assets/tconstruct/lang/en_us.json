@@ -1249,6 +1249,8 @@
     "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
     "gui.tconstruct.tinker_station.no_traits": "None :[",
 
+    "gui.tconstruct.manual.cycle.recipes": "Cycle to other recipes",
+
     "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
 
     "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
