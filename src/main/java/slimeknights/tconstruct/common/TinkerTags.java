@@ -1,14 +1,13 @@
 package slimeknights.tconstruct.common;
 
-import slimeknights.tconstruct.mixin.BlockTagsAccessor;
-import slimeknights.tconstruct.mixin.EntityTypeTagsAccessor;
-import slimeknights.tconstruct.mixin.FluidTagsAccessor;
-import slimeknights.tconstruct.mixin.ItemTagsAccessor;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.EntityTypeTags;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 
 public class TinkerTags {
@@ -41,12 +40,13 @@ public class TinkerTags {
 
 
     private static Tag.Identified<Block> tag(String name) {
-      return BlockTagsAccessor.invokeRegister(name);
+      return BlockTags.REQUIRED_TAGS.add(name);
+      //return BlockTagsAccessor.invokeRegister(name);
       //return BlockTags.createOptional(Util.getResource(name));
     }
 
     private static Tag.Identified<Block> forgeTag(String name) {
-      return BlockTagsAccessor.invokeRegister(name);
+      return BlockTags.REQUIRED_TAGS.add(name);
       //return BlockTags.createOptional(new Identifier("forge", name));
     }
   }
@@ -113,11 +113,11 @@ public class TinkerTags {
 
 
     private static Tag.Identified<Item> tag(String name) {
-      return ItemTagsAccessor.invokeRegister(name);
+      return ItemTags.REQUIRED_TAGS.add(name);
     }
 
     private static Tag.Identified<Item> forgeTag(String name) {
-      return ItemTagsAccessor.invokeRegister(name);
+      return ItemTags.REQUIRED_TAGS.add(name);
       //return ItemTags.createOptional(new Identifier("forge", name));
     }
   }
@@ -128,12 +128,12 @@ public class TinkerTags {
     public static final Tag.Identified<Fluid> SLIME = tag("slime");
 
     private static Tag.Identified<Fluid> tag(String name) {
-      return FluidTagsAccessor.invokeRegister(name);
+      return FluidTags.REQUIRED_TAGS.add(name);
       //return FluidTags.createOptional(Util.getResource(name));
     }
 
     private static Tag.Identified<Fluid> forgeTag(String name) {
-      return FluidTagsAccessor.invokeRegister(name);
+      return FluidTags.REQUIRED_TAGS.add(name);
       //return FluidTags.createOptional(new Identifier("forge", name));
     }
   }
@@ -145,12 +145,12 @@ public class TinkerTags {
     public static final Tag.Identified<EntityType<?>> MELTING_HIDE = tag("melting/hide_in_default");
 
     private static Tag.Identified<EntityType<?>> tag(String name) {
-      return EntityTypeTagsAccessor.register(name);
+      return EntityTypeTags.REQUIRED_TAGS.add(name);
       //return EntityTypeTags.createOptional(Util.getResource(name));
     }
 
     private static Tag.Identified<EntityType<?>> forgeTag(String name) {
-      return EntityTypeTagsAccessor.register(name);
+      return EntityTypeTags.REQUIRED_TAGS.add(name);
       //return EntityTypeTags.createOptional(new Identifier("forge", name));
     }
   }
