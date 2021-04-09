@@ -1,41 +1,36 @@
 package slimeknights.tconstruct.shared;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.ClientEventBase;
-import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
-import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 
-@EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Bus.MOD)
+@Environment(EnvType.CLIENT)
 public class CommonsClientEvents extends ClientEventBase {
-
-  @SubscribeEvent
-  static void clientSetup(final FMLClientSetupEvent event) {
-    RenderLayers.setRenderLayer(TinkerCommons.glow.get(), RenderLayer.getTranslucent());
+  @Override
+  public void onInitializeClient() {
+    BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerCommons.glow, RenderLayer.getTranslucent());
 
     // glass
-    RenderLayers.setRenderLayer(TinkerCommons.clearGlass.get(), RenderLayer.getCutout());
-    RenderLayers.setRenderLayer(TinkerCommons.clearGlassPane.get(), RenderLayer.getCutout());
+    BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerCommons.clearGlass.get(), RenderLayer.getCutout());
+    BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerCommons.clearGlassPane.get(), RenderLayer.getCutout());
     for (GlassColor color : GlassColor.values()) {
-      RenderLayers.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderLayer.getTranslucent());
-      RenderLayers.setRenderLayer(TinkerCommons.clearStainedGlassPane.get(color), RenderLayer.getTranslucent());
+      BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerCommons.clearStainedGlass.get(color), RenderLayer.getTranslucent());
+      BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerCommons.clearStainedGlassPane.get(color), RenderLayer.getTranslucent());
     }
-    RenderLayers.setRenderLayer(TinkerCommons.soulGlass.get(), RenderLayer.getTranslucent());
-    RenderLayers.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderLayer.getTranslucent());
-    RenderLayers.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerCommons.soulGlass.get(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerCommons.soulGlassPane.get(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerMaterials.soulsteel.get(), RenderLayer.getTranslucent());
   }
 
-  @SubscribeEvent
   static void registerColorHandlers(ColorHandlerEvent.Item event) {
     // colors apply a constant tint to make models easier
     BlockColors blockColors = event.getBlockColors();

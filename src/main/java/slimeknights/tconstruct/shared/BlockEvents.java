@@ -11,8 +11,6 @@ import net.minecraft.util.math.BlockPos;
 public class BlockEvents {
 
   // Slimy block jump stuff
-  //LivingEvent.LivingJumpEvent event
-  //TODO: mixin this event
   public static void onLivingJump(Entity entity) {
     if (entity == null) {
       return;
