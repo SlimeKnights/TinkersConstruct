@@ -7,6 +7,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +48,7 @@ public class SlimeGrassSeedItem extends TooltipItem {
       if (!world.isClient) {
         BlockState grassState = TinkerWorld.slimeGrass.get(type).get(foliage).getDefaultState();
         world.setBlockState(pos, grassState);
-        world.playSound(null, pos, grassState.getSoundType(world, pos, context.getPlayer()).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
+        world.playSound(null, pos, getPlaceSound(world, pos, context.getPlayer()), SoundCategory.BLOCKS, 1.0f, 1.0f);
         PlayerEntity player = context.getPlayer();
         if (player == null || !player.isCreative()) {
           context.getStack().decrement(1);
@@ -55,6 +57,10 @@ public class SlimeGrassSeedItem extends TooltipItem {
       return ActionResult.SUCCESS;
     }
     return ActionResult.PASS;
+  }
+
+  private SoundEvent getPlaceSound(World world, BlockPos pos, PlayerEntity player) {
+    return SoundEvents.BLOCK_ROOTS_PLACE;
   }
 
   @Override

@@ -1,8 +1,13 @@
 package slimeknights.tconstruct.common;
 
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.client.color.block.BlockColorProvider;
 import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.item.ItemConvertible;
 import slimeknights.mantle.registration.object.EnumObject;
 
 import java.util.function.Supplier;
@@ -10,14 +15,14 @@ import java.util.function.Supplier;
 /**
  * Contains helpers to use for registering client events
  */
-public abstract class ClientEventBase {
+public abstract class ClientEventBase implements ClientModInitializer {
   /**
    * Registers a block colors alias for the given block
    * @param blockColors  BlockColors instance
    * @param itemColors   ItemColors instance
    * @param block        Block to register
    */
-  protected static void registerBlockItemColorAlias(BlockColors blockColors, ItemColors itemColors, Block block) {
+  protected static void registerBlockItemColorAlias(ColorProviderRegistry<Block, BlockColorProvider> blockColors, ColorProviderRegistry<ItemConvertible, ItemColorProvider> itemColors, Block block) {
     itemColors.register((stack, index) -> blockColors.getColor(block.getDefaultState(), null, null, index), block);
   }
 

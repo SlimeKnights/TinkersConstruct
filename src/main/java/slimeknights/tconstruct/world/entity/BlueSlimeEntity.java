@@ -33,6 +33,6 @@ public class BlueSlimeEntity extends SlimeEntity {
 
   @Override
   protected ParticleEffect getParticles() {
-    return TinkerWorld.slimeParticle.get();
+    return TinkerWorld.slimeParticle;
   }
 }

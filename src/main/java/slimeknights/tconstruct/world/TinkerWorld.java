@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world;
 
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -163,7 +164,7 @@ public final class TinkerWorld extends TinkerModule {
   /*
    * Particles
    */
-  public static final RegistryObject<DefaultParticleType> slimeParticle = PARTICLE_TYPES.register("slime", () -> new DefaultParticleType(false));
+  public static final DefaultParticleType slimeParticle = Registry.register(Registry.PARTICLE_TYPE, "slime", FabricParticleTypes.simple());
 
   /*
    * Features
