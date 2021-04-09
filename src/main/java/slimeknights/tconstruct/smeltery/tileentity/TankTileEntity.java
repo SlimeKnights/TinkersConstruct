@@ -140,7 +140,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
    */
   public void updateTank(CompoundTag nbt) {
     if (nbt.isEmpty()) {
-      tank.setFluid(FluidVolume.EMPTY);
+      tank.setFluid(TinkerFluids.EMPTY);
     } else {
       tank.readFromNBT(nbt);
     }

@@ -43,12 +43,12 @@ public class FillOnlyFluidHandler implements IFluidHandler {
 	@NotNull
 	@Override
 	public FluidVolume drain(FluidVolume resource, FluidAction action) {
-		return FluidVolume.EMPTY;
+		return TinkerFluids.EMPTY;
 	}
 
 	@NotNull
 	@Override
 	public FluidVolume drain(int maxDrain, FluidAction action) {
-		return FluidVolume.EMPTY;
+		return TinkerFluids.EMPTY;
 	}
 }

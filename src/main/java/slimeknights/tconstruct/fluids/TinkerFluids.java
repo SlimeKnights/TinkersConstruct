@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.fluids;
 
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.fluid.volume.FluidTemperature;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.Material;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
@@ -25,10 +28,13 @@ import java.util.Map;
  * Contains all fluids used throughout the mod
  */
 public final class TinkerFluids extends TinkerModule {
+
   static final Logger log = Util.getLogger("tinker_fluids");
 
+  public static final FluidVolume EMPTY = FluidKeys.EMPTY.withAmount(FluidAmount.ZERO);
+
   public TinkerFluids() {
-    ForgeMod.enableMilkFluid();
+//    ForgeMod.enableMilkFluid(); TODO: forge what the fuck
   }
   // basic
   public static final FluidObject<MantleFluid> blood = Registry.register(Registry.FLUID, new Identifier(TConstruct.modID, "blood"), coolBuilder().setRenderColor(0xff540000).density(1200).viscosity(1200).temperature(336), Material.WATER, 0);
@@ -117,5 +123,9 @@ public final class TinkerFluids extends TinkerModule {
   /** Creates a builder for a molten fluid */
   private static FluidKey.FluidKeyBuilder moltenBuilder() {
     return hotBuilder(FluidIcons.MOLTEN_STILL, FluidIcons.MOLTEN_FLOWING);
+  }
+
+  @Override
+  public void onInitialize() {
   }
 }

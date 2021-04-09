@@ -313,7 +313,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     tank.reset();
     castingInventory.setFluid(Fluids.EMPTY);
     if (world != null && !world.isClient && world instanceof ServerWorld) {
-      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(getPos(), FluidVolume.EMPTY), (ServerWorld) world, getPos());
+      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(getPos(), TinkerFluids.EMPTY), (ServerWorld) world, getPos());
     }
   }
 

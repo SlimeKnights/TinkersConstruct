@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,24 +12,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.common.util.NonNullFunction;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelCache;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.misc.IItemHandler;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -153,7 +145,7 @@ public class FuelModule implements PropertyDelegate {
   private int trySolidFuel(IItemHandler handler, boolean consume) {
     for (int i = 0; i < handler.getSlots(); i++) {
       ItemStack stack = handler.getStackInSlot(i);
-      int time = ForgeHooks.getBurnTime(stack) / 4;
+      int time = 0; //ForgeHooks.getBurnTime(stack) / 4;
       if (time > 0) {
         if (consume) {
           ItemStack extracted = handler.extractItem(i, 1, false);
@@ -507,9 +499,9 @@ public class FuelModule implements PropertyDelegate {
   @AllArgsConstructor(access = AccessLevel.PRIVATE)
   public static class FuelInfo {
     /** Empty fuel instance */
-    public static final FuelInfo EMPTY = new FuelInfo(FluidVolume.EMPTY, 0, 0, 0);
+    public static final FuelInfo EMPTY = new FuelInfo(TinkerFluids.EMPTY, 0, 0, 0);
     /** Item fuel instance */
-    public static final FuelInfo ITEM = new FuelInfo(FluidVolume.EMPTY, 0, 0, SOLID_TEMPERATURE);
+    public static final FuelInfo ITEM = new FuelInfo(TinkerFluids.EMPTY, 0, 0, SOLID_TEMPERATURE);
 
     private final FluidVolume fluid;
     private int totalAmount;

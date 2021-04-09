@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.alloying;
 
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.mantle.registration.object.MantleFluid;
+import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import org.jetbrains.annotations.Nullable;
@@ -44,6 +47,9 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
    */
   public static AlloyRecipeBuilder alloy(Fluid fluid, int amount) {
     return alloy(new FluidVolume(fluid, amount));
+  }
+
+  public static AlloyRecipeBuilder alloy(MantleFluid mantleFluid, FluidAmount mul) {
   }
 
 
@@ -103,6 +109,9 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
     }
     Identifier advancementId = this.buildOptionalAdvancement(id, "alloys");
     consumer.accept(new Result(id, advancementId));
+  }
+
+  public AlloyRecipeBuilder addInput(MantleFluid mantleFluid, FluidAmount ingot) {
   }
 
   /** Result class for the builder */

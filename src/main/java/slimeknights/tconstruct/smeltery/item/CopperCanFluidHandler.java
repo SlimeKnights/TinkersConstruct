@@ -77,12 +77,12 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   public FluidVolume drain(FluidVolume resource, FluidAction action) {
     // must be draining at least an ingot
     if (resource.isEmpty() || resource.getAmount() < MaterialValues.INGOT) {
-      return FluidVolume.EMPTY;
+      return TinkerFluids.EMPTY;
     }
     // must have a fluid, must match what they are draining
     Fluid fluid = getFluid();
     if (fluid == Fluids.EMPTY || fluid != resource.getFluid()) {
-      return FluidVolume.EMPTY;
+      return TinkerFluids.EMPTY;
     }
     // output 1 ingot
     FluidVolume output = new FluidVolume(fluid, MaterialValues.INGOT);
@@ -96,12 +96,12 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   public FluidVolume drain(int maxDrain, FluidAction action) {
     // must be draining at least an ingot
     if (maxDrain < MaterialValues.INGOT) {
-      return FluidVolume.EMPTY;
+      return TinkerFluids.EMPTY;
     }
     // must have a fluid
     Fluid fluid = getFluid();
     if (fluid == Fluids.EMPTY) {
-      return FluidVolume.EMPTY;
+      return TinkerFluids.EMPTY;
     }
     // output 1 ingot
     FluidVolume output = new FluidVolume(fluid, MaterialValues.INGOT);

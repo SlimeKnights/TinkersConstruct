@@ -22,7 +22,7 @@ import java.util.Objects;
 public class CastingFluidHandler implements IFluidHandler {
   private final CastingTileEntity tile;
   @Getter @Setter
-  private FluidVolume fluid = FluidVolume.EMPTY;
+  private FluidVolume fluid = TinkerFluids.EMPTY;
   @Setter
   private int capacity = 0;
   private Fluid filter = Fluids.EMPTY;
@@ -48,7 +48,7 @@ public class CastingFluidHandler implements IFluidHandler {
   /** Resets the tanks filter */
   public void reset() {
     capacity = 0;
-    fluid = FluidVolume.EMPTY;
+    fluid = TinkerFluids.EMPTY;
     filter = Fluids.EMPTY;
     onContentsChanged();
   }
@@ -114,7 +114,7 @@ public class CastingFluidHandler implements IFluidHandler {
   @Override
   public FluidVolume drain(FluidVolume resource, FluidAction action) {
     if (resource.isEmpty() || !resource.isFluidEqual(fluid)) {
-      return FluidVolume.EMPTY;
+      return TinkerFluids.EMPTY;
     }
     return this.drain(resource.getAmount(), action);
   }
@@ -123,7 +123,7 @@ public class CastingFluidHandler implements IFluidHandler {
   public FluidVolume drain(int maxDrain, FluidAction action) {
     int drained = Math.min(fluid.getAmount(), maxDrain);
     if (drained <= 0) {
-      return FluidVolume.EMPTY;
+      return TinkerFluids.EMPTY;
     }
 
     FluidVolume stack = new FluidVolume(fluid, drained);
@@ -141,7 +141,7 @@ public class CastingFluidHandler implements IFluidHandler {
     if (tank == 0) {
       return fluid;
     }
-    return FluidVolume.EMPTY;
+    return TinkerFluids.EMPTY;
   }
 
   @Override

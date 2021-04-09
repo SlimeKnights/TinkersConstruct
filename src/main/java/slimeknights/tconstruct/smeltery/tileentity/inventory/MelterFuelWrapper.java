@@ -46,7 +46,7 @@ public class MelterFuelWrapper implements IFluidInventory {
   public FluidVolume getFluidVolume() {
     return Optional.ofNullable(tank.get())
                    .map(IFluidTank::getFluid)
-                   .orElse(FluidVolume.EMPTY);
+                   .orElse(TinkerFluids.EMPTY);
   }
 
   /**

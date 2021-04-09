@@ -101,7 +101,7 @@ public class SmelteryTank implements IFluidHandler {
   @Override
   public FluidVolume getFluidInTank(int tank) {
     if (tank < 0 || tank >= fluids.size()) {
-      return FluidVolume.EMPTY;
+      return TinkerFluids.EMPTY;
     }
     return fluids.get(tank);
   }
@@ -179,7 +179,7 @@ public class SmelteryTank implements IFluidHandler {
   @Override
   public FluidVolume drain(int maxDrain, FluidAction action) {
     if (fluids.isEmpty()) {
-      return FluidVolume.EMPTY;
+      return TinkerFluids.EMPTY;
     }
 
     // simply drain the first one
@@ -239,7 +239,7 @@ public class SmelteryTank implements IFluidHandler {
     }
 
     // nothing drained
-    return FluidVolume.EMPTY;
+    return TinkerFluids.EMPTY;
   }
 
   /* Saving and loading */

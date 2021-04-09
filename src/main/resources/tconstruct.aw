@@ -10,6 +10,9 @@ accessible  field   net/minecraft/world/explosion/Explosion    affectedBlocks Lj
 accessible  field   net/minecraft/world/explosion/Explosion    destructionType    Lnet/minecraft/world/explosion/Explosion$DestructionType;
 
 accessible  method  net/minecraft/data/server/RecipesProvider  conditionsFromTag    (Lnet/minecraft/tag/Tag;)Lnet/minecraft/advancement/criterion/InventoryChangedCriterion$Conditions;
+accessible  method  net/minecraft/data/server/RecipesProvider  conditionsFromTag    (Lnet/minecraft/tag/Tag;)Lnet/minecraft/advancement/criterion/InventoryChangedCriterion$Conditions;
+
+accessible  method  net/minecraft/recipe/Ingredient    <init> (Ljava/util/stream/Stream;)V
 
 accessible  field   net/minecraft/client/render/entity/EntityRenderDispatcher  renderers    Ljava/util/Map;
 

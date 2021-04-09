@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -21,6 +24,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.mantle.util.WeakConsumerWrapper;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
@@ -44,9 +48,9 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
   /** If true, redstone told this faucet to stop, so stop when ready */
   private boolean stopPouring = false;
   /** Current fluid in the faucet */
-  private FluidVolume drained = FluidVolume.EMPTY;
+  private FluidVolume drained = TinkerFluids.EMPTY;
   /** Fluid for rendering, used to reduce the number of packets. There is a brief moment where {@link this#drained} is empty but we should be rendering something */
-  private FluidVolume renderFluid = FluidVolume.EMPTY;
+  private FluidVolume renderFluid = TinkerFluids.EMPTY;
   /** Used for pulse detection */
   private boolean lastRedstoneState = false;
 
@@ -60,7 +64,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
   private final NonNullConsumer<LazyOptional<IFluidHandler>> outputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.outputHandler = null);
 
   public FaucetTileEntity() {
-    this(TinkerSmeltery.faucet.get());
+    this(TinkerSmeltery.faucet);
   }
 
   @SuppressWarnings("WeakerAccess")
@@ -169,7 +173,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
         // powered deactivates the faucet, sync to client
       case POWERED:
         faucetState = FaucetState.OFF;
-        syncToClient(FluidVolume.EMPTY, false);
+        syncToClient(TinkerFluids.EMPTY, false);
         break;
         // pouring means we stop pouring as soon as possible
       case POURING:
@@ -191,7 +195,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
         }
       } else if (faucetState == FaucetState.POWERED) {
         faucetState = FaucetState.OFF;
-        syncToClient(FluidVolume.EMPTY, false);
+        syncToClient(TinkerFluids.EMPTY, false);
       }
     }
   }
@@ -262,8 +266,8 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
       // if powered, keep faucet running
       if (lastRedstoneState) {
         // sync if either we were not pouring before (particle effects), or if the client thinks we have fluid
-        if (execute && (faucetState == FaucetState.OFF || !renderFluid.isFluidEqual(FluidVolume.EMPTY))) {
-          syncToClient(FluidVolume.EMPTY, true);
+        if (execute && (faucetState == FaucetState.OFF || !renderFluid.isFluidEqual(TinkerFluids.EMPTY))) {
+          syncToClient(TinkerFluids.EMPTY, true);
         }
         faucetState = FaucetState.POWERED;
         return false;
@@ -316,10 +320,10 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    */
   private void reset() {
     stopPouring = false;
-    drained = FluidVolume.EMPTY;
+    drained = TinkerFluids.EMPTY;
     if (faucetState != FaucetState.OFF || !renderFluid.isFluidEqual(drained)) {
       faucetState = FaucetState.OFF;
-      syncToClient(FluidVolume.EMPTY, false);
+      syncToClient(TinkerFluids.EMPTY, false);
     }
   }
 
@@ -386,12 +390,12 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     if (compound.contains(TAG_DRAINED, NBT.TAG_COMPOUND)) {
       drained = FluidVolume.loadFluidVolumeFromNBT(compound.getCompound(TAG_DRAINED));
     } else {
-      drained = FluidVolume.EMPTY;
+      drained = TinkerFluids.EMPTY;
     }
     if (compound.contains(TAG_RENDER_FLUID, NBT.TAG_COMPOUND)) {
       renderFluid = FluidVolume.loadFluidVolumeFromNBT(compound.getCompound(TAG_RENDER_FLUID));
     } else {
-      renderFluid = FluidVolume.EMPTY;
+      renderFluid = TinkerFluids.EMPTY;
     }
   }
 

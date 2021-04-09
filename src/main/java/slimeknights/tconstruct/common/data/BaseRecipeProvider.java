@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Shared logic for each module's recipe provider
@@ -276,9 +277,9 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
   }
 
   // Forge constructor is private, not sure if there is a public place for this
-  protected static class CompoundIngredient extends net.minecraftforge.common.crafting.CompoundIngredient {
+    protected static class CompoundIngredient extends Ingredient {
     public CompoundIngredient(List<Ingredient> children) {
-      super(children);
+      super((Stream<? extends Ingredient.Entry>) children);
     }
 
     public CompoundIngredient(Ingredient... children) {
