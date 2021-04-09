@@ -16,7 +16,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.gadgets.Exploder;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
-import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class EflnBallEntity extends ThrownItemEntity implements IEntityAdditionalSpawnData {
 

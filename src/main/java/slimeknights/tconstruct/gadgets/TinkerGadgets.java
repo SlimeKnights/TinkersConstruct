@@ -186,5 +186,9 @@ public final class TinkerGadgets extends TinkerModule {
   /**
    * Potions
    */
-  public static final CarryPotionEffect carryEffect = Registry.register(Registry.POTION, new Identifier(TConstruct.modID,"carry"), new CarryPotionEffect());
+  public static final CarryPotionEffect carryEffect = Registry.register(Registry.STATUS_EFFECT, new Identifier(TConstruct.modID,"carry"), new CarryPotionEffect());
+
+  @Override
+  public void onInitialize() {
+  }
 }

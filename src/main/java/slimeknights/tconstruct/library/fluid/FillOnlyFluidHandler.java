@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.fluid;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Fluid handler wrapper that only allows filling

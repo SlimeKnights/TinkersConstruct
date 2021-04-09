@@ -7,6 +7,7 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
+import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
@@ -15,10 +16,10 @@ import org.jetbrains.annotations.Nullable;
 public class TinkerChestContainer extends BaseStationContainer<TinkerChestTileEntity> {
   protected SideInventoryContainer<TinkerChestTileEntity> inventory;
   public TinkerChestContainer(int id, PlayerInventory inv, @Nullable TinkerChestTileEntity tileEntity) {
-    super(TinkerTables.tinkerChestContainer.get(), id, inv, tileEntity);
+    super(TinkerTables.tinkerChestContainer, id, inv, tileEntity);
     // columns don't matter since they get set by gui
     if (this.tile != null) {
-      this.inventory = new DynamicChestInventory(TinkerTables.tinkerChestContainer.get(), this.syncId, inv, this.tile, 8, 18, 8);
+      this.inventory = new DynamicChestInventory(TinkerTables.tinkerChestContainer, this.syncId, inv, this.tile, 8, 18, 8);
       this.addSubContainer(inventory, true);
     }
     this.addInventorySlots();
@@ -46,6 +47,8 @@ public class TinkerChestContainer extends BaseStationContainer<TinkerChestTileEn
       return new ChestSlot(this.tile, index, x, y);
     }
   }
+
+
 
   /** Slot to filter chest contents */
   public static class ChestSlot extends Slot {

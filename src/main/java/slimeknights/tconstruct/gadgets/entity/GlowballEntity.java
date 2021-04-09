@@ -17,7 +17,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
-import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowballEntity extends ThrownItemEntity implements IEntityAdditionalSpawnData {
 

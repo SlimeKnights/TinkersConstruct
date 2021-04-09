@@ -8,7 +8,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.shared.block.TableBlock;
 
-import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class RackBlock extends TableBlock {
 

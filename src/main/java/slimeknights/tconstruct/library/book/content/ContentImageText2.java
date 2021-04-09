@@ -2,8 +2,7 @@ package slimeknights.tconstruct.library.book.content;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.ContentImageText;
 import slimeknights.mantle.client.book.data.element.ImageData;

@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.library.book.TinkerBook;
 
-import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class TinkerBookItem extends TooltipItem {
 

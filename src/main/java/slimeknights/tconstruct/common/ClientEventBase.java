@@ -1,15 +1,11 @@
 package slimeknights.tconstruct.common;
 
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.color.block.BlockColorProvider;
-import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColorProvider;
-import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.item.ItemConvertible;
 import slimeknights.mantle.registration.object.EnumObject;
-import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Supplier;
 

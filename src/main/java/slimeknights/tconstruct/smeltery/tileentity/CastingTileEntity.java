@@ -82,7 +82,6 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
 
   protected CastingTileEntity(BlockEntityType<?> tileEntityTypeIn, RecipeType<ICastingRecipe> castingType, RecipeType<MoldingRecipe> moldingType) {
     super(tileEntityTypeIn, "gui.tconstruct.casting", 2, 1);
-    this.itemHandler = new SidedInvWrapper(this, Direction.DOWN);
     this.castingType = castingType;
     this.moldingType = moldingType;
     this.castingInventory = new TileCastingWrapper(this, Fluids.EMPTY);

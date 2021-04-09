@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.function.BiFunction;
 
@@ -50,7 +50,7 @@ public class NBTUtil {
    * @return Integer, or default if the tag is missing
    */
   public static <T> T getOrDefault(CompoundTag nbt, String key, T defaultValue, BiFunction<CompoundTag, String, T> valueGetter) {
-    if(nbt.contains(key, Constants.NBT.TAG_ANY_NUMERIC)) {
+    if(nbt.contains(key, NbtType.NUMBER)) {
       return valueGetter.apply(nbt, key);
     }
     return defaultValue;

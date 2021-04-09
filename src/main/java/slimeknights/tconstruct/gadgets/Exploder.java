@@ -179,7 +179,7 @@ public class Exploder {
           // explosion "strength" at the current position
           double f = this.explosionStrength * (1f - d / this.rr);
 
-          float f2 = Math.max(blockState.getExplosionResistance(this.world, blockpos, this.explosion), ifluidstate.getExplosionResistance(this.world, blockpos, this.explosion));
+          float f2 = Math.max(blockState.getBlock().getBlastResistance(), ifluidstate.getBlockState().getBlock().getBlastResistance());
           if (this.exploder != null) {
             f2 = this.exploder.getEffectiveExplosionResistance(this.explosion, this.world, blockpos, blockState, ifluidstate, f2);
           }

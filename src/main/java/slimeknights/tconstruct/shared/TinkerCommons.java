@@ -5,7 +5,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.GlassBlock;
 import net.minecraft.block.Material;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.condition.LootConditionType;
@@ -29,8 +28,6 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
-import java.util.function.Function;
-
 /**
  * Contains items and blocks and stuff that is shared by multiple modules, but might be required individually
  */
@@ -42,7 +39,7 @@ public final class TinkerCommons extends TinkerModule {
    * Blocks
    */
   public static final GlowBlock glow = (GlowBlock) BLOCKS.registerNoItem("glow", () -> new GlowBlock(builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.WOOL).strength(0.0F).luminance(s -> 14).nonOpaque()));
-  public static final BuildingBlockObject mudBricks = BLOCKS.registerBuilding("mud_bricks", builder(Material.SOIL, FabricToolTags.SHOVELS, BlockSoundGroup.GRAVEL).requiresTool().strength(2.0F), (Function<Block, BlockItem>) GENERAL_BLOCK_ITEM);
+  public static final BuildingBlockObject mudBricks = BLOCKS.registerBuilding("mud_bricks", builder(Material.SOIL, FabricToolTags.SHOVELS, BlockSoundGroup.GRAVEL).requiresTool().strength(2.0F), GENERAL_BLOCK_ITEM);
   // clay
   // TODO: moving to natura
   private static final AbstractBlock.Settings DRIED_CLAY = builder(Material.STONE, FabricToolTags.PICKAXES, BlockSoundGroup.STONE).requiresTool().strength(1.5F, 20.0F);
