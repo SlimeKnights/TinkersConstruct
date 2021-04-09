@@ -4,6 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSyntaxException;
+import com.sun.jdi.BooleanValue;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import net.minecraft.loot.condition.LootCondition;
@@ -24,7 +25,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigEnabledCondition implements ICondition, LootCondition {
   public static final Identifier ID = Util.getResource("config");
   public static final Serializer SERIALIZER = new Serializer();
@@ -33,6 +33,11 @@ public class ConfigEnabledCondition implements ICondition, LootCondition {
 
   private final String configName;
   private final BooleanSupplier supplier;
+
+  public ConfigEnabledCondition(String cn, BooleanSupplier sup) {
+    this.configName = cn;
+    this.supplier = sup;
+  }
 
   @Override
   public Identifier getID() {
@@ -76,7 +81,7 @@ public class ConfigEnabledCondition implements ICondition, LootCondition {
     }
 
     @Override
-    public void serialize(JsonObject json, ConfigEnabledCondition condition, JsonSerializationContext context) {
+    public void toJson(JsonObject json, ConfigEnabledCondition condition, JsonSerializationContext context) {
       write(json, condition);
     }
 

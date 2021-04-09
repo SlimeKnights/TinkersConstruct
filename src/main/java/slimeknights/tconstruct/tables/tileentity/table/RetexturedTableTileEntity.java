@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.tables.tileentity.table;
 
+import slimeknights.mantle.model.IModelData;
+import slimeknights.mantle.tileentity.IRetexturedTileEntity;
+import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
+
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Lazy;
 import net.minecraft.util.math.Box;
-import net.minecraftforge.client.model.data.IModelData;
-import slimeknights.mantle.tileentity.IRetexturedTileEntity;
-import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
 
 public abstract class RetexturedTableTileEntity extends TableTileEntity implements IRetexturedTileEntity {
   private final Lazy<IModelData> data = new Lazy<>(this::getRetexturedModelData);

@@ -137,19 +137,19 @@ public final class TinkerWorld extends TinkerModule implements ModInitializer {
 
   // plants
   private static final Block.Settings GRASS = builder(Material.PLANT, NO_TOOL, BlockSoundGroup.GRASS).breakInstantly().noCollision().ticksRandomly();
-  public static final EnumObject<FoliageType, SlimeTallGrassBlock> slimeFern = BLOCKS.registerEnum(FoliageType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), DEFAULT_BLOCK_ITEM);
-  public static final EnumObject<FoliageType, SlimeTallGrassBlock> slimeTallGrass = BLOCKS.registerEnum(FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), DEFAULT_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, Block> slimeFern = BLOCKS.registerEnum(FoliageType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), DEFAULT_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, Block> slimeTallGrass = BLOCKS.registerEnum(FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), DEFAULT_BLOCK_ITEM);
 
   // trees
   private static final Block.Settings SAPLING = builder(Material.PLANT, NO_TOOL, BlockSoundGroup.GRASS).breakInstantly().noCollision().ticksRandomly();
-  public static final EnumObject<FoliageType, SlimeSaplingBlock> slimeSapling = BLOCKS.registerEnum(FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type), type, SAPLING), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, Block> slimeSapling = BLOCKS.registerEnum(FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type), type, SAPLING), TOOLTIP_BLOCK_ITEM);
   private static final Block.Settings SLIME_LEAVES = builder(Material.LEAVES, NO_TOOL, BlockSoundGroup.GRASS).strength(0.3F).ticksRandomly().nonOpaque().allowsSpawning((s, w, p, e) -> false);
-  public static final EnumObject<FoliageType, SlimeLeavesBlock> slimeLeaves = BLOCKS.registerEnum(FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(SLIME_LEAVES, type), DEFAULT_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, Block> slimeLeaves = BLOCKS.registerEnum(FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(SLIME_LEAVES, type), DEFAULT_BLOCK_ITEM);
 
   // slime vines
   private static final Block.Settings VINE = builder(Material.REPLACEABLE_PLANT, NO_TOOL, BlockSoundGroup.GRASS).strength(0.3F).noCollision().ticksRandomly();
-  public static final ItemObject<SlimeVineBlock> enderSlimeVine = BLOCKS.register("ender_slime_vine", () -> new SlimeVineBlock(VINE, FoliageType.ENDER), DEFAULT_BLOCK_ITEM);
-  public static final ItemObject<SlimeVineBlock> skySlimeVine = BLOCKS.register("sky_slime_vine", () -> new SlimeVineBlock(VINE, FoliageType.SKY), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<Block> enderSlimeVine = BLOCKS.register("ender_slime_vine", () -> new SlimeVineBlock(VINE, FoliageType.ENDER), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<Block> skySlimeVine = BLOCKS.register("sky_slime_vine", () -> new SlimeVineBlock(VINE, FoliageType.SKY), DEFAULT_BLOCK_ITEM);
 
   /*
    * Entities

@@ -4,8 +4,10 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraftforge.common.util.FakePlayer;
@@ -26,13 +28,12 @@ public final class AchievementEvents {
   private static final String ADVANCEMENT_IRON_PICK = "minecraft:story/iron_tools";
   private static final String ADVANCEMENT_SHOOT_ARROW = "minecraft:adventure/shoot_arrow";
 
-  @SubscribeEvent
-  public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
-    if (event.getPlayer() == null || event.getPlayer() instanceof FakePlayer || !(event.getPlayer() instanceof ServerPlayerEntity) || event.getCrafting().isEmpty()) {
+  public static void onCraft(PlayerEntity player, ItemStack crafting) {
+    if (player == null || !(player instanceof ServerPlayerEntity) || crafting.isEmpty()) {
       return;
     }
-    ServerPlayerEntity playerMP = (ServerPlayerEntity) event.getPlayer();
-    Item item = event.getCrafting().getItem();
+    ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
+    Item item = crafting.getItem();
     if (item instanceof BlockItem && ((BlockItem) item).getBlock() == Blocks.CRAFTING_TABLE) {
       grantAdvancement(playerMP, ADVANCEMENT_STORY_ROOT);
     }
