@@ -2,14 +2,11 @@ package slimeknights.tconstruct.library.book;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
-
 import java.util.ArrayList;
 
 @Environment(EnvType.CLIENT)
