@@ -9,3 +9,7 @@ accessible  method  net/minecraft/entity/SpawnRestriction  register (Lnet/minecr
 
 accessible  method  net/minecraft/util/registry/Registry   createRegistryKey (Ljava/lang/String;)Lnet/minecraft/util/registry/RegistryKey;
 accessible  method  net/minecraft/util/registry/Registry   create    (Lnet/minecraft/util/registry/RegistryKey;Ljava/lang/String;Ljava/util/function/Supplier;)Lnet/minecraft/util/registry/DefaultedRegistry;
+
+accessible  method  net/minecraft/data/server/RecipesProvider  conditionsFromItem   (Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/advancement/criterion/InventoryChangedCriterion$Conditions;
+
+accessible  method  net/minecraft/client/render/WorldRenderer  drawBlockOutline (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/entity/Entity;DDDLnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V

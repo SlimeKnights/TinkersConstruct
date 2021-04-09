@@ -10,6 +10,7 @@ import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import slimeknights.mantle.recipe.ICondition;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -100,7 +101,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                           .criterion("has_item", conditionsFromItem(Blocks.GRAVEL))
                           .offerTo(
                             ConsumerWrapperBuilder.wrap()
-                                                  .addCondition(ConfigEnabledCondition.GRAVEL_TO_FLINT)
+                                                  .addCondition((ICondition) ConfigEnabledCondition.GRAVEL_TO_FLINT)
                                                   .build(consumer),
                             location("common/flint"));
   }

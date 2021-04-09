@@ -242,7 +242,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
     boolean didTransform = transformed != null;
     if (transformed == null) {
       // shovel special case: campfires
-      if (toolType == ToolType.SHOVEL && original.getBlock() instanceof CampfireBlock && original.get(CampfireBlock.LIT)) {
+      if (toolType == FabricToolTags.SHOVELS && original.getBlock() instanceof CampfireBlock && original.get(CampfireBlock.LIT)) {
         isCampfire = true;
         if (!world.isClient()) {
           world.syncWorldEvent(null, WorldEvents.FIRE_EXTINGUISH_SOUND, pos, 0);

@@ -8,8 +8,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class RayTracer {
 
@@ -87,7 +85,7 @@ public class RayTracer {
    * @return the block reach distance from the server
    */
   private static double getBlockReachDistanceServer(ServerPlayerEntity player) {
-    return player.getAttributeInstance(net.minecraftforge.common.ForgeMod.REACH_DISTANCE.get()).getValue();
+    return 5.0D;
   }
 
   /**

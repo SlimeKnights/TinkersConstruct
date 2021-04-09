@@ -5,15 +5,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSyntaxException;
 import com.sun.jdi.BooleanValue;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 import slimeknights.tconstruct.common.config.Config;
@@ -109,8 +106,8 @@ public class ConfigEnabledCondition implements ICondition, LootCondition {
    * @param supplier Config value
    * @return Added condition
    */
-  private static ConfigEnabledCondition add(String prop, BooleanValue supplier) {
-    return add(prop, supplier::get);
+  private static ConfigEnabledCondition add(String prop, boolean supplier) {
+    return add(prop, () -> supplier);
   }
 
   @Override
@@ -119,8 +116,8 @@ public class ConfigEnabledCondition implements ICondition, LootCondition {
   }
 
   /* Properties */
-  public static final ConfigEnabledCondition GRAVEL_TO_FLINT = add("gravel_to_flint", Config.COMMON.addGravelToFlintRecipe);
-  public static final ConfigEnabledCondition CHEAPER_NETHERITE_ALLOY = add("cheaper_netherite_alloy", Config.COMMON.cheaperNetheriteAlloy);
-  public static final ConfigEnabledCondition WITHER_BONE_DROP = add("wither_bone_drop", Config.COMMON.witherBoneDrop);
-  public static final ConfigEnabledCondition WITHER_BONE_CONVERSION = add("wither_bone_conversion", Config.COMMON.witherBoneConversion);
+  public static final ConfigEnabledCondition GRAVEL_TO_FLINT = add("gravel_to_flint", Config.common.addGravelToFlintRecipe);
+  public static final ConfigEnabledCondition CHEAPER_NETHERITE_ALLOY = add("cheaper_netherite_alloy", Config.common.cheaperNetheriteAlloy);
+  public static final ConfigEnabledCondition WITHER_BONE_DROP = add("wither_bone_drop", Config.common.witherBoneDrop);
+  public static final ConfigEnabledCondition WITHER_BONE_CONVERSION = add("wither_bone_conversion", Config.common.witherBoneConversion);
 }

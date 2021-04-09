@@ -144,7 +144,7 @@ public class KamaTool extends HarvestTool {
 
   @Override
   public ActionResult useOnBlock(ItemUsageContext context) {
-    return getToolHarvestLogic().transformBlocks(context, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true);
+    return getToolHarvestLogic().transformBlocks(context, FabricToolTags.HOES, SoundEvents.ITEM_HOE_TILL, true);
   }
 
   public static class HarvestLogic extends AOEToolHarvestLogic {

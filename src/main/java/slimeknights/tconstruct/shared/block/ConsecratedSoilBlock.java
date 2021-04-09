@@ -39,7 +39,7 @@ public class ConsecratedSoilBlock extends Block {
   @Override
   //TODO: Replace when forge Re-Evaluates
   public net.minecraftforge.common.ToolType getHarvestTool(BlockState state) {
-    return ToolType.SHOVEL;
+    return FabricToolTags.SHOVELS;
   }
 
   @Override

@@ -23,9 +23,15 @@
         "main": [
             "slimeknights.tconstruct.TConstruct",
             "slimeknights.tconstruct.shared.TinkerCommons",
+            "slimeknights.tconstruct.shared.TinkerMaterials",
             "slimeknights.tconstruct.fluids.TinkerFluids",
             "slimeknights.tconstruct.gadgets.TinkerGadgets",
-            "slimeknights.tconstruct.shared.TinkerMaterials",
+            "slimeknights.tconstruct.smeltery.TinkerSmeltery",
+            "slimeknights.tconstruct.world.TinkerWorld",
+            "slimeknights.tconstruct.world.TinkerStructures",
+            "slimeknights.tconstruct.tables.TinkerTables",
+            "slimeknights.tconstruct.tools.TinkerToolParts",
+            "slimeknights.tconstruct.tools.TinkerTools",
             "slimeknights.tconstruct.tools.TinkerModifiers"
         ]
     },

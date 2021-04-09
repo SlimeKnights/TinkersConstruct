@@ -34,7 +34,7 @@ public class MattockTool extends ToolCore {
       }
       // slower when a non-shovel block
       float speed = tool.getStats().getMiningSpeed();
-      if (!blockState.isToolEffective(ToolType.SHOVEL)) {
+      if (!blockState.isToolEffective(FabricToolTags.SHOVELS)) {
         speed *= 0.75f;
       }
       return speed;
@@ -52,6 +52,6 @@ public class MattockTool extends ToolCore {
 
   @Override
   public ActionResult useOnBlock(ItemUsageContext context) {
-    return getToolHarvestLogic().transformBlocks(context, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true);
+    return getToolHarvestLogic().transformBlocks(context, FabricToolTags.SHOVELS, SoundEvents.ITEM_SHOVEL_FLATTEN, true);
   }
 }

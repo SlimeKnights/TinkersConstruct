@@ -31,7 +31,7 @@ public class AxeTool extends HarvestTool {
 
   @Override
   public ActionResult useOnBlock(ItemUsageContext context) {
-    return this.getToolHarvestLogic().transformBlocks(context, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false);
+    return this.getToolHarvestLogic().transformBlocks(context, FabricToolTags.AXES, SoundEvents.ITEM_AXE_STRIP, false);
   }
 
   @Override

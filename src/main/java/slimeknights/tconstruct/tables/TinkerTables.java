@@ -52,7 +52,7 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Blocks
    */
-  private static final Block.Properties WOOD_TABLE = builder(Material.WOOD, ToolType.AXE, BlockSoundGroup.WOOD).strength(1.0F, 5.0F).nonOpaque();
+  private static final Block.Properties WOOD_TABLE = builder(Material.WOOD, FabricToolTags.AXES, BlockSoundGroup.WOOD).strength(1.0F, 5.0F).nonOpaque();
   /** Call with .apply to set the tag type for a block item provider */
   private static final Function<Tag<Item>, Function<Block,RetexturedBlockItem>> RETEXTURED_BLOCK_ITEM = (tag) -> (block) -> new RetexturedBlockItem(block, tag, GENERAL_PROPS);
   public static final ItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(WOOD_TABLE), GENERAL_BLOCK_ITEM);
@@ -61,9 +61,9 @@ public final class TinkerTables extends TinkerModule {
   public static final ItemObject<TableBlock> modifierChest = BLOCKS.register("modifier_chest", () -> new TinkerChestBlock(WOOD_TABLE, ModifierChestTileEntity::new), GENERAL_BLOCK_ITEM);
   public static final ItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new TinkerChestBlock(WOOD_TABLE, PartChestTileEntity::new), GENERAL_BLOCK_ITEM);
 
-  private static final Block.Properties METAL_TABLE = builder(Material.REPAIR_STATION, ToolType.PICKAXE, BlockSoundGroup.ANVIL).requiresTool().strength(5.0F, 1200.0F).nonOpaque();
+  private static final Block.Properties METAL_TABLE = builder(Material.REPAIR_STATION, FabricToolTags.PICKAXES, BlockSoundGroup.ANVIL).requiresTool().strength(5.0F, 1200.0F).nonOpaque();
   public static final ItemObject<TableBlock> tinkersAnvil = BLOCKS.register("tinkers_anvil", () -> new TinkersAnvilBlock(METAL_TABLE, 6), RETEXTURED_BLOCK_ITEM.apply(TinkerTags.Items.ANVIL_METAL));
-  private static final Block.Properties STONE_TABLE = builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.METAL).requiresTool().strength(3.0F, 9.0F).nonOpaque();
+  private static final Block.Properties STONE_TABLE = builder(Material.STONE, FabricToolTags.PICKAXES, BlockSoundGroup.METAL).requiresTool().strength(3.0F, 9.0F).nonOpaque();
   public static final ItemObject<TableBlock> castChest = BLOCKS.register("cast_chest", () -> new TinkerChestBlock(STONE_TABLE, CastChestTileEntity::new), GENERAL_BLOCK_ITEM);
 
   /*

@@ -7,6 +7,8 @@ group = "slimenights"
 version = "2.0.0-SNAPSHOT"
 
 repositories {
+    mavenCentral()
+
     maven {
         name = "Curseforge Maven"
         url = uri("https://www.cursemaven.com")
@@ -41,7 +43,7 @@ dependencies {
 
     modImplementation("net.fabricmc", "fabric-loader", "0.11.3")
     modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.32.5+1.16")
-    modImplementation("slimeknights", "Mantle", "1.6.7-SNAPSHOT")
+    modImplementation("slimeknights", "Mantle", "1.6.8-SNAPSHOT")
 
     modApi("me.shedaniel.cloth", "cloth-config-fabric", "4.11.19")
 
@@ -50,6 +52,12 @@ dependencies {
     modRuntime("curse.maven", "appleskin-248787", "2987255")
     modRuntime("curse.maven", "hwyla-253449", "3033613")
 
+    // Lombok is bad and worst in game but for now we just deal with it
+    compileOnly("org.projectlombok", "lombok", "1.18.20")
+    annotationProcessor("org.projectlombok", "lombok", "1.18.20")
+
+    testCompileOnly("org.projectlombok", "lombok", "1.18.20")
+    testAnnotationProcessor("org.projectlombok", "lombok", "1.18.20")
 
     add(
         sourceSets.main.get().getTaskName("mod", JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME),

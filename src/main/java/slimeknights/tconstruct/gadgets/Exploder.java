@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.gadgets;
 
 import com.google.common.collect.Lists;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,15 +20,12 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.tconstruct.gadgets.entity.EFLNExplosion;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -69,13 +67,14 @@ public class Exploder {
     this.curZ = 0;
 
     this.droppedItems = Lists.newArrayList();
+
+    ServerTickEvents.END_WORLD_TICK.register(this::onTick);
   }
 
   public static void startExplosion(World world, EFLNExplosion explosion, Entity entity, BlockPos location, double r, double explosionStrength) {
     Exploder exploder = new Exploder(world, explosion, entity, location, r, explosionStrength, Math.max(50, (int) (r * r * r / 10d)));
     exploder.handleEntities();
     world.playSound(null, location, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
-    MinecraftForge.EVENT_BUS.register(exploder);
   }
 
   private void handleEntities() {
@@ -95,7 +94,6 @@ public class Exploder {
         this.z + this.r + 1),
       predicate
     );
-    net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.world, this.explosion, list, this.r * 2);
 
     for (Entity entity : list) {
       // move it away from the center depending on distance and explosion strength
@@ -113,9 +111,8 @@ public class Exploder {
     }
   }
 
-  @SubscribeEvent
-  public void onTick(TickEvent.WorldTickEvent event) {
-    if (event.world == this.world && event.phase == TickEvent.Phase.END) {
+  public void onTick(ServerWorld world) {
+    if (world == this.world) {
       if (!this.iteration()) {
         // goodbye world, we're done exploding
         this.finish();
@@ -159,8 +156,6 @@ public class Exploder {
       }
       while (stacksize > 0);
     }
-
-    MinecraftForge.EVENT_BUS.unregister(this);
   }
 
   /**
@@ -180,7 +175,7 @@ public class Exploder {
         FluidState ifluidstate = this.world.getFluidState(blockpos);
 
         // no air blocks
-        if (!blockState.isAir(this.world, blockpos) || !ifluidstate.isEmpty()) {
+        if (!this.world.getBlockState(blockpos).isAir() || !ifluidstate.isEmpty()) {
           // explosion "strength" at the current position
           double f = this.explosionStrength * (1f - d / this.rr);
 
@@ -201,8 +196,6 @@ public class Exploder {
       // get next coordinate;
       this.step();
     }
-
-    net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.world, this.explosion, Collections.emptyList(), this.r * 2);
 
     this.explosion.getAffectedBlocks().forEach(this::explodeBlock);
 
@@ -237,9 +230,10 @@ public class Exploder {
 
   private void explodeBlock(BlockPos blockpos) {
     BlockState blockstate = this.world.getBlockState(blockpos);
+    boolean isBlockEntity = this.world.getBlockEntity(blockpos) != null;
 
-    if (!this.world.isClient && blockstate.canDropFromExplosion(this.world, blockpos, this.explosion)) {
-      BlockEntity tileentity = blockstate.hasTileEntity() ? this.world.getBlockEntity(blockpos) : null;
+    if (!this.world.isClient && world.getGameRules().getBoolean(GameRules.DO_TILE_DROPS)) {
+      BlockEntity tileentity = isBlockEntity ? this.world.getBlockEntity(blockpos) : null;
       LootContext.Builder builder = (new LootContext.Builder((ServerWorld) this.world)).random(this.world.random).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(blockpos)).parameter(LootContextParameters.TOOL, ItemStack.EMPTY).optionalParameter(LootContextParameters.BLOCK_ENTITY, tileentity);
 
       this.droppedItems.addAll(blockstate.getDroppedStacks(builder));
@@ -252,7 +246,8 @@ public class Exploder {
       }
     }
 
-    blockstate.onBlockExploded(this.world, blockpos, this.explosion);
+//    TODO: ?
+//    blockstate.onBlockExploded(this.world, blockpos, this.explosion);
   }
 
 }

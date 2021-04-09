@@ -19,7 +19,7 @@ public class ExcavatorTool extends HarvestTool {
 
   @Override
   public ActionResult useOnBlock(ItemUsageContext context) {
-    return getToolHarvestLogic().transformBlocks(context, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true);
+    return getToolHarvestLogic().transformBlocks(context, FabricToolTags.SHOVELS, SoundEvents.ITEM_SHOVEL_FLATTEN, true);
   }
 
   /*

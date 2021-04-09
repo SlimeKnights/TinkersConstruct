@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common;
 
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
@@ -33,7 +34,7 @@ import java.util.function.Supplier;
 /**
  * Contains base helpers for all Tinker modules
  */
-public abstract class TinkerModule {
+public abstract class TinkerModule implements ModInitializer {
   // deferred register instances
   protected static final BlockDeferredRegisterExtension BLOCKS = new BlockDeferredRegisterExtension(TConstruct.modID);
   protected static final ItemDeferredRegisterExtension ITEMS = new ItemDeferredRegisterExtension(TConstruct.modID);
@@ -63,9 +64,9 @@ public abstract class TinkerModule {
   // base item properties
   protected static final Item.Settings HIDDEN_PROPS = new Item.Settings();
   protected static final Item.Settings GENERAL_PROPS = new Item.Settings().group(TAB_GENERAL);
-  protected static final Function<Block,? extends BlockItem> HIDDEN_BLOCK_ITEM = (b) -> new BlockItem(b, HIDDEN_PROPS);
-  protected static final Function<Block,? extends BlockItem> GENERAL_BLOCK_ITEM = (b) -> new BlockItem(b, GENERAL_PROPS);
-  protected static final Function<Block,? extends BlockItem> GENERAL_TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GENERAL_PROPS);
+  protected static final Function<Block,BlockItem> HIDDEN_BLOCK_ITEM = (b) -> new BlockItem(b, HIDDEN_PROPS);
+  protected static final Function<Block,BlockItem> GENERAL_BLOCK_ITEM = (b) -> new BlockItem(b, GENERAL_PROPS);
+  protected static final Function<Block,BlockItem> GENERAL_TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GENERAL_PROPS);
   protected static final Supplier<Item> TOOLTIP_ITEM = () -> new TooltipItem(GENERAL_PROPS);
 
   /** Called during construction to initialize the registers for this mod */

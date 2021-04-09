@@ -42,15 +42,15 @@ public final class TinkerTools extends TinkerModule {
    */
   private static final Supplier<Item.Settings> TOOL = () -> new Item.Settings().group(TAB_TOOLS);
 
-  public static final ItemObject<HarvestTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.PICKAXE));
-  public static final ItemObject<SledgeHammerTool> sledgeHammer = ITEMS.register("sledge_hammer", () -> new SledgeHammerTool(TOOL.get().addToolType(ToolType.PICKAXE, 0), ToolDefinitions.SLEDGE_HAMMER));
+  public static final ItemObject<HarvestTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(TOOL.get().addToolType(FabricToolTags.PICKAXES, 0), ToolDefinitions.PICKAXE));
+  public static final ItemObject<SledgeHammerTool> sledgeHammer = ITEMS.register("sledge_hammer", () -> new SledgeHammerTool(TOOL.get().addToolType(FabricToolTags.PICKAXES, 0), ToolDefinitions.SLEDGE_HAMMER));
 
-  public static final ItemObject<MattockTool> mattock = ITEMS.register("mattock", () -> new MattockTool(TOOL.get().addToolType(ToolType.SHOVEL, 0), ToolDefinitions.MATTOCK));
-  public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(TOOL.get().addToolType(ToolType.SHOVEL, 0), ToolDefinitions.EXCAVATOR));
+  public static final ItemObject<MattockTool> mattock = ITEMS.register("mattock", () -> new MattockTool(TOOL.get().addToolType(FabricToolTags.SHOVELS, 0), ToolDefinitions.MATTOCK));
+  public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(TOOL.get().addToolType(FabricToolTags.SHOVELS, 0), ToolDefinitions.EXCAVATOR));
 
-  public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(TOOL.get().addToolType(ToolType.AXE, 0), ToolDefinitions.AXE));
+  public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(TOOL.get().addToolType(FabricToolTags.AXES, 0), ToolDefinitions.AXE));
 
-  public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get().addToolType(ToolType.HOE, 0).addToolType(ToolType.get("shears"), 0), ToolDefinitions.KAMA));
+  public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get().addToolType(FabricToolTags.HOES, 0).addToolType(ToolType.get("shears"), 0), ToolDefinitions.KAMA));
 
   public static final ItemObject<BroadSword> broadSword = ITEMS.register("broad_sword", () -> new BroadSword(TOOL.get().addToolType(ToolType.get("sword"), 0), ToolDefinitions.BROADSWORD));
 

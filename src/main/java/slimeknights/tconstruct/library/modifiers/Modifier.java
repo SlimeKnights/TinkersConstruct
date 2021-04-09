@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.LivingEntity;
@@ -22,10 +20,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -37,7 +33,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -49,8 +44,7 @@ import java.util.function.BiConsumer;
  * Interface representing both modifiers and traits.
  * Any behavior special to either one is handled elsewhere.
  */
-@RequiredArgsConstructor
-public class Modifier implements IForgeRegistryEntry<Modifier> {
+public class Modifier{
   private static final EntityAttributeModifier ANTI_KNOCKBACK_MODIFIER = new EntityAttributeModifier(TConstruct.modID + ".anti_knockback", 1f, Operation.ADDITION);
 
   /** Modifier random instance, use for chance based effects */
@@ -60,11 +54,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public static final int DEFAULT_PRIORITY = 100;
 
   /** Display color for all text for this modifier */
-  @Getter
   private final int color;
 
   /** Registry name of this modifier, null before fully registered */
-  @Getter @Nullable
+  @Nullable
   private ModifierId registryName;
 
   /** Cached key used for translations */
@@ -80,6 +73,18 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   @Nullable
   private Text description;
 
+  public Modifier(int color) {
+    this.color = color;
+  }
+
+  public int getColor() {
+    return color;
+  }
+
+  public @Nullable ModifierId getRegistryName() {
+    return registryName;
+  }
+
   /**
    * Override this method to make your modifier run earlier or later.
    * Higher numbers run earlier, 100 is default
@@ -89,24 +94,6 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     return DEFAULT_PRIORITY;
   }
 
-
-  /* Registry methods */
-
-  @Override
-  public final Modifier setRegistryName(Identifier name) {
-    if (registryName != null) {
-      throw new IllegalStateException("Attempted to set registry name with existing registry name! New: " + name + " Old: " + registryName);
-    }
-    // check mod container, should be the active mod
-    // don't want mods registering stuff in Tinkers namespace, or Minecraft
-    String activeMod = ModLoadingContext.get().getActiveNamespace();
-    if (!name.getNamespace().equals(activeMod)) {
-      LogManager.getLogger().info("Potentially Dangerous alternative prefix for name `{}`, expected `{}`. This could be a intended override, but in most cases indicates a broken mod.", name, activeMod);
-    }
-    this.registryName = new ModifierId(name);
-    return this;
-  }
-
   /**
    * Gets the modifier ID. Unlike {@link #getRegistryName()}, this method must be nonnull
    * @return  Modifier ID
@@ -114,12 +101,6 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public ModifierId getId() {
     return Objects.requireNonNull(registryName, "Modifier has null registry name");
   }
-
-  @Override
-  public Class<Modifier> getRegistryType() {
-    return Modifier.class;
-  }
-
 
   /* Tooltips */
 
@@ -233,7 +214,6 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addAttributes(IModifierToolStack, int, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
-   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
    * @param toolDefinition  Tool definition, will be empty for non-multitools
    * @param baseStats       Base material stats. Does not take tool definition or other modifiers into account

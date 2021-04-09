@@ -13,11 +13,6 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.crafting.conditions.NotCondition;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
@@ -37,7 +32,6 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
     super(generator);
   }
 
-  @Override
   protected abstract void generate(Consumer<RecipeJsonProvider> consumer);
 
   @Override

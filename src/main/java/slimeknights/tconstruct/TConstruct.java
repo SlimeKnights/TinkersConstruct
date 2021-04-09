@@ -40,7 +40,6 @@ public class TConstruct implements ModInitializer {
 //    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
 //    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
 
-//?
 
     // init deferred registers
     TinkerModule.initRegisters();
