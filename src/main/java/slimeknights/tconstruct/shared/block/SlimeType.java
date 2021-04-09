@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.shared.block;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
@@ -12,7 +9,6 @@ import slimeknights.tconstruct.shared.TinkerFood;
 
 import java.util.Locale;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum SlimeType implements StringIdentifiable {
   EARTH(0x01cd4e, "green", TinkerTags.Items.EARTH_SLIMEBALL),
   SKY(0x01cbcd, "blue", TinkerTags.Items.SKY_SLIMEBALL),
@@ -31,11 +27,24 @@ public enum SlimeType implements StringIdentifiable {
   public static final SlimeType[] TRUE_SLIME = {EARTH, SKY, ENDER, ICHOR};
 
   /* Block color for this slime type */
-  @Getter
   private final int color;
-  @Getter @Deprecated
+  @Deprecated
   private final String originalName;
   private final Tag<Item> slimeBallTag;
+
+  SlimeType(int color, String originalName, Tag<Item> slimeBallTag) {
+    this.color = color;
+    this.originalName = originalName;
+    this.slimeBallTag = slimeBallTag;
+  }
+
+  public int getColor() {
+    return color;
+  }
+
+  public String getOriginalName() {
+    return originalName;
+  }
 
   public Tag<Item> getSlimeBallTag() {
     return slimeBallTag;

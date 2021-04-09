@@ -44,7 +44,7 @@ public class EntityMovementChangePacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(PacketSender context) {
+  public void handleThreadsafe(PlayerEntity player, PacketSender context) {
     if (context.getSender() != null) {
       HandleClient.handle(this);
     }

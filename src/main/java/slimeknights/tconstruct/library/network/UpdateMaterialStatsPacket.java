@@ -85,7 +85,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(PacketSender context) {
+  public void handleThreadsafe(PlayerEntity player, PacketSender context) {
     MaterialRegistry.updateMaterialStatsFromServer(this);
   }
 }

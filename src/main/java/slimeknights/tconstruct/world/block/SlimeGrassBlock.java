@@ -90,7 +90,7 @@ public class SlimeGrassBlock extends SnowyBlock implements Fertilizable {
   @Deprecated
   @Override
   public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-    if (!worldIn.isAreaLoaded(pos, 3)) return;
+    if (!worldIn.isChunkLoaded(pos)) return;
     if (!canBecomeSlimeGrass(state, worldIn, pos)) {
       worldIn.setBlockState(pos, getDirtState(state));
     } else if (worldIn.getLightLevel(pos.up()) >= 9) {

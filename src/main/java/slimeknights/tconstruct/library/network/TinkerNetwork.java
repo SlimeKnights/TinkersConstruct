@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.network;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.network.NetworkSide;
 import net.minecraft.network.Packet;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
-import net.minecraftforge.fml.network.NetworkDirection;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.network.NetworkWrapper;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -24,16 +24,10 @@ import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
-import org.jetbrains.annotations.Nullable;
-
 // TODO: move to common
 public class TinkerNetwork extends NetworkWrapper {
 
   private static TinkerNetwork instance;
-
-  private TinkerNetwork() {
-    super(Util.getResource("network"));
-  }
 
   public static synchronized TinkerNetwork getInstance() {
     if (instance == null) {
@@ -44,28 +38,28 @@ public class TinkerNetwork extends NetworkWrapper {
 
   public static void setup() {
     instance = new TinkerNetwork();
-    instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    /*instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkSide.CLIENTBOUND);
 
     // gadgets
-    instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(BouncedPacket.class, BouncedPacket::new, NetworkDirection.PLAY_TO_SERVER);
+    instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(BouncedPacket.class, BouncedPacket::new, NetworkSide.SERVERBOUND);
 
     // tools
-    instance.registerPacket(StationTabPacket.class, StationTabPacket::new, NetworkDirection.PLAY_TO_SERVER);
-    instance.registerPacket(UpdateMaterialsPacket.class, UpdateMaterialsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(UpdateMaterialStatsPacket.class, UpdateMaterialStatsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(UpdateCraftingRecipePacket.class, UpdateCraftingRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(TinkerStationSelectionPacket.class, TinkerStationSelectionPacket::new, NetworkDirection.PLAY_TO_SERVER);
-    instance.registerPacket(UpdateTinkerStationRecipePacket.class, UpdateTinkerStationRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(UpdateStationScreenPacket.class, UpdateStationScreenPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(StationTabPacket.class, StationTabPacket::new, NetworkSide.SERVERBOUND);
+    instance.registerPacket(UpdateMaterialsPacket.class, UpdateMaterialsPacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(UpdateMaterialStatsPacket.class, UpdateMaterialStatsPacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(UpdateCraftingRecipePacket.class, UpdateCraftingRecipePacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(TinkerStationSelectionPacket.class, TinkerStationSelectionPacket::new, NetworkSide.SERVERBOUND);
+    instance.registerPacket(UpdateTinkerStationRecipePacket.class, UpdateTinkerStationRecipePacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(UpdateStationScreenPacket.class, UpdateStationScreenPacket::new, NetworkSide.CLIENTBOUND);
 
     // smeltery
-    instance.registerPacket(FluidUpdatePacket.class, FluidUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(FaucetActivationPacket.class, FaucetActivationPacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(ChannelFlowPacket.class, ChannelFlowPacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(SmelteryTankUpdatePacket.class, SmelteryTankUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(SmelteryStructureUpdatedPacket.class, SmelteryStructureUpdatedPacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(SmelteryFluidClickedPacket.class, SmelteryFluidClickedPacket::new, NetworkDirection.PLAY_TO_SERVER);
+    instance.registerPacket(FluidUpdatePacket.class, FluidUpdatePacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(FaucetActivationPacket.class, FaucetActivationPacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(ChannelFlowPacket.class, ChannelFlowPacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(SmelteryTankUpdatePacket.class, SmelteryTankUpdatePacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(SmelteryStructureUpdatedPacket.class, SmelteryStructureUpdatedPacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(SmelteryFluidClickedPacket.class, SmelteryFluidClickedPacket::new, NetworkSide.SERVERBOUND);*/
   }
 
   public void sendVanillaPacket(Entity player, Packet<?> packet) {
