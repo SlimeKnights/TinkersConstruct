@@ -9,3 +9,5 @@ accessible  method  net/minecraft/data/server/BlockLootTableGenerator  drops    
 accessible  field   net/minecraft/data/server/BlockLootTableGenerator  SAPLING_DROP_CHANCE  [F
 
 accessible  method  net/minecraft/block/ComposterBlock registerCompostableItem (FLnet/minecraft/item/ItemConvertible;)V
+
+accessible  method  net/minecraft/entity/SpawnRestriction  register (Lnet/minecraft/entity/EntityType;Lnet/minecraft/entity/SpawnRestriction$Location;Lnet/minecraft/world/Heightmap$Type;Lnet/minecraft/entity/SpawnRestriction$SpawnPredicate;)V

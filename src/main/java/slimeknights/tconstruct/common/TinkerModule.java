@@ -108,7 +108,7 @@ public abstract class TinkerModule {
    * It may be a bit less clear at first, since the actual builder methods tell you what each value means,
    * but as long as we don't statically import the enums it should be just as readable.
    */
-  protected static Block.Settings builder(Material material, @Nullable Tag<Item> toolType, BlockSoundGroup soundType) {
+  protected static FabricBlockSettings builder(Material material, @Nullable Tag<Item> toolType, BlockSoundGroup soundType) {
     return FabricBlockSettings.of(material).breakByTool(toolType).sounds(soundType);
   }
 

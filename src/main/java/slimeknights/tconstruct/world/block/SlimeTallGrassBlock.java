@@ -20,6 +20,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.PlantType;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
@@ -58,12 +59,12 @@ public class SlimeTallGrassBlock extends PlantBlock implements IForgeShearable {
     return OffsetType.XYZ;
   }
 
-  /* Forge/MC callbacks */
-  @NotNull
-  @Override
-  public PlantType getPlantType(BlockView world, BlockPos pos) {
-    return TinkerWorld.SLIME_PLANT_TYPE;
-  }
+//  /* Forge/MC callbacks */
+//  @NotNull
+//  @Override
+//  public PlantType getPlantType(BlockView world, BlockPos pos) {
+//    return TinkerWorld.SLIME_PLANT_TYPE;
+//  }
 
   @Override
   public List<ItemStack> onSheared(@Nullable PlayerEntity player, ItemStack item, World world, BlockPos pos, int fortune) {

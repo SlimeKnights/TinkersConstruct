@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Config {
+
+  public static Common common;
+
   /**
    * Common specific configuration
    */

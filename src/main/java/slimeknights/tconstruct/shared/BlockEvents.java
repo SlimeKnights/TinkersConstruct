@@ -1,38 +1,35 @@
 package slimeknights.tconstruct.shared;
 
+import slimeknights.tconstruct.world.TinkerWorld;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.world.TinkerWorld;
 
-@Mod.EventBusSubscriber(modid = TConstruct.modID)
 public class BlockEvents {
 
   // Slimy block jump stuff
-  @SubscribeEvent
-  public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
-    if (event.getEntity() == null) {
+  //LivingEvent.LivingJumpEvent event
+  //TODO: mixin this event
+  public static void onLivingJump(Entity entity) {
+    if (entity == null) {
       return;
     }
 
     // check if we jumped from a slime block
-    BlockPos pos = new BlockPos(event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ());
-    if (event.getEntity().getEntityWorld().isAir(pos)) {
+    BlockPos pos = new BlockPos(entity.getX(), entity.getY(), entity.getZ());
+    if (entity.getEntityWorld().isAir(pos)) {
       pos = pos.down();
     }
-    BlockState state = event.getEntity().getEntityWorld().getBlockState(pos);
+    BlockState state = entity.getEntityWorld().getBlockState(pos);
     Block block = state.getBlock();
 
     if (TinkerWorld.congealedSlime.contains(block)) {
-      bounce(event.getEntity(), 0.25f);
+      bounce(entity, 0.25f);
     } else if (TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.earthSlimeGrass.contains(block) || TinkerWorld.skySlimeGrass.contains(block) || TinkerWorld.enderSlimeGrass.contains(block) || TinkerWorld.ichorSlimeGrass.contains(block)) {
-      bounce(event.getEntity(), 0.06f);
+      bounce(entity, 0.06f);
     }
   }
 

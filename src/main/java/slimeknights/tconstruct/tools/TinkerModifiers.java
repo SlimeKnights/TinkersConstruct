@@ -2,11 +2,12 @@ package slimeknights.tconstruct.tools;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
+import net.minecraft.util.registry.Registry;
+
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
@@ -106,7 +107,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ReinforcedModifier reinforced = MODIFIERS.register("reinforced", ReinforcedModifier::new);
   public static final EmeraldModifier emerald = MODIFIERS.register("emerald", EmeraldModifier::new);
   public static final DiamondModifier diamond = MODIFIERS.register("diamond", DiamondModifier::new);
-  public static final WorldboundModifier worldbound = MODIFIERS.register("worldbound", () - new WorldboundModifier(0x7E6059));
+  public static final WorldboundModifier worldbound = MODIFIERS.register("worldbound",  new WorldboundModifier(0x7E6059));
   public static final SoulboundModifier soulbound = MODIFIERS.register("soulbound", SoulboundModifier::new);
   public static final NetheriteModifier netherite = MODIFIERS.register("netherite", NetheriteModifier::new);
   public static final OverslimeModifier overslime = MODIFIERS.register("overslime", OverslimeModifier::new);
@@ -123,7 +124,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final BeheadingModifier beheading = MODIFIERS.register("beheading", BeheadingModifier::new);
 
   // damage boost
-  public static final ScaledTypeDamageModifier smite = MODIFIERS.register("smite", () - new ScaledTypeDamageModifier(0xCC9720, EntityGroup.UNDEAD));
+  public static final ScaledTypeDamageModifier smite = MODIFIERS.register("smite", new ScaledTypeDamageModifier(0xCC9720, EntityGroup.UNDEAD));
   public static final BaneOfArthropodsModifier baneOfArthropods = MODIFIERS.register("bane_of_arthropods", BaneOfArthropodsModifier::new);
   public static final ScaledTypeDamageModifier antiaquatic = MODIFIERS.register("antiaquatic",  new ScaledTypeDamageModifier(0xD58520, EntityGroup.AQUATIC));
   public static final CoolingModifier cooling = MODIFIERS.register("cooling", CoolingModifier::new);

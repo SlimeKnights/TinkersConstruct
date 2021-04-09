@@ -43,7 +43,6 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   @Nullable
   private ITinkerStationRecipe lastRecipe;
   /** Result inventory, lazy loads results */
-  @Getter
   private final LazyResultInventory craftingResult;
   /** Crafting inventory for the recipe calls */
   private final TinkerStationInventoryWrapper inventoryWrapper;
@@ -61,6 +60,10 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
     this.inventoryWrapper = new TinkerStationInventoryWrapper(this);
     this.craftingResult = new LazyResultInventory(this);
+  }
+
+  public LazyResultInventory getCraftingResult() {
+    return craftingResult;
   }
 
   @Override
@@ -167,7 +170,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
       // fire crafting events
       result.onCraft(this.world, player, amount);
-      BasicEventHooks.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
+      //BasicEventHooks.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
     }
 
     this.playCraftSound(player);
@@ -244,5 +247,10 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   public void fromTag(BlockState blockState, CompoundTag tags) {
     super.fromTag(blockState, tags);
     inventoryWrapper.resize();
+  }
+
+  @Override
+  public CompoundTag getTileData() {
+    return null;
   }
 }
