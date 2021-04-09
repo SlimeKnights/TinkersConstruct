@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -84,8 +85,8 @@ public class GuiTankModule {
     int checkY = mouseY - screen.y;
 
     if (isHovered(checkX, checkY)) {
-      int amount = tank.getFluidAmount();
-      int capacity = tank.getCapacity();
+      FluidAmount amount = tank.getFluidAmount();
+      FluidAmount capacity = tank.getCapacity();
 
       // if hovering over the fluid, display with name
       final List<Text> tooltip;
@@ -93,7 +94,7 @@ public class GuiTankModule {
         tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluid());
       } else {
         // function to call for amounts
-        BiConsumer<Integer, List<Text>> formatter = Util.isShiftKeyDown()
+        BiConsumer<FluidAmount, List<Text>> formatter = Util.isShiftKeyDown()
                                                               ? FluidTooltipHandler::appendBuckets
                                                               : FluidTooltipHandler::appendIngots;
 
@@ -101,7 +102,7 @@ public class GuiTankModule {
         tooltip = new ArrayList<>();
         tooltip.add(new TranslatableText(GuiSmelteryTank.TOOLTIP_CAPACITY));
         formatter.accept(capacity, tooltip);
-        if (capacity != amount) {
+        if (!capacity.equals(amount)) {
           tooltip.add(new TranslatableText(GuiSmelteryTank.TOOLTIP_AVAILABLE));
           formatter.accept(capacity - amount, tooltip);
         }

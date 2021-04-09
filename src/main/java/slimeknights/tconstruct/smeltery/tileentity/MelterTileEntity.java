@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import lombok.Getter;
+import java.util.Collections;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,6 +11,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
+
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -18,6 +20,9 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.common.config.Config;
@@ -32,12 +37,9 @@ import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
-import org.jetbrains.annotations.Nullable;
-import java.util.Collections;
-
 public class MelterTileEntity extends NamableTileEntity implements ITankTileEntity, Tickable {
   /** Max capacity for the tank */
-  private static final int TANK_CAPACITY = MaterialValues.METAL_BLOCK;
+  private static final FluidAmount TANK_CAPACITY = MaterialValues.METAL_BLOCK;
   /* tags */
   private static final String TAG_FUEL = "fuel";
   private static final String TAG_TEMPERATURE = "temperature";
@@ -45,7 +47,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
 
   /* Tank */
   /** Internal fluid tank output */
-  @Getter
   protected final FluidTankAnimated tank = new FluidTankAnimated(TANK_CAPACITY, this);
   /** Capability holder for the tank */
   private final LazyOptional<IFluidHandler> tankHolder = LazyOptional.of(() -> tank);
@@ -59,13 +60,11 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
 
   /* Heating */
   /** Handles all the melting needs */
-  @Getter
   private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, Config.COMMON.melterNuggetsPerOre::get, 3);
   /** Capability holder for the tank */
   private final LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> meltingInventory);
 
   /** Fuel handling logic */
-  @Getter
   private final FuelModule fuelModule = new FuelModule(this, () -> Collections.singletonList(this.pos.down()));
 
   /** Main constructor */
@@ -194,5 +193,17 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   /** Checks if we are on a server world */
   private boolean isServerWorld() {
     return this.getWorld() != null && !this.getWorld().isClient;
+  }
+
+  public FluidTankAnimated getTank() {
+    return this.tank;
+  }
+
+  public MeltingModuleInventory getMeltingInventory() {
+    return this.meltingInventory;
+  }
+
+  public FuelModule getFuelModule() {
+    return this.fuelModule;
   }
 }

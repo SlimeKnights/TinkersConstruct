@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -212,21 +214,21 @@ public class GuiSmelteryTank {
    * @param min      Minimum amount of height for a fluid. A fluid can never have less than this value height returned
    * @return Array with heights corresponding to input-list liquids
    */
-  public static int[] calcLiquidHeights(List<FluidVolume> liquids, int capacity, int height, int min) {
+  public static int[] calcLiquidHeights(List<FluidVolume> liquids, FluidAmount capacity, int height, int min) {
     int[] fluidHeights = new int[liquids.size()];
 
-    int totalFluidAmount = 0;
+    FluidAmount totalFluidAmount = FluidAmount.ZERO;
     if (liquids.size() > 0) {
       for(int i = 0; i < liquids.size(); i++) {
         FluidVolume liquid = liquids.get(i);
 
-        float h = (float) liquid.getAmount() / (float) capacity;
-        totalFluidAmount += liquid.getAmount();
+        float h = (float) liquid.getAmount_F().div(capacity).asInexactDouble();
+        totalFluidAmount.add(liquid.amount());
         fluidHeights[i] = Math.max(min, (int) Math.ceil(h * (float) height));
       }
 
       // if not completely full, leave a few pixels for the empty tank display
-      if(totalFluidAmount < capacity) {
+      if(totalFluidAmount.isLessThan(capacity)) {
         height -= min;
       }
 

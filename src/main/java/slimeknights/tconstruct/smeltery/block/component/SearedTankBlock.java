@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.fabricmc.api.EnvType;
@@ -21,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.Tags;
@@ -31,9 +33,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 
 public class SearedTankBlock extends SearedBlock implements BlockEntityProvider {
-  @Getter
-  private final int capacity;
-  public SearedTankBlock(Settings properties, int capacity) {
+  private final FluidAmount capacity;
+
+  public SearedTankBlock(Settings properties, FluidAmount capacity) {
     super(properties);
     this.capacity = capacity;
   }
@@ -46,12 +48,7 @@ public class SearedTankBlock extends SearedBlock implements BlockEntityProvider 
   }
 
   @Override
-  public boolean hasTileEntity(BlockState state) {
-    return true;
-  }
-
-  @Override
-  public BlockEntity createTileEntity(BlockState state, BlockView worldIn) {
+  public BlockEntity createBlockEntity(BlockView worldIn) {
     return new TankTileEntity(this);
   }
 
@@ -64,17 +61,16 @@ public class SearedTankBlock extends SearedBlock implements BlockEntityProvider 
 
     return super.onUse(state, world, pos, player, hand, hit);
   }
-
-
-  @Override
-  public float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
-    BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof TankTileEntity) {
-      FluidVolume fluid = ((TankTileEntity) te).getTank().getFluid();
-      return fluid.getFluid().getAttributes().getLuminosity(fluid);
-    }
-    return super.getLightValue(state, world, pos);
-  }
+//TODO Figure out fabric analog.
+//  @Override
+//  public int getLightValue(BlockState state, BlockView world, BlockPos pos) {
+//    BlockEntity te = world.getBlockEntity(pos);
+//    if (te instanceof TankTileEntity) {
+//      FluidVolume fluid = ((TankTileEntity) te).getTank().getFluid();
+//      return fluid.getFluidKey().luminosity;
+//    }
+//    return super.getLightValue(state, world, pos);
+//  }
 
   @Override
   public void onPlaced(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
@@ -97,18 +93,28 @@ public class SearedTankBlock extends SearedBlock implements BlockEntityProvider 
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 
-  @AllArgsConstructor
+  public FluidAmount getCapacity() {
+    return capacity;
+  }
+
   public enum TankType implements StringIdentifiable {
     TANK(TankTileEntity.DEFAULT_CAPACITY),
-    GAUGE(MaterialValues.METAL_BLOCK * 3),
+    GAUGE(MaterialValues.METAL_BLOCK.mul(3)),
     WINDOW(TankTileEntity.DEFAULT_CAPACITY);
 
-    @Getter
-    private final int capacity;
+    private final FluidAmount capacity;
+
+    TankType(FluidAmount capacity) {
+      this.capacity = capacity;
+    }
 
     @Override
     public String asString() {
       return this.toString().toLowerCase(Locale.US);
+    }
+
+    public FluidAmount getCapacity() {
+      return capacity;
     }
   }
 }

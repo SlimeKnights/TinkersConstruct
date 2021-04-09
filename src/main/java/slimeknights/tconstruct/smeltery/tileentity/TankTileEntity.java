@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -9,13 +7,16 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Direction;
+
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidAttributes;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -24,19 +25,16 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 
-import org.jetbrains.annotations.Nonnull;
-import org.jetbrains.annotations.Nullable;
-
 public class TankTileEntity extends SmelteryComponentTileEntity implements ITankTileEntity {
   /** Max capacity for the tank */
-  public static final int DEFAULT_CAPACITY = FluidAttributes.BUCKET_VOLUME * 4;
+  public static final FluidAmount DEFAULT_CAPACITY = FluidAmount.BUCKET.mul(4);
 
   /**
    * Gets the capacity for the given block
    * @param block  block
    * @return  Capacity
    */
-  public static int getCapacity(Block block) {
+  public static FluidAmount getCapacity(Block block) {
     if (block instanceof SearedTankBlock) {
       return ((SearedTankBlock) block).getCapacity();
     }
@@ -48,7 +46,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
    * @param item  item
    * @return  Capacity
    */
-  public static int getCapacity(Item item) {
+  public static FluidAmount getCapacity(Item item) {
     if (item instanceof BlockItem) {
       return getCapacity(((BlockItem)item).getBlock());
     }
@@ -56,14 +54,12 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   }
 
   /** Internal fluid tank instance */
-  @Getter
   protected final FluidTankAnimated tank;
   /** Capability holder for the tank */
   private final LazyOptional<IFluidHandler> holder;
   /** Tank data for the model */
   private final IModelData modelData;
   /** Last comparator strength to reduce block updates */
-  @Getter @Setter
   private int lastStrength = -1;
 
   public TankTileEntity() {
@@ -156,5 +152,17 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
     if (!tank.isEmpty()) {
       tag.put(Tags.TANK, tank.writeToNBT(new CompoundTag()));
     }
+  }
+
+  public FluidTankAnimated getTank() {
+    return this.tank;
+  }
+
+  public int getLastStrength() {
+    return this.lastStrength;
+  }
+
+  public void setLastStrength(int lastStrength) {
+    this.lastStrength = lastStrength;
   }
 }

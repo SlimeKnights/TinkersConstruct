@@ -12,6 +12,8 @@ import net.minecraft.util.Identifier;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
@@ -70,7 +72,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     // vanilla is not tagged, so tag it
     this.getOrCreateTagBuilder(TinkerTags.Blocks.WORKBENCHES)
         .add(Blocks.CRAFTING_TABLE, TinkerTables.craftingStation.get())
-        .addOptionalTag(new Identifier("forge:workbench")); // some mods use a non-standard name here, so support it I guess
+        .addTag((Identified<Block>) TagRegistry.block(new Identifier("c:workbench"))); // some mods use a non-standard name here, so support it I guess
     this.getOrCreateTagBuilder(TinkerTags.Blocks.TABLES)
         .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
 

@@ -1,46 +1,73 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.experimental.Accessors;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
+
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 
-import org.jetbrains.annotations.Nullable;
-
 /** Shared logic between item and material casting */
-@AllArgsConstructor
 public abstract class AbstractCastingRecipe implements ICastingRecipe {
-  @Getter
   protected final RecipeType<?> type;
-  @Getter
   protected final Identifier id;
-  @Getter
   protected final String group;
   /** 'cast' item for recipe (doesn't have to be an actual 'cast') */
-  @Getter
   protected final Ingredient cast;
-  @Getter
   protected final boolean consumed;
-  @Getter @Accessors(fluent = true)
+  @Accessors(fluent = true)
   protected final boolean switchSlots;
+
+  public AbstractCastingRecipe(RecipeType<?> type, Identifier id, String group, Ingredient cast, boolean consumed, boolean switchSlots) {
+    this.type = type;
+    this.id = id;
+    this.group = group;
+    this.cast = cast;
+    this.consumed = consumed;
+    this.switchSlots = switchSlots;
+  }
 
   @Override
   public abstract ItemStack getOutput();
+
+  public RecipeType<?> getType() {
+    return this.type;
+  }
+
+  public Identifier getId() {
+    return this.id;
+  }
+
+  public String getGroup() {
+    return this.group;
+  }
+
+  public Ingredient getCast() {
+    return this.cast;
+  }
+
+  public boolean isConsumed() {
+    return this.consumed;
+  }
+
+  public boolean switchSlots() {
+    return this.switchSlots;
+  }
 
   /**
    * Seralizer for {@link ItemCastingRecipe}.
    * @param <T>  Casting recipe class type
    */
-  @AllArgsConstructor
   public abstract static class Serializer<T extends AbstractCastingRecipe> extends RecipeSerializer<T> {
+    public Serializer() {
+    }
+
     /** Creates a new instance from JSON */
     protected abstract T create(Identifier idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json);
 
