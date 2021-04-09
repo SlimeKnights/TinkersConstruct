@@ -23,7 +23,6 @@ public enum Sounds {
 
   Sounds(String name) {
     Identifier loc = new Identifier(TConstruct.modID, name);
-    SoundEvent ok;
 
     sound = new SoundEvent(loc).setRegistryName(name);
   }
