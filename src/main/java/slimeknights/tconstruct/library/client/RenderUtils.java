@@ -7,7 +7,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -23,7 +23,7 @@ public final class RenderUtils {
    * @param light     Quad lighting
    * @param cube      Fluid cuboid instance
    */
-  public static void renderTransparentCuboid(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidStack fluid, int opacity, int light) {
+  public static void renderTransparentCuboid(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidVolume fluid, int opacity, int light) {
     // nothing to render? skip
     if (opacity < 0 || fluid.isEmpty()) {
       return;
@@ -58,7 +58,7 @@ public final class RenderUtils {
    */
   public static void renderFluidTank(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
     // render liquid if present
-    FluidStack liquid = tank.getFluid();
+    FluidVolume liquid = tank.getFluid();
     int capacity = tank.getCapacity();
     if (!liquid.isEmpty() && capacity > 0) {
       // update render offset

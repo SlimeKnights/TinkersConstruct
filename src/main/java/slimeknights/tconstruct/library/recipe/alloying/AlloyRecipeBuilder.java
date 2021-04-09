@@ -8,7 +8,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 /** Builder for alloy recipes */
 @RequiredArgsConstructor(staticName = "alloy")
 public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder> {
-  private final FluidStack output;
+  private final FluidVolume output;
   private final int temperature;
   private final List<FluidIngredient> inputs = new ArrayList<>();
 
@@ -32,7 +32,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
    * @param fluid   Fluid output
    * @return  Builder instance
    */
-  public static AlloyRecipeBuilder alloy(FluidStack fluid) {
+  public static AlloyRecipeBuilder alloy(FluidVolume fluid) {
     return alloy(fluid, fluid.getFluid().getAttributes().getTemperature(fluid) - 300);
   }
 
@@ -43,7 +43,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
    * @return  Builder instance
    */
   public static AlloyRecipeBuilder alloy(Fluid fluid, int amount) {
-    return alloy(new FluidStack(fluid, amount));
+    return alloy(new FluidVolume(fluid, amount));
   }
 
 
@@ -64,7 +64,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
    * @param input  Input fluid
    * @return  Builder instance
    */
-  public AlloyRecipeBuilder addInput(FluidStack input) {
+  public AlloyRecipeBuilder addInput(FluidVolume input) {
     return addInput(FluidIngredient.of(input));
   }
 
@@ -75,7 +75,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
    * @return  Builder instance
    */
   public AlloyRecipeBuilder addInput(Fluid fluid, int amount) {
-    return addInput(FluidIngredient.of(new FluidStack(fluid, amount)));
+    return addInput(FluidIngredient.of(new FluidVolume(fluid, amount)));
   }
 
   /**
@@ -118,7 +118,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
         inputArray.add(input.serialize());
       }
       json.add("inputs", inputArray);
-      json.add("result", RecipeHelper.serializeFluidStack(output));
+      json.add("result", RecipeHelper.serializeFluidVolume(output));
       json.addProperty("temperature", temperature);
     }
 

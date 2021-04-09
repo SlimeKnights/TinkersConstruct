@@ -20,7 +20,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.Tags;
@@ -70,7 +70,7 @@ public class SearedTankBlock extends SearedBlock implements BlockEntityProvider 
   public float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
     BlockEntity te = world.getBlockEntity(pos);
     if (te instanceof TankTileEntity) {
-      FluidStack fluid = ((TankTileEntity) te).getTank().getFluid();
+      FluidVolume fluid = ((TankTileEntity) te).getTank().getFluid();
       return fluid.getFluid().getAttributes().getLuminosity(fluid);
     }
     return super.getLightValue(state, world, pos);

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -29,7 +29,7 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
    * @param duration  Fluid duration
    * @return  Builder instance
    */
-  public static MeltingFuelBuilder fuel(FluidStack fluid, int duration) {
+  public static MeltingFuelBuilder fuel(FluidVolume fluid, int duration) {
     return fuel(FluidIngredient.of(fluid), duration, fluid.getFluid().getAttributes().getTemperature(fluid) - 300);
   }
 

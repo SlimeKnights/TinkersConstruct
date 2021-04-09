@@ -12,7 +12,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
@@ -129,7 +129,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param fluidStack  Fluid input
    * @return  Builder instance
    */
-  public ItemCastingRecipeBuilder setFluidAndTime(FluidStack fluidStack) {
+  public ItemCastingRecipeBuilder setFluidAndTime(FluidVolume fluidStack) {
     this.fluid = FluidIngredient.of(fluidStack);
     if (this.coolingTime == -1) {
       this.coolingTime = ICastingRecipe.calcCoolingTime(fluidStack);

@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.RecipeSerializer;
@@ -131,7 +131,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
   @SuppressWarnings("WeakerAccess")
   protected List<IDisplayableCastingRecipe> getRecipes(Collection<Entry<IMaterialItem>> parts) {
     if (multiRecipes == null) {
-      List<FluidStack> fluids = this.fluid.getFluids();
+      List<FluidVolume> fluids = this.fluid.getFluids();
       if (fluids.isEmpty()) {
         multiRecipes = Collections.emptyList();
       } else {
@@ -139,11 +139,11 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
                             .filter(entry -> entry.getIntValue() > 0)
                             .map(entry -> {
                               IMaterialItem part = entry.getKey();
-                              List<FluidStack> recipeFluids = fluids;
+                              List<FluidVolume> recipeFluids = fluids;
                               int partCost = entry.getIntValue();
                               if (partCost != 1) {
                                 recipeFluids = recipeFluids.stream()
-                                                           .map(fluid -> new FluidStack(fluid, fluid.getAmount() * partCost))
+                                                           .map(fluid -> new FluidVolume(fluid, fluid.getAmount() * partCost))
                                                            .collect(Collectors.toList());
                               }
                               return new DisplayCastingRecipe(getType(), Collections.singletonList(part.getItemstackWithMaterial(inputMaterial.get())), recipeFluids,

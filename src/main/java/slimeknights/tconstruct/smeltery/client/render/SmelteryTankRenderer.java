@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiSmelteryTank;
@@ -77,7 +77,7 @@ public class SmelteryTankRenderer {
    */
   public static void renderFluids(MatrixStack matrices, VertexConsumerProvider buffer, SmelteryTank tank,
                                   BlockPos tankMinPos, BlockPos tankMaxPos, int brightness) {
-    List<FluidStack> fluids = tank.getFluids();
+    List<FluidVolume> fluids = tank.getFluids();
     // empty smeltery :(
     if(!fluids.isEmpty()) {
       // determine x and z bounds, constant
@@ -115,7 +115,7 @@ public class SmelteryTankRenderer {
    * @param yMin       Min y position
    * @param yMax       Max y position
    */
-  private static void renderLargeFluidCuboid(MatrixStack matrices, VertexConsumer builder, FluidStack fluid, int brightness,
+  private static void renderLargeFluidCuboid(MatrixStack matrices, VertexConsumer builder, FluidVolume fluid, int brightness,
                                              int xd, float[] xBounds, int zd, float[] zBounds, float yMin, float yMax) {
     if(yMin >= yMax || fluid.isEmpty()) {
       return;

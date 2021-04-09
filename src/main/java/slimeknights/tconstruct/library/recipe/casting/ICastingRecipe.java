@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
@@ -57,7 +57,7 @@ public interface ICastingRecipe extends ICommonRecipe<ICastingInventory> {
    * @param fluid  Fluid input
    * @return  Time for the recipe
    */
-  static int calcCoolingTime(FluidStack fluid) {
+  static int calcCoolingTime(FluidVolume fluid) {
     return calcCoolingTime(fluid.getFluid().getAttributes().getTemperature(fluid) - 300, fluid.getAmount());
   }
 }

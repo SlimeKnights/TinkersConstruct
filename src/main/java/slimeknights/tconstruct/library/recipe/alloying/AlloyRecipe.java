@@ -9,7 +9,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.recipe.FluidIngredient;
@@ -42,20 +42,20 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   private final List<FluidIngredient> inputs;
   /** Recipe output */
   @Getter
-  private final FluidStack output;
+  private final FluidVolume output;
   /** Required temperature to craft this */
   @Getter
   private final int temperature;
 
 
   /** Cache of recipe input list */
-  private List<List<FluidStack>> displayInputs;
+  private List<List<FluidVolume>> displayInputs;
 
   /**
    * Gets the list of inputs for display in JEI
    * @return  List of input list for each "slot"
    */
-  public List<List<FluidStack>> getDisplayInputs() {
+  public List<List<FluidVolume>> getDisplayInputs() {
     if (displayInputs == null) {
       displayInputs = inputs.stream().map(FluidIngredient::getFluids).collect(Collectors.toList());
     }
@@ -87,7 +87,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
    * @return  Index of found match, or -1 if match not found
    */
   private static int findMatch(FluidIngredient ingredient, IAlloyTank inv, BitSet used, boolean checkSize) {
-    FluidStack fluid;
+    FluidVolume fluid;
     for (int i = 0; i < inv.getTanks(); i++) {
       // must not have used that fluid yet
       if (!used.get(i)) {
@@ -129,7 +129,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     // bit corresponding to fluids that are already used
     BitSet used = makeBitset(inv);
     int drainAmount = 0;
-    FluidStack fluid;
+    FluidVolume fluid;
     for (FluidIngredient ingredient : inputs) {
       // care about size, if too small just skip the recipe
       int index = findMatch(ingredient, inv, used, true);
@@ -156,13 +156,13 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     if (inv.getTemperature() < temperature) return;
 
     // figure out how much fluid we need to remove
-    List<FluidStack> drainFluids = new ArrayList<>();
+    List<FluidVolume> drainFluids = new ArrayList<>();
     int drainAmount = 0;
 
     // bit corresponding to fluids that are already used
     BitSet used = makeBitset(inv);
 
-    FluidStack fluid;
+    FluidVolume fluid;
     for (FluidIngredient ingredient : inputs) {
       // care about size, if too small just skip the recipe
       int index = findMatch(ingredient, inv, used, true);
@@ -170,7 +170,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
         fluid = inv.getFluidInTank(index);
         int amount = ingredient.getAmount(fluid.getFluid());
         drainAmount += amount;
-        drainFluids.add(new FluidStack(fluid, amount));
+        drainFluids.add(new FluidVolume(fluid, amount));
       } else {
         // no fluid matched this ingredient, match failed
         return;
@@ -178,10 +178,10 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     }
 
     // ensure there is space for the recipe
-    FluidStack drained;
+    FluidVolume drained;
     if (inv.canFit(output, drainAmount)) {
       // drain each marked fluid
-      for (FluidStack toDrain : drainFluids) {
+      for (FluidVolume toDrain : drainFluids) {
         drained = handler.drain(toDrain, FluidAction.EXECUTE);
         // ensure the right amount of fluid was drained and skip to next ingredient
         if (drained.getAmount() != toDrain.getAmount()) {
@@ -210,7 +210,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   public static class Serializer extends RecipeSerializer<AlloyRecipe> {
     @Override
     public AlloyRecipe read(Identifier id, JsonObject json) {
-      FluidStack result = RecipeHelper.deserializeFluidStack(net.minecraft.util.JsonHelper.getObject(json, "result"));
+      FluidVolume result = RecipeHelper.deserializeFluidVolume(net.minecraft.util.JsonHelper.getObject(json, "result"));
       List<FluidIngredient> inputs = JsonHelper.parseList(json, "inputs", FluidIngredient::deserialize);
 
       // ensure result is not part of any inputs, that would be bad and not clear to the user whats happening
@@ -228,7 +228,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
 
     @Override
     public void write(PacketByteBuf buffer, AlloyRecipe recipe) {
-      buffer.writeFluidStack(recipe.output);
+      buffer.writeFluidVolume(recipe.output);
       buffer.writeVarInt(recipe.inputs.size());
       for (FluidIngredient input : recipe.inputs) {
         input.write(buffer);
@@ -239,7 +239,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     @Nullable
     @Override
     public AlloyRecipe read(Identifier id, PacketByteBuf buffer) {
-      FluidStack output = buffer.readFluidStack();
+      FluidVolume output = buffer.readFluidVolume();
       int inputCount = buffer.readVarInt();
       ImmutableList.Builder<FluidIngredient> builder = ImmutableList.builder();
       for (int i = 0; i < inputCount; i++) {

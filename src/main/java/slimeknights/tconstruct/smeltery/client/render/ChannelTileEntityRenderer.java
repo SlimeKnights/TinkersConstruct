@@ -12,7 +12,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Direction.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.client.model.FaucetFluidLoader;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.mantle.client.model.util.ModelHelper;
@@ -30,7 +30,7 @@ public class ChannelTileEntityRenderer extends BlockEntityRenderer<ChannelTileEn
 
 	@Override
 	public void render(ChannelTileEntity te, float partialTicks, MatrixStack matrices, VertexConsumerProvider buffer, int light, int combinedOverlayIn)  {
-		FluidStack fluid = te.getFluid();
+		FluidVolume fluid = te.getFluid();
 		if (fluid.isEmpty()) {
 			return;
 		}

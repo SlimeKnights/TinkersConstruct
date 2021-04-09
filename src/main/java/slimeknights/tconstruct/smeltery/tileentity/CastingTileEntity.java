@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
@@ -220,7 +220,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
       return;
     }
     // fully filled
-    FluidStack currentFluid = tank.getFluid();
+    FluidVolume currentFluid = tank.getFluid();
     if (currentFluid.getAmount() >= tank.getCapacity() && !currentFluid.isEmpty()) {
       timer++;
       if (!world.isClient) {
@@ -330,12 +330,12 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     tank.reset();
     castingInventory.setFluid(Fluids.EMPTY);
     if (world != null && !world.isClient && world instanceof ServerWorld) {
-      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(getPos(), FluidStack.EMPTY), (ServerWorld) world, getPos());
+      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(getPos(), FluidVolume.EMPTY), (ServerWorld) world, getPos());
     }
   }
 
   @Override
-  public void updateFluidTo(FluidStack fluid) {
+  public void updateFluidTo(FluidVolume fluid) {
     if (fluid.isEmpty()) {
       reset();
     } else {
@@ -393,7 +393,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
    */
   private void loadRecipe(World world, Identifier name) {
     // if the tank is empty, ignore old recipe
-    FluidStack fluid = tank.getFluid();
+    FluidVolume fluid = tank.getFluid();
     if(!fluid.isEmpty()) {
       // fetch recipe by name
       RecipeHelper.getRecipe(world.getRecipeManager(), name, ICastingRecipe.class).ifPresent(recipe -> {

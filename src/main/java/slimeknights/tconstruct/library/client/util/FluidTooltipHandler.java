@@ -15,7 +15,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.RecipeHelper;
@@ -74,7 +74,7 @@ public class FluidTooltipHandler {
    * @param fluid  Fluid stack instance
    * @return  Fluid tooltip
    */
-  public static List<Text> getFluidTooltip(FluidStack fluid) {
+  public static List<Text> getFluidTooltip(FluidVolume fluid) {
     return getFluidTooltip(fluid, fluid.getAmount());
   }
 
@@ -84,7 +84,7 @@ public class FluidTooltipHandler {
    * @param amount Amount override
    * @return  Fluid tooltip
    */
-  public static List<Text> getFluidTooltip(FluidStack fluid, int amount) {
+  public static List<Text> getFluidTooltip(FluidVolume fluid, int amount) {
     List<Text> tooltip = new ArrayList<>();
     // fluid name, not sure if there is a cleaner way to do this
     tooltip.add(fluid.getDisplayName().copy().formatted(Formatting.WHITE));
@@ -102,7 +102,7 @@ public class FluidTooltipHandler {
    * @param fluid    Input fluid stack
    * @param tooltip  Tooltip to append information
    */
-  public static void appendMaterial(FluidStack fluid, List<Text> tooltip) {
+  public static void appendMaterial(FluidVolume fluid, List<Text> tooltip) {
     appendMaterial(fluid.getFluid(), fluid.getAmount(), tooltip);
   }
 

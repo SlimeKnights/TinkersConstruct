@@ -34,7 +34,7 @@ import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.client.model.util.ExtraTextureConfiguration;
@@ -145,7 +145,7 @@ public class TankModel implements IModelGeometry<TankModel> {
     private final ModelBakeSettings originalTransforms;
     @SuppressWarnings("WeakerAccess")
     protected final T original;
-    private final Cache<FluidStack, net.minecraft.client.render.model.BakedModel> cache = CacheBuilder
+    private final Cache<FluidVolume, net.minecraft.client.render.model.BakedModel> cache = CacheBuilder
       .newBuilder()
       .maximumSize(64)
       .build();
@@ -168,7 +168,7 @@ public class TankModel implements IModelGeometry<TankModel> {
      * @param stack  Fluid stack to add
      * @return  Model with the fluid part
      */
-    private net.minecraft.client.render.model.BakedModel getModel(FluidStack stack) {
+    private net.minecraft.client.render.model.BakedModel getModel(FluidVolume stack) {
       // add fluid texture
       Map<String,SpriteIdentifier> textures = new HashMap<>();
       FluidAttributes attributes = stack.getFluid().getAttributes();
@@ -200,7 +200,7 @@ public class TankModel implements IModelGeometry<TankModel> {
      * @param fluid  Scaled contained fluid
      * @return  Cached model
      */
-    private net.minecraft.client.render.model.BakedModel getCachedModel(FluidStack fluid) {
+    private net.minecraft.client.render.model.BakedModel getCachedModel(FluidVolume fluid) {
       try {
         return cache.get(fluid, () -> getModel(fluid));
       }
@@ -216,9 +216,9 @@ public class TankModel implements IModelGeometry<TankModel> {
      * @param capacity  Tank capacity
      * @return  Cached model
      */
-    private net.minecraft.client.render.model.BakedModel getCachedModel(FluidStack fluid, int capacity) {
+    private net.minecraft.client.render.model.BakedModel getCachedModel(FluidVolume fluid, int capacity) {
       int increments = original.fluid.getIncrements();
-      return getCachedModel(new FluidStack(fluid.getFluid(), Math.min(fluid.getAmount() * increments / capacity, increments)));
+      return getCachedModel(new FluidVolume(fluid.getFluid(), Math.min(fluid.getAmount() * increments / capacity, increments)));
     }
 
     @NotNull

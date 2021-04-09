@@ -15,7 +15,7 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.common.util.NonNullFunction;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
@@ -187,13 +187,13 @@ public class FuelModule implements PropertyDelegate {
    * @return   Temperature of the consumed fuel, 0 if none found
    */
   private int tryLiquidFuel(IFluidHandler handler, boolean consume) {
-    FluidStack fluid = handler.getFluidInTank(0);
+    FluidVolume fluid = handler.getFluidInTank(0);
     MeltingFuel recipe = findRecipe(fluid.getFluid());
     if (recipe != null) {
       int amount = recipe.getAmount(fluid.getFluid());
       if (fluid.getAmount() >= amount) {
         if (consume) {
-          FluidStack drained = handler.drain(new FluidStack(fluid, amount), FluidAction.EXECUTE);
+          FluidVolume drained = handler.drain(new FluidVolume(fluid, amount), FluidAction.EXECUTE);
           if (drained.getAmount() != amount) {
             TConstruct.log.error("Invalid amount of fuel drained from tank");
           }
@@ -451,7 +451,7 @@ public class FuelModule implements PropertyDelegate {
 
     // determine what fluid we have and hpw many other fluids we have
     FuelInfo info = fluidHandler.map(handler -> {
-      FluidStack fluid = handler.getFluidInTank(0);
+      FluidVolume fluid = handler.getFluidInTank(0);
       int temperature = 0;
       if (!fluid.isEmpty()) {
         MeltingFuel fuel = findRecipe(fluid.getFluid());
@@ -485,11 +485,11 @@ public class FuelModule implements PropertyDelegate {
       }
 
       // add display info from each handler
-      FluidStack currentFuel = info.getFluid();
+      FluidVolume currentFuel = info.getFluid();
       for (LazyOptional<IFluidHandler> capability : tankDisplayHandlers) {
         capability.ifPresent(handler -> {
           // sum if empty (more capacity) or the same fluid (more amount and capacity)
-          FluidStack fluid = handler.getFluidInTank(0);
+          FluidVolume fluid = handler.getFluidInTank(0);
           if (fluid.isEmpty()) {
             info.add(0, handler.getTankCapacity(0));
           } else if (currentFuel.isFluidEqual(fluid)) {
@@ -507,11 +507,11 @@ public class FuelModule implements PropertyDelegate {
   @AllArgsConstructor(access = AccessLevel.PRIVATE)
   public static class FuelInfo {
     /** Empty fuel instance */
-    public static final FuelInfo EMPTY = new FuelInfo(FluidStack.EMPTY, 0, 0, 0);
+    public static final FuelInfo EMPTY = new FuelInfo(FluidVolume.EMPTY, 0, 0, 0);
     /** Item fuel instance */
-    public static final FuelInfo ITEM = new FuelInfo(FluidStack.EMPTY, 0, 0, SOLID_TEMPERATURE);
+    public static final FuelInfo ITEM = new FuelInfo(FluidVolume.EMPTY, 0, 0, SOLID_TEMPERATURE);
 
-    private final FluidStack fluid;
+    private final FluidVolume fluid;
     private int totalAmount;
     private int capacity;
     private final int temperature;
@@ -522,7 +522,7 @@ public class FuelModule implements PropertyDelegate {
      * @param capacity  Capacity
      * @return  Fuel info
      */
-    public static FuelInfo of(FluidStack fluid, int capacity, int temperature) {
+    public static FuelInfo of(FluidVolume fluid, int capacity, int temperature) {
       if (fluid.isEmpty()) {
         return EMPTY;
       }

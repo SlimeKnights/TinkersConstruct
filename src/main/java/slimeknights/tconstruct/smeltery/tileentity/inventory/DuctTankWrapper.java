@@ -3,7 +3,7 @@ package slimeknights.tconstruct.smeltery.tileentity.inventory;
 import lombok.AllArgsConstructor;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class DuctTankWrapper implements IFluidHandler {
   }
 
   @Override
-  public FluidStack getFluidInTank(int tank) {
+  public FluidVolume getFluidInTank(int tank) {
     return parent.getFluidInTank(tank);
   }
 
@@ -30,7 +30,7 @@ public class DuctTankWrapper implements IFluidHandler {
   }
 
   @Override
-  public boolean isFluidValid(int tank, FluidStack stack) {
+  public boolean isFluidValid(int tank, FluidVolume stack) {
     return stack.getFluid() == itemHandler.getFluid();
   }
 
@@ -38,7 +38,7 @@ public class DuctTankWrapper implements IFluidHandler {
   /* Interactions */
 
   @Override
-  public int fill(FluidStack resource, FluidAction action) {
+  public int fill(FluidVolume resource, FluidAction action) {
     if (resource.isEmpty() || resource.getFluid() != itemHandler.getFluid()) {
       return 0;
     }
@@ -46,18 +46,18 @@ public class DuctTankWrapper implements IFluidHandler {
   }
 
   @Override
-  public FluidStack drain(int maxDrain, FluidAction action) {
+  public FluidVolume drain(int maxDrain, FluidAction action) {
     Fluid fluid = itemHandler.getFluid();
     if (fluid == Fluids.EMPTY) {
-      return FluidStack.EMPTY;
+      return FluidVolume.EMPTY;
     }
-    return parent.drain(new FluidStack(fluid, maxDrain), action);
+    return parent.drain(new FluidVolume(fluid, maxDrain), action);
   }
 
   @Override
-  public FluidStack drain(FluidStack resource, FluidAction action) {
+  public FluidVolume drain(FluidVolume resource, FluidAction action) {
     if (resource.isEmpty() || resource.getFluid() != itemHandler.getFluid()) {
-      return FluidStack.EMPTY;
+      return FluidVolume.EMPTY;
     }
     return parent.drain(resource, action);
   }

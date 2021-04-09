@@ -11,7 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.tileentity.MantleTileEntity;
@@ -77,9 +77,9 @@ public class EntityMeltingModule {
    * Gets the default fluid result
    * @return  Default fluid
    */
-  public static FluidStack getDefaultFluid() {
+  public static FluidVolume getDefaultFluid() {
     // TODO: consider a way to put this in a recipe
-    return new FluidStack(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL / 5);
+    return new FluidVolume(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL / 5);
   }
 
   /**
@@ -136,7 +136,7 @@ public class EntityMeltingModule {
         // ensure we have fuel/any other needed smeltery states
         if (canMelt) {
           // determine what we are melting
-          FluidStack fluid;
+          FluidVolume fluid;
           int damage;
           EntityMeltingRecipe recipe = findRecipe(entity.getType());
           if (recipe != null) {

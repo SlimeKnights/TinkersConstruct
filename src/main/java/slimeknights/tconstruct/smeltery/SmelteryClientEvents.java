@@ -13,7 +13,7 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -105,7 +105,7 @@ public class SmelteryClientEvents extends ClientEventBase {
       if (pos != null && world != null) {
         BlockEntity te = world.getBlockEntity(pos);
         if (te instanceof ITankTileEntity) {
-          FluidStack fluid = ((ITankTileEntity)te).getTank().getFluid();
+          FluidVolume fluid = ((ITankTileEntity)te).getTank().getFluid();
           return fluid.getFluid().getAttributes().getColor(fluid);
         }
       }
@@ -119,7 +119,7 @@ public class SmelteryClientEvents extends ClientEventBase {
       if (index == 1 && world != null && pos != null) {
         BlockEntity te = world.getBlockEntity(pos);
         if (te instanceof ISmelteryTankHandler) {
-          FluidStack bottom = ((ISmelteryTankHandler)te).getTank().getFluidInTank(0);
+          FluidVolume bottom = ((ISmelteryTankHandler)te).getTank().getFluidInTank(0);
           if (!bottom.isEmpty()) {
             return bottom.getFluid().getAttributes().getColor(bottom);
           }
@@ -152,7 +152,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     event.getItemColors().register((stack, index) -> {
       FluidTank tank = TankItem.getFluidTank(stack);
       if (!tank.isEmpty()) {
-        FluidStack fluid = tank.getFluid();
+        FluidVolume fluid = tank.getFluid();
         return fluid.getFluid().getAttributes().getColor(fluid);
       }
       return -1;

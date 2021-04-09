@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -36,7 +36,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   /** Number of nuggets to produce when melting an ore */
   private final IntSupplier nuggetsPerOre;
   /** Cache of predicate for fluid output */
-  private final Predicate<FluidStack> outputFunction = this::tryFillTank;
+  private final Predicate<FluidVolume> outputFunction = this::tryFillTank;
 
   /**
    * Creates a new inventory with a fixed size
@@ -263,7 +263,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    * @param fluid  Fluid to add
    * @return  True if filled, false if not enough space for the whole fluid
    */
-  protected boolean tryFillTank(FluidStack fluid) {
+  protected boolean tryFillTank(FluidVolume fluid) {
     if (fluidHandler.fill(fluid.copy(), FluidAction.SIMULATE) == fluid.getAmount()) {
       fluidHandler.fill(fluid, FluidAction.EXECUTE);
       return true;

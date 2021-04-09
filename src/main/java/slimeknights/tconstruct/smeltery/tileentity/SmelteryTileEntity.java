@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
@@ -20,7 +21,7 @@ import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -354,7 +355,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   /* Tank */
 
   @Override
-  public void updateFluidsFromPacket(List<FluidStack> fluids) {
+  public void updateFluidsFromPacket(List<FluidVolume> fluids) {
     tank.setFluids(fluids);
   }
 

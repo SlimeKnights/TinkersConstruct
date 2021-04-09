@@ -2,7 +2,7 @@ package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.library.recipe.fuel.IFluidInventory;
@@ -33,7 +33,7 @@ public class MelterFuelWrapper implements IFluidInventory {
   public Fluid getFluid() {
     return Optional.ofNullable(tank.get())
                    .map(IFluidTank::getFluid)
-                   .map(FluidStack::getFluid)
+                   .map(FluidVolume::getFluid)
                    .orElse(Fluids.EMPTY);
   }
 
@@ -43,10 +43,10 @@ public class MelterFuelWrapper implements IFluidInventory {
    * Gets the contained fluid stack
    * @return  Contained fluid stack
    */
-  public FluidStack getFluidStack() {
+  public FluidVolume getFluidVolume() {
     return Optional.ofNullable(tank.get())
                    .map(IFluidTank::getFluid)
-                   .orElse(FluidStack.EMPTY);
+                   .orElse(FluidVolume.EMPTY);
   }
 
   /**

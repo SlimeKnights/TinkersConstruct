@@ -5,7 +5,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
@@ -69,7 +69,7 @@ public class GuiSmelteryTank {
       int bottom = y + width;
       for (int i = 0; i < heights.length; i++) {
         int fluidH = heights[i];
-        FluidStack liquid = tank.getFluids().get(i);
+        FluidVolume liquid = tank.getFluids().get(i);
         GuiUtil.renderTiledFluid(matrices, parent, liquid, x, bottom - fluidH, width, fluidH, 100);
         bottom -= fluidH;
       }
@@ -190,7 +190,7 @@ public class GuiSmelteryTank {
    * @return  Ingredient
    */
   @Nullable
-  public FluidStack getIngredient(int checkX, int checkY) {
+  public FluidVolume getIngredient(int checkX, int checkY) {
     if (withinTank(checkX, checkY)) {
       int index = getFluidFromMouse(calcLiquidHeights(false), checkY);
       if (index != -1) {
@@ -212,13 +212,13 @@ public class GuiSmelteryTank {
    * @param min      Minimum amount of height for a fluid. A fluid can never have less than this value height returned
    * @return Array with heights corresponding to input-list liquids
    */
-  public static int[] calcLiquidHeights(List<FluidStack> liquids, int capacity, int height, int min) {
+  public static int[] calcLiquidHeights(List<FluidVolume> liquids, int capacity, int height, int min) {
     int[] fluidHeights = new int[liquids.size()];
 
     int totalFluidAmount = 0;
     if (liquids.size() > 0) {
       for(int i = 0; i < liquids.size(); i++) {
-        FluidStack liquid = liquids.get(i);
+        FluidVolume liquid = liquids.get(i);
 
         float h = (float) liquid.getAmount() / (float) capacity;
         totalFluidAmount += liquid.getAmount();

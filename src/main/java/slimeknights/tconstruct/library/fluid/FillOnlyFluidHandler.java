@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.fluid;
 
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import org.jetbrains.annotations.Nonnull;
@@ -21,7 +21,7 @@ public class FillOnlyFluidHandler implements IFluidHandler {
 
 	@NotNull
 	@Override
-	public FluidStack getFluidInTank(int tank) {
+	public FluidVolume getFluidInTank(int tank) {
 		return parent.getFluidInTank(tank);
 	}
 
@@ -31,24 +31,24 @@ public class FillOnlyFluidHandler implements IFluidHandler {
 	}
 
 	@Override
-	public boolean isFluidValid(int tank, FluidStack stack) {
+	public boolean isFluidValid(int tank, FluidVolume stack) {
 		return false;
 	}
 
 	@Override
-	public int fill(FluidStack resource, FluidAction action) {
+	public int fill(FluidVolume resource, FluidAction action) {
 		return parent.fill(resource, action);
 	}
 
 	@NotNull
 	@Override
-	public FluidStack drain(FluidStack resource, FluidAction action) {
-		return FluidStack.EMPTY;
+	public FluidVolume drain(FluidVolume resource, FluidAction action) {
+		return FluidVolume.EMPTY;
 	}
 
 	@NotNull
 	@Override
-	public FluidStack drain(int maxDrain, FluidAction action) {
-		return FluidStack.EMPTY;
+	public FluidVolume drain(int maxDrain, FluidAction action) {
+		return FluidVolume.EMPTY;
 	}
 }

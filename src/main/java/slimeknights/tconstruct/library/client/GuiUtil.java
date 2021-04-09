@@ -18,7 +18,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import org.lwjgl.opengl.GL11;
 import slimeknights.mantle.client.screen.ElementScreen;
 
@@ -96,7 +96,7 @@ public final class GuiUtil {
    * @param height    Tank height
    * @param depth     Tank depth
    */
-  public static void renderFluidTank(MatrixStack matrices, HandledScreen<?> screen, FluidStack stack, int capacity, int x, int y, int width, int height, int depth) {
+  public static void renderFluidTank(MatrixStack matrices, HandledScreen<?> screen, FluidVolume stack, int capacity, int x, int y, int width, int height, int depth) {
     renderFluidTank(matrices, screen, stack, stack.getAmount(), capacity, x, y, width, height, depth);
   }
 
@@ -111,7 +111,7 @@ public final class GuiUtil {
    * @param height    Tank height
    * @param depth     Tank depth
    */
-  public static void renderFluidTank(MatrixStack matrices, HandledScreen<?> screen, FluidStack stack, int amount, int capacity, int x, int y, int width, int height, int depth) {
+  public static void renderFluidTank(MatrixStack matrices, HandledScreen<?> screen, FluidVolume stack, int amount, int capacity, int x, int y, int width, int height, int depth) {
     if(!stack.isEmpty()) {
       int maxY = y + height;
       int fluidHeight = Math.min(height * amount / capacity, height);
@@ -130,7 +130,7 @@ public final class GuiUtil {
    * @param height  Fluid height
    * @param depth   Fluid depth
    */
-  public static void renderTiledFluid(MatrixStack matrices, HandledScreen<?> screen, FluidStack stack, int x, int y, int width, int height, int depth) {
+  public static void renderTiledFluid(MatrixStack matrices, HandledScreen<?> screen, FluidVolume stack, int x, int y, int width, int height, int depth) {
     if (!stack.isEmpty()) {
       Sprite fluidSprite = screen.getMinecraft().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).apply(stack.getFluid().getAttributes().getStillTexture(stack));
       RenderUtils.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
