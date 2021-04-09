@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.registry.Registry;
 import slimeknights.tconstruct.library.TinkerRegistries;
 
 import java.lang.reflect.Type;
@@ -28,6 +29,11 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
 
   private final Modifier modifier;
   private final int level;
+
+  public ModifierEntry(Modifier modifier, int level) {
+    this.modifier = modifier;
+    this.level = level;
+  }
 
   @Override
   public int compareTo(ModifierEntry other) {
@@ -49,8 +55,8 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    */
   public static ModifierEntry fromJson(JsonObject json) {
     Identifier name = new Identifier(JsonHelper.getString(json, "name"));
-    if (!TinkerRegistries.EMPTY.equals(name) && TinkerRegistries.MODIFIERS.containsKey(name)) {
-      return new ModifierEntry(TinkerRegistries.MODIFIERS.getValue(name), JsonHelper.getInt(json, "level", 1));
+    if (!TinkerRegistries.EMPTY.equals(name) && TinkerRegistries.MODIFIERS.containsId(name)) {
+      return new ModifierEntry(TinkerRegistries.MODIFIERS.get(name), JsonHelper.getInt(json, "level", 1));
     }
     throw new JsonSyntaxException("Unable to find modifier " + name);
   }

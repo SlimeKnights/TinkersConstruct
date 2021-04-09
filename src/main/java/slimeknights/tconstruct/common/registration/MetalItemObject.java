@@ -1,9 +1,8 @@
 package slimeknights.tconstruct.common.registration;
 
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -23,7 +22,7 @@ public class MetalItemObject extends ItemObject<Block> {
     super(block);
     this.ingot = ingot;
     this.nugget = nugget;
-    this.blockTag = BlockTags.createOptional(new Identifier("forge", "storage_blocks/" + tagName));
+    this.blockTag = TagRegistry.block(new Identifier("forge", "storage_blocks/" + tagName));
     this.blockItemTag = getTag("storage_blocks/" + tagName);
     this.ingotTag = getTag("ingots/" + tagName);
     this.nuggetTag = getTag("nuggets/" + tagName);
@@ -44,7 +43,7 @@ public class MetalItemObject extends ItemObject<Block> {
    * @param name  Tag name
    * @return  Tag
    */
-  private static IOptionalNamedTag<Item> getTag(String name) {
-    return ItemTags.createOptional(new Identifier("forge", name));
+  private static Tag<Item> getTag(String name) {
+    return TagRegistry.item(new Identifier("forge", name));
   }
 }

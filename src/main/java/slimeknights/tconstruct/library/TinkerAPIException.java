@@ -24,7 +24,6 @@ public class TinkerAPIException extends RuntimeException {
 
   @Override
   public String getMessage() {
-    String modPrefix = Util.getCurrentlyActiveExternalMod().map(id -> "Caused by " + id + ": ").orElse("");
-    return modPrefix + super.getMessage();
+    return super.getMessage();
   }
 }

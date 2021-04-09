@@ -17,8 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
-import net.minecraftforge.fml.ForgeI18n;
-import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -29,7 +27,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Collection;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -45,14 +42,7 @@ public class Util {
   public static final DecimalFormat dfMultiplier = new DecimalFormat("#.##x");
 
   public static Logger getLogger(String type) {
-    String log = MODID;
-
-    return LogManager.getLogger(log + "-" + type);
-  }
-
-  public static Optional<String> getCurrentlyActiveExternalMod() {
-    return Optional.ofNullable(ModLoadingContext.get().getActiveContainer().getModId())
-      .filter(activeModId -> !MODID.equals(activeModId));
+    return LogManager.getLogger(MODID + "-" + type);
   }
 
   /**
@@ -96,7 +86,7 @@ public class Util {
    * @return  True if it can be translated
    */
   public static boolean canTranslate(String key) {
-    return !ForgeI18n.getPattern(key).equals(key);
+    return !I18n.translate(key).equals(key);
   }
 
   /**
