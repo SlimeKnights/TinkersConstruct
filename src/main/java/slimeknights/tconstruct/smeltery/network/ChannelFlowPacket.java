@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +36,7 @@ public class ChannelFlowPacket implements IThreadsafePacket {
 	}
 
 	@Override
-	public void handleThreadsafe(PacketSender player) {
+	public void handleThreadsafe(PlayerEntity player, PacketSender context) {
 		HandleClient.handle(this);
 	}
 

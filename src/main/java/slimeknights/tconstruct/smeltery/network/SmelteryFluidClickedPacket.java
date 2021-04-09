@@ -27,7 +27,7 @@ public class SmelteryFluidClickedPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(PacketSender context) {
+  public void handleThreadsafe(PlayerEntity player, PacketSender context) {
     ServerPlayerEntity sender = context.getSender();
     if (sender != null) {
       ScreenHandler container = sender.currentScreenHandler;

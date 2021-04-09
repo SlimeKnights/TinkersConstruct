@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.common.network;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
@@ -37,7 +38,7 @@ public class InventorySlotSyncPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(PacketSender context) {
+  public void handleThreadsafe(PlayerEntity player, PacketSender context) {
     HandleClient.handle(this);
   }
 

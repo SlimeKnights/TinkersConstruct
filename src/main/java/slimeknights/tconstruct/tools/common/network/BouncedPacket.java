@@ -16,7 +16,7 @@ public class BouncedPacket implements IThreadsafePacket {
   public void encode(PacketByteBuf packetBuffer) {}
 
   @Override
-  public void handleThreadsafe(PacketSender context) {
+  public void handleThreadsafe(PlayerEntity player, PacketSender context) {
     ServerPlayerEntity entity = context.getSender();
     if (entity != null) {
       entity.fallDistance = 0.0f;

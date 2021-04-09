@@ -30,7 +30,7 @@ public class StationTabPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(PacketSender context) {
+  public void handleThreadsafe(PlayerEntity player, PacketSender context) {
     ServerPlayerEntity sender = context.getSender();
     if (sender != null) {
       ItemStack heldStack = sender.inventory.getCursorStack();
