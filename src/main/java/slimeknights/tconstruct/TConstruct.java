@@ -49,8 +49,9 @@ public class TConstruct implements ModInitializer {
 
   @Override
   public void onInitialize() {
-    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+//    TODO: config
+//    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
+//    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
 
 //?
 
