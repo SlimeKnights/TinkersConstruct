@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.smeltery.network;
 
-import lombok.AllArgsConstructor;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;

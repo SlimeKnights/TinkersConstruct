@@ -27,7 +27,8 @@ public class SearedDrainBlock extends SmelteryIOBlock {
   @Deprecated
   @Override
   public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-    // success if the item is a fluid handler, regardless of if fluid moved
+    throw new RuntimeException("Needs Implementing!");
+    /*// success if the item is a fluid handler, regardless of if fluid moved
     ItemStack held = player.getStackInHand(hand);
     Direction face = hit.getSide();
     if (FluidUtil.getFluidHandler(held).isPresent()) {
@@ -49,6 +50,6 @@ public class SearedDrainBlock extends SmelteryIOBlock {
     } else if (ITankTileEntity.interactWithBucket(world, pos, player, hand, face, state.get(FACING).getOpposite())) {
       return ActionResult.SUCCESS;
     }
-    return ActionResult.PASS;
+    return ActionResult.PASS;*/
   }
 }
