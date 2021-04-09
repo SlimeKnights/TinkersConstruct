@@ -67,6 +67,4 @@ public final class AchievementEvents {
       }
     }
   }
-
-  private AchievementEvents() {}
 }

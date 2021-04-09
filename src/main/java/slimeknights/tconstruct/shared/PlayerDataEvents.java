@@ -30,6 +30,4 @@ public class PlayerDataEvents {
       }
     }
   }
-
-  private PlayerDataEvents() {}
 }

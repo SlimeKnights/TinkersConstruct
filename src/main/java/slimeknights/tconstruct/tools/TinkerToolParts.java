@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tools;
 
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import slimeknights.mantle.registration.object.ItemObject;
-import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public final class TinkerToolParts extends TinkerModule {
   /** Tab for all tool parts */
-  public static final ItemGroup TAB_TOOL_PARTS = new SupplierItemGroup(TConstruct.modID, "tool_parts", () -> {
+  public static final ItemGroup TAB_TOOL_PARTS = FabricItemGroupBuilder.build(id("tool_parts"), () -> {
     List<IMaterial> materials = new ArrayList<>(MaterialRegistry.getInstance().getMaterials());
     if (materials.isEmpty()) {
       return new ItemStack(TinkerToolParts.pickaxeHead);
@@ -37,4 +37,8 @@ public final class TinkerToolParts extends TinkerModule {
   public static final ItemObject<ToolPartItem> largePlate = ITEMS.register("large_plate", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> toolRod = ITEMS.register("tool_rod", () -> new ToolPartItem(PARTS_PROPS, HandleMaterialStats.ID));
   public static final ItemObject<ToolPartItem> toughToolRod = ITEMS.register("tough_tool_rod", () -> new ToolPartItem(PARTS_PROPS, HandleMaterialStats.ID));
+
+  @Override
+  public void onInitialize() {
+  }
 }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import com.google.common.collect.ImmutableList;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.Material;
@@ -10,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -208,7 +210,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
    * @param sound     Sound to play on tilling
    * @return  Action result from tilling
    */
-  public ActionResult transformBlocks(ItemUsageContext context, ToolType toolType, SoundEvent sound, boolean requireGround) {
+  public ActionResult transformBlocks(ItemUsageContext context, Tag toolType, SoundEvent sound, boolean requireGround) {
     PlayerEntity player = context.getPlayer();
     if (player == null || player.isSneaking()) {
       return ActionResult.PASS;

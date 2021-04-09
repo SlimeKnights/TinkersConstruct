@@ -25,8 +25,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-
-import net.minecraftforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.ArmorTooltipItem;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -36,8 +35,6 @@ import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
-
-import org.jetbrains.annotations.NotNull;
 
 public class PiggyBackPackItem extends ArmorTooltipItem {
 
@@ -112,7 +109,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     if (this.pickupEntity(playerIn, target)) {
       // unequip old armor
       if (chestArmor.getItem() != this) {
-        ItemHandlerHelper.giveItemToPlayer(playerIn, chestArmor);
+        playerIn.giveItemStack(chestArmor);
         chestArmor = ItemStack.EMPTY;
       }
 
@@ -198,7 +195,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       LivingEntity livingEntity = (LivingEntity) entityIn;
       if (livingEntity.getEquippedStack(EquipmentSlot.CHEST) == stack && entityIn.hasPassengers()) {
         int amplifier = this.getEntitiesCarriedCount(livingEntity) - 1;
-        livingEntity.addStatusEffect(new StatusEffectInstance(TinkerGadgets.carryEffect.get(), 1, amplifier, true, false));
+        livingEntity.addStatusEffect(new StatusEffectInstance(TinkerGadgets.carryEffect, 1, amplifier, true, false));
       }
     }
   }
