@@ -335,17 +335,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
                          .addInput(TinkerModifiers.ichorExpander)
                          .setAbilitySlots(1)
-                         .setMaxLevel(1)
-                         .setTools(TinkerTags.Items.AOE)
-                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ichor"));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
-                         .addInput(TinkerModifiers.enderExpander)
-                         .setRequirements(ModifierMatch.entry(TinkerModifiers.expanded.get(), 1))
-                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.ender_expander_requirements"))
-                         .setAbilitySlots(1)
                          .setMaxLevel(2)
                          .setTools(TinkerTags.Items.AOE)
-                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ender"));
+                         .build(consumer, prefixR(TinkerModifiers.expanded, upgradeFolder));
+    // reach expander
+    ModifierRecipeBuilder.modifier(TinkerModifiers.reach.get())
+                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                                    .addInput(TinkerModifiers.enderExpander)
+                                    .setMaxLevel(2)
+                                    .setAbilitySlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.reach, upgradeFolder));
 
     /*
      * extra modifiers

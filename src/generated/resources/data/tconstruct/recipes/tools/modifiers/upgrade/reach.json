@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:ender_expander"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee_or_harvest"
+  },
+  "result": {
+    "name": "tconstruct:reach",
+    "level": 1
+  },
+  "max_level": 2,
+  "ability_slots": 1
+}

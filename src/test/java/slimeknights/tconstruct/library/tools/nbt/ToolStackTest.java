@@ -20,6 +20,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ToolStackTest extends ToolCoreTest {
+  private final StatsNBT testStatsNBT = StatsNBT.builder()
+                                                .durability(100).harvestLevel(2)
+                                                .attackDamage(2f).miningSpeed(3f)
+                                                .attackSpeed(5f).reach(6f).build();
+
   @BeforeAll
   static void before() {
     ModifierFixture.init();
@@ -112,7 +117,7 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void serialize_damageBroken() {
     ToolStack stack = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinitionFixture.getStandardToolDefinition(), new CompoundNBT());
-    stack.setStats(new StatsNBT(100, 0, 0, 0, 0));
+    stack.setStats(StatsNBT.builder().durability(100).build());
     stack.setDamage(1);
     stack.setBrokenRaw(true);
 
@@ -216,27 +221,25 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void stats_serialize() {
     ToolStack tool = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinition.EMPTY, new CompoundNBT());
-    StatsNBT setStats = new StatsNBT(100, 2, 3f, 4f, 5f);
-    tool.setStats(setStats);
+    tool.setStats(testStatsNBT);
     CompoundNBT nbt = tool.createStack().getTag();
 
     assertThat(nbt).isNotNull();
     assertThat(nbt.contains(ToolStack.TAG_STATS));
     // assumes stats NBT properly deserializes
     StatsNBT readStats = StatsNBT.readFromNBT(nbt.get(ToolStack.TAG_STATS));
-    assertThat(readStats).isEqualTo(setStats);
+    assertThat(readStats).isEqualTo(testStatsNBT);
   }
 
   @Test
   void stats_deserialize() {
-    StatsNBT setStats = new StatsNBT(100, 2, 3f, 4f, 5f);
     ItemStack stack = new ItemStack(Items.DIAMOND_PICKAXE);
-    stack.getOrCreateTag().put(ToolStack.TAG_STATS, setStats.serializeToNBT());
+    stack.getOrCreateTag().put(ToolStack.TAG_STATS, testStatsNBT.serializeToNBT());
 
     ToolStack tool = ToolStack.from(stack);
     StatsNBT readStats = tool.getStats();
     assertThat(readStats).isNotEqualTo(StatsNBT.EMPTY);
-    assertThat(readStats).isEqualTo(setStats);
+    assertThat(readStats).isEqualTo(testStatsNBT);
   }
 
   @Test
@@ -245,7 +248,7 @@ class ToolStackTest extends ToolCoreTest {
     stack.setDamage(100);
 
     ToolStack tool = ToolStack.from(stack);
-    tool.setStats(new StatsNBT(50, 0, 0, 0, 0));
+    tool.setStats(StatsNBT.builder().durability(50).build());
     assertThat(tool.getDamageRaw()).isEqualTo(50);
     assertThat(tool.isBroken()).isTrue();
   }

@@ -36,6 +36,11 @@ public class ModifierStatsBuilder {
   /** Value multiplied after adding */
   private float multiplyMiningSpeed = 1;
 
+  /** Value added to final reach */
+  private float addReach = 0;
+  /** Value multiplied after adding */
+  private float multiplyReach = 1;
+
   /** Sets the harvest level, if the value is larger than the current */
   public ModifierStatsBuilder setHarvestLevel(int level) {
     if (level > harvestLevel) {
@@ -101,6 +106,20 @@ public class ModifierStatsBuilder {
     return this;
   }
 
+  /** Adds mining speed to the stats */
+  public ModifierStatsBuilder addReach(float amount) {
+    addReach += amount;
+    dirty = true;
+    return this;
+  }
+
+  /** Multiplies the final mining speed by the factor */
+  public ModifierStatsBuilder multiplyReach(float factor) {
+    multiplyReach *= factor;
+    dirty = true;
+    return this;
+  }
+
   /**
    * Builds the stats
    * @param base  Base stats
@@ -110,12 +129,13 @@ public class ModifierStatsBuilder {
     if (!dirty) {
       return base;
     }
-    return new StatsNBT(
-      Math.max((int)((base.getDurability() + addDurability) * multiplyDurability), 1),
-      Math.max(base.getHarvestLevel(), harvestLevel),
-      (base.getAttackDamage() + addAttackDamage) * multiplyAttackDamage,
-      (base.getMiningSpeed()  +  addMiningSpeed) * multiplyMiningSpeed,
-      (base.getAttackSpeed()  +  addAttackSpeed) * multiplyAttackSpeed
-    );
+    return StatsNBT.builder()
+      .durability(Math.max((int)((base.getDurability() + addDurability) * multiplyDurability), 1))
+      .harvestLevel(Math.max(base.getHarvestLevel(), harvestLevel))
+      .attackDamage((base.getAttackDamage() + addAttackDamage) * multiplyAttackDamage)
+      .miningSpeed((base.getMiningSpeed() + addMiningSpeed) * multiplyMiningSpeed)
+      .attackSpeed((base.getAttackSpeed() + addAttackSpeed) * multiplyAttackSpeed)
+      .reach((base.getReach() + addReach) * multiplyReach)
+      .build();
   }
 }

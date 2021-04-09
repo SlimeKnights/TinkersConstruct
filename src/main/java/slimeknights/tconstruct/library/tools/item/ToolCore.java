@@ -31,6 +31,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -59,6 +60,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -68,6 +70,7 @@ import java.util.function.Consumer;
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
 public abstract class ToolCore extends Item implements ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
+  protected static final UUID REACH_MODIFIER = UUID.fromString("9b26fa32-5774-4b4e-afc3-b4055ecb1f6a");
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
@@ -305,8 +308,14 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     if (slot == EquipmentSlotType.MAINHAND && !tool.isBroken()) {
       // base stats
       StatsNBT statsNBT = tool.getStats();
-      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", statsNBT.getAttackDamage(), AttributeModifier.Operation.ADDITION));
-      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", statsNBT.getAttackSpeed() - 4d, AttributeModifier.Operation.ADDITION));
+      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "tconstruct.tool.attack_damage", statsNBT.getAttackDamage(), AttributeModifier.Operation.ADDITION));
+      // base attack speed is 4, but our numbers start from 4
+      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "tconstruct.tool.attack_speed", statsNBT.getAttackSpeed() - 4d, AttributeModifier.Operation.ADDITION));
+      // base value is 5, but our number start from 5
+      double reach = statsNBT.getReach() - 5d;
+      if (reach != 0) {
+        builder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER, "tconstruct.tool.reach", reach, AttributeModifier.Operation.ADDITION));
+      }
 
       // grab attributes from modifiers
       BiConsumer<Attribute, AttributeModifier> attributeConsumer = builder::put;

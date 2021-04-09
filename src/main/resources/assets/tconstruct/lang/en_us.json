@@ -204,9 +204,9 @@
     "item.tconstruct.ender_slime_crystal.tooltip": "Used to overslime tools",
     
     "item.tconstruct.ichor_expander": "Ichor Expander",
-    "item.tconstruct.ichor_expander.tooltip": "First of the expanders",
+    "item.tconstruct.ichor_expander.tooltip": "Expands the area of effect of a tool",
     "item.tconstruct.ender_expander": "Ender Expander",
-    "item.tconstruct.ender_expander.tooltip": "Second of the expanders",
+    "item.tconstruct.ender_expander.tooltip": "Expands the distance you can reach with a tool",
     
     "item.tconstruct.reinforcement": "Reinforcement",
     "item.tconstruct.reinforcement.tooltip": "Reduces chance of a tool taking damage",
@@ -1043,6 +1043,9 @@
     "modifier.tconstruct.expanded": "Expanded",
     "modifier.tconstruct.expanded.flavor": "Did not skip leg day!",
     "modifier.tconstruct.expanded.description": "Tool's area of effect is larger than before",
+    "modifier.tconstruct.reach": "Reach",
+    "modifier.tconstruct.reach.flavor": "Telekinesis!",
+    "modifier.tconstruct.reach.description": "Can reach further blocks and mobs while holding this tool!",
     "modifier.tconstruct.autosmelt": "Autosmelt",
     "modifier.tconstruct.autosmelt.flavor": "Fires of the Nether in your tool!",
     "modifier.tconstruct.autosmelt.description": "Tool automatically smelts all drops",
@@ -1256,7 +1259,6 @@
     "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
 
     "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
-    "recipe.tconstruct.modifier.ender_expander_requirements": "Must apply the ichor expander first",
 
 
     "_comment": "GUIs Messages",

@@ -23,6 +23,7 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.SilkyModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
@@ -57,7 +58,6 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.BeheadingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.CoolingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.ExpanderModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.FieryModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.HasteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
@@ -134,7 +134,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
   public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
-  public static final RegistryObject<ExpanderModifier> expanded = MODIFIERS.register("expanded", ExpanderModifier::new);
+  public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", () -> new Modifier(0xff9f50));
+  public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
 
   // bonus modifier slots
   public static final RegistryObject<ExtraModifier> writable = MODIFIERS.register("writable", () -> new ExtraModifier(0xffffff));

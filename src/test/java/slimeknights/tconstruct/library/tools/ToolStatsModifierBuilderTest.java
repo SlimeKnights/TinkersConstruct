@@ -6,7 +6,10 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ToolStatsModifierBuilderTest {
-  private final StatsNBT testStatsNBT = new StatsNBT(100, 2, 2f, 3f, 5f);
+  private final StatsNBT testStatsNBT = StatsNBT.builder()
+    .durability(100).harvestLevel(2)
+    .attackDamage(2f).miningSpeed(3f)
+    .attackSpeed(5f).reach(6f).build();
 
   @Test
   void empty() {
@@ -231,5 +234,51 @@ public class ToolStatsModifierBuilderTest {
     builder.multiplyAttackSpeed(2f);
     StatsNBT nbt = builder.build(testStatsNBT);
     assertThat(nbt.getAttackSpeed()).isEqualTo(30f);
+  }
+
+
+  /* Reach */
+
+  @Test
+  void reach_add() {
+    ModifierStatsBuilder builder = ModifierStatsBuilder.builder();
+    builder.addReach(10);
+    StatsNBT nbt = builder.build(testStatsNBT);
+    assertThat(nbt.getReach()).isEqualTo(16f);
+  }
+
+  @Test
+  void reach_addMultiple() {
+    ModifierStatsBuilder builder = ModifierStatsBuilder.builder();
+    builder.addReach(10);
+    builder.addReach(15);
+    StatsNBT nbt = builder.build(testStatsNBT);
+    assertThat(nbt.getReach()).isEqualTo(31f);
+  }
+
+  @Test
+  void reach_multiply() {
+    ModifierStatsBuilder builder = ModifierStatsBuilder.builder();
+    builder.multiplyReach(2f);
+    StatsNBT nbt = builder.build(testStatsNBT);
+    assertThat(nbt.getReach()).isEqualTo(12f);
+  }
+
+  @Test
+  void reach_multiplyMultiple() {
+    ModifierStatsBuilder builder = ModifierStatsBuilder.builder();
+    builder.multiplyReach(2f);
+    builder.multiplyReach(1.5f);
+    StatsNBT nbt = builder.build(testStatsNBT);
+    assertThat(nbt.getReach()).isEqualTo(18f);
+  }
+
+  @Test
+  void reach_order() {
+    ModifierStatsBuilder builder = ModifierStatsBuilder.builder();
+    builder.addReach(10);
+    builder.multiplyReach(2f);
+    StatsNBT nbt = builder.build(testStatsNBT);
+    assertThat(nbt.getReach()).isEqualTo(32f);
   }
 }
