@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.harvest;
 
 import com.google.common.collect.Sets;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -8,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
-import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -38,7 +38,7 @@ public class AxeTool extends HarvestTool {
   public boolean dealDamage(ToolStack tool, LivingEntity player, Entity entity, float damage, boolean isCriticalHit, boolean fullyCharged) {
     boolean hit = super.dealDamage(tool, player, entity, damage, isCriticalHit, fullyCharged);
     if (hit && fullyCharged) {
-      ToolAttackUtil.spawnAttachParticle(TinkerTools.axeAttackParticle.get(), player, 0.8d);
+      ToolAttackUtil.spawnAttachParticle(TinkerTools.axeAttackParticle, player, 0.8d);
     }
     return hit;
   }

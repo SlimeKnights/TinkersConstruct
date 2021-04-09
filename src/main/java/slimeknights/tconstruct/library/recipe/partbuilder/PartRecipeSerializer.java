@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import com.google.gson.JsonObject;
+import net.minecraft.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
@@ -11,7 +11,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 
-public class PartRecipeSerializer extends RecipeSerializer<PartRecipe> {
+public class PartRecipeSerializer implements RecipeSerializer<PartRecipe> {
   @Override
   public PartRecipe read(Identifier recipeId, JsonObject json) {
     String group = JsonHelper.getString(json, "group", "");

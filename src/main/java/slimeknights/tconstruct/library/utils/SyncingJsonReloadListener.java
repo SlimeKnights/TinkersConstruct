@@ -2,13 +2,10 @@ package slimeknights.tconstruct.library.utils;
 
 import com.google.gson.Gson;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
 import slimeknights.mantle.network.NetworkWrapper;
 
 /**
@@ -29,7 +26,6 @@ public abstract class SyncingJsonReloadListener extends JsonDataLoader {
 
   /**
    * Called when the player joins the server to send them a list of materials
-   * @param event  Player logged in event
    */
   public void handleLogin(ServerPlayNetworkHandler networkHandler, PacketSender sender, MinecraftServer server) {
     ServerPlayerEntity player = networkHandler.player;

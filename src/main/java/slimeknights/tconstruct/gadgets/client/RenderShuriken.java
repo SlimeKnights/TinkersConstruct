@@ -33,7 +33,7 @@ public class RenderShuriken extends EntityRenderer<ShurikenEntityBase> {
   }
 
   @Override
-  public Identifier getEntityTexture(ShurikenEntityBase entity) {
+  public Identifier getTexture(ShurikenEntityBase entity) {
     return PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
   }
 }

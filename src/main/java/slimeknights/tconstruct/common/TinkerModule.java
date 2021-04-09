@@ -98,6 +98,10 @@ public abstract class TinkerModule implements ModInitializer {
     return FabricBlockSettings.of(material).breakByTool(toolType).sounds(soundType);
   }
 
+  public static Identifier id(String path) {
+    return new Identifier(TConstruct.modID, path);
+  }
+
   /**
    * Creates a Tinkers Construct resource location
    * @param id  Resource path

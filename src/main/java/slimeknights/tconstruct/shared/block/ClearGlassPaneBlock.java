@@ -2,6 +2,9 @@ package slimeknights.tconstruct.shared.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import slimeknights.mantle.block.IMultipartConnectedBlock;
+import java.util.EnumMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PaneBlock;
@@ -11,12 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Direction.Type;
 import net.minecraft.world.WorldAccess;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import slimeknights.mantle.block.IMultipartConnectedBlock;
-import slimeknights.mantle.client.model.connected.ConnectedModelRegistry;
-
-import java.util.EnumMap;
 
 public class ClearGlassPaneBlock extends PaneBlock implements IMultipartConnectedBlock {
 
@@ -48,7 +45,8 @@ public class ClearGlassPaneBlock extends PaneBlock implements IMultipartConnecte
 
   @Override
   public boolean connects(BlockState state, BlockState neighbor) {
-    return ConnectedModelRegistry.getPredicate("pane").test(state, neighbor);
+    return false;
+    //return ConnectedModelRegistry.getPredicate("pane").test(state, neighbor);
   }
 
   @Override

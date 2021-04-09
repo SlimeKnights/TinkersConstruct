@@ -12,8 +12,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+
 import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.gadgets.entity.shuriken.ShurikenEntityBase;
 

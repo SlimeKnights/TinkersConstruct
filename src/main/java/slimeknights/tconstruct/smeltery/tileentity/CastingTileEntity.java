@@ -82,7 +82,6 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
 
   protected CastingTileEntity(BlockEntityType<?> tileEntityTypeIn, RecipeType<ICastingRecipe> castingType, RecipeType<MoldingRecipe> moldingType) {
     super(tileEntityTypeIn, "gui.tconstruct.casting", 2, 1);
-    this.itemHandler = new SidedInvWrapper(this, Direction.DOWN);
     this.castingType = castingType;
     this.moldingType = moldingType;
     this.castingInventory = new TileCastingWrapper(this, Fluids.EMPTY);
@@ -208,7 +207,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     if (currentFluid.getAmount() >= tank.getCapacity() && !currentFluid.isEmpty()) {
       timer++;
       if (!world.isClient) {
-        castingInventory.setFluid(currentFluid.getFluid());
+        castingInventory.setFluid(currentFluid.getRawFluid());
         if (timer >= currentRecipe.getCoolingTime(castingInventory)) {
           if (!currentRecipe.matches(castingInventory, world)) {
             // if lost our recipe or the recipe needs more fluid then we have, we are done
@@ -323,7 +322,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     if (fluid.isEmpty()) {
       reset();
     } else {
-      int capacity = initNewCasting(fluid.getFluid(), FluidAction.EXECUTE);
+      int capacity = initNewCasting(fluid.getRawFluid(), FluidAction.EXECUTE);
       if (capacity > 0) {
         tank.setCapacity(capacity);
       }
@@ -350,7 +349,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
       if (currentRecipe == null) {
         return ItemStack.EMPTY;
       }
-      castingInventory.setFluid(tank.getFluid().getFluid());
+      castingInventory.setFluid(tank.getFluid().getRawFluid());
       lastOutput = currentRecipe.craft(castingInventory);
     }
     return lastOutput;
@@ -382,7 +381,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
       // fetch recipe by name
       RecipeHelper.getRecipe(world.getRecipeManager(), name, ICastingRecipe.class).ifPresent(recipe -> {
         this.currentRecipe = recipe;
-        castingInventory.setFluid(fluid.getFluid());
+        castingInventory.setFluid(fluid.getRawFluid());
         tank.setCapacity(recipe.getFluidAmount(castingInventory));
       });
     }

@@ -5,32 +5,28 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.network.Packet;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
-import org.jetbrains.annotations.Nonnull;
+public class GlowballEntity extends ThrownItemEntity {//implements IEntityAdditionalSpawnData {
 
-public class GlowballEntity extends ThrownItemEntity implements IEntityAdditionalSpawnData {
-
-  public GlowballEntity(EntityType<? extends GlowballEntity> p_i50159_1_, World p_i50159_2_) {
-    super(p_i50159_1_, p_i50159_2_);
+  public GlowballEntity(EntityType<? extends GlowballEntity> entityType, World world) {
+    super(entityType, world);
   }
 
   public GlowballEntity(World worldIn, LivingEntity throwerIn) {
-    super(TinkerGadgets.glowBallEntity.get(), throwerIn, worldIn);
+    super(TinkerGadgets.glowBallEntity, throwerIn, worldIn);
   }
 
   public GlowballEntity(World worldIn, double x, double y, double z) {
-    super(TinkerGadgets.glowBallEntity.get(), x, y, z, worldIn);
+    super(TinkerGadgets.glowBallEntity, x, y, z, worldIn);
   }
 
   @Override
@@ -55,7 +51,7 @@ public class GlowballEntity extends ThrownItemEntity implements IEntityAdditiona
       }
 
       if (position != null) {
-        TinkerCommons.glow.get().addGlow(this.world, position, direction);
+        TinkerCommons.glow.addGlow(this.world, position, direction);
       }
     }
 
@@ -65,19 +61,19 @@ public class GlowballEntity extends ThrownItemEntity implements IEntityAdditiona
     }
   }
 
-  @Override
-  public void writeSpawnData(PacketByteBuf buffer) {
-    buffer.writeItemStack(this.getItem());
-  }
-
-  @Override
-  public void readSpawnData(PacketByteBuf additionalData) {
-    this.setItem(additionalData.readItemStack());
-  }
+//  @Override
+//  public void writeSpawnData(PacketByteBuf buffer) {
+//    buffer.writeItemStack(this.getItem());
+//  }
+//
+//  @Override
+//  public void readSpawnData(PacketByteBuf additionalData) {
+//    this.setItem(additionalData.readItemStack());
+//  }
 
   @NotNull
   @Override
   public Packet<?> createSpawnPacket() {
-    return NetworkHooks.getEntitySpawningPacket(this);
+    return super.createSpawnPacket();
   }
 }

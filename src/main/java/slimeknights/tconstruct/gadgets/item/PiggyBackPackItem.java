@@ -25,9 +25,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.ArmorTooltipItem;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -37,8 +35,6 @@ import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
-
-import org.jetbrains.annotations.Nonnull;
 
 public class PiggyBackPackItem extends ArmorTooltipItem {
 
@@ -113,7 +109,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     if (this.pickupEntity(playerIn, target)) {
       // unequip old armor
       if (chestArmor.getItem() != this) {
-        ItemHandlerHelper.giveItemToPlayer(playerIn, chestArmor);
+        playerIn.giveItemStack(chestArmor);
         chestArmor = ItemStack.EMPTY;
       }
 
@@ -199,7 +195,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       LivingEntity livingEntity = (LivingEntity) entityIn;
       if (livingEntity.getEquippedStack(EquipmentSlot.CHEST) == stack && entityIn.hasPassengers()) {
         int amplifier = this.getEntitiesCarriedCount(livingEntity) - 1;
-        livingEntity.addStatusEffect(new StatusEffectInstance(TinkerGadgets.carryEffect.get(), 1, amplifier, true, false));
+        livingEntity.addStatusEffect(new StatusEffectInstance(TinkerGadgets.carryEffect, 1, amplifier, true, false));
       }
     }
   }
@@ -226,36 +222,37 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       } else {
         TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isClient) {
-          livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).ifPresent(ITinkerPiggyback::updatePassengers);
+          throw new RuntimeException("Failed to get Capability");
+//          livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).ifPresent(ITinkerPiggyback::updatePassengers);
         }
       }
     }
 
-    @Override
-    @Environment(EnvType.CLIENT)
-    public void renderInventoryEffect(StatusEffectInstance effect, AbstractInventoryScreen<?> gui, MatrixStack matrices, int x, int y, float z) {
-      this.renderHUDEffect(effect, gui, matrices, x, y, z, 1f);
-    }
-
-    @Override
-    @Environment(EnvType.CLIENT)
-    public void renderHUDEffect(StatusEffectInstance effect, DrawableHelper gui, MatrixStack matrices, int x, int y, float z, float alpha) {
-      MinecraftClient.getInstance().getTextureManager().bindTexture(Icons.ICONS);
-      ElementScreen element;
-
-      switch (effect.getAmplifier()) {
-        case 0:
-          element = Icons.PIGGYBACK_1;
-          break;
-        case 1:
-          element = Icons.PIGGYBACK_2;
-          break;
-        default:
-          element = Icons.PIGGYBACK_3;
-          break;
-      }
-
-      element.draw(matrices, x + 6, y + 7);
-    }
+//    @Override
+//    @Environment(EnvType.CLIENT)
+//    public void renderInventoryEffect(StatusEffectInstance effect, AbstractInventoryScreen<?> gui, MatrixStack matrices, int x, int y, float z) {
+//      this.renderHUDEffect(effect, gui, matrices, x, y, z, 1f);
+//    }
+//
+//    @Override
+//    @Environment(EnvType.CLIENT)
+//    public void renderHUDEffect(StatusEffectInstance effect, DrawableHelper gui, MatrixStack matrices, int x, int y, float z, float alpha) {
+//      MinecraftClient.getInstance().getTextureManager().bindTexture(Icons.ICONS);
+//      ElementScreen element;
+//
+//      switch (effect.getAmplifier()) {
+//        case 0:
+//          element = Icons.PIGGYBACK_1;
+//          break;
+//        case 1:
+//          element = Icons.PIGGYBACK_2;
+//          break;
+//        default:
+//          element = Icons.PIGGYBACK_3;
+//          break;
+//      }
+//
+//      element.draw(matrices, x + 6, y + 7);
+//    }
   }
 }

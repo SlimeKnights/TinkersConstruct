@@ -19,7 +19,7 @@ public class MixinCraftingResultSlot {
   @Final
   private PlayerEntity player;
 
-  @Inject(method = "onCrafted(Lnet/minecraft/item/ItemStack;)V", at = @At(value = "HEAD", target = "Lnet/minecraft/item/ItemStack;onCraft(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;I)V"))
+  @Inject(method = "onCrafted(Lnet/minecraft/item/ItemStack;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;onCraft(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;I)V"))
   public void onCrafted(ItemStack stack, CallbackInfo ci) {
     AchievementEvents.onCraft(player, stack);
   }

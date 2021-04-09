@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.materials.json;
 
 import lombok.Data;
-import net.minecraft.util.Identifier;
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.recipe.ICondition;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.util.Identifier;
 
 @Data
 public class MaterialJson {

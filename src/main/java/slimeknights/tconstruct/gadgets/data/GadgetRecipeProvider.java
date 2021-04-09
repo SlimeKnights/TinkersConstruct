@@ -11,10 +11,10 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
+import slimeknights.tconstruct.misc.CommonTags;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -69,7 +69,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     folder = "gadgets/rail/";
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.woodenRail, 4)
                        .key('#', ItemTags.PLANKS)
-                       .key('X', Tags.Items.RODS_WOODEN)
+                       .key('X', CommonTags.RODS_WOODEN)
                        .patternLine("# #")
                        .patternLine("#X#")
                        .patternLine("# #")
@@ -97,50 +97,50 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(Blocks.CARVED_PUMPKIN))
                        .build(consumer, location(folder + "jack_o_lantern"));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneLadder.get(), 3)
-                       .key('#', TinkerTags.Items.RODS_STONE)
+                       .key('#', TinkerCommonTags.RODS_STONE)
                        .patternLine("# #")
                        .patternLine("###")
                        .patternLine("# #")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.RODS_STONE))
+                       .addCriterion("has_item", hasItem(TinkerCommonTags.RODS_STONE))
                        .build(consumer, prefix(TinkerGadgets.stoneLadder, folder));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneStick.get(), 4)
                        .key('#', Ingredient.fromItemListStream(Stream.of(
-                         new Ingredient.TagList(Tags.Items.STONE),
-                         new Ingredient.TagList(Tags.Items.COBBLESTONE))
+                         new Ingredient.TagList(CommonTags.STONE),
+                         new Ingredient.TagList(CommonTags.COBBLESTONE))
                                                               ))
                        .patternLine("#")
                        .patternLine("#")
-                       .addCriterion("has_item", hasItem(Tags.Items.STONE))
+                       .addCriterion("has_item", hasItem(CommonTags.STONE))
                        .build(consumer, prefix(TinkerGadgets.stoneStick, folder));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneTorch.get(), 4)
                        .key('#', Ingredient.fromItemListStream(Stream.of(
                          new Ingredient.SingleItemList(new ItemStack(Items.COAL)),
                          new Ingredient.SingleItemList(new ItemStack(Items.CHARCOAL))
                                                                         )))
-                       .key('X', TinkerTags.Items.RODS_STONE)
+                       .key('X', TinkerCommonTags.RODS_STONE)
                        .patternLine("#")
                        .patternLine("X")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.RODS_STONE))
+                       .addCriterion("has_item", hasItem(TinkerCommonTags.RODS_STONE))
                        .build(consumer, prefix(TinkerGadgets.stoneTorch, folder));
     */
 
     // throw balls
     folder = "gadgets/throwball/";
     ShapedRecipeJsonFactory.create(TinkerGadgets.efln.get())
-                       .input('#', Tags.Items.GUNPOWDER)
+                       .input('#', CommonTags.GUNPOWDER)
                        .input('X', Items.FLINT)
                        .pattern(" # ")
                        .pattern("#X#")
                        .pattern(" # ")
-                       .criterion("has_item", conditionsFromTag(Tags.Items.DUSTS_GLOWSTONE))
+                       .criterion("has_item", conditionsFromTag(CommonTags.DUSTS_GLOWSTONE))
                        .offerTo(consumer, prefix(TinkerGadgets.efln, folder));
     ShapedRecipeJsonFactory.create(TinkerGadgets.glowBall.get(), 8)
                        .input('#', Items.SNOWBALL)
-                       .input('X', Tags.Items.DUSTS_GLOWSTONE)
+                       .input('X', CommonTags.DUSTS_GLOWSTONE)
                        .pattern("###")
                        .pattern("#X#")
                        .pattern("###")
-                       .criterion("has_item", conditionsFromTag(Tags.Items.DUSTS_GLOWSTONE))
+                       .criterion("has_item", conditionsFromTag(CommonTags.DUSTS_GLOWSTONE))
                        .offerTo(consumer, prefix(TinkerGadgets.glowBall, folder));
 
     // Shurikens
@@ -163,12 +163,12 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     // piggybackpack
     folder = "gadgets/";
     ShapedRecipeJsonFactory.create(TinkerGadgets.piggyBackpack.get())
-                       .input('#', Tags.Items.RODS_WOODEN)
-                       .input('X', Tags.Items.LEATHER)
+                       .input('#', CommonTags.RODS_WOODEN)
+                       .input('X', CommonTags.LEATHER)
                        .pattern(" X ")
                        .pattern("# #")
                        .pattern(" X ")
-                       .criterion("has_item", conditionsFromTag(Tags.Items.RODS_WOODEN))
+                       .criterion("has_item", conditionsFromTag(CommonTags.RODS_WOODEN))
                        .offerTo(consumer, prefix(TinkerGadgets.piggyBackpack, folder));
     /* TODO: moving to natura
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.punji.get(), 3)
@@ -187,12 +187,12 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     registerFrameRecipes(consumer, Items.GOLD_NUGGET, FrameType.GOLD);
     Item clearFrame = TinkerGadgets.itemFrame.get(FrameType.CLEAR);
     ShapedRecipeJsonFactory.create(clearFrame)
-                       .input('e', Tags.Items.GLASS_PANES_COLORLESS)
-                       .input('M', Tags.Items.GLASS_COLORLESS)
+                       .input('e', CommonTags.GLASS_PANES_COLORLESS)
+                       .input('M', CommonTags.GLASS_COLORLESS)
                        .pattern(" e ")
                        .pattern("eMe")
                        .pattern(" e ")
-                       .criterion("has_item", conditionsFromTag(Tags.Items.GLASS_PANES_COLORLESS))
+                       .criterion("has_item", conditionsFromTag(CommonTags.GLASS_PANES_COLORLESS))
                        .group(locationString("fancy_item_frame"))
                        .offerTo(consumer, prefix(clearFrame, folder));
 

@@ -61,7 +61,7 @@ public class EFLNExplosion extends Explosion {
             BlockState blockstate = this.world.getBlockState(blockpos);
 
             FluidState ifluidstate = this.world.getFluidState(blockpos);
-            float f2 = Math.max(blockstate.getExplosionResistance(this.world, blockpos, this), ifluidstate.getExplosionResistance(this.world, blockpos, this));
+            float f2 = Math.max(blockstate.getBlock().getBlastResistance(), ifluidstate.getBlockState().getBlock().getBlastResistance());
             if (this.entity != null) {
               f2 = this.entity.getEffectiveExplosionResistance(this, this.world, blockpos, blockstate, ifluidstate, f2);
             }
@@ -92,26 +92,26 @@ public class EFLNExplosion extends Explosion {
 
     for (BlockPos blockpos : this.affectedBlocks) {
       BlockState blockstate = this.world.getBlockState(blockpos);
-      Block block = blockstate.getBlock();
 
-      if (!blockstate.isAir(this.world, blockpos)) {
+      if (!this.world.getBlockState(blockpos).isAir()) {
         BlockPos blockpos1 = blockpos.toImmutable();
 
         this.world.getProfiler().push("explosion_blocks");
-
-        if (blockstate.canDropFromExplosion(this.world, blockpos, this) && this.world instanceof ServerWorld) {
-          BlockEntity tileentity = blockstate.hasTileEntity() ? this.world.getBlockEntity(blockpos) : null;
-          LootContext.Builder builder = (new LootContext.Builder((ServerWorld) this.world)).random(this.world.random).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(blockpos)).parameter(LootContextParameters.TOOL, ItemStack.EMPTY).optionalParameter(LootContextParameters.BLOCK_ENTITY, tileentity).optionalParameter(LootContextParameters.THIS_ENTITY, this.entity);
-
-          if (this.destructionType == DestructionType.DESTROY) {
-            builder.parameter(LootContextParameters.EXPLOSION_RADIUS, this.power);
-          }
-
-          blockstate.getDroppedStacks(builder).forEach((stack) -> addStack(arrayList, stack, blockpos1));
-        }
-
-        blockstate.onBlockExploded(this.world, blockpos, this);
         this.world.getProfiler().pop();
+        throw new RuntimeException("No Explosion for you! :)");
+//        if (blockstate.canDropFromExplosion(this.world, blockpos, this) && this.world instanceof ServerWorld) {
+//          BlockEntity tileentity = blockstate.hasTileEntity() ? this.world.getBlockEntity(blockpos) : null;
+//          LootContext.Builder builder = (new LootContext.Builder((ServerWorld) this.world)).random(this.world.random).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(blockpos)).parameter(LootContextParameters.TOOL, ItemStack.EMPTY).optionalParameter(LootContextParameters.BLOCK_ENTITY, tileentity).optionalParameter(LootContextParameters.THIS_ENTITY, this.entity);
+//
+//          if (this.destructionType == DestructionType.DESTROY) {
+//            builder.parameter(LootContextParameters.EXPLOSION_RADIUS, this.power);
+//          }
+//
+//          blockstate.getDroppedStacks(builder).forEach((stack) -> addStack(arrayList, stack, blockpos1));
+//        }
+//
+//        blockstate.onBlockExploded(this.world, blockpos, this);
+//        this.world.getProfiler().pop();
       }
     }
   }

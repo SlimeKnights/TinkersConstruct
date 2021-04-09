@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-import org.jetbrains.annotations.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class FancyItemFrameItem extends Item {
 

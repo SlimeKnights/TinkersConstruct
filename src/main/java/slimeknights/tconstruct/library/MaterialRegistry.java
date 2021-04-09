@@ -21,7 +21,6 @@ import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.Collection;
 
-@Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class MaterialRegistry {
 
   protected static MaterialRegistry INSTANCE;

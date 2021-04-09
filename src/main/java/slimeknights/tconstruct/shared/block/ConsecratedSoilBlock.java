@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.shared.block;
 
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -7,11 +10,10 @@ import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.item.Item;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
-
-import org.jetbrains.annotations.Nullable;
 
 public class ConsecratedSoilBlock extends Block {
 
@@ -36,13 +38,11 @@ public class ConsecratedSoilBlock extends Block {
   }
 
   @Nullable
-  @Override
   //TODO: Replace when forge Re-Evaluates
-  public net.minecraftforge.common.ToolType getHarvestTool(BlockState state) {
+  public Tag<Item> getHarvestTool(BlockState state) {
     return FabricToolTags.SHOVELS;
   }
 
-  @Override
   //TODO: Replace when forge Re-Evaluates
   public int getHarvestLevel(BlockState state) {
     return -1;

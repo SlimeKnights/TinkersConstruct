@@ -2,6 +2,8 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.StainedGlassBlock;
+import net.minecraft.client.render.block.entity.BeaconBlockEntityRenderer;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
@@ -18,7 +20,7 @@ public class ClearStainedGlassBlock extends AbstractGlassBlock {
   }
 
   @Nullable
-  @Override
+  //@Override
   public float[] getBeaconColorMultiplier(BlockState state, WorldView world, BlockPos pos, BlockPos beaconPos) {
     return this.glassColor.getRgb();
   }

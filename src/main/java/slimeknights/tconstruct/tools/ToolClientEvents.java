@@ -36,7 +36,6 @@ import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-@EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Bus.MOD)
 public class ToolClientEvents extends ClientEventBase {
 
   @SubscribeEvent
@@ -47,14 +46,14 @@ public class ToolClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
-    RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemEntityRenderer(manager, MinecraftClient.getInstance().getItemRenderer()));
+    RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem, manager -> new ItemEntityRenderer(manager, MinecraftClient.getInstance().getItemRenderer()));
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::onTooltipEvent);
   }
 
   @SubscribeEvent
   static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-    MinecraftClient.getInstance().particleManager.registerFactory(TinkerTools.hammerAttackParticle.get(), HammerAttackParticle.Factory::new);
-    MinecraftClient.getInstance().particleManager.registerFactory(TinkerTools.axeAttackParticle.get(), AxeAttackParticle.Factory::new);
+    MinecraftClient.getInstance().particleManager.registerFactory(TinkerTools.hammerAttackParticle, HammerAttackParticle.Factory::new);
+    MinecraftClient.getInstance().particleManager.registerFactory(TinkerTools.axeAttackParticle, AxeAttackParticle.Factory::new);
   }
 
   @SubscribeEvent

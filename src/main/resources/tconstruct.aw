@@ -1,8 +1,24 @@
 accessWidener   v1  named
-accessible field net/minecraft/tag/ItemTags REQUIRED_TAGS Lnet/minecraft/tag/RequiredTagList;
-accessible field net/minecraft/client/gui/screen/ingame/HandledScreen x I
-accessible field net/minecraft/client/gui/screen/ingame/HandledScreen y I
-accessible method net/minecraft/data/server/RecipesProvider conditionsFromItem (Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/advancement/criterion/InventoryChangedCriterion$Conditions;
+
+accessible  field   net/minecraft/world/explosion/Explosion    power  F
+accessible  field   net/minecraft/world/explosion/Explosion    world  Lnet/minecraft/world/World;
+accessible  field   net/minecraft/world/explosion/Explosion    entity Lnet/minecraft/entity/Entity;
+accessible  field   net/minecraft/world/explosion/Explosion    x  D
+accessible  field   net/minecraft/world/explosion/Explosion    y  D
+accessible  field   net/minecraft/world/explosion/Explosion    z  D
+accessible  field   net/minecraft/world/explosion/Explosion    affectedBlocks Ljava/util/List;
+accessible  field   net/minecraft/world/explosion/Explosion    destructionType    Lnet/minecraft/world/explosion/Explosion$DestructionType;
+
+accessible  method  net/minecraft/data/server/RecipesProvider  conditionsFromTag    (Lnet/minecraft/tag/Tag;)Lnet/minecraft/advancement/criterion/InventoryChangedCriterion$Conditions;
+
+accessible  field   net/minecraft/client/render/entity/EntityRenderDispatcher  renderers    Ljava/util/Map;
+
+accessible  field   net/minecraft/tag/ItemTags REQUIRED_TAGS Lnet/minecraft/tag/RequiredTagList;
+
+accessible  field   net/minecraft/client/gui/screen/ingame/HandledScreen x I
+accessible  field   net/minecraft/client/gui/screen/ingame/HandledScreen y I
+
+accessible  method  net/minecraft/data/server/RecipesProvider conditionsFromItem (Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/advancement/criterion/InventoryChangedCriterion$Conditions;
 
 accessible  method  net/minecraft/data/server/BlockLootTableGenerator  drops    (Lnet/minecraft/block/Block;Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/loot/LootTable$Builder;
 accessible  field   net/minecraft/data/server/BlockLootTableGenerator  SAPLING_DROP_CHANCE  [F
