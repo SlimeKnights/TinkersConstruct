@@ -13,7 +13,7 @@ public class FlintShurikenEntity extends ShurikenEntityBase {
   }
 
   public FlintShurikenEntity(World worldIn, LivingEntity throwerIn) {
-    super(TinkerGadgets.flintShurikenEntity.get(), throwerIn, worldIn);
+    super(TinkerGadgets.flintShurikenEntity, throwerIn, worldIn);
   }
 
   @Override

@@ -222,36 +222,37 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       } else {
         TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isClient) {
-          livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).ifPresent(ITinkerPiggyback::updatePassengers);
+          throw new RuntimeException("Failed to get Capability");
+//          livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).ifPresent(ITinkerPiggyback::updatePassengers);
         }
       }
     }
 
-    @Override
-    @Environment(EnvType.CLIENT)
-    public void renderInventoryEffect(StatusEffectInstance effect, AbstractInventoryScreen<?> gui, MatrixStack matrices, int x, int y, float z) {
-      this.renderHUDEffect(effect, gui, matrices, x, y, z, 1f);
-    }
-
-    @Override
-    @Environment(EnvType.CLIENT)
-    public void renderHUDEffect(StatusEffectInstance effect, DrawableHelper gui, MatrixStack matrices, int x, int y, float z, float alpha) {
-      MinecraftClient.getInstance().getTextureManager().bindTexture(Icons.ICONS);
-      ElementScreen element;
-
-      switch (effect.getAmplifier()) {
-        case 0:
-          element = Icons.PIGGYBACK_1;
-          break;
-        case 1:
-          element = Icons.PIGGYBACK_2;
-          break;
-        default:
-          element = Icons.PIGGYBACK_3;
-          break;
-      }
-
-      element.draw(matrices, x + 6, y + 7);
-    }
+//    @Override
+//    @Environment(EnvType.CLIENT)
+//    public void renderInventoryEffect(StatusEffectInstance effect, AbstractInventoryScreen<?> gui, MatrixStack matrices, int x, int y, float z) {
+//      this.renderHUDEffect(effect, gui, matrices, x, y, z, 1f);
+//    }
+//
+//    @Override
+//    @Environment(EnvType.CLIENT)
+//    public void renderHUDEffect(StatusEffectInstance effect, DrawableHelper gui, MatrixStack matrices, int x, int y, float z, float alpha) {
+//      MinecraftClient.getInstance().getTextureManager().bindTexture(Icons.ICONS);
+//      ElementScreen element;
+//
+//      switch (effect.getAmplifier()) {
+//        case 0:
+//          element = Icons.PIGGYBACK_1;
+//          break;
+//        case 1:
+//          element = Icons.PIGGYBACK_2;
+//          break;
+//        default:
+//          element = Icons.PIGGYBACK_3;
+//          break;
+//      }
+//
+//      element.draw(matrices, x + 6, y + 7);
+//    }
   }
 }

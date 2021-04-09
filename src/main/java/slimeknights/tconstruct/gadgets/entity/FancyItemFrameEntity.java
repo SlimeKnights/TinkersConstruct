@@ -18,14 +18,11 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.network.NetworkHooks;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
-public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAdditionalSpawnData {
+public class FancyItemFrameEntity extends ItemFrameEntity {// implements IEntityAdditionalSpawnData {
 
   private static final TrackedData<Integer> VARIANT = DataTracker.registerData(FancyItemFrameEntity.class, TrackedDataHandlerRegistry.INTEGER);
   private static final String TAG_VARIANT = "Variant";
@@ -35,7 +32,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   public FancyItemFrameEntity(World worldIn, BlockPos blockPos, Direction face, int variant) {
-    super(TinkerGadgets.itemFrameEntity.get(), worldIn);
+    super(TinkerGadgets.itemFrameEntity, worldIn);
     this.attachmentPos = blockPos;
     this.setFacing(face);
     this.dataTracker.set(VARIANT, variant);
@@ -65,16 +62,16 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
     return super.dropStack(stack, offset);
   }
 
-  @NotNull
-  @Override
-  public ItemStack getPickedResult(HitResult target) {
-    ItemStack held = this.getHeldItemStack();
-    if (held.isEmpty()) {
-      return new ItemStack(FrameType.getFrameFromType(this.getFrameType()));
-    } else {
-      return held.copy();
-    }
-  }
+//  @NotNull
+//  @Override
+//  public ItemStack getPickedResult(HitResult target) {
+//    ItemStack held = this.getHeldItemStack();
+//    if (held.isEmpty()) {
+//      return new ItemStack(FrameType.getFrameFromType(this.getFrameType()));
+//    } else {
+//      return held.copy();
+//    }
+//  }
 
   @Override
   public void writeCustomDataToTag(CompoundTag compound) {
@@ -91,22 +88,22 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   @NotNull
   @Override
   public Packet<?> createSpawnPacket() {
-    return NetworkHooks.getEntitySpawningPacket(this);
+    return super.createSpawnPacket();
   }
-
-  @Override
-  public void writeSpawnData(PacketByteBuf buffer) {
-    buffer.writeVarInt(this.getVariantIndex());
-    buffer.writeBlockPos(this.attachmentPos);
-    buffer.writeVarInt(this.facing.getId());
-  }
-
-  @Override
-  public void readSpawnData(PacketByteBuf buffer) {
-    this.dataTracker.set(VARIANT, buffer.readVarInt());
-    this.attachmentPos = buffer.readBlockPos();
-    this.setFacing(Direction.byId(buffer.readVarInt()));
-  }
+//
+//  @Override
+//  public void writeSpawnData(PacketByteBuf buffer) {
+//    buffer.writeVarInt(this.getVariantIndex());
+//    buffer.writeBlockPos(this.attachmentPos);
+//    buffer.writeVarInt(this.facing.getId());
+//  }
+//
+//  @Override
+//  public void readSpawnData(PacketByteBuf buffer) {
+//    this.dataTracker.set(VARIANT, buffer.readVarInt());
+//    this.attachmentPos = buffer.readBlockPos();
+//    this.setFacing(Direction.byId(buffer.readVarInt()));
+//  }
 
   private static void removeClickEvents(Text text) {
     if (text instanceof MutableText) {

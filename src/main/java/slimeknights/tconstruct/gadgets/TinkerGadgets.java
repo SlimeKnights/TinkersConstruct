@@ -99,7 +99,7 @@ public final class TinkerGadgets extends TinkerModule {
   // TODO: moving to natura
   public static final ItemObject<Item> stoneStick = ITEMS.register("stone_stick", HIDDEN_PROPS);
   public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", PiggyBackPackItem::new);
-//  public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
+  public static final ItemEnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
   // slime tools
   private static final Item.Settings SLING_PROPS = new Item.Settings().group(TAB_GADGETS).maxCount(1).maxDamage(250);
   public static final ItemEnumObject<SlimeType, BaseSlimeSlingItem> slimeSling = new ItemEnumObject.Builder<SlimeType, BaseSlimeSlingItem>(SlimeType.class)
@@ -108,7 +108,7 @@ public final class TinkerGadgets extends TinkerModule {
     .put(SlimeType.ICHOR, ITEMS.register("ichor_slime_sling", () -> new IchorSlimeSlingItem(SLING_PROPS)))
     .put(SlimeType.ENDER, ITEMS.register("ender_slime_sling", () -> new EnderSlimeSlingItem(SLING_PROPS)))
     .build();
-//  public static final EnumObject<SlimeType,SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.values(), "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
+  public static final ItemEnumObject<SlimeType,SlimeBootsItem> slimeBoots = ITEMS.registerEnum(SlimeType.values(), "slime_boots", (type) -> new SlimeBootsItem(type, UNSTACKABLE_PROPS));
   // throwballs
   public static final ItemObject<GlowBallItem> glowBall = ITEMS.register("glow_ball", GlowBallItem::new);
   public static final ItemObject<EflnBallItem> efln = ITEMS.register("efln_ball", EflnBallItem::new);

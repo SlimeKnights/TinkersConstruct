@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
-import net.minecraft.item.Item;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.hit.BlockHitResult;
@@ -13,13 +12,9 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.network.NetworkHooks;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
-
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ShurikenEntityBase extends ThrownItemEntity implements IEntityAdditionalSpawnData {
+public abstract class ShurikenEntityBase extends ThrownItemEntity { // implements IEntityAdditionalSpawnData {
 
   public ShurikenEntityBase(EntityType<? extends ShurikenEntityBase> type, World worldIn) {
     super(type, worldIn);
@@ -76,19 +71,19 @@ public abstract class ShurikenEntityBase extends ThrownItemEntity implements IEn
     }
   }
 
-  @Override
-  public void writeSpawnData(PacketByteBuf buffer) {
-    buffer.writeItemStack(this.getItem());
-  }
-
-  @Override
-  public void readSpawnData(PacketByteBuf additionalData) {
-    this.setItem(additionalData.readItemStack());
-  }
-
-  @NotNull
-  @Override
-  public Packet<?> createSpawnPacket() {
-    return NetworkHooks.getEntitySpawningPacket(this);
-  }
+//  @Override
+//  public void writeSpawnData(PacketByteBuf buffer) {
+//    buffer.writeItemStack(this.getItem());
+//  }
+//
+//  @Override
+//  public void readSpawnData(PacketByteBuf additionalData) {
+//    this.setItem(additionalData.readItemStack());
+//  }
+//
+//  @NotNull
+//  @Override
+//  public Packet<?> createSpawnPacket() {
+//    return NetworkHooks.getEntitySpawningPacket(this);
+//  }
 }

@@ -13,7 +13,7 @@ public class QuartzShurikenEntity extends ShurikenEntityBase {
   }
 
   public QuartzShurikenEntity(World worldIn, LivingEntity throwerIn) {
-    super(TinkerGadgets.quartzShurikenEntity.get(), throwerIn, worldIn);
+    super(TinkerGadgets.quartzShurikenEntity, throwerIn, worldIn);
   }
 
   @Override

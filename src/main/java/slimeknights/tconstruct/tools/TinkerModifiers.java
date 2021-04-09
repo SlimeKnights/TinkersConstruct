@@ -2,26 +2,20 @@ package slimeknights.tconstruct.tools;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.registry.Registry;
-
-import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemEnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipe;
 import slimeknights.tconstruct.shared.block.SlimeType;
-import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
@@ -79,8 +73,6 @@ import java.util.function.Supplier;
  */
 @SuppressWarnings("unused")
 public final class TinkerModifiers extends TinkerModule {
-  //protected static final Supplier<IForgeRegistry<Modifier>> MODIFIER_REGISTRY = MODIFIERS.makeRegistry("modifiers", () -> new RegistryBuilder<Modifier>().setType(Modifier.class).setDefaultKey(Util.getResource("empty")));
-
   /*
    * Blocks
    */
@@ -125,9 +117,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final BeheadingModifier beheading = Registry.register(TinkerRegistries.MODIFIERS, id("beheading"), new BeheadingModifier());
 
   // damage boost
-  public static final ScaledTypeDamageModifier smite = MODIFIERS.register("smite", new ScaledTypeDamageModifier(0xCC9720, EntityGroup.UNDEAD));
-  public static final BaneOfArthropodsModifier baneOfArthropods = MODIFIERS.register("bane_of_arthropods", BaneOfArthropodsModifier::new);
-  public static final ScaledTypeDamageModifier antiaquatic = MODIFIERS.register("antiaquatic",  new ScaledTypeDamageModifier(0xD58520, EntityGroup.AQUATIC));
+  public static final ScaledTypeDamageModifier smite = Registry.register(TinkerRegistries.MODIFIERS, id("smite"), new ScaledTypeDamageModifier(0xCC9720, EntityGroup.UNDEAD));
+  public static final BaneOfArthropodsModifier baneOfArthropods = Registry.register(TinkerRegistries.MODIFIERS, id("bane_of_arthropods"), new BaneOfArthropodsModifier());
+  public static final ScaledTypeDamageModifier antiaquatic = Registry.register(TinkerRegistries.MODIFIERS, id("antiaquatic"), new ScaledTypeDamageModifier(0xD58520, EntityGroup.AQUATIC));
   public static final CoolingModifier cooling = Registry.register(TinkerRegistries.MODIFIERS, id("cooling"), new CoolingModifier());
   public static final SharpnessModifier sharpness = Registry.register(TinkerRegistries.MODIFIERS, id("sharpness"), new SharpnessModifier());
 
@@ -138,21 +130,21 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ExpanderModifier expanded = Registry.register(TinkerRegistries.MODIFIERS, id("expanded"), new ExpanderModifier());
 
   // bonus modifier slots
-  public static final ExtraModifier writable = MODIFIERS.register("writable",  new ExtraModifier(0xffffff));
-  public static final ExtraModifier recapitated = MODIFIERS.register("recapitated",  new ExtraModifier(0x67d755));
-  public static final ExtraModifier harmonious = MODIFIERS.register("harmonious",  new ExtraModifier(0xffd800));
-  public static final ExtraModifier resurrected = MODIFIERS.register("resurrected",  new ExtraModifier(0xbe95d4));
-  public static final ExtraModifier gilded = MODIFIERS.register("gilded",  new ExtraModifier(0xeccb45, ExtraType.UPGRADE, ModifierSource.MULTI_USE, 2));
-  public static final ExtraModifier draconic = MODIFIERS.register("draconic",  new ExtraModifier(0x707070, ExtraType.ABILITY, ModifierSource.SINGLE_USE));
+  public static final ExtraModifier writable = Registry.register(TinkerRegistries.MODIFIERS, id("writable"), new ExtraModifier(0xffffff));
+  public static final ExtraModifier recapitated = Registry.register(TinkerRegistries.MODIFIERS, id("recapitated"), new ExtraModifier(0x67d755));
+  public static final ExtraModifier harmonious = Registry.register(TinkerRegistries.MODIFIERS, id("harmonious"), new ExtraModifier(0xffd800));
+  public static final ExtraModifier resurrected = Registry.register(TinkerRegistries.MODIFIERS, id("resurrected"), new ExtraModifier(0xbe95d4));
+  public static final ExtraModifier gilded = Registry.register(TinkerRegistries.MODIFIERS, id("gilded"), new ExtraModifier(0xeccb45, ExtraType.UPGRADE, ModifierSource.MULTI_USE, 2));
+  public static final ExtraModifier draconic = Registry.register(TinkerRegistries.MODIFIERS, id("draconic"), new ExtraModifier(0x707070, ExtraType.ABILITY, ModifierSource.SINGLE_USE));
   // creative
-  public static final ExtraModifier creativeUpgrade = MODIFIERS.register("creative_upgrade",  new ExtraModifier(0xCCBA47, ExtraType.UPGRADE, ModifierSource.MULTI_USE));
-  public static final ExtraModifier creativeAbility = MODIFIERS.register("creative_ability",  new ExtraModifier(0xB8A0FF, ExtraType.ABILITY, ModifierSource.MULTI_USE));
+  public static final ExtraModifier creativeUpgrade = Registry.register(TinkerRegistries.MODIFIERS, id("creative_upgrade"), new ExtraModifier(0xCCBA47, ExtraType.UPGRADE, ModifierSource.MULTI_USE));
+  public static final ExtraModifier creativeAbility = Registry.register(TinkerRegistries.MODIFIERS, id("creative_ability"), new ExtraModifier(0xB8A0FF, ExtraType.ABILITY, ModifierSource.MULTI_USE));
 
   // traits - tier 1
-  public static final CultivatedModifier cultivated = MODIFIERS.register("cultivated", CultivatedModifier::new);
-  public static final DamageSpeedTradeModifier jagged = MODIFIERS.register("jagged",  new DamageSpeedTradeModifier(0x696969, 0.01f));
-  public static final DamageSpeedTradeModifier stonebound = MODIFIERS.register("stonebound",  new DamageSpeedTradeModifier(0x999999, -0.01f));
-  public static final LevelDamageModifier fractured = MODIFIERS.register("fractured",  new LevelDamageModifier(0xede6bf, 0.5f));
+  public static final CultivatedModifier cultivated = Registry.register(TinkerRegistries.MODIFIERS, id("cultivated"), new CultivatedModifier());
+  public static final DamageSpeedTradeModifier jagged = Registry.register(TinkerRegistries.MODIFIERS, id("jagged"), new DamageSpeedTradeModifier(0x696969, 0.01f));
+  public static final DamageSpeedTradeModifier stonebound = Registry.register(TinkerRegistries.MODIFIERS, id("stonebound"), new DamageSpeedTradeModifier(0x999999, -0.01f));
+  public static final LevelDamageModifier fractured = Registry.register(TinkerRegistries.MODIFIERS, id("fractured"), new LevelDamageModifier(0xede6bf, 0.5f));
   // traits - tier 2
   // reinforced is also an upgrade
   public static final SearingModifier searing = Registry.register(TinkerRegistries.MODIFIERS, id("searing"), new SearingModifier());
@@ -162,7 +154,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final OvercastModifier overcast = Registry.register(TinkerRegistries.MODIFIERS, id("overcast"), new OvercastModifier());
   public static final LaceratingModifier lacerating = Registry.register(TinkerRegistries.MODIFIERS, id("lacerating"), new LaceratingModifier());
   public static final MaintainedModifier wellMaintained = Registry.register(TinkerRegistries.MODIFIERS, id("maintained"), new MaintainedModifier());
-  public static final ExtraModifier enhanced = MODIFIERS.register("enhanced",  new ExtraModifier(0xffdbcc, ExtraType.UPGRADE, ModifierSource.TRAIT));
+  public static final ExtraModifier enhanced = Registry.register(TinkerRegistries.MODIFIERS, id("enhanced"), new ExtraModifier(0xffdbcc, ExtraType.UPGRADE, ModifierSource.TRAIT));
   public static final TastyModifier tasty = Registry.register(TinkerRegistries.MODIFIERS, id("tasty"), new TastyModifier());
 
   public static final LightweightModifier lightweight = Registry.register(TinkerRegistries.MODIFIERS, id("lightweight"), new LightweightModifier());
@@ -173,7 +165,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // traits - mod compat tier 2
   public static final HeavyModifier heavy = Registry.register(TinkerRegistries.MODIFIERS, id("heavy"), new HeavyModifier());
-  public static final TypeDamageModifier holy = MODIFIERS.register("holy",  new TypeDamageModifier(0xd1ecf6, EntityGroup.UNDEAD));
+  public static final TypeDamageModifier holy = Registry.register(TinkerRegistries.MODIFIERS, id("holy"),  new TypeDamageModifier(0xd1ecf6, EntityGroup.UNDEAD));
   // experienced is also an upgrade
   // traits - mod compat tier 3
   public static final SturdyModifier sturdy = Registry.register(TinkerRegistries.MODIFIERS, id("sturdy"), new SturdyModifier());
@@ -184,10 +176,10 @@ public final class TinkerModifiers extends TinkerModule {
    * Internal effects
    */
   private static final IntFunction<Supplier<TinkerEffect>> MARKER_EFFECT = color -> () -> new TinkerEffect(StatusEffectType.BENEFICIAL, color, false);
-  public static BleedingEffect bleeding = POTIONS.register("bleeding", BleedingEffect::new);
-  public static MagneticEffect magneticEffect = POTIONS.register("magnetic", MagneticEffect::new);
-  public static TinkerEffect momentumEffect = POTIONS.register("momentum", MARKER_EFFECT.apply(0x60496b));
-  public static TinkerEffect insatiableEffect = POTIONS.register("insatiable", MARKER_EFFECT.apply(0x9261cc));
+  public static BleedingEffect bleeding = Registry.register(Registry.STATUS_EFFECT, id("bleeding"), new BleedingEffect());
+  public static MagneticEffect magneticEffect = Registry.register(Registry.STATUS_EFFECT, id("magnetic"), new MagneticEffect());
+  public static TinkerEffect momentumEffect = Registry.register(Registry.STATUS_EFFECT, id("momentum"), MARKER_EFFECT.apply(0x60496b).get());
+  public static TinkerEffect insatiableEffect = Registry.register(Registry.STATUS_EFFECT, id("insatiable"), MARKER_EFFECT.apply(0x9261cc).get());
 
   /*
    * Recipes

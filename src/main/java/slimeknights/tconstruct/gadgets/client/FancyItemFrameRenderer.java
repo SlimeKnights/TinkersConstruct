@@ -82,19 +82,19 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
       matrixStackIn.translate(0.0D, 0.0D, 0.4375D);
       int i = mapdata != null ? entityIn.getRotation() % 4 * 2 : entityIn.getRotation();
       matrixStackIn.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion((float) i * 360.0F / 8.0F));
-      if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderItemInFrameEvent(entityIn, this.defaultRenderer, matrixStackIn, bufferIn, packedLightIn))) {
-        if (mapdata != null) {
-          matrixStackIn.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
-          float f = 0.0078125F;
-          matrixStackIn.scale(0.0078125F, 0.0078125F, 0.0078125F);
-          matrixStackIn.translate(-64.0D, -64.0D, 0.0D);
-          matrixStackIn.translate(0.0D, 0.0D, -1.0D);
-          this.mc.gameRenderer.getMapRenderer().draw(matrixStackIn, bufferIn, mapdata, true, packedLightIn);
-        } else {
-          matrixStackIn.scale(0.5F, 0.5F, 0.5F);
-          this.itemRenderer.renderItem(itemstack, ModelTransformation.Mode.FIXED, packedLightIn, OverlayTexture.DEFAULT_UV, matrixStackIn, bufferIn);
-        }
-      }
+//      if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderItemInFrameEvent(entityIn, this.defaultRenderer, matrixStackIn, bufferIn, packedLightIn))) {
+//        if (mapdata != null) {
+//          matrixStackIn.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
+//          float f = 0.0078125F;
+//          matrixStackIn.scale(0.0078125F, 0.0078125F, 0.0078125F);
+//          matrixStackIn.translate(-64.0D, -64.0D, 0.0D);
+//          matrixStackIn.translate(0.0D, 0.0D, -1.0D);
+//          this.mc.gameRenderer.getMapRenderer().draw(matrixStackIn, bufferIn, mapdata, true, packedLightIn);
+//        } else {
+//          matrixStackIn.scale(0.5F, 0.5F, 0.5F);
+//          this.itemRenderer.renderItem(itemstack, ModelTransformation.Mode.FIXED, packedLightIn, OverlayTexture.DEFAULT_UV, matrixStackIn, bufferIn);
+//        }
+//      }
     }
 
     matrixStackIn.pop();
@@ -102,28 +102,27 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
 
   @Nullable
   @Override
-  public Identifier getEntityTexture(@NotNull FancyItemFrameEntity entity) {
+  public Identifier getTexture(@NotNull FancyItemFrameEntity entity) {
     return null;
   }
 
-  @Override
   public Vec3d getRenderOffset(FancyItemFrameEntity entityIn, float partialTicks) {
     return new Vec3d((float) entityIn.getHorizontalFacing().getOffsetX() * 0.3F, -0.25D, (float) entityIn.getHorizontalFacing().getOffsetZ() * 0.3F);
   }
-
-  @Override
-  protected boolean canRenderName(FancyItemFrameEntity entity) {
-    if (MinecraftClient.isHudEnabled() && !entity.getHeldItemStack().isEmpty() && entity.getHeldItemStack().hasCustomName() && this.dispatcher.targetedEntity == entity) {
-      double d0 = this.dispatcher.getSquaredDistanceToCamera(entity);
-      float f = entity.isSneaky() ? 32.0F : 64.0F;
-      return d0 < (double) (f * f);
-    } else {
-      return false;
-    }
-  }
-
-  @Override
-  protected void renderName(FancyItemFrameEntity entityIn, Text displayNameIn, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
-    super.renderLabelIfPresent(entityIn, entityIn.getHeldItemStack().getName(), matrixStackIn, bufferIn, packedLightIn);
-  }
+//
+//  @Override
+//  protected boolean canRenderName(FancyItemFrameEntity entity) {
+//    if (MinecraftClient.isHudEnabled() && !entity.getHeldItemStack().isEmpty() && entity.getHeldItemStack().hasCustomName() && this.dispatcher.targetedEntity == entity) {
+//      double d0 = this.dispatcher.getSquaredDistanceToCamera(entity);
+//      float f = entity.isSneaky() ? 32.0F : 64.0F;
+//      return d0 < (double) (f * f);
+//    } else {
+//      return false;
+//    }
+//  }
+//
+//  @Override
+//  protected void renderName(FancyItemFrameEntity entityIn, Text displayNameIn, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
+//    super.renderLabelIfPresent(entityIn, entityIn.getHeldItemStack().getName(), matrixStackIn, bufferIn, packedLightIn);
+//  }
 }
