@@ -1,9 +1,13 @@
 {
     "required": true,
     "minVersion": "0.8",
-    "package": "",
+    "package": "slimeknights.tconstruct.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
+        "BlockTagsAccessor",
+        "EntityTypeTagsAccessor",
+        "FluidTagsAccessor",
+        "ItemTagsAccessor"
     ],
     "client": [
     ],
