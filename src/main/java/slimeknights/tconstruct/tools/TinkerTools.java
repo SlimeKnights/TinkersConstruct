@@ -63,7 +63,7 @@ public final class TinkerTools extends TinkerModule {
   /*
    * Entities
    */
-  public static final RegistryObject<EntityType<IndestructibleEntityItem>> indestructibleItem = ENTITIES.register("indestructible_item", () -> {
+  public static final EntityType<IndestructibleEntityItem> indestructibleItem = ENTITIES.register("indestructible_item", () -> {
     return EntityType.Builder.<IndestructibleEntityItem>create(IndestructibleEntityItem::new, SpawnGroup.MISC)
       .setDimensions(0.25F, 0.25F)
       .makeFireImmune();

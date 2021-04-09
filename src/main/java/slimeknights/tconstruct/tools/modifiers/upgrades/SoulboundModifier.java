@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.GameRules;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
@@ -20,8 +22,9 @@ public class SoulboundModifier extends SingleUseModifier {
   public SoulboundModifier() {
     super(0xD1A75D);
     // high priority so we do it before other possibly death-inventory-modifying mods
+
     MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, this::onPlayerDeath);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, this::onPlayerClone);
+    ServerPlayerEvents.COPY_FROM.register(this::onPlayerClone);
   }
 
   /** Called when the player dies to store the item in the original inventory */
@@ -50,12 +53,10 @@ public class SoulboundModifier extends SingleUseModifier {
   }
 
   /** Called when the new player is created to fetch the soulbound item from the old */
-  private void onPlayerClone(PlayerEvent.Clone event) {
-    if (!event.isWasDeath()) {
+  private void onPlayerClone(ServerPlayerEntity original, ServerPlayerEntity clone, boolean alive) {
+    if (alive) {
       return;
     }
-    PlayerEntity original = event.getOriginal();
-    PlayerEntity clone = event.getPlayer();
     // inventory already copied
     if (clone.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY) || original.isSpectator()) {
       return;
