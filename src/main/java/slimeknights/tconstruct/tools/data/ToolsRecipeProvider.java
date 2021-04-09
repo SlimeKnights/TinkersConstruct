@@ -14,7 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.tag.ItemTags;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
@@ -512,7 +512,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     MaterialIngredient ingredient = MaterialIngredient.fromItem(part);
     String partName = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
     ItemCastingRecipeBuilder.tableRecipe(cast)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
                             .setCast(ingredient, true)
                             .setSwitchSlots()
                             .build(consumer, location("smeltery/casting/casts/" + partName));

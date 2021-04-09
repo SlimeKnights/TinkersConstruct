@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
@@ -45,9 +45,9 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
   /** If true, redstone told this faucet to stop, so stop when ready */
   private boolean stopPouring = false;
   /** Current fluid in the faucet */
-  private FluidStack drained = FluidStack.EMPTY;
+  private FluidVolume drained = FluidVolume.EMPTY;
   /** Fluid for rendering, used to reduce the number of packets. There is a brief moment where {@link this#drained} is empty but we should be rendering something */
-  private FluidStack renderFluid = FluidStack.EMPTY;
+  private FluidVolume renderFluid = FluidVolume.EMPTY;
   /** Used for pulse detection */
   private boolean lastRedstoneState = false;
 
@@ -146,7 +146,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    * Gets the fluid currently being drained, mainly used for rendering
    * @return  Fluid being drained
    */
-  public FluidStack getRenderFluid() {
+  public FluidVolume getRenderFluid() {
     return renderFluid;
   }
 
@@ -170,7 +170,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
         // powered deactivates the faucet, sync to client
       case POWERED:
         faucetState = FaucetState.OFF;
-        syncToClient(FluidStack.EMPTY, false);
+        syncToClient(FluidVolume.EMPTY, false);
         break;
         // pouring means we stop pouring as soon as possible
       case POURING:
@@ -192,7 +192,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
         }
       } else if (faucetState == FaucetState.POWERED) {
         faucetState = FaucetState.OFF;
-        syncToClient(FluidStack.EMPTY, false);
+        syncToClient(FluidVolume.EMPTY, false);
       }
     }
   }
@@ -237,7 +237,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     if (inputOptional.isPresent() && outputOptional.isPresent()) {
       // can we drain?
       IFluidHandler input = inputOptional.orElse(EmptyFluidHandler.INSTANCE);
-      FluidStack drained = input.drain(PACKET_SIZE, FluidAction.SIMULATE);
+      FluidVolume drained = input.drain(PACKET_SIZE, FluidAction.SIMULATE);
       if (!drained.isEmpty() && !drained.getFluid().getAttributes().isGaseous(drained)) {
         // can we fill
         IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
@@ -263,8 +263,8 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
       // if powered, keep faucet running
       if (lastRedstoneState) {
         // sync if either we were not pouring before (particle effects), or if the client thinks we have fluid
-        if (execute && (faucetState == FaucetState.OFF || !renderFluid.isFluidEqual(FluidStack.EMPTY))) {
-          syncToClient(FluidStack.EMPTY, true);
+        if (execute && (faucetState == FaucetState.OFF || !renderFluid.isFluidEqual(FluidVolume.EMPTY))) {
+          syncToClient(FluidVolume.EMPTY, true);
         }
         faucetState = FaucetState.POWERED;
         return false;
@@ -288,7 +288,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     // ensure we have an output
     LazyOptional<IFluidHandler> outputOptional = getOutputHandler();
     if (outputOptional.isPresent()) {
-      FluidStack fillStack = drained.copy();
+      FluidVolume fillStack = drained.copy();
       fillStack.setAmount(Math.min(drained.getAmount(), MB_PER_TICK));
 
       // can we fill?
@@ -317,10 +317,10 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    */
   private void reset() {
     stopPouring = false;
-    drained = FluidStack.EMPTY;
+    drained = FluidVolume.EMPTY;
     if (faucetState != FaucetState.OFF || !renderFluid.isFluidEqual(drained)) {
       faucetState = FaucetState.OFF;
-      syncToClient(FluidStack.EMPTY, false);
+      syncToClient(FluidVolume.EMPTY, false);
     }
   }
 
@@ -338,7 +338,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    * @param fluid       New fluid
    * @param isPouring   New isPouring status
    */
-  private void syncToClient(FluidStack fluid, boolean isPouring) {
+  private void syncToClient(FluidVolume fluid, boolean isPouring) {
     renderFluid = fluid.copy();
     if (world instanceof ServerWorld) {
       TinkerNetwork.getInstance().sendToClientsAround(new FaucetActivationPacket(pos, fluid, isPouring), (ServerWorld) world, getPos());
@@ -347,9 +347,9 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
 
   /**
    * Sets draining fluid to specified stack.
-   * @param fluid new FluidStack
+   * @param fluid new FluidVolume
    */
-  public void onActivationPacket(FluidStack fluid, boolean isPouring) {
+  public void onActivationPacket(FluidVolume fluid, boolean isPouring) {
     // pouring and powered are interchangable on the client
     this.faucetState = isPouring ? FaucetState.POURING : FaucetState.OFF;
     this.renderFluid = fluid;
@@ -385,14 +385,14 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     lastRedstoneState = compound.getBoolean(TAG_LAST_REDSTONE);
     // fluids
     if (compound.contains(TAG_DRAINED, NBT.TAG_COMPOUND)) {
-      drained = FluidStack.loadFluidStackFromNBT(compound.getCompound(TAG_DRAINED));
+      drained = FluidVolume.loadFluidVolumeFromNBT(compound.getCompound(TAG_DRAINED));
     } else {
-      drained = FluidStack.EMPTY;
+      drained = FluidVolume.EMPTY;
     }
     if (compound.contains(TAG_RENDER_FLUID, NBT.TAG_COMPOUND)) {
-      renderFluid = FluidStack.loadFluidStackFromNBT(compound.getCompound(TAG_RENDER_FLUID));
+      renderFluid = FluidVolume.loadFluidVolumeFromNBT(compound.getCompound(TAG_RENDER_FLUID));
     } else {
-      renderFluid = FluidStack.EMPTY;
+      renderFluid = FluidVolume.EMPTY;
     }
   }
 

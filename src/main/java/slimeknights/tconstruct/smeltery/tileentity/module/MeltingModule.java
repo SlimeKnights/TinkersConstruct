@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -37,7 +37,7 @@ public class MeltingModule implements IMeltingInventory, PropertyDelegate {
   /** Tile entity containing this melting module */
   private final MantleTileEntity parent;
   /** Function that accepts fluid output from this module */
-  private final Predicate<FluidStack> outputFunction;
+  private final Predicate<FluidVolume> outputFunction;
   /** Function that gives the nuggets per ore for this module */
   private final IntSupplier nuggetsPerOre;
   /** Slot index for updates */
@@ -197,7 +197,7 @@ public class MeltingModule implements IMeltingInventory, PropertyDelegate {
     }
 
     // get output fluid
-    FluidStack output = recipe.getOutput(this);
+    FluidVolume output = recipe.getOutput(this);
     if (output.isEmpty()) {
       return true;
     }

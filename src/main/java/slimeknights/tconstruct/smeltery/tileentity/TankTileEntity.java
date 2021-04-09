@@ -13,7 +13,7 @@ import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
@@ -118,7 +118,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   }
 
   @Override
-  public void updateFluidTo(FluidStack fluid) {
+  public void updateFluidTo(FluidVolume fluid) {
     ITankTileEntity.super.updateFluidTo(fluid);
     // update light if the fluid changes
     if (this.world != null) {
@@ -144,7 +144,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
    */
   public void updateTank(CompoundTag nbt) {
     if (nbt.isEmpty()) {
-      tank.setFluid(FluidStack.EMPTY);
+      tank.setFluid(FluidVolume.EMPTY);
     } else {
       tank.readFromNBT(nbt);
     }

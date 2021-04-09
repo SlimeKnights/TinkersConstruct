@@ -26,10 +26,10 @@ public class OrientableSmelteryBlock extends SearedBlock {
     this.tileEntity = tileEntity;
   }
 
-  @Override
-  public BlockEntity createTileEntity(BlockState state, BlockView world) {
-    return tileEntity.get();
-  }
+//  @Override
+//  public BlockEntity createTileEntity(BlockState state, BlockView world) {
+//    return tileEntity.get();
+//  }
 
   @Override
   protected void appendProperties(StateManager.Builder<Block,BlockState> builder) {

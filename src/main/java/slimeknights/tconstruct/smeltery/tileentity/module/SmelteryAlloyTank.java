@@ -3,7 +3,7 @@ package slimeknights.tconstruct.smeltery.tileentity.module;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.tconstruct.library.recipe.alloying.IAlloyTank;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
 
@@ -26,12 +26,12 @@ public class SmelteryAlloyTank implements IAlloyTank {
   }
 
   @Override
-  public FluidStack getFluidInTank(int tank) {
+  public FluidVolume getFluidInTank(int tank) {
     return handler.getFluidInTank(tank);
   }
 
   @Override
-  public boolean canFit(FluidStack fluid, int removed) {
+  public boolean canFit(FluidVolume fluid, int removed) {
     // the fluid fits if the net gain in fluid fits in the empty space
     return (fluid.getAmount() - removed) <= handler.getRemainingSpace();
   }

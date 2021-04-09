@@ -1,19 +1,22 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraftforge.common.extensions.IForgeTileEntity;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import java.util.List;
 
 // TODO: reassess
-public interface ISmelteryTankHandler extends IForgeTileEntity {
+public interface ISmelteryTankHandler extends BlockEntityProvider {
   /**
    * Updates the fluids in the tank with data from the packet, should only be called client side
    */
-  void updateFluidsFromPacket(List<FluidStack> fluids);
+  void updateFluidsFromPacket(List<FluidVolume> fluids);
 
   /**
    * Gets the smeltery tank

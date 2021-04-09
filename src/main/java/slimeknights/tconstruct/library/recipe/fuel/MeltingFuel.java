@@ -10,7 +10,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.RecipeSerializer;
@@ -74,7 +74,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
    * Gets a list of all valid input fluids for this recipe
    * @return  Input fluids
    */
-  public List<FluidStack> getInputs() {
+  public List<FluidVolume> getInputs() {
     return input.getFluids();
   }
 

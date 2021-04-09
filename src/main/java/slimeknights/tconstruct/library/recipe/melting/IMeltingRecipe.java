@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.recipe.melting;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -17,7 +17,7 @@ public interface IMeltingRecipe extends ICustomOutputRecipe<IMeltingInventory> {
    * @param inv  Input inventory
    * @return  Output stack
    */
-  FluidStack getOutput(IMeltingInventory inv);
+  FluidVolume getOutput(IMeltingInventory inv);
 
   /**
    * Gets the minimum temperature to melt this item

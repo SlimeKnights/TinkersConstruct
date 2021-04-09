@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import net.minecraft.block.entity.BlockEntity;
@@ -10,7 +11,6 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.SmelteryTankUpdatePacket;
@@ -26,7 +26,7 @@ public class SmelteryTank implements IFluidHandler {
   private final ISmelteryTankHandler parent;
   /** Fluids actually contained in the tank */
   @Getter
-  private final List<FluidStack> fluids;
+  private final List<FluidVolume> fluids;
   /** Maximum capacity of the smeltery */
   private int capacity;
   /** Current amount of fluid in the tank */
@@ -86,7 +86,7 @@ public class SmelteryTank implements IFluidHandler {
   /* Fluids */
 
   @Override
-  public boolean isFluidValid(int tank, FluidStack stack) {
+  public boolean isFluidValid(int tank, FluidVolume stack) {
     return true;
   }
 
@@ -99,9 +99,9 @@ public class SmelteryTank implements IFluidHandler {
   }
 
   @Override
-  public FluidStack getFluidInTank(int tank) {
+  public FluidVolume getFluidInTank(int tank) {
     if (tank < 0 || tank >= fluids.size()) {
-      return FluidStack.EMPTY;
+      return FluidVolume.EMPTY;
     }
     return fluids.get(tank);
   }
@@ -126,7 +126,7 @@ public class SmelteryTank implements IFluidHandler {
    */
   public void moveFluidToBottom(int index) {
     if (index < fluids.size()) {
-      FluidStack fluid = fluids.get(index);
+      FluidVolume fluid = fluids.get(index);
       fluids.remove(index);
       fluids.add(0, fluid);
       parent.notifyFluidsChanged(FluidChange.CHANGED, Fluids.EMPTY);
@@ -137,7 +137,7 @@ public class SmelteryTank implements IFluidHandler {
   /* Filling and draining */
 
   @Override
-  public int fill(FluidStack resource, FluidAction action) {
+  public int fill(FluidVolume resource, FluidAction action) {
     // if full or nothing being filled, do nothing
     if (contained >= capacity || resource.isEmpty()) {
       return 0;
@@ -159,7 +159,7 @@ public class SmelteryTank implements IFluidHandler {
     contained += usable;
 
     // check if we already have the given liquid
-    for (FluidStack fluid : fluids) {
+    for (FluidVolume fluid : fluids) {
       if (fluid.isFluidEqual(resource)) {
         // yup. add it
         fluid.grow(usable);
@@ -177,17 +177,17 @@ public class SmelteryTank implements IFluidHandler {
   }
 
   @Override
-  public FluidStack drain(int maxDrain, FluidAction action) {
+  public FluidVolume drain(int maxDrain, FluidAction action) {
     if (fluids.isEmpty()) {
-      return FluidStack.EMPTY;
+      return FluidVolume.EMPTY;
     }
 
     // simply drain the first one
-    FluidStack fluid = fluids.get(0);
+    FluidVolume fluid = fluids.get(0);
     int drainable = Math.min(maxDrain, fluid.getAmount());
 
     // copy contained fluid to return for accuracy
-    FluidStack ret = fluid.copy();
+    FluidVolume ret = fluid.copy();
     ret.setAmount(drainable);
 
     // remove the fluid from the tank
@@ -208,17 +208,17 @@ public class SmelteryTank implements IFluidHandler {
   }
 
   @Override
-  public FluidStack drain(FluidStack toDrain, FluidAction action) {
+  public FluidVolume drain(FluidVolume toDrain, FluidAction action) {
     // search for the resource
-    ListIterator<FluidStack> iter = fluids.listIterator();
+    ListIterator<FluidVolume> iter = fluids.listIterator();
     while (iter.hasNext()) {
-      FluidStack fluid = iter.next();
+      FluidVolume fluid = iter.next();
       if (fluid.isFluidEqual(toDrain)) {
         // if found, determine how much we can drain
         int drainable = Math.min(toDrain.getAmount(), fluid.getAmount());
 
         // copy contained fluid to return for accuracy
-        FluidStack ret = fluid.copy();
+        FluidVolume ret = fluid.copy();
         ret.setAmount(drainable);
 
         // update tank if executing
@@ -239,7 +239,7 @@ public class SmelteryTank implements IFluidHandler {
     }
 
     // nothing drained
-    return FluidStack.EMPTY;
+    return FluidVolume.EMPTY;
   }
 
   /* Saving and loading */
@@ -251,11 +251,11 @@ public class SmelteryTank implements IFluidHandler {
    * Updates fluids in the tank, typically from a packet
    * @param fluids  List of fluids
    */
-  public void setFluids(List<FluidStack> fluids) {
+  public void setFluids(List<FluidVolume> fluids) {
     Fluid oldFirst = getFluidInTank(0).getFluid();
     this.fluids.clear();
     this.fluids.addAll(fluids);
-    contained = fluids.stream().mapToInt(FluidStack::getAmount).reduce(0, Integer::sum);
+    contained = fluids.stream().mapToInt(FluidVolume::getAmount).reduce(0, Integer::sum);
     Fluid newFirst = getFluidInTank(0).getFluid();
     if (oldFirst != newFirst) {
       parent.notifyFluidsChanged(FluidChange.ORDER_CHANGED, newFirst);
@@ -265,7 +265,7 @@ public class SmelteryTank implements IFluidHandler {
   /** Writes the tank to NBT */
   public CompoundTag write(CompoundTag nbt) {
     ListTag list = new ListTag();
-    for (FluidStack liquid : fluids) {
+    for (FluidVolume liquid : fluids) {
       CompoundTag fluidTag = new CompoundTag();
       liquid.writeToNBT(fluidTag);
       list.add(fluidTag);
@@ -282,7 +282,7 @@ public class SmelteryTank implements IFluidHandler {
     contained = 0;
     for (int i = 0; i < list.size(); i++) {
       CompoundTag fluidTag = list.getCompound(i);
-      FluidStack fluid = FluidStack.loadFluidStackFromNBT(fluidTag);
+      FluidVolume fluid = FluidVolume.loadFluidVolumeFromNBT(fluidTag);
       if (!fluid.isEmpty()) {
         fluids.add(fluid);
         contained += fluid.getAmount();

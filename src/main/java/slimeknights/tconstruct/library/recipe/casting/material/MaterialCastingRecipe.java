@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -87,7 +87,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
       multiRecipes = MaterialRegistry
         .getMaterials().stream()
         .filter(mat -> mat.getFluid() != Fluids.EMPTY)
-        .map(mat -> new DisplayCastingRecipe(type, castItems, Collections.singletonList(new FluidStack(mat.getFluid(), itemCost * mat.getFluidPerUnit())),
+        .map(mat -> new DisplayCastingRecipe(type, castItems, Collections.singletonList(new FluidVolume(mat.getFluid(), itemCost * mat.getFluidPerUnit())),
                                              result.getItemstackWithMaterial(mat), ICastingRecipe.calcCoolingTime(mat.getTemperature(), itemCost * mat.getFluidPerUnit()), consumed))
         .collect(Collectors.toList());
     }

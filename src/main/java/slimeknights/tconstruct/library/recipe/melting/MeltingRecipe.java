@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -32,7 +32,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   private final String group;
   private final Ingredient input;
   @Getter(AccessLevel.PROTECTED)
-  private final FluidStack output;
+  private final FluidVolume output;
   @Getter
   private final int temperature;
   /** Number of "steps" needed to melt this, by default lava increases steps by 5 every 4 ticks (25 a second) */
@@ -55,7 +55,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   }
 
   @Override
-  public FluidStack getOutput(IMeltingInventory inv) {
+  public FluidVolume getOutput(IMeltingInventory inv) {
     return output.copy();
   }
 
@@ -75,7 +75,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   }
 
   /** Gets the recipe output for display in JEI */
-  public List<List<FluidStack>> getDisplayOutput() {
+  public List<List<FluidVolume>> getDisplayOutput() {
     return Collections.singletonList(Collections.singletonList(output));
   }
 
@@ -83,7 +83,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   @FunctionalInterface
   public interface IFactory<T extends MeltingRecipe> {
     /** Creates a new instance of this recipe */
-    T create(Identifier id, String group, Ingredient input, FluidStack output, int temperature, int time);
+    T create(Identifier id, String group, Ingredient input, FluidVolume output, int temperature, int time);
   }
 
   /**
@@ -97,7 +97,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     public T read(Identifier id, JsonObject json) {
       String group = JsonHelper.getString(json, "group", "");
       Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-      FluidStack output = RecipeHelper.deserializeFluidStack(JsonHelper.getObject(json, "result"));
+      FluidVolume output = RecipeHelper.deserializeFluidVolume(JsonHelper.getObject(json, "result"));
 
       // temperature calculates
       int temperature = JsonHelper.getInt(json, "temperature");
@@ -114,7 +114,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     public T read(Identifier id, PacketByteBuf buffer) {
       String group = buffer.readString(Short.MAX_VALUE);
       Ingredient input = Ingredient.fromPacket(buffer);
-      FluidStack output = FluidStack.readFromPacket(buffer);
+      FluidVolume output = FluidVolume.readFromPacket(buffer);
       int temperature = buffer.readInt();
       int time = buffer.readVarInt();
       return factory.create(id, group, input, output, temperature, time);

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
@@ -40,7 +40,7 @@ public class ChannelTank extends FluidTank {
 	}
 
 	@Override
-	public int fill(FluidStack resource, FluidAction action) {
+	public int fill(FluidVolume resource, FluidAction action) {
 		boolean wasEmpty = isEmpty();
 		int amount = super.fill(resource, action);
 		if(action.execute()) {
@@ -54,9 +54,9 @@ public class ChannelTank extends FluidTank {
 	}
 
 	@Override
-	public FluidStack drain(int maxDrain, FluidAction action) {
+	public FluidVolume drain(int maxDrain, FluidAction action) {
 		boolean wasEmpty = isEmpty();
-		FluidStack stack = super.drain(maxDrain, action);
+		FluidVolume stack = super.drain(maxDrain, action);
 		// if we removed something, sync to client
 		if (action.execute() && !wasEmpty && isEmpty()) {
 			parent.sendFluidUpdate();

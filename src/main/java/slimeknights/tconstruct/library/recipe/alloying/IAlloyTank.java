@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.recipe.alloying;
 
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 
 /**
@@ -24,7 +24,7 @@ public interface IAlloyTank extends IEmptyInventory {
    * @param tank  Tank number
    * @return  Fluid in tank, empty if the tank is empty or the index is invalid
    */
-  FluidStack getFluidInTank(int tank);
+  FluidVolume getFluidInTank(int tank);
 
   /**
    * Checks if the given recipe can fit
@@ -32,5 +32,5 @@ public interface IAlloyTank extends IEmptyInventory {
    * @param  removed  How much fluid this recipe will consume
    * @return true if the recipe will fit
    */
-  boolean canFit(FluidStack fluid, int removed);
+  boolean canFit(FluidVolume fluid, int removed);
 }

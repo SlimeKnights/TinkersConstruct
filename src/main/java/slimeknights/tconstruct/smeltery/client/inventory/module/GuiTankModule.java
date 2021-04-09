@@ -5,7 +5,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.IFluidTank;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
@@ -123,7 +123,7 @@ public class GuiTankModule {
    * @return  Fluid stack under mouse
    */
   @Nullable
-  public FluidStack getIngreientUnderMouse(int checkX, int checkY) {
+  public FluidVolume getIngreientUnderMouse(int checkX, int checkY) {
     if (isHovered(checkX, checkY) && checkY > (y + height) - getFluidHeight()) {
       return tank.getFluid();
     }

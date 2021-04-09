@@ -17,7 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
@@ -74,7 +74,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	 * Gets the central fluid tank of this channel
 	 * @return  Central tank
 	 */
-	public FluidStack getFluid() {
+	public FluidVolume getFluid() {
 		return this.tank.getFluid();
 	}
 
@@ -254,7 +254,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 		}
 
 		// must have fluid first
-		FluidStack fluid = tank.getFluid();
+		FluidVolume fluid = tank.getFluid();
 		if(!fluid.isEmpty()) {
 
 			// if we have down and can flow, skip sides
@@ -322,7 +322,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 		int usable = Math.min(tank.getMaxUsable(), amount);
 		if (usable > 0) {
 			// see how much works
-			FluidStack fluid = tank.drain(usable, FluidAction.SIMULATE);
+			FluidVolume fluid = tank.drain(usable, FluidAction.SIMULATE);
 			int filled = handler.fill(fluid, FluidAction.SIMULATE);
 			if (filled > 0) {
 				// drain the amount that worked
@@ -355,7 +355,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	}
 
 	@Override
-  public void updateFluidTo(FluidStack fluid) {
+  public void updateFluidTo(FluidVolume fluid) {
 		tank.setFluid(fluid);
 	}
 

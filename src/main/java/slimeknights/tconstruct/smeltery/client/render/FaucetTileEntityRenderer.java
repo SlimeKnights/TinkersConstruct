@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.client.model.FaucetFluidLoader;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.mantle.client.model.fluid.FluidsModel;
@@ -32,7 +32,7 @@ public class FaucetTileEntityRenderer extends BlockEntityRenderer<FaucetTileEnti
 
   @Override
   public void render(FaucetTileEntity tileEntity, float partialTicks, MatrixStack matrices, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
-    FluidStack renderFluid = tileEntity.getRenderFluid();
+    FluidVolume renderFluid = tileEntity.getRenderFluid();
     if (!tileEntity.isPouring() || renderFluid.isEmpty()) {
       return;
     }

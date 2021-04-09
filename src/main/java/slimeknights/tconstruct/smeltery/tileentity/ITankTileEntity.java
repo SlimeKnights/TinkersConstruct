@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
@@ -80,7 +80,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    */
 
   @Override
-  default void updateFluidTo(FluidStack fluid) {
+  default void updateFluidTo(FluidVolume fluid) {
     // update tank fluid
     FluidTankAnimated tank = getTank();
     int oldAmount = tank.getFluidAmount();
@@ -138,7 +138,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
           if (te != null) {
             te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit)
               .ifPresent(handler -> {
-                FluidStack fluidStack = new FluidStack(bucket.getFluid(), FluidAttributes.BUCKET_VOLUME);
+                FluidVolume fluidStack = new FluidVolume(bucket.getFluid(), FluidAttributes.BUCKET_VOLUME);
                 // must empty the whole bucket
                 if (handler.fill(fluidStack, FluidAction.SIMULATE) == FluidAttributes.BUCKET_VOLUME) {
                   handler.fill(fluidStack, FluidAction.EXECUTE);

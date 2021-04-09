@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.network;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import slimeknights.mantle.network.packet.IThreadsafePacket;

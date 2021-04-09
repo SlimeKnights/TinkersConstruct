@@ -10,7 +10,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.RecipeSerializer;
@@ -45,9 +45,9 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   }
 
   @Override
-  public FluidStack getOutput(IMeltingInventory inv) {
+  public FluidVolume getOutput(IMeltingInventory inv) {
     IMaterial material = item.getMaterial(inv.getStack());
-    return new FluidStack(material.getFluid(), material.getFluidPerUnit() * cost);
+    return new FluidVolume(material.getFluid(), material.getFluidPerUnit() * cost);
   }
 
   @Override
@@ -81,7 +81,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
           new Identifier(id.getNamespace(), String.format("%s/%s/%s", id.getPath(), matId.getNamespace(), matId.getPath())),
           group,
           Ingredient.ofStacks(item.getItemstackWithMaterial(mat)),
-          new FluidStack(mat.getFluid(), mat.getFluidPerUnit() * cost),
+          new FluidVolume(mat.getFluid(), mat.getFluidPerUnit() * cost),
           mat.getTemperature(),
           getTime(mat)
         );

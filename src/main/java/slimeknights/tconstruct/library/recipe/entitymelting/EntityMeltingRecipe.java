@@ -10,7 +10,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
@@ -33,7 +33,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
   private final Identifier id;
   private final EntityIngredient ingredient;
   @Getter
-  private final FluidStack output;
+  private final FluidVolume output;
   @Getter
   private final int damage;
 
@@ -54,7 +54,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
    * @param entity  Entity being melted
    * @return  Fluid output
    */
-  public FluidStack getOutput(LivingEntity entity) {
+  public FluidVolume getOutput(LivingEntity entity) {
     return output.copy();
   }
 
@@ -100,7 +100,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
     @Override
     public EntityMeltingRecipe read(Identifier id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
-      FluidStack output = RecipeHelper.deserializeFluidStack(net.minecraft.util.JsonHelper.getObject(json, "result"));
+      FluidVolume output = RecipeHelper.deserializeFluidVolume(net.minecraft.util.JsonHelper.getObject(json, "result"));
       int damage = net.minecraft.util.JsonHelper.getInt(json, "damage", 2);
       return new EntityMeltingRecipe(id, ingredient, output, damage);
     }
@@ -109,7 +109,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
     @Override
     public EntityMeltingRecipe read(Identifier id, PacketByteBuf buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
-      FluidStack output = buffer.readFluidStack();
+      FluidVolume output = buffer.readFluidVolume();
       int damage = buffer.readVarInt();
       return new EntityMeltingRecipe(id, ingredient, output, damage);
     }
@@ -117,7 +117,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
     @Override
     public void write(PacketByteBuf buffer, EntityMeltingRecipe recipe) {
       recipe.ingredient.write(buffer);
-      buffer.writeFluidStack(recipe.output);
+      buffer.writeFluidVolume(recipe.output);
       buffer.writeVarInt(recipe.damage);
     }
   }

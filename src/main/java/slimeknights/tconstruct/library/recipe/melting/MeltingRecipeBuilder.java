@@ -8,7 +8,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBuilder> {
   private final Ingredient input;
-  private final FluidStack output;
+  private final FluidVolume output;
   private final int temperature;
   private final int time;
   private boolean isOre = false;
@@ -37,7 +37,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    * @param time         Time this recipe takes
    * @return  Builder instance
    */
-  public static MeltingRecipeBuilder melting(Ingredient input, FluidStack output, int temperature, int time) {
+  public static MeltingRecipeBuilder melting(Ingredient input, FluidVolume output, int temperature, int time) {
     if (temperature < 0) throw new IllegalArgumentException("Invalid temperature " + temperature + ", must be greater than zero");
     if (time <= 0) throw new IllegalArgumentException("Invalid time " + time + ", must be greater than zero");
     return new MeltingRecipeBuilder(input, output, temperature, time);
@@ -50,7 +50,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    * @param timeFactor   Factor this recipe takes compared to the standard of ingots
    * @return  Builder instance
    */
-  public static MeltingRecipeBuilder melting(Ingredient input, FluidStack output, float timeFactor) {
+  public static MeltingRecipeBuilder melting(Ingredient input, FluidVolume output, float timeFactor) {
     int temperature = output.getFluid().getAttributes().getTemperature(output) - 300;
     return melting(input, output, temperature, IMeltingRecipe.calcTime(temperature, timeFactor));
   }
@@ -64,7 +64,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    * @return  Builder instance
    */
   public static MeltingRecipeBuilder melting(Ingredient input, Fluid fluid, int amount, float timeFactor) {
-    return melting(input, new FluidStack(fluid, amount), timeFactor);
+    return melting(input, new FluidVolume(fluid, amount), timeFactor);
   }
 
   /**
@@ -75,7 +75,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    * @return  Builder instance
    */
   public static MeltingRecipeBuilder melting(Ingredient input, Fluid fluid, int amount) {
-    return melting(input, new FluidStack(fluid, amount), IMeltingRecipe.calcTimeFactor(amount));
+    return melting(input, new FluidVolume(fluid, amount), IMeltingRecipe.calcTimeFactor(amount));
   }
 
   /**
@@ -122,7 +122,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
         json.addProperty("group", group);
       }
       json.add("ingredient", input.toJson());
-      json.add("result", RecipeHelper.serializeFluidStack(output));
+      json.add("result", RecipeHelper.serializeFluidVolume(output));
       json.addProperty("temperature", temperature);
       json.addProperty("time", time);
     }

@@ -10,7 +10,7 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.util.JsonHelper;
@@ -81,7 +81,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
    * @return  List of fluids
    */
   @Override
-  public List<FluidStack> getFluids() {
+  public List<FluidVolume> getFluids() {
     return this.fluid.getFluids();
   }
 

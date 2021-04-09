@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.recipe.casting;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public interface IDisplayableCastingRecipe {
   boolean isConsumed();
 
   /** Gets a list of fluid */
-  List<FluidStack> getFluids();
+  List<FluidVolume> getFluids();
 
   /** Gets the recipe output */
   ItemStack getOutput();

@@ -8,7 +8,7 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -69,7 +69,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
   public ItemStack getCraftingResult(ICastingInventory inv) {
     ItemStack output = new ItemStack(container);
     return FluidUtil.getFluidHandler(output).map(handler -> {
-      handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount), FluidAction.EXECUTE);
+      handler.fill(new FluidVolume(inv.getFluid(), this.fluidAmount), FluidAction.EXECUTE);
       return handler.getContainer();
     }).orElse(ItemStack.EMPTY);
   }

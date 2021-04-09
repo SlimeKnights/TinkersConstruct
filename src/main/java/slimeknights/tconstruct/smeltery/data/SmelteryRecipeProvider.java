@@ -23,7 +23,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientIntersection;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -317,12 +317,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // glass
     this.addBlockCastingRecipe(consumer, TinkerFluids.moltenGlass, MaterialValues.GLASS_BLOCK, TinkerCommons.clearGlass, folder + "glass/block");
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.clearGlassPane)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_PANE))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_PANE))
                             .build(consumer, location(folder + "glass/pane"));
     // soul glass
     this.addBlockCastingRecipe(consumer, TinkerFluids.liquidSoul, MaterialValues.GLASS_BLOCK, TinkerCommons.soulGlass, folder + "soul/glass");
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.soulGlassPane)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.liquidSoul.get(), MaterialValues.GLASS_PANE))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.liquidSoul.get(), MaterialValues.GLASS_PANE))
                             .build(consumer, location(folder + "soul/pane"));
 
     // clay
@@ -371,19 +371,19 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addBlockCastingRecipe(consumer, TinkerFluids.searedStone, MaterialValues.METAL_BRICK, TinkerSmeltery.searedStone, searedFolder + "stone/block_from_seared");
     this.addIngotCastingRecipe(consumer, TinkerFluids.searedStone, TinkerSmeltery.searedBrick, searedFolder + "brick");
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.searedGlass)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.METAL_BRICK))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.searedStone.get(), MaterialValues.METAL_BRICK))
                             .setCast(Tags.Items.GLASS_COLORLESS, true)
                             .build(consumer, location(searedFolder + "glass"));
     // discount for casting panes
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.searedGlassPane)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.INGOT))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.searedStone.get(), MaterialValues.INGOT))
                             .setCast(Tags.Items.GLASS_PANES_COLORLESS, true)
                             .build(consumer, location(searedFolder + "glass_pane"));
 
     // smeltery controller
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.smelteryController)
                             .setCast(TinkerSmeltery.searedHeater, true)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenCopper.get(), MaterialValues.INGOT * 4))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenCopper.get(), MaterialValues.INGOT * 4))
                             .build(consumer, prefix(TinkerSmeltery.smelteryController, searedFolder));
 
     // craft seared stone from clay and stone
@@ -411,21 +411,21 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // Misc
     ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.lavawood)
-                            .setFluidAndTime(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 10))
+                            .setFluidAndTime(new FluidVolume(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 10))
                             .setCast(ItemTags.PLANKS, true)
                             .build(consumer, prefix(TinkerCommons.lavawood, folder));
     ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.blazewood)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 10))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 10))
                             .setCast(new IngredientIntersection(Ingredient.fromTag(ItemTags.PLANKS), Ingredient.fromTag(ItemTags.NON_FLAMMABLE_WOOD)), true)
                             .build(consumer, prefix(TinkerCommons.blazewood, folder));
     ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.mudBricks)
-                            .setFluidAndTime(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 10))
+                            .setFluidAndTime(new FluidVolume(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 10))
                             .setCast(Items.DIRT, true)
                             .build(consumer, prefix(TinkerCommons.mudBricks, folder));
 
     // Cast recipes
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.blankCast)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
                             .setSwitchSlots()
                             .build(consumer, location(folder + "casts/blank"));
 
@@ -435,37 +435,37 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // misc casting - gold
     ItemCastingRecipeBuilder.tableRecipe(Items.GOLDEN_APPLE)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.INGOT * 8))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenGold.get(), MaterialValues.INGOT * 8))
                             .setCast(Items.APPLE, true)
                             .build(consumer, prefix(Items.GOLDEN_APPLE, folder));
     ItemCastingRecipeBuilder.tableRecipe(Items.GLISTERING_MELON_SLICE)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.NUGGET * 8))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenGold.get(), MaterialValues.NUGGET * 8))
                             .setCast(Items.MELON_SLICE, true)
                             .build(consumer, prefix(Items.GLISTERING_MELON_SLICE, folder));
     ItemCastingRecipeBuilder.tableRecipe(Items.GOLDEN_CARROT)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.NUGGET * 8))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenGold.get(), MaterialValues.NUGGET * 8))
                             .setCast(Items.CARROT, true)
                             .build(consumer, prefix(Items.GOLDEN_CARROT, folder));
     ItemCastingRecipeBuilder.tableRecipe(Items.CLOCK)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.INGOT * 4))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenGold.get(), MaterialValues.INGOT * 4))
                             .setCast(Items.REDSTONE, true)
                             .build(consumer, prefix(Items.CLOCK, folder));
     // misc casting - iron
     ItemCastingRecipeBuilder.tableRecipe(Items.LANTERN)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 8))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 8))
                             .setCast(Blocks.TORCH, true)
                             .build(consumer, prefix(Items.LANTERN, folder));
     ItemCastingRecipeBuilder.tableRecipe(Items.SOUL_LANTERN)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 8))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 8))
                             .setCast(Blocks.SOUL_TORCH, true)
                             .build(consumer, prefix(Items.SOUL_LANTERN, folder));
     ItemCastingRecipeBuilder.tableRecipe(Items.COMPASS)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.INGOT * 4))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenIron.get(), MaterialValues.INGOT * 4))
                             .setCast(Items.REDSTONE, true)
                             .build(consumer, prefix(Items.COMPASS, folder));
     // ender chest
     ItemCastingRecipeBuilder.basinRecipe(Blocks.ENDER_CHEST)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK * 8))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK * 8))
                             .setCast(Items.ENDER_EYE, true)
                             .build(consumer, prefix(Items.ENDER_CHEST, folder));
 
@@ -473,14 +473,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     String compositeFolder = "tools/parts/composite/";
     // half a clay is 1 seared brick per grout amounts
     CompositeCastingRecipeBuilder.table(MaterialIds.stone, MaterialIds.searedStone)
-                                 .setFluid(new FluidStack(TinkerFluids.moltenClay.get(), MaterialValues.SLIMEBALL / 2))
+                                 .setFluid(new FluidVolume(TinkerFluids.moltenClay.get(), MaterialValues.SLIMEBALL / 2))
                                  .build(consumer, location(compositeFolder + "seared_stone"));
     CompositeCastingRecipeBuilder.table(MaterialIds.wood, MaterialIds.slimewood)
                                  .setFluid(TinkerFluids.earthSlime.getForgeTag(), MaterialValues.SLIMEBALL)
                                  .setTemperature(getTemperature(TinkerFluids.earthSlime))
                                  .build(consumer, location(compositeFolder + "slimewood"));
     CompositeCastingRecipeBuilder.table(MaterialIds.wood, MaterialIds.nahuatl)
-                                 .setFluid(new FluidStack(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK))
+                                 .setFluid(new FluidVolume(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK))
                                  .build(consumer, location(compositeFolder + "nahuatl"));
   }
 
@@ -789,9 +789,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, location(slimeFolder + "blood/sapling"));
 
     // fuels
-    MeltingFuelBuilder.fuel(new FluidStack(Fluids.LAVA, 50), 100)
+    MeltingFuelBuilder.fuel(new FluidVolume(Fluids.LAVA, 50), 100)
                       .build(consumer, location(folder + "fuel/lava"));
-    MeltingFuelBuilder.fuel(new FluidStack(TinkerFluids.moltenBlaze.get(), 50), 150)
+    MeltingFuelBuilder.fuel(new FluidVolume(TinkerFluids.moltenBlaze.get(), 50), 150)
                       .build(consumer, location(folder + "fuel/blaze"));
   }
 
@@ -921,66 +921,66 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // zombies give less blood, they lost a lot already
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.ZOMBIE, EntityType.HUSK, EntityType.DROWNED, EntityType.ZOMBIFIED_PIGLIN, EntityType.ZOGLIN, EntityType.ZOMBIE_HORSE),
-                                       new FluidStack(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL / 10), 2)
+                                       new FluidVolume(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL / 10), 2)
                               .build(consumer, prefixR(EntityType.ZOMBIE, folder));
 
     // creepers are based on explosives, tnt is explosive, tnt is made from sand, sand melts into glass. therefore, creepers melt into glass
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.CREEPER),
-                                       new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK / 20), 2)
+                                       new FluidVolume(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK / 20), 2)
                               .build(consumer, prefixR(EntityType.CREEPER, folder));
 
     // melt skeletons to get the milk out
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityIngredient.of(EntityTypeTags.SKELETONS), EntityIngredient.of(EntityType.SKELETON_HORSE)),
-                                       new FluidStack(ForgeMod.MILK.get(), FluidAttributes.BUCKET_VOLUME / 10))
+                                       new FluidVolume(ForgeMod.MILK.get(), FluidAttributes.BUCKET_VOLUME / 10))
                               .build(consumer, location(folder + "skeletons"));
 
     // slimes melt into slime, shocker
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SLIME), new FluidStack(TinkerFluids.earthSlime.get(), MaterialValues.SLIMEBALL / 10))
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SLIME), new FluidVolume(TinkerFluids.earthSlime.get(), MaterialValues.SLIMEBALL / 10))
                               .build(consumer, prefixR(EntityType.SLIME, folder));
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(TinkerWorld.skySlimeEntity.get()), new FluidStack(TinkerFluids.skySlime.get(), MaterialValues.SLIMEBALL / 10))
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(TinkerWorld.skySlimeEntity.get()), new FluidVolume(TinkerFluids.skySlime.get(), MaterialValues.SLIMEBALL / 10))
                               .build(consumer, prefixR(TinkerWorld.skySlimeEntity, folder));
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.MAGMA_CUBE), new FluidStack(TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL / 10))
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.MAGMA_CUBE), new FluidVolume(TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL / 10))
                               .build(consumer, prefixR(EntityType.MAGMA_CUBE, folder));
 
     // iron golems can be healed using an iron ingot 25 health
     // 4 * 9 gives 36, which is larger
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.IRON_GOLEM), new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET), 4)
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.IRON_GOLEM), new FluidVolume(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET), 4)
                               .build(consumer, prefixR(EntityType.IRON_GOLEM, folder));
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SNOW_GOLEM), new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 10))
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SNOW_GOLEM), new FluidVolume(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 10))
                               .build(consumer, prefixR(EntityType.SNOW_GOLEM, folder));
 
     // "melt" blazes to get fuel
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.BLAZE), new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 50), 2)
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.BLAZE), new FluidVolume(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 50), 2)
                               .build(consumer, prefixR(EntityType.BLAZE, folder));
 
     // guardians are rock, seared stone is rock, don't think about it too hard
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN), new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.NUGGET), 4)
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN), new FluidVolume(TinkerFluids.searedStone.get(), MaterialValues.NUGGET), 4)
                               .build(consumer, prefixR(EntityType.GUARDIAN, folder));
     // silverfish also seem like rock, sorta?
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SILVERFISH), new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.NUGGET), 2)
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SILVERFISH), new FluidVolume(TinkerFluids.searedStone.get(), MaterialValues.NUGGET), 2)
                               .build(consumer, prefixR(EntityType.SILVERFISH, folder));
 
     // villagers melt into emerald, but they die quite quick
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.VILLAGER, EntityType.WANDERING_TRADER),
-                                       new FluidStack(TinkerFluids.moltenEmerald.get(), MaterialValues.GEM / 10), 5)
+                                       new FluidVolume(TinkerFluids.moltenEmerald.get(), MaterialValues.GEM / 10), 5)
                               .build(consumer, prefixR(EntityType.VILLAGER, folder));
     // illagers are more resistant, they resist the villager culture afterall
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.EVOKER, EntityType.ILLUSIONER, EntityType.PILLAGER, EntityType.VINDICATOR),
-                                       new FluidStack(TinkerFluids.moltenEmerald.get(), MaterialValues.GEM / 10), 2)
+                                       new FluidVolume(TinkerFluids.moltenEmerald.get(), MaterialValues.GEM / 10), 2)
                               .build(consumer, location(folder + "illager"));
     // zombie villagers and witches faintly recall being a villager once
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.ZOMBIE_VILLAGER, EntityType.WITCH),
-                                       new FluidStack(TinkerFluids.moltenEmerald.get(), MaterialValues.GEM / 25), 3)
+                                       new FluidVolume(TinkerFluids.moltenEmerald.get(), MaterialValues.GEM / 25), 3)
                               .build(consumer, prefixR(EntityType.ZOMBIE_VILLAGER, folder));
 
     // melt ender for the molten ender
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.ENDER_DRAGON),
-                                       new FluidStack(TinkerFluids.moltenEnder.get(), MaterialValues.GEM / 25), 2)
+                                       new FluidVolume(TinkerFluids.moltenEnder.get(), MaterialValues.GEM / 25), 2)
                               .build(consumer, location(folder + "ender"));
 
     // if you can get him to stay, wither is a source of free liquid soul
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.WITHER),
-                                       new FluidStack(TinkerFluids.liquidSoul.get(), MaterialValues.GLASS_BLOCK / 20), 2)
+                                       new FluidVolume(TinkerFluids.liquidSoul.get(), MaterialValues.GLASS_BLOCK / 20), 2)
                               .build(consumer, prefixR(EntityType.WITHER, folder));
   }
 
@@ -1060,7 +1060,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
    */
   private void addBlockCastingRecipe(Consumer<RecipeJsonProvider> consumer, Supplier<? extends Fluid> fluid, int amount, ItemConvertible block, String location) {
     ItemCastingRecipeBuilder.basinRecipe(block)
-                            .setFluidAndTime(new FluidStack(fluid.get(), amount))
+                            .setFluidAndTime(new FluidVolume(fluid.get(), amount))
                             .build(consumer, location(location));
   }
 
@@ -1110,7 +1110,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
    */
   private static void addSearedCastingRecipe(Consumer<RecipeJsonProvider> consumer, ItemConvertible block, Ingredient cast, int amount, String location) {
     ItemCastingRecipeBuilder.basinRecipe(block)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenClay.get(), amount))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenClay.get(), amount))
                             .setCast(cast, true)
                             .build(consumer, location(location));
   }
@@ -1125,7 +1125,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
    * @param location  Recipe base
    */
   private void addCastingWithCastRecipe(Consumer<RecipeJsonProvider> consumer, Supplier<? extends Fluid> fluid, int amount, CastItemObject cast, ItemConvertible output, String location) {
-    FluidStack fluidStack = new FluidStack(fluid.get(), amount);
+    FluidVolume fluidStack = new FluidVolume(fluid.get(), amount);
     ItemCastingRecipeBuilder.tableRecipe(output)
                             .setFluidAndTime(fluidStack)
                             .setCast(cast, false)
@@ -1259,11 +1259,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     Tag<Item> tag = getTag("forge", tagName);
     Consumer<RecipeJsonProvider> wrapped = withCondition(consumer, tagCondition(tagName));
     ItemCastingRecipeBuilder.tableRecipe(tag)
-                            .setFluidAndTime(new FluidStack(fluid, amount))
+                            .setFluidAndTime(new FluidVolume(fluid, amount))
                             .setCast(cast, false)
                             .build(wrapped, location(folder + name + "/" + recipeName + "_gold_cast"));
     ItemCastingRecipeBuilder.tableRecipe(tag)
-                            .setFluidAndTime(new FluidStack(fluid, amount))
+                            .setFluidAndTime(new FluidVolume(fluid, amount))
                             .setCast(cast.getSingleUseTag(), true)
                             .build(wrapped, location(folder + name + "/" + recipeName + "_sand_cast"));
   }
@@ -1283,7 +1283,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     Tag<Item> block = getTag("forge", "storage_blocks/" + name);
     Consumer<RecipeJsonProvider> wrapped = withCondition(consumer, tagCondition("storage_blocks/" + name));
     ItemCastingRecipeBuilder.basinRecipe(block)
-                            .setFluidAndTime(new FluidStack(fluid, MaterialValues.METAL_BLOCK))
+                            .setFluidAndTime(new FluidVolume(fluid, MaterialValues.METAL_BLOCK))
                             .build(wrapped, location(folder + name + "/block"));
   }
 
@@ -1297,7 +1297,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
   private void addCastCastingRecipe(Consumer<RecipeJsonProvider> consumer, Identified<Item> input, CastItemObject cast, String folder) {
     String path = input.getId().getPath();
     ItemCastingRecipeBuilder.tableRecipe(cast)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
+                            .setFluidAndTime(new FluidVolume(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
                             .setCast(input, true)
                             .setSwitchSlots()
                             .build(consumer, location(folder + "casts/" + path));

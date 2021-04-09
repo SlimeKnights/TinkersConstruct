@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
@@ -19,11 +19,11 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "melting")
 public class EntityMeltingRecipeBuilder extends AbstractRecipeBuilder<EntityMeltingRecipeBuilder> {
   private final EntityIngredient ingredient;
-  private final FluidStack output;
+  private final FluidVolume output;
   private final int damage;
 
   /** Creates a new builder doing 2 damage */
-  public static EntityMeltingRecipeBuilder melting(EntityIngredient ingredient, FluidStack output) {
+  public static EntityMeltingRecipeBuilder melting(EntityIngredient ingredient, FluidVolume output) {
     return melting(ingredient, output, 2);
   }
 
@@ -46,7 +46,7 @@ public class EntityMeltingRecipeBuilder extends AbstractRecipeBuilder<EntityMelt
     @Override
     public void serialize(JsonObject json) {
       json.add("entity", ingredient.serialize());
-      json.add("result", RecipeHelper.serializeFluidStack(output));
+      json.add("result", RecipeHelper.serializeFluidVolume(output));
       json.addProperty("damage", damage);
     }
 

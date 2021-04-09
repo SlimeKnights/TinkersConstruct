@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.smeltery.network;
 
-import lombok.AllArgsConstructor;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -13,9 +13,12 @@ import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 /**
  * Packet sent when a fluid is clicked in the smeltery UI
  */
-@AllArgsConstructor
 public class SmelteryFluidClickedPacket implements IThreadsafePacket {
   private final int index;
+
+  public SmelteryFluidClickedPacket(int index) {
+    this.index = index;
+  }
 
   public SmelteryFluidClickedPacket(PacketByteBuf buffer) {
     index = buffer.readVarInt();
@@ -28,7 +31,7 @@ public class SmelteryFluidClickedPacket implements IThreadsafePacket {
 
   @Override
   public void handleThreadsafe(PlayerEntity player, PacketSender context) {
-    ServerPlayerEntity sender = context.getSender();
+    ServerPlayerEntity sender = (ServerPlayerEntity) player;
     if (sender != null) {
       ScreenHandler container = sender.currentScreenHandler;
       if (container instanceof BaseContainer<?>) {

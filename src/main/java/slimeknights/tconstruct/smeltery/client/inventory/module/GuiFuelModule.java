@@ -6,7 +6,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraftforge.fluids.FluidStack;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
@@ -127,7 +127,7 @@ public class GuiFuelModule {
           tooltip = Collections.emptyList();
         }
       } else if (!fuelInfo.isEmpty()) {
-        FluidStack fluid = fuelInfo.getFluid();
+        FluidVolume fluid = fuelInfo.getFluid();
         tooltip = FluidTooltipHandler.getFluidTooltip(fluid, fuelInfo.getTotalAmount());
         int temperature = fuelInfo.getTemperature();
         if (temperature > 0) {
@@ -151,7 +151,7 @@ public class GuiFuelModule {
    * @return  Fluid stack under mouse
    */
   @Nullable
-  public FluidStack getIngredient(int checkX, int checkY) {
+  public FluidVolume getIngredient(int checkX, int checkY) {
     if (!hasFuelSlot && isHovered(checkX, checkY) && !fuelInfo.isEmpty()) {
       return fuelInfo.getFluid();
     }
