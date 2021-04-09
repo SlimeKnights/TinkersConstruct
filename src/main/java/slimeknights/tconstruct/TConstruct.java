@@ -237,6 +237,8 @@ public class TConstruct {
         case "pigiron_nugget": return TinkerMaterials.pigIron.getNugget();
         // moss removed
         case "moss": case "mending_moss": return Items.MOSSY_COBBLESTONE;
+        // book spliting
+        case "book": return TinkerCommons.materialsAndYou.get();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

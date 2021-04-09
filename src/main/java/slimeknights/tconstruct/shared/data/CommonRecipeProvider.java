@@ -17,6 +17,7 @@ import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -48,11 +49,16 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     registerSlabStair(consumer, TinkerCommons.mudBricks, "common/", false);
 
     // book
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.book)
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.materialsAndYou)
                           .addIngredient(Items.BOOK)
                           .addIngredient(TinkerTables.pattern)
                           .addCriterion("has_item", hasItem(TinkerTables.pattern))
-                          .build(consumer, prefix(TinkerCommons.book, "common/"));
+                          .build(consumer, prefix(TinkerCommons.materialsAndYou, "common/"));
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.mightySmelting)
+                          .addIngredient(Items.BOOK)
+                          .addIngredient(TinkerSmeltery.searedBrick)
+                          .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+                          .build(consumer, prefix(TinkerCommons.mightySmelting, "common/"));
 
     // glass
     folder = "common/glass/";

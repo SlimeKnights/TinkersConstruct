@@ -38,7 +38,9 @@ public class CommonsClientEvents extends ClientEventBase {
     RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.getTranslucent());
     RenderTypeLookup.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.getTranslucent());
 
-    TinkerBook.INSTANCE.fontRenderer = unicodeFontRender();
+    FontRenderer unicode = unicodeFontRender();
+    TinkerBook.MATERIALS.fontRenderer = unicode;
+    TinkerBook.SMELTING.fontRenderer = unicode;
   }
 
   @SubscribeEvent

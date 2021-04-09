@@ -151,10 +151,12 @@
     "item.tconstruct.knightslime_ingot": "Knightslime Ingot",
     "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
     "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
-    
 
-    "item.tconstruct.book": "Materials and You",
-    "item.tconstruct.book.tooltip": "The book every Tinker needs\nby Skyla",
+    "item.tconstruct.materials_and_you": "Materials and You",
+    "item.tconstruct.materials_and_you.tooltip": "The book every Tinker needs\nby Skyla",
+
+    "item.tconstruct.mighty_smelting": "Mighty Smelting",
+    "item.tconstruct.mighty_smelting.tooltip": "Master smelting, casting, and alloying\nby Thruul M'Gon",
 
     "item.tconstruct.sky_slime_ball": "Skyslime Ball",
     "item.tconstruct.ender_slime_ball": "Enderslime Ball",

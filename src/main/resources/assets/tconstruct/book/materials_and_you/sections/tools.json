@@ -25,16 +25,6 @@
     "data": "tools/kama.json"
   },
   {
-    "name": "sledge_hammer",
-    "type": "tool",
-    "data": "tools/sledge_hammer.json"
-  },
-  {
-    "name": "excavator",
-    "type": "tool",
-    "data": "tools/excavator.json"
-  },
-  {
     "name": "broad_sword",
     "type": "tool",
     "data": "tools/broad_sword.json"

@@ -5,10 +5,10 @@
       "item": "minecraft:book"
     },
     {
-      "item": "tconstruct:pattern"
+      "item": "tconstruct:seared_brick"
     }
   ],
   "result": {
-    "item": "tconstruct:book"
+    "item": "tconstruct:mighty_smelting"
   }
 }
