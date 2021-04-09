@@ -1,5 +1,10 @@
 package slimeknights.tconstruct.common;
 
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.fabricmc.fabric.impl.item.group.ItemGroupExtensions;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.entity.effect.StatusEffect;
@@ -10,16 +15,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.stateprovider.BlockStateProviderType;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.mantle.registration.deferred.ContainerTypeDeferredRegister;
@@ -46,28 +47,28 @@ public abstract class TinkerModule {
   // deferred register instances
   protected static final BlockDeferredRegisterExtension BLOCKS = new BlockDeferredRegisterExtension(TConstruct.modID);
   protected static final ItemDeferredRegisterExtension ITEMS = new ItemDeferredRegisterExtension(TConstruct.modID);
-  protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.modID);
+//  protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.modID);
   protected static final TileEntityTypeDeferredRegister TILE_ENTITIES = new TileEntityTypeDeferredRegister(TConstruct.modID);
   protected static final EntityTypeDeferredRegister ENTITIES = new EntityTypeDeferredRegister(TConstruct.modID);
   protected static final ContainerTypeDeferredRegister CONTAINERS = new ContainerTypeDeferredRegister(TConstruct.modID);
-  protected static final DeferredRegister<StatusEffect> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, TConstruct.modID);
-  protected static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TConstruct.modID);
-  protected static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.modID);
-  protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
-  protected static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
-  protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TConstruct.modID);
-  protected static final DeferredRegister<Modifier> MODIFIERS = DeferredRegister.create(Modifier.class, TConstruct.modID);
-  protected static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, TConstruct.modID);
+//  protected static final DeferredRegister<StatusEffect> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, TConstruct.modID);
+//  protected static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TConstruct.modID);
+//  protected static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.modID);
+//  protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
+//  protected static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
+//  protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TConstruct.modID);
+//  protected static final DeferredRegister<Modifier> MODIFIERS = DeferredRegister.create(Modifier.class, TConstruct.modID);
+//  protected static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, TConstruct.modID);
 
   // base block properties
-  protected static final Block.Properties GENERIC_SAND_BLOCK = builder(Material.AGGREGATE, ToolType.SHOVEL, BlockSoundGroup.SAND).strength(3.0f).slipperiness(0.8F);
-  protected static final Block.Properties GENERIC_METAL_BLOCK = builder(Material.METAL, ToolType.PICKAXE, BlockSoundGroup.METAL).requiresTool().strength(5.0f);
-  protected static final Block.Properties GENERIC_GEM_BLOCK = GENERIC_METAL_BLOCK;
-  protected static final Block.Properties GENERIC_GLASS_BLOCK = builder(Material.GLASS, ToolType.PICKAXE, BlockSoundGroup.GLASS).requiresTool().strength(0.3F).nonOpaque(); //TODO: .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+  protected static final AbstractBlock.Settings GENERIC_SAND_BLOCK = builder(Material.AGGREGATE, FabricToolTags.SHOVELS, BlockSoundGroup.SAND).strength(3.0f).slipperiness(0.8F);
+  protected static final AbstractBlock.Settings GENERIC_METAL_BLOCK = builder(Material.METAL, FabricToolTags.PICKAXES, BlockSoundGroup.METAL).requiresTool().strength(5.0f);
+  protected static final AbstractBlock.Settings GENERIC_GEM_BLOCK = GENERIC_METAL_BLOCK;
+  protected static final AbstractBlock.Settings GENERIC_GLASS_BLOCK = builder(Material.GLASS, FabricToolTags.PICKAXES, BlockSoundGroup.GLASS).requiresTool().strength(0.3F).nonOpaque(); //TODO: .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
 
   /** Creative tab for items that do not fit in another tab */
   @SuppressWarnings("WeakerAccess")
-  public static final ItemGroup TAB_GENERAL = new SupplierItemGroup(TConstruct.modID, "general", () -> new ItemStack(TinkerCommons.slimeball.get(SlimeType.SKY)));
+  public static final ItemGroup TAB_GENERAL = FabricItemGroupBuilder.build(new Identifier(TConstruct.modID, "general"), () -> new ItemStack(TinkerCommons.slimeball.get(SlimeType.SKY)));
 
   // base item properties
   protected static final Item.Settings HIDDEN_PROPS = new Item.Settings();
@@ -79,21 +80,21 @@ public abstract class TinkerModule {
 
   /** Called during construction to initialize the registers for this mod */
   public static void initRegisters() {
-    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-    BLOCKS.register(bus);
-    ITEMS.register(bus);
-    FLUIDS.register(bus);
-    TILE_ENTITIES.register(bus);
-    ENTITIES.register(bus);
-    CONTAINERS.register(bus);
-    POTIONS.register(bus);
-    FEATURES.register(bus);
-    STRUCTURE_FEATURES.register(bus);
-    BLOCK_STATE_PROVIDER_TYPES.register(bus);
-    RECIPE_SERIALIZERS.register(bus);
-    PARTICLE_TYPES.register(bus);
-    MODIFIERS.register(bus);
-    GLOBAL_LOOT_MODIFIERS.register(bus);
+/*//    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    BLOCKS.register(TConstruct.modID);
+    ITEMS.register();
+//    FLUIDS.register(bus);
+    TILE_ENTITIES.register();
+    ENTITIES.register();
+    CONTAINERS.register();
+//    POTIONS.register(bus);
+//    FEATURES.register(bus);
+//    STRUCTURE_FEATURES.register(bus);
+//    BLOCK_STATE_PROVIDER_TYPES.register(bus);
+//    RECIPE_SERIALIZERS.register(bus);
+//    PARTICLE_TYPES.register(bus);
+//    MODIFIERS.register(bus);
+//    GLOBAL_LOOT_MODIFIERS.register(bus);*/
   }
 
   /**
@@ -101,14 +102,14 @@ public abstract class TinkerModule {
    * @param <T>  Field type
    * @return  Null
    */
-  @Nonnull
+  @NotNull
   @SuppressWarnings("ConstantConditions")
   public static <T> T injected() {
     return null;
   }
 
   /** Constant to use for blocks with no tool for more readable code */
-  protected static final ToolType NO_TOOL = null;
+  protected static final FabricToolTags NO_TOOL = null;
 
   /**
    * We use this builder to ensure that our blocks all have the most important properties set.
@@ -116,9 +117,9 @@ public abstract class TinkerModule {
    * It may be a bit less clear at first, since the actual builder methods tell you what each value means,
    * but as long as we don't statically import the enums it should be just as readable.
    */
-  protected static Block.Properties builder(Material material, @Nullable ToolType toolType, BlockSoundGroup soundType) {
+  protected static Block.Settings builder(Material material, @Nullable Tag<Item> toolType, BlockSoundGroup soundType) {
     //noinspection ConstantConditions
-    return Block.Properties.of(material).harvestTool(toolType).sounds(soundType);
+    return FabricBlockSettings.of(material).breakByTool(toolType).sounds(soundType);
   }
 
   /**

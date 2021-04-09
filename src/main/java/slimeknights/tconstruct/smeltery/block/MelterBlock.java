@@ -94,7 +94,7 @@ public class MelterBlock extends ControllerBlock {
    * Tile Entity interaction
    */
 
-  @Nonnull
+  @NotNull
   @Override
   public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
     return new MelterTileEntity();

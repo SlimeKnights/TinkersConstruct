@@ -30,7 +30,7 @@ public abstract class TableTileEntity extends InventoryTileEntity {
   /* Syncing */
 
   @Override
-  public void setStack(int slot, @Nonnull ItemStack itemstack) {
+  public void setStack(int slot, @NotNull ItemStack itemstack) {
     // send a slot update to the client when items change, so we can update the TESR
     if (world != null && world instanceof ServerWorld && !world.isClient && !ItemStack.areEqual(itemstack, getStack(slot))) {
       TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(itemstack, slot, pos), (ServerWorld) world, this.pos);

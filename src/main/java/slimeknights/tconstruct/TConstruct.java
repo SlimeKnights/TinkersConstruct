@@ -3,42 +3,20 @@ package slimeknights.tconstruct;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.event.RegistryEvent.MissingMappings;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructBlockTagsProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructEntityTypeTagsProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructFluidTagsProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructItemTagsProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -74,53 +52,31 @@ public class TConstruct implements ModInitializer {
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
 
-    // initialize modules, done this way rather than with annotations to give us control over the order
-    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-    // base
-    bus.register(new TinkerCommons());
-    bus.register(new TinkerFluids());
-    bus.register(new TinkerGadgets());
-    // world
-    bus.register(new TinkerWorld());
-    bus.register(new TinkerStructures());
-    // tools
-    bus.register(new TinkerTables());
-    bus.register(new TinkerMaterials());
-    bus.register(new TinkerModifiers());
-    bus.register(new TinkerToolParts());
-    bus.register(new TinkerTools());
-    // smeltery
-    bus.register(new TinkerSmeltery());
+//?
 
     // init deferred registers
     TinkerModule.initRegisters();
-    // init client logic
-    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
-    MinecraftForge.EVENT_BUS.register(this);
+
+    MaterialRegistry.init();
   }
 
   public TConstruct() {
     instance = this;
   }
 
-  @SubscribeEvent
-  static void commonSetup(final FMLCommonSetupEvent event) {
-    MaterialRegistry.init();
-  }
-
-  @SubscribeEvent
-  static void gatherData(final GatherDataEvent event) {
-    if (event.includeServer()) {
-      DataGenerator datagenerator = event.getGenerator();
-      ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator, existingFileHelper);
-      datagenerator.install(blockTags);
-      datagenerator.install(new TConstructItemTagsProvider(datagenerator, blockTags, existingFileHelper));
-      datagenerator.install(new TConstructFluidTagsProvider(datagenerator, existingFileHelper));
-      datagenerator.install(new TConstructEntityTypeTagsProvider(datagenerator, existingFileHelper));
-      datagenerator.install(new TConstructLootTableProvider(datagenerator));
-    }
-  }
+//  @SubscribeEvent
+//  static void gatherData(final GatherDataEvent event) {
+//    if (event.includeServer()) {
+//      DataGenerator datagenerator = event.getGenerator();
+//      ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+//      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator, existingFileHelper);
+//      datagenerator.install(blockTags);
+//      datagenerator.install(new TConstructItemTagsProvider(datagenerator, blockTags, existingFileHelper));
+//      datagenerator.install(new TConstructFluidTagsProvider(datagenerator, existingFileHelper));
+//      datagenerator.install(new TConstructEntityTypeTagsProvider(datagenerator, existingFileHelper));
+//      datagenerator.install(new TConstructLootTableProvider(datagenerator));
+//    }
+//  }
 
   @Nullable
   private static Block missingBlock(String name) {

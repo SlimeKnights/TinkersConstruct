@@ -7,7 +7,7 @@ import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -30,7 +30,7 @@ public class StationTabPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
+  public void handleThreadsafe(PacketSender context) {
     ServerPlayerEntity sender = context.getSender();
     if (sender != null) {
       ItemStack heldStack = sender.inventory.getCursorStack();

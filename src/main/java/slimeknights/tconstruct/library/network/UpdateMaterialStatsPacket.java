@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.network;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -85,7 +85,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
+  public void handleThreadsafe(PacketSender context) {
     MaterialRegistry.updateMaterialStatsFromServer(this);
   }
 }

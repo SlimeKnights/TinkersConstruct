@@ -10,13 +10,8 @@ public class BloodSlimeBlock extends SlimeBlock {
     super(properties);
   }
 
-  @Override
-  public boolean isSlimeBlock(BlockState state) {
-    return true;
-  }
-
-  @Override
-  public boolean canStickTo(BlockState state, BlockState other) {
-    return TinkerWorld.slime.contains(other.getBlock());
-  }
+//  @Override
+//  public boolean canStickTo(BlockState state, BlockState other) {
+//    return TinkerWorld.slime.contains(other.getBlock());
+//  }
 }

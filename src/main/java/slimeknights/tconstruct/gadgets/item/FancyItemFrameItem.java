@@ -28,7 +28,7 @@ public class FancyItemFrameItem extends Item {
    * Called when this item is used when targetting a Block
    */
   @Override
-  @Nonnull
+  @NotNull
   public ActionResult useOnBlock(ItemUsageContext context) {
     BlockPos pos = context.getBlockPos();
     Direction facing = context.getSide();

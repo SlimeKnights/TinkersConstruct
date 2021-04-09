@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.LadderBlock;
 import net.minecraft.block.Material;
@@ -16,6 +17,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallStandingBlockItem;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -83,14 +86,14 @@ public final class TinkerGadgets extends TinkerModule {
   public static final ItemObject<PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(Material.PLANT, NO_TOOL, BlockSoundGroup.GRASS).strength(3.0F).nonOpaque()), HIDDEN_BLOCK_ITEM);
   // torch
   // TODO: moving to natura
-  private static final Block.Properties STONE_TORCH = builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.STONE).noCollision().strength(0.0F).luminance(s -> 14);
+  private static final AbstractBlock.Settings STONE_TORCH = builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.STONE).noCollision().strength(0.0F).luminance(s -> 14);
   public static final RegistryObject<WallTorchBlock> wallStoneTorch = BLOCKS.registerNoItem("wall_stone_torch", () -> new WallTorchBlock(STONE_TORCH, ParticleTypes.FLAME) {});
   public static final ItemObject<TorchBlock> stoneTorch = BLOCKS.register("stone_torch",
                                                                                () -> new TorchBlock(STONE_TORCH, ParticleTypes.FLAME) {},
                                                                                (block) -> new WallStandingBlockItem(block, wallStoneTorch.get(), HIDDEN_PROPS));
   // rails
   // TODO: moving to tinkers' mechworks
-  private static final Block.Properties WOODEN_RAIL = builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.WOOD).noCollision().strength(0.2F);
+  private static final AbstractBlock.Settings WOODEN_RAIL = builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.WOOD).noCollision().strength(0.2F);
   public static final ItemObject<DropperRailBlock> woodenDropperRail = BLOCKS.register("wooden_dropper_rail", () -> new DropperRailBlock(WOODEN_RAIL), HIDDEN_BLOCK_ITEM);
   public static final ItemObject<RailBlock> woodenRail = BLOCKS.register("wooden_rail", () -> new RailBlock(WOODEN_RAIL) {}, HIDDEN_BLOCK_ITEM);
 
@@ -146,12 +149,12 @@ public final class TinkerGadgets extends TinkerModule {
     return EntityType.Builder.<FancyItemFrameEntity>create(
       FancyItemFrameEntity::new, SpawnGroup.MISC)
       .setDimensions(0.5F, 0.5F)
-      .setTrackingRange(160)
+      .maxTrackingRange(160)
       .setUpdateInterval(Integer.MAX_VALUE)
       .setCustomClientFactory((spawnEntity, world) -> new FancyItemFrameEntity(TinkerGadgets.itemFrameEntity.get(), world))
       .setShouldReceiveVelocityUpdates(false);
   });
-  public static final RegistryObject<EntityType<GlowballEntity>> glowBallEntity = ENTITIES.register("glow_ball", () -> {
+  public static final EntityType<GlowballEntity> glowBallEntity = ENTITIES.register("glow_ball", () -> {
     return EntityType.Builder.<GlowballEntity>create(GlowballEntity::new, SpawnGroup.MISC)
       .setDimensions(0.25F, 0.25F)
       .setTrackingRange(64)
@@ -159,7 +162,7 @@ public final class TinkerGadgets extends TinkerModule {
       .setCustomClientFactory((spawnEntity, world) -> new GlowballEntity(TinkerGadgets.glowBallEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true);
   });
-  public static final RegistryObject<EntityType<EflnBallEntity>> eflnEntity = ENTITIES.register("efln_ball", () -> {
+  public static final EntityType<EflnBallEntity> eflnEntity = ENTITIES.register("efln_ball", () -> {
     return EntityType.Builder.<EflnBallEntity>create(EflnBallEntity::new, SpawnGroup.MISC)
       .setDimensions(0.25F, 0.25F)
       .setTrackingRange(64)
@@ -175,10 +178,11 @@ public final class TinkerGadgets extends TinkerModule {
       .setCustomClientFactory((spawnEntity, world) -> new QuartzShurikenEntity(TinkerGadgets.quartzShurikenEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true);
   });
-  public static final RegistryObject<EntityType<FlintShurikenEntity>> flintShurikenEntity = ENTITIES.register("flint_shuriken", () -> {
+  public static final EntityType<FlintShurikenEntity> flintShurikenEntity = Registry.register(Registry.ENTITY_TYPE ,new Identifier(TConstruct.modID, "flint_shuriken"), () -> {
     return EntityType.Builder.<FlintShurikenEntity>create(FlintShurikenEntity::new, SpawnGroup.MISC)
       .setDimensions(0.25F, 0.25F)
-      .setTrackingRange(64)
+      .maxTrackingRange(64)
+
       .setUpdateInterval(10)
       .setCustomClientFactory((spawnEntity, world) -> new FlintShurikenEntity(TinkerGadgets.flintShurikenEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true);
@@ -187,7 +191,7 @@ public final class TinkerGadgets extends TinkerModule {
   /**
    * Potions
    */
-  public static final RegistryObject<CarryPotionEffect> carryEffect = POTIONS.register("carry", CarryPotionEffect::new);
+  public static final CarryPotionEffect carryEffect = Registry.register(Registry.POTION,new Identifier(TConstruct.modID,"carry"), CarryPotionEffect::new);
 
   /*
    * Events

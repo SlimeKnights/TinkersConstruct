@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
@@ -88,14 +89,14 @@ public final class TinkerWorld extends TinkerModule {
    * Blocks
    */
   // ores
-  private static final Block.Properties NETHER_ORE = builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.NETHER_ORE).requiresTool().harvestLevel(HarvestLevels.DIAMOND).strength(10.0F).nonOpaque();
+  private static final Block.Settings NETHER_ORE = builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.NETHER_ORE).requiresTool().harvestLevel(HarvestLevels.DIAMOND).strength(10.0F).nonOpaque();
   public static final ItemObject<Block> cobaltOre = BLOCKS.register("cobalt_ore", () -> new Block(NETHER_ORE), DEFAULT_BLOCK_ITEM);
 
-  private static final Block.Properties OVERWORLD_ORE = builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.STONE).requiresTool().harvestLevel(HarvestLevels.STONE).strength(3.0F, 3.0F);
+  private static final Block.Settings OVERWORLD_ORE = builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.STONE).requiresTool().harvestLevel(HarvestLevels.STONE).strength(3.0F, 3.0F);
   public static final ItemObject<Block> copperOre = BLOCKS.register("copper_ore", OVERWORLD_ORE, DEFAULT_BLOCK_ITEM);
 
   // slime
-  private static final Block.Properties SLIME = Block.Properties.copy(Blocks.SLIME_BLOCK);
+  private static final Block.Settings SLIME = Block.Settings.copy(Blocks.SLIME_BLOCK);
   public static final EnumObject<SlimeType, SlimeBlock> slime = new EnumObject.Builder<SlimeType, SlimeBlock>(SlimeType.class)
     .putDelegate(SlimeType.EARTH, Blocks.SLIME_BLOCK.delegate)
     // sky slime: sticks to anything, but will not pull back
@@ -107,12 +108,12 @@ public final class TinkerWorld extends TinkerModule {
     // blood slime: not sticky, and honey won't stick to it, good for bounce pads
     .put(SlimeType.BLOOD, BLOCKS.register("blood_slime", () -> new BloodSlimeBlock(SLIME), TOOLTIP_BLOCK_ITEM))
     .build();
-  private static final Block.Properties CONGEALED_SLIME = builder(Material.ORGANIC_PRODUCT, NO_TOOL, BlockSoundGroup.SLIME).strength(0.5F).slipperiness(0.5F);
+  private static final AbstractBlock.Settings CONGEALED_SLIME = builder(Material.ORGANIC_PRODUCT, NO_TOOL, BlockSoundGroup.SLIME).strength(0.5F).slipperiness(0.5F);
   public static final EnumObject<SlimeType, CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(CONGEALED_SLIME), TOOLTIP_BLOCK_ITEM);
 
   // island blocks
-  private static final Block.Properties SLIME_DIRT = builder(Material.SOIL, ToolType.SHOVEL, BlockSoundGroup.SLIME).strength(0.55F);
-  private static final Block.Properties SLIME_GRASS = builder(Material.SOLID_ORGANIC, ToolType.SHOVEL, BlockSoundGroup.SLIME).strength(0.65F).ticksRandomly();
+  private static final Block.Settings SLIME_DIRT = builder(Material.SOIL, ToolType.SHOVEL, BlockSoundGroup.SLIME).strength(0.55F);
+  private static final Block.Settings SLIME_GRASS = builder(Material.SOLID_ORGANIC, ToolType.SHOVEL, BlockSoundGroup.SLIME).strength(0.65F).ticksRandomly();
   public static final EnumObject<SlimeType, Block> slimeDirt = BLOCKS.registerEnum(SlimeType.TRUE_SLIME, "slime_dirt", (type) -> new SlimeDirtBlock(SLIME_DIRT), TOOLTIP_BLOCK_ITEM);
   public static final EnumObject<SlimeType, Block> allDirt = new EnumObject.Builder<SlimeType, Block>(SlimeType.class).put(SlimeType.BLOOD, Blocks.DIRT.delegate).putAll(slimeDirt).build();
   public static final EnumObject<FoliageType, SlimeGrassBlock> vanillaSlimeGrass = BLOCKS.registerEnum(FoliageType.values(), "vanilla_slime_grass", (type) -> new SlimeGrassBlock(SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
@@ -132,18 +133,18 @@ public final class TinkerWorld extends TinkerModule {
   public static final EnumObject<FoliageType, SlimeGrassSeedItem> slimeGrassSeeds = ITEMS.registerEnum(FoliageType.values(), "slime_grass_seeds", type -> new SlimeGrassSeedItem(WORLD_PROPS, type));
 
   // plants
-  private static final Block.Properties GRASS = builder(Material.PLANT, NO_TOOL, BlockSoundGroup.GRASS).breakInstantly().noCollision().ticksRandomly();
+  private static final Block.Settings GRASS = builder(Material.PLANT, NO_TOOL, BlockSoundGroup.GRASS).breakInstantly().noCollision().ticksRandomly();
   public static final EnumObject<FoliageType, SlimeTallGrassBlock> slimeFern = BLOCKS.registerEnum(FoliageType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), DEFAULT_BLOCK_ITEM);
   public static final EnumObject<FoliageType, SlimeTallGrassBlock> slimeTallGrass = BLOCKS.registerEnum(FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), DEFAULT_BLOCK_ITEM);
 
   // trees
-  private static final Block.Properties SAPLING = builder(Material.PLANT, NO_TOOL, BlockSoundGroup.GRASS).breakInstantly().noCollision().ticksRandomly();
+  private static final Block.Settings SAPLING = builder(Material.PLANT, NO_TOOL, BlockSoundGroup.GRASS).breakInstantly().noCollision().ticksRandomly();
   public static final EnumObject<FoliageType, SlimeSaplingBlock> slimeSapling = BLOCKS.registerEnum(FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type), type, SAPLING), TOOLTIP_BLOCK_ITEM);
-  private static final Block.Properties SLIME_LEAVES = builder(Material.LEAVES, NO_TOOL, BlockSoundGroup.GRASS).strength(0.3F).ticksRandomly().nonOpaque().allowsSpawning((s, w, p, e) -> false);
+  private static final Block.Settings SLIME_LEAVES = builder(Material.LEAVES, NO_TOOL, BlockSoundGroup.GRASS).strength(0.3F).ticksRandomly().nonOpaque().allowsSpawning((s, w, p, e) -> false);
   public static final EnumObject<FoliageType, SlimeLeavesBlock> slimeLeaves = BLOCKS.registerEnum(FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(SLIME_LEAVES, type), DEFAULT_BLOCK_ITEM);
 
   // slime vines
-  private static final Block.Properties VINE = builder(Material.REPLACEABLE_PLANT, NO_TOOL, BlockSoundGroup.GRASS).strength(0.3F).noCollision().ticksRandomly();
+  private static final Block.Settings VINE = builder(Material.REPLACEABLE_PLANT, NO_TOOL, BlockSoundGroup.GRASS).strength(0.3F).noCollision().ticksRandomly();
   public static final ItemObject<SlimeVineBlock> enderSlimeVine = BLOCKS.register("ender_slime_vine", () -> new SlimeVineBlock(VINE, FoliageType.ENDER), DEFAULT_BLOCK_ITEM);
   public static final ItemObject<SlimeVineBlock> skySlimeVine = BLOCKS.register("sky_slime_vine", () -> new SlimeVineBlock(VINE, FoliageType.SKY), DEFAULT_BLOCK_ITEM);
 

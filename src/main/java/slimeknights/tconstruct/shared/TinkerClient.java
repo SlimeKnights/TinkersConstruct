@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared;
 
+import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.ReloadableResourceManager;
 import net.minecraft.resource.ResourceManager;
@@ -19,14 +20,15 @@ import java.util.function.Consumer;
 /**
  * This class should only be referenced on the client side
  */
-public class TinkerClient {
+public class TinkerClient implements ClientModInitializer {
   /** Validates that a texture exists for models. During model type as that is when the validator is needed */
   public static final ResourceValidator textureValidator = new ResourceValidator("textures/item/tool", "textures", ".png");
 
   /**
    * Called by TConstruct to handle any client side logic that needs to run during the constructor
    */
-  public static void onConstruct() {
+  @Override
+  public void onInitializeClient() {
     TinkerBook.initBook();
 
     MinecraftClient minecraft = MinecraftClient.getInstance();
@@ -41,6 +43,11 @@ public class TinkerClient {
     // add the recipe cache invalidator to the client
     Consumer<RecipesUpdatedEvent> recipesUpdated = event -> RecipeCacheInvalidator.reload(true);
     MinecraftForge.EVENT_BUS.addListener(recipesUpdated);
+  }
+
+
+  public static void onConstruct() {
+
   }
 
   /**

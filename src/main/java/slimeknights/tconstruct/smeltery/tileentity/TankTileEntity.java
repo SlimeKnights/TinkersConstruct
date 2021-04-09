@@ -90,7 +90,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
    */
 
   @Override
-  @Nonnull
+  @NotNull
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
     if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       return holder.cast();

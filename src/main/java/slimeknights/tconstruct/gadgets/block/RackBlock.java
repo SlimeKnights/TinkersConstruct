@@ -16,7 +16,7 @@ public class RackBlock extends TableBlock {
     super(builder);
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
     return null;

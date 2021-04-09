@@ -75,7 +75,7 @@ public class GlowballEntity extends ThrownItemEntity implements IEntityAdditiona
     this.setItem(additionalData.readItemStack());
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public Packet<?> createSpawnPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);

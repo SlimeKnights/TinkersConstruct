@@ -5,7 +5,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
@@ -27,7 +27,7 @@ public class SmelteryFluidClickedPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
+  public void handleThreadsafe(PacketSender context) {
     ServerPlayerEntity sender = context.getSender();
     if (sender != null) {
       ScreenHandler container = sender.currentScreenHandler;

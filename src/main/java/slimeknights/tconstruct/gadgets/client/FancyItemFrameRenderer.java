@@ -102,7 +102,7 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
 
   @Nullable
   @Override
-  public Identifier getEntityTexture(@Nonnull FancyItemFrameEntity entity) {
+  public Identifier getEntityTexture(@NotNull FancyItemFrameEntity entity) {
     return null;
   }
 

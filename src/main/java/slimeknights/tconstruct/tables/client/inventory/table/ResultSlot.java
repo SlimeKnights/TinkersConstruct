@@ -35,8 +35,8 @@ public class ResultSlot extends CraftingResultSlot {
   }
 
   @Override
-  @Nonnull
-  public ItemStack onTakeItem(PlayerEntity playerIn, @Nonnull ItemStack stack) {
+  @NotNull
+  public ItemStack onTakeItem(PlayerEntity playerIn, @NotNull ItemStack stack) {
     BasicEventHooks.firePlayerCraftingEvent(playerIn, stack, this.inventory);
     this.onCrafted(stack);
     this.callback.onCrafting(playerIn, stack, this.inventory);

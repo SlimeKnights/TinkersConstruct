@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.smeltery.network;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
@@ -16,31 +17,26 @@ import java.util.List;
 /**
  * Packet sent whenever the contents of the smeltery tank change
  */
-@AllArgsConstructor
 public class SmelteryTankUpdatePacket implements IThreadsafePacket {
   private final BlockPos pos;
-  private final List<FluidStack> fluids;
+  private final List<FluidVolume> fluids;
 
-  public SmelteryTankUpdatePacket(PacketByteBuf buffer) {
-    pos = buffer.readBlockPos();
-    int size = buffer.readVarInt();
-    fluids = new ArrayList<>(size);
-    for (int i = 0; i < size; i++) {
-      fluids.add(buffer.readFluidStack());
-    }
+  public SmelteryTankUpdatePacket(BlockPos pos, List<FluidVolume> fluids) {
+    this.pos = pos;
+    this.fluids = fluids;
   }
 
   @Override
   public void encode(PacketByteBuf buffer) {
     buffer.writeBlockPos(pos);
     buffer.writeVarInt(fluids.size());
-    for (FluidStack fluid : fluids) {
-      buffer.writeFluidStack(fluid);
+    for (FluidVolume fluid : fluids) {
+      fluid.toMcBuffer(buffer);
     }
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
+  public void handleThreadsafe(PacketSender context) {
     HandleClient.handle(this);
   }
 

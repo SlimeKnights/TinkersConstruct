@@ -1,7 +1,0 @@
-{
-    "materialId": "tconstruct:material",
-    "default": ["test1:trait1"],
-    "perStat": {
-        "tconstruct:teststat": ["test2:trait2"]
-    }
-}

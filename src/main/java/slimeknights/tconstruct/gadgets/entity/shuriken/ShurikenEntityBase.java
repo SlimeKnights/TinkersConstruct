@@ -86,7 +86,7 @@ public abstract class ShurikenEntityBase extends ThrownItemEntity implements IEn
     this.setItem(additionalData.readItemStack());
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public Packet<?> createSpawnPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);

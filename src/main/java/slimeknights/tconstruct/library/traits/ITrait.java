@@ -179,7 +179,7 @@ public interface ITrait {
    * @param stack        Item.getAttributeModifiers
    * @param attributeMap The map you usually return. Fill in your stuff, if needed
    */
-  default void getAttributeModifiers(@Nonnull EquipmentSlot slot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributeMap) {}
+  default void getAttributeModifiers(@NotNull EquipmentSlot slot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributeMap) {}
 
   /**
    * Determines the order in which traits/modifiers are processed. Higher priority gets processed first.

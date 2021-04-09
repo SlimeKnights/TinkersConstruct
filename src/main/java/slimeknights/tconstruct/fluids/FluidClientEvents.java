@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.fluids;
 
+import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,13 +15,13 @@ import slimeknights.tconstruct.common.ClientEventBase;
 public class FluidClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderLayers.setRenderLayer(TinkerFluids.skySlime.getStill(), RenderLayer.getTranslucent());
-    RenderLayers.setRenderLayer(TinkerFluids.skySlime.getFlowing(), RenderLayer.getTranslucent());
-    RenderLayers.setRenderLayer(TinkerFluids.enderSlime.getStill(), RenderLayer.getTranslucent());
-    RenderLayers.setRenderLayer(TinkerFluids.enderSlime.getFlowing(), RenderLayer.getTranslucent());
-    RenderLayers.setRenderLayer(TinkerFluids.liquidSoul.getStill(), RenderLayer.getTranslucent());
-    RenderLayers.setRenderLayer(TinkerFluids.liquidSoul.getFlowing(), RenderLayer.getTranslucent());
-    RenderLayers.setRenderLayer(TinkerFluids.moltenSoulsteel.getStill(), RenderLayer.getTranslucent());
-    RenderLayers.setRenderLayer(TinkerFluids.moltenSoulsteel.getFlowing(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putFluid(TinkerFluids.skySlime.getStill(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putFluid(TinkerFluids.skySlime.getFlowing(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putFluid(TinkerFluids.enderSlime.getStill(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putFluid(TinkerFluids.enderSlime.getFlowing(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putFluid(TinkerFluids.liquidSoul.getStill(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putFluid(TinkerFluids.liquidSoul.getFlowing(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putFluid(TinkerFluids.moltenSoulsteel.getStill(), RenderLayer.getTranslucent());
+    BlockRenderLayerMapImpl.INSTANCE.putFluid(TinkerFluids.moltenSoulsteel.getFlowing(), RenderLayer.getTranslucent());
   }
 }

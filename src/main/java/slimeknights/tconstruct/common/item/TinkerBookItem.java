@@ -18,7 +18,7 @@ public class TinkerBookItem extends TooltipItem {
     super(props);
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
     ItemStack itemStack = playerIn.getStackInHand(handIn);

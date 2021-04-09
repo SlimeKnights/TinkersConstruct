@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,19 +16,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 // TODO: reassess the need
-public class SearedStairsBlock extends StairsBlock {
+public class SearedStairsBlock extends StairsBlock implements BlockEntityProvider {
 
   public SearedStairsBlock(Supplier<BlockState> state, Settings properties) {
-    super(state, properties);
+    super(state.get(), properties);
   }
 
   @Override
-  public boolean hasTileEntity(BlockState state) {
-    return true;
-  }
-
-  @Override
-  public BlockEntity createTileEntity(BlockState state, BlockView world) {
+  public BlockEntity createBlockEntity(BlockView world) {
     return new SmelteryComponentTileEntity();
   }
 

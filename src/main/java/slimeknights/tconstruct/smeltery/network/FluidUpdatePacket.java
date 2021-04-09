@@ -1,36 +1,42 @@
 package slimeknights.tconstruct.smeltery.network;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.TileEntityHelper;
+
+import java.io.IOException;
 
 public class FluidUpdatePacket implements IThreadsafePacket {
 
   protected final BlockPos pos;
-  protected final FluidStack fluid;
+  protected final FluidVolume fluid;
 
-  public FluidUpdatePacket(BlockPos pos, FluidStack fluid) {
+  public FluidUpdatePacket(BlockPos pos, FluidVolume fluid) {
     this.pos = pos;
     this.fluid = fluid;
   }
 
   public FluidUpdatePacket(PacketByteBuf buffer) {
-    this.pos = buffer.readBlockPos();
-    this.fluid = buffer.readFluidStack();
+    try {
+      this.pos = buffer.readBlockPos();
+      this.fluid = FluidVolume.fromMcBuffer(buffer);
+    } catch (IOException e) {
+      throw new RuntimeException("An error occurred reading the fluid update packet!", e);
+    }
   }
 
   @Override
   public void encode(PacketByteBuf buffer) {
     buffer.writeBlockPos(pos);
-    buffer.writeFluidStack(fluid);
+    fluid.toMcBuffer(buffer);
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
+  public void handleThreadsafe(PacketSender context) {
     HandleClient.handle(this);
   }
 
@@ -42,7 +48,7 @@ public class FluidUpdatePacket implements IThreadsafePacket {
      *
      * @param fluid New fluidstack
      */
-    void updateFluidTo(FluidStack fluid);
+    void updateFluidTo(FluidVolume fluid);
   }
 
   /** Safely runs client side only code in a method only called on client */

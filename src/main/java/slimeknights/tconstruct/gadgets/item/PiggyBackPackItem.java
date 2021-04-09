@@ -92,7 +92,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     super(PIGGYBACK, EquipmentSlot.CHEST, (new Settings()).group(TinkerGadgets.TAB_GADGETS).maxCount(16));
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
     ItemStack itemStackIn = playerIn.getStackInHand(hand);
@@ -219,7 +219,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     }
 
     @Override
-    public void applyUpdateEffect(@Nonnull LivingEntity livingEntityIn, int p_76394_2_) {
+    public void applyUpdateEffect(@NotNull LivingEntity livingEntityIn, int p_76394_2_) {
       ItemStack chestArmor = livingEntityIn.getEquippedStack(EquipmentSlot.CHEST);
       if (chestArmor.isEmpty() || chestArmor.getItem() != TinkerGadgets.piggyBackpack.get()) {
         TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, 0);

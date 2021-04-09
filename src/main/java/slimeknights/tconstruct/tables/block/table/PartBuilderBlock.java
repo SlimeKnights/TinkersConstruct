@@ -13,7 +13,7 @@ public class PartBuilderBlock extends RetexturedTableBlock {
     super(builder);
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
     return new PartBuilderTileEntity();

@@ -31,7 +31,7 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
     return repair.getItem() == TinkerCommons.slimeball.get(type);
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
     ItemStack itemStackIn = playerIn.getStackInHand(hand);

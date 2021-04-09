@@ -6,7 +6,7 @@ import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.util.TileEntityHelper;
@@ -35,7 +35,7 @@ public class UpdateCraftingRecipePacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
+  public void handleThreadsafe(PacketSender context) {
     HandleClient.handle(this);
   }
 

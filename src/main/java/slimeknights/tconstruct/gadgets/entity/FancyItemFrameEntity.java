@@ -58,14 +58,14 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
 
   @Nullable
   @Override
-  public ItemEntity dropStack(@Nonnull ItemStack stack, float offset) {
+  public ItemEntity dropStack(@NotNull ItemStack stack, float offset) {
     if (stack.getItem() == Items.ITEM_FRAME) {
       stack = new ItemStack(FrameType.getFrameFromType(this.getFrameType()));
     }
     return super.dropStack(stack, offset);
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public ItemStack getPickedResult(HitResult target) {
     ItemStack held = this.getHeldItemStack();
@@ -88,7 +88,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
     this.dataTracker.set(VARIANT, compound.getInt(TAG_VARIANT));
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public Packet<?> createSpawnPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);

@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.smeltery.network;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
 
 /** Sent to clients to activate the faucet animation clientside **/
 public class FaucetActivationPacket extends FluidUpdatePacket {
 
   private final boolean isPouring;
-  public FaucetActivationPacket(BlockPos pos, FluidStack fluid, boolean isPouring) {
+  public FaucetActivationPacket(BlockPos pos, FluidVolume fluid, boolean isPouring) {
     super(pos, fluid);
     this.isPouring = isPouring;
   }
@@ -29,7 +29,7 @@ public class FaucetActivationPacket extends FluidUpdatePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
+  public void handleThreadsafe(PacketSender context) {
     HandleClient.handle(this);
   }
 

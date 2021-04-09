@@ -23,16 +23,16 @@ public class TinkerPiggybackSerializer implements ICapabilitySerializable<Compou
   private final ITinkerPiggyback piggyback;
   private final LazyOptional<ITinkerPiggyback> providerCap;
 
-  public TinkerPiggybackSerializer(@Nonnull PlayerEntity player) {
+  public TinkerPiggybackSerializer(@NotNull PlayerEntity player) {
     this.player = player;
     this.piggyback = new TinkerPiggybackHandler();
     this.piggyback.setRiddenPlayer(player);
     this.providerCap = LazyOptional.of(() -> this.piggyback);
   }
 
-  @Nonnull
+  @NotNull
   @Override
-  public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+  public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
     if (cap == CapabilityTinkerPiggyback.PIGGYBACK) {
       return this.providerCap.cast();
     }

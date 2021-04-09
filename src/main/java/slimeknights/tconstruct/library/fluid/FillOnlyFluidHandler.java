@@ -19,7 +19,7 @@ public class FillOnlyFluidHandler implements IFluidHandler {
 		return parent.getTanks();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public FluidStack getFluidInTank(int tank) {
 		return parent.getFluidInTank(tank);
@@ -40,13 +40,13 @@ public class FillOnlyFluidHandler implements IFluidHandler {
 		return parent.fill(resource, action);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public FluidStack drain(FluidStack resource, FluidAction action) {
 		return FluidStack.EMPTY;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public FluidStack drain(int maxDrain, FluidAction action) {
 		return FluidStack.EMPTY;

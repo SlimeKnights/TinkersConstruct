@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -13,19 +14,14 @@ import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
 import org.jetbrains.annotations.Nullable;
 
-public class SearedBlock extends Block {
+public class SearedBlock extends Block implements BlockEntityProvider {
 
   public SearedBlock(Settings properties) {
     super(properties);
   }
 
   @Override
-  public boolean hasTileEntity(BlockState state) {
-    return true;
-  }
-
-  @Override
-  public BlockEntity createTileEntity(BlockState state, BlockView world) {
+  public BlockEntity createBlockEntity(BlockView world) {
     return new SmelteryComponentTileEntity();
   }
 

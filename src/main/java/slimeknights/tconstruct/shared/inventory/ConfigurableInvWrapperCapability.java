@@ -17,16 +17,16 @@ public class ConfigurableInvWrapperCapability extends InvWrapper {
     this.canExtract = canExtract;
   }
 
-  @Nonnull
+  @NotNull
   @Override
-  public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+  public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
     if (!this.canInsert) {
       return stack;
     }
     return super.insertItem(slot, stack, simulate);
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public ItemStack extractItem(int slot, int amount, boolean simulate) {
     if (!this.canExtract) {

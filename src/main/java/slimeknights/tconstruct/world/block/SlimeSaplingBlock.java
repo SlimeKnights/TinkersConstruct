@@ -30,7 +30,7 @@ public class SlimeSaplingBlock extends SaplingBlock {
     return TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.earthSlimeGrass.contains(block) || TinkerWorld.skySlimeGrass.contains(block) || TinkerWorld.enderSlimeGrass.contains(block) || TinkerWorld.ichorSlimeGrass.contains(block);
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public PlantType getPlantType(BlockView world, BlockPos pos) {
     return TinkerWorld.SLIME_PLANT_TYPE;

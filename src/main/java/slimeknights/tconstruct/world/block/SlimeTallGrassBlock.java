@@ -51,7 +51,7 @@ public class SlimeTallGrassBlock extends PlantBlock implements IForgeShearable {
   /**
    * Get the OffsetType for this Block. Determines if the model is rendered slightly offset.
    */
-  @Nonnull
+  @NotNull
   @Override
   @Environment(EnvType.CLIENT)
   public Block.OffsetType getOffsetType() {
@@ -59,7 +59,7 @@ public class SlimeTallGrassBlock extends PlantBlock implements IForgeShearable {
   }
 
   /* Forge/MC callbacks */
-  @Nonnull
+  @NotNull
   @Override
   public PlantType getPlantType(BlockView world, BlockPos pos) {
     return TinkerWorld.SLIME_PLANT_TYPE;

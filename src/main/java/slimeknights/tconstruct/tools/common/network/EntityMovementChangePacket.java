@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.common.network;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 
 public class EntityMovementChangePacket implements IThreadsafePacket {
@@ -44,7 +44,7 @@ public class EntityMovementChangePacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
+  public void handleThreadsafe(PacketSender context) {
     if (context.getSender() != null) {
       HandleClient.handle(this);
     }

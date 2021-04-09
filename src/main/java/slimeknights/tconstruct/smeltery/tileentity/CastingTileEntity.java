@@ -97,8 +97,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
   }
 
   @Override
-  @Nonnull
-  public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
+  @NotNull
+  public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
     if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
       return holder.cast();
     return super.getCapability(capability, facing);
@@ -198,7 +198,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
   }
   
   @Override
-  @Nonnull
+  @NotNull
   public int[] getAvailableSlots(Direction side) {
     return new int[]{INPUT, OUTPUT};
   }
@@ -415,7 +415,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
   }
 
   @Override
-  @Nonnull
+  @NotNull
   public CompoundTag toTag(CompoundTag tags) {
     tags = super.toTag(tags);
     tags.put(TAG_TANK, tank.writeToNBT(new CompoundTag()));

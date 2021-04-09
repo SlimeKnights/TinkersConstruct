@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -24,7 +25,7 @@ import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 import org.jetbrains.annotations.Nullable;
 
 /** Filtering drain block, have to reimplement either inventory block logic or seared block logic unfortunately */
-public class SearedDuctBlock extends InventoryBlock {
+public class SearedDuctBlock extends InventoryBlock implements BlockEntityProvider {
   public static final BooleanProperty ACTIVE = SmelteryIOBlock.ACTIVE;
   public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
   public SearedDuctBlock(Settings properties) {
@@ -33,7 +34,7 @@ public class SearedDuctBlock extends InventoryBlock {
   }
 
   @Override
-  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
+  public BlockEntity createBlockEntity(BlockView world) {
     return new DuctTileEntity();
   }
 

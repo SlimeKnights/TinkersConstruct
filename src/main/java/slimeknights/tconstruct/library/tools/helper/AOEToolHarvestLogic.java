@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import com.google.common.collect.ImmutableList;
-import lombok.AllArgsConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.Material;
@@ -32,7 +31,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
-@AllArgsConstructor
 public class AOEToolHarvestLogic extends ToolHarvestLogic {
   /** Instance for an AOE tool that only works on a single block, extended by modifiers */
   public static final AOEToolHarvestLogic SMALL_TOOL = new AOEToolHarvestLogic(1, 1, 1);
@@ -43,6 +41,12 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
   protected final int width;
   protected final int height;
   protected final int depth;
+
+  AOEToolHarvestLogic(int width, int height, int depth) {
+    this.width = width;
+    this.height = height;
+    this.depth = depth;
+  }
 
   @Override
   public final List<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin) {

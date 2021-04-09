@@ -16,6 +16,21 @@ repositories {
         name = "Shedaniel's Maven"
         url = uri("https://maven.shedaniel.me/")
     }
+
+    maven {
+        name = "BuildCraft"
+        url = uri("https://mod-buildcraft.com/maven")
+    }
+
+    maven {
+        name = "TerraformersMC"
+        url = uri("https://maven.terraformersmc.com/")
+    }
+
+    maven {
+        name = "One's Maven"
+        url = uri("https://storage.googleapis.com/devan-maven/")
+    }
 }
 
 val modImplementationAndInclude by configurations.register("modImplementationAndInclude")
@@ -26,6 +41,8 @@ dependencies {
 
     modImplementation("net.fabricmc", "fabric-loader", "0.11.3")
     modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.32.5+1.16")
+    modImplementation("slimeknights", "Mantle", "1.6-SNAPSHOT")
+
     modApi("me.shedaniel.cloth", "cloth-config-fabric", "4.11.19")
 
     modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
@@ -47,7 +64,7 @@ java {
 }
 
 loom {
-//    accessWidener = file("src/main/resources/tinkersconstruct.aw")
+    accessWidener = file("src/main/resources/tconstruct.aw")
 }
 
 tasks.withType<JavaCompile> {

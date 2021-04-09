@@ -41,7 +41,7 @@ public class TinkerChestBlock extends TinkerTableBlock {
     this.te = te;
   }
 
-  @Nonnull
+  @NotNull
   @Override
   public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
     return te.get();

@@ -1,10 +1,11 @@
 package slimeknights.tconstruct.smeltery.network;
 
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
@@ -34,7 +35,7 @@ public class ChannelFlowPacket implements IThreadsafePacket {
 	}
 
 	@Override
-	public void handleThreadsafe(Context context) {
+	public void handleThreadsafe(PacketSender player) {
 		HandleClient.handle(this);
 	}
 

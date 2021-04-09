@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
@@ -15,12 +15,18 @@ import java.util.List;
 /**
  * Packet sent when the smeltery structure changes
  */
-@AllArgsConstructor
 public class SmelteryStructureUpdatedPacket implements IThreadsafePacket {
   private final BlockPos pos;
   private final BlockPos minPos;
   private final BlockPos maxPos;
   private final List<BlockPos> tanks;
+  
+  public SmelteryStructureUpdatedPacket(BlockPos pos, BlockPos minPos, BlockPos maxPos, List<BlockPos> tanks) {
+    this.pos = pos;
+    this.minPos = minPos;
+    this.maxPos = maxPos;
+    this.tanks = tanks;
+  }
 
   public SmelteryStructureUpdatedPacket(PacketByteBuf buffer) {
     pos = buffer.readBlockPos();
@@ -45,7 +51,7 @@ public class SmelteryStructureUpdatedPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
+  public void handleThreadsafe(PacketSender context) {
     HandleClient.handle(this);
   }
 

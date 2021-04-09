@@ -8,11 +8,11 @@ import net.minecraft.item.FoodComponent;
 public final class TinkerFood {
 
   /* Slime balls are not exactly food items, but you CAN eat them.. if you really want to. */
-  public static final FoodComponent BLUE_SLIME_BALL = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.0F).alwaysEdible().effect(() -> new StatusEffectInstance(StatusEffects.SLOWNESS, 20 * 45, 2), 1.0F).effect(() -> new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20 * 60, 2), 1.0F).build();
-  public static final FoodComponent PURPLE_SLIME_BALL = (new FoodComponent.Builder()).hunger(1).saturationModifier(2.0F).alwaysEdible().effect(() -> new StatusEffectInstance(StatusEffects.UNLUCK, 20 * 45), 1.0F).effect(() -> new StatusEffectInstance(StatusEffects.LUCK, 20 * 60), 1.0F).build();
-  public static final FoodComponent BLOOD_SLIME_BALL = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.5F).alwaysEdible().effect(() -> new StatusEffectInstance(StatusEffects.POISON, 20 * 45, 2), 1.0F).effect(() -> new StatusEffectInstance(StatusEffects.HEALTH_BOOST, 20 * 60), 1.0F).build();
-  public static final FoodComponent MAGMA_SLIME_BALL = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.0F).alwaysEdible().effect(() -> new StatusEffectInstance(StatusEffects.WEAKNESS, 20 * 45), 1.0F).effect(() -> new StatusEffectInstance(StatusEffects.WITHER, 20 * 15), 1.0F).effect(() -> new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 20 * 60), 1.0F).build();
-  public static final FoodComponent PINK_SLIME_BALL = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.0F).alwaysEdible().effect(() -> new StatusEffectInstance(StatusEffects.NAUSEA, 20 * 10, 2), 1.0F).build();
+  public static final FoodComponent BLUE_SLIME_BALL = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.0F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20 * 45, 2), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20 * 60, 2), 1.0F).build();
+  public static final FoodComponent PURPLE_SLIME_BALL = (new FoodComponent.Builder()).hunger(1).saturationModifier(2.0F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.UNLUCK, 20 * 45), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.LUCK, 20 * 60), 1.0F).build();
+  public static final FoodComponent BLOOD_SLIME_BALL = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.5F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.POISON, 20 * 45, 2), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.HEALTH_BOOST, 20 * 60), 1.0F).build();
+  public static final FoodComponent MAGMA_SLIME_BALL = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.0F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20 * 45), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.WITHER, 20 * 15), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 20 * 60), 1.0F).build();
+  public static final FoodComponent PINK_SLIME_BALL = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.0F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 20 * 10, 2), 1.0F).build();
 
   /* Bacon. What more is there to say? */
   public static final FoodComponent BACON = (new FoodComponent.Builder()).hunger(4).saturationModifier(0.6F).build();
@@ -33,11 +33,11 @@ public final class TinkerFood {
   public static final FoodComponent PUFFERFISH_JERKY = (new FoodComponent.Builder()).hunger(4).saturationModifier(0.5F).build();
 
   /* Slime Drops. Slime balls + drying rack = "healthy" */
-  public static final FoodComponent GREEN_SLIME_DROP = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.0F).alwaysEdible().effect(() -> new StatusEffectInstance(StatusEffects.SPEED, 20 * 90, 2), 1.0F).build();
-  public static final FoodComponent BLUE_SLIME_DROP = (new FoodComponent.Builder()).hunger(3).saturationModifier(1.0F).alwaysEdible().effect(() -> new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20 * 90, 2), 1.0F).build();
-  public static final FoodComponent PURPLE_SLIME_DROP = (new FoodComponent.Builder()).hunger(3).saturationModifier(2.0F).alwaysEdible().effect(() -> new StatusEffectInstance(StatusEffects.LUCK, 20 * 90), 1.0F).build();
-  public static final FoodComponent BLOOD_SLIME_DROP = (new FoodComponent.Builder()).hunger(3).saturationModifier(1.5F).alwaysEdible().effect(() -> new StatusEffectInstance(StatusEffects.HEALTH_BOOST, 20 * 90), 1.0F).build();
-  public static final FoodComponent MAGMA_SLIME_DROP = (new FoodComponent.Builder()).hunger(6).saturationModifier(1.0F).alwaysEdible().effect(() -> new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 20 * 90), 1.0F).build();
+  public static final FoodComponent GREEN_SLIME_DROP = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.0F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 90, 2), 1.0F).build();
+  public static final FoodComponent BLUE_SLIME_DROP = (new FoodComponent.Builder()).hunger(3).saturationModifier(1.0F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20 * 90, 2), 1.0F).build();
+  public static final FoodComponent PURPLE_SLIME_DROP = (new FoodComponent.Builder()).hunger(3).saturationModifier(2.0F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.LUCK, 20 * 90), 1.0F).build();
+  public static final FoodComponent BLOOD_SLIME_DROP = (new FoodComponent.Builder()).hunger(3).saturationModifier(1.5F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.HEALTH_BOOST, 20 * 90), 1.0F).build();
+  public static final FoodComponent MAGMA_SLIME_DROP = (new FoodComponent.Builder()).hunger(6).saturationModifier(1.0F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 20 * 90), 1.0F).build();
   public static final FoodComponent PINK_SLIME_DROP = (new FoodComponent.Builder()).hunger(1).saturationModifier(1.0F).alwaysEdible().build();
 
   private TinkerFood() {}

@@ -173,6 +173,13 @@ public class SlimeGrassBlock extends SnowyBlock implements Fertilizable {
     @Getter @Deprecated
     private final String originalName;
 
+    FoilageType(int defaultColor, String originalName) {
+      this.defaultColor = defaultColor;
+      this.originalName = originalName;
+    }
+
+
+
     @Override
     public String asString() {
       return this.toString();

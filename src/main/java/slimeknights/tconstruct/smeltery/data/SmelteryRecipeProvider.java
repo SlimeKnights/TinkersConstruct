@@ -993,7 +993,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
    * @param output    Recipe output
    * @param folder    Recipe folder path
    */
-  private void addSearedStonecutter(@Nonnull Consumer<RecipeJsonProvider> consumer, ItemConvertible output, String folder) {
+  private void addSearedStonecutter(@NotNull Consumer<RecipeJsonProvider> consumer, ItemConvertible output, String folder) {
     SingleItemRecipeJsonFactory.create(new CompoundIngredient(Arrays.asList(
       Ingredient.ofItems(TinkerSmeltery.searedStone),
       Ingredient.fromTag(TinkerTags.Items.SEARED_BRICKS))), output, 1)

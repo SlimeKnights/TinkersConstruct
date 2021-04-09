@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -29,7 +30,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 
-public class SearedTankBlock extends SearedBlock {
+public class SearedTankBlock extends SearedBlock implements BlockEntityProvider {
   @Getter
   private final int capacity;
   public SearedTankBlock(Settings properties, int capacity) {
@@ -60,11 +61,13 @@ public class SearedTankBlock extends SearedBlock {
     if (ITankTileEntity.interactWithTank(world, pos, player, hand, hit)) {
       return ActionResult.SUCCESS;
     }
+
     return super.onUse(state, world, pos, player, hand, hit);
   }
 
+
   @Override
-  public int getLightValue(BlockState state, BlockView world, BlockPos pos) {
+  public float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
     BlockEntity te = world.getBlockEntity(pos);
     if (te instanceof TankTileEntity) {
       FluidStack fluid = ((TankTileEntity) te).getTank().getFluid();

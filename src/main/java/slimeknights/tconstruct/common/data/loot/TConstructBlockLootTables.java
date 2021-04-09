@@ -41,7 +41,7 @@ public class TConstructBlockLootTables extends BlockLootTableGenerator {
 
   private final Map<Identifier, LootTable.Builder> loot_tables = Maps.newHashMap();
 
-  @Nonnull
+  @NotNull
   @Override
   protected Iterable<Block> getKnownBlocks() {
     return ForgeRegistries.BLOCKS.getValues().stream()

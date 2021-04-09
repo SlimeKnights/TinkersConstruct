@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.GlassBlock;
 import net.minecraft.block.Material;
@@ -46,11 +47,11 @@ public final class TinkerCommons extends TinkerModule {
   /*
    * Blocks
    */
-  public static final RegistryObject<GlowBlock> glow = BLOCKS.registerNoItem("glow", () -> new GlowBlock(builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.WOOL).strength(0.0F).luminance(s -> 14).nonOpaque()));
+  public static final GlowBlock glow = BLOCKS.registerNoItem("glow", () -> new GlowBlock(builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.WOOL).strength(0.0F).luminance(s -> 14).nonOpaque()));
   public static final BuildingBlockObject mudBricks = BLOCKS.registerBuilding("mud_bricks", builder(Material.SOIL, ToolType.SHOVEL, BlockSoundGroup.GRAVEL).requiresTool().strength(2.0F), GENERAL_BLOCK_ITEM);
   // clay
   // TODO: moving to natura
-  private static final Block.Properties DRIED_CLAY = builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.STONE).requiresTool().strength(1.5F, 20.0F);
+  private static final AbstractBlock.Settings DRIED_CLAY = builder(Material.STONE, ToolType.PICKAXE, BlockSoundGroup.STONE).requiresTool().strength(1.5F, 20.0F);
   public static final BuildingBlockObject driedClay = BLOCKS.registerBuilding("dried_clay", DRIED_CLAY, HIDDEN_BLOCK_ITEM);
   public static final BuildingBlockObject driedClayBricks = BLOCKS.registerBuilding("dried_clay_bricks", DRIED_CLAY, HIDDEN_BLOCK_ITEM);
   // glass
