@@ -10,11 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
-import net.minecraftforge.common.PlantType;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
-
-import org.jetbrains.annotations.Nonnull;
 
 public class SlimeSaplingBlock extends SaplingBlock {
 
@@ -30,11 +27,11 @@ public class SlimeSaplingBlock extends SaplingBlock {
     return TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.earthSlimeGrass.contains(block) || TinkerWorld.skySlimeGrass.contains(block) || TinkerWorld.enderSlimeGrass.contains(block) || TinkerWorld.ichorSlimeGrass.contains(block);
   }
 
-  @NotNull
-  @Override
-  public PlantType getPlantType(BlockView world, BlockPos pos) {
-    return TinkerWorld.SLIME_PLANT_TYPE;
-  }
+//  @NotNull
+//  @Override
+//  public PlantType getPlantType(BlockView world, BlockPos pos) {
+//    return TinkerWorld.SLIME_PLANT_TYPE;
+//  }
 
   @Override
   @Deprecated

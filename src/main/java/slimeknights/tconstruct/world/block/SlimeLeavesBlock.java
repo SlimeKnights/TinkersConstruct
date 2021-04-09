@@ -80,10 +80,10 @@ public class SlimeLeavesBlock extends LeavesBlock {
     return updateDistanceFromLogs(this.getDefaultState().with(PERSISTENT, Boolean.TRUE), context.getWorld(), context.getBlockPos());
   }
 
-  @Override
-  public boolean canBeReplacedByLeaves(BlockState state, WorldView world, BlockPos pos) {
-    return this.isAir(state, world, pos) || state.isIn(BlockTags.LEAVES) || state.isIn(TinkerTags.Blocks.SLIMY_LEAVES);
-  }
+//  @Override
+//  public boolean canBeReplacedByLeaves(BlockState state, WorldView world, BlockPos pos) {
+//    return this.isAir(state, world, pos) || state.isIn(BlockTags.LEAVES) || state.isIn(TinkerTags.Blocks.SLIMY_LEAVES);
+//  }
 
   @Override
   public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
