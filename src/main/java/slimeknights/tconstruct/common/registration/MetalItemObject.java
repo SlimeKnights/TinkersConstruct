@@ -39,22 +39,6 @@ public class MetalItemObject extends ItemObject<Block> {
     return nugget.get();
   }
 
-  public Tag<Block> getBlockTag() {
-    return blockTag;
-  }
-
-  public Tag<Item> getBlockItemTag() {
-    return blockItemTag;
-  }
-
-  public Tag<Item> getIngotTag() {
-    return ingotTag;
-  }
-
-  public Tag<Item> getNuggetTag() {
-    return nuggetTag;
-  }
-
   /**
    * Creates a tag for a resource
    * @param name  Tag name

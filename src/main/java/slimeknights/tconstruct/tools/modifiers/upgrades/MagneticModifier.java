@@ -15,12 +15,12 @@ public class MagneticModifier extends Modifier {
 
   @Override
   public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean wasEffective) {
-    TinkerModifiers.magneticEffect.get().apply(living, 30, level - 1);
+    TinkerModifiers.magneticEffect.apply(living, 30, level - 1);
   }
 
   @Override
   public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
-    TinkerModifiers.magneticEffect.get().apply(attacker, 30, level - 1);
+    TinkerModifiers.magneticEffect.apply(attacker, 30, level - 1);
     return 0;
   }
 }

@@ -14,7 +14,7 @@ public class ValidZeroIntReference extends Property {
   private final int idx;
 
   public ValidZeroIntReference(PropertyDelegate data, int idx) {
-    this.oldValue = Integer.MIN_VALUE;
+    //this.oldValue = Integer.MIN_VALUE;
     this.data = data;
     this.idx = idx;
   }

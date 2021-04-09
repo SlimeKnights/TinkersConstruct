@@ -1,8 +1,13 @@
 package slimeknights.tconstruct.tools.modifiers.shared;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.util.TypedActionResult;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
+import slimeknights.tconstruct.event.LivingEntityDropXpCallback;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
@@ -11,7 +16,7 @@ import java.util.function.Consumer;
 public class ExperiencedModifier extends Modifier {
   public ExperiencedModifier() {
     super(0xe8db49);
-    MinecraftForge.EVENT_BUS.addListener(this::onEntityKill);
+    LivingEntityDropXpCallback.EVENT.register(this::onEntityDropXp);
     MinecraftForge.EVENT_BUS.addListener((Consumer<BreakEvent>)this::beforeBlockBreak);
   }
 
@@ -43,13 +48,18 @@ public class ExperiencedModifier extends Modifier {
    * Event handled locally as its pretty specialized
    * @param event  Event
    */
-  private void onEntityKill(LivingExperienceDropEvent event) {
-    ToolStack tool = getHeldTool(event.getAttackingPlayer());
+  private TypedActionResult<Integer> onEntityDropXp(LivingEntity entity, DamageSource source, int expToDrop) {
+    Entity attackerEntity = source.getAttacker();
+    if (!(attackerEntity instanceof LivingEntity)) return TypedActionResult.pass(expToDrop);
+    LivingEntity attacker = (LivingEntity) attackerEntity;
+    ToolStack tool = getHeldTool(attacker);
     if (tool != null) {
       int level = tool.getModifierLevel(this);
       if (level > 0) {
-        event.setDroppedExperience(boost(event.getDroppedExperience(), level));
+        expToDrop = boost(expToDrop, level);
+        return TypedActionResult.success(expToDrop);
       }
     }
+    return TypedActionResult.pass(expToDrop);
   }
 }

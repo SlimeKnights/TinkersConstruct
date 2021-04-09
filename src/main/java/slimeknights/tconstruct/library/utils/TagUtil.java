@@ -2,12 +2,12 @@ package slimeknights.tconstruct.library.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.util.Constants.NBT;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -317,7 +317,7 @@ public final class TagUtil {
    */
   @Nullable
   public static BlockPos readPos(CompoundTag tag) {
-    if (tag.contains("x", NBT.TAG_ANY_NUMERIC) && tag.contains("y", NBT.TAG_ANY_NUMERIC) && tag.contains("z", NBT.TAG_ANY_NUMERIC)) {
+    if (tag.contains("x", NbtType.NUMBER) && tag.contains("y", NbtType.NUMBER) && tag.contains("z", NbtType.NUMBER)) {
       return new BlockPos(tag.getInt("x"), tag.getInt("y"), tag.getInt("z"));
     }
     return null;
@@ -331,7 +331,7 @@ public final class TagUtil {
    */
   @Nullable
   public static BlockPos readPos(CompoundTag parent, String key) {
-    if (parent.contains(key, NBT.TAG_COMPOUND)) {
+    if (parent.contains(key, NbtType.COMPOUND)) {
       return readPos(parent.getCompound(key));
     }
     return null;

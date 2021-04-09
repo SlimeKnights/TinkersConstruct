@@ -7,8 +7,8 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class IndestructibleEntityItem extends ItemEntity {
@@ -17,8 +17,12 @@ public class IndestructibleEntityItem extends ItemEntity {
     super(entityType, world);
   }
 
+  public IndestructibleEntityItem(World world) {
+    super(TinkerTools.indestructibleItem, world);
+  }
+
   public IndestructibleEntityItem(World worldIn, double x, double y, double z, ItemStack stack) {
-    super(TinkerTools.indestructibleItem.get(), worldIn);
+    super(TinkerTools.indestructibleItem, worldIn);
     this.updatePosition(x, y, z);
     this.yaw = this.random.nextFloat() * 360.0F;
     this.setVelocity(this.random.nextDouble() * 0.2D - 0.1D, 0.2D, this.random.nextDouble() * 0.2D - 0.1D);
@@ -28,7 +32,7 @@ public class IndestructibleEntityItem extends ItemEntity {
 
   @Override
   public Packet<?> createSpawnPacket() {
-    return NetworkHooks.getEntitySpawningPacket(this);
+    return new EntitySpawnS2CPacket(this);
   }
 
   public void setPickupDelayFrom(Entity reference) {
