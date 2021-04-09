@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.materials.stats;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -17,9 +17,7 @@ import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
-import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -49,8 +47,7 @@ import java.util.stream.Stream;
  * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/stats".
  */
 @Log4j2
-public class MaterialStatsManager extends SyncingJsonReloadListener {
-
+public class MaterialStatsManager extends JsonReloadListener {
   public static final String FOLDER = "materials/stats";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
@@ -67,12 +64,7 @@ public class MaterialStatsManager extends SyncingJsonReloadListener {
   private Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> materialToStatsPerType = ImmutableMap.of();
 
   public MaterialStatsManager() {
-    this(TinkerNetwork.getInstance());
-  }
-
-  @VisibleForTesting
-  public MaterialStatsManager(TinkerNetwork tinkerNetwork) {
-    super(tinkerNetwork, GSON, FOLDER);
+    super(GSON, FOLDER);
   }
 
   public void registerMaterialStat(MaterialStatsId materialStatType, Class<? extends IMaterialStats> statsClass) {
@@ -144,8 +136,11 @@ public class MaterialStatsManager extends SyncingJsonReloadListener {
       materialToStatsPerType.size());
   }
 
-  @Override
-  protected Object getUpdatePacket() {
+  /**
+   * Gets the packet to send on player login
+   * @return  Packet object
+   */
+  public Object getUpdatePacket() {
     Map<MaterialId, Collection<IMaterialStats>> networkPayload =
       materialToStatsPerType.entrySet().stream()
                             .collect(Collectors.toMap(

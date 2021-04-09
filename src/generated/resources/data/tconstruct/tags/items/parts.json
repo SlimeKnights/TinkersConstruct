@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:pickaxe_head",
+    "tconstruct:hammer_head",
+    "tconstruct:axe_head",
+    "tconstruct:kama_head",
+    "tconstruct:sword_blade",
+    "tconstruct:tool_binding",
+    "tconstruct:large_plate",
+    "tconstruct:tool_rod",
+    "tconstruct:tough_tool_rod"
+  ]
+}

@@ -23,6 +23,7 @@ import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.Locale;
@@ -143,6 +144,13 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(Tags.Items.SHEARS).add(TinkerTools.kama.get());
     // nothing to blacklist, just want the empty tag so it appears in datapacks
     this.getOrCreateBuilder(TinkerTags.Items.AUTOSMELT_BLACKLIST);
+
+    // tag for tool parts, mostly used by JEI right now
+    this.getOrCreateBuilder(TinkerTags.Items.TOOL_PARTS)
+        .add(TinkerToolParts.pickaxeHead.get(), TinkerToolParts.hammerHead.get(),
+             TinkerToolParts.axeHead.get(), TinkerToolParts.kamaHead.get(), TinkerToolParts.swordBlade.get(),
+             TinkerToolParts.toolBinding.get(), TinkerToolParts.largePlate.get(),
+             TinkerToolParts.toolRod.get(), TinkerToolParts.toughToolRod.get());
   }
 
   private void addSmeltery() {

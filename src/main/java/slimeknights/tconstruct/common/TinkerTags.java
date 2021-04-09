@@ -94,6 +94,8 @@ public class TinkerTags {
      * Tool tags
      */
     /** Anything that can be modified in the tool station */
+    public static final IOptionalNamedTag<Item> TOOL_PARTS = tag("parts");
+    /** Anything that can be modified in the tool station */
     public static final IOptionalNamedTag<Item> MODIFIABLE = tag("modifiable");
     /** Modifiable items that contain multiple parts */
     public static final IOptionalNamedTag<Item> MULTIPART_TOOL = tag("modifiable/multipart");
