@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.network;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import org.apache.logging.log4j.Logger;

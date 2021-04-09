@@ -3,22 +3,23 @@ package slimeknights.tconstruct.library.network;
 import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.text.TextColor;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.registry.Registry;
 
 @Getter
 @AllArgsConstructor
@@ -34,7 +35,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       int tier = buffer.readVarInt();
       int sortOrder = buffer.readVarInt();
       boolean craftable = buffer.readBoolean();
-      Fluid fluid = buffer.readRegistryIdUnsafe(ForgeRegistries.FLUIDS);
+      Fluid fluid = Registry.FLUID.get(buffer.readVarInt());
       if (fluid == null) {
         fluid = Fluids.EMPTY;
       }
@@ -59,10 +60,10 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       buffer.writeVarInt(material.getTier());
       buffer.writeVarInt(material.getSortOrder());
       buffer.writeBoolean(material.isCraftable());
-      buffer.writeRegistryIdUnsafe(ForgeRegistries.FLUIDS, material.getFluid());
+      buffer.writeVarInt(Registry.FLUID.getRawId(material.getFluid()));
       buffer.writeVarInt(material.getFluidPerUnit());
       // the color int getter is private
-      buffer.writeInt(material.getColor().rgb);
+      buffer.writeInt(material.getColor().getRgb());
       buffer.writeInt(material.getTemperature());
       List<ModifierEntry> traits = material.getTraits();
       buffer.writeVarInt(traits.size());
