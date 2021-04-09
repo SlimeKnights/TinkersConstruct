@@ -4,7 +4,11 @@
     "package": "slimeknights.tconstruct.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
-        "MixinPlayerEntity"
+        "MixinPlayerEntity",
+        "MixinHorseBaseEntity",
+        "MixinLivingEntity",
+        "MixinMagmaCubeEntity",
+        "MixinCraftingResultSlot"
     ],
     "client": [
     ],
