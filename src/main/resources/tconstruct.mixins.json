@@ -4,6 +4,7 @@
     "package": "slimeknights.tconstruct.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
+        "MixinPlayerEntity"
     ],
     "client": [
     ],
