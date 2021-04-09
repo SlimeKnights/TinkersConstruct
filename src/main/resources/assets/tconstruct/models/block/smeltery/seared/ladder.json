@@ -1,9 +1,10 @@
 {
   "parent": "block/block",
   "textures": {
-    "particle": "tconstruct:block/smeltery/seared/paver",
+    "particle": "tconstruct:block/smeltery/seared/ladder",
     "top": "tconstruct:block/smeltery/seared/fancy_bricks",
-    "side": "tconstruct:block/smeltery/seared/paver"
+    "side": "tconstruct:block/smeltery/seared/ladder",
+    "bottom": "tconstruct:block/smeltery/seared/ladder"
   },
   "elements": [
     {
@@ -68,8 +69,8 @@
       "to": [14, 4, 3],
       "faces": {
         "north": {"texture": "#side"},
-        "up":    {"texture": "#side"},
-        "down":  {"texture": "#side"}
+        "up":    {"texture": "#bottom"},
+        "down":  {"texture": "#bottom"}
       }
     },
     {
@@ -78,8 +79,8 @@
       "to": [14, 8, 3],
       "faces": {
         "north": {"texture": "#side"},
-        "up":    {"texture": "#side"},
-        "down":  {"texture": "#side"}
+        "up":    {"texture": "#bottom"},
+        "down":  {"texture": "#bottom"}
       }
     },
     {
@@ -88,8 +89,8 @@
       "to": [14, 12, 3],
       "faces": {
         "north": {"texture": "#side"},
-        "up":    {"texture": "#side"},
-        "down":  {"texture": "#side"}
+        "up":    {"texture": "#bottom"},
+        "down":  {"texture": "#bottom"}
       }
     },
     {
@@ -104,7 +105,7 @@
       "to": [2, 0, 2],
       "faces": {
         "north": {"texture": "#side"},
-        "down":  {"texture": "#top"}
+        "down":  {"texture": "#bottom"}
       }
     }
   ]
