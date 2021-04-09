@@ -1,10 +1,9 @@
 package slimeknights.tconstruct.common.registration;
 
-import lombok.Getter;
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.item.Item;
-import net.minecraft.tag.ItemTags;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.mantle.registration.object.ItemObject;
 
 import java.util.Arrays;
@@ -19,14 +18,13 @@ public class CastItemObject extends ItemObject<Item> {
   private final Identifier name;
   private final Supplier<? extends Item> sand;
   private final Supplier<? extends Item> redSand;
-  @Getter
-  private final IOptionalNamedTag<Item> singleUseTag;
+  private final Tag<Item> singleUseTag;
 
   public CastItemObject(Identifier name, Item gold, Item sand, Item redSand) {
     super(gold);
     this.name = name;
-    this.sand = sand.delegate;
-    this.redSand = redSand.delegate;
+    this.sand = () -> sand;
+    this.redSand = () -> redSand;
     singleUseTag = makeSingleUseTag();
   }
 
@@ -38,12 +36,16 @@ public class CastItemObject extends ItemObject<Item> {
     singleUseTag = makeSingleUseTag();
   }
 
+  public Tag<Item> getSingleUseTag() {
+    return singleUseTag;
+  }
+
   /**
    * Gets the single use tag for this object
    * @return  Single use tag
    */
-  protected IOptionalNamedTag<Item> makeSingleUseTag() {
-    return ItemTags.createOptional(new Identifier(name.getNamespace(), "casts/single_use/" + name.getPath()));
+  protected Tag<Item> makeSingleUseTag() {
+    return TagRegistry.item(new Identifier(name.getNamespace(), "casts/single_use/" + name.getPath()));
   }
 
   /**

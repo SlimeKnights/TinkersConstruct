@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.common.registration;
 
-import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.ItemTags;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.mantle.registration.object.ItemObject;
 
 import java.util.function.Supplier;
@@ -15,14 +14,10 @@ import java.util.function.Supplier;
 public class MetalItemObject extends ItemObject<Block> {
   private final Supplier<? extends Item> ingot;
   private final Supplier<? extends Item> nugget;
-  @Getter
-  private final IOptionalNamedTag<Block> blockTag;
-  @Getter
-  private final IOptionalNamedTag<Item> blockItemTag;
-  @Getter
-  private final IOptionalNamedTag<Item> ingotTag;
-  @Getter
-  private final IOptionalNamedTag<Item> nuggetTag;
+  private final Tag<Block> blockTag;
+  private final Tag<Item> blockItemTag;
+  private final Tag<Item> ingotTag;
+  private final Tag<Item> nuggetTag;
 
   public MetalItemObject(String tagName, ItemObject<? extends Block> block, Supplier<? extends Item> ingot, Supplier<? extends Item> nugget) {
     super(block);

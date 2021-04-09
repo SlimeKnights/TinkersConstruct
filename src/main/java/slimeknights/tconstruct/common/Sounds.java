@@ -2,12 +2,9 @@ package slimeknights.tconstruct.common;
 
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraft.util.registry.Registry;
 import slimeknights.tconstruct.TConstruct;
 
-//@Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public enum Sounds {
   SAW("little_saw"),
   FRYING_PAN_BOING("frypan_hit"),
@@ -24,17 +21,12 @@ public enum Sounds {
   Sounds(String name) {
     Identifier loc = new Identifier(TConstruct.modID, name);
 
-    sound = new SoundEvent(loc).setRegistryName(name);
+    sound = new SoundEvent(loc);
+
+    Registry.register(Registry.SOUND_EVENT, new Identifier(TConstruct.modID, name), sound);
   }
 
   public SoundEvent getSound() {
     return sound;
-  }
-
-  @SubscribeEvent
-  public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
-    for (Sounds sound : values()) {
-      event.getRegistry().register(sound.getSound());
-    }
   }
 }

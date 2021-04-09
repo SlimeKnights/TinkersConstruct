@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world;
 
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -22,7 +23,7 @@ import slimeknights.tconstruct.world.client.TinkerSlimeRenderer;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public class WorldClientEvents extends ClientEventBase {
+public class WorldClientEvents extends ClientEventBase implements ClientModInitializer {
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor
    */
