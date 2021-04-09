@@ -67,6 +67,9 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     addColored(getOrCreateBuilder(Tags.Blocks.STAINED_GLASS)::add, Tags.Blocks.GLASS, "{color}_clear_stained_glass");
     addColored(getOrCreateBuilder(Tags.Blocks.STAINED_GLASS_PANES)::add, Tags.Blocks.GLASS_PANES, "{color}_clear_stained_glass_pane");
 
+    // soul speed on glass
+    this.getOrCreateBuilder(BlockTags.SOUL_SPEED_BLOCKS).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get());
+
     // vanilla is not tagged, so tag it
     this.getOrCreateBuilder(TinkerTags.Blocks.WORKBENCHES)
         .add(Blocks.CRAFTING_TABLE, TinkerTables.craftingStation.get())
