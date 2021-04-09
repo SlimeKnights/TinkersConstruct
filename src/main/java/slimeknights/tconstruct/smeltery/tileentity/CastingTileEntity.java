@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.Getter;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,15 +25,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.common.util.LazyOptional;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -44,8 +39,6 @@ import slimeknights.tconstruct.smeltery.recipe.TileCastingWrapper;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.MoldingInventoryWrapper;
 import slimeknights.tconstruct.smeltery.tileentity.tank.CastingFluidHandler;
 
-import org.jetbrains.annotations.Nonnull;
-import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public abstract class CastingTileEntity extends TableTileEntity implements Tickable, SidedInventory, FluidUpdatePacket.IFluidPacketReceiver {
@@ -94,14 +87,6 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     this.moldingType = moldingType;
     this.castingInventory = new TileCastingWrapper(this, Fluids.EMPTY);
     this.moldingInventory = new MoldingInventoryWrapper(itemHandler, INPUT);
-  }
-
-  @Override
-  @NotNull
-  public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
-    if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-      return holder.cast();
-    return super.getCapability(capability, facing);
   }
 
   /**
@@ -198,7 +183,6 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
   }
   
   @Override
-  @NotNull
   public int[] getAvailableSlots(Direction side) {
     return new int[]{INPUT, OUTPUT};
   }
@@ -433,7 +417,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     super.fromTag(state, tags);
     tank.readFromNBT(tags.getCompound(TAG_TANK));
     timer = tags.getInt(TAG_TIMER);
-    if (tags.contains(TAG_RECIPE, NBT.TAG_STRING)) {
+    if (tags.contains(TAG_RECIPE, NbtType.STRING)) {
       Identifier name = new Identifier(tags.getString(TAG_RECIPE));
       // if we have a world, fetch the recipe
       if (world != null) {
@@ -447,13 +431,13 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
 
   public static class Basin extends CastingTileEntity {
     public Basin() {
-      super(TinkerSmeltery.basin.get(), RecipeTypes.CASTING_BASIN, RecipeTypes.MOLDING_BASIN);
+      super(TinkerSmeltery.basin, RecipeTypes.CASTING_BASIN, RecipeTypes.MOLDING_BASIN);
     }
   }
 
   public static class Table extends CastingTileEntity {
     public Table() {
-      super(TinkerSmeltery.table.get(), RecipeTypes.CASTING_TABLE, RecipeTypes.MOLDING_TABLE);
+      super(TinkerSmeltery.table, RecipeTypes.CASTING_TABLE, RecipeTypes.MOLDING_TABLE);
     }
   }
 }

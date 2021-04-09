@@ -6,12 +6,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.TranslatableText;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.mantle.tileentity.InventoryTileEntity;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
-import org.jetbrains.annotations.Nonnull;
 import java.util.function.Consumer;
 
 /**
