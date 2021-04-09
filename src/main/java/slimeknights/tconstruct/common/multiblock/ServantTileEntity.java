@@ -8,8 +8,8 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.util.registry.Registry;
+
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -116,10 +116,10 @@ public class ServantTileEntity extends MantleTileEntity implements IServantLogic
     BlockPos masterPos = TagUtil.readPos(tags, TAG_MASTER_POS);
     Block masterBlock = null;
     // if the master position is valid, get the master block
-    if (masterPos != null && tags.contains(TAG_MASTER_BLOCK, NBT.TAG_STRING)) {
+    if (masterPos != null && tags.contains(TAG_MASTER_BLOCK, 8)) {
       Identifier masterBlockName = Identifier.tryParse(tags.getString(TAG_MASTER_BLOCK));
-      if (masterBlockName != null && ForgeRegistries.BLOCKS.containsKey(masterBlockName)) {
-        masterBlock = ForgeRegistries.BLOCKS.getValue(masterBlockName);
+      if (masterBlockName != null && Registry.BLOCK.containsId(masterBlockName) ) {
+        masterBlock = Registry.BLOCK.get(masterBlockName);
       }
     }
     // if both valid, set
@@ -142,7 +142,7 @@ public class ServantTileEntity extends MantleTileEntity implements IServantLogic
   protected CompoundTag writeMaster(CompoundTag tags) {
     if (masterPos != null && masterBlock != null) {
       tags.put(TAG_MASTER_POS, TagUtil.writePos(masterPos));
-      tags.putString(TAG_MASTER_BLOCK, Objects.requireNonNull(masterBlock.getRegistryName()).toString());
+      tags.putString(TAG_MASTER_BLOCK, Objects.requireNonNull(Registry.BLOCK.getId(masterBlock).toString()));
     }
     return tags;
   }

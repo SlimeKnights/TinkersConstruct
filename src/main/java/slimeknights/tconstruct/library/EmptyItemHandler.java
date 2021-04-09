@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
+import slimeknights.tconstruct.misc.IItemHandler;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EmptyItemHandler implements IItemHandler {

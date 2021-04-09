@@ -12,16 +12,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.profiler.Profiler;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.recipe.ICondition;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
@@ -29,8 +22,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
 import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
-
-import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,6 +31,15 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.registry.Registry;
 
 /**
  * Loads the material data from datapacks and provides them to whatever needs them.
@@ -198,8 +198,8 @@ public class MaterialManager extends SyncingJsonReloadListener {
     Identifier fluidId = materialJson.getFluid();
     Fluid fluid = Fluids.EMPTY;
     if (fluidId != null) {
-      fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
-      if (fluid == null || fluid.getDefaultState().isEmpty()) {
+      fluid = Registry.FLUID.get(fluidId);
+      if (fluid.getDefaultState().isEmpty()) {
         log.warn("Could not find fluid {} for material {}", fluidId, materialId);
         fluid = Fluids.EMPTY;
       }
