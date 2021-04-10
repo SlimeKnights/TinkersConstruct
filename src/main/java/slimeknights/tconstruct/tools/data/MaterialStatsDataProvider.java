@@ -6,8 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.Identifier;
@@ -58,14 +56,17 @@ public class MaterialStatsDataProvider extends GenericDataProvider {
    * Separate json wrapper for serialization, since we know the types here.
    * See {@link MaterialStatJsonWrapper} for its deserialization counterpart.
    */
-  @AllArgsConstructor
   private static class JsonWrapper {
 
     private final Identifier materialId;
     private final List<JsonStatWrapper> stats;
+
+      public JsonWrapper(Identifier materialId, List<JsonStatWrapper> stats) {
+          this.materialId = materialId;
+          this.stats = stats;
+      }
   }
 
-  @Getter
   private static class JsonStatWrapper extends MaterialStatJsonWrapper.BaseMaterialStatsJson {
 
     private final IMaterialStats stat;
@@ -74,14 +75,21 @@ public class MaterialStatsDataProvider extends GenericDataProvider {
       super(id);
       this.stat = stat;
     }
+
+      public IMaterialStats getStat() {
+          return this.stat;
+      }
   }
 
-  @AllArgsConstructor
   private static class StatSerializer implements JsonSerializer<JsonStatWrapper> {
 
     private final Gson gson;
 
-    @Override
+      public StatSerializer(Gson gson) {
+          this.gson = gson;
+      }
+
+      @Override
     public JsonElement serialize(JsonStatWrapper src, Type typeOfSrc, JsonSerializationContext context) {
       JsonElement original = gson.toJsonTree(src);
 

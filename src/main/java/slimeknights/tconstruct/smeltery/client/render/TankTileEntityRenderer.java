@@ -7,7 +7,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import slimeknights.mantle.client.model.util.ModelHelper;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
@@ -21,7 +21,7 @@ public class TankTileEntityRenderer<T extends BlockEntity & ITankTileEntity> ext
 
   @Override
   public void render(T tile, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider buffer, int combinedLightIn, int combinedOverlayIn) {
-    if (Config.CLIENT.tankFluidModel.get()) {
+    if (TConfig.CLIENT.tankFluidModel.get()) {
       return;
     }
     // render the fluid

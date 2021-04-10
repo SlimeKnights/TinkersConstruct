@@ -32,7 +32,7 @@ public final class GuiUtil {
    */
   public static void drawBackground(MatrixStack matrices, HandledScreen<?> screen, Identifier background) {
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-    screen.getMinecraft().getTextureManager().bindTexture(background);
+    screen.client.getTextureManager().bindTexture(background);
     screen.drawTexture(matrices, screen.x, screen.y, 0, 0, screen.backgroundWidth, screen.backgroundHeight);
   }
 
@@ -132,7 +132,7 @@ public final class GuiUtil {
    */
   public static void renderTiledFluid(MatrixStack matrices, HandledScreen<?> screen, FluidVolume stack, int x, int y, int width, int height, int depth) {
     if (!stack.isEmpty()) {
-      Sprite fluidSprite = screen.getMinecraft().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).apply(stack.getFluid().getAttributes().getStillTexture(stack));
+      Sprite fluidSprite = screen.client.getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).apply(stack.getFluid().getAttributes().getStillTexture(stack));
       RenderUtils.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
       renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));
       GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -153,7 +153,7 @@ public final class GuiUtil {
    */
   public static void renderTiledTextureAtlas(MatrixStack matrices, HandledScreen<?> screen, Sprite sprite, int x, int y, int width, int height, int depth, boolean upsideDown) {
     // start drawing sprites
-    screen.getMinecraft().getTextureManager().bindTexture(sprite.getAtlas().getId());
+    screen.client.getTextureManager().bindTexture(sprite.getAtlas().getId());
     BufferBuilder builder = Tessellator.getInstance().getBuffer();
     builder.begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE);
 

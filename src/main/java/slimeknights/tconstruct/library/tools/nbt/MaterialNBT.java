@@ -88,7 +88,7 @@ public class MaterialNBT {
    * @return  MaterialNBT instance
    */
   public static MaterialNBT readFromNBT(@Nullable Tag nbt) {
-    if (nbt == null || nbt.getType() != Constants.NBT.TAG_LIST) {
+    if (nbt == null || nbt.getType() != BlockEntityRendererRegistry.INSTANCE.registerST) {
       return EMPTY;
     }
     ListTag listNBT = (ListTag) nbt;

@@ -8,7 +8,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import slimeknights.mantle.client.model.inventory.ModelItem;
 import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.mantle.client.render.RenderingHelper;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.client.model.block.MelterModel;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
@@ -29,7 +29,7 @@ public class MelterTileEntityRenderer extends BlockEntityRenderer<MelterTileEnti
       boolean isRotated = RenderingHelper.applyRotation(matrices, state);
 
       // render fluids
-      if (!Config.CLIENT.tankFluidModel.get()) {
+      if (!TConfig.CLIENT.tankFluidModel.get()) {
         RenderUtils.renderFluidTank(matrices, buffer, model.getFluid(), melter.getTank(), light, partialTicks, false);
       }
 

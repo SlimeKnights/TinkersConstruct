@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.tools.common.network;
 
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 
 // TODO: this is pretty unsecure, nothing stops the client from sending any time, can that be fixed?

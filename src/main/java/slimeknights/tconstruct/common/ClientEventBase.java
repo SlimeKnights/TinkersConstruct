@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common;
 
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.color.block.BlockColorProvider;
@@ -12,7 +13,7 @@ import java.util.function.Supplier;
 /**
  * Contains helpers to use for registering client events
  */
-public abstract class ClientEventBase {
+public abstract class ClientEventBase implements ClientModInitializer {
   /**
    * Registers a block colors alias for the given block
    * @param blockColors  BlockColors instance

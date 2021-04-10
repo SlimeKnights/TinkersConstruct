@@ -16,20 +16,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-
-import net.minecraftforge.common.IForgeShearable;
-import net.minecraftforge.common.PlantType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Locale;
 
 // todo: evaluate block
-public class SlimeTallGrassBlock extends PlantBlock implements IForgeShearable {
+public class SlimeTallGrassBlock extends PlantBlock {
 
   private static final VoxelShape SHAPE = Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
@@ -65,7 +61,6 @@ public class SlimeTallGrassBlock extends PlantBlock implements IForgeShearable {
 //    return TinkerWorld.SLIME_PLANT_TYPE;
 //  }
 
-  @Override
   public List<ItemStack> onSheared(@Nullable PlayerEntity player, ItemStack item, World world, BlockPos pos, int fortune) {
     ItemStack stack = new ItemStack(this, 1);
     return Lists.newArrayList(stack);

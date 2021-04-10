@@ -47,4 +47,20 @@ public class MetalItemObject extends ItemObject<Block> {
   private static Tag.Identified<Item> getTag(String name) {
     return (Tag.Identified<Item>) TagRegistry.item(new Identifier("c", name));
   }
+
+  public Tag.Identified<Block> getBlockTag() {
+    return blockTag;
+  }
+
+  public Tag.Identified<Item> getBlockItemTag() {
+    return blockItemTag;
+  }
+
+  public Tag.Identified<Item> getIngotTag() {
+    return ingotTag;
+  }
+
+  public Tag.Identified<Item> getNuggetTag() {
+    return nuggetTag;
+  }
 }

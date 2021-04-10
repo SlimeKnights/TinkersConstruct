@@ -45,7 +45,7 @@ public class EndSlimeIslandStructure extends StructureFeature<DefaultFeatureConf
     }
 
     @Override
-    public void func_230364_a_(DynamicRegistryManager registries, ChunkGenerator generator, StructureManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, DefaultFeatureConfig config) {
+    public void init(DynamicRegistryManager registries, ChunkGenerator generator, StructureManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, DefaultFeatureConfig config) {
       int x = chunkX * 16 + 4 + this.random.nextInt(8);
       int z = chunkZ * 16 + 4 + this.random.nextInt(8);
 

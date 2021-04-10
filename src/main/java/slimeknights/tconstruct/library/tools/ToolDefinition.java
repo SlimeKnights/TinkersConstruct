@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraftforge.common.util.Lazy;
+import net.minecraft.util.Lazy;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -32,7 +32,7 @@ public class ToolDefinition {
 
   public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents) {
     this.baseStatDefinition = baseStatDefinition;
-    this.requiredComponents = Lazy.of(requiredComponents);
+    this.requiredComponents = new Lazy<>(requiredComponents);
   }
 
   /**

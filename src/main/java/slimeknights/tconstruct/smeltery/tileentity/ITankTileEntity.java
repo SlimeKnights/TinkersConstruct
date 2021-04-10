@@ -23,7 +23,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fml.DistExecutor;
 import slimeknights.mantle.client.model.util.ModelHelper;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
@@ -92,7 +92,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
 
     // update the block model
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-      if (Config.CLIENT.tankFluidModel.get()) {
+      if (TConfig.CLIENT.tankFluidModel.get()) {
         // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
         BlockEntity te = getTE();
         TankModel.BakedModel model = ModelHelper.getBakedModel(te.getCachedState(), TankModel.BakedModel.class);

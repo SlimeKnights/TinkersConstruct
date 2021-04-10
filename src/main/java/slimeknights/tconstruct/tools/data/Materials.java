@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.tools.data;
 
 import com.mojang.datafixers.util.Pair;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import net.minecraft.fluid.Fluid;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -15,7 +14,6 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,7 +21,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class Materials {
   /** General purpose materials */
   private static final int ORDER_GENERAL = 0;
@@ -79,6 +76,9 @@ final class Materials {
   public static final IMaterial bronze     = compatMat(MaterialIds.bronze,     3, ORDER_HARVEST, TinkerFluids.moltenBronze,     TinkerModifiers.wellMaintained2);
   public static final IMaterial steel      = compatMat(MaterialIds.steel,      3, ORDER_GENERAL, TinkerFluids.moltenSteel,      TinkerModifiers.sturdy);
   public static final IMaterial constantan = compatMat(MaterialIds.constantan, 3, ORDER_COMPAT,  TinkerFluids.moltenConstantan, TinkerModifiers.temperate);
+
+  private Materials() {
+  }
 
   // bowstring IMaterials
 //  public static final IMaterial string = mat(MaterialIds.string, true, 0xeeeeee);

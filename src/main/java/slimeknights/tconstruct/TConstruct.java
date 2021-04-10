@@ -1,5 +1,7 @@
 package slimeknights.tconstruct;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -7,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -36,10 +39,11 @@ public class TConstruct implements ModInitializer {
 
   @Override
   public void onInitialize() {
-//    TODO: config
-//    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
-//    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+    AutoConfig.register(TConfig.Common.class, GsonConfigSerializer::new);
+    AutoConfig.register(TConfig.Client.class, GsonConfigSerializer::new);
 
+    TConfig.common = AutoConfig.getConfigHolder(TConfig.Common.class).getConfig();
+    TConfig.client = AutoConfig.getConfigHolder(TConfig.Client.class).getConfig();
 
     // init deferred registers
     TinkerModule.initRegisters();

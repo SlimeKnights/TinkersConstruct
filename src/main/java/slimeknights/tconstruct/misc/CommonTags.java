@@ -14,4 +14,5 @@ public class CommonTags {
   public static final Tag<Item> RODS_WOODEN = TagRegistry.item(new Identifier("wooden_rods"));
   public static final Tag<Item> LEATHER = TagRegistry.item(new Identifier("leather"));
     public static final Tag<Item> STONE = TagRegistry.item(new Identifier("stone"));
+  public static final Tag<Item> SLIMEBALLS = TagRegistry.item(new Identifier("slimeballs"));
 }

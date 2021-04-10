@@ -5,7 +5,6 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SinglePreparationResourceReloadListener;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
-import net.minecraftforge.fml.ModLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
@@ -28,9 +27,6 @@ public class SlimeColorReloadListener extends SinglePreparationResourceReloadLis
    */
   @Override
   protected int[] prepare(ResourceManager resourceManager, Profiler profiler) {
-    if (!ModLoader.isLoadingStateValid()) {
-      return new int[0];
-    }
     try {
       return RawTextureDataLoader.loadRawTextureData(resourceManager, path);
     } catch (IOException ioexception) {

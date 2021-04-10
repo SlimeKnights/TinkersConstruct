@@ -4,6 +4,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.Constants.NBT;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -14,8 +15,6 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-
-import org.jetbrains.annotations.Nullable;
 
 public class OverslimeModifier extends SingleUseModifier {
   private static final String KEY_OVERSLIME_AMOUNT = Util.makeTranslationKey("gui", "amount");

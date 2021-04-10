@@ -2,11 +2,6 @@ package slimeknights.tconstruct.tools.stats;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -20,11 +15,6 @@ import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 import java.util.List;
 
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@ToString
 public class HeadMaterialStats extends BaseMaterialStats {
   public static final MaterialStatsId ID = new MaterialStatsId(Util.getResource("head"));
   public static final HeadMaterialStats DEFAULT = new HeadMaterialStats(1, 1f, 0, 1f);
@@ -53,7 +43,17 @@ public class HeadMaterialStats extends BaseMaterialStats {
   private int harvestLevel;
   private float attack;
 
-  @Override
+    public HeadMaterialStats(int durability, float miningSpeed, int harvestLevel, float attack) {
+        this.durability = durability;
+        this.miningSpeed = miningSpeed;
+        this.harvestLevel = harvestLevel;
+        this.attack = attack;
+    }
+
+    public HeadMaterialStats() {
+    }
+
+    @Override
   public void encode(PacketByteBuf buffer) {
     buffer.writeInt(this.durability);
     buffer.writeFloat(this.miningSpeed);
@@ -116,4 +116,51 @@ public class HeadMaterialStats extends BaseMaterialStats {
   public static Text formatAttack(float attack) {
     return formatNumber(ATTACK_PREFIX, ATTACK_COLOR, attack);
   }
+
+    public int getDurability() {
+        return this.durability;
+    }
+
+    public float getMiningSpeed() {
+        return this.miningSpeed;
+    }
+
+    public int getHarvestLevel() {
+        return this.harvestLevel;
+    }
+
+    public float getAttack() {
+        return this.attack;
+    }
+
+    public boolean equals(final Object o) {
+        if (o == this) return true;
+        if (!(o instanceof HeadMaterialStats)) return false;
+        final HeadMaterialStats other = (HeadMaterialStats) o;
+        if (!other.canEqual((Object) this)) return false;
+        if (!super.equals(o)) return false;
+        if (this.getDurability() != other.getDurability()) return false;
+        if (Float.compare(this.getMiningSpeed(), other.getMiningSpeed()) != 0) return false;
+        if (this.getHarvestLevel() != other.getHarvestLevel()) return false;
+        if (Float.compare(this.getAttack(), other.getAttack()) != 0) return false;
+        return true;
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof HeadMaterialStats;
+    }
+
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = super.hashCode();
+        result = result * PRIME + this.getDurability();
+        result = result * PRIME + Float.floatToIntBits(this.getMiningSpeed());
+        result = result * PRIME + this.getHarvestLevel();
+        result = result * PRIME + Float.floatToIntBits(this.getAttack());
+        return result;
+    }
+
+    public String toString() {
+        return "HeadMaterialStats(durability=" + this.getDurability() + ", miningSpeed=" + this.getMiningSpeed() + ", harvestLevel=" + this.getHarvestLevel() + ", attack=" + this.getAttack() + ")";
+    }
 }

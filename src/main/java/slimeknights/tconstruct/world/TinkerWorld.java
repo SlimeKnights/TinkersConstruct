@@ -40,7 +40,7 @@ import slimeknights.mantle.registration.object.ItemEnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
@@ -191,16 +191,16 @@ public final class TinkerWorld extends TinkerModule implements ModInitializer {
       Feature.ORE.configure(new OreFeatureConfig(Rules.BASE_STONE_OVERWORLD, TinkerWorld.copperOre.get().getDefaultState(), 9))
         .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(40, 0, 60)))
         .spreadHorizontally()
-        .repeat(Config.common.veinCountCopper));
+        .repeat(TConfig.common.veinCountCopper));
     // small veins, standard distribution
     COBALT_ORE_FEATURE_SMALL = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("cobalt_ore_small"),
       Feature.ORE.configure(new OreFeatureConfig(Rules.NETHERRACK, cobaltOre.get().getDefaultState(), 4))
         .decorate(ConfiguredFeatures.Decorators.NETHER_ORE)
-        .spreadHorizontally().repeat(Config.common.veinCountCobalt / 2));
+        .spreadHorizontally().repeat(TConfig.common.veinCountCobalt / 2));
     // large veins, around y=16, up to 48
     COBALT_ORE_FEATURE_LARGE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("cobalt_ore_large"),
       Feature.ORE.configure(new OreFeatureConfig(Rules.NETHERRACK, cobaltOre.get().getDefaultState(), 8))
         .decorate(Decorator.DEPTH_AVERAGE.configure(new DepthAverageDecoratorConfig(32, 16)))
-        .spreadHorizontally().repeat(Config.common.veinCountCobalt / 2));
+        .spreadHorizontally().repeat(TConfig.common.veinCountCobalt / 2));
   }
 }

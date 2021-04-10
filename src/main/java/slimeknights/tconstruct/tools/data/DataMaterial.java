@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.data;
 
-import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.text.TextColor;
@@ -15,18 +14,12 @@ import java.util.function.Supplier;
  * Material implementation used in data generation. Should never be directly registered with the material registry
  */
 public class DataMaterial implements IMaterial {
-  @Getter
   private final MaterialId identifier;
-  @Getter
   private final int tier;
-  @Getter
   private final int sortOrder;
   private final Supplier<? extends Fluid> fluid;
-  @Getter
   private final int fluidPerUnit;
-  @Getter
   private final boolean craftable;
-  @Getter
   private final TextColor color;
   private final Supplier<List<ModifierEntry>> traits;
 
@@ -62,5 +55,29 @@ public class DataMaterial implements IMaterial {
   @Override
   public List<ModifierEntry> getTraits() {
     return traits.get();
+  }
+
+  public MaterialId getIdentifier() {
+    return this.identifier;
+  }
+
+  public int getTier() {
+    return this.tier;
+  }
+
+  public int getSortOrder() {
+    return this.sortOrder;
+  }
+
+  public int getFluidPerUnit() {
+    return this.fluidPerUnit;
+  }
+
+  public boolean isCraftable() {
+    return this.craftable;
+  }
+
+  public TextColor getColor() {
+    return this.color;
   }
 }

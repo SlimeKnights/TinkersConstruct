@@ -30,12 +30,12 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
 
   /** Creates a new builder for a basin recipe */
   public static CompositeCastingRecipeBuilder basin(MaterialId input, MaterialId output) {
-    return composite(input, output, TinkerSmeltery.basinCompositeSerializer.get());
+    return composite(input, output, TinkerSmeltery.basinCompositeSerializer);
   }
 
   /** Creates a new builder for a table recipe */
   public static CompositeCastingRecipeBuilder table(MaterialId input, MaterialId output) {
-    return composite(input, output, TinkerSmeltery.tableCompositeSerializer.get());
+    return composite(input, output, TinkerSmeltery.tableCompositeSerializer);
   }
 
   /* Fluid */

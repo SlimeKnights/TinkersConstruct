@@ -97,7 +97,7 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
       return;
     }
 
-    ((WorldAccess) reader).getBlockState(pos).getBlock().onPlantGrow(((WorldAccess) reader).getBlockState(pos), (WorldAccess) reader, pos, origin);
+//    ((WorldAccess) reader).getBlockState(pos).getBlock().onPlantGrow(((WorldAccess) reader).getBlockState(pos), (WorldAccess) reader, pos, origin);
   }
 
   protected void placeTrunk(ModifiableTestableWorld worldIn, Random randomIn, int treeHeight, BlockPos blockPos, Set<BlockPos> blockPosSet, BlockBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {

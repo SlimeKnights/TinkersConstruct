@@ -21,14 +21,13 @@ import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.tileentity.NamableTileEntity;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.library.Util;
@@ -84,7 +83,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
 
   /** Inventory handling melting items */
   @Getter
-  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, Config.COMMON.smelteryNuggetsPerOre::get);
+  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, TConfig.COMMON.smelteryNuggetsPerOre::get);
   private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> meltingInventory);
 
   /** Fuel module */

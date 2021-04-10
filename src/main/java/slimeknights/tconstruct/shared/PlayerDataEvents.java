@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
@@ -19,7 +19,7 @@ public class PlayerDataEvents {
 
   @SubscribeEvent
   public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-    if (Config.common.shouldSpawnWithTinkersBook) {
+    if (TConfig.common.shouldSpawnWithTinkersBook) {
       CompoundTag playerData = event.getPlayer().getPersistentData();
       CompoundTag data = TagUtil.getTagSafe(playerData, PlayerEntity.PERSISTED_NBT_TAG);
 

@@ -4,17 +4,16 @@ import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.Constants.NBT;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -56,11 +55,11 @@ public class MaterialIdNBT {
    * @return  MaterialNBT instance
    */
   public static MaterialIdNBT readFromNBT(@Nullable Tag nbt) {
-    if (nbt == null || nbt.getType() != Constants.NBT.TAG_LIST) {
+    if (nbt == null || nbt.getType() != NbtType.LIST) {
       return EMPTY;
     }
     ListTag listNBT = (ListTag) nbt;
-    if (listNBT.getElementType() != Constants.NBT.TAG_STRING) {
+    if (listNBT.getElementType() != NbtType.STRING) {
       return EMPTY;
     }
 
@@ -91,7 +90,7 @@ public class MaterialIdNBT {
   public static MaterialIdNBT from(ItemStack stack) {
     CompoundTag nbt = stack.getTag();
     if (nbt != null) {
-      return readFromNBT(nbt.getList(ToolStack.TAG_MATERIALS, NBT.TAG_STRING));
+      return readFromNBT(nbt.getList(ToolStack.TAG_MATERIALS, NbtType.STRING));
     }
     return EMPTY;
   }

@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.client;
 
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SynchronousResourceReloadListener;
-import net.minecraftforge.fml.ModLoader;
 
 /**
  * Same as {@link SynchronousResourceReloadListener}, but only runs if the mod loader state is valid
@@ -10,9 +9,7 @@ import net.minecraftforge.fml.ModLoader;
 public interface ISafeManagerReloadListener extends SynchronousResourceReloadListener {
   @Override
   default void apply(ResourceManager resourceManager) {
-    if (ModLoader.isLoadingStateValid()) {
-      onReloadSafe(resourceManager);
-    }
+    onReloadSafe(resourceManager);
   }
 
   /**

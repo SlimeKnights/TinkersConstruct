@@ -1,23 +1,15 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraftforge.common.util.Constants;
-import slimeknights.tconstruct.library.utils.NBTUtil;
-
 import org.jetbrains.annotations.Nullable;
+import slimeknights.tconstruct.library.utils.NBTUtil;
 
 /**
  * All the stats that every tool must have.
  * Some may not be used explicitly by all tools (e.g. weapons and harvest  level)
  */
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class StatsNBT {
   static final StatsNBT EMPTY = new StatsNBT(1, 0, 1, 1, 1);
 
@@ -28,24 +20,27 @@ public class StatsNBT {
   protected static final String TAG_HARVEST_LEVEL = "harvest_level";
 
   /** Total durability for the tool */
-  @Getter
   private final int durability;
   /** Harvest level when mining on the tool */
-  @Getter
   private final int harvestLevel;
   /** Base dealt by the tool */
-  @Getter
   private final float attackDamage;
   /** Base mining speed */
-  @Getter
   private final float miningSpeed;
   /** Value to multiply by attack speed, larger values are faster */
-  @Getter
   private final float attackSpeed;
+
+  public StatsNBT(int durability, int harvestLevel, float attackDamage, float miningSpeed, float attackSpeed) {
+    this.durability = durability;
+    this.harvestLevel = harvestLevel;
+    this.attackDamage = attackDamage;
+    this.miningSpeed = miningSpeed;
+    this.attackSpeed = attackSpeed;
+  }
 
   /** Parses the stats from NBT */
   public static StatsNBT readFromNBT(@Nullable Tag inbt) {
-    if (inbt == null || inbt.getType() != Constants.NBT.TAG_COMPOUND) {
+    if (inbt == null || inbt.getType() != NbtType.COMPOUND) {
       return EMPTY;
     }
 
@@ -69,5 +64,57 @@ public class StatsNBT {
     nbt.putFloat(TAG_ATTACK_SPEED, attackSpeed);
 
     return nbt;
+  }
+
+  public boolean equals(final Object o) {
+    if (o == this) return true;
+    if (!(o instanceof StatsNBT)) return false;
+    final StatsNBT other = (StatsNBT) o;
+    if (!other.canEqual((Object) this)) return false;
+    if (this.durability != other.durability) return false;
+    if (this.harvestLevel != other.harvestLevel) return false;
+    if (Float.compare(this.attackDamage, other.attackDamage) != 0) return false;
+    if (Float.compare(this.miningSpeed, other.miningSpeed) != 0) return false;
+    if (Float.compare(this.attackSpeed, other.attackSpeed) != 0) return false;
+    return true;
+  }
+
+  protected boolean canEqual(final Object other) {
+    return other instanceof StatsNBT;
+  }
+
+  public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    result = result * PRIME + this.durability;
+    result = result * PRIME + this.harvestLevel;
+    result = result * PRIME + Float.floatToIntBits(this.attackDamage);
+    result = result * PRIME + Float.floatToIntBits(this.miningSpeed);
+    result = result * PRIME + Float.floatToIntBits(this.attackSpeed);
+    return result;
+  }
+
+  public String toString() {
+    return "StatsNBT(durability=" + this.durability + ", harvestLevel=" + this.harvestLevel + ", attackDamage=" + this.attackDamage + ", miningSpeed=" + this.miningSpeed + ", attackSpeed=" + this.attackSpeed + ")";
+  }
+
+  public int getDurability() {
+    return this.durability;
+  }
+
+  public int getHarvestLevel() {
+    return this.harvestLevel;
+  }
+
+  public float getAttackDamage() {
+    return this.attackDamage;
+  }
+
+  public float getMiningSpeed() {
+    return this.miningSpeed;
+  }
+
+  public float getAttackSpeed() {
+    return this.attackSpeed;
   }
 }

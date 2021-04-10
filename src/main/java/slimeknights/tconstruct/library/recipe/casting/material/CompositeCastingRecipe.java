@@ -155,6 +155,14 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     return multiRecipes;
   }
 
+  public RecipeType<?> getType() {
+    return this.type;
+  }
+
+  public Identifier getId() {
+    return this.id;
+  }
+
   /** Implementaiton for casting basins */
   public static class Basin extends CompositeCastingRecipe {
     public Basin(Identifier id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {

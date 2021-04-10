@@ -46,7 +46,7 @@ public class NetherSlimeIslandStructure extends StructureFeature<DefaultFeatureC
     return GenerationStep.Feature.UNDERGROUND_DECORATION;
   }
 
-  @Override
+//  @Override
   public List<SpawnSettings.SpawnEntry> getDefaultSpawnList() {
     return STRUCTURE_MONSTERS;
   }
@@ -58,7 +58,7 @@ public class NetherSlimeIslandStructure extends StructureFeature<DefaultFeatureC
     }
 
     @Override
-    public void func_230364_a_(DynamicRegistryManager registries, ChunkGenerator generator, StructureManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, DefaultFeatureConfig config) {
+    public void init(DynamicRegistryManager registries, ChunkGenerator generator, StructureManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, DefaultFeatureConfig config) {
       int x = chunkX * 16 + 4 + this.random.nextInt(8);
       int y = 25;
       int z = chunkZ * 16 + 4 + this.random.nextInt(8);

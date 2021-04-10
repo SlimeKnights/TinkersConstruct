@@ -15,7 +15,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
@@ -123,7 +123,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
       return false;
     }
 
-    List<String> blacklist = Config.common.craftingStationBlacklist;
+    List<String> blacklist = TConfig.common.craftingStationBlacklist;
     if (!blacklist.isEmpty()) {
       Identifier registryName = BlockEntityType.getId(tileEntity.getType());
       if (registryName == null || blacklist.contains(registryName.toString())) {

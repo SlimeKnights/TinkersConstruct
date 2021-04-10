@@ -7,8 +7,8 @@ import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.misc.CommonTags;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -76,21 +76,21 @@ public class WorldRecipeProvider extends BaseRecipeProvider {
     ShapedRecipeJsonFactory.create(Blocks.STICKY_PISTON)
                        .pattern("#")
                        .pattern("P")
-                       .input('#', Tags.Items.SLIMEBALLS)
+                       .input('#', CommonTags.SLIMEBALLS)
                        .input('P', Blocks.PISTON)
-                       .criterion("has_slime_ball", conditionsFromTag(Tags.Items.SLIMEBALLS))
+                       .criterion("has_slime_ball", conditionsFromTag(CommonTags.SLIMEBALLS))
                        .offerTo(consumer, location("common/slime/sticky_piston"));
     ShapedRecipeJsonFactory.create(Items.LEAD, 2)
                        .input('~', Items.STRING)
-                       .input('O', Tags.Items.SLIMEBALLS)
+                       .input('O', CommonTags.SLIMEBALLS)
                        .pattern("~~ ")
                        .pattern("~O ")
                        .pattern("  ~")
-                       .criterion("has_slime_ball", conditionsFromTag(Tags.Items.SLIMEBALLS))
+                       .criterion("has_slime_ball", conditionsFromTag(CommonTags.SLIMEBALLS))
                        .offerTo(consumer, location("common/slime/lead"));
     ShapelessRecipeJsonFactory.create(Items.MAGMA_CREAM)
                           .input(Items.BLAZE_POWDER)
-                          .input(Tags.Items.SLIMEBALLS)
+                          .input(CommonTags.SLIMEBALLS)
                           .criterion("has_blaze_powder", conditionsFromItem(Items.BLAZE_POWDER))
                           .offerTo(consumer, location("common/slime/magma_cream"));
   }

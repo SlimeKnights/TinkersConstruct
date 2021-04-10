@@ -136,7 +136,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
         recipe = findMoldingRecipe();
         if (recipe != null) {
           setStack(INPUT, ItemStack.EMPTY);
-          ItemHandlerHelper.giveItemToPlayer(player, recipe.craft(moldingInventory), player.inventory.selectedSlot);
+          player.giveItemStack(recipe.craft(moldingInventory));
           return;
         }
       }

@@ -45,7 +45,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -518,7 +518,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
         // only valid ones
         if (this.hasValidMaterials(tool)) {
           items.add(tool);
-          if (!Config.common.listAllToolMaterials) {
+          if (!TConfig.common.listAllToolMaterials) {
             break;
           }
         }

@@ -12,6 +12,7 @@ import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.BlockStateProviderType;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.TConstruct;
@@ -40,7 +41,7 @@ public final class TinkerStructures extends TinkerModule {
   /*
    * Misc
    */
-  public static final BlockStateProviderType<SupplierBlockStateProvider> supplierBlockstateProvider = BLOCK_STATE_PROVIDER_TYPES.register("supplier_state_provider", () -> new BlockStateProviderType<>(SupplierBlockStateProvider.TYPE_CODEC));
+  public static final BlockStateProviderType<BlockStateProvider> supplierBlockstateProvider = Registry.register(Registry.BLOCK_STATE_PROVIDER_TYPE, id("supplier_state_provider"), new BlockStateProviderType<>(SupplierBlockStateProvider.TYPE_CODEC));
 
   /*
    * Features
@@ -68,18 +69,10 @@ public final class TinkerStructures extends TinkerModule {
   public static final StructureFeature<DefaultFeatureConfig> endSlimeIsland = Registry.register(Registry.STRUCTURE_FEATURE, new Identifier(TConstruct.modID, "end_slime_island"), new EndSlimeIslandStructure(DefaultFeatureConfig.CODEC));
   public static ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> END_SLIME_ISLAND;
 
-  @SubscribeEvent
-  void onFeaturesRegistry(RegistryEvent.Register<Feature<?>> event) {
+  @Override
+  public void onInitialize() {
     slimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("slime_island_piece"), SlimeIslandPiece::new);
-  }
 
-  /**
-   * Feature configuration
-   *
-   * PLACEMENT MOVED TO WorldEvents#onBiomeLoad
-   */
-  @SubscribeEvent
-  void commonSetup(FMLCommonSetupEvent event) {
     SLIME_ISLAND = BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, location("overworld_slime_island"), overworldSlimeIsland.configure(DefaultFeatureConfig.INSTANCE));
     StructureFeature.STRUCTURES.put("tconstruct:overworld_slime_island", overworldSlimeIsland);
     ChunkGeneratorSettings.getInstance().getStructuresConfig().getStructures().put(overworldSlimeIsland, new StructureConfig(30, 22, 14357800));

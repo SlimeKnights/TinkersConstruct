@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.client;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceReloadListener;
 import net.minecraft.util.profiler.Profiler;
-import net.minecraftforge.fml.ModLoader;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -15,9 +14,7 @@ public interface IEarlySafeManagerReloadListener extends ResourceReloadListener 
   @Override
   default CompletableFuture<Void> reload(Synchronizer stage, ResourceManager resourceManager, Profiler preparationsProfiler, Profiler reloadProfiler, Executor backgroundExecutor, Executor gameExecutor) {
     return CompletableFuture.runAsync(() -> {
-      if (ModLoader.isLoadingStateValid()) {
-        onReloadSafe(resourceManager);
-      }
+      onReloadSafe(resourceManager);
     }, backgroundExecutor).thenCompose(stage::whenPrepared);
   }
 

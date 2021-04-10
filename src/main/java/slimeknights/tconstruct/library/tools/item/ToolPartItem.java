@@ -18,7 +18,7 @@ import net.minecraftforge.fml.ForgeI18n;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import slimeknights.mantle.util.TranslationHelper;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -49,7 +49,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
         for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
           if (this.canUseMaterial(material)) {
             items.add(this.getItemstackWithMaterial(material));
-            if (!Config.common.listAllPartMaterials) {
+            if (!TConfig.common.listAllPartMaterials) {
               break;
             }
           }
@@ -84,7 +84,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     }
 
     // Stats
-    if (Config.CLIENT.extraToolTips.get()) {
+    if (TConfig.CLIENT.extraToolTips.get()) {
       if (!shift) {
         // info tooltip for detailed and component info
         tooltip.add(LiteralText.EMPTY);

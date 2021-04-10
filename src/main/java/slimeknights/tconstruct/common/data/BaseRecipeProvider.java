@@ -17,6 +17,7 @@ import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 
 import java.util.Arrays;
 import java.util.List;
@@ -76,8 +77,8 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
    * @param prefix  Prefix value
    * @return  Resource location path
    */
-  protected static Identifier wrapR(Supplier<? extends IForgeRegistryEntry<?>> entry, String prefix, String suffix) {
-    Identifier loc = Objects.requireNonNull(entry.get().getRegistryName());
+  protected static Identifier wrapR(Modifier entry, String prefix, String suffix) {
+    Identifier loc = Objects.requireNonNull(entry.getRegistryName());
     return location(prefix + loc.getPath() + suffix);
   }
 
@@ -109,7 +110,7 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
    * @param prefix  Prefix value
    * @return  Resource location path
    */
-  protected static Identifier prefixR(IForgeRegistryEntry<?> entry, String prefix) {
+  protected static Identifier prefixR(Modifier entry, String prefix) {
     Identifier loc = Objects.requireNonNull(entry.getRegistryName());
     return location(prefix + loc.getPath());
   }

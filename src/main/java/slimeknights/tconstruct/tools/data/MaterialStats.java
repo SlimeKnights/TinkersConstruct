@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.tools.data;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
@@ -23,7 +21,6 @@ import static slimeknights.tconstruct.library.utils.HarvestLevels.WOOD;
 /**
  * See also {@link net.minecraft.item.ToolMaterials}
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class MaterialStats {
   static final Map<MaterialId, List<IMaterialStats>> allMaterialStats = new HashMap<>();
 
@@ -156,7 +153,10 @@ final class MaterialStats {
 //                     ExtraMaterialStats.DEFAULT);
   }
 
-  /**
+    private MaterialStats() {
+    }
+
+    /**
    * Adds a set of material stats for the given material ID
    * @param location  Material ID
    * @param stats     Stats to add

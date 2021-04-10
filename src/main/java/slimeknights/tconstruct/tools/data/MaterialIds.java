@@ -1,11 +1,8 @@
 package slimeknights.tconstruct.tools.data;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MaterialIds {
   // tier 1
   public static final MaterialId wood = id("wood");
@@ -50,7 +47,10 @@ public final class MaterialIds {
   public static final MaterialId steel = id("steel");
   public static final MaterialId constantan = id("constantan");
 
-  // bowstring materials
+    private MaterialIds() {
+    }
+
+    // bowstring materials
   //public static final MaterialId string = id("string");
   //public static final MaterialId vine = id("vine");
   //public static final MaterialId slimevine_blue = id("slimevine_blue");

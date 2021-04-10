@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.harvest;
 
 import com.google.common.collect.Sets;
+import net.minecraft.block.Material;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 
 import java.util.Set;
-import net.minecraft.block.Material;
 
 public class PickaxeTool extends HarvestTool {
   protected static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.STONE, Material.METAL, Material.REPAIR_STATION);

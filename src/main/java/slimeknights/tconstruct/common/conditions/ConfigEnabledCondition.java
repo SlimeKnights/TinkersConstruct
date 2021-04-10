@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSyntaxException;
-import com.sun.jdi.BooleanValue;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
@@ -12,7 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.JsonSerializer;
 import slimeknights.mantle.recipe.ICondition;
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
@@ -115,8 +114,8 @@ public class ConfigEnabledCondition implements ICondition, LootCondition {
   }
 
   /* Properties */
-  public static final ConfigEnabledCondition GRAVEL_TO_FLINT = add("gravel_to_flint", Config.common.addGravelToFlintRecipe);
-  public static final ConfigEnabledCondition CHEAPER_NETHERITE_ALLOY = add("cheaper_netherite_alloy", Config.common.cheaperNetheriteAlloy);
-  public static final ConfigEnabledCondition WITHER_BONE_DROP = add("wither_bone_drop", Config.common.witherBoneDrop);
-  public static final ConfigEnabledCondition WITHER_BONE_CONVERSION = add("wither_bone_conversion", Config.common.witherBoneConversion);
+  public static final ConfigEnabledCondition GRAVEL_TO_FLINT = add("gravel_to_flint", TConfig.common.addGravelToFlintRecipe);
+  public static final ConfigEnabledCondition CHEAPER_NETHERITE_ALLOY = add("cheaper_netherite_alloy", TConfig.common.cheaperNetheriteAlloy);
+  public static final ConfigEnabledCondition WITHER_BONE_DROP = add("wither_bone_drop", TConfig.common.witherBoneDrop);
+  public static final ConfigEnabledCondition WITHER_BONE_CONVERSION = add("wither_bone_conversion", TConfig.common.witherBoneConversion);
 }

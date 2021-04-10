@@ -1070,7 +1070,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
    */
   private void addBlockCastingRecipe(Consumer<RecipeJsonProvider> consumer, Supplier<? extends Fluid> fluid, FluidAmount amount, ItemConvertible block, String location) {
     ItemCastingRecipeBuilder.basinRecipe(block)
-                            .setFluidAndTime(new FluidVolume(amount)
+                            .setFluidAndTime(new FluidVolume(amount))
                             .build(consumer, location(location));
   }
 

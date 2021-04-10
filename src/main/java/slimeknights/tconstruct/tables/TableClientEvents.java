@@ -1,15 +1,8 @@
 package slimeknights.tconstruct.tables;
 
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.resource.ReloadableResourceManager;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.Util;
@@ -23,7 +16,6 @@ import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
 public class TableClientEvents extends ClientEventBase {
 
   /**
@@ -34,20 +26,21 @@ public class TableClientEvents extends ClientEventBase {
     manager.registerListener(SlotInformationLoader.INSTANCE);
   }
 
-  @SubscribeEvent
-  static void registerModelLoader(ModelRegistryEvent event) {
-    ModelLoaderRegistry.registerLoader(Util.getResource("table"), TableModel.LOADER);
-  }
+//  this looks like baked models might be needed here
+//  @SubscribeEvent
+//  static void registerModelLoader(ModelRegistryEvent event) {
+//    ModelLoaderRegistry.registerLoader(Util.getResource("table"), TableModel.LOADER);
+//  }
 
-  @SubscribeEvent
-  static void setupClient(final FMLClientSetupEvent event) {
-    HandledScreens.register(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
-    HandledScreens.register(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
-    HandledScreens.register(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
-    HandledScreens.register(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
+  @Override
+  public void onInitializeClient() {
+    HandledScreens.register(TinkerTables.craftingStationContainer, CraftingStationScreen::new);
+    HandledScreens.register(TinkerTables.tinkerStationContainer, TinkerStationScreen::new);
+    HandledScreens.register(TinkerTables.partBuilderContainer, PartBuilderScreen::new);
+    HandledScreens.register(TinkerTables.tinkerChestContainer, TinkerChestScreen::new);
 
-    ClientRegistry.bindTileEntityRenderer(TinkerTables.craftingStationTile.get(), TableTileEntityRenderer::new);
-    ClientRegistry.bindTileEntityRenderer(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);
-    ClientRegistry.bindTileEntityRenderer(TinkerTables.partBuilderTile.get(), TableTileEntityRenderer::new);
+    BlockEntityRendererRegistry.INSTANCE.register(TinkerTables.craftingStationTile, TableTileEntityRenderer::new);
+    BlockEntityRendererRegistry.INSTANCE.register(TinkerTables.tinkerStationTile, TableTileEntityRenderer::new);
+    BlockEntityRendererRegistry.INSTANCE.register(TinkerTables.partBuilderTile, TableTileEntityRenderer::new);
   }
 }

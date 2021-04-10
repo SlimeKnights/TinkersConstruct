@@ -25,7 +25,7 @@ public class OverworldSlimeIslandStructure extends StructureFeature<DefaultFeatu
   private static final String[] SIZES = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
 
   private static final List<SpawnSettings.SpawnEntry> STRUCTURE_MONSTERS = ImmutableList.of(
-    new SpawnSettings.SpawnEntry(TinkerWorld.skySlimeEntity.get(), 30, 4, 4)
+    new SpawnSettings.SpawnEntry(TinkerWorld.skySlimeEntity, 30, 4, 4)
   );
 
   public OverworldSlimeIslandStructure(Codec<DefaultFeatureConfig> configCodec) {
@@ -42,7 +42,7 @@ public class OverworldSlimeIslandStructure extends StructureFeature<DefaultFeatu
     return "tconstruct:overworld_slime_island";
   }
 
-  @Override
+//  @Override
   public List<SpawnSettings.SpawnEntry> getDefaultSpawnList() {
     return STRUCTURE_MONSTERS;
   }
@@ -59,7 +59,7 @@ public class OverworldSlimeIslandStructure extends StructureFeature<DefaultFeatu
     }
 
     @Override
-    public void func_230364_a_(DynamicRegistryManager registries, ChunkGenerator generator, StructureManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, DefaultFeatureConfig config) {
+    public void init(DynamicRegistryManager registries, ChunkGenerator generator, StructureManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, DefaultFeatureConfig config) {
       int x = chunkX * 16 + 4 + this.random.nextInt(8);
       int z = chunkZ * 16 + 4 + this.random.nextInt(8);
 
