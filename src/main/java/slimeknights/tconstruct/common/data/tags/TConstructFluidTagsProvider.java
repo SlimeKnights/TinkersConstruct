@@ -80,6 +80,10 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.magmaCream.getForgeTag())
         .addTag(TinkerFluids.blood.getLocalTag())
         .addTag(TinkerTags.Fluids.SLIME);
+    
+    this.getOrCreateBuilder(TinkerTags.Fluids.SMELTERY_FUELS)
+		    .add(Fluids.LAVA)
+        .addTag(TinkerFluids.moltenBlaze.getLocalTag());
   }
 
   @Override
