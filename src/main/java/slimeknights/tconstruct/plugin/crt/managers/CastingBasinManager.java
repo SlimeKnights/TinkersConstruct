@@ -49,7 +49,6 @@ public class CastingBasinManager implements IRecipeManager {
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, "Material Casting"));
   }
 
-
   @Override
   public IRecipeType<ICastingRecipe> getRecipeType() {
     return RecipeTypes.CASTING_BASIN;

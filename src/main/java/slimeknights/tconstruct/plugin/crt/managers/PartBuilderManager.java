@@ -28,7 +28,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 public class PartBuilderManager implements IRecipeManager {
 
   @ZenCodeType.Method
-  public void addItemCastingRecipe(String name, String pattern, int cost, Item output, int outputCount) {
+  public void addRecipe(String name, String pattern, int cost, Item output, int outputCount) {
     if (!(output instanceof IMaterialItem)) {
       throw new IllegalArgumentException(ExpandItem.getDefaultInstance(output).getCommandString() + " is not a valid IMaterialItem! You can use `/ct dump ticMaterialItems` to view valid items!");
     }
