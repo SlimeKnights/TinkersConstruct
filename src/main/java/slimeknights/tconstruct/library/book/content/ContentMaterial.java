@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
-import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.text.IFormattableTextComponent;
@@ -24,6 +24,7 @@ import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.mantle.util.ItemStackList;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
@@ -38,11 +39,9 @@ import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -206,26 +205,22 @@ public class ContentMaterial extends TinkerPage {
     }
 
     int y = 10;
-    ToolCore[] tools = new ToolCore[]{
-      TinkerTools.pickaxe.get(), TinkerTools.mattock.get(), TinkerTools.broadSword.get(),
-      TinkerTools.sledgeHammer.get(), TinkerTools.excavator.get(), TinkerTools.axe.get(),
-      TinkerTools.kama.get()
-    };
+    for (Item tool : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
+      if (tool instanceof ToolCore) {
+        List<IToolPart> requirements = ((ToolCore)tool).getToolDefinition().getRequiredComponents();
+        int size = requirements.size();
+        List<MaterialId> toolMaterials = new ArrayList<>(size);
 
-    for (ToolCore tool : tools) {
-      List<IToolPart> requirements = tool.getToolDefinition().getRequiredComponents();
-      int size = requirements.size();
-      List<MaterialId> toolMaterials = new ArrayList<>(size);
+        for (int i = 0; i < requirements.size(); i++) {
+          toolMaterials.add(i, materialId);
+        }
 
-      for (int i = 0; i < requirements.size(); i++) {
-        toolMaterials.add(i, materialId);
-      }
+        ItemStack stack = new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(tool));
+        displayTools.add(new TinkerItemElement(stack));
 
-      ItemStack stack = new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(tool));
-      displayTools.add(new TinkerItemElement(stack));
-
-      if (displayTools.size() == 9) {
-        break;
+        if (displayTools.size() == 9) {
+          break;
+        }
       }
     }
 

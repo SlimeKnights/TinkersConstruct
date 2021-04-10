@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "item": "tconstruct:broad_blade_cast"
+  },
+  "item_cost": 8,
+  "result": "tconstruct:broad_blade"
+}

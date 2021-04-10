@@ -62,20 +62,30 @@ public class ToolClientEvents extends ClientEventBase {
     final ItemColors colors = event.getItemColors();
 
     // tint tool textures for fallback
+    // rock
     registerToolItemColors(colors, TinkerTools.pickaxe);
     registerToolItemColors(colors, TinkerTools.sledgeHammer);
+    // dirt
     registerToolItemColors(colors, TinkerTools.mattock);
     registerToolItemColors(colors, TinkerTools.excavator);
+    // wood
     registerToolItemColors(colors, TinkerTools.axe);
+    // scythe
     registerToolItemColors(colors, TinkerTools.kama);
+    registerToolItemColors(colors, TinkerTools.scythe);
+    // weapon
     registerToolItemColors(colors, TinkerTools.broadSword);
+    registerToolItemColors(colors, TinkerTools.cleaver);
 
     // tint tool part textures for fallback
+    // heads
     registerMaterialItemColors(colors, TinkerToolParts.pickaxeHead);
     registerMaterialItemColors(colors, TinkerToolParts.hammerHead);
     registerMaterialItemColors(colors, TinkerToolParts.axeHead);
     registerMaterialItemColors(colors, TinkerToolParts.kamaHead);
     registerMaterialItemColors(colors, TinkerToolParts.swordBlade);
+    registerMaterialItemColors(colors, TinkerToolParts.broadBlade);
+    // other parts
     registerMaterialItemColors(colors, TinkerToolParts.toolBinding);
     registerMaterialItemColors(colors, TinkerToolParts.largePlate);
     registerMaterialItemColors(colors, TinkerToolParts.toolRod);

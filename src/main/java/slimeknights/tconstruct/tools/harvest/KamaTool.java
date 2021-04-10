@@ -49,13 +49,18 @@ public class KamaTool extends HarvestTool {
     return HARVEST_LOGIC;
   }
 
+  /** Checks if the given tool acts as shears */
+  protected boolean isShears(ToolStack tool) {
+    return true;
+  }
+
   @Override
   public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     // only run AOE on shearable entities
-    if (target instanceof IForgeShearable) {
+    ToolStack tool = ToolStack.from(stack);
+    if (isShears(tool) && target instanceof IForgeShearable) {
       int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 
-      ToolStack tool = ToolStack.from(stack);
       if (!tool.isBroken() && this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, fortune)) {
         ToolDamageUtil.damageAnimated(tool, 1, playerIn, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND);
         this.swingTool(playerIn, hand);
@@ -147,6 +152,7 @@ public class KamaTool extends HarvestTool {
     return getToolHarvestLogic().transformBlocks(context, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true);
   }
 
+  /** Harvets logic to match shears and hoes */
   public static class HarvestLogic extends AOEToolHarvestLogic {
     private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(
       Material.LEAVES, Material.WEB, Material.WOOL,

@@ -28,11 +28,16 @@ public final class TinkerToolParts extends TinkerModule {
   });
   private static final Item.Properties PARTS_PROPS = new Item.Properties().group(TAB_TOOL_PARTS);
 
+  // rock
   public static final ItemObject<ToolPartItem> pickaxeHead = ITEMS.register("pickaxe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> hammerHead = ITEMS.register("hammer_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
+  // other heads
   public static final ItemObject<ToolPartItem> axeHead = ITEMS.register("axe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> kamaHead = ITEMS.register("kama_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
+  // blades
   public static final ItemObject<ToolPartItem> swordBlade = ITEMS.register("sword_blade", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
+  public static final ItemObject<ToolPartItem> broadBlade = ITEMS.register("broad_blade", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
+  // other parts
   public static final ItemObject<ToolPartItem> toolBinding = ITEMS.register("tool_binding", () -> new ToolPartItem(PARTS_PROPS, ExtraMaterialStats.ID));
   public static final ItemObject<ToolPartItem> largePlate = ITEMS.register("large_plate", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> toolRod = ITEMS.register("tool_rod", () -> new ToolPartItem(PARTS_PROPS, HandleMaterialStats.ID));

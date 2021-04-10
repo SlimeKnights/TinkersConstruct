@@ -24,8 +24,10 @@ import slimeknights.tconstruct.tools.harvest.HarvestTool;
 import slimeknights.tconstruct.tools.harvest.KamaTool;
 import slimeknights.tconstruct.tools.harvest.MattockTool;
 import slimeknights.tconstruct.tools.harvest.PickaxeTool;
+import slimeknights.tconstruct.tools.harvest.ScytheTool;
 import slimeknights.tconstruct.tools.harvest.SledgeHammerTool;
-import slimeknights.tconstruct.tools.melee.BroadSword;
+import slimeknights.tconstruct.tools.melee.BroadSwordTool;
+import slimeknights.tconstruct.tools.melee.CleaverTool;
 
 import java.util.function.Supplier;
 
@@ -51,8 +53,10 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(TOOL.get().addToolType(ToolType.AXE, 0), ToolDefinitions.AXE));
 
   public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get().addToolType(ToolType.HOE, 0).addToolType(ToolType.get("shears"), 0), ToolDefinitions.KAMA));
+  public static final ItemObject<KamaTool> scythe = ITEMS.register("scythe", () -> new ScytheTool(TOOL.get().addToolType(ToolType.HOE, 0), ToolDefinitions.SCYTHE));
 
-  public static final ItemObject<BroadSword> broadSword = ITEMS.register("broad_sword", () -> new BroadSword(TOOL.get().addToolType(ToolType.get("sword"), 0), ToolDefinitions.BROADSWORD));
+  public static final ItemObject<BroadSwordTool> broadSword = ITEMS.register("broad_sword", () -> new BroadSwordTool(TOOL.get().addToolType(ToolType.get("sword"), 0), ToolDefinitions.BROADSWORD));
+  public static final ItemObject<BroadSwordTool> cleaver = ITEMS.register("cleaver", () -> new CleaverTool(TOOL.get().addToolType(ToolType.get("sword"), 0), ToolDefinitions.CLEAVER));
 
   /*
    * Particles

@@ -277,6 +277,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
 
     // AOE transforming, run even if we did not transform the center
     // note we consider anything effective, as hoes are not effective on all tillable blocks
+    boolean didAoe = false;
     for (BlockPos newPos : getAOEBlocks(tool, player, pos, context.getFace(), context.getHitVec(), state -> true)) {
       if (pos.equals(newPos)) {
         //in case it attempts to run the same position twice
@@ -298,7 +299,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
         if (world.isRemote()) {
           return ActionResultType.SUCCESS;
         }
-        didTransform = true;
+        didAoe = true;
         world.setBlockState(newPos, newState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
         world.playSound(null, newPos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
@@ -314,7 +315,11 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
       }
     }
 
+    if (didAoe) {
+      player.spawnSweepParticles();
+    }
+
     // if anything happened, return success
-    return didTransform ? ActionResultType.SUCCESS : ActionResultType.PASS;
+    return didTransform || didAoe ? ActionResultType.SUCCESS : ActionResultType.PASS;
   }
 }

@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    {
+      "text": "The Cleaver is a big sword. Cuts off heads better too."
+    }
+  ],
+  "properties": [
+    "Requires a Tool Forge",
+    "Advanced sword",
+    "Big range",
+    "Effective on heads",
+    "Can create pain"
+  ]
+}

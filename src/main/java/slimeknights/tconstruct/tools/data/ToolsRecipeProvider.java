@@ -379,11 +379,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
+    // head
     addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
     addPartRecipe(consumer, TinkerToolParts.axeHead, 2, TinkerSmeltery.axeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.kamaHead, 2, TinkerSmeltery.kamaHeadCast);
     addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, TinkerSmeltery.swordBladeCast);
+    addPartRecipe(consumer, TinkerToolParts.broadBlade, 8, TinkerSmeltery.broadBladeCast);
+    // other parts
     addPartRecipe(consumer, TinkerToolParts.toolBinding, 1, TinkerSmeltery.toolBindingCast);
     addPartRecipe(consumer, TinkerToolParts.largePlate, 4, TinkerSmeltery.largePlateCast);
     addPartRecipe(consumer, TinkerToolParts.toolRod, 1, TinkerSmeltery.toolRodCast);
@@ -451,8 +454,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerBuildingRecipe(consumer, TinkerTools.axe);
 
     registerBuildingRecipe(consumer, TinkerTools.kama);
+    registerBuildingRecipe(consumer, TinkerTools.scythe);
 
     registerBuildingRecipe(consumer, TinkerTools.broadSword);
+    registerBuildingRecipe(consumer, TinkerTools.cleaver);
   }
 
   private void addHeadRecipes(Consumer<IFinishedRecipe> consumer) {

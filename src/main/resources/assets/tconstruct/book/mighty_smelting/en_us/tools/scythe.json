@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:scythe",
+  "text": [
+    {
+      "text": "The Scythe is an elusive weapon. Some, such as Darkosto, have a hard time obtaining a scythe."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "The scythe is optimal for area of attacks and destroying leaves."
+    }
+  ],
+  "properties": [
+    "Requires a Tool Forge",
+    "Advanced mining tool and weapon",
+    "3x3x3 AOE plany breaking",
+    "Can hoe dirt",
+    "When given silk touch, can be used for shearing"
+  ]
+}

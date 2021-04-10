@@ -488,6 +488,7 @@ public class ToolStack implements IModifierToolStack {
     List<IMaterial> materials = getMaterialsList();
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();
     modBuilder.add(getUpgrades());
+    modBuilder.add(getDefinition().getModifiers());
     for (IMaterial material : materials) {
       modBuilder.add(material.getTraits());
     }
