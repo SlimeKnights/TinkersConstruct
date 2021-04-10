@@ -83,7 +83,7 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
     
     this.getOrCreateBuilder(TinkerTags.Fluids.SMELTERY_FUELS)
 		    .add(Fluids.LAVA)
-        .addTag(TinkerFluids.moltenBlaze.getLocalTag());
+        .add(TinkerFluids.moltenBlaze.get());
   }
 
   @Override
