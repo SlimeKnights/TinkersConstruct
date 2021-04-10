@@ -23,6 +23,6 @@ public class CleaverTool extends BroadSwordTool {
   public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand hand) {
     // no offhand, look into cleaver blocking
     ItemStack itemStackIn = playerIn.getHeldItem(hand);
-    return ActionResult.resultSuccess(itemStackIn);
+    return ActionResult.resultConsume(itemStackIn);
   }
 }
