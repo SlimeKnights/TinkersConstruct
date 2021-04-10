@@ -119,7 +119,7 @@ public class ContentMaterial extends TinkerPage {
 
     for (IToolPart part : getToolParts()) {
       if (part.getStatType() == statsId) {
-        parts.add(part.getItemstackWithMaterial(material));
+        parts.add(part.withMaterial(material));
       }
     }
 

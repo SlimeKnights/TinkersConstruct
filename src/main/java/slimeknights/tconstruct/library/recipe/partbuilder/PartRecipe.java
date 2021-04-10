@@ -103,7 +103,7 @@ public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
    */
   @SuppressWarnings("WeakerAccess")
   public ItemStack getRecipeOutput(IMaterial material) {
-    ItemStack stack = output.getItemstackWithMaterial(material);
+    ItemStack stack = output.withMaterial(material);
     stack.setCount(outputCount);
     return stack;
   }

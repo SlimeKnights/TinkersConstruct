@@ -47,7 +47,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
       if (MaterialRegistry.initialized()) {
         for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
           if (this.canUseMaterial(material)) {
-            items.add(this.getItemstackWithMaterial(material));
+            items.add(this.withMaterial(material));
             if (!Config.COMMON.listAllPartMaterials.get()) {
               break;
             }

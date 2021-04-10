@@ -449,7 +449,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
         for (int i = 0; i < components.size(); i++) {
           IToolPart requirement = components.get(i);
           IMaterial material = materials.get(i);
-          ItemStack partStack = requirement.getItemstackWithMaterial(material);
+          ItemStack partStack = requirement.withMaterial(material);
           tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
           MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
           tooltips.add(StringTextComponent.EMPTY);

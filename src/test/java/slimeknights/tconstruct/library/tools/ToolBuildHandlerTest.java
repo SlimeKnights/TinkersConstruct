@@ -16,8 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MaterialRegistryExtension.class)
 class ToolBuildHandlerTest extends BaseMcTest {
 
-  private final Lazy<ItemStack> materialItem1 = Lazy.of(() -> MaterialItemFixture.MATERIAL_ITEM.getItemstackWithMaterial(MaterialFixture.MATERIAL_1));
-  private final Lazy<ItemStack> materialItem2 = Lazy.of(() -> MaterialItemFixture.MATERIAL_ITEM_2.getItemstackWithMaterial(MaterialFixture.MATERIAL_2));
+  private final Lazy<ItemStack> materialItem1 = Lazy.of(() -> MaterialItemFixture.MATERIAL_ITEM.withMaterial(MaterialFixture.MATERIAL_1));
+  private final Lazy<ItemStack> materialItem2 = Lazy.of(() -> MaterialItemFixture.MATERIAL_ITEM_2.withMaterial(MaterialFixture.MATERIAL_2));
   private final Lazy<ToolCore> testToolCore = Lazy.of(TestToolCore::new);
 
   @Test

@@ -102,9 +102,8 @@ public class ToolClientEvents extends ClientEventBase {
 
   /** Color handler instance for MaterialItem */
   private static final IItemColor materialColorHandler = (stack, index) -> {
-    return Optional.of(IMaterialItem.getMaterialFromStack(stack))
-      .filter((material) -> IMaterial.UNKNOWN != material)
-      .map(IMaterial::getIdentifier)
+    return Optional.of(IMaterialItem.getMaterialIdFromStack(stack))
+      .filter(material -> !material.equals(IMaterial.UNKNOWN_ID))
       .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
       .map(MaterialRenderInfo::getVertexColor)
       .orElse(-1);

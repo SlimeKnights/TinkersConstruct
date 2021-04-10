@@ -24,7 +24,7 @@ public final class TinkerToolParts extends TinkerModule {
     if (materials.isEmpty()) {
       return new ItemStack(TinkerToolParts.pickaxeHead);
     }
-    return TinkerToolParts.pickaxeHead.get().getItemstackWithMaterial(materials.get(TConstruct.random.nextInt(materials.size())));
+    return TinkerToolParts.pickaxeHead.get().withMaterial(materials.get(TConstruct.random.nextInt(materials.size())));
   });
   private static final Item.Properties PARTS_PROPS = new Item.Properties().group(TAB_TOOL_PARTS);
 

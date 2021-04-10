@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.book.content;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -16,17 +16,14 @@ import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ImageElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
-import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
-import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
@@ -39,15 +36,8 @@ public class ContentTool extends TinkerPage {
   public static final transient ImageData IMG_SLOT_1 = ContentModifier.IMG_SLOT_1;
   public static final transient ImageData IMG_TABLE = ContentModifier.IMG_TABLE;
 
-  private static final List<MaterialId> RENDER_MATERIALS = Arrays.asList(
-    new MaterialId(TConstruct.modID, "ui_render_head"),
-    new MaterialId(TConstruct.modID, "ui_render_handle"),
-    new MaterialId(TConstruct.modID, "ui_render_extra"),
-    new MaterialId(TConstruct.modID, "ui_render_large"),
-    new MaterialId(TConstruct.modID, "ui_render_extra_large"));
-
   private transient ToolCore tool;
-  private transient List<IToolPart> parts;
+  private transient List<ItemStack> parts;
 
   public TextData[] text = new TextData[0];
   public String[] properties = new String[0];
@@ -78,7 +68,12 @@ public class ContentTool extends TinkerPage {
     }
 
     if (this.parts == null) {
-      this.parts = this.tool.getToolDefinition().getRequiredComponents();
+      ImmutableList.Builder<ItemStack> partBuilder = ImmutableList.builder();
+      List<IToolPart> required = tool.getToolDefinition().getRequiredComponents();
+      for (int i = 0; i < required.size(); i++) {
+        partBuilder.add(required.get(i).withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(i)));
+      }
+      this.parts = partBuilder.build();
     }
   }
 
@@ -133,14 +128,7 @@ public class ContentTool extends TinkerPage {
     list.add(new ImageElement(toolX - 3, toolY - 3, -1, -1, IMG_SLOT_1, 0xffffff));
 
     for (int i = 0; i < this.parts.size(); i++) {
-      MaterialId materialId = RENDER_MATERIALS.get(i % RENDER_MATERIALS.size());
-
-      ItemStack partStack = new ItemStack(this.parts.get(i));
-
-      CompoundNBT nbt = partStack.getOrCreateTag();
-      nbt.putString(Tags.PART_MATERIAL, materialId.toString());
-
-      TinkerItemElement partItem = new TinkerItemElement(toolX + slotX[i], toolY + slotY[i], 1f, partStack);
+      TinkerItemElement partItem = new TinkerItemElement(toolX + slotX[i], toolY + slotY[i], 1f,  this.parts.get(i));
       partItem.noTooltip = true;
 
       list.add(partItem);

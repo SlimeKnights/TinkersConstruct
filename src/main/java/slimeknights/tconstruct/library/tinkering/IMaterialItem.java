@@ -35,7 +35,12 @@ public interface IMaterialItem extends IItemProvider {
   /**
    * Returns the item with the given material
    */
-  ItemStack getItemstackWithMaterial(IMaterial material);
+  ItemStack withMaterialForDisplay(MaterialId material);
+
+  /**
+   * Returns the item with the given material
+   */
+  ItemStack withMaterial(IMaterial material);
 
   /**
    * Returns true if the material can be used for this toolpart
@@ -78,7 +83,7 @@ public interface IMaterialItem extends IItemProvider {
   static ItemStack withMaterial(ItemStack stack, IMaterial material) {
     Item item = stack.getItem();
     if (item instanceof IMaterialItem) {
-      ItemStack output = ((IMaterialItem) item).getItemstackWithMaterial(material);
+      ItemStack output = ((IMaterialItem) item).withMaterial(material);
       if (stack.hasTag()) {
         assert stack.getTag() != null;
         assert output.getTag() != null;
