@@ -28,6 +28,7 @@ public class TinkerBookItem extends TooltipItem {
   /** Simple enum to allow selecting the book on the client */
   public enum BookType {
     MATERIALS_AND_YOU,
+    PUNY_SMELTING,
     MIGHTY_SMELTING
   }
 }

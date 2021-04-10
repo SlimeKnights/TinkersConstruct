@@ -17,10 +17,12 @@ import slimeknights.tconstruct.library.book.sectiontransformer.materials.Materia
 
 public class TinkerBook extends BookData {
   private static final ResourceLocation MATERIALS_BOOK_ID = Util.getResource("materials_and_you");
-  private static final ResourceLocation SMELTING_BOOK_ID = Util.getResource("mighty_smelting");
+  private static final ResourceLocation MIGHTY_SMELTING_ID = Util.getResource("mighty_smelting");
+  private static final ResourceLocation PUNY_SMELTING_ID = Util.getResource("puny_smelting");
 
-  public final static BookData MATERIALS = BookLoader.registerBook(MATERIALS_BOOK_ID.toString(), false, false);
-  public final static BookData SMELTING = BookLoader.registerBook(SMELTING_BOOK_ID.toString(), false, false);
+  public final static BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID.toString(), false, false);
+  public final static BookData PUNY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
+  public final static BookData MIGHTY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
 
   /** Initializes the books */
   public static void initBook() {
@@ -30,8 +32,9 @@ public class TinkerBook extends BookData {
     BookLoader.registerPageType(ContentTool.ID, ContentTool.class);
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
 
-    addData(MATERIALS, MATERIALS_BOOK_ID);
-    addData(SMELTING, SMELTING_BOOK_ID);
+    addData(MATERIALS_AND_YOU, MATERIALS_BOOK_ID);
+    addData(PUNY_SMELTING, PUNY_SMELTING_ID);
+    addData(MIGHTY_SMELTING, MIGHTY_SMELTING_ID);
   }
 
   /**
@@ -54,9 +57,10 @@ public class TinkerBook extends BookData {
    */
   public static BookData getBook(BookType bookType) {
     switch (bookType) {
-      case MATERIALS_AND_YOU: return MATERIALS;
-      case MIGHTY_SMELTING: return SMELTING;
+      case MATERIALS_AND_YOU: return MATERIALS_AND_YOU;
+      case PUNY_SMELTING: return PUNY_SMELTING;
+      case MIGHTY_SMELTING: return MIGHTY_SMELTING;
     }
-    return MATERIALS;
+    return MATERIALS_AND_YOU;
   }
 }

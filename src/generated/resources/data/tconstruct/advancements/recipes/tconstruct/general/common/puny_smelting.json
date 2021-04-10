@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/mighty_smelting"
+      "tconstruct:common/puny_smelting"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/mighty_smelting"
+        "recipe": "tconstruct:common/puny_smelting"
       }
     }
   },
