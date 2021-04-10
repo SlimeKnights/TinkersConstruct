@@ -27,13 +27,10 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Override
-  public IMaterial getMaterial(ItemStack stack) {
+  public Optional<MaterialId> getMaterialId(ItemStack stack) {
     return Optional.ofNullable(stack.getTag())
-      .map(compoundNBT -> compoundNBT.getString(Tags.PART_MATERIAL))
-      .map(MaterialId::new)
-      .map(MaterialRegistry::getMaterial)
-      .filter(this::canUseMaterial)
-      .orElse(IMaterial.UNKNOWN);
+                   .map(compoundNBT -> compoundNBT.getString(Tags.PART_MATERIAL))
+                   .map(MaterialId::new);
   }
 
   @Override

@@ -23,7 +23,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
-import slimeknights.tconstruct.library.client.model.tools.ToolModelLoader;
+import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -41,8 +41,8 @@ public class ToolClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerModelLoaders(ModelRegistryEvent event) {
-    ModelLoaderRegistry.registerLoader(Util.getResource("tool"), ToolModelLoader.INSTANCE);
     ModelLoaderRegistry.registerLoader(Util.getResource("material"), MaterialModel.LOADER);
+    ModelLoaderRegistry.registerLoader(Util.getResource("tool"), ToolModel.LOADER);
   }
 
   @SubscribeEvent

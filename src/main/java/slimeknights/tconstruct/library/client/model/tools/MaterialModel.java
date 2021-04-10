@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.renderer.texture.MissingTextureSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
@@ -37,13 +38,12 @@ import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
+import org.apache.commons.lang3.mutable.MutableObject;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.shared.TinkerClient;
 
 import javax.annotation.Nullable;
@@ -73,14 +73,21 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
   @Override
   public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
     Set<RenderMaterial> allTextures = Sets.newHashSet();
-    RenderMaterial texture = owner.resolveTexture("texture");
-    allTextures.add(texture);
-    // texture should exist in item/tool, or the validator cannot handle them
-    Consumer<RenderMaterial> textureAdder;
+    getMaterialTextures(allTextures, owner, "texture", material);
+    return allTextures;
+  }
+
+  /**
+   * Gets a consumer to add textures to the given collection
+   * @param texture      Texture base
+   * @param allTextures  Collection of textures
+   * @return  Texture consumer
+   */
+  public static Consumer<RenderMaterial> getTextureAdder(RenderMaterial texture, Collection<RenderMaterial> allTextures) {
     if (texture.getTextureLocation().getPath().startsWith("item/tool")) {
       // keep track of skipped textures, so we do not debug print the same resource twice
       Set<ResourceLocation> skipped = new HashSet<>();
-      textureAdder = mat -> {
+      return mat -> {
         // either must be non-blocks, or must exist. We have fallbacks if it does not exist
         ResourceLocation loc = mat.getTextureLocation();
         if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || TinkerClient.textureValidator.test(loc)) {
@@ -92,33 +99,47 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
       };
     } else {
       // just directly add with no filter, nothing we can do
-      textureAdder = allTextures::add;
       log.error("Texture '{}' is not in item/tool, unable to safely validate optional material textures", texture.getTextureLocation());
+      return allTextures::add;
     }
-
-    // if no specific material is set, load all materials as dependencies. If just one material, use just that one
-    if (material == null) {
-      MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach(info -> info.getTextureDependencies(textureAdder, texture));
-    } else {
-      MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material).ifPresent(info -> info.getTextureDependencies(textureAdder, texture));
-    }
-
-    // final list
-    return allTextures;
   }
 
   /**
-   * Same as {@link #bake(IModelConfiguration, ModelBakery, Function, IModelTransform, ItemOverrideList, ResourceLocation)}, but uses fewer arguments and does not require an instance
-   * @param owner          Model configuration
-   * @param spriteGetter   Sprite getter function
-   * @param transform      Transform to apply to the quad fetching. Should not include rotation or it will look wrong in UIs
-   * @param material       Material used, if null uses default
-   * @param index          Tint index to use if tinted sprite is used
-   * @param overrides      Override instance to use, will either be empty or {@link MaterialOverrideHandler}
-   * @return  Baked model
+   * Gets the list of material textures for the given owner texture
+   * @param allTextures  Collection of textures
+   * @param owner        Model owner
+   * @param textureName  Texture name to add
+   * @param material     List of materials
    */
-  private static IBakedModel bakeInternal(IModelConfiguration owner, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, TransformationMatrix transform, @Nullable MaterialId material, int index, ItemOverrideList overrides) {
-    RenderMaterial texture = owner.resolveTexture("texture");
+  public static void getMaterialTextures(Collection<RenderMaterial> allTextures, IModelConfiguration owner, String textureName, @Nullable MaterialId material) {
+    RenderMaterial texture = owner.resolveTexture(textureName);
+    allTextures.add(texture);
+
+    // if the texture is missing, stop here
+    if (!MissingTextureSprite.getLocation().equals(texture.getTextureLocation())) {
+      // texture should exist in item/tool, or the validator cannot handle them
+      Consumer<RenderMaterial> textureAdder = getTextureAdder(texture, allTextures);
+      // if no specific material is set, load all materials as dependencies. If just one material, use just that one
+      if (material == null) {
+        MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach(info -> info.getTextureDependencies(textureAdder, texture));
+      } else {
+        MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material).ifPresent(info -> info.getTextureDependencies(textureAdder, texture));
+      }
+    }
+  }
+
+  /**
+   * Gets the quads for a material for the given texture
+   * @param owner         Model owner
+   * @param spriteGetter  Sprite getter
+   * @param transform     Model transform
+   * @param name          Sprite name
+   * @param index         Sprite tint index
+   * @param material      Material to use
+   * @return  Model quads
+   */
+  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, TransformationMatrix transform, String name, int index, @Nullable MaterialId material) {
+    RenderMaterial texture = owner.resolveTexture(name);
     int tintIndex = -1;
     TextureAtlasSprite finalSprite = null;
     // if the base material is non-null, try to find the sprite for that material
@@ -141,14 +162,31 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
       tintIndex = index;
     }
 
-    // get transform data
-    ImmutableMap<TransformType, TransformationMatrix> transformMap = PerspectiveMapWrapper.getTransforms(owner.getCombinedTransform());
-
     // get quads
-    ImmutableList<BakedQuad> quads = ItemLayerModel.getQuadsForSprite(tintIndex, finalSprite, transform);
+    quadConsumer.accept(ItemLayerModel.getQuadsForSprite(tintIndex, finalSprite, transform));
+
+    // return sprite
+    return finalSprite;
+  }
+
+  /**
+   * Same as {@link #bake(IModelConfiguration, ModelBakery, Function, IModelTransform, ItemOverrideList, ResourceLocation)}, but uses fewer arguments and does not require an instance
+   * @param owner          Model configuration
+   * @param spriteGetter   Sprite getter function
+   * @param transform      Transform to apply to the quad fetching. Should not include rotation or it will look wrong in UIs
+   * @param material       Material used, if null uses default
+   * @param index          Tint index to use if tinted sprite is used
+   * @param overrides      Override instance to use, will either be empty or {@link MaterialOverrideHandler}
+   * @return  Baked model
+   */
+  private static IBakedModel bakeInternal(IModelConfiguration owner, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, TransformationMatrix transform, @Nullable MaterialId material, int index, ItemOverrideList overrides) {
+    // small hack to reduce the need to create a second immutable list
+    MutableObject<ImmutableList<BakedQuad>> mutableList = new MutableObject<>();
+    TextureAtlasSprite particle = getPartQuads(mutableList::setValue, owner, spriteGetter, transform, "texture", index, material);
 
     // bake model - while the transform may not be identity, it never has rotation so its safe to say untransformed
-    return new BakedItemModel(quads, finalSprite, Maps.immutableEnumMap(transformMap), overrides, true, owner.isSideLit());
+    ImmutableMap<TransformType, TransformationMatrix> transformMap = PerspectiveMapWrapper.getTransforms(owner.getCombinedTransform());
+    return new BakedItemModel(mutableList.getValue(), particle, Maps.immutableEnumMap(transformMap), overrides, true, owner.isSideLit());
   }
 
   @Override
@@ -193,23 +231,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     @Override
     public IBakedModel getOverrideModel(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       // fetch the material from the stack
-      MaterialId material = IMaterialItem.getMaterialFromStack(stack).getIdentifier();
-      // if no material on the stack, try to fetch from the tool model
-      // TODO: transfer into tool model to safe a ton of effort
-      if (IMaterial.UNKNOWN_ID.equals(material)) {
-        // needs to have a valid index
-        int index = this.index;
-        if (index < 0) {
-          return originalModel;
-        }
-        // fetch the tool material at the given index
-        material = MaterialIdNBT.from(stack).getMaterial(index);
-
-        // material must exist
-        if (IMaterial.UNKNOWN_ID.equals(material)) {
-          return originalModel;
-        }
-      }
+      MaterialId material = IMaterialItem.getMaterialIdFromStack(stack);
       // cache all baked material models, they will not need to be recreated as materials will not change
       return cache.computeIfAbsent(material, this::bakeDynamic);
     }
@@ -251,24 +273,27 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
 
       return new MaterialModel(material, index, offset);
     }
+  }
 
-    /**
-     * Converts a JSON float array to the specified object
-     * @param json    JSON object
-     * @param name    Name of the array in the object to fetch
-     * @return  Vector3f of data
-     * @throws JsonParseException  If there is no array or the length is wrong
-     */
-    private static Vector2f arrayToObject(JsonObject json, String name) {
-      JsonArray array = JSONUtils.getJsonArray(json, name);
-      if (array.size() != 2) {
-        throw new JsonParseException("Expected " + 2 + " " + name + " values, found: " + array.size());
-      }
-      float[] vec = new float[2];
-      for(int i = 0; i < 2; ++i) {
-        vec[i] = JSONUtils.getFloat(array.get(i), name + "[" + i + "]");
-      }
-      return new Vector2f(vec[0], vec[1]);
+
+  /* Helpers */
+
+  /**
+   * Converts a JSON float array to the specified object
+   * @param json    JSON object
+   * @param name    Name of the array in the object to fetch
+   * @return  Vector3f of data
+   * @throws JsonParseException  If there is no array or the length is wrong
+   */
+  public static Vector2f arrayToObject(JsonObject json, String name) {
+    JsonArray array = JSONUtils.getJsonArray(json, name);
+    if (array.size() != 2) {
+      throw new JsonParseException("Expected " + 2 + " " + name + " values, found: " + array.size());
     }
+    float[] vec = new float[2];
+    for(int i = 0; i < 2; ++i) {
+      vec[i] = JSONUtils.getFloat(array.get(i), name + "[" + i + "]");
+    }
+    return new Vector2f(vec[0], vec[1]);
   }
 }
