@@ -149,6 +149,11 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     // nothing to blacklist, just want the empty tag so it appears in datapacks
     this.getOrCreateBuilder(TinkerTags.Items.AUTOSMELT_BLACKLIST);
 
+    // carrots and potatoes are not seeds in vanilla, so make a tag with them
+    this.getOrCreateBuilder(TinkerTags.Items.SEEDS)
+        .addTag(Tags.Items.SEEDS)
+        .add(Items.CARROT, Items.POTATO);
+
     // tag for tool parts, mostly used by JEI right now
     this.getOrCreateBuilder(TinkerTags.Items.TOOL_PARTS)
         .add(TinkerToolParts.pickaxeHead.get(), TinkerToolParts.hammerHead.get(),

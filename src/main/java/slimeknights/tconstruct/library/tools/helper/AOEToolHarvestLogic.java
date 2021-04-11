@@ -84,7 +84,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
    * @param hitVec   Where the block was hit
    * @return A list of BlockPos's that the AOE tool can affect.
    */
-  protected List<BlockPos> getAOEBlocks(ToolStack tool, PlayerEntity player, BlockPos origin, Direction sideHit, Vector3d hitVec, Predicate<BlockState> predicate) {
+  public List<BlockPos> getAOEBlocks(ToolStack tool, PlayerEntity player, BlockPos origin, Direction sideHit, Vector3d hitVec, Predicate<BlockState> predicate) {
     // only works with modifiable harvest
     if (tool.isBroken()) {
       return Collections.emptyList();
@@ -206,7 +206,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
    */
   public ActionResultType transformBlocks(ItemUseContext context, ToolType toolType, SoundEvent sound, boolean requireGround) {
     PlayerEntity player = context.getPlayer();
-    if (player == null || player.isSneaking()) {
+    if (player != null && player.isSneaking()) {
       return ActionResultType.PASS;
     }
 
@@ -225,7 +225,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
 
     // tool must not be broken
     Hand hand = context.getHand();
-    ItemStack stack = player.getHeldItem(hand);
+    ItemStack stack = context.getItem();
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
       return ActionResultType.FAIL;
@@ -269,8 +269,14 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
         world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
       }
 
-      // damage the tool, if it breaks or if we changed a campfire, we are done
-      if ((!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) || isCampfire) {
+      // if the tool breaks, we are done
+      if (player == null || !player.isCreative()) {
+        if (ToolDamageUtil.damage(tool, 1, player, stack)) {
+          return ActionResultType.SUCCESS;
+        }
+      }
+      // if it was a campfire, we are done
+      if (isCampfire) {
         return ActionResultType.SUCCESS;
       }
     }
@@ -278,45 +284,46 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
     // AOE transforming, run even if we did not transform the center
     // note we consider anything effective, as hoes are not effective on all tillable blocks
     boolean didAoe = false;
-    for (BlockPos newPos : getAOEBlocks(tool, player, pos, context.getFace(), context.getHitVec(), state -> true)) {
-      if (pos.equals(newPos)) {
-        //in case it attempts to run the same position twice
-        continue;
-      }
-
-      // hoes and shovels: air or plants above
-      BlockPos above = newPos.up();
-      if (requireGround) {
-        Material material = world.getBlockState(above).getMaterial();
-        if (!material.isReplaceable() && material != Material.PLANTS) {
+    if (player != null) {
+      for (BlockPos newPos : getAOEBlocks(tool, player, pos, context.getFace(), context.getHitVec(), state -> true)) {
+        if (pos.equals(newPos)) {
+          //in case it attempts to run the same position twice
           continue;
         }
-      }
 
-      // block type must be the same
-      BlockState newState = world.getBlockState(newPos).getToolModifiedState(world, newPos, player, stack, toolType);
-      if (newState != null && transformed.getBlock() == newState.getBlock()) {
-        if (world.isRemote()) {
-          return ActionResultType.SUCCESS;
-        }
-        didAoe = true;
-        world.setBlockState(newPos, newState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
-        world.playSound(null, newPos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
-        // if required, break the block above (typically plants)
+        // hoes and shovels: air or plants above
+        BlockPos above = newPos.up();
         if (requireGround) {
-          world.destroyBlock(above, true);
+          Material material = world.getBlockState(above).getMaterial();
+          if (!material.isReplaceable() && material != Material.PLANTS) {
+            continue;
+          }
         }
 
-        // stop if the tool broke
-        if (!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) {
-          break;
+        // block type must be the same
+        BlockState newState = world.getBlockState(newPos).getToolModifiedState(world, newPos, player, stack, toolType);
+        if (newState != null && transformed.getBlock() == newState.getBlock()) {
+          if (world.isRemote()) {
+            return ActionResultType.SUCCESS;
+          }
+          didAoe = true;
+          world.setBlockState(newPos, newState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+          world.playSound(null, newPos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+          // if required, break the block above (typically plants)
+          if (requireGround) {
+            world.destroyBlock(above, true);
+          }
+
+          // stop if the tool broke
+          if (!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) {
+            break;
+          }
         }
       }
-    }
-
-    if (didAoe) {
-      player.spawnSweepParticles();
+      if (didAoe) {
+        player.spawnSweepParticles();
+      }
     }
 
     // if anything happened, return success

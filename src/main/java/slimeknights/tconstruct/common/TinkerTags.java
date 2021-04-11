@@ -40,6 +40,10 @@ public class TinkerTags {
     /** Blocks valid in any area of the smeltery */
     public static final IOptionalNamedTag<Block> SMELTERY_WALL = tag("smeltery/wall");
 
+    /** Any block that can be harvested using a kama or scythe */
+    public static final IOptionalNamedTag<Block> HARVESTABLE = tag("harvestable");
+    /** Crops that grow by placing a copy on top */
+    public static final IOptionalNamedTag<Block> BLOCK_CROPS = tag("harvestable/block_crops");
 
     private static IOptionalNamedTag<Block> tag(String name) {
       return BlockTags.createOptional(Util.getResource(name));
@@ -89,6 +93,9 @@ public class TinkerTags {
 
     /** Items that cannot be autosmelted */
     public static final IOptionalNamedTag<Item> AUTOSMELT_BLACKLIST = tag("autosmelt_blacklist");
+
+    /** Items that are seeds for kama harvest */
+    public static final IOptionalNamedTag<Item> SEEDS = tag("seeds");
 
     /*
      * Tool tags

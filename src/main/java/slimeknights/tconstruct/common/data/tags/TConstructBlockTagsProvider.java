@@ -39,10 +39,10 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
   protected void registerTags() {
     this.addCommon();
     this.addGadgets();
+    this.addTools();
     this.addWorld();
     this.addSmeltery();
   }
-
   private void addCommon() {
     // ores
     addMetalTags(TinkerMaterials.copper);
@@ -70,13 +70,6 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     // soul speed on glass
     this.getOrCreateBuilder(BlockTags.SOUL_SPEED_BLOCKS).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get());
 
-    // vanilla is not tagged, so tag it
-    this.getOrCreateBuilder(TinkerTags.Blocks.WORKBENCHES)
-        .add(Blocks.CRAFTING_TABLE, TinkerTables.craftingStation.get())
-        .addOptionalTag(new ResourceLocation("forge:workbench")); // some mods use a non-standard name here, so support it I guess
-    this.getOrCreateBuilder(TinkerTags.Blocks.TABLES)
-        .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
-
     TagsProvider.Builder<Block> builder = this.getOrCreateBuilder(TinkerTags.Blocks.ANVIL_METAL)
         // tier 3
         .addTag(TinkerMaterials.slimesteel.getBlockTag())
@@ -94,6 +87,24 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
       }
     }
   }
+
+  private void addTools() {
+    // vanilla is not tagged, so tag it
+    this.getOrCreateBuilder(TinkerTags.Blocks.WORKBENCHES)
+        .add(Blocks.CRAFTING_TABLE, TinkerTables.craftingStation.get())
+        .addOptionalTag(new ResourceLocation("forge:workbench")); // some mods use a non-standard name here, so support it I guess
+    this.getOrCreateBuilder(TinkerTags.Blocks.TABLES)
+        .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
+
+    // can harvest crops and sugar cane
+    this.getOrCreateBuilder(TinkerTags.Blocks.BLOCK_CROPS)
+        .add(Blocks.SUGAR_CANE, Blocks.KELP_PLANT);
+    this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE)
+        .addTag(BlockTags.CROPS)
+        .addTag(TinkerTags.Blocks.BLOCK_CROPS)
+        .add(Blocks.NETHER_WART);
+  }
+
 
   private void addWorld() {
     TagsProvider.Builder<Block> congealedBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.CONGEALED_SLIME);
