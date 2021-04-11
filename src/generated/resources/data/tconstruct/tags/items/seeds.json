@@ -3,6 +3,7 @@
   "values": [
     "#forge:seeds",
     "minecraft:carrot",
-    "minecraft:potato"
+    "minecraft:potato",
+    "minecraft:nether_wart"
   ]
 }

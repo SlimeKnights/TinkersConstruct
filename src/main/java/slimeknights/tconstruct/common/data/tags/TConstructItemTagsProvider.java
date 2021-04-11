@@ -153,7 +153,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     // carrots and potatoes are not seeds in vanilla, so make a tag with them
     this.getOrCreateBuilder(TinkerTags.Items.SEEDS)
         .addTag(Tags.Items.SEEDS)
-        .add(Items.CARROT, Items.POTATO);
+        .add(Items.CARROT, Items.POTATO, Items.NETHER_WART);
 
     // tag for tool parts, mostly used by JEI right now
     this.getOrCreateBuilder(TinkerTags.Items.TOOL_PARTS)
