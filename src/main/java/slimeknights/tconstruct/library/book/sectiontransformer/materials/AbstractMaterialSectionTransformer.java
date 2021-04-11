@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.book.sectiontransformer.materials;
 
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.BookData;
@@ -56,7 +57,7 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
 
       SizedBookElement icon = new ImageElement(ImageData.MISSING);
 
-      while(!overview.addLink(icon, material.getTranslationKey(), page)) {
+      while(!overview.addLink(icon, new TranslationTextComponent(material.getTranslationKey()).modifyStyle(style -> style.setColor(material.getColor())), page)) {
         overview = iter.next();
       }
     }
