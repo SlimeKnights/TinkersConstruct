@@ -4,12 +4,11 @@ import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.resource.ResourceManager;
-import net.minecraftforge.event.AddReloadListenerEvent;
 import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import net.minecraft.resource.ResourceManager;
 
 /**
  * Class that handles notifying recipe caches that they need to invalidate
@@ -54,10 +53,9 @@ public class RecipeCacheInvalidator implements IEarlySafeManagerReloadListener {
 
   /**
    * Called when resource managers reload
-   * @param event  Reload event
    */
-  public static void onReloadListenerReload(AddReloadListenerEvent event) {
-    event.addListener(INSTANCE);
+  public static RecipeCacheInvalidator onReloadListenerReload() {
+    return INSTANCE;
   }
 
   /** Logic to respond properly to late running of the client */
