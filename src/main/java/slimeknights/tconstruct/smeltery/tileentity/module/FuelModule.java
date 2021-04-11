@@ -25,7 +25,7 @@ import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
-import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelCache;
+import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
@@ -113,7 +113,7 @@ public class FuelModule implements IIntArray {
     if (lastRecipe != null && lastRecipe.matches(fluid)) {
       return lastRecipe;
     }
-    return MeltingFuelCache.findRecipe(getWorld().getRecipeManager(), fluid);
+    return MeltingFuelLookup.findFuel(fluid);
   }
 
 

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.recipe.fuel;
 
 import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
@@ -25,7 +24,6 @@ import java.util.List;
 /**
  * Recipe for a fuel for the melter or smeltery
  */
-@AllArgsConstructor
 public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
   @Getter
   private final ResourceLocation id;
@@ -36,6 +34,18 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
   private final int duration;
   @Getter
   private final int temperature;
+
+  public MeltingFuel(ResourceLocation id, String group, FluidIngredient input, int duration, int temperature) {
+    this.id = id;
+    this.group = group;
+    this.input = input;
+    this.duration = duration;
+    this.temperature = temperature;
+    // register this recipe with the lookup
+    for (FluidStack fluid : input.getFluids()) {
+      MeltingFuelLookup.addFuel(fluid.getFluid(), this);
+    }
+  }
 
   /* Recipe methods */
 

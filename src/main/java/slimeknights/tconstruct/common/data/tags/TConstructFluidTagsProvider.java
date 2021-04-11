@@ -2,7 +2,6 @@ package slimeknights.tconstruct.common.data.tags;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.FluidTagsProvider;
-import net.minecraft.fluid.Fluids;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
@@ -81,10 +80,6 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.magmaCream.getForgeTag())
         .addTag(TinkerFluids.blood.getLocalTag())
         .addTag(TinkerTags.Fluids.SLIME);
-    
-    this.getOrCreateBuilder(TinkerTags.Fluids.SMELTERY_FUELS)
-		    .add(Fluids.LAVA)
-        .add(TinkerFluids.moltenBlaze.get());
   }
 
   @Override
