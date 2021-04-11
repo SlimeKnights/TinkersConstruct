@@ -2,8 +2,10 @@ package slimeknights.tconstruct.library.recipe.casting.container;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
@@ -11,16 +13,23 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Casting recipe that takes an arbitrary fluid for a given amount and fills a container
  */
 @RequiredArgsConstructor
-public abstract class ContainerFillingRecipe implements ICastingRecipe {
+public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<DisplayCastingRecipe> {
   @Getter
   protected final IRecipeType<?> type;
   @Getter
@@ -57,7 +66,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
     return inv.getStack().getItem() == this.container.asItem();
   }
 
-  /** @deprecated use {@link ICastingRecipe#getCraftingResult(ICastingInventory)}
+  /** @deprecated use {@link ICastingRecipe#getCraftingResult(IInventory)}
    */
   @Override
   @Deprecated
@@ -72,6 +81,30 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
       handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount), FluidAction.EXECUTE);
       return handler.getContainer();
     }).orElse(ItemStack.EMPTY);
+  }
+
+  /* Display */
+  /** Cache of items to display for this container */
+  private List<DisplayCastingRecipe> displayRecipes = null;
+
+  @Override
+  public List<DisplayCastingRecipe> getRecipes() {
+    if (displayRecipes == null) {
+      List<ItemStack> casts = Collections.singletonList(new ItemStack(container));
+      displayRecipes = ForgeRegistries.FLUIDS.getValues().stream()
+                                             .filter(fluid -> fluid.getFilledBucket() != Items.AIR && fluid.isSource(fluid.getDefaultState()))
+                                             .map(fluid -> {
+                                               FluidStack fluidStack = new FluidStack(fluid, fluidAmount);
+                                               ItemStack stack = new ItemStack(container);
+                                               stack = FluidUtil.getFluidHandler(stack).map(handler -> {
+                                                 handler.fill(fluidStack, FluidAction.EXECUTE);
+                                                 return handler.getContainer();
+                                               }).orElse(stack);
+                                               return new DisplayCastingRecipe(getType(), casts, Collections.singletonList(fluidStack), stack, 5, true);
+                                             })
+                                             .collect(Collectors.toList());
+    }
+    return displayRecipes;
   }
 
   /** Basin implementation */
