@@ -46,6 +46,8 @@ final class Materials {
   public static final IMaterial stone = mat(MaterialIds.stone, 1, ORDER_HARVEST, true, 0x999999, TinkerModifiers.stonebound);
   public static final IMaterial flint = mat(MaterialIds.flint, 1, ORDER_WEAPON,  true, 0x696969, TinkerModifiers.jagged);
   public static final IMaterial bone  = mat(MaterialIds.bone,  1, ORDER_SPECIAL, true, 0xede6bf, TinkerModifiers.fractured);
+  // tier 1 - nether
+  public static final IMaterial necroticBone = mat(MaterialIds.necroticBone,  1, ORDER_SPECIAL, true, 0x4D4D4D, TinkerModifiers.necrotic);
   // tier 2
   public static final IMaterial iron        = mat(MaterialIds.iron,        2, ORDER_GENERAL, TinkerFluids.moltenIron, false, 0xcacaca, TinkerModifiers.reinforced);
   public static final IMaterial copper      = mat(MaterialIds.copper,      2, ORDER_HARVEST, TinkerFluids.moltenCopper, true, 0xfba165, TinkerModifiers.dwarven);

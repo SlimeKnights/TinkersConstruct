@@ -916,6 +916,7 @@
     "material.tconstruct.stone": "Stone",
     "material.tconstruct.flint": "Flint",
     "material.tconstruct.bone": "Bone",
+    "material.tconstruct.necrotic_bone": "Necrotic Bone",
     
     "__comment": "Tier 2 Materials",
     "material.tconstruct.iron": "Iron",

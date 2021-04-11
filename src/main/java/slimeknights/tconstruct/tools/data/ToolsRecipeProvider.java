@@ -224,12 +224,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(5) // +25 seconds fire damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.fiery, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.necrotic.get())
-                                    .setTools(TinkerTags.Items.MELEE)
-                                    .setInput(TinkerTags.Items.WITHER_BONES, 1, 10)
-                                    .setMaxLevel(5) // +50% chance for 10% life steel
-                                    .setUpgradeSlots(1)
-                                    .build(consumer, prefixR(TinkerModifiers.necrotic, upgradeFolder));
 
     /*
      * damage boost
@@ -387,10 +381,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood/planks");
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood/logs");
     registerMaterial(consumer, MaterialIds.stone, new CompoundIngredient(
-      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.BASALT, Blocks.POLISHED_BASALT, Blocks.POLISHED_BLACKSTONE)
+      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.POLISHED_BLACKSTONE)
     ), 1, 1, "stone");
-    registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT), 1, 1, "flint");
+    registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT, Blocks.BASALT, Blocks.POLISHED_BASALT), 1, 1, "flint");
     registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone");
+    registerMaterial(consumer, MaterialIds.necroticBone, Ingredient.fromTag(TinkerTags.Items.WITHER_BONES), 1, 1, "necrotic_bone");
     // tier 2
     registerMetalMaterial(consumer, MaterialIds.iron, "iron", false);
     registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick), 1, 1, "seared_stone/brick");
