@@ -51,7 +51,7 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
       player.getCooldownTracker().setCooldown(stack.getItem(), 3);
 
       BlockPos furthestPos = furthestPosOp.get();
-      player.setPosition(furthestPos.getX(), furthestPos.getY(), furthestPos.getZ());
+      player.setPosition(furthestPos.getX() + 0.5f, furthestPos.getY(), furthestPos.getZ() + 0.5f);
 
       // particle effect from EnderPearlEntity
       for (int i = 0; i < 32; ++i) {
