@@ -44,6 +44,10 @@ public class MaterialManager implements IRecipeManager {
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
 
+  @Override
+  public void removeRecipe(IItemStack output) {
+    throw new IllegalArgumentException("Cannot remove Material Recipes by an IItemStack output! Use `removeByName(String name)` instead!");
+  }
 
   @Override
   public IRecipeType<MaterialRecipe> getRecipeType() {

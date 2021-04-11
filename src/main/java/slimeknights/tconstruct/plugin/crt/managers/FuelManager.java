@@ -7,7 +7,9 @@ import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
+import com.blamejared.crafttweaker.impl.actions.recipes.ActionRemoveRecipe;
 import com.blamejared.crafttweaker.impl_native.item.ExpandItem;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
@@ -16,6 +18,7 @@ import org.openzen.zencode.java.ZenCodeType;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRecipe;
@@ -33,6 +36,22 @@ public class FuelManager implements IRecipeManager {
     FluidIngredient fluidIngredient = FluidIngredient.of(input.getInternal());
     MeltingFuel recipe = new MeltingFuel(id, "", fluidIngredient, duration, temperature);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
+  }
+
+  @Override
+  public void removeRecipe(IItemStack output) {
+    throw new IllegalArgumentException("Cannot remove Alloy Recipes by an IItemStack output as it doesn't output anything! Use `removeRecipe(Fluid input)` instead!");
+  }
+
+  @ZenCodeType.Method
+  public void removeRecipe(Fluid input) {
+    CraftTweakerAPI.apply(new ActionRemoveRecipe(this, iRecipe -> {
+      if (iRecipe instanceof MeltingFuel) {
+        MeltingFuel recipe = (MeltingFuel) iRecipe;
+        return recipe.getInputs().stream().anyMatch(fluidStack -> fluidStack.getFluid() == input);
+      }
+      return false;
+    }));
   }
 
   @Override

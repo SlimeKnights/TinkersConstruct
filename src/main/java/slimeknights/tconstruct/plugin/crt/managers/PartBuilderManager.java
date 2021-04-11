@@ -39,6 +39,10 @@ public class PartBuilderManager implements IRecipeManager {
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
 
+  @Override
+  public void removeRecipe(IItemStack output) {
+    throw new IllegalArgumentException("Cannot remove Part Builder Recipes by an IItemStack output! Use `removeByName(String name)` instead!");
+  }
 
   @Override
   public IRecipeType<PartRecipe> getRecipeType() {
