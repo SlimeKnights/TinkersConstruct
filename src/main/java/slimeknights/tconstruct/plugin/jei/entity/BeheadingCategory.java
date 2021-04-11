@@ -34,7 +34,7 @@ public class BeheadingCategory implements IRecipeCategory<BeheadingRecipe> {
   public BeheadingCategory(IGuiHelper helper) {
     this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 78, 100, 38);
-    this.icon = helper.createDrawableIngredient(TinkerTools.axe.get().buildToolForRendering()); // TODO: cleaver
+    this.icon = helper.createDrawableIngredient(TinkerTools.cleaver.get().buildToolForRendering());
   }
 
   @Override
