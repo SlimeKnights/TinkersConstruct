@@ -3,6 +3,9 @@
   "inputs": [
     {
       "item": "minecraft:piston"
+    },
+    {
+      "tag": "tconstruct:slime_block"
     }
   ],
   "tools": {

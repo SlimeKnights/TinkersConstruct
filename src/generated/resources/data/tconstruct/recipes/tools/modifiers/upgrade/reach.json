@@ -2,7 +2,19 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:ender_expander"
+      "item": "minecraft:piston"
+    },
+    {
+      "tag": "forge:ingots/manyullyn"
+    },
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "tag": "forge:slimeball/ender"
+    },
+    {
+      "tag": "forge:slimeball/ender"
     }
   ],
   "tools": {

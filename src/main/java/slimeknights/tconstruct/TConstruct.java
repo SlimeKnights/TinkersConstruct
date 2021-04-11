@@ -139,6 +139,9 @@ public class TConstruct {
         case "moss": case "mending_moss": return Items.MOSSY_COBBLESTONE;
         // book spliting
         case "book": return TinkerCommons.materialsAndYou.get();
+        // expanders use 5 items now
+        case "ichor_expander": return TinkerMaterials.tinkersBronze.getIngot();
+        case "ender_expander": return TinkerMaterials.manyullyn.getIngot();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

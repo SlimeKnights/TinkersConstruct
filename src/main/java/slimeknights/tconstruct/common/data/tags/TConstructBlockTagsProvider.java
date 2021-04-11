@@ -107,13 +107,14 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
 
   private void addWorld() {
+    TagsProvider.Builder<Block> slimeBlockBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIME_BLOCK);
     TagsProvider.Builder<Block> congealedBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.CONGEALED_SLIME);
-    for (SlimeType type : SlimeType.values()) {
-      congealedBuilder.add(TinkerWorld.congealedSlime.get(type));
-    }
     TagsProvider.Builder<Block> logBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LOGS);
     for (SlimeType type : SlimeType.values()) {
-      logBuilder.add(TinkerWorld.congealedSlime.get(type));
+      slimeBlockBuilder.add(TinkerWorld.slime.get(type));
+      Block congealed = TinkerWorld.congealedSlime.get(type);
+      congealedBuilder.add(congealed);
+      logBuilder.add(congealed);
     }
     TagsProvider.Builder<Block> leavesBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LEAVES);
     TagsProvider.Builder<Block> saplingBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS);

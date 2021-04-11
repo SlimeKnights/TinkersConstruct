@@ -232,6 +232,7 @@ public class KamaTool extends HarvestTool {
     // if we found one, replant, no seed means break
     if (hasSeed) {
       world.setBlockState(pos, replant);
+      state.spawnAdditionalDrops(world, pos, stack);
       // set block state will not play sounds, destory block will
       world.playSound(null, pos, state.getSoundType(world, pos, player).getBreakSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
     } else {

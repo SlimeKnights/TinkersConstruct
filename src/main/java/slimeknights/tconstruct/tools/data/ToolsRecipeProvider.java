@@ -86,26 +86,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_center", hasItem(Tags.Items.INGOTS_GOLD))
                        .build(consumer, prefix(TinkerModifiers.reinforcement, folder));
 
-    // expanders
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.ichorExpander)
-                       .key('P', Items.PISTON)
-                       .key('L', TinkerMaterials.tinkersBronze.getIngotTag())
-                       .key('S', TinkerTags.Items.ICHOR_SLIMEBALL)
-                       .patternLine(" P ")
-                       .patternLine("SLS")
-                       .patternLine(" P ")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.ICHOR_SLIMEBALL))
-                       .build(consumer, prefix(TinkerModifiers.ichorExpander, folder));
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.enderExpander)
-                       .key('P', Items.PISTON)
-                       .key('L', TinkerMaterials.manyullyn.getIngotTag())
-                       .key('S', TinkerTags.Items.ENDER_SLIMEBALL)
-                       .patternLine(" P ")
-                       .patternLine("SLS")
-                       .patternLine(" P ")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.ENDER_SLIMEBALL))
-                       .build(consumer, prefix(TinkerModifiers.enderExpander, folder));
-
     // silky cloth
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyCloth)
                        .key('s', Tags.Items.STRING)
@@ -224,6 +204,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
      */
     ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
                          .addInput(Items.PISTON)
+                         .addInput(TinkerTags.Items.SLIME_BLOCK)
                          .setMaxLevel(5) // max +2.5 knockback points (knockback 5) (whatever that number means in vanilla)
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE)
@@ -232,7 +213,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerTags.Items.WITHER_BONES)
                          .addInput(TinkerMaterials.copper.getIngotTag())
                          .addInput(TinkerTags.Items.WITHER_BONES)
-                         .addInput(Items.TNT)
                          .addInput(Items.TNT)
                          .setMaxLevel(5) // max +25% head drop chance, combine with +15% chance from luck
                          .setUpgradeSlots(1)
@@ -333,18 +313,26 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefixR(TinkerModifiers.autosmelt, upgradeFolder));
     // expanders
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
-                         .addInput(TinkerModifiers.ichorExpander)
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerMaterials.tinkersBronze.getIngotTag())
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerTags.Items.ICHOR_SLIMEBALL)
+                         .addInput(TinkerTags.Items.ICHOR_SLIMEBALL)
                          .setAbilitySlots(1)
                          .setMaxLevel(2)
                          .setTools(TinkerTags.Items.AOE)
                          .build(consumer, prefixR(TinkerModifiers.expanded, upgradeFolder));
     // reach expander
     ModifierRecipeBuilder.modifier(TinkerModifiers.reach.get())
-                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
-                                    .addInput(TinkerModifiers.enderExpander)
-                                    .setMaxLevel(2)
-                                    .setAbilitySlots(1)
-                                    .build(consumer, prefixR(TinkerModifiers.reach, upgradeFolder));
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerMaterials.manyullyn.getIngotTag())
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerTags.Items.ENDER_SLIMEBALL)
+                         .addInput(TinkerTags.Items.ENDER_SLIMEBALL)
+                         .setMaxLevel(2)
+                         .setAbilitySlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.reach, upgradeFolder));
 
     /*
      * extra modifiers

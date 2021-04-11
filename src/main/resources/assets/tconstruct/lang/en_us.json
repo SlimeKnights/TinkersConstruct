@@ -207,11 +207,6 @@
     "item.tconstruct.ender_slime_crystal": "Enderslime Crystal",
     "item.tconstruct.ender_slime_crystal.tooltip": "Used to overslime tools",
     
-    "item.tconstruct.ichor_expander": "Ichor Expander",
-    "item.tconstruct.ichor_expander.tooltip": "Expands the area of effect of a tool",
-    "item.tconstruct.ender_expander": "Ender Expander",
-    "item.tconstruct.ender_expander.tooltip": "Expands the distance you can reach with a tool",
-    
     "item.tconstruct.reinforcement": "Reinforcement",
     "item.tconstruct.reinforcement.tooltip": "Reduces chance of a tool taking damage",
     "item.tconstruct.silky_cloth": "Silky Cloth",

@@ -2,7 +2,19 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:ichor_expander"
+      "item": "minecraft:piston"
+    },
+    {
+      "tag": "forge:ingots/silicon_bronze"
+    },
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "tag": "forge:slimeball/ichor"
+    },
+    {
+      "tag": "forge:slimeball/ichor"
     }
   ],
   "tools": {
