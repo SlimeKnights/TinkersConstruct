@@ -5,6 +5,7 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -116,6 +117,10 @@ public class LuckModifier extends IncrementalModifier {
   private void onLooting(LootingLevelEvent event) {
     // TODO: make common modifier event if this becomes used elsewhere
     // must be an attacker with our tool
+    DamageSource damageSource = event.getDamageSource();
+    if (damageSource == null) {
+      return;
+    }
     Entity source = event.getDamageSource().getTrueSource();
     if (source instanceof LivingEntity) {
       ItemStack held = ((LivingEntity)source).getHeldItemMainhand();

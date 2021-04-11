@@ -48,7 +48,7 @@ final class Materials {
   public static final IMaterial bone  = mat(MaterialIds.bone,  1, ORDER_SPECIAL, true, 0xede6bf, TinkerModifiers.fractured);
   // tier 2
   public static final IMaterial iron        = mat(MaterialIds.iron,        2, ORDER_GENERAL, TinkerFluids.moltenIron, false, 0xcacaca, TinkerModifiers.reinforced);
-  public static final IMaterial copper      = mat(MaterialIds.copper,      2, ORDER_HARVEST, TinkerFluids.moltenCopper, true, 0xfba165, TinkerModifiers.dwarfish);
+  public static final IMaterial copper      = mat(MaterialIds.copper,      2, ORDER_HARVEST, TinkerFluids.moltenCopper, true, 0xfba165, TinkerModifiers.dwarven);
   public static final IMaterial searedStone = mat(MaterialIds.searedStone, 2, ORDER_WEAPON,  TinkerFluids.searedStone, false, 0x3f3f3f, TinkerModifiers.searing);
   public static final IMaterial slimewood   = mat(new DataMaterial(MaterialIds.slimewood, 2, ORDER_SPECIAL, false, 0x82c873, getOverslimeTrait(TinkerModifiers.overgrowth)));
   // tier 3

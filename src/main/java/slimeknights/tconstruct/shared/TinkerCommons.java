@@ -25,11 +25,9 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
+import slimeknights.tconstruct.common.item.TinkerBookItem.BookType;
 import slimeknights.tconstruct.common.recipe.BlockOrEntityCondition;
-import slimeknights.tconstruct.common.recipe.IngredientIntersection;
-import slimeknights.tconstruct.common.recipe.IngredientWithout;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
-import slimeknights.tconstruct.common.recipe.ReplaceItemLootModifier;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
@@ -72,14 +70,12 @@ public final class TinkerCommons extends TinkerModule {
    * Items
    */
   public static final ItemObject<EdibleItem> bacon = ITEMS.register("bacon", () -> new EdibleItem(TinkerFood.BACON, TAB_GENERAL));
-  public static final ItemObject<TinkerBookItem> book = ITEMS.register("book", () -> new TinkerBookItem(new Item.Properties().group(TAB_GENERAL).maxStackSize(1)));
+  private static final Item.Properties BOOK = new Item.Properties().group(TAB_GENERAL).maxStackSize(1);
+  public static final ItemObject<TinkerBookItem> materialsAndYou = ITEMS.register("materials_and_you", () -> new TinkerBookItem(BOOK, BookType.MATERIALS_AND_YOU));
+  public static final ItemObject<TinkerBookItem> punySmelting = ITEMS.register("puny_smelting", () -> new TinkerBookItem(BOOK, BookType.PUNY_SMELTING));
+  public static final ItemObject<TinkerBookItem> mightySmelting = ITEMS.register("mighty_smelting", () -> new TinkerBookItem(BOOK, BookType.MIGHTY_SMELTING));
   // TODO: move to natura
   public static final ItemObject<Item> driedBrick = ITEMS.register("dried_brick", HIDDEN_PROPS);
-
-  /*
-   * Misc
-   */
-  public static final RegistryObject<ReplaceItemLootModifier.Serializer> replaceItemLootModifier = GLOBAL_LOOT_MODIFIERS.register("replace_item", ReplaceItemLootModifier.Serializer::new);
 
   /* Loot conditions */
   public static LootConditionType lootConfig;
@@ -93,8 +89,6 @@ public final class TinkerCommons extends TinkerModule {
 
   public TinkerCommons() {
     MinecraftForge.EVENT_BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
-    CraftingHelper.register(IngredientWithout.ID, IngredientWithout.SERIALIZER);
-    CraftingHelper.register(IngredientIntersection.ID, IngredientIntersection.SERIALIZER);
   }
 
   @SubscribeEvent

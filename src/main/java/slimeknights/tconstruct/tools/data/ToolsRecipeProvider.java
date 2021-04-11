@@ -17,10 +17,10 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.SizedIngredient;
+import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
-import slimeknights.tconstruct.common.recipe.IngredientWithout;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
@@ -86,26 +86,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_center", hasItem(Tags.Items.INGOTS_GOLD))
                        .build(consumer, prefix(TinkerModifiers.reinforcement, folder));
 
-    // expanders
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.ichorExpander)
-                       .key('P', Items.PISTON)
-                       .key('L', TinkerMaterials.tinkersBronze.getIngotTag())
-                       .key('S', TinkerTags.Items.ICHOR_SLIMEBALL)
-                       .patternLine(" P ")
-                       .patternLine("SLS")
-                       .patternLine(" P ")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.ICHOR_SLIMEBALL))
-                       .build(consumer, prefix(TinkerModifiers.ichorExpander, folder));
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.enderExpander)
-                       .key('P', Items.PISTON)
-                       .key('L', TinkerMaterials.manyullyn.getIngotTag())
-                       .key('S', TinkerTags.Items.ENDER_SLIMEBALL)
-                       .patternLine(" P ")
-                       .patternLine("SLS")
-                       .patternLine(" P ")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.ENDER_SLIMEBALL))
-                       .build(consumer, prefix(TinkerModifiers.enderExpander, folder));
-
     // silky cloth
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyCloth)
                        .key('s', Tags.Items.STRING)
@@ -166,6 +146,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.NETHERITE_SCRAP)
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.worldbound, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.soulbound.get())
+                         .addInput(Items.TOTEM_OF_UNDYING)
+                         .setUpgradeSlots(1)
+                         .setMaxLevel(1)
+                         .build(consumer, prefixR(TinkerModifiers.soulbound, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.netherite.get())
                          .addInput(Tags.Items.INGOTS_NETHERITE)
                          .setMaxLevel(1)
@@ -219,6 +204,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
      */
     ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
                          .addInput(Items.PISTON)
+                         .addInput(TinkerTags.Items.SLIME_BLOCK)
                          .setMaxLevel(5) // max +2.5 knockback points (knockback 5) (whatever that number means in vanilla)
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE)
@@ -227,7 +213,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerTags.Items.WITHER_BONES)
                          .addInput(TinkerMaterials.copper.getIngotTag())
                          .addInput(TinkerTags.Items.WITHER_BONES)
-                         .addInput(Items.TNT)
                          .addInput(Items.TNT)
                          .setMaxLevel(5) // max +25% head drop chance, combine with +15% chance from luck
                          .setUpgradeSlots(1)
@@ -328,19 +313,26 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefixR(TinkerModifiers.autosmelt, upgradeFolder));
     // expanders
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
-                         .addInput(TinkerModifiers.ichorExpander)
-                         .setAbilitySlots(1)
-                         .setMaxLevel(1)
-                         .setTools(TinkerTags.Items.AOE)
-                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ichor"));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
-                         .addInput(TinkerModifiers.enderExpander)
-                         .setRequirements(ModifierMatch.entry(TinkerModifiers.expanded.get(), 1))
-                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.ender_expander_requirements"))
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerMaterials.tinkersBronze.getIngotTag())
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerTags.Items.ICHOR_SLIMEBALL)
+                         .addInput(TinkerTags.Items.ICHOR_SLIMEBALL)
                          .setAbilitySlots(1)
                          .setMaxLevel(2)
                          .setTools(TinkerTags.Items.AOE)
-                         .build(consumer, wrapR(TinkerModifiers.expanded, upgradeFolder, "_ender"));
+                         .build(consumer, prefixR(TinkerModifiers.expanded, upgradeFolder));
+    // reach expander
+    ModifierRecipeBuilder.modifier(TinkerModifiers.reach.get())
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerMaterials.manyullyn.getIngotTag())
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerTags.Items.ENDER_SLIMEBALL)
+                         .addInput(TinkerTags.Items.ENDER_SLIMEBALL)
+                         .setMaxLevel(2)
+                         .setAbilitySlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.reach, upgradeFolder));
 
     /*
      * extra modifiers
@@ -375,11 +367,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
+    // head
     addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
     addPartRecipe(consumer, TinkerToolParts.axeHead, 2, TinkerSmeltery.axeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.kamaHead, 2, TinkerSmeltery.kamaHeadCast);
     addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, TinkerSmeltery.swordBladeCast);
+    addPartRecipe(consumer, TinkerToolParts.broadBlade, 8, TinkerSmeltery.broadBladeCast);
+    // other parts
     addPartRecipe(consumer, TinkerToolParts.toolBinding, 1, TinkerSmeltery.toolBindingCast);
     addPartRecipe(consumer, TinkerToolParts.largePlate, 4, TinkerSmeltery.largePlateCast);
     addPartRecipe(consumer, TinkerToolParts.toolRod, 1, TinkerSmeltery.toolRodCast);
@@ -447,8 +442,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerBuildingRecipe(consumer, TinkerTools.axe);
 
     registerBuildingRecipe(consumer, TinkerTools.kama);
+    registerBuildingRecipe(consumer, TinkerTools.scythe);
 
     registerBuildingRecipe(consumer, TinkerTools.broadSword);
+    registerBuildingRecipe(consumer, TinkerTools.cleaver);
   }
 
   private void addHeadRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -507,7 +504,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     MaterialIngredient ingredient = MaterialIngredient.fromItem(part);
     String partName = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
     ItemCastingRecipeBuilder.tableRecipe(cast)
-                            .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.INGOT))
                             .setCast(ingredient, true)
                             .setSwitchSlots()
                             .build(consumer, location("smeltery/casting/casts/" + partName));

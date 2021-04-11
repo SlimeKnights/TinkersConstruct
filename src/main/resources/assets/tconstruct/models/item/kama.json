@@ -1,27 +1,15 @@
 {
-    "loader": "tconstruct:tool",
-    "parent": "forge:item/default-tool",
-    "parts": {
-        "handle": {
-            "loader": "tconstruct:material",
-            "index": 1,
-            "textures": {
-                "texture": "tconstruct:item/tool/pickaxe/handle"
-            }
-        },
-        "head": {
-            "loader": "tconstruct:material",
-            "index": 0,
-            "textures": {
-                "texture": "tconstruct:item/tool/kama/head"
-            }
-        },
-        "binding": {
-            "loader": "tconstruct:material",
-            "index": 2,
-            "textures": {
-                "texture": "tconstruct:item/tool/kama/binding"
-            }
-        }
-    }
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":        "tconstruct:item/tool/kama/head",
+    "broken_head": "tconstruct:item/tool/kama/broken_head",
+    "handle":      "tconstruct:item/tool/pickaxe/handle",
+    "binding":     "tconstruct:item/tool/kama/binding"
+  },
+  "parts": [
+    { "name": "handle",  "index": 1 },
+    { "name": "head",    "index": 0, "broken": "broken_head" },
+    { "name": "binding", "index": 2 }
+  ]
 }

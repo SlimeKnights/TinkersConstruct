@@ -20,6 +20,7 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Block> ANVIL_METAL = tag("anvil_metal");
 
+    public static final IOptionalNamedTag<Block> SLIME_BLOCK = tag("slime_block");
     public static final IOptionalNamedTag<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Block> SLIMY_LOGS = tag("slimy_logs");
     public static final IOptionalNamedTag<Block> SLIMY_LEAVES = tag("slimy_leaves");
@@ -40,6 +41,10 @@ public class TinkerTags {
     /** Blocks valid in any area of the smeltery */
     public static final IOptionalNamedTag<Block> SMELTERY_WALL = tag("smeltery/wall");
 
+    /** Any block that can be harvested using a kama or scythe */
+    public static final IOptionalNamedTag<Block> HARVESTABLE = tag("harvestable");
+    /** Crops that grow by placing a copy on top */
+    public static final IOptionalNamedTag<Block> BLOCK_CROPS = tag("harvestable/block_crops");
 
     private static IOptionalNamedTag<Block> tag(String name) {
       return BlockTags.createOptional(Util.getResource(name));
@@ -56,6 +61,7 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Item> ANVIL_METAL = tag("anvil_metal");
 
+    public static final IOptionalNamedTag<Item> SLIME_BLOCK = tag("slime_block");
     public static final IOptionalNamedTag<Item> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Item> SLIMY_LOGS = tag("slimy_logs");
     public static final IOptionalNamedTag<Item> SLIMY_LEAVES = tag("slimy_leaves");
@@ -87,9 +93,17 @@ public class TinkerTags {
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");
 
+    /** Items that cannot be autosmelted */
+    public static final IOptionalNamedTag<Item> AUTOSMELT_BLACKLIST = tag("autosmelt_blacklist");
+
+    /** Items that are seeds for kama harvest */
+    public static final IOptionalNamedTag<Item> SEEDS = tag("seeds");
+
     /*
      * Tool tags
      */
+    /** Anything that can be modified in the tool station */
+    public static final IOptionalNamedTag<Item> TOOL_PARTS = tag("parts");
     /** Anything that can be modified in the tool station */
     public static final IOptionalNamedTag<Item> MODIFIABLE = tag("modifiable");
     /** Modifiable items that contain multiple parts */
@@ -121,9 +135,8 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Fluid> SLIMELIKE = tag("slimelike");
     public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
-    public static final IOptionalNamedTag<Fluid> EARTH_SLIME = tag("earth_slime");
-    public static final IOptionalNamedTag<Fluid> SKY_SLIME = tag("sky_slime");
-    public static final IOptionalNamedTag<Fluid> ENDER_SLIME = tag("ender_slime");
+
+    public static final IOptionalNamedTag<Fluid> SMELTERY_FUELS = tag("smeltery/fuels");
 
     private static IOptionalNamedTag<Fluid> tag(String name) {
       return FluidTags.createOptional(Util.getResource(name));

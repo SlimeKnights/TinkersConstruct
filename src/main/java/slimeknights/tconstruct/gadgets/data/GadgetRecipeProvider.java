@@ -12,8 +12,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
-import slimeknights.mantle.recipe.crafting.ShapedFallbackRecipeBuilder;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
@@ -39,15 +37,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     // slime
     String folder = "gadgets/slimeboots/";
-    ShapedFallbackRecipeBuilder slimeBoots = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(SlimeType.EARTH))
-                         .setGroup("tconstruct:slime_boots")
-                         .key('#', TinkerTags.Items.CONGEALED_SLIME)
-                         .key('X', Tags.Items.SLIMEBALLS)
-                         .patternLine("X X")
-                         .patternLine("# #")
-                         .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS)));
-    for (SlimeType slime : SlimeType.TINKER) {
+    for (SlimeType slime : SlimeType.values()) {
       ResourceLocation name = location(folder + slime.getString());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(slime))
                          .setGroup("tconstruct:slime_boots")
@@ -57,22 +47,10 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                          .patternLine("# #")
                          .addCriterion("has_item", hasItem(slime.getSlimeBallTag()))
                          .build(consumer, name);
-      slimeBoots.addAlternative(name);
     }
-    slimeBoots.build(consumer, location(folder + "green"));
 
     folder = "gadgets/slimesling/";
-    ShapedFallbackRecipeBuilder slimeSling = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(SlimeType.EARTH))
-                         .setGroup("tconstruct:slimesling")
-                         .key('#', Tags.Items.STRING)
-                         .key('X', TinkerTags.Items.CONGEALED_SLIME)
-                         .key('L', Tags.Items.SLIMEBALLS)
-                         .patternLine("#X#")
-                         .patternLine("L L")
-                         .patternLine(" L ")
-                         .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS)));
-    for (SlimeType slime : new SlimeType[]{SlimeType.SKY, SlimeType.ENDER, SlimeType.ICHOR}) {
+    for (SlimeType slime : SlimeType.TRUE_SLIME) {
       ResourceLocation name = location(folder + slime.getString());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(slime))
                          .setGroup("tconstruct:slimesling")
@@ -84,9 +62,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                          .patternLine(" L ")
                          .addCriterion("has_item", hasItem(slime.getSlimeBallTag()))
                          .build(consumer, name);
-      slimeSling.addAlternative(name);
     }
-    slimeSling.build(consumer, location(folder + "green"));
 
     // rails
     /* TODO: moving to tinkers' mechworks

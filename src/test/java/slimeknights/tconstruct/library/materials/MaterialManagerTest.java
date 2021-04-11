@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.JsonFileLoader;
 
@@ -32,8 +31,7 @@ class MaterialManagerTest extends BaseMcTest {
 
   @BeforeAll
   static void setUp() {
-    TinkerNetwork mock = mock(TinkerNetwork.class);
-    materialManager = new MaterialManager(mock);
+    materialManager = new MaterialManager();
     ModifierFixture.init();
   }
 

@@ -115,11 +115,21 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
   }
 
   /**
+   * Sets the recipe cooling time
+   * @param temperature  Recipe temperature
+   * @param amount       Recipe amount
+   */
+  public ItemCastingRecipeBuilder setCoolingTime(int temperature, int amount) {
+    setCoolingTime(ICastingRecipe.calcCoolingTime(temperature, amount));
+    return this;
+  }
+
+  /**
    * Sets the fluid for this recipe, and cooling time if unset.
    * @param fluidStack  Fluid input
    * @return  Builder instance
    */
-  public ItemCastingRecipeBuilder setFluid(FluidStack fluidStack) {
+  public ItemCastingRecipeBuilder setFluidAndTime(FluidStack fluidStack) {
     this.fluid = FluidIngredient.of(fluidStack);
     if (this.coolingTime == -1) {
       this.coolingTime = ICastingRecipe.calcCoolingTime(fluidStack);
@@ -127,6 +137,17 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
     return this;
   }
 
+  /**
+   * Sets the fluid for this recipe, and cooling time
+   * @param tagIn        Tag<Fluid> instance
+   * @param temperature  fluid temperature
+   * @param amount       amount of fluid
+   */
+  public ItemCastingRecipeBuilder setFluidAndTime(int temperature, ITag<Fluid> tagIn, int amount) {
+    setFluid(tagIn, amount);
+    setCoolingTime(temperature, amount);
+    return this;
+  }
 
   /* Cast */
 

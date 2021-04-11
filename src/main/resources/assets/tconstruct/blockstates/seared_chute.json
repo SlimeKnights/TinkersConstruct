@@ -1,12 +1,12 @@
 {
   "variants": {
-    "active=false,facing=west":  { "model": "tconstruct:block/smeltery/io/chute_inactive", "y":  90 },
-    "active=false,facing=south": { "model": "tconstruct:block/smeltery/io/chute_inactive"  },
-    "active=false,facing=north": { "model": "tconstruct:block/smeltery/io/chute_inactive", "y": 180 },
-    "active=false,facing=east":  { "model": "tconstruct:block/smeltery/io/chute_inactive", "y": 270 },
-    "active=true,facing=west":   { "model": "tconstruct:block/smeltery/io/chute_active", "y":  90 },
-    "active=true,facing=south":  { "model": "tconstruct:block/smeltery/io/chute_active"  },
-    "active=true,facing=north":  { "model": "tconstruct:block/smeltery/io/chute_active", "y": 180 },
-    "active=true,facing=east":   { "model": "tconstruct:block/smeltery/io/chute_active", "y": 270 }
+    "active=false,facing=west":  { "model": "tconstruct:block/smeltery/io/chute_inactive", "uvlock": true, "y":  90 },
+    "active=false,facing=south": { "model": "tconstruct:block/smeltery/io/chute_inactive", "uvlock": true  },
+    "active=false,facing=north": { "model": "tconstruct:block/smeltery/io/chute_inactive", "uvlock": true, "y": 180 },
+    "active=false,facing=east":  { "model": "tconstruct:block/smeltery/io/chute_inactive", "uvlock": true, "y": 270 },
+    "active=true,facing=west":   { "model": "tconstruct:block/smeltery/io/chute_active", "uvlock": true, "y":  90 },
+    "active=true,facing=south":  { "model": "tconstruct:block/smeltery/io/chute_active", "uvlock": true  },
+    "active=true,facing=north":  { "model": "tconstruct:block/smeltery/io/chute_active", "uvlock": true, "y": 180 },
+    "active=true,facing=east":   { "model": "tconstruct:block/smeltery/io/chute_active", "uvlock": true, "y": 270 }
   }
 }

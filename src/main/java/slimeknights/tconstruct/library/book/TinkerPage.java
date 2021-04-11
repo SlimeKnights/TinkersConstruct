@@ -16,14 +16,24 @@ public abstract class TinkerPage extends PageContent {
   public static final transient int TITLE_HEIGHT = 28;
 
   public void addTitle(ArrayList<BookElement> list, String titleText, boolean dropShadow) {
-    this.addTitle(list, titleText, dropShadow, 0);
+    this.addTitle(list, titleText, dropShadow, 0, 0);
   }
 
-  public void addTitle(ArrayList<BookElement> list, String titleText, boolean dropShadow, int y) {
+  public void addTitle(ArrayList<BookElement> list, String titleText, boolean dropShadow, int color) {
+    this.addTitle(list, titleText, dropShadow, color, 0);
+  }
+
+  public void addTitle(ArrayList<BookElement> list, String titleText, boolean dropShadow, int color, int y) {
     TextData title = new TextData(titleText);
+
     title.scale = 1.2f;
     title.underlined = true;
     title.dropshadow = dropShadow;
+
+    if (color != 0) {
+      title.useOldColor = false;
+      title.rgbColor = color;
+    }
 
     int w = (int) Math.ceil(this.parent.parent.parent.fontRenderer.getStringWidth(titleText) * title.scale);
     int x = (BookScreen.PAGE_WIDTH - w) / 2;

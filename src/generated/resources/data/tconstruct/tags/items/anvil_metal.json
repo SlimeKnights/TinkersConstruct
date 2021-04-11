@@ -30,6 +30,10 @@
       "required": false
     },
     {
+      "id": "#forge:storage_blocks/pewter",
+      "required": false
+    },
+    {
       "id": "#forge:storage_blocks/steel",
       "required": false
     }

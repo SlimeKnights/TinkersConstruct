@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:ender_slime",
+    "tag": "tconstruct:ender_slime",
     "amount": 1250
   },
   "result": "tconstruct:ender_slime",

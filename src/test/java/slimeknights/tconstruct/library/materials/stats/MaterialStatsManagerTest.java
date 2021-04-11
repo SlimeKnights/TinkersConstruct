@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.JsonFileLoader;
 
@@ -25,7 +24,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   private static final MaterialStatsId STATS_ID_SIMPLE = new MaterialStatsId("test", "stat");
   private static final MaterialStatsId STATS_ID_DONT_CARE = new MaterialStatsId("dont", "care");
 
-  private MaterialStatsManager materialStatsManager = new MaterialStatsManager(mock(TinkerNetwork.class));
+  private MaterialStatsManager materialStatsManager = new MaterialStatsManager();
   private JsonFileLoader fileLoader = new JsonFileLoader(MaterialStatsManager.GSON, MaterialStatsManager.FOLDER);
 
   @Test

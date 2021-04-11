@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.shared;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.fonts.FontResourceManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -13,6 +16,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 
@@ -33,6 +37,11 @@ public class CommonsClientEvents extends ClientEventBase {
     RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlass.get(), RenderType.getTranslucent());
     RenderTypeLookup.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.getTranslucent());
     RenderTypeLookup.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.getTranslucent());
+
+    FontRenderer unicode = unicodeFontRender();
+    TinkerBook.MATERIALS_AND_YOU.fontRenderer = unicode;
+    TinkerBook.PUNY_SMELTING.fontRenderer = unicode;
+    TinkerBook.MIGHTY_SMELTING.fontRenderer = unicode;
   }
 
   @SubscribeEvent
@@ -47,5 +56,17 @@ public class CommonsClientEvents extends ClientEventBase {
       registerBlockItemColorAlias(blockColors, itemColors, block);
       registerBlockItemColorAlias(blockColors, itemColors, pane);
     }
+  }
+
+  private static FontRenderer unicodeRenderer;
+
+  public static FontRenderer unicodeFontRender() {
+    if (unicodeRenderer == null)
+      unicodeRenderer = new FontRenderer(rl -> {
+        FontResourceManager resourceManager = Minecraft.getInstance().fontResourceMananger;
+        return resourceManager.field_238546_d_.get(Minecraft.UNIFORM_FONT_RENDERER_NAME);
+      });
+
+    return unicodeRenderer;
   }
 }

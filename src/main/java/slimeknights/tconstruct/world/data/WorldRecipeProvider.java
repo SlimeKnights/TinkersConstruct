@@ -5,9 +5,9 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
-import slimeknights.mantle.recipe.crafting.ShapedFallbackRecipeBuilder;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -28,23 +28,15 @@ public class WorldRecipeProvider extends BaseRecipeProvider {
   @Override
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     // Add recipe for all slimeball <-> congealed and slimeblock <-> slimeball
-    // fallback: green slime
-    ShapedFallbackRecipeBuilder congealed = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
-                         .key('#', Tags.Items.SLIMEBALLS)
-                         .patternLine("##")
-                         .patternLine("##")
-                         .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS))
-                         .setGroup("tconstruct:congealed_slime"));
-    // replace vanilla recipe to prevent it from conflicting with our slime blocks
-    ShapedFallbackRecipeBuilder slimeBlock = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(Blocks.SLIME_BLOCK)
-                         .key('#', Tags.Items.SLIMEBALLS)
-                         .patternLine("###")
-                         .patternLine("###")
-                         .patternLine("###")
-                         .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS))
-                         .setGroup("slime_blocks"));
+    // only earth slime recipe we need here slime
+    ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
+                       .key('#', SlimeType.EARTH.getSlimeBallTag())
+                       .patternLine("##")
+                       .patternLine("##")
+                       .addCriterion("has_item", hasItem(SlimeType.EARTH.getSlimeBallTag()))
+                       .setGroup("tconstruct:congealed_slime")
+                       .build(consumer, location("common/slime/earth/congealed"));
+
     // does not need green as its the fallback
     for (SlimeType slimeType : SlimeType.TINKER) {
       ResourceLocation name = location("common/slime/" + slimeType.getString() + "/congealed");
@@ -55,7 +47,6 @@ public class WorldRecipeProvider extends BaseRecipeProvider {
                          .addCriterion("has_item", hasItem(slimeType.getSlimeBallTag()))
                          .setGroup("tconstruct:congealed_slime")
                          .build(consumer, name);
-      congealed.addAlternative(name);
       ResourceLocation blockName = location("common/slime/" + slimeType.getString() + "/slimeblock");
       ShapedRecipeBuilder.shapedRecipe(TinkerWorld.slime.get(slimeType))
                          .key('#', slimeType.getSlimeBallTag())
@@ -65,7 +56,6 @@ public class WorldRecipeProvider extends BaseRecipeProvider {
                          .addCriterion("has_item", hasItem(slimeType.getSlimeBallTag()))
                          .setGroup("slime_blocks")
                          .build(consumer, blockName);
-      slimeBlock.addAlternative(blockName);
       // green already can craft into slime balls
       ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 9)
                             .addIngredient(TinkerWorld.slime.get(slimeType))
@@ -82,9 +72,26 @@ public class WorldRecipeProvider extends BaseRecipeProvider {
                             .build(consumer, "tconstruct:common/slime/" + slimeType.getString() + "/slimeball_from_congealed");
     }
 
-    // build fallback recipes
-    congealed.build(consumer, location("common/slime/green/congealed"));
-    // block fallback replaces the vanilla recipe
-    slimeBlock.build(consumer);
+    // craft other slime based items, forge does not automatically add recipes using the tag anymore
+    ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON)
+                       .patternLine("#")
+                       .patternLine("P")
+                       .key('#', Tags.Items.SLIMEBALLS)
+                       .key('P', Blocks.PISTON)
+                       .addCriterion("has_slime_ball", hasItem(Tags.Items.SLIMEBALLS))
+                       .build(consumer, location("common/slime/sticky_piston"));
+    ShapedRecipeBuilder.shapedRecipe(Items.LEAD, 2)
+                       .key('~', Items.STRING)
+                       .key('O', Tags.Items.SLIMEBALLS)
+                       .patternLine("~~ ")
+                       .patternLine("~O ")
+                       .patternLine("  ~")
+                       .addCriterion("has_slime_ball", hasItem(Tags.Items.SLIMEBALLS))
+                       .build(consumer, location("common/slime/lead"));
+    ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM)
+                          .addIngredient(Items.BLAZE_POWDER)
+                          .addIngredient(Tags.Items.SLIMEBALLS)
+                          .addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER))
+                          .build(consumer, location("common/slime/magma_cream"));
   }
 }

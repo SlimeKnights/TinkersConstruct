@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "fluid": {
-    "name": "tconstruct:earth_slime",
+    "tag": "forge:slime",
     "amount": 250
   },
   "result": "minecraft:slime_ball",

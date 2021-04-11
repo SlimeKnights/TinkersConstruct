@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tinkering;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -27,23 +26,25 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Override
-  public IMaterial getMaterial(ItemStack stack) {
+  public Optional<MaterialId> getMaterialId(ItemStack stack) {
     return Optional.ofNullable(stack.getTag())
-      .map(compoundNBT -> compoundNBT.getString(Tags.PART_MATERIAL))
-      .map(MaterialId::new)
-      .map(MaterialRegistry::getMaterial)
-      .filter(this::canUseMaterial)
-      .orElse(IMaterial.UNKNOWN);
+                   .map(compoundNBT -> compoundNBT.getString(Tags.PART_MATERIAL))
+                   .map(MaterialId::new);
   }
 
   @Override
-  public ItemStack getItemstackWithMaterial(IMaterial material) {
+  public ItemStack withMaterialForDisplay(MaterialId materialId) {
     ItemStack stack = new ItemStack(this);
-    if (canUseMaterial(material)) {
-      CompoundNBT nbt = stack.getOrCreateTag();
-      nbt.putString(Tags.PART_MATERIAL, material.getIdentifier().toString());
-    }
+    stack.getOrCreateTag().putString(Tags.PART_MATERIAL, materialId.toString());
     return stack;
+  }
+
+  @Override
+  public ItemStack withMaterial(IMaterial material) {
+    if (canUseMaterial(material)) {
+      return withMaterialForDisplay(material.getIdentifier());
+    }
+    return new ItemStack(this);
   }
 
   @Override
@@ -52,7 +53,7 @@ public class MaterialItem extends Item implements IMaterialItem {
       if (MaterialRegistry.initialized()) {
         for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
           if (this.canUseMaterial(material)) {
-            items.add(this.getItemstackWithMaterial(material));
+            items.add(this.withMaterial(material));
           }
         }
       } else {

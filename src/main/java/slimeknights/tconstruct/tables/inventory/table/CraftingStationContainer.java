@@ -13,8 +13,10 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
@@ -115,6 +117,12 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
     if (tileEntity instanceof CraftingStationTileEntity) {
       return false;
     }
+
+    // Do not expose the casting tables/basins to the side inventory in the crafting station.
+    if (tileEntity instanceof CastingTileEntity) {
+      return false;
+    }
+
     List<String> blacklist = Config.COMMON.craftingStationBlacklist.get();
     if (!blacklist.isEmpty()) {
       ResourceLocation registryName = TileEntityType.getId(tileEntity.getType());
@@ -126,8 +134,15 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
     return !(tileEntity instanceof IInventory) || ((IInventory)tileEntity).isUsableByPlayer(player);
   }
 
-  private static boolean hasItemHandler(TileEntity te, @Nullable Direction direction) {
-    return te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).isPresent();
+  /**
+   * Checks to see if the given Tile Entity has an item handler that's compatible with the side inventory
+   * The Tile Entity's item handler must be an instance of IItemHandlerModifiable
+   * @param tileEntity Tile to check
+   * @param direction the given direction
+   * @return True if compatible.
+   */
+  private static boolean hasItemHandler(TileEntity tileEntity, @Nullable Direction direction) {
+    return tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).filter(cap -> cap instanceof IItemHandlerModifiable).isPresent();
   }
 
   @Override

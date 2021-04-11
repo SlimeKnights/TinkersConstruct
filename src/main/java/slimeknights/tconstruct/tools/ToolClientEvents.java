@@ -23,7 +23,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
-import slimeknights.tconstruct.library.client.model.tools.ToolModelLoader;
+import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -41,8 +41,8 @@ public class ToolClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerModelLoaders(ModelRegistryEvent event) {
-    ModelLoaderRegistry.registerLoader(Util.getResource("tool"), ToolModelLoader.INSTANCE);
     ModelLoaderRegistry.registerLoader(Util.getResource("material"), MaterialModel.LOADER);
+    ModelLoaderRegistry.registerLoader(Util.getResource("tool"), ToolModel.LOADER);
   }
 
   @SubscribeEvent
@@ -62,20 +62,30 @@ public class ToolClientEvents extends ClientEventBase {
     final ItemColors colors = event.getItemColors();
 
     // tint tool textures for fallback
+    // rock
     registerToolItemColors(colors, TinkerTools.pickaxe);
     registerToolItemColors(colors, TinkerTools.sledgeHammer);
+    // dirt
     registerToolItemColors(colors, TinkerTools.mattock);
     registerToolItemColors(colors, TinkerTools.excavator);
+    // wood
     registerToolItemColors(colors, TinkerTools.axe);
+    // scythe
     registerToolItemColors(colors, TinkerTools.kama);
+    registerToolItemColors(colors, TinkerTools.scythe);
+    // weapon
     registerToolItemColors(colors, TinkerTools.broadSword);
+    registerToolItemColors(colors, TinkerTools.cleaver);
 
     // tint tool part textures for fallback
+    // heads
     registerMaterialItemColors(colors, TinkerToolParts.pickaxeHead);
     registerMaterialItemColors(colors, TinkerToolParts.hammerHead);
     registerMaterialItemColors(colors, TinkerToolParts.axeHead);
     registerMaterialItemColors(colors, TinkerToolParts.kamaHead);
     registerMaterialItemColors(colors, TinkerToolParts.swordBlade);
+    registerMaterialItemColors(colors, TinkerToolParts.broadBlade);
+    // other parts
     registerMaterialItemColors(colors, TinkerToolParts.toolBinding);
     registerMaterialItemColors(colors, TinkerToolParts.largePlate);
     registerMaterialItemColors(colors, TinkerToolParts.toolRod);
@@ -92,9 +102,8 @@ public class ToolClientEvents extends ClientEventBase {
 
   /** Color handler instance for MaterialItem */
   private static final IItemColor materialColorHandler = (stack, index) -> {
-    return Optional.of(IMaterialItem.getMaterialFromStack(stack))
-      .filter((material) -> IMaterial.UNKNOWN != material)
-      .map(IMaterial::getIdentifier)
+    return Optional.of(IMaterialItem.getMaterialIdFromStack(stack))
+      .filter(material -> !material.equals(IMaterial.UNKNOWN_ID))
       .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
       .map(MaterialRenderInfo::getVertexColor)
       .orElse(-1);

@@ -8,12 +8,13 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import slimeknights.mantle.client.model.inventory.ModelItem;
 import slimeknights.mantle.client.model.util.ModelHelper;
+import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.client.model.block.CastingModel;
-import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.smeltery.client.util.CastingItemRenderTypeBuffer;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.tank.CastingFluidHandler;
 
 import java.util.List;
 
@@ -49,12 +50,12 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<CastingTileEnt
       }
 
       // render fluids
-      FluidTankAnimated tank = casting.getTank();
+      CastingFluidHandler tank = casting.getTank();
       // if full, start rendering with opacity for progress
-      if (tank.getFluidAmount() == tank.getCapacity() && tank.getRenderOffset() == 0) {
+      if (tank.getFluid().getAmount() == tank.getCapacity()) {
         RenderUtils.renderTransparentCuboid(matrices, buffer, model.getFluid(), tank.getFluid(), fluidOpacity, light);
       } else {
-        RenderUtils.renderFluidTank(matrices, buffer, model.getFluid(), tank, light, partialTicks, false);
+        FluidRenderer.renderScaledCuboid(matrices, buffer, model.getFluid(), tank.getFluid(), 0, tank.getCapacity(), light, false);
       }
 
       // render items

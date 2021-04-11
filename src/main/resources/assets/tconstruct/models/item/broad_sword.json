@@ -1,27 +1,15 @@
 {
   "loader": "tconstruct:tool",
   "parent": "forge:item/default-tool",
-  "parts": {
-    "handle": {
-      "loader": "tconstruct:material",
-      "index": 1,
-      "textures": {
-        "texture": "tconstruct:item/tool/broadsword/handle"
-      }
-    },
-    "head": {
-      "loader": "tconstruct:material",
-      "index": 0,
-      "textures": {
-          "texture": "tconstruct:item/tool/broadsword/blade"
-      }
-    },
-    "binding": {
-      "loader": "tconstruct:material",
-      "index": 2,
-      "textures": {
-        "texture": "tconstruct:item/tool/broadsword/guard"
-      }
-    }
-  }
+  "textures": {
+    "head":        "tconstruct:item/tool/broadsword/blade",
+    "broken_head": "tconstruct:item/tool/broadsword/broken_blade",
+    "handle":      "tconstruct:item/tool/broadsword/handle",
+    "guard":       "tconstruct:item/tool/broadsword/guard"
+  },
+  "parts": [
+    { "name": "handle",  "index": 1 },
+    { "name": "head",    "index": 0, "broken": "broken_head" },
+    { "name": "guard", "index": 2 }
+  ]
 }

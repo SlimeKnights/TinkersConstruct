@@ -10,13 +10,18 @@ import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
+import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -48,11 +53,20 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
     registerSlabStair(consumer, TinkerCommons.mudBricks, "common/", false);
 
     // book
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.book)
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.materialsAndYou)
                           .addIngredient(Items.BOOK)
                           .addIngredient(TinkerTables.pattern)
                           .addCriterion("has_item", hasItem(TinkerTables.pattern))
-                          .build(consumer, prefix(TinkerCommons.book, "common/"));
+                          .build(consumer, prefix(TinkerCommons.materialsAndYou, "common/"));
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.punySmelting)
+                          .addIngredient(Items.BOOK)
+                          .addIngredient(TinkerSmeltery.searedBrick)
+                          .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+                          .build(consumer, prefix(TinkerCommons.punySmelting, "common/"));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.mightySmelting)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenCopper.get(), MaterialValues.INGOT))
+                            .setCast(Items.BOOK, true)
+                            .build(consumer, prefix(TinkerCommons.mightySmelting, "common/"));
 
     // glass
     folder = "common/glass/";

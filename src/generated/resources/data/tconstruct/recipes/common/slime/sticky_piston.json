@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "P"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:slimeballs"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+  "result": {
+    "item": "minecraft:sticky_piston"
+  }
+}

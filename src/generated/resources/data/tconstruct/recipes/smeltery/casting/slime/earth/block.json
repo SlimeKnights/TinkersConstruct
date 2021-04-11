@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:earth_slime",
+    "tag": "forge:slime",
     "amount": 1250
   },
   "result": "minecraft:slime_block",

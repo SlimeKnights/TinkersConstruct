@@ -1,0 +1,10 @@
+[
+  {
+    "type": "modifier",
+    "data": "modifiers/haste.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/beheading.json"
+  }
+]

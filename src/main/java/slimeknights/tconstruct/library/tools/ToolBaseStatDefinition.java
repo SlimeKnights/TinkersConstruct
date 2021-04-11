@@ -29,6 +29,9 @@ public final class ToolBaseStatDefinition {
   /** Number of trait slots for the tool forge the tool starts with */
   private final int defaultTraits;
 
+  /** Extra reach to use to boost a tool's range */
+  private final float reachBonus;
+
   /* Harvest */
 
   /**
@@ -71,6 +74,7 @@ public final class ToolBaseStatDefinition {
   public void buildStats(ModifierStatsBuilder builder) {
     // general
     builder.multiplyDurability(durabilityModifier);
+    builder.addReach(reachBonus);
     // harvest
     builder.multiplyMiningSpeed(miningSpeedModifier);
     // weapon
@@ -84,6 +88,7 @@ public final class ToolBaseStatDefinition {
   public static class Builder {
     // general
     private float durabilityModifier = 1f;
+    private float reachBonus = 0f;
     private int primaryHeadWeight = 1;
     private int defaultUpgrades = 3;
     private int defaultAbilities = 1;
@@ -103,9 +108,11 @@ public final class ToolBaseStatDefinition {
         throw new TinkerAPIException("Trying to define a tool without damage modifier set. Damage modifier has to be defined per tool and should be greater than 0.001");
       }
       return new ToolBaseStatDefinition(
-        durabilityModifier, primaryHeadWeight, defaultUpgrades, defaultAbilities, defaultTraits,
-        miningSpeedModifier,
-        damageBonus, damageModifier, damageCutoff, attackSpeed, knockbackBonus
+        durabilityModifier, primaryHeadWeight,
+        defaultUpgrades, defaultAbilities, defaultTraits,
+        reachBonus, miningSpeedModifier,
+        damageBonus, damageModifier, damageCutoff,
+        attackSpeed, knockbackBonus
       );
     }
   }

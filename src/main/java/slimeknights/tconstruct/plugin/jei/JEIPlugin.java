@@ -26,6 +26,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
@@ -33,6 +34,7 @@ import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
@@ -40,6 +42,7 @@ import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -74,8 +77,6 @@ import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerToolParts;
-import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -87,6 +88,12 @@ public class JEIPlugin implements IModPlugin {
   @SuppressWarnings("rawtypes")
   public static final IIngredientType<EntityType> ENTITY_TYPE = () -> EntityType.class;
   public static final IIngredientType<ModifierEntry> MODIFIER_TYPE = () -> ModifierEntry.class;
+
+  private final MaterialReloadListener materialReloader;
+  public JEIPlugin() {
+    this.materialReloader = new MaterialReloadListener();
+    MaterialRegistry.getInstance().addMaterialSyncListener(this.materialReloader);
+  }
 
   @Override
   public ResourceLocation getPluginUid() {
@@ -205,25 +212,15 @@ public class JEIPlugin implements IModPlugin {
     };
 
     // parts
-    registry.registerSubtypeInterpreter(TinkerToolParts.pickaxeHead.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.hammerHead.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.axeHead.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.kamaHead.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.swordBlade.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.toolBinding.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.largePlate.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.toolRod.get(), toolPartInterpreter);
-    registry.registerSubtypeInterpreter(TinkerToolParts.toughToolRod.get(), toolPartInterpreter);
+    for (Item item : TinkerTags.Items.TOOL_PARTS.getAllElements()) {
+      registry.registerSubtypeInterpreter(item, toolPartInterpreter);
+    }
 
     // tools
     ISubtypeInterpreter toolInterpreter = new ToolSubtypeInterpreter();
-    registry.registerSubtypeInterpreter(TinkerTools.pickaxe.get(), toolInterpreter);
-    registry.registerSubtypeInterpreter(TinkerTools.sledgeHammer.get(), toolInterpreter);
-    registry.registerSubtypeInterpreter(TinkerTools.mattock.get(), toolInterpreter);
-    registry.registerSubtypeInterpreter(TinkerTools.excavator.get(), toolInterpreter);
-    registry.registerSubtypeInterpreter(TinkerTools.axe.get(), toolInterpreter);
-    registry.registerSubtypeInterpreter(TinkerTools.kama.get(), toolInterpreter);
-    registry.registerSubtypeInterpreter(TinkerTools.broadSword.get(), toolInterpreter);
+    for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
+      registry.registerSubtypeInterpreter(item, toolInterpreter);
+    }
 
     registry.registerSubtypeInterpreter(TinkerSmeltery.copperCan.get(), CopperCanItem::getSubtype);
   }
@@ -253,6 +250,7 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
     IIngredientManager manager = jeiRuntime.getIngredientManager();
+    materialReloader.manager = manager;
     // hide knightslime and slimesteel until implemented
     removeFluid(manager, TinkerFluids.moltenSoulsteel.get(), TinkerFluids.moltenSoulsteel.asItem());
     removeFluid(manager, TinkerFluids.moltenKnightslime.get(), TinkerFluids.moltenKnightslime.asItem());
@@ -312,6 +310,24 @@ public class JEIPlugin implements IModPlugin {
         return RetexturedBlockItem.getTextureName(itemStack);
       }
       return NONE;
+    }
+  }
+
+  /** Logic to run when the material registry reloads */
+  private static class MaterialReloadListener implements Runnable {
+    private IIngredientManager manager;
+
+    @Override
+    public void run() {
+      if (manager != null) {
+        NonNullList<ItemStack> newStacks = NonNullList.create();
+        for (Item item : TinkerTags.Items.TOOL_PARTS.getAllElements()) {
+          item.fillItemGroup(ItemGroup.SEARCH, newStacks);
+        }
+        if (!newStacks.isEmpty()) {
+          manager.addIngredientsAtRuntime(VanillaTypes.ITEM, newStacks);
+        }
+      }
     }
   }
 }

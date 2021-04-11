@@ -55,7 +55,7 @@ public interface ICastingRecipe extends ICommonRecipe<ICastingInventory> {
   /**
    * Calculates the cooling time for a recipe based on the fluid input
    * @param fluid  Fluid input
-   * @return  Temperature for the recipe in celsius
+   * @return  Time for the recipe
    */
   static int calcCoolingTime(FluidStack fluid) {
     return calcCoolingTime(fluid.getFluid().getAttributes().getTemperature(fluid) - 300, fluid.getAmount());

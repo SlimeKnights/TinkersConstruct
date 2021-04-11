@@ -9,7 +9,7 @@
       "item": "tconstruct:pattern"
     },
     "w": {
-      "type": "tconstruct:without",
+      "type": "mantle:without",
       "base": [
         {
           "tag": "forge:workbenches"

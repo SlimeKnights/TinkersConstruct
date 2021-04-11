@@ -87,6 +87,7 @@ public final class MaterialRegistry {
    */
   public static void updateMaterialStatsFromServer(UpdateMaterialStatsPacket packet) {
     INSTANCE.materialStatsManager.updateMaterialStatsFromServer(packet.getMaterialToStats());
+    INSTANCE.registry.onMaterialSync(); // called on stat reload as it should happen second
   }
 
   /**

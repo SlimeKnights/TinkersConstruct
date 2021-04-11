@@ -29,11 +29,11 @@ public final class TinkerFluids extends TinkerModule {
   // basic
   public static final FluidObject<ForgeFlowingFluid> blood = FLUIDS.register("blood", coolBuilder().color(0xff540000).density(1200).viscosity(1200).temperature(336), Material.WATER, 0);
 
-  // slime
-  public static final FluidObject<ForgeFlowingFluid> earthSlime = FLUIDS.register("earth_slime", coolBuilder().color(0xef76be6d).density(1400).viscosity(1400).temperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  // slime -  note second name parameter is forge tag name
+  public static final FluidObject<ForgeFlowingFluid> earthSlime = FLUIDS.register("earth_slime", "slime", coolBuilder().color(0xef76be6d).density(1400).viscosity(1400).temperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
   public static final FluidObject<ForgeFlowingFluid> skySlime = FLUIDS.register("sky_slime", coolBuilder().color(0xef67f0f5).density(1500).viscosity(1500).temperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
   public static final FluidObject<ForgeFlowingFluid> enderSlime = FLUIDS.register("ender_slime", coolBuilder().color(0xefd236ff).density(1600).viscosity(1600).temperature(370), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<ForgeFlowingFluid> magmaCream  = FLUIDS.register("magma_cream", FluidAttributes
+  public static final FluidObject<ForgeFlowingFluid> magmaCream  = FLUIDS.register("magma_cream", "magma", FluidAttributes
     .builder(FluidIcons.MAGMA_CREAM_STILL, FluidIcons.MAGMA_CREAM_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY).density(1900).viscosity(1900).temperature(600), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 4);
   public static final Map<SlimeType, FluidObject<ForgeFlowingFluid>> slime;
   static {
@@ -82,7 +82,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenZinc     = FLUIDS.register("molten_zinc",     moltenBuilder().color(0xffd3efe8).temperature( 720), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenPlatinum = FLUIDS.register("molten_platinum", moltenBuilder().color(0xffb5aea4).temperature(1270), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenTungsten = FLUIDS.register("molten_tungsten", moltenBuilder().color(0xffd1c08b).temperature(1250), Material.LAVA, 12);
-  public static final FluidObject<ForgeFlowingFluid> moltenOsmium   = FLUIDS.register("molten_osmium",   moltenBuilder().color(0xffbed3cd).temperature(1700), Material.LAVA, 12);
+  public static final FluidObject<ForgeFlowingFluid> moltenOsmium   = FLUIDS.register("molten_osmium",   moltenBuilder().color(0xffbed3cd).temperature(1275), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenUranium  = FLUIDS.register("molten_uranium",  moltenBuilder().color(0xff7f9374).temperature(1130), Material.LAVA, 12);
 
   // compat alloys
@@ -91,6 +91,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenElectrum   = FLUIDS.register("molten_electrum",   moltenBuilder().color(0xffe8db49).temperature(1060), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenInvar      = FLUIDS.register("molten_invar",      moltenBuilder().color(0xffbab29b).temperature(1200), Material.LAVA, 12);
   public static final FluidObject<ForgeFlowingFluid> moltenConstantan = FLUIDS.register("molten_constantan", moltenBuilder().color(0xffff9e7f).temperature(1220), Material.LAVA, 12);
+  public static final FluidObject<ForgeFlowingFluid> moltenPewter     = FLUIDS.register("molten_pewter",     moltenBuilder().color(0xffa09b6b).temperature( 700), Material.LAVA, 10);
   public static final FluidObject<ForgeFlowingFluid> moltenSteel      = FLUIDS.register("molten_steel",      moltenBuilder().color(0xffa7a7a7).temperature(1510), Material.LAVA, 12);
 
 

@@ -156,7 +156,8 @@ public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEn
   public void onCrafting(PlayerEntity playerEntity, ItemStack output, IInventory craftMatrix) {
     // TODO: who calls, and when?
     PartRecipe recipe = this.getPartRecipe();
-    if (!output.isEmpty() && recipe != null) {
+    // output parameter is empty on shift click, just ignore it and shrink once
+    if (recipe != null) {
       // TODO: probably set a flag to prevent recipe updates for a bit
       // TODO: it does not currently update? life is weird
       this.patternSlot.decrStackSize(1);

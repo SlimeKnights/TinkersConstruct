@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MaterialRegistryExtension.class)
 class StatsNBTTest extends BaseMcTest {
 
-  private final StatsNBT testStatsNBT = new StatsNBT(1, 2, 3, 4, 5);
+  private final StatsNBT testStatsNBT = new StatsNBT(1, 2, 3, 4, 5, 6);
 
   @Test
   void serialize() {
@@ -23,13 +23,14 @@ class StatsNBTTest extends BaseMcTest {
     assertThat(nbt.getFloat(StatsNBT.TAG_ATTACK_DAMAGE)).isEqualTo(3);
     assertThat(nbt.getFloat(StatsNBT.TAG_MINING_SPEED)).isEqualTo(4);
     assertThat(nbt.getFloat(StatsNBT.TAG_ATTACK_SPEED)).isEqualTo(5);
+    assertThat(nbt.getFloat(StatsNBT.TAG_REACH)).isEqualTo(6);
   }
 
   @Test
   void serializeEmpty_emptyList() {
     CompoundNBT nbt = StatsNBT.EMPTY.serializeToNBT();
 
-    assertThat(nbt.size()).isEqualTo(5);
+    assertThat(nbt.size()).isEqualTo(6);
   }
 
   @Test
@@ -40,6 +41,7 @@ class StatsNBTTest extends BaseMcTest {
     nbt.putFloat(StatsNBT.TAG_ATTACK_DAMAGE, 4);
     nbt.putFloat(StatsNBT.TAG_MINING_SPEED, 3);
     nbt.putFloat(StatsNBT.TAG_ATTACK_SPEED, 2);
+    nbt.putFloat(StatsNBT.TAG_REACH, 1);
 
     StatsNBT statsNBT = StatsNBT.readFromNBT(nbt);
 
@@ -48,6 +50,7 @@ class StatsNBTTest extends BaseMcTest {
     assertThat(statsNBT.getAttackDamage()).isEqualTo(4);
     assertThat(statsNBT.getMiningSpeed()).isEqualTo(3);
     assertThat(statsNBT.getAttackSpeed()).isEqualTo(2);
+    assertThat(statsNBT.getReach()).isEqualTo(1);
   }
 
   @Test

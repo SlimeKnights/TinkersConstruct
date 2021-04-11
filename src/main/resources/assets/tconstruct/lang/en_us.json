@@ -5,14 +5,14 @@
     "block.tconstruct.grout.tooltip": "I am Grout!",
 
     "block.tconstruct.sky_slime": "Skyslime Block",
-    "block.tconstruct.sky_slime.tooltip": "Works with pistons",
-    "block.tconstruct.ender_slime": "Enderslime Block",
-    "block.tconstruct.ender_slime.tooltip": "Works with pistons",
-    "block.tconstruct.blood_slime": "Blood Block",
-    "block.tconstruct.blood_slime.tooltip": "Works with pistons",
+    "block.tconstruct.sky_slime.tooltip": "Sticks to both slime and honey",
     "block.tconstruct.ichor_slime": "Ichor Block",
-    "block.tconstruct.ichor_slime.tooltip": "Works with pistons",
-
+    "block.tconstruct.ichor_slime.tooltip": "Sticks all sticky blocks besides ichor",
+    "block.tconstruct.ender_slime": "Enderslime Block",
+    "block.tconstruct.ender_slime.tooltip": "Sticks when pushed, but not when adjacent to a sticky block",
+    "block.tconstruct.blood_slime": "Blood Block",
+    "block.tconstruct.blood_slime.tooltip": "Bouncy, but not sticky",
+    
     "block.tconstruct.earth_congealed_slime": "Congealed Slime Block",
     "block.tconstruct.earth_congealed_slime.tooltip": "Lets you jump really high",
     "block.tconstruct.sky_congealed_slime": "Congealed Skyslime Block",
@@ -151,10 +151,14 @@
     "item.tconstruct.knightslime_ingot": "Knightslime Ingot",
     "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
     "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
-    
 
-    "item.tconstruct.book": "Materials and You",
-    "item.tconstruct.book.tooltip": "The book every Tinker needs\nby Skyla",
+    "item.tconstruct.materials_and_you": "Materials and You",
+    "item.tconstruct.materials_and_you.tooltip": "The book every Tinker needs\nby Skyla",
+
+    "item.tconstruct.puny_smelting": "Puny Smelting",
+    "item.tconstruct.puny_smelting.tooltip": "Smelting and casting for beginners\nby Thruul M'Gon",
+    "item.tconstruct.mighty_smelting": "Mighty Smelting",
+    "item.tconstruct.mighty_smelting.tooltip": "Master smelting, casting, and alloying\nby Thruul M'Gon",
 
     "item.tconstruct.sky_slime_ball": "Skyslime Ball",
     "item.tconstruct.ender_slime_ball": "Enderslime Ball",
@@ -203,11 +207,6 @@
     "item.tconstruct.ender_slime_crystal": "Enderslime Crystal",
     "item.tconstruct.ender_slime_crystal.tooltip": "Used to overslime tools",
     
-    "item.tconstruct.ichor_expander": "Ichor Expander",
-    "item.tconstruct.ichor_expander.tooltip": "First of the expanders",
-    "item.tconstruct.ender_expander": "Ender Expander",
-    "item.tconstruct.ender_expander.tooltip": "Second of the expanders",
-    
     "item.tconstruct.reinforcement": "Reinforcement",
     "item.tconstruct.reinforcement.tooltip": "Reduces chance of a tool taking damage",
     "item.tconstruct.silky_cloth": "Silky Cloth",
@@ -247,8 +246,7 @@
     
     "item.tconstruct.hammer_head_cast": "Hammer Head Gold Cast",
     "item.tconstruct.broad_axe_head_cast": "Broad Axe Head Gold Cast",
-    "item.tconstruct.scythe_head_cast": "Scythe Head Gold Cast",
-    "item.tconstruct.large_sword_blade_cast": "Large Sword Blade Gold Cast",
+    "item.tconstruct.broad_blade_cast": "Broad Blade Gold Cast",
     
     "_comment": "Binding Gold Casts",
     
@@ -284,8 +282,7 @@
     
     "item.tconstruct.hammer_head_sand_cast": "Hammer Head Sand Cast",
     "item.tconstruct.broad_axe_head_sand_cast": "Broad Axe Head Sand Cast",
-    "item.tconstruct.scythe_head_sand_cast": "Scythe Head Sand Cast",
-    "item.tconstruct.large_sword_blade_sand_cast": "Large Sword Blade Sand Cast",
+    "item.tconstruct.broad_blade_sand_cast": "Broad Blade Sand Cast",
     
     "_comment": "Binding Sand Casts",
     
@@ -321,8 +318,7 @@
     
     "item.tconstruct.hammer_head_red_sand_cast": "Hammer Head Red Sand Cast",
     "item.tconstruct.broad_axe_head_red_sand_cast": "Broad Axe Head Red Sand Cast",
-    "item.tconstruct.scythe_head_red_sand_cast": "Scythe Head Red Sand Cast",
-    "item.tconstruct.large_sword_blade_red_sand_cast": "Large Sword Blade Red Sand Cast",
+    "item.tconstruct.broad_blade_red_sand_cast": "Broad Blade Red Sand Cast",
     
     "_comment": "Binding Red Sand Casts",
     
@@ -568,6 +564,11 @@
     "fluid.tconstruct.flowing_molten_constantan": "Flowing Molten Constantan",
     "item.tconstruct.molten_constantan_bucket": "Molten Constantan Bucket",
 
+    "block.tconstruct.molten_pewter_fluid": "Molten Pewter",
+    "fluid.tconstruct.molten_pewter": "Molten Pewter",
+    "fluid.tconstruct.flowing_molten_pewter": "Flowing Molten Pewter",
+    "item.tconstruct.molten_pewter_bucket": "Molten Pewter Bucket",
+
     "block.tconstruct.molten_steel_fluid": "Molten Steel",
     "fluid.tconstruct.molten_steel": "Molten Steel",
     "fluid.tconstruct.flowing_molten_steel": "Flowing Molten Steel",
@@ -670,7 +671,9 @@
     "item.tconstruct.excavator": "Excavator",
     "item.tconstruct.axe": "Hand Axe",
     "item.tconstruct.kama": "Kama",
+    "item.tconstruct.scythe": "Scythe",
     "item.tconstruct.broad_sword": "Broadsword",
+    "item.tconstruct.cleaver": "Cleaver",
     
     "_comment": "Tinkers Tool Parts",
 
@@ -679,6 +682,8 @@
     "item.tconstruct.axe_head": "Axe Head",
     "item.tconstruct.kama_head": "Kama Head",
     "item.tconstruct.sword_blade": "Sword Blade",
+    "item.tconstruct.broad_blade": "Broad Blade",
+    
     "item.tconstruct.tool_rod": "Tool Rod",
     "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
     "item.tconstruct.tool_binding": "Tool Binding",
@@ -692,8 +697,10 @@
     "item.tconstruct.excavator.description": "The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!",
     "item.tconstruct.axe.description": "The Hand Axe chops up wood and makes short work of leaves. It also makes for an effective weapon.\nChop chop!",
     "item.tconstruct.kama.description": "The Kama is a precision reaping tool, mowing down plants and shearing animals.\nRight Click: Harvest and replant crops",
+    "item.tconstruct.scythe.description": "The Scythe is a broad reaping tool, mowing down plants in a wide area.\nRight Click: Harvest and replant crops",
     "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
-
+    "item.tconstruct.cleaver.description": "The Cleaver is a weapon for a smeltery master. High range attacks keep cut though the toughest of foes.",
+ 
     "_comment": "Tinkers Smeltery",
 
     "block.tconstruct.seared_stone": "Seared Stone",
@@ -967,6 +974,9 @@
     "modifier.tconstruct.worldbound": "Worldbound",
     "modifier.tconstruct.worldbound.flavor": "Ancient!",
     "modifier.tconstruct.worldbound.description": "A crude version of netherite, granting immunity to external damage like fire, but no additional strength",
+    "modifier.tconstruct.soulbound": "Soulbound",
+    "modifier.tconstruct.soulbound.flavor": "A bond for life!",
+    "modifier.tconstruct.soulbound.description": "Tool remains in inventory on death!",
     "modifier.tconstruct.netherite": "Netherite",
     "modifier.tconstruct.netherite.flavor": "Refined!",
     "modifier.tconstruct.netherite.description": "Harness the power of ancient metal, making the tool stronger and immune to external damage such as fire",
@@ -1035,6 +1045,9 @@
     "modifier.tconstruct.expanded": "Expanded",
     "modifier.tconstruct.expanded.flavor": "Did not skip leg day!",
     "modifier.tconstruct.expanded.description": "Tool's area of effect is larger than before",
+    "modifier.tconstruct.reach": "Reach",
+    "modifier.tconstruct.reach.flavor": "Telekinesis!",
+    "modifier.tconstruct.reach.description": "Can reach further blocks and mobs while holding this tool!",
     "modifier.tconstruct.autosmelt": "Autosmelt",
     "modifier.tconstruct.autosmelt.flavor": "Fires of the Nether in your tool!",
     "modifier.tconstruct.autosmelt.description": "Tool automatically smelts all drops",
@@ -1095,9 +1108,9 @@
     "modifier.tconstruct.searing": "Searing",
     "modifier.tconstruct.searing.flavor": "Harness the Smeltery!",
     "modifier.tconstruct.searing.description": "Tool does bonus fire damage in hot areas, but less overall damage in cold ones",
-    "modifier.tconstruct.dwarfish": "Dwarfish",
-    "modifier.tconstruct.dwarfish.flavor": "Miner's Friend!",
-    "modifier.tconstruct.dwarfish.description": "Tool mines faster the deeper you mine, just don't mine too deep",
+    "modifier.tconstruct.dwarven": "Dwarven",
+    "modifier.tconstruct.dwarven.flavor": "Miner's Friend!",
+    "modifier.tconstruct.dwarven.description": "Tool mines faster the deeper you mine, just don't mine too deep",
     "modifier.tconstruct.overgrowth": "Overgrowth",
     "modifier.tconstruct.overgrowth.flavor": "Fungal!",
     "modifier.tconstruct.overgrowth.description": "Tool slowly grows overslime",
@@ -1238,17 +1251,20 @@
     "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
     "gui.tconstruct.tinker_station.no_traits": "None :[",
 
+    "gui.tconstruct.manual.cycle.recipes": "Cycle to other recipes",
+
     "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
 
     "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
 
     "recipe.tconstruct.modifier.not_enough_upgrades": "Need at least %s upgrade slots to add this modifier",
     "recipe.tconstruct.modifier.not_enough_abilities": "Need at least %s ability slots to add this modifier",
+    "recipe.tconstruct.modifier.validate_upgrades": "This change leaves the tool with too few upgrade slots",
+    "recipe.tconstruct.modifier.validate_abilities": "This change leaves the tool with too few ability slots",
     "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
     "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
 
     "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
-    "recipe.tconstruct.modifier.ender_expander_requirements": "Must apply the ichor expander first",
 
 
     "_comment": "GUIs Messages",

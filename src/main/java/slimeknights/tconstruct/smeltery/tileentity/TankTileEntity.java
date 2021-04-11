@@ -143,7 +143,9 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
    * @param nbt  tank NBT
    */
   public void updateTank(CompoundNBT nbt) {
-    if (!nbt.isEmpty()) {
+    if (nbt.isEmpty()) {
+      tank.setFluid(FluidStack.EMPTY);
+    } else {
       tank.readFromNBT(nbt);
     }
   }
@@ -151,6 +153,8 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   @Override
   public void writeSynced(CompoundNBT tag) {
     // want tank on the client on world load
-    tag.put(Tags.TANK, tank.writeToNBT(new CompoundNBT()));
+    if (!tank.isEmpty()) {
+      tag.put(Tags.TANK, tank.writeToNBT(new CompoundNBT()));
+    }
   }
 }

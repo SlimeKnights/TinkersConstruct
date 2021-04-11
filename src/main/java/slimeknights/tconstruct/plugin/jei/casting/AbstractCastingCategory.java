@@ -88,7 +88,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
 
   @Override
   public void draw(IDisplayableCastingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-    cachedArrows.getUnchecked(recipe.getCoolingTime()).draw(matrixStack, 58, 18);
+    cachedArrows.getUnchecked(Math.max(1, recipe.getCoolingTime())).draw(matrixStack, 58, 18);
     block.draw(matrixStack, 38, 35);
     if (recipe.hasCast()) {
       (recipe.isConsumed() ? castConsumed : castKept).draw(matrixStack, 63, 39);

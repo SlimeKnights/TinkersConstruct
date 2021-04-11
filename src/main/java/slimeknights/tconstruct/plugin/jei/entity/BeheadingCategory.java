@@ -63,7 +63,7 @@ public class BeheadingCategory implements IRecipeCategory<BeheadingRecipe> {
 
     // output
     IGuiItemStackGroup items = layout.getItemStacks();
-    items.init(1, false, 73, 7);
+    items.init(1, false, 75, 10);
     items.set(ingredients);
   }
 }

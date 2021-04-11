@@ -23,6 +23,7 @@ import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.Locale;
@@ -88,6 +89,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   }
 
   private void addWorld() {
+    this.copy(TinkerTags.Blocks.SLIME_BLOCK, TinkerTags.Items.SLIME_BLOCK);
     this.copy(TinkerTags.Blocks.CONGEALED_SLIME, TinkerTags.Items.CONGEALED_SLIME);
     this.copy(TinkerTags.Blocks.SLIMY_LOGS, TinkerTags.Items.SLIMY_LOGS);
     this.copy(TinkerTags.Blocks.SLIMY_LEAVES, TinkerTags.Items.SLIMY_LEAVES);
@@ -111,24 +113,28 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.MULTIPART_TOOL)
         .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.broadSword.get());
+						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.scythe.get(),
+             TinkerTools.broadSword.get(), TinkerTools.cleaver.get());
     // mine blocks
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
         .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-						 TinkerTools.axe.get(), TinkerTools.kama.get());
+						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.scythe.get());
     // support expanders
     this.getOrCreateBuilder(TinkerTags.Items.AOE)
         .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-						 TinkerTools.axe.get(), TinkerTools.kama.get());
+						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.scythe.get(),
+             TinkerTools.broadSword.get(), TinkerTools.cleaver.get());
     // support all weapon modifiers
     this.getOrCreateBuilder(TinkerTags.Items.COMBAT)
-        .add(TinkerTools.sledgeHammer.get(), TinkerTools.axe.get(), TinkerTools.broadSword.get());
+        .add(TinkerTools.axe.get(), TinkerTools.sledgeHammer.get(),
+             TinkerTools.scythe.get(),
+             TinkerTools.broadSword.get(), TinkerTools.cleaver.get());
     // can receive damage boosts
     this.getOrCreateBuilder(TinkerTags.Items.MELEE)
         .addTag(TinkerTags.Items.COMBAT)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.kama.get(),
+        .add(TinkerTools.pickaxe.get(), TinkerTools.kama.get(), TinkerTools.scythe.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get());
     // supports modifiers
     this.getOrCreateBuilder(TinkerTags.Items.MELEE_OR_HARVEST)
@@ -141,6 +147,21 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
     // kamas are a shear type, when broken we don't pass it to loot tables
     this.getOrCreateBuilder(Tags.Items.SHEARS).add(TinkerTools.kama.get());
+    // nothing to blacklist, just want the empty tag so it appears in datapacks
+    this.getOrCreateBuilder(TinkerTags.Items.AUTOSMELT_BLACKLIST);
+
+    // carrots and potatoes are not seeds in vanilla, so make a tag with them
+    this.getOrCreateBuilder(TinkerTags.Items.SEEDS)
+        .addTag(Tags.Items.SEEDS)
+        .add(Items.CARROT, Items.POTATO);
+
+    // tag for tool parts, mostly used by JEI right now
+    this.getOrCreateBuilder(TinkerTags.Items.TOOL_PARTS)
+        .add(TinkerToolParts.pickaxeHead.get(), TinkerToolParts.hammerHead.get(),
+             TinkerToolParts.axeHead.get(), TinkerToolParts.kamaHead.get(),
+             TinkerToolParts.swordBlade.get(), TinkerToolParts.broadBlade.get(),
+             TinkerToolParts.toolBinding.get(), TinkerToolParts.largePlate.get(),
+             TinkerToolParts.toolRod.get(), TinkerToolParts.toughToolRod.get());
   }
 
   private void addSmeltery() {
@@ -167,6 +188,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.axeHeadCast);
     addCast.accept(TinkerSmeltery.kamaHeadCast);
     addCast.accept(TinkerSmeltery.swordBladeCast);
+    addCast.accept(TinkerSmeltery.broadBladeCast);
     // large heads
     addCast.accept(TinkerSmeltery.hammerHeadCast);
     // bindings

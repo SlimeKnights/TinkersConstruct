@@ -2,7 +2,7 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "type": "tconstruct:without",
+      "type": "mantle:without",
       "base": {
         "tag": "forge:heads"
       },

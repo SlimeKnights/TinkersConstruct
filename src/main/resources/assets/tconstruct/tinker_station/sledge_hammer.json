@@ -2,8 +2,8 @@
     "slots": [
         { "position": [ 44, 29 ] },
         { "position": [ 21, 52 ] },
-        { "position": [ 57, 48 ] },
-        { "position": [ 25, 16 ] }
+        { "position": [ 50, 48 ] },
+        { "position": [ 25, 20 ] }
     ],
     "item": "tconstruct:sledge_hammer",
     "sortIndex": 2

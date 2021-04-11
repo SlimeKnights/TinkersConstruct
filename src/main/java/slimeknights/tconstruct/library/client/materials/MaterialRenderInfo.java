@@ -36,7 +36,7 @@ public class MaterialRenderInfo {
    * @return  Sprite if valid, null if missing
    */
   @Nullable
-  private TextureAtlasSprite tryTexture(RenderMaterial base, String suffix, Function<RenderMaterial,TextureAtlasSprite> spriteGetter) {
+  private TextureAtlasSprite trySprite(RenderMaterial base, String suffix, Function<RenderMaterial,TextureAtlasSprite> spriteGetter) {
     TextureAtlasSprite sprite = spriteGetter.apply(getMaterial(base.getTextureLocation(), suffix));
     if (!MissingTextureSprite.getLocation().equals(sprite.getName())) {
       return sprite;
@@ -51,12 +51,12 @@ public class MaterialRenderInfo {
    * @return  Pair of the sprite, and a boolean indicating whether the sprite should be tinted
    */
   public TintedSprite getSprite(RenderMaterial base, Function<RenderMaterial,TextureAtlasSprite> spriteGetter) {
-    TextureAtlasSprite sprite = tryTexture(base, getSuffix(texture), spriteGetter);
+    TextureAtlasSprite sprite = trySprite(base, getSuffix(texture), spriteGetter);
     if (sprite != null) {
       return TintedSprite.of(sprite, false);
     }
     for (String fallback : fallbacks) {
-      sprite = tryTexture(base, fallback, spriteGetter);
+      sprite = trySprite(base, fallback, spriteGetter);
       if (sprite != null) {
         return TintedSprite.of(sprite, true);
       }
@@ -99,6 +99,7 @@ public class MaterialRenderInfo {
     return ModelLoaderRegistry.blockMaterial(new ResourceLocation(texture.getNamespace(), texture.getPath() + "_" + suffix));
   }
 
+  /** Data class for a sprite that may be tinted */
   @Data(staticConstructor = "of")
   public static class TintedSprite {
     private final TextureAtlasSprite sprite;

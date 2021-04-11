@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.materials;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,6 +11,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.profiler.IProfiler;
@@ -26,9 +26,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
-import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Type;
@@ -50,7 +48,7 @@ import java.util.stream.Collectors;
  * So if your mods name is "foobar", the location for your mods materials is "data/foobar/materials".
  */
 @Log4j2
-public class MaterialManager extends SyncingJsonReloadListener {
+public class MaterialManager extends JsonReloadListener {
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
@@ -65,12 +63,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
   private List<IMaterial> sortedMaterials = Collections.emptyList();
 
   public MaterialManager() {
-    this(TinkerNetwork.getInstance());
-  }
-
-  @VisibleForTesting
-  protected MaterialManager(TinkerNetwork tinkerNetwork) {
-    super(tinkerNetwork, GSON, FOLDER);
+    super(GSON, FOLDER);
   }
 
   /**
@@ -139,8 +132,11 @@ public class MaterialManager extends SyncingJsonReloadListener {
     log.info("{} materials loaded", materials.size());
   }
 
-  @Override
-  protected Object getUpdatePacket() {
+  /**
+   * Gets the packet to send on player login
+   * @return  Packet object
+   */
+  public Object getUpdatePacket() {
     return new UpdateMaterialsPacket(materials.values());
   }
 
