@@ -1,21 +1,16 @@
 package tconstruct.tools.gui;
 
-import java.util.Collections;
-import java.util.List;
-
+import codechicken.nei.VisiblityData;
+import codechicken.nei.api.INEIGuiHandler;
+import codechicken.nei.api.TaggedInventoryArea;
+import cpw.mods.fml.common.Optional;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-
 import org.lwjgl.opengl.GL11;
-
-import codechicken.nei.VisiblityData;
-import codechicken.nei.api.INEIGuiHandler;
-import codechicken.nei.api.TaggedInventoryArea;
-import cpw.mods.fml.common.Optional;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolMaterial;
@@ -23,6 +18,9 @@ import tconstruct.library.util.HarvestLevels;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.logic.PartBuilderLogic;
+
+import java.util.Collections;
+import java.util.List;
 
 @Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
 public class PartCrafterGui extends GuiContainer implements INEIGuiHandler
@@ -276,7 +274,7 @@ public class PartCrafterGui extends GuiContainer implements INEIGuiHandler
         if (y + h - 4 < guiTop || y + 4 > guiTop + ySize)
             return false;
 
-        if (x + 4 > guiLeft + xSize + DESC_WIDTH)
+        if (x - w - 4 < guiLeft - 40 || x + 4 > guiLeft + xSize + DESC_WIDTH)
             return false;
 
         return true;

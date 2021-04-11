@@ -1,37 +1,31 @@
 package tconstruct.tools.gui;
 
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.*;
-
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.*;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
-import net.minecraft.world.World;
-
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-
 import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 import tconstruct.TConstruct;
-import tconstruct.library.accessory.AccessoryCore;
-import tconstruct.library.armor.ArmorCore;
-import tconstruct.library.client.*;
-import tconstruct.library.tools.*;
-import tconstruct.library.util.HarvestLevels;
+import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.client.ToolGuiElement;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.inventory.ToolStationContainer;
 import tconstruct.tools.logic.ToolStationLogic;
 import tconstruct.util.network.ToolStationPacket;
+
+import java.util.Collections;
+import java.util.List;
 
 @SideOnly(Side.CLIENT)
 @Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
@@ -323,7 +317,7 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
         if (y + h - 4 < guiTop || y + 4 > guiTop + ySize)
             return false;
 
-        if (x + 4 > guiLeft + xSize + 126)
+        if (x - w - 4 < guiLeft - 40 || x + 4 > guiLeft + xSize + 126)
             return false;
 
         return true;
