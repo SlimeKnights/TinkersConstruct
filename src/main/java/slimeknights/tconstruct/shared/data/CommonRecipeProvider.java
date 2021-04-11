@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
@@ -58,6 +59,11 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                           .addIngredient(TinkerTables.pattern)
                           .addCriterion("has_item", hasItem(TinkerTables.pattern))
                           .build(consumer, prefix(TinkerCommons.materialsAndYou, "common/"));
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.tinkersGadgetry)
+                          .addIngredient(Items.BOOK)
+                          .addIngredient(TinkerTags.Items.SKY_SLIMEBALL)
+                          .addCriterion("has_item", hasItem(TinkerTags.Items.SKY_SLIMEBALL))
+                          .build(consumer, prefix(TinkerCommons.tinkersGadgetry, "common/"));
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.punySmelting)
                           .addIngredient(Items.BOOK)
                           .addIngredient(TinkerSmeltery.searedBrick)

@@ -19,10 +19,12 @@ public class TinkerBook extends BookData {
   private static final ResourceLocation MATERIALS_BOOK_ID = Util.getResource("materials_and_you");
   private static final ResourceLocation MIGHTY_SMELTING_ID = Util.getResource("mighty_smelting");
   private static final ResourceLocation PUNY_SMELTING_ID = Util.getResource("puny_smelting");
+  private static final ResourceLocation TINKERS_GADGETRY_ID = Util.getResource("tinkers_gadgetry");
 
   public final static BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID.toString(), false, false);
   public final static BookData PUNY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
   public final static BookData MIGHTY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
+  public final static BookData TINKERS_GADGETRY = BookLoader.registerBook(TINKERS_GADGETRY_ID.toString(), false, false);
 
   /** Initializes the books */
   public static void initBook() {
@@ -35,6 +37,7 @@ public class TinkerBook extends BookData {
     addData(MATERIALS_AND_YOU, MATERIALS_BOOK_ID);
     addData(PUNY_SMELTING, PUNY_SMELTING_ID);
     addData(MIGHTY_SMELTING, MIGHTY_SMELTING_ID);
+    addData(TINKERS_GADGETRY, TINKERS_GADGETRY_ID);
   }
 
   /**
@@ -60,6 +63,7 @@ public class TinkerBook extends BookData {
       case MATERIALS_AND_YOU: return MATERIALS_AND_YOU;
       case PUNY_SMELTING: return PUNY_SMELTING;
       case MIGHTY_SMELTING: return MIGHTY_SMELTING;
+      case TINKERS_GADGETRY: return TINKERS_GADGETRY;
     }
     return MATERIALS_AND_YOU;
   }

@@ -40,6 +40,7 @@ public class CommonsClientEvents extends ClientEventBase {
 
     FontRenderer unicode = unicodeFontRender();
     TinkerBook.MATERIALS_AND_YOU.fontRenderer = unicode;
+    TinkerBook.TINKERS_GADGETRY.fontRenderer = unicode;
     TinkerBook.PUNY_SMELTING.fontRenderer = unicode;
     TinkerBook.MIGHTY_SMELTING.fontRenderer = unicode;
   }
