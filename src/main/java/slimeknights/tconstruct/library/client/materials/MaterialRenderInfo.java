@@ -3,16 +3,17 @@ package slimeknights.tconstruct.library.client.materials;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.texture.MissingSprite;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.util.Identifier;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
-import slimeknights.tconstruct.library.materials.MaterialId;
-
+import net.fabricmc.fabric.impl.client.model.ModelLoadingRegistryImpl;
 import org.jetbrains.annotations.Nullable;
+import slimeknights.tconstruct.library.materials.MaterialId;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import net.minecraft.client.texture.MissingSprite;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.util.Identifier;
 
 /**
  * Determines the type of texture used for rendering a specific material
@@ -96,7 +97,7 @@ public class MaterialRenderInfo {
    * @return  Material instance
    */
   private static SpriteIdentifier getMaterial(Identifier texture, String suffix) {
-    return ModelLoaderRegistry.blockMaterial(new Identifier(texture.getNamespace(), texture.getPath() + "_" + suffix));
+    return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,new Identifier(texture.getNamespace(), texture.getPath() + "_" + suffix));
   }
 
   @Data(staticConstructor = "of")

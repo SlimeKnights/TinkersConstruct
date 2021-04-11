@@ -1,11 +1,6 @@
 package slimeknights.tconstruct.library;
 
 import com.google.common.annotations.VisibleForTesting;
-import net.minecraft.fluid.Fluid;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialManager;
@@ -18,8 +13,10 @@ import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
-
 import java.util.Collection;
+
+import net.minecraft.fluid.Fluid;
+import net.minecraft.resource.ReloadableResourceManager;
 
 public final class MaterialRegistry {
 
@@ -46,11 +43,13 @@ public final class MaterialRegistry {
     return INSTANCE != null;
   }
 
-  @SubscribeEvent
-  static void addDataPackListeners(final AddReloadListenerEvent event) {
-    event.addListener(INSTANCE.materialManager);
-    event.addListener(INSTANCE.materialStatsManager);
-    event.addListener(INSTANCE.materialTraitsManager);
+
+
+  public static void addDataPackListeners(final ReloadableResourceManager manager) {
+
+    manager.registerListener(INSTANCE.materialManager);
+    manager.registerListener(INSTANCE.materialStatsManager);
+    manager.registerListener(INSTANCE.materialTraitsManager);
   }
 
   public MaterialRegistry() {

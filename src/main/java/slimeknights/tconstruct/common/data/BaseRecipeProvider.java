@@ -13,6 +13,9 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+
+import slimeknights.mantle.recipe.ICondition;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
@@ -67,7 +70,7 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
    * @return  Resource location path
    */
   protected static Identifier wrap(ItemConvertible item, String prefix, String suffix) {
-    Identifier loc = Objects.requireNonNull(item.asItem().getRegistryName());
+    Identifier loc = Objects.requireNonNull(Registry.ITEM.getId(item.asItem()));
     return location(prefix + loc.getPath() + suffix);
   }
 
@@ -89,7 +92,7 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
    * @return  Resource location path
    */
   protected static Identifier prefix(ItemConvertible item, String prefix) {
-    Identifier loc = Objects.requireNonNull(item.asItem().getRegistryName());
+    Identifier loc = Objects.requireNonNull(Registry.ITEM.getId(item.asItem()));
     return location(prefix + loc.getPath());
   }
 
@@ -122,7 +125,7 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
    * @return  Tag instance
    */
   protected static Tag<Item> getTag(String modId, String name) {
-    return ItemTags.register(modId + ":" + name);
+    return ItemTags.REQUIRED_TAGS.add(modId + ":" + name);
   }
 
 
@@ -142,7 +145,7 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
                        .input('B', item)
                        .pattern("BBB")
                        .criterion("has_item", hasBlock)
-                       .group(Objects.requireNonNull(slab.asItem().getRegistryName()).toString())
+                       .group(Objects.requireNonNull(Registry.ITEM.getId(slab.asItem())).toString())
                        .offerTo(consumer, wrap(item, folder, "_slab"));
     // stairs
     ItemConvertible stairs = building.getStairs();
@@ -152,7 +155,7 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
                        .pattern("BB ")
                        .pattern("BBB")
                        .criterion("has_item", hasBlock)
-                       .group(Objects.requireNonNull(stairs.asItem().getRegistryName()).toString())
+                       .group(Objects.requireNonNull(Registry.ITEM.getId(stairs.asItem())).toString())
                        .offerTo(consumer, wrap(item, folder, "_stairs"));
 
     // only add stonecutter if relevant
@@ -183,7 +186,7 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
                        .pattern("BBB")
                        .pattern("BBB")
                        .criterion("has_item", hasBlock)
-                       .group(Objects.requireNonNull(wall.asItem().getRegistryName()).toString())
+                       .group(Objects.requireNonNull(Registry.ITEM.getId(wall.asItem())).toString())
                        .offerTo(consumer, wrap(item, folder, "_wall"));
     // only add stonecutter if relevant
     if (addStonecutter) {
@@ -211,13 +214,13 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
                        .pattern("###")
                        .pattern("###")
                        .criterion("has_item", conditionsFromItem(small))
-                       .group(Objects.requireNonNull(large.asItem().getRegistryName()).toString())
+                       .group(Objects.requireNonNull(Registry.ITEM.getId(large.asItem())).toString())
                        .offerTo(consumer, wrap(large, folder, String.format("_from_%ss", smallName)));
     // block to ingot
     ShapelessRecipeJsonFactory.create(small, 9)
                           .input(large)
                           .criterion("has_item", conditionsFromItem(large))
-                          .group(Objects.requireNonNull(small.asItem().getRegistryName()).toString())
+                          .group(Objects.requireNonNull(Registry.ITEM.getId(small.asItem())).toString())
                           .offerTo(consumer, wrap(small, folder, String.format("_from_%s", largeName)));
   }
 
@@ -241,13 +244,13 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
                        .pattern("#*#")
                        .pattern("###")
                        .criterion("has_item", conditionsFromItem(smallItem))
-                       .group(Objects.requireNonNull(largeItem.asItem().getRegistryName()).toString())
+                       .group(Objects.requireNonNull(Registry.ITEM.getId(largeItem.asItem())).toString())
                        .offerTo(consumer, wrap(largeItem, folder, String.format("_from_%ss", smallName)));
     // block to ingot
     ShapelessRecipeJsonFactory.create(smallItem, 9)
                           .input(largeItem)
                           .criterion("has_item", conditionsFromItem(largeItem))
-                          .group(Objects.requireNonNull(smallItem.asItem().getRegistryName()).toString())
+                          .group(Objects.requireNonNull(Registry.ITEM.getId(smallItem.asItem())).toString())
                           .offerTo(consumer, wrap(smallItem, folder, String.format("_from_%s", largeName)));
   }
 

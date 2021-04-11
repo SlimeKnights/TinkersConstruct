@@ -10,17 +10,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import slimeknights.tconstruct.TConstruct;
 //import slimeknights.tconstruct.library.utils.TagUtil;
 //import slimeknights.tconstruct.tools.common.entity.EntityArrow;
 //import slimeknights.tconstruct.tools.tools.Pickaxe;
 
-@Mod.EventBusSubscriber(modid = TConstruct.modID)
 public final class AchievementEvents {
 
   private static final String ADVANCEMENT_STORY_ROOT = "minecraft:story/root";
@@ -49,10 +42,9 @@ public final class AchievementEvents {
     }*/
   }
 
-  @SubscribeEvent
-  public static void onDamageEntity(LivingHurtEvent event) {
-    DamageSource source = event.getSource();
-    if (source.isProjectile() && !(source.getAttacker() instanceof FakePlayer) && source.getAttacker() instanceof ServerPlayerEntity) {// && source.getImmediateSource() instanceof EntityArrow) {
+  //TODO: do this (AlphaMode)
+  public static void onDamageEntity(DamageSource source) {
+    if (source.isProjectile()) {// && source.getImmediateSource() instanceof EntityArrow) {
       grantAdvancement((ServerPlayerEntity) source.getAttacker(), ADVANCEMENT_SHOOT_ARROW);
     }
   }

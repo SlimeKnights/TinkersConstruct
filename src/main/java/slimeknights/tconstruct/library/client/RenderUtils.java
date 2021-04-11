@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.fluid.Fluid;
+
 import net.minecraftforge.fluids.FluidAttributes;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
@@ -28,7 +30,6 @@ public final class RenderUtils {
     if (opacity < 0 || fluid.isEmpty()) {
       return;
     }
-
     FluidAttributes attributes = fluid.getFluid().getAttributes();
     Sprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
     Sprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));

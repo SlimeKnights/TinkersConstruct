@@ -14,7 +14,7 @@ accessible  method  net/minecraft/data/server/RecipesProvider  conditionsFromTag
 
 accessible  method  net/minecraft/recipe/Ingredient    <init> (Ljava/util/stream/Stream;)V
 
-accessible class net/minecraft/client/gui/screen/ingame/HandledScreens$Provider
+accessible  class net/minecraft/client/gui/screen/ingame/HandledScreens$Provider
 accessible  method  net/minecraft/client/gui/screen/ingame/HandledScreens  register (Lnet/minecraft/screen/ScreenHandlerType;Lnet/minecraft/client/gui/screen/ingame/HandledScreens$Provider;)V
 
 accessible  field   net/minecraft/client/render/entity/EntityRenderDispatcher  renderers    Ljava/util/Map;
@@ -45,3 +45,5 @@ accessible  method  net/minecraft/data/server/RecipesProvider  conditionsFromIte
 accessible  method  net/minecraft/client/render/WorldRenderer  drawBlockOutline (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/entity/Entity;DDDLnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V
 
 accessible  method  net/minecraft/world/gen/stateprovider/BlockStateProviderType   <init>    (Lcom/mojang/serialization/Codec;)V
+
+accessible  class net/minecraft/recipe/Ingredient$Entry
