@@ -28,6 +28,7 @@ import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
@@ -45,7 +46,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
   protected final int depth;
 
   @Override
-  public final List<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
+  public final List<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, @Nullable BlockRayTraceResult blockTrace) {
     // only works with modifiable harvest
     if (stack.isEmpty() || tool.isBroken()) {
       return Collections.emptyList();
@@ -63,16 +64,18 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
     }
 
     // raytrace to get the side, but has to result in the same block
-    BlockRayTraceResult mop = ToolCore.blockRayTrace(world, player, RayTraceContext.FluidMode.ANY);
-    if (!origin.equals(mop.getPos())) {
-      mop = ToolCore.blockRayTrace(world, player, RayTraceContext.FluidMode.NONE);
-      if (!origin.equals(mop.getPos())) {
-        return Collections.emptyList();
+    if (blockTrace == null) {
+      blockTrace = ToolCore.blockRayTrace(world, player, RayTraceContext.FluidMode.ANY);
+      if (!origin.equals(blockTrace.getPos())) {
+        blockTrace = ToolCore.blockRayTrace(world, player, RayTraceContext.FluidMode.NONE);
+        if (!origin.equals(blockTrace.getPos())) {
+          return Collections.emptyList();
+        }
       }
     }
 
     // return default method
-    return getAOEBlocks(tool, player, origin, mop.getFace(), mop.getHitVec(), check -> isEffective(tool, stack, check));
+    return getAOEBlocks(tool, player, origin, blockTrace.getFace(), blockTrace.getHitVec(), check -> isEffective(tool, stack, check));
   }
 
   /**
