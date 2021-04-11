@@ -19,7 +19,7 @@
     "large_broken_front": "tconstruct:item/tool/sledge_hammer/large/broken_front"
   },
   "large": true,
-  "large_offset": [5, -5],
+  "large_offset": [-2, 2],
   "parts": [
     { "name": "handle", "index": 1 },
     { "name": "head",   "index": 0, "broken": "broken_head" },

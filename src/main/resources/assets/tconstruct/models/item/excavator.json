@@ -15,6 +15,7 @@
     "large_binding":     "tconstruct:item/tool/excavator/large/binding"
   },
   "large": true,
+  "large_offset": [-2, 2],
   "parts": [
     { "name": "handle",  "index": 1 },
     { "name": "head",    "index": 0, "broken": "broken_head" },
