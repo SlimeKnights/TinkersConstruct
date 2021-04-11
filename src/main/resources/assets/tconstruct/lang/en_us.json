@@ -1259,6 +1259,8 @@
 
     "recipe.tconstruct.modifier.not_enough_upgrades": "Need at least %s upgrade slots to add this modifier",
     "recipe.tconstruct.modifier.not_enough_abilities": "Need at least %s ability slots to add this modifier",
+    "recipe.tconstruct.modifier.validate_upgrades": "This change leaves the tool with too few upgrade slots",
+    "recipe.tconstruct.modifier.validate_abilities": "This change leaves the tool with too few ability slots",
     "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
     "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
 
