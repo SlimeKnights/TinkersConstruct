@@ -390,11 +390,12 @@ public class KamaTool extends HarvestTool {
     }
 
     @Override
-    protected boolean breakBlock(ToolStack tool, ItemStack stack, ServerPlayerEntity player, ServerWorld world, BlockPos pos, BlockState state) {
+    protected boolean removeBlock(PlayerEntity player, World world, BlockPos pos, boolean canHarvest) {
+      BlockState state = world.getBlockState(pos);
       if (state.getBlock() instanceof TripWireBlock) {
         world.setBlockState(pos, state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
       }
-      return super.breakBlock(tool, stack, player, world, pos, state);
+      return super.removeBlock(player, world, pos, canHarvest);
     }
   }
 }

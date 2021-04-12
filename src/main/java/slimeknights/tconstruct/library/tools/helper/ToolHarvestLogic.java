@@ -153,7 +153,7 @@ public class ToolHarvestLogic {
    * @param canHarvest  If true, the player can harvest
    * @return  True if the block was removed
    */
-  private static boolean removeBlock(PlayerEntity player, World world, BlockPos pos, boolean canHarvest) {
+  protected boolean removeBlock(PlayerEntity player, World world, BlockPos pos, boolean canHarvest) {
     BlockState state = world.getBlockState(pos);
     boolean removed = state.removedByPlayer(world, pos, player, canHarvest, world.getFluidState(pos));
     if (removed) {
