@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
+import net.minecraft.block.TripWireBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -12,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -19,6 +21,7 @@ import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.Property;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -384,6 +387,14 @@ public class KamaTool extends HarvestTool {
     @Override
     public int getDamage(ToolStack tool, ItemStack stack, World world, BlockPos pos, BlockState state) {
       return state.isIn(BlockTags.FIRE) ? 0 : 1;
+    }
+
+    @Override
+    protected boolean breakBlock(ToolStack tool, ItemStack stack, ServerPlayerEntity player, ServerWorld world, BlockPos pos, BlockState state) {
+      if (state.getBlock() instanceof TripWireBlock) {
+        world.setBlockState(pos, state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
+      }
+      return super.breakBlock(tool, stack, player, world, pos, state);
     }
   }
 }
