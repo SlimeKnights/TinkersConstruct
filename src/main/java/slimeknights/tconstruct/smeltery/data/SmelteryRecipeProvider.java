@@ -425,12 +425,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // cast molten blaze into blaze rods
     ItemCastingRecipeBuilder.tableRecipe(Items.BLAZE_ROD)
-                            .setCast(TinkerSmeltery.toolRodCast, false)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 5))
+                            .setCast(TinkerSmeltery.toughToolRodCast, false)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 10))
                             .build(consumer, wrap(Items.BLAZE_ROD, folder, "_gold_cast"));
     ItemCastingRecipeBuilder.tableRecipe(Items.BLAZE_ROD)
-                            .setCast(TinkerSmeltery.toolRodCast.getSingleUseTag(), true)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 5))
+                            .setCast(TinkerSmeltery.toughToolRodCast.getSingleUseTag(), true)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 10))
                             .build(consumer, wrap(Items.BLAZE_ROD, folder, "_sand_cast"));
 
     // Cast recipes
