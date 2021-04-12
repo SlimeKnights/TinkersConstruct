@@ -359,7 +359,7 @@ public class KamaTool extends HarvestTool {
     return getToolHarvestLogic().transformBlocks(context, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true);
   }
 
-  /** Harvests logic to match shears and hoes */
+  /** Harvest logic to match shears and hoes */
   public static class HarvestLogic extends CircleAOEHarvestLogic {
     private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(
       Material.LEAVES, Material.WEB, Material.WOOL,
