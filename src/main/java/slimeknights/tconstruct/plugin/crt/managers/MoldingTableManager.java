@@ -22,14 +22,12 @@ public class MoldingTableManager implements IRecipeManager {
   public void addRecipe(String name, IIngredient material, IIngredient mold, boolean moldConsumed, IItemStack output) {
     name = fixRecipeName(name);
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
-
     Ingredient materialIngredient = material.asVanillaIngredient();
     Ingredient moldIngredient = mold.asVanillaIngredient();
     ItemOutput itemOutput = ItemOutput.fromStack(output.getInternal());
     MoldingRecipe.Table recipe = new MoldingRecipe.Table(id, materialIngredient, moldIngredient, moldConsumed, itemOutput);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
 
   @Override
   public IRecipeType<MoldingRecipe> getRecipeType() {

@@ -3,27 +3,53 @@ package slimeknights.tconstruct.plugin.crt;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.impl.commands.CTCommandCollectionEvent;
 import com.blamejared.crafttweaker.impl.fluid.MCFluidStackMutable;
-import com.blamejared.crafttweaker.impl_native.fluid.ExpandFluid;
 import com.blamejared.crafttweaker.impl_native.item.ExpandItem;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.TinkerRegistries;
+import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 
 import java.util.stream.Collectors;
 
-public class CRTEvents {
+public class CRTHelper {
+
+  public static MaterialId getMaterialId(String materialId) {
+    MaterialId material = MaterialId.tryCreate(materialId);
+    if (material == null) {
+      throw new IllegalArgumentException("Invalid ResourceLocation provided! Provided: " + materialId);
+    }
+    IMaterial foundMaterial = MaterialRegistry.getMaterial(material);
+    if (foundMaterial == Material.UNKNOWN) {
+      throw new IllegalArgumentException("Material does not exist! Provided: " + materialId);
+    }
+
+    return material;
+  }
+
+  public static  Modifier getModifier(String name) {
+    ModifierId resultId = ModifierId.tryCreate(name);
+    if (resultId == null) {
+      throw new IllegalArgumentException("Invalid ResourceLocation provided! Provided: " + name);
+    }
+    Modifier resultModifier = TinkerRegistries.MODIFIERS.getValue(resultId);
+    if (resultModifier == null) {
+      throw new IllegalArgumentException("Modifier does not exist! Provided: " + resultId);
+    }
+    return resultModifier;
+  }
 
   @SubscribeEvent
   public void onCommandCollection(CTCommandCollectionEvent event) {
