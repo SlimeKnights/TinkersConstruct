@@ -1,5 +1,14 @@
 package slimeknights.tconstruct.common.data;
 
+import slimeknights.mantle.recipe.ICondition;
+import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
+import slimeknights.mantle.registration.object.BuildingBlockObject;
+import slimeknights.mantle.registration.object.WallBuildingBlockObject;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import java.util.Objects;
+import java.util.function.Consumer;
+
 import net.minecraft.advancement.criterion.CriterionConditions;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.server.RecipesProvider;
@@ -7,6 +16,7 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
 import net.minecraft.data.server.recipe.SingleItemRecipeJsonFactory;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
@@ -14,25 +24,12 @@ import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
-import slimeknights.mantle.recipe.ICondition;
-import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
-import slimeknights.mantle.registration.object.BuildingBlockObject;
-import slimeknights.mantle.registration.object.WallBuildingBlockObject;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+import net.minecraft.util.registry.RegistryKey;
 
 /**
  * Shared logic for each module's recipe provider
  */
-public abstract class BaseRecipeProvider extends RecipesProvider implements IConditionBuilder {
+public abstract class BaseRecipeProvider extends RecipesProvider /* implements IConditionBuilder*/ {
   public BaseRecipeProvider(DataGenerator generator) {
     super(generator);
   }
@@ -98,12 +95,13 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
 
   /**
    * Prefixes the resource location path with the given value
-   * @param entry   Entry registry name to use
+   * @param entityType   Entry registry name to use
    * @param prefix  Prefix value
    * @return  Resource location path
    */
-  protected static Identifier prefixR(Supplier<? extends IForgeRegistryEntry<?>> entry, String prefix) {
-    Identifier loc = Objects.requireNonNull(entry.get().getRegistryName());
+  protected static Identifier prefixR(EntityType<?> entityType, String prefix) {
+    RegistryKey<?> key = Registry.ENTITY_TYPE.getKey(entityType).orElseThrow(() -> new RuntimeException(entityType.getTranslationKey() + " was not registered"));
+    Identifier loc = key.getValue();
     return location(prefix + loc.getPath());
   }
 
@@ -271,12 +269,12 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
     return builder.build(consumer);
   }
 
-  /**
-   * Creates a condition for a tag existing
-   * @param name  Forge tag name
+  /*
+    Creates a condition for a tag existing
+    @param name  Forge tag name
    * @return  Condition for tag existing
    */
-  protected static ICondition tagCondition(String name) {
+  /*protected static ICondition tagCondition(String name) {
     return new NotCondition(new TagEmptyCondition("forge", name));
   }
 
@@ -289,5 +287,5 @@ public abstract class BaseRecipeProvider extends RecipesProvider implements ICon
     public CompoundIngredient(Ingredient... children) {
       this(Arrays.asList(children));
     }
-  }
+  }*/
 }

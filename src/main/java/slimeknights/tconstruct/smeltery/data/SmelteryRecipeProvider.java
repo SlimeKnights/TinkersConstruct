@@ -19,6 +19,8 @@ import net.minecraft.tag.EntityTypeTags;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.tag.Tag.Identified;
+import net.minecraft.util.registry.Registry;
+
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
@@ -45,6 +47,7 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeB
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
+import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.misc.CommonTags;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -947,7 +950,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // slimes melt into slime, shocker
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.SLIME), new FluidVolume(TinkerFluids.earthSlime.get(), MaterialValues.SLIMEBALL / 10))
                               .build(consumer, prefixR(EntityType.SLIME, folder));
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(TinkerWorld.skySlimeEntity.get()), new FluidVolume(TinkerFluids.skySlime.get(), MaterialValues.SLIMEBALL / 10))
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(TinkerWorld.skySlimeEntity), new FluidVolume(TinkerFluids.skySlime.get(), MaterialValues.SLIMEBALL / 10))
                               .build(consumer, prefixR(TinkerWorld.skySlimeEntity, folder));
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.MAGMA_CUBE), new FluidVolume(TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL / 10))
                               .build(consumer, prefixR(EntityType.MAGMA_CUBE, folder));
