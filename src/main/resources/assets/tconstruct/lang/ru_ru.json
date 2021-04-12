@@ -1,0 +1,1304 @@
+{
+    "_comment": "Tinkers Common",
+
+    "block.tconstruct.grout": "Затирка",
+    "block.tconstruct.grout.tooltip": "Я есть Затирка!",
+
+    "block.tconstruct.sky_slime": "Небесный блок",
+    "block.tconstruct.sky_slime.tooltip": "Работает с поршнями",
+    "block.tconstruct.ender_slime": "Блок слизи Энда",
+    "block.tconstruct.ender_slime.tooltip": "Работает с поршнями",
+    "block.tconstruct.blood_slime": "Блок крови",
+    "block.tconstruct.blood_slime.tooltip": "Работает с поршнями",
+    "block.tconstruct.ichor_slime": "Блок Ихор",
+    "block.tconstruct.ichor_slime.tooltip": "Работает с поршнями",
+
+    "block.tconstruct.earth_congealed_slime": "Блок застывшей слизи",
+    "block.tconstruct.earth_congealed_slime.tooltip": "Позволяет прыгать очень высоко",
+    "block.tconstruct.sky_congealed_slime": "Застывший блок небесной извести",
+    "block.tconstruct.sky_congealed_slime.tooltip": "Позволяет прыгать очень высоко",
+    "block.tconstruct.ender_congealed_slime": "Застывший блок слизи Энда",
+    "block.tconstruct.ender_congealed_slime.tooltip": "Позволяет прыгать очень высоко",
+    "block.tconstruct.blood_congealed_slime": "Застывшая кровь",
+    "block.tconstruct.blood_congealed_slime.tooltip": "Позволяет прыгать очень высоко",
+    "block.tconstruct.ichor_congealed_slime": "Застывший ихор",
+    "block.tconstruct.ichor_congealed_slime.tooltip": "Позволяет прыгать очень высоко",
+
+    "block.tconstruct.mud_bricks": "Грязевые кирпичи",
+    "block.tconstruct.mud_bricks_slab": "Плита из грязевых кирпичей",
+    "block.tconstruct.mud_bricks_stairs": "Лестница из грязевых кирпичей",
+
+    "block.tconstruct.lavawood": "Лавовое дерево",
+    "block.tconstruct.lavawood_slab": "Плита из лавового дерева",
+    "block.tconstruct.lavawood_stairs": "Лестница из лавового дерева",
+
+    "block.tconstruct.blazewood": "Пылающее дерево",
+    "block.tconstruct.blazewood_slab": "Плита из пылающего дерева",
+    "block.tconstruct.blazewood_stairs": "Лестница из пылающего дерева",
+
+    "block.tconstruct.clear_glass": "Прозрачное стекло",
+    "block.tconstruct.clear_glass_pane": "Стеклянная панель",
+    
+    "block.tconstruct.white_clear_stained_glass": "Белый витраж",
+    "block.tconstruct.orange_clear_stained_glass": "Оранжевый витраж",
+    "block.tconstruct.magenta_clear_stained_glass": "Пурпурное витраж",
+    "block.tconstruct.light_blue_clear_stained_glass": "Голубой витраж",
+    "block.tconstruct.yellow_clear_stained_glass": "Желтый витраж",
+    "block.tconstruct.lime_clear_stained_glass": "Лаймовый витраж",
+    "block.tconstruct.pink_clear_stained_glass": "Розовый витраж",
+    "block.tconstruct.gray_clear_stained_glass": "Серый витраж",
+    "block.tconstruct.light_gray_clear_stained_glass": "Светло-серый витраж",
+    "block.tconstruct.cyan_clear_stained_glass": "Голубое витражное стекло",
+    "block.tconstruct.purple_clear_stained_glass": "Фиолетовый витраж",
+    "block.tconstruct.blue_clear_stained_glass": "Синий витраж",
+    "block.tconstruct.brown_clear_stained_glass": "Коричневый витраж",
+    "block.tconstruct.green_clear_stained_glass": "Зеленый витраж",
+    "block.tconstruct.red_clear_stained_glass": "Красный витраж",
+    "block.tconstruct.black_clear_stained_glass": "Черный витраж",
+    
+    "block.tconstruct.white_clear_stained_glass_pane": "Белая стеклянная панель",
+    "block.tconstruct.orange_clear_stained_glass_pane": "Оранжевая стеклянная панель",
+    "block.tconstruct.magenta_clear_stained_glass_pane": "Пурпурная стеклянная панель",
+    "block.tconstruct.light_blue_clear_stained_glass_pane": "Ясно-голубая стеклянная панель",
+    "block.tconstruct.yellow_clear_stained_glass_pane": "Желтая стеклянная панель",
+    "block.tconstruct.lime_clear_stained_glass_pane": "Лаймовая стеклянная панель",
+    "block.tconstruct.pink_clear_stained_glass_pane": "Розовая стеклянная панель",
+    "block.tconstruct.gray_clear_stained_glass_pane": "Серая стеклянная панель",
+    "block.tconstruct.light_gray_clear_stained_glass_pane": "Светло-серая стеклянная панель",
+    "block.tconstruct.cyan_clear_stained_glass_pane": "Голубая стеклянная панель",
+    "block.tconstruct.purple_clear_stained_glass_pane": "Фиолетовая стеклянная панель",
+    "block.tconstruct.blue_clear_stained_glass_pane": "Синяя стеклянная панель",
+    "block.tconstruct.brown_clear_stained_glass_pane": "Коричневая стеклянная панель",
+    "block.tconstruct.green_clear_stained_glass_pane": "Зеленая стеклянная панель",
+    "block.tconstruct.red_clear_stained_glass_pane": "Красная стеклянная панель",
+    "block.tconstruct.black_clear_stained_glass_pane": "Черная стеклянная панель",
+
+    "block.tconstruct.soul_glass": "Стекло души",
+    "block.tconstruct.soul_glass_pane": "Стеклянная панель души",
+
+    "block.tconstruct.glow": "Свечение",
+    "block.tconstruct.silky_jewel_block": "Шелковый блок самоцвета",
+    "block.tconstruct.silky_jewel_block.tooltip": "Может использоваться как база маяка",
+    
+    
+    "_comment": "Рудные металлы",
+    
+    "block.tconstruct.copper_ore": "Медная руда",
+    "block.tconstruct.copper_block": "Медный блок",
+    "block.tconstruct.copper_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.copper_ingot": "Медный слиток",
+    "item.tconstruct.copper_nugget": "Медный самородок",
+
+    "block.tconstruct.cobalt_ore": "Кобальтовая руда",
+    "block.tconstruct.cobalt_block": "Блок кобальта",
+    "block.tconstruct.cobalt_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.cobalt_ingot": "Кобальтовый слиток",
+    "item.tconstruct.cobalt_nugget": "Самородок кобальта",
+    
+    
+    "_comment": "Металлы 3-го уровня",
+    
+    "block.tconstruct.slimesteel_block": "Блок из слизистой стали",
+    "block.tconstruct.slimesteel_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.slimesteel_ingot": "Слиток слизистой стали",
+    "item.tconstruct.slimesteel_nugget": "Самородок слизистой стали",
+    
+    "block.tconstruct.tinkers_bronze_block": "Блок из бронзы Тинкера",
+    "block.tconstruct.tinkers_bronze_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.tinkers_bronze_ingot": "Бронзовый слиток Тинкера",
+    "item.tconstruct.tinkers_bronze_nugget": "Бронзовый самородок Тинкера",
+    
+    "block.tconstruct.rose_gold_block": "Блок розового золота",
+    "block.tconstruct.rose_gold_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.rose_gold_ingot": "Слиток розового золота",
+    "item.tconstruct.rose_gold_nugget": "Самородок розового золота",
+    
+    "block.tconstruct.pig_iron_block": "Блок из чугуна",
+    "block.tconstruct.pig_iron_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.pig_iron_ingot": "Слиток чугунного чугуна",
+    "item.tconstruct.pig_iron_nugget": "Крупица свиного железа",
+
+    
+    "_comment": "Металлы 4-го уровня",
+    
+    "block.tconstruct.manyullyn_block": "Блок Манюллина",
+    "block.tconstruct.manyullyn_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.manyullyn_ingot": "Слиток Манюллин",
+    "item.tconstruct.manyullyn_nugget": "Манюллин Самородок",
+    
+    "block.tconstruct.hepatizon_block": "Блок гепатизона",
+    "block.tconstruct.hepatizon_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.hepatizon_ingot": "Слиток гепатизона",
+    "item.tconstruct.hepatizon_nugget": "Самородок гепатизона",
+    
+    "block.tconstruct.queens_slime_block": "Блок слизи королевы",
+    "block.tconstruct.queens_slime_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.queens_slime_ingot": "Слиток слизи королевы",
+    "item.tconstruct.queens_slime_nugget": "Крупица слизи королевы",
+    
+    "block.tconstruct.soulsteel_block": "Блок стали души",
+    "block.tconstruct.soulsteel_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.soulsteel_ingot": "Слиток стали души",
+    "item.tconstruct.soulsteel_nugget": "Самородок стали души",
+    
+    "item.tconstruct.netherite_nugget": "Самородок Пустоты",
+
+    
+    "_comment": "Металлы 5 уровня",
+    
+    "block.tconstruct.knightslime_block": "Блок рыцарской слизи",
+    "block.tconstruct.knightslime_block.tooltip": "Может использоваться как база маяка",
+    "item.tconstruct.knightslime_ingot": "Слиток рыцарской слизи",
+    "item.tconstruct.knightslime_ingot.tooltip": "Склизкий, но металлический, но тоже из камня? Очаровательно!",
+    "item.tconstruct.knightslime_nugget": "Самородок рыцарской слизи",
+    
+
+    "item.tconstruct.book": "Материалы и вы",
+    "item.tconstruct.book.tooltip": "Книга, которая нужна каждому Тинкеру\nот Скайлы",
+
+    "item.tconstruct.sky_slime_ball": "Небесный шар",
+    "item.tconstruct.ender_slime_ball": "Шар эндерслайма",
+    "item.tconstruct.blood_slime_ball": "Свернувшаяся кровь",
+    "item.tconstruct.ichor_slime_ball": "Ихор Болл",
+    
+    "item.tconstruct.bacon": "Бекон",
+    "item.tconstruct.beef_jerky": "Вяленое мясо говядины",
+    "item.tconstruct.beef_jerky.tooltip": "Насыщение!",
+    "item.tconstruct.chicken_jerky": "Вяленое мясо с курицей",
+    "item.tconstruct.chicken_jerky.tooltip": "Насыщение!",
+    "item.tconstruct.pork_jerky": "Вяленое мясо с беконом",
+    "item.tconstruct.pork_jerky.tooltip": "Насыщение!",
+    "item.tconstruct.mutton_jerky": "Вяленое мясо баранины",
+    "item.tconstruct.mutton_jerky.tooltip": "Насыщение!",
+    "item.tconstruct.rabbit_jerky": "Вяленое мясо кролика",
+    "item.tconstruct.rabbit_jerky.tooltip": "Насыщение!",
+    "item.tconstruct.fish_jerky": "Вяленая треска",
+    "item.tconstruct.fish_jerky.tooltip": "Насыщение!",
+    "item.tconstruct.salmon_jerky": "Вяленое лосось",
+    "item.tconstruct.salmon_jerky.tooltip": "Насыщение!",
+    "item.tconstruct.clownfish_jerky": "Вяленое мясо тропической рыбы",
+    "item.tconstruct.clownfish_jerky.tooltip": "Красочный!",
+    "item.tconstruct.pufferfish_jerky": "Вяленое мясо фугу",
+    "item.tconstruct.pufferfish_jerky.tooltip": "Можно есть!",
+    "item.tconstruct.monster_jerky": "Отрывистый монстр",
+    "item.tconstruct.monster_jerky.tooltip": "Можно есть!",
+    
+    "item.tconstruct.earth_slime_drop": "Капля желатиновой слизи",
+    "item.tconstruct.sky_slime_drop": "Желатиновая капля небесной слизи",
+    "item.tconstruct.ichor_slime_drop": "Желатиновая капля ихора",
+    "item.tconstruct.ender_slime_drop": "Желатиновая капля эндерслайма",
+    "item.tconstruct.blood_slime_drop": "Свернувшаяся капля крови",
+
+    "item.tconstruct.seared_brick": "Обожженный кирпич",
+    "item.tconstruct.mud_brick": "Грязевой кирпич",
+    "item.tconstruct.mud_brick.tooltip": "Строительные блоки для больших и малых",
+    "item.tconstruct.dried_brick": "Сушеный кирпич",
+    
+    "item.tconstruct.earth_slime_crystal": "Кристалл слизи",
+    "item.tconstruct.earth_slime_crystal.tooltip": "Используется для размазывания извести инструментов",
+    "item.tconstruct.sky_slime_crystal": "Кристалл небесной извести",
+    "item.tconstruct.sky_slime_crystal.tooltip": "Используется для размазывания извести инструментов",
+    "item.tconstruct.ichor_slime_crystal": "Ихорский кристалл",
+    "item.tconstruct.ichor_slime_crystal.tooltip": "Используется для снятия излишка инструментов",
+    "item.tconstruct.ender_slime_crystal": "Кристалл эндерслайма",
+    "item.tconstruct.ender_slime_crystal.tooltip": "Используется для размазывания извести инструментов",
+    
+    "item.tconstruct.ichor_expander": "Ихор расширитель",
+    "item.tconstruct.ichor_expander.tooltip": "Первый из расширителей",
+    "item.tconstruct.ender_expander": "Энедр расширитель",
+    "item.tconstruct.ender_expander.tooltip": "Второй из расширителей",
+    
+    "item.tconstruct.reinforcement": "Армирование",
+    "item.tconstruct.reinforcement.tooltip": "Уменьшает шанс повреждения инструмента",
+    "item.tconstruct.silky_cloth": "Шелковистая ткань",
+    "item.tconstruct.silky_jewel": "Шелковый самоцвет",
+    "item.tconstruct.silky_jewel.tooltip": "Дает шелкове касание",
+    "item.tconstruct.necrotic_bone": "Некротическая кость",
+    "item.tconstruct.creative_upgrade": "Творческое обновление",
+    "item.tconstruct.creative_upgrade.tooltip": "Добавляет дополнительный слот для улучшения инструмента",
+    "item.tconstruct.creative_ability": "Творческие способности",
+    "item.tconstruct.creative_ability.tooltip": "Добавляет дополнительный слот способности к инструменту",
+    
+    "item.tconstruct.copper_can": "Медная банка",
+    "item.tconstruct.copper_can.tooltip": "Штабелируемый контейнер, вмещающий 1 слиток жидкости",
+    "item.tconstruct.copper_can.contents": "Содержит: 1 слиток %s",
+    
+    
+    "_comment": "Tinkers Gold Casts",
+    
+    "item.tconstruct.blank_cast": "Чистое золото",
+    "item.tconstruct.ingot_cast": "Слиток золотого литья",
+    "item.tconstruct.nugget_cast": "Самородок золотой литой",
+    "item.tconstruct.gem_cast": "Отливка золота из драгоценных камней",
+    "item.tconstruct.gear_cast": "Золотое снаряжение",
+    
+    "item.tconstruct.sharpening_kit_cast": "Набор для заточки золотого литья",
+    
+    "_comment": "Золотые слепки маленькой головы",
+    
+    "item.tconstruct.pickaxe_head_cast": "Золотое литье головы кирки",
+    "item.tconstruct.axe_head_cast": "Золотая голова топора",
+    "item.tconstruct.kama_head_cast": "Золотое литье Камской головы",
+    "item.tconstruct.sword_blade_cast": "Золотое литье клинка меча",
+    "item.tconstruct.sign_head_cast": "Золотая голова подписи",
+    "item.tconstruct.bow_limb_cast": "Золотой литой лука",
+    
+    "_comment": "Золотые слепки с крупной головой",
+    
+    "item.tconstruct.hammer_head_cast": "Золотое литье с головой молотка",
+    "item.tconstruct.broad_axe_head_cast": "Золотое литье с широкой головкой топора",
+    "item.tconstruct.scythe_head_cast": "Золотое литье головы косы",
+    "item.tconstruct.large_sword_blade_cast": "Золотой клинок Большого меча",
+    
+    "_comment": "Обязательные золотые слепки",
+    
+    "item.tconstruct.tool_binding_cast": "Золото для привязки инструмента",
+    "item.tconstruct.large_plate_cast": "Большая пластина из золота",
+    
+    "_comment": "Золотые отливки стержней инструмента",
+    
+    "item.tconstruct.tool_rod_cast": "Золотое литье стержня инструмента",
+    "item.tconstruct.tough_tool_rod_cast": "Прочная золотая штанга для инструмента",
+    
+    
+    "_comment": "Tinkers Sand Casts",
+    
+    "item.tconstruct.blank_sand_cast": "Отливка из чистого песка",
+    "item.tconstruct.ingot_sand_cast": "Слиток песчаного литья",
+    "item.tconstruct.nugget_sand_cast": "Самородок из песка",
+    "item.tconstruct.gem_sand_cast": "Отливка камня из песка",
+    "item.tconstruct.gear_sand_cast": "Шестерня из песка",
+    
+    "item.tconstruct.sharpening_kit_sand_cast": "Набор для заточки Sand Cast",
+    
+    "_comment": "Мелкие песчаные слепки",
+    
+    "item.tconstruct.pickaxe_head_sand_cast": "Песчаная голова кирки",
+    "item.tconstruct.axe_head_sand_cast": "Песок на голове топора",
+    "item.tconstruct.kama_head_sand_cast": "Песчаный отлив Камской головы",
+    "item.tconstruct.sword_blade_sand_cast": "Песчаный клинок меча",
+    "item.tconstruct.sign_head_sand_cast": "Знак песчаной заливки головы",
+    "item.tconstruct.bow_limb_sand_cast": "Песок на конечности лука",
+    
+    "_comment": "Крупные песчаные слепки",
+    
+    "item.tconstruct.hammer_head_sand_cast": "Отливка от песка с головой молотка",
+    "item.tconstruct.broad_axe_head_sand_cast": "Песок с широкой головкой топора",
+    "item.tconstruct.scythe_head_sand_cast": "Песчаный отлив головы косы",
+    "item.tconstruct.large_sword_blade_sand_cast": "Песок с клинком большого меча",
+    
+    "_comment": "Вяжущие отливки песка",
+    
+    "item.tconstruct.tool_binding_sand_cast": "Привязка песчаного литья",
+    "item.tconstruct.large_plate_sand_cast": "Большая пластина из песка",
+    
+    "_comment": "Песочные отливки штанги инструмента",
+    
+    "item.tconstruct.tool_rod_sand_cast": "Отливка штанги инструмента в песчаные формы",
+    "item.tconstruct.tough_tool_rod_sand_cast": "Жесткий инструментальный стержень, отлитый в песчаные формы",
+    
+    
+    "_comment": "Tinkers Red Sand Casts",
+    
+    "item.tconstruct.blank_red_sand_cast": "Отливка из красного песка",
+    "item.tconstruct.ingot_red_sand_cast": "Слиток красного песка",
+    "item.tconstruct.nugget_red_sand_cast": "Самородок из красного песка",
+    "item.tconstruct.gem_red_sand_cast": "Самоцветный красный песок",
+    "item.tconstruct.gear_red_sand_cast": "Двигатель из красного песка",
+    
+    "item.tconstruct.sharpening_kit_red_sand_cast": "Набор для заточки из красного песка",
+    
+    "_comment": "Мелкие головки красного песка",
+    
+    "item.tconstruct.pickaxe_head_red_sand_cast": "Голова Кирки из красного песка",
+    "item.tconstruct.axe_head_red_sand_cast": "Топор головы из красного песка",
+    "item.tconstruct.kama_head_red_sand_cast": "Камская голова из красного песка",
+    "item.tconstruct.sword_blade_red_sand_cast": "Лезвие меча, заклинание из красного песка",
+    "item.tconstruct.sign_head_red_sand_cast": "Sign Head из красного песка",
+    "item.tconstruct.bow_limb_red_sand_cast": "Лук из красного песка",
+    
+    "_comment": "Большие красные слепки песка",
+    
+    "item.tconstruct.hammer_head_red_sand_cast": "Голова молотка из красного песка",
+    "item.tconstruct.broad_axe_head_red_sand_cast": "Широкая голова топора из красного песка",
+    "item.tconstruct.scythe_head_red_sand_cast": "Красный песок головы косы",
+    "item.tconstruct.large_sword_blade_red_sand_cast": "Клинок большого меча, заклинание из красного песка",
+    
+    "_comment": "Обязательные красные слепки песка",
+    
+    "item.tconstruct.tool_binding_red_sand_cast": "Связывание инструментов из красного песка",
+    "item.tconstruct.large_plate_red_sand_cast": "Большая пластина из красного песка",
+    
+    "_comment": "Отливки красного песка штанги инструмента",
+    
+    "item.tconstruct.tool_rod_red_sand_cast": "Стержень для инструмента Red Sand Cast",
+    "item.tconstruct.tough_tool_rod_red_sand_cast": "Жесткая инструментальная штанга, красная песчаная отливка",
+
+    
+    "_comment": "Tinkers Fluids",
+
+    "fluid.tconstruct.milk": "Молоко",
+
+    "block.tconstruct.molten_blaze_fluid": "Расплавленное пламя",
+    "fluid.tconstruct.molten_blaze": "Расплавленное пламя",
+    "fluid.tconstruct.flowing_molten_blaze": "Текущее расплавленное пламя",
+    "item.tconstruct.molten_blaze_bucket": "Ведро с расплавленным пламенем",
+    
+    "_comment": "Слизь",
+
+    "block.tconstruct.blood_fluid": "Кровь",
+    "fluid.tconstruct.blood": "Кровь",
+    "fluid.tconstruct.flowing_blood": "Текущая кровь",
+    "item.tconstruct.blood_bucket": "Ведро с кровью",
+
+    "block.tconstruct.earth_slime_fluid": "Слизь",
+    "fluid.tconstruct.earth_slime": "Слизь",
+    "fluid.tconstruct.flowing_earth_slime": "Текучая слизь",
+    "item.tconstruct.earth_slime_bucket": "Ведро слизи",
+
+    "block.tconstruct.sky_slime_fluid": "Небесная известь",
+    "fluid.tconstruct.sky_slime": "Небесная слизь",
+    "fluid.tconstruct.flowing_sky_slime": "Текущая небесная известь",
+    "item.tconstruct.sky_slime_bucket": "Ведро небесной извести",
+
+    "block.tconstruct.magma_cream_fluid": "Магматический крем",
+    "fluid.tconstruct.magma_cream": "Магматический крем",
+    "fluid.tconstruct.flowing_magma_cream": "Крем текущей магмы",
+    "item.tconstruct.magma_cream_bucket": "Ведро магматического крема",
+    
+    "block.tconstruct.ender_slime_fluid": "Эндер слизь",
+    "fluid.tconstruct.ender_slime": "Эндер слизь",
+    "fluid.tconstruct.flowing_ender_slime": "Текущая Эндер слизь",
+    "item.tconstruct.ender_slime_bucket": "Ведро эндерслайма",
+    
+    "_comment": "Камень",
+
+    "block.tconstruct.seared_stone_fluid": "Опаленный камень",
+    "fluid.tconstruct.seared_stone": "Опаленный камень",
+    "fluid.tconstruct.flowing_seared_stone": "Текущий опаленный камень",
+    "item.tconstruct.seared_stone_bucket": "Ведро из опаленного камня",
+
+    "block.tconstruct.molten_clay_fluid": "Расплавленная глина",
+    "fluid.tconstruct.molten_clay": "Расплавленная глина",
+    "fluid.tconstruct.flowing_molten_clay": "Текучая расплавленная глина",
+    "item.tconstruct.molten_clay_bucket": "Ведро из расплавленной глины",
+
+    "block.tconstruct.molten_glass_fluid": "Расплавленное стекло",
+    "fluid.tconstruct.molten_glass": "Расплавленное стекло",
+    "fluid.tconstruct.flowing_molten_glass": "Текущее расплавленное стекло",
+    "item.tconstruct.molten_glass_bucket": "Ведро расплавленного стекла",
+
+    "block.tconstruct.liquid_soul_fluid": "Жидкая душа",
+    "fluid.tconstruct.liquid_soul": "Жидкая душа",
+    "fluid.tconstruct.flowing_liquid_soul": "Текущая жидкая душа",
+    "item.tconstruct.liquid_soul_bucket": "Ведро жидкой души",
+
+    "block.tconstruct.molten_obsidian_fluid": "Расплавленный обсидиан",
+    "fluid.tconstruct.molten_obsidian": "Расплавленный обсидиан",
+    "fluid.tconstruct.flowing_molten_obsidian": "Текущий расплавленный обсидиан",
+    "item.tconstruct.molten_obsidian_bucket": "Ведро из расплавленного обсидиана",
+
+    "block.tconstruct.molten_emerald_fluid": "Расплавленный изумруд",
+    "fluid.tconstruct.molten_emerald": "Расплавленный изумруд",
+    "fluid.tconstruct.flowing_molten_emerald": "Текущий расплавленный изумруд",
+    "item.tconstruct.molten_emerald_bucket": "Ведро из расплавленного изумруда",
+
+    "block.tconstruct.molten_ender_fluid": "Расплавленный край",
+    "fluid.tconstruct.molten_ender": "Расплавленный край",
+    "fluid.tconstruct.flowing_molten_ender": "Текущий расплавленный край",
+    "item.tconstruct.molten_ender_bucket": "Ведро с расплавленным концом",
+    
+    "_comment": "Руды",
+
+    "block.tconstruct.molten_iron_fluid": "Расплавленное железо",
+    "fluid.tconstruct.molten_iron": "Расплавленное железо",
+    "fluid.tconstruct.flowing_molten_iron": "Текущее расплавленное железо",
+    "item.tconstruct.molten_iron_bucket": "Ведро из расплавленного железа",
+
+    "block.tconstruct.molten_gold_fluid": "Расплавленное золото",
+    "fluid.tconstruct.molten_gold": "Расплавленное золото",
+    "fluid.tconstruct.flowing_molten_gold": "Текущее расплавленное золото",
+    "item.tconstruct.molten_gold_bucket": "Ведро с расплавленным золотом",
+
+    "block.tconstruct.molten_copper_fluid": "Расплавленная медь",
+    "fluid.tconstruct.molten_copper": "Расплавленная медь",
+    "fluid.tconstruct.flowing_molten_copper": "Текущая расплавленная медь",
+    "item.tconstruct.molten_copper_bucket": "Ведро из расплавленной меди",
+
+    "block.tconstruct.molten_cobalt_fluid": "Расплавленный кобальт",
+    "fluid.tconstruct.molten_cobalt": "Расплавленный кобальт",
+    "fluid.tconstruct.flowing_molten_cobalt": "Текущий расплавленный кобальт",
+    "item.tconstruct.molten_cobalt_bucket": "Ведро с расплавленным кобальтом",
+
+    "block.tconstruct.molten_debris_fluid": "Расплавленный мусор",
+    "fluid.tconstruct.molten_debris": "Расплавленный мусор",
+    "fluid.tconstruct.flowing_molten_debris": "Текущие расплавленные обломки",
+    "item.tconstruct.molten_debris_bucket": "Ведро с расплавленными обломками",
+    
+    "_comment": "Сплавы Уровня 3",
+
+    "block.tconstruct.molten_slimesteel_fluid": "Расплавленная слизистая сталь",
+    "fluid.tconstruct.molten_slimesteel": "Расплавленная слизистая сталь",
+    "fluid.tconstruct.flowing_molten_slimesteel": "Текущая расплавленная слизистая сталь",
+    "item.tconstruct.molten_slimesteel_bucket": "Ведро из расплавленной слизистой стали",
+
+    "block.tconstruct.molten_tinkers_bronze_fluid": "Расплавленная бронза мастера",
+    "fluid.tconstruct.molten_tinkers_bronze": "Расплавленная бронза механика",
+    "fluid.tconstruct.flowing_molten_tinkers_bronze": "Струящаяся расплавленная бронза мастера",
+    "item.tconstruct.molten_tinkers_bronze_bucket": "Бронзовое ведро расплавленного мастера",
+
+    "block.tconstruct.molten_rose_gold_fluid": "Расплавленное розовое золото",
+    "fluid.tconstruct.molten_rose_gold": "Расплавленное розовое золото",
+    "fluid.tconstruct.flowing_molten_rose_gold": "Текущее расплавленное розовое золото",
+    "item.tconstruct.molten_rose_gold_bucket": "Ведро из расплавленного розового золота",
+
+    "block.tconstruct.molten_pig_iron_fluid": "Расплавленный чугун",
+    "fluid.tconstruct.molten_pig_iron": "Расплавленный чугун",
+    "fluid.tconstruct.flowing_molten_pig_iron": "Текущий расплавленный чугун",
+    "item.tconstruct.molten_pig_iron_bucket": "Ведро из расплавленного чугуна",
+    
+    "_comment": "Сплавы уровня 4",
+
+    "block.tconstruct.molten_manyullyn_fluid": "Расплавленный манюллин",
+    "fluid.tconstruct.molten_manyullyn": "Расплавленный манюллин",
+    "fluid.tconstruct.flowing_molten_manyullyn": "Текущий расплавленный манюллин",
+    "item.tconstruct.molten_manyullyn_bucket": "Ведро расплавленного манюллина",
+
+    "block.tconstruct.molten_hepatizon_fluid": "Расплавленный гепатизон",
+    "fluid.tconstruct.molten_hepatizon": "Расплавленный гепатизон",
+    "fluid.tconstruct.flowing_molten_hepatizon": "Текущий расплавленный гепатизон",
+    "item.tconstruct.molten_hepatizon_bucket": "Ведро с расплавленным гепатизоном",
+
+    "block.tconstruct.molten_queens_slime_fluid": "Слизь расплавленной королевы",
+    "fluid.tconstruct.molten_queens_slime": "Расплавленная слизь королевы",
+    "fluid.tconstruct.flowing_molten_queens_slime": "Текущая расплавленная слизь королевы",
+    "item.tconstruct.molten_queens_slime_bucket": "Ведро со слизью расплавленной королевы",
+
+    "block.tconstruct.molten_soulsteel_fluid": "Расплавленная сталь души",
+    "fluid.tconstruct.molten_soulsteel": "Расплавленная сталь души",
+    "fluid.tconstruct.flowing_molten_soulsteel": "Текущая расплавленная сталь души",
+    "item.tconstruct.molten_soulsteel_bucket": "Ведро из расплавленной душевной стали",
+
+    "block.tconstruct.molten_netherite_fluid": "Расплавленный Незерит",
+    "fluid.tconstruct.molten_netherite": "Расплавленный нетерит",
+    "fluid.tconstruct.flowing_molten_netherite": "Текущий расплавленный нетерит",
+    "item.tconstruct.molten_netherite_bucket": "Ведро из расплавленного незерита",
+
+    "block.tconstruct.molten_knightslime_fluid": "Расплавленная рыцарская слизь",
+    "fluid.tconstruct.molten_knightslime": "Расплавленная рыцарская известь",
+    "fluid.tconstruct.flowing_molten_knightslime": "Текущая расплавленная рыцарская известь",
+    "item.tconstruct.molten_knightslime_bucket": "Ведро с расплавленной рыцарской слизью",
+    
+    "_comment": "Compat Ores",
+
+    "block.tconstruct.molten_tin_fluid": "Расплавленное олово",
+    "fluid.tconstruct.molten_tin": "Расплавленное олово",
+    "fluid.tconstruct.flowing_molten_tin": "Текущее расплавленное олово",
+    "item.tconstruct.molten_tin_bucket": "Ведро с расплавленным оловом",
+
+    "block.tconstruct.molten_aluminium_fluid": "Расплавленный алюминий",
+    "fluid.tconstruct.molten_aluminium": "Расплавленный алюминий",
+    "fluid.tconstruct.flowing_molten_aluminium": "Текущий расплавленный алюминий",
+    "item.tconstruct.molten_aluminium_bucket": "Ведро для расплавленного алюминия",
+
+    "block.tconstruct.molten_lead_fluid": "Расплавленный свинец",
+    "fluid.tconstruct.molten_lead": "Расплавленный свинец",
+    "fluid.tconstruct.flowing_molten_lead": "Текущий расплавленный свинец",
+    "item.tconstruct.molten_lead_bucket": "Ведро с расплавленным свинцом",
+
+    "block.tconstruct.molten_silver_fluid": "Расплавленное серебро",
+    "fluid.tconstruct.molten_silver": "Расплавленное серебро",
+    "fluid.tconstruct.flowing_molten_silver": "Текущее расплавленное серебро",
+    "item.tconstruct.molten_silver_bucket": "Ведро из расплавленного серебра",
+
+    "block.tconstruct.molten_nickel_fluid": "Расплавленный никель",
+    "fluid.tconstruct.molten_nickel": "Расплавленный никель",
+    "fluid.tconstruct.flowing_molten_nickel": "Текущий расплавленный никель",
+    "item.tconstruct.molten_nickel_bucket": "Ведро с расплавленным никелем",
+
+    "block.tconstruct.molten_zinc_fluid": "Расплавленный цинк",
+    "fluid.tconstruct.molten_zinc": "Расплавленный цинк",
+    "fluid.tconstruct.flowing_molten_zinc": "Текущий расплавленный цинк",
+    "item.tconstruct.molten_zinc_bucket": "Ведро с расплавленным цинком",
+
+    "block.tconstruct.molten_platinum_fluid": "Расплавленная платина",
+    "fluid.tconstruct.molten_platinum": "Расплавленная платина",
+    "fluid.tconstruct.flowing_molten_platinum": "Текущая расплавленная платина",
+    "item.tconstruct.molten_platinum_bucket": "Ведро из расплавленной платины",
+
+    "block.tconstruct.molten_tungsten_fluid": "Расплавленный вольфрам",
+    "fluid.tconstruct.molten_tungsten": "Расплавленный вольфрам",
+    "fluid.tconstruct.flowing_molten_tungsten": "Текущий расплавленный вольфрам",
+    "item.tconstruct.molten_tungsten_bucket": "Ведро с расплавленным вольфрамом",
+
+    "block.tconstruct.molten_osmium_fluid": "Расплавленный осмий",
+    "fluid.tconstruct.molten_osmium": "Расплавленный осмий",
+    "fluid.tconstruct.flowing_molten_osmium": "Текущий расплавленный осмий",
+    "item.tconstruct.molten_osmium_bucket": "Ведро с расплавленным осмием",
+
+    "block.tconstruct.molten_uranium_fluid": "Расплавленный уран",
+    "fluid.tconstruct.molten_uranium": "Расплавленный уран",
+    "fluid.tconstruct.flowing_molten_uranium": "Текущий расплавленный уран",
+    "item.tconstruct.molten_uranium_bucket": "Ведро с расплавленным ураном",
+    
+    "_comment": "Сплавы Compat",
+
+    "block.tconstruct.molten_bronze_fluid": "Расплавленная бронза",
+    "fluid.tconstruct.molten_bronze": "Расплавленная бронза",
+    "fluid.tconstruct.flowing_molten_bronze": "Струящаяся расплавленная бронза",
+    "item.tconstruct.molten_bronze_bucket": "Ведро из расплавленной бронзы",
+
+    "block.tconstruct.molten_brass_fluid": "Расплавленная латунь",
+    "fluid.tconstruct.molten_brass": "Расплавленная латунь",
+    "fluid.tconstruct.flowing_molten_brass": "Текущая расплавленная латунь",
+    "item.tconstruct.molten_brass_bucket": "Ведро из расплавленной латуни",
+
+    "block.tconstruct.molten_electrum_fluid": "Расплавленный электрум",
+    "fluid.tconstruct.molten_electrum": "Расплавленный электрум",
+    "fluid.tconstruct.flowing_molten_electrum": "Текущий расплавленный электрум",
+    "item.tconstruct.molten_electrum_bucket": "Ведро с расплавленным электрумом",
+
+    "block.tconstruct.molten_invar_fluid": "Расплавленный инвар",
+    "fluid.tconstruct.molten_invar": "Расплавленный инвар",
+    "fluid.tconstruct.flowing_molten_invar": "Текущий расплавленный инвар",
+    "item.tconstruct.molten_invar_bucket": "Ведро из расплавленного инвара",
+
+    "block.tconstruct.molten_constantan_fluid": "Расплавленный константан",
+    "fluid.tconstruct.molten_constantan": "Расплавленный константан",
+    "fluid.tconstruct.flowing_molten_constantan": "Текущий расплавленный константан",
+    "item.tconstruct.molten_constantan_bucket": "Ведро с расплавленным константаном",
+
+    "block.tconstruct.molten_steel_fluid": "Расплавленная сталь",
+    "fluid.tconstruct.molten_steel": "Расплавленная сталь",
+    "fluid.tconstruct.flowing_molten_steel": "Текучая расплавленная сталь",
+    "item.tconstruct.molten_steel_bucket": "Ведро из расплавленной стали",
+    
+
+    "_comment": "Tinkers Gadgets",
+
+    "block.tconstruct.stone_torch": "Каменный факел",
+    "block.tconstruct.stone_ladder": "Каменная лестница",
+
+    "block.tconstruct.punji": "Пунджи Палки",
+    "block.tconstruct.punji.tooltip": "Остроконечный! Также прилипает к стенам.",
+
+    "block.tconstruct.wasted_rail": "Деревянный рельс",
+    "block.tconstruct.wasted_dropper_rail": "Деревянный рельс капельницы",
+    "block.tconstruct.w Wooden_dropper_rail.tooltip": "Тележки с хоппером могут\nвставляться в блок ниже",
+
+    "block.tconstruct.dried_clay": "Сушеная глина",
+    "block.tconstruct.dried_clay_bricks": "Сушеные кирпичи",
+    "block.tconstruct.dried_clay_slab": "Плита из высушенной глины",
+    "block.tconstruct.dried_clay_bricks_slab": "Плита из сухого кирпича",
+    "block.tconstruct.dried_clay_stairs": "Лестница из высушенной глины",
+    "block.tconstruct.dried_clay_bricks_stairs": "Лестница из сухого кирпича",
+
+    "item.tconstruct.stone_stick": "Каменный жезл",
+
+    "item.tconstruct.jewel_item_frame": "Необычная рамка для предметов",
+    "item.tconstruct.aluminium_brass_item_frame": "Рамка для предмета из латуни из алюминия",
+    "item.tconstruct.cobalt_item_frame": "Корпус кобальтового предмета",
+    "item.tconstruct.manyullyn_item_frame": "Рамка элемента Манюллин",
+    "item.tconstruct.gold_item_frame": "Рамка для золотого предмета",
+    "item.tconstruct.clear_item_frame": "Очистить рамку элемента",
+
+    "item.tconstruct.glow_ball": "Светящийся шар",
+    "item.tconstruct.glow_ball.tooltip": "Не подходит для употребления.",
+    "item.tconstruct.efln_ball": "EFLN",
+    "item.tconstruct.efln_ball.tooltip": "Взрывается! Безопасен для майнинга",
+
+    "item.tconstruct.quartz_shuriken": "Кварцевый сюрикен",
+    "item.tconstruct.quartz_shuriken.tooltip": "Метательное оружие с более высоким уроном",
+    "item.tconstruct.flint_shuriken": "Флинт сюрикен",
+    "item.tconstruct.flint_shuriken.tooltip": "Метательное оружие с высокой отдачей",
+
+    "item.tconstruct.earth_slime_sling": "Праща слизи",
+    "item.tconstruct.earth_slime_sling.tooltip": "Заряжайся, прицеливайся, бросайся!\nИспользуйте сапоги из слизи, если цените свою жизнь!",
+    "item.tconstruct.sky_slime_sling": "Праща небесной извести",
+    "item.tconstruct.sky_slime_sling.tooltip": "Зарядись, отпусти, вернись в воздух!\nИспользуй сапоги из слизи, если ты ценишь свою жизнь!",
+    "item.tconstruct.ender_slime_sling": "Праща из эндерслайма",
+    "item.tconstruct.ender_slime_sling.tooltip": "Зарядись, направь на стену, выходи с другой стороны!\nПрисядь, чтобы получить немного больше контроля.",
+    "item.tconstruct.ichor_slime_sling": "Ихорская праща",
+    "item.tconstruct.ichor_slime_sling.tooltip": "Заряжайся, наведи на существо и отправь его в полет!",
+
+    "item.tconstruct.earth_slime_boots": "Слизневые сапоги",
+    "item.tconstruct.earth_slime_boots.tooltip": "Заставляет вас подпрыгивать при приземлении",
+    "item.tconstruct.sky_slime_boots": "Небесно-слизистые сапоги",
+    "item.tconstruct.sky_slime_boots.tooltip": "Заставляет вас подпрыгивать при приземлении",
+    "item.tconstruct.ender_slime_boots": "Сапоги из эндерслайма",
+    "item.tconstruct.ender_slime_boots.tooltip": "Заставляет вас подпрыгивать при приземлении",
+    "item.tconstruct.blood_slime_boots": "Сапоги застывшей крови",
+    "item.tconstruct.blood_slime_boots.tooltip": "Заставляет вас подпрыгивать при приземлении",
+    "item.tconstruct.ichor_slime_boots": "Ихорские сапоги",
+    "item.tconstruct.ichor_slime_boots.tooltip": "Заставляет вас подпрыгивать при приземлении",
+
+    "item.tconstruct.piggy_backpack": "Piggybackpack",
+    "item.tconstruct.piggy_backpack.tooltip": "Щелкните правой кнопкой мыши на мобов, чтобы поднять их",
+
+    "item.tconstruct.hard_spaghetti": "Невероятно жесткие палочки из пшеницы",
+    "item.tconstruct.hard_spaghetti.tooltip": "Невероятно жесткие палочки из пшеницы",
+    "item.tconstruct.soggy_spaghetti": "Нежная лапша",
+    "item.tconstruct.soggy_spaghetti.tooltip": "Теперь они все мокрые, даже ваши спагетти-руки могут согнуть их.\nДавайте повесим их и дадим высохнуть.",
+    "item.tconstruct.cold_spaghetti": "Холодная сушеная лапша",
+    "item.tconstruct.cold_spaghetti.tooltip": "Что ж, это лучше, но они все равно отвратительны на вкус.\nРазогрев их, они станут съедобными.\nОни могут быть достаточно хороши, чтобы избавить вас от слабых колен.",
+
+    "_comment": "Tinkers Tables",
+
+    "block.tconstruct.crafting_station": "Станция крафта",
+
+    "block.tconstruct.tinker_station": "Станция мастеров",
+    "block.tconstruct.tinkers_anvil": "Наковальня Тинкера",
+
+    "block.tconstruct.part_builder": "Конструктор деталей",
+
+    "block.tconstruct.part_chest": "Сундук с частями",
+    "block.tconstruct.part_chest.tooltip": "Вмещает до 256 различных частей инструмента",
+
+    "block.tconstruct.modifier_chest": "Сундук модификатора",
+    "block.tconstruct.modifier_chest.tooltip": "Вмещает до 64 стеков модификаторов",
+
+    "block.tconstruct.cast_chest": "Литой сундук",
+    "block.tconstruct.cast_chest.tooltip": "Содержит все соответствующие преобразования",
+    
+    "item.tconstruct.pattern": "Шаблон",
+    
+    "_comment": "Tinkers Tools",
+    
+    "item.tconstruct.pickaxe": "Кирка",
+    "item.tconstruct.sledge_hammer": "Кувалда",
+    "item.tconstruct.mattock": "Мэтток",
+    "item.tconstruct.excavator": "Экскаватор",
+    "item.tconstruct.axe": "Ручной топор",
+    "item.tconstruct.kama": "Кама",
+    "item.tconstruct.broad_sword": "Палаш",
+    
+    "_comment": "Детали инструментов Tinkers",
+
+    "item.tconstruct.pickaxe_head": "Голова кирки",
+    "item.tconstruct.hammer_head": "Головка молотка",
+    "item.tconstruct.axe_head": "Голова топора",
+    "item.tconstruct.kama_head": "Голова Камы",
+    "item.tconstruct.sword_blade": "Клинок меча",
+    "item.tconstruct.tool_rod": "Инструментальный стержень",
+    "item.tconstruct.tough_tool_rod": "Жесткий инструментальный стержень",
+    "item.tconstruct.tool_binding": "Привязка инструмента",
+    "item.tconstruct.large_plate": "Большая тарелка",
+
+    "_conment": "Описание инструментов",
+
+    "item.tconstruct.pickaxe.description": "Кирка - точный инструмент для добычи полезных ископаемых. Она эффективна на камнях и рудах.\nОна ломает блоки, хорошо?",
+    "item.tconstruct.sledge_hammer.description": "Кувалда - универсальный инструмент для добычи полезных ископаемых. Он собирает блоки в широком диапазоне.\nТакже эффективен против нежити.",
+    "item.tconstruct.mattock.description": "Резак Мэтток - универсальный сельскохозяйственный инструмент. Он эффективен для обработки дерева, грязи, песка, гравия и растений.\nПросто не копайте себе могилу!",
+    "item.tconstruct.excavator.description": "Экскаватор - это широкий инструмент для копания. Он выкапывает большие площади почвы и снега в широком диапазоне.\nТерраформирование!",
+    "item.tconstruct.axe.description": "Ручной топор рубит дрова и быстро распирает листья. Он также является эффективным оружием.\nChop chop!",
+    "item.tconstruct.kama.description": "Кама - это точный инструмент для жатки, стрижки растений и стрижки животных.\nНажмите правой кнопкой мыши: собирайте урожай и пересаживайте урожай",
+    "item.tconstruct.broad_sword.description": "Палаш - универсальное оружие. Атаки с зачисткой сдерживают вражеские орды.\nТакже хорош против паутины!",
+
+    "_comment": "Металлургический завод",
+
+    "block.tconstruct.seared_stone": "Опаленный камень",
+    "block.tconstruct.seared_stone.tooltip": "Часть плавильной печи. Сейф для украшения.",
+    "block.tconstruct.seared_stone_slab": "Обожженная каменная плита",
+    "block.tconstruct.seared_stone_stairs": "Лестница из обожженного камня",
+    
+    "block.tconstruct.seared_cobble": "Обожженный булыжник",
+    "block.tconstruct.seared_cobble.tooltip": "Часть плавильного завода. Сейф для украшения.",
+    "block.tconstruct.seared_cobble_slab": "Обожженная плита из булыжника",
+    "block.tconstruct.seared_cobble_stairs": "Лестница из обожженного булыжника",
+    "block.tconstruct.seared_cobble_wall": "Стена из обожженного булыжника",
+    
+    "block.tconstruct.seared_bricks": "Обожженные кирпичи",
+    "block.tconstruct.seared_bricks.tooltip": "Часть плавильной печи. Сейф для украшения.",
+    "block.tconstruct.seared_bricks_slab": "Плита из обожженного кирпича",
+    "block.tconstruct.seared_bricks_stairs": "Лестница из обожженного кирпича",
+    "block.tconstruct.seared_bricks_wall": "Стена из обожженных кирпичей",
+    
+    "block.tconstruct.seared_paver": "Опаленный асфальтоукладчик",
+    "block.tconstruct.seared_paver.tooltip": "Часть плавильной печи. Сейф для украшения.",
+    "block.tconstruct.seared_paver_slab": "Обожженная плита из асфальтоукладчика",
+    "block.tconstruct.seared_paver_stairs": "Лестница из обожженного асфальтоукладчика",
+    
+    "block.tconstruct.seared_cracked_bricks": "Треснувшие обожженные кирпичи",
+    "block.tconstruct.seared_cracked_bricks.tooltip": "Часть плавильного завода. Сейф для украшения.",
+    "block.tconstruct.seared_fancy_bricks": "Необычные обожженные кирпичи",
+    "block.tconstruct.seared_fancy_bricks.tooltip": "Часть плавильной печи. Сейф для украшения.",
+    "block.tconstruct.seared_triangle_bricks": "Треугольные обожженные кирпичи",
+    "block.tconstruct.seared_triangle_bricks.tooltip": "Часть плавильной печи. Сейф для украшения.",
+
+    "block.tconstruct.seared_glass": "Опаленное стекло",
+    "block.tconstruct.seared_glass.tooltip": "Часть плавильной печи. Сейф для украшения.\nНельзя хранить жидкости.",
+    "block.tconstruct.seared_glass_pane": "Закаленное стекло",
+    "block.tconstruct.seared_glass_pane.tooltip": "Нельзя использовать на плавильном заводе.",
+    
+
+    "block.tconstruct.seared_ladder": "Обожженная лестница",
+    "block.tconstruct.seared_ladder.tooltip": "Подъемный блок плавильной печи. Сейф для украшения.",
+    
+    "block.tconstruct.seared_tank": "Опаленный танк",
+    "block.tconstruct.seared_tank.tooltip": "Сердце плавильного завода.\nСохраняет жидкость в случае разрушения.",
+    "block.tconstruct.seared_gauge": "Обожженный датчик",
+    "block.tconstruct.seared_gauge.tooltip": "Идеально для металлов, вмещает 3 расплавленных блока.\nУдерживает жидкость в случае разрушения.",
+    "block.tconstruct.seared_window": "Опаленное окно",
+    "block.tconstruct.seared_window.tooltip": "Альтернативный резервуар для плавильной печи.\nСохраняет жидкость при поломке.",
+    "block.tconstruct.tank.fluid": "Жидкость %s",
+    "block.tconstruct.tank.mb": "%d mb",
+    "block.tconstruct.tank.ingots": "%d слитков",
+    "block.tconstruct.tank.mixed": "%d слитков,%d mb",
+    
+    "block.tconstruct.faucet": "Жареный кран",
+    "block.tconstruct.faucet.tooltip": "Слив жидкости из плавильных заводов и резервуаров",
+    "block.tconstruct.casting_basin": "Литейный бассейн",
+    "block.tconstruct.casting_basin.tooltip": "Отливка изделий из расплавленных металлов плавильного завода",
+    "block.tconstruct.casting_table": "Таблица литья",
+    "block.tconstruct.casting_table.tooltip": "Отливка изделий из расплавленных металлов плавильного завода",
+   
+    "block.tconstruct.channel": "Опаленный канал",
+    "block.tconstruct.channel.tooltip": "Распределяет жидкости, льющиеся из крана выше.",
+    "block.tconstruct.channel.side.in": "Установить сторону потока внутрь",
+    "block.tconstruct.channel.side.out": "Установить сторону потока наружу",
+    "block.tconstruct.channel.side.none": "Запрещено перетекание сбоку",
+    "block.tconstruct.channel.down.out": "Допускается стекание вниз",
+    "block.tconstruct.channel.down.none": "Запрещено стекание вниз",
+
+    "block.tconstruct.melter": "Плавильная печь с обугливанием",
+    "block.tconstruct.melter.tooltip": "Первая плавильная печь.\nПоместите над обгоревшим баком или нагревателем для топлива.",
+    "gui.tconstruct.melter": "Плавильная печь",
+    "gui.tconstruct.melting.capacity": "Вместимость:",
+    "gui.tconstruct.melting.available": "Доступно:",
+    "gui.tconstruct.melting.used": "Используется:",
+    
+    "block.tconstruct.seared_heater": "Обожженный нагреватель",
+    "block.tconstruct.seared_heater.tooltip": "Источник твердого топлива для расплавителя.",
+    "gui.tconstruct.heater": "Нагреватель",
+    
+    "block.tconstruct.smeltery_controller": "Контроллер плавильной печи",
+    "block.tconstruct.smeltery_controller.tooltip": "Мозг плавильного завода.",
+    "gui.tconstruct.smeltery": "Плавильный завод",
+    "death.attack.tconstruct.smeltery_heat": "%1$s пытался сделать расплавленного игрока",
+    "death.attack.tconstruct.smeltery_magic": "%1$s стал одним целым с плавильным заводом",
+    
+    "block.tconstruct.seared_drain": "Обугленный слив",
+    "block.tconstruct.seared_drain.tooltip": "Вход и выход плавильной жидкости",
+    "block.tconstruct.seared_duct": "Герметичный воздуховод",
+    "block.tconstruct.seared_duct.tooltip": "Вход и выход фильтрованной плавильной жидкости с использованием медных банок или ведер",
+    "gui.tconstruct.duct": "Воздуховод",
+    "block.tconstruct.seared_chute": "Обугленный желоб",
+    "block.tconstruct.seared_chute.tooltip": "Ввод и вывод элемента плавильной печи",
+
+    "gui.tconstruct.melting.no_recipe": "Предмет нельзя расплавить.",
+    "gui.tconstruct.melting.no_heat": "Недостаточно тепла для расплавления этого предмета.",
+    "gui.tconstruct.melting.no_space": "Недостаточно свободного места для жидкости.",
+
+    "gui.tconstruct.melting.fuel.no_tank": "В конструкции нет бака",
+    "gui.tconstruct.melting.fuel.empty": "Топливо не найдено",
+    "gui.tconstruct.melting.fuel.solid": "Твердое топливо",
+    "gui.tconstruct.melting.fuel.temperature": "Температура: %s ° C",
+    "gui.tconstruct.melting.fuel.invalid": "Недопустимое топливо для плавления!",
+    
+    "gui.tconstruct.fluid.kilobucket": " %s kb",
+    "gui.tconstruct.fluid.bucket": " %s b",
+    "gui.tconstruct.fluid.millibucket": " %s mb",
+    "gui.tconstruct.fluid.ingot": "Слитки %s",
+    "gui.tconstruct.fluid.nugget": "Самородки %s",
+    "gui.tconstruct.fluid.block": " %s блоков",
+    "gui.tconstruct.fluid.pane": "Панели %s",
+    "gui.tconstruct.fluid.gem": " %s самоцветы",
+    "gui.tconstruct.fluid.slimeball": " %s Слизи",
+    
+    "gui.tconstruct.fluid.hold_shift": "Удерживать §e§oShift§r§7 для сбора ведром",
+    
+    "_comment": "Мир Тинкеров",
+
+    "entity.tconstruct.sky_slime": "Небесная слизь",
+    "item.tconstruct.sky_slime_spawn_egg": "Яйцо призыва небесной слизи",
+
+    "block.tconstruct.earth_slime_dirt": "Склизкая грязь земли",
+    "block.tconstruct.earth_slime_dirt.tooltip": "Склизкий, но позволяет прыгать выше",
+    "block.tconstruct.sky_slime_dirt": "Небесная слизистая грязь",
+    "block.tconstruct.sky_slime_dirt.tooltip": "Склизкий, но позволяет прыгать выше",
+    "block.tconstruct.ender_slime_dirt": "Крайняя слизистая грязь",
+    "block.tconstruct.ender_slime_dirt.tooltip": "Склизкий, но позволяет прыгать выше",
+    "block.tconstruct.ichor_slime_dirt": "Ихор слизистая грязь",
+    "block.tconstruct.ichor_slime_dirt.tooltip": "Склизкий, но позволяет прыгать выше",
+
+    "block.tconstruct.sky_vanilla_slime_grass": "Слизистая трава",
+    "block.tconstruct.sky_vanilla_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.blood_vanilla_slime_grass": "Склизкая трава",
+    "block.tconstruct.blood_vanilla_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.ender_vanilla_slime_grass": "Склизкая трава",
+    "block.tconstruct.ender_vanilla_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.ichor_vanilla_slime_grass": "Слизистая трава",
+    "block.tconstruct.ichor_vanilla_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+
+    "block.tconstruct.sky_earth_slime_grass": "Земляная слизистая трава",
+    "block.tconstruct.sky_earth_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.blood_earth_slime_grass": "Земляная слизистая трава",
+    "block.tconstruct.blood_earth_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.ender_earth_slime_grass": "Земляная слизистая трава",
+    "block.tconstruct.ender_earth_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.ichor_earth_slime_grass": "Земляная слизистая трава",
+    "block.tconstruct.ichor_earth_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+
+    "block.tconstruct.sky_sky_slime_grass": "Небесная слизистая трава",
+    "block.tconstruct.sky_sky_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.blood_sky_slime_grass": "Небесная слизистая трава",
+    "block.tconstruct.blood_sky_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.ender_sky_slime_grass": "Небесная слизистая трава",
+    "block.tconstruct.ender_sky_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.ichor_sky_slime_grass": "Небесная слизистая трава",
+    "block.tconstruct.ichor_sky_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+
+    "block.tconstruct.sky_ender_slime_grass": "Край склизкой травы",
+    "block.tconstruct.sky_ender_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.blood_ender_slime_grass": "Край склизкой травы",
+    "block.tconstruct.blood_ender_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.ender_ender_slime_grass": "Край склизкой травы",
+    "block.tconstruct.ender_ender_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.ichor_ender_slime_grass": "Край склизкой травы",
+    "block.tconstruct.ichor_ender_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+
+    "block.tconstruct.sky_ichor_slime_grass": "Ихор слизистая трава",
+    "block.tconstruct.sky_ichor_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.blood_ichor_slime_grass": "Ихор слизистая трава",
+    "block.tconstruct.blood_ichor_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.ender_ichor_slime_grass": "Ихор слизистая трава",
+    "block.tconstruct.ender_ichor_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    "block.tconstruct.ichor_ichor_slime_grass": "Ихор слизистая трава",
+    "block.tconstruct.ichor_ichor_slime_grass.tooltip": "Такой мягкий! Позволяет прыгать выше",
+    
+    "item.tconstruct.sky_slime_grass_seeds": "Семена слизистой травы",
+    "item.tconstruct.sky_slime_grass_seeds.tooltip": "Посадите грязь или слизистую грязь, чтобы получилась слизистая трава",
+    "item.tconstruct.blood_slime_grass_seeds": "Слизистые семена травы",
+    "item.tconstruct.blood_slime_grass_seeds.tooltip": "Посадите грязь или слизистую грязь, чтобы получилась слизистая трава",
+    "item.tconstruct.ichor_slime_grass_seeds": "Семена слизистой травы",
+    "item.tconstruct.ichor_slime_grass_seeds.tooltip": "Посадите грязь или слизистую грязь, чтобы получилась слизистая трава",
+    "item.tconstruct.ender_slime_grass_seeds": "Семена слизистой травы",
+    "item.tconstruct.ender_slime_grass_seeds.tooltip": "Посадите грязь или слизистую грязь, чтобы получилась слизистая трава",
+
+    "block.tconstruct.sky_slime_leaves": "Небесные Слизистые листья",
+    "block.tconstruct.blood_slime_leaves": "Кровавые Слизистые листья",
+    "block.tconstruct.ender_slime_leaves": "Эндовские Слизистые листья",
+    "block.tconstruct.ichor_slime_leaves": "Испорченные Слизистые листья",
+
+    "block.tconstruct.sky_slime_tall_grass": "Небесная Высокая слизистая трава",
+    "block.tconstruct.blood_slime_tall_grass": "Кровавая Высокая слизистая трава",
+    "block.tconstruct.ender_slime_tall_grass": "Эндовская Высокая слизистая трава",
+    "block.tconstruct.ichor_slime_tall_grass": "Испорченая Высокая слизистая трава",
+
+    "block.tconstruct.sky_slime_fern": "Небесный Склизкий папоротник",
+    "block.tconstruct.blood_slime_fern": "Кровавый Склизкий папоротник",
+    "block.tconstruct.ender_slime_fern": "Эндовский Склизкий папоротник",
+    "block.tconstruct.ichor_slime_fern": "Испорченый Склизкий папоротник",
+
+    "block.tconstruct.sky_slime_sapling": "Саженец небесной извести",
+    "block.tconstruct.sky_slime_sapling.tooltip": "Растет только на слизистой грязи или траве",
+    "block.tconstruct.blood_slime_sapling": "Саженец крови",
+    "block.tconstruct.blood_slime_sapling.tooltip": "Растет только на слизистой грязи или траве",
+    "block.tconstruct.ender_slime_sapling": "Саженец эндерслайма",
+    "block.tconstruct.ender_slime_sapling.tooltip": "Растет только на слизистой грязи или траве",
+    "block.tconstruct.ichor_slime_sapling": "Саженец ихора",
+    "block.tconstruct.ichor_slime_sapling.tooltip": "Растет только на слизистой грязи или траве",
+
+    "block.tconstruct.ender_slime_vine": "Слизистая лоза",
+    "block.tconstruct.sky_slime_vine": "Слизистая лоза",
+    
+    
+    "_comment": "Материалы Уровня 1",
+    "material.tconstruct.wood": "Дерево",
+    "material.tconstruct.wood.format": "Деревянный %s",
+    "material.tconstruct.stone": "Камень",
+    "material.tconstruct.flint": "Кремень",
+    "material.tconstruct.bone": "Кость",
+    
+    "_comment": "Материалы Уровня 2",
+    "material.tconstruct.iron": "Железо",
+    "material.tconstruct.seared_stone": "Опаленный камень",
+    "material.tconstruct.copper": "Медь",
+    "material.tconstruct.slimewood": "Slimewood",
+    "material.tconstruct.rose_gold": "Розовое золото",
+    
+    "_comment": "Материалы уровня 3",
+    "material.tconstruct.slimesteel": "Slimesteel",
+    "material.tconstruct.nahuatl": "Науатль",
+    "material.tconstruct.tinkers_bronze": "Бронза Тинкера",
+    "material.tconstruct.pig_iron": "Чугун",
+    
+    
+    "_comment": "Уровневые материалы Пустоты",
+    "material.tconstruct.cobalt": "Кобальт",
+    "material.tconstruct.manyullyn": "Манюллин",
+    "material.tconstruct.hepatizon": "Hepatizon",
+    "material.tconstruct.queens_slime": "Слизь королевы",
+    "material.tconstruct.soulsteel": "Soulsteel",
+    
+    
+    "_comment": "Tier End Materials",
+    "material.tconstruct.endstone": "Конец",
+    "material.tconstruct.knightslime": "Слизь рыцаря"
+    
+    
+    "_comment": "Интеграционные материалы Уровня 2",
+    "material.tconstruct.lead": "Свинец",
+    "material.tconstruct.silver": "Серебро",
+    "material.tconstruct.electrum": "Электрум",
+    
+    "_comment": "Материалы интеграции уровня 3",
+    "material.tconstruct.bronze": "Бронза",
+    "material.tconstruct.steel": "Сталь",
+    "material.tconstruct.constantan": "Константан",
+
+
+    "_comment": "Модификаторы",
+
+    "modifier.tconstruct.empty": "Недействительный модификатор",
+    "modifier.tconstruct.empty.flavor": "Отсутствует!",
+    "modifier.tconstruct.empty.description": "Откат на случай отсутствия модификатора",
+
+    "_comment": "Долговечность",
+    "modifier.tconstruct.reinforced": "Усиленный",
+    "modifier.tconstruct.reinforced.flavor": "Несокрушимый!",
+    "modifier.tconstruct.reinforced.description": "У инструмента меньше шансов получить урон",
+    "modifier.tconstruct.emerald": "Изумруд",
+    "modifier.tconstruct.emerald.flavor": "Необычно!",
+    "modifier.tconstruct.emerald.description": "Увеличивает прочность в зависимости от базовой прочности! Бедняги ненавидят это!",
+    "modifier.tconstruct.diamond": "Алмаз",
+    "modifier.tconstruct.diamond.flavor": "Богато!",
+    "modifier.tconstruct.diamond.description": "Повышенная прочность и характеристики!",
+    "modifier.tconstruct.worldbound": "Связанный с миром",
+    "modifier.tconstruct.worldbound.flavor": "Древний!",
+    "modifier.tconstruct.worldbound.description": "Грубая версия незерита, дающая невосприимчивость к внешним повреждениям, таким как огонь, но без дополнительной силы",
+    "modifier.tconstruct.soulbound": "Связанный душой",
+    "modifier.tconstruct.soulbound.flavor": "Узы на всю жизнь!",
+    "modifier.tconstruct.soulbound.description": "Инструмент остается в инвентаре после смерти!",
+    "modifier.tconstruct.netherite": "Незерит",
+    "modifier.tconstruct.netherite.flavor": "Улучшено!",
+    "modifier.tconstruct.netherite.description": "Используйте силу древнего металла, делая инструмент более сильным и невосприимчивым к внешним повреждениям, таким как огонь",
+    "modifier.tconstruct.overslime": "Переизбыток",
+    "modifier.tconstruct.overslime.flavor": "Склизкий!",
+    "modifier.tconstruct.overslime.description": "Инструмент потребляет излишек слизи вместо прочности, пока она не закончится! Не дружелюбно по отношению к инструментам без слизи",
+
+    "_comment": "Инструмент или урожай",
+    "modifier.tconstruct.experienced": "Опытный",
+    "modifier.tconstruct.experienced.flavor": "Ученик быстро!",
+    "modifier.tconstruct.experienced.description": "Получайте дополнительный опыт за убийство мобов и добычу блоков",
+    "modifier.tconstruct.m Magnetic": "Магнитный",
+    "modifier.tconstruct.m Magnetic.flavor": "Магнитная личность!",
+    "modifier.tconstruct.m Magnetic.description": "Удары по предметам привлекают близлежащие предметы ?!",
+
+    "modifier.tconstruct.haste": "Скорость",
+    "modifier.tconstruct.haste.1": "Скорость 1",
+    "modifier.tconstruct.haste.2": "Скорость 2",
+    "modifier.tconstruct.haste.3": "Скорость 3",
+    "modifier.tconstruct.haste.4": "Скорость 4",
+    "modifier.tconstruct.haste.5": "Скорость 5",
+    "modifier.tconstruct.haste.flavor": "Наука!",
+    "modifier.tconstruct.haste.description": "Волшебная красная пыль заставляет инструмент раскачиваться и мины быстрее!",
+
+    "_comment": "Оружие",
+    "modifier.tconstruct.knockback": "Отбрасывание",
+    "modifier.tconstruct.knockback.flavor": "Веееее!",
+    "modifier.tconstruct.knockback.description": "Попадание в предметы заставляет их лететь дальше!",
+    "modifier.tconstruct.beheading": "Обезглавливание",
+    "modifier.tconstruct.beheading.flavor": "Заряженный крипер на палке!",
+    "modifier.tconstruct.beheading.description": "Потенциально сразу же взрывает головы мобам!",
+    "modifier.tconstruct.fiery": "Огненный",
+    "modifier.tconstruct.fiery.flavor": "Пропитанный адским пламенем!",
+    "modifier.tconstruct.fiery.description": "Поджигает цели",
+    "modifier.tconstruct.necrotic": "Некротический",
+    "modifier.tconstruct.necrotic.flavor": "Вампирский!",
+    "modifier.tconstruct.necrotic.description": "Нанесение ударов по врагам истощает их жизнь, чтобы вылечить вас",
+
+    "_comment": "Увеличение урона",
+    "modifier.tconstruct.smite": "Режущий",
+    "modifier.tconstruct.smite.flavor": "Умри, мерзкое существо!",
+    "modifier.tconstruct.smite.description": "Нежить боится мощи дыни!",
+    "modifier.tconstruct.bane_of_arthropods": "Бич членистоногих",
+    "modifier.tconstruct.bane_of_arthropods.flavor": "Какая грязь!",
+    "modifier.tconstruct.bane_of_arthropods.description": "Инструмент наносит дополнительный урон паукам и прочим жутким ползающим существам!",
+    "modifier.tconstruct.antiaquatic": "Анти водный",
+    "modifier.tconstruct.antiaquatic.flavor": "В основном это удочка!",
+    "modifier.tconstruct.antiaquatic.description": "Инструмент наносит дополнительный урон морским существам!",
+    "modifier.tconstruct.cooling": "Охлаждение",
+    "modifier.tconstruct.cooling.flavor": "Морозный!",
+    "modifier.tconstruct.cooling.description": "Инструмент наносит дополнительный урон существам, основанным на огне!",
+
+    "modifier.tconstruct.sharpness": "Острый",
+    "modifier.tconstruct.sharpness.1": "Острый 1",
+    "modifier.tconstruct.sharpness.2": "Острый 2",
+    "modifier.tconstruct.sharpness.3": "Острый 3 ",
+    "modifier.tconstruct.sharpness.4": "Острый 4",
+    "modifier.tconstruct.sharpness.5": "Острый 5",
+    "modifier.tconstruct.sharpness.flavor": "Какая резкость?",
+    "modifier.tconstruct.sharpness.description": "Инструмент стал намного острее, он наносит больше урона!",
+
+    "_comment": "Способности",
+    "modifier.tconstruct.silky": "Шелковистый",
+    "modifier.tconstruct.silky.flavor": "Гладкая, как шелк!",
+    "modifier.tconstruct.silky.description": "Добытые блоки падают сами собой вместо обычных предметов",
+    "modifier.tconstruct.expanded": "Расширенный",
+    "modifier.tconstruct.expanded.flavor": "Не пропустил день ног!",
+    "modifier.tconstruct.expanded.description": "Область действия инструмента больше, чем раньше",
+    "modifier.tconstruct.autosmelt": "Автоплавильня",
+    "modifier.tconstruct.autosmelt.flavor": "Огни Пустоты в вашем инструменте!",
+    "modifier.tconstruct.autosmelt.description": "Инструмент автоматически плавит все",
+
+    "modifier.tconstruct.luck": "Удача",
+    "modifier.tconstruct.luck.1": "Удача 1",
+    "modifier.tconstruct.luck.2": "Удача 2",
+    "modifier.tconstruct.luck.3": "Удача 3",
+    "modifier.tconstruct.luck.beyond": "Удача ++",
+    "modifier.tconstruct.luck.flavor": "Ярко!",
+    "modifier.tconstruct.luck.description": "Дает вам больше приятных вещей при добыче или убийстве мобов!",
+
+    "_comment": "Слоты для модификаторов бонуса",
+    "modifier.tconstruct.creative_upgrade": "Творческое обновление",
+    "modifier.tconstruct.creative_upgrade.flavor": "Грязный читер!",
+    "modifier.tconstruct.creative_upgrade.description": "Обманут в дополнительных слотах улучшений",
+    "modifier.tconstruct.creative_ability": "Творческие способности",
+    "modifier.tconstruct.creative_ability.flavor": "Трон лжи!",
+    "modifier.tconstruct.creative_ability.description": "Инструмент находится на незаработанных слотах дополнительных способностей",
+
+    "_comment": "Бесплатные модификаторы",
+    "modifier.tconstruct.writable": "Возможность записи",
+    "modifier.tconstruct.writable.flavor": "Интеллектуальный!",
+    "modifier.tconstruct.writable.description": "Больше слов. Больше обновлений. Это только логично!",
+    "modifier.tconstruct.harmonious": "Гармоничный",
+    "modifier.tconstruct.harmonious.flavor": "Как симфония модификаторов!",
+    "modifier.tconstruct.harmonious.description": "Позволяет дополнительному обновлению жить в гармонии с остальными!",
+    "modifier.tconstruct.recapitated": "Перепросмотр",
+    "modifier.tconstruct.recapitated.flavor": "Верни голову обратно!",
+    "modifier.tconstruct.recapitated.description": "Устанавливает этот инструмент вперед на одно обновление!",
+    "modifier.tconstruct.resurrected": "Воскрешенный",
+    "modifier.tconstruct.resurrected.flavor": "Верни его к жизни!",
+    "modifier.tconstruct.resurrected.description": "Возрождает один из слотов обновления этого инструмента!",
+    "modifier.tconstruct.gilded": "Позолоченный",
+    "modifier.tconstruct.gilded.flavor": "Эквивалентный обмен!",
+    "modifier.tconstruct.gilded.description": "Обменяет слот способности на два слота улучшения!",
+    "modifier.tconstruct.draconic": "Драконий",
+    "modifier.tconstruct.draconic.flavor": "Победить конец!",
+    "modifier.tconstruct.draconic.description": "Голова великого зверя дает вашему инструменту второй слот способностей!",
+
+    
+    "_comment": "Характеристики уровня 1",
+    "modifier.tconstruct.cultivated": "Культивируемый",
+    "modifier.tconstruct.cultivated.flavor": "Экономично!",
+    "modifier.tconstruct.cultivated.description": "Инструмент практически наращивает больше материала при ремонте",
+    "modifier.tconstruct.jagged": "Зубчатый",
+    "modifier.tconstruct.jagged.flavor": "Изломанные края делают его острым!",
+    "modifier.tconstruct.jagged.description": "Каждая потеря прочности увеличивает урон, но снижает скорость добычи",
+    "modifier.tconstruct.stonebound": "Каменный",
+    "modifier.tconstruct.stonebound.flavor": "Ваш инструмент абсолютно любит камень!",
+    "modifier.tconstruct.stonebound.description": "Инструмент быстрее изнашивается, но наносит меньше урона",
+    "modifier.tconstruct.damage_speed_trade.suffix": "(повышение %s)",
+    "modifier.tconstruct.fractured": "Fractured",
+    "modifier.tconstruct.fractured.flavor": "Сломайте ногу!",
+    "modifier.tconstruct.fractured.description": "Инструмент слишком острый из-за обломков кости",
+
+    "_comment": "Признаки Уровня 2",
+    "modifier.tconstruct.searing": "Обжигающий",
+    "modifier.tconstruct.searing.flavor": "Используйте плавильню!",
+    "modifier.tconstruct.searing.description": "Инструмент наносит дополнительный урон от огня в горячих областях, но меньший общий урон в холодных областях",
+    "modifier.tconstruct.dwarven": "Гномь",
+    "modifier.tconstruct.dwarven.flavor": "Друг шахтера!",
+    "modifier.tconstruct.dwarven.description": "Инструмент копает быстрее, чем глубже вы копаете, только не копайте слишком глубоко",
+    "modifier.tconstruct.overgrowth": "Разрастание",
+    "modifier.tconstruct.overgrowth.flavor": "Грибок!",
+    "modifier.tconstruct.overgrowth.description": "Инструмент медленно покрывается извести",
+
+    "modifier.tconstruct.enhanced": "Улучшено",
+    "modifier.tconstruct.enhanced.flavor": "Блестящий!",
+    "modifier.tconstruct.enhanced.description": "Розовое золото отлично сочетается с бонусным улучшением!",
+
+    "_comment": "Признаки Уровня 3",
+    "modifier.tconstruct.overcast": "Пасмурно",
+    "modifier.tconstruct.overcast.flavor": "Плотное покрытие!",
+    "modifier.tconstruct.overcast.description": "С помощью этого инструмента можно сделать слишком толстый слой слизи",
+    "modifier.tconstruct.lacerating": "Разрыв",
+    "modifier.tconstruct.lacerating.flavor": "Острые края!",
+    "modifier.tconstruct.lacerating.description": "Вызывает кровотечение у цели, нанося дополнительный урон",
+    "modifier.tconstruct.mainhibited": "Поддерживается",
+    "modifier.tconstruct.maintain.flavor": "Остается резким дольше!",
+    "modifier.tconstruct.maintain.description": "Инструмент быстрее добывает при более высокой прочности",
+    "modifier.tconstruct.maintain.boost": "(+ %s скорость)",
+    "modifier.tconstruct.lightweight": "Легкий",
+    "modifier.tconstruct.lightweight.flavor": "Как осколок!",
+    "modifier.tconstruct.lightweight.description": "Инструмент невероятно легкий для своего размера, что позволяет быстрее атаковать и добывать",
+    "modifier.tconstruct.tasty": "Вкусно",
+    "modifier.tconstruct.tasty.flavor": "Ам Ням Ням",
+    "modifier.tconstruct.tasty.description": "Пахнет так хорошо, что вы не можете удержаться от нескольких кусочков инструмента",
+
+    "death.attack.tconstruct.bleed": "%1$s истек кровью",
+    "death.attack.tconstruct.bleed.item": "%1$s истек кровью от травм, нанесенных%2$s",
+
+    "_comment": "Признаки Уровня 4",
+    "modifier.tconstruct.overlord": "Повелитель",
+    "modifier.tconstruct.overlord.flavor": "Царственный!",
+    "modifier.tconstruct.overlord.description": "Инструмент берет часть прочности, как новые предметы излишка извести",
+    "modifier.tconstruct.momentum": "Импульс",
+    "modifier.tconstruct.momentum.flavor": "Недостаточно быстро, надо идти быстрее!",
+    "modifier.tconstruct.momentum.description": "Подбор блоков увеличивает вашу скорость, пока вы продолжаете идти",
+    "modifier.tconstruct.insatiable": "Ненасытный",
+    "modifier.tconstruct.insatiable.flavor": "Вкус крови!",
+    "modifier.tconstruct.insatiable.description": "Во время боя вы наносите все больше и больше урона каждый раз, когда поражаете врага",
+
+    "_comment": "Характеристики совместимости модификаций 2-го уровня",
+    "modifier.tconstruct.heavy": "Тяжелый",
+    "modifier.tconstruct.heavy.flavor": "Плотно!",
+    "modifier.tconstruct.heavy.description": "Трудно двигаться при использовании, но наносит сильный удар",
+    "modifier.tconstruct.holy": "Святой",
+    "modifier.tconstruct.holy.flavor": "Благословенный клинок!",
+    "modifier.tconstruct.holy.description": "Пусть нежить падет под мощь вашего клинка",
+
+    "_comment": "Характеристики совместимости модификаций уровня 3",
+    "modifier.tconstruct.sturdy": "Крепкий",
+    "modifier.tconstruct.sturdy.flavor": "Нержавеющая сталь!",
+    "modifier.tconstruct.sturdy.description": "Изготовлен из прочнейшей стали",
+    "modifier.tconstruct.maintain_2": "Поддерживается",
+    "modifier.tconstruct.maintain_2.flavor": "Становится проще!",
+    "modifier.tconstruct.maintain_2.description": "Инструмент быстрее добывает при более высокой прочности",
+    "modifier.tconstruct.temperate": "Умеренный",
+    "modifier.tconstruct.temperate.flavor": "Экстремальная добыча!",
+    "modifier.tconstruct.temperate.description": "Инструмент работает быстрее при экстремальных температурах",
+
+
+    "_comment": "Статистика",
+
+    "stat.tconstruct.attack_speed": "Скорость атаки:",
+    "stat.tconstruct.attack_speed.description": "Базовое значение для расчета скорости атаки.\nПримерно полная сила атак в секунду.",
+
+    "stat.tconstruct.head": "Голова",
+    "stat.tconstruct.head.durability": "Прочность:",
+    "stat.tconstruct.head.durability.description": "Базовое значение для расчета долговечности.\nОбычно неотъемлемая часть общей долговечности инструмента.",
+    "stat.tconstruct.head.mining_speed": "Скорость добычи:",
+    "stat.tconstruct.head.mining_speed.description": "Как быстро инструмент с головкой из этого материала может добывать блоки.\nМогут влиять другие части инструментов.",
+    "stat.tconstruct.head.harvest_level": "Уровень добычи:",
+    "stat.tconstruct.head.harvest_level.description": "Какой диапазон блоков может добывать инструмент с головкой из этого материала.",
+    "stat.tconstruct.head.attack": "Атака:",
+    "stat.tconstruct.head.attack.description": "Базовое значение для расчета атаки.\nКонечный результат зависит от самого инструмента и других используемых компонентов.",
+
+    "stat.tconstruct.handle": "Ручка",
+    "stat.tconstruct.handle.durability": "Прочность:",
+    "stat.tconstruct.handle.durability.description": "На это умножается общая долговечность инструмента.",
+    "stat.tconstruct.handle.attack_damage": "Урон от атаки:",
+    "stat.tconstruct.handle.attack_damage.description": "На это умножается общий урон от атаки инструмента.",
+    "stat.tconstruct.handle.attack_speed": "Скорость атаки:",
+    "stat.tconstruct.handle.attack_speed.description": "На это умножается общая скорость атаки инструмента.",
+    "stat.tconstruct.handle.mining_speed": "Скорость добычи:",
+    "stat.tconstruct.handle.mining_speed.description": "На это умножается общая скорость добычи инструмента.",
+
+    "stat.tconstruct.extra": "Дополнительно",
+    "stat.tconstruct.extra.no_stats": "Нет статистики",
+
+    "stat.tconstruct.mining_level.wood": "Дерево",
+    "stat.tconstruct.mining_level.stone": "Камень",
+    "stat.tconstruct.mining_level.iron": "Железо",
+    "stat.tconstruct.mining_level.diamond": "Бриллиант",
+    "stat.tconstruct.mining_level.netherite": "Незерит",
+
+
+    "_comment": "Подсказки",
+
+    "key.tconstruct.shift": "Shift",
+    "key.tconstruct.ctrl": "Ctrl",
+
+    "tooltip.tconstruct.tool.upgrades": "Обновления:",
+    "tooltip.tconstruct.tool.abilities": "Способности:",
+    "tooltip.tconstruct.tool.broken": "Сломан",
+    "tooltip.tconstruct.tool.empty": "Пусто",
+    "tooltip.tconstruct.hold_shift": "Удерживать %s для статистики",
+    "tooltip.tconstruct.hold_ctrl": "Держите %s, чтобы еще",
+
+    "tooltip.part.material_added_by": "Материал добавлен %s",
+    "tooltip.part.missing_material": "Отсутствующий материал: %s",
+    "tooltip.part.missing_stats": "В материале отсутствует необходимая статистика:\n {0}",
+    "tooltip.part.missing_info": "Деталь не содержит данных",
+
+    "_comment": "GUI",
+
+    "itemGroup.tconstruct.general": "Общие предметы мастеров",
+    "itemGroup.tconstruct.tools": "Инструменты мастеров",
+    "itemGroup.tconstruct.tool_parts": "Инструменты мастеров",
+    "itemGroup.tconstruct.smeltery": "Плавильня мастеров",
+    "itemGroup.tconstruct.world": "Мир мастеров",
+    "itemGroup.tconstruct.gadgets": "Гаджеты мастеров",
+
+    "gui.tconstruct.crafting_station": "Станция крафта",
+
+    "gui.tconstruct.part_builder": "Конструктор деталей",
+    "gui.tconstruct.part_builder.info": "Здесь вы можете создавать детали инструментов, чтобы воплотить в жизнь свои творческие фантазии.\n\nЧтобы создать деталь, просто вставьте пустой узор в левый слот и выберите нужную деталь. Оставшийся слот удерживает материал, из которого вы хотите создать свою деталь. ",
+    "gui.tconstruct.part_builder.material_value": "Значение материала: %s",
+    "gui.tconstruct.part_builder.cost": "Стоимость шаблона: %s",
+    "gui.tconstruct.part_builder.trait": "Черта",
+
+    "gui.tconstruct.modifier_chest": "Сундук модификаторов",
+    "gui.tconstruct.cast_chest": "Литой сундук",
+    "gui.tconstruct.part_chest": "Сундук с частями",
+
+    "gui.tconstruct.tinker_station": "Станция мастеров",
+    "gui.tconstruct.tinker_station.repair": "Восстановить и изменить",
+    "gui.tconstruct.tinker_station.modifiers": "Модификаторы",
+    "gui.tconstruct.tinker_station.components": "Компоненты",
+    "gui.tconstruct.tinker_station.info": "Основной способ отремонтировать или изменить ваши инструменты. Поместите инструмент и материал слева, чтобы начать.",
+    "gui.tconstruct.tinker_station.no_traits": "Нет: [",
+
+    "recipe.tconstruct.tool_repair.fully_repaired": "Инструмент не поврежден",
+
+    "recipe.tconstruct.part_swapping.too_many_parts": "Таблица слишком мала для того, чтобы менять части на этом инструменте",
+
+    "recipe.tconstruct.modifier.not_enough_upgrades": "Для добавления этого модификатора требуется как минимум %s слотов обновления",
+    "recipe.tconstruct.modifier.not_enough_abilities": "Для добавления этого модификатора требуется как минимум %s слотов способностей",
+    "recipe.tconstruct.modifier.max_level": "Уровень %s не может быть выше %s",
+    "recipe.tconstruct.modifier.requirements_error": "Недопустимое состояние инструмента для одного из модификаторов. Свяжитесь с создателем модпака и запросите более описательную ошибку.",
+
+    "recipe.tconstruct.modifier.netherite_requirements": "Netherite требует применения либо алмаза, либо изумруда",
+    "recipe.tconstruct.modifier.ender_expander_requirements": "Сначала необходимо применить расширитель сукровицы",
+
+
+    "_comment": "Сообщения графического интерфейса",
+
+    "gui.tconstruct.caption": "Заголовок",
+    "gui.tconstruct.error": "ОШИБКА",
+    "gui.tconstruct.warning": "ВНИМАНИЕ",
+    "gui.tconstruct.general.hover": "Наведите указатель мыши на записи, чтобы получить дополнительную информацию",
+    "gui.tconstruct.error.invalid_pattern": "Шаблон не содержит допустимой детали инструмента!",
+    "gui.tconstruct.error.invalid_recipe": "Неверный рецепт!",
+    "gui.tconstruct.error.unknown_material": "Неизвестный материал",
+    "gui.tconstruct.error.useless_tool_part": "Эту деталь нельзя использовать для создания какого-либо инструмента!\n\nЛибо в материале %s отсутствует какая-то информация, либо ни один инструмент не использует (n) %s при создании.",
+    "gui.tconstruct.error.not_enough_durability": "Недостаточно прочности для замены деталей!\n Требуется на%d больше прочности.",
+
+    "_comment": "Строки JEI",
+    "jei.tconstruct.time": " %s с",
+    "jei.tconstruct.temperature": " %s°C",
+    
+    "jei.tconstruct.casting.basin": "Литейный бассейн",
+    "jei.tconstruct.casting.table": "Отливочный стол",
+    "jei.tconstruct.casting.cast_kept": "Предмет можно повторно использовать в более поздних рецептах",
+    "jei.tconstruct.casting.cast_consumed": "Предмет расходуется при применении",
+    
+    "jei.tconstruct.molding.title": "Молдинг",
+    "jei.tconstruct.molding.pattern_consumed": "Узор расходуется при создании",
+    
+    "jei.tconstruct.melting.title": "Плавление",
+    "jei.tconstruct.melting.multiplier": "Множитель скорости: %sx",
+    "jei.tconstruct.melting.ore": "Выход рецепта увеличивается в зависимости от типа контроллера",
+    "jei.tconstruct.melting.time": "Время плавления: %s s",
+    "jei.tconstruct.melting.smeltery": "В плавильном заводе:",
+    "jei.tconstruct.melting.melter": "В плавильной печи:",
+
+    "jei.tconstruct.entity_melting.title": "Сущность плавления",
+    "jei.tconstruct.entity_melting.per_hearts": "За %s повреждения сердец",
+    "jei.tconstruct.entity_melting.per_heart": "За 1,0 повреждение сердца",
+
+    "jei.tconstruct.alloy.title": "Легирование",
+
+    "jei.tconstruct.modifiers.title": "Модификаторы",
+    "jei.tconstruct.modifiers.ability": "Для применения модификатора требуется 1 слот способности",
+    "jei.tconstruct.modifiers.abilities": "Для применения модификатора требуется %s слотов способностей",
+    "jei.tconstruct.modifiers.upgrade": "Для применения модификатора требуется 1 слот обновления",
+    "jei.tconstruct.modifiers.upgrades": "Для применения модификатора требуется %s слотов обновления",
+    "jei.tconstruct.modifiers.free": "Для применения слотов модификаторов не требуется",
+    "jei.tconstruct.modifiers.incremental": "Рецепт является инкрементальным, вы можете применить часть ввода для частичного эффекта",
+    "jei.tconstruct.modifiers.max": "Макс: ",
+
+    "jei.tconstruct.beheading.title": "Обезглавливание"
+}
