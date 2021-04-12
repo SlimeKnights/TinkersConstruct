@@ -278,7 +278,7 @@ public class KamaTool extends HarvestTool {
       return false;
     }
     // try harvest event
-    Result result = new ToolHarvestEvent(stack, tool, world, state, pos, player).fire();
+    Result result = new ToolHarvestEvent(stack, tool, context, world, state, pos, player).fire();
     if (result != Result.DEFAULT) {
       return result == Result.ALLOW;
     }
@@ -328,7 +328,7 @@ public class KamaTool extends HarvestTool {
 
         // if we have a player, try doing AOE harvest
         if (!broken && player != null) {
-          for (BlockPos newPos : getToolHarvestLogic().getAOEBlocks(tool, player, pos, Direction.UP, context.getHitVec(), s -> true)) {
+          for (BlockPos newPos : getToolHarvestLogic().getAOEBlocks(tool, player, pos, context.getFace(), context.getHitVec(), s -> true)) {
             // try harvesting the crop, if successful and survival, damage the tool
             if (harvest(context, stack, tool, server, world.getBlockState(newPos), newPos, player)) {
               didHarvest = true;

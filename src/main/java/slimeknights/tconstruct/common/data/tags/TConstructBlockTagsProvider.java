@@ -105,6 +105,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_INTERACT)
         .add(Blocks.SWEET_BERRY_BUSH);
     this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE)
+        .add(Blocks.PUMPKIN, Blocks.BEEHIVE, Blocks.BEE_NEST)
         .addTag(TinkerTags.Blocks.HARVESTABLE_CROPS)
         .addTag(TinkerTags.Blocks.HARVESTABLE_INTERACT)
         .addTag(TinkerTags.Blocks.HARVESTABLE_STACKABLE);
