@@ -171,6 +171,11 @@ public class StencilTableGui extends GuiContainer implements INEIGuiHandler
             if(y > this.guiTop - 10 && y < this.guiTop + 2 + 22*(TConstructClientRegistry.stencilButtons2.size()-1)/4 + 22*(TConstructClientRegistry.stencilButtons2.size()%4 > 0 ? 1 : 0))
                 return true;
 
+        // is it in the horizontal column of the left buttons?
+        if(x - w < this.guiLeft && x - w > this.guiLeft - 120)
+            if(y > this.guiTop - 10 && y < this.guiTop + 2 + 22*(TConstructClientRegistry.stencilButtons.size()-1)/4 + 22*(TConstructClientRegistry.stencilButtons.size()%4 > 0 ? 1 : 0))
+                return true;
+
         return false;
     }
 }
