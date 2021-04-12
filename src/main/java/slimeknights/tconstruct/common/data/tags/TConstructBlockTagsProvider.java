@@ -97,12 +97,17 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
         .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
 
     // can harvest crops and sugar cane
-    this.getOrCreateBuilder(TinkerTags.Blocks.BLOCK_CROPS)
+    this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_STACKABLE)
         .add(Blocks.SUGAR_CANE, Blocks.KELP_PLANT);
-    this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE)
+    this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_CROPS)
         .addTag(BlockTags.CROPS)
-        .addTag(TinkerTags.Blocks.BLOCK_CROPS)
         .add(Blocks.NETHER_WART);
+    this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_INTERACT)
+        .add(Blocks.SWEET_BERRY_BUSH);
+    this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE)
+        .addTag(TinkerTags.Blocks.HARVESTABLE_CROPS)
+        .addTag(TinkerTags.Blocks.HARVESTABLE_INTERACT)
+        .addTag(TinkerTags.Blocks.HARVESTABLE_STACKABLE);
   }
 
 

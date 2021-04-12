@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:crops",
-    "#tconstruct:harvestable/block_crops",
-    "minecraft:nether_wart"
+    "#tconstruct:harvestable/crops",
+    "#tconstruct:harvestable/interact",
+    "#tconstruct:harvestable/stackable"
   ]
 }

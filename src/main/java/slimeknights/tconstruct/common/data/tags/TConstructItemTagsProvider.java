@@ -147,6 +147,8 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
     // kamas are a shear type, when broken we don't pass it to loot tables
     this.getOrCreateBuilder(Tags.Items.SHEARS).add(TinkerTools.kama.get());
+    // mark kama and scythe for mods like thermal to use
+    this.getOrCreateBuilder(TinkerTags.Items.SCYTHES).add(TinkerTools.kama.get(), TinkerTools.scythe.get());
     // nothing to blacklist, just want the empty tag so it appears in datapacks
     this.getOrCreateBuilder(TinkerTags.Items.AUTOSMELT_BLACKLIST);
 
