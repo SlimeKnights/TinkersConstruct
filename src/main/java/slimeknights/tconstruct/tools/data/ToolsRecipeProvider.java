@@ -445,10 +445,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
 
   private void addHeadRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "tools/beheading/";
-    addHead(consumer, EntityType.ZOMBIE, Items.ZOMBIE_HEAD, folder);
-    addHead(consumer, EntityType.CREEPER, Items.CREEPER_HEAD, folder);
-    addHead(consumer, EntityType.SKELETON, Items.SKELETON_SKULL, folder);
-    addHead(consumer, EntityType.WITHER_SKELETON, Items.WITHER_SKELETON_SKULL, folder);
+    BeheadingRecipeBuilder.beheading(EntityIngredient.of(EntityType.ZOMBIE, EntityType.HUSK, EntityType.DROWNED), Items.ZOMBIE_HEAD)
+                          .build(consumer, prefix(Items.ZOMBIE_HEAD, folder));
+    BeheadingRecipeBuilder.beheading(EntityIngredient.of(EntityType.SKELETON, EntityType.STRAY), Items.SKELETON_SKULL)
+                          .build(consumer, prefix(Items.SKELETON_SKULL, folder));
+    BeheadingRecipeBuilder.beheading(EntityIngredient.of(EntityType.WITHER_SKELETON, EntityType.WITHER), Items.WITHER_SKELETON_SKULL)
+                          .build(consumer, prefix(Items.WITHER_SKELETON_SKULL, folder));
+    BeheadingRecipeBuilder.beheading(EntityIngredient.of(EntityType.CREEPER), Items.CREEPER_HEAD)
+                          .build(consumer, prefix(Items.CREEPER_HEAD, folder));
     CustomRecipeBuilder.customRecipe(TinkerModifiers.playerBeheadingSerializer.get()).build(consumer, locationString(folder + "player"));
   }
 
@@ -549,17 +553,5 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "nuggets/" + name)), 1, 9, matName + "/nugget");
     wrapped = optional ? withCondition(consumer, tagCondition("storage_blocks/" + name)) : consumer;
     registerMaterial(wrapped, material, Ingredient.fromTag(getTag("forge", "storage_blocks/" + name)), 9, 1, matName + "/block");
-  }
-
-  /**
-   * Adds a head recipe
-   * @param consumer  Consumer
-   * @param entity    Entity
-   * @param head      Head for the entity
-   * @param folder    Output folder
-   */
-  private void addHead(Consumer<IFinishedRecipe> consumer, EntityType<?> entity, IItemProvider head, String folder) {
-    BeheadingRecipeBuilder.beheading(EntityIngredient.of(entity), head)
-                          .build(consumer, prefix(head, folder));
   }
 }
