@@ -5,6 +5,24 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
+import net.minecraftforge.client.model.IModelConfiguration;
+import net.minecraftforge.client.model.IModelLoader;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.geometry.IModelGeometry;
+import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.client.model.RetexturedModel;
+import slimeknights.mantle.client.model.util.DynamicBakedWrapper;
+import slimeknights.mantle.client.model.util.SimpleBlockModel;
+import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.function.Function;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
@@ -19,24 +37,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.client.model.IModelConfiguration;
-import net.minecraftforge.client.model.IModelLoader;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.geometry.IModelGeometry;
-import slimeknights.mantle.client.model.RetexturedModel;
-import slimeknights.mantle.client.model.util.DynamicBakedWrapper;
-import slimeknights.mantle.client.model.util.SimpleBlockModel;
-import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
-
-import org.jetbrains.annotations.Nullable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.function.Function;
 
 /**
  * Model that replaces fluid textures with the fluid from model data
