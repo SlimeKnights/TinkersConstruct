@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.common.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
@@ -17,7 +18,7 @@ public class BouncedPacket implements IThreadsafePacket {
 
   @Override
   public void handleThreadsafe(PlayerEntity player, PacketSender context) {
-    ServerPlayerEntity entity = context.getSender();
+    ServerPlayerEntity entity = (ServerPlayerEntity) player;
     if (entity != null) {
       entity.fallDistance = 0.0f;
     }

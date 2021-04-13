@@ -7,9 +7,9 @@ import lombok.Getter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
@@ -164,7 +164,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   }
 
   /** Shared serializer logic */
-  public static abstract class Serializer<T extends AbstractModifierRecipe> extends RecipeSerializer<T> {
+  public static abstract class Serializer<T extends AbstractModifierRecipe> implements RecipeSerializer<T> {
     /**
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance

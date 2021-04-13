@@ -7,7 +7,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -17,8 +16,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.Logger;
-
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -36,10 +33,8 @@ import slimeknights.tconstruct.library.recipe.casting.material.CompositeCastingR
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
-import slimeknights.tconstruct.library.recipe.melting.DamagableMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
-import slimeknights.tconstruct.library.recipe.melting.OreMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
@@ -58,7 +53,6 @@ import slimeknights.tconstruct.smeltery.block.component.SearedLadderBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.block.component.SmelteryIOBlock;
-import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
@@ -96,7 +90,7 @@ public final class TinkerSmeltery extends TinkerModule {
    * Block base properties
    */
   private static final Item.Settings SMELTERY_PROPS = new Item.Settings().group(TAB_SMELTERY);
-  private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, SMELTERY_PROPS);
+  private static final Function<Block, BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, SMELTERY_PROPS);
 
   /*
    * Blocks
@@ -110,7 +104,7 @@ public final class TinkerSmeltery extends TinkerModule {
   /** Properties for all smeltery blocks */
   private static final Block.Settings SMELTERY = builder(Material.STONE, FabricToolTags.PICKAXES, BlockSoundGroup.METAL).requiresTool().strength(3.0F, 9.0F);
   /** Constructor to create a seared block */
-  private static final Supplier<SearedBlock> SEARED_BLOCK = () -> new SearedBlock(SMELTERY);
+  private static final Supplier<Block> SEARED_BLOCK = () -> new SearedBlock(SMELTERY);
   public static final BuildingBlockObject searedStone = BLOCKS.registerBuilding("seared_stone", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final WallBuildingBlockObject searedCobble = BLOCKS.registerWallBuilding("seared_cobble", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedPaver = BLOCKS.registerBuilding("seared_paver", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
@@ -203,40 +197,37 @@ public final class TinkerSmeltery extends TinkerModule {
    * Recipe
    */
   // casting
-  public static final ItemCastingRecipe.Serializer<ItemCastingRecipe.Basin> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Basin::new));
-  public static final ItemCastingRecipe.Serializer<ItemCastingRecipe.Table> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Table::new));
-  public static final ContainerFillingRecipeSerializer<ContainerFillingRecipe.Basin> basinFillingRecipeSerializer = RECIPE_SERIALIZERS.register("basin_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Basin::new));
-  public static final ContainerFillingRecipeSerializer<ContainerFillingRecipe.Table> tableFillingRecipeSerializer = RECIPE_SERIALIZERS.register("table_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Table::new));
+  public static final ItemCastingRecipe.Serializer<ItemCastingRecipe.Basin> basinRecipeSerializer = null; // RECIPE_SERIALIZERS.register("casting_basin", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Basin::new));
+  public static final ItemCastingRecipe.Serializer<ItemCastingRecipe.Table> tableRecipeSerializer = null; // RECIPE_SERIALIZERS.register("casting_table", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Table::new));
+  public static final ContainerFillingRecipeSerializer<ContainerFillingRecipe.Basin> basinFillingRecipeSerializer = null; // RECIPE_SERIALIZERS.register("basin_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Basin::new));
+  public static final ContainerFillingRecipeSerializer<ContainerFillingRecipe.Table> tableFillingRecipeSerializer = null; // RECIPE_SERIALIZERS.register("table_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Table::new));
   // material casting
-  public static final MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Basin> basinMaterialSerializer = RECIPE_SERIALIZERS.register("basin_casting_material", () -> new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Basin::new));
-  public static final MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Table> tableMaterialSerializer = RECIPE_SERIALIZERS.register("table_casting_material", () -> new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Table::new));
-  public static final CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Basin> basinCompositeSerializer = RECIPE_SERIALIZERS.register("basin_casting_composite", () -> new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Basin::new));
-  public static final CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Table> tableCompositeSerializer = RECIPE_SERIALIZERS.register("table_casting_composite", () -> new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Table::new));
+  public static final MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Basin> basinMaterialSerializer = null; // RECIPE_SERIALIZERS.register("basin_casting_material", () -> new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Basin::new));
+  public static final MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Table> tableMaterialSerializer = null; // RECIPE_SERIALIZERS.register("table_casting_material", () -> new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Table::new));
+  public static final CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Basin> basinCompositeSerializer = null; // RECIPE_SERIALIZERS.register("basin_casting_composite", () -> new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Basin::new));
+  public static final CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Table> tableCompositeSerializer = null; // RECIPE_SERIALIZERS.register("table_casting_composite", () -> new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Table::new));
   // molding
-  public static final MoldingRecipe.Serializer<MoldingRecipe.Table> moldingTableSerializer = RECIPE_SERIALIZERS.register("molding_table", () -> new MoldingRecipe.Serializer<>(MoldingRecipe.Table::new));
-  public static final MoldingRecipe.Serializer<MoldingRecipe.Basin> moldingBasinSerializer = RECIPE_SERIALIZERS.register("molding_basin", () -> new MoldingRecipe.Serializer<>(MoldingRecipe.Basin::new));
+  public static final MoldingRecipe.Serializer<MoldingRecipe.Table> moldingTableSerializer = null; // RECIPE_SERIALIZERS.register("molding_table", () -> new MoldingRecipe.Serializer<>(MoldingRecipe.Table::new));
+  public static final MoldingRecipe.Serializer<MoldingRecipe.Basin> moldingBasinSerializer = null; // RECIPE_SERIALIZERS.register("molding_basin", () -> new MoldingRecipe.Serializer<>(MoldingRecipe.Basin::new));
   // melting
-  public static final RecipeSerializer<MeltingRecipe> meltingSerializer = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipe.Serializer<>(MeltingRecipe::new));
-  public static final RecipeSerializer<MeltingRecipe> oreMeltingSerializer = RECIPE_SERIALIZERS.register("ore_melting", () -> new MeltingRecipe.Serializer<>(OreMeltingRecipe::new));
-  public static final RecipeSerializer<MeltingRecipe> damagableMeltingSerializer = RECIPE_SERIALIZERS.register("damagable_melting", () -> new MeltingRecipe.Serializer<>(DamagableMeltingRecipe::new));
-  public static final RecipeSerializer<MaterialMeltingRecipe> materialMeltingSerializer = RECIPE_SERIALIZERS.register("material_melting", MaterialMeltingRecipe.Serializer::new);
-  public static final RecipeSerializer<MeltingFuel> fuelSerializer = RECIPE_SERIALIZERS.register("melting_fuel", MeltingFuel.Serializer::new);
-  public static final RecipeSerializer<EntityMeltingRecipe> entityMeltingSerializer = RECIPE_SERIALIZERS.register("entity_melting", EntityMeltingRecipe.Serializer::new);
+  public static final RecipeSerializer<MeltingRecipe> meltingSerializer = null; // RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipe.Serializer<>(MeltingRecipe::new));
+  public static final RecipeSerializer<MeltingRecipe> oreMeltingSerializer = null; // RECIPE_SERIALIZERS.register("ore_melting", () -> new MeltingRecipe.Serializer<>(OreMeltingRecipe::new));
+  public static final RecipeSerializer<MeltingRecipe> damagableMeltingSerializer = null; // RECIPE_SERIALIZERS.register("damagable_melting", () -> new MeltingRecipe.Serializer<>(DamagableMeltingRecipe::new));
+  public static final RecipeSerializer<MaterialMeltingRecipe> materialMeltingSerializer = null; // RECIPE_SERIALIZERS.register("material_melting", MaterialMeltingRecipe.Serializer::new);
+  public static final RecipeSerializer<MeltingFuel> fuelSerializer = null; // RECIPE_SERIALIZERS.register("melting_fuel", MeltingFuel.Serializer::new);
+  public static final RecipeSerializer<EntityMeltingRecipe> entityMeltingSerializer = null; // RECIPE_SERIALIZERS.register("entity_melting", EntityMeltingRecipe.Serializer::new);
   // alloying
-  public static final RecipeSerializer<AlloyRecipe> alloyingSerializer = RECIPE_SERIALIZERS.register("alloy", AlloyRecipe.Serializer::new);
+  public static final RecipeSerializer<AlloyRecipe> alloyingSerializer = null; // RECIPE_SERIALIZERS.register("alloy", AlloyRecipe.Serializer::new);
 
   /*
    * Inventory
    */
-  public static final ScreenHandlerType<MelterContainer> melterContainer = CONTAINERS.register("melter", MelterContainer::new);
-  public static final ScreenHandlerType<SmelteryContainer> smelteryContainer = CONTAINERS.register("smeltery", SmelteryContainer::new);
-  public static final ScreenHandlerType<SingleItemContainer> singleItemContainer = CONTAINERS.register("single_item", SingleItemContainer::new);
+  public static final ScreenHandlerType<MelterContainer> melterContainer = null;//CONTAINERS.register("melter", MelterContainer::new);
+  public static final ScreenHandlerType<SmelteryContainer> smelteryContainer = null;//CONTAINERS.register("smeltery", SmelteryContainer::new);
+  public static final ScreenHandlerType<SingleItemContainer> singleItemContainer = null;//CONTAINERS.register("single_item", SingleItemContainer::new);
 
-  @SubscribeEvent
-  void gatherData(final GatherDataEvent event) {
-    if (event.includeServer()) {
-      DataGenerator datagenerator = event.getGenerator();
-      datagenerator.install(new SmelteryRecipeProvider(datagenerator));
-    }
+  @Override
+  public void onInitialize() {
+
   }
 }

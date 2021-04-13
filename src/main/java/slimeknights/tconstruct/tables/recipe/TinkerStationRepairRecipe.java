@@ -186,7 +186,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return TinkerTables.tinkerStationRepairSerializer.get();
+    return TinkerTables.tinkerStationRepairSerializer;
   }
 
   /** @deprecated Use {@link #getCraftingResult(ITinkerStationInventory)} */

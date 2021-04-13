@@ -2,12 +2,9 @@ package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraftforge.common.extensions.IForgeTileEntity;
-import net.minecraftforge.common.util.LazyOptional;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 
 import java.util.List;
 
@@ -28,7 +25,7 @@ public interface ISmelteryTankHandler extends BlockEntityProvider {
    * Gets the fluid capability for this smeltery. Provided here as the smeltery itself does not expose this
    * @return  Fluid capability
    */
-  LazyOptional<IFluidHandler> getFluidCapability();
+  IFluidHandler getFluidCapability();
 
   /**
    * Called when the tank adds or removes a fluid to notify listeners
@@ -42,6 +39,10 @@ public interface ISmelteryTankHandler extends BlockEntityProvider {
    * @param listener  Listener
    */
   void addDisplayListener(IDisplayFluidListener listener);
+
+  default BlockEntity getTileEntity() {
+    return (BlockEntity) this;
+  }
 
   /** Simple enum to make {@link #notifyFluidsChanged(FluidChange, Fluid)} more readible */
   enum FluidChange {

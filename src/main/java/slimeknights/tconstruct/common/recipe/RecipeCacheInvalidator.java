@@ -5,7 +5,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resource.ResourceManager;
-import net.minecraftforge.event.AddReloadListenerEvent;
 import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
 
 import java.util.ArrayList;
@@ -52,13 +51,13 @@ public class RecipeCacheInvalidator implements IEarlySafeManagerReloadListener {
     reload(false);
   }
 
-  /**
-   * Called when resource managers reload
-   * @param event  Reload event
-   */
-  public static void onReloadListenerReload(AddReloadListenerEvent event) {
-    event.addListener(INSTANCE);
-  }
+//  /**
+//   * Called when resource managers reload
+//   * @param event  Reload event
+//   */
+//  public static void onReloadListenerReload(AddReloadListenerEvent event) {
+//    event.addListener(INSTANCE);
+//  }
 
   /** Logic to respond properly to late running of the client */
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)

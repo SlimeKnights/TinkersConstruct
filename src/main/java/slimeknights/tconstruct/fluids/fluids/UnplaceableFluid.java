@@ -13,7 +13,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldView;
-import net.minecraftforge.fluids.FluidAttributes;
 
 import java.util.function.Supplier;
 
@@ -21,7 +20,7 @@ import java.util.function.Supplier;
 public class UnplaceableFluid extends Fluid {
 
   private final Supplier<? extends Item> bucket;
-  private final FluidAttributes.Builder builder;
+//  private final FluidAttributes.Builder builder;
 
   @Override
   public Item getBucketItem() {
@@ -48,11 +47,11 @@ public class UnplaceableFluid extends Fluid {
     return Blocks.AIR.getDefaultState();
   }
 
-  @Override
-  protected FluidAttributes createAttributes()
-  {
-    return builder.build(this);
-  }
+//  @Override
+//  protected FluidAttributes createAttributes()
+//  {
+//    return builder.build(this);
+//  }
 
   /* Required methods */
 

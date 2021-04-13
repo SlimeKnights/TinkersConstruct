@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.modifiers.free;
 
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.common.util.Constants.NBT;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
@@ -40,7 +40,7 @@ public class OverslimeModifier extends SingleUseModifier {
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     // add overslime cap if missing, just a consistency thing really
-    if (!volatileData.contains(KEY_OVERSLIME_CAP, NBT.TAG_ANY_NUMERIC)) {
+    if (!volatileData.contains(KEY_OVERSLIME_CAP, NbtType.NUMBER)) {
       volatileData.putInt(KEY_OVERSLIME_CAP, getDefaultCap(toolDefinition));
     }
   }
@@ -139,7 +139,7 @@ public class OverslimeModifier extends SingleUseModifier {
    * @return  Current cap
    */
   public static int getCap(ToolDefinition toolDefinition, IModDataReadOnly volatileData) {
-    if (volatileData.contains(KEY_OVERSLIME_CAP, NBT.TAG_ANY_NUMERIC)) {
+    if (volatileData.contains(KEY_OVERSLIME_CAP, NbtType.NUMBER)) {
       return volatileData.getInt(KEY_OVERSLIME_CAP);
     }
     return getDefaultCap(toolDefinition);

@@ -6,14 +6,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.EmptyHandler;
-import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.mantle.inventory.ItemHandlerSlot;
-
 import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.tconstruct.misc.IItemHandler;
 
 public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContainer<TILE> {
 
@@ -21,7 +16,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
   private final int columns;
   @Getter
   private final int slotCount;
-  protected final LazyOptional<IItemHandler> itemHandler;
+//  protected final Optional<IItemHandler> itemHandler;
 
   public SideInventoryContainer(ScreenHandlerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, int x, int y, int columns) {
     this(containerType, windowId, inv, tile, null, x, y, columns);
@@ -29,10 +24,11 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
 
   public SideInventoryContainer(ScreenHandlerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
     super(containerType, windowId, inv, tile);
-
-    // must have a TE
+    throw new RuntimeException("CRAB!");
+    //TODO: PORT
+/*    // must have a TE
     if (tile == null) {
-      this.itemHandler = LazyOptional.of(() -> EmptyHandler.INSTANCE);
+      this.itemHandler = Optional.of(() -> EmptyHandler.INSTANCE);
     } else {
       this.itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventoryDirection);
     }
@@ -57,7 +53,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
         this.addSlot(this.createSlot(handler, index, x + c * 18, y + r * 18));
         index++;
       }
-    }
+    }*/
   }
 
   /**
@@ -69,6 +65,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
    * @return  Inventory slot
    */
   protected Slot createSlot(IItemHandler itemHandler, int index, int x, int y) {
-    return new ItemHandlerSlot(itemHandler, index, x, y);
+    throw new RuntimeException("CRAB!");
+//    return new ItemHandlerSlot(itemHandler, index, x, y);
   }
 }

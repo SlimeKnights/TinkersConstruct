@@ -43,8 +43,8 @@ public class AxeTool extends HarvestTool {
     return hit;
   }
 
-  @Override
-  public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
-    return true;
-  }
+//  @Override
+//  public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
+//    return true;
+//  }
 }

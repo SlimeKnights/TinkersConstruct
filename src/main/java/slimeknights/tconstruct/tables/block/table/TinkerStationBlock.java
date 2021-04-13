@@ -15,8 +15,8 @@ public class TinkerStationBlock extends RetexturedTableBlock {
     this.slotCount = slotCount;
   }
 
-  @Override
-  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
-    return new TinkerStationTileEntity(getSlotCount());
-  }
+//  @Override
+//  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
+//    return new TinkerStationTileEntity(getSlotCount());
+//  }
 }

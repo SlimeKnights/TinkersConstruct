@@ -35,7 +35,7 @@ public class DataMaterial implements IMaterial {
   }
 
   public DataMaterial(MaterialId identifier, int tier, int sortOrder, boolean craftable, int color, Supplier<List<ModifierEntry>> traits) {
-    this(identifier, tier, sortOrder, Fluids.EMPTY.delegate, 0, craftable, color, traits);
+    this(identifier, tier, sortOrder, () -> Fluids.EMPTY, 0, craftable, color, traits);
   }
 
   @Override
@@ -49,7 +49,9 @@ public class DataMaterial implements IMaterial {
     if (fluid == Fluids.EMPTY) {
       return 0;
     }
-    return fluid.getAttributes().getTemperature() - 300;
+    throw new RuntimeException("Crab!");
+    //TODO: PORTING
+//    return fluid.getAttributes().getTemperature() - 300;
   }
 
   @Override

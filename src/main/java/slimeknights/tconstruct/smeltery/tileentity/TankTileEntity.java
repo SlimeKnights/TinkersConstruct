@@ -10,7 +10,7 @@ import net.minecraft.util.math.Direction;
 
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
+import java.util.Optional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
@@ -56,7 +56,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   /** Internal fluid tank instance */
   protected final FluidTankAnimated tank;
   /** Capability holder for the tank */
-  private final LazyOptional<IFluidHandler> holder;
+  private final Optional<IFluidHandler> holder;
   /** Tank data for the model */
   private final IModelData modelData;
   /** Last comparator strength to reduce block updates */
@@ -76,7 +76,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   protected TankTileEntity(BlockEntityType<?> type, SearedTankBlock block) {
     super(type);
     tank = new FluidTankAnimated(block.getCapacity(), this);
-    holder = LazyOptional.of(() -> tank);
+    holder = Optional.of(() -> tank);
     modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   }
 
@@ -87,7 +87,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
 
   @Override
   @NotNull
-  public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+  public <T> Optional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
     if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       return holder.cast();
     }

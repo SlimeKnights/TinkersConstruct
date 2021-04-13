@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.network;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -30,7 +31,7 @@ public class TinkerStationSelectionPacket implements IThreadsafePacket {
 
   @Override
   public void handleThreadsafe(PlayerEntity player, PacketSender context) {
-    ServerPlayerEntity sender = context.getSender();
+    ServerPlayerEntity sender = (ServerPlayerEntity) player;
     if (sender != null) {
       ScreenHandler container = sender.currentScreenHandler;
 

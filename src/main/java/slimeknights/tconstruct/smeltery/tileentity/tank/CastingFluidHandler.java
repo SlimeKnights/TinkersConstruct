@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -8,13 +10,11 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.NBT;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 
 import java.util.Objects;
 
@@ -29,7 +29,7 @@ public class CastingFluidHandler implements IFluidHandler {
 
   /** Checks if the given fluid is valid */
   public boolean isFluidValid(FluidVolume stack) {
-    return !stack.isEmpty() && (filter == Fluids.EMPTY || stack.getFluid() == filter);
+    return !stack.isEmpty() && (filter == Fluids.EMPTY || stack.getRawFluid() == filter);
   }
 
   /** Checks if the fluid is empty */
@@ -113,7 +113,7 @@ public class CastingFluidHandler implements IFluidHandler {
 
   @Override
   public FluidVolume drain(FluidVolume resource, FluidAction action) {
-    if (resource.isEmpty() || !resource.isFluidEqual(fluid)) {
+    if (resource.isEmpty() || !resource.equals(fluid)) {
       return TinkerFluids.EMPTY;
     }
     return this.drain(resource.getAmount(), action);
@@ -126,7 +126,7 @@ public class CastingFluidHandler implements IFluidHandler {
       return TinkerFluids.EMPTY;
     }
 
-    FluidVolume stack = new FluidVolume(fluid, drained);
+    FluidVolume stack = fluid.withAmount(FluidAmount.ofWhole(drained));
     if (action.execute()) {
       fluid.shrink(drained);
       onContentsChanged();
@@ -167,7 +167,7 @@ public class CastingFluidHandler implements IFluidHandler {
   /** Reads the tank from NBT */
   public void readFromNBT(CompoundTag nbt) {
     capacity = nbt.getInt(TAG_CAPACITY);
-    if (nbt.contains(TAG_FLUID, NBT.TAG_COMPOUND)) {
+    if (nbt.contains(TAG_FLUID, NbtType.COMPOUND)) {
       setFluid(FluidVolume.loadFluidVolumeFromNBT(nbt.getCompound(TAG_FLUID)));
     }
     if (nbt.contains(TAG_FILTER, NBT.TAG_STRING)) {

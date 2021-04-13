@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.harvest;
 
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;

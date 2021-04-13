@@ -4,20 +4,19 @@ import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
-import slimeknights.tconstruct.TConstruct;
-
 import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.tconstruct.TConstruct;
 
 /**
  * Serializer for {@link ContainerFillingRecipe}
  * @param <T>  Recipe output class type
  */
 @AllArgsConstructor
-public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> extends RecipeSerializer<T> {
+public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> implements RecipeSerializer<T> {
   private final IFactory<T> factory;
 
   @Override

@@ -12,8 +12,6 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
@@ -36,7 +34,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
    * @param tile  Relevant tile entity
    */
   public CraftingStationContainer(int id, PlayerInventory inv, @Nullable CraftingStationTileEntity tile) {
-    super(TinkerTables.craftingStationContainer.get(), id, inv, tile);
+    super(TinkerTables.craftingStationContainer, id, inv, tile);
 
     // unfortunately, nothing works with no tile
     if (tile != null) {
@@ -88,7 +86,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
 
       // if we found something, add the side inventory
       if (inventoryTE != null) {
-        this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), id, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
+        this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer, id, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
       }
     } else {
       // requirement for final variable
@@ -142,7 +140,8 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
    * @return True if compatible.
    */
   private static boolean hasItemHandler(BlockEntity tileEntity, @Nullable Direction direction) {
-    return tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).filter(cap -> cap instanceof IItemHandlerModifiable).isPresent();
+    throw new RuntimeException("What the fuck forge!");
+//    return tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).filter(cap -> cap instanceof IItemHandlerModifiable).isPresent();
   }
 
   @Override

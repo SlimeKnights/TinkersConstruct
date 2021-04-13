@@ -3,8 +3,9 @@ package slimeknights.tconstruct.tools.data;
 import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.fluid.Fluids;
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.recipe.ICondition;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialManager;
@@ -33,7 +34,7 @@ public class MaterialDataProvider extends GenericDataProvider {
     if (material.getFluid() == Fluids.EMPTY) {
       return new MaterialJson(condition, material.isCraftable(), material.getTier(), material.getSortOrder(), null, null, color, null, traits);
     }
-    return new MaterialJson(condition, material.isCraftable(), material.getTier(), material.getSortOrder(), material.getFluid().getRegistryName(), material.getFluidPerUnit(), color, material.getTemperature(), traits);
+    return new MaterialJson(condition, material.isCraftable(), material.getTier(), material.getSortOrder(), Registry.FLUID.getId(material.getFluid()), material.getFluidPerUnit(), color, material.getTemperature(), traits);
   }
 
   @Override

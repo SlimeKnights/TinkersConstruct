@@ -7,7 +7,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 
 public class CastChestTileEntity extends TinkerChestTileEntity {
   public CastChestTileEntity() {
-    super(TinkerTables.castChestTile.get(), Util.makeTranslationKey("gui", "cast_chest"), DEFAULT_MAX, 4);
+    super(TinkerTables.castChestTile, Util.makeTranslationKey("gui", "cast_chest"), DEFAULT_MAX, 4);
   }
 
   @Override

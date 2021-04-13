@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.tileentity.tank;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.common.collect.Lists;
 import lombok.Getter;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -10,10 +11,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.SmelteryTankUpdatePacket;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler.FluidChange;
 
 import java.util.List;
@@ -163,7 +164,7 @@ public class SmelteryTank implements IFluidHandler {
       if (fluid.isFluidEqual(resource)) {
         // yup. add it
         fluid.grow(usable);
-        parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getFluid());
+        parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getRawFluid());
         return usable;
       }
     }
@@ -172,7 +173,7 @@ public class SmelteryTank implements IFluidHandler {
     resource = resource.copy();
     resource.setAmount(usable);
     fluids.add(resource);
-    parent.notifyFluidsChanged(FluidChange.ADDED, resource.getFluid());
+    parent.notifyFluidsChanged(FluidChange.ADDED, resource.getRawFluid());
     return usable;
   }
 
@@ -197,9 +198,9 @@ public class SmelteryTank implements IFluidHandler {
       // if now empty, remove from the list
       if (fluid.getAmount() <= 0) {
         fluids.remove(fluid);
-        parent.notifyFluidsChanged(FluidChange.REMOVED, fluid.getFluid());
+        parent.notifyFluidsChanged(FluidChange.REMOVED, fluid.getRawFluid());
       } else {
-        parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getFluid());
+        parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getRawFluid());
       }
     }
 
@@ -228,9 +229,9 @@ public class SmelteryTank implements IFluidHandler {
           // if now empty, remove from the list
           if (fluid.getAmount() <= 0) {
             iter.remove();
-            parent.notifyFluidsChanged(FluidChange.REMOVED, fluid.getFluid());
+            parent.notifyFluidsChanged(FluidChange.REMOVED, fluid.getRawFluid());
           } else {
-            parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getFluid());
+            parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getRawFluid());
           }
         }
 
@@ -252,11 +253,11 @@ public class SmelteryTank implements IFluidHandler {
    * @param fluids  List of fluids
    */
   public void setFluids(List<FluidVolume> fluids) {
-    Fluid oldFirst = getFluidInTank(0).getFluid();
+    Fluid oldFirst = getFluidInTank(0).getRawFluid();
     this.fluids.clear();
     this.fluids.addAll(fluids);
     contained = fluids.stream().mapToInt(FluidVolume::getAmount).reduce(0, Integer::sum);
-    Fluid newFirst = getFluidInTank(0).getFluid();
+    Fluid newFirst = getFluidInTank(0).getRawFluid();
     if (oldFirst != newFirst) {
       parent.notifyFluidsChanged(FluidChange.ORDER_CHANGED, newFirst);
     }
@@ -277,7 +278,7 @@ public class SmelteryTank implements IFluidHandler {
 
   /** Reads the tank from NBT */
   public void read(CompoundTag tag) {
-    ListTag list = tag.getList(TAG_FLUIDS, NBT.TAG_COMPOUND);
+    ListTag list = tag.getList(TAG_FLUIDS, NbtType.COMPOUND);
     fluids.clear();
     contained = 0;
     for (int i = 0; i < list.size(); i++) {

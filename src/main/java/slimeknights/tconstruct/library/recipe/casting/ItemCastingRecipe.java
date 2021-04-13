@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,17 +41,12 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
 
   @Override
   public int getFluidAmount(ICastingInventory inv) {
-    return this.fluid.getAmount(inv.getFluid());
+    return this.fluid.getAmount(FluidKeys.get(inv.getFluid())).as1620();
   }
 
   @Override
   public boolean matches(ICastingInventory inv, World worldIn) {
-    return getCast().test(inv.getStack()) && fluid.test(inv.getFluid());
-  }
-
-  @Override
-  public ItemStack getOutput() {
-    return this.result.get();
+    return getCast().test(inv.getStack()) && fluid.test(FluidKeys.get(inv.getFluid()));
   }
 
   @Override
@@ -93,7 +89,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.basinRecipeSerializer.get();
+      return TinkerSmeltery.basinRecipeSerializer;
     }
   }
 
@@ -105,7 +101,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.tableRecipeSerializer.get();
+      return TinkerSmeltery.tableRecipeSerializer;
     }
   }
 

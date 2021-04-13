@@ -8,9 +8,6 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -57,22 +54,20 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
     return inv.getStack().getItem() == this.container.asItem();
   }
 
-  /** @deprecated use {@link ICastingRecipe#craft(ICastingInventory)}
-   */
   @Override
   @Deprecated
   public ItemStack getOutput() {
     return new ItemStack(this.container);
   }
 
-  @Override
-  public ItemStack getCraftingResult(ICastingInventory inv) {
-    ItemStack output = new ItemStack(container);
-    return FluidUtil.getFluidHandler(output).map(handler -> {
-      handler.fill(new FluidVolume(inv.getFluid(), this.fluidAmount), FluidAction.EXECUTE);
-      return handler.getContainer();
-    }).orElse(ItemStack.EMPTY);
-  }
+//  @Override
+//  public ItemStack getCraftingResult(ICastingInventory inv) {
+//    ItemStack output = new ItemStack(container);
+//    return FluidUtil.getFluidHandler(output).map(handler -> {
+//      handler.fill(new FluidVolume(inv.getFluid(), this.fluidAmount), FluidAction.EXECUTE);
+//      return handler.getContainer();
+//    }).orElse(ItemStack.EMPTY);
+//  }
 
   /** Basin implementation */
   public static class Basin extends ContainerFillingRecipe {
@@ -82,7 +77,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.basinFillingRecipeSerializer.get();
+      return TinkerSmeltery.basinFillingRecipeSerializer;
     }
   }
 
@@ -95,7 +90,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.tableFillingRecipeSerializer.get();
+      return TinkerSmeltery.tableFillingRecipeSerializer;
     }
   }
 }

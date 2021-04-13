@@ -3,12 +3,12 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.text.TranslatableText;
-import net.minecraftforge.common.util.Lazy;
+import net.minecraft.util.Lazy;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 
 /** Just a fancy class to change the color. Logic is hardcoded to reduce complexity */
 public class ExpanderModifier extends Modifier {
-  private final Lazy<Text> LEVEL_1_TITLE = Lazy.of(() -> new TranslatableText(getTranslationKey())
+  private final Lazy<Text> LEVEL_1_TITLE = new Lazy<>(() -> new TranslatableText(getTranslationKey())
     .append(" ")
     .append(new TranslatableText(KEY_LEVEL + 1))
     .styled(style -> style.withColor(TextColor.fromRgb(0xff9f50))));

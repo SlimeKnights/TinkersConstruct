@@ -2,7 +2,9 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.Getter;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -12,20 +14,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.mantle.client.model.data.SinglePropertyData;
+import net.minecraft.world.BlockView;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
@@ -33,6 +28,7 @@ import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
@@ -40,6 +36,7 @@ import slimeknights.tconstruct.smeltery.network.SmelteryStructureUpdatedPacket;
 import slimeknights.tconstruct.smeltery.tileentity.module.AlloyingModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.tileentity.module.SmelteryAlloyTank;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery;
@@ -48,12 +45,12 @@ import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
 
-import org.jetbrains.annotations.Nullable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class SmelteryTileEntity extends NamableTileEntity implements Tickable, IMasterLogic, ISmelteryTankHandler {
@@ -62,7 +59,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   private static final String TAG_INVENTORY = "inventory";
 
   /** Fluid capacity per internal block */
-  private static final int CAPACITY_PER_BLOCK = MaterialValues.INGOT * 8;
+  private static final int CAPACITY_PER_BLOCK = MaterialValues.INGOT.mul(8).as1620();
   /** Number of wall blocks needed to increase the fuel cost by 1 */
   private static final int BLOCKS_PER_FUEL = 10;
 
@@ -79,12 +76,12 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   private final SmelteryTank tank = new SmelteryTank(this);
   /** Capability to pass to drains for fluid handling */
   @Getter
-  private LazyOptional<IFluidHandler> fluidCapability = LazyOptional.empty();
+  private Optional<IFluidHandler> fluidCapability = Optional.empty();
 
   /** Inventory handling melting items */
   @Getter
-  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, TConfig.COMMON.smelteryNuggetsPerOre::get);
-  private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> meltingInventory);
+  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, () -> TConfig.common.smelteryNuggetsPerOre);
+  private final Optional<IItemHandler> itemCapability = Optional.of(meltingInventory);
 
   /** Fuel module */
   @Getter
@@ -113,8 +110,6 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   private final EntityMeltingModule entityModule = new EntityMeltingModule(this, tank, this::canMeltEntities, this::insertIntoInventory, () -> structure == null ? null : structure.getBounds());
 
   /* Client display */
-  @Getter
-  private final IModelData modelData = new SinglePropertyData<>(IDisplayFluidListener.PROPERTY);
   private final List<WeakReference<IDisplayFluidListener>> fluidDisplayListeners = new ArrayList<>();
 
   /* Misc helpers */
@@ -122,7 +117,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   private final Consumer<ItemStack> dropItem = this::dropItem;
 
   public SmelteryTileEntity() {
-    super(TinkerSmeltery.smeltery.get(), new TranslatableText(Util.makeTranslationKey("gui", "smeltery")));
+    super(TinkerSmeltery.smeltery, new TranslatableText(Util.makeTranslationKey("gui", "smeltery")));
   }
 
   @Override
@@ -236,7 +231,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   }
 
 
-  /* Capability */
+/*  *//* Capability *//*
 
   @Override
   protected void invalidateCaps() {
@@ -245,12 +240,12 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   }
 
   @Override
-  public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+  public <T> Optional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
     if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
       return itemCapability.cast();
     }
     return super.getCapability(capability, facing);
-  }
+  }*/
 
 
   /* Structure */
@@ -308,7 +303,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
 
       // update tank capability
       if (!fluidCapability.isPresent()) {
-        fluidCapability = LazyOptional.of(() -> tank);
+        fluidCapability = Optional.of(tank);
       }
     } else {
       if (oldStructure != null) {
@@ -318,8 +313,8 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
 
       // update tank capability
       if (fluidCapability.isPresent()) {
-        fluidCapability.invalidate();
-        fluidCapability = LazyOptional.empty();
+//        fluidCapability.invalidate();
+        fluidCapability = Optional.empty();
       }
     }
 
@@ -335,6 +330,11 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
       structure.clearMaster(this);
       structure = null;
     }
+  }
+
+  @Override
+  public BlockEntity getTileEntity() {
+    return IMasterLogic.super.getTileEntity();
   }
 
   @Override
@@ -365,8 +365,8 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   private void updateDisplayFluid(Fluid fluid) {
     if (world != null && world.isClient) {
       // update ourself
-      modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
-      this.requestModelDataUpdate();
+//      modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
+//      this.requestModelDataUpdate();
       BlockState state = getCachedState();
       world.updateListeners(pos, state, state, 48);
 
@@ -386,7 +386,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   @Override
   public void addDisplayListener(IDisplayFluidListener listener) {
     fluidDisplayListeners.add(new WeakReference<>(listener));
-    listener.notifyDisplayFluidUpdated(tank.getFluidInTank(0).getFluid());
+    listener.notifyDisplayFluidUpdated(tank.getFluidInTank(0).getRawFluid());
   }
 
   @Override
@@ -406,15 +406,15 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
     }
   }
 
-  @Override
-  public Box getRenderBoundingBox() {
-    if (structure != null) {
-      return structure.getBounds();
-    } else if (defaultBounds == null) {
-      defaultBounds = new Box(pos, pos.add(1, 1, 1));
-    }
-    return defaultBounds;
-  }
+//  @Override
+//  public Box getRenderBoundingBox() {
+//    if (structure != null) {
+//      return structure.getBounds();
+//    } else if (defaultBounds == null) {
+//      defaultBounds = new Box(pos, pos.add(1, 1, 1));
+//    }
+//    return defaultBounds;
+//  }
 
 
   /* Heating helpers */
@@ -438,7 +438,9 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
    * @param stack  Stack to insert
    */
   private ItemStack insertIntoInventory(ItemStack stack) {
-    return ItemHandlerHelper.insertItem(meltingInventory, stack, false);
+    throw new RuntimeException("CRAB!");
+    //TODO: PORT
+//    return ItemHandlerHelper.insertItem(meltingInventory, stack, false);
   }
 
 
@@ -474,20 +476,20 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   @Override
   public void fromTag(BlockState state, CompoundTag nbt) {
     super.fromTag(state, nbt);
-    if (nbt.contains(TAG_TANK, NBT.TAG_COMPOUND)) {
+    if (nbt.contains(TAG_TANK, NbtType.COMPOUND)) {
       tank.read(nbt.getCompound(TAG_TANK));
-      Fluid first = tank.getFluidInTank(0).getFluid();
+      Fluid first = tank.getFluidInTank(0).getRawFluid();
       if (first != Fluids.EMPTY) {
         updateDisplayFluid(first);
       }
     }
-    if (nbt.contains(TAG_INVENTORY, NBT.TAG_COMPOUND)) {
+    if (nbt.contains(TAG_INVENTORY, NbtType.COMPOUND)) {
       meltingInventory.readFromNBT(nbt.getCompound(TAG_INVENTORY));
     }
-    if (nbt.contains(TAG_STRUCTURE, NBT.TAG_COMPOUND)) {
+    if (nbt.contains(TAG_STRUCTURE, NbtType.COMPOUND)) {
       setStructure(multiblock.readFromNBT(nbt.getCompound(TAG_STRUCTURE)));
       if (structure != null) {
-        fluidCapability = LazyOptional.of(() -> tank);
+        fluidCapability = Optional.of(tank);
       }
     }
     fuelModule.readFromNBT(nbt);
@@ -520,5 +522,27 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
       nbt.put(TAG_STRUCTURE, structure.writeClientNBT());
     }
     return nbt;
+  }
+
+  @Nullable
+  @Override
+  public BlockEntity createBlockEntity(BlockView world) {
+    throw new RuntimeException("CRAB!");
+    //TODO: PORT
+  }
+
+  @Override
+  public Text getName() {
+    return super.getName();
+  }
+
+  @Override
+  public boolean hasCustomName() {
+    return super.hasCustomName();
+  }
+
+  @Override
+  public Text getDisplayName() {
+    return super.getDisplayName();
   }
 }

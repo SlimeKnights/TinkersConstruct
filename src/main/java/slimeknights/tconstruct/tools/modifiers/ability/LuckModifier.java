@@ -2,21 +2,13 @@ package slimeknights.tconstruct.tools.modifiers.ability;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.text.TranslatableText;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LootingLevelEvent;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Random;
 import java.util.function.BiConsumer;
@@ -27,7 +19,7 @@ public class LuckModifier extends IncrementalModifier {
 
   public LuckModifier() {
     super(0x345EC3);
-    MinecraftForge.EVENT_BUS.addListener(this::onLooting);
+//    MinecraftForge.EVENT_BUS.addListener(this::onLooting);
   }
 
   @Override
@@ -114,30 +106,31 @@ public class LuckModifier extends IncrementalModifier {
   }
 
   /** Applies the looting bonus for this modifier */
-  private void onLooting(LootingLevelEvent event) {
-    // TODO: make common modifier event if this becomes used elsewhere
-    // must be an attacker with our tool
-    DamageSource damageSource = event.getDamageSource();
-    if (damageSource == null) {
-      return;
-    }
-    Entity source = event.getDamageSource().getAttacker();
-    if (source instanceof LivingEntity) {
-      ItemStack held = ((LivingEntity)source).getMainHandStack();
-      if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
-        // non broken, has modifier
-        ToolStack tool = ToolStack.from(held);
-        if (!tool.isBroken()) {
-          int level = tool.getModifierLevel(this);
-          if (level > 0) {
-            // we use a random instance seeded from the current game time
-            // its important so the value is consistent between the multiple calls of this event in one kill
-            LOOTING_RANDOM.setSeed(source.getEntityWorld().getTime());
-            // calculate the effective level from the modifier
-            event.setLootingLevel(getEffectiveLevel(tool, level, LOOTING_RANDOM));
-          }
-        }
-      }
-    }
-  }
+  //TODO: PORTING
+//  private void onLooting(LootingLevelEvent event) {
+//    // TODO: make common modifier event if this becomes used elsewhere
+//    // must be an attacker with our tool
+//    DamageSource damageSource = event.getDamageSource();
+//    if (damageSource == null) {
+//      return;
+//    }
+//    Entity source = event.getDamageSource().getAttacker();
+//    if (source instanceof LivingEntity) {
+//      ItemStack held = ((LivingEntity)source).getMainHandStack();
+//      if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
+//        // non broken, has modifier
+//        ToolStack tool = ToolStack.from(held);
+//        if (!tool.isBroken()) {
+//          int level = tool.getModifierLevel(this);
+//          if (level > 0) {
+//            // we use a random instance seeded from the current game time
+//            // its important so the value is consistent between the multiple calls of this event in one kill
+//            LOOTING_RANDOM.setSeed(source.getEntityWorld().getTime());
+//            // calculate the effective level from the modifier
+//            event.setLootingLevel(getEffectiveLevel(tool, level, LOOTING_RANDOM));
+//          }
+//        }
+//      }
+//    }
+//  }
 }

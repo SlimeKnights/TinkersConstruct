@@ -16,7 +16,6 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.Incremental
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipe;
 import slimeknights.tconstruct.shared.block.SlimeType;
-import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.SilkyModifier;
@@ -184,12 +183,11 @@ public final class TinkerModifiers extends TinkerModule {
   /*
    * Recipes
    */
-  public static final ModifierRecipe.Serializer modifierSerializer = RECIPE_SERIALIZERS.register("modifier", ModifierRecipe.Serializer::new);
-  public static final IncrementalModifierRecipe.Serializer incrementalModifierSerializer = RECIPE_SERIALIZERS.register("incremental_modifier", IncrementalModifierRecipe.Serializer::new);
-  public static final OverslimeModifierRecipe.Serializer overslimeSerializer = RECIPE_SERIALIZERS.register("overslime_modifier", OverslimeModifierRecipe.Serializer::new);
-  public static final BeheadingRecipe.Serializer beheadingSerializer = RECIPE_SERIALIZERS.register("beheading", BeheadingRecipe.Serializer::new);
-  public static final SpecialRecipeSerializer<PlayerBeheadingRecipe> playerBeheadingSerializer = RECIPE_SERIALIZERS.register("player_beheading",  new SpecialRecipeSerializer<>(PlayerBeheadingRecipe::new));
-  public static final ModifierLootModifier.Serializer modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", ModifierLootModifier.Serializer::new);
+  public static final ModifierRecipe.Serializer modifierSerializer = null; // RECIPE_SERIALIZERS.register("modifier", ModifierRecipe.Serializer::new);
+  public static final IncrementalModifierRecipe.Serializer incrementalModifierSerializer = null; // RECIPE_SERIALIZERS.register("incremental_modifier", IncrementalModifierRecipe.Serializer::new);
+  public static final OverslimeModifierRecipe.Serializer overslimeSerializer = null; // RECIPE_SERIALIZERS.register("overslime_modifier", OverslimeModifierRecipe.Serializer::new);
+  public static final BeheadingRecipe.Serializer beheadingSerializer = null; // RECIPE_SERIALIZERS.register("beheading", BeheadingRecipe.Serializer::new);
+  public static final SpecialRecipeSerializer<PlayerBeheadingRecipe> playerBeheadingSerializer = null; // RECIPE_SERIALIZERS.register("player_beheading",  new SpecialRecipeSerializer<>(PlayerBeheadingRecipe::new));
 
   @Override
   public void onInitialize() {

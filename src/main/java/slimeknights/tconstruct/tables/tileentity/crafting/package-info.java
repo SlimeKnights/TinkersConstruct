@@ -1,7 +1,0 @@
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.tables.tileentity.crafting;
-
-import mcp.MethodsReturnNonnullByDefault;
-
-import org.jetbrains.annotations.ParametersAreNonnullByDefault;

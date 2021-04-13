@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.text.Text;
-import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -35,7 +35,7 @@ public class IncrementalModifier extends Modifier {
    * @return  Amount applied to the tool
    */
   public static int getAmount(IModDataReadOnly persistentData, Modifier modifier) {
-    if (persistentData.contains(modifier.getId(), NBT.TAG_ANY_NUMERIC)) {
+    if (persistentData.contains(modifier.getId(), NbtType.NUMBER)) {
       return persistentData.getInt(modifier.getId());
     }
     return ModifierRecipeLookup.getNeededPerLevel(modifier);

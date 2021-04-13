@@ -24,8 +24,8 @@ public abstract class RetexturedTableBlock extends TinkerTableBlock {
     RetexturedBlock.updateTextureBlock(world, pos, stack);
   }
 
-  @Override
-  public ItemStack getPickBlock(BlockState state, HitResult target, BlockView world, BlockPos pos, PlayerEntity player) {
-    return RetexturedBlock.getPickBlock(world, pos, state);
-  }
+//  @Override
+//  public ItemStack getPickBlock(BlockState state, HitResult target, BlockView world, BlockPos pos, PlayerEntity player) {
+//    return RetexturedBlock.getPickBlock(world, pos, state);
+//  }
 }

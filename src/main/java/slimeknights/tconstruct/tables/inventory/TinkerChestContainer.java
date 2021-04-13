@@ -5,8 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
@@ -35,17 +33,19 @@ public class TinkerChestContainer extends BaseStationContainer<TinkerChestTileEn
       super(containerType, windowId, inv, tile, x, y, columns);
       // add the theoretically possible slots
       while (this.slots.size() < tile.getMaxInventory()) {
-        this.addSlot(this.createSlot(new EmptyHandler(), this.slots.size(), 0, 0));
+        throw new RuntimeException("CRAB!");
+        //TODO: PORT
+//        this.addSlot(this.createSlot(new EmptyHandler(), this.slots.size(), 0, 0));
       }
     }
-
-    @Override
-    protected Slot createSlot(IItemHandler inventory, int index, int x, int y) {
-      if (this.tile == null) {
-        return super.createSlot(inventory, index, x, y);
-      }
-      return new ChestSlot(this.tile, index, x, y);
-    }
+//
+//    @Override
+//    protected Slot createSlot(IItemHandler inventory, int index, int x, int y) {
+//      if (this.tile == null) {
+//        return super.createSlot(inventory, index, x, y);
+//      }
+//      return new ChestSlot(this.tile, index, x, y);
+//    }
   }
 
 
@@ -60,7 +60,9 @@ public class TinkerChestContainer extends BaseStationContainer<TinkerChestTileEn
 
     @Override
     public boolean canInsert(ItemStack stack) {
-      return this.chest.isValid(this.getSlotIndex(), stack);
+      System.out.println("Crab Warn TinkerChestContainer");
+      return true;
+//      return this.chest.isValid(this.getSlotIndex(), stack);
     }
   }
 }

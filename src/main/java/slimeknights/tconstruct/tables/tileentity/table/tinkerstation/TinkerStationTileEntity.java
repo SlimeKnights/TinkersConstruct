@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tables.tileentity.table.tinkerstation;
 
-import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,8 +12,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.world.GameRules;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.hooks.BasicEventHooks;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
@@ -22,7 +20,6 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
 import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
@@ -30,7 +27,6 @@ import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
 import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 import slimeknights.tconstruct.tables.tileentity.table.RetexturedTableTileEntity;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 
 public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
@@ -55,9 +51,9 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   }
 
   public TinkerStationTileEntity(int slots) {
-    super(TinkerTables.tinkerStationTile.get(), "gui.tconstruct.tinker_station", slots);
-    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
-    this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
+    super(TinkerTables.tinkerStationTile, "gui.tconstruct.tinker_station", slots);
+//    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
+//    this.itemHandlerCap = Optional.of(() -> this.itemHandler);
     this.inventoryWrapper = new TinkerStationInventoryWrapper(this);
     this.craftingResult = new LazyResultInventory(this);
   }

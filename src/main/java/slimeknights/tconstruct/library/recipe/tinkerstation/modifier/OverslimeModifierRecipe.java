@@ -9,7 +9,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Lazy;
-import slimeknights.mantle.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;

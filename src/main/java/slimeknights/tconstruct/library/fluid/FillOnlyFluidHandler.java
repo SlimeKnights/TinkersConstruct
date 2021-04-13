@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.fluid;
 
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-
 import org.jetbrains.annotations.NotNull;
+import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 
 /**
  * Fluid handler wrapper that only allows filling

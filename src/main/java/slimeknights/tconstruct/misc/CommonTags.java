@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
+import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 
 public class CommonTags {
 
@@ -15,4 +16,5 @@ public class CommonTags {
   public static final Tag<Item> LEATHER = TagRegistry.item(new Identifier("leather"));
     public static final Tag<Item> STONE = TagRegistry.item(new Identifier("stone"));
   public static final Tag<Item> SLIMEBALLS = TagRegistry.item(new Identifier("slimeballs"));
+  public static final Tag<Item> HEADS = TagRegistry.item(new Identifier("heads"));
 }

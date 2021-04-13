@@ -8,19 +8,19 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.ItemOutput;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.List;
 
@@ -82,7 +82,7 @@ public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
 
   @Override
   public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
-    return TinkerModifiers.beheadingSerializer.get();
+    return TinkerModifiers.beheadingSerializer;
   }
 
   @Override
@@ -98,7 +98,7 @@ public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   }
 
   /** Serializer for this recipe */
-  public static class Serializer extends RecipeSerializer<BeheadingRecipe> {
+  public static class Serializer implements RecipeSerializer<BeheadingRecipe> {
     @Override
     public BeheadingRecipe read(Identifier id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));

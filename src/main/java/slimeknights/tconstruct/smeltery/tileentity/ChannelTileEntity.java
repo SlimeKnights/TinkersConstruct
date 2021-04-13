@@ -14,7 +14,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Direction.Type;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
+import java.util.Optional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -44,18 +44,18 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	/** Channel internal tank */
 	private final ChannelTank tank = new ChannelTank(36, this);
 	/** Handler to return from channel top */
-	private final LazyOptional<IFluidHandler> topHandler = LazyOptional.of(() -> new FillOnlyFluidHandler(tank));
+	private final Optional<IFluidHandler> topHandler = Optional.of(() -> new FillOnlyFluidHandler(tank));
 	/** Tanks for inserting on each side */
-	private final Map<Direction,LazyOptional<IFluidHandler>> sideTanks = Util.make(new EnumMap<>(Direction.class), map -> {
+	private final Map<Direction,Optional<IFluidHandler>> sideTanks = Util.make(new EnumMap<>(Direction.class), map -> {
 		for (Direction direction : Type.HORIZONTAL) {
-			map.put(direction, LazyOptional.of(() -> new ChannelSideTank(this, tank, direction)));
+			map.put(direction, Optional.of(() -> new ChannelSideTank(this, tank, direction)));
 		}
 	});
 
 	/** Cache of tanks on all neighboring sides */
-	private final Map<Direction,LazyOptional<IFluidHandler>> neighborTanks = new EnumMap<>(Direction.class);
+	private final Map<Direction,Optional<IFluidHandler>> neighborTanks = new EnumMap<>(Direction.class);
 	/** Consumers to attach to each of the neighbors */
-	private final Map<Direction,NonNullConsumer<LazyOptional<IFluidHandler>>> neighborConsumers = new EnumMap<>(Direction.class);
+	private final Map<Direction,NonNullConsumer<Optional<IFluidHandler>>> neighborConsumers = new EnumMap<>(Direction.class);
 
 	/** Stores if the channel is currently flowing, set to 2 to allow a small buffer */
 	private final byte[] isFlowing = new byte[5];
@@ -86,7 +86,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	/* Fluid handlers */
 
 	@Override
-	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction side) {
+	public <T> Optional<T> getCapability(Capability<T> capability, @Nullable Direction side) {
 		// top side gets the insert direct
     if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       if (side == null || side == Direction.UP) {
@@ -106,18 +106,18 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	 * @param side  Side of the neighbor to fetch
 	 * @return  Fluid handler, or empty
 	 */
-	private LazyOptional<IFluidHandler> getNeighborHandlerUncached(Direction side) {
+	private Optional<IFluidHandler> getNeighborHandlerUncached(Direction side) {
 		assert world != null;
 		// must have a TE with a fluid handler
 		BlockEntity te = world.getBlockEntity(pos.offset(side));
 		if (te != null) {
-			LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
+			Optional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
 			if (handler.isPresent()) {
 				handler.addListener(neighborConsumers.computeIfAbsent(side, s -> new WeakConsumerWrapper<>(this, (self, lazy) -> self.neighborTanks.remove(s))));
 				return handler;
 			}
 		}
-		return LazyOptional.empty();
+		return Optional.empty();
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	 * @param side  Side of the neighbor to fetch
 	 * @return  Fluid handler, or empty
 	 */
-	protected LazyOptional<IFluidHandler> getNeighborHandler(Direction side) {
+	protected Optional<IFluidHandler> getNeighborHandler(Direction side) {
 		return neighborTanks.computeIfAbsent(side, this::getNeighborHandlerUncached);
 	}
 
@@ -142,7 +142,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	protected void invalidateCaps() {
 		super.invalidateCaps();
 		topHandler.invalidate();
-		for (LazyOptional<IFluidHandler> handler : sideTanks.values()) {
+		for (Optional<IFluidHandler> handler : sideTanks.values()) {
 			handler.invalidate();
 		}
 	}

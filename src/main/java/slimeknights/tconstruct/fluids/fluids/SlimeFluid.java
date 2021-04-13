@@ -5,20 +5,21 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
+import slimeknights.mantle.registration.object.MantleFluid;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import java.util.Random;
 
-public abstract class SlimeFluid extends ForgeFlowingFluid {
+public abstract class SlimeFluid extends MantleFluid.Flowing {
 
-  protected SlimeFluid(Properties properties) {
-    super(properties);
+  protected SlimeFluid(Item bucketItem, BlockState blockState) {
+    super(bucketItem, blockState);
   }
 
   @Override
@@ -56,8 +57,8 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
 
   public static class Flowing extends SlimeFluid {
 
-    public Flowing(Properties properties) {
-      super(properties);
+    public Flowing(Item bucketItem, BlockState blockState) {
+      super(bucketItem, blockState);
       this.setDefaultState(this.getStateManager().getDefaultState().with(LEVEL, 7));
     }
 
@@ -80,8 +81,8 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
 
   public static class Source extends SlimeFluid {
 
-    public Source(Properties properties) {
-      super(properties);
+    public Source(Item bucketItem, BlockState blockState) {
+      super(bucketItem, blockState);
     }
 
     @Override

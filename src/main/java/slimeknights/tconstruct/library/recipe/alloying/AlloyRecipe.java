@@ -1,27 +1,27 @@
 package slimeknights.tconstruct.library.recipe.alloying;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 
-import org.jetbrains.annotations.Nullable;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
@@ -92,7 +92,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
       // must not have used that fluid yet
       if (!used.get(i)) {
         fluid = inv.getFluidInTank(i);
-        if (checkSize ? ingredient.test(fluid) : ingredient.test(fluid.getFluid())) {
+        if (checkSize ? ingredient.test(fluid) : ingredient.test(fluid.getFluidKey())) {
           used.set(i);
           return i;
         }
@@ -135,7 +135,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
       int index = findMatch(ingredient, inv, used, true);
       if (index != -1) {
         fluid = inv.getFluidInTank(index);
-        drainAmount += ingredient.getAmount(fluid.getFluid());
+        drainAmount += ingredient.getAmount(fluid.getFluidKey()).as1620();
       } else {
         // no fluid matched this ingredient, match failed
         return false;
@@ -168,33 +168,33 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
       int index = findMatch(ingredient, inv, used, true);
       if (index != -1) {
         fluid = inv.getFluidInTank(index);
-        int amount = ingredient.getAmount(fluid.getFluid());
+        int amount = ingredient.getAmount(fluid.getFluidKey()).as1620();
         drainAmount += amount;
-        drainFluids.add(new FluidVolume(fluid, amount));
+        drainFluids.add(fluid.getFluidKey().withAmount(amount));
       } else {
         // no fluid matched this ingredient, match failed
         return;
       }
     }
-
-    // ensure there is space for the recipe
-    FluidVolume drained;
-    if (inv.canFit(output, drainAmount)) {
-      // drain each marked fluid
-      for (FluidVolume toDrain : drainFluids) {
-        drained = handler.drain(toDrain, FluidAction.EXECUTE);
-        // ensure the right amount of fluid was drained and skip to next ingredient
-        if (drained.getAmount() != toDrain.getAmount()) {
-          TConstruct.log.error("Wrong amount of fluid {} drained for recipe {}", drained, id);
-        }
-      }
-
-      // add the output
-      int filled = handler.fill(output.copy(), FluidAction.EXECUTE);
-      if (filled != output.getAmount()) {
-        TConstruct.log.error("Filled only {} for recipe {}", filled, id);
-      }
-    }
+    throw new RuntimeException("Crabs and recipes dont mix");
+//    // ensure there is space for the recipe
+//    FluidVolume drained;
+//    if (inv.canFit(output, drainAmount)) {
+//      // drain each marked fluid
+//      for (FluidVolume toDrain : drainFluids) {
+//        drained = handler.drain(toDrain, FluidAction.EXECUTE);
+//        // ensure the right amount of fluid was drained and skip to next ingredient
+//        if (drained.getAmount() != toDrain.getAmount()) {
+//          TConstruct.log.error("Wrong amount of fluid {} drained for recipe {}", drained, id);
+//        }
+//      }
+//
+//      // add the output
+//      int filled = handler.fill(output.copy(), FluidAction.EXECUTE);
+//      if (filled != output.getAmount()) {
+//        TConstruct.log.error("Filled only {} for recipe {}", filled, id);
+//      }
+//    }
   }
 
   @Override
@@ -204,13 +204,13 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
 
   @Override
   public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
-    return TinkerSmeltery.alloyingSerializer.get();
+    return TinkerSmeltery.alloyingSerializer;
   }
 
-  public static class Serializer extends RecipeSerializer<AlloyRecipe> {
+  public static class Serializer implements RecipeSerializer<AlloyRecipe> {
     @Override
     public AlloyRecipe read(Identifier id, JsonObject json) {
-      FluidVolume result = RecipeHelper.deserializeFluidVolume(net.minecraft.util.JsonHelper.getObject(json, "result"));
+      FluidVolume result = FluidVolume.fromJson(net.minecraft.util.JsonHelper.getObject(json, "result"));
       List<FluidIngredient> inputs = JsonHelper.parseList(json, "inputs", FluidIngredient::deserialize);
 
       // ensure result is not part of any inputs, that would be bad and not clear to the user whats happening
@@ -228,7 +228,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
 
     @Override
     public void write(PacketByteBuf buffer, AlloyRecipe recipe) {
-      buffer.writeFluidVolume(recipe.output);
+      recipe.output.toMcBuffer(buffer);
       buffer.writeVarInt(recipe.inputs.size());
       for (FluidIngredient input : recipe.inputs) {
         input.write(buffer);
@@ -239,14 +239,19 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     @Nullable
     @Override
     public AlloyRecipe read(Identifier id, PacketByteBuf buffer) {
-      FluidVolume output = buffer.readFluidVolume();
-      int inputCount = buffer.readVarInt();
-      ImmutableList.Builder<FluidIngredient> builder = ImmutableList.builder();
-      for (int i = 0; i < inputCount; i++) {
-        builder.add(FluidIngredient.read(buffer));
+      try {
+        FluidVolume output = FluidVolume.fromMcBuffer(buffer);
+
+        int inputCount = buffer.readVarInt();
+        ImmutableList.Builder<FluidIngredient> builder = ImmutableList.builder();
+        for (int i = 0; i < inputCount; i++) {
+          builder.add(FluidIngredient.read(buffer));
+        }
+        int temperature = buffer.readVarInt();
+        return new AlloyRecipe(id, builder.build(), output, temperature);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
       }
-      int temperature = buffer.readVarInt();
-      return new AlloyRecipe(id, builder.build(), output, temperature);
     }
   }
 }

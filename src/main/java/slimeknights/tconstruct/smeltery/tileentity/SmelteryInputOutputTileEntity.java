@@ -6,7 +6,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
+import java.util.Optional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -31,9 +31,9 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   /** Empty capability for in case the valid capability becomes invalid without invalidating */
   protected final T emptyInstance;
   /** Listener to attach to consumed capabilities */
-  protected final NonNullConsumer<LazyOptional<T>> listener = new WeakConsumerWrapper<>(this, (te, cap) -> te.clearHandler());
+  protected final NonNullConsumer<Optional<T>> listener = new WeakConsumerWrapper<>(this, (te, cap) -> te.clearHandler());
   @Nullable
-  private LazyOptional<T> capabilityHolder = null;
+  private Optional<T> capabilityHolder = null;
 
   protected SmelteryInputOutputTileEntity(BlockEntityType<?> type, Capability<T> capability, T emptyInstance) {
     super(type);
@@ -81,20 +81,20 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
    * @param parent  Parent tile entity
    * @return  Capability from parent, or empty if absent
    */
-  protected LazyOptional<T> getCapability(BlockEntity parent) {
-    LazyOptional<T> handler = parent.getCapability(capability);
+  protected Optional<T> getCapability(BlockEntity parent) {
+    Optional<T> handler = parent.getCapability(capability);
     if (handler.isPresent()) {
       handler.addListener(listener);
 
-      return LazyOptional.of(() -> handler.orElse(emptyInstance));
+      return Optional.of(() -> handler.orElse(emptyInstance));
     }
-    return LazyOptional.empty();
+    return Optional.empty();
   }
 
   /**
    * Fetches the capability handlers if missing
    */
-  private LazyOptional<T> getCachedCapability() {
+  private Optional<T> getCachedCapability() {
     if (capabilityHolder == null) {
       if (validateMaster()) {
         BlockPos master = getMasterPos();
@@ -106,13 +106,13 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
           }
         }
       }
-      capabilityHolder = LazyOptional.empty();
+      capabilityHolder = Optional.empty();
     }
     return capabilityHolder;
   }
 
   @Override
-  public <C> LazyOptional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
+  public <C> Optional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
     if (capability == this.capability) {
       return getCachedCapability().cast();
     }
@@ -126,21 +126,21 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
     }
 
     /** Wraps the given capability */
-    protected LazyOptional<IFluidHandler> makeWrapper(LazyOptional<IFluidHandler> capability) {
-      return LazyOptional.of(() -> capability.orElse(emptyInstance));
+    protected Optional<IFluidHandler> makeWrapper(Optional<IFluidHandler> capability) {
+      return Optional.of(() -> capability.orElse(emptyInstance));
     }
 
     @Override
-    protected LazyOptional<IFluidHandler> getCapability(BlockEntity parent) {
+    protected Optional<IFluidHandler> getCapability(BlockEntity parent) {
       // fluid capability is not exposed directly in the smeltery
       if (parent instanceof ISmelteryTankHandler) {
-        LazyOptional<IFluidHandler> capability = ((ISmelteryTankHandler) parent).getFluidCapability();
+        Optional<IFluidHandler> capability = ((ISmelteryTankHandler) parent).getFluidCapability();
         if (capability.isPresent()) {
           capability.addListener(listener);
           return makeWrapper(capability);
         }
       }
-      return LazyOptional.empty();
+      return Optional.empty();
     }
   }
 

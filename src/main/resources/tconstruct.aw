@@ -21,6 +21,9 @@ accessible  field   net/minecraft/client/render/entity/EntityRenderDispatcher  r
 
 accessible  field   net/minecraft/tag/ItemTags REQUIRED_TAGS Lnet/minecraft/tag/RequiredTagList;
 
+accessible  method  net/minecraft/client/particle/ParticleManager  registerFactory  (Lnet/minecraft/particle/ParticleType;Lnet/minecraft/client/particle/ParticleManager$SpriteAwareFactory;)V
+accessible class net/minecraft/client/particle/ParticleManager$SpriteAwareFactory
+
 accessible  field   net/minecraft/client/gui/screen/ingame/HandledScreen x I
 accessible  field   net/minecraft/client/gui/screen/ingame/HandledScreen y I
 
@@ -45,3 +48,17 @@ accessible  method  net/minecraft/data/server/RecipesProvider  conditionsFromIte
 accessible  method  net/minecraft/client/render/WorldRenderer  drawBlockOutline (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/entity/Entity;DDDLnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V
 
 accessible  method  net/minecraft/world/gen/stateprovider/BlockStateProviderType   <init>    (Lcom/mojang/serialization/Codec;)V
+
+accessible  method  net/minecraft/data/server/BlockLootTableGenerator  dropsWithShears  (Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/loot/LootTable$Builder;
+
+accessible  field   net/minecraft/client/network/ClientPlayerInteractionManager    currentBreakingProgress    F
+accessible  field   net/minecraft/client/render/WorldRenderer  bufferBuilders   Lnet/minecraft/client/render/BufferBuilderStorage;
+
+accessible  field   net/minecraft/entity/LivingEntity  lastDamageTaken  F
+
+accessible  method  net/minecraft/entity/damage/DamageSource   setFire ()Lnet/minecraft/entity/damage/DamageSource;
+
+accessible  method  net/minecraft/entity/damage/DamageSource  <init>    (Ljava/lang/String;)V
+
+accessible class net/minecraft/recipe/Ingredient$Entry
+

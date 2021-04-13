@@ -411,7 +411,7 @@ public class ToolStack implements IModifierToolStack {
   public ModDataNBT getPersistentData() {
     if (persistentModData == null) {
       // parse if the tag already exists
-      if (nbt.contains(TAG_PERSISTENT_MOD_DATA, NBT.TAG_COMPOUND)) {
+      if (nbt.contains(TAG_PERSISTENT_MOD_DATA, NbtType.COMPOUND)) {
         persistentModData = ModDataNBT.readFromNBT(nbt.getCompound(TAG_PERSISTENT_MOD_DATA));
       } else {
         // if no tag exists, create it
@@ -427,7 +427,7 @@ public class ToolStack implements IModifierToolStack {
   public IModDataReadOnly getVolatileData() {
     if (volatileModData == null) {
       // parse if the tag already exists
-      if (nbt.contains(TAG_VOLATILE_MOD_DATA, NBT.TAG_COMPOUND)) {
+      if (nbt.contains(TAG_VOLATILE_MOD_DATA, NbtType.COMPOUND)) {
         volatileModData = ModDataNBT.readFromNBT(nbt.getCompound(TAG_VOLATILE_MOD_DATA));
       } else {
         // if no tag exists, return empty

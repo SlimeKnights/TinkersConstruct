@@ -8,7 +8,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 public class ModifierChestTileEntity extends TinkerChestTileEntity {
   public ModifierChestTileEntity() {
     // max 64 stacks for the modifier chest
-    super(TinkerTables.modifierChestTile.get(), Util.makeTranslationKey("gui", "modifier_chest"), 64, 64);
+    super(TinkerTables.modifierChestTile, Util.makeTranslationKey("gui", "modifier_chest"), 64, 64);
   }
 
   @Override

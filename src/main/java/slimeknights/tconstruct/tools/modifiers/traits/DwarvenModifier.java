@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.minecraft.entity.player.PlayerEntity;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
@@ -15,11 +15,13 @@ public class DwarvenModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player) {
     // essentially just the line slope formula from (0, level + 1) to (SEA_LEVEL, 1), with a scal
-    float factor = Math.max(1f, (SEA_LEVEL - event.getPos().getY()) * level * (BOOST_AT_0 / SEA_LEVEL) + 1);
+    float factor = (float) Math.max(1f, (SEA_LEVEL - player.getPos().getY()) * level * (BOOST_AT_0 / SEA_LEVEL) + 1);
     if (factor > 1f) {
-      event.setNewSpeed(event.getNewSpeed() * factor);
+      throw new RuntimeException("crab!");
+      //TODO: PORTING
+//      player.setNewSpeed(player.getNewSpeed() * factor);
     }
   }
 }

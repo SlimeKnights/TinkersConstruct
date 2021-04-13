@@ -13,15 +13,15 @@ public class InsatibleModifier extends Modifier {
   @Override
   public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
     // gives +3 damage per level at max
-    int effectLevel = TinkerModifiers.insatiableEffect.get().getLevel(attacker) + 1;
+    int effectLevel = TinkerModifiers.insatiableEffect.getLevel(attacker) + 1;
     return damage + level * effectLevel / 3f;
   }
 
   @Override
   public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
     // 16 hits gets you to max, levels faster at higher levels
-    int effectLevel = Math.min(8, TinkerModifiers.insatiableEffect.get().getLevel(attacker) + 1);
-    TinkerModifiers.insatiableEffect.get().apply(attacker, 5 * 20, effectLevel);
+    int effectLevel = Math.min(8, TinkerModifiers.insatiableEffect.getLevel(attacker) + 1);
+    TinkerModifiers.insatiableEffect.apply(attacker, 5 * 20, effectLevel);
     return 0;
   }
 }

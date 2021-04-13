@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import lombok.Getter;
@@ -7,15 +9,14 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.Lazy;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Lazy;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.IMultiRecipe;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -60,8 +61,8 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     this.fluid = fluid;
     this.outputId = outputId;
     this.coolingTemperature = coolingTemperature;
-    this.inputMaterial = Lazy.of(() -> MaterialRegistry.getMaterial(this.inputId));
-    this.outputMaterial = Lazy.of(() -> MaterialRegistry.getMaterial(this.outputId));
+    this.inputMaterial = new Lazy(() -> MaterialRegistry.getMaterial(this.inputId));
+    this.outputMaterial = new Lazy(() -> MaterialRegistry.getMaterial(this.outputId));
   }
 
   /**
@@ -73,7 +74,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
 
   @Override
   public boolean matches(ICastingInventory inv, World worldIn) {
-    if (!fluid.test(inv.getFluid())) {
+    if (!fluid.test(FluidKeys.get(inv.getFluid()))) {
       return false;
     }
 
@@ -90,7 +91,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
   public int getFluidAmount(ICastingInventory inv) {
     Item item = inv.getStack().getItem();
     if (item instanceof IMaterialItem) {
-      return fluid.getAmount(inv.getFluid()) * getMaterialItemCost((IMaterialItem) item);
+      return fluid.getAmount(FluidKeys.get(inv.getFluid())).mul(getMaterialItemCost((IMaterialItem) item)).as1620();
     }
     return 0;
   }
@@ -115,14 +116,14 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     return false;
   }
 
-  @Override
-  public ItemStack getCraftingResult(ICastingInventory inv) {
-    Item item = inv.getStack().getItem();
-    if (item instanceof IMaterialItem) {
-      return ((IMaterialItem)item).getItemstackWithMaterial(outputMaterial.get());
-    }
-    return ItemStack.EMPTY;
-  }
+//  @Override
+//  public ItemStack getCraftingResult(ICastingInventory inv) {
+//    Item item = inv.getStack().getItem();
+//    if (item instanceof IMaterialItem) {
+//      return ((IMaterialItem)item).getItemstackWithMaterial(outputMaterial.get());
+//    }
+//    return ItemStack.EMPTY;
+//  }
 
   /**
    * Base logic to get and cache a list of recipes for the given parts list
@@ -143,7 +144,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
                               int partCost = entry.getIntValue();
                               if (partCost != 1) {
                                 recipeFluids = recipeFluids.stream()
-                                                           .map(fluid -> new FluidVolume(fluid, fluid.getAmount() * partCost))
+                                                           .map(fluid -> FluidVolume.create(fluid.getFluidKey(), fluid.getAmount() * partCost))
                                                            .collect(Collectors.toList());
                               }
                               return new DisplayCastingRecipe(getType(), Collections.singletonList(part.getItemstackWithMaterial(inputMaterial.get())), recipeFluids,
@@ -176,7 +177,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
 
     @Override
     public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.basinCompositeSerializer.get();
+      return TinkerSmeltery.basinCompositeSerializer;
     }
 
     @Override
@@ -198,7 +199,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
 
     @Override
     public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.tableCompositeSerializer.get();
+      return TinkerSmeltery.tableCompositeSerializer;
     }
 
     @Override
@@ -214,7 +215,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
 
   /** Serializer for casting tables and basins */
   @RequiredArgsConstructor
-  public static class Serializer<T extends CompositeCastingRecipe> extends RecipeSerializer<T> {
+  public static class Serializer<T extends CompositeCastingRecipe> implements RecipeSerializer<T> {
     private final IFactory<T> factory;
 
     @Override

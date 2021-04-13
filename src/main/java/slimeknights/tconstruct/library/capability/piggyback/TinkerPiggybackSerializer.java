@@ -10,7 +10,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.LazyOptional;
+import java.util.Optional;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -21,22 +21,22 @@ public class TinkerPiggybackSerializer implements ICapabilitySerializable<Compou
 
   private final PlayerEntity player;
   private final ITinkerPiggyback piggyback;
-  private final LazyOptional<ITinkerPiggyback> providerCap;
+  private final Optional<ITinkerPiggyback> providerCap;
 
   public TinkerPiggybackSerializer(@NotNull PlayerEntity player) {
     this.player = player;
     this.piggyback = new TinkerPiggybackHandler();
     this.piggyback.setRiddenPlayer(player);
-    this.providerCap = LazyOptional.of(() -> this.piggyback);
+    this.providerCap = Optional.of(() -> this.piggyback);
   }
 
   @NotNull
   @Override
-  public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+  public <T> Optional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
     if (cap == CapabilityTinkerPiggyback.PIGGYBACK) {
       return this.providerCap.cast();
     }
-    return LazyOptional.empty();
+    return Optional.empty();
   }
 
   @Override

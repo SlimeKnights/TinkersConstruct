@@ -13,9 +13,9 @@ public class PartBuilderBlock extends RetexturedTableBlock {
     super(builder);
   }
 
-  @NotNull
-  @Override
-  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
-    return new PartBuilderTileEntity();
-  }
+//  @NotNull
+//  @Override
+//  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
+//    return new PartBuilderTileEntity();
+//  }
 }

@@ -155,6 +155,6 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return TinkerTables.tinkerStationPartSwappingSerializer.get();
+    return TinkerTables.tinkerStationPartSwappingSerializer;
   }
 }

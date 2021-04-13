@@ -24,7 +24,7 @@ public class SledgeHammerTool extends HarvestTool {
     }
     boolean hit = super.dealDamage(tool, player, entity, damage, isCriticalHit, fullyCharged);
     if (hit && fullyCharged) {
-      ToolAttackUtil.spawnAttachParticle(TinkerTools.hammerAttackParticle.get(), player, 0.8d);
+      ToolAttackUtil.spawnAttachParticle(TinkerTools.hammerAttackParticle, player, 0.8d);
     }
 
     return hit;

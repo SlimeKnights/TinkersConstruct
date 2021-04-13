@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -80,7 +80,7 @@ public class MaintainedModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {
-    event.setNewSpeed(event.getNewSpeed() * (1 + getTotalBoost(tool, level)));
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player) {
+//    player.setNewSpeed(player.getNewSpeed() * (1 + getTotalBoost(tool, level)));
   }
 }

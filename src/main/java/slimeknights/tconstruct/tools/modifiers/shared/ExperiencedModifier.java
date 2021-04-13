@@ -4,20 +4,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.TypedActionResult;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
-import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import slimeknights.tconstruct.event.LivingEntityDropXpCallback;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-
-import java.util.function.Consumer;
 
 public class ExperiencedModifier extends Modifier {
   public ExperiencedModifier() {
     super(0xe8db49);
     LivingEntityDropXpCallback.EVENT.register(this::onEntityDropXp);
-    MinecraftForge.EVENT_BUS.addListener((Consumer<BreakEvent>)this::beforeBlockBreak);
+    //TODO: porting
+//    MinecraftForge.EVENT_BUS.addListener((Consumer<BreakEvent>)this::beforeBlockBreak);
   }
 
   /**
@@ -34,19 +30,18 @@ public class ExperiencedModifier extends Modifier {
    * Used to modify the XP dropped, regular hook is just for canceling
    * @param event  Event
    */
-  private void beforeBlockBreak(BreakEvent event) {
-    ToolStack tool = getHeldTool(event.getPlayer());
-    if (tool != null) {
-      int level = tool.getModifierLevel(this);
-      if (level > 0) {
-        event.setExpToDrop(boost(event.getExpToDrop(), level));
-      }
-    }
-  }
+//  private void beforeBlockBreak(BreakEvent event) {
+//    ToolStack tool = getHeldTool(event.getPlayer());
+//    if (tool != null) {
+//      int level = tool.getModifierLevel(this);
+//      if (level > 0) {
+//        event.setExpToDrop(boost(event.getExpToDrop(), level));
+//      }
+//    }
+//  }
 
   /**
    * Event handled locally as its pretty specialized
-   * @param event  Event
    */
   private TypedActionResult<Integer> onEntityDropXp(LivingEntity entity, DamageSource source, int expToDrop) {
     Entity attackerEntity = source.getAttacker();

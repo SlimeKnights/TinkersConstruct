@@ -6,18 +6,17 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.mantle.recipe.ItemOutput;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-
-import org.jetbrains.annotations.Nullable;
 
 /** Recipe to combine two items on the top of a casting table, changing the first */
 @RequiredArgsConstructor
@@ -54,7 +53,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
 
     @Override
     public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.moldingTableSerializer.get();
+      return TinkerSmeltery.moldingTableSerializer;
     }
 
     @Override
@@ -71,7 +70,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
 
     @Override
     public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.moldingBasinSerializer.get();
+      return TinkerSmeltery.moldingBasinSerializer;
     }
 
     @Override
@@ -88,7 +87,7 @@ public abstract class MoldingRecipe implements ICommonRecipe<IMoldingInventory> 
 
   /** Generic serializer to both types */
   @RequiredArgsConstructor
-  public static class Serializer<T extends MoldingRecipe> extends RecipeSerializer<T> {
+  public static class Serializer<T extends MoldingRecipe> implements RecipeSerializer<T> {
     private final IFactory<T> factory;
 
     @Override

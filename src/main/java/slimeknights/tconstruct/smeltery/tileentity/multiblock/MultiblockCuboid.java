@@ -330,7 +330,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
   protected static Collection<BlockPos> readPosList(CompoundTag rootTag, String key) {
     List<BlockPos> collection;
     if (rootTag.contains(key, NBT.TAG_LIST)) {
-      ListTag list = rootTag.getList(key, NBT.TAG_COMPOUND);
+      ListTag list = rootTag.getList(key, NbtType.COMPOUND);
       collection = new ArrayList<>(list.size());
       for (int i = 0; i < list.size(); i++) {
         BlockPos pos = TagUtil.readPos(list.getCompound(i));

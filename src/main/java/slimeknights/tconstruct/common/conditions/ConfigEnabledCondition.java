@@ -54,18 +54,15 @@ public class ConfigEnabledCondition implements ICondition, LootCondition {
     return TinkerCommons.lootConfig;
   }
 
-  private static class Serializer implements JsonSerializer<ConfigEnabledCondition>, IConditionSerializer<ConfigEnabledCondition> {
-    @Override
+  private static class Serializer implements JsonSerializer<ConfigEnabledCondition> {
     public Identifier getID() {
       return ID;
     }
 
-    @Override
     public void write(JsonObject json, ConfigEnabledCondition value) {
       json.addProperty("prop", value.configName);
     }
 
-    @Override
     public ConfigEnabledCondition read(JsonObject json) {
       String prop = JsonHelper.getString(json, "prop");
       ConfigEnabledCondition config = PROPS.get(prop.toLowerCase(Locale.ROOT));

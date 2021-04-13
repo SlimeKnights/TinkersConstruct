@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -38,8 +39,8 @@ public class FuelModule implements PropertyDelegate {
   public static final int SOLID_TEMPERATURE = 800;
 
   /** Listener to attach to stored capability */
-  private final NonNullConsumer<LazyOptional<IFluidHandler>> fluidListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
-  private final NonNullConsumer<LazyOptional<IItemHandler>> itemListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
+  private final NonNullConsumer<Optional<IFluidHandler>> fluidListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
+  private final NonNullConsumer<Optional<IItemHandler>> itemListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
 
   /** Parent TE */
   private final MantleTileEntity parent;
@@ -51,19 +52,19 @@ public class FuelModule implements PropertyDelegate {
   private MeltingFuel lastRecipe;
   /** Last fluid handler where fluid was extracted */
   @Nullable
-  private LazyOptional<IFluidHandler> fluidHandler;
+  private Optional<IFluidHandler> fluidHandler;
   /** Last item handler where items were extracted */
   @Nullable
-  private LazyOptional<IItemHandler> itemHandler;
+  private Optional<IItemHandler> itemHandler;
   /** Position of the last fluid handler */
   @Nullable
   private BlockPos lastPos = null;
 
 
   /** Client fuel display */
-  private List<LazyOptional<IFluidHandler>> tankDisplayHandlers;
+  private List<Optional<IFluidHandler>> tankDisplayHandlers;
   /** Listener to attach to display capabilities */
-  private final NonNullConsumer<LazyOptional<IFluidHandler>> displayListener = new WeakConsumerWrapper<>(this, (self, cap) -> {
+  private final NonNullConsumer<Optional<IFluidHandler>> displayListener = new WeakConsumerWrapper<>(this, (self, cap) -> {
     if (self.tankDisplayHandlers != null) {
       self.tankDisplayHandlers.remove(cap);
     }
@@ -132,10 +133,10 @@ public class FuelModule implements PropertyDelegate {
   /* Fuel updating */
 
   /* Cache of objects, since they are otherwise created possibly several times */
-  private final NonNullFunction<IItemHandler,Integer> trySolidFuelConsume = handler -> trySolidFuel(handler, true);
-  private final NonNullFunction<IItemHandler,Integer> trySolidFuelNoConsume = handler -> trySolidFuel(handler, false);
-  private final NonNullFunction<IFluidHandler,Integer> tryLiquidFuelConsume = handler -> tryLiquidFuel(handler, true);
-  private final NonNullFunction<IFluidHandler,Integer> tryLiquidFuelNoConsume = handler -> tryLiquidFuel(handler, false);
+  private final Function<IItemHandler,Integer> trySolidFuelConsume = handler -> trySolidFuel(handler, true);
+  private final Function<IItemHandler,Integer> trySolidFuelNoConsume = handler -> trySolidFuel(handler, false);
+  private final Function<IFluidHandler,Integer> tryLiquidFuelConsume = handler -> tryLiquidFuel(handler, true);
+  private final Function<IFluidHandler,Integer> tryLiquidFuelNoConsume = handler -> tryLiquidFuel(handler, false);
 
   /**
    * Tries to consume fuel from the given fluid handler
@@ -169,7 +170,7 @@ public class FuelModule implements PropertyDelegate {
    * @param consume  If true, fuel is consumed
    * @return Mapper function for solid fuel
    */
-  private NonNullFunction<IItemHandler,Integer> trySolidFuel(boolean consume) {
+  private Function<IItemHandler,Integer> trySolidFuel(boolean consume) {
     return consume ? trySolidFuelConsume : trySolidFuelNoConsume;
   }
 
@@ -207,7 +208,7 @@ public class FuelModule implements PropertyDelegate {
    * @param consume  If true, fuel is consumed
    * @return Mapper function for liquid fuel
    */
-  private NonNullFunction<IFluidHandler,Integer> tryLiquidFuel(boolean consume) {
+  private Function<IFluidHandler,Integer> tryLiquidFuel(boolean consume) {
     return consume ? tryLiquidFuelConsume : tryLiquidFuelNoConsume;
   }
 
@@ -220,7 +221,7 @@ public class FuelModule implements PropertyDelegate {
     BlockEntity te = getWorld().getBlockEntity(pos);
     if (te != null) {
       // if we find a valid cap, try to consume fuel from it
-      LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+      Optional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
       Optional<Integer> temperature = capability.map(tryLiquidFuel(consume));
       if (temperature.isPresent()) {
         itemHandler = null;
@@ -230,7 +231,7 @@ public class FuelModule implements PropertyDelegate {
         return temperature.get();
       } else {
         // if we find a valid item cap, consume fuel from that
-        LazyOptional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+        Optional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
         temperature = itemCap.map(trySolidFuel(consume));
         if (temperature.isPresent()) {
           fluidHandler = null;
@@ -419,12 +420,12 @@ public class FuelModule implements PropertyDelegate {
     if (fluidHandler == null && itemHandler == null) {
       BlockEntity te = getWorld().getBlockEntity(mainTank);
       if (te != null) {
-        LazyOptional<IFluidHandler> fluidCap = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+        Optional<IFluidHandler> fluidCap = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
         if (fluidCap.isPresent()) {
           fluidHandler = fluidCap;
           fluidHandler.addListener(fluidListener);
         } else {
-          LazyOptional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+          Optional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
           if (itemCap.isPresent()) {
             itemHandler = itemCap;
             itemHandler.addListener(itemListener);
@@ -433,8 +434,8 @@ public class FuelModule implements PropertyDelegate {
       }
     }
     // ensure all handlers are set
-    if (fluidHandler == null) fluidHandler = LazyOptional.empty();
-    if (itemHandler == null) itemHandler = LazyOptional.empty();
+    if (fluidHandler == null) fluidHandler = Optional.empty();
+    if (itemHandler == null) itemHandler = Optional.empty();
 
     // if its an item, stop here
     if (itemHandler.isPresent()) {
@@ -466,7 +467,7 @@ public class FuelModule implements PropertyDelegate {
           if (!pos.equals(mainTank)) {
             BlockEntity te = world.getBlockEntity(pos);
             if (te != null) {
-              LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+              Optional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
               if (handler.isPresent()) {
                 handler.addListener(displayListener);
                 tankDisplayHandlers.add(handler);
@@ -478,7 +479,7 @@ public class FuelModule implements PropertyDelegate {
 
       // add display info from each handler
       FluidVolume currentFuel = info.getFluid();
-      for (LazyOptional<IFluidHandler> capability : tankDisplayHandlers) {
+      for (Optional<IFluidHandler> capability : tankDisplayHandlers) {
         capability.ifPresent(handler -> {
           // sum if empty (more capacity) or the same fluid (more amount and capacity)
           FluidVolume fluid = handler.getFluidInTank(0);

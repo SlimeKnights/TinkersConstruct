@@ -13,9 +13,9 @@ public class CraftingStationBlock extends RetexturedTableBlock {
     super(builder);
   }
 
-  @NotNull
-  @Override
-  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
-    return new CraftingStationTileEntity();
-  }
+//  @NotNull
+//  @Override
+//  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
+//    return new CraftingStationTileEntity();
+//  }
 }

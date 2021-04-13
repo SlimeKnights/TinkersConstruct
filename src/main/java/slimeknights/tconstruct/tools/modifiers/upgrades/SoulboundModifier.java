@@ -1,34 +1,25 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.GameRules;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-
-import java.util.Iterator;
 
 public class SoulboundModifier extends SingleUseModifier {
   public SoulboundModifier() {
     super(0xD1A75D);
     // high priority so we do it before other possibly death-inventory-modifying mods
 
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, this::onPlayerDeath);
+    //TODO: PORTING
+//    MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, this::onPlayerDeath);
     ServerPlayerEvents.COPY_FROM.register(this::onPlayerClone);
   }
 
   /** Called when the player dies to store the item in the original inventory */
-  private void onPlayerDeath(LivingDropsEvent event) {
+/*  private void onPlayerDeath(LivingDropsEvent event) {
     if (event.isCanceled()) {
       return;
     }
@@ -50,7 +41,7 @@ public class SoulboundModifier extends SingleUseModifier {
         }
       }
     }
-  }
+  }*/
 
   /** Called when the new player is created to fetch the soulbound item from the old */
   private void onPlayerClone(ServerPlayerEntity original, ServerPlayerEntity clone, boolean alive) {

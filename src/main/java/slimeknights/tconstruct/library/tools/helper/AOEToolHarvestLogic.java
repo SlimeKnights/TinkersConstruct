@@ -21,9 +21,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.Constants.WorldEvents;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -44,7 +41,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
   protected final int height;
   protected final int depth;
 
-  AOEToolHarvestLogic(int width, int height, int depth) {
+  public AOEToolHarvestLogic(int width, int height, int depth) {
     this.width = width;
     this.height = height;
     this.depth = depth;

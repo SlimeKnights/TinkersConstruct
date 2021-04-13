@@ -1,15 +1,14 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import com.google.gson.JsonObject;
-
+import lombok.experimental.Accessors;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
-
 import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 
@@ -64,7 +63,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
    * Seralizer for {@link ItemCastingRecipe}.
    * @param <T>  Casting recipe class type
    */
-  public abstract static class Serializer<T extends AbstractCastingRecipe> extends RecipeSerializer<T> {
+  public abstract static class Serializer<T extends AbstractCastingRecipe> implements RecipeSerializer<T> {
     public Serializer() {
     }
 

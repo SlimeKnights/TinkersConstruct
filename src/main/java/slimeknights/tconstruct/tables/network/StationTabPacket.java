@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tables.network;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
@@ -8,7 +9,6 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
@@ -31,7 +31,7 @@ public class StationTabPacket implements IThreadsafePacket {
 
   @Override
   public void handleThreadsafe(PlayerEntity player, PacketSender context) {
-    ServerPlayerEntity sender = context.getSender();
+    ServerPlayerEntity sender = (ServerPlayerEntity) player;
     if (sender != null) {
       ItemStack heldStack = sender.inventory.getCursorStack();
       if (!heldStack.isEmpty()) {
@@ -45,7 +45,9 @@ public class StationTabPacket implements IThreadsafePacket {
       } else {
         NamedScreenHandlerFactory provider = state.createScreenHandlerFactory(sender.getEntityWorld(), pos);
         if (provider != null) {
-          NetworkHooks.openGui(sender, provider, pos);
+          throw new RuntimeException("CRAB!");
+          //TODO: PORT
+//          NetworkHooks.openGui(sender, provider, pos);
         }
       }
 

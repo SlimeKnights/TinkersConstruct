@@ -11,6 +11,7 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.registry.Registry;
 import slimeknights.tconstruct.library.TinkerRegistries;
 
 import java.lang.reflect.Type;
@@ -73,7 +74,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Read entry
    */
   public static ModifierEntry read(PacketByteBuf buffer) {
-    return new ModifierEntry(buffer.readRegistryIdUnsafe(TinkerRegistries.MODIFIERS), buffer.readVarInt());
+    return new ModifierEntry(TinkerRegistries.MODIFIERS.get(buffer.readVarInt()), buffer.readVarInt());
   }
 
   /**
@@ -81,7 +82,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @param buffer  Buffer instance
    */
   public void write(PacketByteBuf buffer) {
-    buffer.writeRegistryIdUnsafe(TinkerRegistries.MODIFIERS, modifier);
+    buffer.writeVarInt(TinkerRegistries.MODIFIERS.getRawId(modifier));
     buffer.writeVarInt(level);
   }
 

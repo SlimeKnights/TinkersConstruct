@@ -11,7 +11,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.common.util.LazyOptional;
+import java.util.Optional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.tileentity.NamableTileEntity;
@@ -28,7 +28,7 @@ public class HeaterTileEntity extends NamableTileEntity {
   private static final Text TITLE = new TranslatableText(Util.makeTranslationKey("gui", "heater"));
 
   private final HeaterItemHandler itemHandler = new HeaterItemHandler(this);
-  private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> itemHandler);
+  private final Optional<IItemHandler> itemCapability = Optional.of(() -> itemHandler);
 
   protected HeaterTileEntity(BlockEntityType<?> type) {
     super(type, TITLE);
@@ -48,7 +48,7 @@ public class HeaterTileEntity extends NamableTileEntity {
   /* Capability */
 
   @Override
-  public <C> LazyOptional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
+  public <C> Optional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
     if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
       return itemCapability.cast();
     }
@@ -67,7 +67,7 @@ public class HeaterTileEntity extends NamableTileEntity {
   @Override
   public void fromTag(BlockState state, CompoundTag tags) {
     super.fromTag(state, tags);
-    if (tags.contains(TAG_ITEM, NBT.TAG_COMPOUND)) {
+    if (tags.contains(TAG_ITEM, NbtType.COMPOUND)) {
       itemHandler.readFromNBT(tags.getCompound(TAG_ITEM));
     }
   }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tables.network;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.util.Identifier;

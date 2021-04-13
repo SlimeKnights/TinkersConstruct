@@ -11,6 +11,7 @@ import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.item.Item;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraftforge.client.model.IModelConfiguration;
@@ -48,7 +49,7 @@ public class TableModel implements IModelGeometry<TableModel> {
   /** Baked model instance */
   public static class BakedModel extends RetexturedModel.BakedModel {
     @Getter
-    private final List<ModelItem> items;
+    private final List<Item> items;
     protected BakedModel(net.minecraft.client.render.model.BakedModel baked, IModelConfiguration owner, SimpleBlockModel model, ModelBakeSettings transform, Set<String> retextured, List<ModelItem> items) {
       super(baked, owner, model, transform, retextured);
       this.items = items;

@@ -24,10 +24,10 @@ public class BleedingEffect extends TinkerEffect {
     super(StatusEffectType.HARMFUL, 0xa80000, false);
   }
 
-  @Override
-  public List<ItemStack> getCurativeItems() {
-    return new ArrayList<>();
-  }
+//  @Override
+//  public List<ItemStack> getCurativeItems() {
+//    return new ArrayList<>();
+//  }
 
   @Override
   public boolean canApplyUpdateEffect(int tick, int level) {

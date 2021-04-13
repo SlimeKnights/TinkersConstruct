@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.common.network;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 
@@ -45,9 +46,7 @@ public class EntityMovementChangePacket implements IThreadsafePacket {
 
   @Override
   public void handleThreadsafe(PlayerEntity player, PacketSender context) {
-    if (context.getSender() != null) {
-      HandleClient.handle(this);
-    }
+    HandleClient.handle(this);
   }
 
   /** Safely runs client side only code in a method only called on client */

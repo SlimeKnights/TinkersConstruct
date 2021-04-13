@@ -2,20 +2,19 @@ package slimeknights.tconstruct.library.recipe.material;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import slimeknights.mantle.recipe.RecipeSerializer;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
-import org.jetbrains.annotations.Nullable;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Identifier;
-
 /**
  * Serialiser for {@link MaterialRecipe}
  */
-public class MaterialRecipeSerializer extends RecipeSerializer<MaterialRecipe> {
+public class MaterialRecipeSerializer implements RecipeSerializer<MaterialRecipe> {
   /**
    * Gets a material ID from JSON
    * @param json  Json parent

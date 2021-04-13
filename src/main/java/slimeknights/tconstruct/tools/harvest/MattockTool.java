@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.harvest;
 
 import com.google.common.collect.Sets;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.item.ItemStack;
@@ -33,10 +34,12 @@ public class MattockTool extends ToolCore {
       }
       // slower when a non-shovel block
       float speed = tool.getStats().getMiningSpeed();
-      if (!blockState.isToolEffective(FabricToolTags.SHOVELS)) {
-        speed *= 0.75f;
-      }
-      return speed;
+      throw new RuntimeException("What the fuck. Crab!");
+      //TODO: fabric can be a bitch. PORT
+//      if (!blockState.getBlock().miningLevel == isToolEffective(FabricToolTags.SHOVELS)) {
+//        speed *= 0.75f;
+//      }
+//      return speed;
     }
   };
 

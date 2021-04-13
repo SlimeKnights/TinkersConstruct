@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -14,13 +15,14 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -80,7 +82,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
 
   @Override
   public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
-    return TinkerSmeltery.entityMeltingSerializer.get();
+    return TinkerSmeltery.entityMeltingSerializer;
   }
 
   @Override
@@ -96,11 +98,11 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
   }
 
   /** Serializer for this recipe */
-  public static class Serializer extends RecipeSerializer<EntityMeltingRecipe> {
+  public static class Serializer implements RecipeSerializer<EntityMeltingRecipe> {
     @Override
     public EntityMeltingRecipe read(Identifier id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
-      FluidVolume output = RecipeHelper.deserializeFluidVolume(net.minecraft.util.JsonHelper.getObject(json, "result"));
+      FluidVolume output = FluidVolume.fromJson(net.minecraft.util.JsonHelper.getObject(json, "result"));
       int damage = net.minecraft.util.JsonHelper.getInt(json, "damage", 2);
       return new EntityMeltingRecipe(id, ingredient, output, damage);
     }
@@ -108,16 +110,20 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
     @Nullable
     @Override
     public EntityMeltingRecipe read(Identifier id, PacketByteBuf buffer) {
-      EntityIngredient ingredient = EntityIngredient.read(buffer);
-      FluidVolume output = buffer.readFluidVolume();
-      int damage = buffer.readVarInt();
-      return new EntityMeltingRecipe(id, ingredient, output, damage);
+      try {
+        EntityIngredient ingredient = EntityIngredient.read(buffer);
+        FluidVolume output = FluidVolume.fromMcBuffer(buffer);
+        int damage = buffer.readVarInt();
+        return new EntityMeltingRecipe(id, ingredient, output, damage);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
     }
 
     @Override
     public void write(PacketByteBuf buffer, EntityMeltingRecipe recipe) {
       recipe.ingredient.write(buffer);
-      buffer.writeFluidVolume(recipe.output);
+      recipe.output.toMcBuffer(buffer);
       buffer.writeVarInt(recipe.damage);
     }
   }

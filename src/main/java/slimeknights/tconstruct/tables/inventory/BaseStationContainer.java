@@ -15,14 +15,12 @@ import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-
-import net.minecraftforge.fml.DistExecutor;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.inventory.MultiModuleContainer;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.ArrayDeque;
 import java.util.Comparator;
 import java.util.List;
@@ -100,7 +98,7 @@ public class BaseStationContainer<TILE extends BlockEntity & Inventory> extends 
     if (this.tile != null) {
       if (this.tile.getWorld() != null) {
         if (this.tile.getWorld().isClient) {
-          DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> BaseStationContainer::clientScreenUpdate);
+          BaseStationContainer.clientScreenUpdate();
         }
       }
     }
@@ -113,7 +111,7 @@ public class BaseStationContainer<TILE extends BlockEntity & Inventory> extends 
     if (this.tile != null) {
       if (this.tile.getWorld() != null) {
         if (this.tile.getWorld().isClient) {
-          DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientError(message));
+          BaseStationContainer.clientError(message);
         }
       }
     }
@@ -126,7 +124,7 @@ public class BaseStationContainer<TILE extends BlockEntity & Inventory> extends 
     if (this.tile != null) {
       if (this.tile.getWorld() != null) {
         if (this.tile.getWorld().isClient) {
-          DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientWarning(message));
+          BaseStationContainer.clientWarning(message);
         }
       }
     }

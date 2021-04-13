@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.tables.network;
 
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraftforge.fml.network.NetworkEvent;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
@@ -49,7 +50,7 @@ public class UpdateStationScreenPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(NetworkEvent.Context context) {
+  public void handleThreadsafe(PlayerEntity context, PacketSender sender) {
     HandleClient.handle(this);
   }
 

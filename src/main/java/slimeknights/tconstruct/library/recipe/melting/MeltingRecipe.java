@@ -14,7 +14,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeSerializer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import org.jetbrains.annotations.Nullable;

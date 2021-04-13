@@ -70,8 +70,8 @@ public final class TinkerGadgets extends TinkerModule {
    */
   private static final Item.Settings GADGET_PROPS = new Item.Settings().group(TAB_GADGETS);
   private static final Item.Settings UNSTACKABLE_PROPS = new Item.Settings().group(TAB_GADGETS).maxCount(1);
-  private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GADGET_PROPS);
-  private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GADGET_PROPS);
+  private static final Function<Block, BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GADGET_PROPS);
+  private static final Function<Block, BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GADGET_PROPS);
 
   /*
    * Blocks

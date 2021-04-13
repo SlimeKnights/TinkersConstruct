@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.harvest;
 
 import com.google.common.collect.Sets;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -8,11 +9,12 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
@@ -22,7 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.common.IForgeShearable;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -31,7 +32,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -51,7 +51,7 @@ public class KamaTool extends HarvestTool {
   @Override
   public ActionResult useOnEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     // only run AOE on shearable entities
-    if (target instanceof IForgeShearable) {
+    if (target instanceof SheepEntity) {
       int fortune = EnchantmentHelper.getLevel(Enchantments.FORTUNE, stack);
 
       ToolStack tool = ToolStack.from(stack);
@@ -87,26 +87,28 @@ public class KamaTool extends HarvestTool {
    * @return if the sheering of the entity was performed or not
    */
   private boolean shearEntity(ItemStack itemStack, World world, PlayerEntity playerEntity, Entity entity, int fortune) {
-    if (!(entity instanceof IForgeShearable)) {
+    if (!(entity instanceof SheepEntity)) {
       return false;
     }
 
-    IForgeShearable target = (IForgeShearable) entity;
+    SheepEntity target = (SheepEntity) entity;
 
-    if (target.isShearable(itemStack, world, entity.getBlockPos())) {
+    if (target.isShearable()) {
       if (!world.isClient) {
-        List<ItemStack> drops = target.onSheared(playerEntity, itemStack, world, entity.getBlockPos(), fortune);
-        Random rand = world.random;
-
-        drops.forEach(d -> {
-          ItemEntity ent = entity.dropStack(d, 1.0F);
-
-          if (ent != null) {
-            ent.setVelocity(ent.getVelocity().add((rand.nextFloat() - rand.nextFloat()) * 0.1F, rand.nextFloat() * 0.05F, (rand.nextFloat() - rand.nextFloat()) * 0.1F));
-          }
-        });
+        target.sheared(SoundCategory.NEUTRAL);
       }
-      return true;
+//        List<ItemStack> drops = target.shea(playerEntity, itemStack, world, entity.getBlockPos(), fortune);
+//        Random rand = world.random;
+//
+//        drops.forEach(d -> {
+//          ItemEntity ent = entity.dropStack(d, 1.0F);
+//
+//          if (ent != null) {
+//            ent.setVelocity(ent.getVelocity().add((rand.nextFloat() - rand.nextFloat()) * 0.1F, rand.nextFloat() * 0.05F, (rand.nextFloat() - rand.nextFloat()) * 0.1F));
+//          }
+//        });
+//      }
+//      return true;
     }
 
     return false;
@@ -182,7 +184,7 @@ public class KamaTool extends HarvestTool {
       }
 
       // include depth in boost
-      int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
+      int expanded = tool.getModifierLevel(TinkerModifiers.expanded);
       return calculateAOEBlocks(player, origin, width + expanded, height + expanded, depth + expanded, sideHit, hitVec, predicate);
     }
   }

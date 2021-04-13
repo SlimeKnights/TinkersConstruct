@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -37,6 +38,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.recipe.TileCastingWrapper;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.MoldingInventoryWrapper;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.CastingFluidHandler;
 
 import java.util.Optional;
@@ -53,7 +55,6 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
   /** Special casting fluid tank */
   @Getter
   private final CastingFluidHandler tank = new CastingFluidHandler(this);
-  private final LazyOptional<CastingFluidHandler> holder = LazyOptional.of(() -> tank);
 
   /* Casting recipes */
   /** Recipe type for casting recipes, may be basin or table */
@@ -85,7 +86,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     this.castingType = castingType;
     this.moldingType = moldingType;
     this.castingInventory = new TileCastingWrapper(this, Fluids.EMPTY);
-    this.moldingInventory = new MoldingInventoryWrapper(itemHandler, INPUT);
+    this.moldingInventory = null;//new MoldingInventoryWrapper(itemHandler, INPUT);
   }
 
   /**
@@ -120,9 +121,10 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
           // if the recipe has a mold, hand item goes on table (if not consumed in crafting)
           setStack(INPUT, result);
           if (!recipe.isPatternConsumed()) {
-            setStack(OUTPUT, ItemHandlerHelper.copyStackWithSize(held, 1));
-            // send a block update for the comparator, needs to be done after the stack is removed
-            world.updateNeighborsAlways(this.pos, this.getCachedState().getBlock());
+            throw new RuntimeException("crab");
+//            setStack(OUTPUT, ItemHandlerHelper.copyStackWithSize(held, 1));
+//             send a block update for the comparator, needs to be done after the stack is removed
+//            world.updateNeighborsAlways(this.pos, this.getCachedState().getBlock());
           }
           held.decrement(1);
           player.setStackInHand(hand, held.isEmpty() ? ItemStack.EMPTY : held);
@@ -161,13 +163,15 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
       // can have ItemStacks with stacksize > 1 as output
       // we therefore spill the whole contents on extraction.
       ItemStack stack = getStack(slot);
-      ItemHandlerHelper.giveItemToPlayer(player, stack, player.inventory.selectedSlot);
-      setStack(slot, ItemStack.EMPTY);
+      throw new RuntimeException("crab");
+      //TODO: FINISH PORTING
+//      ItemHandlerHelper.giveItemToPlayer(player, stack, player.inventory.selectedSlot);
+//      setStack(slot, ItemStack.EMPTY);
 
       // send a block update for the comparator, needs to be done after the stack is removed
-      if (slot == OUTPUT) {
-        world.updateNeighborsAlways(this.pos, this.getCachedState().getBlock());
-      }
+//      if (slot == OUTPUT) {
+//        world.updateNeighborsAlways(this.pos, this.getCachedState().getBlock());
+//      }
     }
   }
 

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -80,17 +81,17 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Containers
    */
-  public static final ScreenHandlerType<CraftingStationContainer> craftingStationContainer = CONTAINERS.register(id("crafting_station"), CraftingStationContainer::new);
-  public static final ScreenHandlerType<TinkerStationContainer> tinkerStationContainer = CONTAINERS.register(id("tinker_station"), TinkerStationContainer::new);
-  public static final ScreenHandlerType<PartBuilderContainer> partBuilderContainer = CONTAINERS.register(id("part_builder"), PartBuilderContainer::new);
-  public static final ScreenHandlerType<TinkerChestContainer> tinkerChestContainer = CONTAINERS.register(id("tinker_chest"), TinkerChestContainer::new);
+  public static final ScreenHandlerType<CraftingStationContainer> craftingStationContainer = ScreenHandlerRegistry.registerSimple(id("crafting_station"), null); //CONTAINERS.register(id("crafting_station"), CraftingStationContainer::new);
+  public static final ScreenHandlerType<TinkerStationContainer> tinkerStationContainer = ScreenHandlerRegistry.registerSimple(id("tinker_station"), null); //CONTAINERS.register(id("tinker_station"), TinkerStationContainer::new);
+  public static final ScreenHandlerType<PartBuilderContainer> partBuilderContainer = ScreenHandlerRegistry.registerSimple(id("part_builder"), null); //CONTAINERS.register(id("part_builder"), PartBuilderContainer::new);
+  public static final ScreenHandlerType<TinkerChestContainer> tinkerChestContainer = ScreenHandlerRegistry.registerSimple(id("tinker_chest"), null); //CONTAINERS.register(id("tinker_chest"), TinkerChestContainer::new);
 
   /*
    * Recipes
    */
-  public static final PartRecipeSerializer partRecipeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("part_builder"), PartRecipeSerializer::new);
-  public static final MaterialRecipeSerializer materialRecipeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("material"), MaterialRecipeSerializer::new);
-  public static final ToolBuildingRecipeSerializer toolBuildingRecipeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("tool_building"), ToolBuildingRecipeSerializer::new);
+  public static final PartRecipeSerializer partRecipeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("part_builder"), new PartRecipeSerializer());
+  public static final MaterialRecipeSerializer materialRecipeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("material"), new MaterialRecipeSerializer());
+  public static final ToolBuildingRecipeSerializer toolBuildingRecipeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("tool_building"), new ToolBuildingRecipeSerializer());
   public static final SpecialRecipeSerializer<TinkerStationRepairRecipe> tinkerStationRepairSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("tinker_station_repair"), new SpecialRecipeSerializer<>(TinkerStationRepairRecipe::new));
   public static final SpecialRecipeSerializer<TinkerStationPartSwapping> tinkerStationPartSwappingSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("tinker_station_part_swapping"), new SpecialRecipeSerializer<>(TinkerStationPartSwapping::new));
 

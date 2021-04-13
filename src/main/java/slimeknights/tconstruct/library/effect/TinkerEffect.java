@@ -20,20 +20,20 @@ public class TinkerEffect extends StatusEffect {
 
   /* Visibility */
 
-  @Override
-  public boolean shouldRender(StatusEffectInstance effect) {
-    return this.show;
-  }
-
-  @Override
-  public boolean shouldRenderInvText(StatusEffectInstance effect) {
-    return this.show;
-  }
-
-  @Override
-  public boolean shouldRenderHUD(StatusEffectInstance effect) {
-    return this.show;
-  }
+//  @Override
+//  public boolean shouldRender(StatusEffectInstance effect) {
+//    return this.show;
+//  }
+//
+//  @Override
+//  public boolean shouldRenderInvText(StatusEffectInstance effect) {
+//    return this.show;
+//  }
+//
+//  @Override
+//  public boolean shouldRenderHUD(StatusEffectInstance effect) {
+//    return this.show;
+//  }
 
 
   /* Helpers */

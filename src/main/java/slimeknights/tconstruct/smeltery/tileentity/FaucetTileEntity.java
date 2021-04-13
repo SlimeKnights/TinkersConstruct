@@ -16,7 +16,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.common.util.LazyOptional;
+import java.util.Optional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -55,13 +55,13 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
   private boolean lastRedstoneState = false;
 
   /** Fluid handler of the input to the faucet */
-  private LazyOptional<IFluidHandler> inputHandler;
+  private Optional<IFluidHandler> inputHandler;
   /** Fluid handler of the output from the faucet */
-  private LazyOptional<IFluidHandler> outputHandler;
+  private Optional<IFluidHandler> outputHandler;
   /** Listener for when the input handler is invalidated */
-  private final NonNullConsumer<LazyOptional<IFluidHandler>> inputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.inputHandler = null);
+  private final NonNullConsumer<Optional<IFluidHandler>> inputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.inputHandler = null);
   /** Listener for when the output handler is invalidated */
-  private final NonNullConsumer<LazyOptional<IFluidHandler>> outputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.outputHandler = null);
+  private final NonNullConsumer<Optional<IFluidHandler>> outputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.outputHandler = null);
 
   public FaucetTileEntity() {
     this(TinkerSmeltery.faucet);
@@ -80,23 +80,23 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    * @param side  Side to check
    * @return  Fluid handler
    */
-  private LazyOptional<IFluidHandler> findFluidHandler(Direction side) {
+  private Optional<IFluidHandler> findFluidHandler(Direction side) {
     assert world != null;
     BlockEntity te = world.getBlockEntity(pos.offset(side));
     if (te != null) {
-      LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
+      Optional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
       if (handler.isPresent()) {
         return handler;
       }
     }
-    return LazyOptional.empty();
+    return Optional.empty();
   }
 
   /**
    * Gets the input fluid handler
    * @return  Input fluid handler
    */
-  private LazyOptional<IFluidHandler> getInputHandler() {
+  private Optional<IFluidHandler> getInputHandler() {
     if (inputHandler == null) {
       inputHandler = findFluidHandler(getCachedState().get(FACING).getOpposite());
       if (inputHandler.isPresent()) {
@@ -110,7 +110,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    * Gets the output fluid handler
    * @return  Output fluid handler
    */
-  private LazyOptional<IFluidHandler> getOutputHandler() {
+  private Optional<IFluidHandler> getOutputHandler() {
     if (outputHandler == null) {
       outputHandler = findFluidHandler(Direction.DOWN);
       if (outputHandler.isPresent()) {
@@ -235,8 +235,8 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    */
   private boolean doTransfer(boolean execute) {
     // still got content left
-    LazyOptional<IFluidHandler> inputOptional = getInputHandler();
-    LazyOptional<IFluidHandler> outputOptional = getOutputHandler();
+    Optional<IFluidHandler> inputOptional = getInputHandler();
+    Optional<IFluidHandler> outputOptional = getOutputHandler();
     if (inputOptional.isPresent() && outputOptional.isPresent()) {
       // can we drain?
       IFluidHandler input = inputOptional.orElse(EmptyFluidHandler.INSTANCE);
@@ -289,7 +289,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     }
 
     // ensure we have an output
-    LazyOptional<IFluidHandler> outputOptional = getOutputHandler();
+    Optional<IFluidHandler> outputOptional = getOutputHandler();
     if (outputOptional.isPresent()) {
       FluidVolume fillStack = drained.copy();
       fillStack.setAmount(Math.min(drained.getAmount(), MB_PER_TICK));
@@ -387,12 +387,12 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     stopPouring = compound.getBoolean(TAG_STOP);
     lastRedstoneState = compound.getBoolean(TAG_LAST_REDSTONE);
     // fluids
-    if (compound.contains(TAG_DRAINED, NBT.TAG_COMPOUND)) {
+    if (compound.contains(TAG_DRAINED, NbtType.COMPOUND)) {
       drained = FluidVolume.loadFluidVolumeFromNBT(compound.getCompound(TAG_DRAINED));
     } else {
       drained = TinkerFluids.EMPTY;
     }
-    if (compound.contains(TAG_RENDER_FLUID, NBT.TAG_COMPOUND)) {
+    if (compound.contains(TAG_RENDER_FLUID, NbtType.COMPOUND)) {
       renderFluid = FluidVolume.loadFluidVolumeFromNBT(compound.getCompound(TAG_RENDER_FLUID));
     } else {
       renderFluid = TinkerFluids.EMPTY;

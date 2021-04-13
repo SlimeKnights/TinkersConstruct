@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.recipe.RecipeType;
@@ -12,18 +13,14 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.GameRules;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.hooks.BasicEventHooks;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
 import slimeknights.tconstruct.tables.network.UpdateCraftingRecipePacket;
 import slimeknights.tconstruct.tables.tileentity.crafting.CraftingInventoryWrapper;
 import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 
 public class CraftingStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
@@ -38,9 +35,9 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
   private final CraftingInventoryWrapper craftingInventory;
 
   public CraftingStationTileEntity() {
-    super(TinkerTables.craftingStationTile.get(), "gui.tconstruct.crafting_station", 9);
-    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
-    this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
+    super(TinkerTables.craftingStationTile, "gui.tconstruct.crafting_station", 9);
+//    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
+//    this.itemHandlerCap = Optional.of(() -> this.itemHandler);
     this.craftingInventory = new CraftingInventoryWrapper(this, 3, 3);
     this.craftingResult = new LazyResultInventory(this);
   }
@@ -112,44 +109,46 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
 
       // fire crafting events
       result.onCraft(this.world, player, amount);
-      BasicEventHooks.firePlayerCraftingEvent(player, result, this.craftingInventory);
+//      BasicEventHooks.firePlayerCraftingEvent(player, result, this.craftingInventory);
     }
 
     // update all slots in the inventory
     // remove remaining items
-    ForgeHooks.setCraftingPlayer(player);
-    DefaultedList<ItemStack> remaining = this.lastRecipe.getRemainingStacks(craftingInventory);
-    ForgeHooks.setCraftingPlayer(null);
-    for (int i = 0; i < remaining.size(); ++i) {
-      ItemStack original = this.getStack(i);
-      ItemStack newStack = remaining.get(i);
-
-      // if the slot contains a stack, decrease by 1
-      if (!original.isEmpty()) {
-        original.decrement(1);
-      }
-
-      // if we have a new item, try merging it in
-      if (!newStack.isEmpty()) {
-        // if empty, set directly
-        if (original.isEmpty()) {
-          this.setStack(i, newStack);
-        }
-        else if (ItemStack.areItemsEqualIgnoreDamage(original, newStack) && ItemStack.areTagsEqual(original, newStack)) {
-          // if matching, merge
-          newStack.increment(original.getCount());
-          this.setStack(i, newStack);
-        }
-        else {
-          // otherwise, drop the item as the player
-          if (!player.inventory.insertStack(newStack)) {
-            player.dropItem(newStack, false);
-          }
-        }
-      }
-    }
-
-    return result;
+    throw new RuntimeException("CRAB!");
+    //TODO: PORT
+//    ForgeHooks.setCraftingPlayer(player);
+//    DefaultedList<ItemStack> remaining = this.lastRecipe.getRemainingStacks(craftingInventory);
+//    ForgeHooks.setCraftingPlayer(null);
+//    for (int i = 0; i < remaining.size(); ++i) {
+//      ItemStack original = this.getStack(i);
+//      ItemStack newStack = remaining.get(i);
+//
+//      // if the slot contains a stack, decrease by 1
+//      if (!original.isEmpty()) {
+//        original.decrement(1);
+//      }
+//
+//      // if we have a new item, try merging it in
+//      if (!newStack.isEmpty()) {
+//        // if empty, set directly
+//        if (original.isEmpty()) {
+//          this.setStack(i, newStack);
+//        }
+//        else if (ItemStack.areItemsEqualIgnoreDamage(original, newStack) && ItemStack.areTagsEqual(original, newStack)) {
+//          // if matching, merge
+//          newStack.increment(original.getCount());
+//          this.setStack(i, newStack);
+//        }
+//        else {
+//          // otherwise, drop the item as the player
+//          if (!player.inventory.insertStack(newStack)) {
+//            player.dropItem(newStack, false);
+//          }
+//        }
+//      }
+//    }
+//
+//    return result;
   }
 
   @Override
@@ -180,5 +179,10 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
   public void updateRecipe(CraftingRecipe recipe) {
     this.lastRecipe = recipe;
     this.craftingResult.clear();
+  }
+
+  @Override
+  public CompoundTag getTileData() {
+    return new CompoundTag();
   }
 }

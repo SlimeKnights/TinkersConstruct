@@ -1,43 +1,26 @@
 package slimeknights.tconstruct.tools.client;
 
+import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.OverlayVertexConsumer;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.DrawHighlightEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 
-import java.util.List;
+public class ToolRenderEvents implements ClientModInitializer {
 
-@Mod.EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class ToolRenderEvents {
-
+  //TODO: rendering port because events with forg are cursed
   /**
    * Renders the outline on the extra blocks
    *
    * @param event the highlight event
    */
-  @SubscribeEvent
+/*  @SubscribeEvent
   static void renderBlockHighlights(DrawHighlightEvent.HighlightBlock event) {
     PlayerEntity player = MinecraftClient.getInstance().player;
     if (player == null) {
@@ -76,13 +59,14 @@ public class ToolRenderEvents {
       }
       matrix.pop();
     }
-  }
+  }*/
 
-  /**
+/**
    * Renders the block damage process on the extra blocks
    *
    * @param event the RenderWorldLastEvent
    */
+/*
   @SubscribeEvent
   static void renderBlockDamageProgress(RenderWorldLastEvent event) {
     // validate required variables are set
@@ -112,6 +96,7 @@ public class ToolRenderEvents {
       drawBlockDamageTexture(event.getContext(), event.getMatrixStack(), MinecraftClient.getInstance().gameRenderer.getCamera(), player.getEntityWorld(), extraBlocks);
     }
   }
+*/
 
   /**
    * Draws the damaged texture on the given blocks
@@ -146,5 +131,10 @@ public class ToolRenderEvents {
       dispatcher.renderDamage(world.getBlockState(pos), pos, world, matrixStackIn, matrixBuilder);
       matrixStackIn.pop();
     }
+  }
+
+  @Override
+  public void onInitializeClient() {
+
   }
 }

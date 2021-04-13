@@ -11,10 +11,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.world.BlockEvent;
-
 import org.jetbrains.annotations.NotNull;
 
 // todo: move defaults to abstractTrait or all abstract to defaults
@@ -40,14 +36,14 @@ public interface ITrait {
   /* Mining/Harvesting */
 
   /**
-   * Called when a block is mined. See {@link net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed}.
+   * Called when a block is mined.
    */
-  void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event);
+  void miningSpeed(ItemStack tool);
 
   /**
-   * Called just before a block breaks. See {@link net.minecraftforge.event.world.BlockEvent.BreakEvent}.
+   * Called just before a block breaks.
    */
-  void beforeBlockBreak(ItemStack tool, BlockEvent.BreakEvent event);
+  void beforeBlockBreak(ItemStack tool);
 
   /**
    * Called after the block has been destroyed. See {@link net.minecraft.item.Item#postMine(ItemStack, World, BlockState, BlockPos, LivingEntity)}
@@ -132,12 +128,12 @@ public interface ITrait {
   /**
    * Called when the player holding the tool blocks an attack.
    */
-  void onBlock(ItemStack tool, PlayerEntity player, LivingHurtEvent event);
+  void onBlock(ItemStack tool, PlayerEntity player);
 
   /**
    * Called when the player holding the tool is damaged. Only called if the player is NOT blocking! onBlock is called in that case.
    */
-  default void onPlayerHurt(ItemStack tool, PlayerEntity player, LivingEntity attacker, LivingHurtEvent event) {}
+  default void onPlayerHurt(ItemStack tool, PlayerEntity player, LivingEntity attacker) {}
 
   /* Damage tool */
 
@@ -173,7 +169,6 @@ public interface ITrait {
 
   /**
    * When the tool is equipped, this is called to set the players attributes.
-   * See {@link net.minecraft.item.Item#getAttributeModifiers(EquipmentSlot, ItemStack)}
    *
    * @param slot         Analogous to Item.getAttributeModifiers
    * @param stack        Item.getAttributeModifiers

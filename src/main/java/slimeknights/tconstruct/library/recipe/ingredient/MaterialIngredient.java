@@ -12,14 +12,13 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.stream.Stream;
 

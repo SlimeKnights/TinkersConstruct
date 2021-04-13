@@ -9,6 +9,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.text.LiteralText;
@@ -16,11 +17,9 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -309,9 +308,9 @@ public class Modifier{
    * </ul>
    * @param tool   Current tool instance
    * @param level  Modifier level
-   * @param event  Event instance
+   * @param player  Event instance
    */
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player) {}
 
   /**
    * Adds loot table related enchantments from this modifier's effect, called before breaking a block.

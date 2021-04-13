@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.tconstruct.misc.IItemHandler;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -20,7 +21,7 @@ import java.util.function.Predicate;
 /**
  * Inventory composite made of a set of melting module inventories
  */
-public class MeltingModuleInventory implements IItemHandlerModifiable {
+public class MeltingModuleInventory implements IItemHandler {//IItemHandlerModifiable {
   private static final String TAG_SLOT = "slot";
   private static final String TAG_ITEMS = "items";
   private static final String TAG_SIZE = "size";
@@ -324,7 +325,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       // no need to resize, as we ignore old data
       modules = new MeltingModule[nbt.getByte(TAG_SIZE) & 255];
     }
-    ListTag list = nbt.getList(TAG_ITEMS, NBT.TAG_COMPOUND);
+    ListTag list = nbt.getList(TAG_ITEMS, NbtType.COMPOUND);
     for (int i = 0; i < list.size(); i++) {
       CompoundTag item = list.getCompound(i);
       if (item.contains(TAG_SLOT, NBT.TAG_BYTE)) {

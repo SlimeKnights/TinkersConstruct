@@ -1,13 +1,12 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.alloying.IAlloyTank;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;

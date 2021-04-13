@@ -1,17 +1,16 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
 import com.google.gson.JsonObject;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 
-import org.jetbrains.annotations.Nullable;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-
-public class ToolBuildingRecipeSerializer extends RecipeSerializer<ToolBuildingRecipe> {
+public class ToolBuildingRecipeSerializer implements RecipeSerializer<ToolBuildingRecipe> {
 
   @Override
   public ToolBuildingRecipe read(Identifier recipeId, JsonObject json) {

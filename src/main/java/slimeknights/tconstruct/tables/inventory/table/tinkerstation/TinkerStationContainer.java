@@ -21,7 +21,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
    * @param tile  Relevant tile entity
    */
   public TinkerStationContainer(int id, PlayerInventory inv, @Nullable TinkerStationTileEntity tile) {
-    super(TinkerTables.tinkerStationContainer.get(), id, inv, tile);
+    super(TinkerTables.tinkerStationContainer, id, inv, tile);
 
     // unfortunately, nothing works with no tile
     if (tile != null) {

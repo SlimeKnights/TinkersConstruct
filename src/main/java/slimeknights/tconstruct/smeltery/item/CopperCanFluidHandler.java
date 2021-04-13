@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
+import java.util.Optional;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
@@ -19,13 +19,13 @@ import org.jetbrains.annotations.Nullable;
 /** Capability handler instance for the copper can item */
 @AllArgsConstructor
 public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProvider {
-  private final LazyOptional<IFluidHandlerItem> holder = LazyOptional.of(() -> this);
+  private final Optional<IFluidHandlerItem> holder = Optional.of(() -> this);
 
   @Getter
   private final ItemStack container;
 
   @Override
-  public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
+  public <T> Optional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
     return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.orEmpty(cap, holder);
   }
 

@@ -2,10 +2,6 @@ package slimeknights.tconstruct.library;
 
 import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.fluid.Fluid;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialManager;
@@ -44,13 +40,6 @@ public final class MaterialRegistry {
    */
   public static boolean initialized() {
     return INSTANCE != null;
-  }
-
-  @SubscribeEvent
-  static void addDataPackListeners(final AddReloadListenerEvent event) {
-    event.addListener(INSTANCE.materialManager);
-    event.addListener(INSTANCE.materialStatsManager);
-    event.addListener(INSTANCE.materialTraitsManager);
   }
 
   public MaterialRegistry() {

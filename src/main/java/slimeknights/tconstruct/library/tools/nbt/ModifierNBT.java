@@ -92,7 +92,7 @@ public class ModifierNBT {
     }
 
     ListTag listNBT = (ListTag)inbt;
-    if (listNBT.getElementType() != NBT.TAG_COMPOUND) {
+    if (listNBT.getElementType() != NbtType.COMPOUND) {
       return EMPTY;
     }
 

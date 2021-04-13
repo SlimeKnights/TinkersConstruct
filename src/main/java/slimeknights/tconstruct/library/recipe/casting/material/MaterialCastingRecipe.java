@@ -72,11 +72,11 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
     return MaterialRegistry.getMaterial(inv.getFluid()).getFluidPerUnit() * this.itemCost;
   }
 
-  @Override
-  public ItemStack getCraftingResult(ICastingInventory inv) {
-    IMaterial material = MaterialRegistry.getInstance().getMaterial(inv.getFluid());
-    return result.getItemstackWithMaterial(material);
-  }
+//  @Override
+//  public ItemStack getCraftingResult(ICastingInventory inv) {
+//    IMaterial material = MaterialRegistry.getInstance().getMaterial(inv.getFluid());
+//    return result.getItemstackWithMaterial(material);
+//  }
 
   @Override
   @SuppressWarnings("WeakerAccess")
@@ -87,7 +87,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
       multiRecipes = MaterialRegistry
         .getMaterials().stream()
         .filter(mat -> mat.getFluid() != Fluids.EMPTY)
-        .map(mat -> new DisplayCastingRecipe(type, castItems, Collections.singletonList(new FluidVolume(mat.getFluid(), itemCost * mat.getFluidPerUnit())),
+        .map(mat -> new DisplayCastingRecipe(type, castItems, Collections.singletonList(FluidVolume.create(mat.getFluid(), itemCost * mat.getFluidPerUnit())),
                                              result.getItemstackWithMaterial(mat), ICastingRecipe.calcCoolingTime(mat.getTemperature(), itemCost * mat.getFluidPerUnit()), consumed))
         .collect(Collectors.toList());
     }
@@ -104,7 +104,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.basinMaterialSerializer.get();
+      return TinkerSmeltery.basinMaterialSerializer;
     }
   }
 
@@ -118,7 +118,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.tableMaterialSerializer.get();
+      return TinkerSmeltery.tableMaterialSerializer;
     }
   }
 

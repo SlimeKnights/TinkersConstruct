@@ -2,10 +2,8 @@ package slimeknights.tconstruct.tools.data;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.fluid.Fluid;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.NotCondition;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.recipe.ICondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -87,11 +85,11 @@ final class Materials {
 //  public static final IMaterial slimevine_purple = mat(MaterialIds.slimevine_purple, true, 0xc873c8);
 
   /** Creates a supplier for the given trait */
-  private static Supplier<List<ModifierEntry>> traitSupplier(@Nullable Supplier<? extends Modifier> trait) {
+  private static Supplier<List<ModifierEntry>> traitSupplier(@Nullable Modifier trait) {
     if (trait == null) {
       return Collections::emptyList;
     }
-    return () -> Collections.singletonList(new ModifierEntry(trait.get(), 1));
+    return () -> Collections.singletonList(new ModifierEntry(trait, 1));
   }
 
   /** Creates a new material with a tag requirement */
@@ -106,31 +104,31 @@ final class Materials {
   }
 
   /** Creates a material with a fluid */
-  private static IMaterial mat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, boolean craftable, int color, @Nullable Supplier<? extends Modifier> trait) {
+  private static IMaterial mat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, boolean craftable, int color, @Nullable Modifier trait) {
     // all our materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT, craftable, color, traitSupplier(trait)));
+    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT.as1620(), craftable, color, traitSupplier(trait)));
   }
 
   /** Creates a material with a fluid */
-  private static IMaterial overslimeMat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, boolean craftable, int color, Supplier<? extends Modifier> trait) {
+  private static IMaterial overslimeMat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, boolean craftable, int color, Modifier trait) {
     // all our materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT, craftable, color, getOverslimeTrait(trait)));
+    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT.as1620(), craftable, color, getOverslimeTrait(trait)));
   }
 
   /** Creates a material with no fluid */
-  private static IMaterial mat(MaterialId location, int tier, int order, boolean craftable, int color, @Nullable Supplier<? extends Modifier> trait) {
+  private static IMaterial mat(MaterialId location, int tier, int order, boolean craftable, int color, @Nullable Modifier trait) {
     return mat(new DataMaterial(location, tier, order, craftable, color, traitSupplier(trait)));
   }
 
   /** Creates a new compat material */
-  private static IMaterial compatMat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, @Nullable Supplier<? extends Modifier> trait) {
+  private static IMaterial compatMat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, @Nullable Modifier trait) {
     // all our addon materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    ICondition condition = new NotCondition(new TagEmptyCondition("forge", "ingots/" + location.getPath()));
-    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT, false, fluid.get().getAttributes().getColor() & 0xFFFFFF, traitSupplier(trait)), condition);
+//    ICondition condition = new NotCondition(new TagEmptyCondition("forge", "ingots/" + location.getPath()));
+    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT.as1620(), false, 0xFFFFFF, traitSupplier(trait)));
   }
 
   /** Gets an overslime based trait for the given tool */
-  private static Supplier<List<ModifierEntry>> getOverslimeTrait(Supplier<? extends Modifier> trait) {
-    return () -> Arrays.asList(new ModifierEntry(trait.get(), 1), new ModifierEntry(TinkerModifiers.overslime.get(), 1));
+  private static Supplier<List<ModifierEntry>> getOverslimeTrait(Modifier trait) {
+    return () -> Arrays.asList(new ModifierEntry(trait, 1), new ModifierEntry(TinkerModifiers.overslime, 1));
   }
 }

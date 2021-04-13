@@ -15,7 +15,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.common.util.LazyOptional;
+import java.util.Optional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -49,7 +49,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   /** Internal fluid tank output */
   protected final FluidTankAnimated tank = new FluidTankAnimated(TANK_CAPACITY, this);
   /** Capability holder for the tank */
-  private final LazyOptional<IFluidHandler> tankHolder = LazyOptional.of(() -> tank);
+  private final Optional<IFluidHandler> tankHolder = Optional.of(() -> tank);
   /** Tank data for the model */
   private final IModelData modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   /** Last comparator strength to reduce block updates */
@@ -62,7 +62,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   /** Handles all the melting needs */
   private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, TConfig.COMMON.melterNuggetsPerOre::get, 3);
   /** Capability holder for the tank */
-  private final LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> meltingInventory);
+  private final Optional<IItemHandler> inventoryHolder = Optional.of(() -> meltingInventory);
 
   /** Fuel handling logic */
   private final FuelModule fuelModule = new FuelModule(this, () -> Collections.singletonList(this.pos.down()));
@@ -89,7 +89,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
    */
 
   @Override
-  public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+  public <T> Optional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
     if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       return tankHolder.cast();
     }
@@ -169,7 +169,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
     super.fromTag(state, tag);
     tank.readFromNBT(tag.getCompound(Tags.TANK));
     fuelModule.readFromNBT(tag);
-    if (tag.contains(TAG_INVENTORY, NBT.TAG_COMPOUND)) {
+    if (tag.contains(TAG_INVENTORY, NbtType.COMPOUND)) {
       meltingInventory.readFromNBT(tag.getCompound(TAG_INVENTORY));
     }
   }
