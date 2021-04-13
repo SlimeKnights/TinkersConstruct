@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
+import alexiil.mc.lib.attributes.Simulation;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.IFluidTank;
-import net.minecraftforge.fluids.capability.Simulation;
 import slimeknights.tconstruct.library.recipe.fuel.IFluidInventory;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 

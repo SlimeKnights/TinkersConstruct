@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import java.util.Collections;
-
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,20 +10,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
-import net.minecraft.util.math.Direction;
-
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants.NBT;
-import java.util.Optional;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-
-import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.client.model.data.SinglePropertyData;
+import slimeknights.mantle.model.IModelData;
 import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.library.Util;
@@ -31,11 +19,16 @@ import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
+
+import java.util.Collections;
+import java.util.Optional;
 
 public class MelterTileEntity extends NamableTileEntity implements ITankTileEntity, Tickable {
   /** Max capacity for the tank */
@@ -60,7 +53,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
 
   /* Heating */
   /** Handles all the melting needs */
-  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, TConfig.COMMON.melterNuggetsPerOre::get, 3);
+  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, () -> TConfig.common.melterNuggetsPerOre, 3);
   /** Capability holder for the tank */
   private final Optional<IItemHandler> inventoryHolder = Optional.of(() -> meltingInventory);
 
@@ -88,7 +81,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
    * Tank methods
    */
 
-  @Override
+/*  @Override
   public <T> Optional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
     if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       return tankHolder.cast();
@@ -104,7 +97,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
     super.invalidateCaps();
     this.tankHolder.invalidate();
     this.inventoryHolder.invalidate();
-  }
+  }*/
 
   @Override
   public int getLastStrength() {

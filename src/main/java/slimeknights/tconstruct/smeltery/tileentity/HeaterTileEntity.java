@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,6 +17,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.HeaterItemHandler;
@@ -45,7 +47,10 @@ public class HeaterTileEntity extends NamableTileEntity {
   }
 
 
-  /* Capability */
+/*
+  */
+/* Capability *//*
+
 
   @Override
   public <C> Optional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
@@ -61,6 +66,7 @@ public class HeaterTileEntity extends NamableTileEntity {
     itemCapability.invalidate();
   }
 
+*/
 
   /* NBT */
 

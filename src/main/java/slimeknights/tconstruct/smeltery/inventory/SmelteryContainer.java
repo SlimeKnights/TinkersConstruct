@@ -18,12 +18,12 @@ public class SmelteryContainer extends MultiModuleContainer<SmelteryTileEntity> 
   @Getter
   private final SideInventoryContainer<SmelteryTileEntity> sideInventory;
   public SmelteryContainer(int id, @Nullable PlayerInventory inv, @Nullable SmelteryTileEntity smeltery) {
-    super(TinkerSmeltery.smelteryContainer.get(), id, inv, smeltery);
+    super(TinkerSmeltery.smelteryContainer, id, inv, smeltery);
     if (inv != null && smeltery != null) {
       // can hold 7 in a column, so try to fill the first column first
       // cap to 4 columns
       MeltingModuleInventory inventory = smeltery.getMeltingInventory();
-      sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer.get(), id, inv, smeltery, 0, 0, calcColumns(inventory.getSlots()));
+      sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer, id, inv, smeltery, 0, 0, calcColumns(inventory.getSlots()));
       addSubContainer(sideInventory, true);
 
       Consumer<Property> referenceConsumer = this::addProperty;

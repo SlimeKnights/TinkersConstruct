@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.client.inventory;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
@@ -58,7 +59,7 @@ public class MelterScreen extends HandledScreen<MelterContainer> implements IScr
 
     // fuel
     if (fuel != null) {
-      getMinecraft().getTextureManager().bindTexture(BACKGROUND);
+      MinecraftClient.getInstance().getTextureManager().bindTexture(BACKGROUND);
       // draw the correct background for the fuel type
       if (handler.isHasFuelSlot()) {
         FUEL_SLOT.draw(matrices, x + 150, y + 31);

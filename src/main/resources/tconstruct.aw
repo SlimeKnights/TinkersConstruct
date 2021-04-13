@@ -63,3 +63,17 @@ accessible  method  net/minecraft/entity/damage/DamageSource  <init>    (Ljava/l
 accessible class net/minecraft/recipe/Ingredient$Entry
 
 accessible  method  net/minecraft/client/particle/CrackParticle    <init> (Lnet/minecraft/client/world/ClientWorld;DDDDDDLnet/minecraft/item/ItemStack;)V
+
+mutable field   net/minecraft/screen/slot/Slot x   I
+mutable field   net/minecraft/screen/slot/Slot y   I
+
+accessible  method  net/minecraft/entity/Entity    updateSubmergedInWaterState    ()V
+
+accessible  method  net/minecraft/client/gui/screen/ingame/HandledScreen   drawSlot  (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/screen/slot/Slot;)V
+accessible  method  net/minecraft/client/gui/screen/ingame/HandledScreen   isPointOverSlot   (Lnet/minecraft/screen/slot/Slot;DD)Z
+
+accessible field   net/minecraft/screen/slot/CraftingResultSlot   amount    I
+mutable field   net/minecraft/screen/slot/CraftingResultSlot   amount    I
+accessible  field   net/minecraft/screen/slot/Slot index   I
+
+accessible  field   net/minecraft/screen/slot/CraftingResultSlot   player    Lnet/minecraft/entity/player/PlayerEntity;

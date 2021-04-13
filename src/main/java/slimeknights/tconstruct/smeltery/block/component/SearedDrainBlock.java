@@ -1,21 +1,13 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.SimulationResult;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 import slimeknights.tconstruct.smeltery.tileentity.DrainTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 
 /** Extenson to include interaction behavior */
 public class SearedDrainBlock extends SmelteryIOBlock {

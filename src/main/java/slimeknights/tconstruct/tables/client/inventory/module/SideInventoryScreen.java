@@ -93,7 +93,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Scree
 
   @Override
   public boolean shouldDrawSlot(Slot slot) {
-    if (slot.getSlotIndex() >= this.slotCount) {
+    if (slot.index >= this.slotCount) {
       return false;
     }
 
@@ -102,13 +102,13 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Scree
       return true;
     }
 
-    return this.firstSlotId <= slot.getSlotIndex() && this.lastSlotId > slot.getSlotIndex();
+    return this.firstSlotId <= slot.index && this.lastSlotId > slot.index;
   }
 
-  @Override
-  public boolean isPointOverSlot(Slot slotIn, double mouseX, double mouseY) {
-    return super.isPointOverSlot(slotIn, mouseX, mouseY) && this.shouldDrawSlot(slotIn);
-  }
+//  @Override
+//  public boolean isPointOverSlot(Slot slotIn, double mouseX, double mouseY) {
+//    return super.isPointOverSlot(slotIn, mouseX, mouseY) && this.shouldDrawSlot(slotIn);
+//  }
 
   public void updateSlotCount(int newSlotCount) {
     // don't do extra stuff if it's not needed
@@ -224,7 +224,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Scree
     for (Slot slot : this.handler.slots) {
       if (this.shouldDrawSlot(slot)) {
         // calc position of the slot
-        int offset = slot.getSlotIndex() - this.firstSlotId;
+        int offset = slot.index - this.firstSlotId;
         int x = (offset % this.columns) * this.slot.w;
         int y = (offset / this.columns) * this.slot.h;
 

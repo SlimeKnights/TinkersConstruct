@@ -1,14 +1,12 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
+import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraftforge.common.util.Constants.NBT;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.Simulation;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.misc.IItemHandler;
@@ -183,7 +181,7 @@ public class MeltingModuleInventory implements IItemHandler {//IItemHandlerModif
     return ItemStack.EMPTY;
   }
 
-  @Override
+//  @Override
   public void setStackInSlot(int slot, ItemStack stack) {
     // actually set the stack
     if (validSlot(slot)) {
@@ -266,7 +264,7 @@ public class MeltingModuleInventory implements IItemHandler {//IItemHandlerModif
    */
   protected boolean tryFillTank(FluidVolume fluid) {
     if (fluidHandler.fill(fluid.copy(), Simulation.SIMULATE) == fluid.getAmount()) {
-      fluidHandler.fill(fluid, Simulation.EXECUTE);
+      fluidHandler.fill(fluid, Simulation.ACTION);
       return true;
     }
     return false;
@@ -328,7 +326,7 @@ public class MeltingModuleInventory implements IItemHandler {//IItemHandlerModif
     ListTag list = nbt.getList(TAG_ITEMS, NbtType.COMPOUND);
     for (int i = 0; i < list.size(); i++) {
       CompoundTag item = list.getCompound(i);
-      if (item.contains(TAG_SLOT, NBT.TAG_BYTE)) {
+      if (item.contains(TAG_SLOT, NbtType.BYTE)) {
         int slot = item.getByte(TAG_SLOT) & 255;
         if (validSlot(slot)) {
           getModule(slot).readFromNBT(item);

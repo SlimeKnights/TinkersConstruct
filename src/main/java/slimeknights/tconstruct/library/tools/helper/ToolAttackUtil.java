@@ -18,15 +18,12 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.entity.PartEntity;
-import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ToolAttackUtil {
@@ -120,11 +117,6 @@ public class ToolAttackUtil {
     LivingEntity targetLiving = null;
     if (targetEntity instanceof LivingEntity) {
       targetLiving = (LivingEntity) targetEntity;
-    } else if (targetEntity instanceof PartEntity) {
-      Entity parent = ((PartEntity<?>) targetEntity).getParent();
-      if (parent instanceof LivingEntity) {
-        targetLiving = (LivingEntity)parent;
-      }
     }
     PlayerEntity attackerPlayer = null;
     if (attackerLiving instanceof PlayerEntity) {
@@ -188,11 +180,12 @@ public class ToolAttackUtil {
     // apply critical boost
     float criticalModifier = isCritical ? 1.5f : 1.0f;
     if (attackerPlayer != null) {
-      CriticalHitEvent hitResult = ForgeHooks.getCriticalHit(attackerPlayer, targetEntity, isCritical, isCritical ? 1.5F : 1.0F);
-      isCritical = hitResult != null;
-      if (isCritical) {
-        criticalModifier = hitResult.getDamageModifier();
-      }
+      throw new RuntimeException("CRAB!");
+//      CriticalHitEvent hitResult = ForgeHooks.getCriticalHit(attackerPlayer, targetEntity, isCritical, isCritical ? 1.5F : 1.0F);
+//      isCritical = hitResult != null;
+//      if (isCritical) {
+//        criticalModifier = hitResult.getDamageModifier();
+//      }
     }
     if (isCritical) {
       damage *= criticalModifier;

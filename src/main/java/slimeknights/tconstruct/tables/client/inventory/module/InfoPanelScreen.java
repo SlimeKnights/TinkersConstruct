@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tables.client.inventory.module;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
-import lombok.Setter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
@@ -15,6 +14,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
@@ -22,7 +22,6 @@ import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
 import slimeknights.tconstruct.library.Util;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,7 +63,6 @@ public class InfoPanelScreen extends ModuleScreen {
 
   protected List<Integer> tooltipLines = Lists.newLinkedList();
 
-  @Setter
   protected float textScale = 1.0f;
   public InfoPanelScreen(MultiModuleScreen parent, ScreenHandler container, PlayerInventory playerInventory, Text title) {
     super(parent, container, playerInventory, title, true, false);
@@ -419,5 +417,9 @@ public class InfoPanelScreen extends ModuleScreen {
     }
 
     return this.slider.mouseScrolled(scrollData, true);
+  }
+
+  public void setTextScale(float textScale) {
+    this.textScale = textScale;
   }
 }

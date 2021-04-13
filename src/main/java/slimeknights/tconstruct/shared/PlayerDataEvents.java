@@ -14,15 +14,17 @@ public class PlayerDataEvents {
 
   public static void onPlayerLoggedIn(PlayerEntity player) {
     if (TConfig.common.shouldSpawnWithTinkersBook) {
-      CompoundTag playerData = player.getPersistentData();
-      CompoundTag data = TagUtil.getTagSafe(playerData, "PlayerPersisted");
-
-      if (!data.getBoolean(TAG_PLAYER_HAS_BOOK)) {
-        player.giveItemStack(new ItemStack(TinkerCommons.book.get()));
-        //ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(TinkerCommons.book.get()));
-        data.putBoolean(TAG_PLAYER_HAS_BOOK, true);
-        playerData.put("PlayerPersisted", data);
-      }
+      throw new RuntimeException("CRAB!");
+      // FIXME: PORT
+//      CompoundTag playerData = player.getPersistentData(); //TODO: Cardinal Components
+//      CompoundTag data = TagUtil.getTagSafe(playerData, "PlayerPersisted");
+//
+//      if (!data.getBoolean(TAG_PLAYER_HAS_BOOK)) {
+//        player.giveItemStack(new ItemStack(TinkerCommons.book.get()));
+//        ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(TinkerCommons.book.get()));
+//        data.putBoolean(TAG_PLAYER_HAS_BOOK, true);
+//        playerData.put("PlayerPersisted", data);
+//      }
     }
   }
 }

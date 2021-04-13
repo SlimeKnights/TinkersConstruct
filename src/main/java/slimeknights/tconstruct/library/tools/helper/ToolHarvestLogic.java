@@ -12,8 +12,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.util.Constants.WorldEvents;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -54,7 +52,8 @@ public class ToolHarvestLogic {
    * @return  True if effective
    */
   public boolean isEffectiveAgainst(ToolStack tool, ItemStack stack, BlockState state) {
-    return stack.getToolTypes().stream().anyMatch(state::isToolEffective);
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    return stack.getToolTypes().stream().anyMatch();//state::isToolEffective);
   }
 
   /**
@@ -69,13 +68,14 @@ public class ToolHarvestLogic {
       return false;
     }
 
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
     // harvest level too low -> not effective
-    if (state.isToolRequired() && tool.getStats().getHarvestLevel() < state.getHarvestLevel()) {
-      return false;
-    }
+//    if (state.isToolRequired() && tool.getStats().getHarvestLevel() < state.getHarvestLevel()) {
+//      return false;
+//    }
 
     // find a matching tool type
-    return isEffectiveAgainst(tool, stack, state);
+//    return isEffectiveAgainst(tool, stack, state);
   }
 
   /**
@@ -142,11 +142,12 @@ public class ToolHarvestLogic {
    */
   private static boolean removeBlock(PlayerEntity player, World world, BlockPos pos, boolean canHarvest) {
     BlockState state = world.getBlockState(pos);
-    boolean removed = state.removedByPlayer(world, pos, player, canHarvest, world.getFluidState(pos));
-    if (removed) {
-      state.getBlock().onBroken(world, pos, state);
-    }
-    return removed;
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    boolean removed = state.removedByPlayer(world, pos, player, canHarvest, world.getFluidState(pos));
+//    if (removed) {
+//      state.getBlock().onBroken(world, pos, state);
+//    }
+//    return removed;
   }
 
   /**
@@ -162,7 +163,8 @@ public class ToolHarvestLogic {
   protected boolean breakBlock(ToolStack tool, ItemStack stack, ServerPlayerEntity player, ServerWorld world, BlockPos pos, BlockState state) {
     // have to rerun the event to get the EXP, also ensures extra blocks broken get EXP properly
     GameMode type = player.interactionManager.getGameMode();
-    int exp = ForgeHooks.onBlockBreakEvent(world, type, player, pos);
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+    /*int exp = ForgeHooks.onBlockBreakEvent(world, type, player, pos);
     if (exp == -1) {
       return false;
     }
@@ -203,7 +205,7 @@ public class ToolHarvestLogic {
       ToolDamageUtil.damageAnimated(tool, damage, player);
     }
 
-    return true;
+    return true;*/
   }
 
   /**
@@ -232,14 +234,13 @@ public class ToolHarvestLogic {
 
     // break the actual block
     if (breakBlock(tool, stack, player, world, pos, state)) {
-      world.syncWorldEvent(WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getRawIdFromState(state));
+      world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
       TinkerNetwork.getInstance().sendVanillaPacket(player, new BlockUpdateS2CPacket(world, pos));
     }
   }
 
   /**
    * Call on block break to break a block.
-   * Used in {@link net.minecraftforge.common.extensions.IForgeItem#onBlockStartBreak(ItemStack, BlockPos, PlayerEntity)}.
    * See also {@link net.minecraft.client.network.ClientPlayerInteractionManager#breakBlock(BlockPos)} (client)
    * and {@link net.minecraft.server.network.ServerPlayerInteractionManager#tryBreakBlock(BlockPos)} (server)
    * @param stack   Stack instance

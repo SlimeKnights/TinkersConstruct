@@ -11,6 +11,7 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.data.IModelData;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
+import slimeknights.mantle.model.IModelData;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.SmelteryFluidIO;
@@ -29,7 +30,7 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
   private Fluid displayFluid = Fluids.EMPTY;
 
   public DrainTileEntity() {
-    super(TinkerSmeltery.drain.get());
+    super(TinkerSmeltery.drain);
   }
 
   protected DrainTileEntity(BlockEntityType<?> type) {
@@ -71,7 +72,7 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
     return nbt;
   }
 
-  @Override
+//  @Override
   public void handleUpdateTag(BlockState state, CompoundTag tag) {
     super.handleUpdateTag(state, tag);
     attachFluidListener();
@@ -83,7 +84,7 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
     return new BlockEntityUpdateS2CPacket(pos, 0, writeMaster(new CompoundTag()));
   }
 
-  @Override
+//  @Override
   public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket pkt) {
     readMaster(pkt.getCompoundTag());
     attachFluidListener();

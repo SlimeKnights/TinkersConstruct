@@ -94,7 +94,7 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
     }
 
     // hardcoding expanders I suppose
-    int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
+    int expanded = tool.getModifierLevel(TinkerModifiers.expanded);
     return calculateAOEBlocks(player, origin, width + expanded, height + expanded, depth, sideHit, hitVec, predicate);
   }
 
@@ -235,89 +235,91 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
     }
 
     // must actually transform
-    BlockState original = world.getBlockState(pos);
-    BlockState transformed = original.getToolModifiedState(world, pos, player, stack, toolType);
-    boolean isCampfire = false;
-    boolean didTransform = transformed != null;
-    if (transformed == null) {
-      // shovel special case: campfires
-      if (toolType == FabricToolTags.SHOVELS && original.getBlock() instanceof CampfireBlock && original.get(CampfireBlock.LIT)) {
-        isCampfire = true;
-        if (!world.isClient()) {
-          world.syncWorldEvent(null, WorldEvents.FIRE_EXTINGUISH_SOUND, pos, 0);
-          CampfireBlock.extinguish(world, pos, original);
-        }
-        transformed = original.with(CampfireBlock.LIT, false);
-      } else {
-        // try to match the clicked block
-        transformed = world.getBlockState(pos);
-      }
-    }
-
-    // if we made a successful transform, client can stop early
-    EquipmentSlot slot = hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
-    if (didTransform || isCampfire) {
-      if (world.isClient()) {
-        return ActionResult.SUCCESS;
-      }
-
-      // change the block state
-      world.setBlockState(pos, transformed, Constants.BlockFlags.DEFAULT_AND_RERENDER);
-      if (requireGround) {
-        world.breakBlock(pos.up(), true);
-      }
-
-      // play sound
-      if (!isCampfire) {
-        world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
-      }
-
-      // damage the tool, if it breaks or if we changed a campfire, we are done
-      if ((!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) || isCampfire) {
-        return ActionResult.SUCCESS;
-      }
-    }
-
-    // AOE transforming, run even if we did not transform the center
-    // note we consider anything effective, as hoes are not effective on all tillable blocks
-    for (BlockPos newPos : getAOEBlocks(tool, player, pos, context.getSide(), context.getHitPos(), state -> true)) {
-      if (pos.equals(newPos)) {
-        //in case it attempts to run the same position twice
-        continue;
-      }
-
-      // hoes and shovels: air or plants above
-      BlockPos above = newPos.up();
-      if (requireGround) {
-        Material material = world.getBlockState(above).getMaterial();
-        if (!material.isReplaceable() && material != Material.PLANT) {
-          continue;
-        }
-      }
-
-      // block type must be the same
-      BlockState newState = world.getBlockState(newPos).getToolModifiedState(world, newPos, player, stack, toolType);
-      if (newState != null && transformed.getBlock() == newState.getBlock()) {
-        if (world.isClient()) {
-          return ActionResult.SUCCESS;
-        }
-        didTransform = true;
-        world.setBlockState(newPos, newState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
-        world.playSound(null, newPos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
-        // if required, break the block above (typically plants)
-        if (requireGround) {
-          world.breakBlock(above, true);
-        }
-
-        // stop if the tool broke
-        if (!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) {
-          break;
-        }
-      }
-    }
-
-    // if anything happened, return success
-    return didTransform ? ActionResult.SUCCESS : ActionResult.PASS;
+    // FIXME: PORT
+    throw new RuntimeException("CRAB!");
+//    BlockState original = world.getBlockState(pos);
+//    BlockState transformed = original.getToolModifiedState(world, pos, player, stack, toolType);
+//    boolean isCampfire = false;
+//    boolean didTransform = transformed != null;
+//    if (transformed == null) {
+//      // shovel special case: campfires
+//      if (toolType == FabricToolTags.SHOVELS && original.getBlock() instanceof CampfireBlock && original.get(CampfireBlock.LIT)) {
+//        isCampfire = true;
+//        if (!world.isClient()) {
+//          world.syncWorldEvent(null, WorldEvents.FIRE_EXTINGUISH_SOUND, pos, 0);
+//          CampfireBlock.extinguish(world, pos, original);
+//        }
+//        transformed = original.with(CampfireBlock.LIT, false);
+//      } else {
+//        // try to match the clicked block
+//        transformed = world.getBlockState(pos);
+//      }
+//    }
+//
+//    // if we made a successful transform, client can stop early
+//    EquipmentSlot slot = hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+//    if (didTransform || isCampfire) {
+//      if (world.isClient()) {
+//        return ActionResult.SUCCESS;
+//      }
+//
+//      // change the block state
+//      world.setBlockState(pos, transformed, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+//      if (requireGround) {
+//        world.breakBlock(pos.up(), true);
+//      }
+//
+//      // play sound
+//      if (!isCampfire) {
+//        world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+//      }
+//
+//      // damage the tool, if it breaks or if we changed a campfire, we are done
+//      if ((!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) || isCampfire) {
+//        return ActionResult.SUCCESS;
+//      }
+//    }
+//
+//    // AOE transforming, run even if we did not transform the center
+//    // note we consider anything effective, as hoes are not effective on all tillable blocks
+//    for (BlockPos newPos : getAOEBlocks(tool, player, pos, context.getSide(), context.getHitPos(), state -> true)) {
+//      if (pos.equals(newPos)) {
+//        //in case it attempts to run the same position twice
+//        continue;
+//      }
+//
+//      // hoes and shovels: air or plants above
+//      BlockPos above = newPos.up();
+//      if (requireGround) {
+//        Material material = world.getBlockState(above).getMaterial();
+//        if (!material.isReplaceable() && material != Material.PLANT) {
+//          continue;
+//        }
+//      }
+//
+//      // block type must be the same
+//      BlockState newState = world.getBlockState(newPos).getToolModifiedState(world, newPos, player, stack, toolType);
+//      if (newState != null && transformed.getBlock() == newState.getBlock()) {
+//        if (world.isClient()) {
+//          return ActionResult.SUCCESS;
+//        }
+//        didTransform = true;
+//        world.setBlockState(newPos, newState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+//        world.playSound(null, newPos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+//
+//        // if required, break the block above (typically plants)
+//        if (requireGround) {
+//          world.breakBlock(above, true);
+//        }
+//
+//        // stop if the tool broke
+//        if (!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) {
+//          break;
+//        }
+//      }
+//    }
+//
+//    // if anything happened, return success
+//    return didTransform ? ActionResult.SUCCESS : ActionResult.PASS;
   }
 }

@@ -49,7 +49,7 @@ public class BaseStationScreen<TILE extends BlockEntity & Inventory, CONTAINER e
         for (Pair<BlockPos, BlockState> pair : container.stationBlocks) {
           BlockState state = pair.getRight();
           BlockPos blockPos = pair.getLeft();
-          ItemStack stack = state.getBlock().getPickBlock(state, null, world, blockPos, playerInventory.player);
+          ItemStack stack = new ItemStack(state.getBlock()); //.getPickBlock(state, null, world, blockPos, playerInventory.player);
           this.tabsScreen.addTab(stack, blockPos);
         }
       }

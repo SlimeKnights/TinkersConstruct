@@ -4,11 +4,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.CraftingResultSlot;
-import net.minecraftforge.fml.hooks.BasicEventHooks;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.mantle.inventory.CraftingCustomSlot;
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
-
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Same as {@link CraftingCustomSlot}, but does not require an crafting inventory
@@ -28,7 +26,7 @@ public class ResultSlot extends CraftingResultSlot {
   protected void onCrafted(ItemStack stack) {
     if (this.amount > 0) {
       stack.onCraft(this.player.world, this.player, this.amount);
-      net.minecraftforge.fml.hooks.BasicEventHooks.firePlayerCraftingEvent(this.player, stack, this.inventory);
+//      net.minecraftforge.fml.hooks.BasicEventHooks.firePlayerCraftingEvent(this.player, stack, this.inventory);
     }
 
     this.amount = 0;
@@ -37,7 +35,7 @@ public class ResultSlot extends CraftingResultSlot {
   @Override
   @NotNull
   public ItemStack onTakeItem(PlayerEntity playerIn, @NotNull ItemStack stack) {
-    BasicEventHooks.firePlayerCraftingEvent(playerIn, stack, this.inventory);
+//    BasicEventHooks.firePlayerCraftingEvent(playerIn, stack, this.inventory);
     this.onCrafted(stack);
     this.callback.onCrafting(playerIn, stack, this.inventory);
     return stack;

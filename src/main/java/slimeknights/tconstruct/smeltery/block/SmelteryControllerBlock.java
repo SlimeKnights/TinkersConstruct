@@ -20,7 +20,7 @@ public class SmelteryControllerBlock extends ControllerBlock {
     super(properties);
   }
 
-  @Override
+//  @Override
   public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
     return new SmelteryTileEntity();
   }

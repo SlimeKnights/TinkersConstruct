@@ -36,6 +36,6 @@ public final class TinkerMaterials extends TinkerModule {
 
   @Override
   public void onInitialize() {
-    CraftingHelper.register(MaterialIngredient.Serializer.ID, MaterialIngredient.Serializer.INSTANCE);
+//    CraftingHelper.register(MaterialIngredient.Serializer.ID, MaterialIngredient.Serializer.INSTANCE);
   }
 }

@@ -12,6 +12,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -31,17 +32,17 @@ public class CopperCanItem extends Item {
     super(properties);
   }
 
-  @Override
-  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-    return new CopperCanFluidHandler(stack);
-  }
+//  @Override
+//  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+//    return new CopperCanFluidHandler(stack);
+//  }
 
-  @Override
+//  @Override
   public boolean hasContainerItem(ItemStack stack) {
     return getFluid(stack) != Fluids.EMPTY;
   }
 
-  @Override
+//  @Override
   public ItemStack getContainerItem(ItemStack stack) {
     Fluid fluid = getFluid(stack);
     if (fluid != Fluids.EMPTY) {
@@ -65,7 +66,7 @@ public class CopperCanItem extends Item {
   public static ItemStack setFluid(ItemStack stack, Fluid fluid) {
     if (stack.hasTag() || fluid != Fluids.EMPTY) {
       CompoundTag nbt = stack.getOrCreateTag();
-      nbt.putString(TAG_FLUID, Objects.requireNonNull(fluid.getRegistryName()).toString());
+      nbt.putString(TAG_FLUID, Objects.requireNonNull(Registry.FLUID.getId(fluid)).toString());
     }
     return stack;
   }
@@ -75,8 +76,8 @@ public class CopperCanItem extends Item {
     CompoundTag nbt = stack.getTag();
     if (nbt != null) {
       Identifier location = Identifier.tryParse(nbt.getString(TAG_FLUID));
-      if (location != null && ForgeRegistries.FLUIDS.containsKey(location)) {
-        Fluid fluid = ForgeRegistries.FLUIDS.getValue(location);
+      if (location != null && Registry.FLUID.containsId(location)) {
+        Fluid fluid = Registry.FLUID.get(location);
         if (fluid != null) {
           return fluid;
         }

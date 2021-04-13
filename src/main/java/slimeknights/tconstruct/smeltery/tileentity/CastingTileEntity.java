@@ -297,7 +297,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     this.castingInventory.setFluid(fluid);
     ICastingRecipe castingRecipe = findCastingRecipe();
     if (castingRecipe != null) {
-      if (action == Simulation.EXECUTE) {
+      if (action == Simulation.ACTION) {
         this.currentRecipe = castingRecipe;
         this.recipeName = null;
         this.lastOutput = null;
@@ -327,7 +327,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     if (fluid.isEmpty()) {
       reset();
     } else {
-      int capacity = initNewCasting(fluid.getRawFluid(), Simulation.EXECUTE);
+      int capacity = initNewCasting(fluid.getRawFluid(), Simulation.ACTION);
       if (capacity > 0) {
         tank.setCapacity(capacity);
       }

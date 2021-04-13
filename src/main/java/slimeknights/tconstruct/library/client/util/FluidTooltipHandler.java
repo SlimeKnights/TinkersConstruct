@@ -5,6 +5,7 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.Item;
@@ -14,6 +15,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.registry.Registry;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -89,8 +91,8 @@ public class FluidTooltipHandler {
     // material
     appendMaterial(fluid.getFluidKey(), amount, tooltip);
     // add mod display name
-    ModList.get().getModContainerById(Objects.requireNonNull(fluid.getFluid().getRegistryName()).getNamespace())
-           .map(container -> container.getModInfo().getDisplayName())
+    FabricLoader.getInstance().getModContainer(Objects.requireNonNull(Registry.FLUID.getId(fluid.getRawFluid())).getNamespace())
+           .map(container -> container.getMetadata().getName())
            .ifPresent(name -> tooltip.add(new LiteralText(name).formatted(Formatting.BLUE, Formatting.ITALIC)));
     return tooltip;
   }

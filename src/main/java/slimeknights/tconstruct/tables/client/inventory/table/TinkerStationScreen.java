@@ -17,6 +17,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
@@ -600,7 +601,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.textField.tick();
   }
 
-  @Override
+/*  @Override
   public void drawSlot(MatrixStack matrixStack, Slot slotIn) {
     // don't draw dormant slots with no item
     if (slotIn instanceof TinkerStationSlot && ((TinkerStationSlot) slotIn).isDormant() && !slotIn.hasStack()) {
@@ -615,7 +616,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       return false;
     }
     return super.isPointOverSlot(slotIn, mouseX, mouseY);
-  }
+  }*/
 
   protected void wood() {
     this.tinkerInfo.wood();
@@ -701,7 +702,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         else {
           toolPartSlot.activate();
           if (requiredComponents != null && i < requiredComponents.size()) {
-            toolPartSlot.setIcon(requiredComponents.get(i).asItem().getRegistryName());
+            toolPartSlot.setIcon(Registry.ITEM.getId(requiredComponents.get(i).asItem()));
           }
         }
       }

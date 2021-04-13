@@ -15,7 +15,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 public class SmelteryComponentTileEntity extends ServantTileEntity {
 
   public SmelteryComponentTileEntity() {
-    this(TinkerSmeltery.smelteryComponent.get());
+    this(TinkerSmeltery.smelteryComponent);
   }
 
   protected SmelteryComponentTileEntity(BlockEntityType<?> tileEntityTypeIn) {

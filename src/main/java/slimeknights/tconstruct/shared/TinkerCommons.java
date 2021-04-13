@@ -16,6 +16,7 @@ import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemEnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
+import slimeknights.mantle.util.CraftingHelper;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
@@ -77,7 +78,7 @@ public final class TinkerCommons extends TinkerModule {
 
   @Override
   public void onInitialize() {
-    CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
+//    CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
     lootConfig = Registry.register(Registry.LOOT_CONDITION_TYPE, ConfigEnabledCondition.ID, new LootConditionType(ConfigEnabledCondition.SERIALIZER));
     lootBlockOrEntity = Registry.register(Registry.LOOT_CONDITION_TYPE, BlockOrEntityCondition.ID, new LootConditionType(BlockOrEntityCondition.SERIALIZER));
   }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.client.inventory;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
@@ -72,7 +73,7 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> impleme
 
     // fuel
     if (fuel != null) {
-      getMinecraft().getTextureManager().bindTexture(BACKGROUND);
+      MinecraftClient.getInstance().getTextureManager().bindTexture(BACKGROUND);
       fuel.draw(matrices);
     }
   }

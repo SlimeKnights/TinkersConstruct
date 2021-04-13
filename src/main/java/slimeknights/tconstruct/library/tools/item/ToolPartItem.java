@@ -3,7 +3,10 @@ package slimeknights.tconstruct.library.tools.item;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -13,10 +16,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-
-import net.minecraftforge.fml.ForgeI18n;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -29,7 +29,6 @@ import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ToolPartItem extends MaterialItem implements IToolPart {
@@ -84,7 +83,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     }
 
     // Stats
-    if (TConfig.CLIENT.extraToolTips.get()) {
+    if (TConfig.client.extraToolTips) {
       if (!shift) {
         // info tooltip for detailed and component info
         tooltip.add(LiteralText.EMPTY);
@@ -118,9 +117,9 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
 
     if (MaterialRegistry.getInstance().getMaterial(material.getIdentifier()) != IMaterial.UNKNOWN) {
       builder.add(new LiteralText(""));
-      for (ModInfo modInfo : ModList.get().getMods()) {
-        if (modInfo.getModId().equalsIgnoreCase(material.getIdentifier().getNamespace())) {
-          builder.add(new TranslatableText("tooltip.part.material_added_by", modInfo.getDisplayName()));
+      for (ModContainer modInfo : FabricLoader.getInstance().getAllMods()) {
+        if (modInfo.getMetadata().getId().equalsIgnoreCase(material.getIdentifier().getNamespace())) {
+          builder.add(new TranslatableText("tooltip.part.material_added_by", modInfo.getMetadata().getName()));
         }
       }
     }
@@ -143,7 +142,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
       return true;
     }
     else if(!MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), materialStatId).isPresent()) {
-      TranslationHelper.addEachLine(ForgeI18n.parseMessage("tooltip.part.missing_stats", material.getTranslationKey(), materialStatId), tooltip);
+      TranslationHelper.addEachLine(I18n.translate("tooltip.part.missing_stats", material.getTranslationKey(), materialStatId), tooltip);
     }
 
     return false;

@@ -18,12 +18,14 @@ import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
+import slimeknights.mantle.model.IModelData;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 
 public class TankTileEntity extends SmelteryComponentTileEntity implements ITankTileEntity {
   /** Max capacity for the tank */
@@ -68,7 +70,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
 
   /** Main constructor */
   public TankTileEntity(SearedTankBlock block) {
-    this(TinkerSmeltery.tank.get(), block);
+    this(TinkerSmeltery.tank, block);
   }
 
   /** Extendable constructor */
@@ -84,7 +86,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   /*
    * Tank methods
    */
-
+/*
   @Override
   @NotNull
   public <T> Optional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
@@ -103,7 +105,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   @Override
   public IModelData getModelData() {
     return modelData;
-  }
+  }*/
 
   @Override
   public void onTankContentsChanged() {

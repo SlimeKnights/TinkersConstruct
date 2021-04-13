@@ -48,7 +48,7 @@ public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEn
   private final World world;
 
   public PartBuilderContainer(int windowIdIn, PlayerInventory playerInventoryIn, @Nullable PartBuilderTileEntity partBuilderTileEntity) {
-    super(TinkerTables.partBuilderContainer.get(), windowIdIn, playerInventoryIn, partBuilderTileEntity);
+    super(TinkerTables.partBuilderContainer, windowIdIn, playerInventoryIn, partBuilderTileEntity);
 
     // inventories
     // TODO: what if its null?

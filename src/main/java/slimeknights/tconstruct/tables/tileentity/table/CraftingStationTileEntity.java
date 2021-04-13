@@ -48,7 +48,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
     return new CraftingStationContainer(menuId, playerInventory, this);
   }
 
-  @Override
+//  @Override
   public Box getRenderBoundingBox() {
     return new Box(pos, pos.add(1, 2, 1));
   }

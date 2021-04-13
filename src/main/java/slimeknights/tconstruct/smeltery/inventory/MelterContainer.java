@@ -8,15 +8,13 @@ import net.minecraft.screen.Property;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.mantle.inventory.ItemHandlerSlot;
 import slimeknights.tconstruct.library.utils.ValidZeroIntReference;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class MelterContainer extends BaseContainer<MelterTileEntity> {
@@ -26,14 +24,15 @@ public class MelterContainer extends BaseContainer<MelterTileEntity> {
   @Getter
   private boolean hasFuelSlot = false;
   public MelterContainer(int id, @Nullable PlayerInventory inv, @Nullable MelterTileEntity melter) {
-    super(TinkerSmeltery.melterContainer.get(), id, inv, melter);
+    super(TinkerSmeltery.melterContainer, id, inv, melter);
 
     // create slots
     if (melter != null) {
       MeltingModuleInventory inventory = melter.getMeltingInventory();
       inputs = new Slot[inventory.getSlots()];
       for (int i = 0; i < inputs.length; i++) {
-        inputs[i] = this.addSlot(new ItemHandlerSlot(inventory, i, 22, 16 + (i * 18)));
+        throw new RuntimeException("CRAB!"); // FIXME: PORT
+//        inputs[i] = this.addSlot(new ItemHandlerSlot(inventory, i, 22, 16 + (i * 18)));
       }
 
       // add fuel slot if present, we only add for the melter though
@@ -42,10 +41,11 @@ public class MelterContainer extends BaseContainer<MelterTileEntity> {
       if (world != null && world.getBlockState(down).isOf(TinkerSmeltery.searedHeater.get())) {
         BlockEntity te = world.getBlockEntity(down);
         if (te != null) {
-          hasFuelSlot = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(handler -> {
-            this.addSlot(new ItemHandlerSlot(handler, 0, 151, 32));
-            return true;
-          }).isPresent();
+          throw new RuntimeException("CRAB!"); // FIXME: PORT
+//          hasFuelSlot = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(handler -> {
+//            this.addSlot(new ItemHandlerSlot(handler, 0, 151, 32));
+//            return true;
+//          }).isPresent();
         }
       }
 

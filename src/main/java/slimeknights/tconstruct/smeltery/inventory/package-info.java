@@ -1,7 +1,0 @@
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.smeltery.inventory;
-
-import mcp.MethodsReturnNonnullByDefault;
-
-import org.jetbrains.annotations.ParametersAreNonnullByDefault;

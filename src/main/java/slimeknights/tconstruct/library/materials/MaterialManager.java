@@ -12,17 +12,24 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.resource.SinglePreparationResourceReloadListener;
-import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.ICondition;
+import slimeknights.mantle.util.CraftingHelper;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
-import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
+
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,15 +40,6 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.registry.Registry;
-
 /**
  * Loads the material data from datapacks and provides them to whatever needs them.
  * Contains only the very basic material information, craftability, traits, but no stats.
@@ -51,7 +49,7 @@ import net.minecraft.util.registry.Registry;
  * So if your mods name is "foobar", the location for your mods materials is "data/foobar/materials".
  */
 @Log4j2
-public class MaterialManager extends SinglePreparationResourceReloadListener {
+public class MaterialManager {// FIXME: PORT this is cursed ->// extends SinglePreparationResourceReloadListener {
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
@@ -71,7 +69,7 @@ public class MaterialManager extends SinglePreparationResourceReloadListener {
 
   @VisibleForTesting
   protected MaterialManager(TinkerNetwork tinkerNetwork) {
-    super(tinkerNetwork, GSON, FOLDER);
+//    super(tinkerNetwork, GSON, FOLDER);
   }
 
   /**
@@ -124,7 +122,7 @@ public class MaterialManager extends SinglePreparationResourceReloadListener {
     onMaterialUpdate();
   }
 
-  @Override
+//  @Override
   protected void apply(Map<Identifier, JsonElement> splashList, ResourceManager resourceManagerIn, Profiler profilerIn) {
     this.materials = splashList.entrySet().stream()
       .filter(entry -> entry.getValue().isJsonObject())
@@ -140,7 +138,7 @@ public class MaterialManager extends SinglePreparationResourceReloadListener {
     log.info("{} materials loaded", materials.size());
   }
 
-  @Override
+//  @Override
   protected Object getUpdatePacket() {
     return new UpdateMaterialsPacket(materials.values());
   }
@@ -211,12 +209,14 @@ public class MaterialManager extends SinglePreparationResourceReloadListener {
   private static class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> {
     @Override
     public ICondition deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      return CraftingHelper.getCondition(JsonHelper.asObject(json, "condition"));
+      throw new RuntimeException("CRAB!");
+//      return CraftingHelper.getCondition(JsonHelper.asObject(json, "condition"));
     }
 
     @Override
     public JsonElement serialize(ICondition condition, Type type, JsonSerializationContext context) {
-      return CraftingHelper.serialize(condition);
+      throw new RuntimeException("CRAB!");
+//      return CraftingHelper.serialize(condition);
     }
   }
 }

@@ -5,6 +5,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens.Provider;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import slimeknights.mantle.client.screen.BackgroundContainerScreen;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
@@ -25,7 +26,7 @@ public class SingleItemScreenFactory implements Provider<SingleItemContainer,Bac
    */
   private static Identifier getBackground(@Nullable BlockEntity tile) {
     if (tile != null) {
-      Identifier id = tile.getType().getRegistryName();
+      Identifier id = Registry.BLOCK_ENTITY_TYPE.getId(tile.getType());
       if (id != null) {
         return new Identifier(id.getNamespace(), String.format("textures/gui/%s.png", id.getPath()));
       }

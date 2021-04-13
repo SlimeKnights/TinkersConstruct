@@ -1,13 +1,11 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.world.World;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -15,7 +13,6 @@ import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
@@ -23,7 +20,6 @@ import java.util.function.Predicate;
 /**
  * This class represents a single item slot that can melt into a liquid
  */
-@RequiredArgsConstructor
 public class MeltingModule implements IMeltingInventory, PropertyDelegate {
   public static final int NO_SPACE = -1;
 
@@ -44,21 +40,24 @@ public class MeltingModule implements IMeltingInventory, PropertyDelegate {
   private final int slotIndex;
 
   /** Current time of the item in the slot */
-  @Getter
   private int currentTime = 0;
   /** Required time for the item in the slot */
-  @Getter
   private int requiredTime = 0;
   /** Required temperature for the item in the slot */
-  @Getter
   private int requiredTemp = 0;
 
   /** Last recipe this slot contained */
   private IMeltingRecipe lastRecipe;
 
   /** Current item in this slot */
-  @Getter
   private ItemStack stack = ItemStack.EMPTY;
+
+  public MeltingModule(MantleTileEntity parent, Predicate<FluidVolume> outputFunction, IntSupplier nuggetsPerOre, int slotIndex) {
+    this.parent = parent;
+    this.outputFunction = outputFunction;
+    this.nuggetsPerOre = nuggetsPerOre;
+    this.slotIndex = slotIndex;
+  }
 
   @Override
   public int getNuggetsPerOre() {
@@ -273,5 +272,21 @@ public class MeltingModule implements IMeltingInventory, PropertyDelegate {
         requiredTemp = value;
         break;
     }
+  }
+
+  public int getCurrentTime() {
+    return this.currentTime;
+  }
+
+  public int getRequiredTime() {
+    return this.requiredTime;
+  }
+
+  public int getRequiredTemp() {
+    return this.requiredTemp;
+  }
+
+  public ItemStack getStack() {
+    return this.stack;
   }
 }

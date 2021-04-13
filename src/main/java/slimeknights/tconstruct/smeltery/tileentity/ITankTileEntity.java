@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import alexiil.mc.lib.attributes.Simulation;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
@@ -127,35 +128,35 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    * @param offset   Direction to place fish
    * @return True if using a bucket
    */
-  static boolean interactWithBucket(World world, BlockPos pos, PlayerEntity player, Hand hand, Direction hit, Direction offset) {
-    ItemStack held = player.getStackInHand(hand);
-    if (held.getItem() instanceof BucketItem) {
-      BucketItem bucket = (BucketItem) held.getItem();
-      Fluid fluid = bucket.getFluid();
-      if (fluid != Fluids.EMPTY) {
-        if (!world.isClient) {
-          BlockEntity te = world.getBlockEntity(pos);
-          if (te != null) {
-            te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit)
-              .ifPresent(handler -> {
-                FluidVolume fluidStack = new FluidVolume(bucket.getFluid(), FluidAttributes.BUCKET_VOLUME);
-                // must empty the whole bucket
-                if (handler.fill(fluidStack, Simulation.SIMULATE) == FluidAttributes.BUCKET_VOLUME) {
-                  handler.fill(fluidStack, Simulation.EXECUTE);
-                  bucket.onEmptied(world, held, pos.offset(offset));
-                  world.playSound(null, pos, fluid.getAttributes().getEmptySound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-                  if (!player.isCreative()) {
-                    player.setStackInHand(hand, held.getContainerItem());
-                  }
-                }
-              });
-          }
-        }
-        return true;
-      }
-    }
-    return false;
-  }
+//  static boolean interactWithBucket(World world, BlockPos pos, PlayerEntity player, Hand hand, Direction hit, Direction offset) {
+//    ItemStack held = player.getStackInHand(hand);
+//    if (held.getItem() instanceof BucketItem) {
+//      BucketItem bucket = (BucketItem) held.getItem();
+//      Fluid fluid = bucket.getFluid();
+//      if (fluid != Fluids.EMPTY) {
+//        if (!world.isClient) {
+//          BlockEntity te = world.getBlockEntity(pos);
+//          if (te != null) {
+//            te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit)
+//              .ifPresent(handler -> {
+//                FluidVolume fluidStack = new FluidVolume(bucket.getFluid(), FluidAttributes.BUCKET_VOLUME);
+//                // must empty the whole bucket
+//                if (handler.fill(fluidStack, Simulation.SIMULATE) == FluidAttributes.BUCKET_VOLUME) {
+//                  handler.fill(fluidStack, Simulation.EXECUTE);
+//                  bucket.onEmptied(world, held, pos.offset(offset));
+//                  world.playSound(null, pos, fluid.getAttributes().getEmptySound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+//                  if (!player.isCreative()) {
+//                    player.setStackInHand(hand, held.getContainerItem());
+//                  }
+//                }
+//              });
+//          }
+//        }
+//        return true;
+//      }
+//    }
+//    return false;
+//  }
 
   /**
    * Base logic to interact with a tank

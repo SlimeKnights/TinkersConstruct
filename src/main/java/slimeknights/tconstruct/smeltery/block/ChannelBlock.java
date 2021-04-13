@@ -27,15 +27,12 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-
-import net.minecraftforge.common.util.Constants.BlockFlags;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Map;
@@ -157,7 +154,8 @@ public class ChannelBlock extends Block {
 	 */
 	private static boolean isFluidHandler(WorldAccess world, Direction side, BlockPos pos) {
 		BlockEntity te = world.getBlockEntity(pos);
-		return te != null && te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side).isPresent();
+		throw new RuntimeException("CRAB!"); //FIXME: PORT (what do we do about capabilities? cardinal components?)
+//		return te != null && te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side).isPresent();
 	}
 
 	/**
@@ -332,7 +330,7 @@ public class ChannelBlock extends Block {
 			boolean isPowered = worldIn.isReceivingRedstonePower(pos);
 			if (isPowered != state.get(POWERED)) {
 				state = state.with(POWERED, isPowered).with(DOWN, isPowered && canConnect(worldIn, pos, Direction.DOWN));
-				worldIn.setBlockState(pos, state, BlockFlags.BLOCK_UPDATE);
+				worldIn.setBlockState(pos, state, 1 << 1);
 			}
       TileEntityHelper.getTile(ChannelTileEntity.class, worldIn, pos)
                       .ifPresent(te -> te.removeCachedNeighbor(fromOffset(pos, fromPos)));
@@ -346,12 +344,12 @@ public class ChannelBlock extends Block {
 		return side.getAxis().isHorizontal() && adjacentBlockState.isOf(this) && state.get(DIRECTION_MAP.get(side)).canFlow() && adjacentBlockState.get(DIRECTION_MAP.get(side.getOpposite())).canFlow();
 	}
 
-  @Override
+//  @Override
   public boolean hasTileEntity(BlockState state) {
     return true;
   }
 
-  @Override
+//  @Override
   public BlockEntity createTileEntity(BlockState state, BlockView world) {
     return new ChannelTileEntity();
   }

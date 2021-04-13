@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -10,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Direction.Type;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 import org.jetbrains.annotations.Nullable;
@@ -329,7 +329,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
    */
   protected static Collection<BlockPos> readPosList(CompoundTag rootTag, String key) {
     List<BlockPos> collection;
-    if (rootTag.contains(key, NBT.TAG_LIST)) {
+    if (rootTag.contains(key, NbtType.LIST)) {
       ListTag list = rootTag.getList(key, NbtType.COMPOUND);
       collection = new ArrayList<>(list.size());
       for (int i = 0; i < list.size(); i++) {

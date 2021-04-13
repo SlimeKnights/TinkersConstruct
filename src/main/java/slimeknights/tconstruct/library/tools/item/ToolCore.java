@@ -3,16 +3,8 @@ package slimeknights.tconstruct.library.tools.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -26,6 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tag.Tag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -38,11 +31,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-
-import net.minecraftforge.common.ToolType;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.TConfig;
@@ -63,6 +51,15 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.library.utils.TooltipType;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * An indestructible item constructed from different parts.
@@ -99,7 +96,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     return false;
   }
 
-  @Override
+/*  @Override
   public int getItemStackLimit(ItemStack stack) {
     return 1;
   }
@@ -110,7 +107,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
 
-  /* Item Entity -> INDESTRUCTIBLE */
+  *//* Item Entity -> INDESTRUCTIBLE *//*
 
   @Override
   public boolean hasCustomEntity(ItemStack stack) {
@@ -125,7 +122,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       return entity;
     }
     return null;
-  }
+  }*/
 
   /* Damage/Durability */
 
@@ -134,7 +131,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     return true;
   }
 
-  @Override
+  /*@Override
   public int getMaxDamage(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
     int durability = tool.getStats().getDurability();
@@ -175,7 +172,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     }
     return tool.getDamage() > 0;
   }
-
+*/
   /**
    * Helper to avoid unneeded tool stack parsing
    * @param tool  Tool stack
@@ -194,7 +191,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     return (double) tool.getDamage() / tool.getStats().getDurability();
   }
 
-  @Override
+//  @Override
   public double getDurabilityForDisplay(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
@@ -204,7 +201,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     return 0.95 * getDamagePercentage(tool);
   }
 
-  @Override
+//  @Override
   public int getRGBDurabilityForDisplay(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
 
@@ -221,18 +218,20 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   /* Mining */
 
-  @Override
-  public Set<ToolType> getToolTypes(ItemStack stack) {
+//  @Override
+  public Set<Tag<Item>> getToolTypes(ItemStack stack) {
     // no classes if broken
     if (ToolDamageUtil.isBroken(stack)) {
       return Collections.emptySet();
     }
 
-    return super.getToolTypes(stack);
+    throw new RuntimeException("CRAB!");
+    // FIXME: PORT
+//    return super.getToolTypes(stack);
   }
 
-  @Override
-  public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
+//  @Override
+  public int getHarvestLevel(ItemStack stack, Tag<Item> toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
     // brokenness is calculated in by the toolTypes check
     if (this.getToolTypes(stack).contains(toolClass)) {
       return ToolStack.from(stack).getStats().getHarvestLevel();
@@ -259,7 +258,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     return true;
   }
 
-  @Override
+//  @Override
   public final boolean canHarvestBlock(ItemStack stack, BlockState state) {
     return this.getToolHarvestLogic().isEffective(ToolStack.from(stack), stack, state);
   }
@@ -272,7 +271,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   /* Attacking */
 
-  @Override
+//  @Override
   public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
     return ToolAttackUtil.attackEntity(stack, this, player, entity);
   }
@@ -294,7 +293,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     return getToolDefinition().getBaseStatDefinition().getDamageCutoff();
   }
 
-  @Override
+//  @Override
   public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
     CompoundTag nbt = stack.getTag();
     if (nbt == null || nbt.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
@@ -321,7 +320,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   /* World interaction */
 
-  @Override
+//  @Override
   public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
     return getToolHarvestLogic().handleBlockBreak(stack, pos, player);
 
@@ -557,7 +556,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     return false;
   }
 
-  @Override
+//  @Override
   public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
     return false;
   }
@@ -668,12 +667,12 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     return Item.raycast(worldIn, player, fluidMode);
   }
 
-  @Override
+//  @Override
   public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
     return shouldCauseReequipAnimation(oldStack, newStack, false);
   }
 
-  @Override
+//  @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
     if (oldStack == newStack) {
       return false;

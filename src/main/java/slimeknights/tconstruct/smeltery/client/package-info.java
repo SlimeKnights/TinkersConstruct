@@ -1,7 +1,0 @@
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.smeltery.client;
-
-import mcp.MethodsReturnNonnullByDefault;
-
-import org.jetbrains.annotations.ParametersAreNonnullByDefault;

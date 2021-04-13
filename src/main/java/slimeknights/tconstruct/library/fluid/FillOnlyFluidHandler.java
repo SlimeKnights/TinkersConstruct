@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.fluid;
 
+import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import org.jetbrains.annotations.NotNull;
 import slimeknights.tconstruct.fluids.TinkerFluids;

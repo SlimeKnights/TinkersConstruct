@@ -65,7 +65,7 @@ public class ScalingChestScreen<T extends BlockEntity & Inventory> extends DynIn
       return false;
     }
 
-    if (slot.getSlotIndex() >= this.inventory.size()) {
+    if (slot.index >= this.inventory.size()) {
       return false;
     }
 

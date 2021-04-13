@@ -76,7 +76,7 @@ public class FaucetBlock extends Block {
 
   /* Tile entity */
 
-  @Override
+/*  @Override
   public boolean hasTileEntity(BlockState state) {
     return true;
   }
@@ -84,7 +84,7 @@ public class FaucetBlock extends Block {
   @Override
   public BlockEntity createTileEntity(BlockState state, BlockView world) {
     return new FaucetTileEntity();
-  }
+  }*/
 
   @SuppressWarnings("deprecation")
   @Deprecated
@@ -97,7 +97,7 @@ public class FaucetBlock extends Block {
     return ActionResult.SUCCESS;
   }
 
-  @Override
+//  @Override
   public boolean canConnectRedstone(BlockState state, BlockView world, BlockPos pos, @Nullable Direction side) {
     // TODO: keep?
     return true;

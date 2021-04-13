@@ -143,7 +143,7 @@ public class DynInventoryScreen extends ModuleScreen {
       return true;
     }
 
-    int index = slot.getSlotIndex();
+    int index = slot.index;
 
     return (this.firstSlotId <= index && this.lastSlotId > index); // inside visible area
     //|| indexStart > index || indexEnd <= index; // or not our concern
@@ -158,7 +158,7 @@ public class DynInventoryScreen extends ModuleScreen {
     for (Slot slot : this.handler.slots) {
       if (this.shouldDrawSlot(slot)) {
         // calc position of the slot
-        int offset = slot.getSlotIndex() - this.firstSlotId;
+        int offset = slot.index - this.firstSlotId;
         int x = (offset % this.columns) * DynInventoryScreen.slot.w;
         int y = (offset / this.columns) * DynInventoryScreen.slot.h;
 

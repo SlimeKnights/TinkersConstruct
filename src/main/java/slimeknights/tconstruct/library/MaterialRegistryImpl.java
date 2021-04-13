@@ -39,8 +39,9 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
     this.materialManager = materialManager;
     this.materialStatsManager = materialStatsManager;
     this.materialTraitsManager = materialTraitsManager;
-    ServerPlayConnectionEvents.JOIN.register(materialManager::handleLogin);
-    ServerPlayConnectionEvents.JOIN.register(materialStatsManager::handleLogin);
+//    FIXME: PORT these methods magicly dissapeared at some point? check the git history. i definitely remember fixing them
+//    ServerPlayConnectionEvents.JOIN.register(materialManager::handleLogin);
+//    ServerPlayConnectionEvents.JOIN.register(materialStatsManager::handleLogin);
   }
 
   @Override
