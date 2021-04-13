@@ -205,6 +205,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(5) // +25 seconds fire damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.fiery, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.necrotic.get())
+                         .addInput(Items.WITHER_ROSE)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.BLOOD))
+                         .addInput(Items.GHAST_TEAR)
+                         .setMaxLevel(5) // +50% chance of heald, combine with +40% from traits for +90% total
+                         .setUpgradeSlots(1)
+                         .setTools(TinkerTags.Items.MELEE)
+                         .build(consumer, prefixR(TinkerModifiers.necrotic, upgradeFolder));
 
     /*
      * damage boost

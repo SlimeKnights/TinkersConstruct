@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:wither_rose"
+    },
+    {
+      "item": "tconstruct:blood_congealed_slime"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
+  "result": {
+    "name": "tconstruct:necrotic",
+    "level": 1
+  },
+  "max_level": 5,
+  "upgrade_slots": 1
+}
