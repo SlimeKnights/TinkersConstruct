@@ -17,7 +17,7 @@ import slimeknights.tconstruct.plugin.crt.CRTHelper;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.Material")
 public class MaterialManager implements IRecipeManager {
-
+  
   @ZenCodeType.Method
   public void addMaterial(String name, IIngredient ingredient, int value, int needed, String materialId) {
     MaterialId material = CRTHelper.getMaterialId(materialId);
@@ -26,15 +26,15 @@ public class MaterialManager implements IRecipeManager {
     MaterialRecipe recipe = new MaterialRecipe(id, "", ingredient.asVanillaIngredient(), value, needed, material);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Material Recipes by an IItemStack output! Use `removeByName(String name)` instead!");
   }
-
+  
   @Override
   public IRecipeType<MaterialRecipe> getRecipeType() {
     return RecipeTypes.MATERIAL;
   }
-
+  
 }

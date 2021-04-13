@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.TinkerStation")
 public class TinkerStationManager implements IRecipeManager {
-
+  
   @ZenCodeType.Method
   public void addOverslimeModifierRecipe(String name, IIngredient ingredient, int restoreAmount) {
     name = fixRecipeName(name);
@@ -37,7 +37,7 @@ public class TinkerStationManager implements IRecipeManager {
     OverslimeModifierRecipe recipe = new OverslimeModifierRecipe(id, ingredient.asVanillaIngredient(), restoreAmount);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @ZenCodeType.Method
   public void addModifierRecipe(String name, IIngredientWithAmount[] inputs, IIngredient toolRequired, String modifierResult, int modifierResultLevel, int maxLevel, int upgradeSlots, int abilitySlots) {
     name = fixRecipeName(name);
@@ -49,7 +49,7 @@ public class TinkerStationManager implements IRecipeManager {
     ModifierRecipe recipe = new ModifierRecipe(id, collect, toolRequired.asVanillaIngredient(), entry, "", result, maxLevel, upgradeSlots, abilitySlots);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @ZenCodeType.Method
   public void addModifierRecipe(String name, IIngredientWithAmount[] inputs, IIngredient toolRequired, String modifierResult, int modifierResultLevel, int maxLevel, int upgradeSlots, int abilitySlots, IData modifierRequirements, int minMatch, String requirementsError) {
     name = fixRecipeName(name);
@@ -62,7 +62,7 @@ public class TinkerStationManager implements IRecipeManager {
     ModifierRecipe recipe = new ModifierRecipe(id, collect, toolRequired.asVanillaIngredient(), entry, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @ZenCodeType.Method
   public void addIncrementalModifierRecipe(String name, IIngredient input, int amountPerInput, int neededPerLevel, IIngredient toolRequirement, String modifierResult, int modifierResultLevel, int maxLevel, int upgradeSlots, int abilitySlots, IItemStack leftover) {
     name = fixRecipeName(name);
@@ -73,7 +73,7 @@ public class TinkerStationManager implements IRecipeManager {
     IncrementalModifierRecipe recipe = new IncrementalModifierRecipe(id, input.asVanillaIngredient(), amountPerInput, neededPerLevel, toolRequirement.asVanillaIngredient(), entry, "", result, maxLevel, upgradeSlots, abilitySlots, leftover.getInternal());
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @ZenCodeType.Method
   public void addIncrementalModifierRecipe(String name, IIngredient input, int amountPerInput, int neededPerLevel, IIngredient toolRequirement, String modifierResult, int modifierResultLevel, int maxLevel, int upgradeSlots, int abilitySlots, IItemStack leftover, IData modifierRequirements, int minMatch, String requirementsError) {
     name = fixRecipeName(name);
@@ -85,15 +85,15 @@ public class TinkerStationManager implements IRecipeManager {
     IncrementalModifierRecipe recipe = new IncrementalModifierRecipe(id, input.asVanillaIngredient(), amountPerInput, neededPerLevel, toolRequirement.asVanillaIngredient(), entry, requirementsError, result, maxLevel, upgradeSlots, abilitySlots, leftover.getInternal());
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Tinker Station Recipes by an IItemStack output! Use `removeByName(String name)` instead!");
   }
-
+  
   @Override
   public IRecipeType<ITinkerStationRecipe> getRecipeType() {
     return RecipeTypes.TINKER_STATION;
   }
-
+  
 }

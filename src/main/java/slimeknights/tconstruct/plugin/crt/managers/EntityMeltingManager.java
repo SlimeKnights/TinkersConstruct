@@ -20,7 +20,7 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.EntityMelting")
 public class EntityMeltingManager implements IRecipeManager {
-
+  
   @ZenCodeType.Method
   public void addRecipe(String name, MCEntityType input, IFluidStack output, int damage) {
     name = fixRecipeName(name);
@@ -29,26 +29,26 @@ public class EntityMeltingManager implements IRecipeManager {
     EntityMeltingRecipe recipe = new EntityMeltingRecipe(id, EntityIngredient.of(input.getInternal()), outputFluid, damage);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Entity Melting Recipes by an IItemStack output as it outputs Fluids! Use `removeRecipe(Fluid output)` instead!");
   }
-
+  
   @ZenCodeType.Method
   public void removeRecipe(Fluid output) {
     CraftTweakerAPI.apply(new ActionRemoveRecipe(this, iRecipe -> {
-      if (iRecipe instanceof EntityMeltingRecipe) {
+      if(iRecipe instanceof EntityMeltingRecipe) {
         EntityMeltingRecipe recipe = (EntityMeltingRecipe) iRecipe;
         return recipe.getOutput().getFluid() == output;
       }
       return false;
     }));
   }
-
+  
   @Override
   public IRecipeType<EntityMeltingRecipe> getRecipeType() {
     return RecipeTypes.ENTITY_MELTING;
   }
-
+  
 }

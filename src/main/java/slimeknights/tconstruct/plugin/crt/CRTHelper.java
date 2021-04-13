@@ -2,15 +2,18 @@ package slimeknights.tconstruct.plugin.crt;
 
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.impl.commands.CTCommandCollectionEvent;
+import com.blamejared.crafttweaker.impl.commands.script_examples.ExampleCollectionEvent;
 import com.blamejared.crafttweaker.impl.fluid.MCFluidStackMutable;
 import com.blamejared.crafttweaker.impl_native.item.ExpandItem;
 import com.google.gson.JsonElement;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -25,37 +28,57 @@ import slimeknights.tconstruct.library.tools.item.ToolCore;
 import java.util.stream.Collectors;
 
 public class CRTHelper {
-
+  
   public static MaterialId getMaterialId(String materialId) {
     MaterialId material = MaterialId.tryCreate(materialId);
-    if (material == null) {
+    if(material == null) {
       throw new IllegalArgumentException("Invalid ResourceLocation provided! Provided: " + materialId);
     }
     IMaterial foundMaterial = MaterialRegistry.getMaterial(material);
-    if (foundMaterial == Material.UNKNOWN) {
+    if(foundMaterial == Material.UNKNOWN) {
       throw new IllegalArgumentException("Material does not exist! Provided: " + materialId);
     }
-
+    
     return material;
   }
-
-  public static  Modifier getModifier(String name) {
+  
+  public static Modifier getModifier(String name) {
     ModifierId resultId = ModifierId.tryCreate(name);
-    if (resultId == null) {
+    if(resultId == null) {
       throw new IllegalArgumentException("Invalid ResourceLocation provided! Provided: " + name);
     }
     Modifier resultModifier = TinkerRegistries.MODIFIERS.getValue(resultId);
-    if (resultModifier == null) {
+    if(resultModifier == null) {
       throw new IllegalArgumentException("Modifier does not exist! Provided: " + resultId);
     }
     return resultModifier;
   }
-
+  
+  @SubscribeEvent
+  public void onExampleCollection(ExampleCollectionEvent event) {
+    event.addResource(location("alloying"));
+    event.addResource(location("beheading"));
+    event.addResource(location("casting_basin"));
+    event.addResource(location("casting_table"));
+    event.addResource(location("entity_melting"));
+    event.addResource(location("fuel"));
+    event.addResource(location("material"));
+    event.addResource(location("melting"));
+    event.addResource(location("molding_basin"));
+    event.addResource(location("molding_table"));
+    event.addResource(location("part_builder"));
+    event.addResource(location("tinker_station"));
+  }
+  
+  private ResourceLocation location(String location) {
+    return new ResourceLocation(TConstruct.modID, TConstruct.modID + "/" + location);
+  }
+  
   @SubscribeEvent
   public void onCommandCollection(CTCommandCollectionEvent event) {
-
+    
     event.registerDump("ticMaterials", "Lists the different Tinkers Construct Materials", commandContext -> {
-
+      
       CraftTweakerAPI.logDump("List of all Tinkers Construct Materials: ");
       MaterialRegistry.getMaterials().forEach(iMaterial -> {
         StringBuilder builder = new StringBuilder();
@@ -77,9 +100,9 @@ public class CRTHelper {
       commandContext.getSource().sendFeedback(message, true);
       return 0;
     });
-
+    
     event.registerDump("ticMaterialItems", "Lists the different items that are valid Material Items", commandContext -> {
-
+      
       CraftTweakerAPI.logDump("List of all Items that can be used as a Material Item: ");
       ForgeRegistries.ITEMS.getValues().stream().filter(item -> item instanceof IMaterialItem).forEach(item -> {
         CraftTweakerAPI.logDump(ExpandItem.getDefaultInstance(item).getCommandString());
@@ -88,10 +111,10 @@ public class CRTHelper {
       commandContext.getSource().sendFeedback(message, true);
       return 0;
     });
-
-
+    
+    
     event.registerDump("ticModifiers", "Lists the different Tinkers Construct Modifiers", commandContext -> {
-
+      
       CraftTweakerAPI.logDump("List of all Tinkers Construct Modifiers: ");
       TinkerRegistries.MODIFIERS.getValues().forEach(iMaterial -> {
         StringBuilder builder = new StringBuilder();
@@ -108,9 +131,9 @@ public class CRTHelper {
       commandContext.getSource().sendFeedback(message, true);
       return 0;
     });
-
+    
     event.registerDump("ticToolCores", "Lists the different items that are valid Tool Core Items", commandContext -> {
-
+      
       // CraftTweaker currently doesn't have a nice way to print just the item registry name in our format without the nbt tag attached.
       CraftTweakerAPI.logDump("List of all Items that can be used as a Tool Core (remove the withTag, you just want the actual item): ");
       ForgeRegistries.ITEMS.getValues().stream().filter(item -> item instanceof ToolCore).forEach(item -> {
@@ -120,8 +143,8 @@ public class CRTHelper {
       commandContext.getSource().sendFeedback(message, true);
       return 0;
     });
-
+    
   }
-
-
+  
+  
 }

@@ -17,10 +17,10 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.Partbuilder")
 public class PartBuilderManager implements IRecipeManager {
-
+  
   @ZenCodeType.Method
   public void addRecipe(String name, String pattern, int cost, Item output, int outputCount) {
-    if (!(output instanceof IMaterialItem)) {
+    if(!(output instanceof IMaterialItem)) {
       throw new IllegalArgumentException(ExpandItem.getDefaultInstance(output).getCommandString() + " is not a valid IMaterialItem! You can use `/ct dump ticMaterialItems` to view valid items!");
     }
     name = fixRecipeName(name);
@@ -29,15 +29,15 @@ public class PartBuilderManager implements IRecipeManager {
     PartRecipe recipe = new PartRecipe(id, "", partPattern, cost, ((IMaterialItem) output), outputCount);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Part Builder Recipes by an IItemStack output! Use `removeByName(String name)` instead!");
   }
-
+  
   @Override
   public IRecipeType<PartRecipe> getRecipeType() {
     return RecipeTypes.PART_BUILDER;
   }
-
+  
 }

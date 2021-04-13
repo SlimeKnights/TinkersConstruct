@@ -25,7 +25,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.Melting")
 public class MeltingManager implements IRecipeManager {
-
+  
   @ZenCodeType.Method
   public void addMeltingRecipe(String name, IIngredient input, IFluidStack output, int temperature, int time) {
     name = fixRecipeName(name);
@@ -35,7 +35,7 @@ public class MeltingManager implements IRecipeManager {
     MeltingRecipe recipe = new MeltingRecipe(id, "", ingredient, outputFluid, temperature, time);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @ZenCodeType.Method
   public void addDamageableMeltingRecipe(String name, IIngredient input, IFluidStack output, int temperature, int time) {
     name = fixRecipeName(name);
@@ -45,7 +45,7 @@ public class MeltingManager implements IRecipeManager {
     DamageableMeltingRecipe recipe = new DamageableMeltingRecipe(id, "", ingredient, outputFluid, temperature, time);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @ZenCodeType.Method
   public void addOreMeltingRecipe(String name, IIngredient input, IFluidStack output, int temperature, int time) {
     name = fixRecipeName(name);
@@ -55,10 +55,10 @@ public class MeltingManager implements IRecipeManager {
     OreMeltingRecipe recipe = new OreMeltingRecipe(id, "", ingredient, outputFluid, temperature, time);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @ZenCodeType.Method
   public void addMaterialMeltingRecipe(String name, Item item, int cost) {
-    if (!(item instanceof IMaterialItem)) {
+    if(!(item instanceof IMaterialItem)) {
       throw new IllegalArgumentException(ExpandItem.getDefaultInstance(item).getCommandString() + " is not a valid IMaterialItem! You can use `/ct dump ticMaterialItems` to view valid items!");
     }
     name = fixRecipeName(name);
@@ -66,15 +66,15 @@ public class MeltingManager implements IRecipeManager {
     MaterialMeltingRecipe recipe = new MaterialMeltingRecipe(id, "", ((IMaterialItem) item), cost);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Melting Recipes by an IItemStack output! Use `removeByName(String name)` instead!");
   }
-
+  
   @Override
   public IRecipeType<IMeltingRecipe> getRecipeType() {
     return RecipeTypes.MELTING;
   }
-
+  
 }

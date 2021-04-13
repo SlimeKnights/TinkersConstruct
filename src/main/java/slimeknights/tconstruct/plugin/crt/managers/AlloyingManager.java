@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.Allying")
 public class AlloyingManager implements IRecipeManager {
-
+  
   @ZenCodeType.Method
   public void addRecipe(String name, IFluidStack[] ingredients, IFluidStack output, int temperature) {
     name = fixRecipeName(name);
@@ -33,27 +33,27 @@ public class AlloyingManager implements IRecipeManager {
     AlloyRecipe recipe = new AlloyRecipe(id, fluidIngredients, fluidOutput, temperature);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
-
+  
+  
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Alloy Recipes by an IItemStack output as it outputs Fluids! Use `removeRecipe(Fluid output)` instead!");
   }
-
+  
   @ZenCodeType.Method
   public void removeRecipe(Fluid output) {
     CraftTweakerAPI.apply(new ActionRemoveRecipe(this, iRecipe -> {
-      if (iRecipe instanceof AlloyRecipe) {
+      if(iRecipe instanceof AlloyRecipe) {
         AlloyRecipe recipe = (AlloyRecipe) iRecipe;
         return recipe.getOutput().getFluid() == output;
       }
       return false;
     }));
   }
-
+  
   @Override
   public IRecipeType<AlloyRecipe> getRecipeType() {
     return RecipeTypes.ALLOYING;
   }
-
+  
 }

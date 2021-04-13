@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.MoldingTable")
 public class MoldingTableManager implements IRecipeManager {
-
+  
   @ZenCodeType.Method
   public void addRecipe(String name, IIngredient material, IIngredient mold, boolean moldConsumed, IItemStack output) {
     name = fixRecipeName(name);
@@ -28,10 +28,10 @@ public class MoldingTableManager implements IRecipeManager {
     MoldingRecipe.Table recipe = new MoldingRecipe.Table(id, materialIngredient, moldIngredient, moldConsumed, itemOutput);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @Override
   public IRecipeType<MoldingRecipe> getRecipeType() {
     return RecipeTypes.MOLDING_TABLE;
   }
-
+  
 }

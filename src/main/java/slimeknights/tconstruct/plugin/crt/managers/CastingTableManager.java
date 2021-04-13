@@ -21,31 +21,31 @@ import slimeknights.tconstruct.plugin.crt.managers.base.ICastingManager;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.CastingTable")
 public class CastingTableManager implements ICastingManager {
-
+  
   @Override
   public ItemCastingRecipe makeItemCastingRecipe(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
     return new ItemCastingRecipe.Table(id, "", cast, fluid, result, coolingTime, consumed, switchSlots);
   }
-
+  
   @Override
   public CompositeCastingRecipe makeCompositeCastingRecipe(ResourceLocation id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {
     return new CompositeCastingRecipe.Table(id, inputId, fluid, outputId, coolingTemperature);
   }
-
+  
   @Override
   public ContainerFillingRecipe makeContainerFillingRecipe(ResourceLocation id, String groupIn, int fluidAmount, Item containerIn) {
     return new ContainerFillingRecipe.Table(id, "", fluidAmount, containerIn);
   }
-
+  
   @Override
   public MaterialCastingRecipe makeMaterialCastingRecipe(ResourceLocation id, String group, Ingredient cast, int fluidAmount, IMaterialItem result, boolean consumed, boolean switchSlots) {
     return new MaterialCastingRecipe.Table(id, "", cast, fluidAmount, result, consumed, switchSlots);
   }
-
+  
   @Override
   public IRecipeType<ICastingRecipe> getRecipeType() {
     return RecipeTypes.CASTING_TABLE;
   }
-
-
+  
+  
 }

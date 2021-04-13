@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.Beheading")
 public class BeheadingManager implements IRecipeManager {
-
+  
   @ZenCodeType.Method
   public void addRecipe(String name, MCEntityType ingredient, IItemStack output) {
     name = fixRecipeName(name);
@@ -26,22 +26,22 @@ public class BeheadingManager implements IRecipeManager {
     BeheadingRecipe recipe = new BeheadingRecipe(id, EntityIngredient.of(ingredient.getInternal()), ItemOutput.fromStack(output.getInternal()));
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Beheading Recipes by an IItemStack output! Use `removeRecipe(MCEntityType input)` instead!");
   }
-
+  
   @ZenCodeType.Method
   public void removeRecipe(MCEntityType input) {
     CraftTweakerAPI.apply(new ActionRemoveRecipe(this, iRecipe -> {
-      if (iRecipe instanceof BeheadingRecipe) {
+      if(iRecipe instanceof BeheadingRecipe) {
         return ((BeheadingRecipe) iRecipe).getInputs().stream().anyMatch(entityType -> entityType == input.getInternal());
       }
       return false;
     }));
   }
-
+  
   @Override
   public IRecipeType<BeheadingRecipe> getRecipeType() {
     return RecipeTypes.BEHEADING;

@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.Fuel")
 public class FuelManager implements IRecipeManager {
-
+  
   @ZenCodeType.Method
   public void addFuel(String name, IFluidStack input, int duration, int temperature) {
     name = fixRecipeName(name);
@@ -27,26 +27,26 @@ public class FuelManager implements IRecipeManager {
     MeltingFuel recipe = new MeltingFuel(id, "", fluidIngredient, duration, temperature);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
-
+  
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Alloy Recipes by an IItemStack output as it doesn't output anything! Use `removeRecipe(Fluid input)` instead!");
   }
-
+  
   @ZenCodeType.Method
   public void removeRecipe(Fluid input) {
     CraftTweakerAPI.apply(new ActionRemoveRecipe(this, iRecipe -> {
-      if (iRecipe instanceof MeltingFuel) {
+      if(iRecipe instanceof MeltingFuel) {
         MeltingFuel recipe = (MeltingFuel) iRecipe;
         return recipe.getInputs().stream().anyMatch(fluidStack -> fluidStack.getFluid() == input);
       }
       return false;
     }));
   }
-
+  
   @Override
   public IRecipeType<MeltingFuel> getRecipeType() {
     return RecipeTypes.FUEL;
   }
-
+  
 }
