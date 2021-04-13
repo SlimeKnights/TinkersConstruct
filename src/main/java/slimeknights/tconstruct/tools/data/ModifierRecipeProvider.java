@@ -352,5 +352,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     BeheadingRecipeBuilder.beheading(EntityIngredient.of(EntityType.CREEPER), Items.CREEPER_HEAD)
                           .build(consumer, prefix(Items.CREEPER_HEAD, folder));
     CustomRecipeBuilder.customRecipe(TinkerModifiers.playerBeheadingSerializer.get()).build(consumer, locationString(folder + "player"));
+    CustomRecipeBuilder.customRecipe(TinkerModifiers.snowGolemBeheadingSerializer.get()).build(consumer, locationString(folder + "snow_golem"));
   }
 }

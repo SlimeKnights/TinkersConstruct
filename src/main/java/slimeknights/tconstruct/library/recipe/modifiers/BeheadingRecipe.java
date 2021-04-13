@@ -61,7 +61,7 @@ public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
    * @return  Fluid output
    */
   public ItemStack getOutput(Entity entity) {
-    return output.get().copy();
+    return getOutput().copy();
   }
 
   /** Gets a list of inputs for display */
