@@ -154,6 +154,8 @@
 
     "item.tconstruct.materials_and_you": "Materials and You",
     "item.tconstruct.materials_and_you.tooltip": "The book every Tinker needs\nby Skyla",
+    "item.tconstruct.tinkers_gadgetry": "Tinker's Gadgetry",
+    "item.tconstruct.tinkers_gadgetry.tooltip": "Uses of slime in everyday tasks\nby Melvin",
 
     "item.tconstruct.puny_smelting": "Puny Smelting",
     "item.tconstruct.puny_smelting.tooltip": "Smelting and casting for beginners\nby Thruul M'Gon",
@@ -618,7 +620,7 @@
     "item.tconstruct.sky_slime_sling": "Skyslime Sling",
     "item.tconstruct.sky_slime_sling.tooltip": "Charge up, let go, get back in the air!\nUse Slime Boots if you value your life!",
     "item.tconstruct.ender_slime_sling": "Enderslime Sling",
-    "item.tconstruct.ender_slime_sling.tooltip": "Charge up, point it at a wall, come out the other side!\nCrouch for a little more control.",
+    "item.tconstruct.ender_slime_sling.tooltip": "Charge up, point it at a wall, come out the other side!",
     "item.tconstruct.ichor_slime_sling": "Ichor Sling",
     "item.tconstruct.ichor_slime_sling.tooltip": "Charge up, point at a creature, and send it flying!",
 
@@ -916,6 +918,7 @@
     "material.tconstruct.stone": "Stone",
     "material.tconstruct.flint": "Flint",
     "material.tconstruct.bone": "Bone",
+    "material.tconstruct.necrotic_bone": "Necrotic Bone",
     
     "__comment": "Tier 2 Materials",
     "material.tconstruct.iron": "Iron",

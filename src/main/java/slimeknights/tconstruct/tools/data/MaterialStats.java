@@ -49,6 +49,11 @@ final class MaterialStats {
                      new HeadMaterialStats(100, 2.5f, STONE, 1.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.75f).withAttackSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
+    // tier 1 - nether
+    addMaterialStats(MaterialIds.necroticBone,
+                     new HeadMaterialStats(125, 2f, STONE, 1.5f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.65f).withAttackSpeed(1.15f),
+                     ExtraMaterialStats.DEFAULT);
     // tier 2
     // vanilla iron: 250, 6f, IRON, 2f
     addMaterialStats(MaterialIds.iron,

@@ -29,6 +29,7 @@ public class TinkerBookItem extends TooltipItem {
   public enum BookType {
     MATERIALS_AND_YOU,
     PUNY_SMELTING,
-    MIGHTY_SMELTING
+    MIGHTY_SMELTING,
+    TINKERS_GADGETRY
   }
 }

@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -45,6 +45,7 @@ import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -54,12 +55,14 @@ public class ContentMaterial extends TinkerPage {
   public static final String ID = "toolmaterial";
 
   private transient Lazy<IMaterial> material;
+  private transient List<ItemStack> displayStacks;
   @SerializedName("material")
   public String materialName;
 
-  public ContentMaterial(IMaterial material) {
+  public ContentMaterial(IMaterial material, List<ItemStack> displayStacks) {
     this.material = Lazy.of(() -> material);
     this.materialName = material.getIdentifier().toString();
+    this.displayStacks = displayStacks;
   }
 
   @Override
@@ -167,12 +170,19 @@ public class ContentMaterial extends TinkerPage {
       List<ITextComponent> textComponents = mod.getDescriptionList();
       List<IFormattableTextComponent> formatted = new ArrayList<>();
 
-      for (ITextComponent textComponent : textComponents) {
-        formatted.add(((IFormattableTextComponent) textComponent).modifyStyle(style -> style.setColor(material.getColor())));
+
+      for (int index = 0; index < textComponents.size(); index++) {
+        ITextComponent textComponent = textComponents.get(index);
+
+        if (index == 0) {
+          formatted.add(((IFormattableTextComponent) textComponent).modifyStyle(style -> style.setColor(material.getColor())));
+        } else {
+          formatted.add(((IFormattableTextComponent) textComponent));
+        }
       }
 
       textComponentData.tooltips = formatted.toArray(new ITextComponent[0]);
-      textComponentData.text = textComponentData.text.deepCopy().mergeStyle(TextFormatting.GRAY).mergeStyle(TextFormatting.UNDERLINE);
+      textComponentData.text = textComponentData.text.deepCopy().mergeStyle(TextFormatting.DARK_GRAY).mergeStyle(TextFormatting.UNDERLINE);
 
       lineData.add(textComponentData);
       lineData.add(new TextComponentData("\n"));
@@ -185,7 +195,11 @@ public class ContentMaterial extends TinkerPage {
     List<ItemElement> displayTools = Lists.newArrayList();
 
     // representative item first
-    displayTools.add(new TinkerItemElement(new ItemStack(Items.CHAIN)));
+    if (!this.displayStacks.isEmpty())
+      displayTools.add(new TinkerItemElement(0, 0, 1f, displayStacks));
+    else {
+      System.out.println("Material with id " + materialId + " has no representation items associated with it");
+    }
 
     if (material.get().isCraftable()) {
       ItemStack partBuilder = new ItemStack(TinkerTables.partBuilder.asItem());
@@ -199,15 +213,16 @@ public class ContentMaterial extends TinkerPage {
       ItemStackList stacks = ItemStackList.of(castingBasin, castingTable);
 
       ItemElement elementItem = new TinkerItemElement(0, 0, 1, stacks);
-      String text = parent.translate("material.craft_casting");
-      elementItem.tooltip = ImmutableList.of(new StringTextComponent(String.format(text, new TranslationTextComponent(material.get().getFluid().getRegistryName().toString()).getString())));
+      String text = this.parent.translate("material.craft_casting");
+      Fluid fluid = material.get().getFluid();
+      elementItem.tooltip = ImmutableList.of(new StringTextComponent(text).append(new TranslationTextComponent("fluid." + Objects.requireNonNull(fluid.getRegistryName()).getNamespace() + "." + Objects.requireNonNull(fluid.getRegistryName()).getPath())));
       displayTools.add(elementItem);
     }
 
     int y = 10;
     for (Item tool : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
       if (tool instanceof ToolCore) {
-        List<IToolPart> requirements = ((ToolCore)tool).getToolDefinition().getRequiredComponents();
+        List<IToolPart> requirements = ((ToolCore) tool).getToolDefinition().getRequiredComponents();
         int size = requirements.size();
         List<MaterialId> toolMaterials = new ArrayList<>(size);
 

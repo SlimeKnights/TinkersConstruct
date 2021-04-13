@@ -31,10 +31,20 @@ public class ContentTool extends TinkerPage {
 
   public static final transient String ID = "tool";
 
-  public static final transient int TEX_SIZE = 256;
-  public static final transient ImageData IMG_SLOTS = new ImageData(ContentModifier.BOOK_MODIFY, 0, 0, 72, 72, TEX_SIZE, TEX_SIZE);
   public static final transient ImageData IMG_SLOT_1 = ContentModifier.IMG_SLOT_1;
+  public static final transient ImageData IMG_SLOT_2 = ContentModifier.IMG_SLOT_2;
+  public static final transient ImageData IMG_SLOT_3 = ContentModifier.IMG_SLOT_3;
+  public static final transient ImageData IMG_SLOT_4 = ContentModifier.IMG_SLOT_4;
+  public static final transient ImageData IMG_SLOT_5 = ContentModifier.IMG_SLOT_5;
+
   public static final transient ImageData IMG_TABLE = ContentModifier.IMG_TABLE;
+
+  public static final transient ImageData[] IMG_SLOTS = new ImageData[]{IMG_SLOT_1, IMG_SLOT_2, IMG_SLOT_3, IMG_SLOT_4, IMG_SLOT_5};
+
+  public static final transient int[] SLOTS_X = new int[]{3, 21, 39, 12, 30};
+  public static final transient int[] SLOTS_Y = new int[]{3, 3, 3, 22, 22};
+  public static final transient int[] SLOTS_X_4 = new int[]{3, 21, 3, 21};
+  public static final transient int[] SLOTS_Y_4 = new int[]{3, 3, 22, 22};
 
   private transient ToolCore tool;
   private transient List<ItemStack> parts;
@@ -88,19 +98,25 @@ public class ContentTool extends TinkerPage {
     int y = 16;
     list.add(new TextElement(padding, y, BookScreen.PAGE_WIDTH - padding * 2, h, text));
 
-    ImageData img = IMG_SLOTS;
-    int imgX = BookScreen.PAGE_WIDTH - img.width - 8;
-    int imgY = BookScreen.PAGE_HEIGHT - img.height - 16;
+    ImageData img = IMG_SLOTS[this.parts.size() - 1];
+    int[] slotsX = SLOTS_X;
+    int[] slotsY = SLOTS_Y;
 
-    int toolX = imgX + (img.width - 16) / 2;
-    int toolY = imgY + 28;
+    if (this.parts.size() == 4) {
+      slotsX = SLOTS_X_4;
+      slotsY = SLOTS_Y_4;
+    }
 
-    y = imgY - 6;
+    int imgX = BookScreen.PAGE_WIDTH / 2 + 20;
+    int imgY = BookScreen.PAGE_HEIGHT / 2 + 30;
+
+    imgX = imgX + 29 - img.width / 2;
+    imgY = imgY + 20 - img.height / 2;
 
     if (properties.length > 0) {
       TextData head = new TextData(parent.translate("tool.properties"));
       head.underlined = true;
-      list.add(new TextElement(padding, y, 86 - padding, BookScreen.PAGE_HEIGHT - h - 20, head));
+      list.add(new TextElement(padding, 30 + h, 86 - padding, BookScreen.PAGE_HEIGHT - h - 20, head));
 
       List<TextData> effectData = Lists.newArrayList();
       for (String e : properties) {
@@ -109,26 +125,22 @@ public class ContentTool extends TinkerPage {
         effectData.add(new TextData("\n"));
       }
 
-      y += 10;
-      list.add(new TextElement(padding, y, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));
+      list.add(new TextElement(padding, 40 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));
     }
-
-    int[] slotX = new int[]{-21, -25, 0, 25, 21};
-    int[] slotY = new int[]{22, -4, -25, -4, 22};
 
     list.add(new ImageElement(imgX + (img.width - IMG_TABLE.width) / 2, imgY + 28, -1, -1, IMG_TABLE));
     list.add(new ImageElement(imgX, imgY, -1, -1, img, book.appearance.slotColor));
 
     ItemStack demo = tool.buildToolForRendering();
 
-    TinkerItemElement toolItem = new TinkerItemElement(toolX, toolY, 1f, demo);
+    TinkerItemElement toolItem = new TinkerItemElement(imgX + (img.width - 16) / 2, imgY - 24, 1f, demo);
     toolItem.noTooltip = true;
 
     list.add(toolItem);
-    list.add(new ImageElement(toolX - 3, toolY - 3, -1, -1, IMG_SLOT_1, 0xffffff));
+    list.add(new ImageElement(imgX + (img.width - 22) / 2, imgY - 27, -1, -1, IMG_SLOT_1, 0xffffff));
 
     for (int i = 0; i < this.parts.size(); i++) {
-      TinkerItemElement partItem = new TinkerItemElement(toolX + slotX[i], toolY + slotY[i], 1f,  this.parts.get(i));
+      TinkerItemElement partItem = new TinkerItemElement(imgX + slotsX[i], imgY + slotsY[i], 1f,  this.parts.get(i));
       partItem.noTooltip = true;
 
       list.add(partItem);

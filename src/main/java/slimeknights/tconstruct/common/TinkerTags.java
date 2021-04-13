@@ -43,8 +43,12 @@ public class TinkerTags {
 
     /** Any block that can be harvested using a kama or scythe */
     public static final IOptionalNamedTag<Block> HARVESTABLE = tag("harvestable");
-    /** Crops that grow by placing a copy on top */
-    public static final IOptionalNamedTag<Block> BLOCK_CROPS = tag("harvestable/block_crops");
+    /** Plants that are broken to drop produce and seeds */
+    public static final IOptionalNamedTag<Block> HARVESTABLE_CROPS = tag("harvestable/crops");
+    /** Plants that drop fruit on interaction */
+    public static final IOptionalNamedTag<Block> HARVESTABLE_INTERACT = tag("harvestable/interact");
+    /** Plants that grow by placing a copy on top */
+    public static final IOptionalNamedTag<Block> HARVESTABLE_STACKABLE = tag("harvestable/stackable");
 
     private static IOptionalNamedTag<Block> tag(String name) {
       return BlockTags.createOptional(Util.getResource(name));
@@ -120,6 +124,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> AOE = tag("modifiable/aoe");
     // /** Modifiable items that support ranged attacks, such as bows */
     // public static final IOptionalNamedTag<Item> RANGED = tag("modifiable/ranged");
+    /** Tag so mods like thermal know our scyhtes can harvest */
+    public static final IOptionalNamedTag<Item> SCYTHES = forgeTag("tools/scythe");
 
 
     private static IOptionalNamedTag<Item> tag(String name) {
@@ -135,8 +141,6 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Fluid> SLIMELIKE = tag("slimelike");
     public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
-
-    public static final IOptionalNamedTag<Fluid> SMELTERY_FUELS = tag("smeltery/fuels");
 
     private static IOptionalNamedTag<Fluid> tag(String name) {
       return FluidTags.createOptional(Util.getResource(name));

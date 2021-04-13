@@ -17,10 +17,11 @@
     "large_broken_shield": "tconstruct:item/tool/cleaver/large/broken_shield"
   },
   "large": true,
+  "large_offset": [-2, 2],
   "parts": [
     { "name": "handle", "index": 1 },
     { "name": "head",   "index": 0, "broken": "broken_head" },
-    { "name": "guard",  "index": 2 },
-    { "name": "shield", "index": 3, "broken": "broken_shield" }
+    { "name": "shield", "index": 3, "broken": "broken_shield" },
+    { "name": "guard",  "index": 2 }
   ]
 }

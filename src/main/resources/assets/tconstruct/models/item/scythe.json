@@ -15,10 +15,11 @@
     "large_accessory":   "tconstruct:item/tool/scythe/large/accessory"
   },
   "large": true,
+  "large_offset": [-2, 2],
   "parts": [
+    { "name": "accessory", "index": 3 },
     { "name": "handle",    "index": 1 },
     { "name": "head",      "index": 0, "broken": "broken_head" },
-    { "name": "binding",   "index": 2 },
-    { "name": "accessory", "index": 3 }
+    { "name": "binding",   "index": 2 }
   ]
 }

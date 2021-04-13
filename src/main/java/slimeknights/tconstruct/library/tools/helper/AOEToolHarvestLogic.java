@@ -213,6 +213,14 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
       return ActionResultType.PASS;
     }
 
+    // tool must not be broken
+    Hand hand = context.getHand();
+    ItemStack stack = context.getItem();
+    ToolStack tool = ToolStack.from(stack);
+    if (tool.isBroken()) {
+      return ActionResultType.FAIL;
+    }
+
     // for hoes and shovels, must have nothing but plants above
     World world = context.getWorld();
     BlockPos pos = context.getPos();
@@ -224,14 +232,6 @@ public class AOEToolHarvestLogic extends ToolHarvestLogic {
       if (!material.isReplaceable() && material != Material.PLANTS) {
         return ActionResultType.PASS;
       }
-    }
-
-    // tool must not be broken
-    Hand hand = context.getHand();
-    ItemStack stack = context.getItem();
-    ToolStack tool = ToolStack.from(stack);
-    if (tool.isBroken()) {
-      return ActionResultType.FAIL;
     }
 
     // must actually transform
