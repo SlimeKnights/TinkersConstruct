@@ -10,15 +10,15 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class MaterialSectionTransformer extends AbstractMaterialSectionTransformer {
+public class TierTwoMaterialSectionTransformer extends AbstractMaterialSectionTransformer {
 
-  public MaterialSectionTransformer() {
-    super("materials");
+  public TierTwoMaterialSectionTransformer() {
+    super("tier_two_materials");
   }
 
   @Override
   protected boolean isValidMaterial(IMaterial material) {
-    return true;
+    return material.getTier() == 2;
   }
 
   @Override

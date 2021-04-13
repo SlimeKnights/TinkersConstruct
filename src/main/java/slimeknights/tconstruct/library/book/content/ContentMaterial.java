@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -56,12 +55,14 @@ public class ContentMaterial extends TinkerPage {
   public static final String ID = "toolmaterial";
 
   private transient Lazy<IMaterial> material;
+  private transient List<ItemStack> displayStacks;
   @SerializedName("material")
   public String materialName;
 
-  public ContentMaterial(IMaterial material) {
+  public ContentMaterial(IMaterial material, List<ItemStack> displayStacks) {
     this.material = Lazy.of(() -> material);
     this.materialName = material.getIdentifier().toString();
+    this.displayStacks = displayStacks;
   }
 
   @Override
@@ -194,7 +195,11 @@ public class ContentMaterial extends TinkerPage {
     List<ItemElement> displayTools = Lists.newArrayList();
 
     // representative item first
-    displayTools.add(new TinkerItemElement(new ItemStack(Items.CHAIN)));
+    if (!this.displayStacks.isEmpty())
+      displayTools.add(new TinkerItemElement(0, 0, 1f, displayStacks));
+    else {
+      System.out.println("Material with id " + materialId + " has no representation items associated with it");
+    }
 
     if (material.get().isCraftable()) {
       ItemStack partBuilder = new ItemStack(TinkerTables.partBuilder.asItem());
