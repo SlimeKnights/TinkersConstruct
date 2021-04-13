@@ -32,7 +32,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return TinkerTables.toolBuildingRecipeSerializer.get();
+    return TinkerTables.toolBuildingRecipeSerializer;
   }
 
   @Override

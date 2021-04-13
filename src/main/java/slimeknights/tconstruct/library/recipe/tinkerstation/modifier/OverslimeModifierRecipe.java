@@ -7,8 +7,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Lazy;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Lazy;
 import net.minecraft.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -62,9 +62,9 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     int current = 0;
     int cap = OverslimeModifier.getCap(tool);
     // if the tool lacks true overslime, add overslime
-    if (tool.getUpgrades().getLevel(TinkerModifiers.overslime.get()) == 0) {
+    if (tool.getUpgrades().getLevel(TinkerModifiers.overslime) == 0) {
       // however, if we have overslime though a trait and reached our cap, also do nothing
-      if (tool.getModifierLevel(TinkerModifiers.overslime.get()) > 0) {
+      if (tool.getModifierLevel(TinkerModifiers.overslime) > 0) {
         current = OverslimeModifier.getOverslime(tool);
         if (current >= cap) {
           return AT_CAPACITY;
@@ -73,7 +73,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
       // truely add overslime, this will cost a slime crystal if full durability
       tool = tool.copy();
-      tool.addModifier(TinkerModifiers.overslime.get(), 1);
+      tool.addModifier(TinkerModifiers.overslime, 1);
     } else {
       // ensure we are not at the cap already
       current = OverslimeModifier.getOverslime(tool);
@@ -100,7 +100,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     // if the original tool did not have overslime, its treated as having no slime
     int current = 0;
-    if (tool.getModifierLevel(TinkerModifiers.overslime.get()) != 0) {
+    if (tool.getModifierLevel(TinkerModifiers.overslime) != 0) {
       current = OverslimeModifier.getOverslime(tool);
     }
 
@@ -118,14 +118,14 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
   @Override
   public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
-    return TinkerModifiers.overslimeSerializer.get();
+    return TinkerModifiers.overslimeSerializer;
   }
 
   /* JEI display */
   /** Cache of modifier result, same for all overslime */
-  private static final Lazy<ModifierEntry> RESULT = Lazy.of(() -> new ModifierEntry(TinkerModifiers.overslime.get(), 1));
+  private static final Lazy<ModifierEntry> RESULT = new Lazy<>(() -> new ModifierEntry(TinkerModifiers.overslime, 1));
   /** Cache of tools for input, same for all overslime */
-  private static final Lazy<List<ItemStack>> DISPLAY_TOOLS = Lazy.of(() -> IDisplayModifierRecipe.getAllModifiable().map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList()));
+  private static final Lazy<List<ItemStack>> DISPLAY_TOOLS = new Lazy<>(() -> IDisplayModifierRecipe.getAllModifiable().map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList()));
   /** Cache of display outputs, value depends on recipe */
   private List<List<ItemStack>> displayItems = null;
 
@@ -161,7 +161,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     return RESULT.get();
   }
 
-  public static class Serializer extends RecipeSerializer<OverslimeModifierRecipe> {
+  public static class Serializer implements RecipeSerializer<OverslimeModifierRecipe> {
     @Override
     public OverslimeModifierRecipe read(Identifier id, JsonObject json) {
       Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));

@@ -29,7 +29,6 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
    * Do not call this method directly, but it is okay to override it.
    * @return  Recipe result, may be empty.
    */
-  @Override
   default ItemStack getCraftingResult(ITinkerStationInventory inv) {
     return getOutput().copy();
   }
@@ -62,7 +61,6 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
   /* Deprecated */
 
   /** @deprecated use {@link #updateInputs(ItemStack, IMutableTinkerStationInventory)} */
-  @Override
   @Deprecated
   default DefaultedList<ItemStack> getRemainingItems(ITinkerStationInventory inv) {
     return DefaultedList.copyOf(ItemStack.EMPTY);

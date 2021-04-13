@@ -10,7 +10,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.SimulationResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -39,7 +39,7 @@ public class SearedDrainBlock extends SmelteryIOBlock {
           te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face)
             .ifPresent(handler -> player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
                                         .ifPresent(inv -> {
-                                          FluidActionResult result = FluidUtil.tryEmptyContainerAndStow(held, handler, inv, Integer.MAX_VALUE, player, true);
+                                          SimulationResult result = FluidUtil.tryEmptyContainerAndStow(held, handler, inv, Integer.MAX_VALUE, player, true);
                                           if (result.isSuccess()) {
                                             player.setStackInHand(hand, result.getResult());
                                           }

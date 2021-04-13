@@ -64,7 +64,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
 //  public ItemStack getCraftingResult(ICastingInventory inv) {
 //    ItemStack output = new ItemStack(container);
 //    return FluidUtil.getFluidHandler(output).map(handler -> {
-//      handler.fill(new FluidVolume(inv.getFluid(), this.fluidAmount), FluidAction.EXECUTE);
+//      handler.fill(new FluidVolume(inv.getFluid(), this.fluidAmount), Simulation.EXECUTE);
 //      return handler.getContainer();
 //    }).orElse(ItemStack.EMPTY);
 //  }

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import slimeknights.tconstruct.shared.BlockEvents;
 
 @Mixin(HorseBaseEntity.class)
-public class MixinHorseBaseEntity {
+public class HorseBaseEntityMixin {
   @Inject(method = "setInAir", at = @At(value = "HEAD"))
   public void setJumping(boolean inAir, CallbackInfo ci) {
     BlockEvents.onLivingJump((HorseBaseEntity)(Object)this);

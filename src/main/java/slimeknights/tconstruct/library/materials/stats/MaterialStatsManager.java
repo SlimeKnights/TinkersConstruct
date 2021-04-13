@@ -19,7 +19,6 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
-import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ import java.util.stream.Stream;
  * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/stats".
  */
 @Log4j2
-public class MaterialStatsManager extends SyncingJsonReloadListener {
+public class MaterialStatsManager {
 
   public static final String FOLDER = "materials/stats";
   public static final Gson GSON = (new GsonBuilder())
@@ -65,15 +64,6 @@ public class MaterialStatsManager extends SyncingJsonReloadListener {
   private final Map<MaterialStatsId, Class<? extends IMaterialStats>> materialStatClasses = new HashMap<>();
 
   private Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> materialToStatsPerType = ImmutableMap.of();
-
-  public MaterialStatsManager() {
-    this(TinkerNetwork.getInstance());
-  }
-
-  @VisibleForTesting
-  public MaterialStatsManager(TinkerNetwork tinkerNetwork) {
-    super(tinkerNetwork, GSON, FOLDER);
-  }
 
   public void registerMaterialStat(MaterialStatsId materialStatType, Class<? extends IMaterialStats> statsClass) {
     if (materialStatClasses.containsKey(materialStatType)) {
@@ -113,7 +103,7 @@ public class MaterialStatsManager extends SyncingJsonReloadListener {
           )))
       );
   }
-
+/*
   @Override
   protected void apply(Map<Identifier, JsonElement> splashList, ResourceManager resourceManagerIn, Profiler profilerIn) {
     // Combine all loaded material files into one map, removing possible conflicting stats and printing a warning about them
@@ -152,7 +142,7 @@ public class MaterialStatsManager extends SyncingJsonReloadListener {
                               Map.Entry::getKey,
                               entry -> entry.getValue().values()));
     return new UpdateMaterialStatsPacket(networkPayload);
-  }
+  }*/
 
   private Map<MaterialStatsId, IMaterialStats> deserializeMaterialStatsFromContent(Map<MaterialStatsId, StatContent> contents) {
     Map<MaterialStatsId, Optional<IMaterialStats>> loadedStats = contents.entrySet().stream()

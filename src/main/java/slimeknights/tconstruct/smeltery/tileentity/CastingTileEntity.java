@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.Getter;
 import net.fabricmc.fabric.api.util.NbtType;
@@ -289,14 +290,14 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
    * @param action  EXECUTE or SIMULATE
    * @return        Amount of fluid needed for recipe, used to resize the tank.
    */
-  public int initNewCasting(Fluid fluid, IFluidHandler.FluidAction action) {
+  public int initNewCasting(Fluid fluid, Simulation action) {
     if (this.currentRecipe != null || this.recipeName != null) {
       return 0;
     }
     this.castingInventory.setFluid(fluid);
     ICastingRecipe castingRecipe = findCastingRecipe();
     if (castingRecipe != null) {
-      if (action == IFluidHandler.FluidAction.EXECUTE) {
+      if (action == Simulation.EXECUTE) {
         this.currentRecipe = castingRecipe;
         this.recipeName = null;
         this.lastOutput = null;
@@ -326,7 +327,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     if (fluid.isEmpty()) {
       reset();
     } else {
-      int capacity = initNewCasting(fluid.getRawFluid(), FluidAction.EXECUTE);
+      int capacity = initNewCasting(fluid.getRawFluid(), Simulation.EXECUTE);
       if (capacity > 0) {
         tank.setCapacity(capacity);
       }

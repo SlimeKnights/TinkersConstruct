@@ -28,11 +28,11 @@ public class SlimeParticle extends CrackParticle {
 
   public static class Factory implements ParticleFactory<DefaultParticleType> {
     public Factory() {
-
     }
+
     @Nullable
     @Override
-    public Particle makeParticle(DefaultParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    public Particle createParticle(DefaultParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
       return new SlimeParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, new ItemStack(TinkerCommons.slimeball.get(SlimeType.SKY)));
     }
   }

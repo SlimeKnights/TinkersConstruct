@@ -24,7 +24,7 @@ public class OreMeltingRecipe extends MeltingRecipe {
    * @return  Boosted fluid
    */
   private static FluidVolume boost(FluidVolume fluid, int nuggetsPerOre) {
-    return new FluidVolume(fluid, IMeltingInventory.applyOreBoost(fluid.getAmount(), nuggetsPerOre));
+    return FluidVolume.create(fluid.getRawFluid(), IMeltingInventory.applyOreBoost(fluid.getAmount(), nuggetsPerOre));
   }
 
   @Override
@@ -40,6 +40,11 @@ public class OreMeltingRecipe extends MeltingRecipe {
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return TinkerSmeltery.oreMeltingSerializer.get();
+    return TinkerSmeltery.oreMeltingSerializer;
+  }
+
+  @Override
+  public FluidVolume getOutput() {
+    return super.getOutput();
   }
 }

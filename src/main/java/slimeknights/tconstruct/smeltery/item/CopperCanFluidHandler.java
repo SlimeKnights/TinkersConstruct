@@ -61,7 +61,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   /* Interaction */
 
   @Override
-  public int fill(FluidVolume resource, FluidAction action) {
+  public int fill(FluidVolume resource, Simulation action) {
     // must not be filled, must have enough
     if (getFluid() != Fluids.EMPTY || resource.getAmount() < MaterialValues.INGOT) {
       return 0;
@@ -74,7 +74,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   }
 
   @Override
-  public FluidVolume drain(FluidVolume resource, FluidAction action) {
+  public FluidVolume drain(FluidVolume resource, Simulation action) {
     // must be draining at least an ingot
     if (resource.isEmpty() || resource.getAmount() < MaterialValues.INGOT) {
       return TinkerFluids.EMPTY;
@@ -93,7 +93,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   }
 
   @Override
-  public FluidVolume drain(int maxDrain, FluidAction action) {
+  public FluidVolume drain(int maxDrain, Simulation action) {
     // must be draining at least an ingot
     if (maxDrain < MaterialValues.INGOT) {
       return TinkerFluids.EMPTY;

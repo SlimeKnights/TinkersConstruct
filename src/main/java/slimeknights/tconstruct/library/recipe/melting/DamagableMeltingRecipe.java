@@ -22,11 +22,16 @@ public class DamagableMeltingRecipe extends MeltingRecipe {
       return output.copy();
     }
     // scale output based on damage value, its possible 1mb is a lot for some high durability things, but whatever
-    return new FluidVolume(output, Math.max(output.getAmount() * (maxDamage - input.getDamage()) / maxDamage, 1));
+    return FluidVolume.create(output.getRawFluid(), Math.max(output.getAmount() * (maxDamage - input.getDamage()) / maxDamage, 1));
   }
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return TinkerSmeltery.damagableMeltingSerializer.get();
+    return TinkerSmeltery.damagableMeltingSerializer;
+  }
+
+  @Override
+  public FluidVolume getOutput() {
+    return super.getOutput();
   }
 }

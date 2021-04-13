@@ -12,6 +12,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.resource.SinglePreparationResourceReloadListener;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.ICondition;
@@ -50,7 +51,7 @@ import net.minecraft.util.registry.Registry;
  * So if your mods name is "foobar", the location for your mods materials is "data/foobar/materials".
  */
 @Log4j2
-public class MaterialManager extends SyncingJsonReloadListener {
+public class MaterialManager extends SinglePreparationResourceReloadListener {
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(Identifier.class, new Identifier.Serializer())

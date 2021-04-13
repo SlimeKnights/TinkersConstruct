@@ -62,3 +62,4 @@ accessible  method  net/minecraft/entity/damage/DamageSource  <init>    (Ljava/l
 
 accessible class net/minecraft/recipe/Ingredient$Entry
 
+accessible  method  net/minecraft/client/particle/CrackParticle    <init> (Lnet/minecraft/client/world/ClientWorld;DDDDDDLnet/minecraft/item/ItemStack;)V

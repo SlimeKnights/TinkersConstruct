@@ -3,8 +3,8 @@ package slimeknights.tconstruct.smeltery.data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.item.Item;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
 import slimeknights.mantle.registration.object.FluidObject;
+import slimeknights.mantle.registration.object.MantleFluid;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 
 import java.util.Locale;
@@ -34,12 +34,12 @@ public enum SmelteryCompat {
 
   @Getter
   private final String name = this.name().toLowerCase(Locale.US);
-  private final FluidObject<? extends ForgeFlowingFluid> fluid;
+  private final FluidObject<MantleFluid> fluid;
   @Getter
   private final boolean isOre;
 
   /** Gets teh fluid for this compat */
-  public ForgeFlowingFluid getFluid() {
+  public MantleFluid getFluid() {
     return fluid.get();
   }
 

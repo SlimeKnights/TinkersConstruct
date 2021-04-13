@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
+import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.Getter;
@@ -54,7 +55,7 @@ public class CastingFluidHandler implements IFluidHandler {
   }
 
   @Override
-  public int fill(FluidVolume resource, FluidAction action) {
+  public int fill(FluidVolume resource, Simulation action) {
     if (resource.isEmpty() || tile.isStackInSlot(CastingTileEntity.OUTPUT) || !isFluidValid(resource)) {
       return 0;
     }
@@ -112,7 +113,7 @@ public class CastingFluidHandler implements IFluidHandler {
   }
 
   @Override
-  public FluidVolume drain(FluidVolume resource, FluidAction action) {
+  public FluidVolume drain(FluidVolume resource, Simulation action) {
     if (resource.isEmpty() || !resource.equals(fluid)) {
       return TinkerFluids.EMPTY;
     }
@@ -120,7 +121,7 @@ public class CastingFluidHandler implements IFluidHandler {
   }
 
   @Override
-  public FluidVolume drain(int maxDrain, FluidAction action) {
+  public FluidVolume drain(int maxDrain, Simulation action) {
     int drained = Math.min(fluid.getAmount(), maxDrain);
     if (drained <= 0) {
       return TinkerFluids.EMPTY;

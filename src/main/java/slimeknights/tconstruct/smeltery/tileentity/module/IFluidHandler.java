@@ -1,19 +1,9 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
+import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 
 public interface IFluidHandler {
-  enum FluidAction {
-    EXECUTE, SIMULATE;
-
-    public boolean execute() {
-      return this == EXECUTE;
-    }
-
-    public boolean simulate() {
-      return this == SIMULATE;
-    }
-  }
 
   int getTanks();
 
@@ -23,9 +13,9 @@ public interface IFluidHandler {
 
   boolean isFluidValid(int tank, FluidVolume stack);
 
-  int fill(FluidVolume resource, FluidAction action);
+  int fill(FluidVolume resource, Simulation action);
 
-  FluidVolume drain(FluidVolume resource, FluidAction action);
+  FluidVolume drain(FluidVolume resource, Simulation action);
 
-  FluidVolume drain(int maxDrain, FluidAction action);
+  FluidVolume drain(int maxDrain, Simulation action);
 }

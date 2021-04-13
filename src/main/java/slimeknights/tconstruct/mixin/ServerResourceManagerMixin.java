@@ -14,7 +14,7 @@ import net.minecraft.resource.ServerResourceManager;
 import net.minecraft.server.command.CommandManager;
 
 @Mixin(ServerResourceManager.class)
-public class MixinServerResourceManager {
+public class ServerResourceManagerMixin {
 
   @Shadow
   @Final
@@ -22,7 +22,7 @@ public class MixinServerResourceManager {
 
   @Inject(method = "<init>",at = @At("TAIL"))
   public void init(CommandManager.RegistrationEnvironment registrationEnvironment, int i, CallbackInfo ci) {
-    this.resourceManager.registerListener(RecipeCacheInvalidator.onReloadListenerReload());
-    MaterialRegistry.addDataPackListeners(resourceManager);
+//    this.resourceManager.registerListener(RecipeCacheInvalidator.onReloadListenerReload());
+//    MaterialRegistry.addDataPackListeners(resourceManager);
   }
 }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
+import alexiil.mc.lib.attributes.Simulation;
 import net.minecraft.nbt.CompoundTag;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
@@ -40,7 +41,7 @@ public class ChannelTank extends FluidTank {
 	}
 
 	@Override
-	public int fill(FluidVolume resource, FluidAction action) {
+	public int fill(FluidVolume resource, Simulation action) {
 		boolean wasEmpty = isEmpty();
 		int amount = super.fill(resource, action);
 		if(action.execute()) {
@@ -54,7 +55,7 @@ public class ChannelTank extends FluidTank {
 	}
 
 	@Override
-	public FluidVolume drain(int maxDrain, FluidAction action) {
+	public FluidVolume drain(int maxDrain, Simulation action) {
 		boolean wasEmpty = isEmpty();
 		FluidVolume stack = super.drain(maxDrain, action);
 		// if we removed something, sync to client

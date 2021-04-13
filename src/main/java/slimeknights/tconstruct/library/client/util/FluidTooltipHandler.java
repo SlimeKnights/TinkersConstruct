@@ -4,11 +4,9 @@ import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeManager;
@@ -16,10 +14,6 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -58,7 +52,7 @@ public class FluidTooltipHandler {
 
   /** Initializes the tooltip handler */
   public static void init() {
-    MinecraftForge.EVENT_BUS.addListener(FluidTooltipHandler::onRecipesUpdated);
+//    MinecraftForge.EVENT_BUS.addListener(FluidTooltipHandler::onRecipesUpdated);
     TOOLTIP_OPTIONS.put(TinkerSmeltery.ingotCast.get(), INGOT);
     TOOLTIP_OPTIONS.put(TinkerSmeltery.nuggetCast.get(), new FluidGuiEntry("nugget", MaterialValues.NUGGET));
     TOOLTIP_OPTIONS.put(TinkerSmeltery.gemCast.get(), new FluidGuiEntry("gem", MaterialValues.GEM));
@@ -68,9 +62,9 @@ public class FluidTooltipHandler {
    * Called when recipes are synced from the server to the client
    * @param event  Event instance
    */
-  private static void onRecipesUpdated(RecipesUpdatedEvent event) {
-    CACHE.clear();
-  }
+//  private static void onRecipesUpdated(RecipesUpdatedEvent event) {
+//    CACHE.clear();
+//  }
 
   /**
    * Gets the tooltip for a fluid stack
@@ -78,7 +72,8 @@ public class FluidTooltipHandler {
    * @return  Fluid tooltip
    */
   public static List<Text> getFluidTooltip(FluidAmount fluid) {
-    return getFluidTooltip(fluid, fluid.getAmount());
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    return getFluidTooltip(fluid, fluid);
   }
 
   /**

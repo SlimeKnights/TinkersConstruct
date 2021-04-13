@@ -5,43 +5,39 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.common.capabilities.Capability;
-import java.util.Optional;
-import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
+import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.util.NotNullConsumer;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.library.EmptyItemHandler;
+import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SmelteryIOBlock;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Shared logic between drains and ducts
  */
 public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponentTileEntity {
   /** Capability this TE watches */
-  private final Capability<T> capability;
+//  private final Capability<T> capability;
   /** Empty capability for in case the valid capability becomes invalid without invalidating */
   protected final T emptyInstance;
   /** Listener to attach to consumed capabilities */
-  protected final NonNullConsumer<Optional<T>> listener = new WeakConsumerWrapper<>(this, (te, cap) -> te.clearHandler());
+  protected final NotNullConsumer<Optional<T>> listener = new WeakConsumerWrapper<>(this, (te, cap) -> te.clearHandler());
   @Nullable
   private Optional<T> capabilityHolder = null;
 
-  protected SmelteryInputOutputTileEntity(BlockEntityType<?> type, Capability<T> capability, T emptyInstance) {
+  protected SmelteryInputOutputTileEntity(BlockEntityType<?> type, T emptyInstance) {
     super(type);
-    this.capability = capability;
+//    this.capability = capability;
     this.emptyInstance = emptyInstance;
   }
 
-  /** Clears all cached capabilities */
+/*  *//** Clears all cached capabilities *//*
   private void clearHandler() {
     if (capabilityHolder != null) {
       capabilityHolder.invalidate();
@@ -53,7 +49,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   protected void invalidateCaps() {
     super.invalidateCaps();
     clearHandler();
-  }
+  }*/
 
   @Override
   protected void setMaster(@Nullable BlockPos master, @Nullable Block block) {
@@ -82,12 +78,12 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
    * @return  Capability from parent, or empty if absent
    */
   protected Optional<T> getCapability(BlockEntity parent) {
-    Optional<T> handler = parent.getCapability(capability);
-    if (handler.isPresent()) {
-      handler.addListener(listener);
-
-      return Optional.of(() -> handler.orElse(emptyInstance));
-    }
+//    Optional<T> handler = parent.getCapability(capability);
+//    if (handler.isPresent()) {
+//      handler.addListener(listener);
+//
+//      return Optional.of(() -> handler.orElse(emptyInstance));
+//    }
     return Optional.empty();
   }
 
@@ -95,7 +91,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
    * Fetches the capability handlers if missing
    */
   private Optional<T> getCachedCapability() {
-    if (capabilityHolder == null) {
+    if (!capabilityHolder.isPresent()) {
       if (validateMaster()) {
         BlockPos master = getMasterPos();
         if (master != null && this.world != null) {
@@ -111,13 +107,13 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
     return capabilityHolder;
   }
 
-  @Override
-  public <C> Optional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
-    if (capability == this.capability) {
-      return getCachedCapability().cast();
-    }
-    return super.getCapability(capability, facing);
-  }
+//  @Override
+//  public <C> Optional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
+//    if (capability == this.capability) {
+//      return getCachedCapability().cast();
+//    }
+//    return super.getCapability(capability, facing);
+//  }
 
   /** Fluid implementation of smeltery IO */
   public static abstract class SmelteryFluidIO extends SmelteryInputOutputTileEntity<IFluidHandler> {
@@ -134,7 +130,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
     protected Optional<IFluidHandler> getCapability(BlockEntity parent) {
       // fluid capability is not exposed directly in the smeltery
       if (parent instanceof ISmelteryTankHandler) {
-        Optional<IFluidHandler> capability = ((ISmelteryTankHandler) parent).getFluidCapability();
+        Optional<IFluidHandler> capability = Optional.ofNullable(((ISmelteryTankHandler) parent).getFluidCapability());
         if (capability.isPresent()) {
           capability.addListener(listener);
           return makeWrapper(capability);
@@ -147,7 +143,7 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
   /** Item implementation of smeltery IO */
   public static class ChuteTileEntity extends SmelteryInputOutputTileEntity<IItemHandler> {
     public ChuteTileEntity() {
-      this(TinkerSmeltery.chute.get());
+      this(TinkerSmeltery.chute);
     }
 
     protected ChuteTileEntity(BlockEntityType<?> type) {

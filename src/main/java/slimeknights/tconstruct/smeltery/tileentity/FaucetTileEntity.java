@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
@@ -15,19 +16,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 
-import net.minecraftforge.common.util.Constants.NBT;
 import java.util.Optional;
-import net.minecraftforge.common.util.NonNullConsumer;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import slimeknights.mantle.util.NotNullConsumer;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 
 import static slimeknights.tconstruct.smeltery.block.FaucetBlock.FACING;
 
@@ -59,9 +56,9 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
   /** Fluid handler of the output from the faucet */
   private Optional<IFluidHandler> outputHandler;
   /** Listener for when the input handler is invalidated */
-  private final NonNullConsumer<Optional<IFluidHandler>> inputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.inputHandler = null);
+  private final NotNullConsumer<Optional<IFluidHandler>> inputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.inputHandler = null);
   /** Listener for when the output handler is invalidated */
-  private final NonNullConsumer<Optional<IFluidHandler>> outputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.outputHandler = null);
+  private final NotNullConsumer<Optional<IFluidHandler>> outputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.outputHandler = null);
 
   public FaucetTileEntity() {
     this(TinkerSmeltery.faucet);
@@ -240,16 +237,16 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     if (inputOptional.isPresent() && outputOptional.isPresent()) {
       // can we drain?
       IFluidHandler input = inputOptional.orElse(EmptyFluidHandler.INSTANCE);
-      FluidVolume drained = input.drain(PACKET_SIZE, FluidAction.SIMULATE);
+      FluidVolume drained = input.drain(PACKET_SIZE, Simulation.SIMULATE);
       if (!drained.isEmpty() && !drained.getFluid().getAttributes().isGaseous(drained)) {
         // can we fill
         IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
-        int filled = output.fill(drained, FluidAction.SIMULATE);
+        int filled = output.fill(drained, Simulation.SIMULATE);
         if (filled > 0) {
           // fill if requested
           if (execute) {
             // drain the liquid and transfer it, buffer the amount for delay
-            this.drained = input.drain(filled, FluidAction.EXECUTE);
+            this.drained = input.drain(filled, Simulation.EXECUTE);
 
             // sync to clients if we have changes
             if (faucetState == FaucetState.OFF || !renderFluid.isFluidEqual(drained)) {
@@ -296,7 +293,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
 
       // can we fill?
       IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
-      int filled = output.fill(fillStack, IFluidHandler.FluidAction.SIMULATE);
+      int filled = output.fill(fillStack, Simulation.SIMULATE);
       if (filled > 0) {
         // update client if they do not think we have fluid
         if (!renderFluid.isFluidEqual(drained)) {
@@ -306,7 +303,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
         // transfer it
         this.drained.shrink(filled);
         fillStack.setAmount(filled);
-        output.fill(fillStack, IFluidHandler.FluidAction.EXECUTE);
+        output.fill(fillStack, Simulation.EXECUTE);
       }
     }
     else {

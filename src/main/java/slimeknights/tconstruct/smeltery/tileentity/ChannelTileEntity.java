@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,7 +19,7 @@ import java.util.Optional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.Simulation;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
@@ -29,6 +30,7 @@ import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketReceiver;
+import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ChannelSideTank;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ChannelTank;
 
@@ -76,14 +78,14 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 		return this.tank.getFluid();
 	}
 
-	@Override
+/*	@Override
 	@Environment(EnvType.CLIENT)
 	public Box getRenderBoundingBox() {
 		return new Box(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
 	}
 
 
-	/* Fluid handlers */
+	*//* Fluid handlers *//*
 
 	@Override
 	public <T> Optional<T> getCapability(Capability<T> capability, @Nullable Direction side) {
@@ -99,7 +101,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
     }
 
 		return super.getCapability(capability, side);
-	}
+	}*/
 
 	/**
 	 * Gets the fluid handler directly from a neighbor, skipping the cache
@@ -107,7 +109,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	 * @return  Fluid handler, or empty
 	 */
 	private Optional<IFluidHandler> getNeighborHandlerUncached(Direction side) {
-		assert world != null;
+/*		assert world != null;
 		// must have a TE with a fluid handler
 		BlockEntity te = world.getBlockEntity(pos.offset(side));
 		if (te != null) {
@@ -116,7 +118,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 				handler.addListener(neighborConsumers.computeIfAbsent(side, s -> new WeakConsumerWrapper<>(this, (self, lazy) -> self.neighborTanks.remove(s))));
 				return handler;
 			}
-		}
+		}*/
 		return Optional.empty();
 	}
 
@@ -138,14 +140,14 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	}
 
 
-	@Override
+/*	@Override
 	protected void invalidateCaps() {
 		super.invalidateCaps();
 		topHandler.invalidate();
 		for (Optional<IFluidHandler> handler : sideTanks.values()) {
 			handler.invalidate();
 		}
-	}
+	}*/
 
 
 	/* Flowing property */
@@ -320,12 +322,12 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 		int usable = Math.min(tank.getMaxUsable(), amount);
 		if (usable > 0) {
 			// see how much works
-			FluidVolume fluid = tank.drain(usable, FluidAction.SIMULATE);
-			int filled = handler.fill(fluid, FluidAction.SIMULATE);
+			FluidVolume fluid = tank.drain(usable, Simulation.SIMULATE);
+			int filled = handler.fill(fluid, Simulation.SIMULATE);
 			if (filled > 0) {
 				// drain the amount that worked
-				fluid = tank.drain(filled, FluidAction.EXECUTE);
-				handler.fill(fluid, FluidAction.EXECUTE);
+				fluid = tank.drain(filled, Simulation.ACTION);
+				handler.fill(fluid, Simulation.ACTION);
 
 				// mark that the side is flowing
 				setFlow(side, true);

@@ -6,16 +6,16 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraftforge.common.util.Constants.NBT;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -87,7 +87,7 @@ public class ModifierNBT {
 
   /** Re-adds the modifier list from NBT */
   public static ModifierNBT readFromNBT(@Nullable Tag inbt) {
-    if (inbt == null || inbt.getType() != NBT.TAG_LIST) {
+    if (inbt == null || inbt.getType() != NbtType.LIST) {
       return EMPTY;
     }
 
@@ -103,7 +103,7 @@ public class ModifierNBT {
         ModifierId id = ModifierId.tryParse(tag.getString(TAG_MODIFIER));
         int level = tag.getInt(TAG_LEVEL);
         if (id != null && level > 0) {
-          Modifier modifier = TinkerRegistries.MODIFIERS.getValue(id);
+          Modifier modifier = TinkerRegistries.MODIFIERS.get(id);
           if (modifier != null && !TinkerRegistries.EMPTY.equals(modifier.getRegistryName())) {
             builder.add(new ModifierEntry(modifier, level));
           }

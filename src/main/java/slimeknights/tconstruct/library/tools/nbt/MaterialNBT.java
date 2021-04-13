@@ -4,10 +4,11 @@ import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraftforge.common.util.Constants;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -88,11 +89,11 @@ public class MaterialNBT {
    * @return  MaterialNBT instance
    */
   public static MaterialNBT readFromNBT(@Nullable Tag nbt) {
-    if (nbt == null || nbt.getType() != BlockEntityRendererRegistry.INSTANCE.registerST) {
+    if (nbt == null) {// || nbt.getType() != BlockEntityRendererRegistry.INSTANCE.registerST) {
       return EMPTY;
     }
     ListTag listNBT = (ListTag) nbt;
-    if (listNBT.getElementType() != Constants.NBT.TAG_STRING) {
+    if (listNBT.getElementType() != NbtType.STRING) {
       return EMPTY;
     }
 

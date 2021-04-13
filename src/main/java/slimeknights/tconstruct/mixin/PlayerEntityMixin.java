@@ -17,9 +17,9 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 @Mixin(PlayerEntity.class)
-public abstract class MixinPlayerEntity extends LivingEntity {
+public abstract class PlayerEntityMixin extends LivingEntity {
 
-  protected MixinPlayerEntity(EntityType<? extends LivingEntity> entityType, World world) {
+  protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
     super(entityType, world);
   }
 

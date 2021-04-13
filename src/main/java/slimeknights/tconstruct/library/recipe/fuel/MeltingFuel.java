@@ -3,8 +3,6 @@ package slimeknights.tconstruct.library.recipe.fuel;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -25,17 +23,20 @@ import java.util.List;
 /**
  * Recipe for a fuel for the melter or smeltery
  */
-@AllArgsConstructor
 public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
-  @Getter
   private final Identifier id;
-  @Getter
   private final String group;
   private final FluidIngredient input;
-  @Getter
   private final int duration;
-  @Getter
   private final int temperature;
+
+  public MeltingFuel(Identifier id, String group, FluidIngredient input, int duration, int temperature) {
+    this.id = id;
+    this.group = group;
+    this.input = input;
+    this.duration = duration;
+    this.temperature = temperature;
+  }
 
   /* Recipe methods */
 
@@ -94,6 +95,22 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
   @Override
   public ItemStack getRecipeKindIcon() {
     return new ItemStack(TinkerSmeltery.searedTank.get(TankType.TANK));
+  }
+
+  public Identifier getId() {
+    return this.id;
+  }
+
+  public String getGroup() {
+    return this.group;
+  }
+
+  public int getDuration() {
+    return this.duration;
+  }
+
+  public int getTemperature() {
+    return this.temperature;
   }
 
   /**

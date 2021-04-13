@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import slimeknights.tconstruct.shared.AchievementEvents;
 
 @Mixin(CraftingResultSlot.class)
-public class MixinCraftingResultSlot {
+public class CraftingResultSlotMixin {
 
   @Shadow
   @Final

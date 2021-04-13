@@ -7,7 +7,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraftforge.common.util.Constants.NBT;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.Simulation;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
@@ -265,8 +265,8 @@ public class MeltingModuleInventory implements IItemHandler {//IItemHandlerModif
    * @return  True if filled, false if not enough space for the whole fluid
    */
   protected boolean tryFillTank(FluidVolume fluid) {
-    if (fluidHandler.fill(fluid.copy(), FluidAction.SIMULATE) == fluid.getAmount()) {
-      fluidHandler.fill(fluid, FluidAction.EXECUTE);
+    if (fluidHandler.fill(fluid.copy(), Simulation.SIMULATE) == fluid.getAmount()) {
+      fluidHandler.fill(fluid, Simulation.EXECUTE);
       return true;
     }
     return false;

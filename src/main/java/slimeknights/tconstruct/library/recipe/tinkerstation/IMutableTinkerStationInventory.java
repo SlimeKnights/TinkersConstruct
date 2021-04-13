@@ -29,7 +29,7 @@ public interface IMutableTinkerStationInventory extends ITinkerStationInventory 
     if (!stack.isEmpty()) {
       // determine how large to make the container
       int count = stack.getCount();
-      ItemStack container = stack.getContainerItem();
+      ItemStack container = stack;
       if (!container.isEmpty()) {
         container.setCount(Math.min(count, amount));
       }

@@ -186,7 +186,7 @@ public class FuelModule implements PropertyDelegate {
       int amount = recipe.getAmount(fluid.getFluid());
       if (fluid.getAmount() >= amount) {
         if (consume) {
-          FluidVolume drained = handler.drain(new FluidVolume(fluid, amount), FluidAction.EXECUTE);
+          FluidVolume drained = handler.drain(new FluidVolume(fluid, amount), Simulation.EXECUTE);
           if (drained.getAmount() != amount) {
             TConstruct.log.error("Invalid amount of fuel drained from tank");
           }

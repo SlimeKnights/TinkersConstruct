@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import slimeknights.tconstruct.shared.BlockEvents;
 
 @Mixin(MagmaCubeEntity.class)
-public class MixinMagmaCubeEntity {
+public class MagmaCubeEntityMixin {
   @Inject(method = "jump",at = @At("TAIL"))
   public void jump(CallbackInfo ci) {
     BlockEvents.onLivingJump((LivingEntity)(Object)this);

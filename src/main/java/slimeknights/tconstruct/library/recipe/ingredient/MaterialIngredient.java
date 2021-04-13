@@ -129,22 +129,6 @@ public class MaterialIngredient extends Ingredient {
     return object;
   }
 
-  @Override
-  protected void invalidate() {
-    super.invalidate();
-    this.materialStacks = null;
-  }
-
-  @Override
-  public boolean isSimple() {
-    return materialID == WILDCARD && super.isSimple();
-  }
-
-  @Override
-  public IIngredientSerializer<? extends Ingredient> getSerializer() {
-    return Serializer.INSTANCE;
-  }
-
   /**
    * Serializer instance
    */

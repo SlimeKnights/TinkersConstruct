@@ -72,7 +72,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return TinkerTables.materialRecipeSerializer.get();
+    return TinkerTables.materialRecipeSerializer;
   }
 
   /* Material methods */

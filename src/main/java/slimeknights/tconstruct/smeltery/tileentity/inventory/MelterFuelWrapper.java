@@ -4,7 +4,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.IFluidTank;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.Simulation;
 import slimeknights.tconstruct.library.recipe.fuel.IFluidInventory;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 
@@ -70,7 +70,7 @@ public class MelterFuelWrapper implements IFluidInventory {
       int amount = fuel.getAmount(this);
       if (amount > 0) {
         // TODO: assert drained valid?
-        int drained = tank.drain(amount, FluidAction.EXECUTE).getAmount();
+        int drained = tank.drain(amount, Simulation.EXECUTE).getAmount();
         int duration = fuel.getDuration();
         if (drained < amount) {
           return duration * drained / amount;

@@ -47,7 +47,7 @@ public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return TinkerTables.partRecipeSerializer.get();
+    return TinkerTables.partRecipeSerializer;
   }
 
   /**
@@ -108,7 +108,6 @@ public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
     return stack;
   }
 
-  @Override
   public ItemStack getCraftingResult(IPartBuilderInventory inv) {
     IMaterial material = IMaterial.UNKNOWN;
     MaterialRecipe materialRecipe = inv.getMaterial();

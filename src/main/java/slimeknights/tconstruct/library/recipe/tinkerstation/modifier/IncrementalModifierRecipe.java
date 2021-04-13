@@ -9,10 +9,9 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Lazy;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.mantle.util.CraftingHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -135,7 +134,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return TinkerModifiers.incrementalModifierSerializer.get();
+    return TinkerModifiers.incrementalModifierSerializer;
   }
 
 
@@ -157,7 +156,11 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     if (neededPerLevel % amountPerInput > 0) {
       needed++;
     }
-    Lazy<List<ItemStack>> fullSize = Lazy.of(() -> items.stream().map(stack -> ItemHandlerHelper.copyStackWithSize(stack, maxStackSize)).collect(Collectors.toList()));
+    Lazy<List<ItemStack>> fullSize = new Lazy<>(() -> items.stream().map(stack -> {
+      ItemStack s = stack.copy();
+      s.setCount(maxStackSize);
+      return s;
+    }).collect(Collectors.toList()));
     while (needed > maxStackSize) {
       builder.add(fullSize.get());
       needed -= maxStackSize;
@@ -165,7 +168,11 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     // set proper stack size on remaining
     if (needed > 0) {
       int remaining = needed;
-      builder.add(items.stream().map(stack -> ItemHandlerHelper.copyStackWithSize(stack, remaining)).collect(Collectors.toList()));
+      builder.add(items.stream().map(stack -> {
+        ItemStack s = stack.copy();
+        s.setCount(remaining);
+        return s;
+      }).collect(Collectors.toList()));
     }
   }
 
@@ -228,7 +235,9 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     if (leftoverAmount > 0) {
       itemsNeeded++;
       if (!leftover.isEmpty()) {
-        inv.giveItem(ItemHandlerHelper.copyStackWithSize(leftover, leftoverAmount * leftover.getCount()));
+        ItemStack s = leftover.copy();
+        s.setCount(leftoverAmount * leftover.getCount());
+        inv.giveItem(s);
       }
     }
     for (int i = 0; i < inv.getInputCount(); i++) {

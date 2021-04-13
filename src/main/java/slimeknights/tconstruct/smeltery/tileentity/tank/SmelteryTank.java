@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
+import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.common.collect.Lists;
 import lombok.Getter;
@@ -138,7 +140,7 @@ public class SmelteryTank implements IFluidHandler {
   /* Filling and draining */
 
   @Override
-  public int fill(FluidVolume resource, FluidAction action) {
+  public int fill(FluidVolume resource, Simulation action) {
     // if full or nothing being filled, do nothing
     if (contained >= capacity || resource.isEmpty()) {
       return 0;
@@ -151,10 +153,10 @@ public class SmelteryTank implements IFluidHandler {
       return 0;
     }
 
-    // done here if just simulating
+/*    // done here if just simulating
     if (action.simulate()) {
       return usable;
-    }
+    }*/
 
     // add contained fluid amount
     contained += usable;
@@ -178,7 +180,7 @@ public class SmelteryTank implements IFluidHandler {
   }
 
   @Override
-  public FluidVolume drain(int maxDrain, FluidAction action) {
+  public FluidVolume drain(int maxDrain, Simulation action) {
     if (fluids.isEmpty()) {
       return TinkerFluids.EMPTY;
     }
@@ -189,7 +191,7 @@ public class SmelteryTank implements IFluidHandler {
 
     // copy contained fluid to return for accuracy
     FluidVolume ret = fluid.copy();
-    ret.setAmount(drainable);
+    ret.withAmount(FluidAmount.of1620(drainable));
 
     // remove the fluid from the tank
     if (action.execute()) {
@@ -209,7 +211,7 @@ public class SmelteryTank implements IFluidHandler {
   }
 
   @Override
-  public FluidVolume drain(FluidVolume toDrain, FluidAction action) {
+  public FluidVolume drain(FluidVolume toDrain, Simulation action) {
     // search for the resource
     ListIterator<FluidVolume> iter = fluids.listIterator();
     while (iter.hasNext()) {

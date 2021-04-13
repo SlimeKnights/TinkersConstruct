@@ -47,7 +47,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   @Override
   public FluidVolume getOutput(IMeltingInventory inv) {
     IMaterial material = item.getMaterial(inv.getStack());
-    return new FluidVolume(material.getFluid(), material.getFluidPerUnit() * cost);
+    return FluidVolume.create(material.getFluid(), material.getFluidPerUnit() * cost);
   }
 
   @Override
@@ -67,7 +67,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
 
   @Override
   public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
-    return TinkerSmeltery.materialMeltingSerializer.get();
+    return TinkerSmeltery.materialMeltingSerializer;
   }
 
   @Override
@@ -81,7 +81,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
           new Identifier(id.getNamespace(), String.format("%s/%s/%s", id.getPath(), matId.getNamespace(), matId.getPath())),
           group,
           Ingredient.ofStacks(item.getItemstackWithMaterial(mat)),
-          new FluidVolume(mat.getFluid(), mat.getFluidPerUnit() * cost),
+          FluidVolume.create(mat.getFluid(), mat.getFluidPerUnit() * cost),
           mat.getTemperature(),
           getTime(mat)
         );
@@ -93,7 +93,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   /**
    * Serializer for {@link MaterialMeltingRecipe}
    */
-  public static class Serializer extends RecipeSerializer<MaterialMeltingRecipe> {
+  public static class Serializer implements RecipeSerializer<MaterialMeltingRecipe> {
     @Override
     public MaterialMeltingRecipe read(Identifier id, JsonObject json) {
       String group = JsonHelper.getString(json, "group", "");

@@ -20,7 +20,7 @@ import net.minecraftforge.fluids.FluidAttributes;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.Simulation;
 import net.minecraftforge.fml.DistExecutor;
 import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.tconstruct.common.config.TConfig;
@@ -140,8 +140,8 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
               .ifPresent(handler -> {
                 FluidVolume fluidStack = new FluidVolume(bucket.getFluid(), FluidAttributes.BUCKET_VOLUME);
                 // must empty the whole bucket
-                if (handler.fill(fluidStack, FluidAction.SIMULATE) == FluidAttributes.BUCKET_VOLUME) {
-                  handler.fill(fluidStack, FluidAction.EXECUTE);
+                if (handler.fill(fluidStack, Simulation.SIMULATE) == FluidAttributes.BUCKET_VOLUME) {
+                  handler.fill(fluidStack, Simulation.EXECUTE);
                   bucket.onEmptied(world, held, pos.offset(offset));
                   world.playSound(null, pos, fluid.getAttributes().getEmptySound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
                   if (!player.isCreative()) {

@@ -13,7 +13,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.Simulation;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.common.TinkerTags.EntityTypes;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -150,7 +150,7 @@ public class EntityMeltingModule {
           // if the entity is successfully damaged, fill the tank with fluid
           if (entity.damage(entity.isFireImmune() ? SMELTERY_MAGIC : SMELTERY_DAMAGE, damage)) {
             // its fine if we don't fill it all, leftover fluid is just lost
-            tank.fill(fluid, FluidAction.EXECUTE);
+            tank.fill(fluid, Simulation.EXECUTE);
             melted = true;
           }
         }

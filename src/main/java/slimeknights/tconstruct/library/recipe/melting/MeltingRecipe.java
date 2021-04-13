@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
@@ -18,6 +19,8 @@ import net.minecraft.recipe.RecipeSerializer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -66,7 +69,7 @@ public class MeltingRecipe implements IMeltingRecipe {
 
   @Override
   public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
-    return TinkerSmeltery.meltingSerializer.get();
+    return TinkerSmeltery.meltingSerializer;
   }
 
   /** If true, this recipe is an ore recipe with increased output based on the machine */
@@ -90,14 +93,14 @@ public class MeltingRecipe implements IMeltingRecipe {
    * Serializer for {@link MeltingRecipe}
    */
   @RequiredArgsConstructor
-  public static class Serializer<T extends MeltingRecipe> extends RecipeSerializer<T> {
+  public static class Serializer<T extends MeltingRecipe> implements RecipeSerializer<T> {
     private final IFactory<T> factory;
 
     @Override
     public T read(Identifier id, JsonObject json) {
       String group = JsonHelper.getString(json, "group", "");
       Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-      FluidVolume output = RecipeHelper.deserializeFluidVolume(JsonHelper.getObject(json, "result"));
+      FluidVolume output = FluidVolume.fromJson(JsonHelper.getObject(json, "result"));
 
       // temperature calculates
       int temperature = JsonHelper.getInt(json, "temperature");
@@ -109,22 +112,27 @@ public class MeltingRecipe implements IMeltingRecipe {
       return factory.create(id, group, input, output, temperature, time);
     }
 
+    @SneakyThrows
     @Nullable
     @Override
     public T read(Identifier id, PacketByteBuf buffer) {
-      String group = buffer.readString(Short.MAX_VALUE);
-      Ingredient input = Ingredient.fromPacket(buffer);
-      FluidVolume output = FluidVolume.readFromPacket(buffer);
-      int temperature = buffer.readInt();
-      int time = buffer.readVarInt();
-      return factory.create(id, group, input, output, temperature, time);
+      try{
+        String group = buffer.readString(Short.MAX_VALUE);
+        Ingredient input = Ingredient.fromPacket(buffer);
+        FluidVolume output = FluidVolume.fromMcBuffer(buffer);
+        int temperature = buffer.readInt();
+        int time = buffer.readVarInt();
+        return factory.create(id, group, input, output, temperature, time);
+      }catch (IOException e) {
+        throw new RuntimeException("Failed to read fluid volume");
+      }
     }
 
     @Override
     public void write(PacketByteBuf buffer, MeltingRecipe recipe) {
       buffer.writeString(recipe.group);
       recipe.input.write(buffer);
-      recipe.output.writeToPacket(buffer);
+      recipe.output.toMcBuffer(buffer);
       buffer.writeInt(recipe.temperature);
       buffer.writeVarInt(recipe.time);
     }

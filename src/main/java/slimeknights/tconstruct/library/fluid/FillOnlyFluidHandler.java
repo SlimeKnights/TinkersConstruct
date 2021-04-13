@@ -36,19 +36,19 @@ public class FillOnlyFluidHandler implements IFluidHandler {
 	}
 
 	@Override
-	public int fill(FluidVolume resource, FluidAction action) {
+	public int fill(FluidVolume resource, Simulation action) {
 		return parent.fill(resource, action);
 	}
 
 	@NotNull
 	@Override
-	public FluidVolume drain(FluidVolume resource, FluidAction action) {
+	public FluidVolume drain(FluidVolume resource, Simulation action) {
 		return TinkerFluids.EMPTY;
 	}
 
 	@NotNull
 	@Override
-	public FluidVolume drain(int maxDrain, FluidAction action) {
+	public FluidVolume drain(int maxDrain, Simulation action) {
 		return TinkerFluids.EMPTY;
 	}
 }
