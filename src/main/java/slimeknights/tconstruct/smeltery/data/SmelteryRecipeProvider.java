@@ -26,6 +26,7 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientIntersection;
+import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -1006,7 +1007,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
   private void addSearedStonecutter(@Nonnull Consumer<IFinishedRecipe> consumer, IItemProvider output, String folder) {
     SingleItemRecipeBuilder.stonecuttingRecipe(new CompoundIngredient(Arrays.asList(
       Ingredient.fromItems(TinkerSmeltery.searedStone),
-      Ingredient.fromTag(TinkerTags.Items.SEARED_BRICKS))), output, 1)
+      new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.SEARED_BRICKS), Ingredient.fromItems(output)))), output, 1)
                            .addCriterion("has_stone", hasItem(TinkerSmeltery.searedStone))
                            .addCriterion("has_bricks", hasItem(TinkerTags.Items.SEARED_BRICKS))
                            .build(consumer, wrap(output, folder, "_stonecutting"));

@@ -5,7 +5,13 @@
       "item": "tconstruct:seared_stone"
     },
     {
-      "tag": "tconstruct:seared_bricks"
+      "type": "mantle:without",
+      "base": {
+        "tag": "tconstruct:seared_bricks"
+      },
+      "without": {
+        "item": "tconstruct:seared_fancy_bricks"
+      }
     }
   ],
   "result": "tconstruct:seared_fancy_bricks",
