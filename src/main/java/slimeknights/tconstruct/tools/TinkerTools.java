@@ -17,6 +17,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
+import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
 import slimeknights.tconstruct.tools.data.ToolsRecipeProvider;
 import slimeknights.tconstruct.tools.harvest.AxeTool;
 import slimeknights.tconstruct.tools.harvest.ExcavatorTool;
@@ -82,6 +83,7 @@ public final class TinkerTools extends TinkerModule {
     if (event.includeServer()) {
       DataGenerator datagenerator = event.getGenerator();
       datagenerator.addProvider(new ToolsRecipeProvider(datagenerator));
+      datagenerator.addProvider(new ModifierRecipeProvider(datagenerator));
       datagenerator.addProvider(new MaterialDataProvider(datagenerator));
       datagenerator.addProvider(new MaterialStatsDataProvider(datagenerator));
     }
