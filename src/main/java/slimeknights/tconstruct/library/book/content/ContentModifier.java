@@ -25,7 +25,7 @@ import slimeknights.tconstruct.library.client.screen.book.element.CycleRecipeEle
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.AbstractModifierRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IDisplayModifierRecipe;
 import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 
 import javax.annotation.Nullable;
@@ -47,21 +47,25 @@ public class ContentModifier extends TinkerPage {
   public static final transient ImageData IMG_SLOT_1 = new ImageData(BOOK_MODIFY, 0, 75, 22, 22, TEX_SIZE, TEX_SIZE);
   public static final transient ImageData IMG_SLOT_2 = new ImageData(BOOK_MODIFY, 0, 97, 40, 22, TEX_SIZE, TEX_SIZE);
   public static final transient ImageData IMG_SLOT_3 = new ImageData(BOOK_MODIFY, 0, 119, 58, 22, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_SLOT_4 = new ImageData(BOOK_MODIFY, 0, 141, 58, 41, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_SLOT_5 = new ImageData(BOOK_MODIFY, 0, 141, 58, 41, TEX_SIZE, TEX_SIZE);
+  public static final transient ImageData IMG_SLOT_4 = new ImageData(BOOK_MODIFY, 0, 141, 40, 40, TEX_SIZE, TEX_SIZE);
+  public static final transient ImageData IMG_SLOT_5 = new ImageData(BOOK_MODIFY, 0, 181, 58, 41, TEX_SIZE, TEX_SIZE);
 
   public static final transient ImageData IMG_TABLE = new ImageData(BOOK_MODIFY, 214, 0, 42, 46, TEX_SIZE, TEX_SIZE);
 
-  public static final transient int[] slotX = new int[]{3, 21, 39, 12, 30};
-  public static final transient int[] slotY = new int[]{3, 3, 3, 22, 22};
+  public static final transient ImageData[] IMG_SLOTS = new ImageData[]{IMG_SLOT_1, IMG_SLOT_2, IMG_SLOT_3, IMG_SLOT_4, IMG_SLOT_5};
+
+  public static final transient int[] SLOTS_X = new int[]{3, 21, 39, 12, 30};
+  public static final transient int[] SLOTS_Y = new int[]{3, 3, 3, 22, 22};
+  public static final transient int[] SLOTS_X_4 = new int[]{3, 21, 3, 21};
+  public static final transient int[] SLOTS_Y_4 = new int[]{3, 3, 22, 22};
 
   private transient Modifier modifier;
-  private transient List<AbstractModifierRecipe> recipes;
+  private transient List<IDisplayModifierRecipe> recipes;
 
   private transient int currentRecipe = 0;
   private final transient List<BookElement> parts = new ArrayList<>();
 
-  private final transient Map<AbstractModifierRecipe, List<List<ItemStack>>> modifierRecipeListMap = new HashMap<>();
+  private final transient Map<IDisplayModifierRecipe, List<List<ItemStack>>> modifierRecipeListMap = new HashMap<>();
 
   public TextData[] text;
   public String[] effects;
@@ -81,7 +85,7 @@ public class ContentModifier extends TinkerPage {
 
     if (this.recipes == null) {
       assert Minecraft.getInstance().world != null;
-      this.recipes = RecipeHelper.getRecipes(Minecraft.getInstance().world.getRecipeManager(), RecipeTypes.TINKER_STATION, AbstractModifierRecipe.class).stream().filter(abstractModifierRecipe -> abstractModifierRecipe.getDisplayResult().getModifier() == this.modifier).collect(Collectors.toList());
+      this.recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().world.getRecipeManager(), RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().getModifier() == this.modifier).collect(Collectors.toList());
     }
   }
 
@@ -93,7 +97,7 @@ public class ContentModifier extends TinkerPage {
       return;
     }
 
-    for (AbstractModifierRecipe recipe : this.recipes) {
+    for (IDisplayModifierRecipe recipe : this.recipes) {
       List<List<ItemStack>> inputs = recipe.getDisplayItems();
 
       this.modifierRecipeListMap.put(recipe, inputs);
@@ -142,16 +146,14 @@ public class ContentModifier extends TinkerPage {
    */
   public void buildAndAddRecipeDisplay(BookData book, ArrayList<BookElement> list, @Nullable List<List<ItemStack>> inputs, @Nullable BookScreen parent) {
     if (inputs != null) {
-      ImageData img = IMG_SLOT_1;
+      ImageData img = IMG_SLOTS[inputs.size() - 3];
+      int[] slotsX = SLOTS_X;
+      int[] slotsY = SLOTS_Y;
 
-      if (inputs.size() == 4)
-        img = IMG_SLOT_2;
-      else if (inputs.size() == 5)
-        img = IMG_SLOT_3;
-      else if (inputs.size() == 6)
-        img = IMG_SLOT_4;
-      else if (inputs.size() == 7)
-        img = IMG_SLOT_5;
+      if (inputs.size() == 6) {
+        slotsX = SLOTS_X_4;
+        slotsY = SLOTS_Y_4;
+      }
 
       int imgX = BookScreen.PAGE_WIDTH / 2 + 20;
       int imgY = BookScreen.PAGE_HEIGHT / 2 + 30;
@@ -194,7 +196,7 @@ public class ContentModifier extends TinkerPage {
       list.add(image);
 
       for (int i = 2; i < inputs.size(); i++) {
-        TinkerItemElement part = new TinkerItemElement(imgX + slotX[i - 2], imgY + slotY[i - 2], 1f, inputs.get(i));
+        TinkerItemElement part = new TinkerItemElement(imgX + slotsX[i - 2], imgY + slotsY[i - 2], 1f, inputs.get(i));
 
         if (parent != null)
           part.parent = parent;
