@@ -23,8 +23,8 @@ import slimeknights.tconstruct.plugin.crt.managers.base.ICastingManager;
 public class CastingBasinManager implements ICastingManager {
   
   @Override
-  public ItemCastingRecipe makeItemCastingRecipe(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
-    return new ItemCastingRecipe.Basin(id, "", cast, fluid, result, coolingTime, consumed, switchSlots);
+  public ItemCastingRecipe makeItemCastingRecipe(ResourceLocation id, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumeCast, boolean switchSlots) {
+    return new ItemCastingRecipe.Basin(id, "", cast, fluid, result, coolingTime, consumeCast, switchSlots);
   }
   
   @Override
@@ -33,13 +33,13 @@ public class CastingBasinManager implements ICastingManager {
   }
   
   @Override
-  public ContainerFillingRecipe makeContainerFillingRecipe(ResourceLocation id, String groupIn, int fluidAmount, Item containerIn) {
+  public ContainerFillingRecipe makeContainerFillingRecipe(ResourceLocation id, int fluidAmount, Item containerIn) {
     return new ContainerFillingRecipe.Basin(id, "", fluidAmount, containerIn);
   }
   
   @Override
-  public MaterialCastingRecipe makeMaterialCastingRecipe(ResourceLocation id, String group, Ingredient cast, int fluidAmount, IMaterialItem result, boolean consumed, boolean switchSlots) {
-    return new MaterialCastingRecipe.Basin(id, "", cast, fluidAmount, result, consumed, switchSlots);
+  public MaterialCastingRecipe makeMaterialCastingRecipe(ResourceLocation id, Ingredient cast, int fluidAmount, IMaterialItem result, boolean consumeCast, boolean switchSlots) {
+    return new MaterialCastingRecipe.Basin(id, "", cast, fluidAmount, result, consumeCast, switchSlots);
   }
   
   @Override
