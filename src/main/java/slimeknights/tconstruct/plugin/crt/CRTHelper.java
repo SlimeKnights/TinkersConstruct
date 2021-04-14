@@ -7,21 +7,14 @@ import com.blamejared.crafttweaker.impl.fluid.MCFluidStackMutable;
 import com.blamejared.crafttweaker.impl_native.item.ExpandItem;
 import com.google.gson.JsonElement;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.*;
+import slimeknights.tconstruct.library.materials.*;
+import slimeknights.tconstruct.library.modifiers.*;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 
@@ -29,6 +22,16 @@ import java.util.stream.Collectors;
 
 public class CRTHelper {
   
+  /**
+   * Gets a {@link MaterialId} from a string.
+   * <p>
+   * The {@code materialId} is validated to ensure that it is both a valid {@link ResourceLocation} and a valid {@link IMaterial}.
+   *
+   * @param materialId The MaterialId as a string
+   *
+   * @return The found MaterialId.
+   * @throws IllegalArgumentException If either the {@link MaterialId} isn't a valid {@link ResourceLocation} or if no {@link IMaterial} is found with the given materialId.
+   */
   public static MaterialId getMaterialId(String materialId) {
     MaterialId material = MaterialId.tryCreate(materialId);
     if(material == null) {
@@ -42,10 +45,20 @@ public class CRTHelper {
     return material;
   }
   
-  public static Modifier getModifier(String name) {
-    ModifierId resultId = ModifierId.tryCreate(name);
+  /**
+   * Gets a {@link Modifier} from a string.
+   * <p>
+   * The {@code modifierId} is validated to ensure that it is both a valid {@link ResourceLocation} and a valid {@link Modifier}.
+   *
+   * @param modifierId The Modifier as a string
+   *
+   * @return The found ModifierId.
+   * @throws IllegalArgumentException If either the {@link ModifierId} isn't a valid {@link ResourceLocation} or if no {@link Modifier} is found with the given modifierId.
+   */
+  public static Modifier getModifier(String modifierId) {
+    ModifierId resultId = ModifierId.tryCreate(modifierId);
     if(resultId == null) {
-      throw new IllegalArgumentException("Invalid ResourceLocation provided! Provided: " + name);
+      throw new IllegalArgumentException("Invalid ResourceLocation provided! Provided: " + modifierId);
     }
     Modifier resultModifier = TinkerRegistries.MODIFIERS.getValue(resultId);
     if(resultModifier == null) {
