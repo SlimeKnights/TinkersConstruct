@@ -21,13 +21,16 @@ public class CastItemObject extends ItemObject<Item> {
   private final Supplier<? extends Item> redSand;
   @Getter
   private final IOptionalNamedTag<Item> singleUseTag;
+  @Getter
+  private final IOptionalNamedTag<Item> multiUseTag;
 
   public CastItemObject(ResourceLocation name, Item gold, Item sand, Item redSand) {
     super(gold);
     this.name = name;
     this.sand = sand.delegate;
     this.redSand = redSand.delegate;
-    singleUseTag = makeSingleUseTag();
+    this.singleUseTag = makeTag("single_use");
+    this.multiUseTag = makeTag("multi_use");
   }
 
   public CastItemObject(ResourceLocation name, ItemObject<? extends Item> gold, Supplier<? extends Item> sand, Supplier<? extends Item> redSand) {
@@ -35,15 +38,16 @@ public class CastItemObject extends ItemObject<Item> {
     this.name = name;
     this.sand = sand;
     this.redSand = redSand;
-    singleUseTag = makeSingleUseTag();
+    this.singleUseTag = makeTag("single_use");
+    this.multiUseTag = makeTag("multi_use");
   }
 
   /**
    * Gets the single use tag for this object
    * @return  Single use tag
    */
-  protected IOptionalNamedTag<Item> makeSingleUseTag() {
-    return ItemTags.createOptional(new ResourceLocation(name.getNamespace(), "casts/single_use/" + name.getPath()));
+  protected IOptionalNamedTag<Item> makeTag(String type) {
+    return ItemTags.createOptional(new ResourceLocation(name.getNamespace(), "casts/" + type + "/" + name.getPath()));
   }
 
   /**

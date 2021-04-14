@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:table_casting_material",
   "cast": {
-    "item": "tconstruct:sword_blade_cast"
+    "tag": "tconstruct:casts/multi_use/sword_blade"
   },
   "item_cost": 2,
   "result": "tconstruct:sword_blade"

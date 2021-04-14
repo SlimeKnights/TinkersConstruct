@@ -174,11 +174,18 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     TagsProvider.Builder<Item> goldCasts = this.getOrCreateBuilder(TinkerTags.Items.GOLD_CASTS);
     TagsProvider.Builder<Item> sandCasts = this.getOrCreateBuilder(TinkerTags.Items.SAND_CASTS);
     TagsProvider.Builder<Item> redSandCasts = this.getOrCreateBuilder(TinkerTags.Items.RED_SAND_CASTS);
+    TagsProvider.Builder<Item> singleUseCasts = this.getOrCreateBuilder(TinkerTags.Items.SINGLE_USE_CASTS);
+    TagsProvider.Builder<Item> multiUseCasts = this.getOrCreateBuilder(TinkerTags.Items.MULTI_USE_CASTS);
     Consumer<CastItemObject> addCast = cast -> {
+      // tag based on material
       goldCasts.add(cast.get());
       sandCasts.add(cast.getSand());
       redSandCasts.add(cast.getRedSand());
+      // tag based on usage
+      singleUseCasts.addTag(cast.getSingleUseTag());
       this.getOrCreateBuilder(cast.getSingleUseTag()).add(cast.getSand(), cast.getRedSand());
+      multiUseCasts.addTag(cast.getMultiUseTag());
+      this.getOrCreateBuilder(cast.getMultiUseTag()).add(cast.get());
     };
     // basic
     addCast.accept(TinkerSmeltery.blankCast);

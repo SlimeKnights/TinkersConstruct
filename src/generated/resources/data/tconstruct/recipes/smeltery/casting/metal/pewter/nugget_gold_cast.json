@@ -10,7 +10,7 @@
     }
   ],
   "cast": {
-    "item": "tconstruct:nugget_cast"
+    "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
     "name": "tconstruct:molten_pewter",

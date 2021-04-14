@@ -425,14 +425,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                             .build(consumer, prefix(TinkerCommons.mudBricks, folder));
 
     // cast molten blaze into blaze rods
-    ItemCastingRecipeBuilder.tableRecipe(Items.BLAZE_ROD)
-                            .setCast(TinkerSmeltery.toughToolRodCast, false)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 10))
-                            .build(consumer, wrap(Items.BLAZE_ROD, folder, "_gold_cast"));
-    ItemCastingRecipeBuilder.tableRecipe(Items.BLAZE_ROD)
-                            .setCast(TinkerSmeltery.toughToolRodCast.getSingleUseTag(), true)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 10))
-                            .build(consumer, wrap(Items.BLAZE_ROD, folder, "_sand_cast"));
+    addCastingWithCastRecipe(consumer, TinkerFluids.moltenBlaze, FluidAttributes.BUCKET_VOLUME / 10, TinkerSmeltery.toughToolRodCast, Items.BLAZE_ROD, folder + "blaze_rod");
 
     // Cast recipes
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.blankCast)
@@ -1139,7 +1132,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     FluidStack fluidStack = new FluidStack(fluid.get(), amount);
     ItemCastingRecipeBuilder.tableRecipe(output)
                             .setFluidAndTime(fluidStack)
-                            .setCast(cast, false)
+                            .setCast(cast.getMultiUseTag(), false)
                             .build(consumer, location(location + "_gold_cast"));
     ItemCastingRecipeBuilder.tableRecipe(output)
                             .setFluidAndTime(fluidStack)
@@ -1271,7 +1264,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     Consumer<IFinishedRecipe> wrapped = withCondition(consumer, tagCondition(tagName));
     ItemCastingRecipeBuilder.tableRecipe(tag)
                             .setFluidAndTime(new FluidStack(fluid, amount))
-                            .setCast(cast, false)
+                            .setCast(cast.getMultiUseTag(), false)
                             .build(wrapped, location(folder + name + "/" + recipeName + "_gold_cast"));
     ItemCastingRecipeBuilder.tableRecipe(tag)
                             .setFluidAndTime(new FluidStack(fluid, amount))

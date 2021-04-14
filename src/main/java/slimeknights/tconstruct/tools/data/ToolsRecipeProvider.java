@@ -170,7 +170,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     String castingFolder = folder + "casting/";
     MaterialCastingRecipeBuilder.tableRecipe(part)
                                 .setItemCost(cost)
-                                .setCast(cast, false)
+                                .setCast(cast.getMultiUseTag(), false)
                                 .build(consumer, location(castingFolder + name + "_gold_cast"));
     MaterialCastingRecipeBuilder.tableRecipe(part)
                                 .setItemCost(cost)
