@@ -15,11 +15,11 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
 
 @ZenRegister
-@ZenCodeType.Name("mods.tconstruct.Material")
-public class MaterialManager implements IRecipeManager {
+@ZenCodeType.Name("mods.tconstruct.MaterialRecipe")
+public class MaterialRecipeManager implements IRecipeManager {
   
   @ZenCodeType.Method
-  public void addMaterial(String name, IIngredient ingredient, int value, int needed, String materialId) {
+  public void addItem(String name, IIngredient ingredient, int value, int needed, String materialId) {
     MaterialId material = CRTHelper.getMaterialId(materialId);
     name = fixRecipeName(name);
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
