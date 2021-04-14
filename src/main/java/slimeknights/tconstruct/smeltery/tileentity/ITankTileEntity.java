@@ -4,6 +4,7 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -11,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import slimeknights.tconstruct.fluids.FluidUtil;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -157,17 +159,18 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
     // success if the item is a fluid handler, regardless of if fluid moved
     ItemStack stack = player.getStackInHand(hand);
     Direction face = hit.getSide();
-    throw new RuntimeException("CRAB!"); // FIXME: PORT
-//    if (FluidUtil.getFluidHandler(stack).isPresent()) {
-//      if (!world.isClient()) {
-//        BlockEntity te = world.getBlockEntity(pos);
-//        if (te != null) {
+    if (stack.getItem() instanceof BucketItem) {
+      if (!world.isClient()) {
+        BlockEntity te = world.getBlockEntity(pos);
+        if (te != null) {
+          throw new RuntimeException("CRAB!"); // FIXME: PORT
 //          te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face)
 //            .ifPresent(handler -> FluidUtil.interactWithFluidHandler(player, hand, handler));
-//        }
-//      }
-//      return true;
-//    }
+        }
+      }
+      return true;
+    }
+    return true;
     // fall back to buckets for fish buckets
 //    return interactWithBucket(world, pos, player, hand, face, face);
   }
