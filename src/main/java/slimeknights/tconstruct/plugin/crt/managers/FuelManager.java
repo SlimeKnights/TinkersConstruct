@@ -30,7 +30,7 @@ public class FuelManager implements IRecipeManager {
   
   @Override
   public void removeRecipe(IItemStack output) {
-    throw new IllegalArgumentException("Cannot remove Alloy Recipes by an IItemStack output as it doesn't output anything! Use `removeRecipe(Fluid input)` instead!");
+    throw new IllegalArgumentException("Cannot remove Fuel Recipes by an IItemStack output as it doesn't output anything! Use `removeRecipe(Fluid input)` instead!");
   }
   
   @ZenCodeType.Method
