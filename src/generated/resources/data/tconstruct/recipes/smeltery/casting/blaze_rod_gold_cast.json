@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "tag": "tconstruct:casts/multi_use/tough_tool_rod"
+    "tag": "tconstruct:casts/multi_use/rod"
   },
   "fluid": {
     "name": "tconstruct:molten_blaze",

@@ -16,6 +16,7 @@ import java.util.function.Supplier;
  * Deferred wrapper holding gold, sand, and red sand casts
  */
 public class CastItemObject extends ItemObject<Item> {
+  @Getter
   private final ResourceLocation name;
   private final Supplier<? extends Item> sand;
   private final Supplier<? extends Item> redSand;

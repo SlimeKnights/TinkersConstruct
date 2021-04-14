@@ -231,7 +231,11 @@
     "item.tconstruct.ingot_cast": "Ingot Gold Cast",
     "item.tconstruct.nugget_cast": "Nugget Gold Cast",
     "item.tconstruct.gem_cast": "Gem Gold Cast",
+    "item.tconstruct.rod_cast": "Rod Gold Cast",
+    
     "item.tconstruct.gear_cast": "Gear Gold Cast",
+    "item.tconstruct.plate_cast": "Small Plate Gold Cast",
+    "item.tconstruct.coin_cast": "Coin Gold Cast",
     
     "item.tconstruct.sharpening_kit_cast": "Sharpening Kit Gold Cast",
     
@@ -267,7 +271,11 @@
     "item.tconstruct.ingot_sand_cast": "Ingot Sand Cast",
     "item.tconstruct.nugget_sand_cast": "Nugget Sand Cast",
     "item.tconstruct.gem_sand_cast": "Gem Sand Cast",
+    "item.tconstruct.rod_sand_cast": "Rod Sand Cast",
+    
     "item.tconstruct.gear_sand_cast": "Gear Sand Cast",
+    "item.tconstruct.plate_sand_cast": "Small Plate Sand Cast",
+    "item.tconstruct.coin_sand_cast": "Coin Sand Cast",
     
     "item.tconstruct.sharpening_kit_sand_cast": "Sharpening Kit Sand Cast",
     
@@ -303,7 +311,11 @@
     "item.tconstruct.ingot_red_sand_cast": "Ingot Red Sand Cast",
     "item.tconstruct.nugget_red_sand_cast": "Nugget Red Sand Cast",
     "item.tconstruct.gem_red_sand_cast": "Gem Red Sand Cast",
+    "item.tconstruct.rod_red_sand_cast": "Rod Red Sand Cast",
+    
     "item.tconstruct.gear_red_sand_cast": "Gear Red Sand Cast",
+    "item.tconstruct.plate_red_sand_cast": "Small Plate Red Sand Cast",
+    "item.tconstruct.coin_red_sand_cast": "Coin Red Sand Cast",
     
     "item.tconstruct.sharpening_kit_red_sand_cast": "Sharpening Kit Red Sand Cast",
     

@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:plates/lead",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_lead",
+    "amount": 144
+  },
+  "result": {
+    "tag": "forge:plates/lead"
+  },
+  "cooling_time": 43
+}

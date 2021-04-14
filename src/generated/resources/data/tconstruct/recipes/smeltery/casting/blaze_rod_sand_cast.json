@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "tag": "tconstruct:casts/single_use/tough_tool_rod"
+    "tag": "tconstruct:casts/single_use/rod"
   },
   "cast_consumed": true,
   "fluid": {

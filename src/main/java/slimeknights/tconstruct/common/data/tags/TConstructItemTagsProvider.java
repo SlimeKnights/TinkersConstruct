@@ -192,6 +192,11 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.ingotCast);
     addCast.accept(TinkerSmeltery.nuggetCast);
     addCast.accept(TinkerSmeltery.gemCast);
+    addCast.accept(TinkerSmeltery.rodCast);
+    // compatibility
+    addCast.accept(TinkerSmeltery.plateCast);
+    addCast.accept(TinkerSmeltery.gearCast);
+    addCast.accept(TinkerSmeltery.coinCast);
     // small heads
     addCast.accept(TinkerSmeltery.pickaxeHeadCast);
     addCast.accept(TinkerSmeltery.axeHeadCast);

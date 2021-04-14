@@ -10,6 +10,7 @@ import net.minecraft.data.SingleItemRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
+import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -125,7 +126,7 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    * @param name   Tag name
    * @return  Tag instance
    */
-  protected static ITag<Item> getTag(String modId, String name) {
+  protected static INamedTag<Item> getTag(String modId, String name) {
     return ItemTags.makeWrapperTag(modId + ":" + name);
   }
 
