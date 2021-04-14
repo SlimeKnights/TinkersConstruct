@@ -7,9 +7,9 @@
  * The output Item needs to be an Item that works with Materials, you can find a list of valid items by running `/ct dump ticMaterialItems`.
  */
 
-// <recipetype:tconstruct:part_builder>.addRecipe(name as string, pattern as String, cost as int, output as Item, outputCount as int)
+// <recipetype:tconstruct:part_builder>.addMaterialRecipe(name as string, pattern as String, cost as int, output as Item, outputCount as int)
 
-<recipetype:tconstruct:part_builder>.addRecipe("part_builder_test", "tconstruct:axe_head", 2, <item:tconstruct:tool_rod>, 3);
+<recipetype:tconstruct:part_builder>.addMaterialRecipe("part_builder_test", "tconstruct:axe_head", 2, <item:tconstruct:pickaxe_head>, 3);
 
 /*
  * Removes the Part Builder recipe for the Tool Binding part.

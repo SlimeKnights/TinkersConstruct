@@ -19,9 +19,12 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 public class PartBuilderManager implements IRecipeManager {
   
   @ZenCodeType.Method
-  public void addRecipe(String name, String pattern, int cost, Item output, int outputCount) {
+  public void addMaterialRecipe(String name, String pattern, int cost, Item output, int outputCount) {
     if(!(output instanceof IMaterialItem)) {
       throw new IllegalArgumentException(ExpandItem.getDefaultInstance(output).getCommandString() + " is not a valid IMaterialItem! You can use `/ct dump ticMaterialItems` to view valid items!");
+    }
+    if(cost < 1) {
+      throw new IllegalArgumentException("PartBuilder `cost` needs to be more than or equal to `1`. Provided: " + cost);
     }
     name = fixRecipeName(name);
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
