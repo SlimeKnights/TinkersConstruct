@@ -115,6 +115,7 @@ public class WorldClientEvents extends ClientEventBase implements ClientModIniti
       pos = pos.add(add);
     }
 
-    return SlimeColorizer.getColorForPos(pos, type);
+    int color = SlimeColorizer.getColorForPos(pos, type);
+    return color == 0 ? 0xFF00F4DA : color;
   }
 }

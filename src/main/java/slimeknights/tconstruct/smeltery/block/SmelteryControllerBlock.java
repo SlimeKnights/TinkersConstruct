@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block;
 
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -15,13 +16,13 @@ import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
-public class SmelteryControllerBlock extends ControllerBlock {
+public class SmelteryControllerBlock extends ControllerBlock implements BlockEntityProvider {
   public SmelteryControllerBlock(Settings properties) {
     super(properties);
   }
 
-//  @Override
-  public BlockEntity createTileEntity(BlockState blockState, BlockView iBlockReader) {
+  @Override
+  public BlockEntity createBlockEntity(BlockView iBlockReader) {
     return new SmelteryTileEntity();
   }
 
