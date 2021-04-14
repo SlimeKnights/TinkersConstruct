@@ -4,7 +4,7 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
-import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 
 import java.util.List;
 

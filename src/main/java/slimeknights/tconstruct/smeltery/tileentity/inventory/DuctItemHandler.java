@@ -2,13 +2,13 @@ package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidUtil;
-import slimeknights.mantle.inventory.SingleItemHandler;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.misc.SingleItemHandler;
 import slimeknights.tconstruct.smeltery.tileentity.DuctTileEntity;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
@@ -46,7 +46,7 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
       return true;
     }
     
-    ItemStack container = stack.getContainerItem();
+    ItemStack container = ItemStack.EMPTY;
     return !container.isEmpty() && container.getItem().isIn(TinkerTags.Items.DUCT_CONTAINERS);
   }
 
@@ -59,8 +59,9 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
     if (stack.isEmpty()) {
       return Fluids.EMPTY;
     }
-    return FluidUtil.getFluidHandler(stack)
-                    .map(handler -> handler.getFluidInTank(0).getFluid())
-                    .orElse(Fluids.EMPTY);
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    return FluidUtil.getFluidHandler(stack)
+//                    .map(handler -> handler.getFluidInTank(0).getFluid())
+//                    .orElse(Fluids.EMPTY);
   }
 }

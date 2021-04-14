@@ -7,8 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.misc.IItemHandler;
 
 import java.util.Arrays;
@@ -212,7 +212,9 @@ public class MeltingModuleInventory implements IItemHandler {//IItemHandlerModif
     MeltingModule module = getModule(slot);
     boolean canInsert = module.getStack().isEmpty();
     if (!simulate && canInsert) {
-      setStackInSlot(slot, ItemHandlerHelper.copyStackWithSize(stack, 1));
+      final ItemStack copy = stack.copy();
+      copy.setCount(1);
+      setStackInSlot(slot, copy);
     }
     return canInsert ? ItemHandlerHelper.copyStackWithSize(stack, stack.getCount() - 1) : stack;
   }

@@ -35,7 +35,7 @@ public final class TinkerFluids extends TinkerModule {
 //    ForgeMod.enableMilkFluid(); TODO: forge what the fuck
   }
   // basic
-  public static final FluidObject<MantleFluid> blood = Registry.register(Registry.FLUID, new Identifier(TConstruct.modID, "blood"), coolBuilder().setRenderColor(0xff540000).setDensity(f(1200)).setViscosity(f(1200)).setTemperature(336), Material.WATER, 0);
+  public static final FluidObject<MantleFluid> blood = null; //Registry.register(Registry.FLUID, new Identifier(TConstruct.modID, "blood"), coolBuilder().setRenderColor(0xff540000).setDensity(f(1200)).setViscosity(f(1200)).setTemperature(tmp(336)), Material.WATER, 0);
 
   private static FluidAmount f(int i) {
     return FluidAmount.of1620(i);
@@ -46,10 +46,10 @@ public final class TinkerFluids extends TinkerModule {
   }
 
   // slime -  note second name parameter is forge tag name
-  public static final FluidObject<MantleFluid> earthSlime = Registry.register(Registry.FLUID, id("earth_slime"), "slime", coolBuilder().setRenderColor(0xef76be6d).setDensity(f(1400)).setViscosity(f(1400)).setTemperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<MantleFluid> skySlime = registerFluid("sky_slime", coolBuilder().setRenderColor(0xef67f0f5).setDensity(f(1500)).setViscosity(1500).setTemperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<MantleFluid> enderSlime = registerFluid("ender_slime", coolBuilder().setRenderColor(0xefd236ff).setDensity(1600).setViscosity(1600).setTemperature(370), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<MantleFluid> magmaCream  = registerFluid("magma_cream", "magma", FluidAttributes.builder(FluidIcons.MAGMA_CREAM_STILL, FluidIcons.MAGMA_CREAM_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY).density(1900).setViscosity(1900).setTemperature(600), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 4);
+  public static final FluidObject<MantleFluid> earthSlime = null; //Registry.register(Registry.FLUID, id("earth_slime"), "slime", coolBuilder().setRenderColor(0xef76be6d).setDensity(f(1400)).setViscosity(f(1400)).setTemperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<MantleFluid> skySlime = null; //registerFluid("sky_slime", coolBuilder().setRenderColor(0xef67f0f5).setDensity(f(1500)).setViscosity(f(1500)).setTemperature(tmp(310)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<MantleFluid> enderSlime = null; //registerFluid("ender_slime", coolBuilder().setRenderColor(0xefd236ff).setDensity(f(1600)).setViscosity(f(1600)).setTemperature(tmp(370)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<MantleFluid> magmaCream  = null; //registerFluid("magma_cream", "magma", FluidAttributes.builder(FluidIcons.MAGMA_CREAM_STILL, FluidIcons.MAGMA_CREAM_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY).density(1900).setViscosity(1900).setTemperature(600), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 4);
   public static final Map<SlimeType, FluidObject<MantleFluid>> slime;
   static {
     slime = new EnumMap<>(SlimeType.class);
@@ -67,7 +67,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<MantleFluid> moltenObsidian = registerFluid("molten_obsidian",  stoneBuilder().setRenderColor(0xff2c0d59).setTemperature(tmp(1300)), Material.LAVA, 11);
   public static final FluidObject<MantleFluid> moltenEmerald  = registerFluid("molten_emerald",  moltenBuilder().setRenderColor(0xff41f384).setTemperature(tmp(1234)), Material.LAVA,  4);
   public static final FluidObject<MantleFluid> moltenEnder    = registerFluid("molten_ender",     stoneBuilder().setRenderColor(0xff105e51).setTemperature(tmp( 777)), Material.LAVA,  7);
-  public static final FluidObject<MantleFluid> moltenBlaze    = registerFluid("molten_blaze",    hotBuilder(FluidIcons.BLAZE_STILL, FluidIcons.BLAZE_FLOWING).setTemperature(tmp(1800).density(3500)), Material.LAVA, 14);
+  public static final FluidObject<MantleFluid> moltenBlaze    = registerFluid("molten_blaze",    hotBuilder(FluidIcons.BLAZE_STILL, FluidIcons.BLAZE_FLOWING).setDensity(f(3500)).setTemperature(tmp(1800)), Material.LAVA, 14);
 
   // ores
   public static final FluidObject<MantleFluid> moltenIron   = registerFluid("molten_iron",   moltenBuilder().setRenderColor(0xffa81212).setTemperature(tmp(1100)), Material.LAVA, 12);
@@ -89,7 +89,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<MantleFluid> moltenKnightslime = registerFluid("molten_knightslime",  moltenBuilder().setRenderColor(0xfff18ff0).setTemperature(tmp(1425)), Material.LAVA,  9);
 
   // compat ores
-  public static final FluidObject<MantleFluid> moltenTin      = registerFluid("molten_tin",      moltenBuilder().setRenderColor(0xffc1cddc).setTemperature(tmp(tmp(525))), Material.LAVA, 12);
+  public static final FluidObject<MantleFluid> moltenTin      = registerFluid("molten_tin",      moltenBuilder().setRenderColor(0xffc1cddc).setTemperature(tmp(525)), Material.LAVA, 12);
 
   private static FluidTemperature.ContinuousFluidTemperature tmp(int temp) {
     return fluid -> temp;
@@ -117,12 +117,14 @@ public final class TinkerFluids extends TinkerModule {
 
   /** Creates a builder for a cool fluid */
   private static FluidKey.FluidKeyBuilder coolBuilder() {
-    return FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY);
+    throw new RuntimeException("CRAB!");
+//    return FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY);
   }
 
   /** Creates a builder for a hot fluid */
   private static FluidKey.FluidKeyBuilder hotBuilder(Identifier stillTexture, Identifier flowingTexture) {
-    return FluidAttributes.builder(stillTexture, flowingTexture).density(2000).setViscosity(10000).setTemperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
+    throw new RuntimeException("CRAB!");
+//    return FluidAttributes.builder(stillTexture, flowingTexture).density(2000).setViscosity(10000).setTemperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
   }
 
   /** Creates a builder for a molten fluid */

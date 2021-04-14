@@ -39,7 +39,6 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.recipe.TileCastingWrapper;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.MoldingInventoryWrapper;
-import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.CastingFluidHandler;
 
 import java.util.Optional;

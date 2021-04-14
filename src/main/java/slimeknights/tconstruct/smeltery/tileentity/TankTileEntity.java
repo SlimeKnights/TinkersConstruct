@@ -1,31 +1,22 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.math.Direction;
-
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import java.util.Optional;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-
-import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.model.IModelData;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
+import slimeknights.tconstruct.library.client.model.SinglePropertyData;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
-import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 
 public class TankTileEntity extends SmelteryComponentTileEntity implements ITankTileEntity {
   /** Max capacity for the tank */
@@ -57,8 +48,6 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
 
   /** Internal fluid tank instance */
   protected final FluidTankAnimated tank;
-  /** Capability holder for the tank */
-  private final Optional<IFluidHandler> holder;
   /** Tank data for the model */
   private final IModelData modelData;
   /** Last comparator strength to reduce block updates */
@@ -78,7 +67,6 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   protected TankTileEntity(BlockEntityType<?> type, SearedTankBlock block) {
     super(type);
     tank = new FluidTankAnimated(block.getCapacity(), this);
-    holder = Optional.of(() -> tank);
     modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   }
 
@@ -131,7 +119,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
 
   @Override
   public void fromTag(BlockState state, CompoundTag tag) {
-    tank.setCapacity(getCapacity(state.getBlock()));
+    tank.setCapacity(getCapacity(state.getBlock()).as1620());
     updateTank(tag.getCompound(Tags.TANK));
     super.fromTag(state, tag);
   }

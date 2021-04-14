@@ -66,7 +66,6 @@ import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.HeaterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.ChuteTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
@@ -117,7 +116,7 @@ public final class TinkerSmeltery extends TinkerModule {
   // peripherals
   public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> searedDuct = BLOCKS.register("seared_duct", () -> new SearedDuctBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new SmelteryIOBlock(SMELTERY, ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new SmelteryIOBlock(SMELTERY, SmelteryFluidIO.ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
 
   /** Properties for a faucet block */
   private static final Block.Settings FAUCET = builder(Material.STONE, FabricToolTags.PICKAXES, BlockSoundGroup.METAL).requiresTool().strength(3.0F, 9.0F).nonOpaque();
@@ -146,7 +145,7 @@ public final class TinkerSmeltery extends TinkerModule {
   });
   
   public static final BlockEntityType<SmelteryFluidIO> drain = TILE_ENTITIES.register("drain", DrainTileEntity::new, searedDrain);
-  public static final BlockEntityType<ChuteTileEntity> chute = TILE_ENTITIES.register("chute", ChuteTileEntity::new, searedChute);
+  public static final BlockEntityType<SmelteryFluidIO.ChuteTileEntity> chute = TILE_ENTITIES.register("chute", SmelteryFluidIO.ChuteTileEntity::new, searedChute);
   public static final BlockEntityType<DuctTileEntity> duct = TILE_ENTITIES.register("duct", DuctTileEntity::new, searedDuct);
   public static final BlockEntityType<TankTileEntity> tank = TILE_ENTITIES.register("tank", TankTileEntity::new, (set) -> set.addAll(searedTank.values()));
   // controller

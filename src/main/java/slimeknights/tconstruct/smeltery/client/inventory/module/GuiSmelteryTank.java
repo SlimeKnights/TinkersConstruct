@@ -44,7 +44,7 @@ public class GuiSmelteryTank {
   private int[] calcLiquidHeights(boolean refresh) {
     assert tank != null;
     if (liquidHeights == null || refresh) {
-      liquidHeights = calcLiquidHeights(tank.getFluids(), Math.max(tank.getContained(), tank.getCapacity()), height, 3);
+      liquidHeights = calcLiquidHeights(tank.getFluids(), FluidAmount.of1620(Math.max(tank.getContained(), tank.getCapacity())), height, 3);
     }
     return liquidHeights;
   }
@@ -167,7 +167,7 @@ public class GuiSmelteryTank {
         FluidTooltipHandler.appendShift(tooltip);
       }
       else {
-        tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluidInTank(hovered));
+        tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluidInTank(hovered).getAmount_F());
       }
       parent.renderTooltip(matrices, tooltip, mouseX, mouseY);
     }

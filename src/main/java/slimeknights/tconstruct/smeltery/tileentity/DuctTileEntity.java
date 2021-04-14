@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
@@ -38,6 +39,15 @@ public class DuctTileEntity extends SmelteryFluidIO implements NamedScreenHandle
     super(type);
   }
 
+  /** Updates the fluid in model data */
+  public void updateFluid() {
+    Fluid fluid = itemHandler.getFluid();
+//    modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
+//    requestModelDataUpdate();
+    assert world != null;
+//    BlockState state = getBlockState();
+//    world.notifyBlockUpdate(pos, state, state, 48);
+  }
 
   /* Container */
 

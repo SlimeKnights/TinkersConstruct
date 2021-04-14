@@ -4,7 +4,7 @@ import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import org.jetbrains.annotations.NotNull;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 
 /**
  * Fluid handler wrapper that only allows filling

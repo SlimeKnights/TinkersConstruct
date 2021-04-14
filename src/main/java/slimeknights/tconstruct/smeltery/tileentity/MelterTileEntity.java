@@ -14,21 +14,20 @@ import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.model.IModelData;
 import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.common.config.TConfig;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
+import slimeknights.tconstruct.library.client.model.SinglePropertyData;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.Tags;
-import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
-import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
 import java.util.Collections;
-import java.util.Optional;
 
 public class MelterTileEntity extends NamableTileEntity implements ITankTileEntity, Tickable {
   /** Max capacity for the tank */
@@ -41,8 +40,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   /* Tank */
   /** Internal fluid tank output */
   protected final FluidTankAnimated tank = new FluidTankAnimated(TANK_CAPACITY, this);
-  /** Capability holder for the tank */
-  private final Optional<IFluidHandler> tankHolder = Optional.of(() -> tank);
   /** Tank data for the model */
   private final IModelData modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   /** Last comparator strength to reduce block updates */
@@ -53,16 +50,14 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
 
   /* Heating */
   /** Handles all the melting needs */
-  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, () -> TConfig.common.melterNuggetsPerOre, 3);
-  /** Capability holder for the tank */
-  private final Optional<IItemHandler> inventoryHolder = Optional.of(() -> meltingInventory);
+  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, (IFluidHandler) tank, () -> TConfig.common.melterNuggetsPerOre, 3);
 
   /** Fuel handling logic */
   private final FuelModule fuelModule = new FuelModule(this, () -> Collections.singletonList(this.pos.down()));
 
   /** Main constructor */
   public MelterTileEntity() {
-    this(TinkerSmeltery.melter.get());
+    this(TinkerSmeltery.melter);
   }
 
   /** Extendable constructor */
@@ -109,7 +104,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
     lastStrength = strength;
   }
 
-  @Override
   public IModelData getModelData() {
     return modelData;
   }

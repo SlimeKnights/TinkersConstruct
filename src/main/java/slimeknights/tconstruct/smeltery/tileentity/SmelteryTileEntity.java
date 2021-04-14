@@ -36,7 +36,7 @@ import slimeknights.tconstruct.smeltery.network.SmelteryStructureUpdatedPacket;
 import slimeknights.tconstruct.smeltery.tileentity.module.AlloyingModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
-import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.tileentity.module.SmelteryAlloyTank;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery;

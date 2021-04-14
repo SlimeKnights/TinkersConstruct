@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.IFluidTank;
+import slimeknights.tconstruct.fluids.IFluidTank;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.fuel.IFluidInventory;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 
@@ -33,7 +35,7 @@ public class MelterFuelWrapper implements IFluidInventory {
   public Fluid getFluid() {
     return Optional.ofNullable(tank.get())
                    .map(IFluidTank::getFluid)
-                   .map(FluidVolume::getFluid)
+                   .map(FluidVolume::getRawFluid)
                    .orElse(Fluids.EMPTY);
   }
 
@@ -56,7 +58,7 @@ public class MelterFuelWrapper implements IFluidInventory {
   public int getCapacity() {
     return Optional.ofNullable(tank.get())
                    .map(IFluidTank::getCapacity)
-                   .orElse(0);
+                   .orElse(FluidAmount.of1620(0)).as1620();
   }
 
   /**
@@ -70,7 +72,7 @@ public class MelterFuelWrapper implements IFluidInventory {
       int amount = fuel.getAmount(this);
       if (amount > 0) {
         // TODO: assert drained valid?
-        int drained = tank.drain(amount, Simulation.EXECUTE).getAmount();
+        int drained = tank.drain(amount, Simulation.ACTION).getAmount();
         int duration = fuel.getDuration();
         if (drained < amount) {
           return duration * drained / amount;

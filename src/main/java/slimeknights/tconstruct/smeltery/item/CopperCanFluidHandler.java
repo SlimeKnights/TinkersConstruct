@@ -1,25 +1,17 @@
 package slimeknights.tconstruct.smeltery.item;
 
+import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import java.util.Optional;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-
-import org.jetbrains.annotations.Nullable;
 
 /** Capability handler instance for the copper can item */
 @AllArgsConstructor
-public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProvider {
-  private final Optional<IFluidHandlerItem> holder = Optional.of(() -> this);
+public class CopperCanFluidHandler {// implements IFluidHandlerItem, ICapabilityProvider {
+/*  private final Optional<IFluidHandlerItem> holder = Optional.of(() -> this);
 
   @Getter
   private final ItemStack container;
@@ -27,75 +19,75 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   @Override
   public <T> Optional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
     return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.orEmpty(cap, holder);
-  }
+  }*/
 
 
   /* Tank properties */
 
-  @Override
   public int getTanks() {
     return 1;
   }
 
-  @Override
+
   public boolean isFluidValid(int tank, FluidVolume stack) {
     return true;
   }
 
-  @Override
+
   public int getTankCapacity(int tank) {
-    return MaterialValues.INGOT;
+    return MaterialValues.INGOT.as1620();
   }
 
   /** Gets the contained fluid */
   private Fluid getFluid() {
-    return CopperCanItem.getFluid(container);
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    return CopperCanItem.getFluid(container);
   }
 
-  @Override
+
   public FluidVolume getFluidInTank(int tank) {
-    return new FluidVolume(getFluid(), MaterialValues.INGOT);
+    return FluidVolume.create(getFluid(), MaterialValues.INGOT.as1620());
   }
 
 
   /* Interaction */
 
-  @Override
   public int fill(FluidVolume resource, Simulation action) {
     // must not be filled, must have enough
-    if (getFluid() != Fluids.EMPTY || resource.getAmount() < MaterialValues.INGOT) {
+    if (getFluid() != Fluids.EMPTY || resource.getAmount() < MaterialValues.INGOT.as1620()) {
       return 0;
     }
     // update fluid and return
-    if (action.execute()) {
-      CopperCanItem.setFluid(container, resource.getFluid());
+    if (action.isAction()) {
+      throw new RuntimeException("CRAB!"); // FIXME: PORT
+//      CopperCanItem.setFluid(container, resource.getRawFluid());
     }
-    return MaterialValues.INGOT;
+    return MaterialValues.INGOT.as1620();
   }
 
-  @Override
+//  @Override
   public FluidVolume drain(FluidVolume resource, Simulation action) {
     // must be draining at least an ingot
-    if (resource.isEmpty() || resource.getAmount() < MaterialValues.INGOT) {
+    if (resource.isEmpty() || resource.getAmount() < MaterialValues.INGOT.as1620()) {
       return TinkerFluids.EMPTY;
     }
     // must have a fluid, must match what they are draining
     Fluid fluid = getFluid();
-    if (fluid == Fluids.EMPTY || fluid != resource.getFluid()) {
+    if (fluid == Fluids.EMPTY || fluid != resource.getRawFluid()) {
       return TinkerFluids.EMPTY;
     }
     // output 1 ingot
-    FluidVolume output = new FluidVolume(fluid, MaterialValues.INGOT);
-    if (action.execute()) {
-      CopperCanItem.setFluid(container, Fluids.EMPTY);
+    FluidVolume output = FluidVolume.create(fluid, MaterialValues.INGOT.as1620());
+    if (action.isAction()) {
+      throw new RuntimeException("CRAB!"); // FIXME: PORT
+//      CopperCanItem.setFluid(container, Fluids.EMPTY);
     }
     return output;
   }
 
-  @Override
   public FluidVolume drain(int maxDrain, Simulation action) {
     // must be draining at least an ingot
-    if (maxDrain < MaterialValues.INGOT) {
+    if (maxDrain < MaterialValues.INGOT.as1620()) {
       return TinkerFluids.EMPTY;
     }
     // must have a fluid
@@ -104,9 +96,9 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
       return TinkerFluids.EMPTY;
     }
     // output 1 ingot
-    FluidVolume output = new FluidVolume(fluid, MaterialValues.INGOT);
-    if (action.execute()) {
-      CopperCanItem.setFluid(container, Fluids.EMPTY);
+    FluidVolume output = FluidVolume.create(fluid, MaterialValues.INGOT.as1620());
+    if (action.isAction()) {
+//      CopperCanItem.setFluid(container, Fluids.EMPTY);
     }
     return output;
   }

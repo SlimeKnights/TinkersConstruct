@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import slimeknights.mantle.client.screen.ElementScreen;
+import slimeknights.tconstruct.fluids.IFluidTank;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
@@ -35,7 +36,7 @@ public class MelterScreen extends HandledScreen<MelterContainer> implements IScr
       FuelModule fuelModule = te.getFuelModule();
       melting = new GuiMeltingModule(this, te.getMeltingInventory(), fuelModule::getTemperature, slot -> true);
       fuel = new GuiFuelModule(this, fuelModule, 153, 32, 12, 36, 152, 15, container.isHasFuelSlot());
-      tank = new GuiTankModule(this, te.getTank(), 90, 16, 52, 52);
+      tank = new GuiTankModule(this, (IFluidTank) te.getTank(), 90, 16, 52, 52);
     } else {
       melting = null;
       fuel = null;

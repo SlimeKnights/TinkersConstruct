@@ -15,7 +15,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 
 import java.util.Objects;
 
@@ -63,12 +63,12 @@ public class CastingFluidHandler implements IFluidHandler {
     // update filter and capacity
     int capacity = this.capacity;
     if (filter == null || this.capacity == 0) {
-      Fluid fluid = resource.getFluid();
+      Fluid fluid = resource.getRawFluid();
       capacity = tile.initNewCasting(fluid, action);
       if (capacity <= 0) {
         return 0;
       }
-      if (action.execute()) {
+      if (action.isAction()) {
         this.capacity = capacity;
         this.filter = fluid;
       }
@@ -77,15 +77,15 @@ public class CastingFluidHandler implements IFluidHandler {
     // if no fluid yet, copy it in
     if (fluid.isEmpty()) {
       int amount = Math.min(capacity, resource.getAmount());
-      if (action.execute()) {
-        fluid = new FluidVolume(resource, amount);
+      if (action.isAction()) {
+        fluid = FluidVolume.create(resource.getRawFluid(), amount);
         onContentsChanged();
       }
       return amount;
     }
 
     // safety: should never be false, but good to check
-    if (!resource.isFluidEqual(fluid)) {
+    if (!resource.equals(fluid)) {
       return 0;
     }
 
@@ -97,14 +97,14 @@ public class CastingFluidHandler implements IFluidHandler {
     // if it fits, it grows
     int amount = resource.getAmount();
     if (amount < space) {
-      if (action.execute()) {
+      if (action.isAction()) {
         fluid.grow(amount);
         onContentsChanged();
       }
       return amount;
     } else {
       // too much? set to max
-      if (action.execute()) {
+      if (action.isAction()) {
         fluid.setAmount(capacity);
         onContentsChanged();
       }
@@ -128,7 +128,7 @@ public class CastingFluidHandler implements IFluidHandler {
     }
 
     FluidVolume stack = fluid.withAmount(FluidAmount.ofWhole(drained));
-    if (action.execute()) {
+    if (action.isAction()) {
       fluid.shrink(drained);
       onContentsChanged();
     }
@@ -169,7 +169,7 @@ public class CastingFluidHandler implements IFluidHandler {
   public void readFromNBT(CompoundTag nbt) {
     capacity = nbt.getInt(TAG_CAPACITY);
     if (nbt.contains(TAG_FLUID, NbtType.COMPOUND)) {
-      setFluid(FluidVolume.loadFluidVolumeFromNBT(nbt.getCompound(TAG_FLUID)));
+      setFluid(FluidVolume.fromTag(nbt.getCompound(TAG_FLUID)));
     }
     if (nbt.contains(TAG_FILTER, NBT.TAG_STRING)) {
       Fluid fluid = ForgeRegistries.FLUIDS.getValue(new Identifier(nbt.getString(TAG_FILTER)));

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
+import alexiil.mc.lib.attributes.Simulation;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,15 +13,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.Simulation;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.common.TinkerTags.EntityTypes;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
-import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
@@ -66,11 +65,12 @@ public class EntityMeltingModule {
       return lastRecipe;
     }
     // find a new recipe if the last recipe does not match
-    EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(getWorld().getRecipeManager(), type);
-    if (recipe != null) {
-      lastRecipe = recipe;
-    }
-    return recipe;
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(getWorld().getRecipeManager(), type);
+//    if (recipe != null) {
+//      lastRecipe = recipe;
+//    }
+//    return recipe;
   }
 
   /**
@@ -79,7 +79,7 @@ public class EntityMeltingModule {
    */
   public static FluidVolume getDefaultFluid() {
     // TODO: consider a way to put this in a recipe
-    return new FluidVolume(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL / 5);
+    return FluidVolume.create(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL.div(5).as1620());
   }
 
   /**
@@ -150,7 +150,7 @@ public class EntityMeltingModule {
           // if the entity is successfully damaged, fill the tank with fluid
           if (entity.damage(entity.isFireImmune() ? SMELTERY_MAGIC : SMELTERY_DAMAGE, damage)) {
             // its fine if we don't fill it all, leftover fluid is just lost
-            tank.fill(fluid, Simulation.EXECUTE);
+            tank.fill(fluid, Simulation.ACTION);
             melted = true;
           }
         }

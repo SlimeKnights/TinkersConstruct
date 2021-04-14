@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.tileentity.module;
+package slimeknights.tconstruct.fluids;
 
 import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;

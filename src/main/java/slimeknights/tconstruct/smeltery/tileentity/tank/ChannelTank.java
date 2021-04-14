@@ -3,7 +3,7 @@ package slimeknights.tconstruct.smeltery.tileentity.tank;
 import alexiil.mc.lib.attributes.Simulation;
 import net.minecraft.nbt.CompoundTag;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.tconstruct.fluids.FluidTank;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
 /** Tank for channel contents */
@@ -21,8 +21,10 @@ public class ChannelTank extends FluidTank {
 	private final ChannelTileEntity parent;
 
 	public ChannelTank(int capacity, ChannelTileEntity parent) {
-		super(capacity, fluid -> !fluid.getFluid().getAttributes().isGaseous(fluid));
-		this.parent = parent;
+    super(0, null);
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//		super(capacity, fluid -> !fluid.getRawFluid().getAttributes().isGaseous(fluid));
+//		this.parent = parent;
 	}
 
 	/**
@@ -44,7 +46,7 @@ public class ChannelTank extends FluidTank {
 	public int fill(FluidVolume resource, Simulation action) {
 		boolean wasEmpty = isEmpty();
 		int amount = super.fill(resource, action);
-		if(action.execute()) {
+		if(action.isAction()) {
 			locked += amount;
 			// if we added something, sync to client
 			if (wasEmpty && !isEmpty()) {
@@ -59,7 +61,7 @@ public class ChannelTank extends FluidTank {
 		boolean wasEmpty = isEmpty();
 		FluidVolume stack = super.drain(maxDrain, action);
 		// if we removed something, sync to client
-		if (action.execute() && !wasEmpty && isEmpty()) {
+		if (action.isAction() && !wasEmpty && isEmpty()) {
 			parent.sendFluidUpdate();
 		}
 		return stack;

@@ -1,31 +1,19 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fluids.FluidAttributes;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.Simulation;
-import net.minecraftforge.fml.DistExecutor;
 import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.tconstruct.common.config.TConfig;
-import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -50,7 +38,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    */
   default int comparatorStrength() {
     FluidTankAnimated tank = getTank();
-    return 15 * tank.getFluidAmount() / tank.getCapacity();
+    return tank.getFluidAmount().mul(15).div(tank.getCapacity()).as1620();
   }
 
   /**
@@ -84,7 +72,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
   default void updateFluidTo(FluidVolume fluid) {
     // update tank fluid
     FluidTankAnimated tank = getTank();
-    int oldAmount = tank.getFluidAmount();
+    int oldAmount = tank.getFluidAmount().as1620();
     int newAmount = fluid.getAmount();
     tank.setFluid(fluid);
 
@@ -92,17 +80,18 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
     tank.setRenderOffset(tank.getRenderOffset() + newAmount - oldAmount);
 
     // update the block model
-    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-      if (TConfig.CLIENT.tankFluidModel.get()) {
-        // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
-        BlockEntity te = getTE();
-        TankModel.BakedModel model = ModelHelper.getBakedModel(te.getCachedState(), TankModel.BakedModel.class);
-        if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getFluid().getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
-          //this.requestModelDataUpdate();
-          MinecraftClient.getInstance().worldRenderer.updateBlock(null, te.getPos(), null, null, 3);
-        }
-      }
-    });
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+//      if (TConfig.CLIENT.tankFluidModel.get()) {
+//        // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
+//        BlockEntity te = getTE();
+//        TankModel.BakedModel model = ModelHelper.getBakedModel(te.getCachedState(), TankModel.BakedModel.class);
+//        if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getFluid().getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
+//          //this.requestModelDataUpdate();
+//          MinecraftClient.getInstance().worldRenderer.updateBlock(null, te.getPos(), null, null, 3);
+//        }
+//      }
+//    });
   }
 
   /*
@@ -171,18 +160,19 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
     // success if the item is a fluid handler, regardless of if fluid moved
     ItemStack stack = player.getStackInHand(hand);
     Direction face = hit.getSide();
-    if (FluidUtil.getFluidHandler(stack).isPresent()) {
-      if (!world.isClient()) {
-        BlockEntity te = world.getBlockEntity(pos);
-        if (te != null) {
-          te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face)
-            .ifPresent(handler -> FluidUtil.interactWithFluidHandler(player, hand, handler));
-        }
-      }
-      return true;
-    }
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    if (FluidUtil.getFluidHandler(stack).isPresent()) {
+//      if (!world.isClient()) {
+//        BlockEntity te = world.getBlockEntity(pos);
+//        if (te != null) {
+//          te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face)
+//            .ifPresent(handler -> FluidUtil.interactWithFluidHandler(player, hand, handler));
+//        }
+//      }
+//      return true;
+//    }
     // fall back to buckets for fish buckets
-    return interactWithBucket(world, pos, player, hand, face, face);
+//    return interactWithBucket(world, pos, player, hand, face, face);
   }
 
   /**

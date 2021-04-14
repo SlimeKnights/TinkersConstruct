@@ -9,20 +9,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.math.Direction;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants.NBT;
-import java.util.Optional;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.HeaterItemHandler;
-
-import org.jetbrains.annotations.Nullable;
 
 /** Tile entity for the heater block below the melter */
 public class HeaterTileEntity extends NamableTileEntity {
@@ -30,14 +22,13 @@ public class HeaterTileEntity extends NamableTileEntity {
   private static final Text TITLE = new TranslatableText(Util.makeTranslationKey("gui", "heater"));
 
   private final HeaterItemHandler itemHandler = new HeaterItemHandler(this);
-  private final Optional<IItemHandler> itemCapability = Optional.of(() -> itemHandler);
 
   protected HeaterTileEntity(BlockEntityType<?> type) {
     super(type, TITLE);
   }
 
   public HeaterTileEntity() {
-    this(TinkerSmeltery.heater.get());
+    this(TinkerSmeltery.heater);
   }
 
   @Nullable

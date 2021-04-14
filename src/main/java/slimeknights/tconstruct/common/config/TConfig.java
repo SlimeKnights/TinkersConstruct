@@ -81,7 +81,7 @@ public class TConfig {
     public boolean temperatureInCelsius;
 
     @Comment("Experimental. If true, renders fluids in tanks using a dynamic model, being more efficient when the tank is static\nIf false, renders fluids in tanks using a TESR, which is more efficient when the tank contents are changing")
-    public boolean tankFluidModel;
+    public boolean tankFluidModel = true;
 
     @Comment("If true tools will show additional info in their tooltips")
     public boolean extraToolTips;

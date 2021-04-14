@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -128,7 +129,7 @@ public class GuiFuelModule {
         }
       } else if (!fuelInfo.isEmpty()) {
         FluidVolume fluid = fuelInfo.getFluid();
-        tooltip = FluidTooltipHandler.getFluidTooltip(fluid, fuelInfo.getTotalAmount());
+        tooltip = FluidTooltipHandler.getFluidTooltip(fluid, FluidAmount.of1620(fuelInfo.getTotalAmount()));
         int temperature = fuelInfo.getTemperature();
         if (temperature > 0) {
           tooltip.add(1, new TranslatableText(TOOLTIP_TEMPERATURE, temperature).formatted(Formatting.GRAY, Formatting.ITALIC));

@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayer.MultiPhaseParameters;
 import net.minecraft.client.render.RenderPhase.Texture;
@@ -13,8 +15,6 @@ import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Matrix4f;
-import net.minecraftforge.fluids.FluidAttributes;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiSmelteryTank;
@@ -89,7 +89,7 @@ public class SmelteryTankRenderer {
       // calc heights, we use mB capacities and then convert it over to blockheights during rendering
       int yd = 1 + Math.max(0, tankMaxPos.getY() - tankMinPos.getY());
       // one block height = 1000 mb
-      int[] heights = GuiSmelteryTank.calcLiquidHeights(fluids, tank.getCapacity(), yd * 1000 - HEIGHT_OFFSET, 100);
+      int[] heights = GuiSmelteryTank.calcLiquidHeights(fluids, FluidAmount.of1620(tank.getCapacity()), yd * 1000 - HEIGHT_OFFSET, 100);
 
       // rendering time
       VertexConsumer builder = buffer.getBuffer(RENDER_TYPE);
@@ -117,7 +117,8 @@ public class SmelteryTankRenderer {
    */
   private static void renderLargeFluidCuboid(MatrixStack matrices, VertexConsumer builder, FluidVolume fluid, int brightness,
                                              int xd, float[] xBounds, int zd, float[] zBounds, float yMin, float yMax) {
-    if(yMin >= yMax || fluid.isEmpty()) {
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+    /*if(yMin >= yMax || fluid.isEmpty()) {
       return;
     }
     // fluid attributes
@@ -158,6 +159,6 @@ public class SmelteryTankRenderer {
           }
         }
       }
-    }
+    }*/
   }
 }

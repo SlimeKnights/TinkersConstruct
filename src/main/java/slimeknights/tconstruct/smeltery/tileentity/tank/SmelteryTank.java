@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.SmelteryTankUpdatePacket;
-import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler.FluidChange;
 
 import java.util.List;
@@ -163,7 +163,7 @@ public class SmelteryTank implements IFluidHandler {
 
     // check if we already have the given liquid
     for (FluidVolume fluid : fluids) {
-      if (fluid.isFluidEqual(resource)) {
+      if (fluid.equals(resource)) {
         // yup. add it
         fluid.grow(usable);
         parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getRawFluid());
@@ -194,7 +194,7 @@ public class SmelteryTank implements IFluidHandler {
     ret.withAmount(FluidAmount.of1620(drainable));
 
     // remove the fluid from the tank
-    if (action.execute()) {
+    if (action.isAction()) {
       fluid.shrink(drainable);
       contained -= drainable;
       // if now empty, remove from the list
@@ -216,16 +216,15 @@ public class SmelteryTank implements IFluidHandler {
     ListIterator<FluidVolume> iter = fluids.listIterator();
     while (iter.hasNext()) {
       FluidVolume fluid = iter.next();
-      if (fluid.isFluidEqual(toDrain)) {
+      if (fluid.equals(toDrain)) {
         // if found, determine how much we can drain
         int drainable = Math.min(toDrain.getAmount(), fluid.getAmount());
 
         // copy contained fluid to return for accuracy
-        FluidVolume ret = fluid.copy();
-        ret.setAmount(drainable);
+        FluidVolume ret = fluid.withAmount(FluidAmount.of1620(drainable));
 
         // update tank if executing
-        if (action.execute()) {
+        if (action.isAction()) {
           fluid.shrink(drainable);
           contained -= drainable;
           // if now empty, remove from the list
@@ -270,7 +269,7 @@ public class SmelteryTank implements IFluidHandler {
     ListTag list = new ListTag();
     for (FluidVolume liquid : fluids) {
       CompoundTag fluidTag = new CompoundTag();
-      liquid.writeToNBT(fluidTag);
+      liquid.toTag(fluidTag);
       list.add(fluidTag);
     }
     nbt.put(TAG_FLUIDS, list);
@@ -285,7 +284,7 @@ public class SmelteryTank implements IFluidHandler {
     contained = 0;
     for (int i = 0; i < list.size(); i++) {
       CompoundTag fluidTag = list.getCompound(i);
-      FluidVolume fluid = FluidVolume.loadFluidVolumeFromNBT(fluidTag);
+      FluidVolume fluid = FluidVolume.fromTag(fluidTag);
       if (!fluid.isEmpty()) {
         fluids.add(fluid);
         contained += fluid.getAmount();

@@ -1,11 +1,9 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import alexiil.mc.lib.attributes.Simulation;
-import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
-import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
-import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -20,11 +18,12 @@ import java.util.Optional;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.mantle.util.NotNullConsumer;
 import slimeknights.mantle.util.WeakConsumerWrapper;
+import slimeknights.tconstruct.fluids.EmptyFluidHandler;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
-import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 
 import static slimeknights.tconstruct.smeltery.block.FaucetBlock.FACING;
 
@@ -81,10 +80,11 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     assert world != null;
     BlockEntity te = world.getBlockEntity(pos.offset(side));
     if (te != null) {
-      Optional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
-      if (handler.isPresent()) {
-        return handler;
-      }
+      throw new RuntimeException("CRAB!"); // FIXME: PORT
+//      Optional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
+//      if (handler.isPresent()) {
+//        return handler;
+//      }
     }
     return Optional.empty();
   }
@@ -97,7 +97,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     if (inputHandler == null) {
       inputHandler = findFluidHandler(getCachedState().get(FACING).getOpposite());
       if (inputHandler.isPresent()) {
-        inputHandler.addListener(inputListener);
+        inputHandler.get().addListener(inputListener);
       }
     }
     return inputHandler;
@@ -111,7 +111,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     if (outputHandler == null) {
       outputHandler = findFluidHandler(Direction.DOWN);
       if (outputHandler.isPresent()) {
-        outputHandler.addListener(outputListener);
+        outputHandler.get().addListener(outputListener);
       }
     }
     return outputHandler;
@@ -238,7 +238,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
       // can we drain?
       IFluidHandler input = inputOptional.orElse(EmptyFluidHandler.INSTANCE);
       FluidVolume drained = input.drain(PACKET_SIZE, Simulation.SIMULATE);
-      if (!drained.isEmpty() && !drained.getFluid().getAttributes().isGaseous(drained)) {
+      if (!drained.isEmpty() && !drained.getFluidKey().getAttributes().isGaseous(drained)) {
         // can we fill
         IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
         int filled = output.fill(drained, Simulation.SIMULATE);
@@ -246,10 +246,10 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
           // fill if requested
           if (execute) {
             // drain the liquid and transfer it, buffer the amount for delay
-            this.drained = input.drain(filled, Simulation.EXECUTE);
+            this.drained = input.drain(filled, Simulation.ACTION);
 
             // sync to clients if we have changes
-            if (faucetState == FaucetState.OFF || !renderFluid.isFluidEqual(drained)) {
+            if (faucetState == FaucetState.OFF || !renderFluid.equals(drained)) {
               syncToClient(this.drained, true);
             }
             faucetState = FaucetState.POURING;
@@ -263,7 +263,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
       // if powered, keep faucet running
       if (lastRedstoneState) {
         // sync if either we were not pouring before (particle effects), or if the client thinks we have fluid
-        if (execute && (faucetState == FaucetState.OFF || !renderFluid.isFluidEqual(TinkerFluids.EMPTY))) {
+        if (execute && (faucetState == FaucetState.OFF || !renderFluid.equals(TinkerFluids.EMPTY))) {
           syncToClient(TinkerFluids.EMPTY, true);
         }
         faucetState = FaucetState.POWERED;
@@ -296,14 +296,14 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
       int filled = output.fill(fillStack, Simulation.SIMULATE);
       if (filled > 0) {
         // update client if they do not think we have fluid
-        if (!renderFluid.isFluidEqual(drained)) {
+        if (!renderFluid.equals(drained)) {
           syncToClient(drained, true);
         }
 
         // transfer it
         this.drained.shrink(filled);
         fillStack.setAmount(filled);
-        output.fill(fillStack, Simulation.EXECUTE);
+        output.fill(fillStack, Simulation.ACTION);
       }
     }
     else {
@@ -318,7 +318,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
   private void reset() {
     stopPouring = false;
     drained = TinkerFluids.EMPTY;
-    if (faucetState != FaucetState.OFF || !renderFluid.isFluidEqual(drained)) {
+    if (faucetState != FaucetState.OFF || !renderFluid.equals(drained)) {
       faucetState = FaucetState.OFF;
       syncToClient(TinkerFluids.EMPTY, false);
     }
@@ -385,12 +385,12 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     lastRedstoneState = compound.getBoolean(TAG_LAST_REDSTONE);
     // fluids
     if (compound.contains(TAG_DRAINED, NbtType.COMPOUND)) {
-      drained = FluidVolume.loadFluidVolumeFromNBT(compound.getCompound(TAG_DRAINED));
+      drained = FluidVolume.fromTag(compound.getCompound(TAG_DRAINED));
     } else {
       drained = TinkerFluids.EMPTY;
     }
     if (compound.contains(TAG_RENDER_FLUID, NbtType.COMPOUND)) {
-      renderFluid = FluidVolume.loadFluidVolumeFromNBT(compound.getCompound(TAG_RENDER_FLUID));
+      renderFluid = FluidVolume.fromTag(compound.getCompound(TAG_RENDER_FLUID));
     } else {
       renderFluid = TinkerFluids.EMPTY;
     }

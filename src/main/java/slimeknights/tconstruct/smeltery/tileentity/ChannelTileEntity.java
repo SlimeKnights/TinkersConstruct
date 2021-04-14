@@ -2,26 +2,17 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Direction.Type;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.common.capabilities.Capability;
-import java.util.Optional;
-import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.Simulation;
-import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.util.WeakConsumerWrapper;
+import slimeknights.mantle.util.NotNullConsumer;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -30,12 +21,12 @@ import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketReceiver;
-import slimeknights.tconstruct.smeltery.tileentity.module.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ChannelSideTank;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ChannelTank;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Logic for channel fluid transfer
@@ -46,24 +37,24 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	/** Channel internal tank */
 	private final ChannelTank tank = new ChannelTank(36, this);
 	/** Handler to return from channel top */
-	private final Optional<IFluidHandler> topHandler = Optional.of(() -> new FillOnlyFluidHandler(tank));
+	private final Optional<IFluidHandler> topHandler = Optional.of(new FillOnlyFluidHandler((IFluidHandler) tank));
 	/** Tanks for inserting on each side */
 	private final Map<Direction,Optional<IFluidHandler>> sideTanks = Util.make(new EnumMap<>(Direction.class), map -> {
 		for (Direction direction : Type.HORIZONTAL) {
-			map.put(direction, Optional.of(() -> new ChannelSideTank(this, tank, direction)));
+			map.put(direction, Optional.of(new ChannelSideTank(this, tank, direction)));
 		}
 	});
 
 	/** Cache of tanks on all neighboring sides */
 	private final Map<Direction,Optional<IFluidHandler>> neighborTanks = new EnumMap<>(Direction.class);
 	/** Consumers to attach to each of the neighbors */
-	private final Map<Direction,NonNullConsumer<Optional<IFluidHandler>>> neighborConsumers = new EnumMap<>(Direction.class);
+	private final Map<Direction, NotNullConsumer<Optional<IFluidHandler>>> neighborConsumers = new EnumMap<>(Direction.class);
 
 	/** Stores if the channel is currently flowing, set to 2 to allow a small buffer */
 	private final byte[] isFlowing = new byte[5];
 
 	public ChannelTileEntity() {
-		this(TinkerSmeltery.channel.get());
+		this(TinkerSmeltery.channel);
 	}
 
 	protected ChannelTileEntity(BlockEntityType<?> type) {

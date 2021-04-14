@@ -2,7 +2,7 @@ package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.client.model.data.ModelProperty;
+import slimeknights.mantle.util.ModelProperty;
 
 /**
  * Interface for blocks to be notified when the smeltery has a new bottommost fluid

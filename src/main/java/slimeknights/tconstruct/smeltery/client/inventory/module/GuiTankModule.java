@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.IFluidTank;
+import org.jetbrains.annotations.Nullable;
+import slimeknights.tconstruct.fluids.IFluidTank;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -41,7 +41,7 @@ public class GuiTankModule {
    * @return  Fluid height
    */
   private int getFluidHeight() {
-    return height * tank.getFluidAmount() / tank.getCapacity();
+    return tank.getFluidAmount().mul(height).div(tank.getCapacity()).as1620();
   }
 
   /**
@@ -49,7 +49,7 @@ public class GuiTankModule {
    * @param matrices  Matrix stack instance
    */
   public void draw(MatrixStack matrices) {
-    GuiUtil.renderFluidTank(matrices, screen, tank.getFluid(), tank.getCapacity(), x, y, width, height, 100);
+    GuiUtil.renderFluidTank(matrices, screen, tank.getFluid(), tank.getCapacity().as1620(), x, y, width, height, 100);
   }
 
   /**
@@ -91,7 +91,7 @@ public class GuiTankModule {
       // if hovering over the fluid, display with name
       final List<Text> tooltip;
       if (checkY > (y + height) - getFluidHeight()) {
-        tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluid());
+        tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluid().getAmount_F());
       } else {
         // function to call for amounts
         BiConsumer<FluidAmount, List<Text>> formatter = Util.isShiftKeyDown()
@@ -104,7 +104,7 @@ public class GuiTankModule {
         formatter.accept(capacity, tooltip);
         if (!capacity.equals(amount)) {
           tooltip.add(new TranslatableText(GuiSmelteryTank.TOOLTIP_AVAILABLE));
-          formatter.accept(capacity - amount, tooltip);
+          formatter.accept(capacity.min(amount), tooltip);
         }
 
         // add shift message

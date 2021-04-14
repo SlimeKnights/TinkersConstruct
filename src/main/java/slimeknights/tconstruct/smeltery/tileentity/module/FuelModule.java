@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
+import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,8 +15,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.mantle.util.NotNullConsumer;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelCache;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -39,8 +42,8 @@ public class FuelModule implements PropertyDelegate {
   public static final int SOLID_TEMPERATURE = 800;
 
   /** Listener to attach to stored capability */
-  private final NonNullConsumer<Optional<IFluidHandler>> fluidListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
-  private final NonNullConsumer<Optional<IItemHandler>> itemListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
+  private final NotNullConsumer<Optional<IFluidHandler>> fluidListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
+  private final NotNullConsumer<Optional<IItemHandler>> itemListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
 
   /** Parent TE */
   private final MantleTileEntity parent;
@@ -64,7 +67,7 @@ public class FuelModule implements PropertyDelegate {
   /** Client fuel display */
   private List<Optional<IFluidHandler>> tankDisplayHandlers;
   /** Listener to attach to display capabilities */
-  private final NonNullConsumer<Optional<IFluidHandler>> displayListener = new WeakConsumerWrapper<>(this, (self, cap) -> {
+  private final NotNullConsumer<Optional<IFluidHandler>> displayListener = new WeakConsumerWrapper<>(this, (self, cap) -> {
     if (self.tankDisplayHandlers != null) {
       self.tankDisplayHandlers.remove(cap);
     }
@@ -181,12 +184,12 @@ public class FuelModule implements PropertyDelegate {
    */
   private int tryLiquidFuel(IFluidHandler handler, boolean consume) {
     FluidVolume fluid = handler.getFluidInTank(0);
-    MeltingFuel recipe = findRecipe(fluid.getFluid());
+    MeltingFuel recipe = findRecipe(fluid.getRawFluid());
     if (recipe != null) {
-      int amount = recipe.getAmount(fluid.getFluid());
+      int amount = recipe.getAmount(fluid.getRawFluid());
       if (fluid.getAmount() >= amount) {
         if (consume) {
-          FluidVolume drained = handler.drain(new FluidVolume(fluid, amount), Simulation.EXECUTE);
+          FluidVolume drained = handler.drain(FluidVolume.create(fluid.getRawFluid(), amount), Simulation.ACTION);
           if (drained.getAmount() != amount) {
             TConstruct.log.error("Invalid amount of fuel drained from tank");
           }
@@ -219,29 +222,29 @@ public class FuelModule implements PropertyDelegate {
    */
   private int tryFindFuel(BlockPos pos, boolean consume) {
     BlockEntity te = getWorld().getBlockEntity(pos);
-    if (te != null) {
-      // if we find a valid cap, try to consume fuel from it
-      Optional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-      Optional<Integer> temperature = capability.map(tryLiquidFuel(consume));
-      if (temperature.isPresent()) {
-        itemHandler = null;
-        fluidHandler = capability;
-        capability.addListener(fluidListener);
-        lastPos = pos;
-        return temperature.get();
-      } else {
-        // if we find a valid item cap, consume fuel from that
-        Optional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
-        temperature = itemCap.map(trySolidFuel(consume));
-        if (temperature.isPresent()) {
-          fluidHandler = null;
-          itemHandler = itemCap;
-          itemCap.addListener(itemListener);
-          lastPos = pos;
-          return temperature.get();
-        }
-      }
-    }
+//    if (te != null) {
+//      // if we find a valid cap, try to consume fuel from it
+//      Optional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+//      Optional<Integer> temperature = capability.map(tryLiquidFuel(consume));
+//      if (temperature.isPresent()) {
+//        itemHandler = null;
+//        fluidHandler = capability;
+//        capability.addListener(fluidListener);
+//        lastPos = pos;
+//        return temperature.get();
+//      } else {
+//        // if we find a valid item cap, consume fuel from that
+//        Optional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+//        temperature = itemCap.map(trySolidFuel(consume));
+//        if (temperature.isPresent()) {
+//          fluidHandler = null;
+//          itemHandler = itemCap;
+//          itemCap.addListener(itemListener);
+//          lastPos = pos;
+//          return temperature.get();
+//        }
+//      }
+//    }
 
     return 0;
   }
@@ -331,6 +334,7 @@ public class FuelModule implements PropertyDelegate {
   public int size() {
     return 6;
   }
+
 
   @Override
   public int get(int index) {
@@ -485,7 +489,7 @@ public class FuelModule implements PropertyDelegate {
           FluidVolume fluid = handler.getFluidInTank(0);
           if (fluid.isEmpty()) {
             info.add(0, handler.getTankCapacity(0));
-          } else if (currentFuel.isFluidEqual(fluid)) {
+          } else if (currentFuel.equals(fluid)) {
             info.add(fluid.getAmount(), handler.getTankCapacity(0));
           }
         });

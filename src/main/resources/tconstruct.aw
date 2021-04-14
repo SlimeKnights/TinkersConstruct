@@ -77,3 +77,14 @@ mutable field   net/minecraft/screen/slot/CraftingResultSlot   amount    I
 accessible  field   net/minecraft/screen/slot/Slot index   I
 
 accessible  field   net/minecraft/screen/slot/CraftingResultSlot   player    Lnet/minecraft/entity/player/PlayerEntity;
+
+accessible class net/minecraft/client/render/RenderLayer$MultiPhase
+accessible  field   net/minecraft/client/render/RenderPhase    name   Ljava/lang/String;
+accessible  field   net/minecraft/client/render/RenderLayer$MultiPhase phases  Lnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;
+accessible  field   net/minecraft/client/render/RenderLayer$MultiPhaseParameters   texture   Lnet/minecraft/client/render/RenderPhase$Texture;
+accessible  field   net/minecraft/client/render/RenderPhase$Texture    id Ljava/util/Optional;
+accessible  field   net/minecraft/client/render/RenderPhase    SMOOTH_SHADE_MODEL Lnet/minecraft/client/render/RenderPhase$ShadeModel;
+accessible  field   net/minecraft/client/render/RenderPhase    ENABLE_LIGHTMAP    Lnet/minecraft/client/render/RenderPhase$Lightmap;
+accessible  field   net/minecraft/client/render/RenderPhase    MIPMAP_BLOCK_ATLAS_TEXTURE Lnet/minecraft/client/render/RenderPhase$Texture;
+accessible  field   net/minecraft/client/render/RenderPhase    TRANSLUCENT_TRANSPARENCY   Lnet/minecraft/client/render/RenderPhase$Transparency;
+accessible  field   net/minecraft/client/render/RenderPhase    DISABLE_CULLING    Lnet/minecraft/client/render/RenderPhase$Cull;

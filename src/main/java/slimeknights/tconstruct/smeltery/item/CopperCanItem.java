@@ -14,11 +14,8 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.registries.ForgeRegistries;
-
 import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -56,7 +53,7 @@ public class CopperCanItem extends Item {
   public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
     Fluid fluid = getFluid(stack);
     if (fluid != Fluids.EMPTY) {
-      tooltip.add(new TranslatableText(this.getTranslationKey() + ".contents", new TranslatableText(fluid.getAttributes().getTranslationKey())).formatted(Formatting.GRAY));
+      tooltip.add(new TranslatableText(this.getTranslationKey() + ".contents", new TranslatableText(Registry.FLUID.getId(fluid).toString())).formatted(Formatting.GRAY));
     } else {
       tooltip.add(new TranslatableText(this.getTranslationKey() + ".tooltip").formatted(Formatting.GRAY));
     }

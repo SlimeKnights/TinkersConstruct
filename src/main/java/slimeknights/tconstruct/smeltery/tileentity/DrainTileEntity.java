@@ -9,16 +9,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.client.model.data.IModelData;
-import slimeknights.mantle.client.model.data.SinglePropertyData;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.model.IModelData;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
-
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Fluid IO extension to display controller fluid
@@ -42,7 +39,7 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
     if (fluid != displayFluid) {
       displayFluid = fluid;
       modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
-      requestModelDataUpdate();
+//      requestModelDataUpdate();
       assert world != null;
       BlockState state = getCachedState();
       world.updateListeners(pos, state, state, 48);
@@ -70,12 +67,6 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
     CompoundTag nbt = super.toInitialChunkDataTag();
     writeMaster(nbt);
     return nbt;
-  }
-
-//  @Override
-  public void handleUpdateTag(BlockState state, CompoundTag tag) {
-    super.handleUpdateTag(state, tag);
-    attachFluidListener();
   }
 
   @Override

@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
+import alexiil.mc.lib.attributes.Simulation;
 import lombok.AllArgsConstructor;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.tconstruct.fluids.IFluidHandler;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 
 @AllArgsConstructor
 public class DuctTankWrapper implements IFluidHandler {
@@ -31,7 +33,7 @@ public class DuctTankWrapper implements IFluidHandler {
 
   @Override
   public boolean isFluidValid(int tank, FluidVolume stack) {
-    return stack.getFluid() == itemHandler.getFluid();
+    return stack.getRawFluid() == itemHandler.getFluid();
   }
 
 
@@ -39,7 +41,7 @@ public class DuctTankWrapper implements IFluidHandler {
 
   @Override
   public int fill(FluidVolume resource, Simulation action) {
-    if (resource.isEmpty() || resource.getFluid() != itemHandler.getFluid()) {
+    if (resource.isEmpty() || resource.getRawFluid() != itemHandler.getFluid()) {
       return 0;
     }
     return parent.fill(resource, action);
@@ -51,12 +53,12 @@ public class DuctTankWrapper implements IFluidHandler {
     if (fluid == Fluids.EMPTY) {
       return TinkerFluids.EMPTY;
     }
-    return parent.drain(new FluidVolume(fluid, maxDrain), action);
+    return parent.drain(FluidVolume.create(fluid, maxDrain), action);
   }
 
   @Override
   public FluidVolume drain(FluidVolume resource, Simulation action) {
-    if (resource.isEmpty() || resource.getFluid() != itemHandler.getFluid()) {
+    if (resource.isEmpty() || resource.getRawFluid() != itemHandler.getFluid()) {
       return TinkerFluids.EMPTY;
     }
     return parent.drain(resource, action);

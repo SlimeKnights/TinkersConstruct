@@ -220,6 +220,14 @@ public class FluidTooltipHandler {
     return list;
   }
 
+  public static void appendBuckets(Integer amount, List<Text> texts) {
+    appendBuckets(FluidAmount.of1620(amount), texts);
+  }
+
+  public static void appendIngots(Integer amount, List<Text> texts) {
+    appendIngots(FluidAmount.of1620(amount), texts);
+  }
+
   private static class FluidGuiEntry implements Comparable<FluidGuiEntry> {
     private final String translationKey;
 

@@ -78,8 +78,8 @@ public class SmelteryTileEntityRenderer extends BlockEntityRenderer<SmelteryTile
     matrices.pop();
   }
 
-  @Override
-  public boolean isGlobalRenderer(SmelteryTileEntity tile) {
-    return tile.getCachedState().get(ControllerBlock.ACTIVE) && tile.getStructure() != null;
-  }
+//  @Override
+//  public boolean isGlobalRenderer(SmelteryTileEntity tile) {
+//    return tile.getCachedState().get(ControllerBlock.ACTIVE) && tile.getStructure() != null;
+//  }
 }

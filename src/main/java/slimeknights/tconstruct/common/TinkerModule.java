@@ -24,7 +24,6 @@ import slimeknights.mantle.registration.deferred.TileEntityTypeDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.BlockDeferredRegisterExtension;
 import slimeknights.tconstruct.common.registration.ItemDeferredRegisterExtension;
-import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
@@ -71,7 +70,7 @@ public abstract class TinkerModule implements ModInitializer {
 
   /** Called during construction to initialize the registers for this mod */
   public static void initRegisters() {
-    CapabilityTinkerPiggyback.register();
+//    CapabilityTinkerPiggyback.register();
   }
 
   /**
