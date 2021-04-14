@@ -86,7 +86,7 @@ public final class TinkerGadgets extends TinkerModule {
   public static final WallTorchBlock wallStoneTorch = (WallTorchBlock) BLOCKS.registerNoItem("wall_stone_torch", () -> new WallTorchBlock(STONE_TORCH, ParticleTypes.FLAME) {});
   public static final ItemObject<Block> stoneTorch = BLOCKS.register("stone_torch",
                                                                                () -> new TorchBlock(STONE_TORCH, ParticleTypes.FLAME) {},
-                                                                               (block) -> new WallStandingBlockItem(block, wallStoneTorch, HIDDEN_PROPS));
+                                                                               (block) -> new WallStandingBlockItem(block, wallStoneTorch, getHiddenProps()));
   // rails
   // TODO: moving to tinkers' mechworks
   private static final AbstractBlock.Settings WOODEN_RAIL = builder(Material.SUPPORTED, NO_TOOL, BlockSoundGroup.WOOD).noCollision().strength(0.2F);
@@ -97,7 +97,7 @@ public final class TinkerGadgets extends TinkerModule {
    * Items
    */
   // TODO: moving to natura
-  public static final ItemObject<Item> stoneStick = ITEMS.register("stone_stick", HIDDEN_PROPS);
+  public static final ItemObject<Item> stoneStick = ITEMS.register("stone_stick", getHiddenProps());
   public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", PiggyBackPackItem::new);
   public static final ItemEnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
   // slime tools

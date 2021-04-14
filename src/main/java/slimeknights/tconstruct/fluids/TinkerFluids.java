@@ -6,7 +6,13 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.fluid.volume.FluidTemperature;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FluidBlock;
 import net.minecraft.block.Material;
+import net.minecraft.fluid.LavaFluid;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -21,6 +27,7 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Contains all fluids used throughout the mod
@@ -42,7 +49,15 @@ public final class TinkerFluids extends TinkerModule {
   }
 
   private static FluidObject<MantleFluid> registerFluid(String name, FluidKey.FluidKeyBuilder builder, Material material, int whatsThis) {
-    throw new RuntimeException("Registering fluids sucks. ignore it for now"); //TODO: reimplement fluid registry into mantle
+    final Supplier<MantleFluid> flowing = () -> new MantleFluid.Flowing(Items.BEDROCK, Blocks.BEDROCK.getDefaultState());
+    return new FluidObject<>(
+      id(name),
+      name,
+      () -> new MantleFluid.Still(Items.BEDROCK, Blocks.BEDROCK.getDefaultState()),
+      flowing,
+      () -> new FluidBlock(flowing.get(), FabricBlockSettings.copy(Blocks.WATER))
+    );
+//    throw new RuntimeException("Registering fluids sucks. ignore it for now"); //TODO: reimplement fluid registry into mantle
   }
 
   // slime -  note second name parameter is forge tag name
@@ -117,13 +132,15 @@ public final class TinkerFluids extends TinkerModule {
 
   /** Creates a builder for a cool fluid */
   private static FluidKey.FluidKeyBuilder coolBuilder() {
-    throw new RuntimeException("CRAB!");
+    return new FluidKey.FluidKeyBuilder();
+//    throw new RuntimeException("CRAB!");
 //    return FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY);
   }
 
   /** Creates a builder for a hot fluid */
   private static FluidKey.FluidKeyBuilder hotBuilder(Identifier stillTexture, Identifier flowingTexture) {
-    throw new RuntimeException("CRAB!");
+    return new FluidKey.FluidKeyBuilder();
+//    throw new RuntimeException("CRAB!");
 //    return FluidAttributes.builder(stillTexture, flowingTexture).density(2000).setViscosity(10000).setTemperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
   }
 

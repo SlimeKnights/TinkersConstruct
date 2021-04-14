@@ -54,9 +54,9 @@ public class SmelteryClientEvents extends ClientEventBase {
     BlockEntityRendererRegistry.INSTANCE.register(TinkerSmeltery.smeltery, SmelteryTileEntityRenderer::new);
 
     // screens
-    HandledScreens.register(TinkerSmeltery.melterContainer, MelterScreen::new);
-    HandledScreens.register(TinkerSmeltery.smelteryContainer, SmelteryScreen::new);
-    HandledScreens.register(TinkerSmeltery.singleItemContainer, new SingleItemScreenFactory());
+//    HandledScreens.register(TinkerSmeltery.melterContainer, MelterScreen::new);
+//    HandledScreens.register(TinkerSmeltery.smelteryContainer, SmelteryScreen::new);
+//    HandledScreens.register(TinkerSmeltery.singleItemContainer, new SingleItemScreenFactory());
 
     FluidTooltipHandler.init();
   }

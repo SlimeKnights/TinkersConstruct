@@ -18,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.item.TooltipItem;
-import slimeknights.mantle.registration.deferred.ContainerTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.EntityTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.TileEntityTypeDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
@@ -27,6 +26,7 @@ import slimeknights.tconstruct.common.registration.ItemDeferredRegisterExtension
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
+import javax.swing.plaf.PanelUI;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -40,33 +40,42 @@ public abstract class TinkerModule implements ModInitializer {
 //  protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.modID);
   protected static final TileEntityTypeDeferredRegister TILE_ENTITIES = new TileEntityTypeDeferredRegister(TConstruct.modID);
   protected static final EntityTypeDeferredRegister ENTITIES = new EntityTypeDeferredRegister(TConstruct.modID);
-  protected static final ContainerTypeDeferredRegister CONTAINERS = new ContainerTypeDeferredRegister(TConstruct.modID);
-//  protected static final DeferredRegister<StatusEffect> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, TConstruct.modID);
-//  protected static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TConstruct.modID);
-//  protected static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.modID);
-//  protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
-//  protected static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
-//  protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TConstruct.modID);
-//  protected static final DeferredRegister<Modifier> MODIFIERS = DeferredRegister.create(Modifier.class, TConstruct.modID);
-//  protected static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, TConstruct.modID);
 
   // base block properties
-  protected static final AbstractBlock.Settings GENERIC_SAND_BLOCK = builder(Material.AGGREGATE, FabricToolTags.SHOVELS, BlockSoundGroup.SAND).strength(3.0f).slipperiness(0.8F);
-  protected static final AbstractBlock.Settings GENERIC_METAL_BLOCK = builder(Material.METAL, FabricToolTags.PICKAXES, BlockSoundGroup.METAL).requiresTool().strength(5.0f);
-  protected static final AbstractBlock.Settings GENERIC_GEM_BLOCK = GENERIC_METAL_BLOCK;
-  protected static final AbstractBlock.Settings GENERIC_GLASS_BLOCK = builder(Material.GLASS, FabricToolTags.PICKAXES, BlockSoundGroup.GLASS).requiresTool().strength(0.3F).nonOpaque(); //TODO: .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+
+  public static AbstractBlock.Settings getGenericSandBlock() {
+    return builder(Material.AGGREGATE, FabricToolTags.SHOVELS, BlockSoundGroup.SAND).strength(3.0f).slipperiness(0.8F);
+  }
+
+  public static AbstractBlock.Settings getGenericMetalBlock() {
+    return builder(Material.METAL, FabricToolTags.PICKAXES, BlockSoundGroup.METAL).requiresTool().strength(5.0f);
+  }
+
+  public static AbstractBlock.Settings getGenericGemBlock() {
+    return getGenericMetalBlock();
+  }
+
+  public static AbstractBlock.Settings getGenericGlassBlock() {
+    return builder(Material.GLASS, FabricToolTags.PICKAXES, BlockSoundGroup.GLASS).requiresTool().strength(0.3F).nonOpaque(); //TODO: .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+  }
 
   /** Creative tab for items that do not fit in another tab */
   @SuppressWarnings("WeakerAccess")
   public static final ItemGroup TAB_GENERAL = FabricItemGroupBuilder.build(new Identifier(TConstruct.modID, "general"), () -> new ItemStack(TinkerCommons.slimeball.get(SlimeType.SKY)));
 
   // base item properties
-  protected static final Item.Settings HIDDEN_PROPS = new Item.Settings();
   protected static final Item.Settings GENERAL_PROPS = new Item.Settings().group(TAB_GENERAL);
-  protected static final Function<Block,BlockItem> HIDDEN_BLOCK_ITEM = (b) -> new BlockItem(b, HIDDEN_PROPS);
-  protected static final Function<Block,BlockItem> GENERAL_BLOCK_ITEM = (b) -> new BlockItem(b, GENERAL_PROPS);
+  protected static final Function<Block,BlockItem> HIDDEN_BLOCK_ITEM = (b) -> new BlockItem(b, getHiddenProps());
   protected static final Function<Block,BlockItem> GENERAL_TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GENERAL_PROPS);
   protected static final Supplier<Item> TOOLTIP_ITEM = () -> new TooltipItem(GENERAL_PROPS);
+
+  public static Item.Settings getHiddenProps() {
+    return new Item.Settings().group(TAB_GENERAL);
+  }
+
+  public static Function<Block, BlockItem> getGeneralBlockItem() {
+    return (b) -> new BlockItem(b, GENERAL_PROPS);
+  }
 
   /** Called during construction to initialize the registers for this mod */
   public static void initRegisters() {
@@ -94,7 +103,11 @@ public abstract class TinkerModule implements ModInitializer {
    * but as long as we don't statically import the enums it should be just as readable.
    */
   protected static FabricBlockSettings builder(Material material, @Nullable Tag<Item> toolType, BlockSoundGroup soundType) {
-    return FabricBlockSettings.of(material).breakByTool(toolType).sounds(soundType);
+    final FabricBlockSettings settings = FabricBlockSettings.of(material).sounds(soundType);
+    if(toolType != null) {
+      settings.breakByTool(toolType);
+    }
+    return settings;
   }
 
   public static Identifier id(String path) {

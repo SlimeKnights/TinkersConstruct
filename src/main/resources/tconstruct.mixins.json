@@ -1,19 +1,20 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "slimeknights.tconstruct.mixin",
-    "compatibilityLevel": "JAVA_8",
-    "mixins": [
-        "PlayerEntityMixin",
-        "HorseBaseEntityMixin",
-        "LivingEntityMixin",
-        "MagmaCubeEntityMixin",
-      "CraftingResultSlotMixin",
-        "ServerResourceManagerMixin"
-    ],
-    "client": [
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    }
+  "required": true,
+  "minVersion": "0.8",
+  "package": "slimeknights.tconstruct.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "CraftingResultSlotMixin",
+    "HorseBaseEntityMixin",
+    "LivingEntityMixin",
+    "MagmaCubeEntityMixin",
+    "PlayerEntityMixin",
+    "ServerResourceManagerMixin"
+  ],
+  "client": [
+      "client.ParticleManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

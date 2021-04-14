@@ -33,6 +33,17 @@
             "slimeknights.tconstruct.tools.TinkerToolParts",
             "slimeknights.tconstruct.tools.TinkerTools",
             "slimeknights.tconstruct.tools.TinkerModifiers"
+        ],
+        "client": [
+            "slimeknights.tconstruct.shared.CommonsClientEvents",
+            "slimeknights.tconstruct.fluids.FluidClientEvents",
+            "slimeknights.tconstruct.gadgets.GadgetClientEvents",
+            "slimeknights.tconstruct.smeltery.SmelteryClientEvents",
+            "slimeknights.tconstruct.tables.TableClientEvents",
+            "slimeknights.tconstruct.shared.TinkerClient",
+            "slimeknights.tconstruct.tools.ToolClientEvents",
+            "slimeknights.tconstruct.tools.client.ToolRenderEvents",
+            "slimeknights.tconstruct.world.WorldClientEvents"
         ]
     },
     "mixins": [
@@ -43,6 +54,7 @@
     "depends": {
         "fabricloader": ">=0.7.4",
         "fabric": "*",
+        "mantle": "*",
         "minecraft": "1.16.x"
     },
     "suggests": {

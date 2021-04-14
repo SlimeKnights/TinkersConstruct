@@ -8,14 +8,9 @@ import net.minecraft.client.render.RenderPhase.Texture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Matrix4f;
-import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiSmelteryTank;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
@@ -24,7 +19,7 @@ import java.util.List;
 
 /** Helper class to render the smeltery tank */
 public class SmelteryTankRenderer {
-  /** Like {@link FluidRenderer#RENDER_TYPE}, but disables cull so both sides show */
+  /** disables cull so both sides show */
   private static final RenderLayer RENDER_TYPE = RenderLayer.of(
     Util.resource("smeltery_fluid"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT, 7, 256, true, false,
     MultiPhaseParameters.builder()

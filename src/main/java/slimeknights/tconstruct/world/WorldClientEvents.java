@@ -93,9 +93,9 @@ public class WorldClientEvents extends ClientEventBase implements ClientModIniti
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.enderSlimeGrass);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.ichorSlimeGrass);
     // plant items
-    registerBlockItemColorAlias(blockColors, itemColors, (Supplier<? extends Block>) TinkerWorld.slimeLeaves);
-    registerBlockItemColorAlias(blockColors, itemColors, (Supplier<? extends Block>) TinkerWorld.slimeFern);
-    registerBlockItemColorAlias(blockColors, itemColors, (Supplier<? extends Block>) TinkerWorld.slimeTallGrass);
+    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeLeaves);
+    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeFern);
+    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeTallGrass);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.skySlimeVine);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.enderSlimeVine);
   }

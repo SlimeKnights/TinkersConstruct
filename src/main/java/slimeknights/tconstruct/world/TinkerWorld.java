@@ -130,7 +130,7 @@ public final class TinkerWorld extends TinkerModule implements ModInitializer {
     slimeGrass.put(SlimeType.ENDER, enderSlimeGrass);
     slimeGrass.put(SlimeType.ICHOR, ichorSlimeGrass);
   }
-  public static final ItemEnumObject<FoliageType, SlimeGrassSeedItem> slimeGrassSeeds = null;//TODO: fuck this is going to be annoying ITEMS.registerEnum(FoliageType.values(), "slime_grass_seeds", type -> new SlimeGrassSeedItem(WORLD_PROPS, type));
+  public static final ItemEnumObject<FoliageType, SlimeGrassSeedItem> slimeGrassSeeds = ITEMS.registerEnum(FoliageType.values(), "slime_grass_seeds", type -> new SlimeGrassSeedItem(WORLD_PROPS, type));
 
   // plants
   private static final Block.Settings GRASS = builder(Material.PLANT, NO_TOOL, BlockSoundGroup.GRASS).breakInstantly().noCollision().ticksRandomly();
@@ -163,7 +163,7 @@ public final class TinkerWorld extends TinkerModule implements ModInitializer {
   /*
    * Particles
    */
-  public static final DefaultParticleType slimeParticle = Registry.register(Registry.PARTICLE_TYPE, "slime", FabricParticleTypes.simple());
+  public static final DefaultParticleType slimeParticle = Registry.register(Registry.PARTICLE_TYPE, id("slime"), FabricParticleTypes.simple());
 
   /*
    * Features

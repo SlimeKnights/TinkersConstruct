@@ -2,25 +2,12 @@ package slimeknights.tconstruct.smeltery.client.render;
 
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import slimeknights.mantle.client.model.fluid.FluidCuboid;
-import slimeknights.mantle.client.model.util.ModelHelper;
-import slimeknights.mantle.client.render.FluidRenderer;
-import slimeknights.mantle.client.render.RenderingHelper;
-import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
-
-import java.util.function.Function;
 
 public class FaucetTileEntityRenderer extends BlockEntityRenderer<FaucetTileEntity> {
   public FaucetTileEntityRenderer(BlockEntityRenderDispatcher rendererDispatcherIn) {

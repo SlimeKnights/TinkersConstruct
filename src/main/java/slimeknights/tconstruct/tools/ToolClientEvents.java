@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
@@ -72,9 +73,6 @@ public class ToolClientEvents extends ClientEventBase {
 
   @Override
   public void onInitializeClient() {
-    MinecraftClient.getInstance().particleManager.registerFactory(TinkerTools.hammerAttackParticle, HammerAttackParticle.Factory::new);
-    MinecraftClient.getInstance().particleManager.registerFactory(TinkerTools.axeAttackParticle, AxeAttackParticle.Factory::new);
-
     ColorProviderRegistry<ItemConvertible, ItemColorProvider> colors = ColorProviderRegistry.ITEM;
 
     registerToolItemColors(colors, TinkerTools.pickaxe);

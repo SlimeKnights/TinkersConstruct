@@ -88,3 +88,5 @@ accessible  field   net/minecraft/client/render/RenderPhase    ENABLE_LIGHTMAP  
 accessible  field   net/minecraft/client/render/RenderPhase    MIPMAP_BLOCK_ATLAS_TEXTURE Lnet/minecraft/client/render/RenderPhase$Texture;
 accessible  field   net/minecraft/client/render/RenderPhase    TRANSLUCENT_TRANSPARENCY   Lnet/minecraft/client/render/RenderPhase$Transparency;
 accessible  field   net/minecraft/client/render/RenderPhase    DISABLE_CULLING    Lnet/minecraft/client/render/RenderPhase$Cull;
+
+accessible  method  net/minecraft/block/FluidBlock <init>  (Lnet/minecraft/fluid/FlowableFluid;Lnet/minecraft/block/AbstractBlock$Settings;)V
