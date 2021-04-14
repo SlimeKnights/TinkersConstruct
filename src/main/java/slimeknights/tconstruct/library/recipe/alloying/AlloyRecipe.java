@@ -4,8 +4,6 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -15,9 +13,9 @@ import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.fluids.IFluidHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,9 +26,7 @@ import java.util.stream.Collectors;
 /**
  * Base class for alloying recipes
  */
-@RequiredArgsConstructor
 public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
-  @Getter
   private final Identifier id;
   /**
    * List of input ingredients.
@@ -39,15 +35,20 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
    */
   private final List<FluidIngredient> inputs;
   /** Recipe output */
-  @Getter
   private final FluidVolume output;
   /** Required temperature to craft this */
-  @Getter
   private final int temperature;
 
 
   /** Cache of recipe input list */
   private List<List<FluidVolume>> displayInputs;
+
+  public AlloyRecipe(Identifier id, List<FluidIngredient> inputs, FluidVolume output, int temperature) {
+    this.id = id;
+    this.inputs = inputs;
+    this.output = output;
+    this.temperature = temperature;
+  }
 
   /**
    * Gets the list of inputs for display in JEI
@@ -203,6 +204,14 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   @Override
   public net.minecraft.recipe.RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.alloyingSerializer;
+  }
+
+  public Identifier getId() {
+    return this.id;
+  }
+
+  public int getTemperature() {
+    return this.temperature;
   }
 
   public static class Serializer implements RecipeSerializer<AlloyRecipe> {

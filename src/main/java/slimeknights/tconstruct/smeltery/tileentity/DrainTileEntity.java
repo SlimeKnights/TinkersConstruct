@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.model.IModelData;
 import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.tconstruct.library.client.model.SinglePropertyData;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;

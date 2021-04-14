@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
+import slimeknights.tconstruct.misc.ItemHandlerHelper;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 import java.util.Optional;

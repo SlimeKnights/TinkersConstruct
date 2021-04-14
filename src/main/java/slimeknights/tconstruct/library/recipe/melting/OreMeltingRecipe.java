@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
@@ -29,7 +30,7 @@ public class OreMeltingRecipe extends MeltingRecipe {
 
   @Override
   public FluidVolume getOutput(IMeltingInventory inv) {
-    FluidVolume output = getOutput();
+    FluidVolume output = getFOutput();
     return boost(output, inv.getNuggetsPerOre());
   }
 
@@ -44,7 +45,7 @@ public class OreMeltingRecipe extends MeltingRecipe {
   }
 
   @Override
-  public FluidVolume getOutput() {
+  public ItemStack getOutput() {
     return super.getOutput();
   }
 }

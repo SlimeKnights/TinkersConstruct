@@ -165,15 +165,14 @@ public class SmelteryTank implements IFluidHandler {
     for (FluidVolume fluid : fluids) {
       if (fluid.equals(resource)) {
         // yup. add it
-        fluid.grow(usable);
+        fluid = fluid.withAmount(fluid.getAmount_F().add(usable));
         parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getRawFluid());
         return usable;
       }
     }
 
     // not present yet, add it
-    resource = resource.copy();
-    resource.setAmount(usable);
+    resource = resource.withAmount(FluidAmount.of1620(usable));
     fluids.add(resource);
     parent.notifyFluidsChanged(FluidChange.ADDED, resource.getRawFluid());
     return usable;
@@ -195,7 +194,7 @@ public class SmelteryTank implements IFluidHandler {
 
     // remove the fluid from the tank
     if (action.isAction()) {
-      fluid.shrink(drainable);
+      fluid = fluid.withAmount(fluid.getAmount_F().min(FluidAmount.of1620(drainable)));
       contained -= drainable;
       // if now empty, remove from the list
       if (fluid.getAmount() <= 0) {
@@ -225,7 +224,7 @@ public class SmelteryTank implements IFluidHandler {
 
         // update tank if executing
         if (action.isAction()) {
-          fluid.shrink(drainable);
+          fluid = fluid.withAmount(fluid.getAmount_F().min(FluidAmount.of1620(drainable)));
           contained -= drainable;
           // if now empty, remove from the list
           if (fluid.getAmount() <= 0) {

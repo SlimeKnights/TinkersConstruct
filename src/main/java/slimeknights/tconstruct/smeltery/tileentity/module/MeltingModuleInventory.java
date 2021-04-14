@@ -10,6 +10,7 @@ import net.minecraft.screen.PropertyDelegate;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.misc.IItemHandler;
+import slimeknights.tconstruct.misc.ItemHandlerHelper;
 
 import java.util.Arrays;
 import java.util.function.Consumer;

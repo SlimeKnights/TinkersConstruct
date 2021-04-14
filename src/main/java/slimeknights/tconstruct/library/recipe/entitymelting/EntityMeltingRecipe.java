@@ -1,9 +1,8 @@
 package slimeknights.tconstruct.library.recipe.entitymelting;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketByteBuf;
@@ -11,16 +10,13 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -29,18 +25,21 @@ import java.util.List;
 /**
  * Recipe to melt an entity into a fluid
  */
-@RequiredArgsConstructor
 public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
-  @Getter
   private final Identifier id;
   private final EntityIngredient ingredient;
-  @Getter
   private final FluidVolume output;
-  @Getter
   private final int damage;
 
   @SuppressWarnings("rawtypes")
   private List<List<EntityType>> displayInputs;
+
+  public EntityMeltingRecipe(Identifier id, EntityIngredient ingredient, FluidVolume output, int damage) {
+    this.id = id;
+    this.ingredient = ingredient;
+    this.output = output;
+    this.damage = damage;
+  }
 
   /**
    * Checks if the recipe matches the given type
@@ -95,6 +94,14 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyInventory>
   @Override
   public boolean matches(IEmptyInventory inv, World worldIn) {
     return false;
+  }
+
+  public Identifier getId() {
+    return this.id;
+  }
+
+  public int getDamage() {
+    return this.damage;
   }
 
   /** Serializer for this recipe */

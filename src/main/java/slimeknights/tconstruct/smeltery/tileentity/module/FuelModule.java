@@ -19,6 +19,7 @@ import slimeknights.mantle.util.NotNullConsumer;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fluids.IFluidHandler;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelCache;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -424,17 +425,18 @@ public class FuelModule implements PropertyDelegate {
     if (fluidHandler == null && itemHandler == null) {
       BlockEntity te = getWorld().getBlockEntity(mainTank);
       if (te != null) {
-        Optional<IFluidHandler> fluidCap = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-        if (fluidCap.isPresent()) {
-          fluidHandler = fluidCap;
-          fluidHandler.addListener(fluidListener);
-        } else {
-          Optional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
-          if (itemCap.isPresent()) {
-            itemHandler = itemCap;
-            itemHandler.addListener(itemListener);
-          }
-        }
+        throw new RuntimeException("CRAB!"); // FIXME: PORT
+//        Optional<IFluidHandler> fluidCap = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+//        if (fluidCap.isPresent()) {
+//          fluidHandler = fluidCap;
+//          fluidHandler.addListener(fluidListener);
+//        } else {
+//          Optional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+//          if (itemCap.isPresent()) {
+//            itemHandler = itemCap;
+//            itemHandler.addListener(itemListener);
+//          }
+//        }
       }
     }
     // ensure all handlers are set
@@ -451,10 +453,11 @@ public class FuelModule implements PropertyDelegate {
       FluidVolume fluid = handler.getFluidInTank(0);
       int temperature = 0;
       if (!fluid.isEmpty()) {
-        MeltingFuel fuel = findRecipe(fluid.getFluid());
-        if (fuel != null) {
-          temperature = fuel.getTemperature();
-        }
+        throw new RuntimeException("CRAB!"); // FIXME: PORT
+//        MeltingFuel fuel = findRecipe(fluid.getFluid());
+//        if (fuel != null) {
+//          temperature = fuel.getTemperature();
+//        }
       }
       return FuelInfo.of(fluid, handler.getTankCapacity(0), temperature);
     }).orElse(FuelInfo.EMPTY);
@@ -471,11 +474,12 @@ public class FuelModule implements PropertyDelegate {
           if (!pos.equals(mainTank)) {
             BlockEntity te = world.getBlockEntity(pos);
             if (te != null) {
-              Optional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-              if (handler.isPresent()) {
-                handler.addListener(displayListener);
-                tankDisplayHandlers.add(handler);
-              }
+              throw new RuntimeException("CRAB!"); // FIXME: PORT
+//              Optional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+//              if (handler.isPresent()) {
+//                handler.addListener(displayListener);
+//                tankDisplayHandlers.add(handler);
+//              }
             }
           }
         }

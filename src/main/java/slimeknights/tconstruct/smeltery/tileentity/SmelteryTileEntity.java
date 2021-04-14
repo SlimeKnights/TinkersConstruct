@@ -69,22 +69,18 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
 
   /* Saved data, written to NBT */
   /** Current structure contents */
-  @Nullable @Getter
+  @Nullable
   private MultiblockSmeltery.StructureData structure;
   /** Tank instance for this smeltery */
-  @Getter
   private final SmelteryTank tank = new SmelteryTank(this);
   /** Capability to pass to drains for fluid handling */
-  @Getter
   private Optional<IFluidHandler> fluidCapability = Optional.empty();
 
   /** Inventory handling melting items */
-  @Getter
   private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, () -> TConfig.common.smelteryNuggetsPerOre);
   private final Optional<IItemHandler> itemCapability = Optional.of(meltingInventory);
 
   /** Fuel module */
-  @Getter
   private final FuelModule fuelModule = new FuelModule(this, () ->  structure != null ? structure.getTanks() : Collections.emptyList());
   /** Current fuel consumption rate */
   private int fuelRate = 1;
@@ -544,5 +540,29 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   @Override
   public Text getDisplayName() {
     return super.getDisplayName();
+  }
+
+  public @Nullable StructureData getStructure() {
+    return this.structure;
+  }
+
+  public SmelteryTank getTank() {
+    return this.tank;
+  }
+
+  public IFluidHandler getFluidCapability() {
+    return this.fluidCapability.get();
+  }
+
+  public MeltingModuleInventory getMeltingInventory() {
+    return this.meltingInventory;
+  }
+
+  public FuelModule getFuelModule() {
+    return this.fuelModule;
+  }
+
+  public AlloyingModule getAlloyingModule() {
+    return this.alloyingModule;
   }
 }

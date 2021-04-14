@@ -1,24 +1,19 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import slimeknights.mantle.recipe.RecipeHelper;
-import net.minecraft.recipe.RecipeSerializer;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-
 import org.jetbrains.annotations.Nullable;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -27,20 +22,23 @@ import java.util.List;
 /**
  * Recipe to melt an ingredient into a specific fuel
  */
-@AllArgsConstructor
 public class MeltingRecipe implements IMeltingRecipe {
-  @Getter
   private final Identifier id;
-  @Getter
   private final String group;
   private final Ingredient input;
-  @Getter(AccessLevel.PROTECTED)
   private final FluidVolume output;
-  @Getter
   private final int temperature;
   /** Number of "steps" needed to melt this, by default lava increases steps by 5 every 4 ticks (25 a second) */
-  @Getter
   private final int time;
+
+  public MeltingRecipe(Identifier id, String group, Ingredient input, FluidVolume output, int temperature, int time) {
+    this.id = id;
+    this.group = group;
+    this.input = input;
+    this.output = output;
+    this.temperature = temperature;
+    this.time = time;
+  }
 
   @Override
   public boolean matches(IMeltingInventory inv, World world) {
@@ -82,6 +80,22 @@ public class MeltingRecipe implements IMeltingRecipe {
     return Collections.singletonList(Collections.singletonList(output));
   }
 
+  public Identifier getId() {
+    return this.id;
+  }
+
+  public String getGroup() {
+    return this.group;
+  }
+
+  public int getTemperature() {
+    return this.temperature;
+  }
+
+  public int getTime() {
+    return this.time;
+  }
+
   /** Interface for use in the serializer */
   @FunctionalInterface
   public interface IFactory<T extends MeltingRecipe> {
@@ -92,9 +106,12 @@ public class MeltingRecipe implements IMeltingRecipe {
   /**
    * Serializer for {@link MeltingRecipe}
    */
-  @RequiredArgsConstructor
   public static class Serializer<T extends MeltingRecipe> implements RecipeSerializer<T> {
     private final IFactory<T> factory;
+
+    public Serializer(IFactory<T> factory) {
+      this.factory = factory;
+    }
 
     @Override
     public T read(Identifier id, JsonObject json) {
@@ -136,5 +153,11 @@ public class MeltingRecipe implements IMeltingRecipe {
       buffer.writeInt(recipe.temperature);
       buffer.writeVarInt(recipe.time);
     }
+  }
+
+  //  @Override
+  public FluidVolume getFOutput() {
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    return super.getOutput();
   }
 }

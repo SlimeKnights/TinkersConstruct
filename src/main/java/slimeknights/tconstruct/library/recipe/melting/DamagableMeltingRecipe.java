@@ -15,7 +15,7 @@ public class DamagableMeltingRecipe extends MeltingRecipe {
 
   @Override
   public FluidVolume getOutput(IMeltingInventory inv) {
-    FluidVolume output = getOutput();
+    FluidVolume output = getFOutput();
     ItemStack input = inv.getStack();
     int maxDamage = input.getMaxDamage();
     if (maxDamage <= 0) {
@@ -30,8 +30,9 @@ public class DamagableMeltingRecipe extends MeltingRecipe {
     return TinkerSmeltery.damagableMeltingSerializer;
   }
 
-  @Override
-  public FluidVolume getOutput() {
-    return super.getOutput();
+//  @Override
+  public FluidVolume getFOutput() {
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    return super.getOutput();
   }
 }

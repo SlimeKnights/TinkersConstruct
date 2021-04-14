@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.util.NbtType;
@@ -97,7 +98,8 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     if (inputHandler == null) {
       inputHandler = findFluidHandler(getCachedState().get(FACING).getOpposite());
       if (inputHandler.isPresent()) {
-        inputHandler.get().addListener(inputListener);
+        throw new RuntimeException("CRAB!"); // FIXME: PORT
+//        inputHandler.get().addListener(inputListener);
       }
     }
     return inputHandler;
@@ -111,7 +113,8 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     if (outputHandler == null) {
       outputHandler = findFluidHandler(Direction.DOWN);
       if (outputHandler.isPresent()) {
-        outputHandler.get().addListener(outputListener);
+        throw new RuntimeException("CRAB!"); // FIXME: PORT
+//        outputHandler.get().addListener(outputListener);
       }
     }
     return outputHandler;
@@ -230,51 +233,55 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
   /**
    * Initiate fluid transfer
    */
+//  private boolean doTransfer(boolean execute) {
+//    // still got content left
+//    Optional<IFluidHandler> inputOptional = getInputHandler();
+//    Optional<IFluidHandler> outputOptional = getOutputHandler();
+//    if (inputOptional.isPresent() && outputOptional.isPresent()) {
+//      // can we drain?
+//      IFluidHandler input = inputOptional.orElse(EmptyFluidHandler.INSTANCE);
+//      FluidVolume drained = input.drain(PACKET_SIZE, Simulation.SIMULATE);
+//      if (!drained.isEmpty() && !drained.getFluidKey().getAttributes().isGaseous(drained)) {
+//        // can we fill
+//        IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
+//        int filled = output.fill(drained, Simulation.SIMULATE);
+//        if (filled > 0) {
+//          // fill if requested
+//          if (execute) {
+//            // drain the liquid and transfer it, buffer the amount for delay
+//            this.drained = input.drain(filled, Simulation.ACTION);
+//
+//            // sync to clients if we have changes
+//            if (faucetState == FaucetState.OFF || !renderFluid.equals(drained)) {
+//              syncToClient(this.drained, true);
+//            }
+//            faucetState = FaucetState.POURING;
+//            // pour after initial packet, in case we end up resetting later
+//            pour();
+//          }
+//          return true;
+//        }
+//      }
+//
+//      // if powered, keep faucet running
+//      if (lastRedstoneState) {
+//        // sync if either we were not pouring before (particle effects), or if the client thinks we have fluid
+//        if (execute && (faucetState == FaucetState.OFF || !renderFluid.equals(TinkerFluids.EMPTY))) {
+//          syncToClient(TinkerFluids.EMPTY, true);
+//        }
+//        faucetState = FaucetState.POWERED;
+//        return false;
+//      }
+//    }
+//    // reset if not powered, or if nothing to do
+//    if (execute) {
+//      reset();
+//    }
+//    return false;
+//  }
+
   private boolean doTransfer(boolean execute) {
-    // still got content left
-    Optional<IFluidHandler> inputOptional = getInputHandler();
-    Optional<IFluidHandler> outputOptional = getOutputHandler();
-    if (inputOptional.isPresent() && outputOptional.isPresent()) {
-      // can we drain?
-      IFluidHandler input = inputOptional.orElse(EmptyFluidHandler.INSTANCE);
-      FluidVolume drained = input.drain(PACKET_SIZE, Simulation.SIMULATE);
-      if (!drained.isEmpty() && !drained.getFluidKey().getAttributes().isGaseous(drained)) {
-        // can we fill
-        IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
-        int filled = output.fill(drained, Simulation.SIMULATE);
-        if (filled > 0) {
-          // fill if requested
-          if (execute) {
-            // drain the liquid and transfer it, buffer the amount for delay
-            this.drained = input.drain(filled, Simulation.ACTION);
-
-            // sync to clients if we have changes
-            if (faucetState == FaucetState.OFF || !renderFluid.equals(drained)) {
-              syncToClient(this.drained, true);
-            }
-            faucetState = FaucetState.POURING;
-            // pour after initial packet, in case we end up resetting later
-            pour();
-          }
-          return true;
-        }
-      }
-
-      // if powered, keep faucet running
-      if (lastRedstoneState) {
-        // sync if either we were not pouring before (particle effects), or if the client thinks we have fluid
-        if (execute && (faucetState == FaucetState.OFF || !renderFluid.equals(TinkerFluids.EMPTY))) {
-          syncToClient(TinkerFluids.EMPTY, true);
-        }
-        faucetState = FaucetState.POWERED;
-        return false;
-      }
-    }
-    // reset if not powered, or if nothing to do
-    if (execute) {
-      reset();
-    }
-    return false;
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
   }
 
   /**
@@ -289,7 +296,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     Optional<IFluidHandler> outputOptional = getOutputHandler();
     if (outputOptional.isPresent()) {
       FluidVolume fillStack = drained.copy();
-      fillStack.setAmount(Math.min(drained.getAmount(), MB_PER_TICK));
+      fillStack.withAmount(FluidAmount.of1620(Math.min(drained.getAmount(), MB_PER_TICK)));
 
       // can we fill?
       IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
@@ -301,8 +308,8 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
         }
 
         // transfer it
-        this.drained.shrink(filled);
-        fillStack.setAmount(filled);
+        this.drained = this.drained.withAmount(this.drained.amount().min(FluidAmount.of1620(filled)));
+        fillStack = fillStack.withAmount(FluidAmount.of1620(filled));
         output.fill(fillStack, Simulation.ACTION);
       }
     }
@@ -324,7 +331,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     }
   }
 
-  @Override
+//  @Override
   @Environment(EnvType.CLIENT)
   public Box getRenderBoundingBox() {
     return new Box(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
@@ -368,10 +375,10 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     compound.putBoolean(TAG_STOP, stopPouring);
     compound.putBoolean(TAG_LAST_REDSTONE, lastRedstoneState);
     if (!drained.isEmpty()) {
-      compound.put(TAG_DRAINED, drained.writeToNBT(new CompoundTag()));
+      compound.put(TAG_DRAINED, drained.toTag(new CompoundTag()));
     }
     if (!renderFluid.isEmpty()) {
-      compound.put(TAG_RENDER_FLUID, renderFluid.writeToNBT(new CompoundTag()));
+      compound.put(TAG_RENDER_FLUID, renderFluid.toTag(new CompoundTag()));
     }
     return compound;
   }

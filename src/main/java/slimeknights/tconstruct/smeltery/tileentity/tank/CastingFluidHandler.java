@@ -6,10 +6,12 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -98,14 +100,14 @@ public class CastingFluidHandler implements IFluidHandler {
     int amount = resource.getAmount();
     if (amount < space) {
       if (action.isAction()) {
-        fluid.grow(amount);
+        fluid = fluid.withAmount(fluid.amount().add(amount));
         onContentsChanged();
       }
       return amount;
     } else {
       // too much? set to max
       if (action.isAction()) {
-        fluid.setAmount(capacity);
+        fluid = fluid.withAmount(FluidAmount.of1620(capacity));
         onContentsChanged();
       }
       return space;
@@ -129,7 +131,7 @@ public class CastingFluidHandler implements IFluidHandler {
 
     FluidVolume stack = fluid.withAmount(FluidAmount.ofWhole(drained));
     if (action.isAction()) {
-      fluid.shrink(drained);
+      fluid = fluid.withAmount(FluidAmount.of1620(fluid.getAmount() + drained));
       onContentsChanged();
     }
     return stack;
@@ -171,8 +173,8 @@ public class CastingFluidHandler implements IFluidHandler {
     if (nbt.contains(TAG_FLUID, NbtType.COMPOUND)) {
       setFluid(FluidVolume.fromTag(nbt.getCompound(TAG_FLUID)));
     }
-    if (nbt.contains(TAG_FILTER, NBT.TAG_STRING)) {
-      Fluid fluid = ForgeRegistries.FLUIDS.getValue(new Identifier(nbt.getString(TAG_FILTER)));
+    if (nbt.contains(TAG_FILTER, NbtType.STRING)) {
+      Fluid fluid = Registry.FLUID.get(new Identifier(nbt.getString(TAG_FILTER)));
       if (fluid != null) {
         filter = fluid;
       }
@@ -183,10 +185,10 @@ public class CastingFluidHandler implements IFluidHandler {
   public CompoundTag writeToNBT(CompoundTag nbt) {
     nbt.putInt(TAG_CAPACITY, capacity);
     if (!fluid.isEmpty()) {
-      nbt.put(TAG_FLUID, fluid.writeToNBT(new CompoundTag()));
+      nbt.put(TAG_FLUID, fluid.toTag(new CompoundTag()));
     }
     if (filter != Fluids.EMPTY) {
-      nbt.putString(TAG_FILTER, Objects.requireNonNull(filter.getRegistryName()).toString());
+      nbt.putString(TAG_FILTER, Objects.requireNonNull(Registry.FLUID.getId(filter)).toString());
     }
     return nbt;
   }

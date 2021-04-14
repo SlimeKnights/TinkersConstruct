@@ -100,13 +100,13 @@ public final class TinkerWorld extends TinkerModule implements ModInitializer {
   public static final EnumObject<SlimeType, SlimeBlock> slime = new EnumObject.Builder<SlimeType, SlimeBlock>(SlimeType.class)
     .putDelegate(SlimeType.EARTH, Blocks.SLIME_BLOCK)
     // sky slime: sticks to anything, but will not pull back
-    .put(SlimeType.SKY, (Supplier<? extends SlimeBlock>) BLOCKS.register("sky_slime", () -> new StickySlimeBlock(SLIME, (state, other) -> true), TOOLTIP_BLOCK_ITEM))
+    .put(SlimeType.SKY, () -> (SlimeBlock) BLOCKS.register("sky_slime", new StickySlimeBlock(SLIME, (state, other) -> true), TOOLTIP_BLOCK_ITEM))
     // ichor: does not stick to self, but sticks to anything else
-    .put(SlimeType.ICHOR, (Supplier<? extends SlimeBlock>) BLOCKS.register("ichor_slime", () -> new StickySlimeBlock(SLIME, (state, other) -> other.getBlock() != state.getBlock()), TOOLTIP_BLOCK_ITEM))
+    .put(SlimeType.ICHOR, () -> (SlimeBlock) BLOCKS.register("ichor_slime", new StickySlimeBlock(SLIME, (state, other) -> other.getBlock() != state.getBlock()), TOOLTIP_BLOCK_ITEM))
     // ender: only sticks to self
-    .put(SlimeType.ENDER, (Supplier<? extends SlimeBlock>) BLOCKS.register("ender_slime", () -> new StickySlimeBlock(SLIME, (state, other) -> other.getBlock() == state.getBlock()), TOOLTIP_BLOCK_ITEM))
+    .put(SlimeType.ENDER, () -> (SlimeBlock) BLOCKS.register("ender_slime", new StickySlimeBlock(SLIME, (state, other) -> other.getBlock() == state.getBlock()), TOOLTIP_BLOCK_ITEM))
     // blood slime: not sticky, and honey won't stick to it, good for bounce pads
-    .put(SlimeType.BLOOD, (Supplier<? extends SlimeBlock>) BLOCKS.register("blood_slime", () -> new BloodSlimeBlock(SLIME), TOOLTIP_BLOCK_ITEM))
+    .put(SlimeType.BLOOD, () -> (SlimeBlock) BLOCKS.register("blood_slime", new BloodSlimeBlock(SLIME), TOOLTIP_BLOCK_ITEM))
     .build();
   private static final AbstractBlock.Settings CONGEALED_SLIME = builder(Material.ORGANIC_PRODUCT, NO_TOOL, BlockSoundGroup.SLIME).strength(0.5F).slipperiness(0.5F);
   public static final EnumObject<SlimeType, Block> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(CONGEALED_SLIME), TOOLTIP_BLOCK_ITEM);
