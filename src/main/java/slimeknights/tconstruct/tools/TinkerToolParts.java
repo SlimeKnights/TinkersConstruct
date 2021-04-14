@@ -40,6 +40,6 @@ public final class TinkerToolParts extends TinkerModule {
   // other parts
   public static final ItemObject<ToolPartItem> toolBinding = ITEMS.register("tool_binding", () -> new ToolPartItem(PARTS_PROPS, ExtraMaterialStats.ID));
   public static final ItemObject<ToolPartItem> largePlate = ITEMS.register("large_plate", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
-  public static final ItemObject<ToolPartItem> toolRod = ITEMS.register("tool_rod", () -> new ToolPartItem(PARTS_PROPS, HandleMaterialStats.ID));
-  public static final ItemObject<ToolPartItem> toughToolRod = ITEMS.register("tough_tool_rod", () -> new ToolPartItem(PARTS_PROPS, HandleMaterialStats.ID));
+  public static final ItemObject<ToolPartItem> toolHandle = ITEMS.register("tool_handle", () -> new ToolPartItem(PARTS_PROPS, HandleMaterialStats.ID));
+  public static final ItemObject<ToolPartItem> toughHandle = ITEMS.register("tough_handle", () -> new ToolPartItem(PARTS_PROPS, HandleMaterialStats.ID));
 }

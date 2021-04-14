@@ -197,8 +197,8 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final CastItemObject toolBindingCast = ITEMS.registerCast("tool_binding", SMELTERY_PROPS);
   public static final CastItemObject largePlateCast  = ITEMS.registerCast("large_plate", SMELTERY_PROPS);
   // tool rods
-  public static final CastItemObject toolRodCast      = ITEMS.registerCast("tool_rod", SMELTERY_PROPS);
-  public static final CastItemObject toughToolRodCast = ITEMS.registerCast("tough_tool_rod", SMELTERY_PROPS);
+  public static final CastItemObject toolHandleCast  = ITEMS.registerCast("tool_handle", SMELTERY_PROPS);
+  public static final CastItemObject toughHandleCast = ITEMS.registerCast("tough_handle", SMELTERY_PROPS);
 
   /*
    * Recipe

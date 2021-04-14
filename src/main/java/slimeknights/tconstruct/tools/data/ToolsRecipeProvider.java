@@ -62,8 +62,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     // other parts
     addPartRecipe(consumer, TinkerToolParts.toolBinding, 1, TinkerSmeltery.toolBindingCast);
     addPartRecipe(consumer, TinkerToolParts.largePlate, 4, TinkerSmeltery.largePlateCast);
-    addPartRecipe(consumer, TinkerToolParts.toolRod, 1, TinkerSmeltery.toolRodCast);
-    addPartRecipe(consumer, TinkerToolParts.toughToolRod, 3, TinkerSmeltery.toughToolRodCast);
+    addPartRecipe(consumer, TinkerToolParts.toolHandle, 1, TinkerSmeltery.toolHandleCast);
+    addPartRecipe(consumer, TinkerToolParts.toughHandle, 3, TinkerSmeltery.toughHandleCast);
   }
 
   private void addMaterialsRecipes(Consumer<IFinishedRecipe> consumer) {

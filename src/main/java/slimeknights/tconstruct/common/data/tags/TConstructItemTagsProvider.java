@@ -163,7 +163,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
              TinkerToolParts.axeHead.get(), TinkerToolParts.kamaHead.get(),
              TinkerToolParts.swordBlade.get(), TinkerToolParts.broadBlade.get(),
              TinkerToolParts.toolBinding.get(), TinkerToolParts.largePlate.get(),
-             TinkerToolParts.toolRod.get(), TinkerToolParts.toughToolRod.get());
+             TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get());
   }
 
   private void addSmeltery() {
@@ -209,8 +209,8 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.toolBindingCast);
     addCast.accept(TinkerSmeltery.largePlateCast);
     // tool rods
-    addCast.accept(TinkerSmeltery.toolRodCast);
-    addCast.accept(TinkerSmeltery.toughToolRodCast);
+    addCast.accept(TinkerSmeltery.toolHandleCast);
+    addCast.accept(TinkerSmeltery.toughHandleCast);
 
     // add all casts to a common tag
     this.getOrCreateBuilder(TinkerTags.Items.CASTS)

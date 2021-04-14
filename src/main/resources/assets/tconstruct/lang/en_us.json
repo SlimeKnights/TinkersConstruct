@@ -259,10 +259,10 @@
     "item.tconstruct.tool_binding_cast": "Tool Binding Gold Cast",
     "item.tconstruct.large_plate_cast": "Large Plate Gold Cast",
     
-    "_comment": "Tool Rod Gold Casts",
+    "_comment": "Tool Handle Gold Casts",
     
-    "item.tconstruct.tool_rod_cast": "Tool Rod Gold Cast",
-    "item.tconstruct.tough_tool_rod_cast": "Tough Tool Rod Gold Cast",
+    "item.tconstruct.tool_handle_cast": "Tool Handle Gold Cast",
+    "item.tconstruct.tough_handle_cast": "Tough Handle Gold Cast",
     
     
     "_comment": "Tinkers Sand Casts",
@@ -299,10 +299,10 @@
     "item.tconstruct.tool_binding_sand_cast": "Binding Sand Cast",
     "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
     
-    "_comment": "Tool Rod Sand Casts",
+    "_comment": "Tool Handle Sand Casts",
     
-    "item.tconstruct.tool_rod_sand_cast": "Tool Rod Sand Cast",
-    "item.tconstruct.tough_tool_rod_sand_cast": "Tough Tool Rod Sand Cast",
+    "item.tconstruct.tool_handle_sand_cast": "Tool Handle Sand Cast",
+    "item.tconstruct.tough_handle_sand_cast": "Tough Handle Sand Cast",
     
     
     "_comment": "Tinkers Red Sand Casts",
@@ -339,10 +339,10 @@
     "item.tconstruct.tool_binding_red_sand_cast": "Tool Binding Red Sand Cast",
     "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
     
-    "_comment": "Tool Rod Red Sand Casts",
+    "_comment": "Tool Handle Red Sand Casts",
     
-    "item.tconstruct.tool_rod_red_sand_cast": "Tool Rod Red Sand Cast",
-    "item.tconstruct.tough_tool_rod_red_sand_cast": "Tough Tool Rod Red Sand Cast",
+    "item.tconstruct.tool_handle_red_sand_cast": "Tool Handle Red Sand Cast",
+    "item.tconstruct.tough_handle_red_sand_cast": "Tough Handle Red Sand Cast",
 
     
     "_comment": "Tinkers Fluids",
@@ -698,8 +698,8 @@
     "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.broad_blade": "Broad Blade",
     
-    "item.tconstruct.tool_rod": "Tool Rod",
-    "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
+    "item.tconstruct.tool_handle": "Tool Handle",
+    "item.tconstruct.tough_handle": "Tough Handle",
     "item.tconstruct.tool_binding": "Tool Binding",
     "item.tconstruct.large_plate": "Large Plate",
 

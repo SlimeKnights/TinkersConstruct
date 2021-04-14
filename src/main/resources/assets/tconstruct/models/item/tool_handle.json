@@ -2,6 +2,6 @@
   "loader": "tconstruct:material",
   "parent": "forge:item/default",
   "textures": {
-    "texture": "tconstruct:item/tool/parts/tool_rod"
+    "texture": "tconstruct:item/tool/parts/tool_handle"
   }
 }
