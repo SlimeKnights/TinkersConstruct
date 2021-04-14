@@ -5,9 +5,9 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_copper",
+    "name": "tconstruct:seared_stone",
     "amount": 144
   },
   "result": "tconstruct:mighty_smelting",
-  "cooling_time": 50
+  "cooling_time": 53
 }

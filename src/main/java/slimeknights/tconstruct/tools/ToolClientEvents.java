@@ -88,8 +88,8 @@ public class ToolClientEvents extends ClientEventBase {
     // other parts
     registerMaterialItemColors(colors, TinkerToolParts.toolBinding);
     registerMaterialItemColors(colors, TinkerToolParts.largePlate);
-    registerMaterialItemColors(colors, TinkerToolParts.toolRod);
-    registerMaterialItemColors(colors, TinkerToolParts.toughToolRod);
+    registerMaterialItemColors(colors, TinkerToolParts.toolHandle);
+    registerMaterialItemColors(colors, TinkerToolParts.toughHandle);
   }
 
   // registered with FORGE bus

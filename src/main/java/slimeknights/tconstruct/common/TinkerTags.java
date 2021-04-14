@@ -90,6 +90,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> GOLD_CASTS = tag("casts/gold");
     public static final IOptionalNamedTag<Item> SAND_CASTS = tag("casts/sand");
     public static final IOptionalNamedTag<Item> RED_SAND_CASTS = tag("casts/red_sand");
+    public static final IOptionalNamedTag<Item> SINGLE_USE_CASTS = tag("casts/single_use");
+    public static final IOptionalNamedTag<Item> MULTI_USE_CASTS = tag("casts/multi_use");
 
     public static final IOptionalNamedTag<Item> RODS_STONE = forgeTag("rods/stone");
     public static final IOptionalNamedTag<Item> WITHER_BONES = forgeTag("wither_bones");

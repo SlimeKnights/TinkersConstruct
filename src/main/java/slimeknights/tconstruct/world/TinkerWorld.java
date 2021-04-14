@@ -10,7 +10,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -30,6 +29,7 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -171,23 +171,29 @@ public final class TinkerWorld extends TinkerModule {
   public static ConfiguredFeature<?, ?> COBALT_ORE_FEATURE_SMALL;
   public static ConfiguredFeature<?, ?> COBALT_ORE_FEATURE_LARGE;
 
-
   /*
    * Events
    */
+
+  @SubscribeEvent
+  void entityAttributes(EntityAttributeCreationEvent event) {
+    event.put(skySlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
+  }
+
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
-    GlobalEntityTypeAttributes.put(skySlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
     EntitySpawnPlacementRegistry.register(skySlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
 
     // compostables
-    slimeLeaves.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
-    slimeSapling.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
-    slimeTallGrass.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
-    slimeFern.forEach(block -> ComposterBlock.registerCompostable(0.65f, block));
-    slimeGrassSeeds.forEach(block -> ComposterBlock.registerCompostable(0.35F, block));
-    ComposterBlock.registerCompostable(0.5f, skySlimeVine);
-    ComposterBlock.registerCompostable(0.5f, enderSlimeVine);
+    event.enqueueWork(() -> {
+      slimeLeaves.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
+      slimeSapling.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
+      slimeTallGrass.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
+      slimeFern.forEach(block -> ComposterBlock.registerCompostable(0.65f, block));
+      slimeGrassSeeds.forEach(block -> ComposterBlock.registerCompostable(0.35F, block));
+      ComposterBlock.registerCompostable(0.5f, skySlimeVine);
+      ComposterBlock.registerCompostable(0.5f, enderSlimeVine);
+    });
 
     // ores
     COPPER_ORE_FEATURE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("copper_ore"),

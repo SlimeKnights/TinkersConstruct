@@ -231,7 +231,11 @@
     "item.tconstruct.ingot_cast": "Ingot Gold Cast",
     "item.tconstruct.nugget_cast": "Nugget Gold Cast",
     "item.tconstruct.gem_cast": "Gem Gold Cast",
+    "item.tconstruct.rod_cast": "Rod Gold Cast",
+    
     "item.tconstruct.gear_cast": "Gear Gold Cast",
+    "item.tconstruct.plate_cast": "Small Plate Gold Cast",
+    "item.tconstruct.coin_cast": "Coin Gold Cast",
     
     "item.tconstruct.sharpening_kit_cast": "Sharpening Kit Gold Cast",
     
@@ -255,10 +259,10 @@
     "item.tconstruct.tool_binding_cast": "Tool Binding Gold Cast",
     "item.tconstruct.large_plate_cast": "Large Plate Gold Cast",
     
-    "_comment": "Tool Rod Gold Casts",
+    "_comment": "Tool Handle Gold Casts",
     
-    "item.tconstruct.tool_rod_cast": "Tool Rod Gold Cast",
-    "item.tconstruct.tough_tool_rod_cast": "Tough Tool Rod Gold Cast",
+    "item.tconstruct.tool_handle_cast": "Tool Handle Gold Cast",
+    "item.tconstruct.tough_handle_cast": "Tough Handle Gold Cast",
     
     
     "_comment": "Tinkers Sand Casts",
@@ -267,7 +271,11 @@
     "item.tconstruct.ingot_sand_cast": "Ingot Sand Cast",
     "item.tconstruct.nugget_sand_cast": "Nugget Sand Cast",
     "item.tconstruct.gem_sand_cast": "Gem Sand Cast",
+    "item.tconstruct.rod_sand_cast": "Rod Sand Cast",
+    
     "item.tconstruct.gear_sand_cast": "Gear Sand Cast",
+    "item.tconstruct.plate_sand_cast": "Small Plate Sand Cast",
+    "item.tconstruct.coin_sand_cast": "Coin Sand Cast",
     
     "item.tconstruct.sharpening_kit_sand_cast": "Sharpening Kit Sand Cast",
     
@@ -291,10 +299,10 @@
     "item.tconstruct.tool_binding_sand_cast": "Binding Sand Cast",
     "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
     
-    "_comment": "Tool Rod Sand Casts",
+    "_comment": "Tool Handle Sand Casts",
     
-    "item.tconstruct.tool_rod_sand_cast": "Tool Rod Sand Cast",
-    "item.tconstruct.tough_tool_rod_sand_cast": "Tough Tool Rod Sand Cast",
+    "item.tconstruct.tool_handle_sand_cast": "Tool Handle Sand Cast",
+    "item.tconstruct.tough_handle_sand_cast": "Tough Handle Sand Cast",
     
     
     "_comment": "Tinkers Red Sand Casts",
@@ -303,7 +311,11 @@
     "item.tconstruct.ingot_red_sand_cast": "Ingot Red Sand Cast",
     "item.tconstruct.nugget_red_sand_cast": "Nugget Red Sand Cast",
     "item.tconstruct.gem_red_sand_cast": "Gem Red Sand Cast",
+    "item.tconstruct.rod_red_sand_cast": "Rod Red Sand Cast",
+    
     "item.tconstruct.gear_red_sand_cast": "Gear Red Sand Cast",
+    "item.tconstruct.plate_red_sand_cast": "Small Plate Red Sand Cast",
+    "item.tconstruct.coin_red_sand_cast": "Coin Red Sand Cast",
     
     "item.tconstruct.sharpening_kit_red_sand_cast": "Sharpening Kit Red Sand Cast",
     
@@ -327,10 +339,10 @@
     "item.tconstruct.tool_binding_red_sand_cast": "Tool Binding Red Sand Cast",
     "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
     
-    "_comment": "Tool Rod Red Sand Casts",
+    "_comment": "Tool Handle Red Sand Casts",
     
-    "item.tconstruct.tool_rod_red_sand_cast": "Tool Rod Red Sand Cast",
-    "item.tconstruct.tough_tool_rod_red_sand_cast": "Tough Tool Rod Red Sand Cast",
+    "item.tconstruct.tool_handle_red_sand_cast": "Tool Handle Red Sand Cast",
+    "item.tconstruct.tough_handle_red_sand_cast": "Tough Handle Red Sand Cast",
 
     
     "_comment": "Tinkers Fluids",
@@ -686,8 +698,8 @@
     "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.broad_blade": "Broad Blade",
     
-    "item.tconstruct.tool_rod": "Tool Rod",
-    "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
+    "item.tconstruct.tool_handle": "Tool Handle",
+    "item.tconstruct.tough_handle": "Tough Handle",
     "item.tconstruct.tool_binding": "Tool Binding",
     "item.tconstruct.large_plate": "Large Plate",
 

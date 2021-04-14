@@ -41,6 +41,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -81,6 +82,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 @JeiPlugin
@@ -247,6 +249,18 @@ public class JEIPlugin implements IModPlugin {
     manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, Collections.singleton(new ItemStack(bucket)));
   }
 
+  /**
+   * Hides casts if the related tag is empty
+   * @param manager  Ingredient manager
+   * @param cast     Cast instance
+   */
+  private static void optionalCast(IIngredientManager manager, CastItemObject cast) {
+    ITag<Item> tag = TagCollectionManager.getManager().getItemTags().get(new ResourceLocation("forge", cast.getName().getPath() + "s"));
+    if (tag == null || tag.getAllElements().isEmpty()) {
+      manager.removeIngredientsAtRuntime(VanillaTypes.ITEM, cast.values().stream().map(ItemStack::new).collect(Collectors.toList()));
+    }
+  }
+
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
     IIngredientManager manager = jeiRuntime.getIngredientManager();
@@ -261,6 +275,9 @@ public class JEIPlugin implements IModPlugin {
         removeFluid(manager, compat.getFluid(), compat.getBucket());
       }
     }
+    optionalCast(manager, TinkerSmeltery.plateCast);
+    optionalCast(manager, TinkerSmeltery.gearCast);
+    optionalCast(manager, TinkerSmeltery.coinCast);
   }
 
   /** Class to pass {@link IScreenWithFluidTank} into JEI */

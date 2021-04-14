@@ -142,6 +142,15 @@ public class TConstruct {
         // expanders use 5 items now
         case "ichor_expander": return TinkerMaterials.tinkersBronze.getIngot();
         case "ender_expander": return TinkerMaterials.manyullyn.getIngot();
+        // tool rods -> tool handles
+        case "tool_rod": return TinkerToolParts.toolHandle.get();
+        case "tough_tool_rod": return TinkerToolParts.toughHandle.get();
+        case "tool_rod_cast": return TinkerSmeltery.toolHandleCast.get();
+        case "tool_rod_sand_cast": return TinkerSmeltery.toolHandleCast.getSand();
+        case "tool_rod_red_sand_cast": return TinkerSmeltery.toolHandleCast.getRedSand();
+        case "tough_tool_rod_cast": return TinkerSmeltery.toughHandleCast.get();
+        case "tough_tool_rod_sand_cast": return TinkerSmeltery.toughHandleCast.getSand();
+        case "tough_tool_rod_red_sand_cast": return TinkerSmeltery.toughHandleCast.getRedSand();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

@@ -66,11 +66,11 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                           .build(consumer, prefix(TinkerCommons.tinkersGadgetry, "common/"));
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.punySmelting)
                           .addIngredient(Items.BOOK)
-                          .addIngredient(TinkerSmeltery.searedBrick)
-                          .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+                          .addIngredient(TinkerSmeltery.grout)
+                          .addCriterion("has_item", hasItem(TinkerSmeltery.grout))
                           .build(consumer, prefix(TinkerCommons.punySmelting, "common/"));
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.mightySmelting)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenCopper.get(), MaterialValues.INGOT))
+                            .setFluidAndTime(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.INGOT))
                             .setCast(Items.BOOK, true)
                             .build(consumer, prefix(TinkerCommons.mightySmelting, "common/"));
 

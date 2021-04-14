@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/steel",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/coin"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_steel",
+    "amount": 48
+  },
+  "result": {
+    "tag": "forge:coins/steel"
+  },
+  "cooling_time": 37
+}
