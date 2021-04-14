@@ -9,7 +9,7 @@
 
 // <recipetype:tconstruct:material>.addItem(name as string, ingredient as IIngredient, value as int, needed as int, materialId as string)
 
-<recipetype:tconstruct:material>.addItem("test_material", <item:minecraft:diamond>, 3, 5, "tconstruct:bone");
+<recipetype:tconstruct:material>.addItem("test_material", <item:minecraft:cocoa_beans>, 3, 5, "tconstruct:bone");
 
 /*
  * Removes the Flint Material.
