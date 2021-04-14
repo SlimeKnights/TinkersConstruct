@@ -116,14 +116,14 @@ public class CRTHelper {
     event.registerDump("ticModifiers", "Lists the different Tinkers Construct Modifiers", commandContext -> {
       
       CraftTweakerAPI.logDump("List of all Tinkers Construct Modifiers: ");
-      TinkerRegistries.MODIFIERS.getValues().forEach(iMaterial -> {
+      TinkerRegistries.MODIFIERS.getValues().forEach(modifier -> {
         StringBuilder builder = new StringBuilder();
-        builder.append("Modifier: `").append(iMaterial.getId()).append("` {");
-        builder.append("\n\tDisplay Name: ").append(iMaterial.getDisplayName().getString());
-        builder.append("\n\tTranslation Key: `").append(iMaterial.getTranslationKey()).append("`");
-        builder.append("\n\tDescription: ```").append(iMaterial.getDescription().getString()).append("```");
-        builder.append("\n\tColor: ").append(Color.fromInt(iMaterial.getColor()).getHex());
-        builder.append("\n\tPriority: ").append(iMaterial.getPriority());
+        builder.append("Modifier: `").append(modifier.getId()).append("` {");
+        builder.append("\n\tDisplay Name: ").append(modifier.getDisplayName().getString());
+        builder.append("\n\tTranslation Key: `").append(modifier.getTranslationKey()).append("`");
+        builder.append("\n\tDescription: ```").append(modifier.getDescription().getString()).append("```");
+        builder.append("\n\tColor: ").append(Color.fromInt(modifier.getColor()).getHex());
+        builder.append("\n\tPriority: ").append(modifier.getPriority());
         builder.append("\n}");
         CraftTweakerAPI.logDump(builder.toString());
       });
