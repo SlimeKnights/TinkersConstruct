@@ -29,4 +29,40 @@ public class TinkerChestScreen extends BaseStationScreen<TinkerChestTileEntity, 
 
     super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
   }
+
+  @Override
+  public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+    if(this.scalingChestScreen.handleMouseClicked(mouseX, mouseY, mouseButton)) {
+      return false;
+    }
+
+    return super.mouseClicked(mouseX, mouseY, mouseButton);
+  }
+
+  @Override
+  public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+    if(this.scalingChestScreen.handleMouseClickMove(mouseX, mouseY, button, dragX)) {
+      return false;
+    }
+
+    return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+  }
+
+  @Override
+  public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+    if(this.scalingChestScreen.handleMouseScrolled(mouseX, mouseY, delta)) {
+      return false;
+    }
+
+    return super.mouseScrolled(mouseX, mouseY, delta);
+  }
+
+  @Override
+  public boolean mouseReleased(double mouseX, double mouseY, int state) {
+    if (this.scalingChestScreen.handleMouseReleased(mouseX, mouseY, state)) {
+      return false;
+    }
+
+    return super.mouseReleased(mouseX, mouseY, state);
+  }
 }
