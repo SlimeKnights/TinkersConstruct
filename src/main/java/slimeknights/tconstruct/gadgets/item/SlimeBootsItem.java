@@ -60,7 +60,7 @@ public class SlimeBootsItem extends ArmorTooltipItem {
 
     @Override
     public String getName() {
-      return Util.resource(name);
+      return name;
     }
 
     @Override

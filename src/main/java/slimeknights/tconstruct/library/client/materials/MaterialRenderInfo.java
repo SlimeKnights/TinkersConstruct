@@ -82,7 +82,7 @@ public class MaterialRenderInfo {
    */
   private static String getSuffix(Identifier material) {
     // namespace will only be minecraft for a texture override, so this lets you select to always use an untinted base texture as the materials texture
-    if ("minecraft".equals(material.getNamespace())) {
+    if ("data/minecraft".equals(material.getNamespace())) {
       return material.getPath();
     }
     return material.getNamespace() + "_" + material.getPath();

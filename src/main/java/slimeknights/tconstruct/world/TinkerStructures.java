@@ -5,6 +5,7 @@ import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.StructureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -14,6 +15,10 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.BlockStateProviderType;
+
+import net.fabricmc.fabric.api.biome.v1.BiomeModification;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
@@ -60,8 +65,8 @@ public final class TinkerStructures extends TinkerModule {
    * Structures
    */
   public static StructurePieceType slimeIslandPiece;
-//  public static final StructureFeature<DefaultFeatureConfig> overworldSlimeIsland = Registry.register(Registry.STRUCTURE_FEATURE, new Identifier(TConstruct.modID, "overworld_slime_island"), new OverworldSlimeIslandStructure(DefaultFeatureConfig.CODEC));
-//  public static ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> SLIME_ISLAND;
+  public static final StructureFeature<DefaultFeatureConfig> overworldSlimeIsland = Registry.register(Registry.STRUCTURE_FEATURE, new Identifier(TConstruct.modID, "overworld_slime_island"), new OverworldSlimeIslandStructure(DefaultFeatureConfig.CODEC));
+  public static ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> SLIME_ISLAND;
 
   public static final StructureFeature<DefaultFeatureConfig> netherSlimeIsland = Registry.register(Registry.STRUCTURE_FEATURE, new Identifier(TConstruct.modID, "nether_slime_island"), new NetherSlimeIslandStructure(DefaultFeatureConfig.CODEC));
   public static ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> NETHER_SLIME_ISLAND;
@@ -71,11 +76,11 @@ public final class TinkerStructures extends TinkerModule {
 
   @Override
   public void onInitialize() {
-//    slimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("slime_island_piece"), SlimeIslandPiece::new);
-//
-//    SLIME_ISLAND = BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, location("overworld_slime_island"), overworldSlimeIsland.configure(DefaultFeatureConfig.INSTANCE));
-//    StructureFeature.STRUCTURES.put("tconstruct:overworld_slime_island", overworldSlimeIsland);
-//    ChunkGeneratorSettings.getInstance().getStructuresConfig().getStructures().put(overworldSlimeIsland, new StructureConfig(30, 22, 14357800));
+    slimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("slime_island_piece"), SlimeIslandPiece::new);
+
+    SLIME_ISLAND = BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, location("overworld_slime_island"), overworldSlimeIsland.configure(DefaultFeatureConfig.INSTANCE));
+    StructureFeature.STRUCTURES.put("tconstruct:overworld_slime_island", overworldSlimeIsland);
+    ChunkGeneratorSettings.getInstance().getStructuresConfig().getStructures().put(overworldSlimeIsland, new StructureConfig(30, 22, 14357800));
 //
 //    NETHER_SLIME_ISLAND = BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, location("nether_slime_island"), netherSlimeIsland.configure(DefaultFeatureConfig.INSTANCE));
 //    StructureFeature.STRUCTURES.put("tconstruct:nether_slime_island", netherSlimeIsland);
@@ -86,20 +91,20 @@ public final class TinkerStructures extends TinkerModule {
 //    SKY_SLIME_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("sky_slime_tree"), SLIME_TREE.configure((
 //      new BaseSlimeTreeFeatureConfig.Builder(
 //        new SupplierBlockStateProvider(() -> TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
-//        new SupplierBlockStateProvider(Blocks.AIR::getDefaultState),
+ //       new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
+ //       new SupplierBlockStateProvider(Blocks.AIR::getDefaultState),
 //        5,
-//        4,
-//        false))
-//      .build()));
-//    SKY_SLIME_ISLAND_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("sky_slime_island_tree"), SLIME_TREE.configure((
-//      new BaseSlimeTreeFeatureConfig.Builder(
+ //       4,
+  //      false))
+ //     .build()));
+  //  SKY_SLIME_ISLAND_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("sky_slime_island_tree"), SLIME_TREE.configure((
+ //     new BaseSlimeTreeFeatureConfig.Builder(
 //        new SupplierBlockStateProvider(() -> TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.skySlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE)),
-//        5,
-//        4,
-//        true))
+ //       new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
+ //       new SupplierBlockStateProvider(() -> TinkerWorld.skySlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE)),
+ //       5,
+ //       4,
+ //       true))
 //      .build()));
 //
 //    ENDER_SLIME_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("ender_slime_tree"), SLIME_TREE.configure((
