@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Direction.Axis;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
@@ -21,9 +22,9 @@ public class ChannelSideTank extends FillOnlyFluidHandler {
 	}
 
 	@Override
-	public int fill(FluidVolume resource, Simulation action) {
-		int filled = super.fill(resource, action);
-		if (action.isAction() && filled > 0) {
+	public FluidVolume fill(FluidVolume resource, Simulation action) {
+        FluidVolume filled = super.fill(resource, action);
+		if (action.isAction() && filled.getAmount_F().isGreaterThan(FluidAmount.ZERO)) {
 			channel.setFlow(side, true);
 		}
 		return filled;

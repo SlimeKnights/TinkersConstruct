@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -252,13 +253,13 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 			boolean hasFlown = false;
 			BlockState state = getCachedState();
 			if(state.get(ChannelBlock.DOWN)) {
-				hasFlown = trySide(Direction.DOWN, FaucetTileEntity.MB_PER_TICK);
+				hasFlown = trySide(Direction.DOWN, FluidAmount.of(FaucetTileEntity.MB_PER_TICK, 1000));
 			}
 			// try sides if we have any sides
 			int outputs = countOutputs(state);
 			if(!hasFlown && outputs > 0) {
 				// split the fluid evenly between sides
-				int flowRate = MathHelper.clamp(tank.getMaxUsable() / outputs, 1, FaucetTileEntity.MB_PER_TICK);
+                FluidAmount flowRate = tank.getMaxUsable().div(FluidAmount.ofWhole(outputs)).max(FluidAmount.ONE).min(FluidAmount.of(FaucetTileEntity.MB_PER_TICK, 1000));
 				// then transfer on each side
 				for(Direction side : Type.HORIZONTAL) {
 					trySide(side, flowRate);
@@ -291,7 +292,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	 * @param flowRate  Maximum amount to output
 	 * @return  True if the side transferred fluid
 	 */
-	protected boolean trySide(Direction side, int flowRate) {
+	protected boolean trySide(Direction side, FluidAmount flowRate) {
 		if(tank.isEmpty() || !this.isOutput(side)) {
 			return false;
 		}
@@ -308,14 +309,14 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	 * @param amount   Amount to fill
 	 * @return  True if the side successfully filled something
 	 */
-	protected boolean fill(Direction side, IFluidHandler handler, int amount) {
+	protected boolean fill(Direction side, IFluidHandler handler, FluidAmount amount) {
 		// make sure we do not allow more than the fluid allows, should not happen but just in case
-		int usable = Math.min(tank.getMaxUsable(), amount);
-		if (usable > 0) {
+        FluidAmount usable = tank.getMaxUsable().min(amount);
+		if (usable.isGreaterThan(FluidAmount.ZERO)) {
 			// see how much works
 			FluidVolume fluid = tank.drain(usable, Simulation.SIMULATE);
-			int filled = handler.fill(fluid, Simulation.SIMULATE);
-			if (filled > 0) {
+			FluidVolume filled = handler.fill(fluid, Simulation.SIMULATE);
+			if (!filled.isEmpty()) {
 				// drain the amount that worked
 				fluid = tank.drain(filled, Simulation.ACTION);
 				handler.fill(fluid, Simulation.ACTION);

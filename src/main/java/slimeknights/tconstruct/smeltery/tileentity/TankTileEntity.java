@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.FluidAttributes;
+import alexiil.mc.lib.attributes.fluid.FluidInsertable;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.Block;
@@ -48,8 +51,6 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
 
   /** Internal fluid tank instance */
   protected final FluidTankAnimated tank;
-  /** Tank data for the model */
-  private final IModelData modelData;
   /** Last comparator strength to reduce block updates */
   private int lastStrength = -1;
 
@@ -67,7 +68,6 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   protected TankTileEntity(BlockEntityType<?> type, SearedTankBlock block) {
     super(type);
     tank = new FluidTankAnimated(block.getCapacity(), this);
-    modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   }
 
 
@@ -119,7 +119,6 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
 
   @Override
   public void fromTag(BlockState state, CompoundTag tag) {
-    tank.setCapacity(getCapacity(state.getBlock()).as1620());
     updateTank(tag.getCompound(Tags.TANK));
     super.fromTag(state, tag);
   }

@@ -1,5 +1,17 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import alexiil.mc.lib.attributes.SearchOption;
+import alexiil.mc.lib.attributes.SearchOptions;
+import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.FixedFluidInv;
+import alexiil.mc.lib.attributes.fluid.FixedFluidInvView;
+import alexiil.mc.lib.attributes.fluid.FluidAttributes;
+import alexiil.mc.lib.attributes.fluid.FluidExtractable;
+import alexiil.mc.lib.attributes.fluid.FluidInsertable;
+import alexiil.mc.lib.attributes.fluid.FluidInvUtil;
+import alexiil.mc.lib.attributes.fluid.FluidTransferable;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import slimeknights.tconstruct.fluids.FluidUtil;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -19,12 +32,27 @@ import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 /**
  * Common logic between the tank and the melter
  */
-public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IFluidPacketReceiver {
+public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IFluidPacketReceiver, FixedFluidInvView {
   /**
    * Gets the tank in this tile entity
    * @return  Tank
    */
   FluidTankAnimated getTank();
+
+  @Override
+  default boolean isFluidValidForTank(int tank, FluidKey fluid) {
+    return getTank().isFluidValidForTank(tank, fluid);
+  }
+
+  @Override
+  default int getTankCount() {
+    return getTank().getTankCount();
+  }
+
+  @Override
+  default FluidVolume getInvFluid(int tank) {
+    return getTank().getInvFluid(tank);
+  }
 
   /*
    * Comparator
@@ -36,7 +64,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    */
   default int comparatorStrength() {
     FluidTankAnimated tank = getTank();
-    return tank.getFluidAmount().mul(15).div(tank.getCapacity()).as1620();
+    return tank.getFluidAmount().mul(15).div(tank.getTankCapacity(0)).as1620();
   }
 
   /**
@@ -156,22 +184,13 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    */
   static boolean interactWithTank(World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
     // success if the item is a fluid handler, regardless of if fluid moved
-    ItemStack stack = player.getStackInHand(hand);
-    Direction face = hit.getSide();
-    if (stack.getItem() instanceof BucketItem) {
       if (!world.isClient()) {
-        BlockEntity te = world.getBlockEntity(pos);
-        if (te != null) {
-          throw new RuntimeException("CRAB!"); // FIXME: PORT
-//          te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face)
-//            .ifPresent(handler -> FluidUtil.interactWithFluidHandler(player, hand, handler));
-        }
+        FluidInsertable insertable = FluidAttributes.INSERTABLE.get(world, pos, SearchOptions.inDirection(hit.getSide()));
+        return FluidInvUtil.interactHandWithTank(FluidTransferable.from(insertable), player, hand).asActionResult().isAccepted();
       }
       return true;
-    }
-    return true;
     // fall back to buckets for fish buckets
-//    return interactWithBucket(world, pos, player, hand, face, face);
+    //return interactWithBucket(world, pos, player, hand, face, face);
   }
 
   /**

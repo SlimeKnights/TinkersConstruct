@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.fluids;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 
 public interface IFluidHandler {
@@ -9,13 +10,17 @@ public interface IFluidHandler {
 
   FluidVolume getFluidInTank(int tank);
 
-  int getTankCapacity(int tank);
+  FluidAmount getTankCapacity(int tank);
 
   boolean isFluidValid(int tank, FluidVolume stack);
 
-  int fill(FluidVolume resource, Simulation action);
+  FluidVolume fill(FluidVolume resource, Simulation action);
 
   FluidVolume drain(FluidVolume resource, Simulation action);
 
-  FluidVolume drain(int maxDrain, Simulation action);
+  FluidVolume drain(FluidAmount resource, Simulation action);
+
+  default FluidVolume drain(int maxDrain, Simulation action) {
+    return drain(FluidAmount.of(maxDrain, 1000), action);
+  }
 }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -40,8 +41,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   /* Tank */
   /** Internal fluid tank output */
   protected final FluidTankAnimated tank = new FluidTankAnimated(TANK_CAPACITY, this);
-  /** Tank data for the model */
-  private final IModelData modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   /** Last comparator strength to reduce block updates */
   private int lastStrength = -1;
 
@@ -102,10 +101,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   @Override
   public void setLastStrength(int strength) {
     lastStrength = strength;
-  }
-
-  public IModelData getModelData() {
-    return modelData;
   }
 
   /*

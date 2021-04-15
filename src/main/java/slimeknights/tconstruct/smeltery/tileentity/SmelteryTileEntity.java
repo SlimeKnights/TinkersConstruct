@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.misc.IItemHandler;
+import slimeknights.tconstruct.misc.ItemHandlerHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
@@ -437,9 +438,23 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
    * @param stack  Stack to insert
    */
   private ItemStack insertIntoInventory(ItemStack stack) {
-    throw new RuntimeException("CRAB!");
-    //TODO: PORT
-//    return ItemHandlerHelper.insertItem(meltingInventory, stack, false);
+    return insertItem(meltingInventory, stack, false);
+  }
+
+  public static ItemStack insertItem(IItemHandler dest, ItemStack stack, boolean simulate) {
+    if (dest == null || stack.isEmpty())
+      return stack;
+
+    for (int i = 0; i < dest.getSlots(); i++)
+    {
+      stack = dest.insertItem(i, stack, simulate);
+      if (stack.isEmpty())
+      {
+        return ItemStack.EMPTY;
+      }
+    }
+
+    return stack;
   }
 
 

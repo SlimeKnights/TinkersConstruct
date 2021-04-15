@@ -14,7 +14,7 @@ public class FluidTankBase<T extends MantleTileEntity> extends FluidTank {
   protected T parent;
 
   public FluidTankBase(FluidAmount capacity, T parent) {
-    super(capacity.as1620());
+    super(capacity);
     this.parent = parent;
 //    this.addListener((inv, tank, previous, current) -> {
 //      if (parent instanceof IFluidTankUpdater) {

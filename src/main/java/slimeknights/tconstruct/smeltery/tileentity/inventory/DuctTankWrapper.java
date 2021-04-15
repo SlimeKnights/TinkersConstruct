@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import lombok.AllArgsConstructor;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -27,7 +28,7 @@ public class DuctTankWrapper implements IFluidHandler {
   }
 
   @Override
-  public int getTankCapacity(int tank) {
+  public FluidAmount getTankCapacity(int tank) {
     return parent.getTankCapacity(tank);
   }
 
@@ -40,20 +41,20 @@ public class DuctTankWrapper implements IFluidHandler {
   /* Interactions */
 
   @Override
-  public int fill(FluidVolume resource, Simulation action) {
+  public FluidVolume fill(FluidVolume resource, Simulation action) {
     if (resource.isEmpty() || resource.getRawFluid() != itemHandler.getFluid()) {
-      return 0;
+      return resource.withAmount(FluidAmount.ZERO);
     }
     return parent.fill(resource, action);
   }
 
   @Override
-  public FluidVolume drain(int maxDrain, Simulation action) {
+  public FluidVolume drain(FluidAmount maxDrain, Simulation action) {
     Fluid fluid = itemHandler.getFluid();
     if (fluid == Fluids.EMPTY) {
       return TinkerFluids.EMPTY;
     }
-    return parent.drain(FluidVolume.create(fluid, maxDrain), action);
+    return parent.drain(maxDrain, action);
   }
 
   @Override

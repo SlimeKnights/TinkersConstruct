@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.fluids;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,15 +18,17 @@ public class EmptyFluidHandler implements IFluidHandler {
   public FluidVolume getFluidInTank(int tank) { return TinkerFluids.EMPTY; }
 
   @Override
-  public int getTankCapacity(int tank) { return 0; }
+  public FluidAmount getTankCapacity(int tank) {
+    return FluidAmount.ZERO;
+  }
 
   @Override
   public boolean isFluidValid(int tank, @NotNull FluidVolume stack) { return true; }
 
   @Override
-  public int fill(FluidVolume resource, Simulation action)
+  public FluidVolume fill(FluidVolume resource, Simulation action)
   {
-    return 0;
+    return TinkerFluids.EMPTY;
   }
 
   @NotNull
@@ -37,7 +40,7 @@ public class EmptyFluidHandler implements IFluidHandler {
 
   @NotNull
   @Override
-  public FluidVolume drain(int maxDrain, Simulation action)
+  public FluidVolume drain(FluidAmount maxDrain, Simulation action)
   {
     return TinkerFluids.EMPTY;
   }

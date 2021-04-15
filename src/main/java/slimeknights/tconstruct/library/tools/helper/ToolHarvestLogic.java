@@ -68,14 +68,14 @@ public class ToolHarvestLogic {
       return false;
     }
 
-    throw new RuntimeException("CRAB!"); // FIXME: PORT
-    // harvest level too low -> not effective
+//    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//     harvest level too low -> not effective
 //    if (state.isToolRequired() && tool.getStats().getHarvestLevel() < state.getHarvestLevel()) {
 //      return false;
 //    }
 
     // find a matching tool type
-//    return isEffectiveAgainst(tool, stack, state);
+    return isEffectiveAgainst(tool, stack, state);
   }
 
   /**

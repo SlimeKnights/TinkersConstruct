@@ -57,9 +57,9 @@ public class CastingFluidHandler implements IFluidHandler {
   }
 
   @Override
-  public int fill(FluidVolume resource, Simulation action) {
+  public FluidVolume fill(FluidVolume resource, Simulation action) {
     if (resource.isEmpty() || tile.isStackInSlot(CastingTileEntity.OUTPUT) || !isFluidValid(resource)) {
-      return 0;
+      return resource.withAmount(FluidAmount.ZERO);
     }
 
     // update filter and capacity
@@ -68,7 +68,7 @@ public class CastingFluidHandler implements IFluidHandler {
       Fluid fluid = resource.getRawFluid();
       capacity = tile.initNewCasting(fluid, action);
       if (capacity <= 0) {
-        return 0;
+        return resource.withAmount(FluidAmount.ZERO);
       }
       if (action.isAction()) {
         this.capacity = capacity;
@@ -78,39 +78,39 @@ public class CastingFluidHandler implements IFluidHandler {
 
     // if no fluid yet, copy it in
     if (fluid.isEmpty()) {
-      int amount = Math.min(capacity, resource.getAmount());
+      int amount = Math.min(capacity, resource.getAmount_F().asInt(1000));
       if (action.isAction()) {
         fluid = FluidVolume.create(resource.getRawFluid(), amount);
         onContentsChanged();
       }
-      return amount;
+      return resource.withAmount(FluidAmount.of(amount, 1000));
     }
 
     // safety: should never be false, but good to check
     if (!resource.equals(fluid)) {
-      return 0;
+      return resource.withAmount(FluidAmount.ZERO);
     }
 
     // if full, nothing to do
-    int space = capacity - fluid.getAmount();
+    int space = capacity - fluid.getAmount_F().asInt(1000);
     if (space <= 0) {
-      return 0;
+      return resource.withAmount(FluidAmount.ZERO);
     }
     // if it fits, it grows
-    int amount = resource.getAmount();
+    int amount = resource.getAmount_F().asInt(1000);
     if (amount < space) {
       if (action.isAction()) {
         fluid = fluid.withAmount(fluid.amount().add(amount));
         onContentsChanged();
       }
-      return amount;
+      return resource.withAmount(FluidAmount.of(amount, 1000));
     } else {
       // too much? set to max
       if (action.isAction()) {
         fluid = fluid.withAmount(FluidAmount.of1620(capacity));
         onContentsChanged();
       }
-      return space;
+      return resource.withAmount(FluidAmount.of(space, 1000));
     }
   }
 
@@ -119,19 +119,19 @@ public class CastingFluidHandler implements IFluidHandler {
     if (resource.isEmpty() || !resource.equals(fluid)) {
       return TinkerFluids.EMPTY;
     }
-    return this.drain(resource.getAmount(), action);
+    return this.drain(resource, action);
   }
 
   @Override
-  public FluidVolume drain(int maxDrain, Simulation action) {
-    int drained = Math.min(fluid.getAmount(), maxDrain);
+  public FluidVolume drain(FluidAmount maxDrain, Simulation action) {
+    int drained = Math.min(fluid.getAmount_F().asInt(1000), maxDrain.asInt(1000));
     if (drained <= 0) {
       return TinkerFluids.EMPTY;
     }
 
     FluidVolume stack = fluid.withAmount(FluidAmount.ofWhole(drained));
     if (action.isAction()) {
-      fluid = fluid.withAmount(FluidAmount.of1620(fluid.getAmount() + drained));
+      fluid = fluid.withAmount(FluidAmount.of(fluid.getAmount_F().asInt(1000) + drained, 1000));
       onContentsChanged();
     }
     return stack;
@@ -153,8 +153,8 @@ public class CastingFluidHandler implements IFluidHandler {
   }
 
   @Override
-  public int getTankCapacity(int tank) {
-    return getCapacity();
+  public FluidAmount getTankCapacity(int tank) {
+    return FluidAmount.of(getCapacity(), 1000);
   }
 
   @Override

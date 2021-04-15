@@ -1,9 +1,15 @@
 package slimeknights.tconstruct.fluids;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 /**
  * TODO: replacement for forges fluid util
@@ -22,8 +28,8 @@ public class FluidUtil {
         }
 
         @Override
-        public int getTankCapacity(int tank) {
-          return 100000;
+        public FluidAmount getTankCapacity(int tank) {
+          return FluidAmount.of(100000, 1000);
         }
 
         @Override
@@ -32,7 +38,7 @@ public class FluidUtil {
         }
 
         @Override
-        public int fill(FluidVolume resource, Simulation action) {
+        public FluidVolume fill(FluidVolume resource, Simulation action) {
           throw new RuntimeException("CRAB!"); // FIXME: PORT
         }
 
@@ -42,9 +48,14 @@ public class FluidUtil {
         }
 
         @Override
-        public FluidVolume drain(int maxDrain, Simulation action) {
+        public FluidVolume drain(FluidAmount maxDrain, Simulation action) {
           throw new RuntimeException("CRAB!"); // FIXME: PORT
         }
       };
     }
+
+  public static FluidVolume fromJson(JsonObject json) throws JsonSyntaxException {
+    final FluidKey fluid = FluidKeys.get(Registry.FLUID.get(Identifier.tryParse(json.get("fluid").getAsString())));
+    return fluid.withAmount(fluid == FluidKeys.EMPTY ? FluidAmount.ZERO : FluidAmount.of(json.get("amount").getAsInt(), 1000));
+  }
 }

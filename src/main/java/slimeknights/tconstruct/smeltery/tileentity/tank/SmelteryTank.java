@@ -110,17 +110,17 @@ public class SmelteryTank implements IFluidHandler {
   }
 
   @Override
-  public int getTankCapacity(int tank) {
+  public FluidAmount getTankCapacity(int tank) {
     if (tank < 0) {
-      return 0;
+      return FluidAmount.ZERO;
     }
     // index of the tank size means the "empty" segment
     int remaining = capacity - contained;
     if (tank == fluids.size()) {
-      return remaining;
+      return FluidAmount.of(remaining, 1000);
     }
     // any valid index, return the amount contained and the extra space
-    return fluids.get(tank).getAmount() + remaining;
+    return fluids.get(tank).getAmount_F().add(FluidAmount.of(remaining, 1000));
   }
 
   /**
@@ -140,17 +140,17 @@ public class SmelteryTank implements IFluidHandler {
   /* Filling and draining */
 
   @Override
-  public int fill(FluidVolume resource, Simulation action) {
+  public FluidVolume fill(FluidVolume resource, Simulation action) {
     // if full or nothing being filled, do nothing
     if (contained >= capacity || resource.isEmpty()) {
-      return 0;
+      return resource.withAmount(FluidAmount.ZERO);
     }
 
     // determine how much we can fill
-    int usable = Math.min(capacity - contained, resource.getAmount());
+    int usable = Math.min(capacity - contained, resource.getAmount_F().asInt(1000));
     // could be negative if the smeltery size changes then you try filling it
     if (usable <= 0) {
-      return 0;
+      return resource.withAmount(FluidAmount.ZERO);
     }
 
 /*    // done here if just simulating
@@ -167,7 +167,7 @@ public class SmelteryTank implements IFluidHandler {
         // yup. add it
         fluid = fluid.withAmount(fluid.getAmount_F().add(usable));
         parent.notifyFluidsChanged(FluidChange.CHANGED, fluid.getRawFluid());
-        return usable;
+        return resource.withAmount(FluidAmount.of(usable, 1000));
       }
     }
 
@@ -175,26 +175,26 @@ public class SmelteryTank implements IFluidHandler {
     resource = resource.withAmount(FluidAmount.of1620(usable));
     fluids.add(resource);
     parent.notifyFluidsChanged(FluidChange.ADDED, resource.getRawFluid());
-    return usable;
+    return resource.withAmount(FluidAmount.of(usable, 1000));
   }
 
   @Override
-  public FluidVolume drain(int maxDrain, Simulation action) {
+  public FluidVolume drain(FluidAmount maxDrain, Simulation action) {
     if (fluids.isEmpty()) {
       return TinkerFluids.EMPTY;
     }
 
     // simply drain the first one
     FluidVolume fluid = fluids.get(0);
-    int drainable = Math.min(maxDrain, fluid.getAmount());
+    int drainable = maxDrain.min(fluid.getAmount_F()).asInt(1000);
 
     // copy contained fluid to return for accuracy
     FluidVolume ret = fluid.copy();
-    ret.withAmount(FluidAmount.of1620(drainable));
+    ret.withAmount(FluidAmount.of(drainable, 1000));
 
     // remove the fluid from the tank
     if (action.isAction()) {
-      fluid = fluid.withAmount(fluid.getAmount_F().min(FluidAmount.of1620(drainable)));
+      fluid = fluid.withAmount(fluid.getAmount_F().min(FluidAmount.of(drainable, 1000)));
       contained -= drainable;
       // if now empty, remove from the list
       if (fluid.getAmount() <= 0) {

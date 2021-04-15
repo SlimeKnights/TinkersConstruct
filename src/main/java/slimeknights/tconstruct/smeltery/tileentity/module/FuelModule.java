@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -485,9 +486,9 @@ public class FuelModule implements PropertyDelegate {
           // sum if empty (more capacity) or the same fluid (more amount and capacity)
           FluidVolume fluid = handler.getFluidInTank(0);
           if (fluid.isEmpty()) {
-            info.add(0, handler.getTankCapacity(0));
+            info.add(0, handler.getTankCapacity(0).asInt(1000));
           } else if (currentFuel.equals(fluid)) {
-            info.add(fluid.getAmount(), handler.getTankCapacity(0));
+            info.add(fluid.getAmount(), handler.getTankCapacity(0).asInt(1000));
           }
         });
       }
@@ -516,11 +517,11 @@ public class FuelModule implements PropertyDelegate {
      * @param capacity  Capacity
      * @return  Fuel info
      */
-    public static FuelInfo of(FluidVolume fluid, int capacity, int temperature) {
+    public static FuelInfo of(FluidVolume fluid, FluidAmount capacity, int temperature) {
       if (fluid.isEmpty()) {
         return EMPTY;
       }
-      return new FuelInfo(fluid, fluid.getAmount(), Math.max(capacity, fluid.getAmount()), temperature);
+      return new FuelInfo(fluid, fluid.getAmount_F().asInt(1000), capacity.max(fluid.getAmount_F()).asInt(1000), temperature);
     }
 
     /**

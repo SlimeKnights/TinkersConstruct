@@ -296,11 +296,11 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     Optional<IFluidHandler> outputOptional = getOutputHandler();
     if (outputOptional.isPresent()) {
       FluidVolume fillStack = drained.copy();
-      fillStack.withAmount(FluidAmount.of1620(Math.min(drained.getAmount(), MB_PER_TICK)));
+      fillStack.withAmount(FluidAmount.of1620(Math.min(drained.getAmount_F().asInt(1000), MB_PER_TICK)));
 
       // can we fill?
       IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
-      int filled = output.fill(fillStack, Simulation.SIMULATE);
+      int filled = output.fill(fillStack, Simulation.SIMULATE).getAmount_F().asInt(1000);
       if (filled > 0) {
         // update client if they do not think we have fluid
         if (!renderFluid.equals(drained)) {

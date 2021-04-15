@@ -15,7 +15,7 @@ repositories {
     }
 
     maven {
-        name = "Shedaniel's Maven"
+        name = "shedaniel's Maven"
         url = uri("https://maven.shedaniel.me/")
     }
 
@@ -33,6 +33,8 @@ repositories {
         name = "One's Maven"
         url = uri("https://storage.googleapis.com/devan-maven/")
     }
+
+    mavenLocal()
 }
 
 val modImplementationAndInclude by configurations.register("modImplementationAndInclude")
@@ -43,7 +45,7 @@ dependencies {
 
     modImplementation("net.fabricmc", "fabric-loader", "0.11.3")
     modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.32.5+1.16")
-    modImplementation("slimeknights", "Mantle", "1.6.20-SNAPSHOT")
+    modImplementation("slimeknights", "Mantle", "1.6.24-SNAPSHOT")
 
     modApi("me.shedaniel.cloth", "cloth-config-fabric", "4.11.19")
     modApi("alexiil.mc.lib", "libblockattributes-core", "0.8.9-pre.1")
@@ -51,7 +53,7 @@ dependencies {
 
     modRuntime("com.terraformersmc:modmenu:1.16.9")
 
-//    modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
+    modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.11.202")
     modRuntime("curse.maven", "worldedit-225608", "3135186")
     modRuntime("curse.maven", "appleskin-248787", "2987255")
     modRuntime("curse.maven", "hwyla-253449", "3033613")

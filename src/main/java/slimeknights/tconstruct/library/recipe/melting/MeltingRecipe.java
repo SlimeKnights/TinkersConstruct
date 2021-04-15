@@ -13,6 +13,7 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import slimeknights.tconstruct.fluids.FluidUtil;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.io.IOException;
@@ -117,7 +118,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     public T read(Identifier id, JsonObject json) {
       String group = JsonHelper.getString(json, "group", "");
       Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-      FluidVolume output = FluidVolume.fromJson(JsonHelper.getObject(json, "result"));
+      FluidVolume output = FluidUtil.fromJson(JsonHelper.getObject(json, "result"));
 
       // temperature calculates
       int temperature = JsonHelper.getInt(json, "temperature");

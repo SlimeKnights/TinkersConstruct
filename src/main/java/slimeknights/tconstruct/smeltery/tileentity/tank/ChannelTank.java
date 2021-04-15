@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import net.minecraft.nbt.CompoundTag;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import slimeknights.tconstruct.fluids.FluidTank;
@@ -15,39 +16,38 @@ public class ChannelTank extends FluidTank {
 	 * Essentially, since we cannot guarantee tick order, this prevents us from having a net 0 fluid for the renderer
 	 * if draining and filling at the same time
 	 */
-	private int locked;
+	private FluidAmount locked;
 
 	/** Tank owner */
 	private final ChannelTileEntity parent;
 
 	public ChannelTank(int capacity, ChannelTileEntity parent) {
-    super(0, null);
-    throw new RuntimeException("CRAB!"); // FIXME: PORT
+      super(0, null);
 //		super(capacity, fluid -> !fluid.getRawFluid().getAttributes().isGaseous(fluid));
-//		this.parent = parent;
+		this.parent = parent;
 	}
 
 	/**
 	 * Called on channel update to clear the lock, allowing this fluid to be drained
 	 */
 	public void freeFluid() {
-		this.locked = 0;
+		this.locked = FluidAmount.ZERO;
 	}
 
 	/**
 	 * Returns the maximum fluid that can be extracted from this tank
 	 * @return  Max fluid that can be pulled
 	 */
-	public int getMaxUsable() {
-		return Math.max(fluid.getAmount() - locked, 0);
+	public FluidAmount getMaxUsable() {
+		return getTank(0).get().getAmount_F().sub(locked).max(FluidAmount.ZERO);
 	}
 
 	@Override
-	public int fill(FluidVolume resource, Simulation action) {
+	public FluidVolume fill(FluidVolume resource, Simulation action) {
 		boolean wasEmpty = isEmpty();
-		int amount = super.fill(resource, action);
+		FluidVolume amount = super.fill(resource, action);
 		if(action.isAction()) {
-			locked += amount;
+			locked = locked.add(amount.getAmount_F());
 			// if we added something, sync to client
 			if (wasEmpty && !isEmpty()) {
 				parent.sendFluidUpdate();
@@ -69,7 +69,7 @@ public class ChannelTank extends FluidTank {
 
 	@Override
 	public FluidTank readFromNBT(CompoundTag nbt) {
-		this.locked = nbt.getInt(TAG_LOCKED);
+		this.locked = FluidAmount.fromNbt(nbt.getCompound(TAG_LOCKED));
 		super.readFromNBT(nbt);
 		return this;
 	}
@@ -77,7 +77,7 @@ public class ChannelTank extends FluidTank {
 	@Override
 	public CompoundTag writeToNBT(CompoundTag nbt) {
 		nbt = super.writeToNBT(nbt);
-		nbt.putInt(TAG_LOCKED, locked);
+		nbt.put(TAG_LOCKED, locked.toNbt());
 		return nbt;
 	}
 }

@@ -13,6 +13,7 @@ import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.misc.ItemHandlerHelper;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
@@ -266,7 +267,7 @@ public class MeltingModuleInventory implements IItemHandler {//IItemHandlerModif
    * @return  True if filled, false if not enough space for the whole fluid
    */
   protected boolean tryFillTank(FluidVolume fluid) {
-    if (fluidHandler.fill(fluid.copy(), Simulation.SIMULATE) == fluid.getAmount()) {
+    if (Objects.equals(fluidHandler.fill(fluid.copy(), Simulation.SIMULATE).getAmount_F(), fluid.getAmount_F())) {
       fluidHandler.fill(fluid, Simulation.ACTION);
       return true;
     }

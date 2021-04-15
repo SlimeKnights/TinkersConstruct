@@ -38,7 +38,7 @@ public class TinkerNetwork extends NetworkWrapper {
 
   public static void setup() {
     instance = new TinkerNetwork();
-    /*instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkSide.CLIENTBOUND);
+/*    instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkSide.CLIENTBOUND);
 
     // gadgets
     instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkSide.CLIENTBOUND);
