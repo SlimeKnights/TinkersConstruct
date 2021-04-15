@@ -62,7 +62,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     @Environment(EnvType.CLIENT)
     @Override
     public String getName() {
-      return Util.resource("piggyback");
+      return "piggyback";
     }
 
     @Override
