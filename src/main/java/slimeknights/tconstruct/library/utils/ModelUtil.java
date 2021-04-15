@@ -19,7 +19,8 @@ public class ModelUtil {
 	 * @param name The name of a texture channel.
 	 */
 	public static boolean isTexturePresent(JsonUnbakedModel model, String name) {
-		return !MissingSprite.getMissingSpriteId().equals(model.getMaterial(p_178300_1_).texture());
+	  throw new RuntimeException("CRAB!"); // FIXME: PORT
+//		return !MissingSprite.getMissingSpriteId().equals(model.getMaterial(p_178300_1_).texture());
 	}
 
 	/**
@@ -28,7 +29,7 @@ public class ModelUtil {
 	 * @return The location of the texture, or the missing texture if not found.
 	 */
 	public static SpriteIdentifier resolveTexture(JsonUnbakedModel model, String name) {
-
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
 	}
 
 	public SpriteIdentifier getMaterial(JsonUnbakedModel model, String name) {
@@ -38,22 +39,23 @@ public class ModelUtil {
 
 		List<String> list = Lists.newArrayList();
 
-		while(true) {
-			Either<SpriteIdentifier, String> either = model.r().findTextureEntry(name);
-			Optional<RenderMaterial> optional = either.left();
-			if (optional.isPresent()) {
-				return optional.get();
-			}
-
-			name = either.right().get();
-			if (list.contains(name)) {
-				LOGGER.warn("Unable to resolve texture due to reference chain {}->{} in {}", Joiner.on("->").join(list), name, this.name);
-				return new RenderMaterial(AtlasTexture.LOCATION_BLOCKS, MissingTextureSprite.getLocation());
-			}
-
-			list.add(name);
-		}
-	}
+//		while(true) {
+//			Either<SpriteIdentifier, String> either = model.r().findTextureEntry(name);
+//			Optional<RenderMaterial> optional = either.left();
+//			if (optional.isPresent()) {
+//				return optional.get();
+//			}
+//
+//			name = either.right().get();
+//			if (list.contains(name)) {
+//				LOGGER.warn("Unable to resolve texture due to reference chain {}->{} in {}", Joiner.on("->").join(list), name, this.name);
+//				return new RenderMaterial(AtlasTexture.LOCATION_BLOCKS, MissingTextureSprite.getLocation());
+//			}
+//
+//			list.add(name);
+//		}
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+  }
 
 	private static boolean isTextureReference(String p_178304_0_) {
 		return p_178304_0_.charAt(0) == '#';
