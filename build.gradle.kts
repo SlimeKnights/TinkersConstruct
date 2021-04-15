@@ -34,6 +34,11 @@ repositories {
         url = uri("https://storage.googleapis.com/devan-maven/")
     }
 
+    maven {
+        name = "Ladysnake Mods"
+        url = uri("https://ladysnake.jfrog.io/artifactory/mods")
+    }
+
     mavenLocal()
 }
 
