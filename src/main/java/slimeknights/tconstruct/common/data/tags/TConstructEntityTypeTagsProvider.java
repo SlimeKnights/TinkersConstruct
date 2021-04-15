@@ -16,6 +16,7 @@ public class TConstructEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
   @Override
   public void registerTags() {
+    this.getOrCreateBuilder(TinkerTags.EntityTypes.BOUNCY).add(TinkerWorld.skySlimeEntity.get());
     this.getOrCreateBuilder(TinkerTags.EntityTypes.SLIMES).add(TinkerWorld.skySlimeEntity.get());
     this.getOrCreateBuilder(TinkerTags.EntityTypes.MELTING_SHOW).add(EntityType.IRON_GOLEM, EntityType.SNOW_GOLEM, EntityType.VILLAGER, EntityType.PLAYER);
     this.getOrCreateBuilder(TinkerTags.EntityTypes.MELTING_HIDE).add(EntityType.GIANT);
