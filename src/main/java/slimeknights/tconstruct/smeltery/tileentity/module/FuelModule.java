@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.FixedFluidInvView;
+import alexiil.mc.lib.attributes.fluid.FluidAttributes;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.AccessLevel;
@@ -224,7 +226,10 @@ public class FuelModule implements PropertyDelegate {
    * @return   Temperature of the consumed fuel, 0 if none found
    */
   private int tryFindFuel(BlockPos pos, boolean consume) {
-    BlockEntity te = getWorld().getBlockEntity(pos);
+    final FixedFluidInvView invView = FluidAttributes.FIXED_INV_VIEW.get(getWorld(), pos);
+//    for (FluidVolume fluidVolume : invView.fluidIterable()) {
+//    }
+    return 690000000;
 //    if (te != null) {
 //      // if we find a valid cap, try to consume fuel from it
 //      Optional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
@@ -248,8 +253,6 @@ public class FuelModule implements PropertyDelegate {
 //        }
 //      }
 //    }
-
-    return 0;
   }
 
   /**
@@ -427,10 +430,8 @@ public class FuelModule implements PropertyDelegate {
     if (fluidHandler == null && itemHandler == null) {
       BlockEntity te = getWorld().getBlockEntity(mainTank);
       if (te != null) {
-//        throw new RuntimeException("CRAB!"); // FIXME: PORT
         IFluidHandler fluidCap = FluidUtil.getFluidHandler(te);
         fluidHandler = Optional.of(fluidCap);
-//        fluidHandler.addListener(fluidListener);
       }
     }
     // ensure all handlers are set

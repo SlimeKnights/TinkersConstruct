@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.tables.inventory;
 
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandlerType;
@@ -33,19 +35,17 @@ public class TinkerChestContainer extends BaseStationContainer<TinkerChestTileEn
       super(containerType, windowId, inv, tile, x, y, columns);
       // add the theoretically possible slots
       while (this.slots.size() < tile.getMaxInventory()) {
-        throw new RuntimeException("CRAB!");
-        //TODO: PORT
-//        this.addSlot(this.createSlot(new EmptyHandler(), this.slots.size(), 0, 0));
+        this.addSlot(this.createSlot(new SimpleInventory(), this.slots.size(), 0, 0));
       }
     }
-//
-//    @Override
-//    protected Slot createSlot(IItemHandler inventory, int index, int x, int y) {
-//      if (this.tile == null) {
-//        return super.createSlot(inventory, index, x, y);
-//      }
-//      return new ChestSlot(this.tile, index, x, y);
-//    }
+
+    @Override
+    protected Slot createSlot(Inventory inventory, int index, int x, int y) {
+      if (this.tile == null) {
+        return super.createSlot(inventory, index, x, y);
+      }
+      return new ChestSlot(this.tile, index, x, y);
+    }
   }
 
 

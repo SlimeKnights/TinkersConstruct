@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.client;
 
-import alexiil.mc.lib.attributes.fluid.FluidAttributes;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.AccessLevel;
@@ -37,12 +37,11 @@ public final class RenderUtils {
     FluidRenderer.renderCuboid(matrices, buffer.getBuffer(FluidRenderer.RENDER_TYPE), cube, still, flowing, cube.getFromScaled(), cube.getToScaled(), color, light, isGas);
   }
 
-  /*public static void renderFluidTank(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
-    throw new RuntimeException("CRAB!"); // FIXME: PORT
-    *//*    // render liquid if present
+  public static void renderFluidTank(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
+        // render liquid if present
     FluidVolume liquid = tank.getFluid();
-    int capacity = tank.getCapacity();
-    if (!liquid.isEmpty() && capacity > 0) {
+    FluidAmount capacity = tank.getTankCapacity(0);
+    if (!liquid.isEmpty() && capacity.isGreaterThan(FluidAmount.ZERO)) {
       // update render offset
       float offset = tank.getRenderOffset();
       if (offset > 1.2f || offset < -1.2f) {
@@ -53,13 +52,13 @@ public final class RenderUtils {
       }
 
       // fetch fluid information from the model
-      FluidRenderer.renderScaledCuboid(matrices, buffer, cube, liquid, offset, capacity, light, flipGas);
+      FluidRenderer.renderScaledCuboid(matrices, buffer, cube, liquid, offset, capacity.as1620(), light, flipGas);
     } else {
       // clear render offet if no liquid
       tank.setRenderOffset(0);
-    }*//*
+    }
   }
-*/
+
   public static void setColorRGBA(int color) {
     float a = alpha(color) / 255.0F;
     float r = red(color) / 255.0F;

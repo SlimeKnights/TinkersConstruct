@@ -14,6 +14,7 @@ import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Identifier;
@@ -49,7 +50,7 @@ import java.util.stream.Collectors;
  * So if your mods name is "foobar", the location for your mods materials is "data/foobar/materials".
  */
 @Log4j2
-public class MaterialManager {// FIXME: PORT this is cursed ->// extends SinglePreparationResourceReloadListener {
+public class MaterialManager extends JsonDataLoader {
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
@@ -69,7 +70,7 @@ public class MaterialManager {// FIXME: PORT this is cursed ->// extends SingleP
 
   @VisibleForTesting
   protected MaterialManager(TinkerNetwork tinkerNetwork) {
-//    super(tinkerNetwork, GSON, FOLDER);
+    super(GSON, FOLDER);
   }
 
   /**
@@ -122,7 +123,7 @@ public class MaterialManager {// FIXME: PORT this is cursed ->// extends SingleP
     onMaterialUpdate();
   }
 
-//  @Override
+  @Override
   protected void apply(Map<Identifier, JsonElement> splashList, ResourceManager resourceManagerIn, Profiler profilerIn) {
     this.materials = splashList.entrySet().stream()
       .filter(entry -> entry.getValue().isJsonObject())
@@ -206,11 +207,21 @@ public class MaterialManager {// FIXME: PORT this is cursed ->// extends SingleP
     return fluid;
   }
 
-  private static class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> {
+  private static class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> { // FIXME: PORT
     @Override
     public ICondition deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      throw new RuntimeException("CRAB!");
-//      return CraftingHelper.getCondition(JsonHelper.asObject(json, "condition"));
+      return new ICondition(){
+
+        @Override
+        public Identifier getID() {
+          return Identifier.tryParse(JsonHelper.asString(json, "type"));
+        }
+
+        @Override
+        public boolean test() {
+          return false;
+        }
+      };
     }
 
     @Override

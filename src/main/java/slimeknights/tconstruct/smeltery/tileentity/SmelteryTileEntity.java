@@ -81,8 +81,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   private Optional<IFluidHandler> fluidCapability = Optional.empty();
 
   /** Inventory handling melting items */
-  private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, () -> TConfig.common.smelteryNuggetsPerOre);
-  private final Optional<IItemHandler> itemCapability = Optional.of(meltingInventory);
+  public final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, () -> TConfig.common.smelteryNuggetsPerOre);
 
   /** Fuel module */
   private final FuelModule fuelModule = new FuelModule(this, () ->  structure != null ? structure.getTanks() : Collections.emptyList());

@@ -3,6 +3,8 @@ package slimeknights.tconstruct.smeltery.tileentity.module;
 import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.fabricmc.fabric.api.util.NbtType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -21,7 +23,7 @@ import java.util.function.Predicate;
 /**
  * Inventory composite made of a set of melting module inventories
  */
-public class MeltingModuleInventory implements IItemHandler {//IItemHandlerModifiable {
+public class MeltingModuleInventory implements IItemHandler, Inventory {//IItemHandlerModifiable {
   private static final String TAG_SLOT = "slot";
   private static final String TAG_ITEMS = "items";
   private static final String TAG_SIZE = "size";
@@ -350,5 +352,48 @@ public class MeltingModuleInventory implements IItemHandler {//IItemHandlerModif
     for (int i = 0; i < getSlots(); i++) {
       consumer.accept(getModule(i));
     }
+  }
+
+  @Override
+  public int size() {
+    return getSlots();
+  }
+
+  @Override
+  public boolean isEmpty() {
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+  }
+
+  @Override
+  public ItemStack getStack(int slot) {
+    return getStackInSlot(slot);
+  }
+
+  @Override
+  public ItemStack removeStack(int slot, int amount) {
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+  }
+
+  @Override
+  public ItemStack removeStack(int slot) {
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+  }
+
+  @Override
+  public void setStack(int slot, ItemStack stack) {
+    setStackInSlot(slot, stack);
+  }
+
+  @Override
+  public void markDirty() {
+  }
+
+  @Override
+  public boolean canPlayerUse(PlayerEntity player) {
+    return true;
+  }
+
+  @Override
+  public void clear() {
   }
 }

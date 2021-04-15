@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.fluids;
 
+import alexiil.mc.lib.attributes.AttributeList;
+import alexiil.mc.lib.attributes.AttributeSourceType;
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.FluidAttributes;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.filter.ConstantFluidFilter;
 import alexiil.mc.lib.attributes.fluid.filter.FluidFilter;
@@ -8,8 +11,16 @@ import alexiil.mc.lib.attributes.fluid.impl.SimpleFixedFluidInv;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.nbt.CompoundTag;
 import org.jetbrains.annotations.NotNull;
+import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 
 public class FluidTank extends SimpleFixedFluidInv implements IFluidHandler {
+  static {
+    FluidAttributes.forEachInv(attribute -> attribute.putBlockEntityClassAdder(AttributeSourceType.INSTANCE, ITankTileEntity.class, true, (blockEntity, to) -> {
+      if (attribute.isInstance(blockEntity.getTank())) {
+        ((AttributeList) to).add(blockEntity.getTank());
+      }
+    }));
+  }
   protected FluidFilter validator;
 
   public FluidTank(int capacity) {

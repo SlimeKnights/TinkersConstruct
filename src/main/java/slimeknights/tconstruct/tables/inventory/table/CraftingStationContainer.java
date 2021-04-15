@@ -85,9 +85,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
       }
 
       // if we found something, add the side inventory
-      if (inventoryTE != null) {
-        this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer, id, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
-      }
+      this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer, id, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
     } else {
       // requirement for final variable
       resultSlot = null;

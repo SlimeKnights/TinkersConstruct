@@ -4,6 +4,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+@Deprecated
 public class InventoryItemHandler extends SimpleInventory implements IItemHandler{
 
   @Override

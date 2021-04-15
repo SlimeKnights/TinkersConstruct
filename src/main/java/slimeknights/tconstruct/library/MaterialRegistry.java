@@ -19,9 +19,9 @@ import java.util.Collection;
 
 public final class MaterialRegistry {
 
-  protected static MaterialRegistry INSTANCE;
+  public static MaterialRegistry INSTANCE;
 
-  private final MaterialManager materialManager;
+  public final MaterialManager materialManager;
   private final MaterialStatsManager materialStatsManager;
   private final MaterialTraitsManager materialTraitsManager;
   private final IMaterialRegistry registry;
