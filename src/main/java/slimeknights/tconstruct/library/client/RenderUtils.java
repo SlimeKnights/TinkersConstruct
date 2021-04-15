@@ -1,29 +1,33 @@
 package slimeknights.tconstruct.library.client;
 
+import alexiil.mc.lib.attributes.fluid.FluidAttributes;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
+
+import slimeknights.mantle.client.model.fluid.FluidCuboid;
+import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class RenderUtils {
-  /*public static void renderTransparentCuboid(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidVolume fluid, int opacity, int light) {
+  public static void renderTransparentCuboid(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidVolume fluid, int opacity, int light) {
     // nothing to render? skip
     if (opacity < 0 || fluid.isEmpty()) {
       return;
     }
-    throw new RuntimeException("CRAB!"); // FIXME: PORT
-    FluidAttributes attributes = fluid.getFluid().getAttributes();
-    Sprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
-    Sprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
-    boolean isGas = attributes.isGaseous(fluid);
-    light = FluidRenderer.withBlockLight(light, attributes.getLuminosity(fluid));
+    //throw new RuntimeException("CRAB!"); // FIXME: PORT
+    Sprite still = FluidRenderer.getBlockSprite(fluid.getStillSprite());
+    Sprite flowing = FluidRenderer.getBlockSprite(fluid.getFlowingSprite());
+    boolean isGas = fluid.fluidKey.gaseous;
+    light = FluidRenderer.withBlockLight(light, fluid.fluidKey.luminosity);
 
     // add in fluid opacity if given
-    int color = attributes.getColor(fluid);
+    int color = fluid.getRenderColor();
     if (opacity < 0xFF) {
       // alpha is top 8 bits, multiply by opacity and divide out remainder
       int alpha = ((color >> 24) & 0xFF) * opacity / 0xFF;
@@ -33,7 +37,7 @@ public final class RenderUtils {
     FluidRenderer.renderCuboid(matrices, buffer.getBuffer(FluidRenderer.RENDER_TYPE), cube, still, flowing, cube.getFromScaled(), cube.getToScaled(), color, light, isGas);
   }
 
-  public static void renderFluidTank(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
+  /*public static void renderFluidTank(MatrixStack matrices, VertexConsumerProvider buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
     throw new RuntimeException("CRAB!"); // FIXME: PORT
     *//*    // render liquid if present
     FluidVolume liquid = tank.getFluid();
