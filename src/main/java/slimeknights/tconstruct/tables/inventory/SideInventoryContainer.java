@@ -9,6 +9,9 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.misc.IItemHandler;
+import slimeknights.tconstruct.misc.InventoryItemHandler;
+
+import java.util.Optional;
 
 public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContainer<TILE> {
 
@@ -16,7 +19,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
   private final int columns;
   @Getter
   private final int slotCount;
-//  protected final Optional<IItemHandler> itemHandler;
+  protected final Optional<IItemHandler> itemHandler;
 
   public SideInventoryContainer(ScreenHandlerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, int x, int y, int columns) {
     this(containerType, windowId, inv, tile, null, x, y, columns);
@@ -24,17 +27,15 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
 
   public SideInventoryContainer(ScreenHandlerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
     super(containerType, windowId, inv, tile);
-    throw new RuntimeException("CRAB!");
-    //TODO: PORT
-/*    // must have a TE
+    // must have a TE
     if (tile == null) {
-      this.itemHandler = Optional.of(() -> EmptyHandler.INSTANCE);
+      throw new RuntimeException("Well fuck");
     } else {
-      this.itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventoryDirection);
+      this.itemHandler = Optional.of(new InventoryItemHandler());
     }
 
     // slot properties
-    IItemHandler handler = itemHandler.orElse(EmptyHandler.INSTANCE);
+    IItemHandler handler = itemHandler.get();
     this.slotCount = handler.getSlots();
     this.columns = columns;
     int rows = this.slotCount / columns;
@@ -53,7 +54,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
         this.addSlot(this.createSlot(handler, index, x + c * 18, y + r * 18));
         index++;
       }
-    }*/
+    }
   }
 
   /**

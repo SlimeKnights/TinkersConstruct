@@ -15,6 +15,7 @@ public class CommonsClientEvents extends ClientEventBase implements ClientModIni
 
   @Override
   public void onInitializeClient() {
+
     // colors apply a constant tint to make models easier
     ColorProviderRegistry<Block, BlockColorProvider> blockColors = ColorProviderRegistry.BLOCK;
     ColorProviderRegistry<ItemConvertible, ItemColorProvider> itemColors = ColorProviderRegistry.ITEM;

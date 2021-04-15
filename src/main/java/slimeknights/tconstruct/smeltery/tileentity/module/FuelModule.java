@@ -18,6 +18,7 @@ import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.NotNullConsumer;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.fluids.FluidUtil;
 import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
@@ -425,18 +426,10 @@ public class FuelModule implements PropertyDelegate {
     if (fluidHandler == null && itemHandler == null) {
       BlockEntity te = getWorld().getBlockEntity(mainTank);
       if (te != null) {
-        throw new RuntimeException("CRAB!"); // FIXME: PORT
-//        Optional<IFluidHandler> fluidCap = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-//        if (fluidCap.isPresent()) {
-//          fluidHandler = fluidCap;
-//          fluidHandler.addListener(fluidListener);
-//        } else {
-//          Optional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
-//          if (itemCap.isPresent()) {
-//            itemHandler = itemCap;
-//            itemHandler.addListener(itemListener);
-//          }
-//        }
+//        throw new RuntimeException("CRAB!"); // FIXME: PORT
+        IFluidHandler fluidCap = FluidUtil.getFluidHandler(te);
+        fluidHandler = Optional.of(fluidCap);
+//        fluidHandler.addListener(fluidListener);
       }
     }
     // ensure all handlers are set

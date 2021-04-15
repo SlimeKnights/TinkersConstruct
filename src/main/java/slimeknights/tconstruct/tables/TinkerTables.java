@@ -81,10 +81,10 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Containers
    */
-  public static final ScreenHandlerType<CraftingStationContainer> craftingStationContainer = ScreenHandlerRegistry.registerSimple(id("crafting_station"), null); //CONTAINERS.register(id("crafting_station"), CraftingStationContainer::new);
-  public static final ScreenHandlerType<TinkerStationContainer> tinkerStationContainer = ScreenHandlerRegistry.registerSimple(id("tinker_station"), null); //CONTAINERS.register(id("tinker_station"), TinkerStationContainer::new);
-  public static final ScreenHandlerType<PartBuilderContainer> partBuilderContainer = ScreenHandlerRegistry.registerSimple(id("part_builder"), null); //CONTAINERS.register(id("part_builder"), PartBuilderContainer::new);
-  public static final ScreenHandlerType<TinkerChestContainer> tinkerChestContainer = ScreenHandlerRegistry.registerSimple(id("tinker_chest"), null); //CONTAINERS.register(id("tinker_chest"), TinkerChestContainer::new);
+  public static final ScreenHandlerType<CraftingStationContainer> craftingStationContainer = ScreenHandlerRegistry.registerExtended(id("crafting_station"), CraftingStationContainer::new);
+  public static final ScreenHandlerType<TinkerStationContainer> tinkerStationContainer = ScreenHandlerRegistry.registerExtended(id("tinker_station"), TinkerStationContainer::new);
+  public static final ScreenHandlerType<PartBuilderContainer> partBuilderContainer = ScreenHandlerRegistry.registerExtended(id("part_builder"), PartBuilderContainer::new);
+  public static final ScreenHandlerType<TinkerChestContainer> tinkerChestContainer = ScreenHandlerRegistry.registerExtended(id("tinker_chest"), TinkerChestContainer::new);
 
   /*
    * Recipes

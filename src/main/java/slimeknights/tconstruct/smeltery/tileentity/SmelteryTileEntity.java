@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import lombok.Getter;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,7 +13,9 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -53,7 +56,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class SmelteryTileEntity extends NamableTileEntity implements Tickable, IMasterLogic, ISmelteryTankHandler {
+public class SmelteryTileEntity extends NamableTileEntity implements Tickable, IMasterLogic, ISmelteryTankHandler, ExtendedScreenHandlerFactory {
   private static final String TAG_STRUCTURE = "structure";
   private static final String TAG_TANK = "tank";
   private static final String TAG_INVENTORY = "inventory";
@@ -564,5 +567,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
 
   public AlloyingModule getAlloyingModule() {
     return this.alloyingModule;
+  }
+
+  @Override
+  public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+    buf.writeBlockPos(this.getPos());
   }
 }

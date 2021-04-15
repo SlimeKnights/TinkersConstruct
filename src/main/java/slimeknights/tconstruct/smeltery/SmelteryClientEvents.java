@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.resource.ReloadableResourceManager;
@@ -54,9 +55,9 @@ public class SmelteryClientEvents extends ClientEventBase {
     BlockEntityRendererRegistry.INSTANCE.register(TinkerSmeltery.smeltery, SmelteryTileEntityRenderer::new);
 
     // screens
-//    HandledScreens.register(TinkerSmeltery.melterContainer, MelterScreen::new);
-//    HandledScreens.register(TinkerSmeltery.smelteryContainer, SmelteryScreen::new);
-//    HandledScreens.register(TinkerSmeltery.singleItemContainer, new SingleItemScreenFactory());
+    ScreenRegistry.register(TinkerSmeltery.melterContainer, MelterScreen::new);
+    ScreenRegistry.register(TinkerSmeltery.smelteryContainer, SmelteryScreen::new);
+//    ScreenRegistry.register(TinkerSmeltery.singleItemContainer, new SingleItemScreenFactory());
 
     FluidTooltipHandler.init();
   }

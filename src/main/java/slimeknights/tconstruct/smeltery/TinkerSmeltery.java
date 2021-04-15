@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery;
 
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -221,9 +222,9 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Inventory
    */
-  public static final ScreenHandlerType<MelterContainer> melterContainer = null;//CONTAINERS.register("melter", MelterContainer::new);
-  public static final ScreenHandlerType<SmelteryContainer> smelteryContainer = null;//CONTAINERS.register("smeltery", SmelteryContainer::new);
-  public static final ScreenHandlerType<SingleItemContainer> singleItemContainer = null;//CONTAINERS.register("single_item", SingleItemContainer::new);
+  public static final ScreenHandlerType<MelterContainer> melterContainer = ScreenHandlerRegistry.registerExtended(id("melter"), MelterContainer::new);
+  public static final ScreenHandlerType<SmelteryContainer> smelteryContainer = ScreenHandlerRegistry.registerExtended(id("smeltery"), SmelteryContainer::new);
+  public static final ScreenHandlerType<SingleItemContainer> singleItemContainer = ScreenHandlerRegistry.registerExtended(id("single_item"), SingleItemContainer::new);
 
   @Override
   public void onInitialize() {
