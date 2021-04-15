@@ -90,3 +90,5 @@ accessible  field   net/minecraft/client/render/RenderPhase    TRANSLUCENT_TRANS
 accessible  field   net/minecraft/client/render/RenderPhase    DISABLE_CULLING    Lnet/minecraft/client/render/RenderPhase$Cull;
 
 accessible  method  net/minecraft/block/FluidBlock <init>  (Lnet/minecraft/fluid/FlowableFluid;Lnet/minecraft/block/AbstractBlock$Settings;)V
+
+accessible 	method	net/minecraft/entity/Entity	getSavedEntityId ()Ljava/lang/String;

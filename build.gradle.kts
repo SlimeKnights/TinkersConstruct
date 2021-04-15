@@ -39,6 +39,7 @@ repositories {
 
 val modImplementationAndInclude by configurations.register("modImplementationAndInclude")
 
+
 dependencies {
     minecraft("net.minecraft", "minecraft", "1.16.5")
     mappings("net.fabricmc", "yarn", "1.16.5+build.6", classifier = "v2")
@@ -64,6 +65,22 @@ dependencies {
 
     testCompileOnly("org.projectlombok", "lombok", "1.18.20")
     testAnnotationProcessor("org.projectlombok", "lombok", "1.18.20")
+
+    modImplementation("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-base", "2.8.0")
+    modImplementation("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-item", "2.8.0")
+    modImplementation("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-entity", "2.8.0")
+    modImplementation("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-level", "2.8.0")
+    modImplementation("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-util", "2.8.0")
+    modImplementation("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-world", "2.8.0")
+    modImplementation("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-chunk", "2.8.0")
+
+    include("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-base", "2.8.0")
+    include("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-item", "2.8.0")
+    include("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-entity", "2.8.0")
+    include("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-level", "2.8.0")
+    include("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-util", "2.8.0")
+    include("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-world", "2.8.0")
+    include("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-chunk", "2.8.0")
 
     add(
         sourceSets.main.get().getTaskName("mod", JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME),
