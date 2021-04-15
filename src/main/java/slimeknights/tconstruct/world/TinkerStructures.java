@@ -5,6 +5,7 @@ import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.StructureConfig;
@@ -18,6 +19,7 @@ import net.minecraft.world.gen.stateprovider.BlockStateProviderType;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.TConstruct;
@@ -65,7 +67,7 @@ public final class TinkerStructures extends TinkerModule {
    * Structures
    */
   public static StructurePieceType slimeIslandPiece;
-  public static final StructureFeature<DefaultFeatureConfig> overworldSlimeIsland = Registry.register(Registry.STRUCTURE_FEATURE, new Identifier(TConstruct.modID, "overworld_slime_island"), new OverworldSlimeIslandStructure(DefaultFeatureConfig.CODEC));
+  public static StructureFeature<DefaultFeatureConfig> overworldSlimeIsland = new OverworldSlimeIslandStructure(DefaultFeatureConfig.CODEC);
   public static ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> SLIME_ISLAND;
 
   public static final StructureFeature<DefaultFeatureConfig> netherSlimeIsland = Registry.register(Registry.STRUCTURE_FEATURE, new Identifier(TConstruct.modID, "nether_slime_island"), new NetherSlimeIslandStructure(DefaultFeatureConfig.CODEC));
@@ -76,11 +78,20 @@ public final class TinkerStructures extends TinkerModule {
 
   @Override
   public void onInitialize() {
-    slimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("slime_island_piece"), SlimeIslandPiece::new);
+    //slimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("slime_island_piece"), SlimeIslandPiece::new);
+    //overworldSlimeIsland = FabricStructureBuilder.create(location("overworld_slime_island"),overworldSlimeIsland)
+     // .defaultConfig(new StructureConfig(30, 22, 14357800))
+      //.step(GenerationStep.Feature.SURFACE_STRUCTURES)
+      //.adjustsSurface()
+     // .register();
+    //////SLIME_ISLAND = overworldSlimeIsland.configure(DefaultFeatureConfig.INSTANCE);
+    //SLIME_ISLAND = BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, location("overworld_slime_island"), overworldSlimeIsland.configure(DefaultFeatureConfig.INSTANCE));
+    //StructureFeature.STRUCTURES.put("tconstruct:overworld_slime_island", overworldSlimeIsland);
+    //ChunkGeneratorSettings.getInstance().getStructuresConfig().getStructures().put(overworldSlimeIsland, new StructureConfig(30, 22, 14357800));
 
-    SLIME_ISLAND = BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, location("overworld_slime_island"), overworldSlimeIsland.configure(DefaultFeatureConfig.INSTANCE));
-    StructureFeature.STRUCTURES.put("tconstruct:overworld_slime_island", overworldSlimeIsland);
-    ChunkGeneratorSettings.getInstance().getStructuresConfig().getStructures().put(overworldSlimeIsland, new StructureConfig(30, 22, 14357800));
+    //RegistryKey<ConfiguredStructureFeature<?,?>> KEY = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, location("overworld_slime_island"));
+    //BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, KEY.getValue(), SLIME_ISLAND);
+    //BiomeModifications.addStructure(BiomeSelectors.all(), KEY);
 //
 //    NETHER_SLIME_ISLAND = BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, location("nether_slime_island"), netherSlimeIsland.configure(DefaultFeatureConfig.INSTANCE));
 //    StructureFeature.STRUCTURES.put("tconstruct:nether_slime_island", netherSlimeIsland);

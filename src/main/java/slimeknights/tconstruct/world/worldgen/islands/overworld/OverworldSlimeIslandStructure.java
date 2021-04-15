@@ -85,14 +85,14 @@ public class OverworldSlimeIslandStructure extends StructureFeature<DefaultFeatu
       int y = Math.min(Math.min(i1, j1), Math.min(k1, l1)) + 50 + this.random.nextInt(50) + 11;
 
       int rnr = this.random.nextInt(10);
-      SlimeIslandVariant variant = SlimeIslandVariant.SKY;
+      //SlimeIslandVariant variant = null; //SlimeIslandVariant.SKY;
 
       if (rnr < 6) {
-        variant = SlimeIslandVariant.EARTH;
+        //variant = SlimeIslandVariant.EARTH;
       }
 
-      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, SIZES[this.random.nextInt(SIZES.length)], new BlockPos(x, y, z), rotation);
-      this.children.add(slimeIslandPiece);
+      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, SlimeIslandVariant.EARTH, SIZES[this.random.nextInt(SIZES.length)], new BlockPos(x, y, z), rotation);
+      //this.children.add(slimeIslandPiece);
       this.setBoundingBoxFromChildren();
     }
   }
