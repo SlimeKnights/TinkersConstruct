@@ -9,7 +9,7 @@
     "tconstruct:broad_blade",
     "tconstruct:tool_binding",
     "tconstruct:large_plate",
-    "tconstruct:tool_rod",
-    "tconstruct:tough_tool_rod"
+    "tconstruct:tool_handle",
+    "tconstruct:tough_handle"
   ]
 }

@@ -17,7 +17,7 @@
     "tconstruct:hammer_head_sand_cast",
     "tconstruct:tool_binding_sand_cast",
     "tconstruct:large_plate_sand_cast",
-    "tconstruct:tool_rod_sand_cast",
-    "tconstruct:tough_tool_rod_sand_cast"
+    "tconstruct:tool_handle_sand_cast",
+    "tconstruct:tough_handle_sand_cast"
   ]
 }

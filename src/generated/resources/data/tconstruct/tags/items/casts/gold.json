@@ -17,7 +17,7 @@
     "tconstruct:hammer_head_cast",
     "tconstruct:tool_binding_cast",
     "tconstruct:large_plate_cast",
-    "tconstruct:tool_rod_cast",
-    "tconstruct:tough_tool_rod_cast"
+    "tconstruct:tool_handle_cast",
+    "tconstruct:tough_handle_cast"
   ]
 }

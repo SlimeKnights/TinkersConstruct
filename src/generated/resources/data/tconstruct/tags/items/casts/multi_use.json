@@ -17,7 +17,7 @@
     "#tconstruct:casts/multi_use/hammer_head",
     "#tconstruct:casts/multi_use/tool_binding",
     "#tconstruct:casts/multi_use/large_plate",
-    "#tconstruct:casts/multi_use/tool_rod",
-    "#tconstruct:casts/multi_use/tough_tool_rod"
+    "#tconstruct:casts/multi_use/tool_handle",
+    "#tconstruct:casts/multi_use/tough_handle"
   ]
 }

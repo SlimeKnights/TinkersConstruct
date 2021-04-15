@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_red_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:tool_rod",
+    "item": "tconstruct:tough_handle",
     "type": "tconstruct:material"
   },
-  "result": "tconstruct:tool_rod_red_sand_cast"
+  "result": "tconstruct:tough_handle_red_sand_cast"
 }
