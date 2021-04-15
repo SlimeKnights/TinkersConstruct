@@ -8,7 +8,6 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 
-import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.mantle.client.model.inventory.ModelItem;
 import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.mantle.client.render.FluidRenderer;
@@ -33,12 +32,34 @@ public class CastingTileEntityRenderer extends BlockEntityRenderer<CastingTileEn
   @Override
   public void render(CastingTileEntity casting, float partialTicks, MatrixStack matrices, VertexConsumerProvider buffer, int light, int combinedOverlayIn) {
     BlockState state = casting.getCachedState();
+    CastingModel model = ModelHelper.getBakedModel(state, CastingModel.class);
+    if (model != null) {
+      // rotate the matrix
+      boolean isRotated = RenderingHelper.applyRotation(matrices, state);
+
+      // if the recipe is in progress, start fading the item away
+      int timer = casting.getTimer();
+      int itemOpacity = 0;
+      int fluidOpacity = 0xFF;
+      if (timer > 0) {
+        int totalTime = casting.getRecipeTime();
+        int opacity = (4 * 0xFF) * timer / totalTime;
+        // fade item in
+         itemOpacity = opacity / 4;
+
+        // fade fluid and temperature out during last 10%
+        if (opacity > 3 * 0xFF) {
+          fluidOpacity = (4 * 0xFF) - opacity;
+        } else {
+          fluidOpacity = 0xFF;
+        }
+      }
 
       // render fluids
       CastingFluidHandler tank = casting.getTank();
       // if full, start rendering with opacity for progress
       if (tank.getFluid().getAmount() == tank.getCapacity()) {
-        RenderUtils.renderTransparentCuboid(matrices, buffer,new FluidCuboid() , tank.getFluid(), 1, light);
+        RenderUtils.renderTransparentCuboid(matrices, buffer, model.getFluid(), tank.getFluid(), fluidOpacity, light);
       } else {
         FluidRenderer.renderScaledCuboid(matrices, buffer, model.getFluid(), tank.getFluid(), 0, tank.getCapacity(), light, false);
       }
@@ -47,7 +68,7 @@ public class CastingTileEntityRenderer extends BlockEntityRenderer<CastingTileEn
       List<ModelItem> modelItems = model.getItems();
       // input is normal
       if (modelItems.size() >= 1) {
-        RenderingHelper.renderItem(matrices, buffer, casting.getStack(0), modelItems.get(0), light);
+        RenderingHelper.renderItem(matrices, buffer, casting.getStack(0), light);
       }
 
       // output may be the recipe output instead of the current item
@@ -62,7 +83,7 @@ public class CastingTileEntityRenderer extends BlockEntityRenderer<CastingTileEn
             // apply a buffer wrapper to tint and add opacity
             outputBuffer = new CastingItemRenderTypeBuffer(buffer, itemOpacity, fluidOpacity);
           }
-          RenderingHelper.renderItem(matrices, outputBuffer, output, outputModel, light);
+          RenderingHelper.renderItem(matrices, outputBuffer, output, light);
         }
       }
 
