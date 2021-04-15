@@ -4,6 +4,7 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import slimeknights.mantle.registration.deferred.BlockDeferredRegister;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -28,8 +29,8 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
   public MetalItemObject registerMetal(String name, String tagName, Supplier<Block> blockSupplier, Function<Block, BlockItem> blockItem, Item.Settings itemProps) {
     ItemObject<Block> block = register(name + "_block", blockSupplier, blockItem);
     Supplier<Item> itemSupplier = () -> new Item(itemProps);
-    Item ingot = Registry.register(itemRegister, name + "_ingot", itemSupplier.get());
-    Item nugget = Registry.register(itemRegister, name + "_nugget", itemSupplier.get());
+    Item ingot = Registry.register(itemRegister, new Identifier(modID, name + "_ingot"), itemSupplier.get());
+    Item nugget = Registry.register(itemRegister, new Identifier(modID, name + "_nugget"), itemSupplier.get());
     return new MetalItemObject(tagName, block, () -> ingot, () -> nugget);
   }
 

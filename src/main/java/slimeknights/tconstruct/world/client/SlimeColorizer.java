@@ -13,9 +13,9 @@ import java.util.Map;
  */
 public class SlimeColorizer {
   /** Map of slime foliage type to color */
-  private static final Map<FoliageType,int[]> COLOR_MAP = Util.make(new EnumMap<>(FoliageType.class), map -> {
+  private static final Map<FoliageType,Integer> COLOR_MAP = Util.make(new EnumMap<>(FoliageType.class), map -> {
     for (FoliageType type : FoliageType.values()) {
-      map.put(type, new int[65536]);
+      map.put(type, type.getDefaultColor());
     }
   });
 
@@ -27,7 +27,7 @@ public class SlimeColorizer {
    * @param type    Type to update
    * @param colors  New colors
    */
-  public static void setGrassColor(FoliageType type, int[] colors) {
+  public static void setGrassColor(FoliageType type, int colors) {
     COLOR_MAP.put(type, colors);
   }
 
@@ -56,17 +56,18 @@ public class SlimeColorizer {
    * @param posZ    Z position
    * @return        Color
    */
-  private static int getColor(int[] buffer, int posX, int posZ) {
-    float x = Math.abs((LOOP - (Math.abs(posX) % (2 * LOOP))) / LOOP);
-    float z = Math.abs((LOOP - (Math.abs(posZ) % (2 * LOOP))) / LOOP);
-
-    if (x < z) {
-      float tmp = x;
-      x = z;
-      z = tmp;
-    }
-
-    return buffer[(int) (x * 255f) << 8 | (int) (z * 255f)];
+  private static int getColor(int buffer, int posX, int posZ) {
+//    float x = Math.abs((LOOP - (Math.abs(posX) % (2 * LOOP))) / LOOP);
+//    float z = Math.abs((LOOP - (Math.abs(posZ) % (2 * LOOP))) / LOOP);
+//
+//    if (x < z) {
+//      float tmp = x;
+//      x = z;
+//      z = tmp;
+//    }
+//
+//    return buffer[(int) (x * 255f) << 8 | (int) (z * 255f)];
+    return buffer;
   }
 
   /**

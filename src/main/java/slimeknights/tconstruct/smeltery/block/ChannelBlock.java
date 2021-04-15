@@ -30,6 +30,7 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
@@ -154,7 +155,8 @@ public class ChannelBlock extends Block {
 	 */
 	private static boolean isFluidHandler(WorldAccess world, Direction side, BlockPos pos) {
 		BlockEntity te = world.getBlockEntity(pos);
-		throw new RuntimeException("CRAB!"); //FIXME: PORT (what do we do about capabilities? cardinal components?)
+//		throw new RuntimeException("CRAB!"); //FIXME: PORT (what do we do about capabilities? cardinal components?)
+    return te instanceof IFluidHandler;
 //		return te != null && te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side).isPresent();
 	}
 

@@ -156,10 +156,10 @@ public class SlimeGrassBlock extends SnowyBlock implements Fertilizable {
   }
 
   public enum FoliageType implements StringIdentifiable {
-    SKY(0x00F4DA, "blue"),
-    ICHOR(0xd09800, "magma"),
-    ENDER(0xa92dff, "purple"),
-    BLOOD(0xb80000, "blood");
+    SKY(0xFF00F4DA, "blue"),
+    ICHOR(0xFFd09800, "magma"),
+    ENDER(0xFFa92dff, "purple"),
+    BLOOD(0xFFb80000, "blood");
 
     /** Original foliage types for migration */
     @Deprecated

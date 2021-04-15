@@ -38,7 +38,7 @@ public class SlimeColorReloadListener extends SinglePreparationResourceReloadLis
   @Override
   protected void apply(int[] buffer, ResourceManager resourceManager, Profiler profiler) {
     if (buffer.length != 0) {
-      SlimeColorizer.setGrassColor(color, buffer);
+//      SlimeColorizer.setGrassColor(color, buffer);
     }
   }
 }

@@ -214,7 +214,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       } else {
         TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isClient) {
-          throw new RuntimeException("Failed to get Capability");
+            throw new RuntimeException("CRAB!"); // FIXME: PORT (CCA)
 //          livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).ifPresent(ITinkerPiggyback::updatePassengers);
         }
       }
