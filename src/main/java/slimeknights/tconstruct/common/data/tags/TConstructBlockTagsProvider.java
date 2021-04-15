@@ -151,8 +151,6 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(BlockTags.WALLS).add(TinkerSmeltery.searedBricks.getWall(), TinkerSmeltery.searedCobble.getWall());
 
     // structure tags
-    // floor allows any basic seared blocks
-    this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_FLOOR).addTag(TinkerTags.Blocks.SEARED_BLOCKS);
     // melter supports the heater as a tank
     Builder<Block> melterBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.MELTER_TANKS).add(TinkerSmeltery.searedHeater.get());
     Builder<Block> smelteryBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_TANKS);
@@ -160,12 +158,22 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
       melterBuilder.add(tank);
       smelteryBuilder.add(tank);
     });
-    // wall allows anything in the floor, tanks, and glass
+
+    // floor allows any basic seared blocks and all IO blocks
+    this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_FLOOR)
+        .addTag(TinkerTags.Blocks.SEARED_BLOCKS)
+        .add(TinkerSmeltery.searedDrain.get(), TinkerSmeltery.searedChute.get(), TinkerSmeltery.searedDuct.get());
+    // wall allows seared blocks, tanks, glass, and IO
     this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_WALL)
-        .addTag(TinkerTags.Blocks.SMELTERY_FLOOR)
+        .addTag(TinkerTags.Blocks.SEARED_BLOCKS)
         .addTag(TinkerTags.Blocks.SMELTERY_TANKS)
         .add(TinkerSmeltery.searedGlass.get(), TinkerSmeltery.searedLadder.get(),
              TinkerSmeltery.searedDrain.get(), TinkerSmeltery.searedChute.get(), TinkerSmeltery.searedDuct.get());
+    // smeltery allows any of the three
+    this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY)
+        .addTag(TinkerTags.Blocks.SMELTERY_WALL)
+        .addTag(TinkerTags.Blocks.SMELTERY_FLOOR)
+        .addTag(TinkerTags.Blocks.SMELTERY_TANKS);
 
     // climb seared ladder
     this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get());

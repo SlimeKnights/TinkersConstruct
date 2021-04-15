@@ -34,6 +34,8 @@ public class TinkerTags {
 
     /** Blocks valid as a smeltery tank, required for fuel */
     public static final IOptionalNamedTag<Block> MELTER_TANKS = tag("melter_tanks");
+    /** Blocks that make up the smeltery structure */
+    public static final IOptionalNamedTag<Block> SMELTERY = tag("smeltery");
     /** Blocks valid as a smeltery tank, required for fuel */
     public static final IOptionalNamedTag<Block> SMELTERY_TANKS = tag("smeltery/tanks");
     /** Blocks valid as a smeltery floor */

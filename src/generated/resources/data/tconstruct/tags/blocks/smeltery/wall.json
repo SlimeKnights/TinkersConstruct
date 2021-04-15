@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#tconstruct:smeltery/floor",
+    "#tconstruct:seared_blocks",
     "#tconstruct:smeltery/tanks",
     "tconstruct:seared_glass",
     "tconstruct:seared_ladder",
