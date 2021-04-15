@@ -4,7 +4,7 @@
     "item": "tconstruct:blank_red_sand_cast"
   },
   "pattern": {
-    "tag": "forge:ingots"
+    "tag": "c:ingots"
   },
   "result": "tconstruct:ingot_red_sand_cast"
 }

@@ -11,7 +11,7 @@
       "item": "tconstruct:clear_glass"
     },
     "X": {
-      "tag": "forge:dyes/red"
+      "tag": "c:dyes/red"
     }
   },
   "result": {

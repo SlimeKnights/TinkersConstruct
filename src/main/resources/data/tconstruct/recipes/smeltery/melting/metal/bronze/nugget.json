@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/bronze",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/bronze",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/bronze"
+    "tag": "c:nuggets/bronze"
   },
   "result": {
     "fluid": "tconstruct:molten_bronze",

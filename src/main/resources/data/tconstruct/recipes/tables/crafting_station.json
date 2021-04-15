@@ -12,7 +12,7 @@
       "type": "mantle:without",
       "base": [
         {
-          "tag": "forge:workbenches"
+          "tag": "c:workbenches"
         },
         {
           "tag": "tconstruct:tables"

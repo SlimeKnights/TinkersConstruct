@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/steel",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/steel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 16
   },
   "result": {
-    "tag": "forge:nuggets/steel"
+    "tag": "c:nuggets/steel"
   },
   "cooling_time": 24
 }

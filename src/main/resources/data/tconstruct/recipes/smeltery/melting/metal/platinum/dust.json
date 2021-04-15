@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/platinum",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/platinum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/platinum"
+    "tag": "c:dusts/platinum"
   },
   "result": {
     "fluid": "tconstruct:molten_platinum",

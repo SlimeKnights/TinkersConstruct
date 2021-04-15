@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/lead",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/lead",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/lead"
+    "tag": "c:storage_blocks/lead"
   },
   "result": {
     "fluid": "tconstruct:molten_lead",

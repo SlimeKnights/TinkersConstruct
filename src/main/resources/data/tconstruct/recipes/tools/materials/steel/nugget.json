@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/steel",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/steel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/steel"
+    "tag": "c:nuggets/steel"
   },
   "value": 1,
   "needed": 9,

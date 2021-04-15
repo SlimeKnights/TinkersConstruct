@@ -16,7 +16,7 @@
       "item": "tconstruct:seared_bricks"
     },
     "C": {
-      "tag": "forge:chests/wooden"
+      "tag": "c:chests/wooden"
     }
   },
   "result": {

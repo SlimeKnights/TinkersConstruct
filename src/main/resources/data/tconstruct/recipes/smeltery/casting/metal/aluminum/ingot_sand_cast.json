@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/aluminum",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/aluminum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:ingots/aluminum"
+    "tag": "c:ingots/aluminum"
   },
   "cooling_time": 47
 }

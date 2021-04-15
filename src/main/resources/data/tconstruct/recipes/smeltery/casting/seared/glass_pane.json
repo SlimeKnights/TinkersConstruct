@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "tag": "forge:glass_panes/colorless"
+    "tag": "c:glass_panes/colorless"
   },
   "cast_consumed": true,
   "fluid": {

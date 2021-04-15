@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:ingots/cobalt"
+    "tag": "c:ingots/cobalt"
   },
   "result": {
     "fluid": "tconstruct:molten_cobalt",

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/brass",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/brass",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/brass"
+    "tag": "c:nuggets/brass"
   },
   "result": {
     "fluid": "tconstruct:molten_brass",

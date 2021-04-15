@@ -3,16 +3,16 @@
   "values": [
     "tconstruct:dried_brick",
     "tconstruct:seared_brick",
-    "#forge:ingots/copper",
-    "#forge:ingots/cobalt",
-    "#forge:ingots/slimesteel",
-    "#forge:ingots/silicon_bronze",
-    "#forge:ingots/rose_gold",
-    "#forge:ingots/pig_iron",
-    "#forge:ingots/queens_slime",
-    "#forge:ingots/manyullyn",
-    "#forge:ingots/hepatizon",
-    "#forge:ingots/soulsteel",
-    "#forge:ingots/knightslime"
+    "#c:ingots/copper",
+    "#c:ingots/cobalt",
+    "#c:ingots/slimesteel",
+    "#c:ingots/silicon_bronze",
+    "#c:ingots/rose_gold",
+    "#c:ingots/pig_iron",
+    "#c:ingots/queens_slime",
+    "#c:ingots/manyullyn",
+    "#c:ingots/hepatizon",
+    "#c:ingots/soulsteel",
+    "#c:ingots/knightslime"
   ]
 }

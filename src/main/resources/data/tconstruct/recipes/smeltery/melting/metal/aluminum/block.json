@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/aluminum",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/aluminum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/aluminum"
+    "tag": "c:storage_blocks/aluminum"
   },
   "result": {
     "fluid": "tconstruct:molten_aluminum",

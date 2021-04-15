@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/gold",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/gold",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/gold"
+    "tag": "c:dusts/gold"
   },
   "result": {
     "fluid": "tconstruct:molten_gold",

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/lead",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/lead",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/lead"
+    "tag": "c:dusts/lead"
   },
   "result": {
     "fluid": "tconstruct:molten_lead",

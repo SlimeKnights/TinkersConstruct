@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:nuggets/iron"
+    "tag": "c:nuggets/iron"
   },
   "result": {
     "fluid": "tconstruct:molten_iron",

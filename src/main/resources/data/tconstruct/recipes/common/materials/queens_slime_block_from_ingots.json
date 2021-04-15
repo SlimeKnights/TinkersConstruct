@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:ingots/queens_slime"
+      "tag": "c:ingots/queens_slime"
     },
     "*": {
       "item": "tconstruct:queens_slime_ingot"

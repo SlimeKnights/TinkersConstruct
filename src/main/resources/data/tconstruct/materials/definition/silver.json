@@ -1,10 +1,10 @@
 {
   "condition": {
     "value": {
-      "tag": "forge:ingots/silver",
-      "type": "forge:tag_empty"
+      "tag": "c:ingots/silver",
+      "type": "c:tag_empty"
     },
-    "type": "forge:not"
+    "type": "c:not"
   },
   "craftable": false,
   "tier": 2,

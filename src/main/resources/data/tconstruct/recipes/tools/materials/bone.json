@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "forge:bones"
+    "tag": "c:bones"
   },
   "value": 1,
   "needed": 1,

@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/platinum",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/platinum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 16
   },
   "result": {
-    "tag": "forge:nuggets/platinum"
+    "tag": "c:nuggets/platinum"
   },
   "cooling_time": 22
 }

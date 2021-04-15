@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:storage_blocks/iron"
+    "tag": "c:storage_blocks/iron"
   },
   "result": {
     "fluid": "tconstruct:molten_iron",

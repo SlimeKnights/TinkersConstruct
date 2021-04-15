@@ -2,13 +2,13 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "tag": "forge:wither_bones"
+      "tag": "c:wither_bones"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     {
-      "tag": "forge:wither_bones"
+      "tag": "c:wither_bones"
     },
     {
       "item": "minecraft:tnt"

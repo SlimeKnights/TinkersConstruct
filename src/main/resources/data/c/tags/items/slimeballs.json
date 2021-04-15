@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#forge:slimeball/sky",
-    "#forge:slimeball/ender",
-    "#forge:slimeball/blood",
-    "#forge:slimeball/ichor"
+    "#c:slimeball/sky",
+    "#c:slimeball/ender",
+    "#c:slimeball/blood",
+    "#c:slimeball/ichor"
   ]
 }

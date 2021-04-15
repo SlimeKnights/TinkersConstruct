@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:storage_blocks/manyullyn"
+    "tag": "c:storage_blocks/manyullyn"
   },
   "result": {
     "fluid": "tconstruct:molten_manyullyn",

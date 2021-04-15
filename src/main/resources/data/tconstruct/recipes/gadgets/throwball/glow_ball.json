@@ -10,7 +10,7 @@
       "item": "minecraft:snowball"
     },
     "X": {
-      "tag": "forge:dusts/glowstone"
+      "tag": "c:dusts/glowstone"
     }
   },
   "result": {

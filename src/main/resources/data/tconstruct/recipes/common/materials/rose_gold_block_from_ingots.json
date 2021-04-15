@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:ingots/rose_gold"
+      "tag": "c:ingots/rose_gold"
     },
     "*": {
       "item": "tconstruct:rose_gold_ingot"

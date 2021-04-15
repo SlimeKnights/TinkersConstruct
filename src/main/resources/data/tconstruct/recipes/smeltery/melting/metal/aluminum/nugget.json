@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/aluminum",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/aluminum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/aluminum"
+    "tag": "c:nuggets/aluminum"
   },
   "result": {
     "fluid": "tconstruct:molten_aluminum",

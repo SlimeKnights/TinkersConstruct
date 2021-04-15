@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/tin",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/tin",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/tin"
+    "tag": "c:nuggets/tin"
   },
   "result": {
     "fluid": "tconstruct:molten_tin",

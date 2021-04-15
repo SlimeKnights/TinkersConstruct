@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:storage_blocks/gold"
+    "tag": "c:storage_blocks/gold"
   },
   "result": {
     "fluid": "tconstruct:molten_gold",

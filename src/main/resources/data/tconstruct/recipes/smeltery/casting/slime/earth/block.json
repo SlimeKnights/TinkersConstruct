@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "forge:slime",
+    "tag": "c:slime",
     "amount": 1250
   },
   "result": "minecraft:slime_block",

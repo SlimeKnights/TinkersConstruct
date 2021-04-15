@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/silicon_bronze",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/silicon_bronze",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/silicon_bronze"
+    "tag": "c:dusts/silicon_bronze"
   },
   "result": {
     "fluid": "tconstruct:molten_tinkers_bronze",

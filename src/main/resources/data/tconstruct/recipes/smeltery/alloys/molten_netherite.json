@@ -1,5 +1,5 @@
 {
-  "type": "forge:conditional",
+  "type": "c:conditional",
   "recipes": [
     {
       "conditions": [
@@ -30,7 +30,7 @@
     {
       "conditions": [
         {
-          "type": "forge:true"
+          "type": "c:true"
         }
       ],
       "recipe": {

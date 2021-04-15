@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ores/tungsten",
-        "type": "forge:tag_empty"
+        "tag": "c:ores/tungsten",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:ores/tungsten"
+    "tag": "c:ores/tungsten"
   },
   "result": {
     "fluid": "tconstruct:molten_tungsten",

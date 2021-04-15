@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/electrum",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/electrum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/electrum"
+    "tag": "c:nuggets/electrum"
   },
   "result": {
     "fluid": "tconstruct:molten_electrum",

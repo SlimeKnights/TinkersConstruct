@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/nickel",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/nickel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/nickel"
+    "tag": "c:nuggets/nickel"
   },
   "result": {
     "fluid": "tconstruct:molten_nickel",

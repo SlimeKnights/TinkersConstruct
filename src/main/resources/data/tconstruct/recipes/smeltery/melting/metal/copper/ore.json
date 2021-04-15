@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:ore_melting",
   "ingredient": {
-    "tag": "forge:ores/copper"
+    "tag": "c:ores/copper"
   },
   "result": {
     "fluid": "tconstruct:molten_copper",

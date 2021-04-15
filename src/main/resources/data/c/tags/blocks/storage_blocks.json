@@ -1,16 +1,16 @@
 {
   "replace": false,
   "values": [
-    "#forge:storage_blocks/copper",
-    "#forge:storage_blocks/cobalt",
-    "#forge:storage_blocks/slimesteel",
-    "#forge:storage_blocks/silicon_bronze",
-    "#forge:storage_blocks/rose_gold",
-    "#forge:storage_blocks/pig_iron",
-    "#forge:storage_blocks/queens_slime",
-    "#forge:storage_blocks/manyullyn",
-    "#forge:storage_blocks/hepatizon",
-    "#forge:storage_blocks/soulsteel",
-    "#forge:storage_blocks/knightslime"
+    "#c:storage_blocks/copper",
+    "#c:storage_blocks/cobalt",
+    "#c:storage_blocks/slimesteel",
+    "#c:storage_blocks/silicon_bronze",
+    "#c:storage_blocks/rose_gold",
+    "#c:storage_blocks/pig_iron",
+    "#c:storage_blocks/queens_slime",
+    "#c:storage_blocks/manyullyn",
+    "#c:storage_blocks/hepatizon",
+    "#c:storage_blocks/soulsteel",
+    "#c:storage_blocks/knightslime"
   ]
 }

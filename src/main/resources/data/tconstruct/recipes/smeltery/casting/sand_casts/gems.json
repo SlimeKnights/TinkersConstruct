@@ -4,7 +4,7 @@
     "item": "tconstruct:blank_sand_cast"
   },
   "pattern": {
-    "tag": "forge:gems"
+    "tag": "c:gems"
   },
   "result": "tconstruct:gem_sand_cast"
 }

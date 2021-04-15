@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/steel",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/steel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/steel"
+    "tag": "c:storage_blocks/steel"
   },
   "value": 9,
   "needed": 1,

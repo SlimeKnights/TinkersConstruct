@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/constantan",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/constantan",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/constantan"
+    "tag": "c:ingots/constantan"
   },
   "result": {
     "fluid": "tconstruct:molten_constantan",

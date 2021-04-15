@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ores/osmium",
-        "type": "forge:tag_empty"
+        "tag": "c:ores/osmium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:ores/osmium"
+    "tag": "c:ores/osmium"
   },
   "result": {
     "fluid": "tconstruct:molten_osmium",

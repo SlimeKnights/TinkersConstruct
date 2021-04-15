@@ -13,10 +13,10 @@
       "tag": "minecraft:planks"
     },
     "l": {
-      "tag": "forge:gems/lapis"
+      "tag": "c:gems/lapis"
     },
     "C": {
-      "tag": "forge:chests/wooden"
+      "tag": "c:chests/wooden"
     }
   },
   "result": {

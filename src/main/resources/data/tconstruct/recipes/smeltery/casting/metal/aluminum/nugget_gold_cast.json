@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/aluminum",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/aluminum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 16
   },
   "result": {
-    "tag": "forge:nuggets/aluminum"
+    "tag": "c:nuggets/aluminum"
   },
   "cooling_time": 16
 }

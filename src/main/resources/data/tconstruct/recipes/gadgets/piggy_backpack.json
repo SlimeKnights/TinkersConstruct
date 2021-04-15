@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "X": {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     }
   },
   "result": {

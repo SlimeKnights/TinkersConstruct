@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:storage_blocks/knightslime"
+    "tag": "c:storage_blocks/knightslime"
   },
   "result": {
     "fluid": "tconstruct:molten_knightslime",

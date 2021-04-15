@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "forge:nuggets/iron"
+    "tag": "c:nuggets/iron"
   },
   "value": 1,
   "needed": 9,

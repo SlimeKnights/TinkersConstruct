@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/zinc",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/zinc",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/zinc"
+    "tag": "c:storage_blocks/zinc"
   },
   "result": {
     "fluid": "tconstruct:molten_zinc",

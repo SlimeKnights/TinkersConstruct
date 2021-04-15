@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:ingots/soulsteel"
+    "tag": "c:ingots/soulsteel"
   },
   "result": {
     "fluid": "tconstruct:molten_soulsteel",

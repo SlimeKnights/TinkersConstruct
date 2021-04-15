@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:ingots/cobalt"
+      "tag": "c:ingots/cobalt"
     },
     "*": {
       "item": "tconstruct:cobalt_ingot"

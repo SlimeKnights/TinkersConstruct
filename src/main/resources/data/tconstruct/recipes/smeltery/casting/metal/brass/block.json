@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/brass",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/brass",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "fluid": {
@@ -14,7 +14,7 @@
     "amount": 1296
   },
   "result": {
-    "tag": "forge:storage_blocks/brass"
+    "tag": "c:storage_blocks/brass"
   },
   "cooling_time": 161
 }

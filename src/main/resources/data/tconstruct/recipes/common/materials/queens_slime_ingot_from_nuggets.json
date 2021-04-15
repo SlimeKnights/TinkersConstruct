@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:nuggets/queens_slime"
+      "tag": "c:nuggets/queens_slime"
     },
     "*": {
       "item": "tconstruct:queens_slime_nugget"

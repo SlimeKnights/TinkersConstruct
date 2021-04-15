@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:ore_melting",
   "ingredient": {
-    "tag": "forge:ores/netherite_scrap"
+    "tag": "c:ores/netherite_scrap"
   },
   "result": {
     "fluid": "tconstruct:molten_debris",

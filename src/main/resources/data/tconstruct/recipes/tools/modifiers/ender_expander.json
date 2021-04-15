@@ -10,10 +10,10 @@
       "item": "minecraft:piston"
     },
     "L": {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "c:ingots/manyullyn"
     },
     "S": {
-      "tag": "forge:slimeball/ender"
+      "tag": "c:slimeball/ender"
     }
   },
   "result": {

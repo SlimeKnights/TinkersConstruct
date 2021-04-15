@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:material",
-  "parent": "forge:item/default",
+  "parent": "c:item/default",
   "textures": {
     "texture": "tconstruct:item/tool/pickaxe/head"
   },

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/aluminum",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/aluminum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/aluminum"
+    "tag": "c:ingots/aluminum"
   },
   "result": {
     "fluid": "tconstruct:molten_aluminum",

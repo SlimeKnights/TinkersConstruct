@@ -4,7 +4,7 @@
     {
       "type": "mantle:without",
       "base": {
-        "tag": "forge:heads"
+        "tag": "c:heads"
       },
       "without": {
         "item": "minecraft:dragon_head"

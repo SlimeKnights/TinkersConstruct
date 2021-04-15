@@ -1,6 +1,6 @@
 {
-  "parent": "forge:item/default",
-  "loader": "forge:bucket",
+  "parent": "c:item/default",
+  "loader": "c:bucket",
   "textures": {
     "base": "tconstruct:item/copper_can",
     "fluid": "tconstruct:item/copper_can_fluid"

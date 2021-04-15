@@ -10,7 +10,7 @@
       "item": "tconstruct:seared_brick"
     },
     "B": {
-      "tag": "forge:glass"
+      "tag": "c:glass"
     }
   },
   "result": {

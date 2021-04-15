@@ -10,7 +10,7 @@
       "item": "tconstruct:seared_brick"
     },
     "C": {
-      "tag": "forge:ingots/cobalt"
+      "tag": "c:ingots/cobalt"
     }
   },
   "result": {

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/rose_gold",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/rose_gold",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/rose_gold"
+    "tag": "c:dusts/rose_gold"
   },
   "result": {
     "fluid": "tconstruct:molten_rose_gold",

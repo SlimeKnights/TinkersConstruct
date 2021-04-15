@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "forge:nuggets/rose_gold"
+    "tag": "c:nuggets/rose_gold"
   },
   "value": 1,
   "needed": 9,

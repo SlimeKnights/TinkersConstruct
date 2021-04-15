@@ -1,6 +1,6 @@
 {
     "loader": "tconstruct:tool",
-    "parent": "forge:item/default-tool",
+    "parent": "c:item/default-tool",
     "parts": {
         "head": {
             "parent": "item/generated",

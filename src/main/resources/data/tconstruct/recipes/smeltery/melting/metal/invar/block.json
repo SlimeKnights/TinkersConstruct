@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/invar",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/invar",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/invar"
+    "tag": "c:storage_blocks/invar"
   },
   "result": {
     "fluid": "tconstruct:molten_invar",

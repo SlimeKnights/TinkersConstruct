@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/lead",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/lead",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/lead"
+    "tag": "c:nuggets/lead"
   },
   "value": 1,
   "needed": 9,

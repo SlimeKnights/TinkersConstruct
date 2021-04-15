@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:ingots/slimesteel"
+    "tag": "c:ingots/slimesteel"
   },
   "result": {
     "fluid": "tconstruct:molten_slimesteel",

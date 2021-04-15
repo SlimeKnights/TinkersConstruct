@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:nuggets/slimesteel"
+      "tag": "c:nuggets/slimesteel"
     },
     "*": {
       "item": "tconstruct:slimesteel_nugget"

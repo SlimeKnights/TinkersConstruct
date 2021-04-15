@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/tin",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/tin",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/tin"
+    "tag": "c:dusts/tin"
   },
   "result": {
     "fluid": "tconstruct:molten_tin",
