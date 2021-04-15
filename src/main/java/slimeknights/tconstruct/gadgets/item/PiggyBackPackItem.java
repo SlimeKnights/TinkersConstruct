@@ -25,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 import slimeknights.mantle.item.ArmorTooltipItem;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.component.TinkerComponents;
+import slimeknights.tconstruct.library.component.piggyback.ITinkerPiggyback;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 
@@ -214,8 +216,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       } else {
         TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isClient) {
-            throw new RuntimeException("CRAB!"); // FIXME: PORT (CCA)
-//          livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).ifPresent(ITinkerPiggyback::updatePassengers);
+          TinkerComponents.TINKER_PIGGYBACK_COMPONENT_KEY.maybeGet(livingEntityIn).ifPresent(ITinkerPiggyback::updatePassengers);
         }
       }
     }

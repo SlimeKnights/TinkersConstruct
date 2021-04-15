@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.shared;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
 import net.minecraft.block.Block;
@@ -8,7 +9,10 @@ import net.minecraft.client.color.block.BlockColorProvider;
 import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.util.Identifier;
+
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 
 public class CommonsClientEvents extends ClientEventBase implements ClientModInitializer {
@@ -39,5 +43,7 @@ public class CommonsClientEvents extends ClientEventBase implements ClientModIni
     BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerCommons.soulGlass.get(), RenderLayer.getTranslucent());
     BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerCommons.soulGlassPane.get(), RenderLayer.getTranslucent());
     BlockRenderLayerMapImpl.INSTANCE.putBlock(TinkerMaterials.soulsteel.get(), RenderLayer.getTranslucent());
+
+    ArmorRenderingRegistry.registerSimpleTexture(new Identifier("tconstruct:piggyback"), TinkerGadgets.piggyBackpack.get());
   }
 }
