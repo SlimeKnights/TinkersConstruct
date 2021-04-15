@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:ingots/slimesteel"
+      "tag": "c:ingots/slimesteel"
     },
     "*": {
       "item": "tconstruct:slimesteel_ingot"

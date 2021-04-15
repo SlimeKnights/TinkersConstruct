@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#forge:rods/stone"
+    "#c:rods/stone"
   ]
 }

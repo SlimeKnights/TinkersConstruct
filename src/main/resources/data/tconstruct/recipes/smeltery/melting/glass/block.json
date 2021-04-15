@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:glass"
+    "tag": "c:glass"
   },
   "result": {
     "fluid": "tconstruct:molten_glass",

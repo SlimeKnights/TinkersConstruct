@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:nuggets/cobalt"
+      "tag": "c:nuggets/cobalt"
     },
     "*": {
       "item": "tconstruct:cobalt_nugget"

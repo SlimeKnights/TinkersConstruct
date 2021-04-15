@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:gunpowder"
+      "tag": "c:gunpowder"
     },
     "X": {
       "item": "minecraft:flint"

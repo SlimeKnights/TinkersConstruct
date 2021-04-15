@@ -10,7 +10,7 @@
       "item": "tconstruct:blood_congealed_slime"
     },
     "X": {
-      "tag": "forge:slimeball/blood"
+      "tag": "c:slimeball/blood"
     }
   },
   "result": {

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/hepatizon",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/hepatizon",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/hepatizon"
+    "tag": "c:dusts/hepatizon"
   },
   "result": {
     "fluid": "tconstruct:molten_hepatizon",

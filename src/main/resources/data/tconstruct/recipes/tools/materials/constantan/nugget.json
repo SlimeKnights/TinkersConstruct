@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/constantan",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/constantan",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/constantan"
+    "tag": "c:nuggets/constantan"
   },
   "value": 1,
   "needed": 9,

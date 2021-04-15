@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "tag": "forge:storage_blocks/redstone"
+    "tag": "c:storage_blocks/redstone"
   },
   "amount_per_item": 9,
   "needed_per_level": 45,

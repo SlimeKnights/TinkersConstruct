@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/bronze",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/bronze",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/bronze"
+    "tag": "c:dusts/bronze"
   },
   "result": {
     "fluid": "tconstruct:molten_bronze",

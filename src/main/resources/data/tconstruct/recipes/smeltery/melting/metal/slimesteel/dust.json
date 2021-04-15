@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/slimesteel",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/slimesteel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/slimesteel"
+    "tag": "c:dusts/slimesteel"
   },
   "result": {
     "fluid": "tconstruct:molten_slimesteel",

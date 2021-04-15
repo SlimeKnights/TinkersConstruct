@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "forge:ingots/hepatizon"
+    "tag": "c:ingots/hepatizon"
   },
   "value": 1,
   "needed": 1,

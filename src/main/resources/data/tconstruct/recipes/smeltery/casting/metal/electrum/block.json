@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/electrum",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/electrum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "fluid": {
@@ -14,7 +14,7 @@
     "amount": 1296
   },
   "result": {
-    "tag": "forge:storage_blocks/electrum"
+    "tag": "c:storage_blocks/electrum"
   },
   "cooling_time": 177
 }

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:storage_blocks/cobalt"
+    "tag": "c:storage_blocks/cobalt"
   },
   "result": {
     "fluid": "tconstruct:molten_cobalt",

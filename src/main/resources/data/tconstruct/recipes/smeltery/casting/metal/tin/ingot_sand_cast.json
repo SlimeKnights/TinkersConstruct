@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/tin",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/tin",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:ingots/tin"
+    "tag": "c:ingots/tin"
   },
   "cooling_time": 39
 }

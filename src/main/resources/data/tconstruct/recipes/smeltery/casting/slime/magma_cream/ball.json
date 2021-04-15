@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "fluid": {
-    "tag": "forge:magma",
+    "tag": "c:magma",
     "amount": 250
   },
   "result": "minecraft:magma_cream",

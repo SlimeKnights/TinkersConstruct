@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:ingots/manyullyn"
+    "tag": "c:ingots/manyullyn"
   },
   "result": {
     "fluid": "tconstruct:molten_manyullyn",

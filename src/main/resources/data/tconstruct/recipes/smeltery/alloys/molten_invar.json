@@ -3,17 +3,17 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/invar",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/invar",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     },
     {
       "value": {
-        "tag": "forge:ingots/nickel",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/nickel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "inputs": [

@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#forge:slime",
+    "#c:slime",
     "#tconstruct:sky_slime",
     "#tconstruct:ender_slime"
   ]

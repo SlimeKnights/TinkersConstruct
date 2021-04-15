@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:ingots/pig_iron"
+      "tag": "c:ingots/pig_iron"
     },
     "*": {
       "item": "tconstruct:pig_iron_ingot"

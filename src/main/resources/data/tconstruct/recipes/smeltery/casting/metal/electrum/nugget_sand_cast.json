@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/electrum",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/electrum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 16
   },
   "result": {
-    "tag": "forge:nuggets/electrum"
+    "tag": "c:nuggets/electrum"
   },
   "cooling_time": 20
 }

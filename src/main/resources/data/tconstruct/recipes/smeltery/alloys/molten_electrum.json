@@ -3,17 +3,17 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/electrum",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/electrum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     },
     {
       "value": {
-        "tag": "forge:ingots/silver",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/silver",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "inputs": [

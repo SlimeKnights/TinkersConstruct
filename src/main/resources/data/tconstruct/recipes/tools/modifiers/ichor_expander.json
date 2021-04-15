@@ -10,10 +10,10 @@
       "item": "minecraft:piston"
     },
     "L": {
-      "tag": "forge:ingots/silicon_bronze"
+      "tag": "c:ingots/silicon_bronze"
     },
     "S": {
-      "tag": "forge:slimeball/ichor"
+      "tag": "c:slimeball/ichor"
     }
   },
   "result": {

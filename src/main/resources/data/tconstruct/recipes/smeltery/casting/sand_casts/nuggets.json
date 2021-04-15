@@ -4,7 +4,7 @@
     "item": "tconstruct:blank_sand_cast"
   },
   "pattern": {
-    "tag": "forge:nuggets"
+    "tag": "c:nuggets"
   },
   "result": "tconstruct:nugget_sand_cast"
 }

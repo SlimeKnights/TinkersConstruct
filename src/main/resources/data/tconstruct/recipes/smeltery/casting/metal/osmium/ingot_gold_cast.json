@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/osmium",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/osmium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:ingots/osmium"
+    "tag": "c:ingots/osmium"
   },
   "cooling_time": 78
 }

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:ingots/copper"
+    "tag": "c:ingots/copper"
   },
   "result": {
     "fluid": "tconstruct:molten_copper",

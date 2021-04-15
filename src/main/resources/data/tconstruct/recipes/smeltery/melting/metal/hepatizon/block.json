@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:storage_blocks/hepatizon"
+    "tag": "c:storage_blocks/hepatizon"
   },
   "result": {
     "fluid": "tconstruct:molten_hepatizon",

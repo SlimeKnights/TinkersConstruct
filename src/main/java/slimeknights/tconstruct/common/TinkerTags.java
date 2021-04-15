@@ -44,7 +44,7 @@ public class TinkerTags {
     }
 
     private static Tag.Identified<Block> forgeTag(String name) {
-      return (Tag.Identified<Block>) TagRegistry.block(new Identifier("forge", name));
+      return (Tag.Identified<Block>) TagRegistry.block(new Identifier("c", name));
     }
   }
 
@@ -114,7 +114,7 @@ public class TinkerTags {
     }
 
     private static Tag.Identified<Item> forgeTag(String name) {
-      return (Tag.Identified<Item>) TagRegistry.item(new Identifier("forge", name));
+      return (Tag.Identified<Item>) TagRegistry.item(new Identifier("c", name));
     }
   }
 
@@ -128,7 +128,7 @@ public class TinkerTags {
     }
 
     private static Tag.Identified<Fluid> forgeTag(String name) {
-      return (Tag.Identified<Fluid>) TagRegistry.fluid(new Identifier("forge", name));
+      return (Tag.Identified<Fluid>) TagRegistry.fluid(new Identifier("c", name));
     }
   }
 
@@ -143,7 +143,7 @@ public class TinkerTags {
     }
 
     private static Tag.Identified<EntityType<?>> forgeTag(String name) {
-      return (Tag.Identified<EntityType<?>>) TagRegistry.entityType(new Identifier("forge", name));
+      return (Tag.Identified<EntityType<?>>) TagRegistry.entityType(new Identifier("c", name));
     }
   }
 }

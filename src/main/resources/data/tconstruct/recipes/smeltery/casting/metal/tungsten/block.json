@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/tungsten",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/tungsten",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "fluid": {
@@ -14,7 +14,7 @@
     "amount": 1296
   },
   "result": {
-    "tag": "forge:storage_blocks/tungsten"
+    "tag": "c:storage_blocks/tungsten"
   },
   "cooling_time": 194
 }

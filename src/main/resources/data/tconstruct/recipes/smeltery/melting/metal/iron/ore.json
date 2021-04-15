@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:ore_melting",
   "ingredient": {
-    "tag": "forge:ores/iron"
+    "tag": "c:ores/iron"
   },
   "result": {
     "fluid": "tconstruct:molten_iron",

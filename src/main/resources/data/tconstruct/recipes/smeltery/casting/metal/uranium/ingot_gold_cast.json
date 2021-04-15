@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/uranium",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/uranium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:ingots/uranium"
+    "tag": "c:ingots/uranium"
   },
   "cooling_time": 61
 }

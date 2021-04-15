@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/netherite",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/netherite",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/netherite"
+    "tag": "c:dusts/netherite"
   },
   "result": {
     "fluid": "tconstruct:molten_netherite",

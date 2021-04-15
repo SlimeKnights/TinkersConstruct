@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:nuggets/pig_iron"
+      "tag": "c:nuggets/pig_iron"
     },
     "*": {
       "item": "tconstruct:pig_iron_nugget"

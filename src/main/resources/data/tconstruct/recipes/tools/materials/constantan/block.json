@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/constantan",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/constantan",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/constantan"
+    "tag": "c:storage_blocks/constantan"
   },
   "value": 9,
   "needed": 1,

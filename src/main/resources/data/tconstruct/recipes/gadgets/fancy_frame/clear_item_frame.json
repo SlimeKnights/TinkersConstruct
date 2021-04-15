@@ -8,10 +8,10 @@
   ],
   "key": {
     "e": {
-      "tag": "forge:glass_panes/colorless"
+      "tag": "c:glass_panes/colorless"
     },
     "M": {
-      "tag": "forge:glass/colorless"
+      "tag": "c:glass/colorless"
     }
   },
   "result": {

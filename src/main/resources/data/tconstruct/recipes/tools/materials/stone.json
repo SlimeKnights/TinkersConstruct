@@ -2,10 +2,10 @@
   "type": "tconstruct:material",
   "ingredient": [
     {
-      "tag": "forge:stone"
+      "tag": "c:stone"
     },
     {
-      "tag": "forge:cobblestone"
+      "tag": "c:cobblestone"
     },
     [
       {

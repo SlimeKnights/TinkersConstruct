@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:nuggets/rose_gold"
+      "tag": "c:nuggets/rose_gold"
     },
     "*": {
       "item": "tconstruct:rose_gold_nugget"

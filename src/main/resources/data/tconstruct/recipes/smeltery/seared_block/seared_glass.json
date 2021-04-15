@@ -10,7 +10,7 @@
       "item": "tconstruct:seared_brick"
     },
     "G": {
-      "tag": "forge:glass/colorless"
+      "tag": "c:glass/colorless"
     }
   },
   "result": {

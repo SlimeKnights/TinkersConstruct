@@ -8,7 +8,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:nuggets/manyullyn"
+      "tag": "c:nuggets/manyullyn"
     },
     "*": {
       "item": "tconstruct:manyullyn_nugget"

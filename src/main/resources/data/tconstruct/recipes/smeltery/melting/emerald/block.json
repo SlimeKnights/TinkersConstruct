@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:storage_blocks/emerald"
+    "tag": "c:storage_blocks/emerald"
   },
   "result": {
     "fluid": "tconstruct:molten_emerald",

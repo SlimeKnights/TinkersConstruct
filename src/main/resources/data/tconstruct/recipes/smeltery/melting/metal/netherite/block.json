@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:storage_blocks/netherite"
+    "tag": "c:storage_blocks/netherite"
   },
   "result": {
     "fluid": "tconstruct:molten_netherite",

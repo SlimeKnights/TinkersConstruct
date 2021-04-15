@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:slimeball/sky"
+    "tag": "c:slimeball/sky"
   },
   "result": {
     "fluid": "tconstruct:sky_slime",

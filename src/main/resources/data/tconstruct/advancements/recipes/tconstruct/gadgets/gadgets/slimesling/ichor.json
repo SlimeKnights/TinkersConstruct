@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:slimeball/ichor"
+            "tag": "c:slimeball/ichor"
           }
         ]
       }

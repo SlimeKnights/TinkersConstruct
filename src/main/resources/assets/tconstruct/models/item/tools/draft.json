@@ -3,7 +3,7 @@
     "parts": [
         {
             "order": 0,
-            "parent": "forge:item/default",
+            "parent": "c:item/default",
             "texture": "tconstruct:items/pickaxe/head"
         },
         {
@@ -13,7 +13,7 @@
         },
         {
             "order": 2,
-            "parent": "forge:item/default",
+            "parent": "c:item/default",
             "texture": "tconstruct:items/pickaxe/head",
             "transform": {
                 "translation": [0, 0.09375, -0.171875],
@@ -22,5 +22,5 @@
             }
         }
     ],
-    "transform": "forge:default-tool"
+    "transform": "c:default-tool"
 }

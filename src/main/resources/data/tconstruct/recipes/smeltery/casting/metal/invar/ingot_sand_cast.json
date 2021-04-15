@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/invar",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/invar",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:ingots/invar"
+    "tag": "c:ingots/invar"
   },
   "cooling_time": 63
 }

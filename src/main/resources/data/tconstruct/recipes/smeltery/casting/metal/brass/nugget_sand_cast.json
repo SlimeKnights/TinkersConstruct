@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/brass",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/brass",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 16
   },
   "result": {
-    "tag": "forge:nuggets/brass"
+    "tag": "c:nuggets/brass"
   },
   "cooling_time": 18
 }

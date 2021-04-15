@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/steel",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/steel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/steel"
+    "tag": "c:dusts/steel"
   },
   "result": {
     "fluid": "tconstruct:molten_steel",

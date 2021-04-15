@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "cast": {
-    "tag": "forge:glass/colorless"
+    "tag": "c:glass/colorless"
   },
   "cast_consumed": true,
   "fluid": {

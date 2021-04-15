@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "forge:ingots/pig_iron"
+    "tag": "c:ingots/pig_iron"
   },
   "value": 1,
   "needed": 1,

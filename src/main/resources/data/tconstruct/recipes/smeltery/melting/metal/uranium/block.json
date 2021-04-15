@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/uranium",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/uranium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/uranium"
+    "tag": "c:storage_blocks/uranium"
   },
   "result": {
     "fluid": "tconstruct:molten_uranium",

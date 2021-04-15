@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:sand/colorless"
+      "tag": "c:sand/colorless"
     }
   ],
   "result": {

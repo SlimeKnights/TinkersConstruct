@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "cast": {
-    "tag": "forge:stone"
+    "tag": "c:stone"
   },
   "cast_consumed": true,
   "fluid": {

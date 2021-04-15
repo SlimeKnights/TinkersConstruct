@@ -8,13 +8,13 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:string"
+      "tag": "c:string"
     },
     "X": {
       "tag": "tconstruct:congealed_slime"
     },
     "L": {
-      "tag": "forge:slimeballs"
+      "tag": "c:slimeballs"
     }
   },
   "result": {

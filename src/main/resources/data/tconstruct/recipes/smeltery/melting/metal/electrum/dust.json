@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/electrum",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/electrum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/electrum"
+    "tag": "c:dusts/electrum"
   },
   "result": {
     "fluid": "tconstruct:molten_electrum",
