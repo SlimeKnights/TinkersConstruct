@@ -5,10 +5,12 @@ import net.minecraft.network.NetworkSide;
 import net.minecraft.network.Packet;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.network.NetworkWrapper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -29,6 +31,15 @@ public class TinkerNetwork extends NetworkWrapper {
 
   private static TinkerNetwork instance;
 
+  /**
+   * Creates a new network wrapper
+   *
+   * @param identifer namespace of the mod
+   */
+  public TinkerNetwork(Identifier identifer) {
+    super(identifer);
+  }
+
   public static synchronized TinkerNetwork getInstance() {
     if (instance == null) {
       setup();
@@ -37,8 +48,8 @@ public class TinkerNetwork extends NetworkWrapper {
   }
 
   public static void setup() {
-    instance = new TinkerNetwork();
-    instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkSide.CLIENTBOUND);
+    instance = new TinkerNetwork(new Identifier(TConstruct.modID, "network"));
+/*    instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkSide.CLIENTBOUND);
 
     // gadgets
     instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkSide.CLIENTBOUND);
@@ -59,7 +70,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(ChannelFlowPacket.class, ChannelFlowPacket::new, NetworkSide.CLIENTBOUND);
     instance.registerPacket(SmelteryTankUpdatePacket.class, SmelteryTankUpdatePacket::new, NetworkSide.CLIENTBOUND);
     instance.registerPacket(SmelteryStructureUpdatedPacket.class, SmelteryStructureUpdatedPacket::new, NetworkSide.CLIENTBOUND);
-    instance.registerPacket(SmelteryFluidClickedPacket.class, SmelteryFluidClickedPacket::new, NetworkSide.SERVERBOUND);
+    instance.registerPacket(SmelteryFluidClickedPacket.class, SmelteryFluidClickedPacket::new, NetworkSide.SERVERBOUND);*/
   }
 
   public void sendVanillaPacket(Entity player, Packet<?> packet) {

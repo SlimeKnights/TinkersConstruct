@@ -19,7 +19,6 @@ public class TableTileEntityRenderer<T extends BlockEntity & Inventory> extends 
 
   @Override
   public void render(T inventory, float partialTicks, MatrixStack matrices, VertexConsumerProvider buffer, int light, int combinedOverlayIn) {
-    throw new RuntimeException("CRAB!");
 //    if (!inventory.isEmpty()) {
 //      BlockState state = inventory.getCachedState();
 //      TableModel.BakedModel model = ModelHelper.getBakedModel(state, TableModel.BakedModel.class);

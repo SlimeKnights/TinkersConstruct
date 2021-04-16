@@ -81,8 +81,8 @@ public abstract class SlimeFluid extends MantleFluid.Flowing {
 
   public static class Source extends SlimeFluid {
 
-    public Source(Item bucketItem, BlockState blockState) {
-      super(bucketItem, blockState);
+    public Source() {
+      super(null, null);
     }
 
     @Override

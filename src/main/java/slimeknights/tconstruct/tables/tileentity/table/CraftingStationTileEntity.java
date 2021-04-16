@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.tables.tileentity.table;
 
 import lombok.Getter;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.recipe.RecipeType;
@@ -23,7 +25,7 @@ import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 
 import java.util.Collections;
 
-public class CraftingStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
+public class CraftingStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter, ExtendedScreenHandlerFactory {
 
   /** Last crafted crafting recipe */
   @Nullable
@@ -32,12 +34,10 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
   @Getter
   private final LazyResultInventory craftingResult;
   /** Crafting inventory for the recipe calls */
-  private final CraftingInventoryWrapper craftingInventory;
+  public final CraftingInventoryWrapper craftingInventory;
 
   public CraftingStationTileEntity() {
     super(TinkerTables.craftingStationTile, "gui.tconstruct.crafting_station", 9);
-//    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
-//    this.itemHandlerCap = Optional.of(() -> this.itemHandler);
     this.craftingInventory = new CraftingInventoryWrapper(this, 3, 3);
     this.craftingResult = new LazyResultInventory(this);
   }
@@ -184,5 +184,10 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
   @Override
   public CompoundTag getTileData() {
     return new CompoundTag();
+  }
+
+  @Override
+  public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+    buf.writeBlockPos(pos);
   }
 }

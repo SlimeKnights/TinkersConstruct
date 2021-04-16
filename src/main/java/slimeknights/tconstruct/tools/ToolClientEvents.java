@@ -98,6 +98,6 @@ public class ToolClientEvents extends ClientEventBase {
 
     EntityRendererRegistry.INSTANCE.register(TinkerTools.indestructibleItem, (manager, context) -> new ItemEntityRenderer(manager, MinecraftClient.getInstance().getItemRenderer()));
 
-    ModelLoadingRegistry.INSTANCE.registerResourceProvider(new JsonModelResourceProvider());
+//    ModelLoadingRegistry.INSTANCE.registerResourceProvider(new JsonModelResourceProvider());
   }
 }

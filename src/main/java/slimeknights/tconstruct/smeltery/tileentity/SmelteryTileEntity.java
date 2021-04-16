@@ -229,24 +229,6 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
     }
   }
 
-
-/*  *//* Capability *//*
-
-  @Override
-  protected void invalidateCaps() {
-    super.invalidateCaps();
-    this.itemCapability.invalidate();
-  }
-
-  @Override
-  public <T> Optional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-      return itemCapability.cast();
-    }
-    return super.getCapability(capability, facing);
-  }*/
-
-
   /* Structure */
 
   /**
@@ -540,8 +522,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   @Nullable
   @Override
   public BlockEntity createBlockEntity(BlockView world) {
-    throw new RuntimeException("CRAB!");
-    //TODO: PORT
+    return new SmelteryTileEntity();
   }
 
   @Override

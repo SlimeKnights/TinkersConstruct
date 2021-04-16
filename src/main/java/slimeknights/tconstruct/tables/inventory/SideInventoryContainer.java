@@ -4,12 +4,14 @@ import lombok.Getter;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
 import java.util.Objects;
 
@@ -28,7 +30,13 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
   public SideInventoryContainer(ScreenHandlerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
     super(containerType, windowId, inv, tile);
 
-    this.itemHandler = ((SmelteryTileEntity) Objects.requireNonNull(tile, "Block Entity was null")).meltingInventory;
+    if(tile instanceof SmelteryTileEntity) {
+      this.itemHandler = ((SmelteryTileEntity) tile).meltingInventory;
+    } else if(tile instanceof CraftingStationTileEntity) {
+      this.itemHandler = ((CraftingStationTileEntity) tile).craftingInventory;
+    } else {
+      this.itemHandler = new SimpleInventory();
+    }
 
     // slot properties
     this.slotCount = itemHandler.size();

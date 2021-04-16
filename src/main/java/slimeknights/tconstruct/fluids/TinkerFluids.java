@@ -42,7 +42,7 @@ public final class TinkerFluids extends TinkerModule {
 //    ForgeMod.enableMilkFluid(); TODO: forge what the fuck
   }
   // basic
-  public static final FluidObject<MantleFluid> blood = null; //Registry.register(Registry.FLUID, new Identifier(TConstruct.modID, "blood"), coolBuilder().setRenderColor(0xff540000).setDensity(f(1200)).setViscosity(f(1200)).setTemperature(tmp(336)), Material.WATER, 0);
+  public static final FluidObject<MantleFluid> blood = registerFluid("blood", coolBuilder().setRenderColor(0xff540000).setDensity(f(1200)).setViscosity(f(1200)).setTemperature(tmp(336)), Material.WATER, 0);
 
   private static FluidAmount f(int i) {
     return FluidAmount.of(1000, i);
@@ -57,14 +57,13 @@ public final class TinkerFluids extends TinkerModule {
       flowing,
       () -> new FluidBlock(flowing.get(), FabricBlockSettings.copy(Blocks.WATER))
     );
-//    throw new RuntimeException("Registering fluids sucks. ignore it for now"); //TODO: reimplement fluid registry into mantle
   }
 
   // slime -  note second name parameter is forge tag name
-  public static final FluidObject<MantleFluid> earthSlime = null; //Registry.register(Registry.FLUID, id("earth_slime"), "slime", coolBuilder().setRenderColor(0xef76be6d).setDensity(f(1400)).setViscosity(f(1400)).setTemperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<MantleFluid> skySlime = null; //registerFluid("sky_slime", coolBuilder().setRenderColor(0xef67f0f5).setDensity(f(1500)).setViscosity(f(1500)).setTemperature(tmp(310)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<MantleFluid> enderSlime = null; //registerFluid("ender_slime", coolBuilder().setRenderColor(0xefd236ff).setDensity(f(1600)).setViscosity(f(1600)).setTemperature(tmp(370)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<MantleFluid> magmaCream  = null; //registerFluid("magma_cream", "magma", FluidAttributes.builder(FluidIcons.MAGMA_CREAM_STILL, FluidIcons.MAGMA_CREAM_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY).density(1900).setViscosity(1900).setTemperature(600), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 4);
+  public static final FluidObject<MantleFluid> earthSlime = registerFluid("earth_slime", "slime", coolBuilder().setRenderColor(0xef76be6d).setDensity(f(1400)).setViscosity(f(1400)).setTemperature(tmp(350)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<MantleFluid> skySlime = registerFluid("sky_slime", coolBuilder().setRenderColor(0xef67f0f5).setDensity(f(1500)).setViscosity(f(1500)).setTemperature(tmp(310)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<MantleFluid> enderSlime = registerFluid("ender_slime", coolBuilder().setRenderColor(0xefd236ff).setDensity(f(1600)).setViscosity(f(1600)).setTemperature(tmp(370)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<MantleFluid> magmaCream  = registerFluid("magma_cream", "magma", coolBuilder().setDensity(f(1900)).setViscosity(f(1900)).setTemperature(tmp(600)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 4);
   public static final Map<SlimeType, FluidObject<MantleFluid>> slime;
   static {
     slime = new EnumMap<>(SlimeType.class);
