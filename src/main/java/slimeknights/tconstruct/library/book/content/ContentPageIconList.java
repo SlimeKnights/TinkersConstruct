@@ -24,6 +24,7 @@ public class ContentPageIconList extends TinkerPage {
   protected final int height;
 
   public String title;
+  public String subText;
   public float maxScale = 2.5f;
 
   protected List<PageIconLinkElement> elements = Lists.newArrayList();
@@ -72,6 +73,11 @@ public class ContentPageIconList extends TinkerPage {
       yOff = 20;
     }
 
+    if(this.subText != null) {
+      this.addText(list, this.subText, false, 0, yOff);
+      yOff = 40;
+    }
+
     int offset = 15;
     int x = offset;
     int y = yOff;
@@ -118,7 +124,7 @@ public class ContentPageIconList extends TinkerPage {
     }
   }
 
-  public static List<ContentPageIconList> getPagesNeededForItemCount(int count, SectionData data, String title) {
+  public static List<ContentPageIconList> getPagesNeededForItemCount(int count, SectionData data, String title, String subText) {
     List<ContentPageIconList> listPages = Lists.newArrayList();
 
     while (count > 0) {
@@ -132,6 +138,7 @@ public class ContentPageIconList extends TinkerPage {
       data.pages.add(page);
 
       overview.title = title;
+      overview.subText = subText;
 
       listPages.add(overview);
 

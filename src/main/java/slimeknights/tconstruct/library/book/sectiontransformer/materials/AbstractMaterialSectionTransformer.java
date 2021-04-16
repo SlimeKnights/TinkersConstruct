@@ -55,7 +55,7 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
     }
 
     // calculate pages needed
-    List<ContentPageIconList> listPages = ContentPageIconList.getPagesNeededForItemCount(materialList.size(), sectionData, book.translate(this.sectionName));
+    List<ContentPageIconList> listPages = ContentPageIconList.getPagesNeededForItemCount(materialList.size(), sectionData, book.translate(this.sectionName), book.strings.get(String.format("%s.subtext", this.sectionName)));
 
     ListIterator<ContentPageIconList> iter = listPages.listIterator();
     ContentPageIconList overview = iter.next();
