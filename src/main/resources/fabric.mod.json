@@ -41,6 +41,9 @@
             "slimeknights.tconstruct.tools.ToolClientEvents",
             "slimeknights.tconstruct.tools.client.ToolRenderEvents",
             "slimeknights.tconstruct.world.WorldClientEvents"
+        ],
+        "cardinal-components": [
+            "slimeknights.tconstruct.library.component.TinkerComponents"
         ]
     },
     "mixins": [

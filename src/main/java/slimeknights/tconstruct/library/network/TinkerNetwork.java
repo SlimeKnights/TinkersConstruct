@@ -38,7 +38,7 @@ public class TinkerNetwork extends NetworkWrapper {
 
   public static void setup() {
     instance = new TinkerNetwork();
-/*    instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkSide.CLIENTBOUND);
 
     // gadgets
     instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkSide.CLIENTBOUND);
@@ -59,7 +59,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(ChannelFlowPacket.class, ChannelFlowPacket::new, NetworkSide.CLIENTBOUND);
     instance.registerPacket(SmelteryTankUpdatePacket.class, SmelteryTankUpdatePacket::new, NetworkSide.CLIENTBOUND);
     instance.registerPacket(SmelteryStructureUpdatedPacket.class, SmelteryStructureUpdatedPacket::new, NetworkSide.CLIENTBOUND);
-    instance.registerPacket(SmelteryFluidClickedPacket.class, SmelteryFluidClickedPacket::new, NetworkSide.SERVERBOUND);*/
+    instance.registerPacket(SmelteryFluidClickedPacket.class, SmelteryFluidClickedPacket::new, NetworkSide.SERVERBOUND);
   }
 
   public void sendVanillaPacket(Entity player, Packet<?> packet) {
