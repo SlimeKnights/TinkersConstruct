@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.tools;
 
+import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.model.ModelResourceProvider;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
@@ -95,5 +97,7 @@ public class ToolClientEvents extends ClientEventBase {
     registerMaterialItemColors(colors, TinkerToolParts.toughToolRod);
 
     EntityRendererRegistry.INSTANCE.register(TinkerTools.indestructibleItem, (manager, context) -> new ItemEntityRenderer(manager, MinecraftClient.getInstance().getItemRenderer()));
+
+    ModelLoadingRegistry.INSTANCE.registerResourceProvider(new JsonModelResourceProvider());
   }
 }
