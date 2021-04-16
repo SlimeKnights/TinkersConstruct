@@ -195,7 +195,7 @@ public class SmelteryTank implements IFluidHandler {
 
     // remove the fluid from the tank
     if (action.isAction()) {
-      fluid = fluid.withAmount(fluid.getAmount_F().min(FluidAmount.of(drainable, 1000)));
+      fluid = fluid.withAmount(fluid.getAmount_F().sub(FluidAmount.of(drainable, 1000)));
       contained -= drainable;
       // if now empty, remove from the list
       if (fluid.getAmount() <= 0) {
@@ -225,7 +225,7 @@ public class SmelteryTank implements IFluidHandler {
 
         // update tank if executing
         if (action.isAction()) {
-          fluid = fluid.withAmount(fluid.getAmount_F().min(FluidAmount.of(drainable, 1000)));
+          fluid = fluid.withAmount(fluid.getAmount_F().sub(FluidAmount.of(drainable, 1000)));
           contained -= drainable;
           // if now empty, remove from the list
           if (fluid.getAmount() <= 0) {

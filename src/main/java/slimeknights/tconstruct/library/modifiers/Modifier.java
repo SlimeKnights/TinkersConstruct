@@ -19,10 +19,12 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -55,10 +57,6 @@ public class Modifier{
   /** Display color for all text for this modifier */
   private final int color;
 
-  /** Registry name of this modifier, null before fully registered */
-  @Nullable
-  private ModifierId registryName;
-
   /** Cached key used for translations */
   @Nullable
   private String translationKey;
@@ -81,7 +79,7 @@ public class Modifier{
   }
 
   public @Nullable ModifierId getRegistryName() {
-    return registryName;
+    return new ModifierId(TinkerRegistries.MODIFIERS.getId(this));
   }
 
   /**
@@ -98,7 +96,7 @@ public class Modifier{
    * @return  Modifier ID
    */
   public ModifierId getId() {
-    return Objects.requireNonNull(registryName, "Modifier has null registry name");
+    return new ModifierId(Objects.requireNonNull(TinkerRegistries.MODIFIERS.getId(this), "Modifier has null registry name"));
   }
 
   /* Tooltips */
@@ -108,7 +106,7 @@ public class Modifier{
    * @return  Translation key
    */
   protected String makeTranslationKey() {
-    return Util.createTranslationKey("modifier", registryName);
+    return Util.createTranslationKey("modifier", TinkerRegistries.MODIFIERS.getId(this));
   }
 
   /**

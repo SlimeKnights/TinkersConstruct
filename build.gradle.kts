@@ -51,7 +51,7 @@ dependencies {
 
     modImplementation("net.fabricmc", "fabric-loader", "0.11.3")
     modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.32.5+1.16")
-    modImplementation("slimeknights", "Mantle", "1.6.24-SNAPSHOT")
+    modImplementation("slimeknights", "Mantle", "1.6.25-SNAPSHOT")
 
     modApi("me.shedaniel.cloth", "cloth-config-fabric", "4.11.19")
     modApi("alexiil.mc.lib", "libblockattributes-core", "0.8.9-pre.1")

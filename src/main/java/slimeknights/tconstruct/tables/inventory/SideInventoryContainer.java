@@ -9,9 +9,9 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.tconstruct.misc.IItemHandler;
-import slimeknights.tconstruct.misc.InventoryItemHandler;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+
+import java.util.Objects;
 
 public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContainer<TILE> {
 
@@ -27,12 +27,8 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
 
   public SideInventoryContainer(ScreenHandlerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
     super(containerType, windowId, inv, tile);
-    // must have a TE
-    if (tile == null) {
-      throw new RuntimeException("Well fuck");
-    } else {
-      this.itemHandler = ((SmelteryTileEntity) tile).meltingInventory;
-    }
+
+    this.itemHandler = ((SmelteryTileEntity) Objects.requireNonNull(tile, "Block Entity was null")).meltingInventory;
 
     // slot properties
     this.slotCount = itemHandler.size();
@@ -49,7 +45,6 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
         if (index >= this.slotCount) {
           break;
         }
-
         this.addSlot(this.createSlot(itemHandler, index, x + c * 18, y + r * 18));
         index++;
       }

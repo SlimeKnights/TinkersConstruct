@@ -103,7 +103,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
 
   /** Module handling alloys */
   private final SmelteryAlloyTank alloyTank = new SmelteryAlloyTank(tank);
-  @Getter
+
   private final AlloyingModule alloyingModule = new AlloyingModule(this, tank, alloyTank);
   /** Module handling entity interaction */
   private final EntityMeltingModule entityModule = new EntityMeltingModule(this, tank, this::canMeltEntities, this::insertIntoInventory, () -> structure == null ? null : structure.getBounds());

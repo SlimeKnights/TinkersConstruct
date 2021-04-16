@@ -22,7 +22,7 @@ public final class MaterialRegistry {
   public static MaterialRegistry INSTANCE;
 
   public final MaterialManager materialManager;
-  private final MaterialStatsManager materialStatsManager;
+  public final MaterialStatsManager materialStatsManager;
   private final MaterialTraitsManager materialTraitsManager;
   private final IMaterialRegistry registry;
 

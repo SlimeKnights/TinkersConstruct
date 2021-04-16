@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.DefaultedRegistry;
 import net.minecraft.util.registry.Registry;
@@ -22,6 +20,6 @@ public class TinkerRegistries {
   /**
    * Register for modifiers
    */
-  public static final RegistryKey<Registry<Modifier>> MODIFIERS_KEY = Registry.createRegistryKey("");
+  public static final RegistryKey<Registry<Modifier>> MODIFIERS_KEY = Registry.createRegistryKey("modifiers");
   public static final DefaultedRegistry<Modifier> MODIFIERS = Registry.create(MODIFIERS_KEY, "none", EmptyModifier::new);
 }

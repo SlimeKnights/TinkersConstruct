@@ -1,14 +1,11 @@
 package slimeknights.tconstruct.smeltery.tileentity.module;
 
-import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.FixedFluidInv;
 import alexiil.mc.lib.attributes.fluid.FixedFluidInvView;
 import alexiil.mc.lib.attributes.fluid.FluidAttributes;
+import alexiil.mc.lib.attributes.fluid.FluidInvTankChangeListener;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
@@ -21,7 +18,6 @@ import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.NotNullConsumer;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.fluids.FluidUtil;
 import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
@@ -41,54 +37,76 @@ import java.util.function.Supplier;
 /**
  * Module handling fuel consumption for the melter and smeltery
  */
-@RequiredArgsConstructor
 public class FuelModule implements PropertyDelegate {
-  /** Block position that will never be valid in world, used for sync */
+
+  /**
+   * Block position that will never be valid in world, used for sync
+   */
   private static final BlockPos NULL_POS = new BlockPos(0, -1, 0);
-  /** Temperature used for solid fuels, hot enough to melt iron */
+  /**
+   * Temperature used for solid fuels, hot enough to melt iron
+   */
   public static final int SOLID_TEMPERATURE = 800;
 
-  /** Listener to attach to stored capability */
+  /**
+   * Listener to attach to stored capability
+   */
   private final NotNullConsumer<Optional<IFluidHandler>> fluidListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
   private final NotNullConsumer<Optional<IItemHandler>> itemListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset());
 
-  /** Parent TE */
+  /**
+   * Parent TE
+   */
   private final MantleTileEntity parent;
-  /** Supplier for the list of valid tank positions */
+  /**
+   * Supplier for the list of valid tank positions
+   */
   private final Supplier<List<BlockPos>> tankSupplier;
 
-  /** Last fuel recipe used */
+  /**
+   * Last fuel recipe used
+   */
   @Nullable
   private MeltingFuel lastRecipe;
-  /** Last fluid handler where fluid was extracted */
+  /**
+   * Last fluid handler where fluid was extracted
+   */
   @Nullable
-  private Optional<IFluidHandler> fluidHandler;
-  /** Last item handler where items were extracted */
+  private Optional<FixedFluidInv> fluidHandler;
+  /**
+   * Last item handler where items were extracted
+   */
   @Nullable
   private Optional<IItemHandler> itemHandler;
-  /** Position of the last fluid handler */
+  /**
+   * Position of the last fluid handler
+   */
   @Nullable
   private BlockPos lastPos = null;
 
 
-  /** Client fuel display */
-  private List<Optional<IFluidHandler>> tankDisplayHandlers;
-  /** Listener to attach to display capabilities */
-  private final NotNullConsumer<Optional<IFluidHandler>> displayListener = new WeakConsumerWrapper<>(this, (self, cap) -> {
-    if (self.tankDisplayHandlers != null) {
-      self.tankDisplayHandlers.remove(cap);
-    }
-  });
+  /**
+   * Client fuel display
+   */
+  private List<FixedFluidInv> tankDisplayHandlers;
 
-  /** Current amount of fluid in the TE */
-  @Getter
+  /**
+   * Current amount of fluid in the TE
+   */
   private int fuel = 0;
-  /** Amount of fuel produced by the last source */
-  @Getter
+  /**
+   * Amount of fuel produced by the last source
+   */
   private int fuelQuality = 0;
-  /** Temperature of the current fuel */
-  @Getter
+  /**
+   * Temperature of the current fuel
+   */
   private int temperature = 0;
+
+  public FuelModule(MantleTileEntity parent, Supplier<List<BlockPos>> tankSupplier) {
+    this.parent = parent;
+    this.tankSupplier = tankSupplier;
+  }
 
 
   /*
@@ -101,15 +119,18 @@ public class FuelModule implements PropertyDelegate {
     this.lastPos = null;
   }
 
-  /** Gets a nonnull world instance from the parent */
+  /**
+   * Gets a nonnull world instance from the parent
+   */
   private World getWorld() {
     return Objects.requireNonNull(parent.getWorld(), "Parent tile entity has null world");
   }
 
   /**
    * Finds a recipe for the given fluid
-   * @param fluid  Fluid
-   * @return  Recipe
+   *
+   * @param fluid Fluid
+   * @return Recipe
    */
   @Nullable
   private MeltingFuel findRecipe(Fluid fluid) {
@@ -124,7 +145,8 @@ public class FuelModule implements PropertyDelegate {
 
   /**
    * Checks if we have fuel
-   * @return  True if we have fuel
+   *
+   * @return True if we have fuel
    */
   public boolean hasFuel() {
     return fuel > 0;
@@ -132,7 +154,8 @@ public class FuelModule implements PropertyDelegate {
 
   /**
    * Consumes fuel from the module
-   * @param amount  Amount of fuel to consume
+   *
+   * @param amount Amount of fuel to consume
    */
   public void decreaseFuel(int amount) {
     fuel = Math.max(0, fuel - amount);
@@ -143,15 +166,16 @@ public class FuelModule implements PropertyDelegate {
   /* Fuel updating */
 
   /* Cache of objects, since they are otherwise created possibly several times */
-  private final Function<IItemHandler,Integer> trySolidFuelConsume = handler -> trySolidFuel(handler, true);
-  private final Function<IItemHandler,Integer> trySolidFuelNoConsume = handler -> trySolidFuel(handler, false);
-  private final Function<IFluidHandler,Integer> tryLiquidFuelConsume = handler -> tryLiquidFuel(handler, true);
-  private final Function<IFluidHandler,Integer> tryLiquidFuelNoConsume = handler -> tryLiquidFuel(handler, false);
+  private final Function<IItemHandler, Integer> trySolidFuelConsume = handler -> trySolidFuel(handler, true);
+  private final Function<IItemHandler, Integer> trySolidFuelNoConsume = handler -> trySolidFuel(handler, false);
+  private final Function<FixedFluidInv, Integer> tryLiquidFuelConsume = handler -> tryLiquidFuel(handler, true);
+  private final Function<FixedFluidInv, Integer> tryLiquidFuelNoConsume = handler -> tryLiquidFuel(handler, false);
 
   /**
    * Tries to consume fuel from the given fluid handler
-   * @param handler  Handler to consume fuel from
-   * @return   Temperature of the consumed fuel, 0 if none found
+   *
+   * @param handler Handler to consume fuel from
+   * @return Temperature of the consumed fuel, 0 if none found
    */
   private int trySolidFuel(IItemHandler handler, boolean consume) {
     for (int i = 0; i < handler.getSlots(); i++) {
@@ -177,27 +201,29 @@ public class FuelModule implements PropertyDelegate {
 
   /**
    * Gets the mapper function for solid fuel
-   * @param consume  If true, fuel is consumed
+   *
+   * @param consume If true, fuel is consumed
    * @return Mapper function for solid fuel
    */
-  private Function<IItemHandler,Integer> trySolidFuel(boolean consume) {
+  private Function<IItemHandler, Integer> trySolidFuel(boolean consume) {
     return consume ? trySolidFuelConsume : trySolidFuelNoConsume;
   }
 
   /**
    * Trys to consume fuel from the given fluid handler
-   * @param handler  Handler to consume fuel from
-   * @return   Temperature of the consumed fuel, 0 if none found
+   *
+   * @param handler Handler to consume fuel from
+   * @return Temperature of the consumed fuel, 0 if none found
    */
-  private int tryLiquidFuel(IFluidHandler handler, boolean consume) {
-    FluidVolume fluid = handler.getFluidInTank(0);
+  private int tryLiquidFuel(FixedFluidInv handler, boolean consume) {
+    FluidVolume fluid = handler.getTank(0).get();
     MeltingFuel recipe = findRecipe(fluid.getRawFluid());
     if (recipe != null) {
       int amount = recipe.getAmount(fluid.getRawFluid());
-      if (fluid.getAmount() >= amount) {
+      if (fluid.getAmount_F().asInt(1000) >= amount) {
         if (consume) {
-          FluidVolume drained = handler.drain(FluidVolume.create(fluid.getRawFluid(), amount), Simulation.ACTION);
-          if (drained.getAmount() != amount) {
+          FluidVolume drained = handler.getExtractable().extract(FluidAmount.of(amount, 1000));
+          if (drained.getAmount_F().asInt(1000) != amount) {
             TConstruct.log.error("Invalid amount of fuel drained from tank");
           }
           fuel += recipe.getDuration();
@@ -215,22 +241,26 @@ public class FuelModule implements PropertyDelegate {
 
   /**
    * Gets the mapper function for liquid fuel
-   * @param consume  If true, fuel is consumed
+   *
+   * @param consume If true, fuel is consumed
    * @return Mapper function for liquid fuel
    */
-  private Function<IFluidHandler,Integer> tryLiquidFuel(boolean consume) {
+  private Function<FixedFluidInv, Integer> tryLiquidFuel(boolean consume) {
     return consume ? tryLiquidFuelConsume : tryLiquidFuelNoConsume;
   }
 
   /**
    * Tries to consume fuel from the given position
-   * @param pos  Position
-   * @return   Temperature of the consumed fuel, 0 if none found
+   *
+   * @param pos Position
+   * @return Temperature of the consumed fuel, 0 if none found
    */
   private int tryFindFuel(BlockPos pos, boolean consume) {
-    final FixedFluidInvView invView = FluidAttributes.FIXED_INV_VIEW.get(getWorld(), pos);
-//    for (FluidVolume fluidVolume : invView.fluidIterable()) {
-//    }
+    final FixedFluidInv invView = FluidAttributes.FIXED_INV.get(getWorld(), pos);
+
+    fluidHandler = Optional.of(invView);
+
+    temperature = tryLiquidFuel(invView, consume);
     return 690000000;
 //    if (te != null) {
 //      // if we find a valid cap, try to consume fuel from it
@@ -259,7 +289,8 @@ public class FuelModule implements PropertyDelegate {
 
   /**
    * Attempts to consume fuel from one of the tanks
-   * @return  temperature of the found fluid, 0 if none
+   *
+   * @return temperature of the found fluid, 0 if none
    */
   public int findFuel(boolean consume) {
     // if we have a handler, try to use that if possible
@@ -268,7 +299,7 @@ public class FuelModule implements PropertyDelegate {
       handlerTemp = fluidHandler.map(tryLiquidFuel(consume));
     } else if (itemHandler != null) {
       handlerTemp = itemHandler.map(trySolidFuel(consume));
-    // if no handler, try to find one at the last position
+      // if no handler, try to find one at the last position
     } else if (lastPos != null) {
       int posTemp = tryFindFuel(lastPos, consume);
       if (posTemp > 0) {
@@ -306,7 +337,8 @@ public class FuelModule implements PropertyDelegate {
 
   /**
    * Reads the fuel from NBT
-   * @param nbt  NBT to read from
+   *
+   * @param nbt NBT to read from
    */
   public void readFromNBT(CompoundTag nbt) {
     fuel = nbt.getInt(TAG_FUEL);
@@ -316,8 +348,9 @@ public class FuelModule implements PropertyDelegate {
 
   /**
    * Writes the fuel to NBT
-   * @param nbt  NBT to write to
-   * @return  NBT written to
+   *
+   * @param nbt NBT to write to
+   * @return NBT written to
    */
   public CompoundTag writeToNBT(CompoundTag nbt) {
     nbt.putInt(TAG_FUEL, fuel);
@@ -375,7 +408,7 @@ public class FuelModule implements PropertyDelegate {
       case TEMPERATURE:
         temperature = value;
         break;
-        // position sync takes three parts
+      // position sync takes three parts
       case LAST_X:
       case LAST_Y:
       case LAST_Z:
@@ -408,7 +441,8 @@ public class FuelModule implements PropertyDelegate {
    * Called client side to get the fuel info for the current tank
    * Note this relies on the client side fuel handlers containing fuel, which is common for our blocks as show fluid in world.
    * If a tank does not do that this won't work.
-   * @return  Fuel info
+   *
+   * @return Fuel info
    */
   public FuelInfo getFuelInfo() {
     List<BlockPos> positions = null;
@@ -432,10 +466,10 @@ public class FuelModule implements PropertyDelegate {
     if (fluidHandler == null && itemHandler == null) {
       BlockEntity te = getWorld().getBlockEntity(mainTank);
       if (te != null) {
-        if(te instanceof SmelteryTileEntity) {
+        if (te instanceof SmelteryTileEntity) {
           SmelteryTileEntity smeltery = (SmelteryTileEntity) te;
-          fluidHandler = Optional.of(smeltery.getTank());
-        } else if(te instanceof TankTileEntity){
+          fluidHandler = Optional.of(FluidAttributes.FIXED_INV.get(getWorld(), mainTank));
+        } else if (te instanceof TankTileEntity) {
           TankTileEntity tank = (TankTileEntity) te;
           fluidHandler = Optional.of(tank.getTank());
         } else {
@@ -454,7 +488,7 @@ public class FuelModule implements PropertyDelegate {
 
     // determine what fluid we have and hpw many other fluids we have
     FuelInfo info = fluidHandler.map(handler -> {
-      FluidVolume fluid = handler.getFluidInTank(0);
+      FluidVolume fluid = handler.getTank(0).get();
       int temperature = 0;
       if (!fluid.isEmpty()) {
         MeltingFuel fuel = findRecipe(fluid.getRawFluid());
@@ -462,7 +496,7 @@ public class FuelModule implements PropertyDelegate {
           temperature = fuel.getTemperature();
         }
       }
-      return FuelInfo.of(fluid, handler.getTankCapacity(0), temperature);
+      return FuelInfo.of(fluid, handler.getTank(0).getSpace(), temperature);
     }).orElse(FuelInfo.EMPTY);
 
     // add extra fluid display
@@ -477,12 +511,8 @@ public class FuelModule implements PropertyDelegate {
           if (!pos.equals(mainTank)) {
             BlockEntity te = world.getBlockEntity(pos);
             if (te != null) {
-              throw new RuntimeException("CRAB!"); // FIXME: PORT
-//              Optional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-//              if (handler.isPresent()) {
-//                handler.addListener(displayListener);
-//                tankDisplayHandlers.add(handler);
-//              }
+              FixedFluidInv fixedFluidInv = FluidAttributes.FIXED_INV.get(world, pos);
+              tankDisplayHandlers.add(fixedFluidInv);
             }
           }
         }
@@ -490,29 +520,44 @@ public class FuelModule implements PropertyDelegate {
 
       // add display info from each handler
       FluidVolume currentFuel = info.getFluid();
-      for (Optional<IFluidHandler> capability : tankDisplayHandlers) {
-        capability.ifPresent(handler -> {
-          // sum if empty (more capacity) or the same fluid (more amount and capacity)
-          FluidVolume fluid = handler.getFluidInTank(0);
-          if (fluid.isEmpty()) {
-            info.add(0, handler.getTankCapacity(0).asInt(1000));
-          } else if (currentFuel.equals(fluid)) {
-            info.add(fluid.getAmount(), handler.getTankCapacity(0).asInt(1000));
-          }
-        });
+      for (FixedFluidInv fluidInv : tankDisplayHandlers) {
+        // sum if empty (more capacity) or the same fluid (more amount and capacity)
+        FluidVolume fluid = fluidInv.getTank(0).get();
+        if (fluid.isEmpty()) {
+          info.add(0, fluidInv.getMaxAmount_F(0).asInt(1000));
+        } else if (currentFuel.equals(fluid)) {
+          info.add(fluid.getAmount(), fluidInv.getMaxAmount_F(0).asInt(1000));
+        }
       }
     }
 
     return info;
   }
 
-  /** Data class to hold information about the current fuel */
-  @Getter
-  @AllArgsConstructor(access = AccessLevel.PRIVATE)
+  public int getFuel() {
+    return this.fuel;
+  }
+
+  public int getFuelQuality() {
+    return this.fuelQuality;
+  }
+
+  public int getTemperature() {
+    return this.temperature;
+  }
+
+  /**
+   * Data class to hold information about the current fuel
+   */
   public static class FuelInfo {
-    /** Empty fuel instance */
+
+    /**
+     * Empty fuel instance
+     */
     public static final FuelInfo EMPTY = new FuelInfo(TinkerFluids.EMPTY, 0, 0, 0);
-    /** Item fuel instance */
+    /**
+     * Item fuel instance
+     */
     public static final FuelInfo ITEM = new FuelInfo(TinkerFluids.EMPTY, 0, 0, SOLID_TEMPERATURE);
 
     private final FluidVolume fluid;
@@ -520,11 +565,19 @@ public class FuelModule implements PropertyDelegate {
     private int capacity;
     private final int temperature;
 
+    private FuelInfo(FluidVolume fluid, int totalAmount, int capacity, int temperature) {
+      this.fluid = fluid;
+      this.totalAmount = totalAmount;
+      this.capacity = capacity;
+      this.temperature = temperature;
+    }
+
     /**
      * Gets fuel info from the given stack and capacity
-     * @param fluid     Fluid
-     * @param capacity  Capacity
-     * @return  Fuel info
+     *
+     * @param fluid    Fluid
+     * @param capacity Capacity
+     * @return Fuel info
      */
     public static FuelInfo of(FluidVolume fluid, FluidAmount capacity, int temperature) {
       if (fluid.isEmpty()) {
@@ -535,8 +588,9 @@ public class FuelModule implements PropertyDelegate {
 
     /**
      * Adds an additional amount and capacity to this info
-     * @param amount    Amount to add
-     * @param capacity  Capacity to add
+     *
+     * @param amount   Amount to add
+     * @param capacity Capacity to add
      */
     protected void add(int amount, int capacity) {
       this.totalAmount += amount;
@@ -545,15 +599,34 @@ public class FuelModule implements PropertyDelegate {
 
     /**
      * Checks if this fuel info is an item
-     * @return  True if an item
+     *
+     * @return True if an item
      */
     public boolean isItem() {
       return this == ITEM;
     }
 
-    /** Checks if this fuel info has no fluid */
+    /**
+     * Checks if this fuel info has no fluid
+     */
     public boolean isEmpty() {
       return fluid.isEmpty() || totalAmount == 0 || capacity == 0;
+    }
+
+    public FluidVolume getFluid() {
+      return this.fluid;
+    }
+
+    public int getTotalAmount() {
+      return this.totalAmount;
+    }
+
+    public int getCapacity() {
+      return this.capacity;
+    }
+
+    public int getTemperature() {
+      return this.temperature;
     }
   }
 }

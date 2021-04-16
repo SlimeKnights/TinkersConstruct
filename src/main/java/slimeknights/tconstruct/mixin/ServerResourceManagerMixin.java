@@ -23,6 +23,7 @@ public class ServerResourceManagerMixin {
   @Inject(method = "<init>",at = @At("TAIL"))
   public void init(CommandManager.RegistrationEnvironment registrationEnvironment, int i, CallbackInfo ci) {
     this.resourceManager.registerListener(MaterialRegistry.INSTANCE.materialManager);
+    this.resourceManager.registerListener(MaterialRegistry.INSTANCE.materialStatsManager);
 //    this.resourceManager.registerListener(RecipeCacheInvalidator.onReloadListenerReload());
 //    MaterialRegistry.addDataPackListeners(resourceManager);
   }

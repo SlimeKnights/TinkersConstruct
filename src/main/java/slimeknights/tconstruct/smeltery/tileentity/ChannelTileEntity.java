@@ -259,7 +259,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 			int outputs = countOutputs(state);
 			if(!hasFlown && outputs > 0) {
 				// split the fluid evenly between sides
-                FluidAmount flowRate = tank.getMaxUsable().div(FluidAmount.ofWhole(outputs)).max(FluidAmount.ONE).min(FluidAmount.of(FaucetTileEntity.MB_PER_TICK, 1000));
+                FluidAmount flowRate = tank.getMaxUsable().div(FluidAmount.ofWhole(outputs)).max(FluidAmount.ONE).sub(FluidAmount.of(FaucetTileEntity.MB_PER_TICK, 1000));
 				// then transfer on each side
 				for(Direction side : Type.HORIZONTAL) {
 					trySide(side, flowRate);
@@ -311,7 +311,7 @@ public class ChannelTileEntity extends BlockEntity implements Tickable, IFluidPa
 	 */
 	protected boolean fill(Direction side, IFluidHandler handler, FluidAmount amount) {
 		// make sure we do not allow more than the fluid allows, should not happen but just in case
-        FluidAmount usable = tank.getMaxUsable().min(amount);
+        FluidAmount usable = tank.getMaxUsable().sub(amount);
 		if (usable.isGreaterThan(FluidAmount.ZERO)) {
 			// see how much works
 			FluidVolume fluid = tank.drain(usable, Simulation.SIMULATE);

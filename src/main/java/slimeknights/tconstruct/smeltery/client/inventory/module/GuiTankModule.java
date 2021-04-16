@@ -104,7 +104,7 @@ public class GuiTankModule {
         formatter.accept(capacity, tooltip);
         if (!capacity.equals(amount)) {
           tooltip.add(new TranslatableText(GuiSmelteryTank.TOOLTIP_AVAILABLE));
-          formatter.accept(capacity.min(amount), tooltip);
+          formatter.accept(capacity.sub(amount), tooltip);
         }
 
         // add shift message

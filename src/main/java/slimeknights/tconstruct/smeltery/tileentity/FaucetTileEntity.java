@@ -308,7 +308,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
         }
 
         // transfer it
-        this.drained = this.drained.withAmount(this.drained.amount().min(FluidAmount.of(filled, 1000)));
+        this.drained = this.drained.withAmount(this.drained.amount().sub(FluidAmount.of(filled, 1000)));
         fillStack = fillStack.withAmount(FluidAmount.of(filled, 1000));
         output.fill(fillStack, Simulation.ACTION);
       }

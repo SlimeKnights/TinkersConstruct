@@ -52,8 +52,7 @@ public class ToolHarvestLogic {
    * @return  True if effective
    */
   public boolean isEffectiveAgainst(ToolStack tool, ItemStack stack, BlockState state) {
-    throw new RuntimeException("CRAB!"); // FIXME: PORT
-//    return stack.getToolTypes().stream().anyMatch();//state::isToolEffective);
+    return stack.isEffectiveOn(state) || (!state.isToolRequired() && stack.getMiningSpeedMultiplier(state) > 1.0F);
   }
 
   /**
@@ -96,9 +95,9 @@ public class ToolHarvestLogic {
       return 0.3f;
     }
 
-    if (!isEffective(tool, stack, blockState)) {
-      return 1f;
-    }
+//    if (!isEffective(tool, stack, blockState)) {
+//      return 1f;
+//    }
 
     // calculate speed depending on stats
     return tool.getStats().getMiningSpeed();
