@@ -371,7 +371,12 @@ public class MeltingModuleInventory implements IItemHandler, Inventory {//IItemH
 
   @Override
   public ItemStack removeStack(int slot, int amount) {
-    throw new RuntimeException("CRAB!"); // FIXME: PORT
+    ItemStack stack = getStack(slot);
+    if(amount != stack.getCount()) {
+      throw new RuntimeException("CRAB!"); // FIXME: PORT
+    }
+    setStack(slot, ItemStack.EMPTY);
+    return stack;
   }
 
   @Override

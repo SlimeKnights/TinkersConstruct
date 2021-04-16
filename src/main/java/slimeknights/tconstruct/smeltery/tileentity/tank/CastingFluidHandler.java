@@ -107,7 +107,7 @@ public class CastingFluidHandler implements IFluidHandler {
     } else {
       // too much? set to max
       if (action.isAction()) {
-        fluid = fluid.withAmount(FluidAmount.of1620(capacity));
+        fluid = fluid.withAmount(FluidAmount.of(capacity, 1000));
         onContentsChanged();
       }
       return resource.withAmount(FluidAmount.of(space, 1000));

@@ -64,7 +64,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    */
   default int comparatorStrength() {
     FluidTankAnimated tank = getTank();
-    return tank.getFluidAmount().mul(15).div(tank.getTankCapacity(0)).as1620();
+    return tank.getFluidAmount().mul(15).div(tank.getTankCapacity(0)).asInt(1000);
   }
 
   /**
@@ -98,7 +98,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
   default void updateFluidTo(FluidVolume fluid) {
     // update tank fluid
     FluidTankAnimated tank = getTank();
-    int oldAmount = tank.getFluidAmount().as1620();
+    int oldAmount = tank.getFluidAmount().asInt(1000);
     int newAmount = fluid.getAmount();
     tank.setFluid(fluid);
 

@@ -44,7 +44,7 @@ public class GuiSmelteryTank {
   private int[] calcLiquidHeights(boolean refresh) {
     assert tank != null;
     if (liquidHeights == null || refresh) {
-      liquidHeights = calcLiquidHeights(tank.getFluids(), FluidAmount.of1620(Math.max(tank.getContained(), tank.getCapacity())), height, 3);
+      liquidHeights = calcLiquidHeights(tank.getFluids(), FluidAmount.of(Math.max(tank.getContained(), tank.getCapacity()), 1000), height, 3);
     }
     return liquidHeights;
   }

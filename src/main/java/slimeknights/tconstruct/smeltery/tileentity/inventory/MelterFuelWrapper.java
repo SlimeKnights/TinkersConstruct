@@ -58,7 +58,7 @@ public class MelterFuelWrapper implements IFluidInventory {
   public int getCapacity() {
     return Optional.ofNullable(tank.get())
                    .map(IFluidTank::getCapacity)
-                   .orElse(FluidAmount.of1620(0)).as1620();
+                   .orElse(FluidAmount.of(0, 1000)).asInt(1000);
   }
 
   /**

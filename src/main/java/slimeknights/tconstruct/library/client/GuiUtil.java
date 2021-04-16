@@ -132,7 +132,7 @@ public final class GuiUtil {
    */
   public static void renderTiledFluid(MatrixStack matrices, HandledScreen<?> screen, FluidVolume stack, int x, int y, int width, int height, int depth) {
     if (!stack.isEmpty()) {
-      throw new RuntimeException("CRAB!");
+//      throw new RuntimeException("CRAB!");
 //      Sprite fluidSprite = screen.client.getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).apply(stack.getFluid().getAttributes().getStillTexture(stack));
 //      RenderUtils.setColorRGBA(stack.getRenderColor());
 //      renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));

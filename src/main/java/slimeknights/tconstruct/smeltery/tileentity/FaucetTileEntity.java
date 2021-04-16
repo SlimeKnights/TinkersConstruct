@@ -296,7 +296,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     Optional<IFluidHandler> outputOptional = getOutputHandler();
     if (outputOptional.isPresent()) {
       FluidVolume fillStack = drained.copy();
-      fillStack.withAmount(FluidAmount.of1620(Math.min(drained.getAmount_F().asInt(1000), MB_PER_TICK)));
+      fillStack.withAmount(FluidAmount.of(Math.min(drained.getAmount_F().asInt(1000), MB_PER_TICK), 1000));
 
       // can we fill?
       IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
@@ -308,8 +308,8 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
         }
 
         // transfer it
-        this.drained = this.drained.withAmount(this.drained.amount().min(FluidAmount.of1620(filled)));
-        fillStack = fillStack.withAmount(FluidAmount.of1620(filled));
+        this.drained = this.drained.withAmount(this.drained.amount().min(FluidAmount.of(filled, 1000)));
+        fillStack = fillStack.withAmount(FluidAmount.of(filled, 1000));
         output.fill(fillStack, Simulation.ACTION);
       }
     }

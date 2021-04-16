@@ -4,7 +4,6 @@ import lombok.Getter;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.Direction;
@@ -14,15 +13,13 @@ import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.misc.InventoryItemHandler;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 
-import java.util.Optional;
-
 public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContainer<TILE> {
 
   @Getter
   private final int columns;
   @Getter
   private final int slotCount;
-  protected final IItemHandler itemHandler;
+  protected final Inventory itemHandler;
 
   public SideInventoryContainer(ScreenHandlerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, int x, int y, int columns) {
     this(containerType, windowId, inv, tile, null, x, y, columns);
@@ -34,12 +31,11 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
     if (tile == null) {
       throw new RuntimeException("Well fuck");
     } else {
-
       this.itemHandler = ((SmelteryTileEntity) tile).meltingInventory;
     }
 
     // slot properties
-    this.slotCount = itemHandler.getSlots();
+    this.slotCount = itemHandler.size();
     this.columns = columns;
     int rows = this.slotCount / columns;
     if (this.slotCount % columns != 0) {
@@ -54,7 +50,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
           break;
         }
 
-        this.addSlot(this.createSlot(new InventoryItemHandler(), index, x + c * 18, y + r * 18));
+        this.addSlot(this.createSlot(itemHandler, index, x + c * 18, y + r * 18));
         index++;
       }
     }

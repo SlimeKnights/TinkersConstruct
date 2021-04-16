@@ -41,7 +41,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
 
   @Override
   public int getFluidAmount(ICastingInventory inv) {
-    return this.fluid.getAmount(FluidKeys.get(inv.getFluid())).as1620();
+    return this.fluid.getAmount(FluidKeys.get(inv.getFluid())).asInt(1000);
   }
 
   @Override

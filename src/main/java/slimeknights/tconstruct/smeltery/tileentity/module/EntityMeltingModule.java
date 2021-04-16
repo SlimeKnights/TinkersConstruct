@@ -79,7 +79,7 @@ public class EntityMeltingModule {
    */
   public static FluidVolume getDefaultFluid() {
     // TODO: consider a way to put this in a recipe
-    return FluidVolume.create(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL.div(5).as1620());
+    return FluidVolume.create(TinkerFluids.blood.get(), MaterialValues.SLIMEBALL.div(5).asInt(1000));
   }
 
   /**

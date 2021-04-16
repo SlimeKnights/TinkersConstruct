@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.tileentity.tank;
 
 import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.common.collect.Lists;
 import lombok.Getter;
@@ -104,7 +105,7 @@ public class SmelteryTank implements IFluidHandler {
   @Override
   public FluidVolume getFluidInTank(int tank) {
     if (tank < 0 || tank >= fluids.size()) {
-      return TinkerFluids.EMPTY;
+      return FluidKeys.LAVA.withAmount(FluidAmount.of(100, 1000));
     }
     return fluids.get(tank);
   }
@@ -172,7 +173,7 @@ public class SmelteryTank implements IFluidHandler {
     }
 
     // not present yet, add it
-    resource = resource.withAmount(FluidAmount.of1620(usable));
+    resource = resource.withAmount(FluidAmount.of(usable, 1000));
     fluids.add(resource);
     parent.notifyFluidsChanged(FluidChange.ADDED, resource.getRawFluid());
     return resource.withAmount(FluidAmount.of(usable, 1000));
@@ -220,11 +221,11 @@ public class SmelteryTank implements IFluidHandler {
         int drainable = Math.min(toDrain.getAmount(), fluid.getAmount());
 
         // copy contained fluid to return for accuracy
-        FluidVolume ret = fluid.withAmount(FluidAmount.of1620(drainable));
+        FluidVolume ret = fluid.withAmount(FluidAmount.of(drainable, 1000));
 
         // update tank if executing
         if (action.isAction()) {
-          fluid = fluid.withAmount(fluid.getAmount_F().min(FluidAmount.of1620(drainable)));
+          fluid = fluid.withAmount(fluid.getAmount_F().min(FluidAmount.of(drainable, 1000)));
           contained -= drainable;
           // if now empty, remove from the list
           if (fluid.getAmount() <= 0) {

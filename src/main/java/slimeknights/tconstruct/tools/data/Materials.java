@@ -106,13 +106,13 @@ final class Materials {
   /** Creates a material with a fluid */
   private static IMaterial mat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, boolean craftable, int color, @Nullable Modifier trait) {
     // all our materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT.as1620(), craftable, color, traitSupplier(trait)));
+    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT.asInt(1000), craftable, color, traitSupplier(trait)));
   }
 
   /** Creates a material with a fluid */
   private static IMaterial overslimeMat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, boolean craftable, int color, Modifier trait) {
     // all our materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT.as1620(), craftable, color, getOverslimeTrait(trait)));
+    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT.asInt(1000), craftable, color, getOverslimeTrait(trait)));
   }
 
   /** Creates a material with no fluid */
@@ -124,7 +124,7 @@ final class Materials {
   private static IMaterial compatMat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, @Nullable Modifier trait) {
     // all our addon materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
 //    ICondition condition = new NotCondition(new TagEmptyCondition("forge", "ingots/" + location.getPath()));
-    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT.as1620(), false, 0xFFFFFF, traitSupplier(trait)));
+    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT.asInt(1000), false, 0xFFFFFF, traitSupplier(trait)));
   }
 
   /** Gets an overslime based trait for the given tool */

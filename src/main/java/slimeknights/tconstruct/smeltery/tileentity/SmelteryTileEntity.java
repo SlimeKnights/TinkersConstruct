@@ -63,7 +63,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   private static final String TAG_INVENTORY = "inventory";
 
   /** Fluid capacity per internal block */
-  private static final int CAPACITY_PER_BLOCK = MaterialValues.INGOT.mul(8).as1620();
+  private static final int CAPACITY_PER_BLOCK = MaterialValues.INGOT.mul(8).asInt(1000);
   /** Number of wall blocks needed to increase the fuel cost by 1 */
   private static final int BLOCKS_PER_FUEL = 10;
 

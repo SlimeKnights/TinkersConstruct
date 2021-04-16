@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
-import lombok.AllArgsConstructor;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.slot.Slot;
@@ -14,7 +13,6 @@ import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-@AllArgsConstructor
 public class GuiMeltingModule {
   // progress bars
   private static final ScalableElementScreen PROGRESS_BAR = new ScalableElementScreen(176, 150, 3, 16, 256, 256);
@@ -31,6 +29,13 @@ public class GuiMeltingModule {
   private final MeltingModuleInventory inventory;
   private final IntSupplier temperature;
   private final Predicate<Slot> slotPredicate;
+
+  public GuiMeltingModule(HandledScreen<?> screen, MeltingModuleInventory inventory, IntSupplier temperature, Predicate<Slot> slotPredicate) {
+    this.screen = screen;
+    this.inventory = inventory;
+    this.temperature = temperature;
+    this.slotPredicate = slotPredicate;
+  }
 
 
   /**

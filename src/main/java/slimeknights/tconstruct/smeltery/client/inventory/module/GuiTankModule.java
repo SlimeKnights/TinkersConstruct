@@ -41,7 +41,7 @@ public class GuiTankModule {
    * @return  Fluid height
    */
   private int getFluidHeight() {
-    return tank.getFluidAmount().mul(height).div(tank.getCapacity()).as1620();
+    return tank.getFluidAmount().mul(height).div(tank.getCapacity()).asInt(1000);
   }
 
   /**
@@ -49,7 +49,7 @@ public class GuiTankModule {
    * @param matrices  Matrix stack instance
    */
   public void draw(MatrixStack matrices) {
-    GuiUtil.renderFluidTank(matrices, screen, tank.getFluid(), tank.getCapacity().as1620(), x, y, width, height, 100);
+    GuiUtil.renderFluidTank(matrices, screen, tank.getFluid(), tank.getCapacity().asInt(1000), x, y, width, height, 100);
   }
 
   /**

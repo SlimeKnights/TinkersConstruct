@@ -84,7 +84,7 @@ public class SmelteryTankRenderer {
       // calc heights, we use mB capacities and then convert it over to blockheights during rendering
       int yd = 1 + Math.max(0, tankMaxPos.getY() - tankMinPos.getY());
       // one block height = 1000 mb
-      int[] heights = GuiSmelteryTank.calcLiquidHeights(fluids, FluidAmount.of1620(tank.getCapacity()), yd * 1000 - HEIGHT_OFFSET, 100);
+      int[] heights = GuiSmelteryTank.calcLiquidHeights(fluids, FluidAmount.of(tank.getCapacity(), 1000), yd * 1000 - HEIGHT_OFFSET, 100);
 
       // rendering time
       VertexConsumer builder = buffer.getBuffer(RENDER_TYPE);

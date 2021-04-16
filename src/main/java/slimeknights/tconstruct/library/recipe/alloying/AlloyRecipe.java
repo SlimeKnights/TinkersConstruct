@@ -134,7 +134,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
       int index = findMatch(ingredient, inv, used, true);
       if (index != -1) {
         fluid = inv.getFluidInTank(index);
-        drainAmount += ingredient.getAmount(fluid.getFluidKey()).as1620();
+        drainAmount += ingredient.getAmount(fluid.getFluidKey()).asInt(1000);
       } else {
         // no fluid matched this ingredient, match failed
         return false;
@@ -167,7 +167,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
       int index = findMatch(ingredient, inv, used, true);
       if (index != -1) {
         fluid = inv.getFluidInTank(index);
-        int amount = ingredient.getAmount(fluid.getFluidKey()).as1620();
+        int amount = ingredient.getAmount(fluid.getFluidKey()).asInt(1000);
         drainAmount += amount;
         drainFluids.add(fluid.getFluidKey().withAmount(amount));
       } else {

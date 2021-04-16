@@ -52,7 +52,7 @@ public final class RenderUtils {
       }
 
       // fetch fluid information from the model
-      FluidRenderer.renderScaledCuboid(matrices, buffer, cube, liquid, offset, capacity.as1620(), light, flipGas);
+      FluidRenderer.renderScaledCuboid(matrices, buffer, cube, liquid, offset, capacity.asInt(1000), light, flipGas);
     } else {
       // clear render offet if no liquid
       tank.setRenderOffset(0);

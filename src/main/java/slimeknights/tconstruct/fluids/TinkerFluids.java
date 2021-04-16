@@ -45,7 +45,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<MantleFluid> blood = null; //Registry.register(Registry.FLUID, new Identifier(TConstruct.modID, "blood"), coolBuilder().setRenderColor(0xff540000).setDensity(f(1200)).setViscosity(f(1200)).setTemperature(tmp(336)), Material.WATER, 0);
 
   private static FluidAmount f(int i) {
-    return FluidAmount.of1620(i);
+    return FluidAmount.of(1000, i);
   }
 
   private static FluidObject<MantleFluid> registerFluid(String name, FluidKey.FluidKeyBuilder builder, Material material, int whatsThis) {

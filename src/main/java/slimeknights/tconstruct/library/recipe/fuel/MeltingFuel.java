@@ -69,7 +69,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
    * @return  Amount of fluid consumed
    */
   public int getAmount(Fluid fluid) {
-    return input.getAmount(FluidKeys.get(fluid)).as1620();
+    return input.getAmount(FluidKeys.get(fluid)).asInt(1000);
   }
 
   /**

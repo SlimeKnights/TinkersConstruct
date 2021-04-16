@@ -91,7 +91,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
   public int getFluidAmount(ICastingInventory inv) {
     Item item = inv.getStack().getItem();
     if (item instanceof IMaterialItem) {
-      return fluid.getAmount(FluidKeys.get(inv.getFluid())).mul(getMaterialItemCost((IMaterialItem) item)).as1620();
+      return fluid.getAmount(FluidKeys.get(inv.getFluid())).mul(getMaterialItemCost((IMaterialItem) item)).asInt(1000);
     }
     return 0;
   }
