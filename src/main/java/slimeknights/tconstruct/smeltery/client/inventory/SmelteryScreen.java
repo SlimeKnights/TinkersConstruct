@@ -117,7 +117,8 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> impleme
     if (mouseButton == 0 && tank != null) {
       tank.handleClick((int)mouseX - cornerX, (int)mouseY - cornerY);
     }
-    return super.mouseClicked(mouseX, mouseY, mouseButton);
+    return true;
+//    return super.mouseClicked(mouseX, mouseY, mouseButton);
   }
 
   @Nullable

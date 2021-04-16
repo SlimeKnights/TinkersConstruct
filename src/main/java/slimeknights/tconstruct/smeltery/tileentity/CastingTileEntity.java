@@ -30,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.EmptyItemHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -86,7 +87,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     this.castingType = castingType;
     this.moldingType = moldingType;
     this.castingInventory = new TileCastingWrapper(this, Fluids.EMPTY);
-    this.moldingInventory = null;//new MoldingInventoryWrapper(itemHandler, INPUT);
+    this.moldingInventory = new MoldingInventoryWrapper(EmptyItemHandler.INSTANCE, INPUT);
   }
 
   /**
