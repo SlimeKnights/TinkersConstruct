@@ -1,10 +1,10 @@
 [
   {
     "name": "intro",
-    "data": "sections/intro_tmp.json",
+    "data": "sections/introduction.json",
     "icon": {
       "item": {
-        "id": "tconstruct:blue_slime_ball"
+        "id": "tconstruct:pattern"
       }
     }
   },
@@ -24,6 +24,14 @@
     "icon": {
       "item": {
         "id": "minecraft:redstone"
+      }
+    }
+  },
+  {
+    "name": "tier_one_materials",
+    "icon": {
+      "item": {
+        "id": "minecraft:stone"
       }
     }
   }

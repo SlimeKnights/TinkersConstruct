@@ -1,0 +1,25 @@
+[
+  {
+    "type": "blank"
+  },
+  {
+    "name": "introduction",
+    "type": "text",
+    "data": "intro/welcome.json"
+  },
+  {
+    "name": "partbuilder",
+    "type": "text",
+    "data": "intro/partbuilder.json"
+  },
+  {
+    "name": "tinkerstation",
+    "type": "text",
+    "data": "intro/tinkerstation.json"
+  },
+  {
+    "name": "storage",
+    "type": "text",
+    "data": "intro/storage.json"
+  }
+]

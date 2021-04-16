@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:netherite",
+  "text": [
+    {
+      "text": "The strength of the nether flows intensely through your tool."
+    }
+  ],
+  "effects": [
+    "Strengthens the tool, makes it immune to external damage such as fire",
+    "Requires Diamond Modifier to be applied",
+    "Single Use",
+	"Requires 1 Upgrade Slot"
+  ]
+}

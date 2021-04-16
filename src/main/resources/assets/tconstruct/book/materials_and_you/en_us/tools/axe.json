@@ -2,19 +2,19 @@
   "tool": "tconstruct:axe",
   "text": [
     {
-      "text": "The Hatchet is a basic chopping tool. It is effective on wood and leaves. Breaking leaves with it does not consume durability."
+      "text": "The Hand Axe is a basic chopping tool. It is effective on wood and leaves."
     },
     {
       "text": "\n"
     },
     {
-      "text": "Using the hatchet in combat allows you to disable the shield of your opponent."
+      "text": "It is like a vanilla axe; a weapon or a tool, or both. The choice is yours."
     }
   ],
   "properties": [
     "Basic mining tool",
     "Effective on wood",
     "Breaks leaves really fast",
-    "Doesn't use durability on leaves"
+	"Strips woods logs with ease"
   ]
 }

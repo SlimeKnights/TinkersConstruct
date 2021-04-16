@@ -5,12 +5,11 @@ bowmaterials=Bow materials
 tools=Tools
 modifiers=Modifiers
 smeltery=Smeltery
-seared_furnace=Seared Furnace
-tinker_tank=Tinker Tank
+tier_one_materials=Tier 1 Materials
 
 repairing=Repairing
 offhand=Offhand Harvesting
-bolt_core=Bolt Crafting
+
 
 modifier.effect=Effects:
 tool.properties=Properties:

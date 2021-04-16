@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "Diamonds are forever!"
+    }
+  ],
+  "effects": [
+    "Increases durability and stats of your tool",
+    "Single Use",
+    "Requires 1 Upgrade Slot"
+  ]
+}

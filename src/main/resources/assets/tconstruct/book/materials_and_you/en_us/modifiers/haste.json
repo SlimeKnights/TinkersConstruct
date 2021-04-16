@@ -12,8 +12,8 @@
     }
   ],
   "effects": [
-    "Each redstone dust increases mining speed by a small amount",
-    "Increases attack speed",
-    "Multiple levels"
+    "Increases mining and attack speed",
+    "Multiple levels, each level increases speed a bit more",
+    "Requires 1 Upgrade Slot per level"
   ]
 }
