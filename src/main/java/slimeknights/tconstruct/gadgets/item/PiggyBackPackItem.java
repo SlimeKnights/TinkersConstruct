@@ -1,35 +1,32 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.DisplayEffectsScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.play.server.SSetPassengersPacket;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.screen.ElementScreen;
-import slimeknights.mantle.item.ArmorTooltipItem;
+import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
 import slimeknights.tconstruct.library.client.Icons;
@@ -38,69 +35,16 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 
 import javax.annotation.Nonnull;
 
-public class PiggyBackPackItem extends ArmorTooltipItem {
-
-  // todo: turn this into a config
+public class PiggyBackPackItem extends TooltipItem {
   private static final int MAX_ENTITY_STACK = 3; // how many entities can be carried at once
-
-  private static final IArmorMaterial PIGGYBACK = new IArmorMaterial() {
-    @Override
-    public int getDurability(EquipmentSlotType slotIn) {
-      return 0;
-    }
-
-    @Override
-    public int getDamageReductionAmount(EquipmentSlotType slotIn) {
-      return 0;
-    }
-
-    @Override
-    public int getEnchantability() {
-      return 0;
-    }
-
-    @Override
-    public SoundEvent getSoundEvent() {
-      return SoundEvents.BLOCK_SLIME_BLOCK_PLACE;
-    }
-
-    @Override
-    public Ingredient getRepairMaterial() {
-      return Ingredient.EMPTY;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public String getName() {
-      return Util.resource("piggyback");
-    }
-
-    @Override
-    public float getToughness() {
-      return 0;
-    }
-
-    @Override
-    public float getKnockbackResistance() {
-      return 0;
-    }
-  };
-
-  public PiggyBackPackItem() {
-    super(PIGGYBACK, EquipmentSlotType.CHEST, (new Properties()).group(TinkerGadgets.TAB_GADGETS).maxStackSize(16));
-  }
-
-  @Nonnull
-  @Override
-  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand hand) {
-    ItemStack itemStackIn = playerIn.getHeldItem(hand);
-    return new ActionResult<>(ActionResultType.PASS, itemStackIn);
+  public PiggyBackPackItem(Properties props) {
+    super(props);
   }
 
   @Override
   public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     // is the chest slot empty?
-    ItemStack chestArmor = playerIn.getItemStackFromSlot(this.slot);
+    ItemStack chestArmor = playerIn.getItemStackFromSlot(EquipmentSlotType.CHEST);
 
     // need enough space to exchange the chest armor
     if (chestArmor.getItem() != this && playerIn.inventory.getFirstEmptyStack() == -1) {
@@ -108,6 +52,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       return ActionResultType.PASS;
     }
 
+    // try carrying the entity
     if (this.pickupEntity(playerIn, target)) {
       // unequip old armor
       if (chestArmor.getItem() != this) {
@@ -117,7 +62,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
 
       // we could pick it up just fine, check if we need to "equip" more of the item
       if (chestArmor.isEmpty()) {
-        playerIn.setItemStackToSlot(this.slot, stack.split(1));
+        playerIn.setItemStackToSlot(EquipmentSlotType.CHEST, stack.split(1));
       } else if (chestArmor.getCount() < this.getEntitiesCarriedCount(playerIn)) {
         stack.split(1);
         chestArmor.grow(1);
@@ -187,19 +132,20 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     }
   }
 
-  /**
-   * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
-   * update it's contents.
-   */
   @Override
   public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     if (entityIn instanceof LivingEntity) {
       LivingEntity livingEntity = (LivingEntity) entityIn;
       if (livingEntity.getItemStackFromSlot(EquipmentSlotType.CHEST) == stack && entityIn.isBeingRidden()) {
         int amplifier = this.getEntitiesCarriedCount(livingEntity) - 1;
-        livingEntity.addPotionEffect(new EffectInstance(TinkerGadgets.carryEffect.get(), 1, amplifier, true, false));
+        livingEntity.addPotionEffect(new EffectInstance(TinkerGadgets.carryEffect.get(), 2, amplifier, true, false));
       }
     }
+  }
+
+  @Override
+  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
+    return ImmutableMultimap.of(); // no attributes, the potion effect handles them
   }
 
   public static class CarryPotionEffect extends TinkerEffect {

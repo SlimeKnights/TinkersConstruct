@@ -648,7 +648,7 @@
     "item.tconstruct.ichor_slime_boots.tooltip": "Makes you bounce when landing",
 
     "item.tconstruct.piggy_backpack": "Piggybackpack",
-    "item.tconstruct.piggy_backpack.tooltip": "Right-click mobs to pick them up",
+    "item.tconstruct.piggy_backpack.tooltip": "Use on a mob to pick it up",
     "effect.tconstruct.carry": "Carrying",
 
     "item.tconstruct.hard_spaghetti": "Impossibly Hard Wheat Sticks",
