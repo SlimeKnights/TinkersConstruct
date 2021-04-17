@@ -649,6 +649,7 @@
 
     "item.tconstruct.piggy_backpack": "Piggybackpack",
     "item.tconstruct.piggy_backpack.tooltip": "Right-click mobs to pick them up",
+    "effect.tconstruct.carry": "Carrying",
 
     "item.tconstruct.hard_spaghetti": "Impossibly Hard Wheat Sticks",
     "item.tconstruct.hard_spaghetti.tooltip": "Impossibly Hard Wheat Sticks",
@@ -1195,6 +1196,11 @@
     "modifier.tconstruct.temperate.flavor": "Extreme Mining!",
     "modifier.tconstruct.temperate.description": "Tool mines faster when in extreme temperatures",
 
+    "_comment": "Internal effects",
+    "effect.tconstruct.bleeding": "Bleeding",
+    "effect.tconstruct.magnetic": "Magnetic",
+    "effect.tconstruct.momentum": "Momentum",
+    "effect.tconstruct.insatiable": "Insatiable",
 
     "_comment": "Stats",
 
