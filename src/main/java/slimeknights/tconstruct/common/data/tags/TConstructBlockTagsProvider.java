@@ -15,6 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -42,7 +43,9 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.addTools();
     this.addWorld();
     this.addSmeltery();
+    this.addFluids();
   }
+
   private void addCommon() {
     // ores
     addMetalTags(TinkerMaterials.copper);
@@ -69,6 +72,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
     // soul speed on glass
     this.getOrCreateBuilder(BlockTags.SOUL_SPEED_BLOCKS).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get());
+    this.getOrCreateBuilder(BlockTags.SOUL_FIRE_BASE_BLOCKS).add(TinkerCommons.soulGlass.get());
 
     TagsProvider.Builder<Block> builder = this.getOrCreateBuilder(TinkerTags.Blocks.ANVIL_METAL)
         // tier 3
@@ -95,6 +99,10 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
         .addOptionalTag(new ResourceLocation("forge:workbench")); // some mods use a non-standard name here, so support it I guess
     this.getOrCreateBuilder(TinkerTags.Blocks.TABLES)
         .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
+
+    this.getOrCreateBuilder(BlockTags.GUARDED_BY_PIGLINS)
+        .add(TinkerModifiers.silkyJewelBlock.get())
+        .addTag(TinkerMaterials.roseGold.getBlockTag());
 
     // can harvest crops and sugar cane
     this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_STACKABLE)
@@ -134,6 +142,12 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.ORES_COPPER);
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
+
+    // allow the enderman to hold more blocks
+    TagsProvider.Builder<Block> endermanHoldable = this.getOrCreateBuilder(BlockTags.ENDERMAN_HOLDABLE);
+    endermanHoldable.addTag(TinkerTags.Blocks.CONGEALED_SLIME).add(TinkerSmeltery.grout.get());
+    TinkerWorld.slimeDirt.forEach(endermanHoldable::addItemEntry);
+    TinkerWorld.slimeGrass.forEach((key, type) -> type.forEach(endermanHoldable::addItemEntry));
   }
 
   private void addGadgets() {
@@ -177,6 +191,10 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
     // climb seared ladder
     this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get());
+  }
+
+  private void addFluids() {
+    this.getOrCreateBuilder(BlockTags.STRIDER_WARM_BLOCKS).add(TinkerFluids.magmaCream.getBlock(), TinkerFluids.moltenBlaze.getBlock());
   }
 
   @Override
