@@ -41,7 +41,9 @@ public class DamageSpeedTradeModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {
-    event.setNewSpeed((float)(event.getNewSpeed() * (1 - (Math.sqrt(tool.getDamage() * level) * multiplier))));
+  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, boolean isEffective, float miningSpeedModifier) {
+    if (isEffective) {
+      event.setNewSpeed((float)(event.getNewSpeed() * (1 - (Math.sqrt(tool.getDamage() * level) * multiplier))));
+    }
   }
 }

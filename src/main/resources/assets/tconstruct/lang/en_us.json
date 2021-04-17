@@ -1016,6 +1016,16 @@
     "modifier.tconstruct.haste.flavor": "Science!",
     "modifier.tconstruct.haste.description": "Magic red dust makes tool swing and mine faster!",
 
+    "modifier.tconstruct.blasting": "Blasting",
+    "modifier.tconstruct.blasting.flavor": "Explosive Mining!",
+    "modifier.tconstruct.blasting.description": "Your tool breaks blocks weak to explosions, such as ores, faster!",
+    "modifier.tconstruct.hydraulic": "Hydraulic",
+    "modifier.tconstruct.hydraulic.flavor": "Using the power of water!",
+    "modifier.tconstruct.hydraulic.description": "Tool mines faster underwater or in the rain!",
+    "modifier.tconstruct.lightspeed": "Lightspeed",
+    "modifier.tconstruct.lightspeed.flavor": "Brighter is faster!",
+    "modifier.tconstruct.lightspeed.description": "Tool mines well lit blocks faster!",
+
     "_comment": "Weapon",
     "modifier.tconstruct.knockback": "Knockback",
     "modifier.tconstruct.knockback.flavor": "Weeeeee!",

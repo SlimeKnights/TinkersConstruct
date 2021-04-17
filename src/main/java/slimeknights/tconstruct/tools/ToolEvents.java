@@ -22,9 +22,12 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+
+import java.util.List;
 
 /**
  * Event subscriber for tool events
@@ -42,8 +45,18 @@ public class ToolEvents {
     }
     ToolStack tool = ToolStack.from(stack);
     if (!tool.isBroken()) {
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event);
+      List<ModifierEntry> modifiers = tool.getModifierList();
+      if (!modifiers.isEmpty()) {
+        // modifiers using additive boosts may want info on the original boosts provided
+        float miningSpeedModifier = Modifier.getMiningModifier(event.getPlayer());
+        boolean isEffective = stack.canHarvestBlock(event.getState());
+        for (ModifierEntry entry : tool.getModifierList()) {
+          entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event, isEffective, miningSpeedModifier);
+          // if any modifier cancels mining, stop right here
+          if (event.isCanceled()) {
+            break;
+          }
+        }
       }
     }
   }
