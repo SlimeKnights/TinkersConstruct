@@ -34,6 +34,8 @@ import java.util.function.Function;
 public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
   private static final ITextComponent INFO_TEXT = Util.makeTranslation("gui", "part_builder.info");
   private static final ITextComponent TRAIT_TITLE = Util.makeTranslation("gui", "part_builder.trait").mergeStyle(TextFormatting.UNDERLINE);
+  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL = Util.makeTranslation("gui", "part_builder.uncraftable").mergeStyle(TextFormatting.RED);
+  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL_TOOLTIP = Util.makeTranslation("gui", "part_builder.uncraftable.tooltip");
 
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/partbuilder.png");
 
@@ -137,7 +139,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     // update material
     MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
     if (materialRecipe != null) {
-      this.setDisplayForMaterial(materialRecipe.getMaterial());
+      this.setDisplayForMaterial(materialRecipe);
     } else {
       // default text
       this.infoPanelScreen.setCaption(this.getTitle());
@@ -148,29 +150,35 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
 
   /**
    * Updates the data in the material display
-   * @param material  New materia
+   * @param materialRecipe  New material recipe
    */
-  private void setDisplayForMaterial(IMaterial material) {
+  private void setDisplayForMaterial(MaterialRecipe materialRecipe) {
+    IMaterial material = materialRecipe.getMaterial();
     this.infoPanelScreen.setCaption(new TranslationTextComponent(material.getTranslationKey()).modifyStyle(style -> style.setColor(material.getColor())));
 
     // determine how much material we have
-    MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
-    if (materialRecipe != null) {
-      // get exact number of material, rather than rounded
-      float value = materialRecipe.getMaterialValue(this.container.getCraftInventory());
-      IFormattableTextComponent formatted = new StringTextComponent(Util.df.format(value));
+    // get exact number of material, rather than rounded
+    float value = materialRecipe.getMaterialValue(this.container.getCraftInventory());
+    IFormattableTextComponent formatted = new StringTextComponent(Util.df.format(value));
 
-      // if we have a part recipe, mark material red when not enough
-      PartRecipe partRecipe = this.container.getPartRecipe();
-      if (partRecipe != null && value < partRecipe.getCost()) {
-        formatted = formatted.mergeStyle(TextFormatting.DARK_RED);
-      }
-      this.infoPanelScreen.setMaterialValue(formatted);
+    // if we have a part recipe, mark material red when not enough
+    PartRecipe partRecipe = this.container.getPartRecipe();
+    if (partRecipe != null && value < partRecipe.getCost()) {
+      formatted = formatted.mergeStyle(TextFormatting.DARK_RED);
     }
+    this.infoPanelScreen.setMaterialValue(formatted);
 
     // update stats and traits
     List<ITextComponent> stats = Lists.newLinkedList();
     List<ITextComponent> tips = Lists.newArrayList();
+
+    // add warning that the material is uncraftable
+    if (!material.isCraftable()) {
+      stats.add(UNCRAFTABLE_MATERIAL);
+      stats.add(StringTextComponent.EMPTY);
+      tips.add(UNCRAFTABLE_MATERIAL_TOOLTIP);
+      tips.add(StringTextComponent.EMPTY);
+    }
 
     List<ModifierEntry> traits = material.getTraits();
     if (!traits.isEmpty()) {

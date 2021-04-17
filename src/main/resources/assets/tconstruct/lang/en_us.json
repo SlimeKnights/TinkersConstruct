@@ -1270,6 +1270,8 @@
     "gui.tconstruct.part_builder.material_value": "Material value: %s",
     "gui.tconstruct.part_builder.cost": "Pattern cost: %s",
     "gui.tconstruct.part_builder.trait": "Trait",
+    "gui.tconstruct.part_builder.uncraftable": "Cannot shape",
+    "gui.tconstruct.part_builder.uncraftable.tooltip": "Material cannot be shaped in the part builder. Other methods such as casting are required.",
 
     "gui.tconstruct.modifier_chest": "Modifier Chest",
     "gui.tconstruct.cast_chest": "Cast Chest",

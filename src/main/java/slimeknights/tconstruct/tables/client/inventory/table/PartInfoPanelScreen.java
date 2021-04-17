@@ -6,26 +6,27 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.Color;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
 
 import java.util.ListIterator;
 
 public class PartInfoPanelScreen extends InfoPanelScreen {
+  private static final String COST_KEY = Util.makeTranslationKey("gui", "part_builder.cost");
+  private static final String MATERIAL_VALUE_KEY = Util.makeTranslationKey("gui", "part_builder.material_value");
 
-  private IFormattableTextComponent patternCost;
-  private IFormattableTextComponent materialValue;
-  public static final IFormattableTextComponent EMPTY = new StringTextComponent("");
+  private ITextComponent patternCost;
+  private ITextComponent materialValue;
 
   public PartInfoPanelScreen(MultiModuleScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
     super(parent, container, playerInventory, title);
-    this.patternCost = PartInfoPanelScreen.EMPTY;
-    this.materialValue = PartInfoPanelScreen.EMPTY;
+    this.patternCost = StringTextComponent.EMPTY;
+    this.materialValue = StringTextComponent.EMPTY;
   }
 
   /* Pattern cost */
@@ -34,7 +35,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * Clears the pattern cost text
    */
   public void clearPatternCost() {
-    this.patternCost = PartInfoPanelScreen.EMPTY;
+    this.patternCost = StringTextComponent.EMPTY;
     this.updateSliderParameters();
   }
 
@@ -43,13 +44,13 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * @param cost  Pattern cost
    */
   public void setPatternCost(int cost) {
-    this.patternCost = new TranslationTextComponent("gui.tconstruct.part_builder.cost", cost);
+    this.patternCost = new TranslationTextComponent(COST_KEY, cost).mergeStyle(TextFormatting.GOLD);
     this.updateSliderParameters();
   }
 
   /** If true, has pattern cost text */
   private boolean hasPatternCost() {
-    return this.patternCost != null && this.patternCost != PartInfoPanelScreen.EMPTY;
+    return this.patternCost != null && this.patternCost != StringTextComponent.EMPTY;
   }
 
   /* Material value */
@@ -59,7 +60,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * @param value  Value text
    */
   public void setMaterialValue(ITextComponent value) {
-    this.materialValue = new TranslationTextComponent("gui.tconstruct.part_builder.material_value", value);
+    this.materialValue = new TranslationTextComponent(MATERIAL_VALUE_KEY, value).modifyStyle(style -> style.setColor(Color.fromInt(0x7fffff)));
     this.updateSliderParameters();
   }
 
@@ -67,13 +68,13 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * Clears the material value
    */
   public void clearMaterialValue() {
-    this.materialValue = PartInfoPanelScreen.EMPTY;
+    this.materialValue = StringTextComponent.EMPTY;
     this.updateSliderParameters();
   }
 
   /** If true, has material value text */
   private boolean hasMaterialValue() {
-    return this.materialValue != null && this.materialValue != PartInfoPanelScreen.EMPTY;
+    return this.materialValue != null && this.materialValue != StringTextComponent.EMPTY;
   }
 
   @Override
@@ -86,18 +87,15 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
 
     int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasCaption()) {
-      neededHeight += scaledFontHeight;
-      neededHeight += 3;
+      neededHeight += scaledFontHeight + 3;
     }
 
     if (this.hasPatternCost()) {
-      neededHeight += scaledFontHeight;
-      neededHeight += 3;
+      neededHeight += scaledFontHeight + 3;
     }
 
     if (this.hasMaterialValue()) {
-      neededHeight += scaledFontHeight;
-      neededHeight += 3;
+      neededHeight += scaledFontHeight + 3;
     }
 
     neededHeight += (scaledFontHeight + 0.5f) * this.getTotalLines().size();
@@ -149,7 +147,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.getStringPropertyWidth(this.patternCost) / 2;
 
-      this.font.func_238407_a_(matrices, this.patternCost.mergeStyle(TextFormatting.GOLD).func_241878_f(), (float) this.guiLeft + x2, y, color);
+      this.font.func_238407_a_(matrices, this.patternCost.func_241878_f(), (float) this.guiLeft + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
@@ -158,7 +156,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.getStringPropertyWidth(this.materialValue) / 2;
 
-      this.font.func_238407_a_(matrices, this.materialValue.modifyStyle(style -> style.setColor(Color.fromInt(0x7fffff))).func_241878_f(), (float) this.guiLeft + x2, y, color);
+      this.font.func_238407_a_(matrices, this.materialValue.func_241878_f(), (float) this.guiLeft + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
