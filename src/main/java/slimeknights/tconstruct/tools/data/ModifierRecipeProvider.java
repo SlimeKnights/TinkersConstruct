@@ -184,8 +184,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_block"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.blasting.get())
-                                    .setTools(TinkerTags.Items.HARVEST)
-                                    .setInput(Tags.Items.GUNPOWDER, 1, 36)
+                                    .setTools(TinkerTags.Items.STONE_HARVEST)
+                                    .setInput(Tags.Items.GUNPOWDER, 1, 20)
                                     .setMaxLevel(5) // +50 mining speed at max, conditionally
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.blasting, upgradeFolder));
@@ -211,13 +211,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .build(consumer, wrapR(TinkerModifiers.hydraulic, upgradeFolder, "_from_bricks"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed.get())
                                     .setTools(TinkerTags.Items.HARVEST)
-                                    .setInput(Tags.Items.DUSTS_GLOWSTONE, 1, 36)
+                                    .setInput(Tags.Items.DUSTS_GLOWSTONE, 1, 64)
                                     .setMaxLevel(5) // +45 mining speed at max, conditionally
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.lightspeed, upgradeFolder, "_from_dust"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed.get())
                                     .setTools(TinkerTags.Items.HARVEST)
-                                    .setInput(Blocks.GLOWSTONE, 4, 36)
+                                    .setInput(Blocks.GLOWSTONE, 4, 64)
                                     .setLeftover(new ItemStack(Items.GLOWSTONE_DUST))
                                     .setMaxLevel(5)
                                     .setUpgradeSlots(1)

@@ -124,6 +124,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
     /** Modifiable items that can break blocks */
     public static final IOptionalNamedTag<Item> HARVEST = tag("modifiable/harvest");
+    /** Modifiable items that can break stone blocks */
+    public static final IOptionalNamedTag<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
     /** Modifiable items that can have range increased */
     public static final IOptionalNamedTag<Item> AOE = tag("modifiable/aoe");
     // /** Modifiable items that support ranged attacks, such as bows */

@@ -116,9 +116,10 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.scythe.get(),
              TinkerTools.broadSword.get(), TinkerTools.cleaver.get());
     // mine blocks
+    this.getOrCreateBuilder(TinkerTags.Items.STONE_HARVEST).add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get());
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(),
-						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
+        .addTag(TinkerTags.Items.STONE_HARVEST)
+        .add(TinkerTools.mattock.get(), TinkerTools.excavator.get(),
 						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.scythe.get());
     // support expanders
     this.getOrCreateBuilder(TinkerTags.Items.AOE)

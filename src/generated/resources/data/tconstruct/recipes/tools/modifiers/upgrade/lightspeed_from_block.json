@@ -4,7 +4,7 @@
     "item": "minecraft:glowstone"
   },
   "amount_per_item": 4,
-  "needed_per_level": 36,
+  "needed_per_level": 64,
   "leftover": "minecraft:glowstone_dust",
   "tools": {
     "tag": "tconstruct:modifiable/harvest"
