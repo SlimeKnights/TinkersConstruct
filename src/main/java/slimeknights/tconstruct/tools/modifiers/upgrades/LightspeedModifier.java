@@ -33,11 +33,9 @@ public class LightspeedModifier extends IncrementalModifier {
     BlockPos pos = event.getPos();
     if (blockTrace.getType() == Type.BLOCK && pos == null || pos.equals(blockTrace.getPos())) {
       int light = player.getEntityWorld().getLightFor(LightType.BLOCK, blockTrace.getPos().offset(blockTrace.getFace()));
-      if (light > 5) {
-        // bonus is +1 mining speed for each level above 6, factors in tool mining speed modifier
-        float boost = (float)(level * Math.pow(3, (light - 5) / 5f) * tool.getDefinition().getBaseStatDefinition().getMiningSpeedModifier() * miningSpeedModifier);
-        event.setNewSpeed(event.getNewSpeed() + boost);
-      }
+      // bonus is +9 mining speed at light level 15, +3 at light level 10, +1 at light level 5
+      float boost = (float)(level * Math.pow(3, (light - 5) / 5f) * tool.getDefinition().getBaseStatDefinition().getMiningSpeedModifier() * miningSpeedModifier);
+      event.setNewSpeed(event.getNewSpeed() + boost);
     }
   }
 }
