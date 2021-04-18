@@ -23,7 +23,7 @@ public class SmelteryContainer extends MultiModuleContainer<SmelteryTileEntity> 
       // can hold 7 in a column, so try to fill the first column first
       // cap to 4 columns
       MeltingModuleInventory inventory = smeltery.getMeltingInventory();
-      sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer, id, inv, smeltery, 0, 0, calcColumns(inventory.getSlots()));
+      sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer, id, inv, smeltery, -96, 8, calcColumns(inventory.getSlots()));
       addSubContainer(sideInventory, true);
 
       Consumer<Property> referenceConsumer = this::addProperty;

@@ -4,6 +4,7 @@
   "package": "slimeknights.tconstruct.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ClientPlayNetworkHandlerMixin",
     "CraftingResultSlotMixin",
     "HorseBaseEntityMixin",
     "LivingEntityMixin",
@@ -12,7 +13,7 @@
     "ServerResourceManagerMixin"
   ],
   "client": [
-      "client.ParticleManagerMixin"
+    "client.ParticleManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

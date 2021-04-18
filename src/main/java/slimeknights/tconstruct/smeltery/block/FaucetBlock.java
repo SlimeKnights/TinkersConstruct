@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
@@ -35,7 +36,7 @@ import java.util.EnumMap;
 import java.util.Optional;
 import java.util.Random;
 
-public class FaucetBlock extends Block {
+public class FaucetBlock extends Block implements BlockEntityProvider {
   public static final DirectionProperty FACING = Properties.HOPPER_FACING;
   private static final EnumMap<Direction,VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(
     Direction.DOWN,  VoxelShapes.combineAndSimplify(createCuboidShape( 4, 10,  4, 12, 16, 12), createCuboidShape( 6, 10,  6, 10, 16, 10), BooleanBiFunction.ONLY_FIRST),
@@ -76,15 +77,11 @@ public class FaucetBlock extends Block {
 
   /* Tile entity */
 
-/*  @Override
-  public boolean hasTileEntity(BlockState state) {
-    return true;
-  }
-
+  @Nullable
   @Override
-  public BlockEntity createTileEntity(BlockState state, BlockView world) {
+  public BlockEntity createBlockEntity(BlockView world) {
     return new FaucetTileEntity();
-  }*/
+  }
 
   @SuppressWarnings("deprecation")
   @Deprecated

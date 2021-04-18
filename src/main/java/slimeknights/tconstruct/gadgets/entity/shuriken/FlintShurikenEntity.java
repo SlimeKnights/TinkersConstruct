@@ -12,6 +12,10 @@ public class FlintShurikenEntity extends ShurikenEntityBase {
     super(p_i50159_1_, p_i50159_2_);
   }
 
+  public FlintShurikenEntity(World worldIn, double x, double y, double z) {
+    super(TinkerGadgets.flintShurikenEntity, x, y, z, worldIn);
+  }
+
   public FlintShurikenEntity(World worldIn, LivingEntity throwerIn) {
     super(TinkerGadgets.flintShurikenEntity, throwerIn, worldIn);
   }

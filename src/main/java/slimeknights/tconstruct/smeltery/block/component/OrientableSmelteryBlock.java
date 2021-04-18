@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -17,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 /** Shared logic for smeltery blocks with four directions to face */
-public class OrientableSmelteryBlock extends SearedBlock {
+public class OrientableSmelteryBlock extends SearedBlock implements BlockEntityProvider {
   public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
   private final Supplier<? extends SmelteryComponentTileEntity> tileEntity;
@@ -26,10 +27,10 @@ public class OrientableSmelteryBlock extends SearedBlock {
     this.tileEntity = tileEntity;
   }
 
-//  @Override
-//  public BlockEntity createTileEntity(BlockState state, BlockView world) {
-//    return tileEntity.get();
-//  }
+  @Override
+  public BlockEntity createBlockEntity(BlockView world) {
+    return tileEntity.get();
+  }
 
   @Override
   protected void appendProperties(StateManager.Builder<Block,BlockState> builder) {

@@ -53,7 +53,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
         if (index >= this.slotCount) {
           break;
         }
-        this.addSlot(this.createSlot(itemHandler, index, x + c * 18, y + r * 18));
+        this.addSlot(this.createSlot(itemHandler, index, x + c * 22, y + r * 18));
         index++;
       }
     }

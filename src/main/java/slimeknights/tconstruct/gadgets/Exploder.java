@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
@@ -46,6 +47,7 @@ public class Exploder {
   private int curX, curY, curZ;
 
   private List<ItemStack> droppedItems; // map containing all items dropped by the explosion and their amounts
+  private boolean finished;
 
   public Exploder(World world, EFLNExplosion explosion, Entity exploder, BlockPos location, double r, double explosionStrength, int blocksPerIteration) {
     this.r = r;
@@ -112,10 +114,11 @@ public class Exploder {
   }
 
   public void onTick(ServerWorld world) {
-    if (world == this.world) {
+    if (world == this.world && !finished) {
       if (!this.iteration()) {
         // goodbye world, we're done exploding
         this.finish();
+        finished = true;
       }
     }
   }
@@ -246,8 +249,8 @@ public class Exploder {
       }
     }
 
-//    TODO: ?
-//    blockstate.onBlockExploded(this.world, blockpos, this.explosion);
+    world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 3);
+    blockstate.getBlock().onDestroyedByExplosion(world, blockpos, explosion);
   }
 
 }

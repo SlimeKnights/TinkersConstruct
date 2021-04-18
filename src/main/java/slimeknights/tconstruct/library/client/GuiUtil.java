@@ -4,6 +4,9 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
@@ -17,6 +20,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import org.lwjgl.opengl.GL11;
@@ -132,11 +136,12 @@ public final class GuiUtil {
    */
   public static void renderTiledFluid(MatrixStack matrices, HandledScreen<?> screen, FluidVolume stack, int x, int y, int width, int height, int depth) {
     if (!stack.isEmpty()) {
-//      throw new RuntimeException("CRAB!");
-//      Sprite fluidSprite = screen.client.getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).apply(stack.getFluid().getAttributes().getStillTexture(stack));
-//      RenderUtils.setColorRGBA(stack.getRenderColor());
-//      renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));
-//      GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+      FluidRenderHandler fluidRenderHandler = FluidRenderHandlerRegistry.INSTANCE.get(stack.getRawFluid());
+      Sprite[] sprites = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, MinecraftClient.getInstance().world == null ? null : BlockPos.ORIGIN, stack.getRawFluid().getDefaultState());
+
+      RenderUtils.setColorRGBA(stack.getRenderColor());
+      renderTiledTextureAtlas(matrices, screen, sprites[0], x, y, width, height, depth, stack.getFluidKey().gaseous);
+      GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
   }
 

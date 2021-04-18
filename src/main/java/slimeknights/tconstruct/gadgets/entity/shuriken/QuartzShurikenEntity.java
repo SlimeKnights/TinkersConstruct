@@ -12,6 +12,10 @@ public class QuartzShurikenEntity extends ShurikenEntityBase {
     super(p_i50159_1_, p_i50159_2_);
   }
 
+  public QuartzShurikenEntity(World worldIn, double x, double y, double z) {
+    super(TinkerGadgets.quartzShurikenEntity, x, y, z, worldIn);
+  }
+
   public QuartzShurikenEntity(World worldIn, LivingEntity throwerIn) {
     super(TinkerGadgets.quartzShurikenEntity, throwerIn, worldIn);
   }

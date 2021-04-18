@@ -91,7 +91,7 @@ public class GuiTankModule {
       // if hovering over the fluid, display with name
       final List<Text> tooltip;
       if (checkY > (y + height) - getFluidHeight()) {
-        tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluid().getAmount_F());
+        tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluid());
       } else {
         // function to call for amounts
         BiConsumer<FluidAmount, List<Text>> formatter = Util.isShiftKeyDown()

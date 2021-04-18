@@ -92,3 +92,5 @@ accessible  field   net/minecraft/client/render/RenderPhase    DISABLE_CULLING  
 accessible  method  net/minecraft/block/FluidBlock <init>  (Lnet/minecraft/fluid/FlowableFluid;Lnet/minecraft/block/AbstractBlock$Settings;)V
 
 accessible 	method	net/minecraft/entity/Entity	getSavedEntityId ()Ljava/lang/String;
+
+accessible  field   net/minecraft/item/BucketItem  fluid    Lnet/minecraft/fluid/Fluid;

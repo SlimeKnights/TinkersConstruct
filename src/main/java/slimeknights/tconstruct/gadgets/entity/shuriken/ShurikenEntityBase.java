@@ -14,7 +14,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ShurikenEntityBase extends ThrownItemEntity { // implements IEntityAdditionalSpawnData {
+public abstract class ShurikenEntityBase extends ThrownItemEntity {
 
   public ShurikenEntityBase(EntityType<? extends ShurikenEntityBase> type, World worldIn) {
     super(type, worldIn);

@@ -167,7 +167,7 @@ public class GuiSmelteryTank {
         FluidTooltipHandler.appendShift(tooltip);
       }
       else {
-        tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluidInTank(hovered).getAmount_F());
+        tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluidInTank(hovered));
       }
       parent.renderTooltip(matrices, tooltip, mouseX, mouseY);
     }

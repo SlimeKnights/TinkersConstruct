@@ -73,9 +73,8 @@ public class FluidTooltipHandler {
    * @param fluid  Fluid stack instance
    * @return  Fluid tooltip
    */
-  public static List<Text> getFluidTooltip(FluidAmount fluid) {
-    throw new RuntimeException("CRAB!"); // FIXME: PORT
-//    return getFluidTooltip(fluid, fluid);
+  public static List<Text> getFluidTooltip(FluidVolume fluid) {
+    return getFluidTooltip(fluid, fluid.getAmount_F());
   }
 
   /**

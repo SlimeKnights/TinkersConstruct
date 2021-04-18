@@ -1,16 +1,25 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayer.MultiPhaseParameters;
 import net.minecraft.client.render.RenderPhase.Texture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Matrix4f;
+import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiSmelteryTank;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
@@ -112,16 +121,19 @@ public class SmelteryTankRenderer {
    */
   private static void renderLargeFluidCuboid(MatrixStack matrices, VertexConsumer builder, FluidVolume fluid, int brightness,
                                              int xd, float[] xBounds, int zd, float[] zBounds, float yMin, float yMax) {
-    throw new RuntimeException("CRAB!"); // FIXME: PORT
-    /*if(yMin >= yMax || fluid.isEmpty()) {
+    if(yMin >= yMax || fluid.isEmpty()) {
       return;
     }
     // fluid attributes
-    FluidAttributes attributes = fluid.getFluid().getAttributes();
-    Sprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
-    int color = attributes.getColor(fluid);
-    brightness = FluidRenderer.withBlockLight(brightness, attributes.getLuminosity(fluid));
-    boolean upsideDown = attributes.isGaseous(fluid);
+    final FluidKey attributes = fluid.getFluidKey();
+
+    FluidRenderHandler fluidRenderHandler = FluidRenderHandlerRegistry.INSTANCE.get(fluid.getRawFluid());
+    Sprite[] sprites = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, MinecraftClient.getInstance().world == null ? null : BlockPos.ORIGIN, fluid.getRawFluid().getDefaultState());
+
+    Sprite still = sprites[0];
+    int color = attributes.renderColor;
+    brightness = FluidRenderer.withBlockLight(brightness, attributes.luminosity);
+    boolean upsideDown = attributes.gaseous;
 
     // the liquid can stretch over more blocks than the subtracted height is if yMin's decimal is bigger than yMax's decimal (causing UV over 1)
     // ignoring the decimals prevents this, as yd then equals exactly how many ints are between the two
@@ -149,11 +161,11 @@ public class SmelteryTankRenderer {
           if (y == yd) FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.UP,    color, brightness, rotation, false);
           if (y == 0) {
             // increase Y position slightly to prevent z fighting on neighboring fluids
-            from.setY(from.getY() + 0.001f);
+            from.set(from.getX(), from.getY() + 0.001f, from.getZ());
             FluidRenderer.putTexturedQuad(builder, matrix, still,   from, to, Direction.DOWN,  color, brightness, rotation, false);
           }
         }
       }
-    }*/
+    }
   }
 }

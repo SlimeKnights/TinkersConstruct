@@ -6,7 +6,9 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.fluid.volume.FluidTemperature;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import alexiil.mc.lib.attributes.fluid.volume.SimpleFluidKey;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.Material;
@@ -14,6 +16,7 @@ import net.minecraft.fluid.LavaFluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.Logger;
@@ -34,36 +37,20 @@ import java.util.function.Supplier;
  */
 public final class TinkerFluids extends TinkerModule {
 
+  public static final int BUCKET_VOLUME = 1000;
   static final Logger log = Util.getLogger("tinker_fluids");
 
   public static final FluidVolume EMPTY = FluidKeys.EMPTY.withAmount(FluidAmount.ZERO);
 
-  public TinkerFluids() {
-//    ForgeMod.enableMilkFluid(); TODO: forge what the fuck
-  }
   // basic
   public static final FluidObject<MantleFluid> blood = registerFluid("blood", coolBuilder().setRenderColor(0xff540000).setDensity(f(1200)).setViscosity(f(1200)).setTemperature(tmp(336)), Material.WATER, 0);
 
-  private static FluidAmount f(int i) {
-    return FluidAmount.of(1000, i);
-  }
-
-  private static FluidObject<MantleFluid> registerFluid(String name, FluidKey.FluidKeyBuilder builder, Material material, int whatsThis) {
-    final Supplier<MantleFluid> flowing = () -> new MantleFluid.Flowing(Items.BEDROCK, Blocks.BEDROCK.getDefaultState());
-    return new FluidObject<>(
-      id(name),
-      name,
-      () -> new MantleFluid.Still(Items.BEDROCK, Blocks.BEDROCK.getDefaultState()),
-      flowing,
-      () -> new FluidBlock(flowing.get(), FabricBlockSettings.copy(Blocks.WATER))
-    );
-  }
-
   // slime -  note second name parameter is forge tag name
-  public static final FluidObject<MantleFluid> earthSlime = registerFluid("earth_slime", "slime", coolBuilder().setRenderColor(0xef76be6d).setDensity(f(1400)).setViscosity(f(1400)).setTemperature(tmp(350)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<MantleFluid> skySlime = registerFluid("sky_slime", coolBuilder().setRenderColor(0xef67f0f5).setDensity(f(1500)).setViscosity(f(1500)).setTemperature(tmp(310)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<MantleFluid> enderSlime = registerFluid("ender_slime", coolBuilder().setRenderColor(0xefd236ff).setDensity(f(1600)).setViscosity(f(1600)).setTemperature(tmp(370)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<MantleFluid> magmaCream  = registerFluid("magma_cream", "magma", coolBuilder().setDensity(f(1900)).setViscosity(f(1900)).setTemperature(tmp(600)), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 4);
+  public static final FluidObject<MantleFluid> earthSlime = registerComplexFluid("earth_slime", coolBuilder().setRenderColor(0xef76be6d).setDensity(f(1400)).setViscosity(f(1400)).setTemperature(tmp(350)), new SlimeFluid.Source(), new SlimeFluid.Flowing(), Material.WATER, 0);
+  public static final FluidObject<MantleFluid> skySlime = registerComplexFluid("sky_slime", coolBuilder().setRenderColor(0xef67f0f5).setDensity(f(1500)).setViscosity(f(1500)).setTemperature(tmp(310)), new SlimeFluid.Source(), new SlimeFluid.Flowing(), Material.WATER, 0);
+  public static final FluidObject<MantleFluid> enderSlime = registerComplexFluid("ender_slime", coolBuilder().setRenderColor(0xefd236ff).setDensity(f(1600)).setViscosity(f(1600)).setTemperature(tmp(370)), new SlimeFluid.Source(), new SlimeFluid.Flowing(), Material.WATER, 0);
+
+  public static final FluidObject<MantleFluid> magmaCream  = registerComplexFluid("magma_cream", hotBuilder(FluidIcons.MAGMA_CREAM_STILL, FluidIcons.MAGMA_CREAM_FLOWING).setDensity(f(1900)).setViscosity(f(1900)).setTemperature(tmp(600)), new SlimeFluid.Source(), new SlimeFluid.Flowing(), Material.WATER, 4);
   public static final Map<SlimeType, FluidObject<MantleFluid>> slime;
   static {
     slime = new EnumMap<>(SlimeType.class);
@@ -105,10 +92,6 @@ public final class TinkerFluids extends TinkerModule {
   // compat ores
   public static final FluidObject<MantleFluid> moltenTin      = registerFluid("molten_tin",      moltenBuilder().setRenderColor(0xffc1cddc).setTemperature(tmp(525)), Material.LAVA, 12);
 
-  private static FluidTemperature.ContinuousFluidTemperature tmp(int temp) {
-    return fluid -> temp;
-  }
-
   public static final FluidObject<MantleFluid> moltenAluminum = registerFluid("molten_aluminum", moltenBuilder().setRenderColor(0xffefe0d5).setTemperature(tmp( 725)), Material.LAVA, 12);
   public static final FluidObject<MantleFluid> moltenLead     = registerFluid("molten_lead",     moltenBuilder().setRenderColor(0xff4d4968).setTemperature(tmp( 630)), Material.LAVA, 12);
   public static final FluidObject<MantleFluid> moltenSilver   = registerFluid("molten_silver",   moltenBuilder().setRenderColor(0xffd1ecf6).setTemperature(tmp(1090)), Material.LAVA, 12);
@@ -132,14 +115,12 @@ public final class TinkerFluids extends TinkerModule {
   /** Creates a builder for a cool fluid */
   private static FluidKey.FluidKeyBuilder coolBuilder() {
     return new FluidKey.FluidKeyBuilder();
-//    throw new RuntimeException("CRAB!");
 //    return FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY);
   }
 
   /** Creates a builder for a hot fluid */
   private static FluidKey.FluidKeyBuilder hotBuilder(Identifier stillTexture, Identifier flowingTexture) {
     return new FluidKey.FluidKeyBuilder();
-//    throw new RuntimeException("CRAB!");
 //    return FluidAttributes.builder(stillTexture, flowingTexture).density(2000).setViscosity(10000).setTemperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
   }
 
@@ -153,7 +134,49 @@ public final class TinkerFluids extends TinkerModule {
     return hotBuilder(FluidIcons.MOLTEN_STILL, FluidIcons.MOLTEN_FLOWING);
   }
 
-  @Override
-  public void onInitialize() {
+  private static FluidObject<MantleFluid> registerFluid(String name, FluidKey.FluidKeyBuilder builder, Material material, int i) {
+    return registerComplexFluid(name,
+      builder,
+      new MantleFluid.Still(Items.BEDROCK, Blocks.BEDROCK.getDefaultState()),
+      new MantleFluid.Flowing(Items.BEDROCK, Blocks.BEDROCK.getDefaultState()),
+      material,
+      i
+    );
   }
+
+  private static FluidObject<MantleFluid> registerComplexFluid(String name, FluidKey.FluidKeyBuilder builder, MantleFluid.Still still, MantleFluid.Flowing flowing, Material material, int i) {
+    still.setFlowing(flowing);
+    flowing.setStill(still);
+
+    Registry.register(Registry.FLUID, id("flowing_" + name), flowing);
+    Registry.register(Registry.FLUID, id(name), still);
+    FluidBlock block = Registry.register(Registry.BLOCK, id("fluid_" + name), new FluidBlock(still, AbstractBlock.Settings.of(material)));
+    still.setBlockState(block.getDefaultState());
+    flowing.setBlockState(block.getDefaultState());
+
+    new SimpleFluidKey(builder
+      .setRawFluid(still)
+      .setName(new TranslatableText("fluids.tconstruct." + name))
+      .setIdEntry(id(name))
+    ).register();
+
+    return new FluidObject<>(
+      id(name),
+      name,
+      () -> still,
+      () -> flowing,
+      () -> block
+    );
+  }
+
+  private static FluidTemperature.ContinuousFluidTemperature tmp(int temp) {
+    return fluid -> temp;
+  }
+
+  private static FluidAmount f(int i) {
+    return FluidAmount.of(1000, i);
+  }
+
+  @Override
+  public void onInitialize() {}
 }

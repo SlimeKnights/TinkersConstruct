@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
+import slimeknights.tconstruct.misc.ItemHandlerHelper;
 import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -164,15 +165,13 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
       // can have ItemStacks with stacksize > 1 as output
       // we therefore spill the whole contents on extraction.
       ItemStack stack = getStack(slot);
-      throw new RuntimeException("crab");
-      //TODO: FINISH PORTING
-//      ItemHandlerHelper.giveItemToPlayer(player, stack, player.inventory.selectedSlot);
-//      setStack(slot, ItemStack.EMPTY);
+      ItemHandlerHelper.giveItemToPlayer(player, stack, player.inventory.selectedSlot);
+      setStack(slot, ItemStack.EMPTY);
 
       // send a block update for the comparator, needs to be done after the stack is removed
-//      if (slot == OUTPUT) {
-//        world.updateNeighborsAlways(this.pos, this.getCachedState().getBlock());
-//      }
+      if (slot == OUTPUT) {
+        world.updateNeighborsAlways(this.pos, this.getCachedState().getBlock());
+      }
     }
   }
 

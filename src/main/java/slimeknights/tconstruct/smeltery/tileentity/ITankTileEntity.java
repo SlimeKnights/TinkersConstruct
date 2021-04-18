@@ -12,12 +12,17 @@ import alexiil.mc.lib.attributes.fluid.FluidInvUtil;
 import alexiil.mc.lib.attributes.fluid.FluidTransferable;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -25,6 +30,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import slimeknights.tconstruct.fluids.FluidUtil;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -143,35 +149,33 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    * @param offset   Direction to place fish
    * @return True if using a bucket
    */
-//  static boolean interactWithBucket(World world, BlockPos pos, PlayerEntity player, Hand hand, Direction hit, Direction offset) {
-//    ItemStack held = player.getStackInHand(hand);
-//    if (held.getItem() instanceof BucketItem) {
-//      BucketItem bucket = (BucketItem) held.getItem();
-//      Fluid fluid = bucket.getFluid();
-//      if (fluid != Fluids.EMPTY) {
-//        if (!world.isClient) {
-//          BlockEntity te = world.getBlockEntity(pos);
-//          if (te != null) {
-//            te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit)
-//              .ifPresent(handler -> {
-//                FluidVolume fluidStack = new FluidVolume(bucket.getFluid(), FluidAttributes.BUCKET_VOLUME);
-//                // must empty the whole bucket
-//                if (handler.fill(fluidStack, Simulation.SIMULATE) == FluidAttributes.BUCKET_VOLUME) {
-//                  handler.fill(fluidStack, Simulation.EXECUTE);
-//                  bucket.onEmptied(world, held, pos.offset(offset));
-//                  world.playSound(null, pos, fluid.getAttributes().getEmptySound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-//                  if (!player.isCreative()) {
-//                    player.setStackInHand(hand, held.getContainerItem());
-//                  }
-//                }
-//              });
-//          }
-//        }
-//        return true;
-//      }
-//    }
-//    return false;
-//  }
+  static boolean interactWithBucket(World world, BlockPos pos, PlayerEntity player, Hand hand, Direction hit, Direction offset) {
+    ItemStack held = player.getStackInHand(hand);
+    if (held.getItem() instanceof BucketItem) {
+      BucketItem bucket = (BucketItem) held.getItem();
+      Fluid fluid = bucket.fluid;
+      if (fluid != Fluids.EMPTY) {
+        if (!world.isClient) {
+          BlockEntity te = world.getBlockEntity(pos);
+          if (te != null) {
+            final FixedFluidInv fluidInv = FluidAttributes.FIXED_INV.get(world, pos);
+            FluidVolume fluidStack = FluidKeys.get(fluid).withAmount(FluidAmount.BUCKET);
+            // must empty the whole bucket
+            if (fluidInv.getInsertable().attemptInsertion(fluidStack, Simulation.SIMULATE) == fluidStack) {
+              fluidInv.getInsertable().attemptInsertion(fluidStack, Simulation.ACTION);
+              bucket.onEmptied(world, held, pos.offset(offset));
+              world.playSound(null, pos, SoundEvents.BLOCK_WATER_AMBIENT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+              if (!player.isCreative()) {
+//                player.setStackInHand(hand, held.getContainerItem());
+              }
+            }
+          }
+        }
+        return true;
+      }
+    }
+    return false;
+  }
 
   /**
    * Base logic to interact with a tank
@@ -190,7 +194,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
       }
       return true;
     // fall back to buckets for fish buckets
-    //return interactWithBucket(world, pos, player, hand, face, face);
+//    return interactWithBucket(world, pos, player, hand, face, face);
   }
 
   /**

@@ -19,6 +19,7 @@ import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 
 import org.jetbrains.annotations.Nullable;
@@ -65,12 +66,12 @@ public class EntityMeltingModule {
       return lastRecipe;
     }
     // find a new recipe if the last recipe does not match
-    throw new RuntimeException("CRAB!"); // FIXME: PORT
-//    EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(getWorld().getRecipeManager(), type);
-//    if (recipe != null) {
-//      lastRecipe = recipe;
-//    }
-//    return recipe;
+    for (EntityMeltingRecipe recipe : getWorld().getRecipeManager().listAllOfType(RecipeTypes.ENTITY_MELTING)) {
+      if (recipe.matches(type)) {
+        return recipe;
+      }
+    }
+    return null;
   }
 
   /**

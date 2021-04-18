@@ -11,7 +11,7 @@ import net.minecraft.world.explosion.Explosion;
 import slimeknights.tconstruct.gadgets.Exploder;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
-public class EflnBallEntity extends ThrownItemEntity {// implements IEntityAdditionalSpawnData {
+public class EflnBallEntity extends ThrownItemEntity {
 
   public EflnBallEntity(EntityType<? extends EflnBallEntity> p_i50159_1_, World p_i50159_2_) {
     super(p_i50159_1_, p_i50159_2_);

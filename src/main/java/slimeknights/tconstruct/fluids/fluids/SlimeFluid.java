@@ -16,7 +16,7 @@ import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import java.util.Random;
 
-public abstract class SlimeFluid extends MantleFluid.Flowing {
+public abstract class SlimeFluid extends MantleFluid {
 
   protected SlimeFluid(Item bucketItem, BlockState blockState) {
     super(bucketItem, blockState);
@@ -55,17 +55,16 @@ public abstract class SlimeFluid extends MantleFluid.Flowing {
     }
   }
 
-  public static class Flowing extends SlimeFluid {
+  public static class Flowing extends MantleFluid.Flowing {
 
-    public Flowing(Item bucketItem, BlockState blockState) {
-      super(bucketItem, blockState);
+    public Flowing() {
+      super(null, null);
       this.setDefaultState(this.getStateManager().getDefaultState().with(LEVEL, 7));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Fluid, FluidState> builder) {
       super.appendProperties(builder);
-      builder.add(LEVEL);
     }
 
     @Override
@@ -79,7 +78,7 @@ public abstract class SlimeFluid extends MantleFluid.Flowing {
     }
   }
 
-  public static class Source extends SlimeFluid {
+  public static class Source extends MantleFluid.Still {
 
     public Source() {
       super(null, null);

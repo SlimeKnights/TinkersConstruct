@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.misc;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,5 +21,13 @@ public class ItemHandlerHelper {
 
   private static boolean sameItem(ItemStack a, ItemStack b) {
     return !a.isEmpty() && !b.isEmpty() && a.getItem() == b.getItem();
+  }
+
+  public static void giveItemToPlayer(PlayerEntity player, ItemStack stack, int selectedSlot) {
+    if(player.inventory.getStack(selectedSlot) != ItemStack.EMPTY) {
+      player.giveItemStack(stack);
+    } else {
+      player.inventory.insertStack(selectedSlot, stack);
+    }
   }
 }
