@@ -15,14 +15,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import slimeknights.mantle.block.InventoryBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
 
 /** Shared logic for all multiblock structure controllers */
 public abstract class ControllerBlock extends InventoryBlock {
   public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
   public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+  public static final BooleanProperty IN_STRUCTURE = SearedBlock.IN_STRUCTURE;
   protected ControllerBlock(Properties builder) {
     super(builder);
-    this.setDefaultState(this.getDefaultState().with(ACTIVE, false));
+    this.setDefaultState(this.getDefaultState().with(ACTIVE, false).with(IN_STRUCTURE, false));
   }
 
 
@@ -32,7 +34,7 @@ public abstract class ControllerBlock extends InventoryBlock {
 
   @Override
   protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-    builder.add(FACING, ACTIVE);
+    builder.add(FACING, ACTIVE, IN_STRUCTURE);
   }
 
   @Override
@@ -59,7 +61,7 @@ public abstract class ControllerBlock extends InventoryBlock {
 
   /** @return True if the GUI can be opened */
   protected boolean canOpenGui(BlockState state) {
-    return state.get(ACTIVE);
+    return state.get(IN_STRUCTURE);
   }
 
   @Override

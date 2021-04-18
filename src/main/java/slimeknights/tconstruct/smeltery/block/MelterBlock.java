@@ -56,7 +56,7 @@ public class MelterBlock extends ControllerBlock {
   public BlockState getStateForPlacement(BlockItemUseContext context) {
     BlockState state = super.getStateForPlacement(context);
     if (state != null) {
-      return state.with(ACTIVE, isValidFuelSource(context.getWorld().getBlockState(context.getPos().down())));
+      return state.with(IN_STRUCTURE, isValidFuelSource(context.getWorld().getBlockState(context.getPos().down())));
     }
     return null;
   }
@@ -65,7 +65,7 @@ public class MelterBlock extends ControllerBlock {
   @Override
   public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState neighbor, IWorld world, BlockPos pos, BlockPos neighborPos) {
     if (direction == Direction.DOWN) {
-      return state.with(ACTIVE, isValidFuelSource(neighbor));
+      return state.with(IN_STRUCTURE, isValidFuelSource(neighbor));
     }
     return state;
   }
