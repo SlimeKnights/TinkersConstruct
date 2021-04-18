@@ -89,14 +89,6 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
     return capabilityHolder;
   }
 
-//  @Override
-//  public <C> Optional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
-//    if (capability == this.capability) {
-//      return getCachedCapability().cast();
-//    }
-//    return super.getCapability(capability, facing);
-//  }
-
   /**
    * Fluid implementation of smeltery IO
    */

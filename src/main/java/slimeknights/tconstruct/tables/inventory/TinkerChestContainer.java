@@ -60,9 +60,7 @@ public class TinkerChestContainer extends BaseStationContainer<TinkerChestTileEn
 
     @Override
     public boolean canInsert(ItemStack stack) {
-      System.out.println("Crab Warn TinkerChestContainer");
-      return true;
-//      return this.chest.isValid(this.getSlotIndex(), stack);
+      return this.chest.isValid(0, stack); // FIXME: 0 is temporary fix.
     }
   }
 }

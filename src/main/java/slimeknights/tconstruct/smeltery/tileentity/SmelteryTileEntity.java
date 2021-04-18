@@ -78,7 +78,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
   /** Tank instance for this smeltery */
   private final SmelteryTank tank = new SmelteryTank(this);
   /** Capability to pass to drains for fluid handling */
-  private Optional<IFluidHandler> fluidCapability = Optional.empty();
+  public Optional<IFluidHandler> fluidCapability = Optional.empty();
 
   /** Inventory handling melting items */
   public final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, () -> TConfig.common.smelteryNuggetsPerOre);

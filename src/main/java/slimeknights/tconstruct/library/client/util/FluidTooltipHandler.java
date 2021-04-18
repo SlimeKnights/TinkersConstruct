@@ -41,7 +41,7 @@ public class FluidTooltipHandler {
   /*
    * Base units
    */
-  private static final FluidGuiEntry KILOBUCKET = new FluidGuiEntry("kilobucket", FluidAmount.ofWhole(1000));
+  private static final FluidGuiEntry KILOBUCKET = new FluidGuiEntry("kilobucket", FluidAmount.ONE);
   private static final FluidGuiEntry BUCKET = new FluidGuiEntry("bucket", FluidAmount.BUCKET);
   private static final FluidGuiEntry MILLIBUCKET = new FluidGuiEntry("millibucket", FluidAmount.of(1, 1000));
   private static final FluidGuiEntry INGOT = new FluidGuiEntry("ingot", MaterialValues.INGOT);
@@ -54,19 +54,10 @@ public class FluidTooltipHandler {
 
   /** Initializes the tooltip handler */
   public static void init() {
-//    MinecraftForge.EVENT_BUS.addListener(FluidTooltipHandler::onRecipesUpdated);
     TOOLTIP_OPTIONS.put(TinkerSmeltery.ingotCast.get(), INGOT);
     TOOLTIP_OPTIONS.put(TinkerSmeltery.nuggetCast.get(), new FluidGuiEntry("nugget", MaterialValues.NUGGET));
     TOOLTIP_OPTIONS.put(TinkerSmeltery.gemCast.get(), new FluidGuiEntry("gem", MaterialValues.GEM));
   }
-
-  /**
-   * Called when recipes are synced from the server to the client
-   * @param event  Event instance
-   */
-//  private static void onRecipesUpdated(RecipesUpdatedEvent event) {
-//    CACHE.clear();
-//  }
 
   /**
    * Gets the tooltip for a fluid stack
@@ -271,7 +262,7 @@ public class FluidTooltipHandler {
     private FluidAmount getText(List<Text> tooltip, FluidAmount amount) {
       FluidAmount full = amount.div(needed);
       if (full.isGreaterThan(FluidAmount.ZERO)) {
-        tooltip.add(new TranslatableText(translationKey, full).formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText(translationKey, full.asInt(1)).formatted(Formatting.GRAY));
       }
       return FluidAmount.ofWhole(amount.whole);
     }

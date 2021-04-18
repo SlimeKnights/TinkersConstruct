@@ -3,6 +3,7 @@ package slimeknights.tconstruct.misc;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
 public class ItemHandlerHelper {
 
@@ -24,10 +25,23 @@ public class ItemHandlerHelper {
   }
 
   public static void giveItemToPlayer(PlayerEntity player, ItemStack stack, int selectedSlot) {
-    if(player.inventory.getStack(selectedSlot) != ItemStack.EMPTY) {
+    if (player.inventory.getStack(selectedSlot) != ItemStack.EMPTY) {
       player.giveItemStack(stack);
     } else {
       player.inventory.insertStack(selectedSlot, stack);
     }
+  }
+
+  public static ItemStack insertItem(TinkerChestTileEntity dest, ItemStack stack) {
+    if (dest == null || stack.isEmpty())
+      return stack;
+
+    for (int i = 0; i < dest.size(); i++) {
+      if(dest.getStack(i) == ItemStack.EMPTY) {
+        dest.setStack(i, stack);
+        return stack;
+      }
+    }
+    return stack;
   }
 }

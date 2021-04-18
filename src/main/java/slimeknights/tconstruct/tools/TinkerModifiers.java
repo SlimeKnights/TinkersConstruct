@@ -183,11 +183,11 @@ public final class TinkerModifiers extends TinkerModule {
   /*
    * Recipes
    */
-  public static final ModifierRecipe.Serializer modifierSerializer = null; // RECIPE_SERIALIZERS.register("modifier", ModifierRecipe.Serializer::new);
-  public static final IncrementalModifierRecipe.Serializer incrementalModifierSerializer = null; // RECIPE_SERIALIZERS.register("incremental_modifier", IncrementalModifierRecipe.Serializer::new);
-  public static final OverslimeModifierRecipe.Serializer overslimeSerializer = null; // RECIPE_SERIALIZERS.register("overslime_modifier", OverslimeModifierRecipe.Serializer::new);
-  public static final BeheadingRecipe.Serializer beheadingSerializer = null; // RECIPE_SERIALIZERS.register("beheading", BeheadingRecipe.Serializer::new);
-  public static final SpecialRecipeSerializer<PlayerBeheadingRecipe> playerBeheadingSerializer = null; // RECIPE_SERIALIZERS.register("player_beheading",  new SpecialRecipeSerializer<>(PlayerBeheadingRecipe::new));
+  public static final ModifierRecipe.Serializer modifierSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("modifier"), new ModifierRecipe.Serializer());
+  public static final IncrementalModifierRecipe.Serializer incrementalModifierSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("incremental_modifier"), new IncrementalModifierRecipe.Serializer());
+  public static final OverslimeModifierRecipe.Serializer overslimeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("overslime_modifier"), new OverslimeModifierRecipe.Serializer());
+  public static final BeheadingRecipe.Serializer beheadingSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("beheading"), new BeheadingRecipe.Serializer());
+  public static final SpecialRecipeSerializer<PlayerBeheadingRecipe> playerBeheadingSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("player_beheading"),  new SpecialRecipeSerializer<>(PlayerBeheadingRecipe::new));
 
   @Override
   public void onInitialize() {

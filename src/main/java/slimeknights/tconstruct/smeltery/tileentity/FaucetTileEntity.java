@@ -2,7 +2,6 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.FixedFluidInv;
-import alexiil.mc.lib.attributes.fluid.FluidAttributes;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import net.fabricmc.api.EnvType;
@@ -70,11 +69,11 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
   /**
    * Fluid handler of the input to the faucet
    */
-  private FixedFluidInv inputHandler;
+  private IFluidHandler inputHandler;
   /**
    * Fluid handler of the output from the faucet
    */
-  private FixedFluidInv outputHandler;
+  private IFluidHandler outputHandler;
   /**
    * Listener for when the input handler is invalidated
    */
@@ -102,9 +101,17 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    * @param side Side to check
    * @return Fluid handler
    */
-  private FixedFluidInv findFluidHandler(Direction side) {
+  private IFluidHandler findFluidHandler(Direction side) {
     assert world != null;
-    return FluidAttributes.FIXED_INV.get(world, pos.offset(side));
+    BlockEntity blockEntity = world.getBlockEntity(pos.offset(side));
+    if(blockEntity instanceof SmelteryTileEntity) {
+      SmelteryTileEntity smeltery = (SmelteryTileEntity) blockEntity;
+      return smeltery.getTank();
+    } else if(blockEntity instanceof CastingTileEntity) {
+      CastingTileEntity castingTileEntity = (CastingTileEntity) blockEntity;
+      return castingTileEntity.getTank();
+    }
+    throw new RuntimeException(blockEntity.toString());
   }
 
   /**
@@ -112,11 +119,8 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    *
    * @return Input fluid handler
    */
-  private FixedFluidInv getInputHandler() {
-    if (inputHandler == null) {
-      inputHandler = findFluidHandler(getCachedState().get(FACING).getOpposite());
-//        inputHandler.get().addListener(inputListener);
-    }
+  private IFluidHandler getInputHandler() {
+    inputHandler = findFluidHandler(getCachedState().get(FACING).getOpposite());
     return inputHandler;
   }
 
@@ -125,11 +129,8 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    *
    * @return Output fluid handler
    */
-  private FixedFluidInv getOutputHandler() {
-    if (outputHandler == null) {
-      outputHandler = findFluidHandler(Direction.DOWN);
-//        outputHandler.get().addListener(outputListener);
-    }
+  private IFluidHandler getOutputHandler() {
+    outputHandler = findFluidHandler(Direction.DOWN);
     return outputHandler;
   }
 
@@ -252,20 +253,18 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
    */
   private boolean doTransfer(boolean execute) {
     // still got content left
-    FixedFluidInv inputOptional = getInputHandler();
-    FixedFluidInv outputOptional = getOutputHandler();
+    IFluidHandler inputOptional = getInputHandler();
+    IFluidHandler outputOptional = getOutputHandler();
       // can we drain?
-      FixedFluidInv input = inputOptional;
-      FluidVolume drained = input.getExtractable().extract(PACKET_SIZE);
+    FluidVolume drained = inputOptional.drain(PACKET_SIZE, Simulation.SIMULATE);
       if (!drained.isEmpty() && !drained.getFluidKey().gaseous) {
         // can we fill
-        FixedFluidInv output = outputOptional;
-        FluidVolume filled = output.getInsertable().attemptInsertion(drained, Simulation.SIMULATE);
+        FluidVolume filled = outputOptional.fill(drained, Simulation.SIMULATE);
         if (filled.getAmount_F().asInt(1000) > 0) {
           // fill if requested
           if (execute) {
             // drain the liquid and transfer it, buffer the amount for delay
-            this.drained = input.getExtractable().extract(filled.getAmount_F());
+            this.drained = inputOptional.drain(filled.getAmount_F(), Simulation.ACTION);
 
             // sync to clients if we have changes
             if (faucetState == FaucetState.OFF || !renderFluid.equals(drained)) {
@@ -304,12 +303,12 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
     }
 
     // ensure we have an output
-    FixedFluidInv outputOptional = getOutputHandler();
+    IFluidHandler outputOptional = getOutputHandler();
     FluidVolume fillStack = drained.copy();
     fillStack.withAmount(FluidAmount.of(Math.min(drained.getAmount_F().asInt(1000), MB_PER_TICK), 1000));
 
     // can we fill?
-    int filled = outputOptional.getInsertable().attemptInsertion(fillStack, Simulation.SIMULATE).getAmount_F().asInt(1000);
+    int filled = outputOptional.fill(fillStack, Simulation.SIMULATE).getAmount_F().asInt(1000);
     if (filled > 0) {
       // update client if they do not think we have fluid
       if (!renderFluid.equals(drained)) {
@@ -319,7 +318,7 @@ public class FaucetTileEntity extends BlockEntity implements Tickable {
       // transfer it
       this.drained = this.drained.withAmount(this.drained.amount().sub(FluidAmount.of(filled, 1000)));
       fillStack = fillStack.withAmount(FluidAmount.of(filled, 1000));
-      outputOptional.getInsertable().attemptInsertion(fillStack, Simulation.ACTION);
+      outputOptional.fill(fillStack, Simulation.ACTION);
     }
   }
 

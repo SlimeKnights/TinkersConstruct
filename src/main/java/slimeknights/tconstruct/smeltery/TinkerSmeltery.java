@@ -200,15 +200,15 @@ public final class TinkerSmeltery extends TinkerModule {
    * Recipe
    */
   // casting
-  public static final ItemCastingRecipe.Serializer<ItemCastingRecipe.Basin> basinRecipeSerializer = null; // Registry.register(Registry.RECIPE_SERIALIZER, id("casting_basin"), new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Basin::new));
-  public static final ItemCastingRecipe.Serializer<ItemCastingRecipe.Table> tableRecipeSerializer = null; //  Registry.register(Registry.RECIPE_SERIALIZER, id("casting_table"), new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Table::new));
-  public static final ContainerFillingRecipeSerializer<ContainerFillingRecipe.Basin> basinFillingRecipeSerializer = null; //  Registry.register(Registry.RECIPE_SERIALIZER, id("basin_filling"), new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Basin::new));
-  public static final ContainerFillingRecipeSerializer<ContainerFillingRecipe.Table> tableFillingRecipeSerializer = null; //  Registry.register(Registry.RECIPE_SERIALIZER, id("table_filling"), new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Table::new));
+  public static final ItemCastingRecipe.Serializer<ItemCastingRecipe.Basin> basinRecipeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("casting_basin"), new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Basin::new));
+  public static final ItemCastingRecipe.Serializer<ItemCastingRecipe.Table> tableRecipeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("casting_table"), new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Table::new));
+  public static final ContainerFillingRecipeSerializer<ContainerFillingRecipe.Basin> basinFillingRecipeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("basin_filling"), new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Basin::new));
+  public static final ContainerFillingRecipeSerializer<ContainerFillingRecipe.Table> tableFillingRecipeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("table_filling"), new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Table::new));
   // material casting
-  public static final MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Basin> basinMaterialSerializer = null; // Registry.register(Registry.RECIPE_SERIALIZER, id("basin_casting_material"), new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Basin::new));
-  public static final MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Table> tableMaterialSerializer = null; // Registry.register(Registry.RECIPE_SERIALIZER, id("table_casting_material"), new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Table::new));
-  public static final CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Basin> basinCompositeSerializer = null; // Registry.register(Registry.RECIPE_SERIALIZER, id("basin_casting_composite"), new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Basin::new));
-  public static final CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Table> tableCompositeSerializer = null; // Registry.register(Registry.RECIPE_SERIALIZER, id("table_casting_composite"), new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Table::new));
+  public static final MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Basin> basinMaterialSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("basin_casting_material"), new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Basin::new));
+  public static final MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Table> tableMaterialSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("table_casting_material"), new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Table::new));
+  public static final CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Basin> basinCompositeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("basin_casting_composite"), new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Basin::new));
+  public static final CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Table> tableCompositeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("table_casting_composite"), new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Table::new));
   // molding
   public static final MoldingRecipe.Serializer<MoldingRecipe.Table> moldingTableSerializer = null; // Registry.register(Registry.RECIPE_SERIALIZER, id("molding_table"), new MoldingRecipe.Serializer<>(MoldingRecipe.Table::new));
   public static final MoldingRecipe.Serializer<MoldingRecipe.Basin> moldingBasinSerializer = null; // Registry.register(Registry.RECIPE_SERIALIZER, id("molding_basin"), new MoldingRecipe.Serializer<>(MoldingRecipe.Basin::new));

@@ -9,6 +9,8 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
+import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 
 public class InventorySlotSyncPacket implements IThreadsafePacket {
 
@@ -40,22 +42,27 @@ public class InventorySlotSyncPacket implements IThreadsafePacket {
     HandleClient.handle(this);
   }
 
-  /** Safely runs client side only code in a method only called on client */
+  /**
+   * Safely runs client side only code in a method only called on client
+   */
   private static class HandleClient {
+
     private static void handle(InventorySlotSyncPacket packet) {
       World world = MinecraftClient.getInstance().world;
       if (world != null) {
         BlockEntity te = world.getBlockEntity(packet.pos);
         if (te != null) {
-          throw new RuntimeException("Crab!");
-          //TODO: PORT
-//          te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-//            .filter(cap -> cap instanceof IItemHandlerModifiable)
-//            .ifPresent(cap -> {
-//              ((IItemHandlerModifiable)cap).setStackInSlot(packet.slot, packet.itemStack);
-//              //noinspection ConstantConditions
-//              MinecraftClient.getInstance().worldRenderer.updateBlock(null, packet.pos, null, null, 0);
-//            });
+          if (te instanceof SmelteryTileEntity) {
+            SmelteryTileEntity smeltery = (SmelteryTileEntity) te;
+            smeltery.meltingInventory.setStack(packet.slot, packet.itemStack);
+            MinecraftClient.getInstance().worldRenderer.updateBlock(null, packet.pos, null, null, 0);
+          }else if (te instanceof CastingTileEntity) {
+            CastingTileEntity table = (CastingTileEntity) te;
+            table.moldingInventory.setPattern(packet.itemStack);
+            MinecraftClient.getInstance().worldRenderer.updateBlock(null, packet.pos, null, null, 0);
+          } else {
+            throw new RuntimeException("Packet not fully implemented for " + te.getClass().getSimpleName());
+          }
         }
       }
     }

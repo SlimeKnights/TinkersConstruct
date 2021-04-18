@@ -5,7 +5,6 @@ import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import com.google.common.collect.Lists;
-import lombok.Getter;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
@@ -14,10 +13,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.SmelteryTankUpdatePacket;
-import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler.FluidChange;
 
 import java.util.List;
@@ -29,12 +28,10 @@ import java.util.ListIterator;
 public class SmelteryTank implements IFluidHandler {
   private final ISmelteryTankHandler parent;
   /** Fluids actually contained in the tank */
-  @Getter
   private final List<FluidVolume> fluids;
   /** Maximum capacity of the smeltery */
   private int capacity;
   /** Current amount of fluid in the tank */
-  @Getter
   private int contained;
 
   public SmelteryTank(ISmelteryTankHandler parent) {
@@ -105,7 +102,7 @@ public class SmelteryTank implements IFluidHandler {
   @Override
   public FluidVolume getFluidInTank(int tank) {
     if (tank < 0 || tank >= fluids.size()) {
-      return FluidKeys.LAVA.withAmount(FluidAmount.of(100, 1000));
+      return TinkerFluids.EMPTY;
     }
     return fluids.get(tank);
   }
@@ -291,5 +288,13 @@ public class SmelteryTank implements IFluidHandler {
       }
     }
     capacity = tag.getInt(TAG_CAPACITY);
+  }
+
+  public List<FluidVolume> getFluids() {
+    return this.fluids;
+  }
+
+  public int getContained() {
+    return this.contained;
   }
 }

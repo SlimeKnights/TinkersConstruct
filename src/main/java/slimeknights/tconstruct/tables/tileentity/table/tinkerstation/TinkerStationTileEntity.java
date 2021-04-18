@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.tables.tileentity.table.tinkerstation;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -29,7 +31,7 @@ import slimeknights.tconstruct.tables.tileentity.table.RetexturedTableTileEntity
 
 import java.util.Collections;
 
-public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
+public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter, ExtendedScreenHandlerFactory {
   /** Slot index of the tool slot */
   public static final int TINKER_SLOT = 0;
   /** Slot index of the first input slot */
@@ -248,5 +250,10 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   @Override
   public CompoundTag getTileData() {
     return null;
+  }
+
+  @Override
+  public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+    buf.writeBlockPos(getPos());
   }
 }

@@ -3,13 +3,13 @@ package slimeknights.tconstruct.fluids;
 import alexiil.mc.lib.attributes.fluid.volume.FluidEntry;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
-import alexiil.mc.lib.attributes.fluid.volume.FluidRegistryEntry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
+import net.minecraft.block.Material;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
@@ -22,6 +22,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
+import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.mantle.registration.object.MantleFluid;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
@@ -33,10 +34,16 @@ public class FluidClientEvents extends ClientEventBase {
   @Override
   public void onInitializeClient() {
     for (FluidEntry.FluidFloatingEntry registryFluidId : FluidKeys.getFloatingFluidIds()) {
-      if(registryFluidId.getId().getNamespace().equals(TConstruct.modID)){
-        final FluidKey fluidKey = FluidKeys.get(registryFluidId);
-        final MantleFluid fluid = ((MantleFluid) fluidKey.getRawFluid());
-        setupFluidRendering(fluid.getStill(), fluid.getFlowing(), new Identifier("lava"), fluidKey.renderColor);
+      if(registryFluidId.getId().getNamespace().equals(TConstruct.modID)) {
+        FluidKey fluidKey = FluidKeys.get(registryFluidId);
+        MantleFluid fluid = ((MantleFluid) fluidKey.getRawFluid());
+        setupFluidRendering(
+          fluid.getStill(),
+          fluid.getFlowing(),
+          fluidKey.flowingSpriteId,
+          fluidKey.spriteId,
+          fluidKey.renderColor
+        );
       }
     }
 
@@ -50,9 +57,9 @@ public class FluidClientEvents extends ClientEventBase {
     BlockRenderLayerMapImpl.INSTANCE.putFluid(TinkerFluids.moltenSoulsteel.getFlowing(), RenderLayer.getTranslucent());
   }
 
-  public static void setupFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {
-    final Identifier stillSpriteId = new Identifier(textureFluidId.getNamespace(), "block/" + textureFluidId.getPath() + "_still");
-    final Identifier flowingSpriteId = new Identifier(textureFluidId.getNamespace(), "block/" + textureFluidId.getPath() + "_flow");
+  public static void setupFluidRendering(final Fluid still, final Fluid flowing, Identifier flowingSpriteId, final Identifier stillSpriteId, final int color) {
+//    final Identifier stillSpriteId = new Identifier(flowingSpriteId.getNamespace(), "block/" + flowingSpriteId.getPath() + "_still");
+//    final Identifier flowingSpriteId = new Identifier(stillSpriteId.getNamespace(), "block/" + stillSpriteId.getPath() + "_flow");
 
     // If they're not already present, add the sprites to the block atlas
     ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) -> {

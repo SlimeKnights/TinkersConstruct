@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.network;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.NetworkSide;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -10,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.network.NetworkWrapper;
+import slimeknights.mantle.network.packet.ISimplePacket;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
@@ -26,6 +28,9 @@ import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 // TODO: move to common
 public class TinkerNetwork extends NetworkWrapper {
 
@@ -40,7 +45,7 @@ public class TinkerNetwork extends NetworkWrapper {
     super(identifer);
   }
 
-  public static synchronized TinkerNetwork getInstance() {
+  public static TinkerNetwork getInstance() {
     if (instance == null) {
       setup();
     }
@@ -49,7 +54,7 @@ public class TinkerNetwork extends NetworkWrapper {
 
   public static void setup() {
     instance = new TinkerNetwork(new Identifier(TConstruct.modID, "network"));
-/*    instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkSide.CLIENTBOUND);
+    instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkSide.CLIENTBOUND);
 
     // gadgets
     instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkSide.CLIENTBOUND);
@@ -70,7 +75,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(ChannelFlowPacket.class, ChannelFlowPacket::new, NetworkSide.CLIENTBOUND);
     instance.registerPacket(SmelteryTankUpdatePacket.class, SmelteryTankUpdatePacket::new, NetworkSide.CLIENTBOUND);
     instance.registerPacket(SmelteryStructureUpdatedPacket.class, SmelteryStructureUpdatedPacket::new, NetworkSide.CLIENTBOUND);
-    instance.registerPacket(SmelteryFluidClickedPacket.class, SmelteryFluidClickedPacket::new, NetworkSide.SERVERBOUND);*/
+    instance.registerPacket(SmelteryFluidClickedPacket.class, SmelteryFluidClickedPacket::new, NetworkSide.SERVERBOUND);
   }
 
   public void sendVanillaPacket(Entity player, Packet<?> packet) {
@@ -81,14 +86,13 @@ public class TinkerNetwork extends NetworkWrapper {
 
 
   /**
-   * Same as {@link #sendToClientsAround(Object, ServerWorld, BlockPos)}, but checks that the world is a serverworld
    * @param msg       Packet to send
    * @param world     World instance
    * @param position  Target position
    */
-  public void sendToClientsAround(Object msg, @Nullable WorldAccess world, BlockPos position) {
+  public void sendToClientsAround(ISimplePacket msg, @Nullable WorldAccess world, BlockPos position) {
     if (world instanceof ServerWorld) {
-      sendToClientsAround(msg, (ServerWorld)world, position);
+      super.sendToClientsAround(msg, (ServerWorld) world, position);
     }
   }
 }

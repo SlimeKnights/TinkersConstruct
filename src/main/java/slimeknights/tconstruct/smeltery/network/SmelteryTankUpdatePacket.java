@@ -8,8 +8,11 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.tconstruct.fluids.FluidUtil;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +27,19 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
     this.fluids = fluids;
   }
 
+  public SmelteryTankUpdatePacket(PacketByteBuf buffer) {
+    pos = buffer.readBlockPos();
+    int size = buffer.readVarInt();
+    fluids = new ArrayList<>(size);
+    for (int i = 0; i < size; i++) {
+      try {
+        fluids.add(FluidVolume.fromMcBuffer(buffer));
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+
   @Override
   public void encode(PacketByteBuf buffer) {
     buffer.writeBlockPos(pos);
@@ -35,12 +51,6 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
 
   @Override
   public void handleThreadsafe(PlayerEntity player, PacketSender context) {
-    HandleClient.handle(this);
-  }
-
-  private static class HandleClient {
-    private static void handle(SmelteryTankUpdatePacket packet) {
-      TileEntityHelper.getTile(ISmelteryTankHandler.class, MinecraftClient.getInstance().world, packet.pos).ifPresent(te -> te.updateFluidsFromPacket(packet.fluids));
-    }
+    TileEntityHelper.getTile(ISmelteryTankHandler.class, MinecraftClient.getInstance().world, this.pos).ifPresent(te -> te.updateFluidsFromPacket(this.fluids));
   }
 }

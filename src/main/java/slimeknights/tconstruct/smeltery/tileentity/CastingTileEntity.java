@@ -55,16 +55,14 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
   private static final String TAG_RECIPE = "recipe";
 
   /** Special casting fluid tank */
-  @Getter
   private final CastingFluidHandler tank = new CastingFluidHandler(this);
 
   /* Casting recipes */
   /** Recipe type for casting recipes, may be basin or table */
   private final RecipeType<ICastingRecipe> castingType;
   /** Inventory for use in casting recipes */
-  private final TileCastingWrapper castingInventory;
+  public final TileCastingWrapper castingInventory;
   /** Current recipe progress */
-  @Getter
   private int timer;
   /** Current in progress recipe */
   private ICastingRecipe currentRecipe;
@@ -79,7 +77,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
   /** Recipe type for molding recipes, may be basin or table */
   private final RecipeType<MoldingRecipe> moldingType;
   /** Inventory to use for molding recipes */
-  private final MoldingInventoryWrapper moldingInventory;
+  public final MoldingInventoryWrapper moldingInventory;
   /** Cache recipe to reduce time during recipe lookups. Not saved to NBT */
   private MoldingRecipe lastMoldingRecipe;
 
@@ -430,6 +428,14 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
         recipeName = name;
       }
     }
+  }
+
+  public CastingFluidHandler getTank() {
+    return this.tank;
+  }
+
+  public int getTimer() {
+    return this.timer;
   }
 
   public static class Basin extends CastingTileEntity {

@@ -1,17 +1,20 @@
 package slimeknights.tconstruct.tables.tileentity.chest;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
 import slimeknights.tconstruct.tables.inventory.TinkerChestContainer;
 
 import org.jetbrains.annotations.Nullable;
 
-public abstract class TinkerChestTileEntity extends TableTileEntity {
+public abstract class TinkerChestTileEntity extends TableTileEntity implements ExtendedScreenHandlerFactory {
   /** Default maximum size */
   protected static final int DEFAULT_MAX = 256;
   /** Current visual size of the inventory */
@@ -83,5 +86,10 @@ public abstract class TinkerChestTileEntity extends TableTileEntity {
 
     // actually put the thing in/out
     super.setStack(slot, itemstack);
+  }
+
+  @Override
+  public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+    buf.writeBlockPos(getPos());
   }
 }

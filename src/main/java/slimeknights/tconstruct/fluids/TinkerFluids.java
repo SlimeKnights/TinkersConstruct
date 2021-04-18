@@ -28,7 +28,10 @@ import slimeknights.tconstruct.fluids.fluids.SlimeFluid;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -114,14 +117,12 @@ public final class TinkerFluids extends TinkerModule {
 
   /** Creates a builder for a cool fluid */
   private static FluidKey.FluidKeyBuilder coolBuilder() {
-    return new FluidKey.FluidKeyBuilder();
-//    return FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY);
+    return new FluidKey.FluidKeyBuilder().setSprites(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING);
   }
 
   /** Creates a builder for a hot fluid */
   private static FluidKey.FluidKeyBuilder hotBuilder(Identifier stillTexture, Identifier flowingTexture) {
-    return new FluidKey.FluidKeyBuilder();
-//    return FluidAttributes.builder(stillTexture, flowingTexture).density(2000).setViscosity(10000).setTemperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
+    return new FluidKey.FluidKeyBuilder().setSprites(stillTexture, flowingTexture).setDensity(f(2000)).setViscosity(f(10000)).setTemperature(tmp(1000));
   }
 
   /** Creates a builder for a molten fluid */
@@ -137,8 +138,8 @@ public final class TinkerFluids extends TinkerModule {
   private static FluidObject<MantleFluid> registerFluid(String name, FluidKey.FluidKeyBuilder builder, Material material, int i) {
     return registerComplexFluid(name,
       builder,
-      new MantleFluid.Still(Items.BEDROCK, Blocks.BEDROCK.getDefaultState()),
-      new MantleFluid.Flowing(Items.BEDROCK, Blocks.BEDROCK.getDefaultState()),
+      new MantleFluid.Still(null, null),
+      new MantleFluid.Flowing(null, null),
       material,
       i
     );
