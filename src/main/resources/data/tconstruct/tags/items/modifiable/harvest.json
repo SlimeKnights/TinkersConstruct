@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:pickaxe",
-    "tconstruct:sledge_hammer",
+    "#tconstruct:modifiable/harvest/stone",
     "tconstruct:mattock",
     "tconstruct:excavator",
     "tconstruct:axe",
-    "tconstruct:kama"
+    "tconstruct:kama",
+    "tconstruct:scythe"
   ]
 }

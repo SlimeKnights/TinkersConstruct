@@ -122,7 +122,7 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
     if (structure.withinBounds(pos)) {
       // if its a part of the structure, need to update if its not a valid smeltery block
       if (structure.contains(pos)) {
-        return !TinkerTags.Blocks.SMELTERY_WALL.contains(state.getBlock());
+        return !TinkerTags.Blocks.SMELTERY.contains(state.getBlock());
       }
       // if not part of the actual structure, we only care if its a block that's not air in the inner section
       // in other words, ignore blocks added into the frame

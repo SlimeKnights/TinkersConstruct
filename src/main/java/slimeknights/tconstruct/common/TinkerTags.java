@@ -18,6 +18,7 @@ public class TinkerTags {
 
     public static final Tag.Identified<Block> ANVIL_METAL = tag("anvil_metal");
 
+    public static final IOptionalNamedTag<Block> SLIME_BLOCK = tag("slime_block");
     public static final Tag.Identified<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final Tag.Identified<Block> SLIMY_LOGS = tag("slimy_logs");
     public static final Tag.Identified<Block> SLIMY_LEAVES = tag("slimy_leaves");
@@ -31,6 +32,8 @@ public class TinkerTags {
 
     /** Blocks valid as a smeltery tank, required for fuel */
     public static final Tag.Identified<Block> MELTER_TANKS = tag("melter_tanks");
+    /** Blocks that make up the smeltery structure */
+    public static final IOptionalNamedTag<Block> SMELTERY = tag("smeltery");
     /** Blocks valid as a smeltery tank, required for fuel */
     public static final Tag.Identified<Block> SMELTERY_TANKS = tag("smeltery/tanks");
     /** Blocks valid as a smeltery floor */
@@ -38,6 +41,14 @@ public class TinkerTags {
     /** Blocks valid in any area of the smeltery */
     public static final Tag.Identified<Block> SMELTERY_WALL = tag("smeltery/wall");
 
+    /** Any block that can be harvested using a kama or scythe */
+    public static final IOptionalNamedTag<Block> HARVESTABLE = tag("harvestable");
+    /** Plants that are broken to drop produce and seeds */
+    public static final IOptionalNamedTag<Block> HARVESTABLE_CROPS = tag("harvestable/crops");
+    /** Plants that drop fruit on interaction */
+    public static final IOptionalNamedTag<Block> HARVESTABLE_INTERACT = tag("harvestable/interact");
+    /** Plants that grow by placing a copy on top */
+    public static final IOptionalNamedTag<Block> HARVESTABLE_STACKABLE = tag("harvestable/stackable");
 
     private static Tag.Identified<Block> tag(String name) {
       return (Tag.Identified<Block>) TagRegistry.block(Util.getResource(name));
@@ -54,6 +65,7 @@ public class TinkerTags {
 
     public static final Tag.Identified<Item> ANVIL_METAL = tag("anvil_metal");
 
+    public static final IOptionalNamedTag<Item> SLIME_BLOCK = tag("slime_block");
     public static final Tag.Identified<Item> CONGEALED_SLIME = tag("congealed_slime");
     public static final Tag.Identified<Item> SLIMY_LOGS = tag("slimy_logs");
     public static final Tag.Identified<Item> SLIMY_LEAVES = tag("slimy_leaves");
@@ -78,6 +90,8 @@ public class TinkerTags {
     public static final Tag.Identified<Item> GOLD_CASTS = tag("casts/gold");
     public static final Tag.Identified<Item> SAND_CASTS = tag("casts/sand");
     public static final Tag.Identified<Item> RED_SAND_CASTS = tag("casts/red_sand");
+    public static final IOptionalNamedTag<Item> SINGLE_USE_CASTS = tag("casts/single_use");
+    public static final IOptionalNamedTag<Item> MULTI_USE_CASTS = tag("casts/multi_use");
 
     public static final Tag.Identified<Item> RODS_STONE = forgeTag("rods/stone");
     public static final Tag.Identified<Item> WITHER_BONES = forgeTag("wither_bones");
@@ -88,9 +102,14 @@ public class TinkerTags {
     /** Items that cannot be autosmelted */
     public static final Tag.Identified<Item> AUTOSMELT_BLACKLIST = tag("autosmelt_blacklist");
 
+    /** Items that are seeds for kama harvest */
+    public static final IOptionalNamedTag<Item> SEEDS = tag("seeds");
+
     /*
      * Tool tags
      */
+    /** Anything that can be modified in the tool station */
+    public static final IOptionalNamedTag<Item> TOOL_PARTS = tag("parts");
     /** Anything that can be modified in the tool station */
     public static final Tag.Identified<Item> MODIFIABLE = tag("modifiable");
     /** Modifiable items that contain multiple parts */
@@ -103,10 +122,14 @@ public class TinkerTags {
     public static final Tag.Identified<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
     /** Modifiable items that can break blocks */
     public static final Tag.Identified<Item> HARVEST = tag("modifiable/harvest");
+    /** Modifiable items that can break stone blocks */
+    public static final IOptionalNamedTag<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
     /** Modifiable items that can have range increased */
     public static final Tag.Identified<Item> AOE = tag("modifiable/aoe");
     // /** Modifiable items that support ranged attacks, such as bows */
     // public static final Tag<Item> RANGED = tag("modifiable/ranged");
+    /** Tag so mods like thermal know our scyhtes can harvest */
+    public static final IOptionalNamedTag<Item> SCYTHES = forgeTag("tools/scythe");
 
 
     private static Tag.Identified<Item> tag(String name) {
@@ -134,6 +157,7 @@ public class TinkerTags {
 
   public static class EntityTypes {
 
+    public static final IOptionalNamedTag<EntityType<?>> BOUNCY = tag("bouncy");
     public static final Tag.Identified<EntityType<?>> SLIMES = forgeTag("slimes");
     public static final Tag.Identified<EntityType<?>> MELTING_SHOW = tag("melting/show_in_default");
     public static final Tag.Identified<EntityType<?>> MELTING_HIDE = tag("melting/hide_in_default");

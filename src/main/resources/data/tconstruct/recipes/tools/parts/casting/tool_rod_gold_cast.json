@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:table_casting_material",
-  "cast": {
-    "item": "tconstruct:tool_rod_cast"
-  },
-  "item_cost": 1,
-  "result": "tconstruct:tool_rod"
-}

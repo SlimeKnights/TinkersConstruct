@@ -1,0 +1,32 @@
+[
+  {
+    "name": "repairing",
+    "type": "text",
+    "data": "tools/repairing.json"
+  },
+  {
+    "name": "pickaxe",
+    "type": "tool",
+    "data": "tools/pickaxe.json"
+  },
+  {
+    "name": "axe",
+    "type": "tool",
+    "data": "tools/axe.json"
+  },
+  {
+    "name": "mattock",
+    "type": "tool",
+    "data": "tools/mattock.json"
+  },
+  {
+    "name": "kama",
+    "type": "tool",
+    "data": "tools/kama.json"
+  },
+  {
+    "name": "broad_sword",
+    "type": "tool",
+    "data": "tools/broad_sword.json"
+  }
+]

@@ -57,6 +57,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.BiConsumer;
 
 /**
@@ -65,6 +66,7 @@ import java.util.function.BiConsumer;
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
 public abstract class ToolCore extends Item implements ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
+  protected static final UUID REACH_MODIFIER = UUID.fromString("9b26fa32-5774-4b4e-afc3-b4055ecb1f6a");
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final Identifier INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
   protected static final Text TOOLTIP_HOLD_SHIFT;
@@ -303,8 +305,14 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     if (slot == EquipmentSlot.MAINHAND && !tool.isBroken()) {
       // base stats
       StatsNBT statsNBT = tool.getStats();
-      builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", statsNBT.getAttackDamage(), EntityAttributeModifier.Operation.ADDITION));
-      builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", statsNBT.getAttackSpeed() - 4d, EntityAttributeModifier.Operation.ADDITION));
+      builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "tconstruct.tool.attack_damage", statsNBT.getAttackDamage(), EntityAttributeModifier.Operation.ADDITION));
+      // base attack speed is 4, but our numbers start from 4
+      builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "tconstruct.tool.attack_speed", statsNBT.getAttackSpeed() - 4d, EntityAttributeModifier.Operation.ADDITION));
+      // base value is 5, but our number start from 5
+      double reach = statsNBT.getReach() - 5d;
+      if (reach != 0) {
+        builder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER, "tconstruct.tool.reach", reach, AttributeModifier.Operation.ADDITION));
+      }
 
       // grab attributes from modifiers
       BiConsumer<EntityAttribute, EntityAttributeModifier> attributeConsumer = builder::put;
@@ -438,7 +446,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
         for (int i = 0; i < components.size(); i++) {
           IToolPart requirement = components.get(i);
           IMaterial material = materials.get(i);
-          ItemStack partStack = requirement.getItemstackWithMaterial(material);
+          ItemStack partStack = requirement.withMaterial(material);
           tooltips.add(partStack.getName().shallowCopy().formatted(Formatting.UNDERLINE).styled(style -> style.withColor(material.getColor())));
           MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
           tooltips.add(LiteralText.EMPTY);

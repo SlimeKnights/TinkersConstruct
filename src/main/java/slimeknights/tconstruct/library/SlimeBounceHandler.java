@@ -7,8 +7,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 
-public class SlimeBounceHandler {
-
+/** Logic for entities bouncing */
+public class SlimeBounceHandler implements Consumer<LivingUpdateEvent> {
   private static final IdentityHashMap<Entity, SlimeBounceHandler> bouncingEntities = new IdentityHashMap<>();
 
   public static IdentityHashMap<Entity, SlimeBounceHandler> getBouncingEntities() {
@@ -31,7 +31,8 @@ public class SlimeBounceHandler {
     this.bounce = bounce;
 
     if (bounce != 0) {
-      this.bounceTick = entityLiving.age;
+      // add one to the tick as there is a 1 tick delay between falling and ticking for many entities
+      this.bounceTick = entityLiving.age + 1;
     } else {
       this.bounceTick = 0;
     }
@@ -40,7 +41,8 @@ public class SlimeBounceHandler {
     //entityLiving.addChatMessage(new ChatComponentText("added " + entityLiving.worldObj.isRemote));
   }
 
-  public void playerTickPost(PlayerEntity player) {
+  @Override
+  public void accept(LivingUpdateEvent event) {
     // this is only relevant for the local player
     if (player == this.entityLiving && !player.isFallFlying()) {
       // bounce up. This is to pcircumvent the logic that resets y motion after landing
@@ -70,7 +72,6 @@ public class SlimeBounceHandler {
         } else if (this.entityLiving.age - this.timer > 5) {
           //MinecraftForge.EVENT_BUS.unregister(this);
           bouncingEntities.remove(this.entityLiving);
-          //entityLiving.addChatMessage(new ChatComponentText("removed " + entityLiving.worldObj.isRemote));
         }
       } else {
         this.timer = 0;
@@ -83,19 +84,25 @@ public class SlimeBounceHandler {
     addBounceHandler(entity, 0d);
   }
 
+  /**
+   * Causes the entity to bounce, needed because the fall event will reset motion afterwards
+   * @param entity  Entity to bounce
+   * @param bounce  Bounce amoint
+   */
   public static void addBounceHandler(LivingEntity entity, double bounce) {
-    // only supports actual players as it uses the PlayerTick event
+    // no fake players PlayerTick event
     if (!(entity instanceof PlayerEntity)) {
       return;
     }
     SlimeBounceHandler handler = bouncingEntities.get(entity);
     if (handler == null) {
       // wasn't bouncing yet, register it
-      //MinecraftForge.EVENT_BUS.register(new SlimeBounceHandler(entity, bounce));
+      //MinecraftForge.EVENT_BUS.addListener(new SlimeBounceHandler(entity, bounce));
     } else if (bounce != 0) {
       // updated bounce if needed
       handler.bounce = bounce;
-      handler.bounceTick = entity.age;
+      // add one to the tick as there is a 1 tick delay between falling and ticking for many entities
+      handler.bounceTick = entity.age + 1;
     }
   }
 }

@@ -120,7 +120,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
 //  public ItemStack getCraftingResult(ICastingInventory inv) {
 //    Item item = inv.getStack().getItem();
 //    if (item instanceof IMaterialItem) {
-//      return ((IMaterialItem)item).getItemstackWithMaterial(outputMaterial.get());
+//      return ((IMaterialItem)item).withMaterial(outputMaterial.get());
 //    }
 //    return ItemStack.EMPTY;
 //  }
@@ -147,8 +147,8 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
                                                            .map(fluid -> FluidVolume.create(fluid.getFluidKey(), fluid.getAmount() * partCost))
                                                            .collect(Collectors.toList());
                               }
-                              return new DisplayCastingRecipe(getType(), Collections.singletonList(part.getItemstackWithMaterial(inputMaterial.get())), recipeFluids,
-                                                              part.getItemstackWithMaterial(outputMaterial.get()), ICastingRecipe.calcCoolingTime(coolingTemperature, recipeFluids.get(0).getAmount()), true);
+                              return new DisplayCastingRecipe(getType(), Collections.singletonList(part.withMaterial(inputMaterial.get())), recipeFluids,
+                                                              part.withMaterial(outputMaterial.get()), ICastingRecipe.calcCoolingTime(coolingTemperature, recipeFluids.get(0).getAmount()), true);
                           })
                           .collect(Collectors.toList());
       }

@@ -9,10 +9,13 @@ import slimeknights.tconstruct.library.materials.MaterialManager;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,6 +31,7 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   private final MaterialManager materialManager;
   private final MaterialStatsManager materialStatsManager;
   private final MaterialTraitsManager materialTraitsManager;
+  private final List<Runnable> onMaterialReload = new ArrayList<>();
 
   /**
    * Used for the defaults and for existence/class checks.
@@ -84,5 +88,31 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
     // todo: implement check if class is compatible with the requirements for a network syncable stats class
     materialStatsManager.registerMaterialStat(statsId, clazz);
     materialStatDefaults.put(statsId, defaultStats);
+  }
+
+  /* Reloading */
+
+  /** Called when the player logs in to send packets */
+  private void handleLogin(PlayerLoggedInEvent event) {
+    PlayerEntity player = event.getPlayer();
+    if (player instanceof ServerPlayerEntity) {
+      ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
+      TinkerNetwork network = TinkerNetwork.getInstance();
+      PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
+      network.send(target, materialManager.getUpdatePacket());
+      network.send(target, materialStatsManager.getUpdatePacket());
+    }
+  }
+
+  @Override
+  public void addMaterialSyncListener(Runnable listener) {
+    onMaterialReload.add(listener);
+  }
+
+  @Override
+  public void onMaterialSync() {
+    for (Runnable runnable : onMaterialReload) {
+      runnable.run();
+    }
   }
 }

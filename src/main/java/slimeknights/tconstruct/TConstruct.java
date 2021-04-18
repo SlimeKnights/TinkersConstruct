@@ -13,10 +13,18 @@ import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.shared.TinkerClient;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import java.util.Random;
 
@@ -46,6 +54,11 @@ public class TConstruct implements ModInitializer {
 
     // init deferred registers
     TinkerModule.initRegisters();
+    TinkerNetwork.setup();
+    // init client logic
+    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
+    MinecraftForge.EVENT_BUS.register(this);
+  }
 
     MaterialRegistry.init();
   }

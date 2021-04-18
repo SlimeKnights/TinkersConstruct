@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -56,7 +57,9 @@ public abstract class TinkerModule implements ModInitializer {
   }
 
   public static AbstractBlock.Settings getGenericGlassBlock() {
-    return builder(Material.GLASS, FabricToolTags.PICKAXES, BlockSoundGroup.GLASS).requiresTool().strength(0.3F).nonOpaque(); //TODO: .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+    return builder(Material.GLASS, FabricToolTags.PICKAXES, BlockSoundGroup.GLASS)
+    .requiresTool().strength(0.3F).nonOpaque().setAllowsSpawn(Blocks::neverAllowSpawn)
+    .setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
   }
 
   /** Creative tab for items that do not fit in another tab */

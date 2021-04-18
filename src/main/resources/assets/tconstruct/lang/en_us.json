@@ -151,10 +151,16 @@
     "item.tconstruct.knightslime_ingot": "Knightslime Ingot",
     "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
     "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
-    
 
-    "item.tconstruct.book": "Materials and You",
-    "item.tconstruct.book.tooltip": "The book every Tinker needs\nby Skyla",
+    "item.tconstruct.materials_and_you": "Materials and You",
+    "item.tconstruct.materials_and_you.tooltip": "The book every Tinker needs\nby Skyla",
+    "item.tconstruct.tinkers_gadgetry": "Tinker's Gadgetry",
+    "item.tconstruct.tinkers_gadgetry.tooltip": "Uses of slime in everyday tasks\nby Melvin",
+
+    "item.tconstruct.puny_smelting": "Puny Smelting",
+    "item.tconstruct.puny_smelting.tooltip": "Smelting and casting for beginners\nby Thruul M'Gon",
+    "item.tconstruct.mighty_smelting": "Mighty Smelting",
+    "item.tconstruct.mighty_smelting.tooltip": "Master smelting, casting, and alloying\nby Thruul M'Gon",
 
     "item.tconstruct.sky_slime_ball": "Skyslime Ball",
     "item.tconstruct.ender_slime_ball": "Enderslime Ball",
@@ -203,11 +209,6 @@
     "item.tconstruct.ender_slime_crystal": "Enderslime Crystal",
     "item.tconstruct.ender_slime_crystal.tooltip": "Used to overslime tools",
     
-    "item.tconstruct.ichor_expander": "Ichor Expander",
-    "item.tconstruct.ichor_expander.tooltip": "First of the expanders",
-    "item.tconstruct.ender_expander": "Ender Expander",
-    "item.tconstruct.ender_expander.tooltip": "Second of the expanders",
-    
     "item.tconstruct.reinforcement": "Reinforcement",
     "item.tconstruct.reinforcement.tooltip": "Reduces chance of a tool taking damage",
     "item.tconstruct.silky_cloth": "Silky Cloth",
@@ -230,7 +231,11 @@
     "item.tconstruct.ingot_cast": "Ingot Gold Cast",
     "item.tconstruct.nugget_cast": "Nugget Gold Cast",
     "item.tconstruct.gem_cast": "Gem Gold Cast",
+    "item.tconstruct.rod_cast": "Rod Gold Cast",
+    
     "item.tconstruct.gear_cast": "Gear Gold Cast",
+    "item.tconstruct.plate_cast": "Small Plate Gold Cast",
+    "item.tconstruct.coin_cast": "Coin Gold Cast",
     
     "item.tconstruct.sharpening_kit_cast": "Sharpening Kit Gold Cast",
     
@@ -247,18 +252,17 @@
     
     "item.tconstruct.hammer_head_cast": "Hammer Head Gold Cast",
     "item.tconstruct.broad_axe_head_cast": "Broad Axe Head Gold Cast",
-    "item.tconstruct.scythe_head_cast": "Scythe Head Gold Cast",
-    "item.tconstruct.large_sword_blade_cast": "Large Sword Blade Gold Cast",
+    "item.tconstruct.broad_blade_cast": "Broad Blade Gold Cast",
     
     "_comment": "Binding Gold Casts",
     
     "item.tconstruct.tool_binding_cast": "Tool Binding Gold Cast",
     "item.tconstruct.large_plate_cast": "Large Plate Gold Cast",
     
-    "_comment": "Tool Rod Gold Casts",
+    "_comment": "Tool Handle Gold Casts",
     
-    "item.tconstruct.tool_rod_cast": "Tool Rod Gold Cast",
-    "item.tconstruct.tough_tool_rod_cast": "Tough Tool Rod Gold Cast",
+    "item.tconstruct.tool_handle_cast": "Tool Handle Gold Cast",
+    "item.tconstruct.tough_handle_cast": "Tough Handle Gold Cast",
     
     
     "_comment": "Tinkers Sand Casts",
@@ -267,7 +271,11 @@
     "item.tconstruct.ingot_sand_cast": "Ingot Sand Cast",
     "item.tconstruct.nugget_sand_cast": "Nugget Sand Cast",
     "item.tconstruct.gem_sand_cast": "Gem Sand Cast",
+    "item.tconstruct.rod_sand_cast": "Rod Sand Cast",
+    
     "item.tconstruct.gear_sand_cast": "Gear Sand Cast",
+    "item.tconstruct.plate_sand_cast": "Small Plate Sand Cast",
+    "item.tconstruct.coin_sand_cast": "Coin Sand Cast",
     
     "item.tconstruct.sharpening_kit_sand_cast": "Sharpening Kit Sand Cast",
     
@@ -284,18 +292,17 @@
     
     "item.tconstruct.hammer_head_sand_cast": "Hammer Head Sand Cast",
     "item.tconstruct.broad_axe_head_sand_cast": "Broad Axe Head Sand Cast",
-    "item.tconstruct.scythe_head_sand_cast": "Scythe Head Sand Cast",
-    "item.tconstruct.large_sword_blade_sand_cast": "Large Sword Blade Sand Cast",
+    "item.tconstruct.broad_blade_sand_cast": "Broad Blade Sand Cast",
     
     "_comment": "Binding Sand Casts",
     
     "item.tconstruct.tool_binding_sand_cast": "Binding Sand Cast",
     "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
     
-    "_comment": "Tool Rod Sand Casts",
+    "_comment": "Tool Handle Sand Casts",
     
-    "item.tconstruct.tool_rod_sand_cast": "Tool Rod Sand Cast",
-    "item.tconstruct.tough_tool_rod_sand_cast": "Tough Tool Rod Sand Cast",
+    "item.tconstruct.tool_handle_sand_cast": "Tool Handle Sand Cast",
+    "item.tconstruct.tough_handle_sand_cast": "Tough Handle Sand Cast",
     
     
     "_comment": "Tinkers Red Sand Casts",
@@ -304,7 +311,11 @@
     "item.tconstruct.ingot_red_sand_cast": "Ingot Red Sand Cast",
     "item.tconstruct.nugget_red_sand_cast": "Nugget Red Sand Cast",
     "item.tconstruct.gem_red_sand_cast": "Gem Red Sand Cast",
+    "item.tconstruct.rod_red_sand_cast": "Rod Red Sand Cast",
+    
     "item.tconstruct.gear_red_sand_cast": "Gear Red Sand Cast",
+    "item.tconstruct.plate_red_sand_cast": "Small Plate Red Sand Cast",
+    "item.tconstruct.coin_red_sand_cast": "Coin Red Sand Cast",
     
     "item.tconstruct.sharpening_kit_red_sand_cast": "Sharpening Kit Red Sand Cast",
     
@@ -321,18 +332,17 @@
     
     "item.tconstruct.hammer_head_red_sand_cast": "Hammer Head Red Sand Cast",
     "item.tconstruct.broad_axe_head_red_sand_cast": "Broad Axe Head Red Sand Cast",
-    "item.tconstruct.scythe_head_red_sand_cast": "Scythe Head Red Sand Cast",
-    "item.tconstruct.large_sword_blade_red_sand_cast": "Large Sword Blade Red Sand Cast",
+    "item.tconstruct.broad_blade_red_sand_cast": "Broad Blade Red Sand Cast",
     
     "_comment": "Binding Red Sand Casts",
     
     "item.tconstruct.tool_binding_red_sand_cast": "Tool Binding Red Sand Cast",
     "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
     
-    "_comment": "Tool Rod Red Sand Casts",
+    "_comment": "Tool Handle Red Sand Casts",
     
-    "item.tconstruct.tool_rod_red_sand_cast": "Tool Rod Red Sand Cast",
-    "item.tconstruct.tough_tool_rod_red_sand_cast": "Tough Tool Rod Red Sand Cast",
+    "item.tconstruct.tool_handle_red_sand_cast": "Tool Handle Red Sand Cast",
+    "item.tconstruct.tough_handle_red_sand_cast": "Tough Handle Red Sand Cast",
 
     
     "_comment": "Tinkers Fluids",
@@ -568,6 +578,11 @@
     "fluid.tconstruct.flowing_molten_constantan": "Flowing Molten Constantan",
     "item.tconstruct.molten_constantan_bucket": "Molten Constantan Bucket",
 
+    "block.tconstruct.molten_pewter_fluid": "Molten Pewter",
+    "fluid.tconstruct.molten_pewter": "Molten Pewter",
+    "fluid.tconstruct.flowing_molten_pewter": "Flowing Molten Pewter",
+    "item.tconstruct.molten_pewter_bucket": "Molten Pewter Bucket",
+
     "block.tconstruct.molten_steel_fluid": "Molten Steel",
     "fluid.tconstruct.molten_steel": "Molten Steel",
     "fluid.tconstruct.flowing_molten_steel": "Flowing Molten Steel",
@@ -617,7 +632,7 @@
     "item.tconstruct.sky_slime_sling": "Skyslime Sling",
     "item.tconstruct.sky_slime_sling.tooltip": "Charge up, let go, get back in the air!\nUse Slime Boots if you value your life!",
     "item.tconstruct.ender_slime_sling": "Enderslime Sling",
-    "item.tconstruct.ender_slime_sling.tooltip": "Charge up, point it at a wall, come out the other side!\nCrouch for a little more control.",
+    "item.tconstruct.ender_slime_sling.tooltip": "Charge up, point it at a wall, come out the other side!",
     "item.tconstruct.ichor_slime_sling": "Ichor Sling",
     "item.tconstruct.ichor_slime_sling.tooltip": "Charge up, point at a creature, and send it flying!",
 
@@ -633,7 +648,8 @@
     "item.tconstruct.ichor_slime_boots.tooltip": "Makes you bounce when landing",
 
     "item.tconstruct.piggy_backpack": "Piggybackpack",
-    "item.tconstruct.piggy_backpack.tooltip": "Right-click mobs to pick them up",
+    "item.tconstruct.piggy_backpack.tooltip": "Use on a mob to pick it up",
+    "effect.tconstruct.carry": "Carrying",
 
     "item.tconstruct.hard_spaghetti": "Impossibly Hard Wheat Sticks",
     "item.tconstruct.hard_spaghetti.tooltip": "Impossibly Hard Wheat Sticks",
@@ -670,7 +686,9 @@
     "item.tconstruct.excavator": "Excavator",
     "item.tconstruct.axe": "Hand Axe",
     "item.tconstruct.kama": "Kama",
+    "item.tconstruct.scythe": "Scythe",
     "item.tconstruct.broad_sword": "Broadsword",
+    "item.tconstruct.cleaver": "Cleaver",
     
     "_comment": "Tinkers Tool Parts",
 
@@ -679,8 +697,10 @@
     "item.tconstruct.axe_head": "Axe Head",
     "item.tconstruct.kama_head": "Kama Head",
     "item.tconstruct.sword_blade": "Sword Blade",
-    "item.tconstruct.tool_rod": "Tool Rod",
-    "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
+    "item.tconstruct.broad_blade": "Broad Blade",
+    
+    "item.tconstruct.tool_handle": "Tool Handle",
+    "item.tconstruct.tough_handle": "Tough Handle",
     "item.tconstruct.tool_binding": "Tool Binding",
     "item.tconstruct.large_plate": "Large Plate",
 
@@ -692,8 +712,10 @@
     "item.tconstruct.excavator.description": "The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!",
     "item.tconstruct.axe.description": "The Hand Axe chops up wood and makes short work of leaves. It also makes for an effective weapon.\nChop chop!",
     "item.tconstruct.kama.description": "The Kama is a precision reaping tool, mowing down plants and shearing animals.\nRight Click: Harvest and replant crops",
+    "item.tconstruct.scythe.description": "The Scythe is a broad reaping tool, mowing down plants in a wide area.\nRight Click: Harvest and replant crops",
     "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
-
+    "item.tconstruct.cleaver.description": "The Cleaver is a weapon for a smeltery master. High range attacks keep cut though the toughest of foes.",
+ 
     "_comment": "Tinkers Smeltery",
 
     "block.tconstruct.seared_stone": "Seared Stone",
@@ -909,6 +931,7 @@
     "material.tconstruct.stone": "Stone",
     "material.tconstruct.flint": "Flint",
     "material.tconstruct.bone": "Bone",
+    "material.tconstruct.necrotic_bone": "Necrotic Bone",
     
     "__comment": "Tier 2 Materials",
     "material.tconstruct.iron": "Iron",
@@ -994,6 +1017,16 @@
     "modifier.tconstruct.haste.flavor": "Science!",
     "modifier.tconstruct.haste.description": "Magic red dust makes tool swing and mine faster!",
 
+    "modifier.tconstruct.blasting": "Blasting",
+    "modifier.tconstruct.blasting.flavor": "Explosive Mining!",
+    "modifier.tconstruct.blasting.description": "Your tool breaks blocks weak to explosions, such as ores, faster!",
+    "modifier.tconstruct.hydraulic": "Hydraulic",
+    "modifier.tconstruct.hydraulic.flavor": "Using the power of water!",
+    "modifier.tconstruct.hydraulic.description": "Tool mines faster underwater or in the rain!",
+    "modifier.tconstruct.lightspeed": "Lightspeed",
+    "modifier.tconstruct.lightspeed.flavor": "Brighter is faster!",
+    "modifier.tconstruct.lightspeed.description": "Tool mines well lit blocks faster!",
+
     "_comment": "Weapon",
     "modifier.tconstruct.knockback": "Knockback",
     "modifier.tconstruct.knockback.flavor": "Weeeeee!",
@@ -1038,6 +1071,9 @@
     "modifier.tconstruct.expanded": "Expanded",
     "modifier.tconstruct.expanded.flavor": "Did not skip leg day!",
     "modifier.tconstruct.expanded.description": "Tool's area of effect is larger than before",
+    "modifier.tconstruct.reach": "Reach",
+    "modifier.tconstruct.reach.flavor": "Telekinesis!",
+    "modifier.tconstruct.reach.description": "Can reach further blocks and mobs while holding this tool!",
     "modifier.tconstruct.autosmelt": "Autosmelt",
     "modifier.tconstruct.autosmelt.flavor": "Fires of the Nether in your tool!",
     "modifier.tconstruct.autosmelt.description": "Tool automatically smelts all drops",
@@ -1160,6 +1196,11 @@
     "modifier.tconstruct.temperate.flavor": "Extreme Mining!",
     "modifier.tconstruct.temperate.description": "Tool mines faster when in extreme temperatures",
 
+    "_comment": "Internal effects",
+    "effect.tconstruct.bleeding": "Bleeding",
+    "effect.tconstruct.magnetic": "Magnetic",
+    "effect.tconstruct.momentum": "Momentum",
+    "effect.tconstruct.insatiable": "Insatiable",
 
     "_comment": "Stats",
 
@@ -1229,6 +1270,8 @@
     "gui.tconstruct.part_builder.material_value": "Material value: %s",
     "gui.tconstruct.part_builder.cost": "Pattern cost: %s",
     "gui.tconstruct.part_builder.trait": "Trait",
+    "gui.tconstruct.part_builder.uncraftable": "Cannot shape",
+    "gui.tconstruct.part_builder.uncraftable.tooltip": "Material cannot be shaped in the part builder. Other methods such as casting are required.",
 
     "gui.tconstruct.modifier_chest": "Modifier Chest",
     "gui.tconstruct.cast_chest": "Cast Chest",
@@ -1241,17 +1284,20 @@
     "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
     "gui.tconstruct.tinker_station.no_traits": "None :[",
 
+    "gui.tconstruct.manual.cycle.recipes": "Cycle to other recipes",
+
     "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
 
     "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
 
     "recipe.tconstruct.modifier.not_enough_upgrades": "Need at least %s upgrade slots to add this modifier",
     "recipe.tconstruct.modifier.not_enough_abilities": "Need at least %s ability slots to add this modifier",
+    "recipe.tconstruct.modifier.validate_upgrades": "This change leaves the tool with too few upgrade slots",
+    "recipe.tconstruct.modifier.validate_abilities": "This change leaves the tool with too few ability slots",
     "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
     "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
 
     "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
-    "recipe.tconstruct.modifier.ender_expander_requirements": "Must apply the ichor expander first",
 
 
     "_comment": "GUIs Messages",

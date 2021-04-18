@@ -77,7 +77,10 @@ public final class ToolStatsBuilder {
 
   /** Builds default stats */
   public StatsNBT buildStats() {
-    return new StatsNBT(buildDurability(), buildHarvestLevel(), buildAttack(), buildMiningSpeed(), buildAttackSpeed());
+    return StatsNBT.builder()
+      .durability(buildDurability()).harvestLevel(buildHarvestLevel())
+      .attackDamage(buildAttack()).attackSpeed(buildAttackSpeed())
+      .miningSpeed(buildMiningSpeed()).build();
   }
 
   public int buildDurability() {

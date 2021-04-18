@@ -57,6 +57,15 @@ public final class ToolBuildHandler {
   }
 
   /**
+   * Gets the render material for the given index
+   * @param index  Index
+   * @return  Render material
+   */
+  public static MaterialId getRenderMaterial(int index) {
+    return RENDER_MATERIALS.get(index % RENDER_MATERIALS.size());
+  }
+
+  /**
    * Builds a tool using the render materials for the sake of display in UIs
    * @param item        Tool item
    * @param definition  Tool definition
@@ -67,7 +76,7 @@ public final class ToolBuildHandler {
     int size = requirements.size();
     List<MaterialId> toolMaterials = new ArrayList<>(size);
     for (int i = 0; i < requirements.size(); i++) {
-      toolMaterials.add(i, RENDER_MATERIALS.get(i % RENDER_MATERIALS.size()));
+      toolMaterials.add(i, getRenderMaterial(i));
     }
     ItemStack stack = new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(item));
     stack.getOrCreateTag().putBoolean(KEY_DISPLAY_TOOL, true);

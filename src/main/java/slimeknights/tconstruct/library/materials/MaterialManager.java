@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.materials;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,6 +11,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.resource.JsonDataLoader;
@@ -28,7 +28,6 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
 
 import java.lang.reflect.Type;
@@ -65,11 +64,6 @@ public class MaterialManager extends JsonDataLoader {
   private List<IMaterial> sortedMaterials = Collections.emptyList();
 
   public MaterialManager() {
-    this(TinkerNetwork.getInstance());
-  }
-
-  @VisibleForTesting
-  protected MaterialManager(TinkerNetwork tinkerNetwork) {
     super(GSON, FOLDER);
   }
 
@@ -139,8 +133,11 @@ public class MaterialManager extends JsonDataLoader {
     log.info("{} materials loaded", materials.size());
   }
 
-//  @Override
-  protected Object getUpdatePacket() {
+  /**
+   * Gets the packet to send on player login
+   * @return  Packet object
+   */
+  public Object getUpdatePacket() {
     return new UpdateMaterialsPacket(materials.values());
   }
 

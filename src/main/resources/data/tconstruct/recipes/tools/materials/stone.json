@@ -7,17 +7,9 @@
     {
       "tag": "c:cobblestone"
     },
-    [
-      {
-        "item": "minecraft:basalt"
-      },
-      {
-        "item": "minecraft:polished_basalt"
-      },
-      {
-        "item": "minecraft:polished_blackstone"
-      }
-    ]
+    {
+      "item": "minecraft:polished_blackstone"
+    }
   ],
   "value": 1,
   "needed": 1,

@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/tough_handle"
+  },
+  "item_cost": 3,
+  "result": "tconstruct:tough_handle"
+}

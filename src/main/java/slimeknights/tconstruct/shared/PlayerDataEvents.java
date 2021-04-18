@@ -21,7 +21,7 @@ public class PlayerDataEvents {
 //
 //      if (!data.getBoolean(TAG_PLAYER_HAS_BOOK)) {
 //        player.giveItemStack(new ItemStack(TinkerCommons.book.get()));
-//        ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(TinkerCommons.book.get()));
+//        ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(TinkerCommons.materialsAndYou.get()));
 //        data.putBoolean(TAG_PLAYER_HAS_BOOK, true);
 //        playerData.put("PlayerPersisted", data);
 //      }

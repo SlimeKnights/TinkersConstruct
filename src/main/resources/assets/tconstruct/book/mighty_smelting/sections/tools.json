@@ -1,0 +1,22 @@
+[
+  {
+    "name": "sledge_hammer",
+    "type": "tool",
+    "data": "tools/sledge_hammer.json"
+  },
+  {
+    "name": "excavator",
+    "type": "tool",
+    "data": "tools/excavator.json"
+  },
+  {
+    "name": "cleaver",
+    "type": "tool",
+    "data": "tools/cleaver.json"
+  },
+  {
+    "name": "scythe",
+    "type": "tool",
+    "data": "tools/scythe.json"
+  }
+]

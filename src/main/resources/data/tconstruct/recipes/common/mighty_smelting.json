@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:book"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:seared_stone",
+    "amount": 144
+  },
+  "result": "tconstruct:mighty_smelting",
+  "cooling_time": 53
+}

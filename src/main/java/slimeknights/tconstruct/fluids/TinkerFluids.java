@@ -112,7 +112,8 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<MantleFluid> moltenInvar      = registerFluid("molten_invar",      moltenBuilder().setRenderColor(0xffbab29b).setTemperature(tmp(1200)), Material.LAVA, 12);
   public static final FluidObject<MantleFluid> moltenConstantan = registerFluid("molten_constantan", moltenBuilder().setRenderColor(0xffff9e7f).setTemperature(tmp(1220)), Material.LAVA, 12);
   public static final FluidObject<MantleFluid> moltenPewter     = registerFluid("molten_pewter",     moltenBuilder().setRenderColor(0xffa09b6b).setTemperature(tmp( 700)), Material.LAVA, 10);
-  public static final FluidObject<MantleFluid> moltenSteel      = registerFluid("molten_steel",      moltenBuilder().setRenderColor(0xffa7a7a7).setTemperature(tmp(1510)), Material.LAVA, 12);
+  public static final FluidObject<MantleFluid> moltenPewter     = FLUIDS.register("molten_pewter",     moltenBuilder().color(0xffa09b6b).temperature( 700), Material.LAVA, 10);
+  public static final FluidObject<ForgeFlowingFluid> moltenSteel      = registerFluid("molten_steel",      moltenBuilder().setRenderColor(0xffa7a7a7).setTemperature(tmp(1250)), Material.LAVA, 12);
 
 
   /** Creates a builder for a cool fluid */

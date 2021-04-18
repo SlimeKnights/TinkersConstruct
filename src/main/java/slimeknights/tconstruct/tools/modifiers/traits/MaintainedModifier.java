@@ -80,7 +80,9 @@ public class MaintainedModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player) {
-//    player.setNewSpeed(player.getNewSpeed() * (1 + getTotalBoost(tool, level)));
+  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, boolean isEffective, float miningSpeedModifier) {
+//    if (isEffective) {
+//      event.setNewSpeed(event.getNewSpeed() * (1 + getTotalBoost(tool, level)));
+//    }
   }
 }

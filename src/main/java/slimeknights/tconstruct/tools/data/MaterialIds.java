@@ -9,6 +9,8 @@ public final class MaterialIds {
   public static final MaterialId flint = id("flint");
   public static final MaterialId stone = id("stone");
   public static final MaterialId bone = id("bone");
+  // tier 1 - nether
+  public static final MaterialId necroticBone = id("necrotic_bone");
   // tier 2
   public static final MaterialId iron = id("iron");
   public static final MaterialId searedStone = id("seared_stone");

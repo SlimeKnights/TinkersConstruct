@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:storage_blocks/pewter",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "fluid": {
+    "name": "tconstruct:molten_pewter",
+    "amount": 1296
+  },
+  "result": {
+    "tag": "forge:storage_blocks/pewter"
+  },
+  "cooling_time": 139
+}

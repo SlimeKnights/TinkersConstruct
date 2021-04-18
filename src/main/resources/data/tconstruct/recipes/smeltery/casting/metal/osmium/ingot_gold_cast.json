@@ -10,7 +10,7 @@
     }
   ],
   "cast": {
-    "item": "tconstruct:ingot_cast"
+    "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
     "name": "tconstruct:molten_osmium",
@@ -19,5 +19,5 @@
   "result": {
     "tag": "c:ingots/osmium"
   },
-  "cooling_time": 78
+  "cooling_time": 66
 }

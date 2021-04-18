@@ -21,7 +21,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fluids.IFluidHandler;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
-import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelCache;
+import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
@@ -137,7 +137,7 @@ public class FuelModule implements PropertyDelegate {
     if (lastRecipe != null && lastRecipe.matches(fluid)) {
       return lastRecipe;
     }
-    return MeltingFuelCache.findRecipe(getWorld().getRecipeManager(), fluid);
+    return MeltingFuelLookup.findFuel(fluid);
   }
 
 

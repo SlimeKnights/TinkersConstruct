@@ -1,7 +1,10 @@
 {
   "type": "tconstruct:beheading",
   "entity": {
-    "type": "minecraft:wither_skeleton"
+    "types": [
+      "minecraft:wither_skeleton",
+      "minecraft:wither"
+    ]
   },
   "result": "minecraft:wither_skeleton_skull"
 }

@@ -1,7 +1,10 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -12,6 +15,10 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectUtils;
+import net.minecraft.potion.Effects;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -211,6 +218,7 @@ public class Modifier{
    * Alternatives:
    * <ul>
    *   <li>{@link #addAttributes(IModifierToolStack, int, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
+   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
    * @param toolDefinition  Tool definition, will be empty for non-multitools
    * @param baseStats       Base material stats. Does not take tool definition or other modifiers into account
@@ -304,11 +312,13 @@ public class Modifier{
    * <ul>
    *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Limited context, but effect shows in the tooltip.</li>
    * </ul>
-   * @param tool   Current tool instance
-   * @param level  Modifier level
-   * @param player  Event instance
+   * @param tool                 Current tool instance
+   * @param level                Modifier level
+   * @param player                Event instance
+   * @param isEffective          If true, the tool is effective against this block type
+   * @param miningSpeedModifier  Calculated modifier from potion effects such as haste and environment such as water, use for additive bonuses to ensure consistency with the mining speed stat
    */
-  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player) {}
+  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, boolean isEffective, float miningSpeedModifier) {}
 
   /**
    * Adds loot table related enchantments from this modifier's effect, called before breaking a block.
@@ -510,5 +520,44 @@ public class Modifier{
     }
     ToolStack tool = ToolStack.from(stack);
     return tool.isBroken() ? null : ToolStack.from(stack);
+  }
+
+  /**
+   * Gets the mining speed modifier for the current conditions, notably potions and armor enchants
+   * @param entity  Entity to check
+   * @return  Mining speed modifier
+   */
+  public static float getMiningModifier(LivingEntity entity) {
+    float modifier = 1.0f;
+    // haste effect
+    if (EffectUtils.hasMiningSpeedup(entity)) {
+      modifier *= 1.0F + (EffectUtils.getMiningSpeedup(entity) + 1) * 0.2f;
+    }
+    // mining fatigue
+    EffectInstance miningFatigue = entity.getActivePotionEffect(Effects.MINING_FATIGUE);
+    if (miningFatigue != null) {
+      switch(miningFatigue.getAmplifier()) {
+        case 0:
+          modifier *= 0.3F;
+          break;
+        case 1:
+          modifier *= 0.09F;
+          break;
+        case 2:
+          modifier *= 0.0027F;
+          break;
+        case 3:
+        default:
+          modifier *= 8.1E-4F;
+      }
+    }
+    // water
+    if (entity.areEyesInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(entity)) {
+      modifier /= 5.0F;
+    }
+    if (!entity.isOnGround()) {
+      modifier /= 5.0F;
+    }
+    return modifier;
   }
 }

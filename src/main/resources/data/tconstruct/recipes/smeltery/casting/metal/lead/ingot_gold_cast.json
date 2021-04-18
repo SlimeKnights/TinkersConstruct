@@ -10,7 +10,7 @@
     }
   ],
   "cast": {
-    "item": "tconstruct:ingot_cast"
+    "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
     "name": "tconstruct:molten_lead",

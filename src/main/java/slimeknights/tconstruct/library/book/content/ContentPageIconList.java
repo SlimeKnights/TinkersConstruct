@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.Lists;
+import net.minecraft.util.text.ITextComponent;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
@@ -24,6 +24,7 @@ public class ContentPageIconList extends TinkerPage {
   protected final int height;
 
   public String title;
+  public String subText;
   public float maxScale = 2.5f;
 
   protected List<PageIconLinkElement> elements = Lists.newArrayList();
@@ -44,7 +45,7 @@ public class ContentPageIconList extends TinkerPage {
   /**
    * Returns false if the page is full
    */
-  public boolean addLink(SizedBookElement element, String name, PageData pageData) {
+  public boolean addLink(SizedBookElement element, ITextComponent name, PageData pageData) {
     if (this.elements.size() >= this.getMaxIconCount()) {
       return false;
     }
@@ -70,6 +71,11 @@ public class ContentPageIconList extends TinkerPage {
     if (this.title != null) {
       this.addTitle(list, this.title, false);
       yOff = 20;
+    }
+
+    if(this.subText != null) {
+      this.addText(list, this.subText, false, 0, yOff);
+      yOff = 40;
     }
 
     int offset = 15;
@@ -118,7 +124,7 @@ public class ContentPageIconList extends TinkerPage {
     }
   }
 
-  public static List<ContentPageIconList> getPagesNeededForItemCount(int count, SectionData data, String title) {
+  public static List<ContentPageIconList> getPagesNeededForItemCount(int count, SectionData data, String title, String subText) {
     List<ContentPageIconList> listPages = Lists.newArrayList();
 
     while (count > 0) {
@@ -132,6 +138,7 @@ public class ContentPageIconList extends TinkerPage {
       data.pages.add(page);
 
       overview.title = title;
+      overview.subText = subText;
 
       listPages.add(overview);
 

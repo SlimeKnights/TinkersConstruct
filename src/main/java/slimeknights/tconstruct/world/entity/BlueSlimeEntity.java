@@ -32,6 +32,11 @@ public class BlueSlimeEntity extends SlimeEntity {
   }
 
   @Override
+  protected float getJumpUpwardsMotion() {
+    return (float)Math.sqrt(this.getSlimeSize()) * this.getJumpFactor() / 2;
+  }
+
+  @Override
   protected ParticleEffect getParticles() {
     return TinkerWorld.slimeParticle;
   }

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/rod"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_blaze",
+    "amount": 100
+  },
+  "result": "minecraft:blaze_rod",
+  "cooling_time": 67
+}

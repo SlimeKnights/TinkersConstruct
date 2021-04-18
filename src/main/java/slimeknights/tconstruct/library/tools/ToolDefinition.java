@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.util.Lazy;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -27,12 +28,20 @@ public class ToolDefinition {
   private final ToolBaseStatDefinition baseStatDefinition;
   /** The tool parts required to build this tool. */
   protected final Lazy<List<IToolPart>> requiredComponents;
+  /** Modifiers applied automatically by this tool */
+  protected final Lazy<List<ModifierEntry>> modifiers;
+
   /** Cached indices that can be used to repair this tool */
   private int[] repairIndices;
 
-  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents) {
+  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Supplier<List<ModifierEntry>> modifiers) {
     this.baseStatDefinition = baseStatDefinition;
     this.requiredComponents = new Lazy<>(requiredComponents);
+    this.modifiers = Lazy.of(modifiers);
+  }
+
+  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents) {
+    this(baseStatDefinition, requiredComponents, Collections::emptyList);
   }
 
   /**
@@ -59,6 +68,11 @@ public class ToolDefinition {
    */
   public StatsNBT buildStats(List<IMaterial> materials) {
     return ToolStatsBuilder.from(materials, this).buildStats();
+  }
+
+  /** Gets the modifiers applied by this tool */
+  public List<ModifierEntry> getModifiers() {
+    return modifiers.get();
   }
 
   /* Repairing */

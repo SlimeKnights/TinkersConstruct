@@ -21,6 +21,12 @@ public class BeheadingModifier extends Modifier {
 
   @Override
   public List<ItemStack> processLoot(ToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+    // if no damage source, probably not a mob
+    // otherwise blocks breaking (where THIS_ENTITY is the player) start dropping player heads
+    if (!context.has(LootParameters.DAMAGE_SOURCE)) {
+      return generatedLoot;
+    }
+
     // must have an entity
     Entity entity = context.get(LootContextParameters.THIS_ENTITY);
     if (entity != null) {

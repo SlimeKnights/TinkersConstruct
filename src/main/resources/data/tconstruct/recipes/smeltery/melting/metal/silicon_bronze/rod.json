@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:rods/silicon_bronze",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:rods/silicon_bronze"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_tinkers_bronze",
+    "amount": 72
+  },
+  "temperature": 700,
+  "time": 11
+}

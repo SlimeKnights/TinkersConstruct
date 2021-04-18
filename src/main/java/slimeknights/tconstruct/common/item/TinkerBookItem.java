@@ -13,18 +13,26 @@ import slimeknights.tconstruct.library.book.TinkerBook;
 import org.jetbrains.annotations.NotNull;
 
 public class TinkerBookItem extends TooltipItem {
-
-  public TinkerBookItem(Settings props) {
+  private final BookType bookType;
+  public TinkerBookItem(Settings props, BookType bookType) {
     super(props);
+    this.bookType = bookType;
   }
 
-  @NotNull
   @Override
-  public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-    ItemStack itemStack = playerIn.getStackInHand(handIn);
-    if (worldIn.isClient) {
-      TinkerBook.INSTANCE.openGui(new TranslatableText("item.tconstruct.book"), itemStack);
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack itemStack = playerIn.getHeldItem(handIn);
+    if (worldIn.isRemote) {
+      TinkerBook.getBook(bookType).openGui(getDisplayName(itemStack), itemStack);
     }
     return new TypedActionResult<>(ActionResult.SUCCESS, itemStack);
+  }
+
+  /** Simple enum to allow selecting the book on the client */
+  public enum BookType {
+    MATERIALS_AND_YOU,
+    PUNY_SMELTING,
+    MIGHTY_SMELTING,
+    TINKERS_GADGETRY
   }
 }

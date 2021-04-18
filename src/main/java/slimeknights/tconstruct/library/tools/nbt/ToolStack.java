@@ -28,8 +28,8 @@ import java.util.List;
 @RequiredArgsConstructor(staticName = "from")
 public class ToolStack implements IModifierToolStack {
   /** Error messages for when there are not enough remaining modifiers */
-  private static final ValidatedResult NOT_ENOUGH_UPGRADES = ValidatedResult.failure(Util.makeTranslationKey("recipe", "modifier.not_enough_upgrades"));
-  private static final ValidatedResult NOT_ENOUGH_ABILITIES = ValidatedResult.failure(Util.makeTranslationKey("recipe", "modifier.not_enough_abilities"));
+  private static final ValidatedResult VALIDATE_UPGRADES = ValidatedResult.failure(Util.makeTranslationKey("recipe", "modifier.validate_upgrades"));
+  private static final ValidatedResult VALIDATE_ABILITIES = ValidatedResult.failure(Util.makeTranslationKey("recipe", "modifier.validate_abilities"));
 
   /** Volatile mod data key for the durability before modifiers */
   public static final Identifier ORIGINAL_DURABILITY_KEY = Util.getResource("durability");
@@ -463,10 +463,10 @@ public class ToolStack implements IModifierToolStack {
   public ValidatedResult validate() {
     // first check slot counts
     if (getFreeUpgrades() < 0) {
-      return NOT_ENOUGH_UPGRADES;
+      return VALIDATE_UPGRADES;
     }
     if (getFreeAbilities() < 0) {
-      return NOT_ENOUGH_ABILITIES;
+      return VALIDATE_ABILITIES;
     }
     // next, ensure modifiers validate
     ValidatedResult result;
@@ -488,6 +488,7 @@ public class ToolStack implements IModifierToolStack {
     List<IMaterial> materials = getMaterialsList();
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();
     modBuilder.add(getUpgrades());
+    modBuilder.add(getDefinition().getModifiers());
     for (IMaterial material : materials) {
       modBuilder.add(material.getTraits());
     }

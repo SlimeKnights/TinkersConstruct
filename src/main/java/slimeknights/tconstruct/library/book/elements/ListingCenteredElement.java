@@ -30,6 +30,7 @@ public class ListingCenteredElement extends TextElement {
     if (this.isHovered(mouseX, mouseY)) {
       this.text[0].text = "> ";
       this.text[this.text.length - 1].text = " <";
+
       for (int i = 1; i < this.text.length - 1; i++) {
         this.text[i].color = "dark red";
       }
@@ -38,9 +39,11 @@ public class ListingCenteredElement extends TextElement {
     } else {
       this.text[0].text = "";
       this.text[this.text.length - 1].text = "";
+
       for (int i = 1; i < this.text.length - 1; i++) {
         this.text[i].color = "black";
       }
+
       this.x = this.originalX;
     }
     super.draw(matrices, mouseX, mouseY, partialTicks, fontRenderer);

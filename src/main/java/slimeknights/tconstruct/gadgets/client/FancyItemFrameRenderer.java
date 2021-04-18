@@ -22,6 +22,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.client.event.RenderItemInFrameEvent;
+import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
@@ -62,39 +64,45 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
   public void render(FancyItemFrameEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
     super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     matrixStackIn.push();
-    Direction direction = entityIn.getHorizontalFacing();
-    Vec3d vec3d = this.getRenderOffset(entityIn, partialTicks);
+    Vector3d vec3d = this.getRenderOffset(entityIn, partialTicks);
     matrixStackIn.translate(-vec3d.getX(), -vec3d.getY(), -vec3d.getZ());
-    matrixStackIn.translate((double) direction.getOffsetX() * 0.46875D, (double) direction.getOffsetY() * 0.46875D, (double) direction.getOffsetZ() * 0.46875D);
-    matrixStackIn.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(entityIn.pitch));
-    matrixStackIn.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F - entityIn.yaw));
-    BlockRenderManager blockrendererdispatcher = this.mc.getBlockRenderManager();
-    BakedModelManager modelmanager = blockrendererdispatcher.getModels().getModelManager();
+    Direction direction = entityIn.getHorizontalFacing();
+    matrixStackIn.translate((double) direction.getXOffset() * 0.46875D, (double) direction.getYOffset() * 0.46875D, (double) direction.getZOffset() * 0.46875D);
+    matrixStackIn.rotate(Vector3f.XP.rotationDegrees(entityIn.rotationPitch));
+    matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F - entityIn.rotationYaw));
+
+    // render the frame
     FrameType frameType = entityIn.getFrameType();
-    ModelIdentifier modelresourcelocation = entityIn.getHeldItemStack().getItem() instanceof FilledMapItem ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType);
-    matrixStackIn.push();
-    matrixStackIn.translate(-0.5D, -0.5D, -0.5D);
-    blockrendererdispatcher.getModelRenderer().render(matrixStackIn.peek(), bufferIn.getBuffer(TexturedRenderLayers.getEntitySolid()), null, modelmanager.getModel(modelresourcelocation), 1.0F, 1.0F, 1.0F, packedLightIn, OverlayTexture.DEFAULT_UV);
-    matrixStackIn.pop();
-    ItemStack itemstack = entityIn.getHeldItemStack();
-    if (!itemstack.isEmpty()) {
-      MapState mapdata = FilledMapItem.getOrCreateMapState(itemstack, entityIn.world);
+    ItemStack stack = entityIn.getDisplayedItem();
+    // clear does not render the frame if filled
+    if (frameType != FrameType.CLEAR || stack.isEmpty()) {
+      BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
+      ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
+      ModelResourceLocation location = entityIn.getDisplayedItem().getItem() instanceof FilledMapItem ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType);
+      matrixStackIn.push();
+      matrixStackIn.translate(-0.5D, -0.5D, -0.5D);
+      blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(matrixStackIn.getLast(), bufferIn.getBuffer(Atlases.getCutoutBlockType()), null, modelmanager.getModel(location), 1.0F, 1.0F, 1.0F, packedLightIn, OverlayTexture.NO_OVERLAY);
+      matrixStackIn.pop();
+    }
+
+    // render the item
+    if (!stack.isEmpty()) {
+      MapData mapdata = FilledMapItem.getMapData(stack, entityIn.world);
       matrixStackIn.translate(0.0D, 0.0D, 0.4375D);
       int i = mapdata != null ? entityIn.getRotation() % 4 * 2 : entityIn.getRotation();
-      matrixStackIn.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion((float) i * 360.0F / 8.0F));
-//      if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderItemInFrameEvent(entityIn, this.defaultRenderer, matrixStackIn, bufferIn, packedLightIn))) {
-//        if (mapdata != null) {
-//          matrixStackIn.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
-//          float f = 0.0078125F;
-//          matrixStackIn.scale(0.0078125F, 0.0078125F, 0.0078125F);
-//          matrixStackIn.translate(-64.0D, -64.0D, 0.0D);
-//          matrixStackIn.translate(0.0D, 0.0D, -1.0D);
-//          this.mc.gameRenderer.getMapRenderer().draw(matrixStackIn, bufferIn, mapdata, true, packedLightIn);
-//        } else {
-//          matrixStackIn.scale(0.5F, 0.5F, 0.5F);
-//          this.itemRenderer.renderItem(itemstack, ModelTransformation.Mode.FIXED, packedLightIn, OverlayTexture.DEFAULT_UV, matrixStackIn, bufferIn);
-//        }
-//      }
+      matrixStackIn.rotate(Vector3f.ZP.rotationDegrees((float) i * 360.0F / 8.0F));
+      if (!MinecraftForge.EVENT_BUS.post(new RenderItemInFrameEvent(entityIn, this.defaultRenderer, matrixStackIn, bufferIn, packedLightIn))) {
+        if (mapdata != null) {
+          matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(180.0F));
+          matrixStackIn.scale(0.0078125F, 0.0078125F, 0.0078125F);
+          matrixStackIn.translate(-64.0D, -64.0D, 0.0D);
+          matrixStackIn.translate(0.0D, 0.0D, -1.0D);
+          this.mc.gameRenderer.getMapItemRenderer().renderMap(matrixStackIn, bufferIn, mapdata, true, packedLightIn);
+        } else {
+          matrixStackIn.scale(0.5F, 0.5F, 0.5F);
+          this.itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
+        }
+      }
     }
 
     matrixStackIn.pop();

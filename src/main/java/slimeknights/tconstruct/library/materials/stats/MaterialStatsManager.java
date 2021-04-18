@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.materials.stats;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -18,7 +18,6 @@ import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
 
 import org.jetbrains.annotations.Nullable;
@@ -137,6 +136,16 @@ public class MaterialStatsManager extends JsonDataLoader {
     log.info("{} stats loaded for {} materials",
       materialToStatsPerType.values().stream().mapToInt(stats -> stats.keySet().size()).sum(),
       materialToStatsPerType.size());
+  }
+
+  @Override
+  protected Object getUpdatePacket() {
+    Map<MaterialId, Collection<IMaterialStats>> networkPayload =
+      materialToStatsPerType.entrySet().stream()
+                            .collect(Collectors.toMap(
+                              Map.Entry::getKey,
+                              entry -> entry.getValue().values()));
+    return new UpdateMaterialStatsPacket(networkPayload);
   }
 
   private Map<MaterialStatsId, IMaterialStats> deserializeMaterialStatsFromContent(Map<MaterialStatsId, StatContent> contents) {

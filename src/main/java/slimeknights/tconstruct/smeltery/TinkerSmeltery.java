@@ -147,7 +147,7 @@ public final class TinkerSmeltery extends TinkerModule {
     set.addAll(searedPaver.values());
     set.add(searedCrackedBricks.get(), searedFancyBricks.get(), searedTriangleBricks.get(), searedLadder.get(), searedGlass.get());
   });
-  
+
   public static final BlockEntityType<SmelteryFluidIO> drain = TILE_ENTITIES.register("drain", DrainTileEntity::new, searedDrain);
   public static final BlockEntityType<SmelteryFluidIO.ChuteTileEntity> chute = TILE_ENTITIES.register("chute", SmelteryFluidIO.ChuteTileEntity::new, searedChute);
   public static final BlockEntityType<DuctTileEntity> duct = TILE_ENTITIES.register("duct", DuctTileEntity::new, searedDuct);
@@ -171,12 +171,16 @@ public final class TinkerSmeltery extends TinkerModule {
 
   // casts
   // basic
-  public static final CastItemObject blankCast  = ITEMS.registerCast("blank", SMELTERY_PROPS);
-  public static final CastItemObject ingotCast  = ITEMS.registerCast("ingot", SMELTERY_PROPS);
+  public static final CastItemObject blankCast  = ITEMS.registerCast("blank",  SMELTERY_PROPS);
+  public static final CastItemObject ingotCast  = ITEMS.registerCast("ingot",  SMELTERY_PROPS);
   public static final CastItemObject nuggetCast = ITEMS.registerCast("nugget", SMELTERY_PROPS);
-  public static final CastItemObject gemCast    = ITEMS.registerCast("gem", SMELTERY_PROPS);
+  public static final CastItemObject gemCast    = ITEMS.registerCast("gem",    SMELTERY_PROPS);
+  public static final CastItemObject rodCast    = ITEMS.registerCast("rod",   SMELTERY_PROPS);
+  // compatability
+  public static final CastItemObject plateCast  = ITEMS.registerCast("plate", SMELTERY_PROPS);
+  public static final CastItemObject gearCast   = ITEMS.registerCast("gear",  SMELTERY_PROPS);
+  public static final CastItemObject coinCast   = ITEMS.registerCast("coin",  SMELTERY_PROPS);
   public static final ItemObject<Item> sharpeningKitCast = ITEMS.register("sharpening_kit_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> gearCast = ITEMS.register("gear_cast", SMELTERY_PROPS);
   // small tool heads
   public static final CastItemObject pickaxeHeadCast  = ITEMS.registerCast("pickaxe_head", SMELTERY_PROPS);
   public static final CastItemObject axeHeadCast      = ITEMS.registerCast("axe_head", SMELTERY_PROPS);
@@ -186,15 +190,15 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Item> bowLimbCast = ITEMS.register("bow_limb_cast", SMELTERY_PROPS);
   // large tool heads
   public static final CastItemObject hammerHeadCast    = ITEMS.registerCast("hammer_head", SMELTERY_PROPS);
+  public static final CastItemObject broadBladeCast   = ITEMS.registerCast("broad_blade", SMELTERY_PROPS);
   public static final ItemObject<Item> broadAxeHeadCast = ITEMS.register("broad_axe_head_cast", SMELTERY_PROPS);
   public static final ItemObject<Item> scytheHeadCast = ITEMS.register("scythe_head_cast", SMELTERY_PROPS);
-  public static final ItemObject<Item> largeSwordBladeCast = ITEMS.register("large_sword_blade_cast", SMELTERY_PROPS);
   // bindings
   public static final CastItemObject toolBindingCast = ITEMS.registerCast("tool_binding", SMELTERY_PROPS);
   public static final CastItemObject largePlateCast  = ITEMS.registerCast("large_plate", SMELTERY_PROPS);
   // tool rods
-  public static final CastItemObject toolRodCast      = ITEMS.registerCast("tool_rod", SMELTERY_PROPS);
-  public static final CastItemObject toughToolRodCast = ITEMS.registerCast("tough_tool_rod", SMELTERY_PROPS);
+  public static final CastItemObject toolHandleCast  = ITEMS.registerCast("tool_handle", SMELTERY_PROPS);
+  public static final CastItemObject toughHandleCast = ITEMS.registerCast("tough_handle", SMELTERY_PROPS);
 
   /*
    * Recipe

@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "tag": "forge:dusts/prismarine"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 36,
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  },
+  "result": {
+    "name": "tconstruct:hydraulic",
+    "level": 1
+  },
+  "max_level": 5,
+  "upgrade_slots": 1
+}

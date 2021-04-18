@@ -50,12 +50,12 @@ public class MaterialRenderInfo {
    * @return  Pair of the sprite, and a boolean indicating whether the sprite should be tinted
    */
   public TintedSprite getSprite(SpriteIdentifier base, Function<SpriteIdentifier,Sprite> spriteGetter) {
-    Sprite sprite = tryTexture(base, getSuffix(texture), spriteGetter);
+    Sprite sprite = trySprite(base, getSuffix(texture), spriteGetter);
     if (sprite != null) {
       return TintedSprite.of(sprite, false);
     }
     for (String fallback : fallbacks) {
-      sprite = tryTexture(base, fallback, spriteGetter);
+      sprite = trySprite(base, fallback, spriteGetter);
       if (sprite != null) {
         return TintedSprite.of(sprite, true);
       }
@@ -101,6 +101,7 @@ public class MaterialRenderInfo {
 //    return ModelLoaderRegistry.blockMaterial(new Identifier(texture.getNamespace(), texture.getPath() + "_" + suffix));
   }
 
+  /** Data class for a sprite that may be tinted */
   @Data(staticConstructor = "of")
   public static class TintedSprite {
     private final Sprite sprite;

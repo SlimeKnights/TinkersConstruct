@@ -46,6 +46,11 @@ final class MaterialStats {
                      new HeadMaterialStats(100, 2.5f, STONE, 1.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.75f).withAttackSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
+    // tier 1 - nether
+    addMaterialStats(MaterialIds.necroticBone,
+                     new HeadMaterialStats(125, 2f, STONE, 1.5f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.65f).withAttackSpeed(1.15f),
+                     ExtraMaterialStats.DEFAULT);
     // tier 2
     // vanilla iron: 250, 6f, IRON, 2f
     addMaterialStats(MaterialIds.iron,
@@ -77,7 +82,7 @@ final class MaterialStats {
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.lead,
                      new HeadMaterialStats(200, 5f, IRON, 2.5f),
-                     HandleMaterialStats.DEFAULT.withAttackSpeed(0.8f).withAttackDamage(1.3f),
+                     HandleMaterialStats.DEFAULT.withAttackSpeed(0.7f).withAttackDamage(1.25f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.electrum,
                      new HeadMaterialStats(225, 11f, IRON, 1.5f),
@@ -92,7 +97,7 @@ final class MaterialStats {
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.nahuatl,
                      new HeadMaterialStats(350, 4.5f, DIAMOND, 3f),
-                     HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.4f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.5f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.tinkersBronze,
                      new HeadMaterialStats(720, 7f, DIAMOND, 2f),
@@ -135,7 +140,7 @@ final class MaterialStats {
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.manyullyn,
                      new HeadMaterialStats(1500, 8f, NETHERITE, 4f),
-                     HandleMaterialStats.DEFAULT.withDurability(1.2f).withAttackDamage(1.2f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.2f).withAttackDamage(1.4f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.hepatizon,
                      new HeadMaterialStats(1450, 10f, NETHERITE, 3f),

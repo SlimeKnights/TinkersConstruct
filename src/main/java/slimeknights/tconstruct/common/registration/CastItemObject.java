@@ -15,17 +15,21 @@ import java.util.function.Supplier;
  * Deferred wrapper holding gold, sand, and red sand casts
  */
 public class CastItemObject extends ItemObject<Item> {
+  @Getter
   private final Identifier name;
   private final Supplier<? extends Item> sand;
   private final Supplier<? extends Item> redSand;
   private final Tag<Item> singleUseTag;
+  @Getter
+  private final IOptionalNamedTag<Item> multiUseTag;
 
   public CastItemObject(Identifier name, Item gold, Item sand, Item redSand) {
     super(gold);
     this.name = name;
     this.sand = () -> sand;
     this.redSand = () -> redSand;
-    singleUseTag = makeSingleUseTag();
+    this.singleUseTag = makeTag("single_use");
+    this.multiUseTag = makeTag("multi_use");
   }
 
   public CastItemObject(Identifier name, ItemObject<? extends Item> gold, Supplier<? extends Item> sand, Supplier<? extends Item> redSand) {
@@ -33,7 +37,8 @@ public class CastItemObject extends ItemObject<Item> {
     this.name = name;
     this.sand = sand;
     this.redSand = redSand;
-    singleUseTag = makeSingleUseTag();
+    this.singleUseTag = makeTag("single_use");
+    this.multiUseTag = makeTag("multi_use");
   }
 
   public Tag<Item> getSingleUseTag() {
@@ -44,8 +49,8 @@ public class CastItemObject extends ItemObject<Item> {
    * Gets the single use tag for this object
    * @return  Single use tag
    */
-  protected Tag<Item> makeSingleUseTag() {
-    return TagRegistry.item(new Identifier(name.getNamespace(), "casts/single_use/" + name.getPath()));
+  protected Tag<Item> makeTag(String type) {
+    return TagRegistry.item(new Identifier(name.getNamespace(), "casts/" + type + "/" + name.getPath()));
   }
 
   /**

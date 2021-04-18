@@ -80,7 +80,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
         return new MeltingRecipe(
           new Identifier(id.getNamespace(), String.format("%s/%s/%s", id.getPath(), matId.getNamespace(), matId.getPath())),
           group,
-          Ingredient.ofStacks(item.getItemstackWithMaterial(mat)),
+          Ingredient.ofStacks(item.withMaterial(mat)),
           FluidVolume.create(mat.getFluid(), mat.getFluidPerUnit() * cost),
           mat.getTemperature(),
           getTime(mat)

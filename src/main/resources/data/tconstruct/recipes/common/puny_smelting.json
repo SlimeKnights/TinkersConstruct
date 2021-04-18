@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "tconstruct:grout"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:puny_smelting"
+  }
+}

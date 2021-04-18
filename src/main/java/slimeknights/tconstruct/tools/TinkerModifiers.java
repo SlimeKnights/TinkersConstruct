@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeMo
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.SilkyModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
@@ -39,6 +40,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.LightweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.MaintainedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.MaintainedModifier2;
 import slimeknights.tconstruct.tools.modifiers.traits.MomentumModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
@@ -49,20 +51,22 @@ import slimeknights.tconstruct.tools.modifiers.traits.TemperateModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.BaneOfArthropodsModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.BeheadingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.BlastingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.CoolingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.ExpanderModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.FieryModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.HasteModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.HydraulicModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.LightspeedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SharpnessModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SoulboundModifier;
 import slimeknights.tconstruct.tools.recipe.PlayerBeheadingRecipe;
+import slimeknights.tconstruct.tools.recipe.SnowGolemBeheadingRecipe;
 
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
@@ -81,8 +85,6 @@ public final class TinkerModifiers extends TinkerModule {
   /*
    * Items
    */
-  public static final ItemObject<Item> ichorExpander = ITEMS.register("ichor_expander", TOOLTIP_ITEM);
-  public static final ItemObject<Item> enderExpander = ITEMS.register("ender_expander", TOOLTIP_ITEM);
   public static final ItemObject<Item> reinforcement = ITEMS.register("reinforcement", GENERAL_PROPS);
   public static final ItemObject<Item> silkyCloth = ITEMS.register("silky_cloth", GENERAL_PROPS);
   public static final ItemObject<Item> silkyJewel = ITEMS.register("silky_jewel", GENERAL_PROPS);
@@ -107,7 +109,12 @@ public final class TinkerModifiers extends TinkerModule {
   // general effects
   public static final ExperiencedModifier experienced = Registry.register(TinkerRegistries.MODIFIERS, id("experienced"), new ExperiencedModifier());
   public static final MagneticModifier magnetic = Registry.register(TinkerRegistries.MODIFIERS, id("magnetic"), new MagneticModifier());
+
+  // speed
   public static final HasteModifier haste = Registry.register(TinkerRegistries.MODIFIERS, id("haste"), new HasteModifier());
+  public static final RegistryObject<BlastingModifier> blasting = MODIFIERS.register("blasting", BlastingModifier::new);
+  public static final RegistryObject<HydraulicModifier> hydraulic = MODIFIERS.register("hydraulic", HydraulicModifier::new);
+  public static final RegistryObject<LightspeedModifier> lightspeed = MODIFIERS.register("lightspeed", LightspeedModifier::new);
 
   // weapon
   public static final KnockbackModifier knockback = Registry.register(TinkerRegistries.MODIFIERS, id("knockback"), new KnockbackModifier());
@@ -144,6 +151,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final DamageSpeedTradeModifier jagged = Registry.register(TinkerRegistries.MODIFIERS, id("jagged"), new DamageSpeedTradeModifier(0x696969, 0.01f));
   public static final DamageSpeedTradeModifier stonebound = Registry.register(TinkerRegistries.MODIFIERS, id("stonebound"), new DamageSpeedTradeModifier(0x999999, -0.01f));
   public static final LevelDamageModifier fractured = Registry.register(TinkerRegistries.MODIFIERS, id("fractured"), new LevelDamageModifier(0xede6bf, 0.5f));
+  // traits - tier 1 nether
+  public static final RegistryObject<NecroticModifier> necrotic = MODIFIERS.register("necrotic", NecroticModifier::new);
   // traits - tier 2
   // reinforced is also an upgrade
   public static final SearingModifier searing = Registry.register(TinkerRegistries.MODIFIERS, id("searing"), new SearingModifier());
@@ -155,7 +164,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final MaintainedModifier wellMaintained = Registry.register(TinkerRegistries.MODIFIERS, id("maintained"), new MaintainedModifier());
   public static final ExtraModifier enhanced = Registry.register(TinkerRegistries.MODIFIERS, id("enhanced"), new ExtraModifier(0xffdbcc, ExtraType.UPGRADE, ModifierSource.TRAIT));
   public static final TastyModifier tasty = Registry.register(TinkerRegistries.MODIFIERS, id("tasty"), new TastyModifier());
-
+  // traits - tier 3 nether
   public static final LightweightModifier lightweight = Registry.register(TinkerRegistries.MODIFIERS, id("lightweight"), new LightweightModifier());
   // traits - tier 4
   public static final OverlordModifier overlord = Registry.register(TinkerRegistries.MODIFIERS, id("overlord"), new OverlordModifier());
@@ -188,6 +197,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final OverslimeModifierRecipe.Serializer overslimeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("overslime_modifier"), new OverslimeModifierRecipe.Serializer());
   public static final BeheadingRecipe.Serializer beheadingSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("beheading"), new BeheadingRecipe.Serializer());
   public static final SpecialRecipeSerializer<PlayerBeheadingRecipe> playerBeheadingSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("player_beheading"),  new SpecialRecipeSerializer<>(PlayerBeheadingRecipe::new));
+  public static final SpecialRecipeSerializer<SnowGolemBeheadingRecipe> snowGolemBeheadingSerializer = RECIPE_SERIALIZERS.register("snow_golem_beheading", () -> new SpecialRecipeSerializer<>(SnowGolemBeheadingRecipe::new));
 
   @Override
   public void onInitialize() {

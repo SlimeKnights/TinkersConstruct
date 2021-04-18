@@ -13,6 +13,7 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.DamageSource;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -93,24 +94,37 @@ public class ToolAttackUtil {
     return attackEntity(stack, weapon, attacker, targetEntity, projectileEntity, false);
   }
 
+  /** Performs a standard attack */
+  public static boolean dealDefaultDamage(LivingEntity attacker, Entity target, float damage) {
+    if (attacker instanceof PlayerEntity) {
+      return target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) attacker), damage);
+    }
+    return target.attackEntityFrom(DamageSource.causeMobDamage(attacker), damage);
+  }
+
   /**
    * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
    * Most of this function is the same as {@link PlayerEntity#attack(Entity targetEntity)}
+   * @return true if replaces vanilla logic
    */
   public static boolean attackEntity(ItemStack stack, IModifiableWeapon weapon, LivingEntity attackerLiving, Entity targetEntity, @Nullable Entity projectileEntity, boolean applyCoolDown) {
+    return attackEntity(stack, weapon, ToolStack.from(stack), attackerLiving, targetEntity, projectileEntity, applyCoolDown, false);
+  }
+
+  /**
+   * Base attack logic, used by normal attacks, projectils, and extra attacks
+   */
+  public static boolean attackEntity(ItemStack stack, IModifiableWeapon weapon, ToolStack tool, LivingEntity attackerLiving, Entity targetEntity,
+                                     @Nullable Entity projectileEntity, boolean applyCoolDown, boolean isExtraAttack) {
     // no NBT? give to vanilla
-    if (!stack.hasTag()) {
+    // TODO: general modifiable
+    // broken? give to vanilla
+    if (tool.isBroken()) {
       return false;
     }
     // nothing to do? cancel
     if (!targetEntity.isAttackable() || targetEntity.handleAttack(attackerLiving)) {
       return true;
-    }
-    // broken? give to vanilla
-    // TODO: general modifiable
-    ToolStack tool = ToolStack.from(stack);
-    if (tool.isBroken()) {
-      return false;
     }
 
     // fetch relevant entities
@@ -131,7 +145,7 @@ public class ToolAttackUtil {
 
     // calculate if it's a critical hit
     // that is, in the air, not blind, targeting living, and not sprinting
-    boolean isCritical = attackerLiving.fallDistance > 0.0F && !attackerLiving.isOnGround() && !attackerLiving.isClimbing()
+    boolean isCritical = !isExtraAttack && attackerLiving.fallDistance > 0.0F && !attackerLiving.isOnGround() && !attackerLiving.isClimbing()
                          && !attackerLiving.isTouchingWater() && !attackerLiving.hasStatusEffect(StatusEffects.BLINDNESS)
                          && !attackerLiving.hasVehicle() && targetLiving != null && !attackerLiving.isSprinting();
 
@@ -158,8 +172,9 @@ public class ToolAttackUtil {
 
     // no damage? do nothing
     if (damage <= 0) {
-      return true;
+      return !isExtraAttack;
     }
+
     float knockback = 0;
     SoundEvent sound;
     if (attackerLiving.isSprinting() && fullyCharged) {
@@ -178,17 +193,19 @@ public class ToolAttackUtil {
     // knockback moved lower
 
     // apply critical boost
-    float criticalModifier = isCritical ? 1.5f : 1.0f;
-    if (attackerPlayer != null) {
-      throw new RuntimeException("CRAB!");
+    if (!isExtraAttack) {
+      float criticalModifier = isCritical ? 1.5f : 1.0f;
+      if (attackerPlayer != null) {
+        throw new RuntimeException("CRAB!");
 //      CriticalHitEvent hitResult = ForgeHooks.getCriticalHit(attackerPlayer, targetEntity, isCritical, isCritical ? 1.5F : 1.0F);
 //      isCritical = hitResult != null;
-//      if (isCritical) {
-//        criticalModifier = hitResult.getDamageModifier();
-//      }
-    }
-    if (isCritical) {
-      damage *= criticalModifier;
+  //      if (isCritical) {
+  //        criticalModifier = hitResult.getDamageModifier();
+  //      }
+      }
+      if (isCritical) {
+        damage *= criticalModifier;
+      }
     }
 
     // removed: sword check hook, replaced by weapon callback
@@ -224,9 +241,16 @@ public class ToolAttackUtil {
     ///////////////////
 
     // removed: sword special attack check and logic, replaced by this
-    boolean didHit = weapon.dealDamage(tool, attackerLiving, targetEntity, damage, isCritical, fullyCharged);
+    boolean didHit;
+    if (isExtraAttack) {
+      didHit = dealDefaultDamage(attackerLiving, targetEntity, damage);
+    } else {
+      didHit = weapon.dealDamage(tool, attackerLiving, targetEntity, damage, isCritical, fullyCharged);
+    }
     if (!didHit) {
-      attackerLiving.world.playSound(null, attackerLiving.getX(), attackerLiving.getY(), attackerLiving.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_NODAMAGE, attackerLiving.getSoundCategory(), 1.0F, 1.0F);
+      if (!isExtraAttack) {
+        attackerLiving.world.playSound(null, attackerLiving.getX(), attackerLiving.getY(), attackerLiving.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_NODAMAGE, attackerLiving.getSoundCategory(), 1.0F, 1.0F);
+      }
       // alert modifiers nothing was hit, mainly used for fiery
       if (targetLiving != null) {
         for (ModifierEntry entry : modifiers) {
@@ -234,7 +258,7 @@ public class ToolAttackUtil {
         }
       }
 
-      return true;
+      return !isExtraAttack;
     }
 
     // determine damage actually dealt
@@ -301,7 +325,7 @@ public class ToolAttackUtil {
     // final attack hooks
     if (attackerPlayer != null) {
       if (targetLiving != null) {
-        if (!attackerLiving.world.isClient) {
+        if (!attackerLiving.world.isClient && !stack.isEmpty()) {
           stack.postHit(targetLiving, attackerPlayer);
         }
         attackerPlayer.increaseStat(Stats.DAMAGE_DEALT, Math.round(damageDealt * 10.0F));
@@ -319,6 +343,18 @@ public class ToolAttackUtil {
     }
 
     return true;
+  }
+
+  /**
+   * Applies a secondary attack to an entity, notably not running AOE attacks from the tool logic
+   * @param weapon          Weapon doing attacking
+   * @param tool            Tool instance
+   * @param attackerLiving  Attacker
+   * @param targetEntity    Target
+   * @return  True if hit
+   */
+  public static boolean extraEntityAttack(IModifiableWeapon weapon, ToolStack tool, LivingEntity attackerLiving, Entity targetEntity) {
+    return attackEntity(ItemStack.EMPTY, weapon, tool, attackerLiving, targetEntity, null, false, true);
   }
 
   /**

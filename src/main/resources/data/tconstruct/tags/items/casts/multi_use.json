@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:casts/multi_use/blank",
+    "#tconstruct:casts/multi_use/ingot",
+    "#tconstruct:casts/multi_use/nugget",
+    "#tconstruct:casts/multi_use/gem",
+    "#tconstruct:casts/multi_use/rod",
+    "#tconstruct:casts/multi_use/plate",
+    "#tconstruct:casts/multi_use/gear",
+    "#tconstruct:casts/multi_use/coin",
+    "#tconstruct:casts/multi_use/pickaxe_head",
+    "#tconstruct:casts/multi_use/axe_head",
+    "#tconstruct:casts/multi_use/kama_head",
+    "#tconstruct:casts/multi_use/sword_blade",
+    "#tconstruct:casts/multi_use/broad_blade",
+    "#tconstruct:casts/multi_use/hammer_head",
+    "#tconstruct:casts/multi_use/tool_binding",
+    "#tconstruct:casts/multi_use/large_plate",
+    "#tconstruct:casts/multi_use/tool_handle",
+    "#tconstruct:casts/multi_use/tough_handle"
+  ]
+}

@@ -10,7 +10,7 @@
     }
   ],
   "cast": {
-    "item": "tconstruct:ingot_cast"
+    "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
     "name": "tconstruct:molten_steel",
@@ -19,5 +19,5 @@
   "result": {
     "tag": "c:ingots/steel"
   },
-  "cooling_time": 72
+  "cooling_time": 65
 }

@@ -1,34 +1,25 @@
 {
-    "loader": "tconstruct:tool",
-    "parent": "c:item/default-tool",
-    "parts": {
-        "handle": {
-            "loader": "tconstruct:material",
-            "index": 1,
-            "textures": {
-                "texture": "tconstruct:item/tool/excavator/handle"
-            }
-        },
-        "head": {
-            "loader": "tconstruct:material",
-            "index": 0,
-            "textures": {
-                "texture": "tconstruct:item/tool/excavator/head"
-            }
-        },
-        "grip": {
-            "loader": "tconstruct:material",
-            "index": 3,
-            "textures": {
-                "texture": "tconstruct:item/tool/excavator/grip"
-            }
-        },
-        "binding": {
-            "loader": "tconstruct:material",
-            "index": 2,
-            "textures": {
-                "texture": "tconstruct:item/tool/excavator/binding"
-            }
-        }
-    }
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":        "tconstruct:item/tool/excavator/head",
+    "broken_head": "tconstruct:item/tool/excavator/broken_head",
+    "handle":      "tconstruct:item/tool/excavator/handle",
+    "grip":        "tconstruct:item/tool/excavator/grip",
+    "binding":     "tconstruct:item/tool/excavator/binding",
+    
+    "large_head":        "tconstruct:item/tool/excavator/large/head",
+    "large_broken_head": "tconstruct:item/tool/excavator/large/broken_head",
+    "large_handle":      "tconstruct:item/tool/excavator/large/handle",
+    "large_grip":        "tconstruct:item/tool/excavator/large/grip",
+    "large_binding":     "tconstruct:item/tool/excavator/large/binding"
+  },
+  "large": true,
+  "large_offset": [-2, 2],
+  "parts": [
+    { "name": "handle",  "index": 1 },
+    { "name": "head",    "index": 0, "broken": "broken_head" },
+    { "name": "grip",    "index": 3 },
+    { "name": "binding", "index": 2 }
+  ]
 }

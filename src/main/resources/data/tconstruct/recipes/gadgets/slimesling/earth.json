@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:slimesling",
+  "pattern": [
+    "#X#",
+    "L L",
+    " L "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:string"
+    },
+    "X": {
+      "item": "tconstruct:earth_congealed_slime"
+    },
+    "L": {
+      "tag": "forge:slimeball/green"
+    }
+  },
+  "result": {
+    "item": "tconstruct:earth_slime_sling"
+  }
+}

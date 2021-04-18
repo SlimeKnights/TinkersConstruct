@@ -1,27 +1,16 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "c:item/default-tool",
-  "parts": {
-    "handle": {
-      "loader": "tconstruct:material",
-      "index": 1,
-      "textures": {
-        "texture": "tconstruct:item/tool/pickaxe/handle"
-      }
-    },
-    "axe": {
-      "loader": "tconstruct:material",
-      "index": 0,
-      "textures": {
-        "texture": "tconstruct:item/tool/mattock/axe"
-      }
-    },
-    "kama": {
-      "loader": "tconstruct:material",
-      "index": 2,
-      "textures": {
-        "texture": "tconstruct:item/tool/mattock/kama"
-      }
-    }
-  }
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "axe":         "tconstruct:item/tool/mattock/axe",
+    "broken_axe":  "tconstruct:item/tool/mattock/broken_axe",
+    "kama":        "tconstruct:item/tool/mattock/kama",
+    "broken_kama": "tconstruct:item/tool/mattock/broken_kama",
+    "handle":      "tconstruct:item/tool/pickaxe/handle"
+  },
+  "parts": [
+    { "name": "handle", "index": 1 },
+    { "name": "axe",    "index": 0, "broken": "broken_axe" },
+    { "name": "kama",   "index": 2, "broken": "broken_kama" }
+  ]
 }

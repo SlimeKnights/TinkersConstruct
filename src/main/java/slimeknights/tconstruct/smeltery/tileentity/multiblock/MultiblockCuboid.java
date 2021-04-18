@@ -40,7 +40,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
   /** If true, the multiblock requires a ceiling */
   protected final boolean hasCeiling;
   /** Maximum number of blocks to detect downwards */
-  private final int downLimit;
+  private final int maxHeight;
   /** Maximum inner size of the structure */
   private final int innerLimit;
 
@@ -48,7 +48,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
    * Constructor with default downLimit of 64 and innerLimit of 9
    */
   public MultiblockCuboid(boolean hasFloor, boolean hasFrame, boolean hasCeiling) {
-    this(hasFloor, hasFrame, hasCeiling, 64, 9);
+    this(hasFloor, hasFrame, hasCeiling, 64, 14);
   }
 
   /**
@@ -63,7 +63,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
     // list of blocks that are part of the multiblock, but not in a standard position
     ImmutableSet.Builder<BlockPos> extraBlocks = ImmutableSet.builder();
     // center is the lowest block behind in a position behind the controller
-    BlockPos center = getOuterPos(world, master.offset(facing.getOpposite()), Direction.DOWN, downLimit).up();
+    BlockPos center = getOuterPos(world, master.offset(facing.getOpposite()), Direction.DOWN, maxHeight).up();
 
     // below lowest internal position
     if (!hasFrame && master.getY() < center.getY()) {
@@ -100,7 +100,8 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
 
     // go up layer for layer (again, frame check done inside)
     int height = 0;
-    for (; height + center.getY() < world.getHeight(); height++) {
+    int localMax = Math.min(maxHeight, world.getHeight() - center.getY());
+    for (; height < localMax; height++) {
       if(!detectLayer(world, from.up(height), to.up(height), posConsumer)) {
         break;
       }

@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/hepatizon",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/coin"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_hepatizon",
+    "amount": 48
+  },
+  "result": {
+    "tag": "forge:coins/hepatizon"
+  },
+  "cooling_time": 45
+}

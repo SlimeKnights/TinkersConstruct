@@ -1,0 +1,21 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/intro_tmp.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:blue_slime_ball"
+      }
+    }
+  },
+  {
+    "name": "tools",
+    "data": "sections/tools.json",
+    "icon": {
+      "item": {
+        "id": "minecraft:iron_pickaxe",
+        "damage": 0
+      }
+    }
+  }
+]

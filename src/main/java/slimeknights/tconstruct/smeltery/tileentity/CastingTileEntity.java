@@ -26,11 +26,17 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.EmptyItemHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -312,11 +318,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements Ticka
     currentRecipe = null;
     recipeName = null;
     lastOutput = null;
-    tank.reset();
     castingInventory.setFluid(Fluids.EMPTY);
-    if (world != null && !world.isClient && world instanceof ServerWorld) {
-      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(getPos(), TinkerFluids.EMPTY), (ServerWorld) world, getPos());
-    }
+    tank.reset();
   }
 
   @Override

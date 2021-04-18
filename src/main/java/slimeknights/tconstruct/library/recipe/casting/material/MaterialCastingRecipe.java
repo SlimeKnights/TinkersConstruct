@@ -75,7 +75,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 //  @Override
 //  public ItemStack getCraftingResult(ICastingInventory inv) {
 //    IMaterial material = MaterialRegistry.getInstance().getMaterial(inv.getFluid());
-//    return result.getItemstackWithMaterial(material);
+//    return result.withMaterial(material);
 //  }
 
   @Override
@@ -88,7 +88,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
         .getMaterials().stream()
         .filter(mat -> mat.getFluid() != Fluids.EMPTY)
         .map(mat -> new DisplayCastingRecipe(type, castItems, Collections.singletonList(FluidVolume.create(mat.getFluid(), itemCost * mat.getFluidPerUnit())),
-                                             result.getItemstackWithMaterial(mat), ICastingRecipe.calcCoolingTime(mat.getTemperature(), itemCost * mat.getFluidPerUnit()), consumed))
+                                             result.withMaterial(mat), ICastingRecipe.calcCoolingTime(mat.getTemperature(), itemCost * mat.getFluidPerUnit()), consumed))
         .collect(Collectors.toList());
     }
     return multiRecipes;

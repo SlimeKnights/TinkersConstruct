@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -22,17 +23,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import slimeknights.mantle.item.ArmorTooltipItem;
+import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.component.TinkerComponents;
 import slimeknights.tconstruct.library.component.piggyback.ITinkerPiggyback;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 
-public class PiggyBackPackItem extends ArmorTooltipItem {
-
-  // todo: turn this into a config
+public class PiggyBackPackItem extends TooltipItem {
   private static final int MAX_ENTITY_STACK = 3; // how many entities can be carried at once
 
   private static final ArmorMaterial PIGGYBACK = new ArmorMaterial() {
@@ -78,6 +76,10 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     }
   };
 
+  public PiggyBackPackItem(Properties props) {
+    super(props);
+  }
+
   public PiggyBackPackItem() {
     super(PIGGYBACK, EquipmentSlot.CHEST, (new Settings()).group(TinkerGadgets.TAB_GADGETS).maxCount(16));
   }
@@ -87,12 +89,14 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
   public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
     ItemStack itemStackIn = playerIn.getStackInHand(hand);
     return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
+  public PiggyBackPackItem(Properties props) {
+    super(props);
   }
 
   @Override
   public ActionResult useOnEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     // is the chest slot empty?
-    ItemStack chestArmor = playerIn.getEquippedStack(this.slot);
+    ItemStack chestArmor = playerIn.getEquippedStack(EquipmentSlotType.CHEST);
 
     // need enough space to exchange the chest armor
     if (chestArmor.getItem() != this && playerIn.inventory.getEmptySlot() == -1) {
@@ -100,6 +104,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       return ActionResult.PASS;
     }
 
+    // try carrying the entity
     if (this.pickupEntity(playerIn, target)) {
       // unequip old armor
       if (chestArmor.getItem() != this) {
@@ -109,7 +114,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
 
       // we could pick it up just fine, check if we need to "equip" more of the item
       if (chestArmor.isEmpty()) {
-        playerIn.equipStack(this.slot, stack.split(1));
+        playerIn.equipStack(EquipmentSlotType.CHEST, stack.split(1));
       } else if (chestArmor.getCount() < this.getEntitiesCarriedCount(playerIn)) {
         stack.split(1);
         chestArmor.increment(1);
@@ -179,19 +184,20 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     }
   }
 
-  /**
-   * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
-   * update it's contents.
-   */
   @Override
   public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     if (entityIn instanceof LivingEntity) {
       LivingEntity livingEntity = (LivingEntity) entityIn;
       if (livingEntity.getEquippedStack(EquipmentSlot.CHEST) == stack && entityIn.hasPassengers()) {
         int amplifier = this.getEntitiesCarriedCount(livingEntity) - 1;
-        livingEntity.addStatusEffect(new StatusEffectInstance(TinkerGadgets.carryEffect, 1, amplifier, true, false));
+        livingEntity.addStatusEffect(new StatusEffectInstance(TinkerGadgets.carryEffect, 2, amplifier, true, false));
       }
     }
+  }
+
+  @Override
+  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
+    return ImmutableMultimap.of(); // no attributes, the potion effect handles them
   }
 
   public static class CarryPotionEffect extends TinkerEffect {

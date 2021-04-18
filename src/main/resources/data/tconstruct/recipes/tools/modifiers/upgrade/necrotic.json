@@ -1,10 +1,16 @@
 {
-  "type": "tconstruct:incremental_modifier",
-  "input": {
-    "tag": "c:wither_bones"
-  },
-  "amount_per_item": 1,
-  "needed_per_level": 10,
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:wither_rose"
+    },
+    {
+      "item": "tconstruct:blood_congealed_slime"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    }
+  ],
   "tools": {
     "tag": "tconstruct:modifiable/melee"
   },

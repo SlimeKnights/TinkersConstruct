@@ -26,6 +26,11 @@ public abstract class BaseSlimeSlingItem extends TooltipItem {
   }
 
   @Override
+  public boolean isEnchantable(ItemStack stack) {
+    return false;
+  }
+
+  @Override
   public boolean canRepair(ItemStack toRepair, ItemStack repair) {
     return repair.getItem() == TinkerCommons.slimeball.get(type);
   }
