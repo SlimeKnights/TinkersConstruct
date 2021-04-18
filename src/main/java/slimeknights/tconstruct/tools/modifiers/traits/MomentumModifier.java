@@ -21,12 +21,13 @@ public class MomentumModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
       // 50% boost per level at max
-      int effectLevel = TinkerModifiers.momentumEffect.getLevel(event.getEntityLiving()) + 1;
-      event.setNewSpeed(event.getNewSpeed() * (1 + level * effectLevel / 64f));
+      int effectLevel = TinkerModifiers.momentumEffect.getLevel(player) + 1;
+      player.forwardSpeed = (player.forwardSpeed * (1 + level * effectLevel / 64f));
     }
+  }
 
   @Override
   public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean wasEffective) {

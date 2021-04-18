@@ -17,12 +17,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.event.LivingEntityDropXpCallback;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.BlockEvents;
-import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -73,34 +72,41 @@ public abstract class LivingEntityMixin extends Entity {
   @Inject(method = "computeFallDamage", at = @At("HEAD"), cancellable = true)
   private void fallDamageEvent(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Integer> cir) {
     LivingEntity entity = (LivingEntity) (Object) this;
-
-    ItemStack feet = entity.getEquippedStack(EquipmentSlot.FEET);
-    if (!(feet.getItem() instanceof SlimeBootsItem)) {
+    if (entity == null) {
       return;
     }
 
-    // thing is wearing slime boots. let's get bouncyyyyy
-    boolean isClient = entity.getEntityWorld().isClient;
-    if (!entity.isInSneakingPose() && fallDistance > 2) {
-      entity.fallDistance =  0.0F;
-      cir.setReturnValue(0);
-
-      if (isClient) {
-        entity.setVelocity(entity.getVelocity().x, entity.getVelocity().y * -0.9, entity.getVelocity().z);
-        entity.velocityDirty = true;
-        entity.setOnGround(false);
-        double f = 0.91d + 0.04d;
-        // only slow down half as much when bouncing
-        entity.setVelocity(entity.getVelocity().x / f, entity.getVelocity().y, entity.getVelocity().z / f);
-        TinkerNetwork.getInstance().sendToServer(new BouncedPacket());
-      } else {
-        cir.setReturnValue(0); // we don't care about previous cancels, since we just bounceeeee
+    // some entities are natively bouncy
+    if (!TinkerTags.EntityTypes.BOUNCY.contains(entity.getType())) {
+      // otherwise, is the thing is wearing slime boots?
+      ItemStack feet = entity.getEquippedStack(EquipmentSlot.FEET);
+      if (!(feet.getItem() instanceof SlimeBootsItem)) {
+        return;
       }
+    }
 
-      entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
-      SlimeBounceHandler.addBounceHandler(entity, entity.getVelocity().y);
-    } else if (!isClient && entity.isInSneakingPose()) {
-      damageMultiplier = 0.2f;
+    // let's get bouncyyyyy
+    if (fallDistance > 2) {
+      // if crouching, take damage
+      if (entity.isInSneakingPose()) {
+        damageMultiplier = 0.2f;
+      } else {
+        damageMultiplier = 0;
+        entity.fallDistance =  0.0F;
+
+        // players only bounce on the client, due to movement rules
+        boolean isPlayer = entity instanceof PlayerEntity;
+        if (!isPlayer || entity.getEntityWorld().isClient) {
+          double f = 0.91d + 0.04d;
+          // only slow down half as much when bouncing
+          entity.setVelocity(entity.getVelocity().x / f, entity.getVelocity().y * -0.9, entity.getVelocity().z / f);
+          entity.velocityDirty = true;
+          entity.setOnGround(false);
+        }
+        cir.setReturnValue(0);// we don't care about previous cancels, since we just bounceeeee
+        entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
+        SlimeBounceHandler.addBounceHandler(entity, entity.getVelocity().y);
+      }
     }
   }
 }

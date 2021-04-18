@@ -15,11 +15,7 @@ public class DwarvenModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, boolean isEffective, float miningSpeedModifier) {
-    if (!isEffective) {
-      return;
-    }
-  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, boolean isEffective, float miningSpeedModifier) {
     // essentially just the line slope formula from (0, level + 1) to (SEA_LEVEL, 1), with a scal
     float factor = (float) Math.max(1f, (SEA_LEVEL - player.getPos().getY()) * level * (BOOST_AT_0 / SEA_LEVEL) + 1);
     if (factor > 1f) {

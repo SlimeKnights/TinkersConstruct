@@ -55,10 +55,6 @@ public class TConstruct implements ModInitializer {
     // init deferred registers
     TinkerModule.initRegisters();
     TinkerNetwork.setup();
-    // init client logic
-    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
-    MinecraftForge.EVENT_BUS.register(this);
-  }
 
     MaterialRegistry.init();
   }
