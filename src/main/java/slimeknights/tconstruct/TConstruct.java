@@ -23,6 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.tags.TConstructBlockTagsProvider;
@@ -94,6 +95,7 @@ public class TConstruct {
     // init deferred registers
     TinkerModule.initRegisters();
     TinkerNetwork.setup();
+    TinkerTags.init();
     // init client logic
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
     MinecraftForge.EVENT_BUS.register(this);

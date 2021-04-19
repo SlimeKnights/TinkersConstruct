@@ -13,8 +13,16 @@ import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.tconstruct.library.Util;
 
 public class TinkerTags {
+  /** Called on mod construct to set up tags */
+  public static void init() {
+    Blocks.init();
+    Items.init();
+    Fluids.init();
+    EntityTypes.init();
+  }
 
   public static class Blocks {
+    private static void init() {}
     public static final IOptionalNamedTag<Block> WORKBENCHES = forgeTag("workbenches");
     public static final IOptionalNamedTag<Block> TABLES = tag("tables");
 
@@ -62,6 +70,7 @@ public class TinkerTags {
   }
 
   public static class Items {
+    private static void init() {}
     public static final IOptionalNamedTag<Item> WORKBENCHES = forgeTag("workbenches");
     public static final IOptionalNamedTag<Item> TABLES = tag("tables");
 
@@ -144,7 +153,7 @@ public class TinkerTags {
   }
 
   public static class Fluids {
-
+    private static void init() {}
     public static final IOptionalNamedTag<Fluid> SLIMELIKE = tag("slimelike");
     public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
 
@@ -158,7 +167,7 @@ public class TinkerTags {
   }
 
   public static class EntityTypes {
-
+    private static void init() {}
     public static final IOptionalNamedTag<EntityType<?>> BOUNCY = tag("bouncy");
     public static final IOptionalNamedTag<EntityType<?>> SLIMES = forgeTag("slimes");
     public static final IOptionalNamedTag<EntityType<?>> MELTING_SHOW = tag("melting/show_in_default");
