@@ -19,6 +19,14 @@
     }
   },
   {
+    "name": "tier_one_materials",
+    "icon": {
+      "item": {
+        "id": "minecraft:stone"
+      }
+    }
+  },
+  {
     "name": "modifiers",
     "data": "sections/modifiers.json",
     "icon": {

@@ -216,7 +216,7 @@ public class ContentMaterial extends TinkerPage {
       ItemElement elementItem = new TinkerItemElement(0, 0, 1, stacks);
       String text = this.parent.translate("material.craft_casting");
       Fluid fluid = material.get().getFluid();
-      elementItem.tooltip = ImmutableList.of(new StringTextComponent(text).append(new TranslationTextComponent("fluid." + Objects.requireNonNull(fluid.getRegistryName()).getNamespace() + "." + Objects.requireNonNull(fluid.getRegistryName()).getPath())));
+      elementItem.tooltip = ImmutableList.of(new StringTextComponent(text).appendString(" ").append(new TranslationTextComponent("fluid." + Objects.requireNonNull(fluid.getRegistryName()).getNamespace() + "." + Objects.requireNonNull(fluid.getRegistryName()).getPath())));
       displayTools.add(elementItem);
     }
 
