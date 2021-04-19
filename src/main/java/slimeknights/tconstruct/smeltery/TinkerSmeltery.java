@@ -109,7 +109,8 @@ public final class TinkerSmeltery extends TinkerModule {
 
   // seared
   /** Properties for all smeltery blocks */
-  private static final Block.Properties SMELTERY = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).setAllowsSpawn((s, r, p, e) -> !s.get(SearedBlock.IN_STRUCTURE));
+  private static final Block.Properties SMELTERY = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL)
+    .setRequiresTool().hardnessAndResistance(3.0F, 9.0F).setAllowsSpawn((s, r, p, e) -> !s.hasProperty(SearedBlock.IN_STRUCTURE) || !s.get(SearedBlock.IN_STRUCTURE));
   /** Constructor to create a seared block */
   private static final Supplier<SearedBlock> SEARED_BLOCK = () -> new SearedBlock(SMELTERY);
   public static final BuildingBlockObject searedStone = BLOCKS.registerBuilding("seared_stone", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
@@ -127,12 +128,13 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new OrientableSmelteryBlock(SMELTERY, ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
 
   /** Properties for a faucet block */
+  private static final Block.Properties CASTING = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
   private static final Block.Properties FAUCET = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).notSolid();
   public static final EnumObject<TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), type -> new SearedTankBlock(SMELTERY_GLASS, type.getCapacity()), b -> new TankItem(b, SMELTERY_PROPS));
   public static final ItemObject<FaucetBlock> searedFaucet = BLOCKS.register("faucet", () -> new FaucetBlock(FAUCET), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<ChannelBlock> searedChannel = BLOCKS.register("channel", () -> new ChannelBlock(FAUCET), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<CastingBasinBlock> castingBasin = BLOCKS.register("casting_basin", () -> new CastingBasinBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<CastingTableBlock> castingTable = BLOCKS.register("casting_table", () -> new CastingTableBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<CastingBasinBlock> castingBasin = BLOCKS.register("casting_basin", () -> new CastingBasinBlock(CASTING), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<CastingTableBlock> castingTable = BLOCKS.register("casting_table", () -> new CastingTableBlock(CASTING), TOOLTIP_BLOCK_ITEM);
 
   // controllers
   private static final Supplier<Block.Properties> CONTROLLER = () -> builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).setLightLevel(s -> s.get(ControllerBlock.ACTIVE) ? 13 : 0);
