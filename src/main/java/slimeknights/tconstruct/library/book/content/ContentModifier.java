@@ -2,11 +2,9 @@ package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.ImageData;
 import slimeknights.mantle.client.book.data.element.TextData;
@@ -27,22 +25,24 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IDisplayModifierRecipe;
 import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
-
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@OnlyIn(Dist.CLIENT)
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
+
+@Environment(EnvType.CLIENT)
 public class ContentModifier extends TinkerPage {
 
   public static final transient String ID = "modifier";
 
   public static final transient int TEX_SIZE = 256;
 
-  public static final ResourceLocation BOOK_MODIFY = Util.getResource("textures/gui/book/modify.png");
+  public static final Identifier BOOK_MODIFY = Util.getResource("textures/gui/book/modify.png");
 
   public static final transient ImageData IMG_SLOT_1 = new ImageData(BOOK_MODIFY, 0, 75, 22, 22, TEX_SIZE, TEX_SIZE);
   public static final transient ImageData IMG_SLOT_2 = new ImageData(BOOK_MODIFY, 0, 97, 40, 22, TEX_SIZE, TEX_SIZE);
@@ -80,12 +80,12 @@ public class ContentModifier extends TinkerPage {
     }
 
     if (this.modifier == null) {
-      this.modifier = TinkerRegistries.MODIFIERS.getValue(new ModifierId(this.modifierID));
+      this.modifier = TinkerRegistries.MODIFIERS.get(new ModifierId(this.modifierID));
     }
 
     if (this.recipes == null) {
-      assert Minecraft.getInstance().world != null;
-      this.recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().world.getRecipeManager(), RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().getModifier() == this.modifier).collect(Collectors.toList());
+      assert MinecraftClient.getInstance().world != null;
+      this.recipes = RecipeHelper.getJEIRecipes(MinecraftClient.getInstance().world.getRecipeManager(), RecipeTypes.TINKER_STATION, IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().getModifier() == this.modifier).collect(Collectors.toList());
     }
   }
 

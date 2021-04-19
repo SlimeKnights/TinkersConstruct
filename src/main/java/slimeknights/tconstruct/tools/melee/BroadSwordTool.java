@@ -19,7 +19,7 @@ public class BroadSwordTool extends SwordCore {
 
   /** Gets the bonus area of the sweep attack */
   protected double getSweepRange(ToolStack tool) {
-    return tool.getModifierLevel(TinkerModifiers.expanded.get()) + 1;
+    return tool.getModifierLevel(TinkerModifiers.expanded) + 1;
   }
 
   // sword sweep attack

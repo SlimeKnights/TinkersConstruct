@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/iron",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/iron",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/iron"
+    "tag": "c:coins/iron"
   },
   "cooling_time": 35
 }

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/slimesteel",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/slimesteel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/slimesteel"
+    "tag": "c:coins/slimesteel"
   },
   "result": {
     "fluid": "tconstruct:molten_slimesteel",

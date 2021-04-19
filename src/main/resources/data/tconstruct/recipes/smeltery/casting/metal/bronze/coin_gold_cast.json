@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/bronze",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/bronze",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/bronze"
+    "tag": "c:coins/bronze"
   },
   "cooling_time": 33
 }

@@ -5,16 +5,16 @@
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "c:ingots/manyullyn"
     },
     {
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:slimeball/ender"
+      "tag": "c:slimeball/ender"
     },
     {
-      "tag": "forge:slimeball/ender"
+      "tag": "c:slimeball/ender"
     }
   ],
   "tools": {

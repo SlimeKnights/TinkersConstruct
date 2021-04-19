@@ -27,8 +27,8 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
 
   public PartInfoPanelScreen(MultiModuleScreen parent, ScreenHandler container, PlayerInventory playerInventory, Text title) {
     super(parent, container, playerInventory, title);
-    this.patternCost = StringTextComponent.EMPTY;
-    this.materialValue = StringTextComponent.EMPTY;
+    this.patternCost = (MutableText) LiteralText.EMPTY;
+    this.materialValue = (MutableText) LiteralText.EMPTY;
   }
 
   /* Pattern cost */
@@ -37,7 +37,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * Clears the pattern cost text
    */
   public void clearPatternCost() {
-    this.patternCost = StringTextComponent.EMPTY;
+    this.patternCost = (MutableText) LiteralText.EMPTY;
     this.updateSliderParameters();
   }
 
@@ -46,13 +46,13 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * @param cost  Pattern cost
    */
   public void setPatternCost(int cost) {
-    this.patternCost = new TranslatableText(COST_KEY, cost).mergeStyle(TextFormatting.GOLD);
+    this.patternCost = new TranslatableText(COST_KEY, cost).formatted(Formatting.GOLD);
     this.updateSliderParameters();
   }
 
   /** If true, has pattern cost text */
   private boolean hasPatternCost() {
-    return this.patternCost != null && this.patternCost != StringTextComponent.EMPTY;
+    return this.patternCost != null && this.patternCost != LiteralText.EMPTY;
   }
 
   /* Material value */
@@ -62,7 +62,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * @param value  Value text
    */
   public void setMaterialValue(Text value) {
-    this.materialValue = new TranslatableText(MATERIAL_VALUE_KEY, value).modifyStyle(style -> style.setColor(Color.fromInt(0x7fffff)));
+    this.materialValue = new TranslatableText(MATERIAL_VALUE_KEY, value).styled(style -> style.withColor(TextColor.fromRgb(0x7fffff)));
     this.updateSliderParameters();
   }
 
@@ -70,13 +70,13 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * Clears the material value
    */
   public void clearMaterialValue() {
-    this.materialValue = StringTextComponent.EMPTY;
+    this.materialValue = (MutableText) LiteralText.EMPTY;
     this.updateSliderParameters();
   }
 
   /** If true, has material value text */
   private boolean hasMaterialValue() {
-    return this.materialValue != null && this.materialValue != StringTextComponent.EMPTY;
+    return this.materialValue != null && this.materialValue != LiteralText.EMPTY;
   }
 
   @Override
@@ -149,7 +149,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.backgroundWidth / 2;
       x2 -= this.textRenderer.getWidth(this.patternCost) / 2;
 
-      this.font.drawWithShadow(matrices, this.patternCost.asOrderedText(), (float) this.guiLeft + x2, y, color);
+      this.textRenderer.drawWithShadow(matrices, this.patternCost.asOrderedText(), (float) this.x + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
@@ -158,7 +158,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.backgroundWidth / 2;
       x2 -= this.textRenderer.getWidth(this.materialValue) / 2;
 
-      this.font.drawWithShadow(matrices, this.materialValue.asOrderedText(), (float) this.guiLeft + x2, y, color);
+      this.textRenderer.drawWithShadow(matrices, this.materialValue.asOrderedText(), (float) this.x + x2, y, color);
       y += scaledFontHeight + 3;
     }
 

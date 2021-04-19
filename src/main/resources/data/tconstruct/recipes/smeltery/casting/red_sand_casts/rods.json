@@ -4,7 +4,7 @@
     "item": "tconstruct:blank_red_sand_cast"
   },
   "pattern": {
-    "tag": "forge:rods"
+    "tag": "c:rods"
   },
   "result": "tconstruct:rod_red_sand_cast"
 }

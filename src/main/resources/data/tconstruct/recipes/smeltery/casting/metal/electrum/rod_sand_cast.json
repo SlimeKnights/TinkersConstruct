@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/electrum",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/electrum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 72
   },
   "result": {
-    "tag": "forge:rods/electrum"
+    "tag": "c:rods/electrum"
   },
   "cooling_time": 42
 }

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/pig_iron",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/pig_iron",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/pig_iron"
+    "tag": "c:sheetmetals/pig_iron"
   },
   "result": {
     "fluid": "tconstruct:molten_pig_iron",

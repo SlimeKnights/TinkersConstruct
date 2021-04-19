@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/queens_slime",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/queens_slime",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 72
   },
   "result": {
-    "tag": "forge:rods/queens_slime"
+    "tag": "c:rods/queens_slime"
   },
   "cooling_time": 50
 }

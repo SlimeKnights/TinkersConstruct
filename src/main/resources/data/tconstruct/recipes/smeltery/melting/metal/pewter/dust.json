@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:dusts/pewter",
-        "type": "forge:tag_empty"
+        "tag": "c:dusts/pewter",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/pewter"
+    "tag": "c:dusts/pewter"
   },
   "result": {
     "fluid": "tconstruct:molten_pewter",

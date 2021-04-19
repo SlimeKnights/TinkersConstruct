@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/tin",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/tin",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/tin"
+    "tag": "c:coins/tin"
   },
   "result": {
     "fluid": "tconstruct:molten_tin",

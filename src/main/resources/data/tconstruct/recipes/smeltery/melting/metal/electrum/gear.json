@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/electrum",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/electrum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/electrum"
+    "tag": "c:gears/electrum"
   },
   "result": {
     "fluid": "tconstruct:molten_electrum",

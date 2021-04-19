@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/lead",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/lead",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:plates/lead"
+    "tag": "c:plates/lead"
   },
   "cooling_time": 43
 }

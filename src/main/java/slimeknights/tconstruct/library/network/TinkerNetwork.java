@@ -56,7 +56,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkSide.CLIENTBOUND);
 
     // gadgets
-    instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkSide.SERVERBOUND);
 
     // tools
     instance.registerPacket(StationTabPacket.class, StationTabPacket::new, NetworkSide.SERVERBOUND);

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/uranium",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/uranium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/uranium"
+    "tag": "c:gears/uranium"
   },
   "result": {
     "fluid": "tconstruct:molten_uranium",

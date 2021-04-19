@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/electrum",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/electrum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/electrum"
+    "tag": "c:rods/electrum"
   },
   "result": {
     "fluid": "tconstruct:molten_electrum",

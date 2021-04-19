@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/steel",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/steel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 72
   },
   "result": {
-    "tag": "forge:rods/steel"
+    "tag": "c:rods/steel"
   },
   "cooling_time": 46
 }

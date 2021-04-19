@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/tin",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/tin",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/tin"
+    "tag": "c:rods/tin"
   },
   "result": {
     "fluid": "tconstruct:molten_tin",

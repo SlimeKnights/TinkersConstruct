@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/constantan",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/constantan",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 72
   },
   "result": {
-    "tag": "forge:rods/constantan"
+    "tag": "c:rods/constantan"
   },
   "cooling_time": 45
 }

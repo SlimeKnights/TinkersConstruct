@@ -30,8 +30,8 @@ public abstract class TinkerPage extends PageContent {
     title.dropshadow = dropShadow;
 
     if (color != 0) {
-      title.useOldColor = false;
-      title.rgbColor = color;
+      //title.useOldColor = false;
+      //title.rgbColor = color;
     }
 
     int w = (int) Math.ceil(this.parent.parent.parent.fontRenderer.getWidth(titleText) * title.scale);
@@ -55,11 +55,11 @@ public abstract class TinkerPage extends PageContent {
     subText.dropshadow = dropShadow;
 
     if (color != 0) {
-      subText.useOldColor = false;
-      subText.rgbColor = color;
+      //subText.useOldColor = false;
+      //subText.rgbColor = color;
     }
 
-    int w = (int) Math.ceil(this.parent.parent.parent.fontRenderer.getStringWidth(text) * subText.scale);
+    int w = (int) Math.ceil(this.parent.parent.parent.fontRenderer.getWidth(text) * subText.scale);
     int x = (BookScreen.PAGE_WIDTH - w) / 2;
 
     list.add(new TextElement(x, y, w, 24, subText));

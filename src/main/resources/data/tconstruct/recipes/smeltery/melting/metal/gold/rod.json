@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/gold",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/gold",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/gold"
+    "tag": "c:rods/gold"
   },
   "result": {
     "fluid": "tconstruct:molten_gold",

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/netherite",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/netherite",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/netherite"
+    "tag": "c:rods/netherite"
   },
   "result": {
     "fluid": "tconstruct:molten_netherite",

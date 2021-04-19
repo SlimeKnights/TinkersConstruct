@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/tungsten",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/tungsten",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/tungsten"
+    "tag": "c:gears/tungsten"
   },
   "result": {
     "fluid": "tconstruct:molten_tungsten",

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/hepatizon",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/hepatizon",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/hepatizon"
+    "tag": "c:gears/hepatizon"
   },
   "result": {
     "fluid": "tconstruct:molten_hepatizon",

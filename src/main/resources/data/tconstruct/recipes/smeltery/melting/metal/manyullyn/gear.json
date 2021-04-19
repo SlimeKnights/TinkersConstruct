@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/manyullyn",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/manyullyn",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/manyullyn"
+    "tag": "c:gears/manyullyn"
   },
   "result": {
     "fluid": "tconstruct:molten_manyullyn",

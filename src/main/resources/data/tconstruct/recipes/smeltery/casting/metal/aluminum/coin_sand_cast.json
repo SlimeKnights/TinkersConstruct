@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/aluminum",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/aluminum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/aluminum"
+    "tag": "c:coins/aluminum"
   },
   "cooling_time": 27
 }

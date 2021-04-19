@@ -11,6 +11,7 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipe;
@@ -112,9 +113,9 @@ public final class TinkerModifiers extends TinkerModule {
 
   // speed
   public static final HasteModifier haste = Registry.register(TinkerRegistries.MODIFIERS, id("haste"), new HasteModifier());
-  public static final RegistryObject<BlastingModifier> blasting = MODIFIERS.register("blasting", BlastingModifier::new);
-  public static final RegistryObject<HydraulicModifier> hydraulic = MODIFIERS.register("hydraulic", HydraulicModifier::new);
-  public static final RegistryObject<LightspeedModifier> lightspeed = MODIFIERS.register("lightspeed", LightspeedModifier::new);
+  public static final BlastingModifier blasting = Registry.register(TinkerRegistries.MODIFIERS, id("blasting"), new BlastingModifier());
+  public static final HydraulicModifier hydraulic = Registry.register(TinkerRegistries.MODIFIERS, id("hydraulic"), new HydraulicModifier());
+  public static final LightspeedModifier lightspeed = Registry.register(TinkerRegistries.MODIFIERS, id("lightspeed"), new LightspeedModifier());
 
   // weapon
   public static final KnockbackModifier knockback = Registry.register(TinkerRegistries.MODIFIERS, id("knockback"), new KnockbackModifier());
@@ -133,7 +134,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final LuckModifier luck = Registry.register(TinkerRegistries.MODIFIERS, id("luck"), new LuckModifier());
   public static final SilkyModifier silky = Registry.register(TinkerRegistries.MODIFIERS, id("silky"), new SilkyModifier());
   public static final AutosmeltModifier autosmelt = Registry.register(TinkerRegistries.MODIFIERS, id("autosmelt"), new AutosmeltModifier());
-  public static final ExpanderModifier expanded = Registry.register(TinkerRegistries.MODIFIERS, id("expanded"), new ExpanderModifier());
+  public static final Modifier expanded = Registry.register(TinkerRegistries.MODIFIERS, id("expanded"), new Modifier(0xff9f50));
 
   // bonus modifier slots
   public static final ExtraModifier writable = Registry.register(TinkerRegistries.MODIFIERS, id("writable"), new ExtraModifier(0xffffff));
@@ -152,7 +153,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final DamageSpeedTradeModifier stonebound = Registry.register(TinkerRegistries.MODIFIERS, id("stonebound"), new DamageSpeedTradeModifier(0x999999, -0.01f));
   public static final LevelDamageModifier fractured = Registry.register(TinkerRegistries.MODIFIERS, id("fractured"), new LevelDamageModifier(0xede6bf, 0.5f));
   // traits - tier 1 nether
-  public static final RegistryObject<NecroticModifier> necrotic = MODIFIERS.register("necrotic", NecroticModifier::new);
+  //public static final NecroticModifier necrotic = Registry.register(TinkerRegistries.MODIFIERS, id("necrotic"), new NecroticModifier());
   // traits - tier 2
   // reinforced is also an upgrade
   public static final SearingModifier searing = Registry.register(TinkerRegistries.MODIFIERS, id("searing"), new SearingModifier());
@@ -197,7 +198,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final OverslimeModifierRecipe.Serializer overslimeSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("overslime_modifier"), new OverslimeModifierRecipe.Serializer());
   public static final BeheadingRecipe.Serializer beheadingSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("beheading"), new BeheadingRecipe.Serializer());
   public static final SpecialRecipeSerializer<PlayerBeheadingRecipe> playerBeheadingSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("player_beheading"),  new SpecialRecipeSerializer<>(PlayerBeheadingRecipe::new));
-  public static final SpecialRecipeSerializer<SnowGolemBeheadingRecipe> snowGolemBeheadingSerializer = RECIPE_SERIALIZERS.register("snow_golem_beheading", () -> new SpecialRecipeSerializer<>(SnowGolemBeheadingRecipe::new));
+  public static final SpecialRecipeSerializer<SnowGolemBeheadingRecipe> snowGolemBeheadingSerializer = Registry.register(Registry.RECIPE_SERIALIZER, id("snow_golem_beheading"), new SpecialRecipeSerializer<>(SnowGolemBeheadingRecipe::new));
 
   @Override
   public void onInitialize() {

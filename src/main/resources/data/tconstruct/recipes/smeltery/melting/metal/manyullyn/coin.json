@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/manyullyn",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/manyullyn",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/manyullyn"
+    "tag": "c:coins/manyullyn"
   },
   "result": {
     "fluid": "tconstruct:molten_manyullyn",

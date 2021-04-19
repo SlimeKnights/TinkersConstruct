@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/osmium",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/osmium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/osmium"
+    "tag": "c:coins/osmium"
   },
   "cooling_time": 38
 }

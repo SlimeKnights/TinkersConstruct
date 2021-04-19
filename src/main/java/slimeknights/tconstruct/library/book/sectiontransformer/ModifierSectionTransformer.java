@@ -17,7 +17,7 @@ public class ModifierSectionTransformer extends ContentListingSectionTransformer
   @Override
   protected void processPage(BookData book, ContentListing listing, PageData page) {
     if (page.content instanceof ContentModifier) {
-      Modifier modifier = TinkerRegistries.MODIFIERS.getValue(new ModifierId(((ContentModifier) page.content).modifierID));
+      Modifier modifier = TinkerRegistries.MODIFIERS.get(new ModifierId(((ContentModifier) page.content).modifierID));
       if (modifier != null) {
         listing.addEntry(modifier.getDisplayName().getString(), page);
       }

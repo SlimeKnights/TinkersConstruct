@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/manyullyn",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/manyullyn",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/manyullyn"
+    "tag": "c:sheetmetals/manyullyn"
   },
   "result": {
     "fluid": "tconstruct:molten_manyullyn",

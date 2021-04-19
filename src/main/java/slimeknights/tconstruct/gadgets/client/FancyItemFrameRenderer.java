@@ -1,5 +1,13 @@
 package slimeknights.tconstruct.gadgets.client;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
+import slimeknights.tconstruct.gadgets.entity.FrameType;
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.TexturedRenderLayers;
@@ -10,28 +18,15 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.ItemFrameEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModelManager;
-import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.map.MapState;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.client.event.RenderItemInFrameEvent;
-import net.minecraftforge.common.MinecraftForge;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
-import slimeknights.tconstruct.gadgets.entity.FrameType;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import java.util.HashMap;
-import java.util.Map;
 
 // TODO: needs so much cleanup
 public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity> {
@@ -64,30 +59,31 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
   public void render(FancyItemFrameEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
     super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     matrixStackIn.push();
-    Vector3d vec3d = this.getRenderOffset(entityIn, partialTicks);
+    Vec3d vec3d = this.getRenderOffset(entityIn, partialTicks);
     matrixStackIn.translate(-vec3d.getX(), -vec3d.getY(), -vec3d.getZ());
     Direction direction = entityIn.getHorizontalFacing();
-    matrixStackIn.translate((double) direction.getXOffset() * 0.46875D, (double) direction.getYOffset() * 0.46875D, (double) direction.getZOffset() * 0.46875D);
-    matrixStackIn.rotate(Vector3f.XP.rotationDegrees(entityIn.rotationPitch));
-    matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F - entityIn.rotationYaw));
+    matrixStackIn.translate((double) direction.getOffsetX() * 0.46875D, (double) direction.getOffsetY() * 0.46875D, (double) direction.getOffsetZ() * 0.46875D);
+    matrixStackIn.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(entityIn.pitch));
+    matrixStackIn.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F - entityIn.yaw));
 
     // render the frame
     FrameType frameType = entityIn.getFrameType();
-    ItemStack stack = entityIn.getDisplayedItem();
+    ItemStack stack = entityIn.getHeldItemStack();
     // clear does not render the frame if filled
     if (frameType != FrameType.CLEAR || stack.isEmpty()) {
-      BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
-      ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
-      ModelResourceLocation location = entityIn.getDisplayedItem().getItem() instanceof FilledMapItem ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType);
+      BlockRenderManager blockrendererdispatcher = this.mc.getBlockRenderManager();
+      BakedModelManager modelmanager = blockrendererdispatcher.getModels().getModelManager();
+      ModelIdentifier location = entityIn.getHeldItemStack().getItem() instanceof FilledMapItem ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType);
       matrixStackIn.push();
       matrixStackIn.translate(-0.5D, -0.5D, -0.5D);
-      blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(matrixStackIn.getLast(), bufferIn.getBuffer(Atlases.getCutoutBlockType()), null, modelmanager.getModel(location), 1.0F, 1.0F, 1.0F, packedLightIn, OverlayTexture.NO_OVERLAY);
+      blockrendererdispatcher.getModelRenderer().render(matrixStackIn.peek(), bufferIn.getBuffer(TexturedRenderLayers.getEntityCutout()), null, modelmanager.getModel(location), 1.0F, 1.0F, 1.0F, packedLightIn, OverlayTexture.DEFAULT_UV);
       matrixStackIn.pop();
     }
 
     // render the item
     if (!stack.isEmpty()) {
-      MapData mapdata = FilledMapItem.getMapData(stack, entityIn.world);
+      throw new RuntimeException("CRAB"); //Hydos does this and now do I
+      /*MapData mapdata = FilledMapItem.getMapData(stack, entityIn.world);
       matrixStackIn.translate(0.0D, 0.0D, 0.4375D);
       int i = mapdata != null ? entityIn.getRotation() % 4 * 2 : entityIn.getRotation();
       matrixStackIn.rotate(Vector3f.ZP.rotationDegrees((float) i * 360.0F / 8.0F));
@@ -102,7 +98,7 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
           matrixStackIn.scale(0.5F, 0.5F, 0.5F);
           this.itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         }
-      }
+      }*/
     }
 
     matrixStackIn.pop();

@@ -10,6 +10,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -311,7 +312,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       // base value is 5, but our number start from 5
       double reach = statsNBT.getReach() - 5d;
       if (reach != 0) {
-        builder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER, "tconstruct.tool.reach", reach, AttributeModifier.Operation.ADDITION));
+        builder.put(new ClampedEntityAttribute("generic.reachDistance", 5.0D, 0.0D, 1024.0D).setTracked(true), new EntityAttributeModifier(REACH_MODIFIER, "tconstruct.tool.reach", reach, EntityAttributeModifier.Operation.ADDITION));
       }
 
       // grab attributes from modifiers

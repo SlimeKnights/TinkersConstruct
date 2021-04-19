@@ -1,7 +1,11 @@
 package slimeknights.tconstruct.library;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.server.network.ServerPlayerEntity;
+
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -91,16 +95,16 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   }
 
   /* Reloading */
-
+  //TODO: fix this hydos I am to lazy to
   /** Called when the player logs in to send packets */
-  private void handleLogin(PlayerLoggedInEvent event) {
-    PlayerEntity player = event.getPlayer();
+  private void handleLogin(/*PlayerLoggedInEvent event*/) {
+    PlayerEntity player = null;//event.getPlayer();
     if (player instanceof ServerPlayerEntity) {
       ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
       TinkerNetwork network = TinkerNetwork.getInstance();
-      PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
-      network.send(target, materialManager.getUpdatePacket());
-      network.send(target, materialStatsManager.getUpdatePacket());
+      //PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
+      //network.send(target, materialManager.getUpdatePacket());
+      //network.send(target, materialStatsManager.getUpdatePacket());
     }
   }
 

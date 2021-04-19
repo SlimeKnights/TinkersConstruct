@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.library.tools.item;
 
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.DamageSource;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 /**
  * Interface for extra hooks needed on modifyable weapons

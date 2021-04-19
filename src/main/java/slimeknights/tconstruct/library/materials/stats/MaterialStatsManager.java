@@ -8,19 +8,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.resource.JsonDataLoader;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.profiler.Profiler;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
 import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
-
-import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -33,6 +27,11 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import net.minecraft.resource.JsonDataLoader;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.profiler.Profiler;
 
 /**
  * Loads the different material stats from the datapacks.
@@ -138,7 +137,7 @@ public class MaterialStatsManager extends JsonDataLoader {
       materialToStatsPerType.size());
   }
 
-  @Override
+  //@Override
   protected Object getUpdatePacket() {
     Map<MaterialId, Collection<IMaterialStats>> networkPayload =
       materialToStatsPerType.entrySet().stream()

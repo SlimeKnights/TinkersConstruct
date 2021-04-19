@@ -3,17 +3,17 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates",
-        "type": "forge:tag_empty"
+        "tag": "c:plates",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "material": {
     "item": "tconstruct:blank_sand_cast"
   },
   "pattern": {
-    "tag": "forge:plates"
+    "tag": "c:plates"
   },
   "result": "tconstruct:plate_sand_cast"
 }

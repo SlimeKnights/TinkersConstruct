@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/knightslime",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/knightslime",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/knightslime"
+    "tag": "c:coins/knightslime"
   },
   "result": {
     "fluid": "tconstruct:molten_knightslime",

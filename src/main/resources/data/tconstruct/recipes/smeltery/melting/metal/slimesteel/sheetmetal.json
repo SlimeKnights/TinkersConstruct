@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/slimesteel",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/slimesteel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/slimesteel"
+    "tag": "c:sheetmetals/slimesteel"
   },
   "result": {
     "fluid": "tconstruct:molten_slimesteel",

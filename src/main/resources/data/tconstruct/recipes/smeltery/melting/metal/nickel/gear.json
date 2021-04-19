@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/nickel",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/nickel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/nickel"
+    "tag": "c:gears/nickel"
   },
   "result": {
     "fluid": "tconstruct:molten_nickel",

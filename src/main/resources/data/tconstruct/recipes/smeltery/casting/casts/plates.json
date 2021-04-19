@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates",
-        "type": "forge:tag_empty"
+        "tag": "c:plates",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
-    "tag": "forge:plates"
+    "tag": "c:plates"
   },
   "cast_consumed": true,
   "switch_slots": true,

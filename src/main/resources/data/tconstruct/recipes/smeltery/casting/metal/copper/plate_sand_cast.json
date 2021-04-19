@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/copper",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/copper",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:plates/copper"
+    "tag": "c:plates/copper"
   },
   "cooling_time": 50
 }

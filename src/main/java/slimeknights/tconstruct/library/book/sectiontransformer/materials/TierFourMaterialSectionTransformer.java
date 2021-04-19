@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.library.book.sectiontransformer.materials;
 
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.tconstruct.library.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.materials.IMaterial;
-
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+import net.minecraft.item.ItemStack;
+
+@Environment(EnvType.CLIENT)
 public class TierFourMaterialSectionTransformer extends AbstractMaterialSectionTransformer {
 
   public TierFourMaterialSectionTransformer() {

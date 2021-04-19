@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/silver",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/silver",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/silver"
+    "tag": "c:coins/silver"
   },
   "result": {
     "fluid": "tconstruct:molten_silver",

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common.item;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -20,10 +21,10 @@ public class TinkerBookItem extends TooltipItem {
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-    ItemStack itemStack = playerIn.getHeldItem(handIn);
-    if (worldIn.isRemote) {
-      TinkerBook.getBook(bookType).openGui(getDisplayName(itemStack), itemStack);
+  public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack itemStack = playerIn.getStackInHand(handIn);
+    if (worldIn.isClient) {
+      TinkerBook.getBook(bookType).openGui(this.getName(itemStack), itemStack);
     }
     return new TypedActionResult<>(ActionResult.SUCCESS, itemStack);
   }

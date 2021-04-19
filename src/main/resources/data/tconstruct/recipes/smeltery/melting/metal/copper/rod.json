@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/copper",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/copper",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/copper"
+    "tag": "c:rods/copper"
   },
   "result": {
     "fluid": "tconstruct:molten_copper",

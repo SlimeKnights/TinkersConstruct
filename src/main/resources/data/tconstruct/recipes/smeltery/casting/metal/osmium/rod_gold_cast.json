@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/osmium",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/osmium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 72
   },
   "result": {
-    "tag": "forge:rods/osmium"
+    "tag": "c:rods/osmium"
   },
   "cooling_time": 46
 }

@@ -3,17 +3,17 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins",
-        "type": "forge:tag_empty"
+        "tag": "c:coins",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "material": {
     "item": "tconstruct:blank_sand_cast"
   },
   "pattern": {
-    "tag": "forge:coins"
+    "tag": "c:coins"
   },
   "result": "tconstruct:coin_sand_cast"
 }

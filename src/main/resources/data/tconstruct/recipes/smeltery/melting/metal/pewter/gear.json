@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/pewter",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/pewter",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/pewter"
+    "tag": "c:gears/pewter"
   },
   "result": {
     "fluid": "tconstruct:molten_pewter",

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/pewter",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/pewter",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/pewter"
+    "tag": "c:ingots/pewter"
   },
   "result": {
     "fluid": "tconstruct:molten_pewter",

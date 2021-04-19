@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/constantan",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/constantan",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/constantan"
+    "tag": "c:rods/constantan"
   },
   "result": {
     "fluid": "tconstruct:molten_constantan",

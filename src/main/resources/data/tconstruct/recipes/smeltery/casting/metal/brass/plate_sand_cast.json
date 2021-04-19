@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/brass",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/brass",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:plates/brass"
+    "tag": "c:plates/brass"
   },
   "cooling_time": 54
 }

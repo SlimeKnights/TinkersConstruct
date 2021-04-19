@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/pewter",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/pewter",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/pewter"
+    "tag": "c:coins/pewter"
   },
   "result": {
     "fluid": "tconstruct:molten_pewter",

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/brass",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/brass",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/brass"
+    "tag": "c:sheetmetals/brass"
   },
   "result": {
     "fluid": "tconstruct:molten_brass",

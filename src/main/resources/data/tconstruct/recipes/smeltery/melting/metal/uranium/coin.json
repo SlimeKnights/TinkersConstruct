@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/uranium",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/uranium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/uranium"
+    "tag": "c:coins/uranium"
   },
   "result": {
     "fluid": "tconstruct:molten_uranium",

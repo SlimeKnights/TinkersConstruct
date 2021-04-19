@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/cobalt",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/cobalt",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:plates/cobalt"
+    "tag": "c:plates/cobalt"
   },
   "cooling_time": 65
 }

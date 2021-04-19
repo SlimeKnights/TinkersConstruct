@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/iron",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/iron",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/iron"
+    "tag": "c:rods/iron"
   },
   "result": {
     "fluid": "tconstruct:molten_iron",

@@ -58,8 +58,8 @@ public abstract class TinkerModule implements ModInitializer {
 
   public static AbstractBlock.Settings getGenericGlassBlock() {
     return builder(Material.GLASS, FabricToolTags.PICKAXES, BlockSoundGroup.GLASS)
-    .requiresTool().strength(0.3F).nonOpaque().setAllowsSpawn(Blocks::neverAllowSpawn)
-    .setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+    .requiresTool().strength(0.3F).nonOpaque().allowsSpawning(Blocks::never)
+    .solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never);
   }
 
   /** Creative tab for items that do not fit in another tab */

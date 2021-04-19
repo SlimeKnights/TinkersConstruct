@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/copper",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/copper",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 72
   },
   "result": {
-    "tag": "forge:rods/copper"
+    "tag": "c:rods/copper"
   },
   "cooling_time": 35
 }

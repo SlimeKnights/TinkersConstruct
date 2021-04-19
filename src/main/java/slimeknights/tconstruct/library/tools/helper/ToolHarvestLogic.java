@@ -1,26 +1,23 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import java.util.Collections;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-
-import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * External logic for the ToolCore that handles mining calculations and breaking blocks.
@@ -116,7 +113,7 @@ public class ToolHarvestLogic {
    * @param blockTrace  Ray trace result, if null may require retracing
    * @return A list of BlockPos's that the AOE tool can affect.
    */
-  public List<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, @Nullable BlockRayTraceResult blockTrace) {
+  public List<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, BlockHitResult blockTrace) {
     return Collections.emptyList();
   }
 
@@ -130,7 +127,7 @@ public class ToolHarvestLogic {
    * @param origin the origin block spot to start from
    * @return A list of BlockPos's that the AOE tool can affect.
    */
-  public final List<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
+  public List<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
     return getAOEBlocks(tool, stack, world, player, origin, null);
   }
 

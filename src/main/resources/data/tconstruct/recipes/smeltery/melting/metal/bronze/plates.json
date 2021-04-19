@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/bronze",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/bronze",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/bronze"
+    "tag": "c:plates/bronze"
   },
   "result": {
     "fluid": "tconstruct:molten_bronze",

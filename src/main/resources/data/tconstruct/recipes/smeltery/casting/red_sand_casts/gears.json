@@ -3,17 +3,17 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears",
-        "type": "forge:tag_empty"
+        "tag": "c:gears",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "material": {
     "item": "tconstruct:blank_red_sand_cast"
   },
   "pattern": {
-    "tag": "forge:gears"
+    "tag": "c:gears"
   },
   "result": "tconstruct:gear_red_sand_cast"
 }

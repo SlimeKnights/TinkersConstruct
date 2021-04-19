@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "tag": "forge:dusts/glowstone"
+    "tag": "c:dusts/glowstone"
   },
   "amount_per_item": 1,
   "needed_per_level": 64,

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "forge:wither_bones"
+    "tag": "c:wither_bones"
   },
   "value": 1,
   "needed": 1,

@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/invar",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/invar",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/invar"
+    "tag": "c:coins/invar"
   },
   "cooling_time": 37
 }

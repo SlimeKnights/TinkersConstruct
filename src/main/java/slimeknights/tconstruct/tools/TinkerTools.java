@@ -46,10 +46,10 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(TOOL.get(), ToolDefinitions.AXE));
 
   public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get(), ToolDefinitions.KAMA));
-  public static final ItemObject<KamaTool> scythe = ITEMS.register("scythe", () -> new ScytheTool(TOOL.get().addToolType(ToolType.HOE, 0), ToolDefinitions.SCYTHE));
+  public static final ItemObject<KamaTool> scythe = ITEMS.register("scythe", () -> new ScytheTool(TOOL.get()/*.addToolType(ToolType.HOE, 0)*/, ToolDefinitions.SCYTHE));
 
   public static final ItemObject<BroadSwordTool> broadSword = ITEMS.register("broad_sword", () -> new BroadSwordTool(TOOL.get(), ToolDefinitions.BROADSWORD));
-  public static final ItemObject<BroadSwordTool> cleaver = ITEMS.register("cleaver", () -> new CleaverTool(TOOL.get().addToolType(ToolType.get("sword"), 0), ToolDefinitions.CLEAVER));
+  public static final ItemObject<BroadSwordTool> cleaver = ITEMS.register("cleaver", () -> new CleaverTool(TOOL.get()/*.addToolType(ToolType.get("sword"), 0)*/, ToolDefinitions.CLEAVER));
 
   /*
    * Particles

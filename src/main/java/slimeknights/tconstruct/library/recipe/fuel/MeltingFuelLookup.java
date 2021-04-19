@@ -2,13 +2,13 @@ package slimeknights.tconstruct.library.recipe.fuel;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.fluid.Fluid;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
-
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+
+import net.minecraft.fluid.Fluid;
 
 /**
  * Class handling a recipe cache for fuel recipes, since any given entity type has one recipe

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/aluminum",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/aluminum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/aluminum"
+    "tag": "c:plates/aluminum"
   },
   "result": {
     "fluid": "tconstruct:molten_aluminum",

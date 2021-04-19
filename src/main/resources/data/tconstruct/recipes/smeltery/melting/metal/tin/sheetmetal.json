@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/tin",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/tin",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/tin"
+    "tag": "c:sheetmetals/tin"
   },
   "result": {
     "fluid": "tconstruct:molten_tin",

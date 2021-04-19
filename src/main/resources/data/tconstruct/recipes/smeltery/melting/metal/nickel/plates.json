@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/nickel",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/nickel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/nickel"
+    "tag": "c:plates/nickel"
   },
   "result": {
     "fluid": "tconstruct:molten_nickel",

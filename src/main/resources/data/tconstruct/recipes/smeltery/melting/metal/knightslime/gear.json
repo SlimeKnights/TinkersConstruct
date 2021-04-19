@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/knightslime",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/knightslime",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/knightslime"
+    "tag": "c:gears/knightslime"
   },
   "result": {
     "fluid": "tconstruct:molten_knightslime",

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common.registration;
 
+import lombok.Getter;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
@@ -21,7 +22,7 @@ public class CastItemObject extends ItemObject<Item> {
   private final Supplier<? extends Item> redSand;
   private final Tag<Item> singleUseTag;
   @Getter
-  private final IOptionalNamedTag<Item> multiUseTag;
+  private final Tag<Item> multiUseTag;
 
   public CastItemObject(Identifier name, Item gold, Item sand, Item redSand) {
     super(gold);

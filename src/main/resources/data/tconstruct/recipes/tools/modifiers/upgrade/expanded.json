@@ -5,16 +5,16 @@
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:ingots/silicon_bronze"
+      "tag": "c:ingots/silicon_bronze"
     },
     {
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:slimeball/ichor"
+      "tag": "c:slimeball/ichor"
     },
     {
-      "tag": "forge:slimeball/ichor"
+      "tag": "c:slimeball/ichor"
     }
   ],
   "tools": {

@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/uranium",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/uranium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:plates/uranium"
+    "tag": "c:plates/uranium"
   },
   "cooling_time": 61
 }

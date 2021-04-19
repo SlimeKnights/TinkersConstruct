@@ -1,42 +1,13 @@
 package slimeknights.tconstruct.tools;
 
-import net.minecraft.block.BeehiveBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CampfireBlock;
-import net.minecraft.block.CarvedPumpkinBlock;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tileentity.BeehiveTileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.Event.Result;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-
-import java.util.List;
-
 /**
  * Event subscriber for tool events
  */
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid = TConstruct.modID, bus = Bus.FORGE)
+//@EventBusSubscriber(modid = TConstruct.modID, bus = Bus.FORGE)
 public class ToolEvents {
 
-  @SubscribeEvent
+  /*@SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
     // Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
     ItemStack stack = event.getPlayer().getHeldItemMainhand();
@@ -119,5 +90,5 @@ public class ToolEvents {
         event.setResult(Result.DENY);
       }
     }
-  }
+  }*/
 }

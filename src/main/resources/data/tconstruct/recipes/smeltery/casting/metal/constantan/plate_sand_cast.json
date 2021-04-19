@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/constantan",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/constantan",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:plates/constantan"
+    "tag": "c:plates/constantan"
   },
   "cooling_time": 64
 }

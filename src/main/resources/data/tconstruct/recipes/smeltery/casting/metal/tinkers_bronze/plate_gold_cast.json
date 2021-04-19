@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/tinkers_bronze",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/tinkers_bronze",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:plates/tinkers_bronze"
+    "tag": "c:plates/tinkers_bronze"
   },
   "cooling_time": 57
 }

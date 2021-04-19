@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.book;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import slimeknights.mantle.client.book.BookLoader;
 import slimeknights.mantle.client.book.BookTransformer;
 import slimeknights.mantle.client.book.data.BookData;
@@ -21,10 +21,10 @@ import slimeknights.tconstruct.library.book.sectiontransformer.materials.TierTwo
 
 public class TinkerBook extends BookData {
 
-  private static final ResourceLocation MATERIALS_BOOK_ID = Util.getResource("materials_and_you");
-  private static final ResourceLocation MIGHTY_SMELTING_ID = Util.getResource("mighty_smelting");
-  private static final ResourceLocation PUNY_SMELTING_ID = Util.getResource("puny_smelting");
-  private static final ResourceLocation TINKERS_GADGETRY_ID = Util.getResource("tinkers_gadgetry");
+  private static final Identifier MATERIALS_BOOK_ID = Util.getResource("materials_and_you");
+  private static final Identifier MIGHTY_SMELTING_ID = Util.getResource("mighty_smelting");
+  private static final Identifier PUNY_SMELTING_ID = Util.getResource("puny_smelting");
+  private static final Identifier TINKERS_GADGETRY_ID = Util.getResource("tinkers_gadgetry");
 
   public final static BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID.toString(), false, false);
   public final static BookData PUNY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
@@ -53,7 +53,7 @@ public class TinkerBook extends BookData {
    * @param book Book instance
    * @param id   Book ID
    */
-  private static void addData(BookData book, ResourceLocation id) {
+  private static void addData(BookData book, Identifier id) {
     book.addRepository(new FileRepository(id.getNamespace() + ":book/" + id.getPath()));
     book.addTransformer(new MaterialSectionTransformer());
     book.addTransformer(new ToolSectionTransformer());

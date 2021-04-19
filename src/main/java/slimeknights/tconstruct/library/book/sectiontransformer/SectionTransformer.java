@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import slimeknights.mantle.client.book.BookTransformer;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public abstract class SectionTransformer extends BookTransformer {
 
   protected final String sectionName;

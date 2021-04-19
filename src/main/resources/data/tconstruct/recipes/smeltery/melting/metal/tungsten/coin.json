@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/tungsten",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/tungsten",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/tungsten"
+    "tag": "c:coins/tungsten"
   },
   "result": {
     "fluid": "tconstruct:molten_tungsten",

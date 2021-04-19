@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/manyullyn",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/manyullyn",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 576
   },
   "result": {
-    "tag": "forge:gears/manyullyn"
+    "tag": "c:gears/manyullyn"
   },
   "cooling_time": 144
 }

@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/bronze",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/bronze",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 72
   },
   "result": {
-    "tag": "forge:rods/bronze"
+    "tag": "c:rods/bronze"
   },
   "cooling_time": 40
 }

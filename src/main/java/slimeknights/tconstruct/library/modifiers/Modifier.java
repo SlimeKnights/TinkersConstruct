@@ -10,9 +10,13 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffectUtil;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -211,7 +215,7 @@ public class Modifier{
    * Alternatives:
    * <ul>
    *   <li>{@link #addAttributes(IModifierToolStack, int, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
-   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
+   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, PlayerEntity, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
    * @param toolDefinition  Tool definition, will be empty for non-multitools
    * @param baseStats       Base material stats. Does not take tool definition or other modifiers into account
@@ -523,11 +527,11 @@ public class Modifier{
   public static float getMiningModifier(LivingEntity entity) {
     float modifier = 1.0f;
     // haste effect
-    if (EffectUtils.hasMiningSpeedup(entity)) {
-      modifier *= 1.0F + (EffectUtils.getMiningSpeedup(entity) + 1) * 0.2f;
+    if (StatusEffectUtil.hasHaste(entity)) {
+      modifier *= 1.0F + (StatusEffectUtil.getHasteAmplifier(entity) + 1) * 0.2f;
     }
     // mining fatigue
-    EffectInstance miningFatigue = entity.getActivePotionEffect(Effects.MINING_FATIGUE);
+    StatusEffectInstance miningFatigue = entity.getStatusEffect(StatusEffects.MINING_FATIGUE);
     if (miningFatigue != null) {
       switch(miningFatigue.getAmplifier()) {
         case 0:
@@ -545,7 +549,7 @@ public class Modifier{
       }
     }
     // water
-    if (entity.areEyesInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(entity)) {
+    if (entity.isSubmergedIn(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(entity)) {
       modifier /= 5.0F;
     }
     if (!entity.isOnGround()) {

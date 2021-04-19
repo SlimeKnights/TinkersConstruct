@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/copper",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/copper",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 576
   },
   "result": {
-    "tag": "forge:gears/copper"
+    "tag": "c:gears/copper"
   },
   "cooling_time": 100
 }

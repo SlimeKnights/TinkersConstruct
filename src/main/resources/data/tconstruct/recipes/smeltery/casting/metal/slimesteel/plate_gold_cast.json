@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/slimesteel",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/slimesteel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:plates/slimesteel"
+    "tag": "c:plates/slimesteel"
   },
   "cooling_time": 63
 }

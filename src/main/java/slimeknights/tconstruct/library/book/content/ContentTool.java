@@ -3,12 +3,8 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.ImageData;
 import slimeknights.mantle.client.book.data.element.TextData;
@@ -22,11 +18,15 @@ import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.tools.TinkerTools;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+
+@Environment(EnvType.CLIENT)
 public class ContentTool extends TinkerPage {
 
   public static final transient String ID = "tool";
@@ -60,7 +60,7 @@ public class ContentTool extends TinkerPage {
 
   public ContentTool(ToolCore tool) {
     this.tool = tool;
-    this.toolName = tool.getRegistryName().toString();
+    this.toolName = Registry.ITEM.getId(tool).toString();
   }
 
   @Override
@@ -70,7 +70,7 @@ public class ContentTool extends TinkerPage {
     }
 
     if (this.tool == null) {
-      Item tool = ForgeRegistries.ITEMS.getValue(new ResourceLocation(this.toolName));
+      Item tool = Registry.ITEM.get(new Identifier(this.toolName));
       if (!(tool instanceof ToolCore)) {
         this.tool = TinkerTools.pickaxe.get();
       } else

@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.tools.data;
 
+import net.minecraft.data.DataGenerator;
+/*
 import net.minecraft.block.Blocks;
 import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.CustomRecipeBuilder;
-import net.minecraft.data.DataGenerator;
+
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
@@ -34,18 +36,18 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
-
-public class ModifierRecipeProvider extends BaseRecipeProvider {
+*/
+public class ModifierRecipeProvider /* extends BaseRecipeProvider*/ {
   public ModifierRecipeProvider(DataGenerator generator) {
-    super(generator);
+    //super(generator);
   }
 
-  @Override
+  //@Override
   public String getName() {
     return "Tinkers' Construct Modifier Recipes";
   }
 
-  @Override
+  /*@Override
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     addItemRecipes(consumer);
     addModifierRecipes(consumer);
@@ -108,7 +110,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * durability
      */
-    ModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
+    /*ModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
                          .addInput(TinkerModifiers.reinforcement)
                          .setMaxLevel(5) // max 83% resistant to damage
                          .setUpgradeSlots(1)
@@ -153,7 +155,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * general effects
      */
-    ModifierRecipeBuilder.modifier(TinkerModifiers.experienced.get())
+    /*ModifierRecipeBuilder.modifier(TinkerModifiers.experienced.get())
                          .addInput(Items.EXPERIENCE_BOTTLE, 5)
                          .setMaxLevel(5) // max +250%
                          .setUpgradeSlots(1)
@@ -170,52 +172,52 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      * Speed
      */
     // haste can use redstone or blocks
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
+    /*IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste)
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                                     .setInput(Tags.Items.DUSTS_REDSTONE, 1, 45)
                                     .setMaxLevel(5) // +25 mining speed, vanilla +26
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_dust"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste)
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_REDSTONE, 9, 45)
                                     .setLeftover(new ItemStack(Items.REDSTONE))
                                     .setMaxLevel(5)
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_block"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.blasting.get())
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.blasting)
                                     .setTools(TinkerTags.Items.STONE_HARVEST)
                                     .setInput(Tags.Items.GUNPOWDER, 1, 20)
                                     .setMaxLevel(5) // +50 mining speed at max, conditionally
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.blasting, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic.get())
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic)
                                     .setTools(TinkerTags.Items.HARVEST)
                                     .setInput(Tags.Items.DUSTS_PRISMARINE, 1, 36) // stupid forge name
                                     .setMaxLevel(5)
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.hydraulic, upgradeFolder, "_from_shard"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic.get())
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic)
                                     .setTools(TinkerTags.Items.HARVEST)
                                     .setInput(Blocks.PRISMARINE, 4, 36)
                                     .setLeftover(new ItemStack(Items.PRISMARINE_SHARD))
                                     .setMaxLevel(5)
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.hydraulic, upgradeFolder, "_from_block"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic.get())
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic)
                                     .setTools(TinkerTags.Items.HARVEST)
                                     .setInput(Blocks.PRISMARINE_BRICKS, 9, 36)
                                     .setLeftover(new ItemStack(Items.PRISMARINE_SHARD))
                                     .setMaxLevel(5)
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.hydraulic, upgradeFolder, "_from_bricks"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed.get())
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed)
                                     .setTools(TinkerTags.Items.HARVEST)
                                     .setInput(Tags.Items.DUSTS_GLOWSTONE, 1, 64)
                                     .setMaxLevel(5) // +45 mining speed at max, conditionally
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.lightspeed, upgradeFolder, "_from_dust"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed.get())
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed)
                                     .setTools(TinkerTags.Items.HARVEST)
                                     .setInput(Blocks.GLOWSTONE, 4, 64)
                                     .setLeftover(new ItemStack(Items.GLOWSTONE_DUST))
@@ -226,7 +228,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * weapon
      */
-    ModifierRecipeBuilder.modifier(TinkerModifiers.knockback.get())
+    /*ModifierRecipeBuilder.modifier(TinkerModifiers.knockback)
                          .addInput(Items.PISTON)
                          .addInput(TinkerTags.Items.SLIME_BLOCK)
                          .setMaxLevel(5) // max +2.5 knockback points (knockback 5) (whatever that number means in vanilla)
@@ -260,7 +262,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * damage boost
      */
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.smite.get())
+    /*IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.smite.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.GLISTERING_MELON_SLICE, 1, 5)
                                     .setMaxLevel(5) // +12.5 undead damage
@@ -302,7 +304,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * ability
      */
-    ModifierRecipeBuilder.modifier(TinkerModifiers.gilded.get())
+    /*ModifierRecipeBuilder.modifier(TinkerModifiers.gilded.get())
                          .addInput(Items.GOLDEN_APPLE)
                          .setMaxLevel(2)
                          .setAbilitySlots(1)
@@ -363,7 +365,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * extra modifiers
      */
-    ModifierRecipeBuilder.modifier(TinkerModifiers.writable.get())
+    /*ModifierRecipeBuilder.modifier(TinkerModifiers.writable.get())
                          .addInput(Items.WRITABLE_BOOK)
                          .setMaxLevel(1)
                          .build(consumer, prefixR(TinkerModifiers.writable, upgradeFolder));
@@ -404,5 +406,5 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                           .build(consumer, prefix(Items.CREEPER_HEAD, folder));
     CustomRecipeBuilder.customRecipe(TinkerModifiers.playerBeheadingSerializer.get()).build(consumer, locationString(folder + "player"));
     CustomRecipeBuilder.customRecipe(TinkerModifiers.snowGolemBeheadingSerializer.get()).build(consumer, locationString(folder + "snow_golem"));
-  }
+  }*/
 }

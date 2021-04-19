@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/silicon_bronze",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/silicon_bronze",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/silicon_bronze"
+    "tag": "c:gears/silicon_bronze"
   },
   "result": {
     "fluid": "tconstruct:molten_tinkers_bronze",

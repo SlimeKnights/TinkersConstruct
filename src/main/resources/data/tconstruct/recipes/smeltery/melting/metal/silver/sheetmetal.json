@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/silver",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/silver",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/silver"
+    "tag": "c:sheetmetals/silver"
   },
   "result": {
     "fluid": "tconstruct:molten_silver",

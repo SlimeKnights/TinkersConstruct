@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/iron",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/iron",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/iron"
+    "tag": "c:sheetmetals/iron"
   },
   "result": {
     "fluid": "tconstruct:molten_iron",

@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "c:item/default-tool",
   "textures": {
     "axe":         "tconstruct:item/tool/mattock/axe",
     "broken_axe":  "tconstruct:item/tool/mattock/broken_axe",

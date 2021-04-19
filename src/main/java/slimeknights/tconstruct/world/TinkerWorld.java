@@ -178,15 +178,14 @@ public final class TinkerWorld extends TinkerModule implements ModInitializer {
     SpawnRestriction.register(skySlimeEntity, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
 
     // compostables
-    event.enqueueWork(() -> {
-      slimeLeaves.forEach(block -> ComposterBlock.registerCompostableItem(0.35f, block));
-      slimeSapling.forEach(block -> ComposterBlock.registerCompostableItem(0.35f, block));
-      slimeTallGrass.forEach(block -> ComposterBlock.registerCompostableItem(0.35f, block));
-      slimeFern.forEach(block -> ComposterBlock.registerCompostableItem(0.65f, block));
-      slimeGrassSeeds.forEach(block -> ComposterBlock.registerCompostableItem(0.35F, block));
-      ComposterBlock.registerCompostableItem(0.5f, skySlimeVine);
-      ComposterBlock.registerCompostableItem(0.5f, enderSlimeVine);
-    });
+
+    slimeLeaves.forEach(block -> ComposterBlock.registerCompostableItem(0.35f, block));
+    slimeSapling.forEach(block -> ComposterBlock.registerCompostableItem(0.35f, block));
+    slimeTallGrass.forEach(block -> ComposterBlock.registerCompostableItem(0.35f, block));
+    slimeFern.forEach(block -> ComposterBlock.registerCompostableItem(0.65f, block));
+    slimeGrassSeeds.forEach(block -> ComposterBlock.registerCompostableItem(0.35F, block));
+    ComposterBlock.registerCompostableItem(0.5f, skySlimeVine);
+    ComposterBlock.registerCompostableItem(0.5f, enderSlimeVine);
 
     // ores
     COPPER_ORE_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("copper_ore"),

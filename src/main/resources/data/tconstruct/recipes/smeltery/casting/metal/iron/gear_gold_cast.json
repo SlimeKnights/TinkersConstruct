@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/iron",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/iron",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 576
   },
   "result": {
-    "tag": "forge:gears/iron"
+    "tag": "c:gears/iron"
   },
   "cooling_time": 120
 }

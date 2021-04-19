@@ -35,7 +35,7 @@ public class MaterialRenderInfo {
    * @return  Sprite if valid, null if missing
    */
   @Nullable
-  private Sprite tryTexture(SpriteIdentifier base, String suffix, Function<SpriteIdentifier,Sprite> spriteGetter) {
+  private Sprite trySprite(SpriteIdentifier base, String suffix, Function<SpriteIdentifier,Sprite> spriteGetter) {
     Sprite sprite = spriteGetter.apply(getMaterial(base.getTextureId(), suffix));
     if (!MissingSprite.getMissingSpriteId().equals(sprite.getId())) {
       return sprite;

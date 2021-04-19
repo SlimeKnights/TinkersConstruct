@@ -94,3 +94,10 @@ accessible  method  net/minecraft/block/FluidBlock <init>  (Lnet/minecraft/fluid
 accessible 	method	net/minecraft/entity/Entity	getSavedEntityId ()Ljava/lang/String;
 
 accessible  field   net/minecraft/item/BucketItem  fluid    Lnet/minecraft/fluid/Fluid;
+
+accessible  method  net/minecraft/block/Blocks  never   (Lnet/minecraft/block/BlockState;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/EntityType;)Ljava/lang/Boolean;
+accessible  method  net/minecraft/block/Blocks  never   (Lnet/minecraft/block/BlockState;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z
+
+accessible  field   net/minecraft/client/MinecraftClient    fontManager     Lnet/minecraft/client/font/FontManager;
+accessible  field   net/minecraft/client/font/FontManager  fontStorages     Ljava/util/Map;
+

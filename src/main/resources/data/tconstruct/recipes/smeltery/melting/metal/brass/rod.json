@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/brass",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/brass",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/brass"
+    "tag": "c:rods/brass"
   },
   "result": {
     "fluid": "tconstruct:molten_brass",

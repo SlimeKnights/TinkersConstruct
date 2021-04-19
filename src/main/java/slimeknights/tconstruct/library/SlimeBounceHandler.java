@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library;
 
 import java.util.IdentityHashMap;
+import java.util.function.Consumer;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -8,7 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 
 /** Logic for entities bouncing */
-public class SlimeBounceHandler implements Consumer<LivingUpdateEvent> {
+public class SlimeBounceHandler /* implements Consumer<PlayerEntity>*/ {
   private static final IdentityHashMap<Entity, SlimeBounceHandler> bouncingEntities = new IdentityHashMap<>();
 
   public static IdentityHashMap<Entity, SlimeBounceHandler> getBouncingEntities() {
@@ -41,8 +42,8 @@ public class SlimeBounceHandler implements Consumer<LivingUpdateEvent> {
     //entityLiving.addChatMessage(new ChatComponentText("added " + entityLiving.worldObj.isRemote));
   }
 
-  @Override
-  public void accept(LivingUpdateEvent event) {
+  //@Override
+  public void accept(PlayerEntity player) {
     // this is only relevant for the local player
     if (player == this.entityLiving && !player.isFallFlying()) {
       // bounce up. This is to pcircumvent the logic that resets y motion after landing

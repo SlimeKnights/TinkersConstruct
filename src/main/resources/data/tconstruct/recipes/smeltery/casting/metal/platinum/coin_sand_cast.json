@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/platinum",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/platinum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/platinum"
+    "tag": "c:coins/platinum"
   },
   "cooling_time": 38
 }

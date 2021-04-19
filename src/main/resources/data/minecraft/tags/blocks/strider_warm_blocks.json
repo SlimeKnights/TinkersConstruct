@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:magma_cream_fluid",
-    "tconstruct:molten_blaze_fluid"
+    "tconstruct:fluid_magma_cream",
+    "tconstruct:fluid_molten_blaze"
   ]
 }

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/copper",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/copper",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/copper"
+    "tag": "c:gears/copper"
   },
   "result": {
     "fluid": "tconstruct:molten_copper",

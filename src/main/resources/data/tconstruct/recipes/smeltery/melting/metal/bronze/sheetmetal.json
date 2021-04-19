@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/bronze",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/bronze",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/bronze"
+    "tag": "c:sheetmetals/bronze"
   },
   "result": {
     "fluid": "tconstruct:molten_bronze",

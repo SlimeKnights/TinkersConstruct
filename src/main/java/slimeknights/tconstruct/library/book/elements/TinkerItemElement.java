@@ -1,27 +1,20 @@
 package slimeknights.tconstruct.library.book.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import slimeknights.mantle.client.screen.book.element.ItemElement;
+import java.util.Collection;
+
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.gui.GuiUtils;
-import slimeknights.mantle.client.render.RenderingHelper;
-import slimeknights.mantle.client.screen.book.element.ItemElement;
-
-import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Same as ElementItem, but uses the vanilla fontrenderer if none other is given
  */
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class TinkerItemElement extends ItemElement {
 
   public boolean noTooltip = false;
@@ -54,20 +47,20 @@ public class TinkerItemElement extends ItemElement {
     super(x, y, scale, itemCycle);
   }
 
-  public TinkerItemElement(int x, int y, float scale, ItemStack[] itemCycle, @Nullable String action) {
+  public TinkerItemElement(int x, int y, float scale, ItemStack[] itemCycle, String action) {
     super(x, y, scale, itemCycle, action);
   }
 
   @Override
-  public void drawOverlay(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
+  public void drawOverlay(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks, TextRenderer textRenderer) {
     if (this.noTooltip) {
       return;
     }
 
     if (this.tooltip == null) {
-      fontRenderer = mc.fontRenderer;
+      textRenderer = mc.textRenderer;
     }
 
-    super.drawOverlay(matrixStack, mouseX, mouseY, partialTicks, fontRenderer);
+    super.drawOverlay(matrixStack, mouseX, mouseY, partialTicks, textRenderer);
   }
 }

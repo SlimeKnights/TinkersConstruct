@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/pewter",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/pewter",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/pewter"
+    "tag": "c:sheetmetals/pewter"
   },
   "result": {
     "fluid": "tconstruct:molten_pewter",

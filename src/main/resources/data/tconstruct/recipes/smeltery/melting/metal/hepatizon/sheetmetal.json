@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/hepatizon",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/hepatizon",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/hepatizon"
+    "tag": "c:sheetmetals/hepatizon"
   },
   "result": {
     "fluid": "tconstruct:molten_hepatizon",

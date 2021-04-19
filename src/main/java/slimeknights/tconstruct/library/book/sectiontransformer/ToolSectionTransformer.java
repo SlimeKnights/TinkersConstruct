@@ -1,18 +1,17 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import net.minecraftforge.registries.ForgeRegistries;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.tconstruct.library.book.content.ContentListing;
 import slimeknights.tconstruct.library.book.content.ContentTool;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
-
 import java.util.Optional;
 
-@OnlyIn(Dist.CLIENT)
+import net.minecraft.util.registry.Registry;
+
+@Environment(EnvType.CLIENT)
 public class ToolSectionTransformer extends ContentListingSectionTransformer {
 
   public ToolSectionTransformer() {
@@ -24,8 +23,8 @@ public class ToolSectionTransformer extends ContentListingSectionTransformer {
     // only add tool pages if the tool exists
     if (page.content instanceof ContentTool) {
       String toolName = ((ContentTool) page.content).toolName;
-      Optional<ToolCore> tool = ForgeRegistries.ITEMS.getValues().stream()
-        .filter((item) -> toolName.equals(item.getRegistryName().toString()) && item instanceof ToolCore)
+      Optional<ToolCore> tool = Registry.ITEM.stream()
+        .filter((item) -> toolName.equals(Registry.ITEM.getId(item).toString()) && item instanceof ToolCore)
         .map(item -> (ToolCore) item)
         .findFirst();
 

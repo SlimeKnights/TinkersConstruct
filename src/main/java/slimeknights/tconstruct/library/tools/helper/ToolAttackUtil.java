@@ -1,10 +1,18 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import org.jetbrains.annotations.Nullable;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import java.util.List;
+
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -13,19 +21,11 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.DamageSource;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import org.jetbrains.annotations.Nullable;
-import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-
-import java.util.List;
 
 public class ToolAttackUtil {
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
@@ -97,9 +97,9 @@ public class ToolAttackUtil {
   /** Performs a standard attack */
   public static boolean dealDefaultDamage(LivingEntity attacker, Entity target, float damage) {
     if (attacker instanceof PlayerEntity) {
-      return target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) attacker), damage);
+      return target.damage(DamageSource.player((PlayerEntity) attacker), damage);
     }
-    return target.attackEntityFrom(DamageSource.causeMobDamage(attacker), damage);
+    return target.damage(DamageSource.mob(attacker), damage);
   }
 
   /**

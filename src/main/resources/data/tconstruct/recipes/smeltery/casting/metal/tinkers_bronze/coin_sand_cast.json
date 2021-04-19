@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/tinkers_bronze",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/tinkers_bronze",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/tinkers_bronze"
+    "tag": "c:coins/tinkers_bronze"
   },
   "cooling_time": 33
 }

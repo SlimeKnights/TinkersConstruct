@@ -3,17 +3,17 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:ingots/pewter",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/pewter",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     },
     {
       "value": {
-        "tag": "forge:ingots/lead",
-        "type": "forge:tag_empty"
+        "tag": "c:ingots/lead",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "inputs": [

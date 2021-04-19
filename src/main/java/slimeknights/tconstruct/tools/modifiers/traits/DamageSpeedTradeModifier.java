@@ -41,7 +41,7 @@ public class DamageSpeedTradeModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, boolean isEffective, float miningSpeedModifier) {
     throw new RuntimeException("crab!");
     //TODO: PORTING
 //    player.setNewSpeed((float)(player.getNewSpeed() * (1 - (Math.sqrt(tool.getDamage() * level) * multiplier))));

@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/nickel",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/nickel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/nickel"
+    "tag": "c:coins/nickel"
   },
   "cooling_time": 37
 }

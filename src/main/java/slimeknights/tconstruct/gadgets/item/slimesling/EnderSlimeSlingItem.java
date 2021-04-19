@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.shared.block.SlimeType;
-
+//TODO: this stuff working and I don't feel like finding out why
 public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
 
   public EnderSlimeSlingItem(Settings props) {
@@ -34,16 +34,16 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
     // find teleport target
     BlockPos furthestPos = null;
     while (Math.abs(offX) > .5 || Math.abs(offY) > .5 || Math.abs(offZ) > .5) { // while not too close to player
-      BlockPos posAttempt = new BlockPos(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ);
+      BlockPos posAttempt = new BlockPos(player.getX() + offX, player.getY() + offY, player.getZ() + offZ);
 
       // if we do not have a position yet, see if this one is valid
       if (furthestPos == null) {
-        if (worldIn.getWorldBorder().contains(posAttempt) && !worldIn.getBlockState(posAttempt).isSuffocating(worldIn, posAttempt)) {
+        if (worldIn.getWorldBorder().contains(posAttempt) && !worldIn.getBlockState(posAttempt).shouldSuffocate(worldIn, posAttempt)) {
           furthestPos = posAttempt;
         }
       } else {
         // if we already have a position, clear if the new one is unbreakable
-        if (worldIn.getBlockState(posAttempt).getBlockHardness(worldIn, posAttempt) == -1) {
+        if (worldIn.getBlockState(posAttempt).getHardness(worldIn, posAttempt) == -1) {
           furthestPos = null;
         }
       }
@@ -56,8 +56,8 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
 
     // get furthest teleportable block
     if (furthestPos != null) {
-      player.getCooldownTracker().setCooldown(stack.getItem(), 3);
-      player.setPosition(furthestPos.getX() + 0.5f, furthestPos.getY(), furthestPos.getZ() + 0.5f);
+      player.getItemCooldownManager().set(stack.getItem(), 3);
+      player.setPos(furthestPos.getX() + 0.5f, furthestPos.getY(), furthestPos.getZ() + 0.5f);
 
       // particle effect from EnderPearlEntity
       for (int i = 0; i < 32; ++i) {

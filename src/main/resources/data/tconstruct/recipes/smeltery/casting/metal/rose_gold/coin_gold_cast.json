@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/rose_gold",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/rose_gold",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/rose_gold"
+    "tag": "c:coins/rose_gold"
   },
   "cooling_time": 30
 }

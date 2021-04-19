@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/slimesteel",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/slimesteel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/slimesteel"
+    "tag": "c:coins/slimesteel"
   },
   "cooling_time": 37
 }

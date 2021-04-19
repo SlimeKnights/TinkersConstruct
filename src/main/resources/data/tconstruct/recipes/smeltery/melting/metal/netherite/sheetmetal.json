@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/netherite",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/netherite",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/netherite"
+    "tag": "c:sheetmetals/netherite"
   },
   "result": {
     "fluid": "tconstruct:molten_netherite",

@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/pewter",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/pewter",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 16
   },
   "result": {
-    "tag": "forge:nuggets/pewter"
+    "tag": "c:nuggets/pewter"
   },
   "cooling_time": 15
 }

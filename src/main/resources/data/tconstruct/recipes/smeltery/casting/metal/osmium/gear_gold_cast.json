@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/osmium",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/osmium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 576
   },
   "result": {
-    "tag": "forge:gears/osmium"
+    "tag": "c:gears/osmium"
   },
   "cooling_time": 131
 }

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/pewter",
-        "type": "forge:tag_empty"
+        "tag": "c:storage_blocks/pewter",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/pewter"
+    "tag": "c:storage_blocks/pewter"
   },
   "result": {
     "fluid": "tconstruct:molten_pewter",

@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/cobalt",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/cobalt",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/cobalt"
+    "tag": "c:gears/cobalt"
   },
   "result": {
     "fluid": "tconstruct:molten_cobalt",

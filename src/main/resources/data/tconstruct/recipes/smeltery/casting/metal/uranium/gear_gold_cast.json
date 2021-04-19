@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/uranium",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/uranium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 576
   },
   "result": {
-    "tag": "forge:gears/uranium"
+    "tag": "c:gears/uranium"
   },
   "cooling_time": 122
 }

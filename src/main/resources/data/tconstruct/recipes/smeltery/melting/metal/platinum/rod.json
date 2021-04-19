@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/platinum",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/platinum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/platinum"
+    "tag": "c:rods/platinum"
   },
   "result": {
     "fluid": "tconstruct:molten_platinum",

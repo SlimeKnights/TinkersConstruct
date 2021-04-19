@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/invar",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/invar",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/invar"
+    "tag": "c:plates/invar"
   },
   "result": {
     "fluid": "tconstruct:molten_invar",

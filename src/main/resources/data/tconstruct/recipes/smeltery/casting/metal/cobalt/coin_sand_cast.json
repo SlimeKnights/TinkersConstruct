@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/cobalt",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/cobalt",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 48
   },
   "result": {
-    "tag": "forge:coins/cobalt"
+    "tag": "c:coins/cobalt"
   },
   "cooling_time": 37
 }

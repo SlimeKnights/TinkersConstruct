@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/osmium",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/osmium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/osmium"
+    "tag": "c:sheetmetals/osmium"
   },
   "result": {
     "fluid": "tconstruct:molten_osmium",

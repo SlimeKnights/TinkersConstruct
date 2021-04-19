@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#forge:seeds",
+    "#c:seeds",
     "minecraft:carrot",
     "minecraft:potato",
     "minecraft:nether_wart"

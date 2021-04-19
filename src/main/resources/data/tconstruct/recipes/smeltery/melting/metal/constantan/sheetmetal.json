@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/constantan",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/constantan",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/constantan"
+    "tag": "c:sheetmetals/constantan"
   },
   "result": {
     "fluid": "tconstruct:molten_constantan",

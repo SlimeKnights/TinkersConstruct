@@ -37,8 +37,8 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
     this.duration = duration;
     this.temperature = temperature;
     // register this recipe with the lookup
-    for (FluidStack fluid : input.getFluids()) {
-      MeltingFuelLookup.addFuel(fluid.getFluid(), this);
+    for (FluidVolume fluid : input.getFluids()) {
+      MeltingFuelLookup.addFuel(fluid.getRawFluid(), this);
     }
   }
 

@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/lead",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/lead",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 576
   },
   "result": {
-    "tag": "forge:gears/lead"
+    "tag": "c:gears/lead"
   },
   "cooling_time": 87
 }

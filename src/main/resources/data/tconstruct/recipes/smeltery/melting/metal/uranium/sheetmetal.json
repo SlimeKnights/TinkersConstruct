@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/uranium",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/uranium",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/uranium"
+    "tag": "c:sheetmetals/uranium"
   },
   "result": {
     "fluid": "tconstruct:molten_uranium",

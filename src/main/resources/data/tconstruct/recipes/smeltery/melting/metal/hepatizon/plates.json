@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/hepatizon",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/hepatizon",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/hepatizon"
+    "tag": "c:plates/hepatizon"
   },
   "result": {
     "fluid": "tconstruct:molten_hepatizon",

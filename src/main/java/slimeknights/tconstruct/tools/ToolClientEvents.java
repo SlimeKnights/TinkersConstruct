@@ -92,8 +92,8 @@ public class ToolClientEvents extends ClientEventBase {
     registerMaterialItemColors(colors, TinkerToolParts.swordBlade);
     registerMaterialItemColors(colors, TinkerToolParts.toolBinding);
     registerMaterialItemColors(colors, TinkerToolParts.largePlate);
-    registerMaterialItemColors(colors, TinkerToolParts.toolRod);
-    registerMaterialItemColors(colors, TinkerToolParts.toughToolRod);
+    //registerMaterialItemColors(colors, TinkerToolParts.toolRod);
+    //registerMaterialItemColors(colors, TinkerToolParts.toughToolRod);
 
     EntityRendererRegistry.INSTANCE.register(TinkerTools.indestructibleItem, (manager, context) -> new ItemEntityRenderer(manager, MinecraftClient.getInstance().getItemRenderer()));
 

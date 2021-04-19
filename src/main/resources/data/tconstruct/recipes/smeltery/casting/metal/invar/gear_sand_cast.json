@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/invar",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/invar",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 576
   },
   "result": {
-    "tag": "forge:gears/invar"
+    "tag": "c:gears/invar"
   },
   "cooling_time": 127
 }

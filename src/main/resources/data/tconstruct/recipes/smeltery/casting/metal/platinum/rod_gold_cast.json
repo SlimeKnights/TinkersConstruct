@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/platinum",
-        "type": "forge:tag_empty"
+        "tag": "c:rods/platinum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 72
   },
   "result": {
-    "tag": "forge:rods/platinum"
+    "tag": "c:rods/platinum"
   },
   "cooling_time": 46
 }

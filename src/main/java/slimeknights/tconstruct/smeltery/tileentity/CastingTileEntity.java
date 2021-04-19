@@ -2,8 +2,23 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import lombok.Getter;
 import net.fabricmc.fabric.api.util.NbtType;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.tconstruct.library.EmptyItemHandler;
+import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
+import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
+import slimeknights.tconstruct.misc.ItemHandlerHelper;
+import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
+import slimeknights.tconstruct.smeltery.recipe.TileCastingWrapper;
+import slimeknights.tconstruct.smeltery.tileentity.inventory.MoldingInventoryWrapper;
+import slimeknights.tconstruct.smeltery.tileentity.tank.CastingFluidHandler;
+import java.util.Optional;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +31,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
@@ -26,30 +40,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
-import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
-import slimeknights.tconstruct.misc.ItemHandlerHelper;
-import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
-import slimeknights.tconstruct.smeltery.recipe.TileCastingWrapper;
-import slimeknights.tconstruct.smeltery.tileentity.inventory.MoldingInventoryWrapper;
-import slimeknights.tconstruct.smeltery.tileentity.tank.CastingFluidHandler;
-
-import java.util.Optional;
 
 public abstract class CastingTileEntity extends TableTileEntity implements Tickable, SidedInventory, FluidUpdatePacket.IFluidPacketReceiver {
   // slots

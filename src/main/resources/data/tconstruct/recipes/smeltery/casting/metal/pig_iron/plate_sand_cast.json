@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/pig_iron",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/pig_iron",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 144
   },
   "result": {
-    "tag": "forge:plates/pig_iron"
+    "tag": "c:plates/pig_iron"
   },
   "cooling_time": 60
 }

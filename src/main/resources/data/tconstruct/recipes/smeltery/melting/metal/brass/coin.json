@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/brass",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/brass",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/brass"
+    "tag": "c:coins/brass"
   },
   "result": {
     "fluid": "tconstruct:molten_brass",

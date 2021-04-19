@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/pig_iron",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/pig_iron",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 576
   },
   "result": {
-    "tag": "forge:gears/pig_iron"
+    "tag": "c:gears/pig_iron"
   },
   "cooling_time": 121
 }

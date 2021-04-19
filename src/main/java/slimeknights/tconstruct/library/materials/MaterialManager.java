@@ -11,25 +11,13 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.resource.JsonDataLoader;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.ICondition;
-import slimeknights.mantle.util.CraftingHelper;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
-
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
@@ -39,6 +27,16 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.resource.JsonDataLoader;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.registry.Registry;
 
 /**
  * Loads the material data from datapacks and provides them to whatever needs them.

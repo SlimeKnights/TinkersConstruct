@@ -1,11 +1,7 @@
 package slimeknights.tconstruct.library.book.sectiontransformer.materials;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
@@ -23,14 +19,18 @@ import slimeknights.tconstruct.library.book.sectiontransformer.SectionTransforme
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
-@OnlyIn(Dist.CLIENT)
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.text.TranslatableText;
+
+@Environment(EnvType.CLIENT)
 public abstract class AbstractMaterialSectionTransformer extends SectionTransformer {
 
   public AbstractMaterialSectionTransformer(String sectionName) {
@@ -61,14 +61,14 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
     ContentPageIconList overview = iter.next();
 
     for (IMaterial material : materialList) {
-      assert Minecraft.getInstance().world != null;
-      List<MaterialRecipe> recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().world.getRecipeManager(), RecipeTypes.MATERIAL, MaterialRecipe.class).stream().filter(recipe -> recipe.getMaterial() == material).collect(Collectors.toList());
+      assert MinecraftClient.getInstance().world != null;
+      List<MaterialRecipe> recipes = RecipeHelper.getJEIRecipes(MinecraftClient.getInstance().world.getRecipeManager(), RecipeTypes.MATERIAL, MaterialRecipe.class).stream().filter(recipe -> recipe.getMaterial() == material).collect(Collectors.toList());
       List<ItemStack> displayStacks = new ArrayList<>();
 
       for (MaterialRecipe recipe : recipes) {
-        for (Ingredient ingredient : recipe.getIngredients()) {
-          if (!ingredient.hasNoMatchingItems()) {
-            displayStacks.addAll(Arrays.asList(ingredient.getMatchingStacks()));
+        for (Ingredient ingredient : recipe.getPreviewInputs()) {
+          if (!ingredient.isEmpty()) {
+            displayStacks.addAll(Arrays.asList(ingredient.getMatchingStacksClient()));
           }
         }
       }
@@ -83,7 +83,7 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
         System.out.println("Material with id " + material.getIdentifier() + " has no representation items associated with it");
       }
 
-      while (!overview.addLink(icon, new TranslationTextComponent(material.getTranslationKey()).modifyStyle(style -> style.setColor(material.getColor())), page)) {
+      while (!overview.addLink(icon, new TranslatableText(material.getTranslationKey()).styled(style -> style.withColor(material.getColor())), page)) {
         overview = iter.next();
       }
     }

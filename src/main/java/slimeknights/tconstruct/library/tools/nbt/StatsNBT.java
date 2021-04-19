@@ -1,5 +1,9 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -33,12 +37,13 @@ public class StatsNBT {
   /** Number of blocks you can reach holding this tool, base is 5 blocks */
   private final float reach;
 
-  public StatsNBT(int durability, int harvestLevel, float attackDamage, float miningSpeed, float attackSpeed) {
+  public StatsNBT(int durability, int harvestLevel, float attackDamage, float miningSpeed, float attackSpeed, float reach) {
     this.durability = durability;
     this.harvestLevel = harvestLevel;
     this.attackDamage = attackDamage;
     this.miningSpeed = miningSpeed;
     this.attackSpeed = attackSpeed;
+    this.reach = reach;
   }
 
   /** Parses the stats from NBT */
@@ -141,5 +146,9 @@ public class StatsNBT {
 
   public float getAttackSpeed() {
     return this.attackSpeed;
+  }
+
+  public float getReach() {
+    return this.reach;
   }
 }

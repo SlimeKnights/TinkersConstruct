@@ -2,9 +2,23 @@ package slimeknights.tconstruct.tools.harvest;
 
 import com.google.common.collect.Sets;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.CropsBlock;
+import net.minecraft.block.CropBlock;
 import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -14,33 +28,23 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Property;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
-import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.TinkerModifiers;
-
-import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
 
 public class KamaTool extends HarvestTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
@@ -135,13 +139,13 @@ public class KamaTool extends HarvestTool {
    * @param player   Player instance
    * @return  True if harvested
    */
-  private static boolean harvestInteract(ItemUseContext context, ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
+  private static boolean harvestInteract(ItemUsageContext context, ServerWorld world, BlockState state, BlockPos pos, PlayerEntity player) {
     if (player == null) {
       return false;
     }
-    BlockRayTraceResult trace = new BlockRayTraceResult(context.getHitVec(), context.getFace(), pos, false);
-    ActionResultType result = state.onBlockActivated(world, player, context.getHand(), trace);
-    return result.isSuccessOrConsume();
+    BlockHitResult trace = new BlockHitResult(context.getHitPos(), context.getPlayerFacing(), pos, false);
+    ActionResult result = state.onUse(world, player, context.getHand(), trace);
+    return result.isAccepted();
   }
 
   /**
@@ -152,16 +156,16 @@ public class KamaTool extends HarvestTool {
    * @param player  Player instance
    * @return True if the block was harvested
    */
-  private static boolean harvestStackable(ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
+  private static boolean harvestStackable(ServerWorld world, BlockState state, BlockPos pos, PlayerEntity player) {
     // if the block below is the same, break this block
     if (world.getBlockState(pos.down()).getBlock() == state.getBlock()) {
-      world.destroyBlock(pos, true, player);
+      world.breakBlock(pos, true, player);
       return true;
     } else {
       // if the block above is the same, break it
       BlockPos up = pos.up();
       if (world.getBlockState(up).getBlock() == state.getBlock()) {
-        world.destroyBlock(up, true, player);
+        world.breakBlock(up, true, player);
         return true;
       }
     }
@@ -177,22 +181,22 @@ public class KamaTool extends HarvestTool {
    * @param player  Player instance
    * @return  True if the crop was successfully harvested
    */
-  private static boolean harvestCrop(ItemStack stack, ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
+  private static boolean harvestCrop(ItemStack stack, ServerWorld world, BlockState state, BlockPos pos, PlayerEntity player) {
     Block block = state.getBlock();
     BlockState replant;
     // if crops block, its easy
-    if (block instanceof CropsBlock) {
-      CropsBlock crops = (CropsBlock)block;
-      if (!crops.isMaxAge(state)) {
+    if (block instanceof CropBlock) {
+      CropBlock crops = (CropBlock)block;
+      if (!crops.isMature(state)) {
         return false;
       }
       replant = crops.withAge(0);
     } else {
       // try to find an age property
-      IntegerProperty age = null;
+      IntProperty age = null;
       for (Property<?> prop : state.getProperties()) {
-        if (prop.getName().equals("age") && prop instanceof IntegerProperty) {
-          age = (IntegerProperty)prop;
+        if (prop.getName().equals("age") && prop instanceof IntProperty) {
+          age = (IntProperty)prop;
           break;
         }
       }
@@ -201,12 +205,12 @@ public class KamaTool extends HarvestTool {
         return false;
       } else {
         // property must have 0 as valid
-        Collection<Integer> allowedValues = age.getAllowedValues();
+        Collection<Integer> allowedValues = age.getValues();
         if (!allowedValues.contains(0)) {
           return false;
         }
         // crop must be max age
-        int maxAge = age.getAllowedValues().stream().max(Integer::compareTo).orElse(Integer.MAX_VALUE);
+        int maxAge = age.getValues().stream().max(Integer::compareTo).orElse(Integer.MAX_VALUE);
         if (state.get(age) < maxAge) {
           return false;
         }
@@ -216,12 +220,12 @@ public class KamaTool extends HarvestTool {
 
     // crop is fully grown, get loot context
     LootContext.Builder lootContext = new LootContext.Builder(world)
-      .withRandom(world.rand)
-      .withParameter(LootParameters.field_237457_g_, Vector3d.copyCentered(pos))
-      .withParameter(LootParameters.TOOL, ItemStack.EMPTY)
-      .withNullableParameter(LootParameters.BLOCK_ENTITY, world.getTileEntity(pos));
+      .random(world.random)
+      .parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(pos))
+      .parameter(LootContextParameters.TOOL, ItemStack.EMPTY)
+      .optionalParameter(LootContextParameters.BLOCK_ENTITY, world.getBlockEntity(pos));
     // find drops
-    List<ItemStack> drops = state.getDrops(lootContext);
+    List<ItemStack> drops = state.getDroppedStacks(lootContext);
 
     // find a seed to remove from the drops
     Iterator<ItemStack> iterator = drops.iterator();
@@ -230,7 +234,7 @@ public class KamaTool extends HarvestTool {
       ItemStack drop = iterator.next();
       if (TinkerTags.Items.SEEDS.contains(drop.getItem())) {
         hasSeed = true;
-        drop.shrink(1);
+        drop.decrement(1);
         if (drop.isEmpty()) {
           iterator.remove();
         }
@@ -241,16 +245,16 @@ public class KamaTool extends HarvestTool {
     // if we found one, replant, no seed means break
     if (hasSeed) {
       world.setBlockState(pos, replant);
-      state.spawnAdditionalDrops(world, pos, stack);
+      state.onStacksDropped(world, pos, stack);
       // set block state will not play sounds, destory block will
-      world.playSound(null, pos, state.getSoundType(world, pos, player).getBreakSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
+      world.playSound(null, pos, state.getSoundGroup().getBreakSound()/* (world, pos, player).getBreakSound()*/, SoundCategory.BLOCKS, 1.0f, 1.0f);
     } else {
-      world.destroyBlock(pos, false);
+      world.breakBlock(pos, false);
     }
 
     // drop items
     for (ItemStack drop : drops) {
-      Block.spawnAsEntity(world, pos, drop);
+      Block.dropStack(world, pos, drop);
     }
 
     return true;
@@ -265,17 +269,18 @@ public class KamaTool extends HarvestTool {
    * @param stack    Stack used to break
    * @return  True if harvested
    */
-  private static boolean harvest(ItemUseContext context, ItemStack stack, ToolStack tool, ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
+  private static boolean harvest(ItemUsageContext context, ItemStack stack, ToolStack tool, ServerWorld world, BlockState state, BlockPos pos, PlayerEntity player) {
     // first, check main harvestable tag
     Block block = state.getBlock();
     if (!TinkerTags.Blocks.HARVESTABLE.contains(block)) {
       return false;
     }
+    //TODO: probably do something about this?
     // try harvest event
-    Result result = new ToolHarvestEvent(stack, tool, context, world, state, pos, player).fire();
-    if (result != Result.DEFAULT) {
-      return result == Result.ALLOW;
-    }
+    //Result result = new ToolHarvestEvent(stack, tool, context, world, state, pos, player).fire();
+    //if (result != Result.DEFAULT) {
+     // return result == Result.ALLOW;
+    //}
     // crops that work based on right click interact (berry bushes)
     if (TinkerTags.Blocks.HARVESTABLE_INTERACT.contains(block)) {
       return harvestInteract(context, world, state, pos, player);
@@ -293,7 +298,8 @@ public class KamaTool extends HarvestTool {
 
   @Override
   public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-    ItemStack itemStackIn = playerIn.getStackInHand(handIn);
+    throw new RuntimeException("CRAB");
+    /*ItemStack itemStackIn = playerIn.getStackInHand(handIn);
     if (ToolDamageUtil.isBroken(itemStackIn)) {
       return TypedActionResult.fail(itemStackIn);
     }
@@ -340,7 +346,7 @@ public class KamaTool extends HarvestTool {
       }
       return ActionResultType.SUCCESS;
     }
-    return ActionResultType.PASS;
+    return ActionResultType.PASS;*/
   }
 
   @Override

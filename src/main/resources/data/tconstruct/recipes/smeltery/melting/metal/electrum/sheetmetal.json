@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:sheetmetals/electrum",
-        "type": "forge:tag_empty"
+        "tag": "c:sheetmetals/electrum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/electrum"
+    "tag": "c:sheetmetals/electrum"
   },
   "result": {
     "fluid": "tconstruct:molten_electrum",

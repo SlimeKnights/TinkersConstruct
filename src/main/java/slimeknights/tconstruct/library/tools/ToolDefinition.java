@@ -37,7 +37,7 @@ public class ToolDefinition {
   public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Supplier<List<ModifierEntry>> modifiers) {
     this.baseStatDefinition = baseStatDefinition;
     this.requiredComponents = new Lazy<>(requiredComponents);
-    this.modifiers = Lazy.of(modifiers);
+    this.modifiers = new Lazy<>(modifiers);
   }
 
   public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents) {

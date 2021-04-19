@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/silver",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/silver",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -17,7 +17,7 @@
     "amount": 576
   },
   "result": {
-    "tag": "forge:gears/silver"
+    "tag": "c:gears/silver"
   },
   "cooling_time": 120
 }

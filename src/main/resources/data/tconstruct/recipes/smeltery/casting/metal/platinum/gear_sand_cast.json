@@ -3,10 +3,10 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears/platinum",
-        "type": "forge:tag_empty"
+        "tag": "c:gears/platinum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
@@ -18,7 +18,7 @@
     "amount": 576
   },
   "result": {
-    "tag": "forge:gears/platinum"
+    "tag": "c:gears/platinum"
   },
   "cooling_time": 131
 }

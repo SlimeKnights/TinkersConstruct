@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/aluminum",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/aluminum",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/aluminum"
+    "tag": "c:coins/aluminum"
   },
   "result": {
     "fluid": "tconstruct:molten_aluminum",

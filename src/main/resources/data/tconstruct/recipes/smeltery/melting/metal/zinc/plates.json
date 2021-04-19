@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:plates/zinc",
-        "type": "forge:tag_empty"
+        "tag": "c:plates/zinc",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/zinc"
+    "tag": "c:plates/zinc"
   },
   "result": {
     "fluid": "tconstruct:molten_zinc",

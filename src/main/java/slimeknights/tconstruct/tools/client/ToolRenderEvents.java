@@ -14,6 +14,11 @@ import net.minecraft.world.World;
 
 public class ToolRenderEvents implements ClientModInitializer {
 
+  @Override
+  public void onInitializeClient() {
+
+  }
+
   //TODO: rendering port because events with forg are cursed
   /**
    * Renders the outline on the extra blocks
@@ -76,7 +81,7 @@ public class ToolRenderEvents implements ClientModInitializer {
    *
    * @param event the RenderWorldLastEvent
    */
-  @SubscribeEvent
+  /*@SubscribeEvent
   static void renderBlockDamageProgress(RenderWorldLastEvent event) {
     // validate required variables are set
     PlayerController controller = Minecraft.getInstance().playerController;
@@ -150,5 +155,5 @@ public class ToolRenderEvents implements ClientModInitializer {
   @Override
   public void onInitializeClient() {
 
-  }
+  }*/
 }

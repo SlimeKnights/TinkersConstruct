@@ -32,8 +32,8 @@ public class BlueSlimeEntity extends SlimeEntity {
   }
 
   @Override
-  protected float getJumpUpwardsMotion() {
-    return (float)Math.sqrt(this.getSlimeSize()) * this.getJumpFactor() / 2;
+  protected float getJumpVelocity() {
+    return (float)Math.sqrt(this.getSize()) * this.getJumpVelocityMultiplier() / 2;
   }
 
   @Override

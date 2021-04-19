@@ -1,14 +1,13 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
 import slimeknights.tconstruct.library.book.content.ContentListing;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class ContentListingSectionTransformer extends SectionTransformer {
 
   public ContentListingSectionTransformer(String sectionName) {

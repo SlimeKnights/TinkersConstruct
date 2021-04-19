@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "tag": "forge:dusts/prismarine"
+    "tag": "c:dusts/prismarine"
   },
   "amount_per_item": 1,
   "needed_per_level": 36,

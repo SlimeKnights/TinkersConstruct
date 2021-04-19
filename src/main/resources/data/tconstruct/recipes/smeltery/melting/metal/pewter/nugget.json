@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:nuggets/pewter",
-        "type": "forge:tag_empty"
+        "tag": "c:nuggets/pewter",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/pewter"
+    "tag": "c:nuggets/pewter"
   },
   "result": {
     "fluid": "tconstruct:molten_pewter",

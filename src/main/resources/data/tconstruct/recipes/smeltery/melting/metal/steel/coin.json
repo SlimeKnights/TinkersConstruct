@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:coins/steel",
-        "type": "forge:tag_empty"
+        "tag": "c:coins/steel",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/steel"
+    "tag": "c:coins/steel"
   },
   "result": {
     "fluid": "tconstruct:molten_steel",

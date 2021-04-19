@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "c:item/default-tool",
   "textures": {
     "head":        "tconstruct:item/tool/scythe/head",
     "broken_head": "tconstruct:item/tool/scythe/broken_head",

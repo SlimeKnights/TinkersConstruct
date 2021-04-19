@@ -3,14 +3,14 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:gears",
-        "type": "forge:tag_empty"
+        "tag": "c:gears",
+        "type": "c:tag_empty"
       },
-      "type": "forge:not"
+      "type": "c:not"
     }
   ],
   "cast": {
-    "tag": "forge:gears"
+    "tag": "c:gears"
   },
   "cast_consumed": true,
   "switch_slots": true,
