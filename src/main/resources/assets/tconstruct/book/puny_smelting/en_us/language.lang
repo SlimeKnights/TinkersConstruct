@@ -19,5 +19,4 @@ tool.properties=Properties:
 material.craft_partbuilder=Can be crafted in the Part Builder
 material.craft_casting=Can be cast from
 
-wood.flavour=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
-stone.flavour=Rock solid
+material.tconstruct.slimewood.book=Casting liquid earth slime on wood parts produces a durable, regenerative material!
