@@ -38,18 +38,8 @@ public class OverworldSlimeIslandStructure extends StructureFeature<DefaultFeatu
   }
 
   @Override
-  public String getName() {
-    return "tconstruct:overworld_slime_island";
-  }
-
-//  @Override
-  public List<SpawnSettings.SpawnEntry> getDefaultSpawnList() {
+  public List<SpawnSettings.SpawnEntry> getCreatureSpawns() {
     return STRUCTURE_MONSTERS;
-  }
-
-  @Override
-  public GenerationStep.Feature getGenerationStep() {
-    return GenerationStep.Feature.SURFACE_STRUCTURES;
   }
 
   public static class Start extends StructureStart<DefaultFeatureConfig> {
@@ -85,14 +75,14 @@ public class OverworldSlimeIslandStructure extends StructureFeature<DefaultFeatu
       int y = Math.min(Math.min(i1, j1), Math.min(k1, l1)) + 50 + this.random.nextInt(50) + 11;
 
       int rnr = this.random.nextInt(10);
-      //SlimeIslandVariant variant = null; //SlimeIslandVariant.SKY;
+      SlimeIslandVariant variant = SlimeIslandVariant.SKY;
 
       if (rnr < 6) {
-        //variant = SlimeIslandVariant.EARTH;
+        variant = SlimeIslandVariant.EARTH;
       }
 
       SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, SlimeIslandVariant.EARTH, SIZES[this.random.nextInt(SIZES.length)], new BlockPos(x, y, z), rotation);
-      //this.children.add(slimeIslandPiece);
+      this.children.add(slimeIslandPiece);
       this.setBoundingBoxFromChildren();
     }
   }

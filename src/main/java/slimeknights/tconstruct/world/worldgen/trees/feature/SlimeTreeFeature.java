@@ -25,6 +25,7 @@ import net.minecraft.world.TestableWorld;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
@@ -97,7 +98,10 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
       return;
     }
 
-//    ((WorldAccess) reader).getBlockState(pos).getBlock().onPlantGrow(((WorldAccess) reader).getBlockState(pos), (WorldAccess) reader, pos, origin);
+    if(reader.testBlockState(pos, blockState -> blockState.isIn(TinkerTags.Blocks.DIRT))) {
+      final WorldAccess world = (WorldAccess) reader;
+      world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 2);
+    }
   }
 
   protected void placeTrunk(ModifiableTestableWorld worldIn, Random randomIn, int treeHeight, BlockPos blockPos, Set<BlockPos> blockPosSet, BlockBox mutableBoundingBoxIn, BaseSlimeTreeFeatureConfig treeFeatureConfigIn) {

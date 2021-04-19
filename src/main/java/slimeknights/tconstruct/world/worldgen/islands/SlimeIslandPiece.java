@@ -20,8 +20,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-
-import org.apache.logging.log4j.LogManager;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
@@ -158,7 +156,6 @@ public class SlimeIslandPiece extends SimpleStructurePiece {
   @Override
   public boolean generate(StructureWorldAccess world, StructureAccessor manager, ChunkGenerator generator, Random rand, BlockBox bounds, ChunkPos chunk, BlockPos pos) {
     this.chunkGenerator = generator;
-    LogManager.getLogger().info("does this even load bruh");
     if (this.variant == SlimeIslandVariant.BLOOD) {
       BlockPos up = this.pos.up();
 

@@ -25,6 +25,7 @@
             "slimeknights.tconstruct.gadgets.TinkerGadgets",
             "slimeknights.tconstruct.smeltery.TinkerSmeltery",
             "slimeknights.tconstruct.world.TinkerWorld",
+            "slimeknights.tconstruct.world.WorldEvents",
             "slimeknights.tconstruct.world.TinkerStructures",
             "slimeknights.tconstruct.tables.TinkerTables",
             "slimeknights.tconstruct.tools.TinkerToolParts",

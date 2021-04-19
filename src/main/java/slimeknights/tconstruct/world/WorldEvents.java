@@ -1,15 +1,18 @@
 package slimeknights.tconstruct.world;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.biome.source.MultiNoiseBiomeSource;
 import net.minecraft.world.biome.source.TheEndBiomeSource;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.StructureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import slimeknights.tconstruct.TConstruct;
@@ -21,8 +24,7 @@ import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import java.lang.reflect.Field;
 import java.util.Map;
 
-@SuppressWarnings("unused")
-public class WorldEvents implements ModInitializer {
+public class WorldEvents implements ModInitializer{
 
 /*  @SubscribeEvent
   static void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {
@@ -166,7 +168,16 @@ public class WorldEvents implements ModInitializer {
     });
 
 
-    //TODO: biome api
+
+    BiomeModifications.addStructure(ctx -> {
+      RegistryKey<Biome> key = ctx.getBiomeKey();
+      if(key.getValue().getNamespace().equals("minecraft") && !key.getValue().getPath().equals("the_end")) {
+        System.out.println(key.getValue().getPath());
+        return true;
+      }
+      return false;
+    }, TinkerStructures.SLIME_ISLAND_STRUCTURE_KEY);
+
 //    BiomeGenerationSettingsBuilder generation = event.getGeneration();
 //
 //    if (event.getCategory() == Biome.Category.NETHER) {

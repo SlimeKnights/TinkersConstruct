@@ -20,7 +20,9 @@ public class TinkerTags {
   }
 
   public static class Blocks {
+
     private static void init() {}
+
     public static final Tag.Identified<Block> WORKBENCHES = forgeTag("workbenches");
     public static final Tag.Identified<Block> TABLES = tag("tables");
 
@@ -37,6 +39,8 @@ public class TinkerTags {
 
     public static final Tag.Identified<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final Tag.Identified<Block> SEARED_BRICKS = tag("seared_bricks");
+
+    public static final Tag.Identified<Block> DIRT = forgeTag("dirt");
 
     /** Blocks valid as a smeltery tank, required for fuel */
     public static final Tag.Identified<Block> MELTER_TANKS = tag("melter_tanks");
