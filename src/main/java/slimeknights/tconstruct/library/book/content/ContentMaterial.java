@@ -36,8 +36,8 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
-import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
@@ -218,7 +218,7 @@ public class ContentMaterial extends TinkerPage {
       ItemElement elementItem = new TinkerItemElement(0, 0, 1, stacks);
       String text = this.parent.translate("material.craft_casting");
       Fluid fluid = material.get().getFluid();
-      elementItem.tooltip = ImmutableList.of(new StringTextComponent(text).append(new TranslationTextComponent("fluid." + Objects.requireNonNull(fluid.getRegistryName()).getNamespace() + "." + Objects.requireNonNull(fluid.getRegistryName()).getPath())));
+      elementItem.tooltip = ImmutableList.of(new StringTextComponent(text).appendString(" ").append(new TranslationTextComponent("fluid." + Objects.requireNonNull(fluid.getRegistryName()).getNamespace() + "." + Objects.requireNonNull(fluid.getRegistryName()).getPath())));
       displayTools.add(elementItem);
     }
 
@@ -226,15 +226,14 @@ public class ContentMaterial extends TinkerPage {
     for (Item tool : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
       if (tool instanceof ToolCore) {
         List<IToolPart> requirements = ((ToolCore) tool).getToolDefinition().getRequiredComponents();
-        int size = requirements.size();
-        List<MaterialId> toolMaterials = new ArrayList<>(size);
+        List<IMaterial> materials = new ArrayList<>(requirements.size());
 
         for (int i = 0; i < requirements.size(); i++) {
-          toolMaterials.add(i, materialId);
+          materials.add(i, MaterialRegistry.getInstance().getMaterial(materialId));
         }
 
-        ItemStack stack = new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(tool));
-        displayTools.add(new TinkerItemElement(stack));
+        ItemStack display = ToolBuildHandler.buildItemFromMaterials((ToolCore) tool, materials);
+        displayTools.add(new TinkerItemElement(display));
 
         if (displayTools.size() == 9) {
           break;
