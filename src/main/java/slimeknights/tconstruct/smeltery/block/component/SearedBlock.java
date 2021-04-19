@@ -15,9 +15,16 @@ import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class SearedBlock extends Block implements BlockEntityProvider {
+  public static final BooleanProperty IN_STRUCTURE = BooleanProperty.create("in_structure");
 
   public SearedBlock(Settings properties) {
     super(properties);
+    this.setDefaultState(this.getDefaultState().with(IN_STRUCTURE, false));
+  }
+
+  @Override
+  protected void fillStateContainer(Builder<Block,BlockState> builder) {
+    builder.add(IN_STRUCTURE);
   }
 
   @Override

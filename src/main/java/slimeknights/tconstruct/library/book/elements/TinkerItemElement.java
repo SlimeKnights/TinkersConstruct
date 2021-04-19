@@ -63,4 +63,11 @@ public class TinkerItemElement extends ItemElement {
 
     super.drawOverlay(matrixStack, mouseX, mouseY, partialTicks, textRenderer);
   }
+
+  //Fix odd tooltip rendering that makes the tooltip go off the screen.
+  @Override
+  public void drawHoveringText(MatrixStack matrixStack, List<ITextComponent> textLines, int x, int y, FontRenderer font) {
+    GuiUtils.drawHoveringText(matrixStack, textLines, x, y, BookScreen.PAGE_WIDTH, BookScreen.PAGE_HEIGHT, BookScreen.PAGE_WIDTH, font);
+    RenderHelper.disableStandardItemLighting();
+  }
 }

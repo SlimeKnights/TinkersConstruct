@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -55,6 +56,8 @@ public class TConstruct implements ModInitializer {
     // init deferred registers
     TinkerModule.initRegisters();
     TinkerNetwork.setup();
+    TinkerTags.init();
+  }
 
     MaterialRegistry.init();
   }

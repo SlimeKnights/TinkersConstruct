@@ -17,7 +17,7 @@ import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 /**
  * Extension to include interaction behavior
  */
-public class SearedDrainBlock extends SmelteryIOBlock{
+public class SearedDrainBlock extends OrientableSmelteryBlock{
 
   public SearedDrainBlock(Settings properties) {
     super(properties, DrainTileEntity::new);

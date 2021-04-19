@@ -89,7 +89,7 @@
     "item.tconstruct.copper_ingot": "Copper Ingot",
     "item.tconstruct.copper_nugget": "Copper Nugget",
 
-    "block.tconstruct.cobalt_ore": "Cobalt Ore",
+    "block.tconstruct.cobalt_ore": "Nether Cobalt Ore",
     "block.tconstruct.cobalt_block": "Block of Cobalt",
     "block.tconstruct.cobalt_block.tooltip": "Can be used as beacon base",
     "item.tconstruct.cobalt_ingot": "Cobalt Ingot",

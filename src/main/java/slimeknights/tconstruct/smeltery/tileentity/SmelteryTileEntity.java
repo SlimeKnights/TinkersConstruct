@@ -35,6 +35,7 @@ import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.misc.ItemHandlerHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
+import slimeknights.tconstruct.smeltery.block.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.network.SmelteryStructureUpdatedPacket;
 import slimeknights.tconstruct.smeltery.tileentity.module.AlloyingModule;
@@ -124,6 +125,11 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
     if (world == null || world.isClient) {
       return;
     }
+    // invalid state, just a safety check in case its air somehow
+    BlockState state = getBlockState();
+    if (!state.hasProperty(ControllerBlock.IN_STRUCTURE)) {
+      return;
+    }
 
     // run structure update if requested
     if (structureUpdateQueued) {
@@ -132,7 +138,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
     }
 
     // if we have a structure, run smeltery logic
-    if (structure != null) {
+    if (structure != null && state.get(SmelteryControllerBlock.IN_STRUCTURE)) {
       // every 15 seconds, check above the smeltery to try to expand
       if (tick == 0) {
         expandCounter++;
@@ -193,6 +199,11 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
             break;
             // fourth tick: consume fuel, update fluids
           case 3:
+            // update the active state
+            boolean hasFuel = fuelModule.hasFuel();
+            if (state.get(ControllerBlock.ACTIVE) != hasFuel) {
+              world.setBlockState(pos, state.with(ControllerBlock.ACTIVE, hasFuel));
+            }
             fuelModule.decreaseFuel(fuelRate);
             break;
         }
@@ -260,20 +271,18 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
     if (world == null || world.isClient) {
       return;
     }
-
-    // TODO: validate the block is correct?
-    boolean wasActive = getCachedState().get(ControllerBlock.ACTIVE);
+    boolean wasFormed = getCachedState().get(ControllerBlock.IN_STRUCTURE);
     StructureData oldStructure = structure;
     StructureData newStructure = multiblock.detectMultiblock(world, pos, getCachedState().get(Properties.HORIZONTAL_FACING));
 
     // update block state
-    boolean active = newStructure != null;
-    if (active != wasActive) {
-      world.setBlockState(pos, getCachedState().with(ControllerBlock.ACTIVE, active));
+    boolean formed = newStructure != null;
+    if (formed != wasFormed) {
+      world.setBlockState(pos, getCachedState().with(ControllerBlock.IN_STRUCTURE, formed));
     }
 
     // structure info updates
-    if (active) {
+    if (formed) {
       // sync size to the client
       TinkerNetwork.getInstance().sendToClientsAround(
         new SmelteryStructureUpdatedPacket(pos, newStructure.getMinPos(), newStructure.getMaxPos(), newStructure.getTanks()), world, pos);

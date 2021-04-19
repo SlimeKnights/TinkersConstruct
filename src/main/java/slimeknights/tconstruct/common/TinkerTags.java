@@ -11,8 +11,16 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 
 public class TinkerTags {
+  /** Called on mod construct to set up tags */
+  public static void init() {
+    Blocks.init();
+    Items.init();
+    Fluids.init();
+    EntityTypes.init();
+  }
 
   public static class Blocks {
+    private static void init() {}
     public static final Tag.Identified<Block> WORKBENCHES = forgeTag("workbenches");
     public static final Tag.Identified<Block> TABLES = tag("tables");
 
@@ -60,6 +68,7 @@ public class TinkerTags {
   }
 
   public static class Items {
+    private static void init() {}
     public static final Tag.Identified<Item> WORKBENCHES = forgeTag("workbenches");
     public static final Tag.Identified<Item> TABLES = tag("tables");
 
@@ -142,7 +151,7 @@ public class TinkerTags {
   }
 
   public static class Fluids {
-
+    private static void init() {}
     public static final Tag.Identified<Fluid> SLIMELIKE = tag("slimelike");
     public static final Tag.Identified<Fluid> SLIME = tag("slime");
 
@@ -156,7 +165,7 @@ public class TinkerTags {
   }
 
   public static class EntityTypes {
-
+    private static void init() {}
     public static final Tag.Identified<EntityType<?>> BOUNCY = tag("bouncy");
     public static final Tag.Identified<EntityType<?>> SLIMES = forgeTag("slimes");
     public static final Tag.Identified<EntityType<?>> MELTING_SHOW = tag("melting/show_in_default");

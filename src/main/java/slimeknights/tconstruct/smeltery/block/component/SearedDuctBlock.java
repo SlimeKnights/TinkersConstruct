@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 /** Filtering drain block, have to reimplement either inventory block logic or seared block logic unfortunately */
 public class SearedDuctBlock extends InventoryBlock implements BlockEntityProvider {
-  public static final BooleanProperty ACTIVE = SmelteryIOBlock.ACTIVE;
+  public static final BooleanProperty ACTIVE = SearedBlock.IN_STRUCTURE;
   public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
   public SearedDuctBlock(Settings properties) {
     super(properties);

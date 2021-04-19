@@ -9,7 +9,6 @@ import slimeknights.tconstruct.fluids.EmptyFluidHandler;
 import slimeknights.tconstruct.library.EmptyItemHandler;
 import slimeknights.tconstruct.misc.IItemHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.component.SmelteryIOBlock;
 import slimeknights.tconstruct.fluids.IFluidHandler;
 
 import java.util.Objects;
@@ -39,16 +38,10 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
 
     // keep track of master before it changed
     boolean masterChanged = !Objects.equals(getMasterPos(), master);
-    // update the master
-    boolean hadMaster = getMasterPos() != null;
     super.setMaster(master, block);
-    // update the active state
-    boolean hasMaster = getMasterPos() != null;
-    if (hadMaster != hasMaster) {
-      world.setBlockState(pos, getCachedState().with(SmelteryIOBlock.ACTIVE, hasMaster));
-    }
+
     // if we have a new master, invalidate handlers
-    if (masterChanged) {
+    if (world != null && masterChanged) {
       world.updateNeighborsAlways(pos, getCachedState().getBlock());
     }
   }

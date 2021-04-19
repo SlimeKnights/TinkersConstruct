@@ -34,7 +34,7 @@ public class OrientableSmelteryBlock extends SearedBlock implements BlockEntityP
 
   @Override
   protected void appendProperties(StateManager.Builder<Block,BlockState> builder) {
-    builder.add(FACING);
+    builder.add(FACING, IN_STRUCTURE);
   }
 
   @Nullable

@@ -31,7 +31,7 @@ public class SmelteryTileEntityRenderer extends BlockEntityRenderer<SmelteryTile
     World world = smeltery.getWorld();
     if (world == null) return;
     BlockState state = smeltery.getCachedState();
-    if (!state.get(ControllerBlock.ACTIVE)) return;
+    if (!state.get(ControllerBlock.IN_STRUCTURE)) return;
     StructureData structure = smeltery.getStructure();
     if (structure == null) return;
 
