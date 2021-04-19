@@ -44,6 +44,11 @@ repositories {
 
 val modImplementationAndInclude by configurations.register("modImplementationAndInclude")
 
+sourceSets {
+    main {
+        resources.srcDirs += file("src/generated/resources")
+    }
+}
 
 dependencies {
     minecraft("net.minecraft", "minecraft", "1.16.5")

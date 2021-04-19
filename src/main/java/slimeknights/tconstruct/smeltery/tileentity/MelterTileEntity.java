@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
+import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.model.IModelData;
 import slimeknights.mantle.tileentity.NamableTileEntity;
@@ -133,7 +134,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
         // tick 2: heat items and consume fuel
         case 2: {
           assert world != null;
-          BlockState state = getBlockState();
+          BlockState state = getCachedState();
           boolean hasFuel = fuelModule.hasFuel();
           // update the active state
           if (state.get(ControllerBlock.ACTIVE) != hasFuel) {
@@ -141,7 +142,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
             // update the heater below
             BlockPos down = pos.down();
             BlockState downState = world.getBlockState(down);
-            if (TinkerTags.Blocks.MELTER_TANKS.contains(downState.getBlock()) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.get(ControllerBlock.ACTIVE) != hasFuel) {
+            if (TinkerTags.Blocks.MELTER_TANKS.contains(downState.getBlock()) && downState.contains(ControllerBlock.ACTIVE) && downState.get(ControllerBlock.ACTIVE) != hasFuel) {
               world.setBlockState(down, downState.with(ControllerBlock.ACTIVE, hasFuel));
             }
           }

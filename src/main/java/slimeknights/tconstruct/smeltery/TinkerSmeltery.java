@@ -58,7 +58,6 @@ import slimeknights.tconstruct.smeltery.block.component.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedLadderBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
-import slimeknights.tconstruct.smeltery.block.component.SmelteryIOBlock;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
@@ -100,17 +99,17 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Blocks
    */
-  private static final FabricBlockSettings SMELTERY_GLASS = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL)
-    .setRequiresTool().hardnessAndResistance(3.0F, 9.0F).notSolid()
-    .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
-  public static final ItemObject<Block> grout = BLOCKS.register("grout", GENERIC_SAND_BLOCK, TOOLTIP_BLOCK_ITEM);
+  private static final FabricBlockSettings SMELTERY_GLASS = builder(Material.STONE, FabricToolTags.PICKAXES, BlockSoundGroup.METAL)
+    .hardness(3.0F).resistance(9.0F).nonOpaque()
+    .allowsSpawning(Blocks::never).nonOpaque().suffocates(Blocks::never).blockVision(Blocks::never);
+  public static final ItemObject<Block> grout = BLOCKS.register("grout", getGenericSandBlock(), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
 
   // seared
   /** Properties for all smeltery blocks */
   private static final Block.Settings SMELTERY = builder(Material.STONE, FabricToolTags.PICKAXES, BlockSoundGroup.METAL)
-    .requiresTool().strength(3.0F, 9.0F).setAllowsSpawn((s, r, p, e) -> !s.hasProperty(SearedBlock.IN_STRUCTURE) || !s.get(SearedBlock.IN_STRUCTURE));
+    .requiresTool().strength(3.0F, 9.0F).allowsSpawning((s, r, p, e) -> !s.contains(SearedBlock.IN_STRUCTURE) || !s.get(SearedBlock.IN_STRUCTURE));
   /** Constructor to create a seared block */
   private static final Supplier<Block> SEARED_BLOCK = () -> new SearedBlock(SMELTERY);
   public static final BuildingBlockObject searedStone = BLOCKS.registerBuilding("seared_stone", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
@@ -128,7 +127,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new OrientableSmelteryBlock(SMELTERY, SmelteryFluidIO.ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
 
   /** Properties for a faucet block */
-  private static final Block.Properties CASTING = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+  private static final Block.Settings CASTING = builder(Material.STONE, FabricToolTags.PICKAXES, BlockSoundGroup.METAL).requiresTool().hardness(3.0F).resistance(9.0F).nonOpaque().suffocates(Blocks::never).blockVision(Blocks::never);
   private static final Block.Settings FAUCET = builder(Material.STONE, FabricToolTags.PICKAXES, BlockSoundGroup.METAL).requiresTool().strength(3.0F, 9.0F).nonOpaque();
   public static final EnumObject<TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", TankType.values(), type -> new SearedTankBlock(SMELTERY_GLASS, type.getCapacity()), b -> new TankItem(b, SMELTERY_PROPS));
   public static final ItemObject<Block> searedFaucet = BLOCKS.register("faucet", () -> new FaucetBlock(FAUCET), TOOLTIP_BLOCK_ITEM);

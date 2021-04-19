@@ -7,9 +7,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
+import slimeknights.tconstruct.event.LivingEntityTickCallback;
 
 /** Logic for entities bouncing */
-public class SlimeBounceHandler /* implements Consumer<PlayerEntity>*/ {
+public class SlimeBounceHandler implements Consumer<PlayerEntity>, LivingEntityTickCallback {
   private static final IdentityHashMap<Entity, SlimeBounceHandler> bouncingEntities = new IdentityHashMap<>();
 
   public static IdentityHashMap<Entity, SlimeBounceHandler> getBouncingEntities() {
@@ -24,6 +25,8 @@ public class SlimeBounceHandler /* implements Consumer<PlayerEntity>*/ {
 
   private double lastMovX;
   private double lastMovZ;
+
+  private boolean active = true;
 
   public SlimeBounceHandler(LivingEntity entityLiving, double bounce) {
     this.entityLiving = entityLiving;
@@ -42,8 +45,11 @@ public class SlimeBounceHandler /* implements Consumer<PlayerEntity>*/ {
     //entityLiving.addChatMessage(new ChatComponentText("added " + entityLiving.worldObj.isRemote));
   }
 
-  //@Override
+  @Override
   public void accept(PlayerEntity player) {
+    if(!active) {
+      return; // FIXME: PORT (the fix for not being able to unregister is this)
+    }
     // this is only relevant for the local player
     if (player == this.entityLiving && !player.isFallFlying()) {
       // bounce up. This is to pcircumvent the logic that resets y motion after landing
@@ -71,7 +77,7 @@ public class SlimeBounceHandler /* implements Consumer<PlayerEntity>*/ {
         if (this.timer == 0) {
           this.timer = this.entityLiving.age;
         } else if (this.entityLiving.age - this.timer > 5) {
-          //MinecraftForge.EVENT_BUS.unregister(this);
+          active = false;
           bouncingEntities.remove(this.entityLiving);
         }
       } else {
@@ -83,6 +89,11 @@ public class SlimeBounceHandler /* implements Consumer<PlayerEntity>*/ {
 
   public static void addBounceHandler(LivingEntity entity) {
     addBounceHandler(entity, 0d);
+  }
+
+  @Override
+  public void onEntityTick(LivingEntity entity) {
+    accept((PlayerEntity) entity);
   }
 
   /**
@@ -98,7 +109,7 @@ public class SlimeBounceHandler /* implements Consumer<PlayerEntity>*/ {
     SlimeBounceHandler handler = bouncingEntities.get(entity);
     if (handler == null) {
       // wasn't bouncing yet, register it
-      //MinecraftForge.EVENT_BUS.addListener(new SlimeBounceHandler(entity, bounce));
+      LivingEntityTickCallback.EVENT.register(new SlimeBounceHandler(entity, bounce));
     } else if (bounce != 0) {
       // updated bounce if needed
       handler.bounce = bounce;

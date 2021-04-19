@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.event.LivingEntityTickCallback;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -30,9 +31,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
   @Inject(method = "tick", at = @At("TAIL"))
   private void tick(CallbackInfo ci) {
-    for(SlimeBounceHandler handler : SlimeBounceHandler.getBouncingEntities().values()) {
-      handler.accept((PlayerEntity) (Object) this);
-    }
+    LivingEntityTickCallback.EVENT.invoker().onEntityTick(this);
   }
 
   @Inject(method = "getBlockBreakingSpeed", at = @At("RETURN"))

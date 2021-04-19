@@ -1,16 +1,15 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.tconstruct.library.book.content.ContentListing;
 import slimeknights.tconstruct.library.book.content.ContentTool;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
-
-import net.minecraft.util.registry.Registry;
 
 @Environment(EnvType.CLIENT)
 public class ToolSectionTransformer extends ContentListingSectionTransformer {
@@ -23,9 +22,9 @@ public class ToolSectionTransformer extends ContentListingSectionTransformer {
   protected void processPage(BookData book, ContentListing listing, PageData page) {
     // only add tool pages if the tool exists
     if (page.content instanceof ContentTool) {
-      ResourceLocation toolId = new ResourceLocation(((ContentTool) page.content).toolName);
-      if (ForgeRegistries.ITEMS.containsKey(toolId)) {
-        Item toolItem = ForgeRegistries.ITEMS.getValue(toolId);
+      Identifier toolId = new Identifier(((ContentTool) page.content).toolName);
+      if (Registry.ITEM.containsId(toolId)) {
+        Item toolItem = Registry.ITEM.get(toolId);
         if (toolItem instanceof ToolCore) {
           listing.addEntry(((ToolCore)toolItem).getLocalizedName().getString(), page);
         }

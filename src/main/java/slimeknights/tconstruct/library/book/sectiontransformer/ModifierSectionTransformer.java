@@ -18,8 +18,8 @@ public class ModifierSectionTransformer extends ContentListingSectionTransformer
   protected void processPage(BookData book, ContentListing listing, PageData page) {
     if (page.content instanceof ContentModifier) {
       ModifierId modifierId = new ModifierId(((ContentModifier) page.content).modifierID);
-      if (TinkerRegistries.MODIFIERS.containsKey(modifierId)) {
-        Modifier modifier = TinkerRegistries.MODIFIERS.getValue(modifierId);
+      if (TinkerRegistries.MODIFIERS.containsId(modifierId)) {
+        Modifier modifier = TinkerRegistries.MODIFIERS.get(modifierId);
         assert modifier != null; // contains key was true
         listing.addEntry(modifier.getDisplayName().getString(), page);
       }

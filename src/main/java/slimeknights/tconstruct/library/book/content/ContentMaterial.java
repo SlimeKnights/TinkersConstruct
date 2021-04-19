@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.fluid.Fluids;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.BookScreen;
@@ -210,7 +211,7 @@ public class ContentMaterial extends TinkerPage {
       ItemElement elementItem = new TinkerItemElement(0, 0, 1, stacks);
       String text = this.parent.translate("material.craft_casting");
       Fluid fluid = material.get().getFluid();
-      elementItem.tooltip = ImmutableList.of(new LiteralText(text).appendString(" ").append(new TranslatableText("fluid." + Objects.requireNonNull(Registry.FLUID.getId(fluid)).getNamespace() + "." + Objects.requireNonNull(Registry.FLUID.getId(fluid)).getPath())));
+      elementItem.tooltip = ImmutableList.of(new LiteralText(text).append(" ").append(new TranslatableText("fluid." + Objects.requireNonNull(Registry.FLUID.getId(fluid)).getNamespace() + "." + Objects.requireNonNull(Registry.FLUID.getId(fluid)).getPath())));
       displayTools.add(elementItem);
     }
 

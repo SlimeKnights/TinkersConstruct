@@ -2,8 +2,11 @@ package slimeknights.tconstruct.world;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.biome.source.MultiNoiseBiomeSource;
 import net.minecraft.world.biome.source.TheEndBiomeSource;
@@ -12,13 +15,16 @@ import net.minecraft.world.gen.feature.StructureFeature;
 import slimeknights.tconstruct.TConstruct;
 
 import org.jetbrains.annotations.Nullable;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock;
+
 import java.lang.reflect.Field;
 import java.util.Map;
 
 @SuppressWarnings("unused")
 public class WorldEvents implements ModInitializer {
 
-  /*@SubscribeEvent
+/*  @SubscribeEvent
   static void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {
     if (event.getWorld() instanceof ServerWorld) {
       ServerWorld serverWorld = (ServerWorld) event.getWorld();
@@ -39,18 +45,18 @@ public class WorldEvents implements ModInitializer {
         }
       }
     }
-  }
+  }*/
 
-  public static boolean shouldSpawn(IWorld worldIn, BlockPos pos) {
+  public static boolean shouldSpawn(World worldIn, BlockPos pos) {
     FluidState ifluidstate = worldIn.getFluidState(pos);
     BlockPos down = pos.down();
 
-    if (ifluidstate.isTagged(TinkerTags.Fluids.SLIME) && worldIn.getFluidState(down).isTagged(TinkerTags.Fluids.SLIME)) {
+    if (ifluidstate.isIn(TinkerTags.Fluids.SLIME) && worldIn.getFluidState(down).isIn(TinkerTags.Fluids.SLIME)) {
       return true;
     }
 
     return worldIn.getBlockState(pos.down()).getBlock() instanceof SlimeGrassBlock;
-  }*/
+  }
 
   /**
    * Helper method to determine the the given Name matches that of any of the given Biomes

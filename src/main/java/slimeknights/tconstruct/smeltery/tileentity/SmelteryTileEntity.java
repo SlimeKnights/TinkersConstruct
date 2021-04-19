@@ -126,8 +126,8 @@ public class SmelteryTileEntity extends NamableTileEntity implements Tickable, I
       return;
     }
     // invalid state, just a safety check in case its air somehow
-    BlockState state = getBlockState();
-    if (!state.hasProperty(ControllerBlock.IN_STRUCTURE)) {
+    BlockState state = getCachedState();
+    if (!state.contains(ControllerBlock.IN_STRUCTURE)) {
       return;
     }
 

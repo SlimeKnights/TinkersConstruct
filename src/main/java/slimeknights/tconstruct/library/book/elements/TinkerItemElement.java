@@ -2,8 +2,11 @@ package slimeknights.tconstruct.library.book.elements;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.w3c.dom.Text;
+import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import java.util.Collection;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.font.TextRenderer;
@@ -65,9 +68,9 @@ public class TinkerItemElement extends ItemElement {
   }
 
   //Fix odd tooltip rendering that makes the tooltip go off the screen.
-  @Override
-  public void drawHoveringText(MatrixStack matrixStack, List<ITextComponent> textLines, int x, int y, FontRenderer font) {
-    GuiUtils.drawHoveringText(matrixStack, textLines, x, y, BookScreen.PAGE_WIDTH, BookScreen.PAGE_HEIGHT, BookScreen.PAGE_WIDTH, font);
-    RenderHelper.disableStandardItemLighting();
-  }
+//  @Override
+//  public void drawHoveringText(MatrixStack matrixStack, List<Text> textLines, int x, int y, TextRenderer font) {
+//    GuiUtils.drawHoveringText(matrixStack, textLines, x, y, BookScreen.PAGE_WIDTH, BookScreen.PAGE_HEIGHT, BookScreen.PAGE_WIDTH, font);
+//    RenderHelper.disableStandardItemLighting();
+//  }
 }

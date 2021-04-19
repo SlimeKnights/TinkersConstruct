@@ -7,14 +7,13 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.BlockFlags;
+import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.common.multiblock.ServantTileEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
 
-import javax.annotation.Nullable;
 
 /** Mostly extended to make type validaton easier, and the servant base class is not registered */
 public class SmelteryComponentTileEntity extends ServantTileEntity {
@@ -34,10 +33,10 @@ public class SmelteryComponentTileEntity extends ServantTileEntity {
 
     // update the active state
     if (world != null) {
-      BlockState currentState = getBlockState();
+      BlockState currentState = getCachedState();
       boolean hasMaster = getMasterPos() != null;
-      if (currentState.hasProperty(SearedBlock.IN_STRUCTURE) && currentState.get(SearedBlock.IN_STRUCTURE) != hasMaster) {
-        world.setBlockState(pos, getBlockState().with(SearedBlock.IN_STRUCTURE, hasMaster), BlockFlags.BLOCK_UPDATE);
+      if (currentState.contains(SearedBlock.IN_STRUCTURE) && currentState.get(SearedBlock.IN_STRUCTURE) != hasMaster) {
+        world.setBlockState(pos, getCachedState().with(SearedBlock.IN_STRUCTURE, hasMaster), (1 << 1));
       }
     }
   }

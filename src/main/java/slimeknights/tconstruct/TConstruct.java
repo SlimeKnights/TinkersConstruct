@@ -57,7 +57,6 @@ public class TConstruct implements ModInitializer {
     TinkerModule.initRegisters();
     TinkerNetwork.setup();
     TinkerTags.init();
-  }
 
     MaterialRegistry.init();
   }

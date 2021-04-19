@@ -76,6 +76,13 @@ public abstract class LivingEntityMixin extends Entity {
       return;
     }
 
+    // do not care about client handles of this event except for players
+    boolean isPlayer = entity instanceof PlayerEntity;
+    boolean isClient = entity.getEntityWorld().isClient;
+    if (isClient && !isPlayer) {
+      return;
+    }
+
     // some entities are natively bouncy
     if (!TinkerTags.EntityTypes.BOUNCY.contains(entity.getType())) {
       // otherwise, is the thing is wearing slime boots?
@@ -95,7 +102,6 @@ public abstract class LivingEntityMixin extends Entity {
         entity.fallDistance =  0.0F;
 
         // players only bounce on the client, due to movement rules
-        boolean isPlayer = entity instanceof PlayerEntity;
         if (!isPlayer || entity.getEntityWorld().isClient) {
           double f = 0.91d + 0.04d;
           // only slow down half as much when bouncing

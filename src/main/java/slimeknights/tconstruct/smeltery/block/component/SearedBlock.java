@@ -6,6 +6,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -15,7 +17,7 @@ import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class SearedBlock extends Block implements BlockEntityProvider {
-  public static final BooleanProperty IN_STRUCTURE = BooleanProperty.create("in_structure");
+  public static final BooleanProperty IN_STRUCTURE = BooleanProperty.of("in_structure");
 
   public SearedBlock(Settings properties) {
     super(properties);
@@ -23,7 +25,7 @@ public class SearedBlock extends Block implements BlockEntityProvider {
   }
 
   @Override
-  protected void fillStateContainer(Builder<Block,BlockState> builder) {
+  protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
     builder.add(IN_STRUCTURE);
   }
 
