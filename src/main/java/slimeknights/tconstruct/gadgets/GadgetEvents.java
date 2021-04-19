@@ -31,8 +31,15 @@ public class GadgetEvents {
       return;
     }
 
+    // do not care about client handles of this event except for players
+    boolean isPlayer = entity instanceof PlayerEntity;
+    boolean isClient = entity.getEntityWorld().isRemote;
+    if (isClient && !isPlayer) {
+      return;
+    }
+
     // some entities are natively bouncy
-    if (!TinkerTags.EntityTypes.BOUNCY.contains(entity.getType())) {
+    if (isPlayer || !TinkerTags.EntityTypes.BOUNCY.contains(entity.getType())) {
       // otherwise, is the thing is wearing slime boots?
       ItemStack feet = entity.getItemStackFromSlot(EquipmentSlotType.FEET);
       if (!(feet.getItem() instanceof SlimeBootsItem)) {
@@ -50,8 +57,7 @@ public class GadgetEvents {
         entity.fallDistance =  0.0F;
 
         // players only bounce on the client, due to movement rules
-        boolean isPlayer = entity instanceof PlayerEntity;
-        if (!isPlayer || entity.getEntityWorld().isRemote) {
+        if (!isPlayer || isClient) {
           double f = 0.91d + 0.04d;
           // only slow down half as much when bouncing
           entity.setMotion(entity.getMotion().x / f, entity.getMotion().y * -0.9, entity.getMotion().z / f);
