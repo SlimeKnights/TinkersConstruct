@@ -114,41 +114,41 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
 
     // update all slots in the inventory
     // remove remaining items
-    throw new RuntimeException("CRAB!");
+    //throw new RuntimeException("CRAB!");
     //TODO: PORT
 //    ForgeHooks.setCraftingPlayer(player);
-//    DefaultedList<ItemStack> remaining = this.lastRecipe.getRemainingStacks(craftingInventory);
+    DefaultedList<ItemStack> remaining = this.lastRecipe.getRemainingStacks(craftingInventory);
 //    ForgeHooks.setCraftingPlayer(null);
-//    for (int i = 0; i < remaining.size(); ++i) {
-//      ItemStack original = this.getStack(i);
-//      ItemStack newStack = remaining.get(i);
-//
-//      // if the slot contains a stack, decrease by 1
-//      if (!original.isEmpty()) {
-//        original.decrement(1);
-//      }
-//
-//      // if we have a new item, try merging it in
-//      if (!newStack.isEmpty()) {
-//        // if empty, set directly
-//        if (original.isEmpty()) {
-//          this.setStack(i, newStack);
-//        }
-//        else if (ItemStack.areItemsEqualIgnoreDamage(original, newStack) && ItemStack.areTagsEqual(original, newStack)) {
-//          // if matching, merge
-//          newStack.increment(original.getCount());
-//          this.setStack(i, newStack);
-//        }
-//        else {
-//          // otherwise, drop the item as the player
-//          if (!player.inventory.insertStack(newStack)) {
-//            player.dropItem(newStack, false);
-//          }
-//        }
-//      }
-//    }
-//
-//    return result;
+    for (int i = 0; i < remaining.size(); ++i) {
+      ItemStack original = this.getStack(i);
+      ItemStack newStack = remaining.get(i);
+
+      // if the slot contains a stack, decrease by 1
+      if (!original.isEmpty()) {
+        original.decrement(1);
+      }
+
+      // if we have a new item, try merging it in
+      if (!newStack.isEmpty()) {
+        // if empty, set directly
+        if (original.isEmpty()) {
+          this.setStack(i, newStack);
+        }
+        else if (ItemStack.areItemsEqualIgnoreDamage(original, newStack) && ItemStack.areTagsEqual(original, newStack)) {
+          // if matching, merge
+          newStack.increment(original.getCount());
+          this.setStack(i, newStack);
+        }
+        else {
+          // otherwise, drop the item as the player
+          if (!player.inventory.insertStack(newStack)) {
+            player.dropItem(newStack, false);
+          }
+        }
+      }
+    }
+
+    return result;
   }
 
   @Override

@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
 public class InventorySlotSyncPacket implements IThreadsafePacket {
 
@@ -59,6 +60,10 @@ public class InventorySlotSyncPacket implements IThreadsafePacket {
           }else if (te instanceof CastingTileEntity) {
             CastingTileEntity table = (CastingTileEntity) te;
             table.moldingInventory.setPattern(packet.itemStack);
+            MinecraftClient.getInstance().worldRenderer.updateBlock(null, packet.pos, null, null, 0);
+          } else if(te instanceof CraftingStationTileEntity) {
+            CraftingStationTileEntity craftingStation = (CraftingStationTileEntity) te;
+            craftingStation.setStack(packet.slot, packet.itemStack);
             MinecraftClient.getInstance().worldRenderer.updateBlock(null, packet.pos, null, null, 0);
           } else {
             throw new RuntimeException("Packet not fully implemented for " + te.getClass().getSimpleName());

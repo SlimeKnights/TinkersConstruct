@@ -4,14 +4,23 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.OpenScreenS2CPacket;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import org.apache.logging.log4j.LogManager;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
+import slimeknights.tconstruct.tables.block.TinkerTableBlock;
+import java.util.function.Consumer;
 
 public class StationTabPacket implements IThreadsafePacket {
 
@@ -31,6 +40,7 @@ public class StationTabPacket implements IThreadsafePacket {
 
   @Override
   public void handleThreadsafe(PlayerEntity player, PacketSender context) {
+    LogManager.getLogger().info("DUHHH, its always crab");
     ServerPlayerEntity sender = (ServerPlayerEntity) player;
     if (sender != null) {
       ItemStack heldStack = sender.inventory.getCursorStack();
@@ -41,13 +51,17 @@ public class StationTabPacket implements IThreadsafePacket {
 
       BlockState state = sender.getEntityWorld().getBlockState(pos);
       if (state.getBlock() instanceof ITinkerStationBlock) {
+        //FIXME: This does not work for whatever reason
         ((ITinkerStationBlock) state.getBlock()).openGui(sender, sender.getEntityWorld(), pos);
       } else {
+
         NamedScreenHandlerFactory provider = state.createScreenHandlerFactory(sender.getEntityWorld(), pos);
         if (provider != null) {
-          throw new RuntimeException("CRAB!");
+
+          ((ITinkerStationBlock) state.getBlock()).openGui(sender, sender.getEntityWorld(), pos);
+          //throw new RuntimeException("CRAB!");
           //TODO: PORT
-//          NetworkHooks.openGui(sender, provider, pos);
+          //NetworkHooks.openGui(sender, provider, pos);
         }
       }
 

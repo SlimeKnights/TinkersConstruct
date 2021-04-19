@@ -101,3 +101,6 @@ accessible  method  net/minecraft/block/Blocks  never   (Lnet/minecraft/block/Bl
 accessible  field   net/minecraft/client/MinecraftClient    fontManager     Lnet/minecraft/client/font/FontManager;
 accessible  field   net/minecraft/client/font/FontManager  fontStorages     Ljava/util/Map;
 
+accessible  method  net/minecraft/server/network/ServerPlayerEntity    incrementScreenHandlerSyncId    ()V
+accessible  field   net/minecraft/server/network/ServerPlayerEntity    screenHandlerSyncId  I
+

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tables.client.inventory;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
@@ -96,6 +97,7 @@ public class BaseStationScreen<TILE extends BlockEntity & Inventory, CONTAINER e
 
     if (state.getBlock() instanceof ITinkerStationBlock) {
       BlockEntity te = this.tile.getWorld().getBlockEntity(pos);
+      //((ITinkerStationBlock) state.getBlock()).openGui(MinecraftClient.getInstance().player, MinecraftClient.getInstance().player.getEntityWorld(), pos);
       TinkerNetwork.getInstance().sendToServer(new StationTabPacket(pos));
 
       // sound!
