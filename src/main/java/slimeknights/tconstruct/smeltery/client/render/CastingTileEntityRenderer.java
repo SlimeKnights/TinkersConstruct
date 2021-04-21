@@ -22,8 +22,30 @@ public class CastingTileEntityRenderer extends BlockEntityRenderer<CastingTileEn
   }
 
   @Override
-  public void render(CastingTileEntity casting, float partialTicks, MatrixStack matrices, VertexConsumerProvider buffer, int light, int combinedOverlayIn) {
-    BlockState state = casting.getCachedState();
+  public void render(CastingTileEntity casting, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int light, int combinedOverlayIn) {
+    BlockState state = casting.getBlockState();
+    CastingModel.BakedModel model = ModelHelper.getBakedModel(state, CastingModel.BakedModel.class);
+    if (model != null) {
+      // rotate the matrix
+      boolean isRotated = RenderingHelper.applyRotation(matrices, state);
+
+      // if the recipe is in progress, start fading the item away
+      int timer = casting.getTimer();
+      int totalTime = casting.getRecipeTime();
+      int itemOpacity = 0;
+      int fluidOpacity = 0xFF;
+      if (timer > 0 && totalTime > 0) {
+        int opacity = (4 * 0xFF) * timer / totalTime;
+        // fade item in
+        itemOpacity = opacity / 4;
+
+        // fade fluid and temperature out during last 10%
+        if (opacity > 3 * 0xFF) {
+          fluidOpacity = (4 * 0xFF) - opacity;
+        } else {
+          fluidOpacity = 0xFF;
+        }
+      }
 
       // render fluids
       CastingFluidHandler tank = casting.getTank();
