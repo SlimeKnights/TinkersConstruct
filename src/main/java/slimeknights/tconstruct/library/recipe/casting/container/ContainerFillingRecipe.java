@@ -76,8 +76,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
 
   @Override
   public ItemStack getCraftingResult(ICastingInventory inv) {
-    ItemStack output = new ItemStack(container);
-    return FluidUtil.getFluidHandler(output).map(handler -> {
+    return FluidUtil.getFluidHandler(inv.getStack().copy()).map(handler -> {
       handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount), FluidAction.EXECUTE);
       return handler.getContainer();
     }).orElse(ItemStack.EMPTY);
