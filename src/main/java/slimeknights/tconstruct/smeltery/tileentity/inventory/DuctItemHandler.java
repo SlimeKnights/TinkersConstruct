@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity.inventory;
 
+import alexiil.mc.lib.attributes.fluid.FixedFluidInv;
+import alexiil.mc.lib.attributes.fluid.FluidAttributes;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
@@ -50,9 +52,10 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
       }
     }
     // the item must contain fluid (no empty cans or buckets)
-    return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
-                .filter(cap -> !cap.getFluidInTank(0).isEmpty())
-                .isPresent();
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
+//    return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+//                .filter(cap -> !cap.getFluidInTank(0).isEmpty())
+//                .isPresent();
   }
 
   /**

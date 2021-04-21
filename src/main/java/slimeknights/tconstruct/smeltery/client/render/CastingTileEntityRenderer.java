@@ -22,47 +22,47 @@ public class CastingTileEntityRenderer extends BlockEntityRenderer<CastingTileEn
   }
 
   @Override
-  public void render(CastingTileEntity casting, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int light, int combinedOverlayIn) {
-    BlockState state = casting.getBlockState();
-    CastingModel.BakedModel model = ModelHelper.getBakedModel(state, CastingModel.BakedModel.class);
-    if (model != null) {
-      // rotate the matrix
-      boolean isRotated = RenderingHelper.applyRotation(matrices, state);
-
-      // if the recipe is in progress, start fading the item away
-      int timer = casting.getTimer();
-      int totalTime = casting.getRecipeTime();
-      int itemOpacity = 0;
-      int fluidOpacity = 0xFF;
-      if (timer > 0 && totalTime > 0) {
-        int opacity = (4 * 0xFF) * timer / totalTime;
-        // fade item in
-        itemOpacity = opacity / 4;
-
-        // fade fluid and temperature out during last 10%
-        if (opacity > 3 * 0xFF) {
-          fluidOpacity = (4 * 0xFF) - opacity;
-        } else {
-          fluidOpacity = 0xFF;
-        }
-      }
-
-      // render fluids
-      CastingFluidHandler tank = casting.getTank();
-      // if full, start rendering with opacity for progress
-    Map<Direction, FluidCuboid.FluidFace> faces = new HashMap<>();
-    faces.put(Direction.UP, FluidCuboid.FluidFace.NORMAL);
-    faces.put(Direction.DOWN, FluidCuboid.FluidFace.NORMAL);
-    faces.put(Direction.NORTH, FluidCuboid.FluidFace.NORMAL);
-    faces.put(Direction.EAST, FluidCuboid.FluidFace.NORMAL);
-    faces.put(Direction.SOUTH, FluidCuboid.FluidFace.NORMAL);
-    faces.put(Direction.WEST, FluidCuboid.FluidFace.NORMAL);
-    FluidCuboid model = new FluidCuboid(new Vector3f(), new Vector3f(), faces);
-    if (tank.getFluid().getAmount() == tank.getCapacity()) {
-        RenderUtils.renderTransparentCuboid(matrices, buffer, model, tank.getFluid(), 1, light);
-      } else {
-        FluidRenderer.renderScaledCuboid(matrices, buffer, model, tank.getFluid(), 0, tank.getCapacity(), light, false);
-      }
+  public void render(CastingTileEntity casting, float partialTicks, MatrixStack matrices, VertexConsumerProvider buffer, int light, int combinedOverlayIn) {
+//    BlockState state = casting.getBlockState();
+//    CastingModel.BakedModel model = ModelHelper.getBakedModel(state, CastingModel.BakedModel.class);
+//    if (model != null) {
+//      // rotate the matrix
+//      boolean isRotated = RenderingHelper.applyRotation(matrices, state);
+//
+//      // if the recipe is in progress, start fading the item away
+//      int timer = casting.getTimer();
+//      int totalTime = casting.getRecipeTime();
+//      int itemOpacity = 0;
+//      int fluidOpacity = 0xFF;
+//      if (timer > 0 && totalTime > 0) {
+//        int opacity = (4 * 0xFF) * timer / totalTime;
+//        // fade item in
+//        itemOpacity = opacity / 4;
+//
+//        // fade fluid and temperature out during last 10%
+//        if (opacity > 3 * 0xFF) {
+//          fluidOpacity = (4 * 0xFF) - opacity;
+//        } else {
+//          fluidOpacity = 0xFF;
+//        }
+//      }
+//
+//      // render fluids
+//      CastingFluidHandler tank = casting.getTank();
+//      // if full, start rendering with opacity for progress
+//      Map<Direction, FluidCuboid.FluidFace> faces = new HashMap<>();
+//      faces.put(Direction.UP, FluidCuboid.FluidFace.NORMAL);
+//      faces.put(Direction.DOWN, FluidCuboid.FluidFace.NORMAL);
+//      faces.put(Direction.NORTH, FluidCuboid.FluidFace.NORMAL);
+//      faces.put(Direction.EAST, FluidCuboid.FluidFace.NORMAL);
+//      faces.put(Direction.SOUTH, FluidCuboid.FluidFace.NORMAL);
+//      faces.put(Direction.WEST, FluidCuboid.FluidFace.NORMAL);
+//      FluidCuboid model = new FluidCuboid(new Vector3f(), new Vector3f(), faces);
+//      if (tank.getFluid().getAmount() == tank.getCapacity()) {
+//        RenderUtils.renderTransparentCuboid(matrices, buffer, model, tank.getFluid(), 1, light);
+//      } else {
+//        FluidRenderer.renderScaledCuboid(matrices, buffer, model, tank.getFluid(), 0, tank.getCapacity(), light, false);
+//      }
 
 //      // render items
 //      List<ModelItem> modelItems = model.getItems();
