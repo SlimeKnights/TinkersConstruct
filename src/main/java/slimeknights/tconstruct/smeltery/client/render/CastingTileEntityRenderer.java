@@ -33,10 +33,10 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<CastingTileEnt
 
       // if the recipe is in progress, start fading the item away
       int timer = casting.getTimer();
+      int totalTime = casting.getRecipeTime();
       int itemOpacity = 0;
       int fluidOpacity = 0xFF;
-      if (timer > 0) {
-        int totalTime = casting.getRecipeTime();
+      if (timer > 0 && totalTime > 0) {
         int opacity = (4 * 0xFF) * timer / totalTime;
         // fade item in
         itemOpacity = opacity / 4;
