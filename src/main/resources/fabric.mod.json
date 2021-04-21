@@ -30,7 +30,8 @@
             "slimeknights.tconstruct.tables.TinkerTables",
             "slimeknights.tconstruct.tools.TinkerToolParts",
             "slimeknights.tconstruct.tools.TinkerTools",
-            "slimeknights.tconstruct.tools.TinkerModifiers"
+            "slimeknights.tconstruct.tools.TinkerModifiers",
+            "slimeknights.tconstruct.library.book.TinkerBook"
         ],
         "client": [
             "slimeknights.tconstruct.shared.CommonsClientEvents",

@@ -13,7 +13,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.Material;
 import net.minecraft.fluid.LavaFluid;
+import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.TranslatableText;
@@ -148,11 +150,16 @@ public final class TinkerFluids extends TinkerModule {
   }
 
   private static FluidObject<MantleFluid> registerComplexFluid(String name, FluidKey.FluidKeyBuilder builder, MantleFluid.Still still, MantleFluid.Flowing flowing, Material material, int i) {
+    BucketItem bucket = new BucketItem(flowing, new Item.Settings().group(ItemGroup.MISC));
+
     still.setFlowing(flowing);
+    still.setBucketItem(bucket);
     flowing.setStill(still);
+    flowing.setBucketItem(bucket);
 
     Registry.register(Registry.FLUID, id("flowing_" + name), flowing);
     Registry.register(Registry.FLUID, id(name), still);
+    Registry.register(Registry.ITEM, id("bucket_" + name), bucket);
     FluidBlock block = Registry.register(Registry.BLOCK, id("fluid_" + name), new FluidBlock(still, AbstractBlock.Settings.of(material)));
     still.setBlockState(block.getDefaultState());
     flowing.setBlockState(block.getDefaultState());

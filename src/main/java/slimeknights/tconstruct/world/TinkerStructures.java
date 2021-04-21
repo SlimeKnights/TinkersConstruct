@@ -17,6 +17,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.BlockStateProviderType;
+import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
@@ -69,9 +70,11 @@ public final class TinkerStructures extends TinkerModule {
 
   public static StructureFeature<DefaultFeatureConfig> netherSlimeIsland = Registry.register(Registry.STRUCTURE_FEATURE, new Identifier(TConstruct.modID, "nether_slime_island"), new NetherSlimeIslandStructure(DefaultFeatureConfig.CODEC));
   public static ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> NETHER_SLIME_ISLAND;
+  public static RegistryKey<ConfiguredStructureFeature<?, ?>> NETHER_SLIME_ISLAND_STRUCTURE_KEY = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, location("nether_slime_island"));
 
   public static StructureFeature<DefaultFeatureConfig> endSlimeIsland = Registry.register(Registry.STRUCTURE_FEATURE, new Identifier(TConstruct.modID, "end_slime_island"), new EndSlimeIslandStructure(DefaultFeatureConfig.CODEC));
   public static ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> END_SLIME_ISLAND;
+  public static RegistryKey<ConfiguredStructureFeature<?, ?>> END_SLIME_ISLAND_STRUCTURE_KEY = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, location("end_slime_island"));
 
   @Override
   public void onInitialize() {
@@ -94,61 +97,61 @@ public final class TinkerStructures extends TinkerModule {
     END_SLIME_ISLAND = BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, location("end_slime_island"), endSlimeIsland.configure(DefaultFeatureConfig.INSTANCE));
     StructureFeature.STRUCTURES.put("tconstruct:end_slime_island", endSlimeIsland);
 
-//    SKY_SLIME_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("sky_slime_tree"), SLIME_TREE.configure((
-//      new BaseSlimeTreeFeatureConfig.Builder(
-//        new SupplierBlockStateProvider(() -> TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
-//        new SupplierBlockStateProvider(Blocks.AIR::getDefaultState),
-//        5,
-//        4,
-//        false))
-//      .build()));
-//    SKY_SLIME_ISLAND_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("sky_slime_island_tree"), SLIME_TREE.configure((
-//      new BaseSlimeTreeFeatureConfig.Builder(
-//        new SupplierBlockStateProvider(() -> TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.skySlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, SlimeVineBlock.VineStage.MIDDLE)),
-//        5,
-//        4,
-//        true))
-//      .build()));
-//
-//    ENDER_SLIME_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("ender_slime_tree"), SLIME_TREE.configure((
-//      new BaseSlimeTreeFeatureConfig.Builder(
-//        new SupplierBlockStateProvider(() -> TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState()),
-//        new SupplierBlockStateProvider(Blocks.AIR::getDefaultState),
-//        5,
-//        4,
-//        false))
-//      .build()));
-//    ENDER_SLIME_ISLAND_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("ender_slime_island_tree"), SLIME_TREE.configure((
-//      new BaseSlimeTreeFeatureConfig.Builder(
-//        new SupplierBlockStateProvider(() -> TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.enderSlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, SlimeVineBlock.VineStage.MIDDLE)),
-//        5,
-//        4,
-//        true))
-//      .build()));
-//
-//    BLOOD_SLIME_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("blood_slime_tree"), SLIME_TREE.configure((
-//      new BaseSlimeTreeFeatureConfig.Builder(
-//        new SupplierBlockStateProvider(() -> TinkerWorld.congealedSlime.get(SlimeType.BLOOD).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLOOD).getDefaultState()),
-//        new SupplierBlockStateProvider(Blocks.AIR::getDefaultState),
-//        5,
-//        4,
-//        false))
-//      .build()));
-//    ICHOR_SLIME_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("ichor_slime_tree"), SLIME_TREE.configure((
-//      new BaseSlimeTreeFeatureConfig.Builder(
-//        new SupplierBlockStateProvider(() -> TinkerWorld.congealedSlime.get(SlimeType.ICHOR).getDefaultState()),
-//        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ICHOR).getDefaultState()),
-//        new SupplierBlockStateProvider(Blocks.AIR::getDefaultState),
-//        5,
-//        4,
-//        false))
-//      .build()));
+    SKY_SLIME_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("sky_slime_tree"), SLIME_TREE.configure((
+      new BaseSlimeTreeFeatureConfig.Builder(
+        new SimpleBlockStateProvider(TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
+        new SimpleBlockStateProvider(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
+        new SimpleBlockStateProvider(Blocks.AIR.getDefaultState()),
+        5,
+        4,
+        false))
+      .build()));
+    SKY_SLIME_ISLAND_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("sky_slime_island_tree"), SLIME_TREE.configure((
+      new BaseSlimeTreeFeatureConfig.Builder(
+        new SimpleBlockStateProvider(TinkerWorld.congealedSlime.get(SlimeType.EARTH).getDefaultState()),
+        new SimpleBlockStateProvider(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
+        new SimpleBlockStateProvider(TinkerWorld.skySlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, SlimeVineBlock.VineStage.MIDDLE)),
+        5,
+        4,
+        true))
+      .build()));
+
+    ENDER_SLIME_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("ender_slime_tree"), SLIME_TREE.configure((
+      new BaseSlimeTreeFeatureConfig.Builder(
+        new SimpleBlockStateProvider(TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState()),
+        new SimpleBlockStateProvider(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState()),
+        new SimpleBlockStateProvider(Blocks.AIR.getDefaultState()),
+        5,
+        4,
+        false))
+      .build()));
+    ENDER_SLIME_ISLAND_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("ender_slime_island_tree"), SLIME_TREE.configure((
+      new BaseSlimeTreeFeatureConfig.Builder(
+        new SimpleBlockStateProvider(TinkerWorld.congealedSlime.get(SlimeType.SKY).getDefaultState()),
+        new SimpleBlockStateProvider(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState()),
+        new SimpleBlockStateProvider(TinkerWorld.enderSlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, SlimeVineBlock.VineStage.MIDDLE)),
+        5,
+        4,
+        true))
+      .build()));
+
+    BLOOD_SLIME_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("blood_slime_tree"), SLIME_TREE.configure((
+      new BaseSlimeTreeFeatureConfig.Builder(
+        new SimpleBlockStateProvider(TinkerWorld.congealedSlime.get(SlimeType.BLOOD).getDefaultState()),
+        new SimpleBlockStateProvider(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLOOD).getDefaultState()),
+        new SimpleBlockStateProvider(Blocks.AIR.getDefaultState()),
+        5,
+        4,
+        false))
+      .build()));
+    ICHOR_SLIME_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, location("ichor_slime_tree"), SLIME_TREE.configure((
+      new BaseSlimeTreeFeatureConfig.Builder(
+        new SimpleBlockStateProvider(TinkerWorld.congealedSlime.get(SlimeType.ICHOR).getDefaultState()),
+        new SimpleBlockStateProvider(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ICHOR).getDefaultState()),
+        new SimpleBlockStateProvider(Blocks.AIR.getDefaultState()),
+        5,
+        4,
+        false))
+      .build()));
   }
 }

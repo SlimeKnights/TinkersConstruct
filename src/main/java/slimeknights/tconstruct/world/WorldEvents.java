@@ -2,35 +2,44 @@ package slimeknights.tconstruct.world;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.biome.source.MultiNoiseBiomeSource;
 import net.minecraft.world.biome.source.TheEndBiomeSource;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.StructureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
-import slimeknights.tconstruct.TConstruct;
-
 import org.jetbrains.annotations.Nullable;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.Random;
 
-public class WorldEvents implements ModInitializer{
+public class WorldEvents implements ModInitializer {
 
-/*  @SubscribeEvent
+    /*@SubscribeEvent
   static void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {
     if (event.getWorld() instanceof ServerWorld) {
       ServerWorld serverWorld = (ServerWorld) event.getWorld();
-
       if (event.getType() == EntityClassification.MONSTER) {
         // inside a magma slime island?
         if (serverWorld.func_241112_a_().func_235010_a_(event.getPos().down(3), true, TinkerStructures.netherSlimeIsland.get()).isValid() && shouldSpawn(event.getWorld(), event.getPos())) {
@@ -38,7 +47,6 @@ public class WorldEvents implements ModInitializer{
           event.getList().clear();
           event.getList().add(new MobSpawnInfo.Spawners(EntityType.MAGMA_CUBE, 150, 4, 6));
         }
-
         // inside a slime island?
         if (serverWorld.func_241112_a_().func_235010_a_(event.getPos().down(3), true, TinkerStructures.overworldSlimeIsland.get()).isValid() && shouldSpawn(event.getWorld(), event.getPos())) {
           // spawn blue slime, most regular mobs have weight 10
@@ -47,22 +55,20 @@ public class WorldEvents implements ModInitializer{
         }
       }
     }
-  }*/
-
-  public static boolean shouldSpawn(World worldIn, BlockPos pos) {
+  }
+  public static boolean shouldSpawn(IWorld worldIn, BlockPos pos) {
     FluidState ifluidstate = worldIn.getFluidState(pos);
     BlockPos down = pos.down();
-
-    if (ifluidstate.isIn(TinkerTags.Fluids.SLIME) && worldIn.getFluidState(down).isIn(TinkerTags.Fluids.SLIME)) {
+    if (ifluidstate.isTagged(TinkerTags.Fluids.SLIME) && worldIn.getFluidState(down).isTagged(TinkerTags.Fluids.SLIME)) {
       return true;
     }
-
     return worldIn.getBlockState(pos.down()).getBlock() instanceof SlimeGrassBlock;
-  }
+  }*/
 
   /**
    * Helper method to determine the the given Name matches that of any of the given Biomes
-   * @param name - The Name that will be compared to the given Biomes names
+   *
+   * @param name   - The Name that will be compared to the given Biomes names
    * @param biomes - The Biome that will be used for the check
    */
   private static boolean doesNameMatchBiomes(@Nullable Identifier name, RegistryKey<?>... biomes) {
@@ -74,6 +80,56 @@ public class WorldEvents implements ModInitializer{
     return false;
   }
 
+  @Override
+  public void onInitialize() {
+    ServerWorldEvents.LOAD.register((minecraftServer, serverWorld) -> {
+      Map<StructureFeature<?>, StructureConfig> configuredStructures = serverWorld.getChunkManager().getChunkGenerator().getStructuresConfig().getStructures();
+      BiomeSource provider = serverWorld.getChunkManager().getChunkGenerator().getBiomeSource();
+      try {
+        if (provider instanceof MultiNoiseBiomeSource) {
+          if (!configuredStructures.containsKey(TinkerStructures.netherSlimeIsland)) {
+            configuredStructures.put(TinkerStructures.netherSlimeIsland, new StructureConfig(15, 11, 14357800));
+          }
+        } else if (provider instanceof TheEndBiomeSource) {
+          if (!configuredStructures.containsKey(TinkerStructures.endSlimeIsland)) {
+            configuredStructures.put(TinkerStructures.endSlimeIsland, new StructureConfig(30, 22, 14357800));
+          }
+        }
+      } catch (UnsupportedOperationException ex) {
+        // everywhere in vanilla uses hashmaps, yet somehow I keep getting reports of an immutable map ending up in the stream
+        // so just catch and log the exception, not sure what else we can do
+        // TODO: can we just add this to the default configs instead?
+        TConstruct.log.error("Failed to add slime island placement to world", ex);
+      }
+    });
+
+    if(TConfig.common.generateSlimeIslands) {
+      BiomeModifications.addStructure(this::isEnd, TinkerStructures.END_SLIME_ISLAND_STRUCTURE_KEY);
+      BiomeModifications.addStructure(this::isNether, TinkerStructures.NETHER_SLIME_ISLAND_STRUCTURE_KEY);
+      BiomeModifications.addStructure(this::isOverworld, TinkerStructures.SLIME_ISLAND_STRUCTURE_KEY);
+
+      BiomeModifications.addSpawn(this::isEnd, SpawnGroup.MONSTER, TinkerWorld.skySlimeEntity, 15, 2, 4);
+      BiomeModifications.addSpawn(this::isNether, SpawnGroup.MONSTER, EntityType.MAGMA_CUBE, 150, 4, 6);
+      BiomeModifications.addSpawn(this::isOverworld, SpawnGroup.MONSTER, TinkerWorld.skySlimeEntity, 15, 2, 4);
+    }
+
+    BiomeModifications.addFeature(ctx -> TConfig.common.generateCobalt, GenerationStep.Feature.UNDERGROUND_ORES, TinkerWorld.COBALT_ORE_FEATURE_SMALL_KEY);
+    BiomeModifications.addFeature(ctx -> TConfig.common.generateCobalt, GenerationStep.Feature.UNDERGROUND_ORES, TinkerWorld.COBALT_ORE_FEATURE_LARGE_KEY);
+    BiomeModifications.addFeature(ctx -> TConfig.common.generateCopper, GenerationStep.Feature.UNDERGROUND_ORES, TinkerWorld.COPPER_ORE_FEATURE_KEY);
+  }
+
+  private boolean isOverworld(BiomeSelectionContext ctx) {
+    return ctx.getBiome().getCategory() != Biome.Category.NETHER && ctx.getBiome().getCategory() != Biome.Category.THEEND;
+  }
+
+  private boolean isNether(BiomeSelectionContext ctx) {
+    return ctx.getBiome().getCategory() == Biome.Category.NETHER;
+  }
+
+  private boolean isEnd(BiomeSelectionContext ctx) {
+    return ctx.getBiome().getCategory() == Biome.Category.THEEND && doesNameMatchBiomes(ctx.getBiomeKey().getValue(), BiomeKeys.END_MIDLANDS, BiomeKeys.END_HIGHLANDS, BiomeKeys.END_BARRENS, BiomeKeys.SMALL_END_ISLANDS);
+  }
+
 
   /* Loot injection */
   private static boolean foundField = false;
@@ -82,7 +138,6 @@ public class WorldEvents implements ModInitializer{
   /**
    * Adds a loot entry to the given loot pool
    */
-  @SuppressWarnings("unchecked")
 /*  private static void addEntry(LootPool pool, LootPoolEntry entry) {
     // fetch field
     if (!foundField) {
@@ -143,67 +198,4 @@ public class WorldEvents implements ModInitializer{
     injectInto(event, "chests/end_city_treasure", "main", () -> makeSeed.apply(FoliageType.ENDER, 5));
     injectInto(event, "chests/end_city_treasure", "main", () -> makeSapling.apply(FoliageType.ENDER, 3));
   }*/
-
-  @Override
-  public void onInitialize() {
-    ServerWorldEvents.LOAD.register((minecraftServer, serverWorld) -> {
-        Map<StructureFeature<?>, StructureConfig> configuredStructures = serverWorld.getChunkManager().getChunkGenerator().getStructuresConfig().getStructures();
-        BiomeSource provider = serverWorld.getChunkManager().getChunkGenerator().getBiomeSource();
-        try {
-          if (provider instanceof MultiNoiseBiomeSource) {
-            if (!configuredStructures.containsKey(TinkerStructures.netherSlimeIsland)) {
-              configuredStructures.put(TinkerStructures.netherSlimeIsland, new StructureConfig(15, 11, 14357800));
-            }
-          } else if (provider instanceof TheEndBiomeSource) {
-            if (!configuredStructures.containsKey(TinkerStructures.endSlimeIsland)) {
-              configuredStructures.put(TinkerStructures.endSlimeIsland, new StructureConfig(30, 22, 14357800));
-            }
-          }
-        } catch (UnsupportedOperationException ex) {
-          // everywhere in vanilla uses hashmaps, yet somehow I keep getting reports of an immutable map ending up in the stream
-          // so just catch and log the exception, not sure what else we can do
-          // TODO: can we just add this to the default configs instead?
-          TConstruct.log.error("Failed to add slime island placement to world", ex);
-        }
-    });
-
-
-
-    BiomeModifications.addStructure(ctx -> {
-      RegistryKey<Biome> key = ctx.getBiomeKey();
-      if(key.getValue().getNamespace().equals("minecraft") && !key.getValue().getPath().equals("the_end")) {
-        System.out.println(key.getValue().getPath());
-        return true;
-      }
-      return false;
-    }, TinkerStructures.SLIME_ISLAND_STRUCTURE_KEY);
-
-//    BiomeGenerationSettingsBuilder generation = event.getGeneration();
-//
-//    if (event.getCategory() == Biome.Category.NETHER) {
-//      if (Config.common.generateSlimeIslands) {
-//        generation.structureFeature(TinkerStructures.NETHER_SLIME_ISLAND);
-//      }
-//
-//      if (Config.common.generateCobalt) {
-//        generation.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_SMALL);
-//        generation.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_LARGE);
-//      }
-//    }
-//    else if (event.getCategory() != Biome.Category.THEEND) {
-//      if (Config.common.generateSlimeIslands) {
-//        generation.structureFeature(TinkerStructures.SLIME_ISLAND);
-//        event.getSpawns().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(TinkerWorld.skySlimeEntity, 15, 2, 4));
-//      }
-//
-//      if (Config.common.generateCopper) {
-//        generation.feature(GenerationStep.Feature.UNDERGROUND_ORES, TinkerWorld.COPPER_ORE_FEATURE);
-//      }
-//    }
-//    else if (event.getCategory() == Biome.Category.THEEND && doesNameMatchBiomes(event.getName(), BiomeKeys.END_MIDLANDS, BiomeKeys.END_HIGHLANDS, BiomeKeys.END_BARRENS, BiomeKeys.SMALL_END_ISLANDS)) {
-//      if (Config.common.generateSlimeIslands) {
-//        generation.structureFeature(TinkerStructures.END_SLIME_ISLAND);
-//      }
-//    }
-  }
 }

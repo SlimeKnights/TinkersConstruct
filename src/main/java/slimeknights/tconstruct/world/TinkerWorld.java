@@ -24,6 +24,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DepthAverageDecoratorConfig;
@@ -169,8 +170,11 @@ public final class TinkerWorld extends TinkerModule implements ModInitializer {
    * Features
    */
   public static ConfiguredFeature<?, ?> COPPER_ORE_FEATURE;
+  public static RegistryKey<ConfiguredFeature<?, ?>> COPPER_ORE_FEATURE_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, location("copper_ore"));
   public static ConfiguredFeature<?, ?> COBALT_ORE_FEATURE_SMALL;
+  public static RegistryKey<ConfiguredFeature<?, ?>> COBALT_ORE_FEATURE_SMALL_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, location("cobalt_ore_small"));
   public static ConfiguredFeature<?, ?> COBALT_ORE_FEATURE_LARGE;
+  public static RegistryKey<ConfiguredFeature<?, ?>> COBALT_ORE_FEATURE_LARGE_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, location("cobalt_ore_large"));
 
   @Override
   public void onInitialize() {

@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
@@ -248,8 +249,6 @@ public class ContentMaterial extends TinkerPage {
   }
 
   public List<IToolPart> getToolParts() {
-    throw new RuntimeException("CRAB");
-    //return ForgeRegistries.ITEMS.getValues().stream().filter(item -> item instanceof IToolPart).map(item -> (IToolPart) item).collect(Collectors.toList());
+    return Registry.ITEM.getEntries().stream().filter(item -> item instanceof IToolPart).map(item -> (IToolPart) item).collect(Collectors.toList());
   }
-
 }

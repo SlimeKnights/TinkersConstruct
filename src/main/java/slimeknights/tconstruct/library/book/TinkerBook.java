@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.book;
 
+import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import slimeknights.mantle.client.book.BookLoader;
 import slimeknights.mantle.client.book.BookTransformer;
@@ -19,7 +20,7 @@ import slimeknights.tconstruct.library.book.sectiontransformer.materials.TierOne
 import slimeknights.tconstruct.library.book.sectiontransformer.materials.TierThreeMaterialSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.materials.TierTwoMaterialSectionTransformer;
 
-public class TinkerBook extends BookData {
+public class TinkerBook extends BookData implements ModInitializer {
 
   private static final Identifier MATERIALS_BOOK_ID = Util.getResource("materials_and_you");
   private static final Identifier MIGHTY_SMELTING_ID = Util.getResource("mighty_smelting");
@@ -86,4 +87,7 @@ public class TinkerBook extends BookData {
     }
     return MATERIALS_AND_YOU;
   }
+
+  @Override
+  public void onInitialize() {}
 }

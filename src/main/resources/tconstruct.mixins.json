@@ -8,6 +8,7 @@
     "CraftingResultSlotMixin",
     "HorseBaseEntityMixin",
     "LivingEntityMixin",
+    "EntityMixin",
     "MagmaCubeEntityMixin",
     "PlayerEntityMixin",
     "ServerResourceManagerMixin"
