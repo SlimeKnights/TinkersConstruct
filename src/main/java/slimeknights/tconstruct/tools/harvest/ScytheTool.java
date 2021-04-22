@@ -7,14 +7,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class ScytheTool extends KamaTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
-  public static final AOEToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(3, 3, 3);
+  public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(1, 1, 1);
 
   public ScytheTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
@@ -26,7 +26,7 @@ public class ScytheTool extends KamaTool {
   }
 
   @Override
-  public AOEToolHarvestLogic getToolHarvestLogic() {
+  public ToolHarvestLogic getToolHarvestLogic() {
     return HARVEST_LOGIC;
   }
 

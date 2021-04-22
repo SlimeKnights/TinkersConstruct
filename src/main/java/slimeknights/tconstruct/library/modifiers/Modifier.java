@@ -18,6 +18,7 @@ import net.minecraft.potion.EffectUtils;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -238,7 +239,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addAttributes(IModifierToolStack, int, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
-   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
+   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed, Direction, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
    * @param toolDefinition  Tool definition, will be empty for non-multitools
    * @param baseStats       Base material stats. Does not take tool definition or other modifiers into account
@@ -335,10 +336,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param tool                 Current tool instance
    * @param level                Modifier level
    * @param event                Event instance
+   * @param sideHit              Side of the block that was hit
    * @param isEffective          If true, the tool is effective against this block type
    * @param miningSpeedModifier  Calculated modifier from potion effects such as haste and environment such as water, use for additive bonuses to ensure consistency with the mining speed stat
    */
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, boolean isEffective, float miningSpeedModifier) {}
+  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
 
   /**
    * Adds loot table related enchantments from this modifier's effect, called before breaking a block.

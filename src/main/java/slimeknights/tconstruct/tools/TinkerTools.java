@@ -15,6 +15,7 @@ import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
+import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
@@ -36,6 +37,9 @@ import java.util.function.Supplier;
  * Contains all complete tool items
  */
 public final class TinkerTools extends TinkerModule {
+  public TinkerTools() {
+    BlockSideHitListener.init();
+  }
 
   /** Creative tab for all tool items */
   public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.modID, "tools", () -> TinkerTools.pickaxe.get().buildToolForRendering());

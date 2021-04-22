@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -21,7 +22,7 @@ public class MomentumModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
       // 50% boost per level at max
       int effectLevel = TinkerModifiers.momentumEffect.get().getLevel(event.getEntityLiving()) + 1;

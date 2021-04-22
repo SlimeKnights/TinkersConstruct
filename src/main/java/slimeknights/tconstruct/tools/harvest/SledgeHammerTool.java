@@ -5,13 +5,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class SledgeHammerTool extends HarvestTool {
-  private static final AOEToolHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(PickaxeTool.EXTRA_MATERIALS, 3, 3, 1);
+  private static final MaterialHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(PickaxeTool.EXTRA_MATERIALS, 1, 1, 0);
   public SledgeHammerTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
@@ -31,7 +31,7 @@ public class SledgeHammerTool extends HarvestTool {
   }
 
   @Override
-  public AOEToolHarvestLogic getToolHarvestLogic() {
+  public ToolHarvestLogic getToolHarvestLogic() {
     return HARVEST_LOGIC;
   }
 

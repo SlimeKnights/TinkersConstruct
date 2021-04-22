@@ -5,7 +5,8 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
 
 public class ExcavatorTool extends HarvestTool {
   public ExcavatorTool(Properties properties, ToolDefinition toolDefinition) {
@@ -13,8 +14,8 @@ public class ExcavatorTool extends HarvestTool {
   }
 
   @Override
-  public AOEToolHarvestLogic getToolHarvestLogic() {
-    return AOEToolHarvestLogic.LARGE_TOOL;
+  public ToolHarvestLogic getToolHarvestLogic() {
+    return RectangleAOEHarvestLogic.LARGE;
   }
 
   @Override
