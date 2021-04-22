@@ -4,43 +4,41 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.model.ModelResourceProvider;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.resource.Resource;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import slimeknights.mantle.client.model.JsonModelResourceProvider;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
+import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
+import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
-import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
-import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ToolClientEvents extends ClientEventBase {
 
-//  TODO: Models
-//  @SubscribeEvent
-//  static void registerModelLoaders(ModelRegistryEvent event) {
-//    ModelLoaderRegistry.registerLoader(Util.getResource("tool"), ToolModelLoader.INSTANCE);
-//    ModelLoaderRegistry.registerLoader(Util.getResource("material"), MaterialModel.LOADER);
-//  }
-
   /** Color handler instance for MaterialItem */
-  private static final ItemColorProvider materialColorHandler = (stack, index) -> {
-    return Optional.of(IMaterialItem.getMaterialIdFromStack(stack))
-      .filter(material -> !material.equals(IMaterial.UNKNOWN_ID))
-      .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
-      .map(MaterialRenderInfo::getVertexColor)
-      .orElse(-1);
-  };
+  private static final ItemColorProvider materialColorHandler = (stack, index) -> Optional.of(IMaterialItem.getMaterialIdFromStack(stack))
+    .filter(material -> !material.equals(IMaterial.UNKNOWN_ID))
+    .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
+    .map(MaterialRenderInfo::getVertexColor)
+    .orElse(-1);
 
   /** Color handler instance for ToolCore */
   private static final ItemColorProvider toolColorHandler = (stack, index) -> {
@@ -97,6 +95,7 @@ public class ToolClientEvents extends ClientEventBase {
 
     EntityRendererRegistry.INSTANCE.register(TinkerTools.indestructibleItem, (manager, context) -> new ItemEntityRenderer(manager, MinecraftClient.getInstance().getItemRenderer()));
 
-//    ModelLoadingRegistry.INSTANCE.registerResourceProvider(new JsonModelResourceProvider());
+    ModelLoadingRegistry.INSTANCE.registerResourceProvider((manager) -> ToolModel.LOADER);
+    ModelLoadingRegistry.INSTANCE.registerResourceProvider((manager) -> MaterialModel.LOADER);
   }
 }

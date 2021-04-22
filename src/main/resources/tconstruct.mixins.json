@@ -6,10 +6,11 @@
   "mixins": [
     "ClientPlayNetworkHandlerMixin",
     "CraftingResultSlotMixin",
+    "EntityMixin",
     "HorseBaseEntityMixin",
     "LivingEntityMixin",
-    "EntityMixin",
     "MagmaCubeEntityMixin",
+    "ModelLoaderMixin",
     "PlayerEntityMixin",
     "ServerResourceManagerMixin"
   ],

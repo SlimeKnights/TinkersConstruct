@@ -104,3 +104,14 @@ accessible  field   net/minecraft/client/font/FontManager  fontStorages     Ljav
 accessible  method  net/minecraft/server/network/ServerPlayerEntity    incrementScreenHandlerSyncId    ()V
 accessible  field   net/minecraft/server/network/ServerPlayerEntity    screenHandlerSyncId  I
 
+accessible  method  net/minecraft/client/render/model/json/ModelOverrideList   <init>    ()V
+
+accessible  field   net/minecraft/client/texture/Sprite    images [Lnet/minecraft/client/texture/NativeImage;
+accessible  field   net/minecraft/client/texture/Sprite    frameXs    [I
+accessible  field   net/minecraft/client/texture/Sprite    frameYs    [I
+accessible  field   net/minecraft/client/texture/Sprite    info   Lnet/minecraft/client/texture/Sprite$Info;
+accessible  field   net/minecraft/client/texture/Sprite$Info   height    I
+accessible  field   net/minecraft/client/texture/Sprite$Info   width    I
+
+accessible  field   net/minecraft/client/render/VertexFormatElement    count  I
+accessible  field   net/minecraft/client/render/VertexFormat   offsets   Lit/unimi/dsi/fastutil/ints/IntList;
