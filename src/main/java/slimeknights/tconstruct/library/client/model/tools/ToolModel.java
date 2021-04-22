@@ -144,21 +144,6 @@ public class ToolModel implements TinkerModelGeometry {
   }
 
   @Override
-  public boolean isVanillaAdapter() {
-    return false;
-  }
-
-  @Override
-  public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
-
-  }
-
-  @Override
-  public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
-
-  }
-
-  @Override
   public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, Random random) {
     return null;
   }

@@ -47,7 +47,7 @@ val modImplementationAndInclude by configurations.register("modImplementationAnd
 sourceSets {
     main {
         resources.srcDirs += file("src/generated/resources")
-    }
+    }e
 }
 
 dependencies {
