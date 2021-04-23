@@ -89,6 +89,21 @@ public class ToolHarvestLogic {
   }
 
   /**
+   * Checks if this tool can AOE
+   * @param tool       Tool to check
+   * @param stack      Stack to check
+   * @param state      State to check
+   * @param matchType  AOE match type
+   * @return  True if AOE is valid
+   */
+  public final boolean canAOE(ToolStack tool, ItemStack stack, BlockState state, AOEMatchType matchType) {
+    if (matchType == AOEMatchType.BREAKING) {
+      return isEffective(tool, stack, state);
+    }
+    return !tool.isBroken();
+  }
+
+  /**
    * Calculates the dig speed for the given blockstate
    *
    * @param stack the tool stack
@@ -126,7 +141,7 @@ public class ToolHarvestLogic {
    * @param matchType   Type of match
    * @return A list of BlockPos's that the AOE tool can affect. Note these positions will likely be mutable
    */
-  public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     return Collections.emptyList();
   }
 
@@ -261,7 +276,7 @@ public class ToolHarvestLogic {
       boolean addedEnchants = ModifierUtil.applyEnchantments(tool, stack, player);
 
       // need to calculate the iterator before we break the block, as we need the reference hardness from the center
-      Iterable<BlockPos> extraBlocks = getAOEBlocks(tool, stack, world, player, pos, BlockSideHitListener.getSideHit(player), AOEMatchType.BREAKING);
+      Iterable<BlockPos> extraBlocks = getAOEBlocks(tool, stack, player, state, world, pos, BlockSideHitListener.getSideHit(player), AOEMatchType.BREAKING);
 
       // actually break the block, run AOE if successful
       if (breakBlock(tool, stack, serverPlayer, world, pos, state)) {
@@ -367,7 +382,7 @@ public class ToolHarvestLogic {
     // note we consider anything effective, as hoes are not effective on all tillable blocks
     boolean didAoe = false;
     if (player != null) {
-      for (BlockPos newPos : getAOEBlocks(tool, stack, world, player, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
+      for (BlockPos newPos : getAOEBlocks(tool, stack, player, original, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
         if (pos.equals(newPos)) {
           //in case it attempts to run the same position twice
           continue;

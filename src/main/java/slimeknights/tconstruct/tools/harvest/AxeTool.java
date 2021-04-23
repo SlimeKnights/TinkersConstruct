@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.harvest;
 
 import com.google.common.collect.Sets;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -28,8 +29,8 @@ public class AxeTool extends HarvestTool {
   private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.PLANTS, Material.TALL_PLANTS, Material.BAMBOO, Material.GOURD, Material.LEAVES);
   public static final MaterialHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(EXTRA_MATERIALS, 0, 0, 0) {
     @Override
-    public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
-      if (tool.isBroken()) {
+    public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+      if (!canAOE(tool, stack, state, matchType)) {
         return Collections.emptyList();
       }
       // axe uses circular harvest

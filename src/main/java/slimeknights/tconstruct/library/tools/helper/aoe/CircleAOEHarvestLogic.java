@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tools.helper.aoe;
 
 import lombok.RequiredArgsConstructor;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
@@ -24,8 +25,8 @@ public class CircleAOEHarvestLogic extends ToolHarvestLogic {
   protected final boolean is3D;
 
   @Override
-  public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
-    if (tool.isBroken()) {
+  public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+    if (!canAOE(tool, stack, state, matchType)) {
       return Collections.emptyList();
     }
     // expanded gives an extra width every odd level, and an extra height every even level

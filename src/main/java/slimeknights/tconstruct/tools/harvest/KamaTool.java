@@ -326,7 +326,7 @@ public class KamaTool extends HarvestTool {
 
         // if we have a player, try doing AOE harvest
         if (!broken && player != null) {
-          for (BlockPos newPos : getToolHarvestLogic().getAOEBlocks(tool, stack, world, player, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
+          for (BlockPos newPos : getToolHarvestLogic().getAOEBlocks(tool, stack, player, state, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
             // try harvesting the crop, if successful and survival, damage the tool
             if (harvest(context, stack, tool, server, world.getBlockState(newPos), newPos, player)) {
               didHarvest = true;

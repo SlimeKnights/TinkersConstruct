@@ -69,7 +69,8 @@ public class ToolRenderEvents {
       return;
     }
     BlockRayTraceResult blockTrace = event.getTarget();
-    Iterator<BlockPos> extraBlocks = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic().getAOEBlocks(tool, stack, world, player, blockTrace.getPos(), blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
+    BlockPos origin = blockTrace.getPos();
+    Iterator<BlockPos> extraBlocks = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic().getAOEBlocks(tool, stack, player, world.getBlockState(origin), world, origin, blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }
@@ -146,7 +147,7 @@ public class ToolRenderEvents {
       return;
     }
     // determine extra blocks to highlight
-    Iterator<BlockPos> extraBlocks = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic().getAOEBlocks(tool, stack, world, player, target, blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
+    Iterator<BlockPos> extraBlocks = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic().getAOEBlocks(tool, stack, player, world.getBlockState(target), world, target, blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }

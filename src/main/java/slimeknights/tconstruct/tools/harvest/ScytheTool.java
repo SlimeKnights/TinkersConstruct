@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.harvest;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -23,9 +24,8 @@ public class ScytheTool extends KamaTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
   public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(3, true) {
     @Override
-    public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
-      // only works with modifiable harvest
-      if (tool.isBroken()) {
+    public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+      if (!canAOE(tool, stack, state, matchType)) {
         return Collections.emptyList();
       }
 
