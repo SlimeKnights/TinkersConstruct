@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.helper.aoe.VeiningAOEHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.aoe.DepthAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -26,7 +26,8 @@ public class PickaxeTool extends HarvestTool {
         return Collections.emptyList();
       }
       // veining block breaking
-      return VeiningAOEHarvestLogic.calculate(world, origin, tool.getModifierLevel(TinkerModifiers.expanded.get()));
+      int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
+      return DepthAOEHarvestLogic.calculate(this, tool, stack, player, world, origin, expanded / 2, (expanded + 1) / 2 * 2, matchType);
     }
   };
 

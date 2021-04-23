@@ -93,8 +93,8 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
     /* Bounding box size in the direction of depth */
     private final int maxDepth;
 
-    /** Current position in the direction of width, starts at -1 so the first position will be width of 0 */
-    private int currentWidth = -1;
+    /** Current position in the direction of width */
+    private int currentWidth = 0;
     /** Current position in the direction of height */
     private int currentHeight = 0;
     /** Current position in the direction of depth */
@@ -109,7 +109,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
     /** Last returned values for the three coords */
     protected int lastX, lastY, lastZ;
 
-    protected RectangleIterator(BlockPos origin, Direction widthDir, int extraWidth, Direction heightDir, int extraHeight, Direction depthDir, int extraDepth, Predicate<BlockPos> posPredicate) {
+    public RectangleIterator(BlockPos origin, Direction widthDir, int extraWidth, Direction heightDir, int extraHeight, Direction depthDir, int extraDepth, Predicate<BlockPos> posPredicate) {
       this.origin = origin;
       this.widthDir = widthDir;
       this.heightDir = heightDir;
@@ -117,10 +117,16 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
       this.maxWidth = extraWidth * 2;
       this.maxHeight = extraHeight * 2;
       this.maxDepth = extraDepth;
+      // start 1 block before start on the correct axis
       // computed values
       this.mutablePos = new Mutable(origin.getX(), origin.getY(), origin.getZ());
       this.posPredicate = posPredicate;
-      this.mutablePos.move(widthDir, -extraWidth - 1).move(heightDir, -extraHeight);
+      if (extraWidth > 0) {
+        currentWidth--;
+      } else if (extraHeight > 0) {
+        currentHeight--;
+      }
+      this.mutablePos.move(widthDir, -extraWidth + currentWidth).move(heightDir, -extraHeight + currentHeight);
       this.lastX = this.mutablePos.getX();
       this.lastY = this.mutablePos.getY();
       this.lastZ = this.mutablePos.getZ();
