@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.client.model.SimpleModelBakeSettings;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -32,7 +33,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.client.render.model.ModelLoader.GENERATION_MARKER;
 
-public class Submodel implements UnbakedModel, BakedModel, FabricBakedModel {
+public class Submodel implements UnbakedModel, BakedModel {
 
   private final UnbakedModel model;
   private final ModelBakeSettings modelTransform;
@@ -41,25 +42,25 @@ public class Submodel implements UnbakedModel, BakedModel, FabricBakedModel {
     this.model = model;
     this.modelTransform = modelTransform;
   }
-
-  @Override
-  public boolean isVanillaAdapter() {
-    return false;
-  }
-
-  @Override
-  public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
-    throw new UnsupportedOperationException("Attempted to call adQuads on a Submodel instance. Please don't.");
-  }
-
-  @Override
-  public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
-    throw new UnsupportedOperationException("Attempted to call adQuads on a Submodel instance. Please don't.");
-  }
+//
+//  @Override
+//  public boolean isVanillaAdapter() {
+//    return false;
+//  }
+//
+//  @Override
+//  public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+//    throw new UnsupportedOperationException("Attempted to call adQuads on a Submodel instance. Please don't.");
+//  }
+//
+//  @Override
+//  public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
+//    throw new UnsupportedOperationException("Attempted to call adQuads on a Submodel instance. Please don't.");
+//  }
 
   @Override
   public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, Random random) {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
@@ -99,7 +100,7 @@ public class Submodel implements UnbakedModel, BakedModel, FabricBakedModel {
 
   @Override
   public Collection<Identifier> getModelDependencies() {
-    return null;
+    return Collections.emptySet();
   }
 
   @Override

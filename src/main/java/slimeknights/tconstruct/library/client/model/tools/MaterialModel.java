@@ -53,6 +53,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.shared.TinkerClient;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -191,7 +192,7 @@ public class MaterialModel implements TinkerModelGeometry {
 
     // bake model - while the transform may not be identity, it never has rotation so its safe to say untransformed
 //    ImmutableMap<Mode, AffineTransformation> transformMap = PerspectiveMapWrapper.getTransforms(owner.getCombinedTransform());
-    return new BasicBakedModel(mutableList.getValue(), new HashMap<>(), true, true, true, particle, ModelTransformation.NONE, overrides);
+    return new BasicBakedModel(mutableList.getValue(), Collections.emptyMap(), true, true, true, particle, ModelTransformation.NONE, overrides);
   }
 
   @Override
@@ -218,7 +219,7 @@ public class MaterialModel implements TinkerModelGeometry {
 
   @Override
   public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, Random random) {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
@@ -258,7 +259,7 @@ public class MaterialModel implements TinkerModelGeometry {
 
   @Override
   public Collection<Identifier> getModelDependencies() {
-    return null;
+    return Collections.emptySet();
   }
 
   @Override

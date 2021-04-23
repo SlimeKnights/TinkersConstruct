@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.render.model.BasicBakedModel;
 import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
@@ -124,15 +125,14 @@ public class ToolModel implements TinkerModelGeometry {
     assert particle != null;
 
     // bake model - while the transform may not be identity, it never has rotation so its safe to say untransformed
-//    ImmutableMap<Mode, AffineTransformation> transformMap = Maps.immutableEnumMap(PerspectiveMapWrapper.getTransforms(owner.getCombinedTransform()));
+    // ImmutableMap<Mode, AffineTransformation> transformMap = Maps.immutableEnumMap(PerspectiveMapWrapper.getTransforms(owner.getCombinedTransform()));
 
     // large models use a custom model here
     if (largeTransforms != null) {
       return new BakedLargeToolModel(largeBuilder.build(), smallBuilder.build(), particle, null, overrides, true);
     }
     // for small, we leave out the large quads, so the baked item model logic is sufficient
-    throw new RuntimeException("Large transforms where not supported and fabric sucks with its model api");
-//    return new BakedItemModel(smallBuilder.build(), particle, null, overrides, true, true);
+    return new BasicBakedModel(smallBuilder.build(), Collections.emptyMap(), true, true, true, particle, null, overrides);
   }
 
   @Nullable
@@ -145,7 +145,7 @@ public class ToolModel implements TinkerModelGeometry {
 
   @Override
   public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, Random random) {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
@@ -185,7 +185,7 @@ public class ToolModel implements TinkerModelGeometry {
 
   @Override
   public Collection<Identifier> getModelDependencies() {
-    return null;
+    return Collections.emptySet();
   }
 
   @Override

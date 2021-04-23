@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.mixin;
+package slimeknights.tconstruct.mixin.client;
 
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
