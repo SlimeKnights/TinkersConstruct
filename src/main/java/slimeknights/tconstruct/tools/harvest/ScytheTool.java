@@ -32,7 +32,7 @@ public class ScytheTool extends KamaTool {
       // include depth in boost
       int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
       int sides = (expanded + 1) / 2;
-      return RectangleAOEHarvestLogic.calculate(this, tool, stack, world, player, origin, sideHit, diameter + sides, diameter + sides, diameter + (expanded / 2) * 2, matchType);
+      return RectangleAOEHarvestLogic.calculate(this, tool, stack, world, player, origin, sideHit, 1 + sides, 1 + sides, 3 + (expanded / 2) * 2, matchType);
     }
   };
 
