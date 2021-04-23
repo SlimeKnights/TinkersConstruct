@@ -7,8 +7,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -33,7 +33,7 @@ public class VeiningAOEHarvestLogic extends ToolHarvestLogic {
     if (!canAOE(tool, stack, state, matchType)) {
       return Collections.emptyList();
     }
-    int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
+    int expanded = tool.getModifierLevel(TinkerModifiers.expanded);
     return calculate(state, world, origin, maxDistance + expanded);
   }
 
@@ -92,7 +92,7 @@ public class VeiningAOEHarvestLogic extends ToolHarvestLogic {
         DistancePos distancePos = queue.remove();
         BlockPos pos = distancePos.getPos();
         // must be a valid block
-        if (world.getBlockState(pos).isIn(target)) {
+        if (world.getBlockState(pos).getBlock() == target) {
           // if not at max distance yet, add blocks on all sides
           int distance = distancePos.getDistance();
           if (distance < maxDistance) {

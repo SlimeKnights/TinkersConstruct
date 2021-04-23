@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
+import net.minecraft.util.math.Direction;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
@@ -16,7 +17,7 @@ public class BlastingModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
       float blastResistance = player.getBlockState().getBlock().getBlastResistance();
       //float blastResistance = event.getState().getBlock().getExplosionResistance();

@@ -1,10 +1,18 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import net.minecraft.block.Material;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.math.Direction;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -291,30 +299,30 @@ public class ToolHarvestLogic {
    * @param sound     Sound to play on tilling
    * @return  Action result from tilling
    */
-  public ActionResultType transformBlocks(ItemUseContext context, ToolType toolType, SoundEvent sound, boolean requireGround) {
-    PlayerEntity player = context.getPlayer();
+  public ActionResult transformBlocks(ItemUsageContext context, Tag<Item> toolType, SoundEvent sound, boolean requireGround) {
+    /*PlayerEntity player = context.getPlayer();
     if (player != null && player.isSneaking()) {
-      return ActionResultType.PASS;
+      return ActionResult.PASS;
     }
 
     // tool must not be broken
     Hand hand = context.getHand();
-    ItemStack stack = context.getItem();
+    ItemStack stack = context.getStack();
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
-      return ActionResultType.FAIL;
+      return ActionResult.FAIL;
     }
 
     // for hoes and shovels, must have nothing but plants above
     World world = context.getWorld();
-    BlockPos pos = context.getPos();
+    BlockPos pos = context.getBlockPos();
     if (requireGround) {
       if (context.getFace() == Direction.DOWN) {
-        return ActionResultType.PASS;
+        return ActionResult.PASS;
       }
       Material material = world.getBlockState(pos.up()).getMaterial();
-      if (!material.isReplaceable() && material != Material.PLANTS) {
-        return ActionResultType.PASS;
+      if (!material.isReplaceable() && material != Material.SOLID_ORGANIC) {
+        return ActionResult.PASS;
       }
     }
 
@@ -414,7 +422,8 @@ public class ToolHarvestLogic {
     }
 
     // if anything happened, return success
-    return didTransform || didAoe ? ActionResultType.SUCCESS : ActionResultType.PASS;
+    return didTransform || didAoe ? ActionResultType.SUCCESS : ActionResultType.PASS;*/
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
   }
 
   /**
@@ -428,13 +437,13 @@ public class ToolHarvestLogic {
    * @return  Predicate for AOE block matching
    */
   public static Predicate<BlockPos> getDefaultBlockPredicate(ToolHarvestLogic self, ToolStack tool, ItemStack stack, World world, BlockPos origin, AOEMatchType matchType) {
-    // requires effectiveness
+/*    // requires effectiveness
     if (matchType == AOEMatchType.BREAKING) {
       // don't let hardness vary too much
       float refHardness = world.getBlockState(origin).getBlockHardness(world, origin);
       return pos -> {
         BlockState state = world.getBlockState(pos);
-        if (state.isAir(world, pos)) {
+        if (world.getBlockState(pos).isAir()) {
           return false;
         }
         // if the hardness varies by too much, don't allow breaking
@@ -446,7 +455,8 @@ public class ToolHarvestLogic {
       };
     } else {
       return pos -> !world.getBlockState(pos).isAir(world, pos);
-    }
+    }*/
+    throw new RuntimeException("CRAB!"); // FIXME: PORT
   }
 
   public enum AOEMatchType {

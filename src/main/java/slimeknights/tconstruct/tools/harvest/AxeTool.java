@@ -12,10 +12,12 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.aoe.CircleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -32,7 +34,7 @@ public class AxeTool extends HarvestTool {
         return Collections.emptyList();
       }
       // axe uses circular harvest
-      return CircleAOEHarvestLogic.calculate(this, tool, stack, world, player, origin, sideHit, 1 + tool.getModifierLevel(TinkerModifiers.expanded.get()), false, matchType);
+      return CircleAOEHarvestLogic.calculate(this, tool, stack, world, player, origin, sideHit, 1 + tool.getModifierLevel(TinkerModifiers.expanded), false, matchType);
     }
   };
   public AxeTool(Settings properties, ToolDefinition toolDefinition) {

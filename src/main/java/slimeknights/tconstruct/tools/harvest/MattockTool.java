@@ -6,6 +6,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.VeiningAOEHarvestLogic;
@@ -25,7 +31,7 @@ public class MattockTool extends ToolCore {
       if (!canAOE(tool, stack, state, matchType)) {
         return Collections.emptyList();
       }
-      return VeiningAOEHarvestLogic.calculate(state, world, origin, tool.getModifierLevel(TinkerModifiers.expanded.get()));
+      return VeiningAOEHarvestLogic.calculate(state, world, origin, tool.getModifierLevel(TinkerModifiers.expanded));
     }
 
     @Override

@@ -1,5 +1,10 @@
 package slimeknights.tconstruct.tools.harvest;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
@@ -14,6 +19,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.Collections;
+
 public class ScytheTool extends KamaTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
   public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(3, true) {
@@ -24,7 +31,7 @@ public class ScytheTool extends KamaTool {
       }
 
       // include depth in boost
-      int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
+      int expanded = tool.getModifierLevel(TinkerModifiers.expanded);
       int sides = (expanded + 1) / 2;
       return RectangleAOEHarvestLogic.calculate(this, tool, stack, world, player, origin, sideHit, 1 + sides, 1 + sides, 3 + (expanded / 2) * 2, matchType);
     }

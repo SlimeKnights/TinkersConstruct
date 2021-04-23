@@ -5,10 +5,9 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -33,7 +32,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
       return Collections.emptyList();
     }
     // expanded gives an extra width every odd level, and an extra height every even level
-    int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
+    int expanded = tool.getModifierLevel(TinkerModifiers.expanded);
     return calculate(this, tool, stack, world, player, origin, sideHit, extraWidth + ((expanded + 1) / 2), extraHeight + (expanded / 2), extraDepth, matchType);
   }
 
@@ -63,12 +62,12 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
     Direction depthDir = sideHit.getOpposite();
     Direction widthDir, heightDir;
     // for Y, direction is based on facing
-    if (sideHit.getAxis() == Axis.Y) {
+    if (sideHit.getAxis() == Direction.Axis.Y) {
       heightDir = player.getHorizontalFacing();
-      widthDir = heightDir.rotateY();
+      widthDir = heightDir.rotateYClockwise();
     } else {
       // for X and Z, just rotate from side hit
-      widthDir = sideHit.rotateYCCW();
+      widthDir = sideHit.rotateYCounterclockwise();
       heightDir = Direction.UP;
     }
 
@@ -168,7 +167,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
     @Override
     protected BlockPos computeNext() {
       // ensure the position did not get changed by the consumer last time
-      mutablePos.setPos(lastX, lastY, lastZ);
+      mutablePos.set(lastX, lastY, lastZ);
       // as long as we have another position, try using it
       while (incrementPosition()) {
         // skip over the origin, ensure it matches the predicate

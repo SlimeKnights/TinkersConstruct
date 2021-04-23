@@ -11,6 +11,7 @@ import net.minecraft.util.registry.Registry;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
+import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
 import slimeknights.tconstruct.tools.harvest.AxeTool;
 import slimeknights.tconstruct.tools.harvest.ExcavatorTool;
 import slimeknights.tconstruct.tools.harvest.HarvestTool;

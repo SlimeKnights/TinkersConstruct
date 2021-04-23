@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
+import net.minecraft.util.math.Direction;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 

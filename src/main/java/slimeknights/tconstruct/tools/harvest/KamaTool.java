@@ -2,20 +2,6 @@ package slimeknights.tconstruct.tools.harvest;
 
 import com.google.common.collect.Sets;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.TinkerModifiers;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -43,9 +29,18 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class KamaTool extends HarvestTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
@@ -356,13 +351,13 @@ public class KamaTool extends HarvestTool {
   }
 
   /** Harvests logic to match shears and hoes */
-  public static class HarvestLogic extends CircleAOEHarvestLogic {
+  public static class HarvestLogic extends ToolHarvestLogic {
     private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(
       Material.LEAVES, Material.COBWEB, Material.WOOL,
       Material.REPLACEABLE_PLANT, Material.NETHER_SHOOTS, Material.UNDERWATER_PLANT);
 
     public HarvestLogic(int diameter, boolean is3D) {
-      super(diameter, is3D);
+//      super(diameter, is3D);
     }
 
     @Override

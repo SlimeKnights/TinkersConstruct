@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.Direction;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
@@ -15,7 +16,7 @@ public class DwarvenModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     // essentially just the line slope formula from (0, level + 1) to (SEA_LEVEL, 1), with a scal
     float factor = (float) Math.max(1f, (SEA_LEVEL - player.getPos().getY()) * level * (BOOST_AT_0 / SEA_LEVEL) + 1);
     if (factor > 1f) {

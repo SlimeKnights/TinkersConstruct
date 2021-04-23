@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic.RectangleIterator;
@@ -25,7 +25,7 @@ public class DepthAOEHarvestLogic extends ToolHarvestLogic {
     if (!canAOE(tool, stack, state, matchType)) {
       return Collections.emptyList();
     }
-    int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
+    int expanded = tool.getModifierLevel(TinkerModifiers.expanded);
     return calculate(this, tool, stack, player, world, origin, extraHeight + expanded / 2, extraDepth + (expanded + 1) / 2 * 2, matchType);
   }
 

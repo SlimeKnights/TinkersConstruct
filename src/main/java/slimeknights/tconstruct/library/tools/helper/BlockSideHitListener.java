@@ -1,10 +1,7 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
+import net.minecraft.util.math.Direction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,19 +16,19 @@ public class BlockSideHitListener {
       return;
     }
     init = true;
-    MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeftClickBlock);
-    MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeftClickBlock);
+//    MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeftClickBlock);
+//    MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeftClickBlock);
   }
 
-  /** Called when the player left clicks a block to store the face */
+  /** Called when the player left clicks a block to store the face *//*
   private static void onLeftClickBlock(LeftClickBlock event) {
     HIT_FACE.put(event.getPlayer().getUniqueID(), event.getFace());
-  }
+  }*/
 
   /** Called when a player leaves the server to clear the face */
-  private static void onLeaveServer(PlayerLoggedOutEvent event) {
-    HIT_FACE.remove(event.getPlayer().getUniqueID());
-  }
+//  private static void onLeaveServer(PlayerLoggedOutEvent event) {
+//    HIT_FACE.remove(event.getPlayer().getUniqueID());
+//  }
 
   /**
    * Gets the side this player last hit
@@ -39,6 +36,6 @@ public class BlockSideHitListener {
    * @return  Side last hit
    */
   public static Direction getSideHit(PlayerEntity player) {
-    return HIT_FACE.getOrDefault(player.getUniqueID(), Direction.UP);
+    return HIT_FACE.getOrDefault(player.getUuid(), Direction.UP);
   }
 }
