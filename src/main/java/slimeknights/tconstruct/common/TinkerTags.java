@@ -96,6 +96,7 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE = forgeTag("nuggets/netherite");
     public static final IOptionalNamedTag<Item> INGOTS_NETHERITE_SCRAP = forgeTag("ingots/netherite_scrap");
+    public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE_SCRAP = forgeTag("nuggets/netherite_scrap");
 
     public static final IOptionalNamedTag<Item> CASTS = tag("casts");
     public static final IOptionalNamedTag<Item> GOLD_CASTS = tag("casts/gold");

@@ -142,6 +142,8 @@
     "item.tconstruct.soulsteel_nugget": "Soulsteel Nugget",
     
     "item.tconstruct.netherite_nugget": "Netherite Nugget",
+    "item.tconstruct.debris_nugget": "Debris Scrap",
+    "item.tconstruct.debris_nugget.tooltip": "Small shard of ancient netherite, possibly can be melted to salvage",
 
     
     "__comment": "Tier 5 Metals",

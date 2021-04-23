@@ -78,6 +78,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
     this.getOrCreateBuilder(TinkerTags.Items.INGOTS_NETHERITE_SCRAP).add(Items.NETHERITE_SCRAP);
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP).add(TinkerMaterials.debrisNugget.get());
 
     copyColored(Tags.Blocks.GLASS, Tags.Items.GLASS);
     copyColored(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
