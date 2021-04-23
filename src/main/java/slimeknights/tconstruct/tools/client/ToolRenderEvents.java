@@ -39,7 +39,7 @@ import java.util.Iterator;
 @Mod.EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ToolRenderEvents {
   /** Maximum number of blocks from the iterator to render */
-  private static final int MAX_BLOCKS = 30;
+  private static final int MAX_BLOCKS = 60;
 
   /**
    * Renders the outline on the extra blocks

@@ -21,6 +21,9 @@ public final class ToolDefinitions {
   public static final ToolDefinition SLEDGE_HAMMER = new ToolDefinition(
     ToolBaseStatDefinitions.SLEDGE_HAMMER,
     requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughHandle, TinkerToolParts.largePlate, TinkerToolParts.largePlate));
+  public static final ToolDefinition VEIN_HAMMER = new ToolDefinition(
+    ToolBaseStatDefinitions.VEIN_HAMMER,
+    requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughHandle, TinkerToolParts.pickaxeHead, TinkerToolParts.largePlate));
 
   // dirt
   public static final ToolDefinition MATTOCK = new ToolDefinition(

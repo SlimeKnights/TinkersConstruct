@@ -121,6 +121,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {
     registerBuildingRecipe(consumer, TinkerTools.pickaxe);
     registerBuildingRecipe(consumer, TinkerTools.sledgeHammer);
+    registerBuildingRecipe(consumer, TinkerTools.veinHammer);
 
     registerBuildingRecipe(consumer, TinkerTools.mattock);
     registerBuildingRecipe(consumer, TinkerTools.excavator);

@@ -65,6 +65,7 @@ public class ToolClientEvents extends ClientEventBase {
     // rock
     registerToolItemColors(colors, TinkerTools.pickaxe);
     registerToolItemColors(colors, TinkerTools.sledgeHammer);
+    registerToolItemColors(colors, TinkerTools.veinHammer);
     // dirt
     registerToolItemColors(colors, TinkerTools.mattock);
     registerToolItemColors(colors, TinkerTools.excavator);
@@ -122,20 +123,20 @@ public class ToolClientEvents extends ClientEventBase {
   };
 
   /**
-   * Registers an item color handler for a part item
+   * Registers an item color handler for a part item, TODO: move to API class
    * @param colors  Item colors instance
    * @param item    Material item
    */
-  private static void registerMaterialItemColors(ItemColors colors, Supplier<? extends MaterialItem> item) {
+  public static void registerMaterialItemColors(ItemColors colors, Supplier<? extends MaterialItem> item) {
     colors.register(materialColorHandler, item.get());
   }
 
   /**
-   * Registers an item color handler for a part item
+   * Registers an item color handler for a part item, TODO: move to API class
    * @param colors  Item colors instance
    * @param item    Material item
    */
-  private static void registerToolItemColors(ItemColors colors, Supplier<? extends ToolCore> item) {
+  public static void registerToolItemColors(ItemColors colors, Supplier<? extends ToolCore> item) {
     colors.register(toolColorHandler, item.get());
   }
 }
