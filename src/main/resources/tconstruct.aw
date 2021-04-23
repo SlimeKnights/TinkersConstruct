@@ -115,3 +115,7 @@ accessible  field   net/minecraft/client/texture/Sprite$Info   width    I
 
 accessible  field   net/minecraft/client/render/VertexFormatElement    count  I
 accessible  field   net/minecraft/client/render/VertexFormat   offsets   Lit/unimi/dsi/fastutil/ints/IntList;
+
+accessible  method  net/minecraft/client/render/model/BasicBakedModel$Builder  <init>   (ZZZLnet/minecraft/client/render/model/json/ModelTransformation;Lnet/minecraft/client/render/model/json/ModelOverrideList;)V
+
+accessible  field   net/minecraft/client/render/model/json/JsonUnbakedModel    GSON   Lcom/google/gson/Gson;

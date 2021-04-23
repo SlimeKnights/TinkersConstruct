@@ -34,12 +34,11 @@ public class MattockTool extends ToolCore {
       }
       // slower when a non-shovel block
       float speed = tool.getStats().getMiningSpeed();
-      throw new RuntimeException("What the fuck. Crab!");
-      //TODO: fabric can be a bitch. PORT
-//      if (!blockState.getBlock().miningLevel == isToolEffective(FabricToolTags.SHOVELS)) {
+      //FIXME: PORT
+//      if (!blockState.getBlock() == isToolEffective(FabricToolTags.SHOVELS)) {
 //        speed *= 0.75f;
 //      }
-//      return speed;
+      return speed;
     }
   };
 

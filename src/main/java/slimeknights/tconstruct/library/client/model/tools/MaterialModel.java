@@ -1,16 +1,12 @@
 package slimeknights.tconstruct.library.client.model.tools;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.client.model.ModelProviderContext;
-import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
@@ -18,26 +14,22 @@ import net.minecraft.client.render.model.BasicBakedModel;
 import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.render.model.json.ModelTransformation.Mode;
 import net.minecraft.client.texture.MissingSprite;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.AffineTransformation;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.resource.ResourceManager;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec2f;
-import net.minecraft.world.BlockRenderView;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,6 +39,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
+import slimeknights.tconstruct.library.client.model.HBMABFIB;
 import slimeknights.tconstruct.library.client.model.ItemLayerModel;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -63,7 +56,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class MaterialModel implements TinkerModelGeometry {
   /** Shared loader instance */
@@ -78,10 +70,13 @@ public class MaterialModel implements TinkerModelGeometry {
   /** Transform matrix to apply to child parts */
   private final Vec2f offset;
 
-  public MaterialModel(@Nullable MaterialId material, int index, Vec2f offset) {
+  private JsonUnbakedModel owner;
+
+  public MaterialModel(@Nullable MaterialId material, int index, Vec2f offset, JsonUnbakedModel owner) {
     this.material = material;
     this.index = index;
     this.offset = offset;
+    this.owner = owner;
   }
 
   /**
@@ -117,8 +112,8 @@ public class MaterialModel implements TinkerModelGeometry {
    * @param textureName  Texture name to add
    * @param material     List of materials
    */
-  public static void getMaterialTextures(Collection<SpriteIdentifier> allTextures, String textureName, @Nullable MaterialId material) {
-    SpriteIdentifier texture = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.tryParse(textureName));
+  public static void getMaterialTextures(Collection<SpriteIdentifier> allTextures, JsonUnbakedModel owner, String textureName, @Nullable MaterialId material) {
+    SpriteIdentifier texture = owner.resolveSprite(textureName);
     allTextures.add(texture);
 
     // if the texture is missing, stop here
@@ -144,8 +139,8 @@ public class MaterialModel implements TinkerModelGeometry {
    * @param material      Material to use
    * @return  Model quads
    */
-  public static Sprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, ModelLoader owner, Function<SpriteIdentifier, Sprite> spriteGetter, AffineTransformation transform, String name, int index, @Nullable MaterialId material) {
-    SpriteIdentifier texture = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.tryParse(name));
+  public static Sprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, JsonUnbakedModel owner, Function<SpriteIdentifier, Sprite> spriteGetter, AffineTransformation transform, String name, int index, @Nullable MaterialId material) {
+    SpriteIdentifier texture = owner.resolveSprite(name);
     int tintIndex = -1;
     Sprite finalSprite = null;
     // if the base material is non-null, try to find the sprite for that material
@@ -185,14 +180,22 @@ public class MaterialModel implements TinkerModelGeometry {
    * @param overrides      Override instance to use, will either be empty or {@link MaterialOverrideHandler}
    * @return  Baked model
    */
-  private static BakedModel bakeInternal(ModelLoader owner, Function<SpriteIdentifier, Sprite> spriteGetter, AffineTransformation transform, @Nullable MaterialId material, int index, ModelOverrideList overrides) {
+  private static BakedModel bakeInternal(JsonUnbakedModel owner, Function<SpriteIdentifier, Sprite> spriteGetter, AffineTransformation transform, @Nullable MaterialId material, int index, ModelOverrideList overrides) {
     // small hack to reduce the need to create a second immutable list
     MutableObject<ImmutableList<BakedQuad>> mutableList = new MutableObject<>();
     Sprite particle = getPartQuads(mutableList::setValue, owner, spriteGetter, transform, "texture", index, material);
 
     // bake model - while the transform may not be identity, it never has rotation so its safe to say untransformed
 //    ImmutableMap<Mode, AffineTransformation> transformMap = PerspectiveMapWrapper.getTransforms(owner.getCombinedTransform());
-    return new BasicBakedModel(mutableList.getValue(), Collections.emptyMap(), true, true, true, particle, ModelTransformation.NONE, overrides);
+    return new BasicBakedModel(mutableList.getValue(), toFaceQuads(mutableList.getValue()), true, true, true, particle, owner.getTransformations(), overrides);
+  }
+
+  public static Map<Direction, List<BakedQuad>> toFaceQuads(ImmutableList<BakedQuad> quads) {
+    Map<Direction, List<BakedQuad>> faces = new HashMap<>();
+    for (Direction direction : Direction.values()) {
+      faces.put(direction, quads);
+    }
+    return faces;
   }
 
   @Override
@@ -210,11 +213,11 @@ public class MaterialModel implements TinkerModelGeometry {
     // if the material is already set, no need to set overrides
     ModelOverrideList overrides = ModelOverrideList.EMPTY;
     if (material == null) {
-      overrides = new MaterialOverrideHandler(loader, index, transforms);
+      overrides = new MaterialOverrideHandler(owner, index, transforms);
     }
 
     // after that its base logic
-    return bakeInternal(loader, textureGetter, transforms, material, index, overrides);
+    return bakeInternal(owner, textureGetter, transforms, material, index, overrides);
   }
 
   @Override
@@ -265,7 +268,7 @@ public class MaterialModel implements TinkerModelGeometry {
   @Override
   public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
     Set<SpriteIdentifier> allTextures = Sets.newHashSet();
-    getMaterialTextures(allTextures, "texture", material);
+    getMaterialTextures(allTextures, owner, "texture", material);
     return allTextures;
   }
 
@@ -277,11 +280,11 @@ public class MaterialModel implements TinkerModelGeometry {
     private final Map<MaterialId, BakedModel> cache = new HashMap<>();
 
     // parameters needed for rebaking
-    private final ModelLoader owner;
+    private final JsonUnbakedModel owner;
     private final int index;
     private final AffineTransformation itemTransform;
 
-    private MaterialOverrideHandler(ModelLoader owner, int index, AffineTransformation itemTransform) {
+    private MaterialOverrideHandler(JsonUnbakedModel owner, int index, AffineTransformation itemTransform) {
       super();
       this.owner = owner;
       this.index = index;
@@ -333,7 +336,7 @@ public class MaterialModel implements TinkerModelGeometry {
         offset = arrayToObject(modelContents, "offset");
       }
 
-      return new MaterialModel(material, index, offset);
+      return new MaterialModel(material, index, offset, HBMABFIB.getModelSafe(resourceId));
     }
   }
 

@@ -15,6 +15,7 @@ import net.minecraft.client.render.model.BasicBakedModel;
 import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.render.model.json.ModelTransformation.Mode;
@@ -34,6 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.client.model.JsonModelResourceProvider;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.model.HBMABFIB;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
@@ -69,12 +71,15 @@ public class ToolModel implements TinkerModelGeometry {
    */
   private final Vec2f offset;
 
+  private final JsonUnbakedModel owner;
+
   private ModelOverrideList overrides;
 
-  public ToolModel(List<ToolPart> toolParts, boolean isLarge, Vec2f offset) {
+  public ToolModel(List<ToolPart> toolParts, boolean isLarge, Vec2f offset, JsonUnbakedModel owner) {
     this.toolParts = toolParts;
     this.isLarge = isLarge;
     this.offset = offset;
+    this.owner = owner;
   }
 
   /**
@@ -89,7 +94,7 @@ public class ToolModel implements TinkerModelGeometry {
    * @param overrides       Override instance to use, will either be empty or {@link MaterialOverrideHandler}
    * @return Baked model
    */
-  private static BakedModel bakeInternal(ModelLoader owner, Function<SpriteIdentifier, Sprite> spriteGetter, AffineTransformation largeTransforms, List<ToolPart> parts, List<MaterialId> materials, boolean isBroken, ModelOverrideList overrides) {
+  private static BakedModel bakeInternal(JsonUnbakedModel owner, Function<SpriteIdentifier, Sprite> spriteGetter, AffineTransformation largeTransforms, List<ToolPart> parts, List<MaterialId> materials, boolean isBroken, ModelOverrideList overrides) {
     Sprite particle = null;
     // we create both builders always, though large may be unused
     ImmutableList.Builder<BakedQuad> smallBuilder = ImmutableList.builder();
@@ -132,15 +137,15 @@ public class ToolModel implements TinkerModelGeometry {
       return new BakedLargeToolModel(largeBuilder.build(), smallBuilder.build(), particle, null, overrides, true);
     }
     // for small, we leave out the large quads, so the baked item model logic is sufficient
-    return new BasicBakedModel(smallBuilder.build(), Collections.emptyMap(), true, true, true, particle, null, overrides);
+    return new BasicBakedModel(smallBuilder.build(), MaterialModel.toFaceQuads(smallBuilder.build()), true, true, true, particle, owner.getTransformations(), overrides);
   }
 
   @Nullable
   @Override
   public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
     AffineTransformation largeTransforms = isLarge ? new AffineTransformation(new Vector3f((offset.x - 8) / 32, (-offset.y - 8) / 32, 0), null, new Vector3f(2, 2, 1), null) : null;
-    overrides = new MaterialOverrideHandler(loader, toolParts, largeTransforms); // TODO: nest original overrides?
-    return bakeInternal(loader, textureGetter, largeTransforms, toolParts, Collections.emptyList(), false, overrides);
+    overrides = new MaterialOverrideHandler(owner, toolParts, largeTransforms); // TODO: nest original overrides?
+    return bakeInternal(owner, textureGetter, largeTransforms, toolParts, Collections.emptyList(), false, overrides);
   }
 
   @Override
@@ -192,14 +197,14 @@ public class ToolModel implements TinkerModelGeometry {
   public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
     Set<SpriteIdentifier> allTextures = Sets.newHashSet();
     for (ToolPart part : toolParts) {
-      MaterialModel.getMaterialTextures(allTextures, part.getName(false, false), null);
+      MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, false),null);
       if (part.hasBroken()) {
-        MaterialModel.getMaterialTextures(allTextures, part.getName(true, false), null);
+        MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, false), null);
       }
       if (isLarge) {
-        MaterialModel.getMaterialTextures(allTextures, part.getName(false, true), null);
+        MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, true), null);
         if (part.hasBroken()) {
-          MaterialModel.getMaterialTextures(allTextures, part.getName(true, true), null);
+          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, true), null);
         }
       }
     }
@@ -275,12 +280,12 @@ public class ToolModel implements TinkerModelGeometry {
     private final Map<List<MaterialId>, BakedModel> brokenCache = new HashMap<>();
 
     // parameters needed for rebaking
-    private final ModelLoader owner;
+    private final JsonUnbakedModel owner;
     private final List<ToolPart> toolParts;
     @Nullable
     private final AffineTransformation largeTransforms;
 
-    private MaterialOverrideHandler(ModelLoader owner, List<ToolPart> toolParts, AffineTransformation largeTransforms) {
+    private MaterialOverrideHandler(JsonUnbakedModel owner, List<ToolPart> toolParts, AffineTransformation largeTransforms) {
       this.owner = owner;
       this.toolParts = toolParts;
       this.largeTransforms = largeTransforms;
@@ -368,10 +373,6 @@ public class ToolModel implements TinkerModelGeometry {
       return ModelTransformation.NONE;
     }
 
-    public Sprite getParticleTexture() {
-      return this.particleTexture;
-    }
-
     public ModelOverrideList getOverrides() {
       return this.overrides;
     }
@@ -456,7 +457,7 @@ public class ToolModel implements TinkerModelGeometry {
       if (modelContents.has("large_offset")) {
         offset = MaterialModel.arrayToObject(modelContents, "large_offset");
       }
-      return new ToolModel(parts, isLarge, offset);
+      return new ToolModel(parts, isLarge, offset, HBMABFIB.getModelSafe(resourceId));
     }
   }
 }
