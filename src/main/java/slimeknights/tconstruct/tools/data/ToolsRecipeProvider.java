@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
@@ -91,6 +92,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
     registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "silicon_bronze", false);
     registerMetalMaterial(consumer, MaterialIds.pigIron, "pig_iron", false);
+    registerMaterial(consumer, MaterialIds.pigIron, Ingredient.fromItems(TinkerCommons.bacon), 1, 4, "pig_iron/bacon");
 
     // tier 2 (nether)
     // tier 3 (nether)

@@ -170,6 +170,8 @@ public class TinkerTags {
     private static void init() {}
     public static final IOptionalNamedTag<EntityType<?>> BOUNCY = tag("bouncy");
     public static final IOptionalNamedTag<EntityType<?>> SLIMES = forgeTag("slimes");
+    public static final IOptionalNamedTag<EntityType<?>> BACON_PRODUCER = tag("bacon_producer");
+
     public static final IOptionalNamedTag<EntityType<?>> MELTING_SHOW = tag("melting/show_in_default");
     public static final IOptionalNamedTag<EntityType<?>> MELTING_HIDE = tag("melting/hide_in_default");
 
