@@ -4,7 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
@@ -19,15 +20,15 @@ public class HarvestTool extends ToolCore {
   }
 
   @Override
-  public AOEToolHarvestLogic getToolHarvestLogic() {
-    return AOEToolHarvestLogic.SMALL_TOOL;
+  public ToolHarvestLogic getToolHarvestLogic() {
+    return RectangleAOEHarvestLogic.SMALL;
   }
 
   /** Extension of AOE to sub in a material effective list */
-  public static class MaterialHarvestLogic extends AOEToolHarvestLogic {
+  public static class MaterialHarvestLogic extends RectangleAOEHarvestLogic {
     private final Set<Material> materials;
-    public MaterialHarvestLogic(Set<Material> materials, int width, int height, int depth) {
-      super(width, height, depth);
+    public MaterialHarvestLogic(Set<Material> materials, int extraWidth, int extraHeight, int extraDepth) {
+      super(extraWidth, extraHeight, extraDepth);
       this.materials = materials;
     }
 

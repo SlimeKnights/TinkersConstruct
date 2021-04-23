@@ -21,7 +21,7 @@ public class MomentumModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
       // 50% boost per level at max
       int effectLevel = TinkerModifiers.momentumEffect.getLevel(player) + 1;

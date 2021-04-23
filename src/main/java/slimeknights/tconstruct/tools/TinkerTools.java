@@ -28,6 +28,9 @@ import java.util.function.Supplier;
  * Contains all complete tool items
  */
 public final class TinkerTools extends TinkerModule {
+  public TinkerTools() {
+    BlockSideHitListener.init();
+  }
 
   /** Creative tab for all tool items */
   public static final ItemGroup TAB_TOOLS = FabricItemGroupBuilder.build(id("tools"), () -> TinkerTools.pickaxe.get().buildToolForRendering());

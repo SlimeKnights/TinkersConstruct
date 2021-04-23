@@ -18,7 +18,7 @@ public class HydraulicModifier extends IncrementalModifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (!isEffective) {
       return;
     }

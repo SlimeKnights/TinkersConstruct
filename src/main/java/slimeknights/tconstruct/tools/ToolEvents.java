@@ -19,10 +19,12 @@ public class ToolEvents {
       List<ModifierEntry> modifiers = tool.getModifierList();
       if (!modifiers.isEmpty()) {
         // modifiers using additive boosts may want info on the original boosts provided
-        float miningSpeedModifier = Modifier.getMiningModifier(event.getPlayer());
+        PlayerEntity player = event.getPlayer();
+        float miningSpeedModifier = Modifier.getMiningModifier(player);
         boolean isEffective = stack.canHarvestBlock(event.getState());
+        Direction direction = BlockSideHitListener.getSideHit(player);
         for (ModifierEntry entry : tool.getModifierList()) {
-          entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event, isEffective, miningSpeedModifier);
+          entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event, direction, isEffective, miningSpeedModifier);
           // if any modifier cancels mining, stop right here
           if (event.isCanceled()) {
             break;

@@ -13,7 +13,7 @@ public class TemperateModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, PlayerEntity player, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
       BlockPos pos = player.getBlockPos();
       // temperature ranges from 0 to 1.25. Division makes it 0 to 0.25 per level
