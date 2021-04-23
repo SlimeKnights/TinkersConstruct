@@ -28,6 +28,9 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
 
   @Override
   public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+    if (tool.isBroken()) {
+      return Collections.emptyList();
+    }
     // expanded gives an extra width every odd level, and an extra height every even level
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
     return calculate(this, tool, stack, world, player, origin, sideHit, extraWidth + ((expanded + 1) / 2), extraHeight + (expanded / 2), extraDepth, matchType);
@@ -48,7 +51,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
    * @param matchType     Type of harvest being performed
    * @return  List of block positions
    */
-  public final Iterable<BlockPos> calculate(ToolHarvestLogic self, ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, Direction sideHit,
+  public static Iterable<BlockPos> calculate(ToolHarvestLogic self, ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, Direction sideHit,
                                         int extraWidth, int extraHeight, int extraDepth, AOEMatchType matchType) {
     // skip if no work
     if (extraDepth == 0 && extraWidth == 0 && extraHeight == 0) {
@@ -74,7 +77,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
   }
 
   /** Iterator used for getting the blocks */
-  private static class RectangleIterator extends AbstractIterator<BlockPos> {
+  public static class RectangleIterator extends AbstractIterator<BlockPos> {
     /** Primary direction of iteration */
     private final Direction widthDir;
     /** Secondary direction of iteration, mostly interchangable with primary */
@@ -97,15 +100,15 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
     private int currentDepth = 0;
 
     /** Original position, skipped in iteration */
-    private final BlockPos origin;
+    protected final BlockPos origin;
     /** Position modified as we iterate */
-    private final BlockPos.Mutable mutablePos;
+    protected final BlockPos.Mutable mutablePos;
     /** Predicate to check before returning a position */
-    private final Predicate<BlockPos> posPredicate;
+    protected final Predicate<BlockPos> posPredicate;
     /** Last returned values for the three coords */
-    private int lastX, lastY, lastZ;
+    protected int lastX, lastY, lastZ;
 
-    private RectangleIterator(BlockPos origin, Direction widthDir, int extraWidth, Direction heightDir, int extraHeight, Direction depthDir, int extraDepth, Predicate<BlockPos> posPredicate) {
+    protected RectangleIterator(BlockPos origin, Direction widthDir, int extraWidth, Direction heightDir, int extraHeight, Direction depthDir, int extraDepth, Predicate<BlockPos> posPredicate) {
       this.origin = origin;
       this.widthDir = widthDir;
       this.heightDir = heightDir;
@@ -126,7 +129,7 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
      * Updates the mutable block position
      * @return False if at the end of data
      */
-    private boolean incrementPosition() {
+    protected boolean incrementPosition() {
       // first, increment values
       // if at the end of the width, increment height
       if (currentWidth == maxWidth) {

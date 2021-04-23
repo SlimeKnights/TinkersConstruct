@@ -4,17 +4,37 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import java.util.Collections;
+
 public class ScytheTool extends KamaTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
-  public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(1, 1, 1);
+  public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(3, true) {
+    @Override
+    public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+      // only works with modifiable harvest
+      if (tool.isBroken()) {
+        return Collections.emptyList();
+      }
+
+      // include depth in boost
+      int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
+      int sides = (expanded + 1) / 2;
+      return RectangleAOEHarvestLogic.calculate(this, tool, stack, world, player, origin, sideHit, diameter + sides, diameter + sides, diameter + (expanded / 2) * 2, matchType);
+    }
+  };
 
   public ScytheTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);

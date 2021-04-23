@@ -124,7 +124,7 @@ public class ToolHarvestLogic {
    * @param origin      the origin block spot to start from
    * @param sideHit     side of the block that was hit
    * @param matchType   Type of match
-   * @return A list of BlockPos's that the AOE tool can affect.
+   * @return A list of BlockPos's that the AOE tool can affect. Note these positions will likely be mutable
    */
   public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     return Collections.emptyList();
@@ -210,7 +210,7 @@ public class ToolHarvestLogic {
    * @param stack       Stack instance for vanilla functions
    * @param player      Player instance
    * @param world       World instance
-   * @param pos         Position to break
+   * @param pos         Position to break, may be mutable
    */
   public void breakExtraBlock(ToolStack tool, ItemStack stack, ServerPlayerEntity player, ServerWorld world, BlockPos pos) {
     if (tool.isBroken()) {
@@ -218,12 +218,13 @@ public class ToolHarvestLogic {
     }
     // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
     // this should never actually happen, but just in case some AOE is odd
-    if (world.isAirBlock(pos)) {
+    BlockState state = world.getBlockState(pos);
+    if (state.isAir(world, pos)) {
       return;
     }
 
     // break the actual block
-    BlockState state = world.getBlockState(pos);
+    pos = pos.toImmutable(); // prevent mutable position leak, breakBlock has a few places wanting immutable
     if (breakBlock(tool, stack, player, world, pos, state)) {
       world.playEvent(WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getStateId(state));
       TinkerNetwork.getInstance().sendVanillaPacket(player, new SChangeBlockPacket(world, pos));
