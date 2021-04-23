@@ -31,7 +31,7 @@ public class MattockTool extends ToolCore {
       if (!canAOE(tool, stack, state, matchType)) {
         return Collections.emptyList();
       }
-      return VeiningAOEHarvestLogic.calculate(world, origin, tool.getModifierLevel(TinkerModifiers.expanded.get()));
+      return VeiningAOEHarvestLogic.calculate(state, world, origin, tool.getModifierLevel(TinkerModifiers.expanded.get()));
     }
 
     @Override

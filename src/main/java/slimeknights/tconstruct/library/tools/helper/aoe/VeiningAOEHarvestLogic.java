@@ -34,19 +34,20 @@ public class VeiningAOEHarvestLogic extends ToolHarvestLogic {
       return Collections.emptyList();
     }
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
-    return calculate(world, origin, maxDistance + expanded);
+    return calculate(state, world, origin, maxDistance + expanded);
   }
 
   /**
    * Calculates the blocks for veining
+   *
+   * @param state        State being mined
    * @param world        World instance
    * @param origin       Position origin
    * @param maxDistance  Max distance to vein
    * @return  Iterator for veining
    */
-  public static Iterable<BlockPos> calculate(World world, BlockPos origin, int maxDistance) {
-    Block target = world.getBlockState(origin).getBlock();
-    return () -> new VeiningIterator(world, origin, target, maxDistance);
+  public static Iterable<BlockPos> calculate(BlockState state, World world, BlockPos origin, int maxDistance) {
+    return () -> new VeiningIterator(world, origin, state.getBlock(), maxDistance);
   }
 
   /** Iterator that navigates block and other similar blocks */
