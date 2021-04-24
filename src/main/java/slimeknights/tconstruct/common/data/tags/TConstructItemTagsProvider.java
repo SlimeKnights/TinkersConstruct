@@ -139,7 +139,8 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     // can receive damage boosts
     this.getOrCreateBuilder(TinkerTags.Items.MELEE)
         .addTag(TinkerTags.Items.COMBAT)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.kama.get(), TinkerTools.scythe.get(),
+        .add(TinkerTools.pickaxe.get(), TinkerTools.veinHammer.get(),
+             TinkerTools.kama.get(), TinkerTools.scythe.get(),
 						 TinkerTools.mattock.get(), TinkerTools.excavator.get());
     // supports modifiers
     this.getOrCreateBuilder(TinkerTags.Items.MELEE_OR_HARVEST)
