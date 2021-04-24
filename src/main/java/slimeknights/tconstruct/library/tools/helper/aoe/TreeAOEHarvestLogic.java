@@ -87,7 +87,14 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
     return () -> new RectangleIterator(origin, widthDir, extraWidth, Direction.UP, fallbackHeight, false, depthDir, extraDepth, posPredicate);
   }
 
-  /** Iterator that continues up until the block does not match */
+  /**
+   * Iterator that continues up until the block does not match.
+   * The way this works is it starts with the given dimensions to form the trunk. The trunk can then extend off into branches in the vertical or in horizontal directions.
+   *
+   * Horizontal branches detect in a 3x2x2 area from the stored direction and upwards and don't care about whether the logs have a block below
+   * Vertical branches check a 3x3x1 cross shape above, requiring nothing to be below the block.
+   * The trunk can start new branches within a 3x3x1 square area, again requiring nothing to be below the block
+   */
   public static class TreeIterator extends AbstractIterator<BlockPos> {
     /** Queue of upcoming positions to try */
     private final Queue<TreePos> upcomingPositions = new ArrayDeque<>();
@@ -238,7 +245,7 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
           }
         } else {
           // branch logic, should always be checked ahead of time (question is which further branches can we find)
-          // first try up
+          // continue in same direction
           mutable.setPos(treePos.pos).move(0, 1, 0);
           if (isBranch(mutable)) {
             addBranch(treePos.direction);
@@ -248,30 +255,29 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
             // direction and up
           } else if (isBranch(mutable.move(0, 1, 0))) {
             addBranch(treePos.direction);
-          } else {
-            // try each side, we check pos, above, then continuing the side
-            Direction rotated = treePos.direction.rotateY();
-            mutable.setPos(treePos.pos).move(rotated);
-            if (isBranch(mutable)) {
-              addBranch(rotated);
-            } else if (isBranch(mutable.move(0, 1, 0))) {
-              addBranch(rotated);
-            } else if (isBranch(mutable.move(treePos.direction).move(0, -1, 0))) {
-              addBranch(rotated);
-            } else if (isBranch(mutable.move(0, 1, 0))) {
-              addBranch(rotated);
-            }
-            rotated = rotated.getOpposite();
-            mutable.setPos(treePos.pos).move(rotated);
-            if (isBranch(mutable)) {
-              addBranch(rotated);
-            } else if (isBranch(mutable.move(0, 1, 0))) {
-              addBranch(rotated);
-            } else if (isBranch(mutable.move(treePos.direction).move(0, -1, 0))) {
-              addBranch(rotated);
-            } else if (isBranch(mutable.move(0, 1, 0))) {
-              addBranch(rotated);
-            }
+          }
+          // try each side, we check pos, above, then continuing the side
+          Direction rotated = treePos.direction.rotateY();
+          mutable.setPos(treePos.pos).move(rotated);
+          if (isBranch(mutable)) {
+            addBranch(rotated);
+          } else if (isBranch(mutable.move(0, 1, 0))) {
+            addBranch(rotated);
+          } else if (isBranch(mutable.move(treePos.direction).move(0, -1, 0))) {
+            addBranch(rotated);
+          } else if (isBranch(mutable.move(0, 1, 0))) {
+            addBranch(rotated);
+          }
+          rotated = rotated.getOpposite();
+          mutable.setPos(treePos.pos).move(rotated);
+          if (isBranch(mutable)) {
+            addBranch(rotated);
+          } else if (isBranch(mutable.move(0, 1, 0))) {
+            addBranch(rotated);
+          } else if (isBranch(mutable.move(treePos.direction).move(0, -1, 0))) {
+            addBranch(rotated);
+          } else if (isBranch(mutable.move(0, 1, 0))) {
+            addBranch(rotated);
           }
           return treePos.pos;
         }
