@@ -26,6 +26,9 @@ import java.util.function.Predicate;
 /** Tree harvest logic that destroys a tree */
 @RequiredArgsConstructor
 public class TreeAOEHarvestLogic extends ToolHarvestLogic {
+  /** Max distance between the branch and the trunk */
+  private static final int MAX_BRANCK_DISTANCE = 10;
+
   private final int extraWidth;
   private final int extraDepth;
   private final int fallbackHeight;
@@ -138,21 +141,24 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
       return world.getBlockState(pos).getBlock() == filter;
     }
 
+    /** Checks if the block position outside the original tree */
+    private boolean outsideTrunk(BlockPos pos) {
+      return (pos.getX() < minX || pos.getX() > maxX || pos.getZ() < minZ || pos.getZ() > maxZ);
+    }
+
     /** Checks if the block position is a branch position, meaning outside the original tree */
     private boolean isBranch(BlockPos pos) {
       if (!outsideTrunk(pos)) {
         return false;
       }
-      if (branchVisited.contains(pos)) {
+      // find the distance to the nearest corner
+      int deltaX = Math.min(Math.abs(pos.getX() - minX), Math.abs(pos.getX() - maxX));
+      int deltaZ = Math.min(Math.abs(pos.getZ() - minZ), Math.abs(pos.getZ() - maxZ));
+      if ((deltaX + deltaZ) > MAX_BRANCK_DISTANCE || branchVisited.contains(pos)) {
         return false;
       }
       branchVisited.add(pos.toImmutable());
       return isValidBlock(pos);
-    }
-
-    /** Checks if the block position is a branch position, meaning outside the original tree */
-    private boolean outsideTrunk(BlockPos pos) {
-      return (pos.getX() < minX || pos.getX() > maxX || pos.getZ() < minZ || pos.getZ() > maxZ);
     }
 
     /** Adds a branch to the queue at the current mutable position */
@@ -172,7 +178,6 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
         }
       }
     }
-
 
     @Override
     protected BlockPos computeNext() {
