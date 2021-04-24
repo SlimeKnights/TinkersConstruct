@@ -8,11 +8,11 @@ import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.TreeAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.harvest.HarvestTool;
+import slimeknights.tconstruct.tools.harvest.HandAxeTool;
 
 import java.util.Set;
 
-public class BroadAxeTool extends HarvestTool {
+public class BroadAxeTool extends HandAxeTool {
   private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.BAMBOO, Material.GOURD);
   private static final TreeAOEHarvestLogic HARVEST_LOGIC = new TreeAOEHarvestLogic(0, 0, 5) {
     @Override
