@@ -171,10 +171,11 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
     private void tryBranch(Direction direction) {
       // block must not have log both above and below it to count
       if (isBranch(mutable)) {
+        // copies position, so safe to change after
         TreePos branchPos = new TreePos(mutable, direction);
         // must have no block below, and must be a corner or be 1-2 blocks tall (dark oak support/jungle sapling thick branches)
-        if (!isValidBlock(mutable.move(Direction.DOWN))
-            && (!isValidBlock(mutable.move(Direction.UP, 2)) || !isValidBlock(mutable.move(Direction.UP)))) {
+        if (!isValidBlock(mutable.move(0, -1, 0))
+            && (direction == Direction.UP || !isValidBlock(mutable.move(0, 2, 0)) || !isValidBlock(mutable.move(0, 1, 0)))) {
           upcomingPositions.add(branchPos);
         }
       }
@@ -188,58 +189,65 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
 
         // trunk logic
         if (treePos.direction == Direction.UP) {
+          boolean isTreeUp = treePos.isChecked || isValidBlock(treePos.pos);
+
           // find branches in all 4 directions if going up, assuming we are in the
           for (Direction direction : Plane.HORIZONTAL) {
             // if the position is a branch, meaning its a log with no log above it, queue it
             mutable.setPos(treePos.pos).move(direction);
-            tryBranch(direction);
+            // if we did not find a log at the current position, treat the position as our new tree, for acacia
+            tryBranch(!isTreeUp ? Direction.UP : direction);
           }
 
-          // corner case, only care if no branch found
-          boolean isMinX = treePos.pos.getX() == minX;
-          boolean isMaxX = treePos.pos.getX() == maxX;
-          boolean isMinZ = treePos.pos.getZ() == minZ;
-          boolean isMaxZ = treePos.pos.getZ() == maxZ;
-          // if either min or max on both axis, but not both (1x1), we are a corner, do corner case
-          if (isMinX) {
-            if (isMinZ) {
-              mutable.setPos(treePos.pos).move(-1, 0, -1);
-              tryBranch(Direction.WEST);
+          if (isTreeUp) {
+            // corner case, only care if we have a tree at current position
+            boolean isMinX = treePos.pos.getX() == minX;
+            boolean isMaxX = treePos.pos.getX() == maxX;
+            boolean isMinZ = treePos.pos.getZ() == minZ;
+            boolean isMaxZ = treePos.pos.getZ() == maxZ;
+            // if either min or max on both axis, but not both (1x1), we are a corner, do corner case
+            if (isMinX) {
+              if (isMinZ) {
+                mutable.setPos(treePos.pos).move(-1, 0, -1);
+                tryBranch(Direction.WEST);
+              }
+              if (isMaxZ) {
+                mutable.setPos(treePos.pos).move(-1, 0, 1);
+                tryBranch(Direction.WEST);
+              }
             }
-            if (isMaxZ) {
-              mutable.setPos(treePos.pos).move(-1, 0, 1);
-              tryBranch(Direction.WEST);
+            if (isMaxX) {
+              if (isMinZ) {
+                mutable.setPos(treePos.pos).move(1, 0, -1);
+                tryBranch(Direction.EAST);
+              }
+              if (isMaxZ) {
+                mutable.setPos(treePos.pos).move(1, 0, 1);
+                tryBranch(Direction.EAST);
+              }
             }
-          }
-          if (isMaxX) {
-            if (isMinZ) {
-              mutable.setPos(treePos.pos).move(1, 0, -1);
-              tryBranch(Direction.EAST);
-            }
-            if (isMaxZ) {
-              mutable.setPos(treePos.pos).move(1, 0, 1);
-              tryBranch(Direction.EAST);
-            }
-          }
 
-          // if valid, return this position
-          if (treePos.isChecked || isValidBlock(treePos.pos)) {
+            // finally, return this position
             // insert the updated position into the queue and return the current position
             mutable.setPos(treePos.pos);
             upcomingPositions.add(treePos.move());
+            // acacia can continue outside the original trunk, so start marking it visited to prevent redundancy
+            if (outsideTrunk(treePos.pos)) {
+              branchVisited.add(treePos.pos);
+            }
             return mutable;
           }
         } else {
           // branch logic, should always be checked ahead of time (question is which further branches can we find)
           // first try up
-          mutable.setPos(treePos.pos).move(Direction.UP);
+          mutable.setPos(treePos.pos).move(0, 1, 0);
           if (isBranch(mutable)) {
             addBranch(treePos.direction);
-            // direction and up
-          } else if (isBranch(mutable.move(treePos.direction))) {
-            addBranch(treePos.direction);
             // just direction, no up
-          } else if (isBranch(mutable.move(Direction.DOWN))) {
+          } else if (isBranch(mutable.move(treePos.direction).move(0, -1, 0))) {
+            addBranch(treePos.direction);
+            // direction and up
+          } else if (isBranch(mutable.move(0, 1, 0))) {
             addBranch(treePos.direction);
           } else {
             // try each side, we check pos, above, then continuing the side
@@ -247,22 +255,22 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
             mutable.setPos(treePos.pos).move(rotated);
             if (isBranch(mutable)) {
               addBranch(rotated);
-            } else if (isBranch(mutable.move(Direction.UP))) {
+            } else if (isBranch(mutable.move(0, 1, 0))) {
               addBranch(rotated);
-            } else if (isBranch(mutable.move(treePos.direction))) {
+            } else if (isBranch(mutable.move(treePos.direction).move(0, -1, 0))) {
               addBranch(rotated);
-            } else if (isBranch(mutable.move(Direction.DOWN))) {
+            } else if (isBranch(mutable.move(0, 1, 0))) {
               addBranch(rotated);
             }
             rotated = rotated.getOpposite();
             mutable.setPos(treePos.pos).move(rotated);
             if (isBranch(mutable)) {
               addBranch(rotated);
-            } else if (isBranch(mutable.move(Direction.UP))) {
+            } else if (isBranch(mutable.move(0, 1, 0))) {
               addBranch(rotated);
-            } else if (isBranch(mutable.move(treePos.direction))) {
+            } else if (isBranch(mutable.move(treePos.direction).move(0, -1, 0))) {
               addBranch(rotated);
-            } else if (isBranch(mutable.move(Direction.DOWN))) {
+            } else if (isBranch(mutable.move(0, 1, 0))) {
               addBranch(rotated);
             }
           }
