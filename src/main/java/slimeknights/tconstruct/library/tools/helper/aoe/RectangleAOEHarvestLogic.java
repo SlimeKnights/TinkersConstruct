@@ -110,23 +110,46 @@ public class RectangleAOEHarvestLogic extends ToolHarvestLogic {
     protected int lastX, lastY, lastZ;
 
     public RectangleIterator(BlockPos origin, Direction widthDir, int extraWidth, Direction heightDir, int extraHeight, Direction depthDir, int extraDepth, Predicate<BlockPos> posPredicate) {
+      this(origin, widthDir, extraWidth, heightDir, extraHeight, true, depthDir, extraDepth, posPredicate);
+    }
+
+    /**
+     * Iterates through a rectangular solid
+     * @param origin         Center position
+     * @param widthDir       Direction for width traversal
+     * @param extraWidth     Radius in width direction
+     * @param heightDir      Direction for height traversal
+     * @param extraHeight    Amount in the height direction
+     * @param traverseDown   If true, navigates extraHeight both up and down
+     * @param depthDir       Direction to travel backwards
+     * @param extraDepth     Extra amount to traverse in the backwards direction
+     * @param posPredicate   Predicate to validate positions
+     */
+    public RectangleIterator(BlockPos origin, Direction widthDir, int extraWidth, Direction heightDir, int extraHeight, boolean traverseDown, Direction depthDir, int extraDepth, Predicate<BlockPos> posPredicate) {
       this.origin = origin;
       this.widthDir = widthDir;
       this.heightDir = heightDir;
       this.depthDir = depthDir;
       this.maxWidth = extraWidth * 2;
-      this.maxHeight = extraHeight * 2;
+      this.maxHeight = traverseDown ? extraHeight * 2 : extraHeight;
       this.maxDepth = extraDepth;
       // start 1 block before start on the correct axis
       // computed values
       this.mutablePos = new Mutable(origin.getX(), origin.getY(), origin.getZ());
       this.posPredicate = posPredicate;
+      // offset position back by 1 so we start at 0, 0, 0
       if (extraWidth > 0) {
         currentWidth--;
       } else if (extraHeight > 0) {
         currentHeight--;
       }
-      this.mutablePos.move(widthDir, -extraWidth + currentWidth).move(heightDir, -extraHeight + currentHeight);
+      // offset the mutable position back along the rectangle
+      this.mutablePos.move(widthDir, -extraWidth + currentWidth);
+      if (traverseDown) {
+        this.mutablePos.move(heightDir, -extraHeight + currentHeight);
+      } else if (currentHeight != 0) {
+        this.mutablePos.move(heightDir, currentHeight);
+      }
       this.lastX = this.mutablePos.getX();
       this.lastY = this.mutablePos.getY();
       this.lastZ = this.mutablePos.getZ();

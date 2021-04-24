@@ -244,7 +244,7 @@
     "_comment": "Small Head Gold Casts",
     
     "item.tconstruct.pickaxe_head_cast": "Pickaxe Head Gold Cast",
-    "item.tconstruct.axe_head_cast": "Axe Head Gold Cast",
+    "item.tconstruct.small_axe_head_cast": "Small Axe Head Gold Cast",
     "item.tconstruct.kama_head_cast": "Kama Head Gold Cast",
     "item.tconstruct.sword_blade_cast": "Sword Blade Gold Cast",
     "item.tconstruct.sign_head_cast": "Sign Head Gold Cast",
@@ -284,7 +284,7 @@
     "_comment": "Small Head Sand Casts",
     
     "item.tconstruct.pickaxe_head_sand_cast": "Pickaxe Head Sand Cast",
-    "item.tconstruct.axe_head_sand_cast": "Axe Head Sand Cast",
+    "item.tconstruct.small_axe_head_sand_cast": "Small Axe Head Sand Cast",
     "item.tconstruct.kama_head_sand_cast": "Kama Head Sand Cast",
     "item.tconstruct.sword_blade_sand_cast": "Sword Blade Sand Cast",
     "item.tconstruct.sign_head_sand_cast": "Sign Head Sand Cast",
@@ -324,7 +324,7 @@
     "_comment": "Small Head Red Sand Casts",
     
     "item.tconstruct.pickaxe_head_red_sand_cast": "Pickaxe Head Red Sand Cast",
-    "item.tconstruct.axe_head_red_sand_cast": "Axe Head Red Sand Cast",
+    "item.tconstruct.small_axe_head_red_sand_cast": "Small Axe Head Red Sand Cast",
     "item.tconstruct.kama_head_red_sand_cast": "Kama Head Red Sand Cast",
     "item.tconstruct.sword_blade_red_sand_cast": "Sword Blade Red Sand Cast",
     "item.tconstruct.sign_head_red_sand_cast": "Sign Head Red Sand Cast",
@@ -685,13 +685,19 @@
     "item.tconstruct.pickaxe": "Pickaxe",
     "item.tconstruct.sledge_hammer": "Sledge Hammer",
     "item.tconstruct.vein_hammer": "Vein Hammer",
+    
     "item.tconstruct.mattock": "Mattock",
     "item.tconstruct.excavator": "Excavator",
-    "item.tconstruct.axe": "Hand Axe",
+    
+    "item.tconstruct.hand_axe": "Hand Axe",
+    "item.tconstruct.broad_axe": "Broad Axe",
+    
     "item.tconstruct.kama": "Kama",
     "item.tconstruct.scythe": "Scythe",
+    
     "item.tconstruct.broad_sword": "Broadsword",
     "item.tconstruct.cleaver": "Cleaver",
+    
     
     "_comment": "Tinkers Tool Parts",
     
@@ -699,7 +705,10 @@
 
     "item.tconstruct.pickaxe_head": "Pickaxe Head",
     "item.tconstruct.hammer_head": "Hammer Head",
-    "item.tconstruct.axe_head": "Axe Head",
+    
+    "item.tconstruct.small_axe_head": "Small Axe Head",
+    "item.tconstruct.broad_axe_head": "Broad Axe Head",
+    
     "item.tconstruct.kama_head": "Kama Head",
     "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.broad_blade": "Broad Blade",
@@ -709,18 +718,25 @@
     "item.tconstruct.tool_binding": "Tool Binding",
     "item.tconstruct.large_plate": "Large Plate",
 
+    
     "_conment": "Tool Descriptions",
 
     "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
     "item.tconstruct.sledge_hammer.description": "The Sledge Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.",
     "item.tconstruct.vein_hammer.description": "The Vein Hammer is a broad mining tool. It harvests many connected blocks of the same type, perfect for ores.",
+    
     "item.tconstruct.mattock.description": "The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, sand, gravel, and plants.\nJust don't dig your own grave!",
     "item.tconstruct.excavator.description": "The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!",
-    "item.tconstruct.axe.description": "The Hand Axe chops up wood and makes short work of leaves. It also makes for an effective weapon.\nChop chop!",
+    
+    "item.tconstruct.hand_axe.description": "The Hand Axe chops up wood and makes short work of leaves. It also makes for an effective weapon.\nChop chop!",
+    "item.tconstruct.broad_axe.description": "The Broad Axe fells small trees in a single swing, and makes quick work of large trees. It makes for a powerful heavy weapon.\nTimber!",
+    
     "item.tconstruct.kama.description": "The Kama is a precision reaping tool, mowing down plants and shearing animals.\nRight Click: Harvest and replant crops",
     "item.tconstruct.scythe.description": "The Scythe is a broad reaping tool, mowing down plants in a wide area.\nRight Click: Harvest and replant crops",
+    
     "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
     "item.tconstruct.cleaver.description": "The Cleaver is a weapon for a smeltery master. High range attacks keep cut though the toughest of foes.",
+ 
  
     "_comment": "Tinkers Smeltery",
 

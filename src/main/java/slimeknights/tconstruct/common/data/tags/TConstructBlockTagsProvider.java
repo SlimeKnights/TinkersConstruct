@@ -117,6 +117,8 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.HARVESTABLE_CROPS)
         .addTag(TinkerTags.Blocks.HARVESTABLE_INTERACT)
         .addTag(TinkerTags.Blocks.HARVESTABLE_STACKABLE);
+    // just logs for lumber axe, but modpack makers can add more
+    this.getOrCreateBuilder(TinkerTags.Blocks.TREE_LOGS).addTag(BlockTags.LOGS);
   }
 
 

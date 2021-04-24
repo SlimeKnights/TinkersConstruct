@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.harvest;
+package slimeknights.tconstruct.tools.harvest.broad;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.harvest.KamaTool;
 
 import java.util.Collections;
 

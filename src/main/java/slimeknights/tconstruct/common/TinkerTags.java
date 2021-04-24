@@ -59,6 +59,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> HARVESTABLE_INTERACT = tag("harvestable/interact");
     /** Plants that grow by placing a copy on top */
     public static final IOptionalNamedTag<Block> HARVESTABLE_STACKABLE = tag("harvestable/stackable");
+    /** Any block that counts as a tree trunk for the lumber axe. Note it must also be harvestable by axes to be effective */
+    public static final IOptionalNamedTag<Block> TREE_LOGS = tag("tree_log");
 
     private static IOptionalNamedTag<Block> tag(String name) {
       return BlockTags.createOptional(Util.getResource(name));

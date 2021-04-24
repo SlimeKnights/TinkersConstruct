@@ -4,7 +4,8 @@
     "#tconstruct:modifiable/harvest/stone",
     "tconstruct:mattock",
     "tconstruct:excavator",
-    "tconstruct:axe",
+    "tconstruct:hand_axe",
+    "tconstruct:broad_axe",
     "tconstruct:kama",
     "tconstruct:scythe"
   ]

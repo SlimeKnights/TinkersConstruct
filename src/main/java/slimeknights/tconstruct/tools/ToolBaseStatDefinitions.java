@@ -29,7 +29,12 @@ public final class ToolBaseStatDefinitions {
     .setDefaultUpgrades(2).build();
 
   // axes
-  static final ToolBaseStatDefinition AXE = new ToolBaseStatDefinition.Builder().setDamageBonus(6.0f).setAttackSpeed(0.9f).build();
+  static final ToolBaseStatDefinition HAND_AXE = new ToolBaseStatDefinition.Builder().setDamageBonus(6.0f).setAttackSpeed(0.9f).build();
+  static final ToolBaseStatDefinition BROAD_AXE = new ToolBaseStatDefinition.Builder()
+    .setDamageBonus(2f).setDamageModifier(2f)
+    .setAttackSpeed(0.6f).setMiningSpeedModifier(0.3f)
+    .setDurabilityModifier(4.25f).setPrimaryHeadWeight(2)
+    .setDefaultUpgrades(2).build();
 
   // scythes
   static final ToolBaseStatDefinition KAMA = new ToolBaseStatDefinition.Builder().setDamageBonus(1f).setAttackSpeed(1.3f).build();

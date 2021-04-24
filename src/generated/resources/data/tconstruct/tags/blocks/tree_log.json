@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:axe_head_cast"
+    "#minecraft:logs"
   ]
 }

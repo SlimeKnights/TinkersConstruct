@@ -2,10 +2,10 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default-tool",
   "textures": {
-    "head":        "tconstruct:item/tool/axe/head",
-    "broken_head": "tconstruct:item/tool/axe/broken_head",
+    "head":        "tconstruct:item/tool/hand_axe/head",
+    "broken_head": "tconstruct:item/tool/hand_axe/broken_head",
     "handle":      "tconstruct:item/tool/pickaxe/handle",
-    "binding":     "tconstruct:item/tool/axe/binding"
+    "binding":     "tconstruct:item/tool/hand_axe/binding"
   },
   "parts": [
     { "name": "handle",  "index": 1 },

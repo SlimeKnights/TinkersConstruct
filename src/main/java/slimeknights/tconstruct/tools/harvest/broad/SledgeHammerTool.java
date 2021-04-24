@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.harvest;
+package slimeknights.tconstruct.tools.harvest.broad;
 
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
@@ -9,6 +9,8 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.harvest.HarvestTool;
+import slimeknights.tconstruct.tools.harvest.PickaxeTool;
 
 public class SledgeHammerTool extends HarvestTool {
   private static final MaterialHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(PickaxeTool.EXTRA_MATERIALS, 1, 1, 0);

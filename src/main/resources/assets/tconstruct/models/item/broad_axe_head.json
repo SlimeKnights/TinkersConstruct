@@ -2,7 +2,7 @@
   "loader": "tconstruct:material",
   "parent": "forge:item/default",
   "textures": {
-    "texture": "tconstruct:item/tool/axe/head"
+    "texture": "tconstruct:item/tool/broad_axe/blade"
   },
-  "offset": [-2, 3]
+  "offset": [0, 3]
 }

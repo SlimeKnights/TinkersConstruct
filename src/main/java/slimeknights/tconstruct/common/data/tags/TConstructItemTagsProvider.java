@@ -113,25 +113,28 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     // required for part swapping and a few other things
     this.getOrCreateBuilder(TinkerTags.Items.MULTIPART_TOOL)
         .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
-						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.scythe.get(),
+             TinkerTools.mattock.get(), TinkerTools.excavator.get(),
+             TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
+             TinkerTools.kama.get(), TinkerTools.scythe.get(),
              TinkerTools.broadSword.get(), TinkerTools.cleaver.get());
     // mine blocks
     this.getOrCreateBuilder(TinkerTags.Items.STONE_HARVEST).add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get());
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
         .addTag(TinkerTags.Items.STONE_HARVEST)
         .add(TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.scythe.get());
+             TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
+             TinkerTools.kama.get(), TinkerTools.scythe.get());
     // support expanders
     this.getOrCreateBuilder(TinkerTags.Items.AOE)
         .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
-						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-						 TinkerTools.axe.get(), TinkerTools.kama.get(), TinkerTools.scythe.get(),
+             TinkerTools.mattock.get(), TinkerTools.excavator.get(),
+             TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
+             TinkerTools.kama.get(), TinkerTools.scythe.get(),
              TinkerTools.broadSword.get(), TinkerTools.cleaver.get());
     // support all weapon modifiers
     this.getOrCreateBuilder(TinkerTags.Items.COMBAT)
-        .add(TinkerTools.axe.get(), TinkerTools.sledgeHammer.get(),
-             TinkerTools.scythe.get(),
+        .add(TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
+             TinkerTools.sledgeHammer.get(), TinkerTools.scythe.get(),
              TinkerTools.broadSword.get(), TinkerTools.cleaver.get());
     // can receive damage boosts
     this.getOrCreateBuilder(TinkerTags.Items.MELEE)
@@ -162,7 +165,8 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     // tag for tool parts, mostly used by JEI right now
     this.getOrCreateBuilder(TinkerTags.Items.TOOL_PARTS)
         .add(TinkerToolParts.pickaxeHead.get(), TinkerToolParts.hammerHead.get(),
-             TinkerToolParts.axeHead.get(), TinkerToolParts.kamaHead.get(),
+             TinkerToolParts.smallAxeHead.get(), TinkerToolParts.broadAxeHead.get(),
+             TinkerToolParts.kamaHead.get(),
              TinkerToolParts.swordBlade.get(), TinkerToolParts.broadBlade.get(),
              TinkerToolParts.toolBinding.get(), TinkerToolParts.largePlate.get(),
              TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
@@ -204,12 +208,13 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.coinCast);
     // small heads
     addCast.accept(TinkerSmeltery.pickaxeHeadCast);
-    addCast.accept(TinkerSmeltery.axeHeadCast);
+    addCast.accept(TinkerSmeltery.smallAxeHeadCast);
     addCast.accept(TinkerSmeltery.kamaHeadCast);
     addCast.accept(TinkerSmeltery.swordBladeCast);
-    addCast.accept(TinkerSmeltery.broadBladeCast);
     // large heads
     addCast.accept(TinkerSmeltery.hammerHeadCast);
+    addCast.accept(TinkerSmeltery.broadAxeHeadCast);
+    addCast.accept(TinkerSmeltery.broadBladeCast);
     // bindings
     addCast.accept(TinkerSmeltery.toolBindingCast);
     addCast.accept(TinkerSmeltery.largePlateCast);

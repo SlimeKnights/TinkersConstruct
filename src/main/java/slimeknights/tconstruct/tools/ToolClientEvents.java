@@ -70,7 +70,8 @@ public class ToolClientEvents extends ClientEventBase {
     registerToolItemColors(colors, TinkerTools.mattock);
     registerToolItemColors(colors, TinkerTools.excavator);
     // wood
-    registerToolItemColors(colors, TinkerTools.axe);
+    registerToolItemColors(colors, TinkerTools.handAxe);
+    registerToolItemColors(colors, TinkerTools.broadAxe);
     // scythe
     registerToolItemColors(colors, TinkerTools.kama);
     registerToolItemColors(colors, TinkerTools.scythe);
@@ -83,7 +84,8 @@ public class ToolClientEvents extends ClientEventBase {
     // heads
     registerMaterialItemColors(colors, TinkerToolParts.pickaxeHead);
     registerMaterialItemColors(colors, TinkerToolParts.hammerHead);
-    registerMaterialItemColors(colors, TinkerToolParts.axeHead);
+    registerMaterialItemColors(colors, TinkerToolParts.smallAxeHead);
+    registerMaterialItemColors(colors, TinkerToolParts.broadAxeHead);
     registerMaterialItemColors(colors, TinkerToolParts.kamaHead);
     registerMaterialItemColors(colors, TinkerToolParts.swordBlade);
     registerMaterialItemColors(colors, TinkerToolParts.broadBlade);

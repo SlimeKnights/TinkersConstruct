@@ -20,15 +20,16 @@ import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
 import slimeknights.tconstruct.tools.data.ToolsRecipeProvider;
-import slimeknights.tconstruct.tools.harvest.AxeTool;
-import slimeknights.tconstruct.tools.harvest.ExcavatorTool;
+import slimeknights.tconstruct.tools.harvest.HandAxeTool;
 import slimeknights.tconstruct.tools.harvest.HarvestTool;
 import slimeknights.tconstruct.tools.harvest.KamaTool;
 import slimeknights.tconstruct.tools.harvest.MattockTool;
 import slimeknights.tconstruct.tools.harvest.PickaxeTool;
-import slimeknights.tconstruct.tools.harvest.ScytheTool;
-import slimeknights.tconstruct.tools.harvest.SledgeHammerTool;
-import slimeknights.tconstruct.tools.harvest.VeinHammerTool;
+import slimeknights.tconstruct.tools.harvest.broad.BroadAxeTool;
+import slimeknights.tconstruct.tools.harvest.broad.ExcavatorTool;
+import slimeknights.tconstruct.tools.harvest.broad.ScytheTool;
+import slimeknights.tconstruct.tools.harvest.broad.SledgeHammerTool;
+import slimeknights.tconstruct.tools.harvest.broad.VeinHammerTool;
 import slimeknights.tconstruct.tools.melee.BroadSwordTool;
 import slimeknights.tconstruct.tools.melee.CleaverTool;
 
@@ -57,7 +58,8 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<MattockTool> mattock = ITEMS.register("mattock", () -> new MattockTool(TOOL.get().addToolType(ToolType.SHOVEL, 0), ToolDefinitions.MATTOCK));
   public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(TOOL.get().addToolType(ToolType.SHOVEL, 0), ToolDefinitions.EXCAVATOR));
 
-  public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(TOOL.get().addToolType(ToolType.AXE, 0), ToolDefinitions.AXE));
+  public static final ItemObject<HandAxeTool> handAxe = ITEMS.register("hand_axe", () -> new HandAxeTool(TOOL.get().addToolType(ToolType.AXE, 0), ToolDefinitions.HAND_AXE));
+  public static final ItemObject<BroadAxeTool> broadAxe = ITEMS.register("broad_axe", () -> new BroadAxeTool(TOOL.get().addToolType(ToolType.AXE, 0), ToolDefinitions.BROAD_AXE));
 
   public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get().addToolType(ToolType.HOE, 0).addToolType(ToolType.get("shears"), 0), ToolDefinitions.KAMA));
   public static final ItemObject<KamaTool> scythe = ITEMS.register("scythe", () -> new ScytheTool(TOOL.get().addToolType(ToolType.HOE, 0), ToolDefinitions.SCYTHE));

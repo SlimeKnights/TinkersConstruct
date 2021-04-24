@@ -153,6 +153,12 @@ public class TConstruct {
         case "tough_tool_rod_cast": return TinkerSmeltery.toughHandleCast.get();
         case "tough_tool_rod_sand_cast": return TinkerSmeltery.toughHandleCast.getSand();
         case "tough_tool_rod_red_sand_cast": return TinkerSmeltery.toughHandleCast.getRedSand();
+        // axe -> hand_axe, axe_head -> small_axe_head
+        case "axe": return TinkerTools.handAxe.get();
+        case "axe_head": return TinkerToolParts.smallAxeHead.get();
+        case "axe_head_cast": return TinkerSmeltery.smallAxeHeadCast.get();
+        case "axe_head_sand_cast": return TinkerSmeltery.smallAxeHeadCast.getSand();
+        case "axe_head_red_sand_cast": return TinkerSmeltery.smallAxeHeadCast.getRedSand();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
