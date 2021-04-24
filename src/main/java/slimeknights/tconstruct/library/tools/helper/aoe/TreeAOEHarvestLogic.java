@@ -173,9 +173,8 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
       if (isBranch(mutable)) {
         // copies position, so safe to change after
         TreePos branchPos = new TreePos(mutable, direction);
-        // must have no block below, and must be a corner or be 1-2 blocks tall (dark oak support/jungle sapling thick branches)
-        if (!isValidBlock(mutable.move(0, -1, 0))
-            && (direction == Direction.UP || !isValidBlock(mutable.move(0, 2, 0)) || !isValidBlock(mutable.move(0, 1, 0)))) {
+        // must have a non-solid block below, and must be a corner or be 1-2 blocks tall (dark oak support/jungle sapling thick branches)
+        if (!world.getBlockState(mutable.move(0, -1, 0)).isSolid()) {
           upcomingPositions.add(branchPos);
         }
       }
