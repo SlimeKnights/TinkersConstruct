@@ -78,6 +78,7 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
 
     // if logs, calculate a tree
     if (state.getBlock().isIn(TinkerTags.Blocks.TREE_LOGS)) {
+      // TODO: would be nice to allow the stipped logs here as well as the logs
       return () -> new TreeIterator(world, state.getBlock(), origin, widthDir, extraWidth, depthDir, extraDepth);
     }
 
@@ -122,9 +123,9 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
                 upcomingPositions.add(new TreePos(mutable, true));
                 // update bounds
                 if (mutable.getX() < minX) minX = mutable.getX();
-                if (mutable.getX() < maxX) maxX = mutable.getX();
+                if (mutable.getX() > maxX) maxX = mutable.getX();
                 if (mutable.getZ() < minZ) minZ = mutable.getZ();
-                if (mutable.getZ() < maxZ) maxZ = mutable.getZ();
+                if (mutable.getZ() > maxZ) maxZ = mutable.getZ();
               }
             }
           }
@@ -169,7 +170,7 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
     /** Tries to find a branch at the current mutable position */
     private void tryBranch(Direction direction) {
       // block must not have log both above and below it to count
-      if (outsideTrunk(mutable) && isBranch(mutable)) {
+      if (isBranch(mutable)) {
         TreePos branchPos = new TreePos(mutable, direction);
         // must have no block below, and must be a corner or be 1-2 blocks tall (dark oak support/jungle sapling thick branches)
         if (!isValidBlock(mutable.move(Direction.DOWN))
