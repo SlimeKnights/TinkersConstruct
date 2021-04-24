@@ -64,12 +64,12 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
       if (sideHit.getAxis().isVertical()) {
         depthDir = player.getHorizontalFacing();
       } else {
-        depthDir = sideHit;
+        depthDir = sideHit.getOpposite();
       }
       widthDir = depthDir.rotateY();
     } else {
-      depthDir = sideHit;
-      widthDir = sideHit;
+      depthDir = Direction.UP;
+      widthDir = Direction.UP;
     }
 
     // if logs, calculate a tree
@@ -103,7 +103,7 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
       for (int depth = 0; depth <= extraDepth; depth++) {
         BlockPos depthCenter = origin.offset(depthDir, depth);
         for (int width = -extraWidth; width <= extraWidth; width++) {
-          if (depth != 0 && width != 0) {
+          if (depth != 0 || width != 0) {
             seed.add(depthCenter.offset(widthDir, width));
           }
         }

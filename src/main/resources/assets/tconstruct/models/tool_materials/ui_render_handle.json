@@ -1,4 +1,5 @@
 {
   "fallbacks": ["wood"],
-  "color": "745f38"
+  "color": "745f38",
+  "skipUniqueTexture": true
 }
