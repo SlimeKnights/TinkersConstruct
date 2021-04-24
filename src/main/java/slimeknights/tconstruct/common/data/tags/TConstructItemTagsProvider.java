@@ -165,7 +165,8 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
              TinkerToolParts.axeHead.get(), TinkerToolParts.kamaHead.get(),
              TinkerToolParts.swordBlade.get(), TinkerToolParts.broadBlade.get(),
              TinkerToolParts.toolBinding.get(), TinkerToolParts.largePlate.get(),
-             TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get());
+             TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
+             TinkerToolParts.repairKit.get()); // repair kit is not strictly a tool part, but this list just helps out JEI
   }
 
   private void addSmeltery() {
@@ -196,6 +197,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.nuggetCast);
     addCast.accept(TinkerSmeltery.gemCast);
     addCast.accept(TinkerSmeltery.rodCast);
+    addCast.accept(TinkerSmeltery.repairKitCast);
     // compatibility
     addCast.accept(TinkerSmeltery.plateCast);
     addCast.accept(TinkerSmeltery.gearCast);

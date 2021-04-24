@@ -53,6 +53,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
+    addPartRecipe(consumer, TinkerToolParts.repairKit, 2, TinkerSmeltery.repairKitCast);
     // head
     addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);

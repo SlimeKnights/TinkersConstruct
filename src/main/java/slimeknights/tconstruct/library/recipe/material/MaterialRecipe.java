@@ -133,12 +133,19 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    */
   public float getRepairPerItem() {
     if (repairPerItem == null) {
-      // total tool durability
-      Optional<HeadMaterialStats> stats = MaterialRegistry.getInstance().getMaterialStats(materialId, HeadMaterialStats.ID);
-      int durabilityPerUnit = stats.map(HeadMaterialStats::getDurability).orElse(0);
       // multiply by recipe value (iron block is 9x), divide by needed (nuggets need 9), divide again by 4 (vanilla ingots restore 25%)
-      repairPerItem = this.getValue() * durabilityPerUnit / 4f / this.getNeeded();
+      repairPerItem = this.getValue() * getHeadDurability(materialId) / 4f / this.getNeeded();
     }
     return repairPerItem;
+  }
+
+  /**
+   * Gets the head durability for the given material
+   * @param materialId  Material
+   * @return  Head durability
+   */
+  public static int getHeadDurability(MaterialId materialId) {
+    Optional<HeadMaterialStats> stats = MaterialRegistry.getInstance().getMaterialStats(materialId, HeadMaterialStats.ID);
+    return stats.map(HeadMaterialStats::getDurability).orElse(0);
   }
 }

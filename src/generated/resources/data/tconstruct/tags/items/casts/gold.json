@@ -6,6 +6,7 @@
     "tconstruct:nugget_cast",
     "tconstruct:gem_cast",
     "tconstruct:rod_cast",
+    "tconstruct:repair_kit_cast",
     "tconstruct:plate_cast",
     "tconstruct:gear_cast",
     "tconstruct:coin_cast",

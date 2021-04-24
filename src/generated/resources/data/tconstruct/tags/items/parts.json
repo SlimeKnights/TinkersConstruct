@@ -10,6 +10,7 @@
     "tconstruct:tool_binding",
     "tconstruct:large_plate",
     "tconstruct:tool_handle",
-    "tconstruct:tough_handle"
+    "tconstruct:tough_handle",
+    "tconstruct:repair_kit"
   ]
 }

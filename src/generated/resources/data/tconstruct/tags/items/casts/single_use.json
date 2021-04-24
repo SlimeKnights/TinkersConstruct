@@ -6,6 +6,7 @@
     "#tconstruct:casts/single_use/nugget",
     "#tconstruct:casts/single_use/gem",
     "#tconstruct:casts/single_use/rod",
+    "#tconstruct:casts/single_use/repair_kit",
     "#tconstruct:casts/single_use/plate",
     "#tconstruct:casts/single_use/gear",
     "#tconstruct:casts/single_use/coin",
