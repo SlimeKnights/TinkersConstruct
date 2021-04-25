@@ -2,7 +2,7 @@ package slimeknights.tconstruct.plugin.crt.managers;
 
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
-import com.blamejared.crafttweaker.api.fluid.IFluidStack;
+import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
@@ -14,16 +14,17 @@ import org.openzen.zencode.java.ZenCodeType;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
+import slimeknights.tconstruct.plugin.crt.CRTHelper;
 
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.Fuel")
 public class FuelManager implements IRecipeManager {
   
   @ZenCodeType.Method
-  public void addFuel(String name, IFluidStack input, int duration, int temperature) {
+  public void addFuel(String name, CTFluidIngredient input, int duration, int temperature) {
     name = fixRecipeName(name);
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
-    FluidIngredient fluidIngredient = FluidIngredient.of(input.getInternal());
+    FluidIngredient fluidIngredient = CRTHelper.mapFluidIngredient(input);
     MeltingFuel recipe = new MeltingFuel(id, "", fluidIngredient, duration, temperature);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
