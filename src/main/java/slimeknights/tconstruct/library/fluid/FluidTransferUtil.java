@@ -107,26 +107,29 @@ public class FluidTransferUtil {
     Direction face = hit.getFace();
     // fetch capability before copying, bit more work when its a fluid handler, but saves copying time when its not
     if (stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent()) {
-      TileEntity te = world.getTileEntity(pos);
-      if (te != null) {
-        LazyOptional<IFluidHandler> teCapability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face);
-        if (teCapability.isPresent()) {
-          IFluidHandler teHandler = teCapability.orElse(EmptyFluidHandler.INSTANCE);
-          ItemStack copy = ItemHandlerHelper.copyStackWithSize(stack, 1);
-          copy.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).ifPresent(itemHandler -> {
-            // first, try filling the TE from the item
-            boolean isSuccess = false;
-            if (tryTransfer(teHandler, itemHandler, Integer.MAX_VALUE)) {
-              isSuccess = true;
-              // if that failed, try filling the item handler from the TE
-            } else if (tryTransfer(itemHandler, teHandler, Integer.MAX_VALUE)) {
-              isSuccess = true;
-            }
-            // if either worked, update the player's inventory
-            if (isSuccess) {
-              player.setHeldItem(hand, DrinkHelper.fill(stack, player, itemHandler.getContainer()));
-            }
-          });
+      // only server needs to transfer stuff
+      if (!world.isRemote) {
+        TileEntity te = world.getTileEntity(pos);
+        if (te != null) {
+          LazyOptional<IFluidHandler> teCapability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face);
+          if (teCapability.isPresent()) {
+            IFluidHandler teHandler = teCapability.orElse(EmptyFluidHandler.INSTANCE);
+            ItemStack copy = ItemHandlerHelper.copyStackWithSize(stack, 1);
+            copy.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).ifPresent(itemHandler -> {
+              // first, try filling the TE from the item
+              boolean isSuccess = false;
+              if (tryTransfer(teHandler, itemHandler, Integer.MAX_VALUE)) {
+                isSuccess = true;
+                // if that failed, try filling the item handler from the TE
+              } else if (tryTransfer(itemHandler, teHandler, Integer.MAX_VALUE)) {
+                isSuccess = true;
+              }
+              // if either worked, update the player's inventory
+              if (isSuccess) {
+                player.setHeldItem(hand, DrinkHelper.fill(stack, player, itemHandler.getContainer()));
+              }
+            });
+          }
         }
       }
       return true;
