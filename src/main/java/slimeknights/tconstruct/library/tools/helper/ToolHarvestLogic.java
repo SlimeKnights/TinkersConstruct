@@ -452,6 +452,9 @@ public class ToolHarvestLogic {
         }
         // if the hardness varies by too much, don't allow breaking
         float hardness = state.getBlockHardness(world, pos);
+        if (hardness == -1) {
+          return false;
+        }
         if (refHardness == 0 ? hardness == 0 : hardness / refHardness <= 3) {
           return self.isEffective(tool, stack, state);
         }
