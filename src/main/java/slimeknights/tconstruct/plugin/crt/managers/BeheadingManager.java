@@ -8,6 +8,7 @@ import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionRemoveRecipe;
 import com.blamejared.crafttweaker.impl.entity.MCEntityType;
+import com.blamejared.crafttweaker.impl.item.MCItemStackMutable;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import org.openzen.zencode.java.ZenCodeType;
@@ -31,7 +32,12 @@ public class BeheadingManager implements IRecipeManager {
 
   @Override
   public void removeRecipe(IItemStack output) {
-    throw new IllegalArgumentException("Cannot remove Beheading Recipes by an IItemStack output! Use `removeRecipe(MCEntityType input)` instead!");
+    CraftTweakerAPI.apply(new ActionRemoveRecipe(this, iRecipe -> {
+      if (iRecipe instanceof BeheadingRecipe) {
+        return output.matches(new MCItemStackMutable(((BeheadingRecipe) iRecipe).getOutput()));
+      }
+      return false;
+    }));
   }
 
   @ZenCodeType.Method
