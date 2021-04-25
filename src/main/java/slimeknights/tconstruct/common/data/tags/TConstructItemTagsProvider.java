@@ -45,6 +45,9 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   }
 
   private void addCommon() {
+    this.getOrCreateBuilder(TinkerTags.Items.BOOKS)
+        .add(TinkerCommons.materialsAndYou.get(), TinkerCommons.punySmelting.get(), TinkerCommons.mightySmelting.get(), TinkerCommons.tinkersGadgetry.get());
+
     this.getOrCreateBuilder(Tags.Items.SLIMEBALLS)
         .addTag(TinkerTags.Items.SKY_SLIMEBALL)
         .addTag(TinkerTags.Items.ENDER_SLIMEBALL)
