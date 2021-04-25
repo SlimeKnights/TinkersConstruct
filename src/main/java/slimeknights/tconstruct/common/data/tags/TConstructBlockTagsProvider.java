@@ -138,6 +138,8 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
       leavesBuilder.add(TinkerWorld.slimeLeaves.get(type));
       saplingBuilder.add(TinkerWorld.slimeSapling.get(type));
     }
+    this.getOrCreateBuilder(BlockTags.LEAVES).addTag(TinkerTags.Blocks.SLIMY_LEAVES);
+    this.getOrCreateBuilder(BlockTags.SAPLINGS).addTag(TinkerTags.Blocks.SLIMY_SAPLINGS);
 
     this.getOrCreateBuilder(Tags.Blocks.ORES)
         .addTag(TinkerTags.Blocks.ORES_COBALT)

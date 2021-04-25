@@ -95,6 +95,8 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.copy(TinkerTags.Blocks.SLIMY_LOGS, TinkerTags.Items.SLIMY_LOGS);
     this.copy(TinkerTags.Blocks.SLIMY_LEAVES, TinkerTags.Items.SLIMY_LEAVES);
     this.copy(TinkerTags.Blocks.SLIMY_SAPLINGS, TinkerTags.Items.SLIMY_SAPLINGS);
+    this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
+    this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
 
     this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
     this.copy(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Items.ORES_COBALT);
