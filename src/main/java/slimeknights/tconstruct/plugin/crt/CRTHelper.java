@@ -4,7 +4,6 @@ import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.entity.CTEntityIngredient;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
 import com.blamejared.crafttweaker.impl.commands.CTCommandCollectionEvent;
-import com.blamejared.crafttweaker.impl.commands.script_examples.ExampleCollectionEvent;
 import com.blamejared.crafttweaker.impl.fluid.MCFluidStackMutable;
 import com.blamejared.crafttweaker.impl_native.item.ExpandItem;
 import com.google.gson.JsonElement;
@@ -17,7 +16,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.FluidIngredient;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -77,26 +75,6 @@ public class CRTHelper {
       throw new IllegalArgumentException("Modifier does not exist! Provided: " + resultId);
     }
     return resultModifier;
-  }
-
-  @SubscribeEvent
-  public void onExampleCollection(ExampleCollectionEvent event) {
-    event.addResource(location("alloying"));
-    event.addResource(location("beheading"));
-    event.addResource(location("casting_basin"));
-    event.addResource(location("casting_table"));
-    event.addResource(location("entity_melting"));
-    event.addResource(location("fuel"));
-    event.addResource(location("material_recipe"));
-    event.addResource(location("melting"));
-    event.addResource(location("molding_basin"));
-    event.addResource(location("molding_table"));
-    event.addResource(location("part_builder"));
-    event.addResource(location("tinker_station"));
-  }
-
-  private ResourceLocation location(String location) {
-    return new ResourceLocation(TConstruct.modID, TConstruct.modID + "/" + location);
   }
 
   @SubscribeEvent
