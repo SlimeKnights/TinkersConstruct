@@ -91,8 +91,8 @@ public class TreeAOEHarvestLogic extends ToolHarvestLogic {
    * Iterator that continues up until the block does not match.
    * The way this works is it starts with the given dimensions to form the trunk. The trunk can then extend off into branches in the vertical or in horizontal directions.
    *
-   * Horizontal branches detect in a 3x2x2 area from the stored direction and upwards and don't care about whether the logs have a block below
-   * Vertical branches check a 3x3x1 cross shape above, requiring nothing to be below the block.
+   * Horizontal branches detect in a 3x2x2 area from the stored direction and upwards and don't care about whether the logs have a block below. They also can only split into up to 3 pieces
+   * Vertical branches check a 3x3x1 cross shape above, requiring nothing to be below the block. They can split into up to 5 pieces
    * The trunk can start new branches within a 3x3x1 square area, again requiring nothing to be below the block
    */
   public static class TreeIterator extends AbstractIterator<BlockPos> {
