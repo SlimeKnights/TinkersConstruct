@@ -12,7 +12,7 @@
 <recipetype:tconstruct:material>.addItem("test_material", <item:minecraft:cocoa_beans>, 3, 5, "tconstruct:bone");
 
 /*
- * Removes the Flint Material.
+ * Removes the Flint to Flint (Material) parts from the Part builder.
  */
 
 // <recipetype:tconstruct:material>.removeByName(name as string)
