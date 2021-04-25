@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.plugin.crt;
 
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
+import com.blamejared.crafttweaker.api.entity.CTEntityIngredient;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
 import com.blamejared.crafttweaker.impl.commands.CTCommandCollectionEvent;
 import com.blamejared.crafttweaker.impl.commands.script_examples.ExampleCollectionEvent;
@@ -14,6 +15,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -191,7 +193,17 @@ public class CRTHelper {
     return Arrays.stream(ingredient).map(CRTHelper::mapFluidIngredient).collect(Collectors.toList());
   }
 
+  /**
+   * Maps a CraftTweaker Entity Ingredient to a Mantle Entity Ingredient
+   *
+   * @param ingredient CTEntityIngredient to map
+   * @return a EntityIngredient from the given CTEntityIngredient.
+   */
+  public static EntityIngredient mapEntityIngredient(CTEntityIngredient ingredient) {
 
+    Supplier<IllegalArgumentException> errorException = () -> new IllegalArgumentException("Error while mapping Compound Entity Ingredients!");
+    return ingredient.mapTo(EntityIngredient::of, (entityTypeITag, integer) -> EntityIngredient.of(entityTypeITag), stream -> stream.reduce(EntityIngredient::of).orElseThrow(errorException));
+  }
 
 
 }

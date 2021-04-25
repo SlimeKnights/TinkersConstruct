@@ -2,6 +2,7 @@ package slimeknights.tconstruct.plugin.crt.managers;
 
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
+import com.blamejared.crafttweaker.api.entity.CTEntityIngredient;
 import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
@@ -16,17 +17,18 @@ import org.openzen.zencode.java.ZenCodeType;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
+import slimeknights.tconstruct.plugin.crt.CRTHelper;
 
 @ZenRegister
 @ZenCodeType.Name("mods.tconstruct.EntityMelting")
 public class EntityMeltingManager implements IRecipeManager {
   
   @ZenCodeType.Method
-  public void addRecipe(String name, MCEntityType input, IFluidStack output, int damage) {
+  public void addRecipe(String name, CTEntityIngredient input, IFluidStack output, int damage) {
     name = fixRecipeName(name);
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
     FluidStack outputFluid = output.getInternal();
-    EntityMeltingRecipe recipe = new EntityMeltingRecipe(id, EntityIngredient.of(input.getInternal()), outputFluid, damage);
+    EntityMeltingRecipe recipe = new EntityMeltingRecipe(id, CRTHelper.mapEntityIngredient(input), outputFluid, damage);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
   
