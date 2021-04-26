@@ -116,16 +116,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   @Override
-  public ITextComponent getName() {
-    ITextComponent itextcomponent = this.getCustomName();
-    if (itextcomponent != null) {
-      ITextComponent textComponent = itextcomponent.deepCopy();
-      removeClickEvents(textComponent);
-      return textComponent;
-    } else {
-      String translationKey = this.getType().getTranslationKey();
-
-      return new TranslationTextComponent(translationKey + "." + this.getFrameType().getString());
-    }
+  protected ITextComponent getProfessionName() {
+    return new TranslationTextComponent(FrameType.getFrameFromType(this.getFrameType()).getTranslationKey());
   }
 }

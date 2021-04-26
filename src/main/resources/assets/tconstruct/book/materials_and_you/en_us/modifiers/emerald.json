@@ -7,6 +7,7 @@
   ],
   "effects": [
     "Increases tool durability depending on base durability",
+	"Increases damage towards illagers",
     "Single Use",
 	"Requires 1 Upgrade Slot"
   ]

@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Hitting things brings items towards you",
+    "Attacking mobs or mining brings items towards you",
     "Multiple levels, each level increases magnetic strength",
     "Requires 1 Upgrade Slot per level"
   ]

@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.Properties;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
@@ -99,7 +100,7 @@ public final class TinkerGadgets extends TinkerModule {
    */
   // TODO: moving to natura
   public static final ItemObject<Item> stoneStick = ITEMS.register("stone_stick", HIDDEN_PROPS);
-  public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", PiggyBackPackItem::new);
+  public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", () -> new PiggyBackPackItem(new Properties().group(TinkerGadgets.TAB_GADGETS).maxStackSize(16)));
   public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
   // slime tools
   private static final Item.Properties SLING_PROPS = new Item.Properties().group(TAB_GADGETS).maxStackSize(1).maxDamage(250);

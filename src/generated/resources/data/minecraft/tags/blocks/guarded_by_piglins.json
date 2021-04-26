@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:silky_jewel_block",
+    "#forge:storage_blocks/rose_gold"
+  ]
+}

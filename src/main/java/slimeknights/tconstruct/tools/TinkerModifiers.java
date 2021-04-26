@@ -56,12 +56,15 @@ import slimeknights.tconstruct.tools.modifiers.traits.TemperateModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.BaneOfArthropodsModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.BeheadingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.BlastingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.CoolingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.FieryModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.HasteModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.HydraulicModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.LightspeedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
@@ -114,7 +117,12 @@ public final class TinkerModifiers extends TinkerModule {
   // general effects
   public static final RegistryObject<ExperiencedModifier> experienced = MODIFIERS.register("experienced", ExperiencedModifier::new);
   public static final RegistryObject<MagneticModifier> magnetic = MODIFIERS.register("magnetic", MagneticModifier::new);
+
+  // speed
   public static final RegistryObject<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
+  public static final RegistryObject<BlastingModifier> blasting = MODIFIERS.register("blasting", BlastingModifier::new);
+  public static final RegistryObject<HydraulicModifier> hydraulic = MODIFIERS.register("hydraulic", HydraulicModifier::new);
+  public static final RegistryObject<LightspeedModifier> lightspeed = MODIFIERS.register("lightspeed", LightspeedModifier::new);
 
   // weapon
   public static final RegistryObject<KnockbackModifier> knockback = MODIFIERS.register("knockback", KnockbackModifier::new);

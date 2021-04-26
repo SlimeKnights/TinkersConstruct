@@ -10,6 +10,9 @@
             {
               "function": "minecraft:copy_name",
               "source": "block_entity"
+            },
+            {
+              "function": "mantle:fill_retextured_block"
             }
           ],
           "name": "tconstruct:crafting_station"

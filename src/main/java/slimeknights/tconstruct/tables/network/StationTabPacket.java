@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
@@ -39,7 +40,11 @@ public class StationTabPacket implements IThreadsafePacket {
         sender.inventory.setItemStack(ItemStack.EMPTY);
       }
 
-      BlockState state = sender.getEntityWorld().getBlockState(pos);
+      World world = sender.getEntityWorld();
+      if (!world.isBlockLoaded(pos)) {
+        return;
+      }
+      BlockState state = world.getBlockState(pos);
       if (state.getBlock() instanceof ITinkerStationBlock) {
         ((ITinkerStationBlock) state.getBlock()).openGui(sender, sender.getEntityWorld(), pos);
       } else {

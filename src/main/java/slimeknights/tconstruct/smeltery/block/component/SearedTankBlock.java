@@ -19,6 +19,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
@@ -55,7 +56,7 @@ public class SearedTankBlock extends SearedBlock {
   @Deprecated
   @Override
   public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-    if (ITankTileEntity.interactWithTank(world, pos, player, hand, hit)) {
+    if (FluidTransferUtil.interactWithTank(world, pos, player, hand, hit)) {
       return ActionResultType.SUCCESS;
     }
     return super.onBlockActivated(state, world, pos, player, hand, hit);

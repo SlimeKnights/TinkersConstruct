@@ -53,12 +53,12 @@ public class SmelteryControllerBlock extends ControllerBlock {
   }
 
 
-  /* No rotation if active  */
+  /* No rotation if in a structure  */
 
   @Deprecated
   @Override
   public BlockState rotate(BlockState state, Rotation rotation) {
-    if (state.get(ACTIVE)) {
+    if (state.get(IN_STRUCTURE)) {
       return state;
     }
     return super.rotate(state, rotation);
@@ -67,7 +67,7 @@ public class SmelteryControllerBlock extends ControllerBlock {
   @Deprecated
   @Override
   public BlockState mirror(BlockState state, Mirror mirror) {
-    if (state.get(ACTIVE)) {
+    if (state.get(IN_STRUCTURE)) {
       return state;
     }
     return super.mirror(state, mirror);

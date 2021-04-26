@@ -8,4 +8,5 @@ public class MaterialRenderInfoJson {
   private final ResourceLocation texture;
   private final String[] fallbacks;
   private final String color;
+  private final boolean skipUniqueTexture;
 }

@@ -21,19 +21,25 @@ public final class ToolDefinitions {
   public static final ToolDefinition SLEDGE_HAMMER = new ToolDefinition(
     ToolBaseStatDefinitions.SLEDGE_HAMMER,
     requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughHandle, TinkerToolParts.largePlate, TinkerToolParts.largePlate));
+  public static final ToolDefinition VEIN_HAMMER = new ToolDefinition(
+    ToolBaseStatDefinitions.VEIN_HAMMER,
+    requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughHandle, TinkerToolParts.pickaxeHead, TinkerToolParts.largePlate));
 
   // dirt
   public static final ToolDefinition MATTOCK = new ToolDefinition(
     ToolBaseStatDefinitions.MATTOCK,
-    requirements(TinkerToolParts.axeHead, TinkerToolParts.toolHandle, TinkerToolParts.kamaHead));
+    requirements(TinkerToolParts.smallAxeHead, TinkerToolParts.toolHandle, TinkerToolParts.kamaHead));
   public static final ToolDefinition EXCAVATOR = new ToolDefinition(
     ToolBaseStatDefinitions.EXCAVATOR,
     requirements(TinkerToolParts.largePlate, TinkerToolParts.toughHandle, TinkerToolParts.largePlate, TinkerToolParts.toughHandle));
 
   // wood
-  public static final ToolDefinition AXE = new ToolDefinition(
-    ToolBaseStatDefinitions.AXE,
-    requirements(TinkerToolParts.axeHead, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding));
+  public static final ToolDefinition HAND_AXE = new ToolDefinition(
+    ToolBaseStatDefinitions.HAND_AXE,
+    requirements(TinkerToolParts.smallAxeHead, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding));
+  public static final ToolDefinition BROAD_AXE = new ToolDefinition(
+    ToolBaseStatDefinitions.BROAD_AXE,
+    requirements(TinkerToolParts.broadAxeHead, TinkerToolParts.toughHandle, TinkerToolParts.pickaxeHead, TinkerToolParts.largePlate));
 
   // scythes
   public static final ToolDefinition KAMA = new ToolDefinition(
@@ -43,6 +49,7 @@ public final class ToolDefinitions {
     ToolBaseStatDefinitions.SCYTHE,
     requirements(TinkerToolParts.broadBlade, TinkerToolParts.toughHandle, TinkerToolParts.toolBinding, TinkerToolParts.toughHandle));
 
+  // swords
   public static final ToolDefinition BROADSWORD = new ToolDefinition(
     ToolBaseStatDefinitions.BROADSWORD,
     requirements(TinkerToolParts.swordBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolHandle));

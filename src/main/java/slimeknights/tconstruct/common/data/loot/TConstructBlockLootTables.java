@@ -99,8 +99,6 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addTools() {
-    this.registerDropSelfLootTable(TinkerTables.craftingStation.get());
-
     // chests
     Function<Block, LootTable.Builder> addChest = block -> droppingWithFunctions(block, (builder) ->
       builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
@@ -112,13 +110,10 @@ public class TConstructBlockLootTables extends BlockLootTables {
     // tables with legs
     Function<Block, LootTable.Builder> addTable = block -> droppingWithFunctions(block, (builder) ->
       builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY)).acceptFunction(RetexturedLootFunction::new));
+    this.registerLootTable(TinkerTables.craftingStation.get(), addTable);
     this.registerLootTable(TinkerTables.partBuilder.get(), addTable);
     this.registerLootTable(TinkerTables.tinkerStation.get(), addTable);
     this.registerLootTable(TinkerTables.tinkersAnvil.get(), addTable);
-
-    // normal tables
-    this.registerLootTable(TinkerTables.craftingStation.get(), block ->
-      droppingWithFunctions(block, (builder) -> builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))));
   }
 
   private void addWorld() {

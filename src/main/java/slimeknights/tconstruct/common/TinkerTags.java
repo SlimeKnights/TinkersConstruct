@@ -13,8 +13,16 @@ import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.tconstruct.library.Util;
 
 public class TinkerTags {
+  /** Called on mod construct to set up tags */
+  public static void init() {
+    Blocks.init();
+    Items.init();
+    Fluids.init();
+    EntityTypes.init();
+  }
 
   public static class Blocks {
+    private static void init() {}
     public static final IOptionalNamedTag<Block> WORKBENCHES = forgeTag("workbenches");
     public static final IOptionalNamedTag<Block> TABLES = tag("tables");
 
@@ -51,6 +59,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> HARVESTABLE_INTERACT = tag("harvestable/interact");
     /** Plants that grow by placing a copy on top */
     public static final IOptionalNamedTag<Block> HARVESTABLE_STACKABLE = tag("harvestable/stackable");
+    /** Any block that counts as a tree trunk for the lumber axe. Note it must also be harvestable by axes to be effective */
+    public static final IOptionalNamedTag<Block> TREE_LOGS = tag("tree_log");
 
     private static IOptionalNamedTag<Block> tag(String name) {
       return BlockTags.createOptional(Util.getResource(name));
@@ -62,6 +72,7 @@ public class TinkerTags {
   }
 
   public static class Items {
+    private static void init() {}
     public static final IOptionalNamedTag<Item> WORKBENCHES = forgeTag("workbenches");
     public static final IOptionalNamedTag<Item> TABLES = tag("tables");
 
@@ -87,6 +98,7 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE = forgeTag("nuggets/netherite");
     public static final IOptionalNamedTag<Item> INGOTS_NETHERITE_SCRAP = forgeTag("ingots/netherite_scrap");
+    public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE_SCRAP = forgeTag("nuggets/netherite_scrap");
 
     public static final IOptionalNamedTag<Item> CASTS = tag("casts");
     public static final IOptionalNamedTag<Item> GOLD_CASTS = tag("casts/gold");
@@ -97,6 +109,7 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Item> RODS_STONE = forgeTag("rods/stone");
     public static final IOptionalNamedTag<Item> WITHER_BONES = forgeTag("wither_bones");
+    public static final IOptionalNamedTag<Item> BOOKS = forgeTag("books");
 
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");
@@ -124,6 +137,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
     /** Modifiable items that can break blocks */
     public static final IOptionalNamedTag<Item> HARVEST = tag("modifiable/harvest");
+    /** Modifiable items that can break stone blocks */
+    public static final IOptionalNamedTag<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
     /** Modifiable items that can have range increased */
     public static final IOptionalNamedTag<Item> AOE = tag("modifiable/aoe");
     // /** Modifiable items that support ranged attacks, such as bows */
@@ -142,7 +157,7 @@ public class TinkerTags {
   }
 
   public static class Fluids {
-
+    private static void init() {}
     public static final IOptionalNamedTag<Fluid> SLIMELIKE = tag("slimelike");
     public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
 
@@ -156,11 +171,15 @@ public class TinkerTags {
   }
 
   public static class EntityTypes {
-
+    private static void init() {}
     public static final IOptionalNamedTag<EntityType<?>> BOUNCY = tag("bouncy");
     public static final IOptionalNamedTag<EntityType<?>> SLIMES = forgeTag("slimes");
+    public static final IOptionalNamedTag<EntityType<?>> BACON_PRODUCER = tag("bacon_producer");
+
     public static final IOptionalNamedTag<EntityType<?>> MELTING_SHOW = tag("melting/show_in_default");
     public static final IOptionalNamedTag<EntityType<?>> MELTING_HIDE = tag("melting/hide_in_default");
+    public static final IOptionalNamedTag<EntityType<?>> PIGGYBACKPACK_BLACKLIST = tag("piggybackpack_blacklist");
+
 
     private static IOptionalNamedTag<EntityType<?>> tag(String name) {
       return EntityTypeTags.createOptional(Util.getResource(name));

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -80,7 +81,9 @@ public class MaintainedModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {
-    event.setNewSpeed(event.getNewSpeed() * (1 + getTotalBoost(tool, level)));
+  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+    if (isEffective) {
+      event.setNewSpeed(event.getNewSpeed() * (1 + getTotalBoost(tool, level)));
+    }
   }
 }

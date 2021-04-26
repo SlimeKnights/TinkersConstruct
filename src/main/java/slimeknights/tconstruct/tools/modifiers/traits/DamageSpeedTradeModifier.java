@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -25,9 +26,14 @@ public class DamageSpeedTradeModifier extends Modifier {
     this.multiplier = multiplier;
   }
 
+  /** Gets the multiplier for this modifier at the current durability and level */
+  private double getMultiplier(IModifierToolStack tool, int level) {
+    return Math.sqrt(tool.getDamage() * level / tool.getDefinition().getBaseStatDefinition().getDurabilityModifier()) * multiplier;
+  }
+
   @Override
   public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
-    double boost = Math.abs(Math.sqrt(tool.getDamage() * level) * multiplier);
+    double boost = Math.abs(getMultiplier(tool, level));
     ITextComponent name = super.getDisplayName(level);
     if (boost > 0) {
       name = name.deepCopy().append(new TranslationTextComponent(KEY_MINING_BOOST, Util.dfPercent.format(boost)));
@@ -37,11 +43,13 @@ public class DamageSpeedTradeModifier extends Modifier {
 
   @Override
   public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
-    return (int)(damage * (1 + Math.sqrt(tool.getDamage() * level) * multiplier));
+    return (int)(damage * (1 + getMultiplier(tool, level)));
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {
-    event.setNewSpeed((float)(event.getNewSpeed() * (1 - (Math.sqrt(tool.getDamage() * level) * multiplier))));
+  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+    if (isEffective) {
+      event.setNewSpeed((float)(event.getNewSpeed() * (1 - getMultiplier(tool, level))));
+    }
   }
 }

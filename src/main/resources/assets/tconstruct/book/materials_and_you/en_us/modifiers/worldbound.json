@@ -6,7 +6,8 @@
     }
   ],
   "effects": [
-    "Crude verison of netherite, grants immunity to external damage but no strength increase",
+    "Crude version of netherite.", 
+	"Grants immunity to external damage but no strength increase",
     "Single Use",
     "Requires no slot"
   ]

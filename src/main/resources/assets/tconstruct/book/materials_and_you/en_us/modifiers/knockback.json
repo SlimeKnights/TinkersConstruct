@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Knocksbacks enemies on hit",
+    "Knocksback enemies on hit",
     "Multile levels, increases force of knockback per level",
     "Requires 1 Upgrade Slot per level"
   ]

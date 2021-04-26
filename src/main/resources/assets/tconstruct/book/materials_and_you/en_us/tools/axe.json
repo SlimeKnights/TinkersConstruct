@@ -2,14 +2,12 @@
   "tool": "tconstruct:axe",
   "text": [
     {
-      "text": "The Hand Axe is a basic chopping tool. It is effective on wood and leaves."
+      "text": "The Hand Axe is a basic chopping tool. It is effective on wood and leaves. It works as a weapon or a tool, or both. The choice is yours."
     },
-    {
+	 {
       "text": "\n"
-    },
-    {
-      "text": "It is like a vanilla axe; a weapon or a tool, or both. The choice is yours."
     }
+  
   ],
   "properties": [
     "Basic mining tool",

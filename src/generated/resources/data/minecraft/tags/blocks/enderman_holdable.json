@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:congealed_slime",
+    "tconstruct:grout",
+    "tconstruct:earth_slime_dirt",
+    "tconstruct:sky_slime_dirt",
+    "tconstruct:ichor_slime_dirt",
+    "tconstruct:ender_slime_dirt",
+    "tconstruct:sky_earth_slime_grass",
+    "tconstruct:ichor_earth_slime_grass",
+    "tconstruct:ender_earth_slime_grass",
+    "tconstruct:blood_earth_slime_grass",
+    "tconstruct:sky_sky_slime_grass",
+    "tconstruct:ichor_sky_slime_grass",
+    "tconstruct:ender_sky_slime_grass",
+    "tconstruct:blood_sky_slime_grass",
+    "tconstruct:sky_ichor_slime_grass",
+    "tconstruct:ichor_ichor_slime_grass",
+    "tconstruct:ender_ichor_slime_grass",
+    "tconstruct:blood_ichor_slime_grass",
+    "tconstruct:sky_ender_slime_grass",
+    "tconstruct:ichor_ender_slime_grass",
+    "tconstruct:ender_ender_slime_grass",
+    "tconstruct:blood_ender_slime_grass",
+    "tconstruct:sky_vanilla_slime_grass",
+    "tconstruct:ichor_vanilla_slime_grass",
+    "tconstruct:ender_vanilla_slime_grass",
+    "tconstruct:blood_vanilla_slime_grass"
+  ]
+}

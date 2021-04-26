@@ -10,10 +10,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
 
   public EnderSlimeSlingItem(Properties props) {
@@ -35,22 +31,32 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
     double offY = look.y * f + 1; // add extra to help with bad collisions
     double offZ = look.z * f;
 
-    List<BlockPos> posToCheck = new ArrayList<>();
-    BlockPos posAttempt = new BlockPos(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ);
+    // find teleport target
+    BlockPos furthestPos = null;
     while (Math.abs(offX) > .5 || Math.abs(offY) > .5 || Math.abs(offZ) > .5) { // while not too close to player
-      posToCheck.add(posAttempt);
+      BlockPos posAttempt = new BlockPos(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ);
+
+      // if we do not have a position yet, see if this one is valid
+      if (furthestPos == null) {
+        if (worldIn.getWorldBorder().contains(posAttempt) && !worldIn.getBlockState(posAttempt).isSuffocating(worldIn, posAttempt)) {
+          furthestPos = posAttempt;
+        }
+      } else {
+        // if we already have a position, clear if the new one is unbreakable
+        if (worldIn.getBlockState(posAttempt).getBlockHardness(worldIn, posAttempt) == -1) {
+          furthestPos = null;
+        }
+      }
+
+      // update for next iteration
       offX -= (Math.abs(offX) > .25 ? (offX >= 0 ? 1 : -1) * .25 : 0);
       offY -= (Math.abs(offY) > .25 ? (offY >= 0 ? 1 : -1) * .25 : 0);
       offZ -= (Math.abs(offZ) > .25 ? (offZ >= 0 ? 1 : -1) * .25 : 0);
-      posAttempt = new BlockPos(player.getPosX() + offX, player.getPosY() + offY, player.getPosZ() + offZ);
     }
 
     // get furthest teleportable block
-    Optional<BlockPos> furthestPosOp  = posToCheck.stream().distinct().filter(block -> !worldIn.getBlockState(block).isSuffocating(worldIn, block)).findFirst();
-    if (furthestPosOp.isPresent()) {
+    if (furthestPos != null) {
       player.getCooldownTracker().setCooldown(stack.getItem(), 3);
-
-      BlockPos furthestPos = furthestPosOp.get();
       player.setPosition(furthestPos.getX() + 0.5f, furthestPos.getY(), furthestPos.getZ() + 0.5f);
 
       // particle effect from EnderPearlEntity

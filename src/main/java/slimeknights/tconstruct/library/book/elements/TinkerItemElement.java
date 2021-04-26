@@ -12,6 +12,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 import slimeknights.mantle.client.render.RenderingHelper;
+import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 
 import javax.annotation.Nullable;
@@ -69,5 +70,12 @@ public class TinkerItemElement extends ItemElement {
     }
 
     super.drawOverlay(matrixStack, mouseX, mouseY, partialTicks, fontRenderer);
+  }
+
+  //Fix odd tooltip rendering that makes the tooltip go off the screen.
+  @Override
+  public void drawHoveringText(MatrixStack matrixStack, List<ITextComponent> textLines, int x, int y, FontRenderer font) {
+    GuiUtils.drawHoveringText(matrixStack, textLines, x, y, BookScreen.PAGE_WIDTH, BookScreen.PAGE_HEIGHT, BookScreen.PAGE_WIDTH, font);
+    RenderHelper.disableStandardItemLighting();
   }
 }

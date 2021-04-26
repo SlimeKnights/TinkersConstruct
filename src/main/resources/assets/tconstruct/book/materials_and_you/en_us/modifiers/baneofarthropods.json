@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Increases damage to spiders and creepy crawlies",
+    "Increases damage and applies slowness to spiders and creepy crawlies",
 	"Multiple levels, each level increases damage further",
     "Requires 1 Upgrade Slot per level"
   ]

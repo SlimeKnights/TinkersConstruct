@@ -35,7 +35,7 @@ public class HeaterBlock extends ControllerBlock {
   public BlockState getStateForPlacement(BlockItemUseContext context) {
     BlockState state = super.getStateForPlacement(context);
     if (state != null) {
-      return state.with(ACTIVE, context.getWorld().getBlockState(context.getPos().up()).isIn(TinkerSmeltery.searedMelter.get()));
+      return state.with(IN_STRUCTURE, context.getWorld().getBlockState(context.getPos().up()).isIn(TinkerSmeltery.searedMelter.get()));
     }
     return null;
   }
@@ -43,7 +43,7 @@ public class HeaterBlock extends ControllerBlock {
   @Override
   public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
     if (facing == Direction.UP) {
-      return state.with(ACTIVE, facingState.isIn(TinkerSmeltery.searedMelter.get()));
+      return state.with(IN_STRUCTURE, facingState.isIn(TinkerSmeltery.searedMelter.get()));
     }
     return state;
   }

@@ -6,8 +6,8 @@
     }
   ],
   "effects": [
-    "Strengthens the tool, makes it immune to external damage such as fire",
-    "Requires Diamond Modifier to be applied",
+    "Boosts durability, attack damage, mining speed, and makes it immune to external damage such as fire and lava",
+    "Requires Diamond or Emerald to be applied",
     "Single Use",
 	"Requires 1 Upgrade Slot"
   ]
