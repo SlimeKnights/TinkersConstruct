@@ -96,6 +96,18 @@ public class TinkerStationManager implements IRecipeManager {
 
   private void addIncrementalModifierRecipeInternal(String name, IIngredient input, int amountPerInput, int neededPerLevel, IIngredient toolRequirement, String modifierResult, int modifierResultLevel, int maxLevel, int upgradeSlots, int abilitySlots, IItemStack leftover, IData modifierRequirements, int minMatch, String requirementsError) {
     name = fixRecipeName(name);
+    if (maxLevel <= 0) {
+      throw new IllegalArgumentException("maxLevel has to be > 0! Currently: " + maxLevel);
+    }
+    if (modifierResultLevel <= 0) {
+      throw new IllegalArgumentException("modifierResultLevel has to be > 0! Currently: " + modifierResultLevel);
+    }
+    if (amountPerInput <= 0) {
+      throw new IllegalArgumentException("amountPerInput has to be > 0! Currently: " + amountPerInput);
+    }
+    if (neededPerLevel <= 0) {
+      throw new IllegalArgumentException("neededPerLevel has to be > 0! Currently: " + neededPerLevel);
+    }
     Modifier resultModifier = CRTHelper.getModifier(modifierResult);
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
     ModifierMatch entry = makeMatch(modifierRequirements, minMatch);
@@ -106,9 +118,14 @@ public class TinkerStationManager implements IRecipeManager {
 
   private void addModifierRecipeInternal(String name, IIngredientWithAmount[] inputs, IIngredient toolRequired, String modifierResult, int modifierResultLevel, int maxLevel, int upgradeSlots, int abilitySlots, IData modifierRequirements, int minMatch, String requirementsError) {
     name = fixRecipeName(name);
+    if (maxLevel <= 0) {
+      throw new IllegalArgumentException("maxLevel has to be >= 0! Currently: " + maxLevel);
+    }
+    if (modifierResultLevel <= 0) {
+      throw new IllegalArgumentException("modifierResultLevel has to be >= 0! Currently: " + modifierResultLevel);
+    }
     Modifier resultModifier = CRTHelper.getModifier(modifierResult);
     ModifierMatch entry = makeMatch(modifierRequirements, minMatch);
-
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
     List<SizedIngredient> collect = Arrays.stream(inputs).map(iIngredientWithAmount -> SizedIngredient.of(iIngredientWithAmount.getIngredient().asVanillaIngredient(), iIngredientWithAmount.getAmount())).collect(Collectors.toList());
     ModifierEntry result = new ModifierEntry(resultModifier, modifierResultLevel);
