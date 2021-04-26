@@ -1,32 +1,78 @@
 /*
- * Adds five Tinker Station recipes that do the following:
+ * Adds thirteen Tinker Station recipes that do the following:
  * 1) Adds an Overslime Modifier Recipe that uses Dirt to repair 800 durability.
- * 2) Adds a Modifier Recipe that uses 3 Sticks to add the Diamond Modifier to only a Pickaxe (no other tools). The Diamond Modifier will have a level of 1, with a max level of 5, will use 1 upgrade slot and 1 ability slot.
- * 3) Adds a Modifier Recipe that uses 3 Apples to add the Emerald Modifier to any Item in the Modifiable Tag. The Emerald Modifier will have a level of 1, with a max level of 5, will use 1 upgrade slot and 1 ability slot. The Recipe has a requirement that the Item being modified has the Haste Modifier at level 1 or above. minMatch means it needs to match at-least one of the requirements and the requirementsError is used to tell the user that they are missing a requirement.
- * 3.1) You can use `/ct dump ticModifiers` to get a list of Modifiers.
- * 3.2) For the Modifier Requirements, if there are multiple requirements (such as requiring Haste and Luck to be applied), you can use the minMatch to say how many of the requirements need to match, so setting it to 1, will mean either Luck Or Haste need to be present, both are not required.
- * 3.3) The requirementsError is localized, so you can pass in an unlocalized string. For the example here, I have passed in the `recipe.tconstruct.modifier.requirements_error` from Tinkers as an example, you can put whatever you like there and use a resource pack to localize it.
- * 4) Adds an Incremental Modifier Recipe that uses an Arrow to add the Emerald Modifier to any Item in the Modifiable Tag. The Recipe required 80 per level, but Arrows are set to give 2 per Arrow, so only 40 Arrows are required. The Emerald Modifier will have a level of 1, with a max level of 5, will use 0 upgrade slots and 1 ability slot. If only part of the Arrow is required to complete a level, a piece of Glass will be returned.
- * 4.1) You can use `/ct dump ticModifiers` to get a list of Modifiers.
- * 4.2) The left over is in the following instance: You have a tool that has 79/80 put into the Recipe, but an Arrow gives 2, so using an Arrow would give you 81/80, so in this case it adds 1 to get 80/80 and gives you the left over so no material is lost. The normal Haste Recipe using Redstone dust and Redstone Blocks operates the same way.
- * 5) Adds an Incremental Modifier Recipe that uses Glowstone to add the Haste Modifier to any Item in the Modifiable Tag. The Recipe required 4 per level, and Glowstone are set to give 1 per Glowstone, so 4 Glowstone are required. The Haste Modifier will have a level of 1, with a max level of 2, will use 1 upgrade slot and 0 ability slots. If only part of the Glowstone is required to complete a level, a Diamond will be returned. The Recipe has a requirement that the Item being modified has the Emerald Modifier at level 1 or above. minMatch means it needs to match at-least one of the requirements and the requirementsError is used to tell the user that they are missing a requirement.
- * 5.1) You can use `/ct dump ticModifiers` to get a list of Modifiers.
- * 5.2) The left over is in the following instance: You have a tool that has 79/80 put into the Recipe, but an Arrow gives 2, so using an Arrow would give you 81/80, so in this case it adds 1 to get 80/80 and gives you the left over so no material is lost. The normal Haste Recipe using Redstone dust and Redstone Blocks operates the same way.
- * 5.3) For the Modifier Requirements, if there are multiple requirements (such as requiring Haste and Luck to be applied), you can use the minMatch to say how many of the requirements need to match, so setting it to 1, will mean either Luck Or Haste need to be present, both are not required.
- * 5.4) The requirementsError is localized, so you can pass in an unlocalized string.  For the example here, I have passed in the `recipe.tconstruct.modifier.requirements_error` from Tinkers as an example, you can put whatever you like there and use a resource pack to localize it.
+ * 2) Adds a Modifier Recipe that uses 3 Sticks to add the Experienced Modifier to a Pickaxe.
+ * 2.1) The Modifier can be applied 3 times, for a total of Experienced 3.
+ * 3) Adds a Modifier Recipe that uses 3 Apples to add the Sturdy Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 3.1) The Modifier can be applied 5 times, for a total of Sturdy 3.
+ * 3.2) The Recipe requires the Tool that it is being applied on to have the Haste Modifier at level 1 or more.
+ * 4) Adds an Upgrade Modifier Recipe that uses Red Sand to add the Tasty Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 4.1) The Modifier can be applied 3 times, for a total of Tasty 3.
+ * 4.2) The Modifier will use 1 Upgrade slot on the Tool.
+ * 5) Adds an Upgrade Modifier Recipe that uses White Wool to add the Reach Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 5.1) The Modifier can be applied 3 times, for a total of Reach 3.
+ * 5.2) The Modifier will use 2 Upgrade slots on the Tool.
+ * 5.3) The Recipe requires the Tool that it is being applied on to have the Haste Modifier at level 1 or more.
+ * 6) Adds an Ability Modifier Recipe that uses Gravel to add the Smite Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 6.1) The Modifier can be applied 3 times, for a total of Smite 3.
+ * 6.2) The Modifier will use 1 Ability slot on the Tool.
+ * 7) Adds an Ability Modifier Recipe that uses Orange Wool to add the Sharpness Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 7.1) The Modifier can be applied 3 times, for a total of Sharpness 3.
+ * 7.2) The Modifier will use 1 Ability slot on the Tool.
+ * 8) Adds an Incremental Modifier Recipe that uses Black Wool to add the Haste Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 8.1) The Modifier can be applied 3 times, for a total of Haste 3.
+ * 8.2) The Recipe has 8 increments and each Black Wool adds 2 increments, meaning a total of 4 Black Wool will be required per level.
+ * 8.3) If there are any increments left over (if there was somehow 7 increments and another Black Wool is used, for a total of 9 increments), the recipe will return a Black Dye.
+ * 9) Adds an Incremental Modifier Recipe that uses Yellow Wool to add the Searing Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 9.1) The Modifier can be applied 3 times, for a total of Searing 3.
+ * 9.2) The Recipe has 8 increments and each Yellow Wool adds 3 increments, meaning a total of 3 Yellow Wool will be required per level.
+ * 9.3) If there are any increments left over (if there was 6 increments and another Yellow Wool is used, for a total of 9 increments), the recipe will return a Yellow Dye.
+ * 9.4) The Recipe requires the Tool that it is being applied on to have the Emerald Modifier at level 1 or more.
+ * 10) Adds an Incremental Upgrade Modifier Recipe that uses Blue Wool to add the Reinforced Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 10.1) The Modifier can be applied 3 times, for a total of Reinforced 3.
+ * 10.2) The Recipe has 20 increments and each Blue Wool adds 4 increments, meaning a total of 5 Blue Wool will be required per level.
+ * 10.3) If there are any increments left over (if there was 18 increments and another Blue Wool is used, for a total of 22 increments), the recipe will return a Blue Dye.
+ * 10.4) The Modifier will use 1 Upgrade slot on the Tool.
+ * 11) Adds an Incremental Upgrade Modifier Recipe that uses Red Wool to add the Knockback Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 11.1) The Modifier can be applied 3 times, for a total of Knockback 3.
+ * 11.2) The Recipe has 20 increments and each Red Wool adds 4 increments, meaning a total of 5 Red Wool will be required per level.
+ * 11.3) If there are any increments left over (if there was 18 increments and another Red Wool is used, for a total of 22 increments), the recipe will return a Red Dye.
+ * 11.4) The Recipe requires the Tool that it is being applied on to have the Diamond Modifier at level 1 or more.
+ * 11.5) The Modifier will use 1 Upgrade slot on the Tool.
+ * 12) Adds an Incremental Ability Modifier Recipe that uses Brown Wool to add the Writable Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 12.1) The Modifier can be applied 4 times, for a total of Writable 4.
+ * 12.2) The Recipe has 2 increments and each Brown Wool adds 1 increments, meaning a total of 2 Brown Wool will be required per level.
+ * 12.3) If there are any increments left over (this should never happen as each Brown Wool adds 1 increment), the recipe will return a Brown Dye.
+ * 12.4) The Modifier will use 1 Ability slot on the Tool.
+ * 13) Adds an Incremental Ability Modifier Recipe that uses Magenta Wool to add the Temperate Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 13.1) The Modifier can be applied 3 times, for a total of Temperate 4.
+ * 13.2) The Recipe has 2 increments and each Magenta Wool adds 1 increments, meaning a total of 2 Magenta Wool will be required per level.
+ * 13.3) If there are any increments left over (this should never happen as each Magenta Wool adds 1 increment), the recipe will return a Magenta Dye.
+ * 13.4) The Recipe requires the Tool that it is being applied on to have the Diamond Modifier at level 1 or more and the Haste Modifier at level 2 or more.
+ * 13.5) The Modifier will use 1 Ability slot on the Tool.
  */
 
 // <recipetype:tconstruct:tinker_station>.addOverslimeModifierRecipe(name as string, ingredient as IIngredient, restoreAmount as int)
-// <recipetype:tconstruct:tinker_station>.addModifierRecipe(name as string, inputs as IIngredientWithAmount[], toolRequired as IIngredient, modifierResult as string, modifierResultLevel as int, maxLevel as int, upgradeSlots as int, abilitySlots as int)
-// <recipetype:tconstruct:tinker_station>.addModifierRecipe(name as string, inputs as IIngredientWithAmount[], toolRequired as IIngredient, modifierResult as string, modifierResultLevel as int, maxLevel as int, upgradeSlots as int, abilitySlots as int, modifierRequirements as IData, minMatch as int, requirementsError as string)
-// <recipetype:tconstruct:tinker_station>.addIncrementalModifierRecipe(String name, IIngredient input, int amountPerInput, int neededPerLevel, IIngredient toolRequirement, String modifierResult, int modifierResultLevel, int maxLevel, int upgradeSlots, int abilitySlots, IItemStack leftover)
-// <recipetype:tconstruct:tinker_station>.addIncrementalModifierRecipe(String name, IIngredient input, int amountPerInput, int neededPerLevel, IIngredient toolRequirement, String modifierResult, int modifierResultLevel, int maxLevel, int upgradeSlots, int abilitySlots, IItemStack leftover, IData modifierRequirements, int minMatch, String requirementsError)
+// <recipetype:tconstruct:tinker_station>.addModifierRecipe(name as string, inputs as IIngredientWithAmount[], toolRequired as IIngredient, modifierResult as string, modifierResultLevel as int, maxLevel as int, @Optional modifierRequirements as IData, @Optional minMatch as int, @Optional requirementsError as string)
+// <recipetype:tconstruct:tinker_station>.addUpgradeModifierRecipe(name as string, inputs as IIngredientWithAmount[], toolRequired as IIngredient, modifierResult as string, modifierResultLevel as int, maxLevel as int, upgradeSlots as int, @Optional modifierRequirements as IData, @Optional minMatch as int, @Optional requirementsError as string)
+// <recipetype:tconstruct:tinker_station>.addAbilityModifierRecipe(name as string, inputs as IIngredientWithAmount[], toolRequired as IIngredient, modifierResult as string, modifierResultLevel as int, maxLevel as int, abilitySlots as int, @Optional modifierRequirements as IData, @Optional minMatch as int, @Optional requirementsError as string)
+// <recipetype:tconstruct:tinker_station>.addIncrementalModifierRecipe(name as string, input as IIngredient, amountPerInput as int, neededPerLevel as int, toolRequirement as IIngredient, modifierResult as string, modifierResultLevel as int, maxLevel as int, leftover as IItemStack, @Optional modifierRequirements as IData, @Optional minMatch as int, @Optional requirementsError as string)
+// <recipetype:tconstruct:tinker_station>.addIncrementalUpgradeModifierRecipe (name as string, input as IIngredient, amountPerInput as int, neededPerLevel as int, toolRequirement as IIngredient, modifierResult as String, modifierResultLevel as int, maxLevel as int, upgradeSlots as int, leftover as IItemStack, @Optional modifierRequirements as IData, @Optional minMatch as int, @Optional requirementsError as string)
+// <recipetype:tconstruct:tinker_station>.addIncrementalAbilityModifierRecipe(name as string, input as IIngredient, amountPerInput as int, neededPerLevel as int, toolRequirement as IIngredient, modifierResult as String, modifierResultLevel as int, maxLevel as int, abilitySlots as int, leftover as IItemStack, @Optional modifierRequirements as IData, @Optional minMatch as int, @Optional requirementsError as string)
 
 <recipetype:tconstruct:tinker_station>.addOverslimeModifierRecipe("overslime_test", <item:minecraft:dirt>, 800);
-<recipetype:tconstruct:tinker_station>.addModifierRecipe("modifier_test", [<item:minecraft:stick> * 3], <item:tconstruct:pickaxe>, "tconstruct:diamond", 2, 5, 1, 1);
-<recipetype:tconstruct:tinker_station>.addModifierRecipe("modifier_test_requirements", [<item:minecraft:apple> * 3], <tag:items:tconstruct:modifiable>, "tconstruct:emerald", 2, 5, 1, 1, {"tconstruct:haste": 1}, 1, "recipe.tconstruct.modifier.requirements_error");
-<recipetype:tconstruct:tinker_station>.addIncrementalModifierRecipe("inc_modifier_test", <item:minecraft:arrow>, 2, 80, <tag:items:tconstruct:modifiable>, "tconstruct:emerald", 1, 5, 0, 1, <item:minecraft:glass>);
-<recipetype:tconstruct:tinker_station>.addIncrementalModifierRecipe("inc_modifier_test_requirements", <item:minecraft:glowstone>, 1, 4, <tag:items:tconstruct:modifiable>, "tconstruct:haste", 1, 2, 1, 0, <item:minecraft:diamond>, {"tconstruct:emerald": 1}, 1, "recipe.tconstruct.modifier.requirements_error");
+<recipetype:tconstruct:tinker_station>.addModifierRecipe("modifier_example", [<item:minecraft:stick> * 3], <item:tconstruct:pickaxe>, "tconstruct:experienced", 1, 3);
+<recipetype:tconstruct:tinker_station>.addModifierRecipe("modifier_requirements_example", [<item:minecraft:apple> * 3], <tag:items:tconstruct:modifiable>, "tconstruct:sturdy", 1, 3, {"tconstruct:haste": 1}, 1, "recipe.tconstruct.modifier.requirements_error");
+<recipetype:tconstruct:tinker_station>.addUpgradeModifierRecipe("upgrade_modifier_example", [<item:minecraft:red_sand>], <tag:items:tconstruct:modifiable>, "tconstruct:tasty", 1, 3, 1);
+<recipetype:tconstruct:tinker_station>.addUpgradeModifierRecipe("upgrade_modifier_requirements_example", [<item:minecraft:white_wool>], <tag:items:tconstruct:modifiable>, "tconstruct:reach", 1, 3, 2, {"tconstruct:haste": 1}, 1, "recipe.tconstruct.modifier.requirements_error");
+<recipetype:tconstruct:tinker_station>.addAbilityModifierRecipe("ability_modifier_example", [<item:minecraft:gravel>], <tag:items:tconstruct:modifiable>, "tconstruct:smite", 1, 3, 1);
+<recipetype:tconstruct:tinker_station>.addAbilityModifierRecipe("ability_modifier_requirements_example", [<item:minecraft:orange_wool>], <tag:items:tconstruct:modifiable>, "tconstruct:sharpness", 1, 3, 1, {"tconstruct:emerald": 1}, 1, "recipe.tconstruct.modifier.requirements_error");
+<recipetype:tconstruct:tinker_station>.addIncrementalModifierRecipe("incremental_modifier_example", <item:minecraft:black_wool>, 2, 8, <tag:items:tconstruct:modifiable>, "tconstruct:haste", 1, 8, <item:minecraft:black_dye>);
+<recipetype:tconstruct:tinker_station>.addIncrementalModifierRecipe("incremental_modifier_requirements_example", <item:minecraft:yellow_wool>, 3, 8, <tag:items:tconstruct:modifiable>, "tconstruct:searing", 1, 8, <item:minecraft:yellow_dye>, {"tconstruct:emerald": 1}, 1, "recipe.tconstruct.modifier.requirements_error");
+<recipetype:tconstruct:tinker_station>.addIncrementalUpgradeModifierRecipe("incremental_upgrade_modifier_example", <item:minecraft:blue_wool>, 4, 20, <tag:items:tconstruct:modifiable>, "tconstruct:reinforced", 1, 3, 1, <item:minecraft:blue_dye>);
+<recipetype:tconstruct:tinker_station>.addIncrementalUpgradeModifierRecipe("incremental_upgrade_modifier_requirements_example", <item:minecraft:red_wool>, 4, 20, <tag:items:tconstruct:modifiable>, "tconstruct:knockback", 1, 3, 1, <item:minecraft:red_dye>, {"tconstruct:diamond": 1}, 1, "recipe.tconstruct.modifier.requirements_error");
+<recipetype:tconstruct:tinker_station>.addIncrementalAbilityModifierRecipe("incremental_ability_modifier_example", <item:minecraft:brown_wool>, 1, 2, <tag:items:tconstruct:modifiable>, "tconstruct:writable", 1, 4, 1, <item:minecraft:brown_dye>);
+<recipetype:tconstruct:tinker_station>.addIncrementalAbilityModifierRecipe("incremental_ability_modifier_requirements_example", <item:minecraft:magenta_wool>, 1, 2, <tag:items:tconstruct:modifiable>, "tconstruct:temperate", 1, 4, 1, <item:minecraft:magenta_wool>, {"tconstruct:diamond": 1, "tconstruct:haste": 2}, 2, "recipe.tconstruct.modifier.requirements_error");
 
 /*
  * Removes the Expanded upgrade from the Tinker Station.
