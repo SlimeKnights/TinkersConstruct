@@ -1,6 +1,6 @@
 {
     "textures": {
-        "particle": "tconstruct:block/fluid/liquid_still"
+        "particle": "tconstruct:block/fluid/liquid/still"
     }
 }
 

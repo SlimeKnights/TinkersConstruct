@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "tconstruct:block/slimesteel_block"
+        "all": "tconstruct:block/storage/rose_gold"
     }
 }

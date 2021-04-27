@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "tconstruct:block/knightslime_block"
+        "all": "tconstruct:block/storage/manyullyn"
     }
 }
