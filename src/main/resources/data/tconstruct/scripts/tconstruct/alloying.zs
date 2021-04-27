@@ -2,7 +2,7 @@
  * Adds an Alloying recipe that will produce Water (Fluid) from 1mb of Molten Rose Gold (Fluid) and 1mb of Lava (Fluid) when combined with a heat of atleast 50°C
  */
 
-// <recipetype:tconstruct:alloying>.addRecipe(name as string, ingredients as IFluidStack[], output as IFluidStack, temperature as int)
+// <recipetype:tconstruct:alloying>.addRecipe(name as string, ingredients as CTFluidIngredient[], output as IFluidStack, temperature as int)
 
 <recipetype:tconstruct:alloying>.addRecipe("alloy_test", [<fluid:tconstruct:molten_rose_gold>, <fluid:minecraft:lava>], <fluid:minecraft:water>, 50);
 
