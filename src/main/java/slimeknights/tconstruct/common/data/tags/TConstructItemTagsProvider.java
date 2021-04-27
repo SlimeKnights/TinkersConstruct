@@ -172,7 +172,6 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.TOOL_PARTS)
         .add(TinkerToolParts.pickaxeHead.get(), TinkerToolParts.hammerHead.get(),
              TinkerToolParts.smallAxeHead.get(), TinkerToolParts.broadAxeHead.get(),
-             TinkerToolParts.kamaHead.get(),
              TinkerToolParts.swordBlade.get(), TinkerToolParts.broadBlade.get(),
              TinkerToolParts.toolBinding.get(), TinkerToolParts.largePlate.get(),
              TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
@@ -215,7 +214,6 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     // small heads
     addCast.accept(TinkerSmeltery.pickaxeHeadCast);
     addCast.accept(TinkerSmeltery.smallAxeHeadCast);
-    addCast.accept(TinkerSmeltery.kamaHeadCast);
     addCast.accept(TinkerSmeltery.swordBladeCast);
     // large heads
     addCast.accept(TinkerSmeltery.hammerHeadCast);

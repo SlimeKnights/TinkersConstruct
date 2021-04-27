@@ -159,6 +159,11 @@ public class TConstruct {
         case "axe_head_cast": return TinkerSmeltery.smallAxeHeadCast.get();
         case "axe_head_sand_cast": return TinkerSmeltery.smallAxeHeadCast.getSand();
         case "axe_head_red_sand_cast": return TinkerSmeltery.smallAxeHeadCast.getRedSand();
+        // kama head removed
+        case "kama_head": return TinkerToolParts.swordBlade.get();
+        case "kama_head_cast": return TinkerSmeltery.swordBladeCast.get();
+        case "kama_head_sand_cast": return TinkerSmeltery.swordBladeCast.getSand();
+        case "kama_head_red_sand_cast": return TinkerSmeltery.swordBladeCast.getRedSand();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

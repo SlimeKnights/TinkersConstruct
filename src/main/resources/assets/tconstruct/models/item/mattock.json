@@ -4,13 +4,13 @@
   "textures": {
     "axe":         "tconstruct:item/tool/mattock/axe",
     "broken_axe":  "tconstruct:item/tool/mattock/broken_axe",
-    "kama":        "tconstruct:item/tool/mattock/kama",
-    "broken_kama": "tconstruct:item/tool/mattock/broken_kama",
+    "pick":        "tconstruct:item/tool/mattock/pick",
+    "broken_pick": "tconstruct:item/tool/mattock/broken_pick",
     "handle":      "tconstruct:item/tool/pickaxe/handle"
   },
   "parts": [
     { "name": "handle", "index": 1 },
     { "name": "axe",    "index": 0, "broken": "broken_axe" },
-    { "name": "kama",   "index": 2, "broken": "broken_kama" }
+    { "name": "pick",   "index": 2, "broken": "broken_pick" }
   ]
 }

@@ -28,7 +28,7 @@ public final class ToolDefinitions {
   // dirt
   public static final ToolDefinition MATTOCK = new ToolDefinition(
     ToolBaseStatDefinitions.MATTOCK,
-    requirements(TinkerToolParts.smallAxeHead, TinkerToolParts.toolHandle, TinkerToolParts.kamaHead));
+    requirements(TinkerToolParts.smallAxeHead, TinkerToolParts.toolHandle, TinkerToolParts.pickaxeHead));
   public static final ToolDefinition EXCAVATOR = new ToolDefinition(
     ToolBaseStatDefinitions.EXCAVATOR,
     requirements(TinkerToolParts.largePlate, TinkerToolParts.toughHandle, TinkerToolParts.largePlate, TinkerToolParts.toughHandle));
@@ -44,7 +44,7 @@ public final class ToolDefinitions {
   // scythes
   public static final ToolDefinition KAMA = new ToolDefinition(
     ToolBaseStatDefinitions.KAMA,
-    requirements(TinkerToolParts.kamaHead, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding));
+    requirements(TinkerToolParts.swordBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding));
   public static final ToolDefinition SCYTHE = new ToolDefinition(
     ToolBaseStatDefinitions.SCYTHE,
     requirements(TinkerToolParts.broadBlade, TinkerToolParts.toughHandle, TinkerToolParts.toolBinding, TinkerToolParts.toughHandle));

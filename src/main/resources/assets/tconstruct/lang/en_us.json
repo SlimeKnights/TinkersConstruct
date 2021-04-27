@@ -245,7 +245,6 @@
     
     "item.tconstruct.pickaxe_head_cast": "Pickaxe Head Gold Cast",
     "item.tconstruct.small_axe_head_cast": "Small Axe Head Gold Cast",
-    "item.tconstruct.kama_head_cast": "Kama Head Gold Cast",
     "item.tconstruct.sword_blade_cast": "Sword Blade Gold Cast",
     "item.tconstruct.sign_head_cast": "Sign Head Gold Cast",
     "item.tconstruct.bow_limb_cast": "Bow Limb Gold Cast",
@@ -285,7 +284,6 @@
     
     "item.tconstruct.pickaxe_head_sand_cast": "Pickaxe Head Sand Cast",
     "item.tconstruct.small_axe_head_sand_cast": "Small Axe Head Sand Cast",
-    "item.tconstruct.kama_head_sand_cast": "Kama Head Sand Cast",
     "item.tconstruct.sword_blade_sand_cast": "Sword Blade Sand Cast",
     "item.tconstruct.sign_head_sand_cast": "Sign Head Sand Cast",
     "item.tconstruct.bow_limb_sand_cast": "Bow Limb Sand Cast",
@@ -325,7 +323,6 @@
     
     "item.tconstruct.pickaxe_head_red_sand_cast": "Pickaxe Head Red Sand Cast",
     "item.tconstruct.small_axe_head_red_sand_cast": "Small Axe Head Red Sand Cast",
-    "item.tconstruct.kama_head_red_sand_cast": "Kama Head Red Sand Cast",
     "item.tconstruct.sword_blade_red_sand_cast": "Sword Blade Red Sand Cast",
     "item.tconstruct.sign_head_red_sand_cast": "Sign Head Red Sand Cast",
     "item.tconstruct.bow_limb_red_sand_cast": "Bow Limb Red Sand Cast",
@@ -709,7 +706,6 @@
     "item.tconstruct.small_axe_head": "Small Axe Head",
     "item.tconstruct.broad_axe_head": "Broad Axe Head",
     
-    "item.tconstruct.kama_head": "Kama Head",
     "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.broad_blade": "Broad Blade",
     
