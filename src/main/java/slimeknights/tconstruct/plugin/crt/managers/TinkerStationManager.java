@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import org.openzen.zencode.java.ZenCodeType;
 import slimeknights.mantle.recipe.SizedIngredient;
+import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -95,8 +96,8 @@ public class TinkerStationManager implements IRecipeManager {
 
   private void addIncrementalModifierRecipeInternal(String name, IIngredient input, int amountPerInput, int neededPerLevel, IIngredient toolRequirement, String modifierResult, int modifierResultLevel, int maxLevel, int upgradeSlots, int abilitySlots, IItemStack leftover, IData modifierRequirements, int minMatch, String requirementsError) {
     name = fixRecipeName(name);
-    checkAll(maxLevel, modifierResultLevel, amountPerInput, neededPerLevel);
     Modifier resultModifier = CRTHelper.getModifier(modifierResult);
+    checkIncrementalModifier(maxLevel, modifierResultLevel, amountPerInput, neededPerLevel, resultModifier);
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
     ModifierMatch entry = makeMatch(modifierRequirements, minMatch);
     ModifierEntry result = new ModifierEntry(resultModifier, modifierResultLevel);
@@ -106,7 +107,7 @@ public class TinkerStationManager implements IRecipeManager {
 
   private void addModifierRecipeInternal(String name, IIngredientWithAmount[] inputs, IIngredient toolRequired, String modifierResult, int modifierResultLevel, int maxLevel, int upgradeSlots, int abilitySlots, IData modifierRequirements, int minMatch, String requirementsError) {
     name = fixRecipeName(name);
-    checkLevels(maxLevel, modifierResultLevel);
+    checkModifier(maxLevel, modifierResultLevel);
     Modifier resultModifier = CRTHelper.getModifier(modifierResult);
     ModifierMatch entry = makeMatch(modifierRequirements, minMatch);
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
@@ -116,7 +117,7 @@ public class TinkerStationManager implements IRecipeManager {
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
 
-  private void checkLevels(int maxLevel, int modifierResultLevel) {
+  private void checkModifier(int maxLevel, int modifierResultLevel) {
     if (maxLevel <= 0) {
       throw new IllegalArgumentException("maxLevel has to be >= 0! Currently: " + maxLevel);
     }
@@ -128,13 +129,16 @@ public class TinkerStationManager implements IRecipeManager {
     }
   }
 
-  private void checkAll(int maxLevel, int modifierResultLevel, int amountPerInput, int neededPerLevel) {
-    checkLevels(maxLevel, modifierResultLevel);
+  private void checkIncrementalModifier(int maxLevel, int modifierResultLevel, int amountPerInput, int neededPerLevel, Modifier resultModifier) {
+    checkModifier(maxLevel, modifierResultLevel);
     if (amountPerInput <= 0) {
       throw new IllegalArgumentException("amountPerInput has to be > 0! Currently: " + amountPerInput);
     }
     if (neededPerLevel <= 0) {
       throw new IllegalArgumentException("neededPerLevel has to be > 0! Currently: " + neededPerLevel);
+    }
+    if (!(resultModifier instanceof IncrementalModifier)) {
+      throw new IllegalArgumentException("Cannot use non-incremental modifier in an Incremental Modifier recipe!");
     }
   }
 }
