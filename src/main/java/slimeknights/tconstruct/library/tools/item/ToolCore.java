@@ -17,8 +17,12 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -374,6 +378,50 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
         }
       }
     }
+  }
+
+
+  /** Checks if the given tool acts as shears */
+  public boolean isShears(ToolStack tool) {
+    return true;
+  }
+
+  /* Right click hooks */
+  
+  @Override
+  public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      ActionResultType result = entry.getModifier().onItemUse(tool, entry.getLevel(), stack, context);
+      if (result != ActionResultType.PASS) {
+        return result;
+      }
+    }
+    return super.onItemUseFirst(stack, context);
+  }
+
+  @Override
+  public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      ActionResultType result = entry.getModifier().itemInteractionForEntity(tool, entry.getLevel(), stack, playerIn, target, hand);
+      if (result != ActionResultType.PASS) {
+        return result;
+      }
+    }
+    return super.itemInteractionForEntity(stack, playerIn, target, hand);
+  }
+
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ToolStack tool = ToolStack.from(playerIn.getHeldItem(handIn));
+    for (ModifierEntry entry : tool.getModifierList()) {
+      ActionResult<ItemStack> result = entry.getModifier().onItemRightClick(tool, entry.getLevel(), worldIn, playerIn, handIn);
+      if (result.getType() != ActionResultType.PASS) {
+        return result;
+      }
+    }
+    return super.onItemRightClick(worldIn, playerIn, handIn);
   }
 
 

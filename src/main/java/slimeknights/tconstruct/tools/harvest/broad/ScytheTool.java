@@ -42,7 +42,7 @@ public class ScytheTool extends KamaTool {
   }
 
   @Override
-  protected boolean isShears(ToolStack tool) {
+  public boolean isShears(ToolStack tool) {
     return tool.getModifierLevel(TinkerModifiers.silky.get()) > 0;
   }
 

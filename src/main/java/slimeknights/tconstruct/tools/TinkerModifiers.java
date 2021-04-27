@@ -5,6 +5,8 @@ import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.potion.EffectType;
+import net.minecraft.util.SoundEvents;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
@@ -22,8 +24,11 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.BlockTransformModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.KamaAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.SilkyModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
@@ -141,7 +146,14 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
   public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", () -> new Modifier(0xff9f50));
   public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
+  
+  public static final RegistryObject<BlockTransformModifier> shovelTransform = MODIFIERS.register("shovel_transform", () -> new BlockTransformModifier(0x8a361e, Integer.MIN_VALUE, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true));
+  public static final RegistryObject<BlockTransformModifier> axeTransform = MODIFIERS.register("axe_transform", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false));
+  public static final RegistryObject<BlockTransformModifier> hoeTransform = MODIFIERS.register("hoe_transform", () -> new BlockTransformModifier(0x633c1e, Integer.MIN_VALUE, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true));
 
+  public static final RegistryObject<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE));
+  public static final RegistryObject<KamaAbilityModifier> kama = MODIFIERS.register("kama", () -> new KamaAbilityModifier(0x3eed78, Integer.MIN_VALUE + 1));
+  
   // bonus modifier slots
   public static final RegistryObject<ExtraModifier> writable = MODIFIERS.register("writable", () -> new ExtraModifier(0xffffff));
   public static final RegistryObject<ExtraModifier> recapitated = MODIFIERS.register("recapitated", () -> new ExtraModifier(0x67d755));

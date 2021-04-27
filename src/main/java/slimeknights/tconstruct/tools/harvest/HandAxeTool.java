@@ -6,10 +6,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.SoundEvents;
-import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
@@ -34,11 +30,6 @@ public class HandAxeTool extends HarvestTool {
   @Override
   public ToolHarvestLogic getToolHarvestLogic() {
     return HARVEST_LOGIC;
-  }
-
-  @Override
-  public ActionResultType onItemUse(ItemUseContext context) {
-    return this.getToolHarvestLogic().transformBlocks(context, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false);
   }
 
   @Override

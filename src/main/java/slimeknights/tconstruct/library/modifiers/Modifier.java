@@ -10,16 +10,21 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.loot.LootContext;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectUtils;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -343,6 +348,24 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     return generatedLoot;
   }
 
+
+  /**
+    * Called when this item is used when targeting a Block
+   * @param toolStack 
+   * @param context        Full item use context
+   * @return  Action result
+   */
+  public ActionResultType onItemUse(ToolStack tool, int level, ItemStack stack, ItemUseContext context) {
+    return ActionResultType.PASS;
+  }
+  
+  public ActionResultType itemInteractionForEntity(ToolStack tool, int level, ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+    return ActionResultType.PASS;
+  }
+  
+  public ActionResult<ItemStack> onItemRightClick(IModifierToolStack tool, int level, World worldIn, PlayerEntity playerIn, Hand handIn) {
+    return ActionResult.resultPass(playerIn.getHeldItem(handIn));
+  }
 
   /* Harvest hooks */
 
