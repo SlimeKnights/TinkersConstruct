@@ -19,6 +19,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Rarity;
+import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -424,6 +425,41 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     return super.onItemRightClick(worldIn, playerIn, handIn);
   }
 
+  @Override
+  public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      boolean result = entry.getModifier().onPlayerStoppedUsing(tool, entry.getLevel(), worldIn, entityLiving, timeLeft);
+      if (result) {
+        return;
+      }
+    }
+    super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
+  }
+
+  @Override
+  public int getUseDuration(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      int result = entry.getModifier().getUseDuration(tool, entry.getLevel());
+      if (result > 0) {
+        return result;
+      }
+    }
+    return super.getUseDuration(stack);
+  }
+
+  @Override
+  public UseAction getUseAction(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      UseAction result = entry.getModifier().getUseAction(tool, entry.getLevel());
+      if (result != UseAction.NONE) {
+        return result;
+      }
+    }
+     return super.getUseAction(stack);
+  }
 
   /* Information */
 

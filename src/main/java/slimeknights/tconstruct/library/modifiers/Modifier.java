@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.UseAction;
 import net.minecraft.loot.LootContext;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectUtils;
@@ -351,7 +352,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
   /**
     * Called when this item is used when targeting a Block
-   * @param toolStack 
+   * @param tool 
+   * @param level 
+   * @param stack 
    * @param context        Full item use context
    * @return  Action result
    */
@@ -367,6 +370,21 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     return ActionResult.resultPass(playerIn.getHeldItem(handIn));
   }
 
+  /**
+  * @return  Whether the modifier should block any incoming ones from firing
+  */
+  public boolean onPlayerStoppedUsing(IModifierToolStack tool, int level, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    return false;
+  }
+
+  public int getUseDuration(IModifierToolStack tool, int level) {
+     return 0;
+  }
+
+  public UseAction getUseAction(IModifierToolStack tool, int level) {
+     return UseAction.NONE;
+  }
+  
   /* Harvest hooks */
 
   /**
