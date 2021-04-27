@@ -10,7 +10,6 @@ import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
-import org.graalvm.compiler.lir.aarch64.AArch64AddressValue;
 import org.openzen.zencode.java.ZenCodeType;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.tconstruct.library.modifiers.Modifier;
