@@ -68,23 +68,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // silky cloth
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyCloth)
                        .key('s', Tags.Items.STRING)
-                       .key('g', Tags.Items.INGOTS_GOLD)
+                       .key('g', TinkerMaterials.roseGold.getIngotTag())
                        .patternLine("sss")
                        .patternLine("sgs")
                        .patternLine("sss")
                        .addCriterion("has_item", hasItem(Tags.Items.INGOTS_GOLD))
                        .build(consumer, prefix(TinkerModifiers.silkyCloth, folder));
-    // silky jewel
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyJewel)
-                       .key('c', TinkerModifiers.silkyCloth)
-                       .key('E', Items.EMERALD)
-                       .patternLine(" c ")
-                       .patternLine("cEc")
-                       .patternLine(" c ")
-                       .addCriterion("has_item", hasItem(TinkerModifiers.silkyCloth))
-                       .setGroup(TinkerModifiers.silkyJewel.getRegistryName().toString())
-                       .build(consumer, prefix(TinkerModifiers.silkyJewel, folder));
-    registerPackingRecipe(consumer, "block", TinkerModifiers.silkyJewelBlock, "gem", TinkerModifiers.silkyJewel, folder);
 
     // slime crystals
     TinkerModifiers.slimeCrystal.forEach((type, crystal) -> {
@@ -322,7 +311,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setAbilitySlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_block"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())
-                         .addInput(TinkerModifiers.silkyJewel)
+                         .addInput(TinkerModifiers.silkyCloth)
+                         .addInput(TinkerModifiers.silkyCloth)
+                         .addInput(TinkerModifiers.silkyCloth)
+                         .addInput(TinkerModifiers.silkyCloth)
+                         .addInput(TinkerModifiers.silkyCloth)
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
                          .setTools(TinkerTags.Items.HARVEST)

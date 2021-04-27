@@ -9,7 +9,7 @@ import java.util.function.BiConsumer;
 
 public class SilkyModifier extends SingleUseModifier {
   public SilkyModifier() {
-    super(0xfbe28b);
+    super(0xF7CDBB);
   }
 
   @Override
