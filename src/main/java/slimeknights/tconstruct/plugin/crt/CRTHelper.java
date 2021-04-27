@@ -21,9 +21,11 @@ import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 
@@ -122,11 +124,13 @@ public class CRTHelper {
       TinkerRegistries.MODIFIERS.getValues().forEach(modifier -> {
         StringBuilder builder = new StringBuilder();
         builder.append("Modifier: `").append(modifier.getId()).append("` {");
-        builder.append("\n\tDisplay Name: ").append(modifier.getDisplayName().getString());
+        builder.append("\n\tDisplay Name: `").append(modifier.getDisplayName().getString()).append("`");
         builder.append("\n\tTranslation Key: `").append(modifier.getTranslationKey()).append("`");
-        builder.append("\n\tDescription: ```").append(modifier.getDescription().getString()).append("```");
         builder.append("\n\tColor: ").append(Color.fromInt(modifier.getColor()).getHex());
         builder.append("\n\tPriority: ").append(modifier.getPriority());
+        builder.append("\n\tIncremental: ").append(modifier instanceof IncrementalModifier);
+        builder.append("\n\tSingle Use: ").append(modifier instanceof SingleUseModifier);
+        builder.append("\n\tDescription: ```\n").append(modifier.getDescription().getString()).append("\n```");
         builder.append("\n}");
         CraftTweakerAPI.logDump(builder.toString());
       });
