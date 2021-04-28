@@ -16,6 +16,11 @@ public class TwoHandedAbilityModifier extends SingleUseModifier {
 	public boolean shouldDisplay(boolean advanced) {
 		return false;
 	}
+	
+  @Override
+  public int getPriority() {
+    return Integer.MIN_VALUE;
+  }
 
   @Override
   public ActionResultType onItemRightClick(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
