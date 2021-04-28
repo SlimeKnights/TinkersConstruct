@@ -60,7 +60,7 @@ public class ShearsAbilityModifier extends SingleUseModifier {
 	ItemStack stack = playerIn.getHeldItem(hand);
     // only run AOE on shearable entities
     if (stack != null && isShears(tool) && target instanceof IForgeShearable) {
-      int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+      int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);// FIXME: wrong function
 
       if (!tool.isBroken() && this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, fortune)) {
         ToolDamageUtil.damageAnimated(tool, 1, playerIn, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND);

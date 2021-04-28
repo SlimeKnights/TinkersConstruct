@@ -354,8 +354,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, ItemUseContext)}: Processes use actions on entities.</li>
-   *   <li>{@link #onItemRightClick(IModifierToolStack, int, ItemUseContext)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
+   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
+   *   <li>{@link #onItemRightClick(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -372,8 +372,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onItemUse(ToolStack, int, ItemStack, ItemUseContext)}: Processes use actions on blocks.</li>
-   *   <li>{@link #onItemRightClick(IModifierToolStack, int, ItemUseContext)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
+   *   <li>{@link #onItemUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onItemRightClick(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -392,8 +392,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onItemUse(ToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
-   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, ItemUseContext)}: Processes use actions on entities.</li>
+   *   <li>{@link #onItemUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -407,6 +407,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
+   * Called when the player stops using the tool.
+   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onItemRightClick(IModifierToolStack, int, World, PlayerEntity, Hand)}.
    * @param tool           Current tool instance
    * @param level          Modifier level
    * @param world          World containing tool
