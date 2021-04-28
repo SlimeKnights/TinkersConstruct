@@ -46,6 +46,11 @@ public class ShearsAbilityModifier extends SingleUseModifier {
     player.spawnSweepParticles();
   }
 
+  /**
+   * Checks whether the tool counts as shears for modifier logic
+   *
+   * @param tool  Current tool instance
+   */
   protected boolean isShears(IModifierToolStack tool) {
     return true;
   }
