@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 /**
  * Shared logic for all sword types
@@ -37,7 +37,7 @@ public abstract class SwordCore extends ToolCore {
   /** Harvest logic for swords */
   public static class HarvestLogic extends ToolHarvestLogic {
     @Override
-    public boolean isEffectiveAgainst(ToolStack tool, ItemStack stack, BlockState state) {
+    public boolean isEffectiveAgainst(IModifierToolStack tool, ItemStack stack, BlockState state) {
       // no sword tool type by default, so augment with vanilla list
       return EFFECTIVE_MATERIALS.contains(state.getMaterial()) || super.isEffectiveAgainst(tool, stack, state);
     }

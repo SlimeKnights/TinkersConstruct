@@ -10,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
@@ -18,7 +19,7 @@ import javax.annotation.Nullable;
 @Getter
 public abstract class TinkerToolEvent extends Event {
   private final ItemStack stack;
-  private final ToolStack tool;
+  private final IModifierToolStack tool;
   public TinkerToolEvent(ItemStack stack) {
     this.stack = stack;
     this.tool = ToolStack.from(stack);
@@ -37,7 +38,7 @@ public abstract class TinkerToolEvent extends Event {
     private final BlockPos pos;
     @Nullable
     private final PlayerEntity player;
-    public ToolHarvestEvent(ItemStack stack, ToolStack tool, ItemUseContext context, ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
+    public ToolHarvestEvent(ItemStack stack, IModifierToolStack tool, ItemUseContext context, ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
       super(stack, tool);
       this.context = context;
       this.world = world;
