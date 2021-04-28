@@ -53,13 +53,13 @@ public final class ToolDefinitions {
     requirements(TinkerToolParts.swordBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding),
     () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.hoeTransform.get(), 1),
                            new ModifierEntry(TinkerModifiers.shears.get(), 1),
-                           new ModifierEntry(TinkerModifiers.kama.get(), 1)));
+                           new ModifierEntry(TinkerModifiers.harvest.get(), 1)));
   public static final ToolDefinition SCYTHE = new ToolDefinition(
     ToolBaseStatDefinitions.SCYTHE,
     requirements(TinkerToolParts.broadBlade, TinkerToolParts.toughHandle, TinkerToolParts.toolBinding, TinkerToolParts.toughHandle),
     () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.hoeTransform.get(), 1),
                            new ModifierEntry(TinkerModifiers.silkyShears.get(), 1),
-                           new ModifierEntry(TinkerModifiers.kama.get(), 1)));
+                           new ModifierEntry(TinkerModifiers.harvest.get(), 1)));
 
   // swords
   public static final ToolDefinition BROADSWORD = new ToolDefinition(

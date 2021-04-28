@@ -21,7 +21,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectUtils;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
@@ -351,36 +350,88 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
 
 
   /**
-    * Called when this item is used when targeting a Block
-   * @param tool 
-   * @param level 
-   * @param stack 
+    * Called when this item is used when targeting a block, <i>before</i> the block is activated.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, ItemStack, ItemUseContext)}: Processes use actions on entities.</li>
+   *   <li>{@link #onItemRightClick(IModifierToolStack, int, ItemStack, ItemUseContext)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param stack          Tool's item stack
    * @param context        Full item use context
-   * @return  Action result
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
   public ActionResultType onItemUse(ToolStack tool, int level, ItemStack stack, ItemUseContext context) {
     return ActionResultType.PASS;
   }
-  
-  public ActionResultType itemInteractionForEntity(ToolStack tool, int level, ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+
+  /**
+    * Called when this item is used when targeting an entity.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onItemUse(ToolStack, int, ItemStack, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onItemRightClick(IModifierToolStack, int, ItemStack, ItemUseContext)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param stack          Tool's item stack
+   * @param player         Player holding tool
+   * @param target         Target
+   * @param hand           Current hand
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType itemInteractionForEntity(IModifierToolStack tool, int level, ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
     return ActionResultType.PASS;
-  }
-  
-  public ActionResult<ItemStack> onItemRightClick(IModifierToolStack tool, int level, World worldIn, PlayerEntity playerIn, Hand handIn) {
-    return ActionResult.resultPass(playerIn.getHeldItem(handIn));
   }
 
   /**
+    * Called when this item is used, after all other hooks PASS.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onItemUse(ToolStack, int, ItemStack, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, ItemStack, ItemUseContext)}: Processes use actions on entities.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param world          World containing tool
+   * @param player         Player holding tool
+   * @param hand           Current hand
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType onItemRightClick(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
+    return ActionResultType.PASS;
+  }
+
+  /**
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param world          World containing tool
+   * @param entity         Entity holding tool
+   * @param timeLeft       How many ticks of use duration was left
   * @return  Whether the modifier should block any incoming ones from firing
   */
-  public boolean onPlayerStoppedUsing(IModifierToolStack tool, int level, World worldIn, LivingEntity entityLiving, int timeLeft) {
+  public boolean onPlayerStoppedUsing(IModifierToolStack tool, int level, World world, LivingEntity entity, int timeLeft) {
     return false;
   }
 
+  /**
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+  * @return  For how many ticks the modifier should run its use action
+  */
   public int getUseDuration(IModifierToolStack tool, int level) {
      return 0;
   }
 
+  /**
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+  * @return  Use action to be performed
+  */
   public UseAction getUseAction(IModifierToolStack tool, int level) {
      return UseAction.NONE;
   }

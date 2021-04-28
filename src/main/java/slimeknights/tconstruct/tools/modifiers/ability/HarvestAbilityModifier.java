@@ -33,10 +33,10 @@ import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchTyp
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-public class KamaAbilityModifier extends SingleUseModifier {
+public class HarvestAbilityModifier extends SingleUseModifier {
   private final int priority;
   
-  public KamaAbilityModifier(int color, int priority) {
+  public HarvestAbilityModifier(int color, int priority) {
     super(color);
     this.priority = priority;
   }

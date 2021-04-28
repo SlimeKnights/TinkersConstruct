@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class ShearsAbilityModifier extends SingleUseModifier {
   private final int priority;
@@ -46,12 +46,12 @@ public class ShearsAbilityModifier extends SingleUseModifier {
     player.spawnSweepParticles();
   }
 
-  protected boolean isShears(ToolStack tool) {
+  protected boolean isShears(IModifierToolStack tool) {
     return true;
   }
   
   @Override
-  public ActionResultType itemInteractionForEntity(ToolStack tool, int level, ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+  public ActionResultType itemInteractionForEntity(IModifierToolStack tool, int level, ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     // only run AOE on shearable entities
     if (isShears(tool) && target instanceof IForgeShearable) {
       int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);

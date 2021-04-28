@@ -7,7 +7,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 public class BlockTransformModifier extends SingleUseModifier {
@@ -37,8 +37,8 @@ public class BlockTransformModifier extends SingleUseModifier {
   @Override
   public ActionResultType onItemUse(ToolStack tool, int level, ItemStack stack, ItemUseContext context) {
     Item item = stack.getItem();
-    if (item instanceof ToolCore) {
-      ToolCore toolCore = (ToolCore) item;
+    if (item instanceof IModifiableHarvest) {
+      IModifiableHarvest toolCore = (IModifiableHarvest) item;
       return toolCore.getToolHarvestLogic().transformBlocks(context, toolType, sound, requireGround);
     }
     return ActionResultType.PASS;

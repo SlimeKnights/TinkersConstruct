@@ -388,7 +388,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
       ActionResultType result = entry.getModifier().onItemUse(tool, entry.getLevel(), stack, context);
-      if (result != ActionResultType.PASS) {
+      if (result.isSuccessOrConsume()) {
         return result;
       }
     }
@@ -400,7 +400,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
       ActionResultType result = entry.getModifier().itemInteractionForEntity(tool, entry.getLevel(), stack, playerIn, target, hand);
-      if (result != ActionResultType.PASS) {
+      if (result.isSuccessOrConsume()) {
         return result;
       }
     }
@@ -409,11 +409,12 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   @Override
   public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack stack = playerIn.getHeldItem(handIn);
     ToolStack tool = ToolStack.from(playerIn.getHeldItem(handIn));
     for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResult<ItemStack> result = entry.getModifier().onItemRightClick(tool, entry.getLevel(), worldIn, playerIn, handIn);
-      if (result.getType() != ActionResultType.PASS) {
-        return result;
+      ActionResultType result = entry.getModifier().onItemRightClick(tool, entry.getLevel(), worldIn, playerIn, handIn);
+      if (result.isSuccessOrConsume()) {
+        return new ActionResult<ItemStack>(result, stack);
       }
     }
     return super.onItemRightClick(worldIn, playerIn, handIn);
