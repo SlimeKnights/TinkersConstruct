@@ -68,7 +68,8 @@ public final class ToolDefinitions {
   public static final ToolDefinition CLEAVER = new ToolDefinition(
     ToolBaseStatDefinitions.CLEAVER,
     requirements(TinkerToolParts.broadBlade, TinkerToolParts.toughHandle, TinkerToolParts.toughHandle, TinkerToolParts.largePlate),
-    () -> Collections.singletonList(new ModifierEntry(TinkerModifiers.beheading.get(), 2)));
+    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.beheading.get(), 2),
+                           new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
 
   /** Creates a requirements supplier from a list */
   private static Supplier<List<IToolPart>> requirements(Stream<Supplier<? extends IToolPart>> parts) {

@@ -31,9 +31,7 @@ import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestE
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 public class HarvestAbilityModifier extends SingleUseModifier {
   private final int priority;
