@@ -30,7 +30,9 @@ import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
+import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 public class HarvestAbilityModifier extends SingleUseModifier {
@@ -191,7 +193,7 @@ public class HarvestAbilityModifier extends SingleUseModifier {
    * @param stack    Stack used to break
    * @return  True if harvested
    */
-  private static boolean harvest(ItemUseContext context, ItemStack stack, ToolStack tool, ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
+  private static boolean harvest(ItemUseContext context, ItemStack stack, IModifierToolStack tool, ServerWorld world, BlockState state, BlockPos pos, @Nullable PlayerEntity player) {
     // first, check main harvestable tag
     Block block = state.getBlock();
     if (!TinkerTags.Blocks.HARVESTABLE.contains(block)) {
@@ -218,10 +220,11 @@ public class HarvestAbilityModifier extends SingleUseModifier {
   }
 
   @Override
-  public ActionResultType onItemUse(ToolStack tool, int level, ItemStack stack, ItemUseContext context) {
+  public ActionResultType onItemUse(IModifierToolStack tool, int level, ItemUseContext context) {
+	ItemStack stack = context.getItem();
     Item item = stack.getItem();
-    if (item instanceof ToolCore) {
-      ToolCore toolCore = (ToolCore) item;
+    if (item instanceof IModifiableHarvest) {
+      IModifiableHarvest toolCore = (IModifiableHarvest) item;
       PlayerEntity player = context.getPlayer();
       if (player != null && player.isSneaking()) {
         return ActionResultType.PASS;

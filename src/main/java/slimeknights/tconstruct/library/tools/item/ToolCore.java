@@ -387,7 +387,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().onItemUse(tool, entry.getLevel(), stack, context);
+      ActionResultType result = entry.getModifier().onItemUse(tool, entry.getLevel(), context);
       if (result.isSuccessOrConsume()) {
         return result;
       }
@@ -399,7 +399,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().itemInteractionForEntity(tool, entry.getLevel(), stack, playerIn, target, hand);
+      ActionResultType result = entry.getModifier().itemInteractionForEntity(tool, entry.getLevel(), playerIn, target, hand);
       if (result.isSuccessOrConsume()) {
         return result;
       }

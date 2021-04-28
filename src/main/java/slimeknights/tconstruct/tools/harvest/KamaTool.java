@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.CircleAOEHarvestLogic;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 public class KamaTool extends HarvestTool {
@@ -51,7 +52,7 @@ public class KamaTool extends HarvestTool {
     }
 
     @Override
-    public boolean isEffectiveAgainst(ToolStack tool, ItemStack stack, BlockState state) {
+    public boolean isEffectiveAgainst(IModifierToolStack tool, ItemStack stack, BlockState state) {
       return state.getBlock() == Blocks.TRIPWIRE || EFFECTIVE_MATERIALS.contains(state.getMaterial()) || super.isEffectiveAgainst(tool, stack, state);
     }
 

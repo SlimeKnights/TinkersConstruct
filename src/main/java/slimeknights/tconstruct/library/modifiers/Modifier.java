@@ -354,8 +354,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, ItemStack, ItemUseContext)}: Processes use actions on entities.</li>
-   *   <li>{@link #onItemRightClick(IModifierToolStack, int, ItemStack, ItemUseContext)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
+   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, ItemUseContext)}: Processes use actions on entities.</li>
+   *   <li>{@link #onItemRightClick(IModifierToolStack, int, ItemUseContext)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -363,7 +363,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param context        Full item use context
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType onItemUse(ToolStack tool, int level, ItemStack stack, ItemUseContext context) {
+  public ActionResultType onItemUse(IModifierToolStack tool, int level, ItemUseContext context) {
     return ActionResultType.PASS;
   }
 
@@ -373,7 +373,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #onItemUse(ToolStack, int, ItemStack, ItemUseContext)}: Processes use actions on blocks.</li>
-   *   <li>{@link #onItemRightClick(IModifierToolStack, int, ItemStack, ItemUseContext)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
+   *   <li>{@link #onItemRightClick(IModifierToolStack, int, ItemUseContext)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -383,7 +383,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param hand           Current hand
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType itemInteractionForEntity(IModifierToolStack tool, int level, ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
+  public ActionResultType itemInteractionForEntity(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand) {
     return ActionResultType.PASS;
   }
 
@@ -392,8 +392,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onItemUse(ToolStack, int, ItemStack, ItemUseContext)}: Processes use actions on blocks.</li>
-   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, ItemStack, ItemUseContext)}: Processes use actions on entities.</li>
+   *   <li>{@link #onItemUse(ToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, ItemUseContext)}: Processes use actions on entities.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
