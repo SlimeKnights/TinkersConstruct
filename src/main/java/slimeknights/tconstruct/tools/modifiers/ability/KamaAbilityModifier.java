@@ -41,8 +41,14 @@ public class KamaAbilityModifier extends SingleUseModifier {
     this.priority = priority;
   }
   
+  @Override
   public int getPriority() {
     return priority;
+  }
+
+  @Override
+  public boolean shouldDisplay(boolean advanced) {
+    return priority > Short.MIN_VALUE;
   }
   
   /**

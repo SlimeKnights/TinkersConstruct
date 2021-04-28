@@ -58,7 +58,7 @@ public final class ToolDefinitions {
     ToolBaseStatDefinitions.SCYTHE,
     requirements(TinkerToolParts.broadBlade, TinkerToolParts.toughHandle, TinkerToolParts.toolBinding, TinkerToolParts.toughHandle),
     () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.hoeTransform.get(), 1),
-                           new ModifierEntry(TinkerModifiers.shears.get(), 1),
+                           new ModifierEntry(TinkerModifiers.silkyShears.get(), 1),
                            new ModifierEntry(TinkerModifiers.kama.get(), 1)));
 
   // swords

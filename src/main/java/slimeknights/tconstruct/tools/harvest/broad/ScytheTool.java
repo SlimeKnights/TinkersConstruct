@@ -42,11 +42,6 @@ public class ScytheTool extends KamaTool {
   }
 
   @Override
-  public boolean isShears(ToolStack tool) {
-    return tool.getModifierLevel(TinkerModifiers.silky.get()) > 0;
-  }
-
-  @Override
   public ToolHarvestLogic getToolHarvestLogic() {
     return HARVEST_LOGIC;
   }

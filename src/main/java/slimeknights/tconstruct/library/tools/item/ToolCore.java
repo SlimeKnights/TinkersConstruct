@@ -380,13 +380,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       }
     }
   }
-
-
-  /** Checks if the given tool acts as shears */
-  public boolean isShears(ToolStack tool) {
-    return true;
-  }
-
+  
   /* Right click hooks */
   
   @Override

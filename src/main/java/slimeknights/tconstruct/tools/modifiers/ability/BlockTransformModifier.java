@@ -23,11 +23,13 @@ public class BlockTransformModifier extends SingleUseModifier {
     this.sound = sound;
     this.requireGround = requireGround;
   }
-  
+
+  @Override
   public int getPriority() {
     return priority;
   }
-  
+
+  @Override
   public boolean shouldDisplay(boolean advanced) {
     return priority > Short.MIN_VALUE;
   }

@@ -30,6 +30,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.SilkyModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.SilkyShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
@@ -152,6 +153,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<BlockTransformModifier> hoeTransform = MODIFIERS.register("hoe_transform", () -> new BlockTransformModifier(0x633c1e, Integer.MIN_VALUE, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true));
 
   public static final RegistryObject<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE));
+  public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE));
   public static final RegistryObject<KamaAbilityModifier> kama = MODIFIERS.register("kama", () -> new KamaAbilityModifier(0x3eed78, Integer.MIN_VALUE + 1));
   
   // bonus modifier slots

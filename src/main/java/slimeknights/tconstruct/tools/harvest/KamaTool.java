@@ -30,11 +30,6 @@ public class KamaTool extends HarvestTool {
   public ToolHarvestLogic getToolHarvestLogic() {
     return HARVEST_LOGIC;
   }
-
-  @Override
-  public boolean isShears(ToolStack tool) {
-    return true;
-  }
   
   /** Harvest logic to match shears and hoes */
   public static class HarvestLogic extends CircleAOEHarvestLogic {

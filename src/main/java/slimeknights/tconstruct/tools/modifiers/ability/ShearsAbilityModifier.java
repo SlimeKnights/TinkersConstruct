@@ -10,7 +10,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -18,7 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 public class ShearsAbilityModifier extends SingleUseModifier {
@@ -48,14 +46,7 @@ public class ShearsAbilityModifier extends SingleUseModifier {
     player.spawnSweepParticles();
   }
 
-  private boolean isShears(ToolStack tool) {
-    Item item = tool.getItem();
-    if (item instanceof ToolCore)
-      {
-      ToolCore core = (ToolCore) item;
-      return core.isShears(tool);
-      }
-    // We're on a tool that isn't ToolCore and wants to be shears, okay, cool.
+  protected boolean isShears(ToolStack tool) {
     return true;
   }
   
