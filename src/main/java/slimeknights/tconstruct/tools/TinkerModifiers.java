@@ -150,13 +150,13 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
   
   // internal abilities
-  public static final RegistryObject<BlockTransformModifier> shovelTransform = MODIFIERS.register("shovel_transform", () -> new BlockTransformModifier(0x8a361e, Integer.MIN_VALUE, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true));
-  public static final RegistryObject<BlockTransformModifier> axeTransform = MODIFIERS.register("axe_transform", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false));
-  public static final RegistryObject<BlockTransformModifier> hoeTransform = MODIFIERS.register("hoe_transform", () -> new BlockTransformModifier(0x633c1e, Integer.MIN_VALUE, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true));
+  public static final RegistryObject<BlockTransformModifier> shovelTransform = MODIFIERS.register("shovel_transform", () -> new BlockTransformModifier(0x8a361e, Integer.MIN_VALUE + 50, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true));
+  public static final RegistryObject<BlockTransformModifier> axeTransform = MODIFIERS.register("axe_transform", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 50, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false));
+  public static final RegistryObject<BlockTransformModifier> hoeTransform = MODIFIERS.register("hoe_transform", () -> new BlockTransformModifier(0x633c1e, Integer.MIN_VALUE + 50, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true));
 
-  public static final RegistryObject<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE));
-  public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE));
-  public static final RegistryObject<HarvestAbilityModifier> harvest = MODIFIERS.register("harvest", () -> new HarvestAbilityModifier(0x3eed78, Integer.MIN_VALUE + 1));
+  public static final RegistryObject<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE + 50));
+  public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE + 50));
+  public static final RegistryObject<HarvestAbilityModifier> harvest = MODIFIERS.register("harvest", () -> new HarvestAbilityModifier(0x3eed78, Integer.MIN_VALUE + 51));
   public static final RegistryObject<TwoHandedAbilityModifier> twoHanded = MODIFIERS.register("two_handed", () -> new TwoHandedAbilityModifier());
   
   // bonus modifier slots
