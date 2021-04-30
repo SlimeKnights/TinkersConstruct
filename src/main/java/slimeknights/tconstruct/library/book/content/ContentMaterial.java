@@ -153,7 +153,11 @@ public class ContentMaterial extends TinkerPage {
 
     for (int i = 0; i < stats.getLocalizedInfo().size(); i++) {
       TextComponentData text = new TextComponentData(stats.getLocalizedInfo().get(i));
-      text.tooltips = new ITextComponent[]{stats.getLocalizedDescriptions().get(i)};
+      if (stats.getLocalizedDescriptions().get(i).getString().isEmpty()) {
+        text.tooltips = null;
+      } else {
+        text.tooltips = new ITextComponent[]{stats.getLocalizedDescriptions().get(i)};
+      }
 
       lineData.add(text);
       lineData.add(new TextComponentData("\n"));
