@@ -25,6 +25,7 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.BlockTransformModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.GlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.HarvestAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
@@ -102,6 +103,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ItemObject<Item> silkyCloth = ITEMS.register("silky_cloth", GENERAL_PROPS);
   public static final ItemObject<Item> silkyJewel = ITEMS.register("silky_jewel", HIDDEN_PROPS);
   public static final ItemObject<Item> necroticBone = ITEMS.register("necrotic_bone", GENERAL_PROPS);
+  public static final ItemObject<Item> ancientShovelHead = ITEMS.register("ancient_shovel_head", GENERAL_PROPS);
+  public static final ItemObject<Item> ancientAxeHead = ITEMS.register("ancient_axe_head", GENERAL_PROPS);
+  public static final ItemObject<Item> ancientHoeHead = ITEMS.register("ancient_hoe_head", GENERAL_PROPS);
   public static final ItemObject<Item> creativeUpgradeItem = ITEMS.register("creative_upgrade", TOOLTIP_ITEM);
   public static final ItemObject<Item> creativeAbilityItem = ITEMS.register("creative_ability", TOOLTIP_ITEM);
   public static final EnumObject<SlimeType, Item> slimeCrystal = ITEMS.registerEnum(SlimeType.TRUE_SLIME, "slime_crystal", (type) -> new Item(GENERAL_PROPS));
@@ -149,10 +153,16 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", () -> new Modifier(0xff9f50));
   public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
   
+  // right click abilities
+  public static final RegistryObject<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);
+  public static final RegistryObject<BlockTransformModifier> shovelTransform = MODIFIERS.register("shovel_transform", () -> new BlockTransformModifier(0x8a361e, 60, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true));
+  public static final RegistryObject<BlockTransformModifier> axeTransform = MODIFIERS.register("axe_transform", () -> new BlockTransformModifier(0xab7a55, 60, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false));
+  public static final RegistryObject<BlockTransformModifier> hoeTransform = MODIFIERS.register("hoe_transform", () -> new BlockTransformModifier(0x633c1e, 60, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true));
+  
   // internal abilities
-  public static final RegistryObject<BlockTransformModifier> shovelTransform = MODIFIERS.register("shovel_transform", () -> new BlockTransformModifier(0x8a361e, Integer.MIN_VALUE + 50, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true));
-  public static final RegistryObject<BlockTransformModifier> axeTransform = MODIFIERS.register("axe_transform", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 50, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false));
-  public static final RegistryObject<BlockTransformModifier> hoeTransform = MODIFIERS.register("hoe_transform", () -> new BlockTransformModifier(0x633c1e, Integer.MIN_VALUE + 50, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true));
+  public static final RegistryObject<BlockTransformModifier> shovelTransformHidden = MODIFIERS.register("shovel_transform_hidden", () -> new BlockTransformModifier(0x8a361e, Integer.MIN_VALUE + 50, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true));
+  public static final RegistryObject<BlockTransformModifier> axeTransformHidden = MODIFIERS.register("axe_transform_hidden", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 50, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false));
+  public static final RegistryObject<BlockTransformModifier> hoeTransformHidden = MODIFIERS.register("hoe_transform_hidden", () -> new BlockTransformModifier(0x633c1e, Integer.MIN_VALUE + 50, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true));
 
   public static final RegistryObject<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE + 50));
   public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE + 50));

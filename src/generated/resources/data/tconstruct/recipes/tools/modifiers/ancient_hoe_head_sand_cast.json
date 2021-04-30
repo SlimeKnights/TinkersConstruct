@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/sword_blade"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_debris",
+    "amount": 144
+  },
+  "result": "tconstruct:ancient_hoe_head",
+  "cooling_time": 71
+}

@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:ancient_hoe_head"
+    }
+  ],
+  "tools": {
+    "type": "mantle:without",
+    "base": {
+      "tag": "tconstruct:modifiable/harvest"
+    },
+    "without": [
+      {
+        "item": "tconstruct:kama"
+      },
+      {
+        "item": "tconstruct:scythe"
+      }
+    ]
+  },
+  "result": {
+    "name": "tconstruct:hoe_transform",
+    "level": 1
+  },
+  "max_level": 1,
+  "upgrade_slots": 1
+}
