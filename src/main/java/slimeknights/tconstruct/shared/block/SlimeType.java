@@ -14,11 +14,11 @@ import java.util.Locale;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum SlimeType implements IStringSerializable {
-  EARTH(0x01cd4e, "green", TinkerTags.Items.EARTH_SLIMEBALL),
-  SKY(0x01cbcd, "blue", TinkerTags.Items.SKY_SLIMEBALL),
-  ICHOR(0xff970d, "magma", TinkerTags.Items.ICHOR_SLIMEBALL),
-  ENDER(0xaf4cf6, "purple", TinkerTags.Items.ENDER_SLIMEBALL),
-  BLOOD(0xb50101, "vanilla", TinkerTags.Items.BLOOD_SLIMEBALL); // blood is used for vanilla dirt to make logic simplier
+  EARTH(0x01cd4e, TinkerTags.Items.EARTH_SLIMEBALL),
+  SKY(0x01cbcd, TinkerTags.Items.SKY_SLIMEBALL),
+  ICHOR(0xff970d, TinkerTags.Items.ICHOR_SLIMEBALL),
+  ENDER(0xaf4cf6, TinkerTags.Items.ENDER_SLIMEBALL),
+  BLOOD(0xb50101, TinkerTags.Items.BLOOD_SLIMEBALL);
 
   /**
    * Slime types added by the mod
@@ -34,7 +34,6 @@ public enum SlimeType implements IStringSerializable {
   @Getter
   private final int color;
   @Getter @Deprecated
-  private final String originalName;
   private final ITag<Item> slimeBallTag;
 
   public ITag<Item> getSlimeBallTag() {
