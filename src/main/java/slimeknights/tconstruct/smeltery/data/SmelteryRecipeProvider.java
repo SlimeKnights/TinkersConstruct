@@ -647,6 +647,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     addSlimeMeltingRecipe(consumer, TinkerFluids.earthSlime, SlimeType.EARTH, TinkerTags.Items.EARTH_SLIMEBALL, slimeFolder);
     addSlimeMeltingRecipe(consumer, TinkerFluids.skySlime, SlimeType.SKY, TinkerTags.Items.SKY_SLIMEBALL, slimeFolder);
     addSlimeMeltingRecipe(consumer, TinkerFluids.enderSlime, SlimeType.ENDER, TinkerTags.Items.ENDER_SLIMEBALL, slimeFolder);
+    addSlimeMeltingRecipe(consumer, TinkerFluids.blood, SlimeType.BLOOD, TinkerTags.Items.BLOOD_SLIMEBALL, slimeFolder);
     // magma cream
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.MAGMA_CREAM), TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL, 1.0f)
                         .build(consumer, location(slimeFolder + "magma_cream/ball"));
