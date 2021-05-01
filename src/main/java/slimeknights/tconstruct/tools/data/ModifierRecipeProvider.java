@@ -389,19 +389,19 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.mattock, TinkerTools.excavator)))
                          .addInput(TinkerModifiers.ancientShovelHead.get())
                          .setMaxLevel(1)
-                         .setUpgradeSlots(1)
+                         .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.shovelTransform, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.axeTransform.get())
                          .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.handAxe, TinkerTools.broadAxe)))
                          .addInput(TinkerModifiers.ancientAxeHead.get())
                          .setMaxLevel(1)
-                         .setUpgradeSlots(1)
+                         .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.axeTransform, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.hoeTransform.get())
                          .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.kama, TinkerTools.scythe)))
                          .addInput(TinkerModifiers.ancientHoeHead.get())
                          .setMaxLevel(1)
-                         .setUpgradeSlots(1)
+                         .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.hoeTransform, upgradeFolder));
     // glowing
     ModifierRecipeBuilder.modifier(TinkerModifiers.glowing.get())
@@ -409,7 +409,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.DAYLIGHT_DETECTOR)
                          .addInput(Items.SHROOMLIGHT)
                          .setMaxLevel(1)
-                         .setUpgradeSlots(1)
+                         .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.glowing, upgradeFolder));
     
     /*
