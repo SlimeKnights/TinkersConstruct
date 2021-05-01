@@ -20,9 +20,9 @@ public class GlowingModifier extends SingleUseModifier {
   public ActionResultType onItemUse(IModifierToolStack tool, int level, ItemUseContext context) {
     if (tool.getCurrentDurability() >= 5 && context.getPlayer().isSneaking()) {
       if (!context.getWorld().isRemote) {
-        TinkerCommons.glow.get().addGlow(context.getWorld(), context.getPos(), context.getFace().getOpposite());
-
-        tool.setDamage(tool.getDamage() + 5);
+        if (TinkerCommons.glow.get().addGlow(context.getWorld(), context.getPos(), context.getFace().getOpposite())) {
+          tool.setDamage(tool.getDamage() + 5);
+          }
         }
       return ActionResultType.func_233537_a_(context.getWorld().isRemote);
     }
