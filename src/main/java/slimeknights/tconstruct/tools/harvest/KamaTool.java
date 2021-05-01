@@ -363,7 +363,7 @@ public class KamaTool extends HarvestTool {
   public static class HarvestLogic extends CircleAOEHarvestLogic {
     private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(
       Material.LEAVES, Material.WEB, Material.WOOL,
-      Material.TALL_PLANTS, Material.NETHER_PLANTS, Material.OCEAN_PLANT);
+      Material.PLANTS, Material.TALL_PLANTS, Material.NETHER_PLANTS, Material.OCEAN_PLANT);
 
     public HarvestLogic(int diameter, boolean is3D) {
       super(diameter, is3D);
