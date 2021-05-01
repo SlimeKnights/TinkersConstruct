@@ -58,8 +58,8 @@ public abstract class TinkerPage extends PageContent {
       subText.useOldColor = false;
       subText.rgbColor = color;
     }
-    int height = this.parent.parent.parent.fontRenderer.getWordWrappedHeight(text, BookScreen.PAGE_WIDTH);
-    list.add(new TextElement(0, y, BookScreen.PAGE_WIDTH, height, subText));
+    int height = this.parent.parent.parent.fontRenderer.getWordWrappedHeight(text, BookScreen.PAGE_WIDTH - 20) * 12 / 9;
+    list.add(new TextElement(10, y, BookScreen.PAGE_WIDTH - 20, height, subText));
     return height;
   }
 }
