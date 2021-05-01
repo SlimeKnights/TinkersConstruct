@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
+import net.minecraft.block.TripWireBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -19,6 +20,7 @@ import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.Property;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -357,7 +359,7 @@ public class KamaTool extends HarvestTool {
     return getToolHarvestLogic().transformBlocks(context, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true);
   }
 
-  /** Harvests logic to match shears and hoes */
+  /** Harvest logic to match shears and hoes */
   public static class HarvestLogic extends CircleAOEHarvestLogic {
     private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(
       Material.LEAVES, Material.WEB, Material.WOOL,
@@ -384,6 +386,15 @@ public class KamaTool extends HarvestTool {
     @Override
     public int getDamage(ToolStack tool, ItemStack stack, World world, BlockPos pos, BlockState state) {
       return state.isIn(BlockTags.FIRE) ? 0 : 1;
+    }
+
+    @Override
+    protected boolean removeBlock(PlayerEntity player, World world, BlockPos pos, boolean canHarvest) {
+      BlockState state = world.getBlockState(pos);
+      if (state.getBlock() instanceof TripWireBlock) {
+        world.setBlockState(pos, state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
+      }
+      return super.removeBlock(player, world, pos, canHarvest);
     }
   }
 }
