@@ -9,6 +9,14 @@
     }
   },
   {
+    "name": "tier_one_materials",
+    "icon": {
+      "item": {
+        "id": "minecraft:stone"
+      }
+    }
+  },
+  {
     "name": "tools",
     "data": "sections/tools.json",
     "icon": {
@@ -37,6 +45,7 @@
       }
     }
   },
+  
   {
     "name": "further_reading",
     "data": "sections/furtherreading.json",
@@ -45,13 +54,6 @@
         "id": "tconstruct:puny_smelting"
       }
     }
-  },
-  {
-    "name": "tier_one_materials",
-    "icon": {
-      "item": {
-        "id": "minecraft:stone"
-      }
-    }
   }
+
 ]

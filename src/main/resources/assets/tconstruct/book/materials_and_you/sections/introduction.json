@@ -15,14 +15,14 @@
     "data": "intro/partbuilder.json"
   },
   {
-    "name": "partbuilder_craft",
-    "type": "crafting",
-    "data": "intro/partbuilder_craft.json"
-  },
-  {
     "name": "pattern_craft",
     "type": "crafting",
     "data": "intro/pattern_craft.json"
+  },
+  {
+    "name": "partbuilder_craft",
+    "type": "crafting",
+    "data": "intro/partbuilder_craft.json"
   },
   {
     "name": "tinkerstation",
@@ -53,5 +53,10 @@
     "name": "modifierchest_craft",
     "type": "crafting",
     "data": "intro/modifierchest_craft.json"
+  },
+  {
+    "name": "terminology",
+    "type": "text",
+    "data": "intro/terminology.json"
   }
 ]

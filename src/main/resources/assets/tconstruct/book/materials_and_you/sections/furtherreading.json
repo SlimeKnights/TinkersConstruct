@@ -1,5 +1,10 @@
 [
   {
+    "name": "furtherreading",
+    "type": "text",
+    "data": "furtherreading/furtherreading.json"
+  },
+  {
     "name": "punysmelting_craft",
     "type": "crafting",
     "data": "furtherreading/puny_craft.json"

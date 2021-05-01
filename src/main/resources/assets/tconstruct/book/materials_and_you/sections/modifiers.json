@@ -50,6 +50,10 @@
     "data": "modifiers/lightspeed.json"
   },
   {
+    "type": "modifier",
+    "data": "modifiers/magnetic.json"
+  },
+  {
     "name": "weapon",
     "type": "text",
     "data": "modifiers/weapon.json"
@@ -73,10 +77,6 @@
   {
     "type": "modifier",
     "data": "modifiers/knockback.json"
-  },
-  {
-    "type": "modifier",
-    "data": "modifiers/magnetic.json"
   },
   {
     "type": "modifier",

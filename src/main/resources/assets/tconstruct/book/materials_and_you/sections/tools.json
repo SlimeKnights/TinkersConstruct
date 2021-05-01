@@ -1,14 +1,5 @@
 [
-  {
-	"name": "terminology",
-    "type": "text",
-    "data": "tools/terminology.json"
-  },
-  {
-	"name": "repairing",
-    "type": "imageText2",
-    "data": "tools/repairing.json"
-  },
+ 
   {
     "name": "broad_sword",
     "type": "tool",
@@ -33,5 +24,10 @@
     "name": "pickaxe",
     "type": "tool",
     "data": "tools/pickaxe.json"
+  },
+  {
+	"name": "repairing",
+    "type": "imageText2",
+    "data": "tools/repairing.json"
   }
 ]

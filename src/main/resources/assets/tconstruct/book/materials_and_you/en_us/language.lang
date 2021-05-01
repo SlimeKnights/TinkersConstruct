@@ -1,14 +1,11 @@
 // Sections
 intro=Introduction
 materials=Tool materials
-bowmaterials=Bow materials
 tools=Tools
 modifiers=Modifiers
-smeltery=Smeltery
 tier_one_materials=Tier 1 Materials
 
 repairing=Repairing
-offhand=Offhand Harvesting
 
 bonus_upgrades=§1§lBonus Upgrades§r
 general=§1§lGeneral§r
@@ -26,5 +23,8 @@ tool.properties=Properties:
 material.craft_partbuilder=Can be crafted in the Part Builder
 material.craft_casting=Can be cast from %s
 
-wood.flavour=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
-stone.flavour=Rock solid
+material.tconstruct.wood.book=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
+material.tconstruct.stone.book=Rock solid
+material.tconstruct.flint.book=This will spark the flames of Tinkerers' heart!
+material.tconstruct.bone.book=I am the bone of my sword
+material.tconstruct.necrotic_bone.book=Do you have a bone to pick with me?
