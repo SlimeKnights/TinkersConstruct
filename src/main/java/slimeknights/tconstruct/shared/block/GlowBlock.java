@@ -1,13 +1,10 @@
 package slimeknights.tconstruct.shared.block;
 
-import javax.annotation.Nullable;
-
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTables;
@@ -23,7 +20,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
 public class GlowBlock extends Block {
@@ -99,17 +95,6 @@ public class GlowBlock extends Block {
     super.neighborChanged(state, worldIn, pos, blockIn, fromPos, p_220069_6_);
   }
 
-  @Override
-  @Nullable
-  public BlockState getStateForPlacement(BlockItemUseContext context) {
-     return getDefaultState().with(FACING, context.getFace().getOpposite());
-  }
-
-  @Override
-  @Deprecated
-  public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-     return canBlockStay(worldIn, pos, state.get(FACING));
-  }
   /**
    * Determines if a block side can contain a glow.
    * @param world   World instance
@@ -117,7 +102,7 @@ public class GlowBlock extends Block {
    * @param facing  Side of the update
    * @return true if the block side is solid and the block at the given BlockPos is not a liquid
    */
-  protected boolean canBlockStay(IWorldReader world, BlockPos pos, Direction facing) {
+  protected boolean canBlockStay(World world, BlockPos pos, Direction facing) {
     BlockPos placedOn = pos.offset(facing);
 
     boolean isSolidSide = Block.doesSideFillSquare(world.getBlockState(placedOn).getRenderShape(world, pos), facing.getOpposite());
