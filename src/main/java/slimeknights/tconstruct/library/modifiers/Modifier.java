@@ -10,9 +10,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
@@ -407,6 +407,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /**
    * Called when the player stops using the tool.
    * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onFinishUsing(IModifierToolStack, int, World, LivingEntity, int)}: Called when the duration timer reaches the end, even if still held
+   *  </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
    * @param world          World containing tool
@@ -415,6 +420,24 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   * @return  Whether the modifier should block any incoming ones from firing
   */
   public boolean onStoppedUsing(IModifierToolStack tool, int level, World world, LivingEntity entity, int timeLeft) {
+    return false;
+  }
+
+  /**
+   * Called when the use duration on this tool reaches the end.
+   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)} and set the duration in {@link #getUseDuration(IModifierToolStack, int)}
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onStoppedUsing(IModifierToolStack, int, World, LivingEntity, int)}: Called when the player lets go before the duration reaches the end
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param world          World containing tool
+   * @param entity         Entity holding tool
+   * @return  Whether the modifier should block any incoming ones from firing
+   */
+  public boolean onFinishUsing(IModifierToolStack tool, int level, World world, LivingEntity entity) {
     return false;
   }
 

@@ -421,6 +421,17 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
+  public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      if (entry.getModifier().onFinishUsing(tool, entry.getLevel(), worldIn, entityLiving)) {
+        return stack;
+      }
+    }
+    return super.onItemUseFinish(stack, worldIn, entityLiving);
+  }
+
+  @Override
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
