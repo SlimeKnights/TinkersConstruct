@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.harvest.KamaTool;
@@ -25,7 +26,7 @@ public class ScytheTool extends KamaTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
   public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(3, true) {
     @Override
-    public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+    public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
       if (!canAOE(tool, stack, state, matchType)) {
         return Collections.emptyList();
       }
@@ -39,11 +40,6 @@ public class ScytheTool extends KamaTool {
 
   public ScytheTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
-  }
-
-  @Override
-  protected boolean isShears(ToolStack tool) {
-    return tool.getModifierLevel(TinkerModifiers.silky.get()) > 0;
   }
 
   @Override

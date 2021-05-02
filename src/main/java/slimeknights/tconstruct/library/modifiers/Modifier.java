@@ -10,16 +10,21 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.UseAction;
 import net.minecraft.loot.LootContext;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectUtils;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -344,6 +349,93 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
 
+  /**
+    * Called when this item is used when targeting a block, <i>before</i> the block is activated.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param context        Full item use context
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType onBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+    return ActionResultType.PASS;
+  }
+
+  /**
+    * Called when this item is used when targeting an entity.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param player         Player holding tool
+   * @param target         Target
+   * @param hand           Current hand
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType onEntityUse(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand) {
+    return ActionResultType.PASS;
+  }
+
+  /**
+    * Called when this item is used, after all other hooks PASS.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param world          World containing tool
+   * @param player         Player holding tool
+   * @param hand           Current hand
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
+    return ActionResultType.PASS;
+  }
+
+  /**
+   * Called when the player stops using the tool.
+   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}.
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param world          World containing tool
+   * @param entity         Entity holding tool
+   * @param timeLeft       How many ticks of use duration was left
+  * @return  Whether the modifier should block any incoming ones from firing
+  */
+  public boolean onStoppedUsing(IModifierToolStack tool, int level, World world, LivingEntity entity, int timeLeft) {
+    return false;
+  }
+
+  /**
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+  * @return  For how many ticks the modifier should run its use action
+  */
+  public int getUseDuration(IModifierToolStack tool, int level) {
+     return 0;
+  }
+
+  /**
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+  * @return  Use action to be performed
+  */
+  public UseAction getUseAction(IModifierToolStack tool, int level) {
+     return UseAction.NONE;
+  }
+  
   /* Harvest hooks */
 
   /**

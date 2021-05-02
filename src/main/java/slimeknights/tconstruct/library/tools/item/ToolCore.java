@@ -17,8 +17,13 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Rarity;
+import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -375,7 +380,81 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       }
     }
   }
+  
+  /* Right click hooks */
+  
+  @Override
+  public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      ActionResultType result = entry.getModifier().onBlockUse(tool, entry.getLevel(), context);
+      if (result.isSuccessOrConsume()) {
+        return result;
+      }
+    }
+    return super.onItemUseFirst(stack, context);
+  }
 
+  @Override
+  public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      ActionResultType result = entry.getModifier().onEntityUse(tool, entry.getLevel(), playerIn, target, hand);
+      if (result.isSuccessOrConsume()) {
+        return result;
+      }
+    }
+    return super.itemInteractionForEntity(stack, playerIn, target, hand);
+  }
+
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack stack = playerIn.getHeldItem(handIn);
+    ToolStack tool = ToolStack.from(playerIn.getHeldItem(handIn));
+    for (ModifierEntry entry : tool.getModifierList()) {
+      ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, handIn);
+      if (result.isSuccessOrConsume()) {
+        return new ActionResult<ItemStack>(result, stack);
+      }
+    }
+    return super.onItemRightClick(worldIn, playerIn, handIn);
+  }
+
+  @Override
+  public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      boolean result = entry.getModifier().onStoppedUsing(tool, entry.getLevel(), worldIn, entityLiving, timeLeft);
+      if (result) {
+        return;
+      }
+    }
+    super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
+  }
+
+  @Override
+  public int getUseDuration(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      int result = entry.getModifier().getUseDuration(tool, entry.getLevel());
+      if (result > 0) {
+        return result;
+      }
+    }
+    return super.getUseDuration(stack);
+  }
+
+  @Override
+  public UseAction getUseAction(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      UseAction result = entry.getModifier().getUseAction(tool, entry.getLevel());
+      if (result != UseAction.NONE) {
+        return result;
+      }
+    }
+     return super.getUseAction(stack);
+  }
 
   /* Information */
 
