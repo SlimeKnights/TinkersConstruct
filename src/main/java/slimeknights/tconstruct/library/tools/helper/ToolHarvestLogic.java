@@ -6,7 +6,6 @@ import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.network.play.server.SChangeBlockPacket;
@@ -350,7 +349,6 @@ public class ToolHarvestLogic {
     }
 
     // if we made a successful transform, client can stop early
-    EquipmentSlotType slot = hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND;
     if (didTransform || isCampfire) {
       if (world.isRemote()) {
         return ActionResultType.SUCCESS;
@@ -367,14 +365,8 @@ public class ToolHarvestLogic {
         world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
       }
 
-      // if the tool breaks, we are done
-      if (player == null || !player.isCreative()) {
-        if (ToolDamageUtil.damage(tool, 1, player, stack)) {
-          return ActionResultType.SUCCESS;
-        }
-      }
-      // if it was a campfire, we are done
-      if (isCampfire) {
+      // if the tool breaks or it was a campfire, we are done
+      if (ToolDamageUtil.damage(tool, 1, player, stack) || isCampfire) {
         return ActionResultType.SUCCESS;
       }
     }
@@ -417,7 +409,7 @@ public class ToolHarvestLogic {
           }
 
           // stop if the tool broke
-          if (!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) {
+          if (ToolDamageUtil.damageAnimated(tool, 1, player, hand)) {
             break;
           }
         }

@@ -1,15 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.ability;
 
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -18,6 +14,9 @@ import net.minecraftforge.common.IForgeShearable;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+
+import java.util.List;
+import java.util.Random;
 
 public class ShearsAbilityModifier extends SingleUseModifier {
   private final int priority;
@@ -59,13 +58,13 @@ public class ShearsAbilityModifier extends SingleUseModifier {
   
   @Override
   public ActionResultType onEntityUse(IModifierToolStack tool, int level, PlayerEntity playerIn, LivingEntity target, Hand hand) {
-	ItemStack stack = playerIn.getHeldItem(hand);
+    ItemStack stack = playerIn.getHeldItem(hand);
     // only run AOE on shearable entities
-    if (stack != null && isShears(tool) && target instanceof IForgeShearable) {
+    if (isShears(tool) && target instanceof IForgeShearable) {
       int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);// FIXME: wrong function
 
       if (!tool.isBroken() && this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, fortune)) {
-        ToolDamageUtil.damageAnimated(tool, 1, playerIn, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND);
+        ToolDamageUtil.damageAnimated(tool, 1, playerIn, hand);
         this.swingTool(playerIn, hand);
         return ActionResultType.SUCCESS;
       }

@@ -410,7 +410,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onFinishUsing(IModifierToolStack, int, World, LivingEntity, int)}: Called when the duration timer reaches the end, even if still held
+   *   <li>{@link #onFinishUsing(IModifierToolStack, int, World, LivingEntity)}: Called when the duration timer reaches the end, even if still held
    *  </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level

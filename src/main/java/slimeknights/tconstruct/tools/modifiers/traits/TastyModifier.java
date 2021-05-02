@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
@@ -50,7 +51,9 @@ public class TastyModifier extends Modifier {
 
   @Override
   public boolean onFinishUsing(IModifierToolStack tool, int level, World world, LivingEntity entity) {
-    if (entity instanceof PlayerEntity) {
+    if (tool.getPersistentData().getBoolean(IS_EATING) && entity instanceof PlayerEntity) {
+      // clear eating marker
+      tool.getPersistentData().remove(IS_EATING);
       PlayerEntity player = (PlayerEntity) entity;
       if (player.canEat(false)) {
         // eat the food
@@ -60,11 +63,9 @@ public class TastyModifier extends Modifier {
         world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.NEUTRAL, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
         // 5 damage for a bite per level, does not process reinforced/overslime, your teeth are tough
-        if (!player.isCreative()) {
-          tool.setDamage(tool.getDamage() + (5 * level));
+        if (ToolDamageUtil.directDamage(tool, 5 * level, player, player.getActiveItemStack())) {
+          player.sendBreakAnimation(player.getActiveHand());
         }
-        // clear eating marker
-        tool.getPersistentData().remove(IS_EATING);
 
         return true;
       }

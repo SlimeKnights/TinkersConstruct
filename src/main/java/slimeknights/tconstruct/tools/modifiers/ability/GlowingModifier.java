@@ -8,6 +8,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
@@ -30,8 +31,9 @@ public class GlowingModifier extends SingleUseModifier {
         Direction face = context.getFace();
         BlockPos pos = context.getPos().offset(face);
         if (TinkerCommons.glow.get().addGlow(world, pos, face.getOpposite())) {
-          if (player == null || !player.isCreative()) {
-            tool.setDamage(tool.getDamage() + 5);
+          // damage the tool, showing animation if relevant
+          if (ToolDamageUtil.directDamage(tool, 5, player, context.getItem()) && player != null) {
+            player.sendBreakAnimation(context.getHand());
           }
           world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
         }

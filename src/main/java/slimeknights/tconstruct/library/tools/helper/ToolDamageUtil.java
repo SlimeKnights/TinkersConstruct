@@ -2,10 +2,12 @@ package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Hand;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -75,24 +77,16 @@ public class ToolDamageUtil {
   /* Damaging and repairing */
 
   /**
-   * Damages the tool by the given amount
+   * Directly damages the tool, bypassing modifier hooks
+   * @param tool    Tool to damage
    * @param amount  Amount to damage
-   * @param entity  Entity for criteria updates, if null no updates run
-   * @param stack   Stack to use for criteria updates, if null uses main hand stack
-   * @return true if the tool broke when damaging
+   * @param entity  Entity holding the tool
+   * @param stack   Stack being damaged
+   * @return  True if the tool is broken now
    */
-  public static boolean damage(IModifierToolStack tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
-    if (amount <= 0 || tool.isBroken() || tool.isUnbreakable()) {
+  public static boolean directDamage(IModifierToolStack tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
+    if (entity instanceof PlayerEntity && ((PlayerEntity)entity).isCreative()) {
       return false;
-    }
-
-    // try each modifier
-    for (ModifierEntry entry : tool.getModifierList()) {
-      amount = entry.getModifier().onDamageTool(tool, entry.getLevel(), amount);
-      // if no more damage, done
-      if (amount < 0) {
-        return false;
-      }
     }
 
     int durability = tool.getStats().getDurability();
@@ -117,6 +111,29 @@ public class ToolDamageUtil {
   }
 
   /**
+   * Damages the tool by the given amount
+   * @param amount  Amount to damage
+   * @param entity  Entity for criteria updates, if null no updates run
+   * @param stack   Stack to use for criteria updates, if null uses main hand stack
+   * @return true if the tool broke when damaging
+   */
+  public static boolean damage(IModifierToolStack tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
+    if (amount <= 0 || tool.isBroken() || tool.isUnbreakable()) {
+      return false;
+    }
+
+    // try each modifier
+    for (ModifierEntry entry : tool.getModifierList()) {
+      amount = entry.getModifier().onDamageTool(tool, entry.getLevel(), amount);
+      // if no more damage, done
+      if (amount < 0) {
+        return false;
+      }
+    }
+    return directDamage(tool, amount, entity, stack);
+  }
+
+  /**
    * Damages the tool and sends the break animation if it broke
    * @param tool    Tool to damage
    * @param amount  Amount of damage
@@ -132,13 +149,28 @@ public class ToolDamageUtil {
   }
 
   /**
+   * Damages the tool and sends the break animation if it broke
+   * @param tool    Tool to damage
+   * @param amount  Amount of damage
+   * @param entity  Entity for animation
+   * @param hand    Hand containing the stack
+   */
+  public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, Hand hand) {
+    if (damage(tool, amount, entity, entity.getHeldItem(hand))) {
+      entity.sendBreakAnimation(hand);
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Damages the tool in the main hand and sends the break animation if it broke
    * @param tool    Tool to damage
    * @param amount  Amount of damage
    * @param entity  Entity for animation
    */
   public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity) {
-    return damageAnimated(tool, amount, entity, EquipmentSlotType.MAINHAND);
+    return damageAnimated(tool, amount, entity, Hand.MAIN_HAND);
   }
 
   /**
