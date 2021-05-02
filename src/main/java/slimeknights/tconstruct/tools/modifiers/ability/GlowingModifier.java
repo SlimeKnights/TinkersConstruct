@@ -30,7 +30,9 @@ public class GlowingModifier extends SingleUseModifier {
         Direction face = context.getFace();
         BlockPos pos = context.getPos().offset(face);
         if (TinkerCommons.glow.get().addGlow(world, pos, face.getOpposite())) {
-          tool.setDamage(tool.getDamage() + 5);
+          if (player == null || !player.isCreative()) {
+            tool.setDamage(tool.getDamage() + 5);
+          }
           world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
         }
       }

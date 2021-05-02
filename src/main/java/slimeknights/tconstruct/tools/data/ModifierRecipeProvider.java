@@ -25,6 +25,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMatch;
@@ -120,6 +121,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setFluidAndTime(debris)
                             .setCast(TinkerSmeltery.swordBladeCast.getSingleUseTag(), true)
                             .build(consumer, wrap(TinkerModifiers.ancientHoeHead, folder, "_sand_cast"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerModifiers.ancientShovelHead,
+                                                      TinkerModifiers.ancientAxeHead,
+                                                      TinkerModifiers.ancientHoeHead),
+                                                      debris,
+                                                      1)
+                        .build(consumer, location(folder + "ancient_tool_heads"));
   }
 
   private void addModifierRecipes(Consumer<IFinishedRecipe> consumer) {
