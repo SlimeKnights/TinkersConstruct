@@ -339,7 +339,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param context        Full loot context
    * @return  Loot replacement
    */
-  public List<ItemStack> processLoot(ToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     return generatedLoot;
   }
 
