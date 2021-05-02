@@ -6,7 +6,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.loot.LootTables;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
@@ -114,7 +113,8 @@ public class GlowBlock extends Block {
    */
   public boolean addGlow(World world, BlockPos pos, Direction direction) {
     // only place the block if the current block at the location is replaceable (eg, air, tall grass, etc.)
-    if (world.getBlockState(pos).getMaterial().isReplaceable()) {
+    BlockState state = world.getBlockState(pos);
+    if (state.getBlock() != this && state.getMaterial().isReplaceable()) {
       // if the location is valid, place the block directly
       if (this.canBlockStay(world, pos, direction)) {
         if (!world.isRemote) {
