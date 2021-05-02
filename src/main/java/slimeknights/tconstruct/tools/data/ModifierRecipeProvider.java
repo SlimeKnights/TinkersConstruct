@@ -369,6 +369,24 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setAbilitySlots(1)
                          .setTools(TinkerTags.Items.HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.autosmelt, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.melting.get())
+                         .addInput(Items.BLAZE_ROD)
+                         .addInput(TinkerSmeltery.searedMelter)
+                         .addInput(Items.BLAZE_ROD)
+                         .addInput(Items.LAVA_BUCKET)
+                         .addInput(Items.LAVA_BUCKET)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .build(consumer, prefixR(TinkerModifiers.melting, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.tank.get())
+                         .addInput(TinkerTags.Items.TANKS)
+                         .setMaxLevel(5)
+                         .setUpgradeSlots(1)
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .setRequirements(ModifierMatch.entry(TinkerModifiers.melting.get())) // TODO: consider modifier tags
+                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.tank_requirements"))
+                         .build(consumer, prefixR(TinkerModifiers.tank, upgradeFolder));
     // expanders
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
                          .addInput(Items.PISTON)

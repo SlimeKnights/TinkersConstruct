@@ -1115,6 +1115,12 @@
     "modifier.tconstruct.glowing": "Glowing",
     "modifier.tconstruct.glowing.flavor": "Shine bright!",
     "modifier.tconstruct.glowing.description": "Tool can place glow balls while crouching, at the cost of durability",
+    "modifier.tconstruct.melting": "Melting",
+    "modifier.tconstruct.melting.flavor": "The power of a Melter on a stick!",
+    "modifier.tconstruct.melting.description": "Melts attacked entities and items dropped!",
+    "modifier.tconstruct.tank": "Tank",
+    "modifier.tconstruct.tank.flavor": "Bigger is always better!",
+    "modifier.tconstruct.tank.description": "Tool has increased capacity for liquid from melting",
 
     "modifier.tconstruct.luck": "Luck",
     "modifier.tconstruct.luck.1": "Luck",
@@ -1337,6 +1343,7 @@
     "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
 
     "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
+    "recipe.tconstruct.modifier.tank_requirements": "Tool has no modifiers using tank capacity",
 
 
     "_comment": "GUIs Messages",

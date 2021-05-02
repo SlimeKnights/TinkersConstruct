@@ -15,6 +15,7 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
+import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipe;
@@ -28,6 +29,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.BlockTransformModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.GlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.HarvestAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.MeltingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ReachModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.SilkyModifier;
@@ -77,6 +79,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SharpnessModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SoulboundModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.TankModifier;
 import slimeknights.tconstruct.tools.recipe.PlayerBeheadingRecipe;
 import slimeknights.tconstruct.tools.recipe.SnowGolemBeheadingRecipe;
 
@@ -150,6 +153,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
   public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
+  public static final RegistryObject<MeltingModifier> melting = MODIFIERS.register("melting", MeltingModifier::new);
+  public static final RegistryObject<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(0xf3f3f3f, MaterialValues.INGOT * 5));
   public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", () -> new Modifier(0xff9f50));
   public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
   
