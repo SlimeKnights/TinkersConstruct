@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -13,13 +14,16 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
+import java.util.List;
+
 /** Well maintained for Tinkers Bronze */
 public class MaintainedModifier extends Modifier {
-  public static final String KEY_MINING_BOOST = Util.makeTranslationKey("modifier", "maintained.boost");
+  private static final ITextComponent MINING_SPEED = Util.makeTranslation("modifier", "fake_attribute.mining_speed");
   private static final ResourceLocation KEY_ORIGINAL_DURABILITY = Util.getResource("durability");
   public MaintainedModifier() {
     super(0xe3bd68);
   }
+
   protected MaintainedModifier(int color) {
     super(color);
   }
@@ -71,13 +75,11 @@ public class MaintainedModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
-    float boost = getTotalBoost(tool, level);
-    ITextComponent name = super.getDisplayName(level);
-    if (boost > 0) {
-      name = name.deepCopy().append(new TranslationTextComponent(KEY_MINING_BOOST, Util.dfPercent.format(boost)));
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
+    double boost = getTotalBoost(tool, level);
+    if (boost != 0) {
+      tooltip.add(applyStyle(new StringTextComponent(Util.dfPercentBoost.format(boost)).appendString(" ").append(MINING_SPEED)));
     }
-    return name;
   }
 
   @Override

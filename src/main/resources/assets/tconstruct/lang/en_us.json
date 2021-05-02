@@ -1063,15 +1063,19 @@
     "modifier.tconstruct.smite": "Smite",
     "modifier.tconstruct.smite.flavor": "Die, Foul Creature!",
     "modifier.tconstruct.smite.description": "Undead fear the might of the melon!",
+    "modifier.tconstruct.smite.damage": "Undead Damage",
     "modifier.tconstruct.bane_of_arthropods": "Bane of Arthropods",
     "modifier.tconstruct.bane_of_arthropods.flavor": "So Gross!",
     "modifier.tconstruct.bane_of_arthropods.description": "Tool does bonus damage against spiders and other creepey crawlly things!",
+    "modifier.tconstruct.bane_of_arthropods.damage": "Arthropod Damage",
     "modifier.tconstruct.antiaquatic": "Antiaquatic",
     "modifier.tconstruct.antiaquatic.flavor": "Basically a Fishing Rod!",
     "modifier.tconstruct.antiaquatic.description": "Tool does bonus damage to sea creatures!",
+    "modifier.tconstruct.antiaquatic.damage": "Antiaquatic Damage",
     "modifier.tconstruct.cooling": "Cooling",
     "modifier.tconstruct.cooling.flavor": "Frosty!",
     "modifier.tconstruct.cooling.description": "Tool does bonus damage to fire based creatures!",
+    "modifier.tconstruct.cooling.damage": "Cool Damage",
 
     "modifier.tconstruct.sharpness": "Sharpness",
     "modifier.tconstruct.sharpness.1": "Sharp",
@@ -1134,6 +1138,8 @@
 
     
     "__comment": "Tier 1 Traits",
+    "modifier.tconstruct.fake_attribute.mining_speed": "Mining Speed",
+
     "modifier.tconstruct.cultivated": "Cultivated",
     "modifier.tconstruct.cultivated.flavor": "Economical!",
     "modifier.tconstruct.cultivated.description": "Tool practically grows more material when repairing",
@@ -1143,7 +1149,6 @@
     "modifier.tconstruct.stonebound": "Stonebound",
     "modifier.tconstruct.stonebound.flavor": "Your tool absolutely loves stone!",
     "modifier.tconstruct.stonebound.description": "The tool mines faster as it wears out, but does less damage",
-    "modifier.tconstruct.damage_speed_trade.suffix": " (%s boost)",
     "modifier.tconstruct.fractured": "Fractured",
     "modifier.tconstruct.fractured.flavor": "Break a Leg!",
     "modifier.tconstruct.fractured.description": "Tool is extra sharp due to the broken bits of bone",

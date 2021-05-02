@@ -75,7 +75,7 @@ final class Materials {
 
   // tier 2 (mod integration)
   public static final IMaterial lead     = compatMat(MaterialIds.lead,   2, ORDER_COMPAT, TinkerFluids.moltenLead,   TinkerModifiers.heavy);
-  public static final IMaterial silver   = compatMat(MaterialIds.silver, 2, ORDER_COMPAT, TinkerFluids.moltenSilver, TinkerModifiers.holy);
+  public static final IMaterial silver   = compatMat(MaterialIds.silver, 2, ORDER_COMPAT, TinkerFluids.moltenSilver, TinkerModifiers.smite);
   // tier 3 (mod integration)
   public static final IMaterial electrum   = compatMat(MaterialIds.electrum,   3, ORDER_COMPAT,  TinkerFluids.moltenElectrum,   TinkerModifiers.experienced);
   public static final IMaterial bronze     = compatMat(MaterialIds.bronze,     3, ORDER_HARVEST, TinkerFluids.moltenBronze,     TinkerModifiers.wellMaintained2);

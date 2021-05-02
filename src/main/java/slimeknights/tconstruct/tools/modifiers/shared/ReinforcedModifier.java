@@ -1,7 +1,13 @@
 package slimeknights.tconstruct.tools.modifiers.shared;
 
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+
+import java.util.List;
 
 public class ReinforcedModifier extends Modifier {
   public ReinforcedModifier() {
@@ -23,5 +29,11 @@ public class ReinforcedModifier extends Modifier {
       return dealt;
     }
     return amount;
+  }
+
+  @Override
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
+    float reinforced = 1 - 1f / (level + 1);
+    tooltip.add(applyStyle(new StringTextComponent(Util.dfPercent.format(reinforced)).appendString(" ").append(makeDisplayName())));
   }
 }

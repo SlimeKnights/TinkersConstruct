@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
@@ -23,6 +24,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Color;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -157,6 +159,15 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
+   * Applies relevant text styles (typically color) to the modifier text
+   * @param component  Component to modifiy
+   * @return  Resulting component
+   */
+  protected IFormattableTextComponent applyStyle(IFormattableTextComponent component) {
+      return component.modifyStyle(style -> style.setColor(Color.fromInt(color)));
+  }
+
+  /**
    * Gets the display name for this modifier
    * @return  Display name for this modifier
    */
@@ -173,10 +184,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  Display name
    */
   public ITextComponent getDisplayName(int level) {
-    return new TranslationTextComponent(getTranslationKey())
-      .appendString(" ")
-      .append(new TranslationTextComponent(KEY_LEVEL + level))
-      .modifyStyle(style -> style.setColor(Color.fromInt(color)));
+    return applyStyle(new TranslationTextComponent(getTranslationKey())
+                        .appendString(" ")
+                        .append(new TranslationTextComponent(KEY_LEVEL + level)));
   }
 
   /**
@@ -188,6 +198,16 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
     return getDisplayName(level);
   }
+
+  /**
+   * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
+   * @param tool      Tool instance
+   * @param level     Tool level
+   * @param tooltip   Tooltip
+   * @param flag      Tooltip flag type
+   * @param detailed  If true, showing detailed view, such as in the tinker station
+   */
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {}
 
   /**
    * Gets the description for this modifier
