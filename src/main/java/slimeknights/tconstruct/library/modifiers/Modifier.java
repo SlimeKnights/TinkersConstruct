@@ -354,16 +354,15 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
-   *   <li>{@link #onItemRightClick(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
+   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
-   * @param stack          Tool's item stack
    * @param context        Full item use context
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType onItemUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType onBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
     return ActionResultType.PASS;
   }
 
@@ -372,18 +371,17 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onItemUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
-   *   <li>{@link #onItemRightClick(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onItemUse or itemInteractionForEntity.</li>
+   *   <li>{@link #onBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
-   * @param stack          Tool's item stack
    * @param player         Player holding tool
    * @param target         Target
    * @param hand           Current hand
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType itemInteractionForEntity(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand) {
+  public ActionResultType onEntityUse(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand) {
     return ActionResultType.PASS;
   }
 
@@ -392,8 +390,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onItemUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
-   *   <li>{@link #itemInteractionForEntity(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
+   *   <li>{@link #onBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
    * </ul>
    * @param tool           Current tool instance
    * @param level          Modifier level
@@ -402,13 +400,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param hand           Current hand
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType onItemRightClick(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
+  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
     return ActionResultType.PASS;
   }
 
   /**
    * Called when the player stops using the tool.
-   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onItemRightClick(IModifierToolStack, int, World, PlayerEntity, Hand)}.
+   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}.
    * @param tool           Current tool instance
    * @param level          Modifier level
    * @param world          World containing tool
@@ -416,7 +414,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param timeLeft       How many ticks of use duration was left
   * @return  Whether the modifier should block any incoming ones from firing
   */
-  public boolean onPlayerStoppedUsing(IModifierToolStack tool, int level, World world, LivingEntity entity, int timeLeft) {
+  public boolean onStoppedUsing(IModifierToolStack tool, int level, World world, LivingEntity entity, int timeLeft) {
     return false;
   }
 

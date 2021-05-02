@@ -34,7 +34,7 @@ public class BlockTransformModifier extends SingleUseModifier {
   }
 
   @Override
-  public ActionResultType onItemUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType onBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
     Item item = tool.getItem();
     if (item instanceof IModifiableHarvest) {
       IModifiableHarvest toolCore = (IModifiableHarvest) item;

@@ -58,7 +58,7 @@ public class ShearsAbilityModifier extends SingleUseModifier {
   }
   
   @Override
-  public ActionResultType itemInteractionForEntity(IModifierToolStack tool, int level, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+  public ActionResultType onEntityUse(IModifierToolStack tool, int level, PlayerEntity playerIn, LivingEntity target, Hand hand) {
 	ItemStack stack = playerIn.getHeldItem(hand);
     // only run AOE on shearable entities
     if (stack != null && isShears(tool) && target instanceof IForgeShearable) {

@@ -22,7 +22,7 @@ public class GlowingModifier extends SingleUseModifier {
   }
   
   @Override
-  public ActionResultType onItemUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType onBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
     PlayerEntity player = context.getPlayer();
     if (tool.getCurrentDurability() >= 5 && (player == null || player.isSneaking())) {
       if (!context.getWorld().isRemote) {

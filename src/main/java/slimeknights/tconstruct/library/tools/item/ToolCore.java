@@ -387,7 +387,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().onItemUse(tool, entry.getLevel(), context);
+      ActionResultType result = entry.getModifier().onBlockUse(tool, entry.getLevel(), context);
       if (result.isSuccessOrConsume()) {
         return result;
       }
@@ -399,7 +399,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().itemInteractionForEntity(tool, entry.getLevel(), playerIn, target, hand);
+      ActionResultType result = entry.getModifier().onEntityUse(tool, entry.getLevel(), playerIn, target, hand);
       if (result.isSuccessOrConsume()) {
         return result;
       }
@@ -412,7 +412,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     ItemStack stack = playerIn.getHeldItem(handIn);
     ToolStack tool = ToolStack.from(playerIn.getHeldItem(handIn));
     for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().onItemRightClick(tool, entry.getLevel(), worldIn, playerIn, handIn);
+      ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, handIn);
       if (result.isSuccessOrConsume()) {
         return new ActionResult<ItemStack>(result, stack);
       }
@@ -424,7 +424,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      boolean result = entry.getModifier().onPlayerStoppedUsing(tool, entry.getLevel(), worldIn, entityLiving, timeLeft);
+      boolean result = entry.getModifier().onStoppedUsing(tool, entry.getLevel(), worldIn, entityLiving, timeLeft);
       if (result) {
         return;
       }

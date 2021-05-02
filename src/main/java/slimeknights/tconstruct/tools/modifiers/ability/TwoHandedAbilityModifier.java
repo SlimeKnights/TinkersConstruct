@@ -23,7 +23,7 @@ public class TwoHandedAbilityModifier extends SingleUseModifier {
   }
 
   @Override
-  public ActionResultType onItemRightClick(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
+  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
     return ActionResultType.CONSUME;
   }
 }
