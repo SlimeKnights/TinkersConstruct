@@ -89,7 +89,7 @@
     "item.tconstruct.copper_ingot": "Copper Ingot",
     "item.tconstruct.copper_nugget": "Copper Nugget",
 
-    "block.tconstruct.cobalt_ore": "Cobalt Ore",
+    "block.tconstruct.cobalt_ore": "Nether Cobalt Ore",
     "block.tconstruct.cobalt_block": "Block of Cobalt",
     "block.tconstruct.cobalt_block.tooltip": "Can be used as beacon base",
     "item.tconstruct.cobalt_ingot": "Cobalt Ingot",
@@ -142,6 +142,8 @@
     "item.tconstruct.soulsteel_nugget": "Soulsteel Nugget",
     
     "item.tconstruct.netherite_nugget": "Netherite Nugget",
+    "item.tconstruct.debris_nugget": "Debris Scrap",
+    "item.tconstruct.debris_nugget.tooltip": "Small shard of ancient netherite, possibly can be melted to salvage",
 
     
     "__comment": "Tier 5 Metals",
@@ -153,7 +155,7 @@
     "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
 
     "item.tconstruct.materials_and_you": "Materials and You",
-    "item.tconstruct.materials_and_you.tooltip": "The book every Tinker needs\nby Skyla",
+    "item.tconstruct.materials_and_you.tooltip": "The book every Tinker needs\nby Selena",
     "item.tconstruct.tinkers_gadgetry": "Tinker's Gadgetry",
     "item.tconstruct.tinkers_gadgetry.tooltip": "Uses of slime in everyday tasks\nby Melvin",
 
@@ -237,13 +239,12 @@
     "item.tconstruct.plate_cast": "Small Plate Gold Cast",
     "item.tconstruct.coin_cast": "Coin Gold Cast",
     
-    "item.tconstruct.sharpening_kit_cast": "Sharpening Kit Gold Cast",
+    "item.tconstruct.repair_kit_cast": "Repair Kit Gold Cast",
     
     "_comment": "Small Head Gold Casts",
     
     "item.tconstruct.pickaxe_head_cast": "Pickaxe Head Gold Cast",
-    "item.tconstruct.axe_head_cast": "Axe Head Gold Cast",
-    "item.tconstruct.kama_head_cast": "Kama Head Gold Cast",
+    "item.tconstruct.small_axe_head_cast": "Small Axe Head Gold Cast",
     "item.tconstruct.sword_blade_cast": "Sword Blade Gold Cast",
     "item.tconstruct.sign_head_cast": "Sign Head Gold Cast",
     "item.tconstruct.bow_limb_cast": "Bow Limb Gold Cast",
@@ -277,13 +278,12 @@
     "item.tconstruct.plate_sand_cast": "Small Plate Sand Cast",
     "item.tconstruct.coin_sand_cast": "Coin Sand Cast",
     
-    "item.tconstruct.sharpening_kit_sand_cast": "Sharpening Kit Sand Cast",
+    "item.tconstruct.repair_kit_sand_cast": "Repair Kit Sand Cast",
     
     "_comment": "Small Head Sand Casts",
     
     "item.tconstruct.pickaxe_head_sand_cast": "Pickaxe Head Sand Cast",
-    "item.tconstruct.axe_head_sand_cast": "Axe Head Sand Cast",
-    "item.tconstruct.kama_head_sand_cast": "Kama Head Sand Cast",
+    "item.tconstruct.small_axe_head_sand_cast": "Small Axe Head Sand Cast",
     "item.tconstruct.sword_blade_sand_cast": "Sword Blade Sand Cast",
     "item.tconstruct.sign_head_sand_cast": "Sign Head Sand Cast",
     "item.tconstruct.bow_limb_sand_cast": "Bow Limb Sand Cast",
@@ -317,13 +317,12 @@
     "item.tconstruct.plate_red_sand_cast": "Small Plate Red Sand Cast",
     "item.tconstruct.coin_red_sand_cast": "Coin Red Sand Cast",
     
-    "item.tconstruct.sharpening_kit_red_sand_cast": "Sharpening Kit Red Sand Cast",
+    "item.tconstruct.repair_kit_red_sand_cast": "Repair Kit Red Sand Cast",
     
     "_comment": "Small Head Red Sand Casts",
     
     "item.tconstruct.pickaxe_head_red_sand_cast": "Pickaxe Head Red Sand Cast",
-    "item.tconstruct.axe_head_red_sand_cast": "Axe Head Red Sand Cast",
-    "item.tconstruct.kama_head_red_sand_cast": "Kama Head Red Sand Cast",
+    "item.tconstruct.small_axe_head_red_sand_cast": "Small Axe Head Red Sand Cast",
     "item.tconstruct.sword_blade_red_sand_cast": "Sword Blade Red Sand Cast",
     "item.tconstruct.sign_head_red_sand_cast": "Sign Head Red Sand Cast",
     "item.tconstruct.bow_limb_red_sand_cast": "Bow Limb Red Sand Cast",
@@ -648,7 +647,8 @@
     "item.tconstruct.ichor_slime_boots.tooltip": "Makes you bounce when landing",
 
     "item.tconstruct.piggy_backpack": "Piggybackpack",
-    "item.tconstruct.piggy_backpack.tooltip": "Right-click mobs to pick them up",
+    "item.tconstruct.piggy_backpack.tooltip": "Use on a mob to pick it up",
+    "effect.tconstruct.carry": "Carrying",
 
     "item.tconstruct.hard_spaghetti": "Impossibly Hard Wheat Sticks",
     "item.tconstruct.hard_spaghetti.tooltip": "Impossibly Hard Wheat Sticks",
@@ -681,20 +681,31 @@
     
     "item.tconstruct.pickaxe": "Pickaxe",
     "item.tconstruct.sledge_hammer": "Sledge Hammer",
+    "item.tconstruct.vein_hammer": "Vein Hammer",
+    
     "item.tconstruct.mattock": "Mattock",
     "item.tconstruct.excavator": "Excavator",
-    "item.tconstruct.axe": "Hand Axe",
+    
+    "item.tconstruct.hand_axe": "Hand Axe",
+    "item.tconstruct.broad_axe": "Broad Axe",
+    
     "item.tconstruct.kama": "Kama",
     "item.tconstruct.scythe": "Scythe",
+    
     "item.tconstruct.broad_sword": "Broadsword",
     "item.tconstruct.cleaver": "Cleaver",
     
+    
     "_comment": "Tinkers Tool Parts",
+    
+    "item.tconstruct.repair_kit": "Repair Kit",
 
     "item.tconstruct.pickaxe_head": "Pickaxe Head",
     "item.tconstruct.hammer_head": "Hammer Head",
-    "item.tconstruct.axe_head": "Axe Head",
-    "item.tconstruct.kama_head": "Kama Head",
+    
+    "item.tconstruct.small_axe_head": "Small Axe Head",
+    "item.tconstruct.broad_axe_head": "Broad Axe Head",
+    
     "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.broad_blade": "Broad Blade",
     
@@ -703,17 +714,25 @@
     "item.tconstruct.tool_binding": "Tool Binding",
     "item.tconstruct.large_plate": "Large Plate",
 
+    
     "_conment": "Tool Descriptions",
 
     "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
     "item.tconstruct.sledge_hammer.description": "The Sledge Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.",
+    "item.tconstruct.vein_hammer.description": "The Vein Hammer is a broad mining tool. It harvests many connected blocks of the same type, perfect for ores.",
+    
     "item.tconstruct.mattock.description": "The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, sand, gravel, and plants.\nJust don't dig your own grave!",
     "item.tconstruct.excavator.description": "The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!",
-    "item.tconstruct.axe.description": "The Hand Axe chops up wood and makes short work of leaves. It also makes for an effective weapon.\nChop chop!",
+    
+    "item.tconstruct.hand_axe.description": "The Hand Axe chops up wood and makes short work of leaves. It also makes for an effective weapon.\nChop chop!",
+    "item.tconstruct.broad_axe.description": "The Broad Axe fells small trees in a single swing, and makes quick work of large trees. It makes for a powerful heavy weapon.\nTimber!",
+    
     "item.tconstruct.kama.description": "The Kama is a precision reaping tool, mowing down plants and shearing animals.\nRight Click: Harvest and replant crops",
     "item.tconstruct.scythe.description": "The Scythe is a broad reaping tool, mowing down plants in a wide area.\nRight Click: Harvest and replant crops",
+    
     "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
     "item.tconstruct.cleaver.description": "The Cleaver is a weapon for a smeltery master. High range attacks keep cut though the toughest of foes.",
+ 
  
     "_comment": "Tinkers Smeltery",
 
@@ -1016,6 +1035,16 @@
     "modifier.tconstruct.haste.flavor": "Science!",
     "modifier.tconstruct.haste.description": "Magic red dust makes tool swing and mine faster!",
 
+    "modifier.tconstruct.blasting": "Blasting",
+    "modifier.tconstruct.blasting.flavor": "Explosive Mining!",
+    "modifier.tconstruct.blasting.description": "Your tool breaks blocks weak to explosions, such as ores, faster!",
+    "modifier.tconstruct.hydraulic": "Hydraulic",
+    "modifier.tconstruct.hydraulic.flavor": "Using the power of water!",
+    "modifier.tconstruct.hydraulic.description": "Tool mines faster underwater or in the rain!",
+    "modifier.tconstruct.lightspeed": "Lightspeed",
+    "modifier.tconstruct.lightspeed.flavor": "Brighter is faster!",
+    "modifier.tconstruct.lightspeed.description": "Tool mines well lit blocks faster!",
+
     "_comment": "Weapon",
     "modifier.tconstruct.knockback": "Knockback",
     "modifier.tconstruct.knockback.flavor": "Weeeeee!",
@@ -1034,15 +1063,19 @@
     "modifier.tconstruct.smite": "Smite",
     "modifier.tconstruct.smite.flavor": "Die, Foul Creature!",
     "modifier.tconstruct.smite.description": "Undead fear the might of the melon!",
+    "modifier.tconstruct.smite.damage": "Undead Damage",
     "modifier.tconstruct.bane_of_arthropods": "Bane of Arthropods",
     "modifier.tconstruct.bane_of_arthropods.flavor": "So Gross!",
     "modifier.tconstruct.bane_of_arthropods.description": "Tool does bonus damage against spiders and other creepey crawlly things!",
+    "modifier.tconstruct.bane_of_arthropods.damage": "Arthropod Damage",
     "modifier.tconstruct.antiaquatic": "Antiaquatic",
     "modifier.tconstruct.antiaquatic.flavor": "Basically a Fishing Rod!",
     "modifier.tconstruct.antiaquatic.description": "Tool does bonus damage to sea creatures!",
+    "modifier.tconstruct.antiaquatic.damage": "Antiaquatic Damage",
     "modifier.tconstruct.cooling": "Cooling",
     "modifier.tconstruct.cooling.flavor": "Frosty!",
     "modifier.tconstruct.cooling.description": "Tool does bonus damage to fire based creatures!",
+    "modifier.tconstruct.cooling.damage": "Cool Damage",
 
     "modifier.tconstruct.sharpness": "Sharpness",
     "modifier.tconstruct.sharpness.1": "Sharp",
@@ -1105,6 +1138,8 @@
 
     
     "__comment": "Tier 1 Traits",
+    "modifier.tconstruct.fake_attribute.mining_speed": "Mining Speed",
+
     "modifier.tconstruct.cultivated": "Cultivated",
     "modifier.tconstruct.cultivated.flavor": "Economical!",
     "modifier.tconstruct.cultivated.description": "Tool practically grows more material when repairing",
@@ -1114,7 +1149,6 @@
     "modifier.tconstruct.stonebound": "Stonebound",
     "modifier.tconstruct.stonebound.flavor": "Your tool absolutely loves stone!",
     "modifier.tconstruct.stonebound.description": "The tool mines faster as it wears out, but does less damage",
-    "modifier.tconstruct.damage_speed_trade.suffix": " (%s boost)",
     "modifier.tconstruct.fractured": "Fractured",
     "modifier.tconstruct.fractured.flavor": "Break a Leg!",
     "modifier.tconstruct.fractured.description": "Tool is extra sharp due to the broken bits of bone",
@@ -1185,6 +1219,11 @@
     "modifier.tconstruct.temperate.flavor": "Extreme Mining!",
     "modifier.tconstruct.temperate.description": "Tool mines faster when in extreme temperatures",
 
+    "_comment": "Internal effects",
+    "effect.tconstruct.bleeding": "Bleeding",
+    "effect.tconstruct.magnetic": "Magnetic",
+    "effect.tconstruct.momentum": "Momentum",
+    "effect.tconstruct.insatiable": "Insatiable",
 
     "_comment": "Stats",
 
@@ -1254,6 +1293,8 @@
     "gui.tconstruct.part_builder.material_value": "Material value: %s",
     "gui.tconstruct.part_builder.cost": "Pattern cost: %s",
     "gui.tconstruct.part_builder.trait": "Trait",
+    "gui.tconstruct.part_builder.uncraftable": "Cannot shape",
+    "gui.tconstruct.part_builder.uncraftable.tooltip": "Material cannot be shaped in the part builder. Other methods such as casting are required.",
 
     "gui.tconstruct.modifier_chest": "Modifier Chest",
     "gui.tconstruct.cast_chest": "Cast Chest",

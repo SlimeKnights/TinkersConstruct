@@ -31,7 +31,7 @@ public class SmelteryTileEntityRenderer extends TileEntityRenderer<SmelteryTileE
     World world = smeltery.getWorld();
     if (world == null) return;
     BlockState state = smeltery.getBlockState();
-    if (!state.get(ControllerBlock.ACTIVE)) return;
+    if (!state.get(ControllerBlock.IN_STRUCTURE)) return;
     StructureData structure = smeltery.getStructure();
     if (structure == null) return;
 
@@ -80,6 +80,6 @@ public class SmelteryTileEntityRenderer extends TileEntityRenderer<SmelteryTileE
 
   @Override
   public boolean isGlobalRenderer(SmelteryTileEntity tile) {
-    return tile.getBlockState().get(ControllerBlock.ACTIVE) && tile.getStructure() != null;
+    return tile.getBlockState().get(ControllerBlock.IN_STRUCTURE) && tile.getStructure() != null;
   }
 }

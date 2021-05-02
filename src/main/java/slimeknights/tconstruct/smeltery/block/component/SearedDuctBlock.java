@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 
 /** Filtering drain block, have to reimplement either inventory block logic or seared block logic unfortunately */
 public class SearedDuctBlock extends InventoryBlock {
-  public static final BooleanProperty ACTIVE = SmelteryIOBlock.ACTIVE;
+  public static final BooleanProperty ACTIVE = SearedBlock.IN_STRUCTURE;
   public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
   public SearedDuctBlock(Properties properties) {
     super(properties);

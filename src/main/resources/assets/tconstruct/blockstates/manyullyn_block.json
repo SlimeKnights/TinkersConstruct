@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/manyullyn_block"
+            "model": "tconstruct:block/storage/manyullyn"
         }
     }
 }

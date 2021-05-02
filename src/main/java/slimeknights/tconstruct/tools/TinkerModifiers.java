@@ -53,15 +53,17 @@ import slimeknights.tconstruct.tools.modifiers.traits.SearingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TastyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TemperateModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.TypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.BaneOfArthropodsModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.BeheadingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.BlastingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.CoolingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.FieryModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.HasteModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.HydraulicModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.LightspeedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
@@ -84,14 +86,14 @@ public final class TinkerModifiers extends TinkerModule {
    * Blocks
    */
   // material
-  public static final ItemObject<Block> silkyJewelBlock = BLOCKS.register("silky_jewel_block", GENERIC_GEM_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> silkyJewelBlock = BLOCKS.register("silky_jewel_block", GENERIC_GEM_BLOCK, HIDDEN_BLOCK_ITEM);
 
   /*
    * Items
    */
   public static final ItemObject<Item> reinforcement = ITEMS.register("reinforcement", GENERAL_PROPS);
   public static final ItemObject<Item> silkyCloth = ITEMS.register("silky_cloth", GENERAL_PROPS);
-  public static final ItemObject<Item> silkyJewel = ITEMS.register("silky_jewel", GENERAL_PROPS);
+  public static final ItemObject<Item> silkyJewel = ITEMS.register("silky_jewel", HIDDEN_PROPS);
   public static final ItemObject<Item> necroticBone = ITEMS.register("necrotic_bone", GENERAL_PROPS);
   public static final ItemObject<Item> creativeUpgradeItem = ITEMS.register("creative_upgrade", TOOLTIP_ITEM);
   public static final ItemObject<Item> creativeAbilityItem = ITEMS.register("creative_ability", TOOLTIP_ITEM);
@@ -114,7 +116,12 @@ public final class TinkerModifiers extends TinkerModule {
   // general effects
   public static final RegistryObject<ExperiencedModifier> experienced = MODIFIERS.register("experienced", ExperiencedModifier::new);
   public static final RegistryObject<MagneticModifier> magnetic = MODIFIERS.register("magnetic", MagneticModifier::new);
+
+  // speed
   public static final RegistryObject<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
+  public static final RegistryObject<BlastingModifier> blasting = MODIFIERS.register("blasting", BlastingModifier::new);
+  public static final RegistryObject<HydraulicModifier> hydraulic = MODIFIERS.register("hydraulic", HydraulicModifier::new);
+  public static final RegistryObject<LightspeedModifier> lightspeed = MODIFIERS.register("lightspeed", LightspeedModifier::new);
 
   // weapon
   public static final RegistryObject<KnockbackModifier> knockback = MODIFIERS.register("knockback", KnockbackModifier::new);
@@ -173,7 +180,6 @@ public final class TinkerModifiers extends TinkerModule {
 
   // traits - mod compat tier 2
   public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
-  public static final RegistryObject<TypeDamageModifier> holy = MODIFIERS.register("holy", () -> new TypeDamageModifier(0xd1ecf6, CreatureAttribute.UNDEAD));
   // experienced is also an upgrade
   // traits - mod compat tier 3
   public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);

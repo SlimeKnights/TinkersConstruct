@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
+import net.minecraft.block.TripWireBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -19,9 +20,9 @@ import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.Property;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -36,30 +37,29 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
-import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
+import slimeknights.tconstruct.library.tools.helper.aoe.CircleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.function.Predicate;
 
 public class KamaTool extends HarvestTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
-  public static final AOEToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(1, 1, 1);
+  public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(1, true);
 
   public KamaTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 
   @Override
-  public AOEToolHarvestLogic getToolHarvestLogic() {
+  public ToolHarvestLogic getToolHarvestLogic() {
     return HARVEST_LOGIC;
   }
 
@@ -328,7 +328,7 @@ public class KamaTool extends HarvestTool {
 
         // if we have a player, try doing AOE harvest
         if (!broken && player != null) {
-          for (BlockPos newPos : getToolHarvestLogic().getAOEBlocks(tool, player, pos, context.getFace(), context.getHitVec(), s -> true)) {
+          for (BlockPos newPos : getToolHarvestLogic().getAOEBlocks(tool, stack, player, state, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
             // try harvesting the crop, if successful and survival, damage the tool
             if (harvest(context, stack, tool, server, world.getBlockState(newPos), newPos, player)) {
               didHarvest = true;
@@ -359,14 +359,14 @@ public class KamaTool extends HarvestTool {
     return getToolHarvestLogic().transformBlocks(context, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true);
   }
 
-  /** Harvets logic to match shears and hoes */
-  public static class HarvestLogic extends AOEToolHarvestLogic {
+  /** Harvest logic to match shears and hoes */
+  public static class HarvestLogic extends CircleAOEHarvestLogic {
     private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(
       Material.LEAVES, Material.WEB, Material.WOOL,
-      Material.TALL_PLANTS, Material.NETHER_PLANTS, Material.OCEAN_PLANT);
+      Material.PLANTS, Material.TALL_PLANTS, Material.NETHER_PLANTS, Material.OCEAN_PLANT);
 
-    public HarvestLogic(int width, int height, int depth) {
-      super(width, height, depth);
+    public HarvestLogic(int diameter, boolean is3D) {
+      super(diameter, is3D);
     }
 
     @Override
@@ -389,15 +389,12 @@ public class KamaTool extends HarvestTool {
     }
 
     @Override
-    public List<BlockPos> getAOEBlocks(ToolStack tool, PlayerEntity player, BlockPos origin, Direction sideHit, Vector3d hitVec, Predicate<BlockState> predicate) {
-      // only works with modifiable harvest
-      if (tool.isBroken()) {
-        return Collections.emptyList();
+    protected boolean removeBlock(PlayerEntity player, World world, BlockPos pos, boolean canHarvest) {
+      BlockState state = world.getBlockState(pos);
+      if (state.getBlock() instanceof TripWireBlock) {
+        world.setBlockState(pos, state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
       }
-
-      // include depth in boost
-      int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
-      return calculateAOEBlocks(player, origin, width + expanded, height + expanded, depth + expanded, sideHit, hitVec, predicate);
+      return super.removeBlock(player, world, pos, canHarvest);
     }
   }
 }

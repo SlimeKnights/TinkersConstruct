@@ -1,10 +1,128 @@
 [
   {
+	"name": "general",
+    "type": "text",
+    "data": "modifiers/general.json"
+  },
+   {
+    "type": "modifier",
+    "data": "modifiers/diamond.json"
+  },
+    {
+    "type": "modifier",
+    "data": "modifiers/emerald.json"
+  },
+    {
+    "type": "modifier",
+    "data": "modifiers/experienced.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/netherite.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/reinforced.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/soulbound.json"
+  },
+  {
+    "name": "harvest",
+    "type": "text",
+    "data": "modifiers/harvest.json"
+  },
+    {
+    "type": "modifier",
+    "data": "modifiers/blasting.json"
+  },
+  {
     "type": "modifier",
     "data": "modifiers/haste.json"
   },
   {
     "type": "modifier",
-    "data": "modifiers/beheading.json"
+    "data": "modifiers/hydraulic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/lightspeed.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/magnetic.json"
+  },
+  {
+    "name": "weapon",
+    "type": "text",
+    "data": "modifiers/weapon.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/antiaquatic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/baneofarthropods.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/cooling.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/fiery.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/knockback.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/necrotic.json"
+  },
+   {
+    "type": "modifier",
+    "data": "modifiers/sharpness.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/smite.json"
+  },
+  {
+    "name": "slotless",
+    "type": "text",
+    "data": "modifiers/slotless.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/overslime.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/worldbound.json"
+  },
+  {
+    "name": "bonus_upgrades",
+    "type": "text",
+    "data": "modifiers/bonus_upgrades.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/harmonious.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/recapitated.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/resurrected.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/writable.json"
   }
+  
 ]

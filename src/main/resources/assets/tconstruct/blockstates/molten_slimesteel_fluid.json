@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/fluid/molten"
+            "model": "tconstruct:block/fluid/slimesteel"
         }
     }
 }

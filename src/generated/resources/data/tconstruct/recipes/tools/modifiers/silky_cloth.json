@@ -10,7 +10,7 @@
       "tag": "forge:string"
     },
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "forge:ingots/rose_gold"
     }
   },
   "result": {

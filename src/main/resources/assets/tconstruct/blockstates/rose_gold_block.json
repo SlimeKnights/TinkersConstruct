@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/rose_gold_block"
+            "model": "tconstruct:block/storage/rose_gold"
         }
     }
 }

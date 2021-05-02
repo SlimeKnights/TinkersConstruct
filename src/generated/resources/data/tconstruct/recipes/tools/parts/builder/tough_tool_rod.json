@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:part_builder",
-  "pattern": "tconstruct:tough_tool_rod",
-  "cost": 3,
-  "result": {
-    "item": "tconstruct:tough_tool_rod"
-  }
-}

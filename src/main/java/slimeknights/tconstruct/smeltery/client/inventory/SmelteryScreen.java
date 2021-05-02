@@ -55,8 +55,8 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> impleme
   @Override
   public void tick() {
     super.tick();
-    // if the smeltery becomes inactive or the slot size changes, kill the UI
-    if (smeltery == null || !smeltery.getBlockState().get(ControllerBlock.ACTIVE)
+    // if the smeltery becomes invalid or the slot size changes, kill the UI
+    if (smeltery == null || !smeltery.getBlockState().get(ControllerBlock.IN_STRUCTURE)
         || smeltery.getMeltingInventory().getSlots() != sideInventory.getSlotCount()) {
       this.closeScreen();
     }

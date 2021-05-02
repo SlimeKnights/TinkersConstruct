@@ -1,13 +1,9 @@
 [
+ 
   {
-    "name": "repairing",
-    "type": "text",
-    "data": "tools/repairing.json"
-  },
-  {
-    "name": "pickaxe",
+    "name": "broad_sword",
     "type": "tool",
-    "data": "tools/pickaxe.json"
+    "data": "tools/broad_sword.json"
   },
   {
     "name": "axe",
@@ -15,18 +11,23 @@
     "data": "tools/axe.json"
   },
   {
-    "name": "mattock",
-    "type": "tool",
-    "data": "tools/mattock.json"
-  },
-  {
     "name": "kama",
     "type": "tool",
     "data": "tools/kama.json"
   },
   {
-    "name": "broad_sword",
+    "name": "mattock",
     "type": "tool",
-    "data": "tools/broad_sword.json"
+    "data": "tools/mattock.json"
+  },
+  {
+    "name": "pickaxe",
+    "type": "tool",
+    "data": "tools/pickaxe.json"
+  },
+  {
+	"name": "repairing",
+    "type": "imageText2",
+    "data": "tools/repairing.json"
   }
 ]

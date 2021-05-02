@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
@@ -20,6 +21,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.tileentity.NamableTileEntity;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
@@ -27,6 +29,7 @@ import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
@@ -127,9 +130,9 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
    */
 
   /** Checks if the tile entity is active */
-  private boolean isActive() {
+  private boolean isFormed() {
     BlockState state = this.getBlockState();
-    return state.hasProperty(MelterBlock.ACTIVE) && state.get(MelterBlock.ACTIVE);
+    return state.hasProperty(MelterBlock.IN_STRUCTURE) && state.get(MelterBlock.IN_STRUCTURE);
   }
 
   @Override
@@ -139,7 +142,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
     }
 
     // are we fully formed?
-    if (isActive()) {
+    if (isFormed()) {
 
       switch (tick) {
         // tick 0: find fuel
@@ -148,13 +151,28 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
             fuelModule.findFuel(true);
           }
         // tick 2: heat items and consume fuel
-        case 2:
-          if (fuelModule.hasFuel()) {
+        case 2: {
+          assert world != null;
+          BlockState state = getBlockState();
+          boolean hasFuel = fuelModule.hasFuel();
+          // update the active state
+          if (state.get(ControllerBlock.ACTIVE) != hasFuel) {
+            world.setBlockState(pos, state.with(ControllerBlock.ACTIVE, hasFuel));
+            // update the heater below
+            BlockPos down = pos.down();
+            BlockState downState = world.getBlockState(down);
+            if (TinkerTags.Blocks.MELTER_TANKS.contains(downState.getBlock()) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.get(ControllerBlock.ACTIVE) != hasFuel) {
+              world.setBlockState(down, downState.with(ControllerBlock.ACTIVE, hasFuel));
+            }
+          }
+          // heat items
+          if (hasFuel) {
             meltingInventory.heatItems(fuelModule.getTemperature());
             fuelModule.decreaseFuel(1);
           } else {
             meltingInventory.coolItems();
           }
+        }
       }
       tick = (tick + 1) % 4;
     }

@@ -1,18 +1,14 @@
 {
-  "title": "Repairing",
+  "title":"Repairing",
+    "image": {
+     "file": "tconstruct:book/images/repair.png",
+	 "width": 87,
+    "height": 56
+  },
   "text": [
     {
-      "text": "As you use your tools, they take damage. Once all of their durability is gone they break. :("
-    },
-    {
-      "text": "\n"
-    },
-    {
-      "text": "To fix that you need to repair your tool. You don't need to wait until it breaks, you can repair it at any time!"
-    },
-    {
-      "text": "Repairing is easy. Put the tool into a tinker station or anvil and add items equivalent to the head of the tool.",
-      "paragraph": true
+      "text": "Repairing your tool is an important thing to do, unless you want it to break. In Tinker Station or Tinker Anvil place the tool and material of the head/plate and it will repair. Alternatively, you can use repair kits, which work in crafting tables!",
+	  "paragraph": true
     }
-  ]
+	]
 }

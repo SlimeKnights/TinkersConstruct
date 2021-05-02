@@ -1,16 +1,15 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.tconstruct.library.book.content.ContentListing;
 import slimeknights.tconstruct.library.book.content.ContentTool;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
-
-import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class ToolSectionTransformer extends ContentListingSectionTransformer {
@@ -23,13 +22,13 @@ public class ToolSectionTransformer extends ContentListingSectionTransformer {
   protected void processPage(BookData book, ContentListing listing, PageData page) {
     // only add tool pages if the tool exists
     if (page.content instanceof ContentTool) {
-      String toolName = ((ContentTool) page.content).toolName;
-      Optional<ToolCore> tool = ForgeRegistries.ITEMS.getValues().stream()
-        .filter((item) -> toolName.equals(item.getRegistryName().toString()) && item instanceof ToolCore)
-        .map(item -> (ToolCore) item)
-        .findFirst();
-
-      tool.ifPresent(toolCore -> listing.addEntry(toolCore.getLocalizedName().getString(), page));
+      ResourceLocation toolId = new ResourceLocation(((ContentTool) page.content).toolName);
+      if (ForgeRegistries.ITEMS.containsKey(toolId)) {
+        Item toolItem = ForgeRegistries.ITEMS.getValue(toolId);
+        if (toolItem instanceof ToolCore) {
+          listing.addEntry(((ToolCore)toolItem).getLocalizedName().getString(), page);
+        }
+      }
     } else {
       super.processPage(book, listing, page);
     }

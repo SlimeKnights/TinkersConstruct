@@ -151,24 +151,22 @@ public class ToolAttackUtil {
 
     // missing: enchantment modifiers, we handle ourselves
 
-    // calculate if it's a critical hit
-    // that is, in the air, not blind, targeting living, and not sprinting
-    boolean isCritical = !isExtraAttack && attackerLiving.fallDistance > 0.0F && !attackerLiving.isOnGround() && !attackerLiving.isOnLadder()
-                         && !attackerLiving.isInWater() && !attackerLiving.isPotionActive(Effects.BLINDNESS)
-                         && !attackerLiving.isPassenger() && targetLiving != null && !attackerLiving.isSprinting();
-
     // determine cooldown
     float cooldown = 1.0f;
     if (applyCoolDown && attackerPlayer != null) {
       cooldown = attackerPlayer.getCooledAttackStrength(0.5f);
       // cooldown reset by player controller
     }
-
-    // if sprinting, deal bonus knockback
     boolean fullyCharged = cooldown > 0.9f;
 
-    // calculate actual damage
 
+    // calculate if it's a critical hit
+    // that is, in the air, not blind, targeting living, and not sprinting
+    boolean isCritical = !isExtraAttack && fullyCharged && attackerLiving.fallDistance > 0.0F && !attackerLiving.isOnGround() && !attackerLiving.isOnLadder()
+                         && !attackerLiving.isInWater() && !attackerLiving.isPotionActive(Effects.BLINDNESS)
+                         && !attackerLiving.isPassenger() && targetLiving != null && !attackerLiving.isSprinting();
+
+    // calculate actual damage
     // boost damage from traits
     float baseDamage = damage;
     List<ModifierEntry> modifiers = tool.getModifierList();
@@ -183,6 +181,7 @@ public class ToolAttackUtil {
       return !isExtraAttack;
     }
 
+    // if sprinting, deal bonus knockback
     float knockback = 0;
     SoundEvent sound;
     if (attackerLiving.isSprinting() && fullyCharged) {

@@ -9,7 +9,8 @@
 buildscript {
     repositories {
         mavenLocal()
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://maven.minecraftforge.net/' }
+        maven { url = 'https://libraries.minecraft.net/' }
         jcenter()
         mavenCentral()
         maven {
@@ -21,7 +22,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.0.9', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.7', changing: true
         classpath "io.freefair.gradle:lombok-plugin:4.+"
     }
 }
@@ -35,10 +36,15 @@ apply plugin: "io.freefair.lombok"
 import net.minecraftforge.gradle.common.task.SignJar
 
 repositories {
+    mavenCentral()
     mavenLocal()
+    maven { // Vanilla
+        name 'Vanilla'
+        url 'https://libraries.minecraft.net/'
+    }
     maven { // Forge
         name 'ForgeFS'
-        url 'https://files.minecraftforge.net/maven'
+        url 'https://maven.minecraftforge.net/'
     }
     maven { // Mantle and JEI
         name 'DVS1 Maven FS'
@@ -51,7 +57,8 @@ repositories {
 }
 
 group = 'slimeknights.tconstruct'
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
 // sets version to the slimeKnights version format
 task buildInfo {

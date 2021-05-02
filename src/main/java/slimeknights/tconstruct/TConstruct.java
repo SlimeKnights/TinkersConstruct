@@ -23,6 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.tags.TConstructBlockTagsProvider;
@@ -94,6 +95,7 @@ public class TConstruct {
     // init deferred registers
     TinkerModule.initRegisters();
     TinkerNetwork.setup();
+    TinkerTags.init();
     // init client logic
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
     MinecraftForge.EVENT_BUS.register(this);
@@ -151,6 +153,17 @@ public class TConstruct {
         case "tough_tool_rod_cast": return TinkerSmeltery.toughHandleCast.get();
         case "tough_tool_rod_sand_cast": return TinkerSmeltery.toughHandleCast.getSand();
         case "tough_tool_rod_red_sand_cast": return TinkerSmeltery.toughHandleCast.getRedSand();
+        // axe -> hand_axe, axe_head -> small_axe_head
+        case "axe": return TinkerTools.handAxe.get();
+        case "axe_head": return TinkerToolParts.smallAxeHead.get();
+        case "axe_head_cast": return TinkerSmeltery.smallAxeHeadCast.get();
+        case "axe_head_sand_cast": return TinkerSmeltery.smallAxeHeadCast.getSand();
+        case "axe_head_red_sand_cast": return TinkerSmeltery.smallAxeHeadCast.getRedSand();
+        // kama head removed
+        case "kama_head": return TinkerToolParts.swordBlade.get();
+        case "kama_head_cast": return TinkerSmeltery.swordBladeCast.get();
+        case "kama_head_sand_cast": return TinkerSmeltery.swordBladeCast.getSand();
+        case "kama_head_red_sand_cast": return TinkerSmeltery.swordBladeCast.getRedSand();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

@@ -33,7 +33,7 @@ public class OrientableSmelteryBlock extends SearedBlock {
 
   @Override
   protected void fillStateContainer(StateContainer.Builder<Block,BlockState> builder) {
-    builder.add(FACING);
+    builder.add(FACING, IN_STRUCTURE);
   }
 
   @Nullable

@@ -43,6 +43,10 @@ public class Util {
   public static final DecimalFormat df = new DecimalFormat("#,###,###.##", DecimalFormatSymbols.getInstance(Locale.US));
   public static final DecimalFormat dfPercent = new DecimalFormat("#%");
   public static final DecimalFormat dfMultiplier = new DecimalFormat("#.##x");
+  public static final DecimalFormat dfPercentBoost = new DecimalFormat("#%");
+  static {
+    dfPercentBoost.setPositivePrefix("+");
+  }
 
   public static Logger getLogger(String type) {
     String log = MODID;

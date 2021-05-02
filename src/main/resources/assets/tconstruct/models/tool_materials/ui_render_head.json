@@ -1,4 +1,5 @@
 {
   "fallbacks": ["metal"],
-  "color": "cacaca"
+  "color": "cacaca",
+  "skipUniqueTexture": true
 }

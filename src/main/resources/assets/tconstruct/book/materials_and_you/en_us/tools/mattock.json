@@ -2,18 +2,17 @@
   "tool": "tconstruct:mattock",
   "text": [
     {
-      "text": "The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants."
+      "text": "The Mattock is a versatile tool. It is effective on wood and dirt."
     },
     {
       "text": "\n"
     },
     {
-      "text": "It can till soil and also deals respectable damage in combat."
+      "text": "It can create paths and also deals respectable damage in combat."
     }
   ],
   "properties": [
-    "Also a hoe",
-    "Tills the ground",
+    "Creates paths",
     "Effective on dirt and wood"
   ]
 }

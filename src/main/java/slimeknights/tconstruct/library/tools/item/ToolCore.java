@@ -6,6 +6,7 @@ import com.google.common.collect.Sets;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -392,12 +393,12 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       }
     } else if (Util.isShiftKeyDown()) {
       // component data
-      this.getTooltip(stack, tooltip, TooltipType.SHIFT);
+      this.getTooltip(stack, tooltip, TooltipType.SHIFT, flagIn);
     } else if (Util.isCtrlKeyDown()) {
       // modifiers
-      this.getTooltip(stack, tooltip, TooltipType.CONTROL);
+      this.getTooltip(stack, tooltip, TooltipType.CONTROL, flagIn);
     } else {
-      this.getTooltip(stack, tooltip, TooltipType.NORMAL);
+      this.getTooltip(stack, tooltip, TooltipType.NORMAL, flagIn);
       tooltip.add(StringTextComponent.EMPTY);
       tooltip.add(TOOLTIP_HOLD_SHIFT);
       tooltip.add(TOOLTIP_HOLD_CTRL);
@@ -410,12 +411,12 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
    * Displays different information based on the tooltip type
    * If the SHIFT key is held, the detailed information is displayed
    * If CONTROL key is held, the materials the tool is made out of is displayed
-   *
-   * @param stack the given itemstack
-   * @param tooltips the list of tooltips to add to
-   * @param tooltipType the tooltip type to display
+   *  @param stack the given itemstack
+   * @param tooltips     the list of tooltips to add to
+   * @param tooltipType  the tooltip type to display
+   * @param flagIn       tooltip flag
    */
-  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType) {
+  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType, ITooltipFlag flagIn) {
     switch (tooltipType) {
       case NORMAL: {
         ToolStack tool = ToolStack.from(stack);
@@ -431,7 +432,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       }
 
       case SHIFT:
-        tooltips.addAll(this.getInformation(stack, false));
+        this.getStatInformation(ToolStack.from(stack), tooltips, flagIn, false);
         break;
 
       case CONTROL: {
@@ -466,23 +467,23 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   @Override
   public List<ITextComponent> getInformation(ItemStack stack) {
-    return this.getInformation(stack, true);
+    return this.getStatInformation(ToolStack.from(stack), new ArrayList<>(), TooltipFlags.NORMAL, true);
   }
 
   /**
    * Gets the information for the given tool stack
    *
-   * @param stack the tool stack
-   * @param detailed if it should be detailed or not, used for durability
+   * @param tool      the tool stack
+   * @param flag      tooltip flag
+   * @param detailed  If true, should show detailed info
    * @return the information for the given stack
    */
-  public List<ITextComponent> getInformation(ItemStack stack, boolean detailed) {
-    ToolStack tool = ToolStack.from(stack);
-    TooltipBuilder builder = new TooltipBuilder(tool);
+  public List<ITextComponent> getStatInformation(ToolStack tool, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
+    TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     builder.addDurability();
     builder.addAttackDamage();
     builder.addAttackSpeed();
-    if (TinkerTags.Items.HARVEST.contains(stack.getItem())) {
+    if (TinkerTags.Items.HARVEST.contains(tool.getItem())) {
       builder.addHarvestLevel();
       builder.addMiningSpeed();
     }
@@ -495,6 +496,10 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
     builder.addFreeUpgrades();
     builder.addFreeAbilities();
+
+    for (ModifierEntry entry : tool.getModifierList()) {
+      entry.getModifier().addInformation(tool, entry.getLevel(), tooltip, flag, detailed);
+    }
 
     return builder.getTooltips();
   }

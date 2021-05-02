@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
@@ -52,11 +53,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
+    addPartRecipe(consumer, TinkerToolParts.repairKit, 2, TinkerSmeltery.repairKitCast);
     // head
     addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.axeHead, 2, TinkerSmeltery.axeHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.kamaHead, 2, TinkerSmeltery.kamaHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.smallAxeHead, 2, TinkerSmeltery.smallAxeHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.broadAxeHead, 8, TinkerSmeltery.broadAxeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, TinkerSmeltery.swordBladeCast);
     addPartRecipe(consumer, TinkerToolParts.broadBlade, 8, TinkerSmeltery.broadBladeCast);
     // other parts
@@ -91,6 +93,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
     registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "silicon_bronze", false);
     registerMetalMaterial(consumer, MaterialIds.pigIron, "pig_iron", false);
+    registerMaterial(consumer, MaterialIds.pigIron, Ingredient.fromItems(TinkerCommons.bacon), 1, 4, "pig_iron/bacon");
 
     // tier 2 (nether)
     // tier 3 (nether)
@@ -121,11 +124,13 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {
     registerBuildingRecipe(consumer, TinkerTools.pickaxe);
     registerBuildingRecipe(consumer, TinkerTools.sledgeHammer);
+    registerBuildingRecipe(consumer, TinkerTools.veinHammer);
 
     registerBuildingRecipe(consumer, TinkerTools.mattock);
     registerBuildingRecipe(consumer, TinkerTools.excavator);
 
-    registerBuildingRecipe(consumer, TinkerTools.axe);
+    registerBuildingRecipe(consumer, TinkerTools.handAxe);
+    registerBuildingRecipe(consumer, TinkerTools.broadAxe);
 
     registerBuildingRecipe(consumer, TinkerTools.kama);
     registerBuildingRecipe(consumer, TinkerTools.scythe);

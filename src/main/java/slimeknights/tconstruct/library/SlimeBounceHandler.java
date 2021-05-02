@@ -2,17 +2,16 @@ package slimeknights.tconstruct.library;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import java.util.IdentityHashMap;
+import java.util.function.Consumer;
 
-public class SlimeBounceHandler {
-
+/** Logic for entities bouncing */
+public class SlimeBounceHandler implements Consumer<LivingUpdateEvent> {
   private static final IdentityHashMap<Entity, SlimeBounceHandler> bouncingEntities = new IdentityHashMap<>();
 
   public final LivingEntity entityLiving;
@@ -31,7 +30,8 @@ public class SlimeBounceHandler {
     this.bounce = bounce;
 
     if (bounce != 0) {
-      this.bounceTick = entityLiving.ticksExisted;
+      // add one to the tick as there is a 1 tick delay between falling and ticking for many entities
+      this.bounceTick = entityLiving.ticksExisted + 1;
     } else {
       this.bounceTick = 0;
     }
@@ -40,14 +40,14 @@ public class SlimeBounceHandler {
     //entityLiving.addChatMessage(new ChatComponentText("added " + entityLiving.worldObj.isRemote));
   }
 
-  @SubscribeEvent
-  public void playerTickPost(TickEvent.PlayerTickEvent event) {
+  @Override
+  public void accept(LivingUpdateEvent event) {
     // this is only relevant for the local player
-    if (event.phase == TickEvent.Phase.END && event.player == this.entityLiving && !event.player.isElytraFlying()) {
-      // bounce up. This is to pcircumvent the logic that resets y motion after landing
-      if (event.player.ticksExisted == this.bounceTick) {
-        Vector3d vec3d = event.player.getMotion();
-        event.player.setMotion(vec3d.x, this.bounce, vec3d.z);
+    if (event.getEntityLiving() == this.entityLiving && !this.entityLiving.isElytraFlying()) {
+      // bounce up. This is to circumvent the logic that resets y motion after landing
+      if (this.entityLiving.ticksExisted == this.bounceTick) {
+        Vector3d vec3d = this.entityLiving.getMotion();
+        this.entityLiving.setMotion(vec3d.x, this.bounce, vec3d.z);
         this.bounceTick = 0;
       }
 
@@ -57,7 +57,7 @@ public class SlimeBounceHandler {
           double f = 0.91d + 0.025d;
           //System.out.println((entityLiving.worldObj.isRemote ? "client: " : "server: ") + entityLiving.motionX);
           Vector3d vec3d = this.entityLiving.getMotion();
-          event.player.setMotion(vec3d.x / f, vec3d.y, vec3d.z / f);
+          this.entityLiving.setMotion(vec3d.x / f, vec3d.y, vec3d.z / f);
           this.entityLiving.isAirBorne = true;
           this.lastMovX = this.entityLiving.getMotion().x;
           this.lastMovZ = this.entityLiving.getMotion().z;
@@ -71,7 +71,6 @@ public class SlimeBounceHandler {
         } else if (this.entityLiving.ticksExisted - this.timer > 5) {
           MinecraftForge.EVENT_BUS.unregister(this);
           bouncingEntities.remove(this.entityLiving);
-          //entityLiving.addChatMessage(new ChatComponentText("removed " + entityLiving.worldObj.isRemote));
         }
       } else {
         this.timer = 0;
@@ -84,19 +83,25 @@ public class SlimeBounceHandler {
     addBounceHandler(entity, 0d);
   }
 
+  /**
+   * Causes the entity to bounce, needed because the fall event will reset motion afterwards
+   * @param entity  Entity to bounce
+   * @param bounce  Bounce amoint
+   */
   public static void addBounceHandler(LivingEntity entity, double bounce) {
-    // only supports actual players as it uses the PlayerTick event
-    if (!(entity instanceof PlayerEntity) || entity instanceof FakePlayer) {
+    // no fake players PlayerTick event
+    if (entity instanceof FakePlayer) {
       return;
     }
     SlimeBounceHandler handler = bouncingEntities.get(entity);
     if (handler == null) {
       // wasn't bouncing yet, register it
-      MinecraftForge.EVENT_BUS.register(new SlimeBounceHandler(entity, bounce));
+      MinecraftForge.EVENT_BUS.addListener(new SlimeBounceHandler(entity, bounce));
     } else if (bounce != 0) {
       // updated bounce if needed
       handler.bounce = bounce;
-      handler.bounceTick = entity.ticksExisted;
+      // add one to the tick as there is a 1 tick delay between falling and ticking for many entities
+      handler.bounceTick = entity.ticksExisted + 1;
     }
   }
 }

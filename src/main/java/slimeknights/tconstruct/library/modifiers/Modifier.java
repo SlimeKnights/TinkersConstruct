@@ -3,7 +3,9 @@ package slimeknights.tconstruct.library.modifiers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -12,11 +14,17 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectUtils;
+import net.minecraft.potion.Effects;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Color;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -151,6 +159,15 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
+   * Applies relevant text styles (typically color) to the modifier text
+   * @param component  Component to modifiy
+   * @return  Resulting component
+   */
+  protected IFormattableTextComponent applyStyle(IFormattableTextComponent component) {
+      return component.modifyStyle(style -> style.setColor(Color.fromInt(color)));
+  }
+
+  /**
    * Gets the display name for this modifier
    * @return  Display name for this modifier
    */
@@ -167,10 +184,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  Display name
    */
   public ITextComponent getDisplayName(int level) {
-    return new TranslationTextComponent(getTranslationKey())
-      .appendString(" ")
-      .append(new TranslationTextComponent(KEY_LEVEL + level))
-      .modifyStyle(style -> style.setColor(Color.fromInt(color)));
+    return applyStyle(new TranslationTextComponent(getTranslationKey())
+                        .appendString(" ")
+                        .append(new TranslationTextComponent(KEY_LEVEL + level)));
   }
 
   /**
@@ -182,6 +198,16 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
     return getDisplayName(level);
   }
+
+  /**
+   * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
+   * @param tool      Tool instance
+   * @param level     Tool level
+   * @param tooltip   Tooltip
+   * @param flag      Tooltip flag type
+   * @param detailed  If true, showing detailed view, such as in the tinker station
+   */
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {}
 
   /**
    * Gets the description for this modifier
@@ -233,7 +259,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addAttributes(IModifierToolStack, int, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
-   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
+   *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed, Direction, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
    * @param toolDefinition  Tool definition, will be empty for non-multitools
    * @param baseStats       Base material stats. Does not take tool definition or other modifiers into account
@@ -313,7 +339,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param context        Full loot context
    * @return  Loot replacement
    */
-  public List<ItemStack> processLoot(ToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     return generatedLoot;
   }
 
@@ -327,11 +353,14 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <ul>
    *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Limited context, but effect shows in the tooltip.</li>
    * </ul>
-   * @param tool   Current tool instance
-   * @param level  Modifier level
-   * @param event  Event instance
+   * @param tool                 Current tool instance
+   * @param level                Modifier level
+   * @param event                Event instance
+   * @param sideHit              Side of the block that was hit
+   * @param isEffective          If true, the tool is effective against this block type
+   * @param miningSpeedModifier  Calculated modifier from potion effects such as haste and environment such as water, use for additive bonuses to ensure consistency with the mining speed stat
    */
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {}
+  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
 
   /**
    * Adds loot table related enchantments from this modifier's effect, called before breaking a block.
@@ -533,5 +562,44 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     }
     ToolStack tool = ToolStack.from(stack);
     return tool.isBroken() ? null : ToolStack.from(stack);
+  }
+
+  /**
+   * Gets the mining speed modifier for the current conditions, notably potions and armor enchants
+   * @param entity  Entity to check
+   * @return  Mining speed modifier
+   */
+  public static float getMiningModifier(LivingEntity entity) {
+    float modifier = 1.0f;
+    // haste effect
+    if (EffectUtils.hasMiningSpeedup(entity)) {
+      modifier *= 1.0F + (EffectUtils.getMiningSpeedup(entity) + 1) * 0.2f;
+    }
+    // mining fatigue
+    EffectInstance miningFatigue = entity.getActivePotionEffect(Effects.MINING_FATIGUE);
+    if (miningFatigue != null) {
+      switch(miningFatigue.getAmplifier()) {
+        case 0:
+          modifier *= 0.3F;
+          break;
+        case 1:
+          modifier *= 0.09F;
+          break;
+        case 2:
+          modifier *= 0.0027F;
+          break;
+        case 3:
+        default:
+          modifier *= 8.1E-4F;
+      }
+    }
+    // water
+    if (entity.areEyesInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(entity)) {
+      modifier /= 5.0F;
+    }
+    if (!entity.isOnGround()) {
+      modifier /= 5.0F;
+    }
+    return modifier;
   }
 }

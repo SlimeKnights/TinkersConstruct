@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "You feel a little smarter with some experience under your belt."
+    }
+  ],
+  "effects": [
+    "Increases XP gain from blocks and mobs",
+    "Multiple levels, increases experience gained with each level",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

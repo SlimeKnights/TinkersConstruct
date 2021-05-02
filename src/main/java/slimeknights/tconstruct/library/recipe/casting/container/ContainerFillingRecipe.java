@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.casting.container;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.IMultiRecipe;
@@ -43,7 +45,10 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
 
   @Override
   public int getFluidAmount(ICastingInventory inv) {
-    return this.fluidAmount;
+    Fluid fluid = inv.getFluid();
+    return inv.getStack().getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+              .map(handler -> handler.fill(new FluidStack(fluid, this.fluidAmount), FluidAction.SIMULATE))
+              .orElse(0);
   }
 
   @Override
@@ -63,7 +68,12 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
 
   @Override
   public boolean matches(ICastingInventory inv, World worldIn) {
-    return inv.getStack().getItem() == this.container.asItem();
+    ItemStack stack = inv.getStack();
+    Fluid fluid = inv.getFluid();
+    return stack.getItem() == this.container.asItem()
+           && stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+                   .filter(handler -> handler.fill(new FluidStack(fluid, this.fluidAmount), FluidAction.SIMULATE) > 0)
+                   .isPresent();
   }
 
   /** @deprecated use {@link ICastingRecipe#getCraftingResult(IInventory)}
@@ -76,11 +86,11 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
 
   @Override
   public ItemStack getCraftingResult(ICastingInventory inv) {
-    ItemStack output = new ItemStack(container);
-    return FluidUtil.getFluidHandler(output).map(handler -> {
+    ItemStack stack = inv.getStack().copy();
+    return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).map(handler -> {
       handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount), FluidAction.EXECUTE);
       return handler.getContainer();
-    }).orElse(ItemStack.EMPTY);
+    }).orElse(stack);
   }
 
   /* Display */

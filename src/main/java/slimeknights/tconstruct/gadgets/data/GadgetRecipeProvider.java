@@ -163,12 +163,11 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     // piggybackpack
     folder = "gadgets/";
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.piggyBackpack.get())
-                       .key('#', Tags.Items.RODS_WOODEN)
-                       .key('X', Tags.Items.LEATHER)
-                       .patternLine(" X ")
-                       .patternLine("# #")
-                       .patternLine(" X ")
-                       .addCriterion("has_item", hasItem(Tags.Items.RODS_WOODEN))
+                       .key('P', TinkerMaterials.pigIron.getIngotTag())
+                       .key('S', Items.SADDLE)
+                       .patternLine("P")
+                       .patternLine("S")
+                       .addCriterion("has_item", hasItem(Items.SADDLE))
                        .build(consumer, prefix(TinkerGadgets.piggyBackpack, folder));
     /* TODO: moving to natura
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.punji.get(), 3)

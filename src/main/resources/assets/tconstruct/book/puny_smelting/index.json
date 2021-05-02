@@ -7,5 +7,13 @@
         "id": "tconstruct:blue_slime_ball"
       }
     }
+  },
+  {
+    "name": "tier_two_materials",
+    "icon": {
+      "item": {
+        "id": "tconstruct:copper_ingot"
+      }
+    }
   }
 ]

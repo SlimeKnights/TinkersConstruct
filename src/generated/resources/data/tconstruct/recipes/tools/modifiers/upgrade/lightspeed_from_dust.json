@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "tag": "forge:dusts/glowstone"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 64,
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  },
+  "result": {
+    "name": "tconstruct:lightspeed",
+    "level": 1
+  },
+  "max_level": 5,
+  "upgrade_slots": 1
+}

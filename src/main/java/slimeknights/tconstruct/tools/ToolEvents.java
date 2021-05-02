@@ -7,6 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.CarvedPumpkinBlock;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BeehiveTileEntity;
@@ -16,15 +17,23 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
+import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Event subscriber for tool events
@@ -42,8 +51,20 @@ public class ToolEvents {
     }
     ToolStack tool = ToolStack.from(stack);
     if (!tool.isBroken()) {
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event);
+      List<ModifierEntry> modifiers = tool.getModifierList();
+      if (!modifiers.isEmpty()) {
+        // modifiers using additive boosts may want info on the original boosts provided
+        PlayerEntity player = event.getPlayer();
+        float miningSpeedModifier = Modifier.getMiningModifier(player);
+        boolean isEffective = stack.canHarvestBlock(event.getState());
+        Direction direction = BlockSideHitListener.getSideHit(player);
+        for (ModifierEntry entry : tool.getModifierList()) {
+          entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event, direction, isEffective, miningSpeedModifier);
+          // if any modifier cancels mining, stop right here
+          if (event.isCanceled()) {
+            break;
+          }
+        }
       }
     }
   }

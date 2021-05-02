@@ -9,16 +9,21 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.AOEToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
+import slimeknights.tconstruct.library.tools.helper.aoe.VeiningAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.harvest.HarvestTool.MaterialHarvestLogic;
 
 import java.util.Set;
 
 public class MattockTool extends ToolCore {
   private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.BAMBOO, Material.GOURD);
-  public static final AOEToolHarvestLogic HARVEST_LOGIC = new MaterialHarvestLogic(EXTRA_MATERIALS, 1, 1, 1) {
+  public static final VeiningAOEHarvestLogic HARVEST_LOGIC = new VeiningAOEHarvestLogic(0) {
+    @Override
+    public boolean isEffectiveAgainst(ToolStack tool, ItemStack stack, BlockState state) {
+      return EXTRA_MATERIALS.contains(state.getMaterial()) || super.isEffectiveAgainst(tool, stack, state);
+    }
+
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState blockState) {
       if(!stack.hasTag()) {
@@ -46,7 +51,7 @@ public class MattockTool extends ToolCore {
   }
 
   @Override
-  public AOEToolHarvestLogic getToolHarvestLogic() {
+  public ToolHarvestLogic getToolHarvestLogic() {
     return HARVEST_LOGIC;
   }
 

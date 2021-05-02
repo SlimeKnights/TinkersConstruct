@@ -346,6 +346,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addMetalCastingRecipe(consumer, TinkerFluids.moltenGold,      Items.GOLD_BLOCK,       Items.GOLD_INGOT,      Items.GOLD_NUGGET,               metalFolder, "gold");
     this.addMetalCastingRecipe(consumer, TinkerFluids.moltenNetherite, Blocks.NETHERITE_BLOCK, Items.NETHERITE_INGOT, TinkerMaterials.netheriteNugget, metalFolder, "netherite");
     this.addIngotCastingRecipe(consumer, TinkerFluids.moltenDebris, Items.NETHERITE_SCRAP, metalFolder + "netherite/scrap");
+    this.addNuggetCastingRecipe(consumer, TinkerFluids.moltenDebris, TinkerMaterials.debrisNugget, metalFolder + "netherite/debris_nugget");
     // ores
     this.addMetalCastingRecipe(consumer, TinkerFluids.moltenCopper, TinkerMaterials.copper, metalFolder, "copper");
     this.addMetalCastingRecipe(consumer, TinkerFluids.moltenCobalt, TinkerMaterials.cobalt, metalFolder, "cobalt");
@@ -522,6 +523,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, location(metalFolder + "molten_debris/ore"));
     MeltingRecipeBuilder.melting(Ingredient.fromTag(TinkerTags.Items.INGOTS_NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), MaterialValues.INGOT, 1.0f)
                         .build(consumer, location(metalFolder + "molten_debris/scrap"));
+    MeltingRecipeBuilder.melting(Ingredient.fromTag(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP), TinkerFluids.moltenDebris.get(), MaterialValues.NUGGET, 1/3f)
+                        .build(consumer, location(metalFolder + "molten_debris/debris_nugget"));
     
     // tier 3
     addMetalMelting(consumer, TinkerFluids.moltenSlimesteel.get(),    "slimesteel",     false, metalFolder, false);
@@ -644,6 +647,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     addSlimeMeltingRecipe(consumer, TinkerFluids.earthSlime, SlimeType.EARTH, TinkerTags.Items.EARTH_SLIMEBALL, slimeFolder);
     addSlimeMeltingRecipe(consumer, TinkerFluids.skySlime, SlimeType.SKY, TinkerTags.Items.SKY_SLIMEBALL, slimeFolder);
     addSlimeMeltingRecipe(consumer, TinkerFluids.enderSlime, SlimeType.ENDER, TinkerTags.Items.ENDER_SLIMEBALL, slimeFolder);
+    addSlimeMeltingRecipe(consumer, TinkerFluids.blood, SlimeType.BLOOD, TinkerTags.Items.BLOOD_SLIMEBALL, slimeFolder);
     // magma cream
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.MAGMA_CREAM), TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL, 1.0f)
                         .build(consumer, location(slimeFolder + "magma_cream/ball"));

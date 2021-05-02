@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import slimeknights.mantle.inventory.SingleItemHandler;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -42,12 +43,17 @@ public class DuctItemHandler extends SingleItemHandler<DuctTileEntity> {
 
   @Override
   protected boolean isItemValid(ItemStack stack) {
-    if (stack.getItem().isIn(TinkerTags.Items.DUCT_CONTAINERS)) {
-      return true;
+    // the item or its container must be in the tag
+    if (!stack.getItem().isIn(TinkerTags.Items.DUCT_CONTAINERS)) {
+      ItemStack container = stack.getContainerItem();
+      if (container.isEmpty() || !container.getItem().isIn(TinkerTags.Items.DUCT_CONTAINERS)) {
+        return false;
+      }
     }
-    
-    ItemStack container = stack.getContainerItem();
-    return !container.isEmpty() && container.getItem().isIn(TinkerTags.Items.DUCT_CONTAINERS);
+    // the item must contain fluid (no empty cans or buckets)
+    return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+                .filter(cap -> !cap.getFluidInTank(0).isEmpty())
+                .isPresent();
   }
 
   /**

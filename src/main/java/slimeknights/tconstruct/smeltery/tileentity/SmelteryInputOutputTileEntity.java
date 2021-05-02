@@ -16,7 +16,6 @@ import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.library.EmptyItemHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.component.SmelteryIOBlock;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
 import javax.annotation.Nullable;
@@ -61,16 +60,10 @@ public abstract class SmelteryInputOutputTileEntity<T> extends SmelteryComponent
 
     // keep track of master before it changed
     boolean masterChanged = !Objects.equals(getMasterPos(), master);
-    // update the master
-    boolean hadMaster = getMasterPos() != null;
     super.setMaster(master, block);
-    // update the active state
-    boolean hasMaster = getMasterPos() != null;
-    if (hadMaster != hasMaster) {
-      world.setBlockState(pos, getBlockState().with(SmelteryIOBlock.ACTIVE, hasMaster));
-    }
+
     // if we have a new master, invalidate handlers
-    if (masterChanged) {
+    if (world != null && masterChanged) {
       clearHandler();
       world.notifyNeighborsOfStateChange(pos, getBlockState().getBlock());
     }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
+import net.minecraft.util.Direction;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -15,7 +16,10 @@ public class DwarvenModifier extends Modifier {
   }
 
   @Override
-  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event) {
+  public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+    if (!isEffective) {
+      return;
+    }
     // essentially just the line slope formula from (0, level + 1) to (SEA_LEVEL, 1), with a scal
     float factor = Math.max(1f, (SEA_LEVEL - event.getPos().getY()) * level * (BOOST_AT_0 / SEA_LEVEL) + 1);
     if (factor > 1f) {

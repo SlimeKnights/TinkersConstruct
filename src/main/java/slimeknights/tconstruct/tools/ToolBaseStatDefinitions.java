@@ -13,6 +13,11 @@ public final class ToolBaseStatDefinitions {
     .setAttackSpeed(0.5f).setMiningSpeedModifier(0.4f)
     .setDurabilityModifier(4f).setPrimaryHeadWeight(2)
     .setDefaultUpgrades(2).build();
+  static final ToolBaseStatDefinition VEIN_HAMMER = new ToolBaseStatDefinition.Builder()
+    .setDamageBonus(2f).setDamageModifier(1.25f)
+    .setAttackSpeed(1.0f).setMiningSpeedModifier(0.3f)
+    .setDurabilityModifier(5.0f).setPrimaryHeadWeight(2)
+    .setDefaultUpgrades(2).build();
 
   // shovels
   static final ToolBaseStatDefinition MATTOCK = new ToolBaseStatDefinition.Builder().setDamageBonus(1.5f).setAttackSpeed(1f).build();
@@ -24,7 +29,12 @@ public final class ToolBaseStatDefinitions {
     .setDefaultUpgrades(2).build();
 
   // axes
-  static final ToolBaseStatDefinition AXE = new ToolBaseStatDefinition.Builder().setDamageBonus(6.0f).setAttackSpeed(0.9f).build();
+  static final ToolBaseStatDefinition HAND_AXE = new ToolBaseStatDefinition.Builder().setDamageBonus(6.0f).setAttackSpeed(0.9f).build();
+  static final ToolBaseStatDefinition BROAD_AXE = new ToolBaseStatDefinition.Builder()
+    .setDamageBonus(2f).setDamageModifier(2f)
+    .setAttackSpeed(0.6f).setMiningSpeedModifier(0.3f)
+    .setDurabilityModifier(4.25f).setPrimaryHeadWeight(2)
+    .setDefaultUpgrades(2).build();
 
   // scythes
   static final ToolBaseStatDefinition KAMA = new ToolBaseStatDefinition.Builder().setDamageBonus(1f).setAttackSpeed(1.3f).build();

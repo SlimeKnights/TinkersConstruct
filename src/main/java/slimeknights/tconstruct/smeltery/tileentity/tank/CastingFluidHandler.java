@@ -129,7 +129,14 @@ public class CastingFluidHandler implements IFluidHandler {
     FluidStack stack = new FluidStack(fluid, drained);
     if (action.execute()) {
       fluid.shrink(drained);
-      onContentsChanged();
+      if (fluid.isEmpty()) {
+        // since empty, assume the current recipe is invalid now
+        // fixes some odd behavior with capacity and recipes going out of sync
+        tile.reset();
+      } else {
+        // called in reset
+        onContentsChanged();
+      }
     }
     return stack;
   }

@@ -2,27 +2,35 @@ package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.CampfireBlock;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.network.play.server.SChangeBlockPacket;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.Constants.WorldEvents;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * External logic for the ToolCore that handles mining calculations and breaking blocks.
@@ -81,6 +89,21 @@ public class ToolHarvestLogic {
   }
 
   /**
+   * Checks if this tool can AOE
+   * @param tool       Tool to check
+   * @param stack      Stack to check
+   * @param state      State to check
+   * @param matchType  AOE match type
+   * @return  True if AOE is valid
+   */
+  public final boolean canAOE(ToolStack tool, ItemStack stack, BlockState state, AOEMatchType matchType) {
+    if (matchType == AOEMatchType.BREAKING) {
+      return isEffective(tool, stack, state);
+    }
+    return !tool.isBroken();
+  }
+
+  /**
    * Calculates the dig speed for the given blockstate
    *
    * @param stack the tool stack
@@ -114,25 +137,12 @@ public class ToolHarvestLogic {
    * @param world       the current world
    * @param player      the player using the tool
    * @param origin      the origin block spot to start from
-   * @param blockTrace  Ray trace result, if null may require retracing
-   * @return A list of BlockPos's that the AOE tool can affect.
+   * @param sideHit     side of the block that was hit
+   * @param matchType   Type of match
+   * @return A list of BlockPos's that the AOE tool can affect. Note these positions will likely be mutable
    */
-  public List<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin, @Nullable BlockRayTraceResult blockTrace) {
+  public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     return Collections.emptyList();
-  }
-
-  /**
-   * Gets a list of blocks that the tool can affect.
-   *
-   * @param tool  tool stack
-   * @param stack item stack for vanilla methods
-   * @param world the current world
-   * @param player the player using the tool
-   * @param origin the origin block spot to start from
-   * @return A list of BlockPos's that the AOE tool can affect.
-   */
-  public final List<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
-    return getAOEBlocks(tool, stack, world, player, origin, null);
   }
 
   /**
@@ -143,7 +153,7 @@ public class ToolHarvestLogic {
    * @param canHarvest  If true, the player can harvest
    * @return  True if the block was removed
    */
-  private static boolean removeBlock(PlayerEntity player, World world, BlockPos pos, boolean canHarvest) {
+  protected boolean removeBlock(PlayerEntity player, World world, BlockPos pos, boolean canHarvest) {
     BlockState state = world.getBlockState(pos);
     boolean removed = state.removedByPlayer(world, pos, player, canHarvest, world.getFluidState(pos));
     if (removed) {
@@ -215,25 +225,21 @@ public class ToolHarvestLogic {
    * @param stack       Stack instance for vanilla functions
    * @param player      Player instance
    * @param world       World instance
-   * @param pos         Position to break
-   * @param refStrength Strength required to break the center block, should be comparable
+   * @param pos         Position to break, may be mutable
    */
-  public void breakExtraBlock(ToolStack tool, ItemStack stack, ServerPlayerEntity player, ServerWorld world, BlockPos pos, float refStrength) {
+  public void breakExtraBlock(ToolStack tool, ItemStack stack, ServerPlayerEntity player, ServerWorld world, BlockPos pos) {
     if (tool.isBroken()) {
       return;
     }
     // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
-    if (world.isAirBlock(pos)) {
-      return;
-    }
-
-    // if the block is a lot slower, skip harvesting
+    // this should never actually happen, but just in case some AOE is odd
     BlockState state = world.getBlockState(pos);
-    if (refStrength / state.getPlayerRelativeBlockHardness(player, world, pos) > 3) {
+    if (state.isAir(world, pos)) {
       return;
     }
 
     // break the actual block
+    pos = pos.toImmutable(); // prevent mutable position leak, breakBlock has a few places wanting immutable
     if (breakBlock(tool, stack, player, world, pos, state)) {
       world.playEvent(WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getStateId(state));
       TinkerNetwork.getInstance().sendVanillaPacket(player, new SChangeBlockPacket(world, pos));
@@ -269,13 +275,13 @@ public class ToolHarvestLogic {
       // add enchants
       boolean addedEnchants = ModifierUtil.applyEnchantments(tool, stack, player);
 
-      // need to calculate these before we break the block
-      float refStrength = state.getPlayerRelativeBlockHardness(player, world, pos);
-      List<BlockPos> extraBlocks = getAOEBlocks(tool, stack, world, player, pos);
+      // need to calculate the iterator before we break the block, as we need the reference hardness from the center
+      Iterable<BlockPos> extraBlocks = getAOEBlocks(tool, stack, player, state, world, pos, BlockSideHitListener.getSideHit(player), AOEMatchType.BREAKING);
+
       // actually break the block, run AOE if successful
       if (breakBlock(tool, stack, serverPlayer, world, pos, state)) {
         for (BlockPos extraPos : extraBlocks) {
-          breakExtraBlock(tool, stack, serverPlayer, world, extraPos, refStrength);
+          breakExtraBlock(tool, stack, serverPlayer, world, extraPos);
         }
       }
 
@@ -286,5 +292,184 @@ public class ToolHarvestLogic {
     }
 
     return true;
+  }
+
+  /**
+   * Tills blocks within an AOE area
+   * @param context   Harvest context
+   * @param toolType  Tool type used
+   * @param sound     Sound to play on tilling
+   * @return  Action result from tilling
+   */
+  public ActionResultType transformBlocks(ItemUseContext context, ToolType toolType, SoundEvent sound, boolean requireGround) {
+    PlayerEntity player = context.getPlayer();
+    if (player != null && player.isSneaking()) {
+      return ActionResultType.PASS;
+    }
+
+    // tool must not be broken
+    Hand hand = context.getHand();
+    ItemStack stack = context.getItem();
+    ToolStack tool = ToolStack.from(stack);
+    if (tool.isBroken()) {
+      return ActionResultType.FAIL;
+    }
+
+    // for hoes and shovels, must have nothing but plants above
+    World world = context.getWorld();
+    BlockPos pos = context.getPos();
+    if (requireGround) {
+      if (context.getFace() == Direction.DOWN) {
+        return ActionResultType.PASS;
+      }
+      Material material = world.getBlockState(pos.up()).getMaterial();
+      if (!material.isReplaceable() && material != Material.PLANTS) {
+        return ActionResultType.PASS;
+      }
+    }
+
+    // must actually transform
+    BlockState original = world.getBlockState(pos);
+    BlockState transformed = original.getToolModifiedState(world, pos, player, stack, toolType);
+    boolean isCampfire = false;
+    boolean didTransform = transformed != null;
+    if (transformed == null) {
+      // shovel special case: campfires
+      if (toolType == ToolType.SHOVEL && original.getBlock() instanceof CampfireBlock && original.get(CampfireBlock.LIT)) {
+        isCampfire = true;
+        if (!world.isRemote()) {
+          world.playEvent(null, WorldEvents.FIRE_EXTINGUISH_SOUND, pos, 0);
+          CampfireBlock.extinguish(world, pos, original);
+        }
+        transformed = original.with(CampfireBlock.LIT, false);
+      } else {
+        // try to match the clicked block
+        transformed = world.getBlockState(pos);
+      }
+    }
+
+    // if we made a successful transform, client can stop early
+    EquipmentSlotType slot = hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND;
+    if (didTransform || isCampfire) {
+      if (world.isRemote()) {
+        return ActionResultType.SUCCESS;
+      }
+
+      // change the block state
+      world.setBlockState(pos, transformed, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+      if (requireGround) {
+        world.destroyBlock(pos.up(), true);
+      }
+
+      // play sound
+      if (!isCampfire) {
+        world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+      }
+
+      // if the tool breaks, we are done
+      if (player == null || !player.isCreative()) {
+        if (ToolDamageUtil.damage(tool, 1, player, stack)) {
+          return ActionResultType.SUCCESS;
+        }
+      }
+      // if it was a campfire, we are done
+      if (isCampfire) {
+        return ActionResultType.SUCCESS;
+      }
+    }
+
+    // AOE transforming, run even if we did not transform the center
+    // note we consider anything effective, as hoes are not effective on all tillable blocks
+    int totalTransformed = 0;
+    if (player != null) {
+      for (BlockPos newPos : getAOEBlocks(tool, stack, player, original, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
+        if (pos.equals(newPos)) {
+          //in case it attempts to run the same position twice
+          continue;
+        }
+
+        // hoes and shovels: air or plants above
+        BlockPos above = newPos.up();
+        if (requireGround) {
+          Material material = world.getBlockState(above).getMaterial();
+          if (!material.isReplaceable() && material != Material.PLANTS) {
+            continue;
+          }
+        }
+
+        // block type must be the same
+        BlockState newState = world.getBlockState(newPos).getToolModifiedState(world, newPos, player, stack, toolType);
+        if (newState != null && transformed.getBlock() == newState.getBlock()) {
+          if (world.isRemote()) {
+            return ActionResultType.SUCCESS;
+          }
+          totalTransformed++;
+          world.setBlockState(newPos, newState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+          // limit to playing 40 sounds, thats more than enough for most transforms
+          if (totalTransformed < 40) {
+            world.playSound(null, newPos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+          }
+
+          // if required, break the block above (typically plants)
+          if (requireGround) {
+            world.destroyBlock(above, true);
+          }
+
+          // stop if the tool broke
+          if (!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) {
+            break;
+          }
+        }
+      }
+      if (totalTransformed > 0) {
+        player.spawnSweepParticles();
+      }
+    }
+
+    // if anything happened, return success
+    return didTransform || totalTransformed > 0 ? ActionResultType.SUCCESS : ActionResultType.PASS;
+  }
+
+  /**
+   * Gets the predicate for whether a given position can be broken in AOE
+   * @param self       Tool harvest logic
+   * @param tool       Tool used
+   * @param stack      Item stack, for vanilla hooks
+   * @param world      World instance
+   * @param origin     Center position
+   * @param matchType  Match logic
+   * @return  Predicate for AOE block matching
+   */
+  public static Predicate<BlockPos> getDefaultBlockPredicate(ToolHarvestLogic self, ToolStack tool, ItemStack stack, World world, BlockPos origin, AOEMatchType matchType) {
+    // requires effectiveness
+    if (matchType == AOEMatchType.BREAKING) {
+      // don't let hardness vary too much
+      float refHardness = world.getBlockState(origin).getBlockHardness(world, origin);
+      return pos -> {
+        BlockState state = world.getBlockState(pos);
+        if (state.isAir(world, pos)) {
+          return false;
+        }
+        // if the hardness varies by too much, don't allow breaking
+        float hardness = state.getBlockHardness(world, pos);
+        if (hardness == -1) {
+          return false;
+        }
+        if (refHardness == 0 ? hardness == 0 : hardness / refHardness <= 3) {
+          return self.isEffective(tool, stack, state);
+        }
+        return false;
+      };
+    } else {
+      return pos -> !world.getBlockState(pos).isAir(world, pos);
+    }
+  }
+
+  public enum AOEMatchType {
+    /** Used when the block is being broken, typically matches only harvestable blocks
+     * When using this type, the iteratable should be fetched before breaking the block */
+    BREAKING,
+    /** Used for right click interactions such as hoeing, typically matches any block (will filter later) */
+    TRANSFORM
   }
 }

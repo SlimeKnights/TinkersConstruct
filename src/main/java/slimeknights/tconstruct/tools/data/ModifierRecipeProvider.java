@@ -68,23 +68,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // silky cloth
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyCloth)
                        .key('s', Tags.Items.STRING)
-                       .key('g', Tags.Items.INGOTS_GOLD)
+                       .key('g', TinkerMaterials.roseGold.getIngotTag())
                        .patternLine("sss")
                        .patternLine("sgs")
                        .patternLine("sss")
                        .addCriterion("has_item", hasItem(Tags.Items.INGOTS_GOLD))
                        .build(consumer, prefix(TinkerModifiers.silkyCloth, folder));
-    // silky jewel
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyJewel)
-                       .key('c', TinkerModifiers.silkyCloth)
-                       .key('E', Items.EMERALD)
-                       .patternLine(" c ")
-                       .patternLine("cEc")
-                       .patternLine(" c ")
-                       .addCriterion("has_item", hasItem(TinkerModifiers.silkyCloth))
-                       .setGroup(TinkerModifiers.silkyJewel.getRegistryName().toString())
-                       .build(consumer, prefix(TinkerModifiers.silkyJewel, folder));
-    registerPackingRecipe(consumer, "block", TinkerModifiers.silkyJewelBlock, "gem", TinkerModifiers.silkyJewel, folder);
 
     // slime crystals
     TinkerModifiers.slimeCrystal.forEach((type, crystal) -> {
@@ -165,6 +154,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.magnetic, upgradeFolder));
+
+    /*
+     * Speed
+     */
     // haste can use redstone or blocks
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
@@ -179,6 +172,45 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(5)
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.haste, upgradeFolder, "_from_block"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.blasting.get())
+                                    .setTools(TinkerTags.Items.STONE_HARVEST)
+                                    .setInput(Tags.Items.GUNPOWDER, 1, 20)
+                                    .setMaxLevel(5) // +50 mining speed at max, conditionally
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.blasting, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic.get())
+                                    .setTools(TinkerTags.Items.HARVEST)
+                                    .setInput(Tags.Items.DUSTS_PRISMARINE, 1, 36) // stupid forge name
+                                    .setMaxLevel(5)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.hydraulic, upgradeFolder, "_from_shard"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic.get())
+                                    .setTools(TinkerTags.Items.HARVEST)
+                                    .setInput(Blocks.PRISMARINE, 4, 36)
+                                    .setLeftover(new ItemStack(Items.PRISMARINE_SHARD))
+                                    .setMaxLevel(5)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.hydraulic, upgradeFolder, "_from_block"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic.get())
+                                    .setTools(TinkerTags.Items.HARVEST)
+                                    .setInput(Blocks.PRISMARINE_BRICKS, 9, 36)
+                                    .setLeftover(new ItemStack(Items.PRISMARINE_SHARD))
+                                    .setMaxLevel(5)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.hydraulic, upgradeFolder, "_from_bricks"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed.get())
+                                    .setTools(TinkerTags.Items.HARVEST)
+                                    .setInput(Tags.Items.DUSTS_GLOWSTONE, 1, 64)
+                                    .setMaxLevel(5) // +45 mining speed at max, conditionally
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.lightspeed, upgradeFolder, "_from_dust"));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed.get())
+                                    .setTools(TinkerTags.Items.HARVEST)
+                                    .setInput(Blocks.GLOWSTONE, 4, 64)
+                                    .setLeftover(new ItemStack(Items.GLOWSTONE_DUST))
+                                    .setMaxLevel(5)
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, wrapR(TinkerModifiers.lightspeed, upgradeFolder, "_from_block"));
 
     /*
      * weapon
@@ -279,7 +311,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setAbilitySlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.luck, upgradeFolder, "_from_block"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())
-                         .addInput(TinkerModifiers.silkyJewel)
+                         .addInput(TinkerModifiers.silkyCloth)
+                         .addInput(TinkerModifiers.silkyCloth)
+                         .addInput(TinkerModifiers.silkyCloth)
+                         .addInput(TinkerModifiers.silkyCloth)
+                         .addInput(TinkerModifiers.silkyCloth)
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
                          .setTools(TinkerTags.Items.HARVEST)

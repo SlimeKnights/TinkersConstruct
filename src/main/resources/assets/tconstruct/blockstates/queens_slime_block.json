@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/queens_slime_block"
+            "model": "tconstruct:block/storage/queens_slime"
         }
     }
 }

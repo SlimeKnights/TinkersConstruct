@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/repair_kit"
+  },
+  "cast_consumed": true,
+  "item_cost": 2,
+  "result": "tconstruct:repair_kit"
+}

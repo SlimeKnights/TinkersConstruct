@@ -126,10 +126,15 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     }
 
     MaterialId id = new MaterialId(loc);
-    ResourceLocation texture = json.getTexture();
-    if (texture == null) {
-      texture = id;
+    // texture fallback to ID if not told to skip
+    ResourceLocation texture = null;
+    if (!json.isSkipUniqueTexture()) {
+      texture = json.getTexture();
+      if (texture == null) {
+        texture = id;
+      }
     }
+    // list of fallback textures
     String[] fallback = json.getFallbacks();
     if (fallback == null) {
       fallback = new String[0];

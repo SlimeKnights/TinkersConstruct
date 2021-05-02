@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:part_builder",
+  "pattern": "tconstruct:tough_handle",
+  "cost": 3,
+  "result": {
+    "item": "tconstruct:tough_handle"
+  }
+}

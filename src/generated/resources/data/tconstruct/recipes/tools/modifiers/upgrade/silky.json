@@ -2,7 +2,19 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:silky_jewel"
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "item": "tconstruct:silky_cloth"
     }
   ],
   "tools": {

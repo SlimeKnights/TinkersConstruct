@@ -22,7 +22,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
@@ -33,7 +32,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
@@ -327,11 +325,8 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     currentRecipe = null;
     recipeName = null;
     lastOutput = null;
-    tank.reset();
     castingInventory.setFluid(Fluids.EMPTY);
-    if (world != null && !world.isRemote && world instanceof ServerWorld) {
-      TinkerNetwork.getInstance().sendToClientsAround(new FluidUpdatePacket(getPos(), FluidStack.EMPTY), (ServerWorld) world, getPos());
-    }
+    tank.reset();
   }
 
   @Override

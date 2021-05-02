@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sharpness",
+  "text": [
+    {
+      "text": "The sharper the blade, the sharper the wielder."
+    }
+  ],
+  "effects": [
+    "Increases damage of the tool",
+    "Multiple levels, each level further increases damage",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

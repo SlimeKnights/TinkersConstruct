@@ -8,7 +8,7 @@ import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipeCache;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class BeheadingModifier extends Modifier {
   }
 
   @Override
-  public List<ItemStack> processLoot(ToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if no damage source, probably not a mob
     // otherwise blocks breaking (where THIS_ENTITY is the player) start dropping player heads
     if (!context.has(LootParameters.DAMAGE_SOURCE)) {
