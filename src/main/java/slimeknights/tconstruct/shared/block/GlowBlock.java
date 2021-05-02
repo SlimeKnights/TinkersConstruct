@@ -2,11 +2,11 @@ package slimeknights.tconstruct.shared.block;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootTables;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
@@ -60,12 +60,6 @@ public class GlowBlock extends Block {
   @Deprecated
   public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return VoxelShapes.empty();
-  }
-
-  @Deprecated
-  @Override
-  public BlockRenderType getRenderType(BlockState state) {
-    return BlockRenderType.INVISIBLE;
   }
 
   @Deprecated
