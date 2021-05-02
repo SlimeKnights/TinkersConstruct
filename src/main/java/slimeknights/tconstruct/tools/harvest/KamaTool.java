@@ -67,8 +67,8 @@ public class KamaTool extends HarvestTool {
       BlockState state = world.getBlockState(pos);
       if (state.getBlock() instanceof TripWireBlock) {
         world.setBlockState(pos, state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
-  }
+      }
       return super.removeBlock(player, world, pos, canHarvest);
-}
+    }
   }
 }
