@@ -233,6 +233,10 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.RED_SAND_CASTS);
 
     this.getOrCreateBuilder(TinkerTags.Items.DUCT_CONTAINERS).add(Items.BUCKET, TinkerSmeltery.copperCan.get());
+
+    // tank tag
+    Builder<Item> tankBuilder = this.getOrCreateBuilder(TinkerTags.Items.TANKS);
+    TinkerSmeltery.searedTank.forEach(tank -> tankBuilder.add(tank.asItem()));
   }
 
   @Override
