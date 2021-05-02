@@ -1,7 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.ability;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -18,12 +23,17 @@ public class GlowingModifier extends SingleUseModifier {
   
   @Override
   public ActionResultType onItemUse(IModifierToolStack tool, int level, ItemUseContext context) {
-    if (tool.getCurrentDurability() >= 5 && context.getPlayer().isSneaking()) {
+    PlayerEntity player = context.getPlayer();
+    if (tool.getCurrentDurability() >= 5 && (player == null || player.isSneaking())) {
       if (!context.getWorld().isRemote) {
-        if (TinkerCommons.glow.get().addGlow(context.getWorld(), context.getPos(), context.getFace().getOpposite())) {
+        World world = context.getWorld();
+        Direction face = context.getFace();
+        BlockPos pos = context.getPos().offset(face);
+        if (TinkerCommons.glow.get().addGlow(world, pos, face.getOpposite())) {
           tool.setDamage(tool.getDamage() + 5);
-          }
+          world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
         }
+      }
       return ActionResultType.func_233537_a_(context.getWorld().isRemote);
     }
     return ActionResultType.PASS;
