@@ -433,13 +433,10 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
    * @return  True if we can melt entities
    */
   private boolean canMeltEntities() {
-    if (tank.getContained() > 0) {
-      if (fuelModule.hasFuel()) {
-        return true;
-      }
-      return fuelModule.findFuel(false) > 0;
+    if (fuelModule.hasFuel()) {
+      return true;
     }
-    return false;
+    return fuelModule.findFuel(false) > 0;
   }
 
   /**
