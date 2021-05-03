@@ -109,6 +109,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ItemObject<Item> ancientShovelHead = ITEMS.register("ancient_shovel_head", GENERAL_PROPS);
   public static final ItemObject<Item> ancientAxeHead = ITEMS.register("ancient_axe_head", GENERAL_PROPS);
   public static final ItemObject<Item> ancientHoeHead = ITEMS.register("ancient_hoe_head", GENERAL_PROPS);
+  // creative
   public static final ItemObject<Item> creativeUpgradeItem = ITEMS.register("creative_upgrade", TOOLTIP_ITEM);
   public static final ItemObject<Item> creativeAbilityItem = ITEMS.register("creative_ability", TOOLTIP_ITEM);
   public static final EnumObject<SlimeType, Item> slimeCrystal = ITEMS.registerEnum(SlimeType.TRUE_SLIME, "slime_crystal", (type) -> new Item(GENERAL_PROPS));
@@ -160,9 +161,9 @@ public final class TinkerModifiers extends TinkerModule {
   
   // right click abilities
   public static final RegistryObject<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);
-  public static final RegistryObject<BlockTransformModifier> shovelTransform = MODIFIERS.register("shovel_transform", () -> new BlockTransformModifier(0x8a361e, 60, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true));
-  public static final RegistryObject<BlockTransformModifier> axeTransform = MODIFIERS.register("axe_transform", () -> new BlockTransformModifier(0xab7a55, 60, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false));
-  public static final RegistryObject<BlockTransformModifier> hoeTransform = MODIFIERS.register("hoe_transform", () -> new BlockTransformModifier(0x633c1e, 60, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true));
+  public static final RegistryObject<BlockTransformModifier> pathing = MODIFIERS.register("pathing", () -> new BlockTransformModifier(0x8a361e, 60, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true));
+  public static final RegistryObject<BlockTransformModifier> stripping = MODIFIERS.register("stripping", () -> new BlockTransformModifier(0xab7a55, 60, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false));
+  public static final RegistryObject<BlockTransformModifier> tilling = MODIFIERS.register("tilling", () -> new BlockTransformModifier(0x633c1e, 60, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true));
   
   // internal abilities
   public static final RegistryObject<BlockTransformModifier> shovelTransformHidden = MODIFIERS.register("shovel_transform_hidden", () -> new BlockTransformModifier(0x8a361e, Integer.MIN_VALUE + 50, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true));

@@ -34,6 +34,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -173,5 +174,17 @@ public class TConstruct {
   @SubscribeEvent
   void missingBlocks(final MissingMappings<Block> event) {
     RegistrationHelper.handleMissingMappings(event, modID, TConstruct::missingBlock);
+  }
+
+  @SubscribeEvent
+  void missingModifiers(final MissingMappings<Modifier> event) {
+    RegistrationHelper.handleMissingMappings(event, modID, name -> {
+      switch(name) {
+        case "axe_transform": return TinkerModifiers.stripping.get();
+        case "shovel_transform": return TinkerModifiers.pathing.get();
+        case "hoe_transform": return TinkerModifiers.tilling.get();
+      }
+      return null;
+    });
   }
 }

@@ -408,24 +408,24 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.reach, upgradeFolder));
     // block transformers
-    ModifierRecipeBuilder.modifier(TinkerModifiers.shovelTransform.get())
+    ModifierRecipeBuilder.modifier(TinkerModifiers.pathing.get())
                          .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.mattock, TinkerTools.excavator)))
                          .addInput(TinkerModifiers.ancientShovelHead.get())
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
-                         .build(consumer, prefixR(TinkerModifiers.shovelTransform, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.axeTransform.get())
+                         .build(consumer, prefixR(TinkerModifiers.pathing, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.stripping.get())
                          .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.handAxe, TinkerTools.broadAxe)))
                          .addInput(TinkerModifiers.ancientAxeHead.get())
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
-                         .build(consumer, prefixR(TinkerModifiers.axeTransform, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.hoeTransform.get())
+                         .build(consumer, prefixR(TinkerModifiers.stripping, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.tilling.get())
                          .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.kama, TinkerTools.scythe)))
                          .addInput(TinkerModifiers.ancientHoeHead.get())
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
-                         .build(consumer, prefixR(TinkerModifiers.hoeTransform, upgradeFolder));
+                         .build(consumer, prefixR(TinkerModifiers.tilling, upgradeFolder));
     // glowing
     ModifierRecipeBuilder.modifier(TinkerModifiers.glowing.get())
                          .addInput(Items.GLOWSTONE)

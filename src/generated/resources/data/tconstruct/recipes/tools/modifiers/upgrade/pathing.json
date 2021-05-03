@@ -2,7 +2,7 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:ancient_hoe_head"
+      "item": "tconstruct:ancient_shovel_head"
     }
   ],
   "tools": {
@@ -12,15 +12,15 @@
     },
     "without": [
       {
-        "item": "tconstruct:kama"
+        "item": "tconstruct:mattock"
       },
       {
-        "item": "tconstruct:scythe"
+        "item": "tconstruct:excavator"
       }
     ]
   },
   "result": {
-    "name": "tconstruct:hoe_transform",
+    "name": "tconstruct:pathing",
     "level": 1
   },
   "max_level": 1,
