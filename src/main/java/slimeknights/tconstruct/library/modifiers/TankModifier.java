@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -28,16 +27,16 @@ public class TankModifier extends Modifier {
   private static final String CAPACITY_KEY = Util.makeTranslationKey("modifier", "tank.capacity");
 
   /** Volatile NBT string indicating which modifier is in charge of logic for the one tank */
-  public static final ResourceLocation OWNER = Util.getResource("tank_owner");
+  private static final ResourceLocation OWNER = Util.getResource("tank_owner");
   /** Volatile NBT integer indicating the tank's max capacity */
-  public static final ResourceLocation CAPACITY = Util.getResource("tank_capacity");
+  private static final ResourceLocation CAPACITY = Util.getResource("tank_capacity");
   /** Persistent NBT compound containing the fluid in the tank */
-  public static final ResourceLocation FLUID = Util.getResource("tank_fluid");
+  private static final ResourceLocation FLUID = Util.getResource("tank_fluid");
 
   /** Helper function to parse a fluid from NBT */
   public static final BiFunction<CompoundNBT, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.loadFluidStackFromNBT(nbt.getCompound(key));
 
-  private final ModifierTank tank = new ModifierTank(this);
+  private final ModifierTank tank = new ModifierTank();
   private final int capacity;
   public TankModifier(int color, int capacity) {
     super(color);
@@ -56,10 +55,12 @@ public class TankModifier extends Modifier {
 
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    volatileData.putBoolean(ToolFluidCapability.HAS_CAPABILITY, true);
-    if (!volatileData.contains(OWNER, NBT.TAG_STRING)) {
-      volatileData.putString(OWNER, getId().toString());
+    // set owner first
+    ResourceLocation ownerKey = getOwnerKey();
+    if (ownerKey != null && !volatileData.contains(ownerKey, NBT.TAG_STRING)) {
+      volatileData.putString(ownerKey, getId().toString());
     }
+    ToolFluidCapability.addTanks(volatileData, tank);
     if (capacity > 0) {
       addCapacity(volatileData, capacity * level);
     }
@@ -67,7 +68,7 @@ public class TankModifier extends Modifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
-    if (isOwner(tool, this)) {
+    if (isOwner(tool)) {
       FluidStack current = getFluid(tool);
       if (!current.isEmpty()) {
         tooltip.add(new TranslationTextComponent(FILLED_KEY, current.getAmount(), current.getDisplayName()));
@@ -77,25 +78,53 @@ public class TankModifier extends Modifier {
   }
 
 
+  /* Resource location keys */
+
+  /** Overridable method to change the owner key */
+  @Nullable
+  public ResourceLocation getOwnerKey() {
+    return OWNER;
+  }
+
+  /** Overridable method to change the capacity key */
+  public ResourceLocation getCapacityKey() {
+    return CAPACITY;
+  }
+
+  /** Overridable method to change the fluid key */
+  public ResourceLocation getFluidKey() {
+    return FLUID;
+  }
+
+
   /* Helpers */
 
   /** Checks if the given modifier is the owner of the tank */
-  public static boolean isOwner(IModifierToolStack tool, Modifier modifier) {
-    return modifier.getId().toString().equals(tool.getVolatileData().getString(OWNER));
+  public boolean isOwner(IModDataReadOnly volatileData) {
+    ResourceLocation key = getOwnerKey();
+    if (key == null) {
+      return true;
+    }
+    return getId().toString().equals(volatileData.getString(key));
+  }
+
+  /** Checks if the given modifier is the owner of the tank */
+  public boolean isOwner(IModifierToolStack tool) {
+    return isOwner(tool.getVolatileData());
   }
 
   /** Gets the capacity of the tank */
-  public static int getCapacity(IModDataReadOnly volatileData) {
+  public int getCapacity(IModDataReadOnly volatileData) {
     return volatileData.getInt(CAPACITY);
   }
 
   /** Gets the capacity of the tank */
-  public static int getCapacity(IModifierToolStack tool) {
+  public int getCapacity(IModifierToolStack tool) {
     return tool.getVolatileData().getInt(CAPACITY);
   }
 
   /** Adds the given capacity into volatile NBT */
-  public static void addCapacity(ModDataNBT volatileNBT, int amount) {
+  public void addCapacity(ModDataNBT volatileNBT, int amount) {
     if (volatileNBT.contains(CAPACITY, NBT.TAG_ANY_NUMERIC)) {
       amount += volatileNBT.getInt(CAPACITY);
     }
@@ -103,12 +132,12 @@ public class TankModifier extends Modifier {
   }
 
   /** Gets the fluid in the tank */
-  public static FluidStack getFluid(IModifierToolStack tool) {
+  public FluidStack getFluid(IModifierToolStack tool) {
     return tool.getPersistentData().get(FLUID, PARSE_FLUID);
   }
 
   /** Sets the fluid in the tank */
-  public static FluidStack setFluid(IModifierToolStack tool, FluidStack fluid) {
+  public FluidStack setFluid(IModifierToolStack tool, FluidStack fluid) {
     int capacity = getCapacity(tool);
     if (fluid.getAmount() > capacity) {
       fluid.setAmount(capacity);
@@ -125,7 +154,7 @@ public class TankModifier extends Modifier {
    * @param amount     Amount to insert, overrides resource amount
    * @return  Fluid after filling
    */
-  public static FluidStack fill(IModifierToolStack tool, FluidStack current, FluidStack resource, int amount) {
+  public FluidStack fill(IModifierToolStack tool, FluidStack current, FluidStack resource, int amount) {
     int capacity = getCapacity(tool);
     if (current.isEmpty()) {
       // cap fluid at capacity, store in tool
@@ -140,28 +169,25 @@ public class TankModifier extends Modifier {
   }
 
   /** Shared tank implementation of the fluid modifier */
-  @RequiredArgsConstructor
-  public static class ModifierTank implements IFluidModifier {
-    private final Modifier modifier;
-
+  public class ModifierTank implements IFluidModifier {
     @Override
-    public int getTanks(IModifierToolStack tool, int level) {
-      return isOwner(tool, modifier) ? 1 : 0;
+    public int getTanks(IModDataReadOnly volatileData) {
+      return isOwner(volatileData) ? 1 : 0;
     }
 
     @Override
     public FluidStack getFluidInTank(IModifierToolStack tool, int level, int tank) {
-      return isOwner(tool, modifier) ? getFluid(tool) : FluidStack.EMPTY;
+      return isOwner(tool) ? getFluid(tool) : FluidStack.EMPTY;
     }
 
     @Override
     public int getTankCapacity(IModifierToolStack tool, int level, int tank) {
-      return isOwner(tool, modifier) ? getCapacity(tool) : 0;
+      return isOwner(tool) ? getCapacity(tool) : 0;
     }
 
     @Override
     public int fill(IModifierToolStack tool, int level, FluidStack resource, FluidAction action) {
-      if (!resource.isEmpty() && isOwner(tool, modifier)) {
+      if (!resource.isEmpty() && isOwner(tool)) {
         // must not be too full
         FluidStack current = getFluid(tool);
         int remaining = getCapacity(tool) - current.getAmount();
@@ -175,7 +201,7 @@ public class TankModifier extends Modifier {
         // actual filling logic
         int filled = Math.min(remaining, resource.getAmount());
         if (filled > 0 && action.execute()) {
-          TankModifier.fill(tool, current, resource, filled);
+          TankModifier.this.fill(tool, current, resource, filled);
         }
         return filled;
       }
@@ -184,7 +210,7 @@ public class TankModifier extends Modifier {
 
     @Override
     public FluidStack drain(IModifierToolStack tool, int level, FluidStack resource, FluidAction action) {
-      if (!resource.isEmpty() && isOwner(tool, modifier)) {
+      if (!resource.isEmpty() && isOwner(tool)) {
         // fluid type mismatches
         FluidStack current = getFluid(tool);
         if (current.isEmpty() || !current.isFluidEqual(resource)) {
@@ -204,7 +230,7 @@ public class TankModifier extends Modifier {
 
     @Override
     public FluidStack drain(IModifierToolStack tool, int level, int maxDrain, FluidAction action) {
-      if (maxDrain > 0 && isOwner(tool, modifier)) {
+      if (maxDrain > 0 && isOwner(tool)) {
         // fluid type mismatches
         FluidStack current = getFluid(tool);
         if (current.isEmpty()) {

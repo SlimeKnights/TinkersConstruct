@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 
 public class OvergrowthModifier extends Modifier {
@@ -18,7 +19,7 @@ public class OvergrowthModifier extends Modifier {
 
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    volatileData.putBoolean(OverslimeModifier.KEY_OVERSLIME_FRIEND, true);
+    TinkerModifiers.overslime.get().setFriend(volatileData);
   }
 
   @Override
@@ -26,11 +27,12 @@ public class OvergrowthModifier extends Modifier {
     // update 1 times a second, but skip when active (messes with pulling bow back)
     if (!world.isRemote && holder.ticksExisted % 20 == 0 && holder.getActiveItemStack() != stack) {
       // ensure we have overslime
-      int overslime = OverslimeModifier.getOverslime(tool);
-      int cap = OverslimeModifier.getCap(tool);
+      OverslimeModifier overslime = TinkerModifiers.overslime.get();
+      int current = overslime.getOverslime(tool);
+      int cap = overslime.getCapacity(tool);
       // has a 5% chance of restoring each second per level
-      if (overslime < cap && RANDOM.nextFloat() < (level * 0.05)) {
-        OverslimeModifier.addOverslime(tool, 1);
+      if (current < cap && RANDOM.nextFloat() < (level * 0.05)) {
+        overslime.addOverslime(tool, 1);
       }
     }
   }

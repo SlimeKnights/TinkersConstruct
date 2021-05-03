@@ -71,7 +71,7 @@ public class MeltingModifier extends TankModifier {
   @Override
   public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if tank is full, nothing to do
-    FluidStack current = tool.getPersistentData().get(FLUID, PARSE_FLUID);
+    FluidStack current = getFluid(tool);
     int capacity = getCapacity(tool);
     if (current.getAmount() >= capacity) {
       return generatedLoot;
