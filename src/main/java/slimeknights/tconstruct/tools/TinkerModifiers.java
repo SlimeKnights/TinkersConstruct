@@ -46,9 +46,10 @@ import slimeknights.tconstruct.tools.modifiers.shared.ExtraModifier;
 import slimeknights.tconstruct.tools.modifiers.shared.ExtraModifier.ExtraType;
 import slimeknights.tconstruct.tools.modifiers.shared.ExtraModifier.ModifierSource;
 import slimeknights.tconstruct.tools.modifiers.shared.LevelDamageModifier;
-import slimeknights.tconstruct.tools.modifiers.shared.ReinforcedModifier;
+import slimeknights.tconstruct.tools.modifiers.shared.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.DuctileModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DwarvenModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.HeavyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.InsatibleModifier;
@@ -57,7 +58,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.LightweightModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.MaintainedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.MaintainedModifier2;
 import slimeknights.tconstruct.tools.modifiers.traits.MomentumModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.NecroticModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
@@ -78,6 +78,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.LightspeedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SharpnessModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SoulboundModifier;
@@ -198,7 +199,7 @@ public final class TinkerModifiers extends TinkerModule {
   // traits - tier 1 nether
   public static final RegistryObject<NecroticModifier> necrotic = MODIFIERS.register("necrotic", NecroticModifier::new);
   // traits - tier 2
-  // reinforced is also an upgrade
+  public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
   public static final RegistryObject<SearingModifier> searing = MODIFIERS.register("searing", SearingModifier::new);
   public static final RegistryObject<DwarvenModifier> dwarven = MODIFIERS.register("dwarven", DwarvenModifier::new);
   public static final RegistryObject<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
@@ -219,7 +220,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);
   // experienced is also an upgrade
   // traits - mod compat tier 3
-  public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
+  public static final RegistryObject<DuctileModifier> ductile = MODIFIERS.register("ductile", DuctileModifier::new);
   public static final RegistryObject<MaintainedModifier2> wellMaintained2 = MODIFIERS.register("maintained_2", MaintainedModifier2::new);
   public static final RegistryObject<TemperateModifier> temperate = MODIFIERS.register("temperate", TemperateModifier::new);
 

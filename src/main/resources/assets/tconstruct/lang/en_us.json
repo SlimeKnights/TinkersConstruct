@@ -1185,6 +1185,9 @@
     "modifier.tconstruct.fractured.description": "Tool is extra sharp due to the broken bits of bone",
 
     "__comment": "Tier 2 Traits",
+    "modifier.tconstruct.sturdy": "Sturdy",
+    "modifier.tconstruct.sturdy.flavor": "Well Made!",
+    "modifier.tconstruct.sturdy.description": "Made from the strongest iron",
     "modifier.tconstruct.searing": "Searing",
     "modifier.tconstruct.searing.flavor": "Harness the Smeltery!",
     "modifier.tconstruct.searing.description": "Tool does bonus fire damage in hot areas, but less overall damage in cold ones",
@@ -1240,9 +1243,9 @@
     "modifier.tconstruct.holy.description": "Let the undead fall to the might of your blade",
 
     "__comment": "Tier 3 Mod Compat Traits",
-    "modifier.tconstruct.sturdy": "Sturdy",
-    "modifier.tconstruct.sturdy.flavor": "Stainless!",
-    "modifier.tconstruct.sturdy.description": "Made from the longest lasting steel",
+    "modifier.tconstruct.ductile": "Ductile",
+    "modifier.tconstruct.ductile.flavor": "Reshapes well!",
+    "modifier.tconstruct.ductile.description": "Tool is longer lasting, mines faster, and damages more",
     "modifier.tconstruct.maintained_2": "Maintained",
     "modifier.tconstruct.maintained_2.flavor": "Gets Sharp Easier!",
     "modifier.tconstruct.maintained_2.description": "Tool mines faster when at higher durability",

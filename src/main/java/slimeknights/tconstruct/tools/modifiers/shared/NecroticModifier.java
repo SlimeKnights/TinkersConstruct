@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.traits;
+package slimeknights.tconstruct.tools.modifiers.shared;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.SoundCategory;

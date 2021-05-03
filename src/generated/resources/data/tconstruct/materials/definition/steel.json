@@ -15,7 +15,7 @@
   "temperature": 950,
   "traits": [
     {
-      "name": "tconstruct:sturdy",
+      "name": "tconstruct:ductile",
       "level": 1
     }
   ]
