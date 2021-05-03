@@ -152,7 +152,7 @@ public class TankModifier extends Modifier {
    * @param current    Current tank contents
    * @param resource   Resource to insert
    * @param amount     Amount to insert, overrides resource amount
-   * @return  Fluid after filling
+   * @return  Fluid after filling, or empty if nothing changed
    */
   public FluidStack fill(IModifierToolStack tool, FluidStack current, FluidStack resource, int amount) {
     int capacity = getCapacity(tool);
@@ -166,6 +166,22 @@ public class TankModifier extends Modifier {
       return setFluid(tool, current);
     }
     return FluidStack.EMPTY;
+  }
+
+  /**
+   * Drains the given amount from the tool
+   * @param tool     Tool
+   * @param current  Existing fluid
+   * @param amount   Amount to drain
+   * @return  New fluid
+   */
+  public FluidStack drain(IModifierToolStack tool, FluidStack current, int amount) {
+    if (current.getAmount() < amount) {
+      return setFluid(tool, FluidStack.EMPTY);
+    } else {
+      current.shrink(amount);
+      return setFluid(tool, current);
+    }
   }
 
   /** Shared tank implementation of the fluid modifier */
@@ -220,8 +236,7 @@ public class TankModifier extends Modifier {
         int drainedAmount = Math.min(current.getAmount(), resource.getAmount());
         FluidStack drained = new FluidStack(current, drainedAmount);
         if (action.execute()) {
-          current.shrink(drainedAmount);
-          setFluid(tool, current);
+          TankModifier.this.drain(tool, current, drainedAmount);
         }
         return drained;
       }
@@ -240,8 +255,7 @@ public class TankModifier extends Modifier {
         int drainedAmount = Math.min(current.getAmount(), maxDrain);
         FluidStack drained = new FluidStack(current, drainedAmount);
         if (action.execute()) {
-          current.shrink(drainedAmount);
-          setFluid(tool, current);
+          TankModifier.this.drain(tool, current, drainedAmount);
         }
         return drained;
       }

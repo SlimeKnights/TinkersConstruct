@@ -79,12 +79,17 @@ public class ToolFluidCapability implements IFluidHandlerItem {
         // try filling each modifier
         int filled = fluidModifier.fill(tool, entry.getLevel(), resource, action);
         if (filled > 0) {
-          totalFilled += filled;
-          // continue to the next modifier if we still have fluid left
-          resource.shrink(filled);
-          if (resource.isEmpty()) {
-            return totalFilled;
+          // if we filled the entire stack, we are done
+          if (filled >= resource.getAmount()) {
+            return totalFilled + filled;
           }
+          // if this is our first successful fill, copy the resource to prevent changing the original stack
+          if (totalFilled == 0) {
+            resource = resource.copy();
+          }
+          // increase total and shrink the resource for next time
+          totalFilled += filled;
+          resource.shrink(filled);
         }
       }
     }
@@ -102,7 +107,14 @@ public class ToolFluidCapability implements IFluidHandlerItem {
         if (!drained.isEmpty()) {
           // if we managed to drain something, add it into our current drained stack, and decrease the amount we still want to drain
           if (drainedSoFar.isEmpty()) {
-            drainedSoFar = drained;
+            // if the first time, make a copy of the resource before changing it
+            // though we can skip copying if the first one is all we need
+            if (drained.getAmount() >= resource.getAmount()) {
+              return drained;
+            } else {
+              drainedSoFar = drained;
+              resource = resource.copy();
+            }
           } else {
             drainedSoFar.grow(drained.getAmount());
           }

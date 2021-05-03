@@ -129,8 +129,7 @@ public class BucketingModifier extends TankModifier {
 
     // if we placed something, consume fluid
     if (placed) {
-      fluidStack.shrink(FluidAttributes.BUCKET_VOLUME);
-      setFluid(tool, fluidStack);
+      drain(tool, fluidStack, FluidAttributes.BUCKET_VOLUME);
       return ActionResultType.SUCCESS;
     }
     return ActionResultType.PASS;
