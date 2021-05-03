@@ -264,7 +264,10 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
     IIngredientManager manager = jeiRuntime.getIngredientManager();
+    // update part materials if possible
     materialReloader.manager = manager;
+    materialReloader.run();
+
     // hide knightslime and slimesteel until implemented
     removeFluid(manager, TinkerFluids.moltenSoulsteel.get(), TinkerFluids.moltenSoulsteel.asItem());
     removeFluid(manager, TinkerFluids.moltenKnightslime.get(), TinkerFluids.moltenKnightslime.asItem());
@@ -336,9 +339,13 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void run() {
-      if (manager != null) {
+      // FIXME: this does not remove old tool parts from the previous materials list, if the two are different could cause weird behavior
+      if (manager != null && !MaterialRegistry.getMaterials().isEmpty()) {
         NonNullList<ItemStack> newStacks = NonNullList.create();
         for (Item item : TinkerTags.Items.TOOL_PARTS.getAllElements()) {
+          item.fillItemGroup(ItemGroup.SEARCH, newStacks);
+        }
+        for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
           item.fillItemGroup(ItemGroup.SEARCH, newStacks);
         }
         if (!newStacks.isEmpty()) {
