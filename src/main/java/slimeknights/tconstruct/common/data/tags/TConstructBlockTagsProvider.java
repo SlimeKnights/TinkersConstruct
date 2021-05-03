@@ -146,6 +146,8 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.ORES_COPPER);
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
+    Builder<Block> slimyGrass = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_GRASS);
+    TinkerWorld.slimeGrass.forEach((slimeType, blockObj) -> blockObj.forEach(slimyGrass::addItemEntry));
 
     // allow the enderman to hold more blocks
     TagsProvider.Builder<Block> endermanHoldable = this.getOrCreateBuilder(BlockTags.ENDERMAN_HOLDABLE);

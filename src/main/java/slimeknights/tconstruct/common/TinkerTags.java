@@ -33,6 +33,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SLIMY_LOGS = tag("slimy_logs");
     public static final IOptionalNamedTag<Block> SLIMY_LEAVES = tag("slimy_leaves");
     public static final IOptionalNamedTag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
+    public static final IOptionalNamedTag<Block> SLIMY_GRASS = tag("slimy_grass");
 
     public static final IOptionalNamedTag<Block> ORES_COBALT = forgeTag("ores/cobalt");
     public static final IOptionalNamedTag<Block> ORES_COPPER = forgeTag("ores/copper");
