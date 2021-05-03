@@ -27,6 +27,7 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.BlockTransformModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.BucketingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.GlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.HarvestAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
@@ -154,10 +155,13 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
   public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
-  public static final RegistryObject<MeltingModifier> melting = MODIFIERS.register("melting", MeltingModifier::new);
-  public static final RegistryObject<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(0xf3f3f3f, MaterialValues.INGOT * 8));
   public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", () -> new Modifier(0xff9f50));
   public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
+
+  // fluid abilities
+  public static final RegistryObject<MeltingModifier> melting = MODIFIERS.register("melting", MeltingModifier::new);
+  public static final RegistryObject<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(0xf3f3f3f, MaterialValues.INGOT * 8));
+  public static final RegistryObject<BucketingModifier> bucketing = MODIFIERS.register("bucketing", BucketingModifier::new);
   
   // right click abilities
   public static final RegistryObject<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);

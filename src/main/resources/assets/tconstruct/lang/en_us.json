@@ -1118,6 +1118,7 @@
     "modifier.tconstruct.glowing": "Glowing",
     "modifier.tconstruct.glowing.flavor": "Shine bright!",
     "modifier.tconstruct.glowing.description": "Tool can place glow balls while crouching, at the cost of durability",
+
     "modifier.tconstruct.melting": "Melting",
     "modifier.tconstruct.melting.flavor": "The power of a Melter on a stick!",
     "modifier.tconstruct.melting.description": "Melts attacked entities and items dropped!",
@@ -1126,6 +1127,9 @@
     "modifier.tconstruct.tank.capacity": "Tank Capacity: %s mb",
     "modifier.tconstruct.tank.flavor": "Bigger is always better!",
     "modifier.tconstruct.tank.description": "Tool has a fluid tank, allowing it to store fluid",
+    "modifier.tconstruct.bucketing": "Bucketing",
+    "modifier.tconstruct.bucketing.flavor": "Slurp!",
+    "modifier.tconstruct.bucketing.description": "Tool can pickup liquid, or place it when crouching",
 
     "modifier.tconstruct.luck": "Luck",
     "modifier.tconstruct.luck.1": "Luck",

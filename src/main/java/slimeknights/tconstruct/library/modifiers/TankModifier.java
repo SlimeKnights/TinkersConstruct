@@ -85,6 +85,11 @@ public class TankModifier extends Modifier {
   }
 
   /** Gets the capacity of the tank */
+  public static int getCapacity(IModDataReadOnly volatileData) {
+    return volatileData.getInt(CAPACITY);
+  }
+
+  /** Gets the capacity of the tank */
   public static int getCapacity(IModifierToolStack tool) {
     return tool.getVolatileData().getInt(CAPACITY);
   }
