@@ -33,6 +33,12 @@ public class TankItem extends BlockTooltipItem {
   }
 
   @Override
+  public int getItemStackLimit(ItemStack stack) {
+    FluidTank tank = getFluidTank(stack);
+    return tank.isEmpty() ? 64 : 16;
+  }
+
+  @Override
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     if (stack.hasTag()) {
