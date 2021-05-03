@@ -74,6 +74,17 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(BlockTags.SOUL_SPEED_BLOCKS).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get());
     this.getOrCreateBuilder(BlockTags.SOUL_FIRE_BASE_BLOCKS).add(TinkerCommons.soulGlass.get());
 
+    // impermeable blocks
+    this.getOrCreateBuilder(BlockTags.IMPERMEABLE)
+      .add(TinkerCommons.clearGlass.get())
+      .add(TinkerCommons.soulGlass.get())
+      .add(TinkerSmeltery.searedGlass.get());
+    for (DyeColor color : DyeColor.values()) {
+      ResourceLocation key = new ResourceLocation("tconstruct", color.getTranslationKey() + "_clear_stained_glass");
+      Block block = ForgeRegistries.BLOCKS.getValue(key);
+      getOrCreateBuilder(BlockTags.IMPERMEABLE).add(block);
+    }
+
     TagsProvider.Builder<Block> builder = this.getOrCreateBuilder(TinkerTags.Blocks.ANVIL_METAL)
         // tier 3
         .addTag(TinkerMaterials.slimesteel.getBlockTag())
