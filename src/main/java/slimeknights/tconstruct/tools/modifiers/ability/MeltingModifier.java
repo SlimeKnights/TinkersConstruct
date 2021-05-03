@@ -2,51 +2,40 @@ package slimeknights.tconstruct.tools.modifiers.ability;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.TankModifier;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
-import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.BiFunction;
 
-public class MeltingModifier extends SingleUseModifier {
-  /** Key for storing fluid in NBT */
-  private static final ResourceLocation FLUID_KEY = Util.getResource("melting_fluid");
-  /** Key for storing determining max capacity */
-  public static final ResourceLocation CAPACITY_KEY = Util.getResource("melter_capacity");
-
-  /** Max capacity from melting */
-  private static final int DEFAULT_CAPACITY = MaterialValues.METAL_BLOCK;
-  /** Function to parse fluid from NBT */
-  private static final BiFunction<CompoundNBT, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.loadFluidStackFromNBT(nbt.getCompound(key));
+public class MeltingModifier extends TankModifier {
   /** Last melting recipe used */
   private static IMeltingRecipe lastRecipe = null;
   /** Inventory used for finding recipes */
   private static final MeltingInventory inventory = new MeltingInventory();
 
   public MeltingModifier() {
-    super(0xFFD800);
+    super(0xFFD800, MaterialValues.METAL_BLOCK);
+  }
+
+  @Override
+  public ITextComponent getDisplayName(int level) {
+    // display name without the level, single use
+    return super.getDisplayName();
   }
 
   /**
@@ -73,48 +62,11 @@ public class MeltingModifier extends SingleUseModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
-    FluidStack current = tool.getPersistentData().get(FLUID_KEY, PARSE_FLUID);
-    if (!current.isEmpty()) {
-      tooltip.add(applyStyle(current.getDisplayName().copyRaw().appendString(": " + current.getAmount() + " / " + DEFAULT_CAPACITY)));
-    }
-  }
-
-  /** Gets the current capacity of the melter tank */
-  public static int getCapacity(IModDataReadOnly volatileData) {
-    if (!volatileData.contains(CAPACITY_KEY, NBT.TAG_ANY_NUMERIC)) {
-      return DEFAULT_CAPACITY;
-    }
-    return volatileData.getInt(CAPACITY_KEY);
-  }
-
-  /** Increases teh melter tank's capacity by the given amount */
-  public static void addCapacity(ModDataNBT volatileData, int amount) {
-    volatileData.putInt(CAPACITY_KEY, getCapacity(volatileData) + amount);
-  }
-
-  /** Fills the tool with the given fluid */
-  private static FluidStack fillTool(IModifierToolStack tool, FluidStack current, FluidStack output, int amount) {
-    int capacity = getCapacity(tool.getVolatileData());
-    if (current.isEmpty()) {
-      // cap fluid at capacity, store in tool
-      output.setAmount(Math.min(amount, capacity));
-      tool.getPersistentData().put(FLUID_KEY, output.writeToNBT(new CompoundNBT()));
-      return output;
-    } else if (current.isFluidEqual(output)) {
-      // boost fluid by amount and store
-      current.setAmount(Math.min(current.getAmount() + amount, capacity));
-      tool.getPersistentData().put(FLUID_KEY, current.writeToNBT(new CompoundNBT()));
-      return current;
-    }
-    return FluidStack.EMPTY;
-  }
-
-  @Override
   public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if tank is full, nothing to do
-    FluidStack current = tool.getPersistentData().get(FLUID_KEY, PARSE_FLUID);
-    if (current.getAmount() == DEFAULT_CAPACITY) {
+    FluidStack current = tool.getPersistentData().get(FLUID, PARSE_FLUID);
+    int capacity = getCapacity(tool);
+    if (current.getAmount() >= capacity) {
       return generatedLoot;
     }
 
@@ -127,11 +79,11 @@ public class MeltingModifier extends SingleUseModifier {
       // fluid must match tank fluid
       if (!output.isEmpty() && (current.isEmpty() || current.isFluidEqual(output))) {
         // determine how many copies we can melt
-        int maxCopies = Math.min((DEFAULT_CAPACITY - current.getAmount()) / output.getAmount(), stack.getCount());
+        int maxCopies = Math.min((capacity - current.getAmount()) / output.getAmount(), stack.getCount());
 
         // if it fits in the tank, remove
         if (maxCopies > 0) {
-          FluidStack filled = fillTool(tool, current, output, output.getAmount() * maxCopies);
+          FluidStack filled = fill(tool, current, output, output.getAmount() * maxCopies);
           // update current fluid stack for next iteration
           if (!filled.isEmpty()) {
             current = filled;
@@ -166,7 +118,7 @@ public class MeltingModifier extends SingleUseModifier {
       int fluidAmount = (int)(output.getAmount() * damageDealt / damagePerOutput);
 
       // fluid must match that which is stored in the tank
-      fillTool(tool, tool.getPersistentData().get(FLUID_KEY, PARSE_FLUID), output, fluidAmount);
+      fill(tool, getFluid(tool), output, fluidAmount);
     }
     return 0;
   }

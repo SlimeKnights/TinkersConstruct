@@ -39,6 +39,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -46,6 +47,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -818,5 +820,11 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     }
     // no changes, no reequip
     return false;
+  }
+
+  @Nullable
+  @Override
+  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+    return new ToolCapabilityProvider(stack);
   }
 }

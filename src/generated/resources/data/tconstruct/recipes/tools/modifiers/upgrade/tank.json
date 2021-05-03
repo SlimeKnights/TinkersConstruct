@@ -8,11 +8,6 @@
   "tools": {
     "tag": "tconstruct:modifiable/melee_or_harvest"
   },
-  "requirements": {
-    "name": "tconstruct:melting",
-    "level": 1,
-    "error": "recipe.tconstruct.modifier.tank_requirements"
-  },
   "result": {
     "name": "tconstruct:tank",
     "level": 1

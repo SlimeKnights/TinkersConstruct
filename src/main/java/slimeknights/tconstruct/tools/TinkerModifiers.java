@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.TankModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipe;
@@ -79,7 +80,6 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SharpnessModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SoulboundModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.TankModifier;
 import slimeknights.tconstruct.tools.recipe.PlayerBeheadingRecipe;
 import slimeknights.tconstruct.tools.recipe.SnowGolemBeheadingRecipe;
 
@@ -154,7 +154,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
   public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
   public static final RegistryObject<MeltingModifier> melting = MODIFIERS.register("melting", MeltingModifier::new);
-  public static final RegistryObject<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(0xf3f3f3f, MaterialValues.INGOT * 5));
+  public static final RegistryObject<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(0xf3f3f3f, MaterialValues.INGOT * 8));
   public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", () -> new Modifier(0xff9f50));
   public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
   
@@ -172,7 +172,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE + 50));
   public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, Integer.MIN_VALUE + 50));
   public static final RegistryObject<HarvestAbilityModifier> harvest = MODIFIERS.register("harvest", () -> new HarvestAbilityModifier(0x3eed78, Integer.MIN_VALUE + 51));
-  public static final RegistryObject<TwoHandedAbilityModifier> twoHanded = MODIFIERS.register("two_handed", () -> new TwoHandedAbilityModifier());
+  public static final RegistryObject<TwoHandedAbilityModifier> twoHanded = MODIFIERS.register("two_handed", TwoHandedAbilityModifier::new);
   
   // bonus modifier slots
   public static final RegistryObject<ExtraModifier> writable = MODIFIERS.register("writable", () -> new ExtraModifier(0xffffff));

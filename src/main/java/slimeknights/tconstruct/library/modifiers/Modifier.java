@@ -626,6 +626,22 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
 
+  /* Modules */
+
+  /**
+   * Gets a submodule of this modifier.
+   *
+   * Submodules will contain tool stack sensitive hooks, and do not contain storage. Generally returning the same instance each time is preferred.
+   * @param type  Module type to fetch
+   * @param <T>   Module return type
+   * @return  Module, or null if the module is not contained
+   */
+  @Nullable
+  public <T> T getModule(Class<T> type) {
+    return null;
+  }
+
+
   /* Utils */
 
   /**

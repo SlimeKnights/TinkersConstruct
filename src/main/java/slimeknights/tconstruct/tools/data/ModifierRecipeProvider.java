@@ -384,8 +384,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(5)
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
-                         .setRequirements(ModifierMatch.entry(TinkerModifiers.melting.get())) // TODO: consider modifier tags
-                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.tank_requirements"))
                          .build(consumer, prefixR(TinkerModifiers.tank, upgradeFolder));
     // expanders
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
