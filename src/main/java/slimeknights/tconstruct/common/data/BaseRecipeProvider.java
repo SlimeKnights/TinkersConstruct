@@ -183,7 +183,7 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
     Item item = building.asItem();
     ICriterionInstance hasBlock = hasItem(item);
     IItemProvider wall = building.getWall();
-    ShapedRecipeBuilder.shapedRecipe(wall, 4)
+    ShapedRecipeBuilder.shapedRecipe(wall, 6)
                        .key('B', item)
                        .patternLine("BBB")
                        .patternLine("BBB")
