@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -75,7 +74,7 @@ public class MaintainedModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     double boost = getTotalBoost(tool, level);
     if (boost != 0) {
       tooltip.add(applyStyle(new StringTextComponent(Util.dfPercentBoost.format(boost)).appendString(" ").append(MINING_SPEED)));

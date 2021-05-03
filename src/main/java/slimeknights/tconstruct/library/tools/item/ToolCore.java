@@ -475,6 +475,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     CompoundNBT tag = stack.getTag();
+    boolean isAdvanced = flagIn == TooltipFlags.ADVANCED;
     // if the display tag is set, hide material info
     if (tag != null && tag.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
       ToolStack tool = ToolStack.from(stack);
@@ -485,12 +486,12 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       }
     } else if (Util.isShiftKeyDown()) {
       // component data
-      this.getTooltip(stack, tooltip, TooltipType.SHIFT, flagIn);
+      this.getTooltip(stack, tooltip, TooltipType.SHIFT, isAdvanced);
     } else if (Util.isCtrlKeyDown()) {
       // modifiers
-      this.getTooltip(stack, tooltip, TooltipType.CONTROL, flagIn);
+      this.getTooltip(stack, tooltip, TooltipType.CONTROL, isAdvanced);
     } else {
-      this.getTooltip(stack, tooltip, TooltipType.NORMAL, flagIn);
+      this.getTooltip(stack, tooltip, TooltipType.NORMAL, isAdvanced);
       tooltip.add(StringTextComponent.EMPTY);
       tooltip.add(TOOLTIP_HOLD_SHIFT);
       tooltip.add(TOOLTIP_HOLD_CTRL);
@@ -503,12 +504,12 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
    * Displays different information based on the tooltip type
    * If the SHIFT key is held, the detailed information is displayed
    * If CONTROL key is held, the materials the tool is made out of is displayed
-   *  @param stack the given itemstack
+   * @param stack        the given itemstack
    * @param tooltips     the list of tooltips to add to
    * @param tooltipType  the tooltip type to display
-   * @param flagIn       tooltip flag
+   * @param isAdvanced   if true, this is an advanced tooltip
    */
-  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType, ITooltipFlag flagIn) {
+  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType, boolean isAdvanced) {
     switch (tooltipType) {
       case NORMAL: {
         ToolStack tool = ToolStack.from(stack);
@@ -524,7 +525,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       }
 
       case SHIFT:
-        this.getStatInformation(ToolStack.from(stack), tooltips, flagIn, false);
+        this.getStatInformation(ToolStack.from(stack), tooltips, isAdvanced, false);
         break;
 
       case CONTROL: {
@@ -559,18 +560,18 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   @Override
   public List<ITextComponent> getInformation(ItemStack stack) {
-    return this.getStatInformation(ToolStack.from(stack), new ArrayList<>(), TooltipFlags.NORMAL, true);
+    return this.getStatInformation(ToolStack.from(stack), new ArrayList<>(), false, true);
   }
 
   /**
    * Gets the information for the given tool stack
    *
    * @param tool      the tool stack
-   * @param flag      tooltip flag
+   * @param isAdvanced  if true, advanced tooltip
    * @param detailed  If true, should show detailed info
    * @return the information for the given stack
    */
-  public List<ITextComponent> getStatInformation(ToolStack tool, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
+  public List<ITextComponent> getStatInformation(ToolStack tool, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     builder.addDurability();
     builder.addAttackDamage();
@@ -590,7 +591,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     builder.addFreeAbilities();
 
     for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().addInformation(tool, entry.getLevel(), tooltip, flag, detailed);
+      entry.getModifier().addInformation(tool, entry.getLevel(), tooltip, isAdvanced, detailed);
     }
 
     return builder.getTooltips();

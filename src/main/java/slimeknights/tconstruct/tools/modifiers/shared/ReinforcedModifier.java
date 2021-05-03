@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.shared;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import slimeknights.tconstruct.library.Util;
@@ -32,7 +31,7 @@ public class ReinforcedModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     float reinforced = 1 - 1f / (level + 1);
     tooltip.add(applyStyle(new StringTextComponent(Util.dfPercent.format(reinforced)).appendString(" ").append(makeDisplayName())));
   }

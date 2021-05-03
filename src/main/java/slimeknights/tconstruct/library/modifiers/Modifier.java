@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.modifiers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
@@ -209,10 +208,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param tool      Tool instance
    * @param level     Tool level
    * @param tooltip   Tooltip
-   * @param flag      Tooltip flag type
+   * @param isAdvanced  Tooltip flag type
    * @param detailed  If true, showing detailed view, such as in the tinker station
    */
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {}
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {}
 
   /**
    * Gets the description for this modifier

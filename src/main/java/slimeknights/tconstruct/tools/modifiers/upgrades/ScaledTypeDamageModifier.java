@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
@@ -29,7 +28,7 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     tooltip.add(applyStyle(new StringTextComponent("+" + Util.df.format(getScaledLevel(tool, level) * 2.5f))
                              .appendString(" ")
                              .append(new TranslationTextComponent(getTranslationKey() + ".damage"))));
