@@ -23,6 +23,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MeltingModifier extends TankModifier {
+  /** Max temperature allowed for melting items */
+  private static final int MAX_TEMPERATURE = 1000;
+
   /** Last melting recipe used */
   private static IMeltingRecipe lastRecipe = null;
   /** Inventory used for finding recipes */
@@ -51,12 +54,16 @@ public class MeltingModifier extends TankModifier {
     if (recipe == null || !recipe.matches(inventory, world)) {
       recipe = world.getRecipeManager().getRecipe(RecipeTypes.MELTING, inventory, world).orElse(null);
       if (recipe == null) {
+        inventory.setStack(ItemStack.EMPTY);
         return FluidStack.EMPTY;
       }
       lastRecipe = recipe;
     }
-    // next, get result from recipe
-    FluidStack result = recipe.getOutput(inventory);
+    // get the result if the temperature is right
+    FluidStack result = FluidStack.EMPTY;
+    if (recipe.getTemperature(inventory) <= MAX_TEMPERATURE) {
+      result = recipe.getOutput(inventory);
+    }
     inventory.setStack(ItemStack.EMPTY);
     return result;
   }
@@ -114,8 +121,11 @@ public class MeltingModifier extends TankModifier {
         output = EntityMeltingModule.getDefaultFluid();
         damagePerOutput = 2;
       }
-      // scale the fluid based on the amount, only produce half as much as the smeltery
-      int fluidAmount = (int)(output.getAmount() * damageDealt / damagePerOutput);
+      // recipe amount determines how much we get per hit, only scale (downwards) if we did not reach the damage threshold
+      int fluidAmount = output.getAmount();
+      if (damageDealt < damagePerOutput) {
+        fluidAmount = (int)(fluidAmount * damageDealt / damagePerOutput);
+      }
 
       // fluid must match that which is stored in the tank
       fill(tool, getFluid(tool), output, fluidAmount);
