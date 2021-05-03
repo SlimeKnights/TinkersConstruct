@@ -13,7 +13,7 @@ public class LightweightModifier extends Modifier {
 
   @Override
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    builder.multiplyAttackSpeed(1 + (level * 0.1f));
-    builder.multiplyMiningSpeed(1 + (level * 0.1f));
+    builder.multiplyAttackSpeed(1 + (level * 0.07f));
+    builder.multiplyMiningSpeed(1 + (level * 0.07f));
   }
 }

@@ -26,12 +26,8 @@ public class SharpnessModifier extends IncrementalModifier {
 
   @Override
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    // vanilla give +1, 1.5, 2, 2.5, 3
-    // to make up for that 0.5 on the first level, we give a small bonus after the first level
-    float scaledLevel = getScaledLevel(persistentData, level);
-    if (scaledLevel >= 1) {
-      scaledLevel += 1;
-    }
-    builder.addAttackDamage(scaledLevel * 0.5f);
+    // vanilla give +1, 1.5, 2, 2.5, 3, but that is stupidly low
+    // we instead do +1, 2,  3, 4,   5
+    builder.addAttackDamage(getScaledLevel(persistentData, level));
   }
 }

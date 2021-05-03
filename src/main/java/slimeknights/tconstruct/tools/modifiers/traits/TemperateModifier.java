@@ -18,7 +18,7 @@ public class TemperateModifier extends Modifier {
     if (isEffective) {
       BlockPos pos = event.getPos();
       // temperature ranges from 0 to 1.25. Division makes it 0 to 0.25 per level
-      float boost = Math.abs(event.getPlayer().world.getBiome(pos).getTemperature(pos) - BASELINE_TEMPERATURE) * level / 5;
+      float boost = Math.abs(event.getPlayer().world.getBiome(pos).getTemperature(pos) - BASELINE_TEMPERATURE) * level / 10;
       event.setNewSpeed(event.getNewSpeed() * (1 + boost));
     }
   }
