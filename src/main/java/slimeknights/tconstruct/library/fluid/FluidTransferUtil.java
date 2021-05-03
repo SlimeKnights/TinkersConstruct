@@ -14,6 +14,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -24,13 +25,24 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.Util;
 
 /**
  * Alternative to {@link net.minecraftforge.fluids.FluidUtil} since no one has time to make the forge util not a buggy mess
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FluidTransferUtil {
-  public static boolean tryTransfer(IFluidHandler input, IFluidHandler output, int maxFill) {
+  private static final String KEY_FILLED = Util.makeTranslationKey("block", "tank.filled");
+  private static final String KEY_DRAINED = Util.makeTranslationKey("block", "tank.drained");
+
+  /**
+   * Attempts to transfer fluid
+   * @param input    Fluid source
+   * @param output   Fluid destination
+   * @param maxFill  Maximum to transfer
+   * @return  True if transfer succeeded
+   */
+  public static FluidStack tryTransfer(IFluidHandler input, IFluidHandler output, int maxFill) {
     // first, figure out how much we can drain
     FluidStack simulated = input.drain(maxFill, FluidAction.SIMULATE);
     if (!simulated.isEmpty()) {
@@ -41,15 +53,15 @@ public class FluidTransferUtil {
         FluidStack drainedFluid = input.drain(simulatedFill, FluidAction.EXECUTE);
         if (!drainedFluid.isEmpty()) {
           // acutally fill
-          int actualFill = output.fill(drainedFluid, FluidAction.EXECUTE);
+          int actualFill = output.fill(drainedFluid.copy(), FluidAction.EXECUTE);
           if (actualFill != drainedFluid.getAmount()) {
             TConstruct.log.error("Lost {} fluid during transfer", drainedFluid.getAmount() - actualFill);
           }
         }
-        return true;
+        return drainedFluid;
       }
     }
-    return false;
+    return FluidStack.EMPTY;
   }
 
   /**
@@ -79,6 +91,7 @@ public class FluidTransferUtil {
                   handler.fill(fluidStack, FluidAction.EXECUTE);
                   bucket.onLiquidPlaced(world, held, pos.offset(offset));
                   world.playSound(null, pos, fluid.getAttributes().getEmptySound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                  player.sendStatusMessage(new TranslationTextComponent(KEY_FILLED, FluidAttributes.BUCKET_VOLUME, fluidStack.getDisplayName()), true);
                   if (!player.isCreative()) {
                     player.setHeldItem(hand, held.getContainerItem());
                   }
@@ -117,15 +130,20 @@ public class FluidTransferUtil {
             ItemStack copy = ItemHandlerHelper.copyStackWithSize(stack, 1);
             copy.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).ifPresent(itemHandler -> {
               // first, try filling the TE from the item
-              boolean isSuccess = false;
-              if (tryTransfer(teHandler, itemHandler, Integer.MAX_VALUE)) {
-                isSuccess = true;
+              FluidStack transferred = tryTransfer(itemHandler, teHandler, Integer.MAX_VALUE);
+              if (!transferred.isEmpty()) {
+                world.playSound(null, pos, transferred.getFluid().getAttributes().getEmptySound(transferred), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                player.sendStatusMessage(new TranslationTextComponent(KEY_FILLED, transferred.getAmount(), transferred.getDisplayName()), true);
+              } else {
                 // if that failed, try filling the item handler from the TE
-              } else if (tryTransfer(itemHandler, teHandler, Integer.MAX_VALUE)) {
-                isSuccess = true;
+                transferred = tryTransfer(teHandler, itemHandler, Integer.MAX_VALUE);
+                if (!transferred.isEmpty()) {
+                  world.playSound(null, pos, transferred.getFluid().getAttributes().getFillSound(transferred), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                  player.sendStatusMessage(new TranslationTextComponent(KEY_DRAINED, transferred.getAmount(), transferred.getDisplayName()), true);
+                }
               }
               // if either worked, update the player's inventory
-              if (isSuccess) {
+              if (!transferred.isEmpty()) {
                 player.setHeldItem(hand, DrinkHelper.fill(stack, player, itemHandler.getContainer()));
               }
             });
