@@ -40,7 +40,7 @@ public class MaterialItem extends Item implements IMaterialItem {
     return Optional.ofNullable(stack.getTag())
                    .map(compoundNBT -> compoundNBT.getString(Tags.PART_MATERIAL))
                    .filter(string -> !string.isEmpty())
-                   .map(MaterialId::new);
+                   .map(MaterialId::tryCreate);
   }
 
   @Override
@@ -61,12 +61,28 @@ public class MaterialItem extends Item implements IMaterialItem {
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
     if (this.isInGroup(group) && MaterialRegistry.initialized()) {
-      for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
-        if (this.canUseMaterial(material)) {
-          items.add(this.withMaterial(material));
-          // TODO: switch to resource location so you can set the one item you want
-          if (!Config.COMMON.listAllPartMaterials.get()) {
-            break;
+      // if a specific material is set in the config, try adding that
+      String showOnlyId = Config.COMMON.showOnlyPartMaterial.get();
+      boolean added = false;
+      if (!showOnlyId.isEmpty()) {
+        MaterialId materialId = MaterialId.tryCreate(showOnlyId);
+        if (materialId != null) {
+          IMaterial material = MaterialRegistry.getMaterial(materialId);
+          if (material != IMaterial.UNKNOWN && canUseMaterial(material)) {
+            items.add(this.withMaterial(MaterialRegistry.getMaterial(materialId)));
+            added = true;
+          }
+        }
+      }
+      // if no material is set or we failed to find it, iterate all materials
+      if (!added) {
+        for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
+          if (this.canUseMaterial(material)) {
+            items.add(this.withMaterial(material));
+            // if a specific material was requested and not found, stop after first
+            if (!showOnlyId.isEmpty()) {
+              break;
+            }
           }
         }
       }

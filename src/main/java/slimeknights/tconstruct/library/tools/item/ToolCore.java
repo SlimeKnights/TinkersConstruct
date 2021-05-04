@@ -45,7 +45,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
@@ -604,32 +604,51 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     }
   }
 
-  protected void addDefaultSubItems(List<ItemStack> items, Material... fixedMaterials) {
+  /** Adds all default sub items */
+  protected void addDefaultSubItems(List<ItemStack> items, IMaterial... fixedMaterials) {
     if (MaterialRegistry.initialized()) {
-      List<IToolPart> required = this.getToolDefinition().getRequiredComponents();
-      for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
-        List<IMaterial> materials = new ArrayList<>(this.getToolDefinition().getRequiredComponents().size());
-
-        for (int i = 0; i < this.getToolDefinition().getRequiredComponents().size(); i++) {
-          if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).canUseMaterial(fixedMaterials[i])) {
-            materials.add(fixedMaterials[i]);
-          }
-          else {
-            // todo: check for applicability with stats
-            materials.add(material);
+      // if a specific material is set, show just that
+      String showOnlyId = Config.COMMON.showOnlyToolMaterial.get();
+      boolean added = false;
+      if (!showOnlyId.isEmpty()) {
+        MaterialId materialId = MaterialId.tryCreate(showOnlyId);
+        if (materialId != null) {
+          IMaterial material = MaterialRegistry.getMaterial(materialId);
+          if (material != IMaterial.UNKNOWN) {
+            if (addSubItem(items, material, fixedMaterials)) {
+              added = true;
+            }
           }
         }
-
-        ItemStack tool = ToolBuildHandler.buildItemFromMaterials(this, materials);
-        // only valid ones
-        if (this.hasValidMaterials(tool)) {
-          items.add(tool);
-          if (!Config.COMMON.listAllToolMaterials.get()) {
+      }
+      // if the material was not applicable or we do not have a filter set, search the rest
+      if (!added) {
+        for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
+          // if we added it and we want a single material, we are done
+          if (addSubItem(items, material, fixedMaterials) && !showOnlyId.isEmpty()) {
             break;
           }
         }
       }
     }
+  }
+
+  /** Makes a single sub item for the given materials */
+  protected boolean addSubItem(List<ItemStack> items, IMaterial material, IMaterial[] fixedMaterials) {
+    List<IToolPart> required = this.getToolDefinition().getRequiredComponents();
+    List<IMaterial> materials = new ArrayList<>(required.size());
+    for (int i = 0; i < required.size(); i++) {
+      if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).canUseMaterial(fixedMaterials[i])) {
+        materials.add(fixedMaterials[i]);
+      }
+      else if (required.get(i).canUseMaterial(material)) {
+        materials.add(material);
+      } else {
+        return false;
+      }
+    }
+    items.add(ToolBuildHandler.buildItemFromMaterials(this, materials));
+    return true;
   }
 
   /**

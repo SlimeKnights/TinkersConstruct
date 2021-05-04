@@ -32,9 +32,8 @@ public class Config {
 
     // public final BooleanValue chestsKeepInventory;
 
-    public final BooleanValue listAllToolMaterials;
-
-    public final BooleanValue listAllPartMaterials;
+    public final ConfigValue<String> showOnlyToolMaterial;
+    public final ConfigValue<String> showOnlyPartMaterial;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -51,18 +50,17 @@ public class Config {
 //        .worldRestart()
 //        .define("chestsKeepInventory", true);
 
-
-      this.listAllToolMaterials = builder
-        .comment("If true all material variants of the different tools will be listed in creative. Set to false to only have the first found material for all tools (usually wood).")
-        .translation("tconstruct.configgui.listAllToolMaterials")
+      this.showOnlyToolMaterial = builder
+        .comment("If non-empty, only this material will be shown on tools in creative and JEI (or the first valid material if this is invalid for the tool).", "If empty, all materials will show")
+        .translation("tconstruct.configgui.showOnlyToolMaterial")
         .worldRestart()
-        .define("listAllToolMaterials", true);
+        .define("showOnlyToolMaterial", "");
 
-      this.listAllPartMaterials = builder
-        .comment("If true all material variants of the different parts will be listed in creative. Set to false to only have the first found material for all parts (usually wood).")
-        .translation("tconstruct.configgui.listAllPartMaterials")
+      this.showOnlyPartMaterial = builder
+        .comment("If non-empty, only material will be shown on parts in creative and JEI (or the first valid material if this is invalid for the part).", "If empty, all materials will show")
+        .translation("tconstruct.configgui.showOnlyPartMaterial")
         .worldRestart()
-        .define("listAllPartMaterials", true);
+        .define("showOnlyPartMaterial", "");
 
       builder.pop();
 
