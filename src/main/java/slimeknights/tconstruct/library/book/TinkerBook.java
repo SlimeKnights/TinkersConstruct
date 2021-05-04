@@ -14,10 +14,7 @@ import slimeknights.tconstruct.library.book.content.ContentTool;
 import slimeknights.tconstruct.library.book.sectiontransformer.ModifierSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.ToolSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.materials.MaterialSectionTransformer;
-import slimeknights.tconstruct.library.book.sectiontransformer.materials.TierFourMaterialSectionTransformer;
-import slimeknights.tconstruct.library.book.sectiontransformer.materials.TierOneMaterialSectionTransformer;
-import slimeknights.tconstruct.library.book.sectiontransformer.materials.TierThreeMaterialSectionTransformer;
-import slimeknights.tconstruct.library.book.sectiontransformer.materials.TierTwoMaterialSectionTransformer;
+import slimeknights.tconstruct.library.book.sectiontransformer.materials.TieredMaterialSectionTransformer;
 
 public class TinkerBook extends BookData {
 
@@ -59,10 +56,10 @@ public class TinkerBook extends BookData {
     book.addTransformer(new ToolSectionTransformer());
 
     book.addTransformer(new ModifierSectionTransformer());
-    book.addTransformer(new TierOneMaterialSectionTransformer());
-    book.addTransformer(new TierTwoMaterialSectionTransformer());
-    book.addTransformer(new TierThreeMaterialSectionTransformer());
-    book.addTransformer(new TierFourMaterialSectionTransformer());
+    book.addTransformer(new TieredMaterialSectionTransformer("tier_one_materials", 1));
+    book.addTransformer(new TieredMaterialSectionTransformer("tier_two_materials", 2));
+    book.addTransformer(new TieredMaterialSectionTransformer("tier_three_materials", 3));
+    book.addTransformer(new TieredMaterialSectionTransformer("tier_four_materials", 4));
 
     book.addTransformer(BookTransformer.indexTranformer());
   }
