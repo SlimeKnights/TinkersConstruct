@@ -341,12 +341,10 @@ public class ToolAttackUtil {
     }
 
     // damage the tool
-    if (attackerPlayer == null || !attackerPlayer.isCreative()) {
-      if (!TinkerTags.Items.COMBAT.contains(tool.getItem())) {
-        durabilityLost *= 2;
-      }
-      ToolDamageUtil.damageAnimated(tool, durabilityLost, attackerLiving);
+    if (!TinkerTags.Items.COMBAT.contains(tool.getItem())) {
+      durabilityLost *= 2;
     }
+    ToolDamageUtil.damageAnimated(tool, durabilityLost, attackerLiving);
 
     return true;
   }

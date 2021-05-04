@@ -7,7 +7,7 @@ import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.Set;
 
@@ -33,7 +33,7 @@ public class HarvestTool extends ToolCore {
     }
 
     @Override
-    public boolean isEffectiveAgainst(ToolStack tool, ItemStack stack, BlockState state) {
+    public boolean isEffectiveAgainst(IModifierToolStack tool, ItemStack stack, BlockState state) {
       return materials.contains(state.getMaterial()) || super.isEffectiveAgainst(tool, stack, state);
     }
   }

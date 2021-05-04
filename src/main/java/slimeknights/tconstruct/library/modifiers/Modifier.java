@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.modifiers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
@@ -12,14 +11,19 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.UseAction;
 import net.minecraft.loot.LootContext;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectUtils;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -204,10 +208,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param tool      Tool instance
    * @param level     Tool level
    * @param tooltip   Tooltip
-   * @param flag      Tooltip flag type
+   * @param isAdvanced  Tooltip flag type
    * @param detailed  If true, showing detailed view, such as in the tinker station
    */
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {}
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {}
 
   /**
    * Gets the description for this modifier
@@ -344,6 +348,116 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
 
+  /**
+    * Called when this item is used when targeting a block, <i>before</i> the block is activated.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param context        Full item use context
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType onBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+    return ActionResultType.PASS;
+  }
+
+  /**
+    * Called when this item is used when targeting an entity.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param player         Player holding tool
+   * @param target         Target
+   * @param hand           Current hand
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType onEntityUse(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand) {
+    return ActionResultType.PASS;
+  }
+
+  /**
+    * Called when this item is used, after all other hooks PASS.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param world          World containing tool
+   * @param player         Player holding tool
+   * @param hand           Current hand
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
+    return ActionResultType.PASS;
+  }
+
+  /**
+   * Called when the player stops using the tool.
+   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onFinishUsing(IModifierToolStack, int, World, LivingEntity)}: Called when the duration timer reaches the end, even if still held
+   *  </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param world          World containing tool
+   * @param entity         Entity holding tool
+   * @param timeLeft       How many ticks of use duration was left
+  * @return  Whether the modifier should block any incoming ones from firing
+  */
+  public boolean onStoppedUsing(IModifierToolStack tool, int level, World world, LivingEntity entity, int timeLeft) {
+    return false;
+  }
+
+  /**
+   * Called when the use duration on this tool reaches the end.
+   * To setup, use {@link LivingEntity#setActiveHand(Hand)} in {@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)} and set the duration in {@link #getUseDuration(IModifierToolStack, int)}
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onStoppedUsing(IModifierToolStack, int, World, LivingEntity, int)}: Called when the player lets go before the duration reaches the end
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param world          World containing tool
+   * @param entity         Entity holding tool
+   * @return  Whether the modifier should block any incoming ones from firing
+   */
+  public boolean onFinishUsing(IModifierToolStack tool, int level, World world, LivingEntity entity) {
+    return false;
+  }
+
+  /**
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+  * @return  For how many ticks the modifier should run its use action
+  */
+  public int getUseDuration(IModifierToolStack tool, int level) {
+     return 0;
+  }
+
+  /**
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+  * @return  Use action to be performed
+  */
+  public UseAction getUseAction(IModifierToolStack tool, int level) {
+     return UseAction.NONE;
+  }
+  
   /* Harvest hooks */
 
   /**
@@ -508,6 +622,22 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    */
   public int getDurabilityRGB(IModifierToolStack tool, int level) {
     return -1;
+  }
+
+
+  /* Modules */
+
+  /**
+   * Gets a submodule of this modifier.
+   *
+   * Submodules will contain tool stack sensitive hooks, and do not contain storage. Generally returning the same instance each time is preferred.
+   * @param type  Module type to fetch
+   * @param <T>   Module return type
+   * @return  Module, or null if the module is not contained
+   */
+  @Nullable
+  public <T> T getModule(Class<T> type) {
+    return null;
   }
 
 

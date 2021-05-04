@@ -24,7 +24,7 @@ public class HeavyModifier extends Modifier {
 
   @Override
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    builder.multiplyAttackDamage(1 + (0.2f * level));
+    builder.multiplyAttackDamage(1 + (0.1f * level));
   }
 
   /**

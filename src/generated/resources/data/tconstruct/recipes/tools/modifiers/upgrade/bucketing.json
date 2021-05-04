@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:faucet"
+    },
+    {
+      "item": "minecraft:bucket"
+    },
+    {
+      "item": "tconstruct:faucet"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee_or_harvest"
+  },
+  "result": {
+    "name": "tconstruct:bucketing",
+    "level": 1
+  },
+  "max_level": 1,
+  "ability_slots": 1
+}

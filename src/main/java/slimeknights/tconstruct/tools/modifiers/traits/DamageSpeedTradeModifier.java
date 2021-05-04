@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
@@ -47,7 +46,7 @@ public class DamageSpeedTradeModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     double boost = getMultiplier(tool, level);
     if (boost != 0) {
       tooltip.add(applyStyle(new StringTextComponent(Util.dfPercentBoost.format(-boost)).appendString(" ").append(MINING_SPEED)));

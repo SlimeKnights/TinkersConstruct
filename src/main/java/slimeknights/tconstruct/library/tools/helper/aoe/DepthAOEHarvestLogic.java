@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic.RectangleIterator;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.Collections;
@@ -21,7 +21,7 @@ public class DepthAOEHarvestLogic extends ToolHarvestLogic {
   private final int extraDepth;
 
   @Override
-  public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     if (!canAOE(tool, stack, state, matchType)) {
       return Collections.emptyList();
     }
@@ -29,7 +29,7 @@ public class DepthAOEHarvestLogic extends ToolHarvestLogic {
     return calculate(this, tool, stack, player, world, origin, extraHeight + expanded / 2, extraDepth + (expanded + 1) / 2 * 2, matchType);
   }
 
-  public static Iterable<BlockPos> calculate(ToolHarvestLogic self, ToolStack tool, ItemStack stack, PlayerEntity player, World world, BlockPos origin, int extraHeight, int extraDepth, AOEMatchType matchType) {
+  public static Iterable<BlockPos> calculate(ToolHarvestLogic self, IModifierToolStack tool, ItemStack stack, PlayerEntity player, World world, BlockPos origin, int extraHeight, int extraDepth, AOEMatchType matchType) {
     // skip if no work
     if (extraDepth == 0 && extraHeight == 0) {
       return Collections.emptyList();

@@ -149,6 +149,18 @@ public class ToolStack implements IModifierToolStack {
     return tool;
   }
 
+  /** Clears all cached data, used with capabilities to prevent cached data from being out of sync due to external changes */
+  public void clearCache() {
+    this.damage = -1;
+    this.broken = null;
+    this.materials = null;
+    this.upgrades = null;
+    this.modifiers = null;
+    this.stats = null;
+    this.volatileModData = null;
+    this.persistentModData = null;
+  }
+
   /**
    * Creates a new tool stack for a completely new tool
    * @param item        Item

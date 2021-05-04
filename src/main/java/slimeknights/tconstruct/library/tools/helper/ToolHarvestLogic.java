@@ -6,7 +6,6 @@ import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.network.play.server.SChangeBlockPacket;
@@ -27,6 +26,7 @@ import net.minecraftforge.common.util.Constants.WorldEvents;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Collections;
@@ -63,7 +63,7 @@ public class ToolHarvestLogic {
    * @param state   Block state
    * @return  True if effective
    */
-  public boolean isEffectiveAgainst(ToolStack tool, ItemStack stack, BlockState state) {
+  public boolean isEffectiveAgainst(IModifierToolStack tool, ItemStack stack, BlockState state) {
     return stack.getToolTypes().stream().anyMatch(state::isToolEffective);
   }
 
@@ -74,7 +74,7 @@ public class ToolHarvestLogic {
    * @param state  State to check
    * @return  True if this tool is effective
    */
-  public final boolean isEffective(ToolStack tool, ItemStack stack, BlockState state) {
+  public final boolean isEffective(IModifierToolStack tool, ItemStack stack, BlockState state) {
     if (tool.isBroken()) {
       return false;
     }
@@ -96,7 +96,7 @@ public class ToolHarvestLogic {
    * @param matchType  AOE match type
    * @return  True if AOE is valid
    */
-  public final boolean canAOE(ToolStack tool, ItemStack stack, BlockState state, AOEMatchType matchType) {
+  public final boolean canAOE(IModifierToolStack tool, ItemStack stack, BlockState state, AOEMatchType matchType) {
     if (matchType == AOEMatchType.BREAKING) {
       return isEffective(tool, stack, state);
     }
@@ -141,7 +141,7 @@ public class ToolHarvestLogic {
    * @param matchType   Type of match
    * @return A list of BlockPos's that the AOE tool can affect. Note these positions will likely be mutable
    */
-  public Iterable<BlockPos> getAOEBlocks(ToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
     return Collections.emptyList();
   }
 
@@ -349,7 +349,6 @@ public class ToolHarvestLogic {
     }
 
     // if we made a successful transform, client can stop early
-    EquipmentSlotType slot = hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND;
     if (didTransform || isCampfire) {
       if (world.isRemote()) {
         return ActionResultType.SUCCESS;
@@ -366,14 +365,8 @@ public class ToolHarvestLogic {
         world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
       }
 
-      // if the tool breaks, we are done
-      if (player == null || !player.isCreative()) {
-        if (ToolDamageUtil.damage(tool, 1, player, stack)) {
-          return ActionResultType.SUCCESS;
-        }
-      }
-      // if it was a campfire, we are done
-      if (isCampfire) {
+      // if the tool breaks or it was a campfire, we are done
+      if (ToolDamageUtil.damage(tool, 1, player, stack) || isCampfire) {
         return ActionResultType.SUCCESS;
       }
     }
@@ -416,7 +409,7 @@ public class ToolHarvestLogic {
           }
 
           // stop if the tool broke
-          if (!player.isCreative() && ToolDamageUtil.damageAnimated(tool, 1, player, slot)) {
+          if (ToolDamageUtil.damageAnimated(tool, 1, player, hand)) {
             break;
           }
         }
@@ -440,7 +433,7 @@ public class ToolHarvestLogic {
    * @param matchType  Match logic
    * @return  Predicate for AOE block matching
    */
-  public static Predicate<BlockPos> getDefaultBlockPredicate(ToolHarvestLogic self, ToolStack tool, ItemStack stack, World world, BlockPos origin, AOEMatchType matchType) {
+  public static Predicate<BlockPos> getDefaultBlockPredicate(ToolHarvestLogic self, IModifierToolStack tool, ItemStack stack, World world, BlockPos origin, AOEMatchType matchType) {
     // requires effectiveness
     if (matchType == AOEMatchType.BREAKING) {
       // don't let hardness vary too much

@@ -4,14 +4,25 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class SearingModifier extends Modifier {
   private static final float BASELINE_TEMPERATURE = 0.75f;
 
   public SearingModifier() {
     super(0x3f3f3f);
+  }
+
+  @Override
+  public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
+    TinkerModifiers.tank.get().addCapacity(volatileData, MaterialValues.INGOT * 2);
   }
 
   /** Applies the temperature boost */

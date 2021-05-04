@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.common.data.tags;
 
-import net.minecraft.block.Block;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
@@ -9,8 +8,8 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -26,7 +25,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-import java.util.Locale;
 import java.util.function.Consumer;
 
 public class TConstructItemTagsProvider extends ItemTagsProvider {
@@ -83,10 +81,18 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP).add(TinkerMaterials.debrisNugget.get());
 
-    copyColored(Tags.Blocks.GLASS, Tags.Items.GLASS);
-    copyColored(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
+    // glass
+    copy(Tags.Blocks.GLASS_COLORLESS, Tags.Items.GLASS_COLORLESS);
+    copy(Tags.Blocks.GLASS_PANES_COLORLESS, Tags.Items.GLASS_PANES_COLORLESS);
     copy(Tags.Blocks.STAINED_GLASS, Tags.Items.STAINED_GLASS);
     copy(Tags.Blocks.STAINED_GLASS_PANES, Tags.Items.STAINED_GLASS_PANES);
+    for (DyeColor color : DyeColor.values()) {
+      ResourceLocation name = new ResourceLocation("forge", "glass/" + color.getString());
+      copy(BlockTags.createOptional(name), ItemTags.createOptional(name));
+      name = new ResourceLocation("forge", "glass_panes/" + color.getString());
+      copy(BlockTags.createOptional(name), ItemTags.createOptional(name));
+    }
+
     copy(TinkerTags.Blocks.WORKBENCHES, TinkerTags.Items.WORKBENCHES);
     copy(TinkerTags.Blocks.TABLES, TinkerTags.Items.TABLES);
     copy(TinkerTags.Blocks.ANVIL_METAL, TinkerTags.Items.ANVIL_METAL);
@@ -245,7 +251,6 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   }
 
 
-
   /**
    * Adds relevant tags for a metal object
    * @param metal  Metal object
@@ -257,45 +262,4 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(Tags.Items.NUGGETS).addTag(metal.getNuggetTag());
     this.copy(metal.getBlockTag(), metal.getBlockItemTag());
   }
-
-  /*
-   * Credit to forge for this code to generate the tags.
-   */
-  private void copyColored(INamedTag<Block> blockGroup, INamedTag<Item> itemGroup) {
-    String blockPre = blockGroup.getName().getPath().toUpperCase(Locale.ENGLISH) + '_';
-    String itemPre = itemGroup.getName().getPath().toUpperCase(Locale.ENGLISH) + '_';
-    for (DyeColor color : DyeColor.values()) {
-      INamedTag<Block> from = getForgeBlockTag(blockPre + color.getTranslationKey());
-      INamedTag<Item> to = getForgeItemTag(itemPre + color.getTranslationKey());
-      copy(from, to);
-    }
-    copy(getForgeBlockTag(blockPre + "colorless"), getForgeItemTag(itemPre + "colorless"));
-  }
-
-  /*
-   * Credit to forge for this code to generate the tags.
-   */
-  @SuppressWarnings("unchecked")
-  private INamedTag<Block> getForgeBlockTag(String name) {
-    try {
-      name = name.toUpperCase(Locale.ENGLISH);
-      return (INamedTag<Block>) Tags.Blocks.class.getDeclaredField(name).get(null);
-    } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-      throw new IllegalStateException(Tags.Blocks.class.getName() + " is missing tag name: " + name);
-    }
-  }
-
-  /*
-   * Credit to forge for this code to generate the tags.
-   */
-  @SuppressWarnings("unchecked")
-  private INamedTag<Item> getForgeItemTag(String name) {
-    try {
-      name = name.toUpperCase(Locale.ENGLISH);
-      return (INamedTag<Item>) Tags.Items.class.getDeclaredField(name).get(null);
-    } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-      throw new IllegalStateException(Tags.Items.class.getName() + " is missing tag name: " + name);
-    }
-  }
-
 }

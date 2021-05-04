@@ -8,7 +8,7 @@
   "temperature": 800,
   "traits": [
     {
-      "name": "tconstruct:reinforced",
+      "name": "tconstruct:sturdy",
       "level": 1
     }
   ]

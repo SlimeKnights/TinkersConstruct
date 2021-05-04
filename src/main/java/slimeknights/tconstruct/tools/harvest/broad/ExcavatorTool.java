@@ -1,9 +1,5 @@
 package slimeknights.tconstruct.tools.harvest.broad;
 
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.SoundEvents;
-import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
@@ -17,11 +13,6 @@ public class ExcavatorTool extends HarvestTool {
   @Override
   public ToolHarvestLogic getToolHarvestLogic() {
     return RectangleAOEHarvestLogic.LARGE;
-  }
-
-  @Override
-  public ActionResultType onItemUse(ItemUseContext context) {
-    return getToolHarvestLogic().transformBlocks(context, ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN, true);
   }
 
   /*

@@ -20,7 +20,6 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStatio
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -62,12 +61,13 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     int current = 0;
-    int cap = OverslimeModifier.getCap(tool);
+    OverslimeModifier overslime = TinkerModifiers.overslime.get();
+    int cap = overslime.getCapacity(tool);
     // if the tool lacks true overslime, add overslime
     if (tool.getUpgrades().getLevel(TinkerModifiers.overslime.get()) == 0) {
       // however, if we have overslime though a trait and reached our cap, also do nothing
       if (tool.getModifierLevel(TinkerModifiers.overslime.get()) > 0) {
-        current = OverslimeModifier.getOverslime(tool);
+        current = overslime.getOverslime(tool);
         if (current >= cap) {
           return AT_CAPACITY;
         }
@@ -78,7 +78,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
       tool.addModifier(TinkerModifiers.overslime.get(), 1);
     } else {
       // ensure we are not at the cap already
-      current = OverslimeModifier.getOverslime(tool);
+      current = overslime.getOverslime(tool);
       if (current >= cap) {
         return AT_CAPACITY;
       }
@@ -88,7 +88,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
     // see how much value is available, update overslime to the max possible
     int available = IncrementalModifierRecipe.getAvailableAmount(inv, ingredient, restoreAmount);
-    OverslimeModifier.setOverslime(tool, Math.min(current + available, cap));
+    overslime.setOverslime(tool, Math.min(current + available, cap));
     return ValidatedResult.success(tool.createStack());
   }
 
@@ -102,12 +102,13 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     // if the original tool did not have overslime, its treated as having no slime
     int current = 0;
+    OverslimeModifier overslime = TinkerModifiers.overslime.get();
     if (tool.getModifierLevel(TinkerModifiers.overslime.get()) != 0) {
-      current = OverslimeModifier.getOverslime(tool);
+      current = overslime.getOverslime(tool);
     }
 
     // how much did we actually consume?
-    int maxNeeded = OverslimeModifier.getOverslime(ToolStack.from(result)) - current;
+    int maxNeeded = overslime.getOverslime(ToolStack.from(result)) - current;
     IncrementalModifierRecipe.updateInputs(inv, ingredient, maxNeeded, restoreAmount, ItemStack.EMPTY);
   }
 
@@ -131,15 +132,17 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   /** Cache of display outputs, value depends on recipe */
   private List<List<ItemStack>> displayItems = null;
 
+  @SuppressWarnings("deprecation")
   @Override
   public List<List<ItemStack>> getDisplayItems() {
     if (displayItems == null) {
       // set cap and amount based on the restore amount for output
       CompoundNBT volatileNBT = new CompoundNBT();
       ModDataNBT volatileData = ModDataNBT.readFromNBT(volatileNBT);
-      OverslimeModifier.setCap(volatileData, 500);
+      OverslimeModifier overslime = TinkerModifiers.overslime.get();
+      overslime.setCapacity(volatileData, 500);
       CompoundNBT persistentNBT = new CompoundNBT();
-      OverslimeModifier.setOverslime(ToolDefinition.EMPTY, ModDataNBT.readFromNBT(persistentNBT), volatileData, restoreAmount);
+      overslime.setOverslime(ModDataNBT.readFromNBT(persistentNBT), restoreAmount);
       List<ItemStack> displayOutputs = IDisplayModifierRecipe.getAllModifiable()
                                                              .map(MAP_TOOL_FOR_RENDERING)
                                                              .map(stack -> {

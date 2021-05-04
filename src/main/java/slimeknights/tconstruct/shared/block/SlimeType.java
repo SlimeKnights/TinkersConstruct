@@ -36,10 +36,6 @@ public enum SlimeType implements IStringSerializable {
   @Getter @Deprecated
   private final ITag<Item> slimeBallTag;
 
-  public ITag<Item> getSlimeBallTag() {
-    return slimeBallTag;
-  }
-
   /**
    * Returns the slimeball food item for this slime type
    * @param type SlimeType

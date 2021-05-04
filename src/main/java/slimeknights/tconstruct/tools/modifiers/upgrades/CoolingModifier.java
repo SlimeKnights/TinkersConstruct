@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -19,14 +18,14 @@ public class CoolingModifier extends IncrementalModifier {
   @Override
   public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
     if (target.isImmuneToFire()) {
-      damage += getScaledLevel(tool, level) * 1.5f;
+      damage += getScaledLevel(tool, level) * 2f;
     }
     return damage;
   }
 
   @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, ITooltipFlag flag, boolean detailed) {
-    tooltip.add(applyStyle(new StringTextComponent("+" + Util.df.format(getScaledLevel(tool, level) * 1.5f))
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
+    tooltip.add(applyStyle(new StringTextComponent("+" + Util.df.format(getScaledLevel(tool, level) * 2f))
                              .appendString(" ")
                              .append(new TranslationTextComponent(getTranslationKey() + ".damage"))));
   }

@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.tools;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -28,7 +27,5 @@ public class TestToolCore extends ToolCore {
   }
 
   @Override
-  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType, ITooltipFlag flagIn) {
-
-  }
+  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType, boolean isAdvanced) {}
 }

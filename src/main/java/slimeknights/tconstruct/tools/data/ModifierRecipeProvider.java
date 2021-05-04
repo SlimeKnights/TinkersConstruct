@@ -14,13 +14,18 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMatch;
@@ -31,6 +36,7 @@ import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
@@ -88,6 +94,39 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                           .addIngredient(TinkerTags.Items.WITHER_BONES)
                           .addCriterion("has_bone", hasItem(TinkerTags.Items.WITHER_BONES))
                           .build(withCondition(consumer, ConfigEnabledCondition.WITHER_BONE_CONVERSION), location(folder + "wither_bone_conversion"));
+    
+    // TODO: use addCastingWithCastRecipe
+    FluidStack debris = new FluidStack(TinkerFluids.moltenDebris.get(), MaterialValues.INGOT);
+    ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ancientShovelHead)
+                            .setFluidAndTime(debris)
+                            .setCast(TinkerSmeltery.largePlateCast.getMultiUseTag(), false)
+                            .build(consumer, wrap(TinkerModifiers.ancientShovelHead, folder, "_gold_cast"));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ancientShovelHead)
+                            .setFluidAndTime(debris)
+                            .setCast(TinkerSmeltery.largePlateCast.getSingleUseTag(), true)
+                            .build(consumer, wrap(TinkerModifiers.ancientShovelHead, folder, "_sand_cast"));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ancientAxeHead)
+                            .setFluidAndTime(debris)
+                            .setCast(TinkerSmeltery.smallAxeHeadCast.getMultiUseTag(), false)
+                            .build(consumer, wrap(TinkerModifiers.ancientAxeHead, folder, "_gold_cast"));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ancientAxeHead)
+                            .setFluidAndTime(debris)
+                            .setCast(TinkerSmeltery.smallAxeHeadCast.getSingleUseTag(), true)
+                            .build(consumer, wrap(TinkerModifiers.ancientAxeHead, folder, "_sand_cast"));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ancientHoeHead)
+                            .setFluidAndTime(debris)
+                            .setCast(TinkerSmeltery.swordBladeCast.getMultiUseTag(), false)
+                            .build(consumer, wrap(TinkerModifiers.ancientHoeHead, folder, "_gold_cast"));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ancientHoeHead)
+                            .setFluidAndTime(debris)
+                            .setCast(TinkerSmeltery.swordBladeCast.getSingleUseTag(), true)
+                            .build(consumer, wrap(TinkerModifiers.ancientHoeHead, folder, "_sand_cast"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerModifiers.ancientShovelHead,
+                                                      TinkerModifiers.ancientAxeHead,
+                                                      TinkerModifiers.ancientHoeHead),
+                                                      debris,
+                                                      1)
+                        .build(consumer, location(folder + "ancient_tool_heads"));
   }
 
   private void addModifierRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -330,6 +369,33 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setAbilitySlots(1)
                          .setTools(TinkerTags.Items.HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.autosmelt, upgradeFolder));
+    // fluid stuff
+    ModifierRecipeBuilder.modifier(TinkerModifiers.melting.get())
+                         .addInput(Items.BLAZE_ROD)
+                         .addInput(TinkerSmeltery.searedMelter)
+                         .addInput(Items.BLAZE_ROD)
+                         .addInput(Items.LAVA_BUCKET)
+                         .addInput(Items.LAVA_BUCKET)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .build(consumer, prefixR(TinkerModifiers.melting, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.bucketing.get())
+                         .addInput(TinkerSmeltery.searedFaucet)
+                         .addInput(Items.BUCKET)
+                         .addInput(TinkerSmeltery.searedFaucet)
+                         .addInput(Items.ENDER_PEARL)
+                         .addInput(Items.ENDER_PEARL)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .build(consumer, prefixR(TinkerModifiers.bucketing, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.tank.get())
+                         .addInput(TinkerTags.Items.TANKS)
+                         .setMaxLevel(5)
+                         .setUpgradeSlots(1)
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .build(consumer, prefixR(TinkerModifiers.tank, upgradeFolder));
     // expanders
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded.get())
                          .addInput(Items.PISTON)
@@ -352,7 +418,34 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(2)
                          .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.reach, upgradeFolder));
-
+    // block transformers
+    ModifierRecipeBuilder.modifier(TinkerModifiers.pathing.get())
+                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.mattock, TinkerTools.excavator)))
+                         .addInput(TinkerModifiers.ancientShovelHead.get())
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.pathing, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.stripping.get())
+                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.handAxe, TinkerTools.broadAxe)))
+                         .addInput(TinkerModifiers.ancientAxeHead.get())
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.stripping, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.tilling.get())
+                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.kama, TinkerTools.scythe)))
+                         .addInput(TinkerModifiers.ancientHoeHead.get())
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.tilling, upgradeFolder));
+    // glowing
+    ModifierRecipeBuilder.modifier(TinkerModifiers.glowing.get())
+                         .addInput(Items.GLOWSTONE)
+                         .addInput(Items.DAYLIGHT_DETECTOR)
+                         .addInput(Items.SHROOMLIGHT)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .build(consumer, prefixR(TinkerModifiers.glowing, upgradeFolder));
+    
     /*
      * extra modifiers
      */

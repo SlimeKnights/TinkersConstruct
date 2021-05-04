@@ -12,7 +12,7 @@ public class MaintainedModifier2 extends MaintainedModifier {
   protected float getTotalBoost(IModifierToolStack tool, int level) {
     int durability = tool.getCurrentDurability();
     int fullMax = tool.getStats().getDurability();
-    // from 25% to 100%: 25% boost per level
-    return boost(durability, 0.25f, fullMax / 4, fullMax) * level;
+    // from 25% to 100%: 12.5% boost per level
+    return boost(durability, 0.125f, fullMax / 4, fullMax) * level;
   }
 }

@@ -5,13 +5,11 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.TagsProvider;
-import net.minecraft.item.DyeColor;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
@@ -19,6 +17,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
+import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
@@ -26,9 +25,6 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
-
-import java.util.Locale;
-import java.util.function.Consumer;
 
 public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
@@ -67,8 +63,12 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     // glass
     this.getOrCreateBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clearGlass.get());
     this.getOrCreateBuilder(Tags.Blocks.GLASS_PANES_COLORLESS).add(TinkerCommons.clearGlassPane.get());
-    addColored(getOrCreateBuilder(Tags.Blocks.STAINED_GLASS)::add, Tags.Blocks.GLASS, "{color}_clear_stained_glass");
-    addColored(getOrCreateBuilder(Tags.Blocks.STAINED_GLASS_PANES)::add, Tags.Blocks.GLASS_PANES, "{color}_clear_stained_glass_pane");
+    addGlass(TinkerCommons.clearStainedGlass, "glass/", getOrCreateBuilder(Tags.Blocks.STAINED_GLASS));
+    addGlass(TinkerCommons.clearStainedGlassPane, "glass_panes/", getOrCreateBuilder(Tags.Blocks.STAINED_GLASS_PANES));
+    // impermeable for all glass
+    Builder<Block> impermeable = getOrCreateBuilder(BlockTags.IMPERMEABLE);
+    impermeable.add(TinkerCommons.clearGlass.get(), TinkerCommons.soulGlass.get(), TinkerSmeltery.searedGlass.get());
+    TinkerCommons.clearStainedGlass.forEach(impermeable::addItemEntry);
 
     // soul speed on glass
     this.getOrCreateBuilder(BlockTags.SOUL_SPEED_BLOCKS).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get());
@@ -146,6 +146,8 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.ORES_COPPER);
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
+    Builder<Block> slimyGrass = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_GRASS);
+    TinkerWorld.slimeGrass.forEach((slimeType, blockObj) -> blockObj.forEach(slimyGrass::addItemEntry));
 
     // allow the enderman to hold more blocks
     TagsProvider.Builder<Block> endermanHoldable = this.getOrCreateBuilder(BlockTags.ENDERMAN_HOLDABLE);
@@ -206,22 +208,6 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     return "Tinkers Construct Block Tags";
   }
 
-  /*
-  * Credit to forge for this code to generate the tags.
-   */
-  private void addColored(Consumer<Block> consumer, INamedTag<Block> group, String pattern) {
-    String prefix = group.getName().getPath().toUpperCase(Locale.ENGLISH) + '_';
-    for (DyeColor color : DyeColor.values()) {
-      ResourceLocation key = new ResourceLocation("tconstruct", pattern.replace("{color}", color.getTranslationKey()));
-      INamedTag<Block> tag = getForgeTag(prefix + color.getTranslationKey());
-      Block block = ForgeRegistries.BLOCKS.getValue(key);
-      if (block == null || block == Blocks.AIR)
-        throw new IllegalStateException("Unknown tconstruct block: " + key.toString());
-      getOrCreateBuilder(tag).add(block);
-      consumer.accept(block);
-    }
-  }
-
   /**
    * Adds relevant tags for a metal object
    * @param metal  Metal object
@@ -232,17 +218,11 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(metal.getBlockTag());
   }
 
-  /*
-   * Credit to forge for this code to generate the tags.
-   */
-  @SuppressWarnings("unchecked")
-  private INamedTag<Block> getForgeTag(String name) {
-    try {
-      name = name.toUpperCase(Locale.ENGLISH);
-      return (INamedTag<Block>) Tags.Blocks.class.getDeclaredField(name).get(null);
-    } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-      throw new IllegalStateException(Tags.Blocks.class.getName() + " is missing tag name: " + name);
-    }
+  /** Adds tags for a glass item object */
+  private void addGlass(EnumObject<GlassColor,? extends Block> blockObj, String tagPrefix, Builder<Block> blockTag) {
+    blockObj.forEach((color, block) -> {
+      blockTag.add(block);
+      this.getOrCreateBuilder(BlockTags.createOptional(new ResourceLocation("forge", tagPrefix + color))).add(block);
+    });
   }
-
 }
