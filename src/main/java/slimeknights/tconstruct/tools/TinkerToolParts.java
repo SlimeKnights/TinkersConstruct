@@ -9,8 +9,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolPartItem;
+import slimeknights.tconstruct.tools.item.RepairKitItem;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -30,7 +30,7 @@ public final class TinkerToolParts extends TinkerModule {
   private static final Item.Properties PARTS_PROPS = new Item.Properties().group(TAB_TOOL_PARTS);
 
   // repair kit, technically a head so it filters to things useful for repair
-  public static final ItemObject<MaterialItem> repairKit = ITEMS.register("repair_kit", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
+  public static final ItemObject<RepairKitItem> repairKit = ITEMS.register("repair_kit", () -> new RepairKitItem(PARTS_PROPS));
 
   // rock
   public static final ItemObject<ToolPartItem> pickaxeHead = ITEMS.register("pickaxe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));

@@ -1,18 +1,28 @@
 package slimeknights.tconstruct.library.tinkering;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.utils.Tags;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -29,6 +39,7 @@ public class MaterialItem extends Item implements IMaterialItem {
   public Optional<MaterialId> getMaterialId(ItemStack stack) {
     return Optional.ofNullable(stack.getTag())
                    .map(compoundNBT -> compoundNBT.getString(Tags.PART_MATERIAL))
+                   .filter(string -> !string.isEmpty())
                    .map(MaterialId::new);
   }
 
@@ -49,15 +60,15 @@ public class MaterialItem extends Item implements IMaterialItem {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group)) {
-      if (MaterialRegistry.initialized()) {
-        for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
-          if (this.canUseMaterial(material)) {
-            items.add(this.withMaterial(material));
+    if (this.isInGroup(group) && MaterialRegistry.initialized()) {
+      for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
+        if (this.canUseMaterial(material)) {
+          items.add(this.withMaterial(material));
+          // TODO: switch to resource location so you can set the one item you want
+          if (!Config.COMMON.listAllPartMaterials.get()) {
+            break;
           }
         }
-      } else {
-        items.add(new ItemStack(this));
       }
     }
   }
@@ -84,5 +95,28 @@ public class MaterialItem extends Item implements IMaterialItem {
     }
     // format as "<material> <item name>"
     return new TranslationTextComponent(materialKey).appendString(" ").append(new TranslationTextComponent(key));
+  }
+
+  @Override
+  @OnlyIn(Dist.CLIENT)
+  public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    addModTooltip(getMaterial(stack), tooltip);
+  }
+
+    /**
+     * Adds the mod that added the material to the tooltip
+     * @param tooltip   Tooltip list
+     * @param material  Material to add
+     */
+  protected static void addModTooltip(IMaterial material, List<ITextComponent> tooltip) {
+    if (MaterialRegistry.getInstance().getMaterial(material.getIdentifier()) != IMaterial.UNKNOWN) {
+      for (ModInfo modInfo : ModList.get().getMods()) {
+        if (modInfo.getModId().equalsIgnoreCase(material.getIdentifier().getNamespace())) {
+          tooltip.add(new StringTextComponent(""));
+          tooltip.add(new TranslationTextComponent("tooltip.part.material_added_by", modInfo.getDisplayName()));
+          break;
+        }
+      }
+    }
   }
 }

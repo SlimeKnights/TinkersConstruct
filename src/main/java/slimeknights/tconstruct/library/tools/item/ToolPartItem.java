@@ -1,11 +1,7 @@
 package slimeknights.tconstruct.library.tools.item;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -14,24 +10,28 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ForgeI18n;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
-import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.library.utils.Tags;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
+/**
+ * Extension of {@link MaterialItem} which adds stats to the tooltip and has a set stat type
+ */
 public class ToolPartItem extends MaterialItem implements IToolPart {
+  private static final ITextComponent MISSING_INFO = Util.makeTranslation("item", "part.missing_info");
+  private static final String MISSING_MATERIAL_KEY = Util.makeTranslationKey("item", "part.missing_material");
+  private static final String MISSING_STATS_KEY = Util.makeTranslationKey("item", "part.missing_stats");
 
   public final MaterialStatsId materialStatId;
 
@@ -39,22 +39,6 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     super(properties);
 
     this.materialStatId = id;
-  }
-
-  @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group)) {
-      if (MaterialRegistry.initialized()) {
-        for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
-          if (this.canUseMaterial(material)) {
-            items.add(this.withMaterial(material));
-            if (!Config.COMMON.listAllPartMaterials.get()) {
-              break;
-            }
-          }
-        }
-      }
-    }
   }
 
   @Override
@@ -70,79 +54,62 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   @Override
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    super.addInformation(stack, worldIn, tooltip, flagIn);
     IMaterial material = this.getMaterial(stack);
-
-    // Material traits/info
-    boolean shift = Util.isShiftKeyDown();
-
-    if (!this.checkMissingMaterialTooltip(stack, tooltip)) {
+    // add all traits to the info
+    if (!this.checkMissingMaterialTooltip(stack, material, tooltip)) {
       for (ModifierEntry entry : material.getTraits()) {
         tooltip.add(entry.getModifier().getDisplayName(entry.getLevel()));
       }
     }
-
-    // Stats
+    // add stats
     if (Config.CLIENT.extraToolTips.get()) {
-      if (!shift) {
+      if (Util.isShiftKeyDown()) {
+        this.addStatInfoTooltip(material, tooltip);
+      } else {
         // info tooltip for detailed and component info
         tooltip.add(StringTextComponent.EMPTY);
         tooltip.add(ToolCore.TOOLTIP_HOLD_SHIFT);
       }
-      else {
-        tooltip.addAll(this.getTooltipStatsInfo(material));
-      }
     }
-
-    tooltip.addAll(this.getAddedByInfo(material));
+    // and finally, mod
+    addModTooltip(material, tooltip);
   }
 
-  public List<ITextComponent> getTooltipStatsInfo(IMaterial material) {
-    ImmutableList.Builder<ITextComponent> builder = ImmutableList.builder();
-
+  /**
+   * Adds the stat info for the given part to the tooltip
+   * @param tooltip   Tooltip list
+   * @param material  Material to add
+   */
+  protected void addStatInfoTooltip(IMaterial material, List<ITextComponent> tooltip) {
     MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), this.materialStatId).ifPresent((stat) -> {
       List<ITextComponent> text = stat.getLocalizedInfo();
       if (!text.isEmpty()) {
-        builder.add(new StringTextComponent(""));
-        builder.add(stat.getLocalizedName().mergeStyle(TextFormatting.WHITE, TextFormatting.UNDERLINE));
-        builder.addAll(stat.getLocalizedInfo());
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(stat.getLocalizedName().mergeStyle(TextFormatting.WHITE, TextFormatting.UNDERLINE));
+        tooltip.addAll(stat.getLocalizedInfo());
       }
     });
-
-    return builder.build();
   }
 
-  public List<ITextComponent> getAddedByInfo(IMaterial material) {
-    ImmutableList.Builder<ITextComponent> builder = ImmutableList.builder();
-
-    if (MaterialRegistry.getInstance().getMaterial(material.getIdentifier()) != IMaterial.UNKNOWN) {
-      builder.add(new StringTextComponent(""));
-      for (ModInfo modInfo : ModList.get().getMods()) {
-        if (modInfo.getModId().equalsIgnoreCase(material.getIdentifier().getNamespace())) {
-          builder.add(new TranslationTextComponent("tooltip.part.material_added_by", modInfo.getDisplayName()));
-        }
-      }
-    }
-
-    return builder.build();
-  }
-
-  public boolean checkMissingMaterialTooltip(ItemStack stack, List<ITextComponent> tooltip) {
-    IMaterial material = this.getMaterial(stack);
-
+  /**
+   * Adds the tooltip for missing materials
+   * @param stack     Stack in case material is missing
+   * @param material  Material to check
+   * @param tooltip   Tooltip list
+   * @return  True if the material is unknown
+   */
+  protected boolean checkMissingMaterialTooltip(ItemStack stack, IMaterial material, List<ITextComponent> tooltip) {
     if (material == IMaterial.UNKNOWN) {
-      CompoundNBT tagSafe = TagUtil.getTagSafe(stack);
-      String materialId = tagSafe.getString(Tags.PART_MATERIAL);
-      if (!materialId.isEmpty()) {
-        tooltip.add(new TranslationTextComponent("tooltip.part.missing_material", materialId));
-      }
-      else {
-        tooltip.add(new TranslationTextComponent("tooltip.part.missing_info"));
+      Optional<MaterialId> materialId = getMaterialId(stack);
+      if (materialId.isPresent()) {
+        tooltip.add(new TranslationTextComponent(MISSING_MATERIAL_KEY, materialId.get()));
+      } else {
+        tooltip.add(MISSING_INFO);
       }
       return true;
     }
-    else if(!MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), materialStatId).isPresent()) {
-      TranslationHelper.addEachLine(ForgeI18n.parseMessage("tooltip.part.missing_stats", material.getTranslationKey(), materialStatId), tooltip);
+    else if (!canUseMaterial(material)) {
+      TranslationHelper.addEachLine(ForgeI18n.parseMessage(MISSING_STATS_KEY, material.getTranslationKey(), materialStatId), tooltip);
     }
 
     return false;

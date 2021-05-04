@@ -15,7 +15,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
 import slimeknights.mantle.client.book.data.element.TextData;
@@ -259,7 +258,7 @@ public class ContentMaterial extends TinkerPage {
   }
 
   public List<IToolPart> getToolParts() {
-    return ForgeRegistries.ITEMS.getValues().stream().filter(item -> item instanceof IToolPart).map(item -> (IToolPart) item).collect(Collectors.toList());
+    return TinkerTags.Items.TOOL_PARTS.getAllElements().stream().filter(item -> item instanceof IToolPart).map(item -> (IToolPart) item).collect(Collectors.toList());
   }
 
 }
