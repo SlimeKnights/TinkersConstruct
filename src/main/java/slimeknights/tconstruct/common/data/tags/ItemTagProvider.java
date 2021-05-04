@@ -27,9 +27,9 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.function.Consumer;
 
-public class TConstructItemTagsProvider extends ItemTagsProvider {
+public class ItemTagProvider extends ItemTagsProvider {
 
-  public TConstructItemTagsProvider(DataGenerator generatorIn, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
+  public ItemTagProvider(DataGenerator generatorIn, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
     super(generatorIn, blockTagProvider, TConstruct.modID, existingFileHelper);
   }
 

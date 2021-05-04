@@ -8,22 +8,18 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
-import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Objects;
 
 public class CraftingStationContainer extends BaseStationContainer<CraftingStationTileEntity> {
@@ -114,24 +110,9 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
    * @return  True if blacklisted
    */
   private static boolean isUsable(TileEntity tileEntity, PlayerEntity player) {
-    if (tileEntity instanceof CraftingStationTileEntity) {
-      return false;
-    }
-
-    // Do not expose the casting tables/basins to the side inventory in the crafting station.
-    if (tileEntity instanceof CastingTileEntity) {
-      return false;
-    }
-
-    List<String> blacklist = Config.COMMON.craftingStationBlacklist.get();
-    if (!blacklist.isEmpty()) {
-      ResourceLocation registryName = TileEntityType.getId(tileEntity.getType());
-      if (registryName == null || blacklist.contains(registryName.toString())) {
-        return false;
-      }
-    }
-    // if inventory, check usable
-    return !(tileEntity instanceof IInventory) || ((IInventory)tileEntity).isUsableByPlayer(player);
+    // must not be blacklisted and be usable
+    return !TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST.contains(tileEntity.getType())
+           && (!(tileEntity instanceof IInventory) || ((IInventory)tileEntity).isUsableByPlayer(player));
   }
 
   /**

@@ -37,7 +37,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class TConstructBlockLootTables extends BlockLootTables {
+public class BlockLootTableProvider extends BlockLootTables {
 
   private final Map<ResourceLocation, LootTable.Builder> loot_tables = Maps.newHashMap();
 

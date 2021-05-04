@@ -18,7 +18,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class TConstructEntityLootTables extends EntityLootTables {
+public class EntityLootTableProvider extends EntityLootTables {
 
   @Override
   protected Iterable<EntityType<?>> getKnownEntities() {

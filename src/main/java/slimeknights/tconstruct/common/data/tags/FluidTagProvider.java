@@ -8,9 +8,9 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 
-public class TConstructFluidTagsProvider extends FluidTagsProvider {
+public class FluidTagProvider extends FluidTagsProvider {
 
-  public TConstructFluidTagsProvider(DataGenerator generatorIn, ExistingFileHelper helper) {
+  public FluidTagProvider(DataGenerator generatorIn, ExistingFileHelper helper) {
     super(generatorIn, TConstruct.modID, helper);
   }
 

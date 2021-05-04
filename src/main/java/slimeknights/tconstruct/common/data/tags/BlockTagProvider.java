@@ -26,9 +26,9 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
-public class TConstructBlockTagsProvider extends BlockTagsProvider {
+public class BlockTagProvider extends BlockTagsProvider {
 
-  public TConstructBlockTagsProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
+  public BlockTagProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
     super(generatorIn, TConstruct.modID, existingFileHelper);
   }
 

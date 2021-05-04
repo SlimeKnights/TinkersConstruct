@@ -26,10 +26,11 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructBlockTagsProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructEntityTypeTagsProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructFluidTagsProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructItemTagsProvider;
+import slimeknights.tconstruct.common.data.tags.BlockTagProvider;
+import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
+import slimeknights.tconstruct.common.data.tags.FluidTagProvider;
+import slimeknights.tconstruct.common.data.tags.ItemTagProvider;
+import slimeknights.tconstruct.common.data.tags.TileEntityTypeTagProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -112,11 +113,12 @@ public class TConstruct {
     if (event.includeServer()) {
       DataGenerator datagenerator = event.getGenerator();
       ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator, existingFileHelper);
+      BlockTagProvider blockTags = new BlockTagProvider(datagenerator, existingFileHelper);
       datagenerator.addProvider(blockTags);
-      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags, existingFileHelper));
-      datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator, existingFileHelper));
-      datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new ItemTagProvider(datagenerator, blockTags, existingFileHelper));
+      datagenerator.addProvider(new FluidTagProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new EntityTypeTagProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new TileEntityTypeTagProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
     }
   }

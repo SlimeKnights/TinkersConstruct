@@ -5,9 +5,6 @@ import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Config {
   /**
    * Common specific configuration
@@ -35,8 +32,6 @@ public class Config {
 
     // public final BooleanValue chestsKeepInventory;
 
-    public final ConfigValue<List<String>> craftingStationBlacklist;
-
     public final BooleanValue listAllToolMaterials;
 
     public final BooleanValue listAllPartMaterials;
@@ -56,11 +51,6 @@ public class Config {
 //        .worldRestart()
 //        .define("chestsKeepInventory", true);
 
-      this.craftingStationBlacklist = builder
-        .comment("Blacklist of registry names for the crafting station to connect to. Mainly for compatibility.")
-        .translation("tconstruct.configgui.craftingStationBlacklist")
-        .worldRestart()
-        .define("craftingStationBlacklist", new ArrayList<>());
 
       this.listAllToolMaterials = builder
         .comment("If true all material variants of the different tools will be listed in creative. Set to false to only have the first found material for all tools (usually wood).")

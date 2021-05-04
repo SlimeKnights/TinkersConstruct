@@ -8,9 +8,9 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-public class TConstructEntityTypeTagsProvider extends EntityTypeTagsProvider {
+public class EntityTypeTagProvider extends EntityTypeTagsProvider {
 
-  public TConstructEntityTypeTagsProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
+  public EntityTypeTagProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
     super(generatorIn, TConstruct.modID, existingFileHelper);
   }
 

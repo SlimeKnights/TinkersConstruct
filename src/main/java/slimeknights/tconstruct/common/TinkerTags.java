@@ -8,8 +8,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeTagHandler;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
+import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.Util;
 
 public class TinkerTags {
@@ -19,6 +22,7 @@ public class TinkerTags {
     Items.init();
     Fluids.init();
     EntityTypes.init();
+    TileEntityTypes.init();
   }
 
   public static class Blocks {
@@ -191,6 +195,15 @@ public class TinkerTags {
 
     private static IOptionalNamedTag<EntityType<?>> forgeTag(String name) {
       return EntityTypeTags.createOptional(new ResourceLocation("forge", name));
+    }
+  }
+
+  public static class TileEntityTypes {
+    private static void init() {}
+    public static final IOptionalNamedTag<TileEntityType<?>> CRAFTING_STATION_BLACKLIST = tag("crafting_station_blacklist");
+
+    private static IOptionalNamedTag<TileEntityType<?>> tag(String name) {
+      return ForgeTagHandler.createOptionalTag(ForgeRegistries.TILE_ENTITIES, Util.getResource(name));
     }
   }
 }
