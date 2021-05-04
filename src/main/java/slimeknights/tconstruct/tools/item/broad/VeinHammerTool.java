@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.harvest.broad;
+package slimeknights.tconstruct.tools.item.broad;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
@@ -6,8 +6,8 @@ import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.VeiningAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.tools.harvest.HarvestTool;
-import slimeknights.tconstruct.tools.harvest.PickaxeTool;
+import slimeknights.tconstruct.tools.item.small.HarvestTool;
+import slimeknights.tconstruct.tools.item.small.PickaxeTool;
 
 public class VeinHammerTool extends HarvestTool {
   private static final VeiningAOEHarvestLogic HARVEST_LOGIC = new VeiningAOEHarvestLogic(2) {

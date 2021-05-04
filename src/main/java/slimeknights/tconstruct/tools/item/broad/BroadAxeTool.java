@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.harvest.broad;
+package slimeknights.tconstruct.tools.item.broad;
 
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.TreeAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.tools.harvest.HandAxeTool;
+import slimeknights.tconstruct.tools.item.small.HandAxeTool;
 
 import java.util.Set;
 

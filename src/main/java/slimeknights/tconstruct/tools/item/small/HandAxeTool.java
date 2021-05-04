@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.harvest;
+package slimeknights.tconstruct.tools.item.small;
 
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;

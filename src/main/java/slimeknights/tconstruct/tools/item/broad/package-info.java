@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.tools.melee;
+package slimeknights.tconstruct.tools.item.broad;
 
 import mcp.MethodsReturnNonnullByDefault;
 

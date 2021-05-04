@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.tools.harvest.broad;
+package slimeknights.tconstruct.tools.item;
 
 import mcp.MethodsReturnNonnullByDefault;
 

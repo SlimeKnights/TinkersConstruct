@@ -1,9 +1,9 @@
-package slimeknights.tconstruct.tools.harvest.broad;
+package slimeknights.tconstruct.tools.item.broad;
 
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
-import slimeknights.tconstruct.tools.harvest.HarvestTool;
+import slimeknights.tconstruct.tools.item.small.HarvestTool;
 
 public class ExcavatorTool extends HarvestTool {
   public ExcavatorTool(Properties properties, ToolDefinition toolDefinition) {

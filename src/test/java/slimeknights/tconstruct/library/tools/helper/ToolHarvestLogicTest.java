@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolCoreTest;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
-import slimeknights.tconstruct.tools.harvest.HarvestTool;
+import slimeknights.tconstruct.tools.item.small.HarvestTool;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

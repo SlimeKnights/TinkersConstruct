@@ -1,9 +1,6 @@
-package slimeknights.tconstruct.tools.harvest;
-
-import java.util.Set;
+package slimeknights.tconstruct.tools.item.small;
 
 import com.google.common.collect.Sets;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TripWireBlock;
@@ -19,6 +16,8 @@ import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.CircleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+
+import java.util.Set;
 
 public class KamaTool extends HarvestTool {
   /** Tool harvest logic to damage when breaking instant break blocks */

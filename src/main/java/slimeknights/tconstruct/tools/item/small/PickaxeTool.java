@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.harvest;
+package slimeknights.tconstruct.tools.item.small;
 
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
@@ -8,6 +8,7 @@ import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.DepthAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+
 import java.util.Set;
 
 public class PickaxeTool extends HarvestTool {

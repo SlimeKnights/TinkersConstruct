@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.harvest;
+package slimeknights.tconstruct.tools.item.small;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;

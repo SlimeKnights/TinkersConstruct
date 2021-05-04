@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.melee;
+package slimeknights.tconstruct.tools.item.small;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
