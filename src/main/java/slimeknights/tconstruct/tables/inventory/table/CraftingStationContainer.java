@@ -10,6 +10,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
@@ -20,7 +21,6 @@ import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 public class CraftingStationContainer extends BaseStationContainer<CraftingStationTileEntity> {
   private final LazyResultSlot resultSlot;
@@ -48,43 +48,47 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
       // add result slot, will fetch result cache
       this.addSlot(resultSlot = new LazyResultSlot(tile.getCraftingResult(), 124, 35));
 
-      // detect side inventory
-      TileEntity inventoryTE = null;
-      Direction accessDir = null;
+      World world = tile.getWorld();
+      if (world != null) {
+        // detect side inventory
+        TileEntity inventoryTE = null;
+        Direction accessDir = null;
 
-      BlockPos pos = tile.getPos();
-      horizontals: for (Direction dir : Direction.Plane.HORIZONTAL) {
-        // skip any tables in this multiblock
-        BlockPos neighbor = pos.offset(dir);
-        for (Pair<BlockPos, BlockState> tinkerPos : this.stationBlocks) {
-          if (tinkerPos.getLeft().equals(neighbor)) {
-            continue horizontals;
+        BlockPos pos = tile.getPos();
+        horizontals:
+        for (Direction dir : Direction.Plane.HORIZONTAL) {
+          // skip any tables in this multiblock
+          BlockPos neighbor = pos.offset(dir);
+          for (Pair<BlockPos,BlockState> tinkerPos : this.stationBlocks) {
+            if (tinkerPos.getLeft().equals(neighbor)) {
+              continue horizontals;
+            }
+          }
+
+          // fetch tile entity
+          TileEntity te = world.getTileEntity(neighbor);
+          if (te != null && isUsable(te, inv.player)) {
+            // try internal access first
+            if (hasItemHandler(te, null)) {
+              inventoryTE = te;
+              accessDir = null;
+              break;
+            }
+
+            // try sided access next
+            Direction side = dir.getOpposite();
+            if (hasItemHandler(te, side)) {
+              inventoryTE = te;
+              accessDir = side;
+              break;
+            }
           }
         }
 
-        // fetch tile entity
-        TileEntity te = Objects.requireNonNull(tile.getWorld()).getTileEntity(neighbor);
-        if (te != null && isUsable(te, inv.player)) {
-          // try internal access first
-          if (hasItemHandler(te, null)) {
-            inventoryTE = te;
-            accessDir = null;
-            break;
-          }
-
-          // try sided access next
-          Direction side = dir.getOpposite();
-          if (hasItemHandler(te, side)) {
-            inventoryTE = te;
-            accessDir = side;
-            break;
-          }
+        // if we found something, add the side inventory
+        if (inventoryTE != null) {
+          this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), id, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
         }
-      }
-
-      // if we found something, add the side inventory
-      if (inventoryTE != null) {
-        this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), id, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
       }
     } else {
       // requirement for final variable
