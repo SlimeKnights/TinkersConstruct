@@ -198,6 +198,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
 
   @Override
   public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
+    int originalSize = result.getCount(); // may be larger than the output count if the player is holding a stack
     // going to refetch result, so just start at empty
     result = ItemStack.EMPTY;
 
@@ -207,6 +208,10 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       if (!result.isEmpty()) {
         // update the inputs and trigger recipe hooks
         takeResult(player, result, amount);
+      }
+      // if the player was holding this item, increase the count to match
+      if (originalSize > 0) {
+        result.setCount(result.getCount() + player.inventory.getItemStack().getCount() - originalSize);
       }
     }
     // the return value ultimately does nothing, so manually set the result into the player
