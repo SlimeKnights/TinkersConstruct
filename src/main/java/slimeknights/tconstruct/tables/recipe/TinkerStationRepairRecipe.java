@@ -75,8 +75,8 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     ItemStack stack = inv.getInput(slot);
     // repair kit first
     if (stack.getItem() == TinkerToolParts.repairKit.get()) {
-      // multiply by 2 (part cost), divide again by 4 (vanilla ingots restore 25%), leaves divide by 2
-      return MaterialRecipe.getHeadDurability(repairMaterial.getIdentifier()) / 2f;
+      // multiply by 2 (part cost), divide again by the repair factor to get the final percent
+      return MaterialRecipe.getHeadDurability(repairMaterial.getIdentifier()) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
     }
     // material recipe fallback
     MaterialRecipe recipe = inv.getInputMaterial(slot);

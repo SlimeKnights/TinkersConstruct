@@ -25,6 +25,9 @@ import java.util.Optional;
  * Recipe to get the material from an ingredient
  */
 public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory> {
+  /** Vanilla requires 4 ingots for full repair, we drop it down to 3 to mesh better with nuggets and blocks and to fit small head costs better */
+  public static final float INGOTS_PER_REPAIR = 3f;
+
   @Getter
   protected final ResourceLocation id;
   @Getter
@@ -133,8 +136,8 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    */
   public float getRepairPerItem() {
     if (repairPerItem == null) {
-      // multiply by recipe value (iron block is 9x), divide by needed (nuggets need 9), divide again by 4 (vanilla ingots restore 25%)
-      repairPerItem = this.getValue() * getHeadDurability(materialId) / 4f / this.getNeeded();
+      // multiply by recipe value (iron block is 9x), divide by needed (nuggets need 9), divide again by ingots per repair
+      repairPerItem = this.getValue() * getHeadDurability(materialId) / INGOTS_PER_REPAIR / this.getNeeded();
     }
     return repairPerItem;
   }
