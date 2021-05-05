@@ -1321,6 +1321,7 @@
     "itemGroup.tconstruct.gadgets": "Tinkers' Gadgets",
 
     "gui.tconstruct.crafting_station": "Crafting Station",
+    "gui.tconstruct.crafting_station.uncraftable": "This item is not currently craftable by the player",
 
     "gui.tconstruct.part_builder": "Part Builder",
     "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put a blank pattern into the left slot and select the part you want. The remaining slot holds the material you want to craft your part out of.",

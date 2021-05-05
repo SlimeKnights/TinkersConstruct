@@ -55,6 +55,7 @@ public class LazyResultInventory implements IInventory {
    */
   public ItemStack craftResult(PlayerEntity player, int amount) {
     // get result and consume items
+    // TODO: are all these copies needed?
     ItemStack output = crafter.onCraft(player, getResult().copy(), amount);
     // clear result cache, items changed
     clear();

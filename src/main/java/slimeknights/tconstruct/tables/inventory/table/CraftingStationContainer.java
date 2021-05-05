@@ -104,6 +104,41 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
     this(id, inv, getTileEntityFromBuf(buf, CraftingStationTileEntity.class));
   }
 
+  @Override
+  public ItemStack transferStackInSlot(PlayerEntity player, int index) {
+    Slot slot = this.inventorySlots.get(index);
+    // fix issue on shift clicking from the result slot if the recipe result mismatches the displayed item
+    if (slot == resultSlot) {
+      if (tile != null && slot.getHasStack()) {
+        // return the original result so shift click works
+        ItemStack original = slot.getStack().copy(); // TODO: are these copies really needed?
+        // but add the true result into the inventory
+        ItemStack result = tile.getResultForPlayer(player);
+        if (!result.isEmpty()) {
+          boolean nothingDone = true;
+          if (subContainers.size() > 0) { // the sub container check does not do well with 0 sub containers
+            nothingDone = this.refillAnyContainer(result, this.subContainers);
+          }
+          nothingDone &= this.moveToPlayerInventory(result);
+          if (subContainers.size() > 0) {
+            nothingDone &= this.moveToAnyContainer(result, this.subContainers);
+          }
+          // if successfully added to an inventory, update
+          if (!nothingDone) {
+            tile.takeResult(player, result, result.getCount());
+            tile.getCraftingResult().clear();
+            return original;
+          }
+        } else {
+          tile.notifyUncraftable(player);
+        }
+      }
+      return ItemStack.EMPTY;
+    } else {
+      return super.transferStackInSlot(player, index);
+    }
+  }
+
   /**
    * Checks if the given tile entity is blacklisted
    * @param tileEntity  Tile to check

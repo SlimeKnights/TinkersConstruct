@@ -11,10 +11,12 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -27,6 +29,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 
 public class CraftingStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
+  public static final ITextComponent UNCRAFTABLE = Util.makeTranslation("gui", "crafting_station.uncraftable");
 
   /** Last crafted crafting recipe */
   @Nullable
@@ -91,34 +94,59 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
     return result;
   }
 
-  @Override
-  public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
-    if (this.world == null || amount == 0 || this.lastRecipe == null || !this.lastRecipe.matches(this.craftingInventory, this.world)) {
+  /**
+   * Gets the player sensitive crafting result, also validating the player has access to this recule
+   * @param player  Player
+   * @return  Player sensitive result
+   */
+  public ItemStack getResultForPlayer(PlayerEntity player) {
+    ForgeHooks.setCraftingPlayer(player);
+    ICraftingRecipe recipe = this.lastRecipe; // local variable just to prevent race conditions if the field changes, though that is unlikely
+
+    // try matches again now that we have player access
+    if (recipe == null || this.world == null || !recipe.matches(craftingInventory, world)) {
+      ForgeHooks.setCraftingPlayer(null);
       return ItemStack.EMPTY;
     }
 
-    // check if the player has access to the result
-    if (player instanceof ServerPlayerEntity) {
-      if (this.lastRecipe != null) {
-        // if the player cannot craft this, block crafting
-        if (!this.lastRecipe.isDynamic() && world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING) && !((ServerPlayerEntity) player).getRecipeBook().isUnlocked(this.lastRecipe)) {
-          return ItemStack.EMPTY;
-        }
-        // unlock the recipe if it was not unlocked
-        if (this.lastRecipe != null && !this.lastRecipe.isDynamic()) {
-          player.unlockRecipes(Collections.singleton(this.lastRecipe));
-        }
+    // check if the player has access to the recipe, if not give up
+    if (!recipe.isDynamic() && player instanceof ServerPlayerEntity) {
+      // if the player cannot craft this, block crafting
+      if (world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING) && !((ServerPlayerEntity) player).getRecipeBook().isUnlocked(recipe)) {
+        ForgeHooks.setCraftingPlayer(null);
+        return ItemStack.EMPTY;
       }
-
-      // fire crafting events
-      result.onCrafting(this.world, player, amount);
-      BasicEventHooks.firePlayerCraftingEvent(player, result, this.craftingInventory);
     }
+
+    ItemStack result = recipe.getCraftingResult(craftingInventory);
+    ForgeHooks.setCraftingPlayer(null);
+    return result;
+  }
+
+  /**
+   * Removes the result from this inventory, updating inputs and triggering recipe hooks
+   * @param player  Player taking result
+   * @param result  Result removed
+   * @param amount  Number of times crafted
+   */
+  public void takeResult(PlayerEntity player, ItemStack result, int amount) {
+    ICraftingRecipe recipe = this.lastRecipe; // local variable just to prevent race conditions if the field changes, though that is unlikely
+    if (recipe == null || this.world == null) {
+      return;
+    }
+
+    // fire crafting events
+    if (!recipe.isDynamic()) {
+      // unlock the recipe if it was not unlocked
+      player.unlockRecipes(Collections.singleton(recipe));
+    }
+    result.onCrafting(this.world, player, amount);
+    BasicEventHooks.firePlayerCraftingEvent(player, result, this.craftingInventory);
 
     // update all slots in the inventory
     // remove remaining items
     ForgeHooks.setCraftingPlayer(player);
-    NonNullList<ItemStack> remaining = this.lastRecipe.getRemainingItems(craftingInventory);
+    NonNullList<ItemStack> remaining = recipe.getRemainingItems(craftingInventory);
     ForgeHooks.setCraftingPlayer(null);
     for (int i = 0; i < remaining.size(); ++i) {
       ItemStack original = this.getStackInSlot(i);
@@ -148,7 +176,35 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
         }
       }
     }
+  }
 
+  /** Sends a message alerting the player this item is currently uncraftable, typically due to gamerules */
+  public void notifyUncraftable(PlayerEntity player) {
+    // if empty, send a message so the player is more aware of why they cannot craft it, sent to chat as status bar is not visible
+    // TODO: consider moving into the UI somewhere
+    if (world != null && !world.isRemote) {
+      player.sendStatusMessage(CraftingStationTileEntity.UNCRAFTABLE, false);
+    }
+  }
+
+  @Override
+  public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
+    // going to refetch result, so just start at empty
+    result = ItemStack.EMPTY;
+
+    if (amount > 0) {
+      // get the player sensitive result
+      result = getResultForPlayer(player);
+      if (!result.isEmpty()) {
+        // update the inputs and trigger recipe hooks
+        takeResult(player, result, amount);
+      }
+    }
+    // the return value ultimately does nothing, so manually set the result into the player
+    player.inventory.setItemStack(result);
+    if (result.isEmpty()) {
+      notifyUncraftable(player);
+    }
     return result;
   }
 
