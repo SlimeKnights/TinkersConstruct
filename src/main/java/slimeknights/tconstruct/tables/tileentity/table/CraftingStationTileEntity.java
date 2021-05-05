@@ -12,7 +12,6 @@ import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.GameRules;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
@@ -110,13 +109,18 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
     }
 
     // check if the player has access to the recipe, if not give up
-    if (!recipe.isDynamic() && player instanceof ServerPlayerEntity) {
-      // if the player cannot craft this, block crafting
-      if (world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING) && !((ServerPlayerEntity) player).getRecipeBook().isUnlocked(recipe)) {
-        ForgeHooks.setCraftingPlayer(null);
-        return ItemStack.EMPTY;
-      }
-    }
+    // TODO: gamerules are not synced to the client, so there is no easy way to do the is unlocked check without desyncs. As a result, offically not supporting limited crafting
+//    if (!recipe.isDynamic() && world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING)) {
+//      // mojang, why can't PlayerEntity just have a RecipeBook getter, why must I go through the sided classes? grr
+//      boolean locked = DistExecutor.unsafeRunForDist(
+//        () -> () -> player instanceof ClientPlayerEntity && !((ClientPlayerEntity) player).getRecipeBook().isUnlocked(recipe),
+//        () -> () -> player instanceof ServerPlayerEntity && !((ServerPlayerEntity) player).getRecipeBook().isUnlocked(recipe));
+//      // if the player cannot craft this, block crafting
+//      if (locked) {
+//        ForgeHooks.setCraftingPlayer(null);
+//        return ItemStack.EMPTY;
+//      }
+//    }
 
     ItemStack result = recipe.getCraftingResult(craftingInventory);
     ForgeHooks.setCraftingPlayer(null);
