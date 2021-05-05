@@ -12,7 +12,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.GameRules;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
 import slimeknights.tconstruct.TConstruct;
@@ -31,7 +30,6 @@ import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 import slimeknights.tconstruct.tables.tileentity.table.RetexturedTableTileEntity;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 
 public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
   /** Slot index of the tool slot */
@@ -147,33 +145,17 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
   @Override
   public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
-    if (this.world == null || amount == 0 || this.lastRecipe == null || !this.lastRecipe.matches(this.inventoryWrapper, world)) {
+    if (amount == 0 || this.lastRecipe == null) {
       return ItemStack.EMPTY;
     }
 
-    // check if the player has access to the result
-    // TODO: ditch?
-    if (player instanceof ServerPlayerEntity) {
-      if (this.lastRecipe != null) {
-        // if the player cannot craft this, block crafting
-        if (!this.lastRecipe.isDynamic() && world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING) && !((ServerPlayerEntity) player).getRecipeBook().isUnlocked(this.lastRecipe)) {
-          return ItemStack.EMPTY;
-        }
-        // unlock the recipe if it was not unlocked
-        if (this.lastRecipe != null && !this.lastRecipe.isDynamic()) {
-          player.unlockRecipes(Collections.singleton(this.lastRecipe));
-        }
-      }
-
-      // fire crafting events
-      result.onCrafting(this.world, player, amount);
-      BasicEventHooks.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
-    }
-
+    // fire crafting events
+    result.onCrafting(this.world, player, amount);
+    BasicEventHooks.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
     this.playCraftSound(player);
     this.syncToRelevantPlayers(this::syncScreen);
 
-    // run the recipe, will shrink inputs and
+    // run the recipe, will shrink inputs
     this.inventoryWrapper.setPlayer(player);
     this.lastRecipe.updateInputs(result, inventoryWrapper);
     this.inventoryWrapper.setPlayer(null);
