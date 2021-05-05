@@ -75,7 +75,7 @@
         "north": { "uv": [  6, 10,  8,  6 ], "texture": "#tex"},
         "east":  { "uv": [  2, 10,  6, 16 ], "texture": "#tex", "rotation": 90},
         "south": { "uv": [  6, 10,  4,  6 ], "texture": "#tex", "cullface": "south"},
-        "west":  { "uv": [  6, 10, 12, 16 ], "texture": "#tex", "rotation": 270}
+        "west":  { "uv": [  8, 10, 12, 16 ], "texture": "#tex", "rotation": 270}
       },
       "__comment": "Right side from front (west)"
     }
