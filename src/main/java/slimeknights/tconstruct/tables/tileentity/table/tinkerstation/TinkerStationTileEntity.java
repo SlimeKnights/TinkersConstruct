@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
@@ -46,8 +45,8 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   /** Crafting inventory for the recipe calls */
   private final TinkerStationInventoryWrapper inventoryWrapper;
 
-  private UpdateStationScreenPacket.PacketType screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
-  private ITextComponent screenSyncMessage = StringTextComponent.EMPTY;
+  @Getter
+  private ValidatedResult currentError = ValidatedResult.PASS;
 
   public TinkerStationTileEntity() {
     this(6); // default to more slots
@@ -99,8 +98,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
     // assume empty unless we learn otherwise
     ItemStack result = ItemStack.EMPTY;
-    this.screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
-    this.screenSyncMessage = StringTextComponent.EMPTY;
+    this.currentError = ValidatedResult.PASS;
 
     if (!this.world.isRemote && this.world.getServer() != null) {
       RecipeManager manager = this.world.getServer().getRecipeManager();
@@ -113,11 +111,13 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
       }
 
       // if we have a recipe, fetch its result
+      boolean needsSync = true;
       if (recipe != null) {
         // sync if the recipe is different
         if (lastRecipe != recipe) {
           this.lastRecipe = recipe;
           this.syncToRelevantPlayers(this::syncRecipe);
+          needsSync = false;
         }
 
         // try for UI errors
@@ -125,9 +125,12 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
         if (validatedResult.isSuccess()) {
           result = validatedResult.getResult();
         } else if (validatedResult.hasError()) {
-          this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
-          this.screenSyncMessage = validatedResult.getMessage();
+          this.currentError = validatedResult;
         }
+      }
+      // recipe will sync screen, so only need to call it when not syncing the recipe
+      if (needsSync) {
+        this.syncToRelevantPlayers(this::syncScreen);
       }
     }
     // client side only needs to update result, server syncs message elsewhere
@@ -135,17 +138,17 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
       ValidatedResult validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
       if (validatedResult.isSuccess()) {
         result = validatedResult.getResult();
+      } else if (validatedResult.hasError()) {
+        this.currentError = validatedResult;
       }
     }
-
-    this.syncToRelevantPlayers(this::syncScreen);
 
     return result;
   }
 
   @Override
   public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
-    if (amount == 0 || this.lastRecipe == null) {
+    if (amount == 0 || this.lastRecipe == null || this.world == null) {
       return ItemStack.EMPTY;
     }
 
@@ -153,7 +156,6 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     result.onCrafting(this.world, player, amount);
     BasicEventHooks.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
     this.playCraftSound(player);
-    this.syncToRelevantPlayers(this::syncScreen);
 
     // run the recipe, will shrink inputs
     this.inventoryWrapper.setPlayer(player);
@@ -177,8 +179,6 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     // clear the crafting result when the matrix changes so we recalculate the result
     this.craftingResult.clear();
     this.inventoryWrapper.refreshInput(slot);
-
-    this.syncToRelevantPlayers(this::syncScreen);
   }
 
   /* Syncing */
@@ -209,7 +209,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
    */
   public void syncScreen(PlayerEntity player) {
     if (this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
-      TinkerNetwork.getInstance().sendTo(new UpdateStationScreenPacket(this.screenSyncType, this.screenSyncMessage), (ServerPlayerEntity) player);
+      TinkerNetwork.getInstance().sendTo(new UpdateStationScreenPacket(), (ServerPlayerEntity) player);
     }
   }
 

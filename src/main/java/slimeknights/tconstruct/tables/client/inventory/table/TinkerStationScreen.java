@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
@@ -231,8 +232,20 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
   @Override
   public void updateDisplay() {
+    if (this.tile == null) {
+      return;
+    }
+
     ItemStack toolStack = this.container.getResult();
 
+    // if we have a message, display instead of refreshing the tool
+    ValidatedResult currentError = tile.getCurrentError();
+    if (currentError.hasError()) {
+      error(currentError.getMessage());
+      return;
+    }
+
+    // normal refresh
     if (toolStack.isEmpty()) {
       toolStack = this.container.getSlot(TINKER_SLOT).getStack();
     }
