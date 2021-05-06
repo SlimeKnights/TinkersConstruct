@@ -33,6 +33,7 @@ import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
 import slimeknights.tconstruct.tables.recipe.CraftingTableRepairKitRecipe;
+import slimeknights.tconstruct.tables.recipe.TinkerStationDamagingRecipe;
 import slimeknights.tconstruct.tables.recipe.TinkerStationPartSwapping;
 import slimeknights.tconstruct.tables.recipe.TinkerStationRepairRecipe;
 import slimeknights.tconstruct.tables.tileentity.chest.CastChestTileEntity;
@@ -101,6 +102,7 @@ public final class TinkerTables extends TinkerModule {
   public static final RegistryObject<SpecialRecipeSerializer<TinkerStationRepairRecipe>> tinkerStationRepairSerializer = RECIPE_SERIALIZERS.register("tinker_station_repair", () -> new SpecialRecipeSerializer<>(TinkerStationRepairRecipe::new));
   public static final RegistryObject<SpecialRecipeSerializer<CraftingTableRepairKitRecipe>> craftingTableRepairSerializer = RECIPE_SERIALIZERS.register("crafting_table_repair", () -> new SpecialRecipeSerializer<>(CraftingTableRepairKitRecipe::new));
   public static final RegistryObject<SpecialRecipeSerializer<TinkerStationPartSwapping>> tinkerStationPartSwappingSerializer = RECIPE_SERIALIZERS.register("tinker_station_part_swapping", () -> new SpecialRecipeSerializer<>(TinkerStationPartSwapping::new));
+  public static final RegistryObject<TinkerStationDamagingRecipe.Serializer> tinkerStationDamagingSerializer = RECIPE_SERIALIZERS.register("tinker_station_damaging", TinkerStationDamagingRecipe.Serializer::new);
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {

@@ -8,6 +8,7 @@ import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.data.SingleItemRecipeBuilder;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ITag.INamedTag;
@@ -280,6 +281,13 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
    */
   protected static ICondition tagCondition(String name) {
     return new NotCondition(new TagEmptyCondition("forge", name));
+  }
+
+  // Forge constructor is private, not sure if there is a public place for this
+  protected static class NBTIngredient extends net.minecraftforge.common.crafting.NBTIngredient {
+    public NBTIngredient(ItemStack stack) {
+      super(stack);
+    }
   }
 
   // Forge constructor is private, not sure if there is a public place for this

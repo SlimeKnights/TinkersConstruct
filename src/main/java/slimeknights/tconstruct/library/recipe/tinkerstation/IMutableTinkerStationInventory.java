@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 /**
  * Extension of {@link ITinkerStationInventory} to allow modifying inventory contents
@@ -30,6 +31,9 @@ public interface IMutableTinkerStationInventory extends ITinkerStationInventory 
       // determine how large to make the container
       int count = stack.getCount();
       ItemStack container = stack.getContainerItem();
+      if (container.isEmpty() && stack.getItem() == Items.POTION) {
+        container = new ItemStack(Items.GLASS_BOTTLE);
+      }
       if (!container.isEmpty()) {
         container.setCount(Math.min(count, amount));
       }
