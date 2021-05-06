@@ -20,20 +20,17 @@ public interface IMutableTinkerStationInventory extends ITinkerStationInventory 
    */
   void giveItem(ItemStack stack);
 
+
   /**
    * Shrinks a slot by the given count, returning the properly sized container
    * @param slot    Slot to shrink
    * @param amount  Amount to shrink by
    */
-  default void shrinkInput(int slot, int amount) {
+  default void shrinkInput(int slot, int amount, ItemStack container) {
     ItemStack stack = getInput(slot);
     if (!stack.isEmpty()) {
       // determine how large to make the container
       int count = stack.getCount();
-      ItemStack container = stack.getContainerItem();
-      if (container.isEmpty() && stack.getItem() == Items.POTION) {
-        container = new ItemStack(Items.GLASS_BOTTLE);
-      }
       if (!container.isEmpty()) {
         container.setCount(Math.min(count, amount));
       }
@@ -49,6 +46,22 @@ public interface IMutableTinkerStationInventory extends ITinkerStationInventory 
           giveItem(container);
         }
       }
+    }
+  }
+
+  /**
+   * Shrinks a slot by the given count, returning the properly sized container
+   * @param slot    Slot to shrink
+   * @param amount  Amount to shrink by
+   */
+  default void shrinkInput(int slot, int amount) {
+    ItemStack stack = getInput(slot);
+    if (!stack.isEmpty()) {
+      ItemStack container = stack.getContainerItem();
+      if (container.isEmpty() && stack.getItem() == Items.POTION) {
+        container = new ItemStack(Items.GLASS_BOTTLE);
+      }
+      shrinkInput(slot, amount, container);
     }
   }
 }

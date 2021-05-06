@@ -294,7 +294,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level  Modifier level
    * @return  PASS result if success, failure if there was an error.
    */
-  public ValidatedResult validate(ToolStack tool, int level) {
+  public ValidatedResult validate(IModifierToolStack tool, int level) {
     return ValidatedResult.PASS;
   }
 

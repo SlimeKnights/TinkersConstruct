@@ -64,6 +64,11 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     this.upgradeSlots = upgradeSlots;
     this.abilitySlots = abilitySlots;
     ModifierRecipeLookup.addRequirement(result.getModifier(), requirements, requirementsError);
+    if (abilitySlots > 0) {
+      ModifierRecipeLookup.setAbilitySlots(result.getModifier(), abilitySlots / result.getLevel());
+    } else {
+      ModifierRecipeLookup.setUpgradeSlots(result.getModifier(), upgradeSlots / result.getLevel());
+    }
   }
 
   @Override

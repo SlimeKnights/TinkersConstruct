@@ -37,6 +37,7 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
@@ -490,6 +491,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.creativeAbility.get())
                          .addInput(TinkerModifiers.creativeAbilityItem)
                          .build(consumer, prefixR(TinkerModifiers.creativeAbility, slotlessFolder));
+
+    // removal
+    ModifierRemovalRecipe.Builder.removal(Ingredient.fromItems(Blocks.WET_SPONGE), new ItemStack(Blocks.SPONGE))
+                                 .build(consumer, location(slotlessFolder + "remove_modifier"));
   }
 
   private void addHeadRecipes(Consumer<IFinishedRecipe> consumer) {

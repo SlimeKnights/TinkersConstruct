@@ -46,6 +46,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     this.ingredient = ingredient;
     this.restoreAmount = restoreAmount;
     ModifierRecipeLookup.addIngredient(ingredient);
+    ModifierRecipeLookup.setUpgradeSlots(TinkerModifiers.overslime.get(), 0);
   }
 
   @Override
