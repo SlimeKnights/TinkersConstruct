@@ -37,6 +37,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.SilkyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.SilkyShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.TwoHandedAbilityModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
@@ -158,6 +159,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
   public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", () -> new Modifier(0xff9f50));
   public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
+  public static final RegistryObject<UnbreakableModifier> unbreakable = MODIFIERS.register("unbreakable", UnbreakableModifier::new);
 
   // fluid abilities
   public static final RegistryObject<MeltingModifier> melting = MODIFIERS.register("melting", MeltingModifier::new);

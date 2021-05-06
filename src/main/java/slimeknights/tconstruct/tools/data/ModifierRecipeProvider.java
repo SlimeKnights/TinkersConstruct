@@ -447,6 +447,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.glowing, abilityFolder));
+    // unbreakable
+    ModifierRecipeBuilder.modifier(TinkerModifiers.unbreakable.get())
+                         .addInput(Items.SHULKER_SHELL)
+                         .addInput(Items.DRAGON_BREATH)
+                         .addInput(Items.SHULKER_SHELL)
+                         .addInput(Tags.Items.INGOTS_NETHERITE)
+                         .addInput(Tags.Items.INGOTS_NETHERITE)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .setRequirements(ModifierMatch.list(2, ModifierMatch.entry(TinkerModifiers.netherite.get(), 1), ModifierMatch.entry(TinkerModifiers.reinforced.get(), 5)))
+                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.unbreakable_requirements"))
+                         .build(consumer, prefixR(TinkerModifiers.unbreakable, abilityFolder));
     
     /*
      * extra modifiers

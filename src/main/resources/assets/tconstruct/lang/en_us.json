@@ -1004,7 +1004,7 @@
 
     "_comment": "Durability",
     "modifier.tconstruct.reinforced": "Reinforced",
-    "modifier.tconstruct.reinforced.flavor": "Unbreaking!",
+    "modifier.tconstruct.reinforced.flavor": "Long Lasting!",
     "modifier.tconstruct.reinforced.description": "Tool is less likely to take damage",
     "modifier.tconstruct.emerald": "Emerald",
     "modifier.tconstruct.emerald.flavor": "Fancy!",
@@ -1021,6 +1021,7 @@
     "modifier.tconstruct.netherite": "Netherite",
     "modifier.tconstruct.netherite.flavor": "Refined!",
     "modifier.tconstruct.netherite.description": "Harness the power of ancient metal, making the tool stronger and immune to external damage such as fire",
+    "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
     "modifier.tconstruct.overslime": "Overslime",
     "modifier.tconstruct.overslime.flavor": "Slimy!",
     "modifier.tconstruct.overslime.description": "Tool consumes overslime instead of durability, until it runs out! Not friendly towards tools lacking slime",
@@ -1094,18 +1095,32 @@
     "modifier.tconstruct.sharpness.description": "Tool is so much sharper, dealing more damage!",
 
     "_comment": "Abilities",
+    "modifier.tconstruct.unbreakable": "Unbreakable",
+    "modifier.tconstruct.unbreakable.flavor": "Frozen state!",
+    "modifier.tconstruct.unbreakable.description": "Tool no longer takes damage, locking durability at the current value",
+    "recipe.tconstruct.modifier.unbreakable_requirements": "Unbreakable requires Netherite and Reinforced V to apply",
+    "_comment": "Loot",
     "modifier.tconstruct.silky": "Silky",
     "modifier.tconstruct.silky.flavor": "Smooth as silk!",
     "modifier.tconstruct.silky.description": "Mined blocks drop themselves instead of the usual items",
+    "modifier.tconstruct.autosmelt": "Autosmelt",
+    "modifier.tconstruct.autosmelt.flavor": "Fires of the Nether in your tool!",
+    "modifier.tconstruct.autosmelt.description": "Tool automatically smelts all drops",
+    "modifier.tconstruct.luck": "Luck",
+    "modifier.tconstruct.luck.1": "Luck",
+    "modifier.tconstruct.luck.2": "Luckier",
+    "modifier.tconstruct.luck.3": "Luckiest",
+    "modifier.tconstruct.luck.beyond": "Lucky++",
+    "modifier.tconstruct.luck.flavor": "Flashy!",
+    "modifier.tconstruct.luck.description": "Gives you more nice things when mining or killing mobs!",
+    "_comment": "Expanders",
     "modifier.tconstruct.expanded": "Expanded",
     "modifier.tconstruct.expanded.flavor": "Did not skip leg day!",
     "modifier.tconstruct.expanded.description": "Tool's area of effect is larger than before",
     "modifier.tconstruct.reach": "Reach",
     "modifier.tconstruct.reach.flavor": "Telekinesis!",
     "modifier.tconstruct.reach.description": "Can reach further blocks and mobs while holding this tool!",
-    "modifier.tconstruct.autosmelt": "Autosmelt",
-    "modifier.tconstruct.autosmelt.flavor": "Fires of the Nether in your tool!",
-    "modifier.tconstruct.autosmelt.description": "Tool automatically smelts all drops",
+    "_comment": "Block transform",
     "modifier.tconstruct.pathing": "Pathing",
     "modifier.tconstruct.pathing.flavor": "Where we're going, we need roads!",
     "modifier.tconstruct.pathing.description": "Tool can make paths",
@@ -1118,7 +1133,7 @@
     "modifier.tconstruct.glowing": "Glowing",
     "modifier.tconstruct.glowing.flavor": "Shine bright!",
     "modifier.tconstruct.glowing.description": "Tool can place glow balls while crouching, at the cost of durability",
-
+    "_comment": "Fluids",
     "modifier.tconstruct.melting": "Melting",
     "modifier.tconstruct.melting.flavor": "The power of a Melter on a stick!",
     "modifier.tconstruct.melting.description": "Melts attacked entities and items dropped!",
@@ -1130,14 +1145,6 @@
     "modifier.tconstruct.bucketing": "Bucketing",
     "modifier.tconstruct.bucketing.flavor": "Slurp!",
     "modifier.tconstruct.bucketing.description": "Tool can pickup liquid, or place it when crouching",
-
-    "modifier.tconstruct.luck": "Luck",
-    "modifier.tconstruct.luck.1": "Luck",
-    "modifier.tconstruct.luck.2": "Luckier",
-    "modifier.tconstruct.luck.3": "Luckiest",
-    "modifier.tconstruct.luck.beyond": "Lucky++",
-    "modifier.tconstruct.luck.flavor": "Flashy!",
-    "modifier.tconstruct.luck.description": "Gives you more nice things when mining or killing mobs!",
 
     "_comment": "Bonus modifier slots",
     "modifier.tconstruct.creative_upgrade": "Creative Upgrade",
@@ -1345,6 +1352,7 @@
     "gui.tconstruct.manual.cycle.recipes": "Cycle to other recipes",
 
     "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
+    "recipe.tconstruct.damaging.broken": "Tool is already broken",
 
     "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
 
@@ -1354,8 +1362,6 @@
     "recipe.tconstruct.modifier.validate_abilities": "This change leaves the tool with too few ability slots",
     "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
     "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
-
-    "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
 
 
     "_comment": "GUIs Messages",
