@@ -1353,6 +1353,7 @@
 
     "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
     "recipe.tconstruct.damaging.broken": "Tool is already broken",
+    "recipe.tconstruct.overslime.at_capacity": "Tool has no more space for overslime",
     "recipe.tconstruct.remove_modifier.no_modifiers": "Tool does not have any removable modifiers",
 
     "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",

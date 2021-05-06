@@ -77,6 +77,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
       // truely add overslime, this will cost a slime crystal if full durability
       tool = tool.copy();
       tool.addModifier(TinkerModifiers.overslime.get(), 1);
+      cap = overslime.getCapacity(tool);
     } else {
       // ensure we are not at the cap already
       current = overslime.getOverslime(tool);
