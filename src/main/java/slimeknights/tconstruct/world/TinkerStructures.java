@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.world;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.DimensionSettings;
@@ -11,6 +13,7 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -74,6 +77,14 @@ public final class TinkerStructures extends TinkerModule {
     slimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("slime_island_piece"), SlimeIslandPiece::new);
   }
 
+  /** Adds the settings to the given dimension */
+  private static void addStructureSettings(RegistryKey<DimensionSettings> key, Structure<?> structure, StructureSeparationSettings settings) {
+    DimensionSettings dimensionSettings = WorldGenRegistries.NOISE_SETTINGS.getValueForKey(key);
+    if (dimensionSettings != null) {
+      dimensionSettings.getStructures().func_236195_a_().put(structure, settings);
+    }
+  }
+
   /**
    * Feature configuration
    *
@@ -83,13 +94,30 @@ public final class TinkerStructures extends TinkerModule {
   void commonSetup(FMLCommonSetupEvent event) {
     SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("overworld_slime_island"), overworldSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
     Structure.NAME_STRUCTURE_BIMAP.put("tconstruct:overworld_slime_island", overworldSlimeIsland.get());
-    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(overworldSlimeIsland.get(), new StructureSeparationSettings(30, 22, 14357800));
+    StructureSeparationSettings overworldSettings = new StructureSeparationSettings(30, 22, 14357800);
+    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(overworldSlimeIsland.get(), overworldSettings);
+    addStructureSettings(DimensionSettings.field_242735_d, overworldSlimeIsland.get(), overworldSettings);
+    addStructureSettings(DimensionSettings.field_242739_h, overworldSlimeIsland.get(), overworldSettings);
 
     NETHER_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("nether_slime_island"), netherSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
     Structure.NAME_STRUCTURE_BIMAP.put("tconstruct:nether_slime_island", netherSlimeIsland.get());
+    StructureSeparationSettings netherSettings = new StructureSeparationSettings(15, 11, 65245622);
+    addStructureSettings(DimensionSettings.field_242736_e, netherSlimeIsland.get(), netherSettings);
 
     END_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("end_slime_island"), endSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
     Structure.NAME_STRUCTURE_BIMAP.put("tconstruct:end_slime_island", endSlimeIsland.get());
+    StructureSeparationSettings endSettings = new StructureSeparationSettings(15, 11, 65245622);
+    addStructureSettings(DimensionSettings.field_242737_f, endSlimeIsland.get(), endSettings);
+
+    // add to the default for anyone creating dimension settings later, hopefully its soon enough
+    event.enqueueWork(() -> {
+      ImmutableMap.Builder<Structure<?>, StructureSeparationSettings> builder = ImmutableMap.builder();
+      builder.putAll(DimensionStructuresSettings.field_236191_b_);
+      builder.put(overworldSlimeIsland.get(), overworldSettings);
+      builder.put(netherSlimeIsland.get(), netherSettings);
+      builder.put(endSlimeIsland.get(), endSettings);
+      DimensionStructuresSettings.field_236191_b_ = builder.build();
+    });
 
     SKY_SLIME_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("sky_slime_tree"), SLIME_TREE.get().withConfiguration((
       new BaseSlimeTreeFeatureConfig.Builder(
