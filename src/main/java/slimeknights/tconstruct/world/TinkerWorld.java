@@ -139,9 +139,10 @@ public final class TinkerWorld extends TinkerModule {
   public static final EnumObject<FoliageType, SlimeTallGrassBlock> slimeTallGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), DEFAULT_BLOCK_ITEM);
 
   // wood
-  public static final WoodBlockObject greenheart =  BLOCKS.registerWood("greenheart",  Material.WOOD,        MaterialColor.LIME, MaterialColor.GREEN, SoundType.WOOD,   TAB_WORLD);
-  public static final WoodBlockObject skyroot =     BLOCKS.registerWood("skyroot",     Material.WOOD,        MaterialColor.CYAN, MaterialColor.BLUE,  SoundType.WOOD,   TAB_WORLD);
-  public static final WoodBlockObject bloodshroom = BLOCKS.registerWood("bloodshroom", Material.NETHER_WOOD, MaterialColor.RED,  MaterialColor.ADOBE, SoundType.HYPHAE, TAB_WORLD);
+  public static final Material SLIME_WOOD = new Material.Builder(MaterialColor.CLAY).flammable().build(); // yep. flammable clay. New material so none of the existing tooltips try mining this
+  public static final WoodBlockObject greenheart =  BLOCKS.registerWood("greenheart",  SLIME_WOOD,    MaterialColor.LIME, SoundType.SLIME, ToolType.SHOVEL, Material.WOOD,        MaterialColor.GREEN,           SoundType.WOOD,   TAB_WORLD);
+  public static final WoodBlockObject skyroot =     BLOCKS.registerWood("skyroot",     SLIME_WOOD,    MaterialColor.CYAN, SoundType.SLIME, ToolType.SHOVEL, Material.WOOD,        MaterialColor.CYAN_TERRACOTTA, SoundType.WOOD,   TAB_WORLD);
+  public static final WoodBlockObject bloodshroom = BLOCKS.registerWood("bloodshroom", Material.CLAY, MaterialColor.RED,  SoundType.SLIME, ToolType.SHOVEL, Material.NETHER_WOOD, MaterialColor.ADOBE,           SoundType.HYPHAE, TAB_WORLD);
 
   // trees
   private static final Block.Properties SAPLING = builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).zeroHardnessAndResistance().doesNotBlockMovement().tickRandomly();

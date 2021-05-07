@@ -101,14 +101,14 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @param group        Item group for the wood
    * @return  Wood object
    */
-  public WoodBlockObject registerWood(String name, Material material, MaterialColor planksColor, MaterialColor barkColor, SoundType sound, ItemGroup group) {
+  public WoodBlockObject registerWood(String name, Material planksMaterial, MaterialColor planksColor, SoundType plankSound, ToolType planksTool, Material barkMaterial, MaterialColor barkColor, SoundType barkSound, ItemGroup group) {
     //WoodType woodType = WoodType.create(resourceName(name));
     Item.Properties itemProps = new Item.Properties().group(group);
 
     // many of these are already burnable via tags, but simplier to set them all here
     Function<Integer, Function<? super Block, ? extends BlockItem>> burnableItem;
     Function<Integer, Function<? super Block, ? extends BlockItem>> burnableTallItem;
-    if (material.isFlammable()) {
+    if (barkMaterial.isFlammable()) {
       burnableItem     = burnTime -> block -> new BurnableBlockItem(block, itemProps, burnTime);
       burnableTallItem = burnTime -> block -> new BurnableTallBlockItem(block, itemProps, burnTime);
     } else {
@@ -119,24 +119,24 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
 
     // planks
     Function<? super Block, ? extends BlockItem> burnable300 = burnableItem.apply(300);
-    AbstractBlock.Properties planksProps = AbstractBlock.Properties.create(material, planksColor).harvestTool(ToolType.AXE).hardnessAndResistance(2.0f, 3.0f).sound(sound);
+    AbstractBlock.Properties planksProps = AbstractBlock.Properties.create(planksMaterial, planksColor).harvestTool(planksTool).hardnessAndResistance(2.0f, 3.0f).sound(plankSound);
     BuildingBlockObject planks = registerBuilding(name + "_planks", planksProps, burnable300);
     ItemObject<FenceBlock> fence = register(name + "_fence", () -> new FenceBlock(Properties.from(planks.get())), burnable300);
     // logs and wood
-    Supplier<? extends RotatedPillarBlock> stripped = () -> new RotatedPillarBlock(AbstractBlock.Properties.create(material, planksColor).harvestTool(ToolType.AXE).hardnessAndResistance(2.0f).sound(sound));
+    Supplier<? extends RotatedPillarBlock> stripped = () -> new RotatedPillarBlock(AbstractBlock.Properties.create(planksMaterial, planksColor).harvestTool(planksTool).hardnessAndResistance(2.0f).sound(plankSound));
     ItemObject<RotatedPillarBlock> strippedLog = register("stripped_" + name + "_log", stripped, burnable300);
     ItemObject<RotatedPillarBlock> strippedWood = register("stripped_" + name + "_wood", stripped, burnable300);
     ItemObject<RotatedPillarBlock> log = register(name + "_log", () -> new StrippableLogBlock(strippedLog,
-      AbstractBlock.Properties.create(material, state -> state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor)
-                              .harvestTool(ToolType.AXE).hardnessAndResistance(2.0f).sound(sound)), burnable300);
-    ItemObject<RotatedPillarBlock> wood = register(name + "_wood", () -> new StrippableLogBlock(strippedWood, AbstractBlock.Properties.create(material, barkColor).harvestTool(ToolType.AXE).hardnessAndResistance(2.0f).sound(sound)), burnable300);
+      AbstractBlock.Properties.create(barkMaterial, state -> state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? planksColor : barkColor)
+                              .harvestTool(ToolType.AXE).hardnessAndResistance(2.0f).sound(barkSound)), burnable300);
+    ItemObject<RotatedPillarBlock> wood = register(name + "_wood", () -> new StrippableLogBlock(strippedWood, AbstractBlock.Properties.create(barkMaterial, barkColor).harvestTool(ToolType.AXE).hardnessAndResistance(2.0f).sound(barkSound)), burnable300);
 
     // doors
-    ItemObject<DoorBlock> door = register(name + "_door", () -> new DoorBlock(AbstractBlock.Properties.create(material, planksColor).hardnessAndResistance(3.0F).sound(sound).notSolid()), burnableTallItem.apply(200));
-    ItemObject<TrapDoorBlock> trapdoor = register(name + "_trapdoor", () -> new TrapDoorBlock(AbstractBlock.Properties.create(material, planksColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid().setAllowsSpawn(Blocks::neverAllowSpawn)), burnable300);
+    ItemObject<DoorBlock> door = register(name + "_door", () -> new DoorBlock(AbstractBlock.Properties.create(planksMaterial, planksColor).harvestTool(planksTool).hardnessAndResistance(3.0F).sound(plankSound).notSolid()), burnableTallItem.apply(200));
+    ItemObject<TrapDoorBlock> trapdoor = register(name + "_trapdoor", () -> new TrapDoorBlock(AbstractBlock.Properties.create(planksMaterial, planksColor).harvestTool(planksTool).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid().setAllowsSpawn(Blocks::neverAllowSpawn)), burnable300);
     ItemObject<FenceGateBlock> fenceGate = register(name + "_fence_gate", () -> new FenceGateBlock(planksProps), burnable300);
     // redstone
-    AbstractBlock.Properties redstoneProps = AbstractBlock.Properties.create(material, planksColor).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(sound);
+    AbstractBlock.Properties redstoneProps = AbstractBlock.Properties.create(planksMaterial, planksColor).harvestTool(planksTool).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(plankSound);
     ItemObject<PressurePlateBlock> pressurePlate = register(name + "_pressure_plate", () -> new PressurePlateBlock(Sensitivity.EVERYTHING, redstoneProps), burnable300);
     ItemObject<WoodButtonBlock> button = register(name + "_button", () -> new WoodButtonBlock(redstoneProps), burnableItem.apply(100));
     // signs
