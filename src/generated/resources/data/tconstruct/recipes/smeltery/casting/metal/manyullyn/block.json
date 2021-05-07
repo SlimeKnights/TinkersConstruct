@@ -4,6 +4,8 @@
     "name": "tconstruct:molten_manyullyn",
     "amount": 1296
   },
-  "result": "tconstruct:manyullyn_block",
+  "result": {
+    "tag": "forge:storage_blocks/manyullyn"
+  },
   "cooling_time": 216
 }

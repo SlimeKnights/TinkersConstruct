@@ -8,6 +8,8 @@
     "name": "tconstruct:molten_rose_gold",
     "amount": 16
   },
-  "result": "tconstruct:rose_gold_nugget",
+  "result": {
+    "tag": "forge:nuggets/rose_gold"
+  },
   "cooling_time": 17
 }

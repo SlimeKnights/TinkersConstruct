@@ -4,6 +4,8 @@
     "name": "tconstruct:molten_tinkers_bronze",
     "amount": 1296
   },
-  "result": "tconstruct:tinkers_bronze_block",
+  "result": {
+    "tag": "forge:storage_blocks/silicon_bronze"
+  },
   "cooling_time": 171
 }

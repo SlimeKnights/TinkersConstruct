@@ -7,6 +7,8 @@
     "name": "tconstruct:molten_tinkers_bronze",
     "amount": 144
   },
-  "result": "tconstruct:tinkers_bronze_ingot",
+  "result": {
+    "tag": "forge:ingots/silicon_bronze"
+  },
   "cooling_time": 57
 }

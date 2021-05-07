@@ -7,6 +7,8 @@
     "name": "tconstruct:molten_hepatizon",
     "amount": 144
   },
-  "result": "tconstruct:hepatizon_ingot",
+  "result": {
+    "tag": "forge:ingots/hepatizon"
+  },
   "cooling_time": 78
 }

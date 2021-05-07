@@ -3,22 +3,21 @@
   "conditions": [
     {
       "value": {
-        "tag": "forge:rods/tinkers_bronze",
+        "tag": "forge:gears/silicon_bronze",
         "type": "forge:tag_empty"
       },
       "type": "forge:not"
     }
   ],
   "cast": {
-    "tag": "tconstruct:casts/single_use/rod"
+    "tag": "tconstruct:casts/multi_use/gear"
   },
-  "cast_consumed": true,
   "fluid": {
     "name": "tconstruct:molten_tinkers_bronze",
-    "amount": 72
+    "amount": 576
   },
   "result": {
-    "tag": "forge:rods/tinkers_bronze"
+    "tag": "forge:gears/silicon_bronze"
   },
-  "cooling_time": 40
+  "cooling_time": 114
 }
