@@ -125,11 +125,10 @@ public class BlockLootTableProvider extends BlockLootTables {
     for (SlimeType slime : SlimeType.TINKER) {
       this.registerDropSelfLootTable(TinkerWorld.slime.get(slime));
     }
-    // Make loot table for all congealed_slime variants
+    // congealed slime drops like clay blocks
     for (SlimeType slime : SlimeType.values()) {
-      this.registerDropSelfLootTable(TinkerWorld.congealedSlime.get(slime));
+      this.registerLootTable(TinkerWorld.congealedSlime.get(slime), block -> droppingWithSilkTouchOrRandomly(block, TinkerCommons.slimeball.get(slime), ConstantRange.of(4)));
     }
-
     for (SlimeType type : SlimeType.TRUE_SLIME) {
       this.registerDropSelfLootTable(TinkerWorld.slimeDirt.get(type));
     }
