@@ -48,28 +48,42 @@ public class WorldClientEvents extends ClientEventBase {
   static void clientSetup(FMLClientSetupEvent event) {
     RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.skySlimeEntity.get(), TinkerSlimeRenderer.BLUE_SLIME_FACTORY);
 
+    RenderType cutout = RenderType.getCutout();
+    RenderType cutoutMipped = RenderType.getCutoutMipped();
+
     // render types - ores
-    RenderTypeLookup.setRenderLayer(TinkerWorld.cobaltOre.get(), RenderType.getCutoutMipped());
+    RenderTypeLookup.setRenderLayer(TinkerWorld.cobaltOre.get(), cutoutMipped);
 
     // render types - slime plants
-    for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
-      RenderTypeLookup.setRenderLayer(TinkerWorld.slimeLeaves.get(type), RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.vanillaSlimeGrass.get(type), RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.earthSlimeGrass.get(type), RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.skySlimeGrass.get(type), RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.enderSlimeGrass.get(type), RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.ichorSlimeGrass.get(type), RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.slimeFern.get(type), RenderType.getCutout());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.slimeTallGrass.get(type), RenderType.getCutout());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.slimeSapling.get(type), RenderType.getCutout());
+    for (FoliageType type : SlimeGrassBlock.FoliageType.values()) {
+      if (type != FoliageType.BLOOD) {
+        RenderTypeLookup.setRenderLayer(TinkerWorld.slimeLeaves.get(type), cutoutMipped);
+      }
+      RenderTypeLookup.setRenderLayer(TinkerWorld.vanillaSlimeGrass.get(type), cutoutMipped);
+      RenderTypeLookup.setRenderLayer(TinkerWorld.earthSlimeGrass.get(type), cutoutMipped);
+      RenderTypeLookup.setRenderLayer(TinkerWorld.skySlimeGrass.get(type), cutoutMipped);
+      RenderTypeLookup.setRenderLayer(TinkerWorld.enderSlimeGrass.get(type), cutoutMipped);
+      RenderTypeLookup.setRenderLayer(TinkerWorld.ichorSlimeGrass.get(type), cutoutMipped);
+      RenderTypeLookup.setRenderLayer(TinkerWorld.slimeFern.get(type), cutout);
+      RenderTypeLookup.setRenderLayer(TinkerWorld.slimeTallGrass.get(type), cutout);
+      RenderTypeLookup.setRenderLayer(TinkerWorld.slimeSapling.get(type), cutout);
     }
-    RenderTypeLookup.setRenderLayer(TinkerWorld.enderSlimeVine.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerWorld.skySlimeVine.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(TinkerWorld.enderSlimeVine.get(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerWorld.skySlimeVine.get(), cutout);
 
     // render types - slime blocks
+    RenderType translucent = RenderType.getTranslucent();
     for (SlimeType type : SlimeType.TINKER) {
-      RenderTypeLookup.setRenderLayer(TinkerWorld.slime.get(type), RenderType.getTranslucent());
+      RenderTypeLookup.setRenderLayer(TinkerWorld.slime.get(type), translucent);
     }
+
+    // doors
+    RenderTypeLookup.setRenderLayer(TinkerWorld.greenheart.getDoor(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerWorld.greenheart.getTrapdoor(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerWorld.skyroot.getDoor(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerWorld.skyroot.getTrapdoor(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerWorld.bloodshroom.getDoor(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerWorld.bloodshroom.getTrapdoor(), cutout);
   }
 
   @SubscribeEvent

@@ -24,6 +24,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
 
@@ -110,6 +111,28 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
     this.copy(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Items.ORES_COBALT);
     this.copy(TinkerTags.Blocks.ORES_COPPER, TinkerTags.Items.ORES_COPPER);
+
+    // wood
+    this.copy(BlockTags.NON_FLAMMABLE_WOOD, ItemTags.NON_FLAMMABLE_WOOD);
+    // planks
+    this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
+    this.copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
+    this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
+    // logs
+    this.copy(TinkerWorld.greenheart.getLogBlockTag(), TinkerWorld.greenheart.getLogItemTag());
+    this.copy(TinkerWorld.skyroot.getLogBlockTag(), TinkerWorld.skyroot.getLogItemTag());
+    this.copy(TinkerWorld.bloodshroom.getLogBlockTag(), TinkerWorld.bloodshroom.getLogItemTag());
+    this.copy(BlockTags.LOGS, ItemTags.LOGS);
+    this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
+    // doors
+    this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
+    this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
+    this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+    this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
+    this.copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
+    // redstone
+    this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
+    this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
   }
 
   private void addGadgets() {

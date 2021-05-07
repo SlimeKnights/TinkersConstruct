@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "tconstruct:block/wood/skyroot/slab"
+    },
+    "type=double": {
+      "model": "tconstruct:block/wood/skyroot/planks"
+    },
+    "type=top": {
+      "model": "tconstruct:block/wood/skyroot/slab_top"
+    }
+  }
+}

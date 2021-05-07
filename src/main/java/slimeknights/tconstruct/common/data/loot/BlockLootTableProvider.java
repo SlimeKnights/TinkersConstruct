@@ -18,6 +18,7 @@ import slimeknights.mantle.loot.RetexturedLootFunction;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.registration.WoodBlockObject;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -145,9 +146,12 @@ public class BlockLootTableProvider extends BlockLootTables {
       this.registerDropSelfLootTable(TinkerWorld.slimeSapling.get(type));
     }
 
+    this.registerLootTable(TinkerWorld.skySlimeVine.get(), BlockLootTables::onlyWithShears);
     this.registerLootTable(TinkerWorld.enderSlimeVine.get(), BlockLootTables::onlyWithShears);
 
-    this.registerLootTable(TinkerWorld.skySlimeVine.get(), BlockLootTables::onlyWithShears);
+    this.registerWoodLootTables(TinkerWorld.greenheart);
+    this.registerWoodLootTables(TinkerWorld.skyroot);
+    this.registerWoodLootTables(TinkerWorld.bloodshroom);
   }
 
   private void addGadgets() {
@@ -251,5 +255,25 @@ public class BlockLootTableProvider extends BlockLootTables {
   private void registerWallBuildingLootTables(WallBuildingBlockObject object) {
     registerBuildingLootTables(object);
     this.registerDropSelfLootTable(object.getWall());
+  }
+
+  /** Adds all loot tables relevant to the given wood object */
+  private void registerWoodLootTables(WoodBlockObject object) {
+    registerBuildingLootTables(object);
+    // basic
+    this.registerDropSelfLootTable(object.getLog());
+    this.registerDropSelfLootTable(object.getStrippedLog());
+    this.registerDropSelfLootTable(object.getWood());
+    this.registerDropSelfLootTable(object.getStrippedWood());
+    // door
+    this.registerDropSelfLootTable(object.getFence());
+    this.registerDropSelfLootTable(object.getFenceGate());
+    this.registerDropSelfLootTable(object.getDoor());
+    this.registerDropSelfLootTable(object.getTrapdoor());
+    // redstone
+    this.registerDropSelfLootTable(object.getPressurePlate());
+    this.registerDropSelfLootTable(object.getButton());
+    // sign
+    //this.registerDropSelfLootTable(object.getSign());
   }
 }

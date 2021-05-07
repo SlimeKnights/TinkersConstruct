@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:greenheart_pressure_plate",
+    "tconstruct:skyroot_pressure_plate",
+    "tconstruct:bloodshroom_pressure_plate"
+  ]
+}

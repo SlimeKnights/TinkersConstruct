@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "tconstruct:greenheart_planks"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:greenheart_button"
+  }
+}

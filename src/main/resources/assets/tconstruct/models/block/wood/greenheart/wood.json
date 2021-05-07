@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "tconstruct:block/wood/greenheart/log",
+    "side": "tconstruct:block/wood/greenheart/log"
+  }
+}

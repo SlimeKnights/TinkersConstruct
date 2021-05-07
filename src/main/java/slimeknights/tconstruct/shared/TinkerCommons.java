@@ -25,8 +25,6 @@ import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
-import slimeknights.tconstruct.common.item.TinkerBookItem;
-import slimeknights.tconstruct.common.item.TinkerBookItem.BookType;
 import slimeknights.tconstruct.common.recipe.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.Util;
@@ -37,6 +35,8 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.shared.data.CommonRecipeProvider;
+import slimeknights.tconstruct.shared.item.TinkerBookItem;
+import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple modules, but might be required individually

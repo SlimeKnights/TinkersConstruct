@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_fence_gate",
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "tconstruct:greenheart_planks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:greenheart_fence_gate"
+  }
+}
