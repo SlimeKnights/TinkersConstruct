@@ -106,16 +106,16 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
       case "tconstruct:slime_tree":
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 
-        if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
+        if (this.numberOfTreesPlaced < 3 && rand.nextBoolean()) {
           ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> treeFeature = this.variant.getConfiguredTreeFeature();
-
           if (treeFeature != null && worldIn instanceof ISeedReader) {
             ISeedReader seedReader = (ISeedReader) worldIn;
-            treeFeature.generate(seedReader, this.chunkGenerator, rand, pos);
+            if (treeFeature.generate(seedReader, this.chunkGenerator, rand, pos)) {
+              this.numberOfTreesPlaced++;
+            }
           }
         }
 
-        this.numberOfTreesPlaced++;
         break;
       case "tconstruct:slime_tall_grass":
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
