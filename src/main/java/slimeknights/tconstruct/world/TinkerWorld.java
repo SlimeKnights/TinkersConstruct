@@ -3,6 +3,7 @@ package slimeknights.tconstruct.world;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.block.FireBlock;
 import net.minecraft.block.SlimeBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -64,6 +65,7 @@ import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
@@ -189,6 +191,21 @@ public final class TinkerWorld extends TinkerModule {
     event.put(skySlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
   }
 
+  /** Sets all fire info for the given wood */
+  private static void setWoodFireInfo(FireBlock fireBlock, WoodBlockObject wood) {
+    // planks
+    fireBlock.setFireInfo(wood.get(), 5, 20);
+    fireBlock.setFireInfo(wood.getSlab(), 5, 20);
+    fireBlock.setFireInfo(wood.getStairs(), 5, 20);
+    fireBlock.setFireInfo(wood.getFence(), 5, 20);
+    fireBlock.setFireInfo(wood.getFenceGate(), 5, 20);
+    // logs
+    fireBlock.setFireInfo(wood.getLog(), 5, 5);
+    fireBlock.setFireInfo(wood.getStrippedLog(), 5, 5);
+    fireBlock.setFireInfo(wood.getWood(), 5, 5);
+    fireBlock.setFireInfo(wood.getStrippedWood(), 5, 5);
+  }
+
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
     EntitySpawnPlacementRegistry.register(skySlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
@@ -202,6 +219,26 @@ public final class TinkerWorld extends TinkerModule {
       slimeGrassSeeds.forEach(block -> ComposterBlock.registerCompostable(0.35F, block));
       ComposterBlock.registerCompostable(0.5f, skySlimeVine);
       ComposterBlock.registerCompostable(0.5f, enderSlimeVine);
+    });
+
+    // flammability
+    event.enqueueWork(() -> {
+      FireBlock fireblock = (FireBlock)Blocks.FIRE;
+      // wood
+      setWoodFireInfo(fireblock, greenheart);
+      setWoodFireInfo(fireblock, skyroot);
+      // plants
+      BiConsumer<FoliageType, Block> plantFireInfo = (type, block) -> {
+        if (type != FoliageType.BLOOD && type != FoliageType.ICHOR) {
+          fireblock.setFireInfo(block, 30, 60);
+        }
+      };
+      slimeLeaves.forEach(plantFireInfo);
+      slimeTallGrass.forEach(plantFireInfo);
+      slimeFern.forEach(plantFireInfo);
+      // vines
+      fireblock.setFireInfo(skySlimeVine.get(), 15, 100);
+      fireblock.setFireInfo(enderSlimeVine.get(), 15, 100);
     });
 
     // ores
