@@ -140,10 +140,9 @@ public class Config {
    */
   public static class Client {
     //public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
-
     public final ForgeConfigSpec.BooleanValue tankFluidModel;
-
     public final ForgeConfigSpec.BooleanValue extraToolTips;
+    public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -165,6 +164,11 @@ public class Config {
         .comment("If true tools will show additional info in their tooltips")
         .translation("tconstruct.configgui.extraToolTips")
         .define("extraToolTips", true);
+
+      this.logMissingMaterialTextures = builder
+        .comment("If true, the game will log all material textures which do not exist in resource packs but can be added, can be helpful for moddevs or resourcepack makers")
+        .translation("tconstruct.configgui.logMissingMaterialTextures")
+        .define("logMissingMaterialTextures", false);
 
       builder.pop();
     }

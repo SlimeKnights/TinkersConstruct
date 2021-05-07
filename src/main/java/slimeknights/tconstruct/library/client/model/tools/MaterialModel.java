@@ -39,6 +39,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 import org.apache.commons.lang3.mutable.MutableObject;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
@@ -92,7 +93,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
         ResourceLocation loc = mat.getTextureLocation();
         if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || TinkerClient.textureValidator.test(loc)) {
           allTextures.add(mat);
-        } else if (!skipped.contains(loc)) {
+        } else if (Config.CLIENT.logMissingMaterialTextures.get() && !skipped.contains(loc)) {
           skipped.add(loc);
           log.debug("Skipping loading texture '{}' as it does not exist in the resource pack", loc);
         }
