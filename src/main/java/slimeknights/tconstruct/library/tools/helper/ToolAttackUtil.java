@@ -48,39 +48,7 @@ public class ToolAttackUtil {
         damage = (float) instance.getValue();
       }
     }
-    damage += stack.getStats().getAttackDamage();
-    return calculateCutoffDamage(damage, stack.getDefinition().getBaseStatDefinition().getDamageCutoff());
-  }
-
-  /**
-   * Used to calculate the damage to start doing diminishing returns
-   *
-   * @param damageIn the current damage the tool does
-   * @param cutoffDamage the fixed damage value for the diminishing effects to kick in
-   * @return the damage to use from the cutoff
-   */
-  public static float calculateCutoffDamage(float damageIn, float cutoffDamage) {
-    float percent = 1f;
-    float oldDamage = damageIn;
-
-    damageIn = 0f;
-    while (oldDamage > cutoffDamage) {
-      damageIn += percent * cutoffDamage;
-      // safety for ridiculous values
-      if (percent > 0.001f) {
-        percent *= 0.9f;
-      }
-      else {
-        damageIn += percent * cutoffDamage * ((oldDamage / cutoffDamage) - 1f);
-        return damageIn;
-      }
-
-      oldDamage -= cutoffDamage;
-    }
-
-    damageIn += percent * oldDamage;
-
-    return damageIn;
+    return damage + stack.getStats().getAttackDamage();
   }
 
   /**
@@ -219,7 +187,6 @@ public class ToolAttackUtil {
 
     // apply cutoff and cooldown, store if damage was above base for magic particles
     boolean isMagic = damage > baseDamage;
-    damage = calculateCutoffDamage(damage, weapon.getDamageCutoff());
     if (cooldown < 1) {
       damage *= (0.2f + cooldown * cooldown * 0.8f);
     }

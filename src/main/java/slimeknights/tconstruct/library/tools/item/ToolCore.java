@@ -300,11 +300,6 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
-  public float getDamageCutoff() {
-    return getToolDefinition().getBaseStatDefinition().getDamageCutoff();
-  }
-
-  @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
     if (nbt == null || nbt.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {

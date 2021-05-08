@@ -50,15 +50,6 @@ public final class ToolBaseStatDefinition {
   private final float damageModifier;
 
   /**
-   * A fixed damage value where the calculations start to apply dimishing returns.
-   * Basically if you'd hit more than that damage with this tool, the damage is gradually reduced depending on how much the cutoff is exceeded.
-   * Helps keeping power creep in check.
-   * The default is 15, in general this should be sufficient and only needs increasing if it's a stronger weapon.
-   * A diamond sword with sharpness V has 15 damage
-   */
-  private final float damageCutoff;
-
-  /**
    * Allows you set the base attack speed, can be changed by modifiers. Equivalent to the vanilla attack speed.
    * 4 is equal to any standard item. Value has to be greater than zero.
    */
@@ -98,7 +89,6 @@ public final class ToolBaseStatDefinition {
     // weapon
     private float damageBonus = 0f;
     private float damageModifier = 1f;
-    private float damageCutoff = 15f;
     private float attackSpeed = 1f;
     private float knockbackBonus = 0;
 
@@ -111,7 +101,7 @@ public final class ToolBaseStatDefinition {
         durabilityModifier, primaryHeadWeight,
         defaultUpgrades, defaultAbilities, defaultTraits,
         reachBonus, miningSpeedModifier,
-        damageBonus, damageModifier, damageCutoff,
+        damageBonus, damageModifier,
         attackSpeed, knockbackBonus
       );
     }
