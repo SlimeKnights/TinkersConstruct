@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
-import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.crafting.LazyResultInventory;
 
 import javax.annotation.Nullable;
 

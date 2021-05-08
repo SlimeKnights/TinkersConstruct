@@ -12,7 +12,7 @@ import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
-import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
 import java.util.Optional;
 

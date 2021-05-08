@@ -184,6 +184,11 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
    */
 
   @Override
+  protected boolean shouldSyncOnUpdate() {
+    return true;
+  }
+
+  @Override
   public void read(BlockState state, CompoundNBT tag) {
     super.read(state, tag);
     tank.readFromNBT(tag.getCompound(Tags.TANK));
@@ -195,6 +200,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
 
   @Override
   public void writeSynced(CompoundNBT tag) {
+    super.writeSynced(tag);
     tag.put(Tags.TANK, tank.writeToNBT(new CompoundNBT()));
     tag.put(TAG_INVENTORY, meltingInventory.writeToNBT());
   }

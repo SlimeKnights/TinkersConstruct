@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tables.tileentity.table.tinkerstation;
+package slimeknights.tconstruct.tables.tileentity.table.crafting;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -7,12 +7,13 @@ import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
+import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_SLOT;
-import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.TINKER_SLOT;
+import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity.INPUT_SLOT;
+import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity.TINKER_SLOT;
 
 public class TinkerStationInventoryWrapper implements IMutableTinkerStationInventory {
   private final TinkerStationTileEntity station;

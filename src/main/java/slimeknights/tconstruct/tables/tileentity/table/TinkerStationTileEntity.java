@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tables.tileentity.table.tinkerstation;
+package slimeknights.tconstruct.tables.tileentity.table;
 
 import lombok.Getter;
 import net.minecraft.block.BlockState;
@@ -25,8 +25,8 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
 import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
 import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
-import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
-import slimeknights.tconstruct.tables.tileentity.table.RetexturedTableTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.crafting.LazyResultInventory;
+import slimeknights.tconstruct.tables.tileentity.table.crafting.TinkerStationInventoryWrapper;
 
 import javax.annotation.Nullable;
 

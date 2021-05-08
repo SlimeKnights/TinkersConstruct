@@ -131,13 +131,6 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
    * NBT
    */
 
-  @Override
-  public void read(BlockState state, CompoundNBT tag) {
-    tank.setCapacity(getCapacity(state.getBlock()));
-    updateTank(tag.getCompound(Tags.TANK));
-    super.read(state, tag);
-  }
-
   /**
    * Updates the tank from an NBT tag, used in the block
    * @param nbt  tank NBT
@@ -151,7 +144,20 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   }
 
   @Override
+  protected boolean shouldSyncOnUpdate() {
+    return true;
+  }
+
+  @Override
+  public void read(BlockState state, CompoundNBT tag) {
+    tank.setCapacity(getCapacity(state.getBlock()));
+    updateTank(tag.getCompound(Tags.TANK));
+    super.read(state, tag);
+  }
+
+  @Override
   public void writeSynced(CompoundNBT tag) {
+    super.writeSynced(tag);
     // want tank on the client on world load
     if (!tank.isEmpty()) {
       tag.put(Tags.TANK, tank.writeToNBT(new CompoundNBT()));

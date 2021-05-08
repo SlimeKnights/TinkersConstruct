@@ -4,7 +4,7 @@ import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
 public class TinkerStationBlock extends RetexturedTableBlock {
   @Getter

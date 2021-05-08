@@ -10,6 +10,8 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
@@ -476,6 +478,18 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
 
 
   /* NBT */
+
+  @Override
+  @Nullable
+  public SUpdateTileEntityPacket getUpdatePacket() {
+    // number is just used for vanilla, -1 ensures it skips all instanceof checks as its not a vanilla TE
+    return new SUpdateTileEntityPacket(this.pos, -1, this.getUpdateTag());
+  }
+
+  @Override
+  public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+    this.read(this.getBlockState(), pkt.getNbtCompound());
+  }
 
   @Override
   public void read(BlockState state, CompoundNBT nbt) {

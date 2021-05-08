@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.tables.tileentity.crafting;
+package slimeknights.tconstruct.tables.tileentity.table.crafting;
 
 import mcp.MethodsReturnNonnullByDefault;
 

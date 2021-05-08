@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tables.tileentity.crafting;
+package slimeknights.tconstruct.tables.tileentity.table.crafting;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.inventory.CraftingInventory;

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -19,6 +20,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -26,7 +28,7 @@ import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 
 import static slimeknights.tconstruct.smeltery.block.FaucetBlock.FACING;
 
-public class FaucetTileEntity extends TileEntity implements ITickableTileEntity {
+public class FaucetTileEntity extends MantleTileEntity implements ITickableTileEntity {
   /** Transfer rate of the faucet */
   public static final int MB_PER_TICK = 12;
   /** amount of MB to extract from the input at a time */
@@ -45,6 +47,7 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
   /** Current fluid in the faucet */
   private FluidStack drained = FluidStack.EMPTY;
   /** Fluid for rendering, used to reduce the number of packets. There is a brief moment where {@link this#drained} is empty but we should be rendering something */
+  @Getter
   private FluidStack renderFluid = FluidStack.EMPTY;
   /** Used for pulse detection */
   private boolean lastRedstoneState = false;
@@ -138,14 +141,6 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
    */
   public boolean isPouring() {
     return faucetState != FaucetState.OFF;
-  }
-
-  /**
-   * Gets the fluid currently being drained, mainly used for rendering
-   * @return  Fluid being drained
-   */
-  public FluidStack getRenderFluid() {
-    return renderFluid;
   }
 
   /* Activation */
@@ -354,22 +349,26 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
   }
 
   @Override
-  public CompoundNBT getUpdateTag() {
-    // new tag instead of super since default implementation calls the super of writeToNBT
-    return write(new CompoundNBT());
+  protected boolean shouldSyncOnUpdate() {
+    return true;
+  }
+
+  @Override
+  protected void writeSynced(CompoundNBT compound) {
+    super.writeSynced(compound);
+    compound.putByte(TAG_STATE, (byte)faucetState.ordinal());
+    if (!renderFluid.isEmpty()) {
+      compound.put(TAG_RENDER_FLUID, renderFluid.writeToNBT(new CompoundNBT()));
+    }
   }
 
   @Override
   public CompoundNBT write(CompoundNBT compound) {
     compound = super.write(compound);
-    compound.putByte(TAG_STATE, (byte)faucetState.ordinal());
     compound.putBoolean(TAG_STOP, stopPouring);
     compound.putBoolean(TAG_LAST_REDSTONE, lastRedstoneState);
     if (!drained.isEmpty()) {
       compound.put(TAG_DRAINED, drained.writeToNBT(new CompoundNBT()));
-    }
-    if (!renderFluid.isEmpty()) {
-      compound.put(TAG_RENDER_FLUID, renderFluid.writeToNBT(new CompoundNBT()));
     }
     return compound;
   }

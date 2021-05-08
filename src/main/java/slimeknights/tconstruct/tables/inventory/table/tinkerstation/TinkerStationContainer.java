@@ -7,7 +7,7 @@ import net.minecraft.network.PacketBuffer;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.LazyResultSlot;
-import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
 import javax.annotation.Nullable;
 

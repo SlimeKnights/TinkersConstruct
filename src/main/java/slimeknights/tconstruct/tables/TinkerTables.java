@@ -41,7 +41,7 @@ import slimeknights.tconstruct.tables.tileentity.chest.ModifierChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
-import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
 import java.util.function.Function;
 

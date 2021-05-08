@@ -42,14 +42,14 @@ import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStatio
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationSlot;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerableSlot;
 import slimeknights.tconstruct.tables.network.TinkerStationSelectionPacket;
-import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_SLOT;
-import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.TINKER_SLOT;
+import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity.INPUT_SLOT;
+import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity.TINKER_SLOT;
 
 public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEntity, TinkerStationContainer> {
   private static final ITextComponent COMPONENTS_TEXT = Util.makeTranslation("gui", "tinker_station.components");

@@ -39,9 +39,16 @@ public abstract class TableTileEntity extends InventoryTileEntity {
   }
 
   @Override
+  protected boolean shouldSyncOnUpdate() {
+    return true;
+  }
+
+  @Override
   public CompoundNBT getUpdateTag() {
-    // sync whole inventory on chunk load
-    return this.write(new CompoundNBT());
+    CompoundNBT nbt = super.getUpdateTag();
+    // inventory is already in main NBT, include it in update tag
+    writeInventoryToNBT(nbt);
+    return nbt;
   }
 
   /**
@@ -56,7 +63,7 @@ public abstract class TableTileEntity extends InventoryTileEntity {
       // sync if they are viewing this tile
       .filter(player -> {
         if (player.openContainer instanceof BaseStationContainer) {
-          return ((BaseStationContainer) player.openContainer).getTile() == this;
+          return ((BaseStationContainer<?>) player.openContainer).getTile() == this;
         }
         return false;
       })

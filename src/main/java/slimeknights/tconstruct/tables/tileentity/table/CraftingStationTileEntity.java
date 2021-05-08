@@ -21,8 +21,8 @@ import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
 import slimeknights.tconstruct.tables.network.UpdateCraftingRecipePacket;
-import slimeknights.tconstruct.tables.tileentity.crafting.CraftingInventoryWrapper;
-import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
+import slimeknights.tconstruct.tables.tileentity.table.crafting.CraftingInventoryWrapper;
+import slimeknights.tconstruct.tables.tileentity.table.crafting.LazyResultInventory;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
