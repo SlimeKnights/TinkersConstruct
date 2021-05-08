@@ -162,7 +162,7 @@
     "item.tconstruct.puny_smelting": "Puny Smelting",
     "item.tconstruct.puny_smelting.tooltip": "Smelting and casting guidebook for beginners\nby Thruul M'Gon",
     "item.tconstruct.mighty_smelting": "Mighty Smelting",
-    "item.tconstruct.mighty_smelting.tooltip": "textbook for mastery of melting, casting, and alloying\nby Thruul M'Gon",
+    "item.tconstruct.mighty_smelting.tooltip": "Textbook for mastery of melting, casting, and alloying\nby Thruul M'Gon",
 
     "item.tconstruct.sky_slime_ball": "Skyslime Ball",
     "item.tconstruct.ender_slime_ball": "Enderslime Ball",
@@ -735,7 +735,7 @@
     "item.tconstruct.scythe.description": "The Scythe is a broad reaping tool, mowing down plants in a wide area.\nRight Click: Harvest and replant crops",
     
     "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
-    "item.tconstruct.cleaver.description": "The Cleaver is a weapon for a smeltery master. High range attacks keep cut though the toughest of foes.",
+    "item.tconstruct.cleaver.description": "The Cleaver is a weapon for a smeltery master. High-range attacks keep cutting - even through the toughest of foes.",
  
  
     "_comment": "Tinkers Smeltery",
