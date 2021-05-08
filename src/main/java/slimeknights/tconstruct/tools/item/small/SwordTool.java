@@ -11,9 +11,9 @@ import slimeknights.tconstruct.library.tools.item.SwordCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-public class BroadSwordTool extends SwordCore {
+public class SwordTool extends SwordCore {
 
-  public BroadSwordTool(Properties properties, ToolDefinition toolDefinition) {
+  public SwordTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 

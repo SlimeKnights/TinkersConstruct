@@ -80,7 +80,7 @@ public class ToolClientEvents extends ClientEventBase {
     registerToolItemColors(colors, TinkerTools.kama);
     registerToolItemColors(colors, TinkerTools.scythe);
     // weapon
-    registerToolItemColors(colors, TinkerTools.broadSword);
+    registerToolItemColors(colors, TinkerTools.sword);
     registerToolItemColors(colors, TinkerTools.cleaver);
 
     // tint tool part textures for fallback

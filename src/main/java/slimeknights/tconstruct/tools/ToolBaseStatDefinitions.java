@@ -47,7 +47,7 @@ public final class ToolBaseStatDefinitions {
     .setDefaultUpgrades(2).build();
 
   // swords
-  static final ToolBaseStatDefinition BROADSWORD = new ToolBaseStatDefinition.Builder()
+  static final ToolBaseStatDefinition SWORD = new ToolBaseStatDefinition.Builder()
     .setDamageBonus(3f)
     .setAttackSpeed(1.6f)
     .setMiningSpeedModifier(0.5f)

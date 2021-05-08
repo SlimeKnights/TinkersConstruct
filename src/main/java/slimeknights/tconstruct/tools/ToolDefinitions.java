@@ -68,8 +68,8 @@ public final class ToolDefinitions {
                            new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
 
   // swords
-  public static final ToolDefinition BROADSWORD = new ToolDefinition(
-    ToolBaseStatDefinitions.BROADSWORD,
+  public static final ToolDefinition SWORD = new ToolDefinition(
+    ToolBaseStatDefinitions.SWORD,
     requirements(TinkerToolParts.swordBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolHandle),
     () -> Collections.singletonList(new ModifierEntry(TinkerModifiers.silkyShears.get(), 1)));
   public static final ToolDefinition CLEAVER = new ToolDefinition(
