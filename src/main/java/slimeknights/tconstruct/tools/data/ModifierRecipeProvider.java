@@ -291,6 +291,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * damage boost
      */
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.piercing.get())
+                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setInput(Blocks.CACTUS, 1, 25)
+                                    .setMaxLevel(5) // +2.5 pierce damage
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.piercing, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.smite.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.GLISTERING_MELON_SLICE, 1, 5)
@@ -305,21 +311,21 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .build(consumer, prefixR(TinkerModifiers.baneOfArthropods, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.antiaquatic.get())
                                     .setTools(TinkerTags.Items.MELEE)
-                                    .setInput(Blocks.CACTUS, 1, 40)
+                                    .setInput(Items.PUFFERFISH, 1, 20)
                                     .setMaxLevel(5) // +12.5 fish damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.antiaquatic, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.cooling.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.PRISMARINE_CRYSTALS, 1, 25)
-                                    .setMaxLevel(5) // +5.5 fire mob damage
+                                    .setMaxLevel(5) // +10 fire mob damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.cooling, upgradeFolder));
     // sharpness can use shards or blocks
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Tags.Items.GEMS_QUARTZ, 1, 36)
-                                    .setMaxLevel(5) // +3 damage
+                                    .setMaxLevel(5) // +5 damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, wrapR(TinkerModifiers.sharpness, upgradeFolder, "_from_shard"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sharpness.get())

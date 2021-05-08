@@ -82,6 +82,10 @@
     "type": "modifier",
     "data": "modifiers/necrotic.json"
   },
+  {
+    "type": "modifier",
+    "data": "modifiers/piercing.json"
+  },
    {
     "type": "modifier",
     "data": "modifiers/sharpness.json"

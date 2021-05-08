@@ -79,6 +79,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.LightspeedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.PiercingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SharpnessModifier;
@@ -148,6 +149,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<BeheadingModifier> beheading = MODIFIERS.register("beheading", BeheadingModifier::new);
 
   // damage boost
+  public static final RegistryObject<PiercingModifier> piercing = MODIFIERS.register("piercing", PiercingModifier::new);
   public static final RegistryObject<ScaledTypeDamageModifier> smite = MODIFIERS.register("smite", () -> new ScaledTypeDamageModifier(0xCC9720, CreatureAttribute.UNDEAD));
   public static final RegistryObject<BaneOfArthropodsModifier> baneOfArthropods = MODIFIERS.register("bane_of_arthropods", BaneOfArthropodsModifier::new);
   public static final RegistryObject<ScaledTypeDamageModifier> antiaquatic = MODIFIERS.register("antiaquatic", () -> new ScaledTypeDamageModifier(0xD58520, CreatureAttribute.WATER));

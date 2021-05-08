@@ -1123,6 +1123,10 @@
     "modifier.tconstruct.necrotic.description": "Hitting enemies drains their life to heal you",
 
     "_comment": "Damage boost",
+    "modifier.tconstruct.piercing": "Piercing",
+    "modifier.tconstruct.piercing.flavor": "Become the cactus!",
+    "modifier.tconstruct.piercing.description": "Tool deals bonus damage which attacks through armor!",
+    "modifier.tconstruct.piercing.damage": "Pierce Damage",
     "modifier.tconstruct.smite": "Smite",
     "modifier.tconstruct.smite.flavor": "Die, Foul Creature!",
     "modifier.tconstruct.smite.description": "Undead fear the might of the melon!",
@@ -1274,7 +1278,6 @@
     "modifier.tconstruct.maintained": "Maintained",
     "modifier.tconstruct.maintained.flavor": "Stays Sharp Longer!",
     "modifier.tconstruct.maintained.description": "Tool mines faster when at higher durability",
-    "modifier.tconstruct.maintained.boost": " (+%s speed)",
     "modifier.tconstruct.lightweight": "Lightweight",
     "modifier.tconstruct.lightweight.flavor": "Like a Shardblade!",
     "modifier.tconstruct.lightweight.description": "Tool is incredibly light for its size, allowing faster attacking and mining",

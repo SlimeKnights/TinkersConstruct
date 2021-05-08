@@ -167,7 +167,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param component  Component to modifiy
    * @return  Resulting component
    */
-  protected IFormattableTextComponent applyStyle(IFormattableTextComponent component) {
+  public IFormattableTextComponent applyStyle(IFormattableTextComponent component) {
       return component.modifyStyle(style -> style.setColor(Color.fromInt(color)));
   }
 
