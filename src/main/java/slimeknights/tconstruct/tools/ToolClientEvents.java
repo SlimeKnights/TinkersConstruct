@@ -1,9 +1,12 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -33,6 +36,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -94,12 +98,34 @@ public class ToolClientEvents extends ClientEventBase {
     registerMaterialItemColors(colors, TinkerToolParts.toolHandle);
     registerMaterialItemColors(colors, TinkerToolParts.toughHandle);
   }
-
   // registered with FORGE bus
   private static void onTooltipEvent(ItemTooltipEvent event) {
-    if (event.getFlags().isAdvanced() && event.getItemStack().getItem() instanceof ToolCore) {
-      // remove the advanced tooltip durability, we supply that
-      event.getToolTip().removeIf(text -> text instanceof TranslationTextComponent && ((TranslationTextComponent)text).getKey().equals("item.durability"));
+    if (event.getItemStack().getItem() instanceof ToolCore) {
+      boolean isShift = Screen.hasShiftDown();
+      boolean isCtrl = !isShift && Screen.hasControlDown();
+      event.getToolTip().removeIf(text -> {
+        // its hard to find the blank line before attributes, so shift just removes all of them
+        if (isShift && text == StringTextComponent.EMPTY) {
+          return true;
+        }
+        // the attack damage and attack speed ones are formatted weirdly, suppress on both tooltips
+        if ((isShift || isCtrl) && " ".equals(text.getUnformattedComponentText())) {
+          List<ITextComponent> siblings = text.getSiblings();
+          if (!siblings.isEmpty() && siblings.get(0) instanceof TranslationTextComponent) {
+            return ((TranslationTextComponent) siblings.get(0)).getKey().startsWith("attribute.modifier.equals.");
+          }
+        }
+        if (text instanceof TranslationTextComponent) {
+          String key = ((TranslationTextComponent)text).getKey();
+          // suppress durability from advanced, we display our own
+          return key.equals("item.durability")
+                 // the "when in main hand" text, don't need on either tooltip
+            || ((isCtrl || isShift) && key.startsWith("item.modifiers."))
+                 // individual modifiers, want on shift, ignore on control
+            || (isCtrl && key.startsWith("attribute.modifier."));
+        }
+        return false;
+      });
     }
   }
 

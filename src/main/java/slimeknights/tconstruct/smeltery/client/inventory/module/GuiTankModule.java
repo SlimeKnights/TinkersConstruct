@@ -2,12 +2,12 @@ package slimeknights.tconstruct.smeltery.client.inventory.module;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 
@@ -93,7 +93,7 @@ public class GuiTankModule {
         tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluid());
       } else {
         // function to call for amounts
-        BiConsumer<Integer, List<ITextComponent>> formatter = Util.isShiftKeyDown()
+        BiConsumer<Integer, List<ITextComponent>> formatter = Screen.hasShiftDown()
                                                               ? FluidTooltipHandler::appendBuckets
                                                               : FluidTooltipHandler::appendIngots;
 

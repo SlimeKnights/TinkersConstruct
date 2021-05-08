@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item;
 
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -63,7 +64,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     }
     // add stats
     if (Config.CLIENT.extraToolTips.get()) {
-      if (Util.isShiftKeyDown()) {
+      if (Screen.hasShiftDown()) {
         this.addStatInfoTooltip(material, tooltip);
       } else {
         // info tooltip for detailed and component info
