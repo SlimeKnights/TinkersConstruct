@@ -477,14 +477,32 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void onBreakSpeed(IModifierToolStack tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
 
   /**
-   * Adds loot table related enchantments from this modifier's effect, called before breaking a block.
-   * For looting, see {@link net.minecraftforge.event.entity.living.LootingLevelEvent}.
-   * Needed to add enchantments for silk touch, fortune, and looting. Can add conditionally if needed.
+   * Adds harvest loot table related enchantments from this modifier's effect, called before breaking a block.
+   * Needed to add enchantments for silk touch and fortune. Can add conditionally if needed.
+   * For looting, see {@link #getLootingValue(IModifierToolStack, int, LivingEntity, LivingEntity, DamageSource, int)}
    * @param tool      Tool used
    * @param level     Modifier level
+   * @param player    Player holding this tool
+   * @param state     Block being harvested
+   * @param pos       Position of block being harvested
+   * @param sideHit   Side of the block that was hit
    * @param consumer  Consumer accepting any enchantments
    */
-  public void applyEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment, Integer> consumer) {}
+  public void applyHarvestEnchantments(IModifierToolStack tool, int level, PlayerEntity player, BlockState state, BlockPos pos, Direction sideHit, BiConsumer<Enchantment,Integer> consumer) {}
+
+  /**
+   * Gets the amount of luck contained in this tool
+   * @param tool          Tool instance
+   * @param level         Modifier level
+   * @param holder        Entity holding the tool
+   * @param target        Entity being looted
+   * @param damageSource  Damage source that killed the entity. May be null if this hook is called without attacking anything (e.g. shearing)
+   * @param looting          Luck value set from previous modifiers
+   * @return New luck value
+   */
+  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, LivingEntity target, @Nullable DamageSource damageSource, int looting) {
+    return looting;
+  }
 
   /**
    * Called after a block is broken to apply special effects

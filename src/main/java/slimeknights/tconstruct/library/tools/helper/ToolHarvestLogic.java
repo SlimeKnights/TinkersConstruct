@@ -273,10 +273,11 @@ public class ToolHarvestLogic {
       player.setHeldItem(Hand.MAIN_HAND, stack);
     } else {
       // add enchants
-      boolean addedEnchants = ModifierUtil.applyEnchantments(tool, stack, player);
+      Direction sideHit = BlockSideHitListener.getSideHit(player);
+      boolean addedEnchants = ModifierUtil.applyHarvestEnchants(tool, stack, player, state, pos, sideHit);
 
       // need to calculate the iterator before we break the block, as we need the reference hardness from the center
-      Iterable<BlockPos> extraBlocks = getAOEBlocks(tool, stack, player, state, world, pos, BlockSideHitListener.getSideHit(player), AOEMatchType.BREAKING);
+      Iterable<BlockPos> extraBlocks = getAOEBlocks(tool, stack, player, state, world, pos, sideHit, AOEMatchType.BREAKING);
 
       // actually break the block, run AOE if successful
       if (breakBlock(tool, stack, serverPlayer, world, pos, state)) {
