@@ -1,6 +1,13 @@
 package slimeknights.tconstruct.tables.inventory;
 
 import lombok.Getter;
+import org.apache.logging.log4j.LogManager;
+import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.tconstruct.library.inventory.SmelterySlot;
+import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
+
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -8,12 +15,6 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.Direction;
-import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
-import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
-
-import java.util.Objects;
 
 public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContainer<TILE> {
 
@@ -53,7 +54,20 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
         if (index >= this.slotCount) {
           break;
         }
-        this.addSlot(this.createSlot(itemHandler, index, x + c * 22, y + r * 18));
+
+        //This is cursed but it should be temporary
+        if(this.slotCount > 18 && this.slotCount <= 27) {
+          this.addSlot(this.createSlot(itemHandler, index, x + c * 22 + 12, y + r * 18));
+        }else if(this.slotCount > 9 && this.slotCount <= 18) {
+          this.addSlot(this.createSlot(itemHandler, index, x + c * 22 + 34, y + r * 18));
+        }else if(this.slotCount > 4 && this.slotCount <= 9) {
+          this.addSlot(this.createSlot(itemHandler, index, x + c * 22 + 56, y + r * 18));
+        }else if(this.slotCount <= 4) {
+          this.addSlot(this.createSlot(itemHandler, index, x + c * 22 + 78, y + r * 18));
+        }else {
+          this.addSlot(this.createSlot(itemHandler, index, x + c * 22, y + r * 18));
+        }
+
         index++;
       }
     }
@@ -68,6 +82,6 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
    * @return  Inventory slot
    */
   protected Slot createSlot(Inventory itemHandler, int index, int x, int y) {
-    return new Slot(itemHandler, index, x, y);
+    return new SmelterySlot(itemHandler, index, x, y);
   }
 }

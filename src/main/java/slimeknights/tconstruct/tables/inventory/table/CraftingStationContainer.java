@@ -21,6 +21,7 @@ import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
 import org.jetbrains.annotations.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -119,7 +120,7 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
       return false;
     }
 
-    List<String> blacklist = TConfig.common.craftingStationBlacklist;
+    List<String> blacklist = new ArrayList<>();//TConfig.common.craftingStationBlacklist;
     if (!blacklist.isEmpty()) {
       Identifier registryName = BlockEntityType.getId(tileEntity.getType());
       if (registryName == null || blacklist.contains(registryName.toString())) {
@@ -138,7 +139,8 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
    * @return True if compatible.
    */
   private static boolean hasItemHandler(BlockEntity tileEntity, @Nullable Direction direction) {
-    throw new RuntimeException("What the fuck forge!");
+    return true;
+    //throw new RuntimeException("What the fuck forge!");
 //    return tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).filter(cap -> cap instanceof IItemHandlerModifiable).isPresent();
   }
 
