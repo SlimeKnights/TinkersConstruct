@@ -50,7 +50,7 @@ public final class TagUtil {
   }
 
   public static CompoundNBT getBaseTag(CompoundNBT root) {
-    return getTagSafe(root, Tags.BASE);
+    return getTagSafe(root, NBTTags.BASE);
   }
 
   public static void setBaseTag(ItemStack stack, CompoundNBT tag) {
@@ -62,7 +62,7 @@ public final class TagUtil {
 
   public static void setBaseTag(CompoundNBT root, CompoundNBT tag) {
     if (root != null) {
-      root.put(Tags.BASE, tag);
+      root.put(NBTTags.BASE, tag);
     }
   }
 
@@ -71,7 +71,7 @@ public final class TagUtil {
   }
 
   public static ListNBT getBaseModifiersTagList(CompoundNBT root) {
-    return getTagListSafe(getBaseTag(root), Tags.BASE_MODIFIERS, TAG_TYPE_STRING);
+    return getTagListSafe(getBaseTag(root), NBTTags.BASE_MODIFIERS, TAG_TYPE_STRING);
   }
 
   public static void setBaseModifiersTagList(ItemStack stack, ListNBT tagList) {
@@ -83,7 +83,7 @@ public final class TagUtil {
 
   public static void setBaseModifiersTagList(CompoundNBT root, ListNBT tagList) {
     CompoundNBT baseTag = getBaseTag(root);
-    baseTag.put(Tags.BASE_MODIFIERS, tagList);
+    baseTag.put(NBTTags.BASE_MODIFIERS, tagList);
     setBaseTag(root, baseTag);
   }
 
@@ -92,7 +92,7 @@ public final class TagUtil {
   }
 
   public static ListNBT getBaseMaterialsTagList(CompoundNBT root) {
-    return getTagListSafe(getBaseTag(root), Tags.BASE_MATERIALS, TAG_TYPE_STRING);
+    return getTagListSafe(getBaseTag(root), NBTTags.BASE_MATERIALS, TAG_TYPE_STRING);
   }
 
   public static void setBaseMaterialsTagList(ItemStack stack, ListNBT tagList) {
@@ -103,15 +103,15 @@ public final class TagUtil {
   }
 
   public static void setBaseMaterialsTagList(CompoundNBT root, ListNBT tagList) {
-    getBaseTag(root).put(Tags.BASE_MATERIALS, tagList);
+    getBaseTag(root).put(NBTTags.BASE_MATERIALS, tagList);
   }
 
   public static int getBaseModifiersUsed(CompoundNBT root) {
-    return getBaseTag(root).getInt(Tags.BASE_USED_MODIFIERS);
+    return getBaseTag(root).getInt(NBTTags.BASE_USED_MODIFIERS);
   }
 
   public static void setBaseModifiersUsed(CompoundNBT root, int count) {
-    getBaseTag(root).putInt(Tags.BASE_USED_MODIFIERS, count);
+    getBaseTag(root).putInt(NBTTags.BASE_USED_MODIFIERS, count);
   }
 
   /* Operations concerning the calculated tool data */
@@ -120,7 +120,7 @@ public final class TagUtil {
   }
 
   public static CompoundNBT getToolTag(CompoundNBT root) {
-    return getTagSafe(root, Tags.TOOL_STATS);
+    return getTagSafe(root, NBTTags.TOOL_STATS);
   }
 
   public static void setToolTag(ItemStack stack, CompoundNBT tag) {
@@ -132,7 +132,7 @@ public final class TagUtil {
 
   public static void setToolTag(CompoundNBT root, CompoundNBT tag) {
     if (root != null) {
-      root.put(Tags.TOOL_STATS, tag);
+      root.put(NBTTags.TOOL_STATS, tag);
     }
   }
 
@@ -142,7 +142,7 @@ public final class TagUtil {
   }
 
   public static ListNBT getModifiersTagList(CompoundNBT root) {
-    return getTagListSafe(root, Tags.TOOL_MODIFIERS, TAG_TYPE_COMPOUND);
+    return getTagListSafe(root, NBTTags.TOOL_MODIFIERS, TAG_TYPE_COMPOUND);
   }
 
   public static void setModifiersTagList(ItemStack stack, ListNBT tagList) {
@@ -154,7 +154,7 @@ public final class TagUtil {
 
   public static void setModifiersTagList(CompoundNBT root, ListNBT tagList) {
     if (root != null) {
-      root.put(Tags.TOOL_MODIFIERS, tagList);
+      root.put(NBTTags.TOOL_MODIFIERS, tagList);
     }
   }
 
@@ -164,7 +164,7 @@ public final class TagUtil {
   }
 
   public static ListNBT getTraitsTagList(CompoundNBT root) {
-    return getTagListSafe(root, Tags.TOOL_TRAITS, TAG_TYPE_STRING);
+    return getTagListSafe(root, NBTTags.TOOL_TRAITS, TAG_TYPE_STRING);
   }
 
   public static void setTraitsTagList(ItemStack stack, ListNBT tagList) {
@@ -176,7 +176,7 @@ public final class TagUtil {
 
   public static void setTraitsTagList(CompoundNBT root, ListNBT tagList) {
     if (root != null) {
-      root.put(Tags.TOOL_TRAITS, tagList);
+      root.put(NBTTags.TOOL_TRAITS, tagList);
     }
   }
 
@@ -203,7 +203,7 @@ public final class TagUtil {
   }
 
   public static CompoundNBT getExtraTag(CompoundNBT root) {
-    return getTagSafe(root, Tags.TINKER_EXTRA);
+    return getTagSafe(root, NBTTags.TINKER_EXTRA);
   }
 
   public static void setExtraTag(ItemStack stack, CompoundNBT tag) {
@@ -213,7 +213,7 @@ public final class TagUtil {
   }
 
   public static void setExtraTag(CompoundNBT root, CompoundNBT tag) {
-    root.put(Tags.TINKER_EXTRA, tag);
+    root.put(NBTTags.TINKER_EXTRA, tag);
   }
 
   /*public static Category[] getCategories(CompoundNBT root) {
@@ -251,9 +251,9 @@ public final class TagUtil {
 
   public static void setEnchantEffect(CompoundNBT root, boolean active) {
     if (active) {
-      root.putBoolean(Tags.ENCHANT_EFFECT, true);
+      root.putBoolean(NBTTags.ENCHANT_EFFECT, true);
     } else {
-      root.remove(Tags.ENCHANT_EFFECT);
+      root.remove(NBTTags.ENCHANT_EFFECT);
     }
   }
 
@@ -262,17 +262,17 @@ public final class TagUtil {
   }
 
   public static boolean hasEnchantEffect(CompoundNBT root) {
-    return root.getBoolean(Tags.ENCHANT_EFFECT);
+    return root.getBoolean(NBTTags.ENCHANT_EFFECT);
   }
 
   public static void setResetFlag(ItemStack stack, boolean active) {
     CompoundNBT root = getTagSafe(stack);
-    root.putBoolean(Tags.RESET_FLAG, active);
+    root.putBoolean(NBTTags.RESET_FLAG, active);
     stack.setTag(root);
   }
 
   public static boolean getResetFlag(ItemStack stack) {
-    return getTagSafe(stack).getBoolean(Tags.RESET_FLAG);
+    return getTagSafe(stack).getBoolean(NBTTags.RESET_FLAG);
   }
 
   public static void setNoRenameFlag(ItemStack stack, boolean active) {
@@ -284,7 +284,7 @@ public final class TagUtil {
   public static void setNoRenameFlag(CompoundNBT root, boolean active) {
     CompoundNBT displayTag = root.getCompound("display");
     if (displayTag.contains("Name")) {
-      displayTag.putBoolean(Tags.NO_RENAME, active);
+      displayTag.putBoolean(NBTTags.NO_RENAME, active);
       root.put("display", displayTag);
     }
   }
@@ -292,7 +292,7 @@ public final class TagUtil {
   public static boolean getNoRenameFlag(ItemStack stack) {
     CompoundNBT root = getTagSafe(stack);
     CompoundNBT displayTag = root.getCompound("display");
-    return displayTag.getBoolean(Tags.NO_RENAME);
+    return displayTag.getBoolean(NBTTags.NO_RENAME);
   }
 
   /* Helper functions */

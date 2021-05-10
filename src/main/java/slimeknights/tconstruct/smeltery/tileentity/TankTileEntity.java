@@ -19,7 +19,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
-import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
@@ -151,7 +151,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   @Override
   public void read(BlockState state, CompoundNBT tag) {
     tank.setCapacity(getCapacity(state.getBlock()));
-    updateTank(tag.getCompound(Tags.TANK));
+    updateTank(tag.getCompound(NBTTags.TANK));
     super.read(state, tag);
   }
 
@@ -160,7 +160,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
     super.writeSynced(tag);
     // want tank on the client on world load
     if (!tank.isEmpty()) {
-      tag.put(Tags.TANK, tank.writeToNBT(new CompoundNBT()));
+      tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundNBT()));
     }
   }
 }

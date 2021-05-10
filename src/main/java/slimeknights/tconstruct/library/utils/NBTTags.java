@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.utils;
 /**
  * Holds all the NBT Tag keys used by the standard tinkers stuff.
  */
-public final class Tags {
+public final class NBTTags {
 
   /**
    * The base data of the tinker item. What it is built from.
@@ -73,6 +73,6 @@ public final class Tags {
   // Tank
   public static final String TANK = "tank";
 
-  private Tags() {
+  private NBTTags() {
   }
 }

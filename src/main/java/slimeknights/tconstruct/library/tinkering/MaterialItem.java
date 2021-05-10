@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.library.utils.NBTTags;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -38,7 +38,7 @@ public class MaterialItem extends Item implements IMaterialItem {
   @Override
   public Optional<MaterialId> getMaterialId(ItemStack stack) {
     return Optional.ofNullable(stack.getTag())
-                   .map(compoundNBT -> compoundNBT.getString(Tags.PART_MATERIAL))
+                   .map(compoundNBT -> compoundNBT.getString(NBTTags.PART_MATERIAL))
                    .filter(string -> !string.isEmpty())
                    .map(MaterialId::tryCreate);
   }
@@ -46,7 +46,7 @@ public class MaterialItem extends Item implements IMaterialItem {
   @Override
   public ItemStack withMaterialForDisplay(MaterialId materialId) {
     ItemStack stack = new ItemStack(this);
-    stack.getOrCreateTag().putString(Tags.PART_MATERIAL, materialId.toString());
+    stack.getOrCreateTag().putString(NBTTags.PART_MATERIAL, materialId.toString());
     return stack;
   }
 
