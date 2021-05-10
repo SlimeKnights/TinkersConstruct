@@ -2,10 +2,10 @@ package slimeknights.tconstruct.world.worldgen.islands;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.BushBlock;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -21,26 +21,26 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import slimeknights.tconstruct.world.TinkerStructures;
-import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
-import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
+import slimeknights.tconstruct.world.worldgen.islands.variants.IIslandVariant;
+import slimeknights.tconstruct.world.worldgen.islands.variants.IslandVariants;
 
 import java.util.Random;
 
 public class SlimeIslandPiece extends TemplateStructurePiece {
 
   private final String templateName;
-  private final SlimeIslandVariant variant;
+  private final IIslandVariant variant;
   private final Rotation rotation;
   private final Mirror mirror;
   private int numberOfTreesPlaced;
   private ChunkGenerator chunkGenerator;
 
-  public SlimeIslandPiece(TemplateManager templateManager, SlimeIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation) {
+  public SlimeIslandPiece(TemplateManager templateManager, IIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation) {
     this(templateManager, variant, templateName, templatePosition, rotation, Mirror.NONE);
   }
 
-  public SlimeIslandPiece(TemplateManager templateManager, SlimeIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation, Mirror mirror) {
+  public SlimeIslandPiece(TemplateManager templateManager, IIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation, Mirror mirror) {
     super(TinkerStructures.slimeIslandPiece, 0);
     this.templateName = templateName;
     this.variant = variant;
@@ -54,7 +54,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   public SlimeIslandPiece(TemplateManager templateManager, CompoundNBT nbt) {
     super(TinkerStructures.slimeIslandPiece, nbt);
     this.templateName = nbt.getString("Template");
-    this.variant = SlimeIslandVariant.getVariantFromIndex(nbt.getInt("Variant"));
+    this.variant = IslandVariants.getVariantFromIndex(nbt.getInt("Variant"));
     this.rotation = Rotation.valueOf(nbt.getString("Rot"));
     this.mirror = Mirror.valueOf(nbt.getString("Mi"));
     this.numberOfTreesPlaced = nbt.getInt("NumberOfTreesPlaced");
@@ -62,7 +62,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   }
 
   private void loadTemplate(TemplateManager templateManager) {
-    Template template = templateManager.getTemplateDefaulted(new ResourceLocation("tconstruct:slime_islands/" + this.variant.getString() + "/" + this.templateName));
+    Template template = templateManager.getTemplateDefaulted(this.variant.getStructureName(this.templateName));
     PlacementSettings placementsettings = (new PlacementSettings()).setIgnoreEntities(true).setRotation(this.rotation).setMirror(this.mirror).addProcessor(this.variant.getStructureProcessor());
     this.setup(template, this.templatePosition, placementsettings);
   }
@@ -87,27 +87,26 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
         worldIn.setBlockState(pos, this.variant.getLakeFluid(), 2);
         break;
       case "tconstruct:congealed_slime":
-        int congealed_slime_random = rand.nextInt(this.variant.getCongealedSlime().length);
-        worldIn.setBlockState(pos, this.variant.getCongealedSlime()[congealed_slime_random], 2);
+        worldIn.setBlockState(pos, this.variant.getCongealedSlime(rand), 2);
         break;
-      case "tconstruct:slime_vine":
-        if (this.variant.getVine() != null) {
+      case "tconstruct:slime_vine": {
+        BlockState vines = this.variant.getVines();
+        if (vines != null) {
           if (rand.nextBoolean()) {
-            this.placeVine(worldIn, pos, rand, this.variant.getVine());
-          }
-          else {
+            this.placeVine(worldIn, pos, rand, vines);
+          } else {
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
           }
-        }
-        else {
+        } else {
           worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
         }
         break;
+      }
       case "tconstruct:slime_tree":
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 
         if (this.numberOfTreesPlaced < 3 && rand.nextBoolean()) {
-          ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> treeFeature = this.variant.getConfiguredTreeFeature();
+          ConfiguredFeature<?, ?> treeFeature = this.variant.getTreeFeature(rand);
           if (treeFeature != null && worldIn instanceof ISeedReader) {
             ISeedReader seedReader = (ISeedReader) worldIn;
             if (treeFeature.generate(seedReader, this.chunkGenerator, rand, pos)) {
@@ -119,15 +118,10 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
         break;
       case "tconstruct:slime_tall_grass":
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-
         if (rand.nextBoolean()) {
-          int slime_grass_random = rand.nextInt(this.variant.getTallGrass().length);
-          BlockState state = this.variant.getTallGrass()[slime_grass_random];
-
-          if (state.getBlock() instanceof SlimeTallGrassBlock) {
-            if (((SlimeTallGrassBlock) state.getBlock()).isValidPosition(state, worldIn, pos)) {
-              worldIn.setBlockState(pos, state, 2);
-            }
+          BlockState state = this.variant.getPlant(rand);
+          if (state != null && state.getBlock() instanceof BushBlock && ((BushBlock) state.getBlock()).isValidPosition(state, worldIn, pos)) {
+            worldIn.setBlockState(pos, state, 2);
           }
         }
         break;
@@ -157,27 +151,9 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   public boolean func_230383_a_(ISeedReader world, StructureManager manager, ChunkGenerator generator, Random rand, MutableBoundingBox bounds, ChunkPos chunk, BlockPos pos) {
     this.chunkGenerator = generator;
 
-    if (this.variant == SlimeIslandVariant.BLOOD) {
-      BlockPos up = this.templatePosition.up();
-
-      if (this.isLava(world, up)) {
-        for (Direction dir : Direction.Plane.HORIZONTAL) {
-          if (!this.isLava(world, up.offset(dir))) {
-            return false;
-          }
-        }
-
-        return super.func_230383_a_(world, manager, generator, rand, bounds, chunk, pos);
-      }
-
-      return false;
-    }
-    else {
+    if (this.variant.isPositionValid(world, this.templatePosition, generator)) {
       return super.func_230383_a_(world, manager, generator, rand, bounds, chunk, pos);
     }
-  }
-
-  private boolean isLava(IWorld world, BlockPos pos) {
-    return world.getBlockState(pos).getBlock() == Blocks.LAVA;
+    return false;
   }
 }

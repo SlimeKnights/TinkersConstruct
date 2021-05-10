@@ -25,13 +25,15 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock.VineStage;
+import slimeknights.tconstruct.world.worldgen.islands.BloodSlimeIslandStructure;
+import slimeknights.tconstruct.world.worldgen.islands.EnderSlimeIslandStructure;
+import slimeknights.tconstruct.world.worldgen.islands.SkySlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandPiece;
-import slimeknights.tconstruct.world.worldgen.islands.end.EndSlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.islands.overworld.OverworldSlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.trees.SupplierBlockStateProvider;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
+
+import java.util.Objects;
 
 /**
  * Contains any logic relevant to structure generation, including trees and islands
@@ -63,13 +65,13 @@ public final class TinkerStructures extends TinkerModule {
    * Structures
    */
   public static IStructurePieceType slimeIslandPiece;
-  public static final RegistryObject<Structure<NoFeatureConfig>> overworldSlimeIsland = STRUCTURE_FEATURES.register("overworld_slime_island", () -> new OverworldSlimeIslandStructure(NoFeatureConfig.field_236558_a_));
-  public static StructureFeature<NoFeatureConfig, ? extends Structure<NoFeatureConfig>> SLIME_ISLAND;
+  public static final RegistryObject<Structure<NoFeatureConfig>> skySlimeIsland = STRUCTURE_FEATURES.register("overworld_slime_island", SkySlimeIslandStructure::new);
+  public static StructureFeature<NoFeatureConfig, ? extends Structure<NoFeatureConfig>> SKY_SLIME_ISLAND;
 
-  public static final RegistryObject<Structure<NoFeatureConfig>> netherSlimeIsland = STRUCTURE_FEATURES.register("nether_slime_island", () -> new NetherSlimeIslandStructure(NoFeatureConfig.field_236558_a_));
-  public static StructureFeature<NoFeatureConfig, ? extends Structure<NoFeatureConfig>> NETHER_SLIME_ISLAND;
+  public static final RegistryObject<Structure<NoFeatureConfig>> bloodSlimeIsland = STRUCTURE_FEATURES.register("nether_slime_island", BloodSlimeIslandStructure::new);
+  public static StructureFeature<NoFeatureConfig, ? extends Structure<NoFeatureConfig>> BLOOD_SLIME_ISLAND;
 
-  public static final RegistryObject<Structure<NoFeatureConfig>> endSlimeIsland = STRUCTURE_FEATURES.register("end_slime_island", () -> new EndSlimeIslandStructure(NoFeatureConfig.field_236558_a_));
+  public static final RegistryObject<Structure<NoFeatureConfig>> endSlimeIsland = STRUCTURE_FEATURES.register("end_slime_island", EnderSlimeIslandStructure::new);
   public static StructureFeature<NoFeatureConfig, ? extends Structure<NoFeatureConfig>> END_SLIME_ISLAND;
 
   @SubscribeEvent
@@ -85,6 +87,11 @@ public final class TinkerStructures extends TinkerModule {
     }
   }
 
+  /** Adds the structure to the structure map */
+  private static void addStructureToMap(Structure<?> structure) {
+    Structure.NAME_STRUCTURE_BIMAP.put(Objects.requireNonNull(structure.getRegistryName()).toString(), structure);
+  }
+
   /**
    * Feature configuration
    *
@@ -92,20 +99,24 @@ public final class TinkerStructures extends TinkerModule {
    */
   @SubscribeEvent
   void commonSetup(FMLCommonSetupEvent event) {
-    SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("overworld_slime_island"), overworldSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    Structure.NAME_STRUCTURE_BIMAP.put("tconstruct:overworld_slime_island", overworldSlimeIsland.get());
+    addStructureToMap(skySlimeIsland.get());
+    addStructureToMap(bloodSlimeIsland.get());
+    addStructureToMap(endSlimeIsland.get());
+
+    // sky slime islands
+    SKY_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("sky_slime_island"), skySlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
     StructureSeparationSettings overworldSettings = new StructureSeparationSettings(30, 22, 14357800);
-    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(overworldSlimeIsland.get(), overworldSettings);
-    addStructureSettings(DimensionSettings.field_242735_d, overworldSlimeIsland.get(), overworldSettings);
-    addStructureSettings(DimensionSettings.field_242739_h, overworldSlimeIsland.get(), overworldSettings);
+    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(skySlimeIsland.get(), overworldSettings);
+    addStructureSettings(DimensionSettings.field_242735_d, skySlimeIsland.get(), overworldSettings);
+    addStructureSettings(DimensionSettings.field_242739_h, skySlimeIsland.get(), overworldSettings);
 
-    NETHER_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("nether_slime_island"), netherSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    Structure.NAME_STRUCTURE_BIMAP.put("tconstruct:nether_slime_island", netherSlimeIsland.get());
+    // blood slime islands
+    BLOOD_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("blood_slime_island"), bloodSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
     StructureSeparationSettings netherSettings = new StructureSeparationSettings(15, 11, 65245622);
-    addStructureSettings(DimensionSettings.field_242736_e, netherSlimeIsland.get(), netherSettings);
+    addStructureSettings(DimensionSettings.field_242736_e, bloodSlimeIsland.get(), netherSettings);
 
+    // end slime islands
     END_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("end_slime_island"), endSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    Structure.NAME_STRUCTURE_BIMAP.put("tconstruct:end_slime_island", endSlimeIsland.get());
     StructureSeparationSettings endSettings = new StructureSeparationSettings(15, 11, 65245622);
     addStructureSettings(DimensionSettings.field_242737_f, endSlimeIsland.get(), endSettings);
 
@@ -113,8 +124,8 @@ public final class TinkerStructures extends TinkerModule {
     event.enqueueWork(() -> {
       ImmutableMap.Builder<Structure<?>, StructureSeparationSettings> builder = ImmutableMap.builder();
       builder.putAll(DimensionStructuresSettings.field_236191_b_);
-      builder.put(overworldSlimeIsland.get(), overworldSettings);
-      builder.put(netherSlimeIsland.get(), netherSettings);
+      builder.put(skySlimeIsland.get(), overworldSettings);
+      builder.put(bloodSlimeIsland.get(), netherSettings);
       builder.put(endSlimeIsland.get(), endSettings);
       DimensionStructuresSettings.field_236191_b_ = builder.build();
     });

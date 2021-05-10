@@ -38,7 +38,7 @@ public class WorldEvents {
 
     if (event.getCategory() == Biome.Category.NETHER) {
       if (Config.COMMON.generateSlimeIslands.get()) {
-        generation.withStructure(TinkerStructures.NETHER_SLIME_ISLAND);
+        generation.withStructure(TinkerStructures.BLOOD_SLIME_ISLAND);
       }
 
       if (Config.COMMON.generateCobalt.get()) {
@@ -48,7 +48,7 @@ public class WorldEvents {
     }
     else if (event.getCategory() != Biome.Category.THEEND) {
       if (Config.COMMON.generateSlimeIslands.get()) {
-        generation.withStructure(TinkerStructures.SLIME_ISLAND);
+        generation.withStructure(TinkerStructures.SKY_SLIME_ISLAND);
         event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 15, 2, 4));
       }
 
