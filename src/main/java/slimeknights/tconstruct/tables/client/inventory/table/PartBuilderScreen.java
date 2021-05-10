@@ -61,6 +61,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     this.infoPanelScreen.setTextScale(7/9f);
     this.infoPanelScreen.ySize = this.ySize;
     this.addModule(this.infoPanelScreen);
+    addChestSideInventory();
   }
 
   @Override
@@ -276,17 +277,20 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
 
   @Override
   public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-    if (this.infoPanelScreen.handleMouseScrolled(mouseX, mouseY, delta)) {
-      return false;
+    //if (this.infoPanelScreen.handleMouseScrolled(mouseX, mouseY, delta)) {
+    //  return false;
+    //}
+    if (super.mouseScrolled(mouseX, mouseY, delta)) {
+      return true;
     }
 
     if (this.canScroll()) {
       int i = this.getHiddenRows();
       this.sliderProgress = MathHelper.clamp((float) (this.sliderProgress - delta / i), 0.0F, 1.0F);
       this.recipeIndexOffset = (int) ((this.sliderProgress * (float) i) + 0.5f) * 4;
+      return true;
     }
-
-    return true;
+    return false;
   }
 
   @Override
