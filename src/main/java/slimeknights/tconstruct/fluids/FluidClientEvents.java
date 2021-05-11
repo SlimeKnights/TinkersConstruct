@@ -14,6 +14,8 @@ import slimeknights.tconstruct.common.ClientEventBase;
 public class FluidClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
+    RenderTypeLookup.setRenderLayer(TinkerFluids.earthSlime.getStill(), RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(TinkerFluids.earthSlime.getFlowing(), RenderType.getTranslucent());
     RenderTypeLookup.setRenderLayer(TinkerFluids.skySlime.getStill(), RenderType.getTranslucent());
     RenderTypeLookup.setRenderLayer(TinkerFluids.skySlime.getFlowing(), RenderType.getTranslucent());
     RenderTypeLookup.setRenderLayer(TinkerFluids.enderSlime.getStill(), RenderType.getTranslucent());
