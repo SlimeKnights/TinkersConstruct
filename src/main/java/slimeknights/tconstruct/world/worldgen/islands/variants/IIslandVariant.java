@@ -56,7 +56,7 @@ public interface IIslandVariant {
 
   /** Gets the structure processor to use for this island */
   default StructureProcessor getStructureProcessor() {
-    return BlockIgnoreStructureProcessor.STRUCTURE_BLOCK;
+    return BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK;
   }
 
   /** Checks if the given position is valid for this island */

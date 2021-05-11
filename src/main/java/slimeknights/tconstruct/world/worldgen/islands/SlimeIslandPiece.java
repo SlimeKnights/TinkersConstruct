@@ -94,17 +94,12 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
         if (vines != null) {
           if (rand.nextBoolean()) {
             this.placeVine(worldIn, pos, rand, vines);
-          } else {
-            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
           }
-        } else {
-          worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
         }
         break;
       }
       case "tconstruct:slime_tree":
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-
         if (this.numberOfTreesPlaced < 3 && rand.nextBoolean()) {
           ConfiguredFeature<?, ?> treeFeature = this.variant.getTreeFeature(rand);
           if (treeFeature != null && worldIn instanceof ISeedReader) {

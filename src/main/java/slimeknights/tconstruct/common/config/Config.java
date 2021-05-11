@@ -28,7 +28,15 @@ public class Config {
     public final BooleanValue generateCopper;
     public final ConfigValue<Integer> veinCountCopper;
 
-    public final BooleanValue generateSlimeIslands;
+    // overworld
+    public final BooleanValue generateSkySlimeIslands;
+    public final IntValue skySlimeIslandSeparation;
+    // nether
+    public final BooleanValue generateBloodIslands;
+    public final IntValue bloodIslandSeparation;
+    // end
+    public final BooleanValue generateEndSlimeIslands;
+    public final IntValue endSlimeIslandSeparation;
 
     // public final BooleanValue chestsKeepInventory;
 
@@ -125,11 +133,40 @@ public class Config {
         .worldRestart()
         .define("veinCountCobalt", 8);
 
-      this.generateSlimeIslands = builder
-        .comment("Set this to false to disable slime islands spawning in the world")
-        .translation("tconstruct.configgui.generateSlimeIslands")
+      builder.comment("Options related to slime islands").push("slime_islands");
+
+      builder.comment("Settings for sky slime islands in the overworld sky").push("sky");
+      this.generateSkySlimeIslands = builder
+        .comment("If true, this island generates")
         .worldRestart()
-        .define("generateSlimeIslands", true);
+        .define("generate", true);
+      this.skySlimeIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 30, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for blood islands in the nether lava ocean").push("blood");
+      this.generateBloodIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.bloodIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 13, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for end slime islands in the outer end islands").push("end");
+      this.generateEndSlimeIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.endSlimeIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 25, 10, 500);
+      builder.pop(2);
 
       builder.pop();
     }

@@ -106,26 +106,26 @@ public final class TinkerStructures extends TinkerModule {
 
     // sky slime islands
     SKY_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("sky_slime_island"), skySlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    StructureSeparationSettings overworldSettings = new StructureSeparationSettings(30, 22, 14357800);
-    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(skySlimeIsland.get(), overworldSettings);
-    addStructureSettings(DimensionSettings.field_242735_d, skySlimeIsland.get(), overworldSettings);
-    addStructureSettings(DimensionSettings.field_242739_h, skySlimeIsland.get(), overworldSettings);
+    StructureSeparationSettings skySettings = new ConfigSeparationSettings(Config.COMMON.skySlimeIslandSeparation, 5, 14357800);
+    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(skySlimeIsland.get(), skySettings);
+    addStructureSettings(DimensionSettings.field_242735_d, skySlimeIsland.get(), skySettings);
+    addStructureSettings(DimensionSettings.field_242739_h, skySlimeIsland.get(), skySettings);
 
     // blood slime islands
     BLOOD_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("blood_slime_island"), bloodSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    StructureSeparationSettings netherSettings = new StructureSeparationSettings(15, 11, 65245622);
+    StructureSeparationSettings netherSettings = new ConfigSeparationSettings(Config.COMMON.bloodIslandSeparation, 5, 65245622);
     addStructureSettings(DimensionSettings.field_242736_e, bloodSlimeIsland.get(), netherSettings);
 
     // end slime islands
     END_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("end_slime_island"), endSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    StructureSeparationSettings endSettings = new StructureSeparationSettings(15, 11, 65245622);
+    StructureSeparationSettings endSettings = new ConfigSeparationSettings(Config.COMMON.endSlimeIslandSeparation, 5, 368963602);
     addStructureSettings(DimensionSettings.field_242737_f, endSlimeIsland.get(), endSettings);
 
     // add to the default for anyone creating dimension settings later, hopefully its soon enough
     event.enqueueWork(() -> {
       ImmutableMap.Builder<Structure<?>, StructureSeparationSettings> builder = ImmutableMap.builder();
       builder.putAll(DimensionStructuresSettings.field_236191_b_);
-      builder.put(skySlimeIsland.get(), overworldSettings);
+      builder.put(skySlimeIsland.get(), skySettings);
       builder.put(bloodSlimeIsland.get(), netherSettings);
       builder.put(endSlimeIsland.get(), endSettings);
       DimensionStructuresSettings.field_236191_b_ = builder.build();

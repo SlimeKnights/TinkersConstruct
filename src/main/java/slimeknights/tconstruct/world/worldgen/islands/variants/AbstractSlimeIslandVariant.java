@@ -21,7 +21,7 @@ public abstract class AbstractSlimeIslandVariant implements IIslandVariant {
 
   @Override
   public BlockState getLakeBottom() {
-    return TinkerWorld.slimeGrass.get(dirtType).get(SlimeType.SKY).getDefaultState();
+    return TinkerWorld.slimeGrass.get(dirtType).get(foliageType).getDefaultState();
   }
 
   /** Gets the type of congealed slime to place */

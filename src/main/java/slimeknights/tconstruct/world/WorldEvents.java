@@ -9,6 +9,7 @@ import net.minecraft.loot.functions.SetCount;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.GenerationStage;
@@ -37,7 +38,7 @@ public class WorldEvents {
     BiomeGenerationSettingsBuilder generation = event.getGeneration();
 
     if (event.getCategory() == Biome.Category.NETHER) {
-      if (Config.COMMON.generateSlimeIslands.get()) {
+      if (Config.COMMON.generateBloodIslands.get()) {
         generation.withStructure(TinkerStructures.BLOOD_SLIME_ISLAND);
       }
 
@@ -47,17 +48,25 @@ public class WorldEvents {
       }
     }
     else if (event.getCategory() != Biome.Category.THEEND) {
-      if (Config.COMMON.generateSlimeIslands.get()) {
+      // normal sky islands
+      if (Config.COMMON.generateSkySlimeIslands.get()) {
         generation.withStructure(TinkerStructures.SKY_SLIME_ISLAND);
         event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 15, 2, 4));
+      }
+      if (Config.COMMON.generateSkySlimeIslands.get()) {
+        generation.withStructure(TinkerStructures.CLAY_ISLAND);
+      }
+      // ocean islands
+      if (event.getCategory() == Category.OCEAN && Config.COMMON.generateEarthSlimeIslands.get()) {
+        generation.withStructure(TinkerStructures.EARTH_SLIME_ISLAND);
       }
 
       if (Config.COMMON.generateCopper.get()) {
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, TinkerWorld.COPPER_ORE_FEATURE);
       }
     }
-    else if (event.getCategory() == Biome.Category.THEEND && doesNameMatchBiomes(event.getName(), Biomes.END_MIDLANDS, Biomes.END_HIGHLANDS, Biomes.END_BARRENS, Biomes.SMALL_END_ISLANDS)) {
-      if (Config.COMMON.generateSlimeIslands.get()) {
+    else if (event.getCategory() == Biome.Category.THEEND && !doesNameMatchBiomes(event.getName(), Biomes.THE_END, Biomes.THE_VOID)) {
+      if (Config.COMMON.generateEndSlimeIslands.get()) {
         generation.withStructure(TinkerStructures.END_SLIME_ISLAND);
       }
     }
