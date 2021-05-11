@@ -8,7 +8,6 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
 import javax.annotation.Nullable;
@@ -20,7 +19,7 @@ import java.util.Random;
  */
 public class SkySlimeIslandVariant extends AbstractSlimeIslandVariant {
   public SkySlimeIslandVariant(int index, SlimeType dirtType) {
-    super(index, dirtType, FoliageType.SKY);
+    super(index, dirtType, SlimeType.SKY);
   }
 
   @Override

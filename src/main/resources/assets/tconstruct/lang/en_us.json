@@ -869,6 +869,8 @@
     "block.tconstruct.ichor_slime_dirt": "Ichor Slimy Dirt",
     "block.tconstruct.ichor_slime_dirt.tooltip": "Slimy, but lets you jump higher",
 
+    "block.tconstruct.earth_vanilla_slime_grass": "Slimy Grass",
+    "block.tconstruct.earth_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.sky_vanilla_slime_grass": "Slimy Grass",
     "block.tconstruct.sky_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.blood_vanilla_slime_grass": "Slimy Grass",
@@ -878,6 +880,8 @@
     "block.tconstruct.ichor_vanilla_slime_grass": "Slimy Grass",
     "block.tconstruct.ichor_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
 
+    "block.tconstruct.earth_earth_slime_grass": "Earth Slimy Grass",
+    "block.tconstruct.earth_earth_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.sky_earth_slime_grass": "Earth Slimy Grass",
     "block.tconstruct.sky_earth_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.blood_earth_slime_grass": "Earth Slimy Grass",
@@ -887,6 +891,8 @@
     "block.tconstruct.ichor_earth_slime_grass": "Earth Slimy Grass",
     "block.tconstruct.ichor_earth_slime_grass.tooltip": "So soft! Lets you jump higher",
 
+    "block.tconstruct.earth_sky_slime_grass": "Sky Slimy Grass",
+    "block.tconstruct.earth_sky_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.sky_sky_slime_grass": "Sky Slimy Grass",
     "block.tconstruct.sky_sky_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.blood_sky_slime_grass": "Sky Slimy Grass",
@@ -896,6 +902,8 @@
     "block.tconstruct.ichor_sky_slime_grass": "Sky Slimy Grass",
     "block.tconstruct.ichor_sky_slime_grass.tooltip": "So soft! Lets you jump higher",
 
+    "block.tconstruct.earth_ender_slime_grass": "Ender Slimy Grass",
+    "block.tconstruct.earth_ender_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.sky_ender_slime_grass": "Ender Slimy Grass",
     "block.tconstruct.sky_ender_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.blood_ender_slime_grass": "Ender Slimy Grass",
@@ -905,6 +913,8 @@
     "block.tconstruct.ichor_ender_slime_grass": "Ender Slimy Grass",
     "block.tconstruct.ichor_ender_slime_grass.tooltip": "So soft! Lets you jump higher",
 
+    "block.tconstruct.earth_ichor_slime_grass": "Ichor Slimy Grass",
+    "block.tconstruct.earth_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.sky_ichor_slime_grass": "Ichor Slimy Grass",
     "block.tconstruct.sky_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.blood_ichor_slime_grass": "Ichor Slimy Grass",
@@ -914,6 +924,8 @@
     "block.tconstruct.ichor_ichor_slime_grass": "Ichor Slimy Grass",
     "block.tconstruct.ichor_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
     
+    "item.tconstruct.earth_slime_grass_seeds": "Slimy Grass Seeds",
+    "item.tconstruct.earth_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
     "item.tconstruct.sky_slime_grass_seeds": "Slimy Grass Seeds",
     "item.tconstruct.sky_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
     "item.tconstruct.blood_slime_grass_seeds": "Slimy Grass Seeds",
@@ -923,21 +935,26 @@
     "item.tconstruct.ender_slime_grass_seeds": "Slimy Grass Seeds",
     "item.tconstruct.ender_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
 
+    "block.tconstruct.earth_slime_leaves": "Slimy Leaves",
     "block.tconstruct.sky_slime_leaves": "Slimy Leaves",
     "block.tconstruct.blood_slime_leaves": "Slimy Wart",
     "block.tconstruct.ender_slime_leaves": "Slimy Leaves",
     "block.tconstruct.ichor_slime_leaves": "Slimy Leaves",
 
+    "block.tconstruct.earth_slime_tall_grass": "Tall Slimy Grass",
     "block.tconstruct.sky_slime_tall_grass": "Tall Slimy Grass",
     "block.tconstruct.blood_slime_tall_grass": "Tall Slimy Grass",
     "block.tconstruct.ender_slime_tall_grass": "Tall Slimy Grass",
     "block.tconstruct.ichor_slime_tall_grass": "Tall Slimy Grass",
 
+    "block.tconstruct.earth_slime_fern": "Slimy Fern",
     "block.tconstruct.sky_slime_fern": "Slimy Fern",
     "block.tconstruct.blood_slime_fern": "Slimy Fern",
     "block.tconstruct.ender_slime_fern": "Slimy Fern",
     "block.tconstruct.ichor_slime_fern": "Slimy Fern",
 
+    "block.tconstruct.earth_slime_sapling": "Greenheart Sapling",
+    "block.tconstruct.earth_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
     "block.tconstruct.sky_slime_sapling": "Skyroot Sapling",
     "block.tconstruct.sky_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
     "block.tconstruct.blood_slime_sapling": "Bloodshroom",

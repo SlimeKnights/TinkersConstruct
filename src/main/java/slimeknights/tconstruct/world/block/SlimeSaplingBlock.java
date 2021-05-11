@@ -11,15 +11,15 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.PlantType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import javax.annotation.Nonnull;
 
 public class SlimeSaplingBlock extends SaplingBlock {
 
-  private final FoliageType foliageType;
-  public SlimeSaplingBlock(Tree treeIn, FoliageType foliageType, Properties properties) {
+  private final SlimeType foliageType;
+  public SlimeSaplingBlock(Tree treeIn, SlimeType foliageType, Properties properties) {
     super(treeIn, properties);
     this.foliageType = foliageType;
   }
@@ -44,7 +44,7 @@ public class SlimeSaplingBlock extends SaplingBlock {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.foliageType != FoliageType.ICHOR) {
+    if (this.foliageType != SlimeType.ICHOR) {
       super.fillItemGroup(group, items);
     }
   }

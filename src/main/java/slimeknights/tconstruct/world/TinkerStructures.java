@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.world;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -22,7 +21,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock.VineStage;
 import slimeknights.tconstruct.world.worldgen.islands.BloodSlimeIslandStructure;
@@ -52,6 +51,8 @@ public final class TinkerStructures extends TinkerModule {
    * Features
    */
   public static final RegistryObject<Feature<BaseSlimeTreeFeatureConfig>> SLIME_TREE = FEATURES.register("slime_tree", () -> new SlimeTreeFeature(BaseSlimeTreeFeatureConfig.CODEC));
+  public static ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> EARTH_SLIME_TREE;
+
   public static ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> SKY_SLIME_TREE;
   public static ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> SKY_SLIME_ISLAND_TREE;
 
@@ -130,61 +131,61 @@ public final class TinkerStructures extends TinkerModule {
       DimensionStructuresSettings.field_236191_b_ = builder.build();
     });
 
-    SKY_SLIME_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("sky_slime_tree"), SLIME_TREE.get().withConfiguration((
-      new BaseSlimeTreeFeatureConfig.Builder(
-        new SupplierBlockStateProvider(() -> TinkerWorld.skyroot.getLog().getDefaultState()),
-        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
-        new SupplierBlockStateProvider(Blocks.AIR::getDefaultState),
-        5,
-        4,
-        false))
-      .build()));
-    SKY_SLIME_ISLAND_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("sky_slime_island_tree"), SLIME_TREE.get().withConfiguration((
-      new BaseSlimeTreeFeatureConfig.Builder(
-        new SupplierBlockStateProvider(() -> TinkerWorld.skyroot.getLog().getDefaultState()),
-        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.SKY).getDefaultState()),
-        new SupplierBlockStateProvider(() -> TinkerWorld.skySlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE)),
-        5,
-        4,
-        true))
-      .build()));
+    EARTH_SLIME_TREE = Registry.register(
+      WorldGenRegistries.CONFIGURED_FEATURE, location("earth_slime_tree"),
+      SLIME_TREE.get().withConfiguration((
+        new BaseSlimeTreeFeatureConfig.Builder()
+          .trunk(() -> TinkerWorld.greenheart.getLog().getDefaultState())
+          .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.EARTH).getDefaultState())
+          .baseHeight(4).randomHeight(3)
+          .build())));
 
-    ENDER_SLIME_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("ender_slime_tree"), SLIME_TREE.get().withConfiguration((
-      new BaseSlimeTreeFeatureConfig.Builder(
-        new SupplierBlockStateProvider(() -> TinkerWorld.greenheart.getLog().getDefaultState()), // TODO: temporary until we have proper green trees and ender shrooms
-        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState()),
-        new SupplierBlockStateProvider(Blocks.AIR::getDefaultState),
-        5,
-        4,
-        false))
-      .build()));
-    ENDER_SLIME_ISLAND_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("ender_slime_island_tree"), SLIME_TREE.get().withConfiguration((
-      new BaseSlimeTreeFeatureConfig.Builder(
-        new SupplierBlockStateProvider(() -> TinkerWorld.greenheart.getLog().getDefaultState()), // TODO: temporary until we have proper green trees and ender shrooms
-        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ENDER).getDefaultState()),
-        new SupplierBlockStateProvider(() -> TinkerWorld.enderSlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE)),
-        5,
-        4,
-        true))
-      .build()));
+    SKY_SLIME_TREE = Registry.register(
+      WorldGenRegistries.CONFIGURED_FEATURE, location("sky_slime_tree"),
+      SLIME_TREE.get().withConfiguration((
+        new BaseSlimeTreeFeatureConfig.Builder()
+          .trunk(() -> TinkerWorld.skyroot.getLog().getDefaultState())
+          .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.SKY).getDefaultState())
+          .build())));
+    SKY_SLIME_ISLAND_TREE = Registry.register(
+      WorldGenRegistries.CONFIGURED_FEATURE, location("sky_slime_island_tree"),
+      SLIME_TREE.get().withConfiguration((
+        new BaseSlimeTreeFeatureConfig.Builder()
+          .trunk(() -> TinkerWorld.skyroot.getLog().getDefaultState())
+          .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.SKY).getDefaultState())
+          .vines(() -> TinkerWorld.skySlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE))
+          .build())));
 
-    BLOOD_SLIME_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("blood_slime_tree"), SLIME_TREE.get().withConfiguration((
-      new BaseSlimeTreeFeatureConfig.Builder(
-        new SupplierBlockStateProvider(() -> TinkerWorld.bloodshroom.getLog().getDefaultState()),
-        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLOOD).getDefaultState()),
-        new SupplierBlockStateProvider(Blocks.AIR::getDefaultState),
-        5,
-        4,
-        false))
-      .build()));
-    ICHOR_SLIME_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("ichor_slime_tree"), SLIME_TREE.get().withConfiguration((
-      new BaseSlimeTreeFeatureConfig.Builder(
-        new SupplierBlockStateProvider(() -> TinkerWorld.bloodshroom.getLog().getDefaultState()),
-        new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ICHOR).getDefaultState()),
-        new SupplierBlockStateProvider(Blocks.AIR::getDefaultState),
-        5,
-        4,
-        false))
-      .build()));
+    ENDER_SLIME_TREE = Registry.register(
+      WorldGenRegistries.CONFIGURED_FEATURE, location("ender_slime_tree"),
+      SLIME_TREE.get().withConfiguration((
+        new BaseSlimeTreeFeatureConfig.Builder()
+          .trunk(() -> TinkerWorld.greenheart.getLog().getDefaultState()) // TODO: temporary until we have proper green trees and ender shrooms
+          .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.ENDER).getDefaultState())
+          .build())));
+    ENDER_SLIME_ISLAND_TREE = Registry.register(
+      WorldGenRegistries.CONFIGURED_FEATURE, location("ender_slime_island_tree"),
+      SLIME_TREE.get().withConfiguration((
+        new BaseSlimeTreeFeatureConfig.Builder()
+          .trunk(() -> TinkerWorld.greenheart.getLog().getDefaultState()) // TODO: temporary until we have proper green trees and ender shrooms
+          .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.ENDER).getDefaultState())
+          .vines(() -> TinkerWorld.enderSlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE))
+          .build())));
+
+    BLOOD_SLIME_TREE = Registry.register(
+      WorldGenRegistries.CONFIGURED_FEATURE, location("blood_slime_tree"),
+      SLIME_TREE.get().withConfiguration((
+        new BaseSlimeTreeFeatureConfig.Builder()
+          .trunk(() -> TinkerWorld.bloodshroom.getLog().getDefaultState())
+          .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.BLOOD).getDefaultState())
+          .baseHeight(7)
+          .build())));
+    ICHOR_SLIME_TREE = Registry.register(
+      WorldGenRegistries.CONFIGURED_FEATURE, location("ichor_slime_tree"),
+      SLIME_TREE.get().withConfiguration((
+        new BaseSlimeTreeFeatureConfig.Builder()
+          .trunk(() -> TinkerWorld.bloodshroom.getLog().getDefaultState())
+          .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.ICHOR).getDefaultState())
+          .build())));
   }
 }

@@ -7,7 +7,6 @@ import net.minecraft.block.BlockState;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -18,11 +17,11 @@ public abstract class AbstractSlimeIslandVariant implements IIslandVariant {
   @Getter
   private final int index;
   protected final SlimeType dirtType;
-  protected final FoliageType foliageType;
+  protected final SlimeType foliageType;
 
   @Override
   public BlockState getLakeBottom() {
-    return TinkerWorld.slimeGrass.get(dirtType).get(FoliageType.SKY).getDefaultState();
+    return TinkerWorld.slimeGrass.get(dirtType).get(SlimeType.SKY).getDefaultState();
   }
 
   /** Gets the type of congealed slime to place */
@@ -36,7 +35,7 @@ public abstract class AbstractSlimeIslandVariant implements IIslandVariant {
   @Nullable
   @Override
   public BlockState getPlant(Random random) {
-    EnumObject<FoliageType,? extends Block> enumObject = random.nextInt(8) == 0 ? TinkerWorld.slimeFern : TinkerWorld.slimeTallGrass;
+    EnumObject<SlimeType,? extends Block> enumObject = random.nextInt(8) == 0 ? TinkerWorld.slimeFern : TinkerWorld.slimeTallGrass;
     return enumObject.get(foliageType).getDefaultState();
   }
 }

@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper.UnableToFindFieldException;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
@@ -134,18 +134,20 @@ public class WorldEvents {
 
   @SubscribeEvent
   static void onLootTableLoad(LootTableLoadEvent event) {
-    BiFunction<FoliageType, Integer, LootEntry> makeSeed = (type, weight) ->
+    BiFunction<SlimeType, Integer, LootEntry> makeSeed = (type, weight) ->
       ItemLootEntry.builder(TinkerWorld.slimeGrassSeeds.get(type)).weight(weight)
                    .acceptFunction(SetCount.builder(new RandomValueRange(2, 4))).build();
-    BiFunction<FoliageType, Integer, LootEntry> makeSapling = (type, weight) -> ItemLootEntry.builder(TinkerWorld.slimeSapling.get(type)).weight(weight).build();
+    BiFunction<SlimeType, Integer, LootEntry> makeSapling = (type, weight) -> ItemLootEntry.builder(TinkerWorld.slimeSapling.get(type)).weight(weight).build();
     // sky
-    injectInto(event, "chests/simple_dungeon", "pool1", () -> makeSeed.apply(FoliageType.SKY, 10));
-    injectInto(event, "chests/simple_dungeon", "main", () -> makeSapling.apply(FoliageType.SKY, 10));
+    injectInto(event, "chests/simple_dungeon", "pool1", () -> makeSeed.apply(SlimeType.EARTH, 3));
+    injectInto(event, "chests/simple_dungeon", "pool1", () -> makeSeed.apply(SlimeType.SKY, 7));
+    injectInto(event, "chests/simple_dungeon", "main", () -> makeSapling.apply(SlimeType.EARTH, 3));
+    injectInto(event, "chests/simple_dungeon", "main", () -> makeSapling.apply(SlimeType.SKY, 7));
     // ichor
-    injectInto(event, "chests/nether_bridge", "main", () -> makeSeed.apply(FoliageType.BLOOD, 5));
-    injectInto(event, "chests/bastion_bridge", "pool2", () -> makeSapling.apply(FoliageType.BLOOD, 1));
+    injectInto(event, "chests/nether_bridge", "main", () -> makeSeed.apply(SlimeType.BLOOD, 5));
+    injectInto(event, "chests/bastion_bridge", "pool2", () -> makeSapling.apply(SlimeType.BLOOD, 1));
     // ender
-    injectInto(event, "chests/end_city_treasure", "main", () -> makeSeed.apply(FoliageType.ENDER, 5));
-    injectInto(event, "chests/end_city_treasure", "main", () -> makeSapling.apply(FoliageType.ENDER, 3));
+    injectInto(event, "chests/end_city_treasure", "main", () -> makeSeed.apply(SlimeType.ENDER, 5));
+    injectInto(event, "chests/end_city_treasure", "main", () -> makeSapling.apply(SlimeType.ENDER, 3));
   }
 }

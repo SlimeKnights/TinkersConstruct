@@ -8,7 +8,6 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
 import javax.annotation.Nullable;
@@ -18,7 +17,7 @@ import java.util.Random;
 /** Slime island variant for the end */
 public class EnderSlimeIslandVariant extends AbstractSlimeIslandVariant {
   public EnderSlimeIslandVariant(int index) {
-    super(index, SlimeType.ENDER, FoliageType.ENDER);
+    super(index, SlimeType.ENDER, SlimeType.ENDER);
   }
 
   @Override

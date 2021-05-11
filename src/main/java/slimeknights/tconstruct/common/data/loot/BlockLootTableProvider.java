@@ -38,7 +38,6 @@ import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -141,7 +140,7 @@ public class BlockLootTableProvider extends BlockLootTables {
       this.registerDropSelfLootTable(TinkerWorld.slimeDirt.get(type));
     }
 
-    for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
+    for (SlimeType type : SlimeType.values()) {
       this.registerLootTable(TinkerWorld.vanillaSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, Blocks.DIRT));
       this.registerLootTable(TinkerWorld.earthSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.EARTH)));
       this.registerLootTable(TinkerWorld.skySlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.SKY)));
@@ -231,18 +230,10 @@ public class BlockLootTableProvider extends BlockLootTables {
     return droppingSilkOrShearsTag(blockIn, withSurvivesExplosion(blockIn, ItemLootEntry.builder(saplingIn)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, fortuneIn)));
   }
 
-  private static LootTable.Builder randomDropSlimeBallOrSapling(SlimeGrassBlock.FoliageType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
-    SlimeType slime = SlimeType.EARTH;
-    switch (foliageType) {
-      case ICHOR: case BLOOD:
-        slime = SlimeType.ICHOR;
-        break;
-      case SKY:
-        slime = SlimeType.SKY;
-        break;
-      case ENDER:
-        slime = SlimeType.ENDER;
-        break;
+  private static LootTable.Builder randomDropSlimeBallOrSapling(SlimeType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
+    SlimeType slime = foliageType;
+    if (foliageType == SlimeType.BLOOD) {
+      slime = SlimeType.ICHOR;
     }
     return dropSapling(blockIn, sapling, fortuneIn)
       .addLootPool(LootPool.builder()

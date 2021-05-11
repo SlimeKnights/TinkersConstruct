@@ -25,7 +25,6 @@ import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 public class BlockTagProvider extends BlockTagsProvider {
 
@@ -139,7 +138,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     TagsProvider.Builder<Block> leavesBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LEAVES);
     TagsProvider.Builder<Block> saplingBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS);
-    for (FoliageType type : FoliageType.values()) {
+    for (SlimeType type : SlimeType.values()) {
       leavesBuilder.add(TinkerWorld.slimeLeaves.get(type));
       saplingBuilder.add(TinkerWorld.slimeSapling.get(type));
     }
