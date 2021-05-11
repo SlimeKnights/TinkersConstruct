@@ -59,6 +59,7 @@ public class WorldEvents {
       // ocean islands
       if (event.getCategory() == Category.OCEAN && Config.COMMON.generateEarthSlimeIslands.get()) {
         generation.withStructure(TinkerStructures.EARTH_SLIME_ISLAND);
+        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.earthSlimeEntity.get(), 15, 2, 4));
       }
 
       if (Config.COMMON.generateCopper.get()) {
@@ -68,6 +69,7 @@ public class WorldEvents {
     else if (event.getCategory() == Biome.Category.THEEND && !doesNameMatchBiomes(event.getName(), Biomes.THE_END, Biomes.THE_VOID)) {
       if (Config.COMMON.generateEndSlimeIslands.get()) {
         generation.withStructure(TinkerStructures.END_SLIME_ISLAND);
+        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.enderSlimeEntity.get(), 15, 2, 4));
       }
     }
   }

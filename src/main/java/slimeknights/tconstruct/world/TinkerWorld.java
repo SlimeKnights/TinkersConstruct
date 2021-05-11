@@ -13,6 +13,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -58,7 +59,8 @@ import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.block.StickySlimeBlock;
 import slimeknights.tconstruct.world.data.WorldRecipeProvider;
-import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
+import slimeknights.tconstruct.world.entity.EnderSlimeEntity;
+import slimeknights.tconstruct.world.entity.SkySlimeEntity;
 import slimeknights.tconstruct.world.item.SlimeGrassSeedItem;
 import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
@@ -161,19 +163,34 @@ public final class TinkerWorld extends TinkerModule {
   /*
    * Entities
    */
-  public static final RegistryObject<EntityType<BlueSlimeEntity>> skySlimeEntity = ENTITIES.registerWithEgg("sky_slime", () -> {
-    return EntityType.Builder.create(BlueSlimeEntity::new, EntityClassification.MONSTER)
-      .setShouldReceiveVelocityUpdates(true)
-      .setUpdateInterval(5)
-      .setTrackingRange(64)
-      .size(2.04F, 2.04F)
-      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.skySlimeEntity.get().create(world));
-  }, 0x47eff5, 0xacfff4);
+  // our own copy of the slime to make spawning a bit easier
+  public static final RegistryObject<EntityType<SlimeEntity>> earthSlimeEntity = ENTITIES.register("earth_slime", () ->
+    EntityType.Builder.create(SlimeEntity::new, EntityClassification.MONSTER)
+                      .setShouldReceiveVelocityUpdates(true)
+                      .setUpdateInterval(5)
+                      .setTrackingRange(64)
+                      .size(2.04F, 2.04F)
+                      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.earthSlimeEntity.get().create(world)));
+  public static final RegistryObject<EntityType<SkySlimeEntity>> skySlimeEntity = ENTITIES.registerWithEgg("sky_slime", () ->
+    EntityType.Builder.create(SkySlimeEntity::new, EntityClassification.MONSTER)
+                      .setShouldReceiveVelocityUpdates(true)
+                      .setUpdateInterval(5)
+                      .setTrackingRange(64)
+                      .size(2.04F, 2.04F)
+                      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.skySlimeEntity.get().create(world)), 0x47eff5, 0xacfff4);
+  public static final RegistryObject<EntityType<EnderSlimeEntity>> enderSlimeEntity = ENTITIES.registerWithEgg("ender_slime", () ->
+    EntityType.Builder.create(EnderSlimeEntity::new, EntityClassification.MONSTER)
+                      .setShouldReceiveVelocityUpdates(true)
+                      .setUpdateInterval(5)
+                      .setTrackingRange(64)
+                      .size(2.04F, 2.04F)
+                      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.enderSlimeEntity.get().create(world)), 0x6300B0, 0xD37CFF);
 
   /*
    * Particles
    */
-  public static final RegistryObject<BasicParticleType> slimeParticle = PARTICLE_TYPES.register("slime", () -> new BasicParticleType(false));
+  public static final RegistryObject<BasicParticleType> skySlimeParticle = PARTICLE_TYPES.register("sky_slime", () -> new BasicParticleType(false));
+  public static final RegistryObject<BasicParticleType> enderSlimeParticle = PARTICLE_TYPES.register("ender_slime", () -> new BasicParticleType(false));
 
   /*
    * Features
@@ -188,7 +205,9 @@ public final class TinkerWorld extends TinkerModule {
 
   @SubscribeEvent
   void entityAttributes(EntityAttributeCreationEvent event) {
+    event.put(earthSlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
     event.put(skySlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
+    event.put(enderSlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
   }
 
   /** Sets all fire info for the given wood */
@@ -208,7 +227,9 @@ public final class TinkerWorld extends TinkerModule {
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
-    EntitySpawnPlacementRegistry.register(skySlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
+    EntitySpawnPlacementRegistry.register(earthSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, SkySlimeEntity::canSpawnHere);
+    EntitySpawnPlacementRegistry.register(skySlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, SkySlimeEntity::canSpawnHere);
+    EntitySpawnPlacementRegistry.register(enderSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, SkySlimeEntity::canSpawnHere);
 
     // compostables
     event.enqueueWork(() -> {

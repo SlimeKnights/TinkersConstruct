@@ -857,8 +857,11 @@
     
     "_comment": "Tinkers World",
 
+    "entity.tconstruct.earth_slime": "Slime",
     "entity.tconstruct.sky_slime": "Skyslime",
     "item.tconstruct.sky_slime_spawn_egg": "Skyslime Spawn Egg",
+    "entity.tconstruct.ender_slime": "Enderslime",
+    "item.tconstruct.ender_slime_spawn_egg": "Enderslime Spawn Egg",
 
     "block.tconstruct.earth_slime_dirt": "Earth Slimy Dirt",
     "block.tconstruct.earth_slime_dirt.tooltip": "Slimy, but lets you jump higher",
