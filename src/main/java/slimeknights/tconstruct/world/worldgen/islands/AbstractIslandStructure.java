@@ -86,7 +86,9 @@ public abstract class AbstractIslandStructure extends Structure<NoFeatureConfig>
       int z = chunkZ * 16 + 4 + this.rand.nextInt(8);
       int y = getHeight(generator, rotation, x, z, this.rand);
 
-      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, getVariant(rand), SIZES[this.rand.nextInt(SIZES.length)], new BlockPos(x, y, z), rotation);
+      IIslandVariant variant = getVariant(rand);
+      // fetch the tree now so its consistent on the whole island
+      SlimeIslandPiece slimeIslandPiece = new SlimeIslandPiece(templateManagerIn, variant, SIZES[this.rand.nextInt(SIZES.length)], new BlockPos(x, y, z), variant.getTreeFeature(rand), rotation);
       this.components.add(slimeIslandPiece);
       this.recalculateStructureSize();
     }

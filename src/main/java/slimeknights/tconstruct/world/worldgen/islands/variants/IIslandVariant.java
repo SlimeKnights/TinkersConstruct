@@ -8,7 +8,6 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.StructureProcessor;
-import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -50,7 +49,7 @@ public interface IIslandVariant {
 
   /** Gets the tree to place on top of the island, return null to prevent tree placement */
   @Nullable
-  default ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> getTreeFeature(Random random) {
+  default ConfiguredFeature<?, ?> getTreeFeature(Random random) {
     return null;
   }
 

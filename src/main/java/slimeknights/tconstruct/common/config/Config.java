@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class Config {
@@ -29,8 +30,12 @@ public class Config {
     public final ConfigValue<Integer> veinCountCopper;
 
     // overworld
+    public final BooleanValue generateEarthSlimeIslands;
     public final BooleanValue generateSkySlimeIslands;
+    public final BooleanValue generateClayIslands;
+    public final IntValue earthSlimeIslandSeparation;
     public final IntValue skySlimeIslandSeparation;
+    public final IntValue clayIslandSeparation;
     // nether
     public final BooleanValue generateBloodIslands;
     public final IntValue bloodIslandSeparation;
@@ -134,6 +139,16 @@ public class Config {
         .define("veinCountCobalt", 8);
 
       builder.comment("Options related to slime islands").push("slime_islands");
+      builder.comment("Options related to earth slime islands spawning in the oceans").push("earth");
+      this.generateEarthSlimeIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.earthSlimeIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 15, 10, 500);
+      builder.pop();
 
       builder.comment("Settings for sky slime islands in the overworld sky").push("sky");
       this.generateSkySlimeIslands = builder
@@ -144,6 +159,17 @@ public class Config {
         .comment("How many chunks on average between islands")
         .worldRestart()
         .defineInRange("separation", 30, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for clay islands in the overworld sky").push("clay");
+      this.generateClayIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.clayIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 100, 10, 500);
       builder.pop();
 
       builder.comment("Settings for blood islands in the nether lava ocean").push("blood");

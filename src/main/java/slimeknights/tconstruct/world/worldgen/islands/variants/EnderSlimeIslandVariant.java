@@ -8,7 +8,6 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -43,7 +42,7 @@ public class EnderSlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Nullable
   @Override
-  public ConfiguredFeature<BaseSlimeTreeFeatureConfig,?> getTreeFeature(Random random) {
+  public ConfiguredFeature<?,?> getTreeFeature(Random random) {
     return TinkerStructures.ENDER_SLIME_ISLAND_TREE;
   }
 }

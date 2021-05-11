@@ -1,15 +1,16 @@
 package slimeknights.tconstruct.world.worldgen.islands;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
@@ -25,10 +26,15 @@ import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.worldgen.islands.variants.IIslandVariant;
 import slimeknights.tconstruct.world.worldgen.islands.variants.IslandVariants;
 
+import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.Random;
 
 public class SlimeIslandPiece extends TemplateStructurePiece {
+  private static final Random TREE_RANDOM = new Random();
 
+  @Nullable
+  private final ConfiguredFeature<?,?> tree;
   private final String templateName;
   private final IIslandVariant variant;
   private final Rotation rotation;
@@ -36,11 +42,11 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   private int numberOfTreesPlaced;
   private ChunkGenerator chunkGenerator;
 
-  public SlimeIslandPiece(TemplateManager templateManager, IIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation) {
-    this(templateManager, variant, templateName, templatePosition, rotation, Mirror.NONE);
+  public SlimeIslandPiece(TemplateManager templateManager, IIslandVariant variant, String templateName, BlockPos templatePosition, @Nullable ConfiguredFeature<?,?> tree, Rotation rotation) {
+    this(templateManager, variant, templateName, templatePosition, tree, rotation, Mirror.NONE);
   }
 
-  public SlimeIslandPiece(TemplateManager templateManager, IIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation, Mirror mirror) {
+  public SlimeIslandPiece(TemplateManager templateManager, IIslandVariant variant, String templateName, BlockPos templatePosition, @Nullable ConfiguredFeature<?,?> tree, Rotation rotation, Mirror mirror) {
     super(TinkerStructures.slimeIslandPiece, 0);
     this.templateName = templateName;
     this.variant = variant;
@@ -48,6 +54,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
     this.rotation = rotation;
     this.mirror = mirror;
     this.numberOfTreesPlaced = 0;
+    this.tree = tree;
     this.loadTemplate(templateManager);
   }
 
@@ -58,6 +65,12 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
     this.rotation = Rotation.valueOf(nbt.getString("Rot"));
     this.mirror = Mirror.valueOf(nbt.getString("Mi"));
     this.numberOfTreesPlaced = nbt.getInt("NumberOfTreesPlaced");
+    ResourceLocation tree = ResourceLocation.tryCreate(nbt.getString("Tree"));
+    this.tree = Optional.of(nbt.getString("Tree"))
+                        .filter(s -> !s.isEmpty())
+                        .map(ResourceLocation::tryCreate)
+                        .flatMap(WorldGenRegistries.CONFIGURED_FEATURE::getOptional)
+                        .orElse(null);
     this.loadTemplate(templateManager);
   }
 
@@ -75,6 +88,12 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
     tagCompound.putString("Rot", this.placeSettings.getRotation().name());
     tagCompound.putString("Mi", this.placeSettings.getMirror().name());
     tagCompound.putInt("NumberOfTreesPlaced", this.numberOfTreesPlaced);
+    if (tree != null) {
+      ResourceLocation key = WorldGenRegistries.CONFIGURED_FEATURE.getKey(tree);
+      if (key != null) {
+        tagCompound.putString("Tree", key.toString());
+      }
+    }
   }
 
   @Override
@@ -99,12 +118,10 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
         break;
       }
       case "tconstruct:slime_tree":
-        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-        if (this.numberOfTreesPlaced < 3 && rand.nextBoolean()) {
-          ConfiguredFeature<?, ?> treeFeature = this.variant.getTreeFeature(rand);
-          if (treeFeature != null && worldIn instanceof ISeedReader) {
+        if (tree != null && this.numberOfTreesPlaced < 3 && rand.nextBoolean()) {
+          if (worldIn instanceof ISeedReader) {
             ISeedReader seedReader = (ISeedReader) worldIn;
-            if (treeFeature.generate(seedReader, this.chunkGenerator, rand, pos)) {
+            if (tree.generate(seedReader, this.chunkGenerator, rand, pos)) {
               this.numberOfTreesPlaced++;
             }
           }
@@ -112,7 +129,6 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
 
         break;
       case "tconstruct:slime_tall_grass":
-        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
         if (rand.nextBoolean()) {
           BlockState state = this.variant.getPlant(rand);
           if (state != null && state.getBlock() instanceof BushBlock && ((BushBlock) state.getBlock()).isValidPosition(state, worldIn, pos)) {
