@@ -162,7 +162,10 @@
     "item.tconstruct.puny_smelting": "Puny Smelting",
     "item.tconstruct.puny_smelting.tooltip": "Smelting and casting guidebook for beginners\nby Thruul M'Gon",
     "item.tconstruct.mighty_smelting": "Mighty Smelting",
-    "item.tconstruct.mighty_smelting.tooltip": "textbook for mastery of melting, casting, and alloying\nby Thruul M'Gon",
+    "item.tconstruct.mighty_smelting.tooltip": "Textbook for mastery of melting, casting, and alloying\nby Thruul M'Gon",
+    
+    "item.tconstruct.fantastic_foundry": "Fantastic Foundry",
+    "item.tconstruct.fantastic_foundry.tooltip": "Book about the hottest new technology in molten metals\nby Nemea",
 
     "item.tconstruct.sky_slime_ball": "Skyslime Ball",
     "item.tconstruct.ender_slime_ball": "Enderslime Ball",

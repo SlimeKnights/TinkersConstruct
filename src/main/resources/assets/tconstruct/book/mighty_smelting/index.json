@@ -35,22 +35,5 @@
         "id": "tconstruct:slimesteel_ingot"
       }
     }
-  },
-  {
-    "name": "molten_blaze",
-    "data": "sections/molten_blaze.json",
-    "icon": {
-      "item": {
-        "id": "tconstruct:molten_blaze_bucket"
-      }
-    }
-  },
-  {
-    "name": "tier_four_materials",
-    "icon": {
-      "item": {
-        "id": "tconstruct:manyullyn_ingot"
-      }
-    }
   }
 ]

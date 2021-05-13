@@ -1,0 +1,28 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/intro_tmp.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:ichor_slime_ball"
+      }
+    }
+  },
+  {
+    "name": "molten_blaze",
+    "data": "sections/molten_blaze.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:molten_blaze_bucket"
+      }
+    }
+  },
+  {
+    "name": "tier_four_materials",
+    "icon": {
+      "item": {
+        "id": "tconstruct:manyullyn_ingot"
+      }
+    }
+  }
+]

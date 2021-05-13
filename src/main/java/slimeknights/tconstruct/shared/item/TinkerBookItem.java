@@ -30,6 +30,7 @@ public class TinkerBookItem extends TooltipItem {
     MATERIALS_AND_YOU,
     PUNY_SMELTING,
     MIGHTY_SMELTING,
-    TINKERS_GADGETRY
+    TINKERS_GADGETRY,
+    FANTASTIC_FOUNDRY
   }
 }

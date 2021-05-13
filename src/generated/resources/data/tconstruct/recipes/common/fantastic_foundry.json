@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:book"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:liquid_soul",
+    "amount": 250
+  },
+  "result": "tconstruct:fantastic_foundry",
+  "cooling_time": 61
+}
