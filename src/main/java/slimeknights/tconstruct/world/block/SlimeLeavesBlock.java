@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world.block;
 
+import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.item.BlockItemUseContext;
@@ -13,16 +14,15 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 import java.util.Random;
 
 // todo: evaluate this block
 public class SlimeLeavesBlock extends LeavesBlock {
-
-  private final SlimeGrassBlock.FoliageType foliageType;
-
-  public SlimeLeavesBlock(Properties properties, SlimeGrassBlock.FoliageType foliageType) {
+  @Getter
+  private final SlimeType foliageType;
+  public SlimeLeavesBlock(Properties properties, SlimeType foliageType) {
     super(properties);
     this.foliageType = foliageType;
   }
@@ -71,10 +71,6 @@ public class SlimeLeavesBlock extends LeavesBlock {
     }
   }
 
-  public SlimeGrassBlock.FoliageType getFoliageType() {
-    return this.foliageType;
-  }
-
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
     return updateDistance(this.getDefaultState().with(PERSISTENT, Boolean.TRUE), context.getWorld(), context.getPos());
@@ -87,7 +83,7 @@ public class SlimeLeavesBlock extends LeavesBlock {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.foliageType != FoliageType.ICHOR) {
+    if (this.foliageType != SlimeType.ICHOR) {
       super.fillItemGroup(group, items);
     }
   }

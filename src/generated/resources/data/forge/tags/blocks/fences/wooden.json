@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:greenheart_fence",
+    "tconstruct:skyroot_fence",
+    "tconstruct:bloodshroom_fence"
+  ]
+}

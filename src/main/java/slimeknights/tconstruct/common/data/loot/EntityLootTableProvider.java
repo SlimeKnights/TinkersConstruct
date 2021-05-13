@@ -29,6 +29,17 @@ public class EntityLootTableProvider extends EntityLootTables {
 
   @Override
   protected void addTables() {
-    this.registerLootTable(TinkerWorld.skySlimeEntity.get(), LootTable.builder().addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(TinkerCommons.slimeball.get(SlimeType.SKY)).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
+    this.registerLootTable(TinkerWorld.earthSlimeEntity.get(), dropSlimeballs(SlimeType.EARTH));
+    this.registerLootTable(TinkerWorld.skySlimeEntity.get(), dropSlimeballs(SlimeType.SKY));
+    this.registerLootTable(TinkerWorld.enderSlimeEntity.get(), dropSlimeballs(SlimeType.ENDER));
+  }
+
+  private static LootTable.Builder dropSlimeballs(SlimeType type) {
+    return LootTable.builder()
+                    .addLootPool(LootPool.builder()
+                                         .rolls(ConstantRange.of(1))
+                                         .addEntry(ItemLootEntry.builder(TinkerCommons.slimeball.get(type))
+                                                                .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
+                                                                .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))));
   }
 }

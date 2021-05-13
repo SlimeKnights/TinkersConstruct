@@ -31,14 +31,20 @@ public class ModifierRecipeLookup {
 
   /** Map of requirements for each modifier */
   private static final Map<Modifier,Pair<ModifierMatch,String>> REQUIREMENTS = new HashMap<>();
-
+  /** Map of the number needed for each incremental modifier */
   private static final Object2IntMap<Modifier> INCREMENTAL_PER_LEVEL = new Object2IntOpenHashMap<>();
+  /** Map of the number of slots needed for each upgrade */
+  private static final Object2IntMap<Modifier> UPGRADE_SLOTS = new Object2IntOpenHashMap<>();
+  /** Map of the number of slots needed for each ability */
+  private static final Object2IntMap<Modifier> ABILITY_SLOTS = new Object2IntOpenHashMap<>();
 
   /** Listener for clearing the caches on recipe reload */
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
     MODIFIERS.clear();
     REQUIREMENTS.clear();
     INCREMENTAL_PER_LEVEL.clear();
+    UPGRADE_SLOTS.clear();
+    ABILITY_SLOTS.clear();
   });
 
 
@@ -154,5 +160,40 @@ public class ModifierRecipeLookup {
    */
   public static int getNeededPerLevel(Modifier modifier) {
     return INCREMENTAL_PER_LEVEL.getOrDefault(modifier, 0);
+  }
+
+
+  /* Slots */
+
+  /** Gets the number of upgrade slots needed for the given modifier */
+  public static int getUpgradeSlots(Modifier modifier) {
+    return UPGRADE_SLOTS.getOrDefault(modifier, -1);
+  }
+
+  /** Gets the number of ability slots needed for the given modifier */
+  public static int getAbilitySlots(Modifier modifier) {
+    return ABILITY_SLOTS.getOrDefault(modifier, -1);
+  }
+
+  /**
+   * Sets the number of upgrade slots needed for this modifier
+   * @param modifier  Modifier
+   * @param slots     Upgrade slots needed
+   */
+  public static void setUpgradeSlots(Modifier modifier, int slots) {
+    if (!UPGRADE_SLOTS.containsKey(modifier) || UPGRADE_SLOTS.getInt(modifier) > slots) {
+      UPGRADE_SLOTS.put(modifier, slots);
+    }
+  }
+
+  /**
+   * Sets the number of upgrade slots needed for this modifier
+   * @param modifier  Modifier
+   * @param slots     Upgrade slots needed
+   */
+  public static void setAbilitySlots(Modifier modifier, int slots) {
+    if (!ABILITY_SLOTS.containsKey(modifier) || ABILITY_SLOTS.getInt(modifier) > slots) {
+      ABILITY_SLOTS.put(modifier, slots);
+    }
   }
 }

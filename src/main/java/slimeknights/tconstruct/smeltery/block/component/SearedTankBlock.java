@@ -21,7 +21,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
@@ -76,7 +76,7 @@ public class SearedTankBlock extends SearedBlock {
   public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
     if (nbt != null) {
-      TileEntityHelper.getTile(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(Tags.TANK)));
+      TileEntityHelper.getTile(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
     }
     super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
   }

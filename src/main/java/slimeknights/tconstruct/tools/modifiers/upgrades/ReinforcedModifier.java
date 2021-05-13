@@ -5,6 +5,7 @@ import net.minecraft.util.text.StringTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.List;
 
@@ -32,7 +33,12 @@ public class ReinforcedModifier extends Modifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    float reinforced = 1 - 1f / (level + 1);
+    float reinforced;
+    if (tool.getModifierLevel(TinkerModifiers.unbreakable.get()) > 0) {
+      reinforced = 1;
+    } else {
+      reinforced = 1 - 1f / (level + 1);
+    }
     tooltip.add(applyStyle(new StringTextComponent(Util.dfPercent.format(reinforced)).appendString(" ").append(makeDisplayName())));
   }
 }

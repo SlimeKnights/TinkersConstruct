@@ -12,6 +12,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialItemCostLookup;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -134,7 +135,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
             Optional<HeadMaterialStats> optional = MaterialRegistry.getInstance().getMaterialStats(partMaterial.getIdentifier(), HeadMaterialStats.ID);
             optional.ifPresent(stats -> {
               // apply modifier repair boost
-              float factor = cost / 4f; // vanilla ingots restore 25% durability, part head is worth 1 ingot per cost
+              float factor = cost / MaterialRecipe.INGOTS_PER_REPAIR;
               for (ModifierEntry entry : finalTool.getModifierList()) {
                 factor = entry.getModifier().getRepairFactor(finalTool, entry.getLevel(), factor);
                 if (factor <= 0) {

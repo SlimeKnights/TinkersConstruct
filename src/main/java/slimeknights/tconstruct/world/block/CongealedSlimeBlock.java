@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -71,11 +72,17 @@ public class CongealedSlimeBlock extends Block {
           if (absZ < 0.495) {
             entityIn.setMotion(new Vector3d(velocity * Math.signum(direction.getX()), motion.getY(), motion.getZ()));
             entityIn.velocityChanged = true;
+            if (velocity > 0.1) {
+              worldIn.playSound(null, pos, getSoundType(state, worldIn, pos, entityIn).getStepSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
+            }
           }
         } else {
           if (absX < 0.495) {
             entityIn.setMotion(new Vector3d(motion.getX(), motion.getY(), velocity * Math.signum(direction.getZ())));
             entityIn.velocityChanged = true;
+            if (velocity > 0.1) {
+              worldIn.playSound(null, pos, getSoundType(state, worldIn, pos, entityIn).getStepSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
+            }
           }
         }
       }

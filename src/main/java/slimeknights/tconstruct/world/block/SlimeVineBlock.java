@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world.block;
 
+import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -17,7 +18,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -29,8 +30,9 @@ import java.util.Random;
 public class SlimeVineBlock extends VineBlock {
   public static final EnumProperty<VineStage> STAGE = EnumProperty.create("stage", VineStage.class);
 
-  private final FoliageType foliage;
-  public SlimeVineBlock(Properties properties, FoliageType foliage) {
+  @Getter
+  private final SlimeType foliage;
+  public SlimeVineBlock(Properties properties, SlimeType foliage) {
     super(properties);
     this.setDefaultState(this.getDefaultState().with(STAGE, VineStage.START));
     this.foliage = foliage;
@@ -40,14 +42,6 @@ public class SlimeVineBlock extends VineBlock {
   protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
     super.fillStateContainer(builder);
     builder.add(STAGE);
-  }
-
-  /**
-   * Gets the foliage type associated with these vines
-   * @return  Foliage type
-   */
-  public FoliageType getFoliageType() {
-    return this.foliage;
   }
 
   @Override

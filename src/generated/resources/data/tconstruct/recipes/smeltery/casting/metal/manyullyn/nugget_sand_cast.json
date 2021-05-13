@@ -8,6 +8,8 @@
     "name": "tconstruct:molten_manyullyn",
     "amount": 16
   },
-  "result": "tconstruct:manyullyn_nugget",
+  "result": {
+    "tag": "forge:nuggets/manyullyn"
+  },
   "cooling_time": 24
 }

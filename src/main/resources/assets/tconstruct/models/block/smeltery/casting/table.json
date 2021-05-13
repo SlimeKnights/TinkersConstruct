@@ -4,7 +4,7 @@
   "textures": {
     "side":     "tconstruct:block/smeltery/casting/table_side",
     "particle": "tconstruct:block/smeltery/casting/table_side",
-    "top":      "tconstruct:block/smeltery/casting/basin_top",
+    "top":      "tconstruct:block/smeltery/casting/table_top",
     "bottom":   "tconstruct:block/smeltery/casting/table_bottom"
   },
   "elements": [

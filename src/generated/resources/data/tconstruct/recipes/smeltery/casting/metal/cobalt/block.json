@@ -4,6 +4,8 @@
     "name": "tconstruct:molten_cobalt",
     "amount": 1296
   },
-  "result": "tconstruct:cobalt_block",
+  "result": {
+    "tag": "forge:storage_blocks/cobalt"
+  },
   "cooling_time": 194
 }

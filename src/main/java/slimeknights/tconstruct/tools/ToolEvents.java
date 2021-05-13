@@ -6,18 +6,21 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.CarvedPumpkinBlock;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BeehiveTileEntity;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -28,12 +31,10 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * Event subscriber for tool events
@@ -125,6 +126,30 @@ public class ToolEvents {
         event.setResult(Result.ALLOW);
       } else {
         event.setResult(Result.DENY);
+      }
+    }
+  }
+
+  /** Applies the looting bonus for this modifier */
+  @SubscribeEvent
+  static void onLooting(LootingLevelEvent event) {
+    // must be an attacker with our tool
+    DamageSource damageSource = event.getDamageSource();
+    if (damageSource == null) {
+      return;
+    }
+    Entity source = damageSource.getTrueSource();
+    if (source instanceof LivingEntity) {
+      // TODO: consider offhand usage, bows or daggers
+      // TODO: extend to armor eventually
+      LivingEntity holder = ((LivingEntity)source);
+      ItemStack held = holder.getHeldItemMainhand();
+      if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
+        ToolStack tool = ToolStack.from(held);
+        int newLevel = ModifierUtil.getLootingLevel(tool, holder,  event.getEntityLiving(), damageSource);
+        if (newLevel > event.getLootingLevel()) {
+          event.setLootingLevel(newLevel);
+        }
       }
     }
   }

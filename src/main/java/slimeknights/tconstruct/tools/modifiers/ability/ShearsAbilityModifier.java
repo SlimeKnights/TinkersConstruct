@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.ability;
 
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -12,6 +10,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
@@ -61,9 +60,9 @@ public class ShearsAbilityModifier extends SingleUseModifier {
     ItemStack stack = playerIn.getHeldItem(hand);
     // only run AOE on shearable entities
     if (isShears(tool) && target instanceof IForgeShearable) {
-      int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);// FIXME: wrong function
-
-      if (!tool.isBroken() && this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, fortune)) {
+      // use looting instead of fortune, as that is our hook with entity access
+      // modifier can always use tags or the nullable parameter to distinguish if needed
+      if (!tool.isBroken() && this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, ModifierUtil.getLootingLevel(tool, playerIn, target, null))) {
         ToolDamageUtil.damageAnimated(tool, 1, playerIn, hand);
         this.swingTool(playerIn, hand);
         return ActionResultType.SUCCESS;

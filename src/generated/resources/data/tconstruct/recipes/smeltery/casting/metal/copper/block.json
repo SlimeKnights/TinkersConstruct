@@ -4,6 +4,8 @@
     "name": "tconstruct:molten_copper",
     "amount": 1296
   },
-  "result": "tconstruct:copper_block",
+  "result": {
+    "tag": "forge:storage_blocks/copper"
+  },
   "cooling_time": 150
 }

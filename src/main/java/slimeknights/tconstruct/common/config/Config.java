@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class Config {
@@ -28,7 +29,19 @@ public class Config {
     public final BooleanValue generateCopper;
     public final ConfigValue<Integer> veinCountCopper;
 
-    public final BooleanValue generateSlimeIslands;
+    // overworld
+    public final BooleanValue generateEarthSlimeIslands;
+    public final BooleanValue generateSkySlimeIslands;
+    public final BooleanValue generateClayIslands;
+    public final IntValue earthSlimeIslandSeparation;
+    public final IntValue skySlimeIslandSeparation;
+    public final IntValue clayIslandSeparation;
+    // nether
+    public final BooleanValue generateBloodIslands;
+    public final IntValue bloodIslandSeparation;
+    // end
+    public final BooleanValue generateEndSlimeIslands;
+    public final IntValue endSlimeIslandSeparation;
 
     // public final BooleanValue chestsKeepInventory;
 
@@ -125,11 +138,61 @@ public class Config {
         .worldRestart()
         .define("veinCountCobalt", 8);
 
-      this.generateSlimeIslands = builder
-        .comment("Set this to false to disable slime islands spawning in the world")
-        .translation("tconstruct.configgui.generateSlimeIslands")
+      builder.comment("Options related to slime islands").push("slime_islands");
+      builder.comment("Options related to earth slime islands spawning in the oceans").push("earth");
+      this.generateEarthSlimeIslands = builder
+        .comment("If true, this island generates")
         .worldRestart()
-        .define("generateSlimeIslands", true);
+        .define("generate", true);
+      this.earthSlimeIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 15, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for sky slime islands in the overworld sky").push("sky");
+      this.generateSkySlimeIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.skySlimeIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 30, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for clay islands in the overworld sky").push("clay");
+      this.generateClayIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.clayIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 100, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for blood islands in the nether lava ocean").push("blood");
+      this.generateBloodIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.bloodIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 13, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for end slime islands in the outer end islands").push("end");
+      this.generateEndSlimeIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.endSlimeIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 25, 10, 500);
+      builder.pop(2);
 
       builder.pop();
     }
@@ -140,10 +203,9 @@ public class Config {
    */
   public static class Client {
     //public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
-
     public final ForgeConfigSpec.BooleanValue tankFluidModel;
-
     public final ForgeConfigSpec.BooleanValue extraToolTips;
+    public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -165,6 +227,11 @@ public class Config {
         .comment("If true tools will show additional info in their tooltips")
         .translation("tconstruct.configgui.extraToolTips")
         .define("extraToolTips", true);
+
+      this.logMissingMaterialTextures = builder
+        .comment("If true, the game will log all material textures which do not exist in resource packs but can be added, can be helpful for moddevs or resourcepack makers")
+        .translation("tconstruct.configgui.logMissingMaterialTextures")
+        .define("logMissingMaterialTextures", false);
 
       builder.pop();
     }

@@ -8,6 +8,8 @@
     "name": "tconstruct:molten_cobalt",
     "amount": 16
   },
-  "result": "tconstruct:cobalt_nugget",
+  "result": {
+    "tag": "forge:nuggets/cobalt"
+  },
   "cooling_time": 22
 }

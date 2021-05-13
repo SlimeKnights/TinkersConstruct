@@ -12,6 +12,7 @@ import net.minecraft.util.IIntArray;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.common.util.NonNullFunction;
@@ -305,9 +306,15 @@ public class FuelModule implements IIntArray {
    * @param nbt  NBT to read from
    */
   public void readFromNBT(CompoundNBT nbt) {
-    fuel = nbt.getInt(TAG_FUEL);
-    temperature = nbt.getInt(TAG_TEMPERATURE);
-    lastPos = TagUtil.readPos(nbt, TAG_LAST_FUEL);
+    if (nbt.contains(TAG_FUEL, NBT.TAG_ANY_NUMERIC)) {
+      fuel = nbt.getInt(TAG_FUEL);
+    }
+    if (nbt.contains(TAG_TEMPERATURE, NBT.TAG_ANY_NUMERIC)) {
+      temperature = nbt.getInt(TAG_TEMPERATURE);
+    }
+    if (nbt.contains(TAG_LAST_FUEL, NBT.TAG_ANY_NUMERIC)) {
+      lastPos = TagUtil.readPos(nbt, TAG_LAST_FUEL);
+    }
   }
 
   /**

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.world.block;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -12,7 +11,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -25,20 +23,15 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
-import java.util.Locale;
 import java.util.Random;
 
 public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
-  private final FoliageType foliageType;
-  public SlimeGrassBlock(Properties properties, FoliageType foliageType) {
+  @Getter
+  private final SlimeType foliageType;
+  public SlimeGrassBlock(Properties properties, SlimeType foliageType) {
     super(properties);
     this.foliageType = foliageType;
   }
-
-  public FoliageType getFoliageType() {
-    return this.foliageType;
-  }
-
 
   /* Bonemeal interactions */
 
@@ -166,33 +159,8 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.foliageType != FoliageType.ICHOR) {
+    if (this.foliageType != SlimeType.ICHOR) {
       super.fillItemGroup(group, items);
-    }
-  }
-
-  @RequiredArgsConstructor
-  public enum FoliageType implements IStringSerializable {
-    SKY(0x00F4DA),
-    ICHOR(0xd09800),
-    ENDER(0xa92dff),
-    BLOOD(0xb80000);
-
-    /** Original foliage types for migration */
-    @Deprecated
-    public static FoliageType[] ORIGINAL = {SKY, ICHOR, ENDER};
-
-    @Getter
-    private final int defaultColor;
-
-    @Override
-    public String getString() {
-      return this.toString();
-    }
-
-    @Override
-    public String toString() {
-      return name().toLowerCase(Locale.US);
     }
   }
 }

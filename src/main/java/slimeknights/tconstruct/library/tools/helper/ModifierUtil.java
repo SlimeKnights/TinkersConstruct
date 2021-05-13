@@ -2,13 +2,19 @@ package slimeknights.tconstruct.library.tools.helper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
@@ -28,11 +34,13 @@ public final class ModifierUtil {
    * @param tool    Tool instance
    * @param stack   Base stack instance
    * @param player  Player instance, just used for creative check
+   * @param state   State targeted
+   * @param pos     Position targeted
    * @return  True if enchants were applied
    */
-  public static boolean applyEnchantments(ToolStack tool, ItemStack stack, @Nullable PlayerEntity player) {
+  public static boolean applyHarvestEnchants(ToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, BlockPos pos, Direction sideHit) {
     boolean addedEnchants = false;
-    if (player == null || !player.isCreative()) {
+    if (!player.isCreative()) {
       Map<Enchantment, Integer> enchantments = new HashMap<>();
       BiConsumer<Enchantment,Integer> enchantmentConsumer = (ench, add) -> {
         if (ench != null && add != null) {
@@ -44,7 +52,7 @@ public final class ModifierUtil {
         }
       };
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().applyEnchantments(tool, entry.getLevel(), enchantmentConsumer);
+        entry.getModifier().applyHarvestEnchantments(tool, entry.getLevel(), player, state, pos, sideHit, enchantmentConsumer);
       }
       if (!enchantments.isEmpty()) {
         addedEnchants = true;
@@ -67,4 +75,22 @@ public final class ModifierUtil {
     }
   }
 
+  /**
+   * Gets the looting value for the given tool
+   * @param tool           Tool used
+   * @param holder         Entity holding the tool
+   * @param target         Target being looted
+   * @param damageSource   Damage source for looting, may ben null if no attack
+   * @return  Looting value for the tool
+   */
+  public static int getLootingLevel(IModifierToolStack tool, LivingEntity holder, LivingEntity target, @Nullable DamageSource damageSource) {
+    if (tool.isBroken()) {
+      return 0;
+    }
+    int looting = 0;
+    for (ModifierEntry entry : tool.getModifierList()) {
+      looting = entry.getModifier().getLootingValue(tool, entry.getLevel(), holder, target, damageSource, looting);
+    }
+    return looting;
+  }
 }

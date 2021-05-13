@@ -64,6 +64,7 @@ public class DrainTileEntity extends SmelteryFluidIO implements IDisplayFluidLis
     }
   }
 
+  // override instead of writeSynced to avoid writing master to the main tag twice
   @Override
   public CompoundNBT getUpdateTag() {
     CompoundNBT nbt = super.getUpdateTag();

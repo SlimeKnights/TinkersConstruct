@@ -400,6 +400,21 @@ public class ToolStack implements IModifierToolStack {
     rebuildStats();
   }
 
+  /**
+   * Adds a single modifier to this tool
+   * @param modifier  Modifier to add
+   * @param level     Level to add
+   */
+  public void removeModifier(Modifier modifier, int level) {
+    if (level <= 0) {
+      throw new IllegalArgumentException("Invalid level, must be above 0");
+    }
+    ModifierNBT newModifiers = getUpgrades().withoutModifier(modifier, level);
+    this.upgrades = newModifiers;
+    nbt.put(TAG_UPGRADES, newModifiers.serializeToNBT());
+    rebuildStats();
+  }
+
   @Override
   public ModifierNBT getModifiers() {
     if (modifiers == null) {

@@ -8,6 +8,8 @@
     "name": "tconstruct:molten_copper",
     "amount": 144
   },
-  "result": "tconstruct:copper_ingot",
+  "result": {
+    "tag": "forge:ingots/copper"
+  },
   "cooling_time": 50
 }

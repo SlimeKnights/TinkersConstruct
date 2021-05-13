@@ -20,7 +20,6 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.Feature;
@@ -63,26 +62,24 @@ public class SlimeTreeFeature extends Feature<BaseSlimeTreeFeatureConfig> {
       return false;
     }
 
-    BlockPos blockpos;
-    if (!configIn.forcePlacement) {
-      int oceanFloorHeight = generationReader.getHeight(Heightmap.Type.OCEAN_FLOOR, positionIn).getY();
+//    BlockPos blockpos;
+//    if (!configIn.forcePlacement) {
+//      int oceanFloorHeight = generationReader.getHeight(Heightmap.Type.OCEAN_FLOOR, positionIn).getY();
+//
+//      blockpos = new BlockPos(positionIn.getX(), oceanFloorHeight, positionIn.getZ());
+//    }
+//    else {
+//      blockpos = positionIn;
+//    }
 
-      blockpos = new BlockPos(positionIn.getX(), oceanFloorHeight, positionIn.getZ());
-    }
-    else {
-      blockpos = positionIn;
-    }
-
-    if (blockpos.getY() >= 1 && blockpos.getY() + height + 1 <= 256) {
-      if (!isDirtOrFarmlandAt(generationReader, blockpos.down())) {
+    if (positionIn.getY() >= 1 && positionIn.getY() + height + 1 <= 256) {
+      if (!isDirtOrFarmlandAt(generationReader, positionIn.down())) {
         return false;
       }
       else {
-        this.setDirtAt(generationReader, blockpos.down(), blockpos);
-
-        this.placeTrunk(generationReader, rand, height, blockpos, trunkBlockPosSet, boundingBoxIn, configIn);
-
-        this.placeCanopy(generationReader, rand, height, blockpos, trunkBlockPosSet, boundingBoxIn, configIn);
+        this.setDirtAt(generationReader, positionIn.down(), positionIn);
+        this.placeTrunk(generationReader, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
+        this.placeCanopy(generationReader, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
 
         return true;
       }

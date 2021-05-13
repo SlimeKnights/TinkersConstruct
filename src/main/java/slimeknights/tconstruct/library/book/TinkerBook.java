@@ -5,7 +5,6 @@ import slimeknights.mantle.client.book.BookLoader;
 import slimeknights.mantle.client.book.BookTransformer;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.repository.FileRepository;
-import slimeknights.tconstruct.common.item.TinkerBookItem.BookType;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.content.ContentImageText2;
 import slimeknights.tconstruct.library.book.content.ContentMaterial;
@@ -15,6 +14,7 @@ import slimeknights.tconstruct.library.book.sectiontransformer.ModifierSectionTr
 import slimeknights.tconstruct.library.book.sectiontransformer.ToolSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.materials.MaterialSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.materials.TieredMaterialSectionTransformer;
+import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 
 public class TinkerBook extends BookData {
 

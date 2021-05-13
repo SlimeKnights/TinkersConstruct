@@ -4,6 +4,8 @@
     "name": "tconstruct:molten_hepatizon",
     "amount": 1296
   },
-  "result": "tconstruct:hepatizon_block",
+  "result": {
+    "tag": "forge:storage_blocks/hepatizon"
+  },
   "cooling_time": 233
 }

@@ -24,6 +24,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
 
@@ -110,6 +111,28 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
     this.copy(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Items.ORES_COBALT);
     this.copy(TinkerTags.Blocks.ORES_COPPER, TinkerTags.Items.ORES_COPPER);
+
+    // wood
+    this.copy(BlockTags.NON_FLAMMABLE_WOOD, ItemTags.NON_FLAMMABLE_WOOD);
+    // planks
+    this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
+    this.copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
+    this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
+    // logs
+    this.copy(TinkerWorld.greenheart.getLogBlockTag(), TinkerWorld.greenheart.getLogItemTag());
+    this.copy(TinkerWorld.skyroot.getLogBlockTag(), TinkerWorld.skyroot.getLogItemTag());
+    this.copy(TinkerWorld.bloodshroom.getLogBlockTag(), TinkerWorld.bloodshroom.getLogItemTag());
+    this.copy(BlockTags.LOGS, ItemTags.LOGS);
+    this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
+    // doors
+    this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
+    this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
+    this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+    this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
+    this.copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
+    // redstone
+    this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
+    this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
   }
 
   private void addGadgets() {
@@ -124,10 +147,10 @@ public class ItemTagProvider extends ItemTagsProvider {
     // required for part swapping and a few other things
     this.getOrCreateBuilder(TinkerTags.Items.MULTIPART_TOOL)
         .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
-             TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-             TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
-             TinkerTools.kama.get(), TinkerTools.scythe.get(),
-             TinkerTools.broadSword.get(), TinkerTools.cleaver.get());
+						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
+						 TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
+						 TinkerTools.kama.get(), TinkerTools.scythe.get(),
+						 TinkerTools.sword.get(), TinkerTools.cleaver.get());
     // mine blocks
     this.getOrCreateBuilder(TinkerTags.Items.STONE_HARVEST).add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get());
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
@@ -138,15 +161,15 @@ public class ItemTagProvider extends ItemTagsProvider {
     // support expanders
     this.getOrCreateBuilder(TinkerTags.Items.AOE)
         .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
-             TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-             TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
-             TinkerTools.kama.get(), TinkerTools.scythe.get(),
-             TinkerTools.broadSword.get(), TinkerTools.cleaver.get());
+						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
+						 TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
+						 TinkerTools.kama.get(), TinkerTools.scythe.get(),
+						 TinkerTools.sword.get(), TinkerTools.cleaver.get());
     // support all weapon modifiers
     this.getOrCreateBuilder(TinkerTags.Items.COMBAT)
         .add(TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
-             TinkerTools.sledgeHammer.get(), TinkerTools.scythe.get(),
-             TinkerTools.broadSword.get(), TinkerTools.cleaver.get());
+						 TinkerTools.sledgeHammer.get(), TinkerTools.scythe.get(),
+						 TinkerTools.sword.get(), TinkerTools.cleaver.get());
     // can receive damage boosts
     this.getOrCreateBuilder(TinkerTags.Items.MELEE)
         .addTag(TinkerTags.Items.COMBAT)

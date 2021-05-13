@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
@@ -41,14 +42,14 @@ import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStatio
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationSlot;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerableSlot;
 import slimeknights.tconstruct.tables.network.TinkerStationSelectionPacket;
-import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
+import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_SLOT;
-import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.TINKER_SLOT;
+import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity.INPUT_SLOT;
+import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity.TINKER_SLOT;
 
 public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEntity, TinkerStationContainer> {
   private static final ITextComponent COMPONENTS_TEXT = Util.makeTranslation("gui", "tinker_station.components");
@@ -231,8 +232,20 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
   @Override
   public void updateDisplay() {
+    if (this.tile == null) {
+      return;
+    }
+
     ItemStack toolStack = this.container.getResult();
 
+    // if we have a message, display instead of refreshing the tool
+    ValidatedResult currentError = tile.getCurrentError();
+    if (currentError.hasError()) {
+      error(currentError.getMessage());
+      return;
+    }
+
+    // normal refresh
     if (toolStack.isEmpty()) {
       toolStack = this.container.getSlot(TINKER_SLOT).getStack();
     }

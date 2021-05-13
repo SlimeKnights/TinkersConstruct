@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "minecraft:cactus"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 25,
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
+  "result": {
+    "name": "tconstruct:piercing",
+    "level": 1
+  },
+  "max_level": 5,
+  "upgrade_slots": 1
+}

@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 import java.io.IOException;
 
@@ -16,9 +16,9 @@ import java.io.IOException;
  * Color reload listener for all slime foliage types
  */
 public class SlimeColorReloadListener extends ReloadListener<int[]> {
-  private final FoliageType color;
+  private final SlimeType color;
   private final ResourceLocation path;
-  public SlimeColorReloadListener(FoliageType color) {
+  public SlimeColorReloadListener(SlimeType color) {
     this.color = color;
     this.path = Util.getResource("textures/colormap/" + color.getString() + "_grass_color.png");
   }

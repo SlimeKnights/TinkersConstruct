@@ -27,7 +27,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
@@ -184,9 +184,14 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
    */
 
   @Override
+  protected boolean shouldSyncOnUpdate() {
+    return true;
+  }
+
+  @Override
   public void read(BlockState state, CompoundNBT tag) {
     super.read(state, tag);
-    tank.readFromNBT(tag.getCompound(Tags.TANK));
+    tank.readFromNBT(tag.getCompound(NBTTags.TANK));
     fuelModule.readFromNBT(tag);
     if (tag.contains(TAG_INVENTORY, NBT.TAG_COMPOUND)) {
       meltingInventory.readFromNBT(tag.getCompound(TAG_INVENTORY));
@@ -195,7 +200,8 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
 
   @Override
   public void writeSynced(CompoundNBT tag) {
-    tag.put(Tags.TANK, tank.writeToNBT(new CompoundNBT()));
+    super.writeSynced(tag);
+    tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundNBT()));
     tag.put(TAG_INVENTORY, meltingInventory.writeToNBT());
   }
 

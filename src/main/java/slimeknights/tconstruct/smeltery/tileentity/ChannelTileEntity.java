@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -38,7 +39,7 @@ import java.util.Map;
 /**
  * Logic for channel fluid transfer
  */
-public class ChannelTileEntity extends TileEntity implements ITickableTileEntity, IFluidPacketReceiver {
+public class ChannelTileEntity extends MantleTileEntity implements ITickableTileEntity, IFluidPacketReceiver {
 	public static final int LIQUID_TRANSFER = 16;
 
 	/** Channel internal tank */
@@ -357,21 +358,17 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 		tank.setFluid(fluid);
 	}
 
-	@Override
-	public CompoundNBT getUpdateTag() {
-		// new tag instead of super since default implementation calls the super of writeToNBT
-		return write(new CompoundNBT());
-	}
+  @Override
+  protected boolean shouldSyncOnUpdate() {
+    return true;
+  }
 
-	@Override
-	public CompoundNBT write(CompoundNBT nbt) {
-		nbt = super.write(nbt);
-
-		nbt.putByteArray(TAG_IS_FLOWING, isFlowing);
-		nbt.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
-
-		return nbt;
-	}
+  @Override
+  protected void writeSynced(CompoundNBT nbt) {
+    super.writeSynced(nbt);
+    nbt.putByteArray(TAG_IS_FLOWING, isFlowing);
+    nbt.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
+  }
 
 	@Override
 	public void read(BlockState state, CompoundNBT nbt) {

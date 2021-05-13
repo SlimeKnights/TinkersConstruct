@@ -2,8 +2,7 @@ package slimeknights.tconstruct.world.client;
 
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -13,8 +12,8 @@ import java.util.Map;
  */
 public class SlimeColorizer {
   /** Map of slime foliage type to color */
-  private static final Map<FoliageType,int[]> COLOR_MAP = Util.make(new EnumMap<>(FoliageType.class), map -> {
-    for (FoliageType type : FoliageType.values()) {
+  private static final Map<SlimeType,int[]> COLOR_MAP = Util.make(new EnumMap<>(SlimeType.class), map -> {
+    for (SlimeType type : SlimeType.values()) {
       map.put(type, new int[65536]);
     }
   });
@@ -27,7 +26,7 @@ public class SlimeColorizer {
    * @param type    Type to update
    * @param colors  New colors
    */
-  public static void setGrassColor(FoliageType type, int[] colors) {
+  public static void setGrassColor(SlimeType type, int[] colors) {
     COLOR_MAP.put(type, colors);
   }
 
@@ -38,14 +37,14 @@ public class SlimeColorizer {
    * @param z     Z position
    * @return      Color
    */
-  public static int getColor(FoliageType type, int x, int z) {
+  public static int getColor(SlimeType type, int x, int z) {
     return getColor(COLOR_MAP.get(type), x, z);
   }
 
   /**
    * Position dependant Slime foliage color
    */
-  public static int getColorForPos(BlockPos pos, FoliageType type) {
+  public static int getColorForPos(BlockPos pos, SlimeType type) {
     return getColor(type, pos.getX(), pos.getZ());
   }
 
@@ -72,7 +71,7 @@ public class SlimeColorizer {
   /**
    * Gets the position independent slime foliage color
    */
-  public static int getColorStatic(SlimeGrassBlock.FoliageType type) {
-    return type.getDefaultColor();
+  public static int getColorStatic(SlimeType type) {
+    return type.getDefaultFoliageColor();
   }
 }

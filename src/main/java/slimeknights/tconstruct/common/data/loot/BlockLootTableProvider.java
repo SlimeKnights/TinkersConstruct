@@ -1,25 +1,34 @@
 package slimeknights.tconstruct.common.data.loot;
 
 import com.google.common.collect.Maps;
+import net.minecraft.advancements.criterion.EnchantmentPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.loot.ConstantRange;
 import net.minecraft.loot.ItemLootEntry;
+import net.minecraft.loot.LootEntry;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
+import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.loot.conditions.MatchTool;
 import net.minecraft.loot.conditions.TableBonus;
 import net.minecraft.loot.functions.CopyName;
 import net.minecraft.loot.functions.CopyNbt;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.loot.RetexturedLootFunction;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.registration.WoodBlockObject;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
@@ -29,7 +38,6 @@ import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -124,30 +132,32 @@ public class BlockLootTableProvider extends BlockLootTables {
     for (SlimeType slime : SlimeType.TINKER) {
       this.registerDropSelfLootTable(TinkerWorld.slime.get(slime));
     }
-    // Make loot table for all congealed_slime variants
+    // congealed slime drops like clay blocks
     for (SlimeType slime : SlimeType.values()) {
-      this.registerDropSelfLootTable(TinkerWorld.congealedSlime.get(slime));
+      this.registerLootTable(TinkerWorld.congealedSlime.get(slime), block -> droppingWithSilkTouchOrRandomly(block, TinkerCommons.slimeball.get(slime), ConstantRange.of(4)));
     }
-
     for (SlimeType type : SlimeType.TRUE_SLIME) {
       this.registerDropSelfLootTable(TinkerWorld.slimeDirt.get(type));
     }
 
-    for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
+    for (SlimeType type : SlimeType.values()) {
       this.registerLootTable(TinkerWorld.vanillaSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, Blocks.DIRT));
       this.registerLootTable(TinkerWorld.earthSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.EARTH)));
       this.registerLootTable(TinkerWorld.skySlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.SKY)));
       this.registerLootTable(TinkerWorld.enderSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.ENDER)));
       this.registerLootTable(TinkerWorld.ichorSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.ICHOR)));
       this.registerLootTable(TinkerWorld.slimeLeaves.get(type), (block) -> randomDropSlimeBallOrSapling(type, block, TinkerWorld.slimeSapling.get(type), DEFAULT_SAPLING_DROP_RATES));
-      this.registerLootTable(TinkerWorld.slimeFern.get(type), BlockLootTables::onlyWithShears);
-      this.registerLootTable(TinkerWorld.slimeTallGrass.get(type), BlockLootTables::onlyWithShears);
+      this.registerLootTable(TinkerWorld.slimeFern.get(type), BlockLootTableProvider::onlyShearsTag);
+      this.registerLootTable(TinkerWorld.slimeTallGrass.get(type), BlockLootTableProvider::onlyShearsTag);
       this.registerDropSelfLootTable(TinkerWorld.slimeSapling.get(type));
     }
 
-    this.registerLootTable(TinkerWorld.enderSlimeVine.get(), BlockLootTables::onlyWithShears);
+    this.registerLootTable(TinkerWorld.skySlimeVine.get(), BlockLootTableProvider::onlyShearsTag);
+    this.registerLootTable(TinkerWorld.enderSlimeVine.get(), BlockLootTableProvider::onlyShearsTag);
 
-    this.registerLootTable(TinkerWorld.skySlimeVine.get(), BlockLootTables::onlyWithShears);
+    this.registerWoodLootTables(TinkerWorld.greenheart);
+    this.registerWoodLootTables(TinkerWorld.skyroot);
+    this.registerWoodLootTables(TinkerWorld.bloodshroom);
   }
 
   private void addGadgets() {
@@ -187,7 +197,7 @@ public class BlockLootTableProvider extends BlockLootTables {
     for (SearedTankBlock.TankType type : SearedTankBlock.TankType.values()) {
       this.registerLootTable(TinkerSmeltery.searedTank.get(type), (block) -> droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
-          .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation(Tags.TANK, Tags.TANK));
+          .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation(NBTTags.TANK, NBTTags.TANK));
       }));
     }
 
@@ -204,22 +214,26 @@ public class BlockLootTableProvider extends BlockLootTables {
    * Utils
    */
 
-  private static LootTable.Builder dropSapling(Block blockIn, Block saplingIn, float... fortuneIn) {
-    return droppingWithSilkTouchOrShears(blockIn, withSurvivesExplosion(blockIn, ItemLootEntry.builder(saplingIn)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, fortuneIn)));
+  private static final ILootCondition.IBuilder SILK_TOUCH = MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
+  private static final ILootCondition.IBuilder SHEARS = MatchTool.builder(ItemPredicate.Builder.create().tag(Tags.Items.SHEARS));
+  private static final ILootCondition.IBuilder SILK_TOUCH_OR_SHEARS = SHEARS.alternative(SILK_TOUCH);
+
+  protected static LootTable.Builder onlyShearsTag(IItemProvider item) {
+    return LootTable.builder().addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(SHEARS).addEntry(ItemLootEntry.builder(item)));
   }
 
-  private static LootTable.Builder randomDropSlimeBallOrSapling(SlimeGrassBlock.FoliageType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
-    SlimeType slime = SlimeType.EARTH;
-    switch (foliageType) {
-      case ICHOR: case BLOOD:
-        slime = SlimeType.ICHOR;
-        break;
-      case SKY:
-        slime = SlimeType.SKY;
-        break;
-      case ENDER:
-        slime = SlimeType.ENDER;
-        break;
+  private static LootTable.Builder droppingSilkOrShearsTag(Block block, LootEntry.Builder<?> alternativeLootEntry) {
+    return dropping(block, SILK_TOUCH_OR_SHEARS, alternativeLootEntry);
+  }
+
+  private static LootTable.Builder dropSapling(Block blockIn, Block saplingIn, float... fortuneIn) {
+    return droppingSilkOrShearsTag(blockIn, withSurvivesExplosion(blockIn, ItemLootEntry.builder(saplingIn)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, fortuneIn)));
+  }
+
+  private static LootTable.Builder randomDropSlimeBallOrSapling(SlimeType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
+    SlimeType slime = foliageType;
+    if (foliageType == SlimeType.BLOOD) {
+      slime = SlimeType.ICHOR;
     }
     return dropSapling(blockIn, sapling, fortuneIn)
       .addLootPool(LootPool.builder()
@@ -251,5 +265,25 @@ public class BlockLootTableProvider extends BlockLootTables {
   private void registerWallBuildingLootTables(WallBuildingBlockObject object) {
     registerBuildingLootTables(object);
     this.registerDropSelfLootTable(object.getWall());
+  }
+
+  /** Adds all loot tables relevant to the given wood object */
+  private void registerWoodLootTables(WoodBlockObject object) {
+    registerBuildingLootTables(object);
+    // basic
+    this.registerDropSelfLootTable(object.getLog());
+    this.registerDropSelfLootTable(object.getStrippedLog());
+    this.registerDropSelfLootTable(object.getWood());
+    this.registerDropSelfLootTable(object.getStrippedWood());
+    // door
+    this.registerDropSelfLootTable(object.getFence());
+    this.registerDropSelfLootTable(object.getFenceGate());
+    this.registerLootTable(object.getDoor(), BlockLootTables::registerDoor);
+    this.registerDropSelfLootTable(object.getTrapdoor());
+    // redstone
+    this.registerDropSelfLootTable(object.getPressurePlate());
+    this.registerDropSelfLootTable(object.getButton());
+    // sign
+    //this.registerDropSelfLootTable(object.getSign());
   }
 }

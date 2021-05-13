@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
 import net.minecraft.entity.Entity;
@@ -300,11 +301,6 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
-  public float getDamageCutoff() {
-    return getToolDefinition().getBaseStatDefinition().getDamageCutoff();
-  }
-
-  @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
     if (nbt == null || nbt.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
@@ -484,10 +480,10 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
           tooltip.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
         }
       }
-    } else if (Util.isShiftKeyDown()) {
+    } else if (Screen.hasShiftDown()) {
       // component data
       this.getTooltip(stack, tooltip, TooltipType.SHIFT, isAdvanced);
-    } else if (Util.isCtrlKeyDown()) {
+    } else if (Screen.hasControlDown()) {
       // modifiers
       this.getTooltip(stack, tooltip, TooltipType.CONTROL, isAdvanced);
     } else {
@@ -540,13 +536,16 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
         if (materials.size() < components.size()) {
           return;
         }
-        for (int i = 0; i < components.size(); i++) {
+        int max = components.size() - 1;
+        for (int i = 0; i <= max; i++) {
           IToolPart requirement = components.get(i);
           IMaterial material = materials.get(i);
           ItemStack partStack = requirement.withMaterial(material);
           tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
           MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
-          tooltips.add(StringTextComponent.EMPTY);
+          if (i != max) {
+            tooltips.add(StringTextComponent.EMPTY);
+          }
         }
         break;
       }

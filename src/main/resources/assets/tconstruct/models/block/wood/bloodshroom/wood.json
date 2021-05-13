@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "tconstruct:block/wood/bloodshroom/log",
+    "side": "tconstruct:block/wood/bloodshroom/log"
+  }
+}

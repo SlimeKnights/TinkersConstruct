@@ -1,7 +1,10 @@
 {
   "type": "tconstruct:entity_melting",
   "entity": {
-    "type": "minecraft:slime"
+    "types": [
+      "minecraft:slime",
+      "tconstruct:earth_slime"
+    ]
   },
   "result": {
     "fluid": "tconstruct:earth_slime",

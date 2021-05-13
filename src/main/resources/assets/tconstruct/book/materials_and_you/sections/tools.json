@@ -1,9 +1,8 @@
 [
- 
   {
-    "name": "broad_sword",
+    "name": "sword",
     "type": "tool",
-    "data": "tools/broad_sword.json"
+    "data": "tools/sword.json"
   },
   {
     "name": "axe",

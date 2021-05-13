@@ -5,8 +5,11 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.Potions;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 import slimeknights.mantle.recipe.crafting.ShapedRetexturedRecipeBuilder;
@@ -15,6 +18,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tables.recipe.TinkerStationDamagingRecipe;
 
 import java.util.function.Consumer;
 
@@ -150,5 +154,23 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, locationString(folder + "tinker_station_part_swapping"));
     CustomRecipeBuilder.customRecipe(TinkerTables.craftingTableRepairSerializer.get())
                        .build(consumer, locationString(folder + "crafting_table_repair"));
+    // tool damaging
+    String damageFolder = folder + "tinker_station_damaging/";
+    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.MUNDANE)), 1)
+                                       .build(consumer, location(damageFolder + "base_one"));
+    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.THICK)), 5)
+                                       .build(consumer, location(damageFolder + "base_two"));
+    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HARMING)), 25)
+                                       .build(consumer, location(damageFolder + "potion_one"));
+    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.STRONG_HARMING)), 75)
+                                       .build(consumer, location(damageFolder + "potion_two"));
+    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), Potions.HARMING)), 150)
+                                       .build(consumer, location(damageFolder + "splash_one"));
+    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), Potions.STRONG_HARMING)), 400)
+                                       .build(consumer, location(damageFolder + "splash_two"));
+    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), Potions.HARMING)), 1000)
+                                       .build(consumer, location(damageFolder + "lingering_one"));
+    TinkerStationDamagingRecipe.Builder.damage(new NBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), Potions.STRONG_HARMING)), 2500)
+                                       .build(consumer, location(damageFolder + "lingering_two"));
   }
 }

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.client.inventory.module;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -146,7 +147,7 @@ public class GuiSmelteryTank {
       List<ITextComponent> tooltip;
       if (hovered == -1) {
         BiConsumer<Integer, List<ITextComponent>> formatter =
-          Util.isShiftKeyDown() ? FluidTooltipHandler::appendBuckets : FluidTooltipHandler::appendIngots;
+          Screen.hasShiftDown() ? FluidTooltipHandler::appendBuckets : FluidTooltipHandler::appendIngots;
 
         tooltip = new ArrayList<>();
         tooltip.add(new TranslationTextComponent(TOOLTIP_CAPACITY));

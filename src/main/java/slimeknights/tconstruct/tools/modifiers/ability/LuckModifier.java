@@ -1,23 +1,22 @@
 package slimeknights.tconstruct.tools.modifiers.ability;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LootingLevelEvent;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
@@ -27,7 +26,6 @@ public class LuckModifier extends IncrementalModifier {
 
   public LuckModifier() {
     super(0x345EC3);
-    MinecraftForge.EVENT_BUS.addListener(this::onLooting);
   }
 
   @Override
@@ -105,7 +103,7 @@ public class LuckModifier extends IncrementalModifier {
   }
 
   @Override
-  public void applyEnchantments(IModifierToolStack tool, int level, BiConsumer<Enchantment,Integer> consumer) {
+  public void applyHarvestEnchantments(IModifierToolStack tool, int level, PlayerEntity player, BlockState state, BlockPos pos, Direction sideHit, BiConsumer<Enchantment,Integer> consumer) {
     // apply level if we still have any
     int applyLevel = getEffectiveLevel(tool, level, RANDOM);
     if (applyLevel > 0) {
@@ -113,31 +111,12 @@ public class LuckModifier extends IncrementalModifier {
     }
   }
 
-  /** Applies the looting bonus for this modifier */
-  private void onLooting(LootingLevelEvent event) {
-    // TODO: make common modifier event if this becomes used elsewhere
-    // must be an attacker with our tool
-    DamageSource damageSource = event.getDamageSource();
-    if (damageSource == null) {
-      return;
-    }
-    Entity source = event.getDamageSource().getTrueSource();
-    if (source instanceof LivingEntity) {
-      ItemStack held = ((LivingEntity)source).getHeldItemMainhand();
-      if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
-        // non broken, has modifier
-        ToolStack tool = ToolStack.from(held);
-        if (!tool.isBroken()) {
-          int level = tool.getModifierLevel(this);
-          if (level > 0) {
-            // we use a random instance seeded from the current game time
-            // its important so the value is consistent between the multiple calls of this event in one kill
-            LOOTING_RANDOM.setSeed(source.getEntityWorld().getGameTime());
-            // calculate the effective level from the modifier
-            event.setLootingLevel(getEffectiveLevel(tool, level, LOOTING_RANDOM));
-          }
-        }
-      }
-    }
+  @Override
+  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, @Nullable LivingEntity target, @Nullable DamageSource damageSource, int looting) {
+    // we use a random instance seeded from the current game time
+    // its important so the value is consistent between the multiple calls of this event in one kill
+    LOOTING_RANDOM.setSeed(holder.getEntityWorld().getGameTime());
+    // calculate the effective level from the modifier
+    return looting + getEffectiveLevel(tool, level, LOOTING_RANDOM);
   }
 }

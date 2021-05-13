@@ -4,6 +4,8 @@
     "name": "tconstruct:molten_rose_gold",
     "amount": 1296
   },
-  "result": "tconstruct:rose_gold_block",
+  "result": {
+    "tag": "forge:storage_blocks/rose_gold"
+  },
   "cooling_time": 155
 }

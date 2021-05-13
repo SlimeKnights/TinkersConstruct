@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools;
 
+import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -12,18 +13,18 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.google.common.collect.ImmutableList;
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ToolDefinitions {
   // rock
   public static final ToolDefinition PICKAXE = new ToolDefinition(
     ToolBaseStatDefinitions.PICKAXE,
-    requirements(TinkerToolParts.pickaxeHead, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding));
+    requirements(TinkerToolParts.pickaxeHead, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding),
+    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.piercing.get(), 2)));
   public static final ToolDefinition SLEDGE_HAMMER = new ToolDefinition(
     ToolBaseStatDefinitions.SLEDGE_HAMMER,
     requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughHandle, TinkerToolParts.largePlate, TinkerToolParts.largePlate),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
+    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.smite.get(), 2),
+                           new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
   public static final ToolDefinition VEIN_HAMMER = new ToolDefinition(
     ToolBaseStatDefinitions.VEIN_HAMMER,
     requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughHandle, TinkerToolParts.pickaxeHead, TinkerToolParts.largePlate),
@@ -67,8 +68,8 @@ public final class ToolDefinitions {
                            new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
 
   // swords
-  public static final ToolDefinition BROADSWORD = new ToolDefinition(
-    ToolBaseStatDefinitions.BROADSWORD,
+  public static final ToolDefinition SWORD = new ToolDefinition(
+    ToolBaseStatDefinitions.SWORD,
     requirements(TinkerToolParts.swordBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolHandle),
     () -> Collections.singletonList(new ModifierEntry(TinkerModifiers.silkyShears.get(), 1)));
   public static final ToolDefinition CLEAVER = new ToolDefinition(

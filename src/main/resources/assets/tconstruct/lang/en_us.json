@@ -696,7 +696,7 @@
     "item.tconstruct.kama": "Kama",
     "item.tconstruct.scythe": "Scythe",
     
-    "item.tconstruct.broad_sword": "Broadsword",
+    "item.tconstruct.sword": "Sword",
     "item.tconstruct.cleaver": "Cleaver",
     
     
@@ -734,7 +734,7 @@
     "item.tconstruct.kama.description": "The Kama is a precision reaping tool, mowing down plants and shearing animals.\nRight Click: Harvest and replant crops",
     "item.tconstruct.scythe.description": "The Scythe is a broad reaping tool, mowing down plants in a wide area.\nRight Click: Harvest and replant crops",
     
-    "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
+    "item.tconstruct.sword.description": "The Sword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
     "item.tconstruct.cleaver.description": "The Cleaver is a weapon for a smeltery master. High range attacks keep cut though the toughest of foes.",
  
  
@@ -854,10 +854,14 @@
     
     "gui.tconstruct.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
     
+    
     "_comment": "Tinkers World",
 
+    "entity.tconstruct.earth_slime": "Slime",
     "entity.tconstruct.sky_slime": "Skyslime",
     "item.tconstruct.sky_slime_spawn_egg": "Skyslime Spawn Egg",
+    "entity.tconstruct.ender_slime": "Enderslime",
+    "item.tconstruct.ender_slime_spawn_egg": "Enderslime Spawn Egg",
 
     "block.tconstruct.earth_slime_dirt": "Earth Slimy Dirt",
     "block.tconstruct.earth_slime_dirt.tooltip": "Slimy, but lets you jump higher",
@@ -868,6 +872,8 @@
     "block.tconstruct.ichor_slime_dirt": "Ichor Slimy Dirt",
     "block.tconstruct.ichor_slime_dirt.tooltip": "Slimy, but lets you jump higher",
 
+    "block.tconstruct.earth_vanilla_slime_grass": "Slimy Grass",
+    "block.tconstruct.earth_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.sky_vanilla_slime_grass": "Slimy Grass",
     "block.tconstruct.sky_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.blood_vanilla_slime_grass": "Slimy Grass",
@@ -877,6 +883,8 @@
     "block.tconstruct.ichor_vanilla_slime_grass": "Slimy Grass",
     "block.tconstruct.ichor_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
 
+    "block.tconstruct.earth_earth_slime_grass": "Earth Slimy Grass",
+    "block.tconstruct.earth_earth_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.sky_earth_slime_grass": "Earth Slimy Grass",
     "block.tconstruct.sky_earth_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.blood_earth_slime_grass": "Earth Slimy Grass",
@@ -886,6 +894,8 @@
     "block.tconstruct.ichor_earth_slime_grass": "Earth Slimy Grass",
     "block.tconstruct.ichor_earth_slime_grass.tooltip": "So soft! Lets you jump higher",
 
+    "block.tconstruct.earth_sky_slime_grass": "Sky Slimy Grass",
+    "block.tconstruct.earth_sky_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.sky_sky_slime_grass": "Sky Slimy Grass",
     "block.tconstruct.sky_sky_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.blood_sky_slime_grass": "Sky Slimy Grass",
@@ -895,6 +905,8 @@
     "block.tconstruct.ichor_sky_slime_grass": "Sky Slimy Grass",
     "block.tconstruct.ichor_sky_slime_grass.tooltip": "So soft! Lets you jump higher",
 
+    "block.tconstruct.earth_ender_slime_grass": "Ender Slimy Grass",
+    "block.tconstruct.earth_ender_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.sky_ender_slime_grass": "Ender Slimy Grass",
     "block.tconstruct.sky_ender_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.blood_ender_slime_grass": "Ender Slimy Grass",
@@ -904,6 +916,8 @@
     "block.tconstruct.ichor_ender_slime_grass": "Ender Slimy Grass",
     "block.tconstruct.ichor_ender_slime_grass.tooltip": "So soft! Lets you jump higher",
 
+    "block.tconstruct.earth_ichor_slime_grass": "Ichor Slimy Grass",
+    "block.tconstruct.earth_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.sky_ichor_slime_grass": "Ichor Slimy Grass",
     "block.tconstruct.sky_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.blood_ichor_slime_grass": "Ichor Slimy Grass",
@@ -913,6 +927,8 @@
     "block.tconstruct.ichor_ichor_slime_grass": "Ichor Slimy Grass",
     "block.tconstruct.ichor_ichor_slime_grass.tooltip": "So soft! Lets you jump higher",
     
+    "item.tconstruct.earth_slime_grass_seeds": "Slimy Grass Seeds",
+    "item.tconstruct.earth_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
     "item.tconstruct.sky_slime_grass_seeds": "Slimy Grass Seeds",
     "item.tconstruct.sky_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
     "item.tconstruct.blood_slime_grass_seeds": "Slimy Grass Seeds",
@@ -922,24 +938,29 @@
     "item.tconstruct.ender_slime_grass_seeds": "Slimy Grass Seeds",
     "item.tconstruct.ender_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
 
+    "block.tconstruct.earth_slime_leaves": "Slimy Leaves",
     "block.tconstruct.sky_slime_leaves": "Slimy Leaves",
-    "block.tconstruct.blood_slime_leaves": "Slimy Leaves",
+    "block.tconstruct.blood_slime_leaves": "Slimy Wart",
     "block.tconstruct.ender_slime_leaves": "Slimy Leaves",
     "block.tconstruct.ichor_slime_leaves": "Slimy Leaves",
 
+    "block.tconstruct.earth_slime_tall_grass": "Tall Slimy Grass",
     "block.tconstruct.sky_slime_tall_grass": "Tall Slimy Grass",
     "block.tconstruct.blood_slime_tall_grass": "Tall Slimy Grass",
     "block.tconstruct.ender_slime_tall_grass": "Tall Slimy Grass",
     "block.tconstruct.ichor_slime_tall_grass": "Tall Slimy Grass",
 
+    "block.tconstruct.earth_slime_fern": "Slimy Fern",
     "block.tconstruct.sky_slime_fern": "Slimy Fern",
     "block.tconstruct.blood_slime_fern": "Slimy Fern",
     "block.tconstruct.ender_slime_fern": "Slimy Fern",
     "block.tconstruct.ichor_slime_fern": "Slimy Fern",
 
-    "block.tconstruct.sky_slime_sapling": "Skyslime Sapling",
+    "block.tconstruct.earth_slime_sapling": "Greenheart Sapling",
+    "block.tconstruct.earth_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
+    "block.tconstruct.sky_slime_sapling": "Skyroot Sapling",
     "block.tconstruct.sky_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
-    "block.tconstruct.blood_slime_sapling": "Blood Sapling",
+    "block.tconstruct.blood_slime_sapling": "Bloodshroom",
     "block.tconstruct.blood_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
     "block.tconstruct.ender_slime_sapling": "Enderslime Sapling",
     "block.tconstruct.ender_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
@@ -948,6 +969,60 @@
 
     "block.tconstruct.ender_slime_vine": "Slimy Vine",
     "block.tconstruct.sky_slime_vine": "Slimy Vine",
+    
+    
+    "_comment": "Wood",
+    
+    "block.tconstruct.greenheart_planks":        "Greenheart Planks",
+    "block.tconstruct.greenheart_planks_slab":   "Greenheart Slab",
+    "block.tconstruct.greenheart_planks_stairs": "Greenheart Stairs",
+    "block.tconstruct.greenheart_log":           "Greenheart Log",
+    "block.tconstruct.stripped_greenheart_log":  "Stripped Greenheart Log",
+    "block.tconstruct.greenheart_wood":          "Greenheart Wood",
+    "block.tconstruct.stripped_greenheart_wood": "Stripped Greenheart Wood",
+    
+    "block.tconstruct.greenheart_fence":          "Greenheart Fence",
+    "block.tconstruct.greenheart_fence_gate":     "Greenheart Fence Gate",
+    "block.tconstruct.greenheart_door":           "Greenheart Door",
+    "block.tconstruct.greenheart_trapdoor":       "Greenheart Trapdoor",
+    "block.tconstruct.greenheart_pressure_plate": "Greenheart Pressure Plate",
+    "block.tconstruct.greenheart_button":         "Greenheart Button",
+    "block.tconstruct.greenheart_sign":           "Greenheart Sign",
+    "block.tconstruct.greenheart_wall_sign":      "Greenheart Sign",
+    
+    "block.tconstruct.skyroot_planks":        "Skyroot Planks",
+    "block.tconstruct.skyroot_planks_slab":   "Skyroot Slab",
+    "block.tconstruct.skyroot_planks_stairs": "Skyroot Stairs",
+    "block.tconstruct.skyroot_log":           "Skyroot Log",
+    "block.tconstruct.stripped_skyroot_log":  "Stripped Skyroot Log",
+    "block.tconstruct.skyroot_wood":          "Skyroot Wood",
+    "block.tconstruct.stripped_skyroot_wood": "Stripped Skyroot Wood",
+    
+    "block.tconstruct.skyroot_fence":          "Skyroot Fence",
+    "block.tconstruct.skyroot_fence_gate":     "Skyroot Fence Gate",
+    "block.tconstruct.skyroot_door":           "Skyroot Door",
+    "block.tconstruct.skyroot_trapdoor":       "Skyroot Trapdoor",
+    "block.tconstruct.skyroot_pressure_plate": "Skyroot Pressure Plate",
+    "block.tconstruct.skyroot_button":         "Skyroot Button",
+    "block.tconstruct.skyroot_sign":           "Skyroot Sign",
+    "block.tconstruct.skyroot_wall_sign":      "Skyroot Sign",
+    
+    "block.tconstruct.bloodshroom_planks":        "Bloodshroom Planks",
+    "block.tconstruct.bloodshroom_planks_slab":   "Bloodshroom Slab",
+    "block.tconstruct.bloodshroom_planks_stairs": "Bloodshroom Stairs",
+    "block.tconstruct.bloodshroom_log":           "Bloodshroom Stem",
+    "block.tconstruct.stripped_bloodshroom_log":  "Stripped Bloodshroom Stem",
+    "block.tconstruct.bloodshroom_wood":          "Bloodshroom Hyphae",
+    "block.tconstruct.stripped_bloodshroom_wood": "Stripped Bloodshroom Hyphae",
+    
+    "block.tconstruct.bloodshroom_fence":          "Bloodshroom Fence",
+    "block.tconstruct.bloodshroom_fence_gate":     "Bloodshroom Fence Gate",
+    "block.tconstruct.bloodshroom_door":           "Bloodshroom Door",
+    "block.tconstruct.bloodshroom_trapdoor":       "Bloodshroom Trapdoor",
+    "block.tconstruct.bloodshroom_pressure_plate": "Bloodshroom Pressure Plate",
+    "block.tconstruct.bloodshroom_button":         "Bloodshroom Button",
+    "block.tconstruct.bloodshroom_sign":           "Bloodshroom Sign",
+    "block.tconstruct.bloodshroom_wall_sign":      "Bloodshroom Sign",
     
     
     "__comment": "Tier 1 Materials",
@@ -1004,7 +1079,7 @@
 
     "_comment": "Durability",
     "modifier.tconstruct.reinforced": "Reinforced",
-    "modifier.tconstruct.reinforced.flavor": "Unbreaking!",
+    "modifier.tconstruct.reinforced.flavor": "Long Lasting!",
     "modifier.tconstruct.reinforced.description": "Tool is less likely to take damage",
     "modifier.tconstruct.emerald": "Emerald",
     "modifier.tconstruct.emerald.flavor": "Fancy!",
@@ -1021,6 +1096,7 @@
     "modifier.tconstruct.netherite": "Netherite",
     "modifier.tconstruct.netherite.flavor": "Refined!",
     "modifier.tconstruct.netherite.description": "Harness the power of ancient metal, making the tool stronger and immune to external damage such as fire",
+    "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
     "modifier.tconstruct.overslime": "Overslime",
     "modifier.tconstruct.overslime.flavor": "Slimy!",
     "modifier.tconstruct.overslime.description": "Tool consumes overslime instead of durability, until it runs out! Not friendly towards tools lacking slime",
@@ -1067,6 +1143,10 @@
     "modifier.tconstruct.necrotic.description": "Hitting enemies drains their life to heal you",
 
     "_comment": "Damage boost",
+    "modifier.tconstruct.piercing": "Piercing",
+    "modifier.tconstruct.piercing.flavor": "Become the cactus!",
+    "modifier.tconstruct.piercing.description": "Tool deals bonus damage which attacks through armor!",
+    "modifier.tconstruct.piercing.damage": "Pierce Damage",
     "modifier.tconstruct.smite": "Smite",
     "modifier.tconstruct.smite.flavor": "Die, Foul Creature!",
     "modifier.tconstruct.smite.description": "Undead fear the might of the melon!",
@@ -1094,18 +1174,32 @@
     "modifier.tconstruct.sharpness.description": "Tool is so much sharper, dealing more damage!",
 
     "_comment": "Abilities",
+    "modifier.tconstruct.unbreakable": "Unbreakable",
+    "modifier.tconstruct.unbreakable.flavor": "Frozen state!",
+    "modifier.tconstruct.unbreakable.description": "Tool no longer takes damage from normal usage",
+    "recipe.tconstruct.modifier.unbreakable_requirements": "Unbreakable requires Netherite and Reinforced V to apply",
+    "_comment": "Loot",
     "modifier.tconstruct.silky": "Silky",
     "modifier.tconstruct.silky.flavor": "Smooth as silk!",
     "modifier.tconstruct.silky.description": "Mined blocks drop themselves instead of the usual items",
+    "modifier.tconstruct.autosmelt": "Autosmelt",
+    "modifier.tconstruct.autosmelt.flavor": "Fires of the Nether in your tool!",
+    "modifier.tconstruct.autosmelt.description": "Tool automatically smelts all drops",
+    "modifier.tconstruct.luck": "Luck",
+    "modifier.tconstruct.luck.1": "Luck",
+    "modifier.tconstruct.luck.2": "Luckier",
+    "modifier.tconstruct.luck.3": "Luckiest",
+    "modifier.tconstruct.luck.beyond": "Lucky++",
+    "modifier.tconstruct.luck.flavor": "Flashy!",
+    "modifier.tconstruct.luck.description": "Gives you more nice things when mining or killing mobs!",
+    "_comment": "Expanders",
     "modifier.tconstruct.expanded": "Expanded",
     "modifier.tconstruct.expanded.flavor": "Did not skip leg day!",
     "modifier.tconstruct.expanded.description": "Tool's area of effect is larger than before",
     "modifier.tconstruct.reach": "Reach",
     "modifier.tconstruct.reach.flavor": "Telekinesis!",
     "modifier.tconstruct.reach.description": "Can reach further blocks and mobs while holding this tool!",
-    "modifier.tconstruct.autosmelt": "Autosmelt",
-    "modifier.tconstruct.autosmelt.flavor": "Fires of the Nether in your tool!",
-    "modifier.tconstruct.autosmelt.description": "Tool automatically smelts all drops",
+    "_comment": "Block transform",
     "modifier.tconstruct.pathing": "Pathing",
     "modifier.tconstruct.pathing.flavor": "Where we're going, we need roads!",
     "modifier.tconstruct.pathing.description": "Tool can make paths",
@@ -1117,8 +1211,8 @@
     "modifier.tconstruct.tilling.description": "Tool can till dirt",
     "modifier.tconstruct.glowing": "Glowing",
     "modifier.tconstruct.glowing.flavor": "Shine bright!",
-    "modifier.tconstruct.glowing.description": "Tool can place glow balls while crouching, at the cost of durability",
-
+    "modifier.tconstruct.glowing.description": "Tool can place glow balls while crouching, consuming durability",
+    "_comment": "Fluids",
     "modifier.tconstruct.melting": "Melting",
     "modifier.tconstruct.melting.flavor": "The power of a Melter on a stick!",
     "modifier.tconstruct.melting.description": "Melts attacked entities and items dropped!",
@@ -1130,14 +1224,6 @@
     "modifier.tconstruct.bucketing": "Bucketing",
     "modifier.tconstruct.bucketing.flavor": "Slurp!",
     "modifier.tconstruct.bucketing.description": "Tool can pickup liquid, or place it when crouching",
-
-    "modifier.tconstruct.luck": "Luck",
-    "modifier.tconstruct.luck.1": "Luck",
-    "modifier.tconstruct.luck.2": "Luckier",
-    "modifier.tconstruct.luck.3": "Luckiest",
-    "modifier.tconstruct.luck.beyond": "Lucky++",
-    "modifier.tconstruct.luck.flavor": "Flashy!",
-    "modifier.tconstruct.luck.description": "Gives you more nice things when mining or killing mobs!",
 
     "_comment": "Bonus modifier slots",
     "modifier.tconstruct.creative_upgrade": "Creative Upgrade",
@@ -1212,7 +1298,6 @@
     "modifier.tconstruct.maintained": "Maintained",
     "modifier.tconstruct.maintained.flavor": "Stays Sharp Longer!",
     "modifier.tconstruct.maintained.description": "Tool mines faster when at higher durability",
-    "modifier.tconstruct.maintained.boost": " (+%s speed)",
     "modifier.tconstruct.lightweight": "Lightweight",
     "modifier.tconstruct.lightweight.flavor": "Like a Shardblade!",
     "modifier.tconstruct.lightweight.description": "Tool is incredibly light for its size, allowing faster attacking and mining",
@@ -1345,6 +1430,9 @@
     "gui.tconstruct.manual.cycle.recipes": "Cycle to other recipes",
 
     "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
+    "recipe.tconstruct.damaging.broken": "Tool is already broken",
+    "recipe.tconstruct.overslime.at_capacity": "Tool has no more space for overslime",
+    "recipe.tconstruct.remove_modifier.no_modifiers": "Tool does not have any removable modifiers",
 
     "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
 
@@ -1354,8 +1442,6 @@
     "recipe.tconstruct.modifier.validate_abilities": "This change leaves the tool with too few ability slots",
     "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
     "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
-
-    "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
 
 
     "_comment": "GUIs Messages",

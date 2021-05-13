@@ -13,6 +13,7 @@ import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
+import slimeknights.tconstruct.common.registration.WoodBlockObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -24,7 +25,6 @@ import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 public class BlockTagProvider extends BlockTagsProvider {
 
@@ -109,6 +109,7 @@ public class BlockTagProvider extends BlockTagsProvider {
         .add(Blocks.SUGAR_CANE, Blocks.KELP_PLANT);
     this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_CROPS)
         .addTag(BlockTags.CROPS)
+        .addOptionalTag(new ResourceLocation("forge", "crops"))
         .add(Blocks.NETHER_WART);
     this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_INTERACT)
         .add(Blocks.SWEET_BERRY_BUSH);
@@ -126,15 +127,19 @@ public class BlockTagProvider extends BlockTagsProvider {
     TagsProvider.Builder<Block> slimeBlockBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIME_BLOCK);
     TagsProvider.Builder<Block> congealedBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.CONGEALED_SLIME);
     TagsProvider.Builder<Block> logBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LOGS);
+    logBuilder.addTag(TinkerWorld.greenheart.getLogBlockTag())
+              .addTag(TinkerWorld.skyroot.getLogBlockTag())
+              .addTag(TinkerWorld.bloodshroom.getLogBlockTag());
     for (SlimeType type : SlimeType.values()) {
       slimeBlockBuilder.add(TinkerWorld.slime.get(type));
       Block congealed = TinkerWorld.congealedSlime.get(type);
       congealedBuilder.add(congealed);
-      logBuilder.add(congealed);
+      logBuilder.add(congealed); // for old worlds
     }
+
     TagsProvider.Builder<Block> leavesBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LEAVES);
     TagsProvider.Builder<Block> saplingBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS);
-    for (FoliageType type : FoliageType.values()) {
+    for (SlimeType type : SlimeType.values()) {
       leavesBuilder.add(TinkerWorld.slimeLeaves.get(type));
       saplingBuilder.add(TinkerWorld.slimeSapling.get(type));
     }
@@ -154,6 +159,10 @@ public class BlockTagProvider extends BlockTagsProvider {
     endermanHoldable.addTag(TinkerTags.Blocks.CONGEALED_SLIME).add(TinkerSmeltery.grout.get());
     TinkerWorld.slimeDirt.forEach(endermanHoldable::addItemEntry);
     TinkerWorld.slimeGrass.forEach((key, type) -> type.forEach(endermanHoldable::addItemEntry));
+
+    addWoodTags(TinkerWorld.greenheart, true);
+    addWoodTags(TinkerWorld.skyroot, true);
+    addWoodTags(TinkerWorld.bloodshroom, false);
   }
 
   private void addGadgets() {
@@ -224,5 +233,34 @@ public class BlockTagProvider extends BlockTagsProvider {
       blockTag.add(block);
       this.getOrCreateBuilder(BlockTags.createOptional(new ResourceLocation("forge", tagPrefix + color))).add(block);
     });
+  }
+
+  /** Adds all tags relevant to the given wood object */
+  private void addWoodTags(WoodBlockObject object, boolean doesBurn) {
+    // planks
+    this.getOrCreateBuilder(BlockTags.PLANKS).add(object.get());
+    this.getOrCreateBuilder(BlockTags.WOODEN_SLABS).add(object.getSlab());
+    this.getOrCreateBuilder(BlockTags.WOODEN_STAIRS).add(object.getStairs());
+    // logs
+    this.getOrCreateBuilder(object.getLogBlockTag()).add(object.getLog(), object.getStrippedLog(), object.getWood(), object.getStrippedWood());
+    this.getOrCreateBuilder(doesBurn ? BlockTags.LOGS_THAT_BURN : BlockTags.LOGS).addTag(object.getLogBlockTag());
+    // doors
+    this.getOrCreateBuilder(BlockTags.WOODEN_FENCES).add(object.getFence());
+    this.getOrCreateBuilder(Tags.Blocks.FENCES_WOODEN).add(object.getFence());
+    this.getOrCreateBuilder(BlockTags.FENCE_GATES).add(object.getFenceGate());
+    this.getOrCreateBuilder(Tags.Blocks.FENCE_GATES_WOODEN).add(object.getFenceGate());
+    this.getOrCreateBuilder(BlockTags.WOODEN_DOORS).add(object.getDoor());
+    this.getOrCreateBuilder(BlockTags.WOODEN_TRAPDOORS).add(object.getTrapdoor());
+    // redstone
+    this.getOrCreateBuilder(BlockTags.WOODEN_BUTTONS).add(object.getButton());
+    this.getOrCreateBuilder(BlockTags.WOODEN_PRESSURE_PLATES).add(object.getPressurePlate());
+
+    if (!doesBurn) {
+      this.getOrCreateBuilder(BlockTags.NON_FLAMMABLE_WOOD)
+          .add(object.get(), object.getSlab(), object.getStairs(),
+               object.getFence(), object.getFenceGate(), object.getDoor(), object.getTrapdoor(),
+               object.getPressurePlate(), object.getButton())
+          .addTag(object.getLogBlockTag());
+    }
   }
 }

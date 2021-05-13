@@ -11,7 +11,6 @@ import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
 
@@ -51,7 +50,7 @@ public class OverslimeModifier extends SingleUseModifier {
   }
 
   @Override
-  public ValidatedResult validate(ToolStack tool, int level) {
+  public ValidatedResult validate(IModifierToolStack tool, int level) {
     // clear excess overslime
     int cap = getCapacity(tool);
     if (getOverslime(tool) > cap) {

@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import java.util.Set;
 
 public class MattockTool extends ToolCore {
-  private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.WOOD, Material.NETHER_WOOD, Material.BAMBOO, Material.GOURD);
+  private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.ORGANIC, Material.WOOD, Material.NETHER_WOOD, Material.BAMBOO, Material.GOURD);
   public static final VeiningAOEHarvestLogic HARVEST_LOGIC = new VeiningAOEHarvestLogic(0) {
     @Override
     public boolean isEffectiveAgainst(IModifierToolStack tool, ItemStack stack, BlockState state) {

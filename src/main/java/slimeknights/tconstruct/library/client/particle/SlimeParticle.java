@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.particle;
 
+import lombok.RequiredArgsConstructor;
 import net.minecraft.client.particle.BreakingParticle;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
@@ -25,14 +26,13 @@ public class SlimeParticle extends BreakingParticle {
     super(worldIn, posXIn, posYIn, posZIn, xSpeedIn, ySpeedIn, zSpeedIn, stack);
   }
 
+  @RequiredArgsConstructor
   public static class Factory implements IParticleFactory<BasicParticleType> {
-    public Factory() {
-
-    }
+    private final SlimeType type;
     @Nullable
     @Override
     public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-      return new SlimeParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, new ItemStack(TinkerCommons.slimeball.get(SlimeType.SKY)));
+      return new SlimeParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, new ItemStack(TinkerCommons.slimeball.get(type)));
     }
   }
 }

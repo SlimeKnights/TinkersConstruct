@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:coins/silicon_bronze",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/coin"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_tinkers_bronze",
+    "amount": 48
+  },
+  "result": {
+    "tag": "forge:coins/silicon_bronze"
+  },
+  "cooling_time": 33
+}

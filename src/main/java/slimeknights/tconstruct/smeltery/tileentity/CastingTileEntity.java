@@ -410,11 +410,16 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   @Override
+  public void writeSynced(CompoundNBT tags) {
+    super.writeSynced(tags);
+    tags.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
+    tags.putInt(TAG_TIMER, timer);
+  }
+
+  @Override
   @Nonnull
   public CompoundNBT write(CompoundNBT tags) {
     tags = super.write(tags);
-    tags.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
-    tags.putInt(TAG_TIMER, timer);
     if (currentRecipe != null) {
       tags.putString(TAG_RECIPE, currentRecipe.getId().toString());
     } else if (recipeName != null) {
