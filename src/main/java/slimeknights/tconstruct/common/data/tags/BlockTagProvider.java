@@ -109,6 +109,7 @@ public class BlockTagProvider extends BlockTagsProvider {
         .add(Blocks.SUGAR_CANE, Blocks.KELP_PLANT);
     this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_CROPS)
         .addTag(BlockTags.CROPS)
+        .addOptionalTag(new ResourceLocation("forge", "crops"))
         .add(Blocks.NETHER_WART);
     this.getOrCreateBuilder(TinkerTags.Blocks.HARVESTABLE_INTERACT)
         .add(Blocks.SWEET_BERRY_BUSH);
