@@ -45,7 +45,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 
   private void addCommon() {
     this.getOrCreateBuilder(TinkerTags.Items.GUIDEBOOKS)
-        .add(TinkerCommons.materialsAndYou.get(), TinkerCommons.punySmelting.get(), TinkerCommons.mightySmelting.get(), TinkerCommons.tinkersGadgetry.get());
+        .add(TinkerCommons.materialsAndYou.get(), TinkerCommons.tinkersGadgetry.get(),
+             TinkerCommons.punySmelting.get(), TinkerCommons.mightySmelting.get(),
+             TinkerCommons.fantasticFoundry.get());
     this.getOrCreateBuilder(TinkerTags.Items.BOOKS).addTag(TinkerTags.Items.GUIDEBOOKS);
 
     this.getOrCreateBuilder(Tags.Items.SLIMEBALLS)
