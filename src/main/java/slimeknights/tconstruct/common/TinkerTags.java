@@ -150,6 +150,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
     /** Modifiable items that can have range increased */
     public static final IOptionalNamedTag<Item> AOE = tag("modifiable/aoe");
+    /** Modifiable items that prevent usage of the offhand */
+    public static final IOptionalNamedTag<Item> TWO_HANDED = tag("modifiable/two_handed");
     // /** Modifiable items that support ranged attacks, such as bows */
     // public static final IOptionalNamedTag<Item> RANGED = tag("modifiable/ranged");
     /** Tag so mods like thermal know our scyhtes can harvest */
