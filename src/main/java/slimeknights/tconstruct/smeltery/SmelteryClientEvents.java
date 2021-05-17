@@ -64,6 +64,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.castingTable.get(), cutout);
     // controller
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedMelter.get(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedAlloyer.get(), cutout);
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.smelteryController.get(), cutout);
     // peripherals
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedDrain.get(), cutout);
@@ -79,6 +80,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.table.get(), CastingTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.basin.get(), CastingTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.melter.get(), MelterTileEntityRenderer::new);
+    ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.alloyer.get(), TankTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.smeltery.get(), SmelteryTileEntityRenderer::new);
 
     // screens
@@ -112,7 +114,7 @@ public class SmelteryClientEvents extends ClientEventBase {
       return -1;
     };
     TinkerSmeltery.searedTank.forEach(tank -> colors.register(handler, tank));
-    colors.register(handler, TinkerSmeltery.searedMelter.get());
+    colors.register(handler, TinkerSmeltery.searedMelter.get(), TinkerSmeltery.scorchedAlloyer.get());
 
     // color the extra fluid textures
     colors.register((state, world, pos, index) -> {

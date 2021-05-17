@@ -834,6 +834,11 @@
     "gui.tconstruct.duct": "Duct",
     "block.tconstruct.seared_chute": "Seared Chute",
     "block.tconstruct.seared_chute.tooltip": "Smeltery item input and output",
+    
+    
+    "block.tconstruct.scorched_alloyer": "Scorched Alloyer",
+    "block.tconstruct.scorched_alloyer.tooltip": "Simple alloying machine.\nPlace above a seared tank or heater to fuel.",
+   
 
     "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
     "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",

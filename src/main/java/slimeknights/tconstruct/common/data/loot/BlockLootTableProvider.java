@@ -178,6 +178,7 @@ public class BlockLootTableProvider extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerSmeltery.searedMelter.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedHeater.get());
     this.registerDropSelfLootTable(TinkerSmeltery.smelteryController.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedAlloyer.get());
 
     // smeltery component
     this.registerBuildingLootTables(TinkerSmeltery.searedStone);

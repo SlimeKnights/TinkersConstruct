@@ -45,8 +45,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Block> SEARED_BRICKS = tag("seared_bricks");
 
-    /** Blocks valid as a smeltery tank, required for fuel */
-    public static final IOptionalNamedTag<Block> MELTER_TANKS = tag("melter_tanks");
+    /** Blocks valid as a fuel tank for the melter or alloyer, should be item handlers with 1 slot or fluid handlers with 1 fluid */
+    public static final IOptionalNamedTag<Block> FUEL_TANKS = tag("fuel_tanks");
     /** Blocks that make up the smeltery structure */
     public static final IOptionalNamedTag<Block> SMELTERY = tag("smeltery");
     /** Blocks valid as a smeltery tank, required for fuel */
@@ -55,6 +55,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SMELTERY_FLOOR = tag("smeltery/floor");
     /** Blocks valid in any area of the smeltery */
     public static final IOptionalNamedTag<Block> SMELTERY_WALL = tag("smeltery/wall");
+    /** Tanks that serve as a valid input for the alloyer, should be fluid handlers with 1 fluid */
+    public static final IOptionalNamedTag<Block> ALLOYER_TANKS = tag("alloyer_tanks");
 
     /** Any block that can be harvested using a kama or scythe */
     public static final IOptionalNamedTag<Block> HARVESTABLE = tag("harvestable");

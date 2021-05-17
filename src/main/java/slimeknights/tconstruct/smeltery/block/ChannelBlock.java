@@ -30,7 +30,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.BlockFlags;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
@@ -334,7 +333,7 @@ public class ChannelBlock extends Block {
 				worldIn.setBlockState(pos, state, BlockFlags.BLOCK_UPDATE);
 			}
       TileEntityHelper.getTile(ChannelTileEntity.class, worldIn, pos)
-                      .ifPresent(te -> te.removeCachedNeighbor(fromOffset(pos, fromPos)));
+                      .ifPresent(te -> te.removeCachedNeighbor(Util.directionFromOffset(pos, fromPos)));
 		}
 	}
 
@@ -355,18 +354,7 @@ public class ChannelBlock extends Block {
     return new ChannelTileEntity();
   }
 
-  private static Direction fromOffset(BlockPos pos, BlockPos neighbor) {
-    BlockPos offset = neighbor.subtract(pos);
-    for (Direction direction : Direction.values()) {
-      if (direction.getDirectionVec().equals(offset)) {
-        return direction;
-      }
-    }
-    TConstruct.log.error("Channel found no offset for position pair {} and {} on neighbor changed", pos, neighbor);
-    return Direction.DOWN;
-  }
-
-	public enum ChannelConnection implements IStringSerializable {
+  public enum ChannelConnection implements IStringSerializable {
 		/** No connection on this side */
 		NONE,
 		/** Channel is flowing inwards on this side */

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:scorched_alloyer",
+    "tconstruct:melter",
+    "tconstruct:seared_tank",
+    "tconstruct:seared_gauge",
+    "tconstruct:seared_window"
+  ]
+}

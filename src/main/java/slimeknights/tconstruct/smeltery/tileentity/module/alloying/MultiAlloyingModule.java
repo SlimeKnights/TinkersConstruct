@@ -1,11 +1,11 @@
-package slimeknights.tconstruct.smeltery.tileentity.module;
+package slimeknights.tconstruct.smeltery.tileentity.module.alloying;
 
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.alloying.IAlloyTank;
+import slimeknights.tconstruct.library.recipe.alloying.IMutableAlloyTank;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-/** Module to handle running alloys via a fluid handler */
-public class AlloyingModule {
+/** Module to handle running alloys via a fluid handler, can alloy multiple recipes at once */
+public class MultiAlloyingModule implements IAlloyingModule {
   private final MantleTileEntity parent;
   private final IAlloyTank alloyTank;
 
@@ -26,12 +26,12 @@ public class AlloyingModule {
   /** Predicates for common behaviors */
   private final Predicate<AlloyRecipe> canPerform, performRecipe;
 
-  public AlloyingModule(MantleTileEntity parent, IFluidHandler fluidHandler, IAlloyTank alloyTank) {
+  public MultiAlloyingModule(MantleTileEntity parent, IMutableAlloyTank alloyTank) {
     this.parent = parent;
     this.alloyTank = alloyTank;
     this.canPerform = recipe -> recipe.canPerform(alloyTank);
     this.performRecipe = recipe -> {
-      recipe.performRecipe(alloyTank, fluidHandler);
+      recipe.performRecipe(alloyTank);
       return false;
     };
   }
@@ -80,14 +80,12 @@ public class AlloyingModule {
     return false;
   }
 
-  /** Checks if any alloy recipe can be used */
+  @Override
   public boolean canAlloy() {
     return iterateRecipes(canPerform);
   }
 
-  /**
-   * Actually performs alloys for the tank
-   */
+  @Override
   public void doAlloy() {
     List<AlloyRecipe> recipes = getRecipes();
     if (recipes.isEmpty()) return;

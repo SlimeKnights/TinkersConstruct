@@ -21,6 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import slimeknights.tconstruct.TConstruct;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -238,5 +239,22 @@ public class Util {
       return 0;
     }
     return value > 0 ? 1 : -1;
+  }
+
+  /**
+   * Obtains a direction based on the difference between two positions
+   * @param pos       Tile position
+   * @param neighbor  Position of offset
+   * @return  Direction, or down if missing
+   */
+  public static Direction directionFromOffset(BlockPos pos, BlockPos neighbor) {
+    BlockPos offset = neighbor.subtract(pos);
+    for (Direction direction : Direction.values()) {
+      if (direction.getDirectionVec().equals(offset)) {
+        return direction;
+      }
+    }
+    TConstruct.log.error("Channel found no offset for position pair {} and {} on neighbor changed", pos, neighbor);
+    return Direction.DOWN;
   }
 }

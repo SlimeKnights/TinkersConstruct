@@ -40,11 +40,11 @@ import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.network.SmelteryStructureUpdatedPacket;
-import slimeknights.tconstruct.smeltery.tileentity.module.AlloyingModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
-import slimeknights.tconstruct.smeltery.tileentity.module.SmelteryAlloyTank;
+import slimeknights.tconstruct.smeltery.tileentity.module.alloying.MultiAlloyingModule;
+import slimeknights.tconstruct.smeltery.tileentity.module.alloying.SmelteryAlloyTank;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery.StructureData;
 import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
@@ -111,7 +111,7 @@ public class SmelteryTileEntity extends NamableTileEntity implements ITickableTi
   /** Module handling alloys */
   private final SmelteryAlloyTank alloyTank = new SmelteryAlloyTank(tank);
   @Getter
-  private final AlloyingModule alloyingModule = new AlloyingModule(this, tank, alloyTank);
+  private final MultiAlloyingModule alloyingModule = new MultiAlloyingModule(this, alloyTank);
   /** Module handling entity interaction */
   private final EntityMeltingModule entityModule = new EntityMeltingModule(this, tank, this::canMeltEntities, this::insertIntoInventory, () -> structure == null ? null : structure.getBounds());
 

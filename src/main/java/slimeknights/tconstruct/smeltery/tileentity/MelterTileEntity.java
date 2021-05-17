@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -53,8 +54,10 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   /** Capability holder for the tank */
   private final LazyOptional<IFluidHandler> tankHolder = LazyOptional.of(() -> tank);
   /** Tank data for the model */
+  @Getter
   private final IModelData modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   /** Last comparator strength to reduce block updates */
+  @Getter @Setter
   private int lastStrength = -1;
 
   /** Internal tick counter */
@@ -110,21 +113,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
     this.inventoryHolder.invalidate();
   }
 
-  @Override
-  public int getLastStrength() {
-    return lastStrength;
-  }
-
-  @Override
-  public void setLastStrength(int strength) {
-    lastStrength = strength;
-  }
-
-  @Override
-  public IModelData getModelData() {
-    return modelData;
-  }
-
   /*
    * Melting
    */
@@ -161,7 +149,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
             // update the heater below
             BlockPos down = pos.down();
             BlockState downState = world.getBlockState(down);
-            if (TinkerTags.Blocks.MELTER_TANKS.contains(downState.getBlock()) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.get(ControllerBlock.ACTIVE) != hasFuel) {
+            if (TinkerTags.Blocks.FUEL_TANKS.contains(downState.getBlock()) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.get(ControllerBlock.ACTIVE) != hasFuel) {
               world.setBlockState(down, downState.with(ControllerBlock.ACTIVE, hasFuel));
             }
           }

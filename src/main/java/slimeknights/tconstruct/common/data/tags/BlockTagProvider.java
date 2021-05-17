@@ -181,11 +181,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // structure tags
     // melter supports the heater as a tank
-    Builder<Block> melterBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.MELTER_TANKS).add(TinkerSmeltery.searedHeater.get());
+    Builder<Block> fuelBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.FUEL_TANKS).add(TinkerSmeltery.searedHeater.get());
     Builder<Block> smelteryBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_TANKS);
+    Builder<Block> alloyerBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.ALLOYER_TANKS).add(TinkerSmeltery.scorchedAlloyer.get(), TinkerSmeltery.searedMelter.get());
     TinkerSmeltery.searedTank.forEach(tank -> {
-      melterBuilder.add(tank);
+      fuelBuilder.add(tank);
       smelteryBuilder.add(tank);
+      alloyerBuilder.add(tank);
     });
 
     // floor allows any basic seared blocks and all IO blocks
