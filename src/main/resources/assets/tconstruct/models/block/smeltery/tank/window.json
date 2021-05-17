@@ -1,7 +1,7 @@
 {
-  "parent": "tconstruct:block/smeltery/tank/base",
+  "parent": "tconstruct:block/template/tank",
   "textures": {
-    "top":  "tconstruct:block/smeltery/tank/seared_window_top",
-    "side": "tconstruct:block/smeltery/tank/seared_window_side"
+    "top":  "tconstruct:block/smeltery/tank/window_top",
+    "side": "tconstruct:block/smeltery/tank/window_side"
   }
 }

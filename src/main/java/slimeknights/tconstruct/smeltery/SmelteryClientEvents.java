@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.smeltery;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -58,13 +59,13 @@ public class SmelteryClientEvents extends ClientEventBase {
   static void clientSetup(final FMLClientSetupEvent event) {
     // render layers
     RenderType cutout = RenderType.getCutout();
+    // seared
     // casting
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedFaucet.get(), cutout);
-    RenderTypeLookup.setRenderLayer(TinkerSmeltery.castingBasin.get(), cutout);
-    RenderTypeLookup.setRenderLayer(TinkerSmeltery.castingTable.get(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedBasin.get(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedTable.get(), cutout);
     // controller
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedMelter.get(), cutout);
-    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedAlloyer.get(), cutout);
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.smelteryController.get(), cutout);
     // peripherals
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedDrain.get(), cutout);
@@ -72,6 +73,17 @@ public class SmelteryClientEvents extends ClientEventBase {
     TinkerSmeltery.searedTank.forEach(tank -> RenderTypeLookup.setRenderLayer(tank, cutout));
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedGlass.get(), cutout);
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedGlassPane.get(), cutout);
+    // scorched
+    // casting
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedFaucet.get(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedBasin.get(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedTable.get(), cutout);
+    // controller
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedAlloyer.get(), cutout);
+    // peripherals
+    TinkerSmeltery.scorchedTank.forEach(tank -> RenderTypeLookup.setRenderLayer(tank, cutout));
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedGlass.get(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedGlassPane.get(), cutout);
 
     // TESRs
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.tank.get(), TankTileEntityRenderer::new);
@@ -114,6 +126,7 @@ public class SmelteryClientEvents extends ClientEventBase {
       return -1;
     };
     TinkerSmeltery.searedTank.forEach(tank -> colors.register(handler, tank));
+    TinkerSmeltery.scorchedTank.forEach(tank -> colors.register(handler, tank));
     colors.register(handler, TinkerSmeltery.searedMelter.get(), TinkerSmeltery.scorchedAlloyer.get());
 
     // color the extra fluid textures
@@ -151,13 +164,16 @@ public class SmelteryClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void itemColors(ColorHandlerEvent.Item event) {
-    event.getItemColors().register((stack, index) -> {
+    ItemColors itemColors = event.getItemColors();
+    IItemColor handler = (stack, index) -> {
       FluidTank tank = TankItem.getFluidTank(stack);
       if (!tank.isEmpty()) {
         FluidStack fluid = tank.getFluid();
         return fluid.getFluid().getAttributes().getColor(fluid);
       }
       return -1;
-    }, TinkerSmeltery.searedTank.values().toArray(new Block[0]));
+    };
+    TinkerSmeltery.searedTank.forEach(tank -> itemColors.register(handler, tank));
+    TinkerSmeltery.scorchedTank.forEach(tank -> itemColors.register(handler, tank));
   }
 }

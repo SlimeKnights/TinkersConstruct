@@ -1,9 +1,6 @@
 {
     "_comment": "Tinkers Common",
 
-    "block.tconstruct.grout": "Grout",
-    "block.tconstruct.grout.tooltip": "I am Grout!",
-
     "block.tconstruct.sky_slime": "Skyslime Block",
     "block.tconstruct.sky_slime.tooltip": "Sticks to both slime and honey",
     "block.tconstruct.ichor_slime": "Ichor Block",
@@ -200,7 +197,6 @@
     "item.tconstruct.ender_slime_drop": "Gelatinous Enderslime Drop",
     "item.tconstruct.blood_slime_drop": "Coagulated Blood Drop",
 
-    "item.tconstruct.seared_brick": "Seared Brick",
     "item.tconstruct.mud_brick": "Mud Brick",
     "item.tconstruct.mud_brick.tooltip": "Building blocks for small and big",
     "item.tconstruct.dried_brick": "Dried Brick",
@@ -393,6 +389,11 @@
     "fluid.tconstruct.seared_stone": "Seared Stone",
     "fluid.tconstruct.flowing_seared_stone": "Flowing Seared Stone",
     "item.tconstruct.seared_stone_bucket": "Seared Stone Bucket",
+    
+    "block.tconstruct.scorched_stone_fluid": "Scorched Stone",
+    "fluid.tconstruct.scorched_stone": "Scorched Stone",
+    "fluid.tconstruct.flowing_scorched_stone": "Flowing Scorched Stone",
+    "item.tconstruct.scorched_stone_bucket": "Scorched Stone Bucket",
 
     "block.tconstruct.molten_clay_fluid": "Molten Clay",
     "fluid.tconstruct.molten_clay": "Molten Clay",
@@ -741,7 +742,40 @@
     "item.tconstruct.cleaver.description": "The Cleaver is a weapon for a smeltery master. High range attacks keep cut though the toughest of foes.",
  
  
+    "_comment": "Smeltery shared",
+    
+    "block.tconstruct.tank.fluid": "Liquid %s",
+    "block.tconstruct.tank.mb": "%d mb",
+    "block.tconstruct.tank.ingots": "%d ingots",
+    "block.tconstruct.tank.mixed": "%d ingots, %d mb",
+
+    "block.tconstruct.tank.drained": "Drained %s mb %s",
+    "block.tconstruct.tank.filled": "Filled %s mb %s",
+    
+    "block.tconstruct.channel.side.in": "Set side to flow inwards",
+    "block.tconstruct.channel.side.out": "Set side to flow outwards",
+    "block.tconstruct.channel.side.none": "Disallowed flowing on side",
+    "block.tconstruct.channel.down.out": "Allowed flowing down",
+    "block.tconstruct.channel.down.none": "Disallowed flowing down",
+    
+    "death.attack.tconstruct.smeltery_heat": "%1$s tried to make molten player",
+    "death.attack.tconstruct.smeltery_magic": "%1$s has become one with the smeltery",
+
+    "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
+    "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
+    "gui.tconstruct.melting.no_space": "Not enough free space for the fluid.",
+
+    "gui.tconstruct.melting.fuel.no_tank": "No tank in structure",
+    "gui.tconstruct.melting.fuel.empty": "No fuel found",
+    "gui.tconstruct.melting.fuel.solid": "Solid fuel",
+    "gui.tconstruct.melting.fuel.temperature": "Temperature: %s°C",
+    "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
+   
+    
     "_comment": "Tinkers Smeltery",
+
+    "block.tconstruct.grout": "Grout",
+    "block.tconstruct.grout.tooltip": "I am Grout!",
 
     "block.tconstruct.seared_stone": "Seared Stone",
     "block.tconstruct.seared_stone.tooltip": "Part of the Smeltery. Safe for decoration.",
@@ -754,6 +788,7 @@
     "block.tconstruct.seared_cobble_stairs": "Seared Cobblestone Stairs",
     "block.tconstruct.seared_cobble_wall": "Seared Cobblestone Wall",
     
+    "item.tconstruct.seared_brick": "Seared Brick",
     "block.tconstruct.seared_bricks": "Seared Bricks",
     "block.tconstruct.seared_bricks.tooltip": "Part of the Smeltery. Safe for decoration.",
     "block.tconstruct.seared_bricks_slab": "Seared Bricks Slab",
@@ -777,7 +812,6 @@
     "block.tconstruct.seared_glass_pane": "Seared Glass Pane",
     "block.tconstruct.seared_glass_pane.tooltip": "Cannot be used in a Smeltery.",
     
-
     "block.tconstruct.seared_ladder": "Seared Ladder",
     "block.tconstruct.seared_ladder.tooltip": "Climbable Smeltery block. Safe for decoration.",
     
@@ -787,31 +821,19 @@
     "block.tconstruct.seared_gauge.tooltip": "Ideal for metals, holding 3 molten blocks.\nRetains liquid when broken.",
     "block.tconstruct.seared_window": "Seared Window",
     "block.tconstruct.seared_window.tooltip": "Alternate Smeltery tank.\nRetains liquid when broken.",
-    "block.tconstruct.tank.fluid": "Liquid %s",
-    "block.tconstruct.tank.mb": "%d mb",
-    "block.tconstruct.tank.ingots": "%d ingots",
-    "block.tconstruct.tank.mixed": "%d ingots, %d mb",
-
-    "block.tconstruct.tank.drained": "Drained %s mb %s",
-    "block.tconstruct.tank.filled": "Filled %s mb %s",
     
-    "block.tconstruct.faucet": "Seared Faucet",
-    "block.tconstruct.faucet.tooltip": "Drains liquids from Smelteries and Tanks",
-    "block.tconstruct.casting_basin": "Casting Basin",
-    "block.tconstruct.casting_basin.tooltip": "Cast items using molten metals from a Smeltery",
-    "block.tconstruct.casting_table": "Casting Table",
-    "block.tconstruct.casting_table.tooltip": "Cast items using molten metals from a Smeltery",
-   
-    "block.tconstruct.channel": "Seared Channel",
-    "block.tconstruct.channel.tooltip": "Distributes fluids poured from a faucet above.",
-    "block.tconstruct.channel.side.in": "Set side to flow inwards",
-    "block.tconstruct.channel.side.out": "Set side to flow outwards",
-    "block.tconstruct.channel.side.none": "Disallowed flowing on side",
-    "block.tconstruct.channel.down.out": "Allowed flowing down",
-    "block.tconstruct.channel.down.none": "Disallowed flowing down",
+    "block.tconstruct.seared_faucet": "Seared Faucet",
+    "block.tconstruct.seared_faucet.tooltip": "Drains liquids from Smelteries and Tanks",
+    "block.tconstruct.seared_channel": "Seared Channel",
+    "block.tconstruct.seared_channel.tooltip": "Distributes fluids poured from a faucet above.",
+    
+    "block.tconstruct.seared_basin": "Seared Casting Basin",
+    "block.tconstruct.seared_basin.tooltip": "Cast items using molten metals from a Smeltery",
+    "block.tconstruct.seared_table": "Seared Casting Table",
+    "block.tconstruct.seared_table.tooltip": "Cast items using molten metals from a Smeltery",
 
-    "block.tconstruct.melter": "Seared Melter",
-    "block.tconstruct.melter.tooltip": "First Smeltery.\nPlace above a seared tank or heater to fuel.",
+    "block.tconstruct.seared_melter": "Seared Melter",
+    "block.tconstruct.seared_melter.tooltip": "First Smeltery.\nPlace above a tank or heater to fuel.",
     "gui.tconstruct.melter": "Melter",
     "gui.tconstruct.melting.capacity": "Capacity:",
     "gui.tconstruct.melting.available": "Free:",
@@ -824,8 +846,6 @@
     "block.tconstruct.smeltery_controller": "Smeltery Controller",
     "block.tconstruct.smeltery_controller.tooltip": "Brain of the Smeltery.",
     "gui.tconstruct.smeltery": "Smeltery",
-    "death.attack.tconstruct.smeltery_heat": "%1$s tried to make molten player",
-    "death.attack.tconstruct.smeltery_magic": "%1$s has become one with the smeltery",
     
     "block.tconstruct.seared_drain": "Seared Drain",
     "block.tconstruct.seared_drain.tooltip": "Smeltery fluid input and output",
@@ -836,19 +856,59 @@
     "block.tconstruct.seared_chute.tooltip": "Smeltery item input and output",
     
     
-    "block.tconstruct.scorched_alloyer": "Scorched Alloyer",
-    "block.tconstruct.scorched_alloyer.tooltip": "Simple alloying machine.\nPlace above a seared tank or heater to fuel.",
+    "_comment": "Tinkers Foundry",
+
+    "block.tconstruct.nether_grout": "Nether Grout",
+    "block.tconstruct.nether_grout.tooltip": "We are Grout!",
+
+    "block.tconstruct.scorched_stone": "Scorched Stone",
+    "block.tconstruct.scorched_stone.tooltip": "Part of the Foundry. Safe for decoration.",
+    "block.tconstruct.polished_scorched_stone": "Polished Scorched Stone",
+    "block.tconstruct.polished_scorched_stone.tooltip": "Part of the Foundry. Safe for decoration.",
+    
+    "item.tconstruct.scorched_brick": "Scorched Brick",
+    "block.tconstruct.scorched_bricks": "Scorched Bricks",
+    "block.tconstruct.scorched_bricks.tooltip": "Part of the Foundry. Safe for decoration.",
+    "block.tconstruct.scorched_bricks_slab": "Scorched Bricks Slab",
+    "block.tconstruct.scorched_bricks_stairs": "Scorched Bricks Stairs",
+    "block.tconstruct.scorched_bricks_fence": "Scorched Bricks Fence",
+    
+    "block.tconstruct.scorched_road": "Scorched Road",
+    "block.tconstruct.scorched_road.tooltip": "Part of the Foundry. Safe for decoration.",
+    "block.tconstruct.scorched_road_slab": "Scorched Road Slab",
+    "block.tconstruct.scorched_road_stairs": "Scorched Road Stairs",
+    
+    "block.tconstruct.chiseled_scorched_bricks": "Chiseled Scorched Bricks",
+    "block.tconstruct.chiseled_scorched_bricks.tooltip": "Part of the Foundry. Safe for decoration.",
+
+    "block.tconstruct.scorched_glass": "Scorched Glass",
+    "block.tconstruct.scorched_glass.tooltip": "Part of the Foundry. Safe for decoration.\nCannot store liquids.",
+    "block.tconstruct.scorched_glass_pane": "Scorched Glass Pane",
+    "block.tconstruct.scorched_glass_pane.tooltip": "Cannot be used in a Foundry.",
+    
+    "block.tconstruct.scorched_ladder": "Scorched Ladder",
+    "block.tconstruct.scorched_ladder.tooltip": "Climbable Foundry block. Safe for decoration.",
+    
+    "block.tconstruct.scorched_tank": "Scorched Tank",
+    "block.tconstruct.scorched_tank.tooltip": "Heart of the Foundry.\nRetains liquid when broken.",
+    "block.tconstruct.scorched_gauge": "Scorched Gauge",
+    "block.tconstruct.scorched_gauge.tooltip": "Ideal for metals, holding 3 molten blocks.\nRetains liquid when broken.",
+    "block.tconstruct.scorched_window": "Scorched Window",
+    "block.tconstruct.scorched_window.tooltip": "Alternate Foundry tank.\nRetains liquid when broken.",
+
+    "block.tconstruct.scorched_faucet": "Scorched Faucet",
+    "block.tconstruct.scorched_faucet.tooltip": "Drains liquids from Foundries and Tanks",
+    "block.tconstruct.scorched_basin": "Scorched Casting Basin",
+    "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry",
+    "block.tconstruct.scorched_table": "Scorched Casting Table",
+    "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry",
    
-
-    "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
-    "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
-    "gui.tconstruct.melting.no_space": "Not enough free space for the fluid.",
-
-    "gui.tconstruct.melting.fuel.no_tank": "No tank in structure",
-    "gui.tconstruct.melting.fuel.empty": "No fuel found",
-    "gui.tconstruct.melting.fuel.solid": "Solid fuel",
-    "gui.tconstruct.melting.fuel.temperature": "Temperature: %s°C",
-    "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
+    "block.tconstruct.scorched_channel": "Scorched Channel",
+    "block.tconstruct.scorched_channel.tooltip": "Distributes fluids poured from a faucet above.",
+   
+    "block.tconstruct.scorched_alloyer": "Scorched Alloyer",
+    "block.tconstruct.scorched_alloyer.tooltip": "Simple alloying machine.\nPlace above a tank or heater to fuel.",
+   
     
     "gui.tconstruct.fluid.kilobucket": "%s kb",
     "gui.tconstruct.fluid.bucket": "%s b",

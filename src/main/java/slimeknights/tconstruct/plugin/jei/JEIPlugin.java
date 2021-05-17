@@ -183,10 +183,13 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-    addCastingCatalyst(registry, TinkerSmeltery.castingTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
-    addCastingCatalyst(registry, TinkerSmeltery.castingBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
+    addCastingCatalyst(registry, TinkerSmeltery.searedTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
+    addCastingCatalyst(registry, TinkerSmeltery.searedBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
+    addCastingCatalyst(registry, TinkerSmeltery.scorchedTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
+    addCastingCatalyst(registry, TinkerSmeltery.scorchedBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructRecipeCategoryUid.melting);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructRecipeCategoryUid.melting, TConstructRecipeCategoryUid.alloy, TConstructRecipeCategoryUid.entityMelting);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.scorchedAlloyer), TConstructRecipeCategoryUid.alloy);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructRecipeCategoryUid.modifiers);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructRecipeCategoryUid.modifiers);

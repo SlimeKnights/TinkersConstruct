@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=x": { "model": "tconstruct:block/foundry/scorched/stone", "x": 90, "y": 90 },
+    "axis=y": { "model": "tconstruct:block/foundry/scorched/stone" },
+    "axis=z": { "model": "tconstruct:block/foundry/scorched/stone", "x": 90 }
+  }
+}

@@ -61,7 +61,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.BLOOD));
     this.getOrCreateBuilder(TinkerTags.Items.ICHOR_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ICHOR));
 
-    this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerCommons.driedBrick.get(), TinkerSmeltery.searedBrick.get());
+    this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerCommons.driedBrick.get(), TinkerSmeltery.searedBrick.get(), TinkerSmeltery.scorchedBrick.get());
     this.getOrCreateBuilder(TinkerTags.Items.WITHER_BONES).add(TinkerModifiers.necroticBone.get());
 
     // ores
@@ -217,6 +217,7 @@ public class ItemTagProvider extends ItemTagsProvider {
   private void addSmeltery() {
     this.copy(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Items.SEARED_BRICKS);
     this.copy(TinkerTags.Blocks.SEARED_BLOCKS, TinkerTags.Items.SEARED_BLOCKS);
+    this.copy(TinkerTags.Blocks.SCORCHED_BLOCKS, TinkerTags.Items.SCORCHED_BLOCKS);
     this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, ItemTags.SOUL_FIRE_BASE_BLOCKS);
 
     // tag each type of cast
@@ -273,6 +274,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     // tank tag
     Builder<Item> tankBuilder = this.getOrCreateBuilder(TinkerTags.Items.TANKS);
     TinkerSmeltery.searedTank.forEach(tank -> tankBuilder.add(tank.asItem()));
+    TinkerSmeltery.scorchedTank.forEach(tank -> tankBuilder.add(tank.asItem()));
   }
 
   @Override

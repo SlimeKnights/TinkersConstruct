@@ -10,7 +10,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 public class CastingBasinCategory extends AbstractCastingCategory {
 
   public CastingBasinCategory(IGuiHelper guiHelper) {
-    super(guiHelper, TinkerSmeltery.castingBasin.get(), "jei.tconstruct.casting.basin", guiHelper.createDrawable(BACKGROUND_LOC, 117, 16, 16, 16));
+    super(guiHelper, TinkerSmeltery.searedBasin.get(), "jei.tconstruct.casting.basin", guiHelper.createDrawable(BACKGROUND_LOC, 117, 16, 16, 16));
   }
 
   @Override

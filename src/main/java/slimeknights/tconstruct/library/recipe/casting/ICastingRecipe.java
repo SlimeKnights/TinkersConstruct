@@ -14,7 +14,7 @@ import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 public interface ICastingRecipe extends ICommonRecipe<ICastingInventory> {
   @Override
   default ItemStack getIcon() {
-    return new ItemStack(getType() == RecipeTypes.CASTING_TABLE ? TinkerSmeltery.castingTable : TinkerSmeltery.castingBasin);
+    return new ItemStack(getType() == RecipeTypes.CASTING_TABLE ? TinkerSmeltery.searedTable : TinkerSmeltery.searedBasin);
   }
 
   /**

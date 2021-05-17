@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bb",
+    "bb"
+  ],
+  "key": {
+    "b": {
+      "item": "tconstruct:polished_scorched_stone"
+    }
+  },
+  "result": {
+    "item": "tconstruct:scorched_bricks",
+    "count": 4
+  }
+}

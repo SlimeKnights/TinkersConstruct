@@ -132,6 +132,12 @@ public class TConstruct {
       case "firewood": return TinkerCommons.blazewood.get();
       case "firewood_slab": return TinkerCommons.blazewood.getSlab();
       case "firewood_stairs": return TinkerCommons.blazewood.getStairs();
+      // prefix with seared
+      case "faucet": return TinkerSmeltery.searedFaucet.get();
+      case "channel": return TinkerSmeltery.searedChannel.get();
+      case "casting_table": return TinkerSmeltery.searedTable.get();
+      case "casting_basin": return TinkerSmeltery.searedBasin.get();
+      case "melter": return TinkerSmeltery.searedMelter.get();
     }
     return null;
   }

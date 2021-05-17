@@ -45,6 +45,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Block> SEARED_BRICKS = tag("seared_bricks");
 
+    public static final IOptionalNamedTag<Block> SCORCHED_BLOCKS = tag("scorched_blocks");
+
     /** Blocks valid as a fuel tank for the melter or alloyer, should be item handlers with 1 slot or fluid handlers with 1 fluid */
     public static final IOptionalNamedTag<Block> FUEL_TANKS = tag("fuel_tanks");
     /** Blocks that make up the smeltery structure */
@@ -95,8 +97,9 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> ORES_COPPER = forgeTag("ores/copper");
 
     public static final IOptionalNamedTag<Item> SEARED_BLOCKS = tag("seared_blocks");
-
     public static final IOptionalNamedTag<Item> SEARED_BRICKS = tag("seared_bricks");
+    public static final IOptionalNamedTag<Item> SCORCHED_BLOCKS = tag("scorched_blocks");
+
     public static final IOptionalNamedTag<Item> EARTH_SLIMEBALL = forgeTag("slimeball/green");
     public static final IOptionalNamedTag<Item> SKY_SLIMEBALL = forgeTag("slimeball/sky");
     public static final IOptionalNamedTag<Item> ICHOR_SLIMEBALL = forgeTag("slimeball/ichor");

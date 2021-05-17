@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "tconstruct:block/smeltery/table" },
+    "facing=south": { "model": "tconstruct:block/smeltery/table", "y": 180 },
+    "facing=west":  { "model": "tconstruct:block/smeltery/table", "y": 270 },
+    "facing=east":  { "model": "tconstruct:block/smeltery/table", "y":  90 }
+  }
+}

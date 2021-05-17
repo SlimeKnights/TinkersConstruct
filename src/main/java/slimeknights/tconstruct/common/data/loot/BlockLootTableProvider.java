@@ -24,6 +24,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.loot.RetexturedLootFunction;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
+import slimeknights.mantle.registration.object.FenceBuildingBlockObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.WoodBlockObject;
@@ -65,10 +66,10 @@ public class BlockLootTableProvider extends BlockLootTables {
     this.addWorld();
     this.addTools();
     this.addSmeltery();
+    this.addFoundry();
   }
 
   private void addCommon() {
-    this.registerDropSelfLootTable(TinkerSmeltery.grout.get());
     this.registerBuildingLootTables(TinkerCommons.blazewood);
     this.registerBuildingLootTables(TinkerCommons.lavawood);
 
@@ -174,11 +175,11 @@ public class BlockLootTableProvider extends BlockLootTables {
   }
 
   private void addSmeltery() {
+    this.registerDropSelfLootTable(TinkerSmeltery.grout.get());
     // controller
     this.registerDropSelfLootTable(TinkerSmeltery.searedMelter.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedHeater.get());
     this.registerDropSelfLootTable(TinkerSmeltery.smelteryController.get());
-    this.registerDropSelfLootTable(TinkerSmeltery.scorchedAlloyer.get());
 
     // smeltery component
     this.registerBuildingLootTables(TinkerSmeltery.searedStone);
@@ -207,9 +208,40 @@ public class BlockLootTableProvider extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerSmeltery.searedChannel.get());
 
     // casting
-    this.registerDropSelfLootTable(TinkerSmeltery.castingBasin.get());
-    this.registerDropSelfLootTable(TinkerSmeltery.castingTable.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedBasin.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedTable.get());
   }
+
+  private void addFoundry() {
+    this.registerDropSelfLootTable(TinkerSmeltery.netherGrout.get());
+    // controller
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedAlloyer.get());
+
+    // smeltery component
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedStone.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.polishedScorchedStone.get());
+    this.registerFenceBuildingLootTables(TinkerSmeltery.scorchedBricks);
+    this.registerDropSelfLootTable(TinkerSmeltery.chiseledScorchedBricks.get());
+    this.registerBuildingLootTables(TinkerSmeltery.scorchedRoad);
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedLadder.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedGlass.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedGlassPane.get());
+
+    for (SearedTankBlock.TankType type : SearedTankBlock.TankType.values()) {
+      this.registerLootTable(TinkerSmeltery.scorchedTank.get(type), (block) -> droppingWithFunctions(block, builder ->
+        builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
+               .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation(NBTTags.TANK, NBTTags.TANK))));
+    }
+
+    // fluid
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedFaucet.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedChannel.get());
+
+    // casting
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedBasin.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedTable.get());
+  }
+
 
   /*
    * Utils
@@ -266,6 +298,15 @@ public class BlockLootTableProvider extends BlockLootTables {
   private void registerWallBuildingLootTables(WallBuildingBlockObject object) {
     registerBuildingLootTables(object);
     this.registerDropSelfLootTable(object.getWall());
+  }
+
+  /**
+   * Registers all loot tables for a fence building block object
+   * @param object  Object instance
+   */
+  private void registerFenceBuildingLootTables(FenceBuildingBlockObject object) {
+    registerBuildingLootTables(object);
+    this.registerDropSelfLootTable(object.getFence());
   }
 
   /** Adds all loot tables relevant to the given wood object */

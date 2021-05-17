@@ -390,9 +390,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.melting, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.bucketing.get())
-                         .addInput(TinkerSmeltery.searedFaucet)
+                         .addInput(SizedIngredient.fromItems(TinkerSmeltery.searedFaucet, TinkerSmeltery.scorchedFaucet))
                          .addInput(Items.BUCKET)
-                         .addInput(TinkerSmeltery.searedFaucet)
+                         .addInput(SizedIngredient.fromItems(TinkerSmeltery.searedFaucet, TinkerSmeltery.scorchedFaucet))
                          .addInput(Items.ENDER_PEARL)
                          .addInput(Items.ENDER_PEARL)
                          .setMaxLevel(1)

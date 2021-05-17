@@ -170,6 +170,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   }
 
   private void addSmeltery() {
+    // seared
     this.getOrCreateBuilder(TinkerTags.Blocks.SEARED_BRICKS).add(
       TinkerSmeltery.searedBricks.get(),
       TinkerSmeltery.searedFancyBricks.get(),
@@ -179,6 +180,15 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.SEARED_BRICKS);
     this.getOrCreateBuilder(BlockTags.WALLS).add(TinkerSmeltery.searedBricks.getWall(), TinkerSmeltery.searedCobble.getWall());
 
+    // scorched
+    this.getOrCreateBuilder(TinkerTags.Blocks.SCORCHED_BLOCKS).add(
+      TinkerSmeltery.scorchedStone.get(),
+      TinkerSmeltery.polishedScorchedStone.get(),
+      TinkerSmeltery.scorchedBricks.get(),
+      TinkerSmeltery.scorchedRoad.get(),
+      TinkerSmeltery.chiseledScorchedBricks.get());
+    this.getOrCreateBuilder(BlockTags.FENCES).add(TinkerSmeltery.scorchedBricks.getFence());
+
     // structure tags
     // melter supports the heater as a tank
     Builder<Block> fuelBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.FUEL_TANKS).add(TinkerSmeltery.searedHeater.get());
@@ -187,6 +197,10 @@ public class BlockTagProvider extends BlockTagsProvider {
     TinkerSmeltery.searedTank.forEach(tank -> {
       fuelBuilder.add(tank);
       smelteryBuilder.add(tank);
+      alloyerBuilder.add(tank);
+    });
+    TinkerSmeltery.scorchedTank.forEach(tank -> {
+      fuelBuilder.add(tank);
       alloyerBuilder.add(tank);
     });
 
@@ -207,7 +221,7 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.SMELTERY_TANKS);
 
     // climb seared ladder
-    this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get());
+    this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get(), TinkerSmeltery.scorchedLadder.get());
   }
 
   private void addFluids() {

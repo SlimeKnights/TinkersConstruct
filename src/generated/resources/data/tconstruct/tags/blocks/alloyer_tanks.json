@@ -2,9 +2,12 @@
   "replace": false,
   "values": [
     "tconstruct:scorched_alloyer",
-    "tconstruct:melter",
+    "tconstruct:seared_melter",
     "tconstruct:seared_tank",
     "tconstruct:seared_gauge",
-    "tconstruct:seared_window"
+    "tconstruct:seared_window",
+    "tconstruct:scorched_tank",
+    "tconstruct:scorched_gauge",
+    "tconstruct:scorched_window"
   ]
 }

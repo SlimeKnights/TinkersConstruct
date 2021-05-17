@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -57,7 +58,7 @@ public class AlloyerBlock extends TinyMultiblockController {
       double z = pos.getZ() + 0.5D;
       double frontOffset = 0.52D;
       double sideOffset = rand.nextDouble() * 0.6D - 0.3D;
-      spawnFireParticles(world, state, x, y, z, frontOffset, sideOffset);
+      spawnFireParticles(world, state, x, y, z, frontOffset, sideOffset, ParticleTypes.SOUL_FIRE_FLAME);
     }
   }
 }
