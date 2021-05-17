@@ -62,15 +62,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
   private void addItemRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "tools/modifiers/";
 
-    // reinforcement
-    ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.reinforcement)
-                       .key('O', Items.OBSIDIAN)
-                       .key('G', TinkerSmeltery.blankCast)
-                       .patternLine("OOO")
-                       .patternLine("OGO")
-                       .patternLine("OOO")
-                       .addCriterion("has_center", hasItem(Tags.Items.INGOTS_GOLD))
-                       .build(consumer, prefix(TinkerModifiers.reinforcement, folder));
+    // reinforcements
+    ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ironReinforcement)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 3))
+                            .setCast(TinkerCommons.obsidianPane, true)
+                            .build(consumer, prefix(TinkerModifiers.ironReinforcement, folder));
 
     // silky cloth
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyCloth)
@@ -139,8 +135,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * durability
      */
-    ModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
-                         .addInput(TinkerModifiers.reinforcement)
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
+                         .setInput(TinkerModifiers.ironReinforcement, 1, 24)
                          .setMaxLevel(5) // max 83% resistant to damage
                          .setUpgradeSlots(1)
                          .build(consumer, prefixR(TinkerModifiers.reinforced, upgradeFolder));

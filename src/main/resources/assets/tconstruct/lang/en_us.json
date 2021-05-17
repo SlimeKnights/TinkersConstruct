@@ -36,6 +36,8 @@
     "block.tconstruct.clear_glass": "Clear Glass",
     "block.tconstruct.clear_glass_pane": "Clear Glass Pane",
     
+    "block.tconstruct.obsidian_pane": "Obsidian Pane",
+    
     "block.tconstruct.white_clear_stained_glass": "Clear White Stained Glass",
     "block.tconstruct.orange_clear_stained_glass": "Clear Orange Stained Glass",
     "block.tconstruct.magenta_clear_stained_glass": "Clear Magenta Stained Glass",
@@ -210,8 +212,8 @@
     "item.tconstruct.ender_slime_crystal": "Enderslime Crystal",
     "item.tconstruct.ender_slime_crystal.tooltip": "Used to overslime tools",
     
-    "item.tconstruct.reinforcement": "Reinforcement",
-    "item.tconstruct.reinforcement.tooltip": "Reduces chance of a tool taking damage",
+    "item.tconstruct.iron_reinforcement": "Iron Reinforcement",
+    "item.tconstruct.iron_reinforcement.tooltip": "Reduces chance of a tool taking damage",
     "item.tconstruct.silky_cloth": "Silky Cloth",
     "item.tconstruct.silky_cloth.tooltip": "Prevents a tool from damaging block drops",
     "item.tconstruct.silky_jewel": "Silky Jewel",

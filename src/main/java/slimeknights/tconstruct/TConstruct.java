@@ -175,6 +175,8 @@ public class TConstruct {
         case "kama_head_red_sand_cast": return TinkerSmeltery.swordBladeCast.getRedSand();
         // broadsword -> sword
         case "broad_sword": return TinkerTools.sword.get();
+        //  reinforcement splitting
+        case "reinforcement": return TinkerModifiers.ironReinforcement.get();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

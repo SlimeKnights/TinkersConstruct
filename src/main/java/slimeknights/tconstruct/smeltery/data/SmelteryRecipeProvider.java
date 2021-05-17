@@ -648,7 +648,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // obsidian
     this.addBlockCastingRecipe(consumer, TinkerFluids.moltenObsidian, MaterialValues.GLASS_BLOCK, Items.OBSIDIAN, folder + "obsidian");
-
+    ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.obsidianPane)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_PANE))
+                            .build(consumer, location(folder + "obsidian_pane"));
     // Molten objects with Bucket, Block, Ingot, and Nugget forms with standard values
     String metalFolder = folder + "metal/";
     this.addMetalCastingRecipe(consumer, TinkerFluids.moltenIron,      Items.IRON_BLOCK,       Items.IRON_INGOT,      Items.IRON_NUGGET,               metalFolder, "iron");

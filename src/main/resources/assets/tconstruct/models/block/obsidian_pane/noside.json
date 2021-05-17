@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/template/pane/noside",
+  "textures": {
+    "pane": "minecraft:block/obsidian"
+  }
+}

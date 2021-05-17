@@ -93,6 +93,7 @@ public class BlockLootTableProvider extends BlockLootTables {
   }
 
   private void addDecorative() {
+    this.registerDropSelfLootTable(TinkerCommons.obsidianPane.get());
     this.registerDropSelfLootTable(TinkerCommons.clearGlass.get());
     this.registerDropSelfLootTable(TinkerCommons.clearGlassPane.get());
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {

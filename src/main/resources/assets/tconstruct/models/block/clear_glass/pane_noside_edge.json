@@ -1,5 +1,5 @@
 {
-  "parent": "tconstruct:block/pane/noside_edge",
+  "parent": "tconstruct:block/template/pane/noside_edge",
   "textures": {
     "pane": "tconstruct:block/clear_glass",
     "edge": "tconstruct:block/clear_glass_top"

@@ -1,6 +1,6 @@
 {
   "loader": "mantle:connected",
-  "parent": "tconstruct:block/pane/side",
+  "parent": "tconstruct:block/template/pane/side",
   "textures": {
     "edge": "tconstruct:block/foundry/glass_top",
     "pane": "tconstruct:block/foundry/glass"
