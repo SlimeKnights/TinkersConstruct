@@ -108,7 +108,7 @@ public final class TinkerSmeltery extends TinkerModule {
    * Blocks
    */
   public static final ItemObject<Block> grout = BLOCKS.register("grout", GENERIC_SAND_BLOCK, TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> netherGrout = BLOCKS.register("nether_grout", GENERIC_SAND_BLOCK, TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> netherGrout = BLOCKS.register("nether_grout", builder(Material.SAND, ToolType.SHOVEL, SoundType.SOUL_SOIL).hardnessAndResistance(3.0f).slipperiness(0.8F), TOOLTIP_BLOCK_ITEM);
 
   // seared blocks
   private static final Block.Properties SEARED = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL)
