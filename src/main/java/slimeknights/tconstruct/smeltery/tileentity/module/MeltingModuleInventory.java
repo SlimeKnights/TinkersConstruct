@@ -321,9 +321,18 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    */
   public void readFromNBT(CompoundNBT nbt) {
     if (!strictSize) {
-      // no need to resize, as we ignore old data
-      modules = new MeltingModule[nbt.getByte(TAG_SIZE) & 255];
+      int newSize = nbt.getByte(TAG_SIZE) & 255;
+      if (newSize != modules.length) {
+        modules = Arrays.copyOf(modules, newSize);
+      }
     }
+    // remove old data
+    for (MeltingModule module : modules) {
+      if (module != null) {
+        module.setStack(ItemStack.EMPTY);
+      }
+    }
+
     ListNBT list = nbt.getList(TAG_ITEMS, NBT.TAG_COMPOUND);
     for (int i = 0; i < list.size(); i++) {
       CompoundNBT item = list.getCompound(i);

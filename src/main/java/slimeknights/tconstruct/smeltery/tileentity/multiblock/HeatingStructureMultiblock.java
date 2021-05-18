@@ -137,7 +137,8 @@ public abstract class HeatingStructureMultiblock<T extends MantleTileEntity & IM
 
     // floor has a smaller list
     BlockState state = world.getBlockState(pos);
-    if (side == CuboidSide.FLOOR) {
+    // treat frame blocks as walls, its more natural
+    if (side == CuboidSide.FLOOR && !isFrame) {
       return isValidFloor(state.getBlock());
     }
 
