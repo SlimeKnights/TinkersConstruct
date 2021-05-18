@@ -214,6 +214,8 @@
     
     "item.tconstruct.iron_reinforcement": "Iron Reinforcement",
     "item.tconstruct.iron_reinforcement.tooltip": "Reduces chance of a tool taking damage",
+    "item.tconstruct.slimesteel_reinforcement": "Slimesteel Reinforcement",
+    "item.tconstruct.slimesteel_reinforcement.tooltip": "Increases slimesteel capacity",
     "item.tconstruct.silky_cloth": "Silky Cloth",
     "item.tconstruct.silky_cloth.tooltip": "Prevents a tool from damaging block drops",
     "item.tconstruct.silky_jewel": "Silky Jewel",
@@ -1151,6 +1153,9 @@
     "modifier.tconstruct.reinforced": "Reinforced",
     "modifier.tconstruct.reinforced.flavor": "Long Lasting!",
     "modifier.tconstruct.reinforced.description": "Tool is less likely to take damage",
+    "modifier.tconstruct.overforced": "Overforced",
+    "modifier.tconstruct.overforced.flavor": "Protected by Slime!",
+    "modifier.tconstruct.overforced.description": "Tool is reinforced using slime, allowing more capacity for overslime",
     "modifier.tconstruct.emerald": "Emerald",
     "modifier.tconstruct.emerald.flavor": "Fancy!",
     "modifier.tconstruct.emerald.description": "Increases durability depending on base durability! Illagers hate it!",

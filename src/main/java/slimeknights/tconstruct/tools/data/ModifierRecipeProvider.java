@@ -67,6 +67,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 3))
                             .setCast(TinkerCommons.obsidianPane, true)
                             .build(consumer, prefix(TinkerModifiers.ironReinforcement, folder));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.slimesteelReinforcement)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenSlimesteel.get(), MaterialValues.NUGGET * 3))
+                            .setCast(TinkerCommons.obsidianPane, true)
+                            .build(consumer, prefix(TinkerModifiers.slimesteelReinforcement, folder));
 
     // silky cloth
     ShapedRecipeBuilder.shapedRecipe(TinkerModifiers.silkyCloth)
@@ -140,6 +144,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(5) // max 83% resistant to damage
                          .setUpgradeSlots(1)
                          .build(consumer, prefixR(TinkerModifiers.reinforced, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.overforced.get())
+                                    .setInput(TinkerModifiers.slimesteelReinforcement, 1, 24)
+                                    .setMaxLevel(5) // +250 capacity
+                                    .setUpgradeSlots(1)
+                                    .build(consumer, prefixR(TinkerModifiers.overforced, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.emerald.get())
                          .addInput(Tags.Items.GEMS_EMERALD)
                          .setMaxLevel(1)
