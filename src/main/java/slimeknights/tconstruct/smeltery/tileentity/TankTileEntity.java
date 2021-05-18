@@ -67,7 +67,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   private int lastStrength = -1;
 
   public TankTileEntity() {
-    this(TinkerSmeltery.searedTank.get(TankType.TANK));
+    this(TinkerSmeltery.searedTank.get(TankType.FUEL_TANK));
   }
 
   /** Main constructor */

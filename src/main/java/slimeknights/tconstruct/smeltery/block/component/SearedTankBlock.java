@@ -95,9 +95,10 @@ public class SearedTankBlock extends SearedBlock {
 
   @AllArgsConstructor
   public enum TankType implements IStringSerializable {
-    TANK(TankTileEntity.DEFAULT_CAPACITY),
-    GAUGE(MaterialValues.METAL_BLOCK * 3),
-    WINDOW(TankTileEntity.DEFAULT_CAPACITY);
+    FUEL_TANK(TankTileEntity.DEFAULT_CAPACITY),
+    FUEL_GAUGE(TankTileEntity.DEFAULT_CAPACITY),
+    INGOT_TANK(MaterialValues.INGOT * 32),
+    INGOT_GAUGE(MaterialValues.INGOT * 32);
 
     @Getter
     private final int capacity;

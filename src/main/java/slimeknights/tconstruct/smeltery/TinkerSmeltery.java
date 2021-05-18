@@ -92,7 +92,7 @@ import java.util.function.Supplier;
 @SuppressWarnings("unused")
 public final class TinkerSmeltery extends TinkerModule {
   /** Tab for all blocks related to the smeltery */
-  public static final ItemGroup TAB_SMELTERY = new SupplierItemGroup(TConstruct.modID, "smeltery", () -> new ItemStack(TinkerSmeltery.searedTank.get(TankType.TANK)));
+  public static final ItemGroup TAB_SMELTERY = new SupplierItemGroup(TConstruct.modID, "smeltery", () -> new ItemStack(TinkerSmeltery.smelteryController));
   public static final Logger log = Util.getLogger("tinker_smeltery");
 
   /* Bricks */

@@ -1,8 +1,13 @@
 {
   "type": "tconstruct:melting",
-  "ingredient": {
-    "item": "tconstruct:scorched_gauge"
-  },
+  "ingredient": [
+    {
+      "item": "tconstruct:scorched_fuel_gauge"
+    },
+    {
+      "item": "tconstruct:scorched_ingot_gauge"
+    }
+  ],
   "result": {
     "fluid": "tconstruct:scorched_stone",
     "amount": 576

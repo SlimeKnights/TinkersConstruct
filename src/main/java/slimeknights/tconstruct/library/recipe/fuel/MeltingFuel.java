@@ -103,7 +103,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidInventory> {
 
   @Override
   public ItemStack getIcon() {
-    return new ItemStack(TinkerSmeltery.searedTank.get(TankType.TANK));
+    return new ItemStack(TinkerSmeltery.searedTank.get(TankType.FUEL_TANK));
   }
 
   /**

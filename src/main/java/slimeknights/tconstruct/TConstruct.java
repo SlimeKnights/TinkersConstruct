@@ -39,6 +39,7 @@ import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
@@ -135,6 +136,13 @@ public class TConstruct {
       case "casting_table": return TinkerSmeltery.searedTable.get();
       case "casting_basin": return TinkerSmeltery.searedBasin.get();
       case "melter": return TinkerSmeltery.searedMelter.get();
+      // tank renames
+      case "seared_tank": return TinkerSmeltery.searedTank.get(TankType.FUEL_TANK);
+      case "seared_gauge": return TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE);
+      case "seared_window": return TinkerSmeltery.searedTank.get(TankType.INGOT_TANK);
+      case "scorched_tank": return TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK);
+      case "scorched_gauge": return TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE);
+      case "scorched_window": return TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK);
     }
     return null;
   }

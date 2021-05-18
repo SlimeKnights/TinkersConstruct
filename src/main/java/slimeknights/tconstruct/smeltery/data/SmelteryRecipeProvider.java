@@ -48,7 +48,6 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.tools.data.MaterialIds;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -198,30 +197,38 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.registerSlabStairWall(consumer, TinkerSmeltery.searedBricks, folder, true);
 
     // tanks
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.TANK))
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(TankType.FUEL_TANK))
                        .key('#', TinkerSmeltery.searedBrick)
                        .key('B', Tags.Items.GLASS)
                        .patternLine("###")
                        .patternLine("#B#")
                        .patternLine("###")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
-                       .build(consumer, location(folder + "tank"));
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.GAUGE))
+                       .build(consumer, location(folder + "fuel_tank"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE))
                        .key('#', TinkerSmeltery.searedBrick)
                        .key('B', Tags.Items.GLASS)
                        .patternLine("#B#")
                        .patternLine("BBB")
                        .patternLine("#B#")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
-                       .build(consumer, location(folder + "gauge"));
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.WINDOW))
+                       .build(consumer, location(folder + "fuel_gauge"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(TankType.INGOT_TANK))
                        .key('#', TinkerSmeltery.searedBrick)
                        .key('B', Tags.Items.GLASS)
                        .patternLine("#B#")
                        .patternLine("#B#")
                        .patternLine("#B#")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
-                       .build(consumer, location(folder + "window"));
+                       .build(consumer, location(folder + "ingot_tank"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE))
+                       .key('#', TinkerSmeltery.searedBrick)
+                       .key('B', Tags.Items.GLASS)
+                       .patternLine("B#B")
+                       .patternLine("#B#")
+                       .patternLine("B#B")
+                       .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+                       .build(consumer, location(folder + "ingot_gauge"));
 
     // fluid transfer
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedFaucet.get(), 2)
@@ -281,7 +288,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // controllers
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedMelter)
-                       .key('G', TinkerSmeltery.searedTank.get(TankType.GAUGE))
+                       .key('G', Ingredient.fromItems(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE)))
                        .key('B', TinkerSmeltery.searedBrick)
                        .patternLine("BGB")
                        .patternLine("BBB")
@@ -365,13 +372,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.searedBasin, TinkerSmeltery.searedTable), TinkerFluids.searedStone.get(), MaterialValues.INGOT * 7, 2.5f)
                         .build(consumer, location(meltingFolder + "casting"));
     // glass and tanks
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.searedTank.get(TankType.TANK)), TinkerFluids.searedStone.get(), MaterialValues.INGOT * 8, 3f)
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.searedTank.get(TankType.FUEL_TANK)), TinkerFluids.searedStone.get(), MaterialValues.INGOT * 8, 3f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK))
-                        .build(consumer, location(meltingFolder + "tank"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.searedTank.get(TankType.WINDOW)), TinkerFluids.searedStone.get(), MaterialValues.INGOT * 6, 2.5f)
+                        .build(consumer, location(meltingFolder + "fuel_tank"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.searedTank.get(TankType.INGOT_TANK)), TinkerFluids.searedStone.get(), MaterialValues.INGOT * 6, 2.5f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK * 3))
-                        .build(consumer, location(meltingFolder + "window"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.searedTank.get(TankType.GAUGE)), TinkerFluids.searedStone.get(), MaterialValues.INGOT * 4, 2f)
+                        .build(consumer, location(meltingFolder + "ingot_tank"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE)), TinkerFluids.searedStone.get(), MaterialValues.INGOT * 4, 2f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK * 5))
                         .build(consumer, location(meltingFolder + "gauge"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.searedGlass), TinkerFluids.searedStone.get(), MaterialValues.INGOT * 4, 2f)
@@ -487,30 +494,38 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, prefix(TinkerSmeltery.scorchedBricks.getFence(), folder));
 
     // tanks
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(SearedTankBlock.TankType.TANK))
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK))
                        .key('#', TinkerSmeltery.scorchedBrick)
                        .key('B', Tags.Items.GLASS)
                        .patternLine("###")
                        .patternLine("#B#")
                        .patternLine("###")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.scorchedBrick))
-                       .build(consumer, location(folder + "tank"));
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(SearedTankBlock.TankType.GAUGE))
+                       .build(consumer, location(folder + "fuel_tank"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE))
                        .key('#', TinkerSmeltery.scorchedBrick)
                        .key('B', Tags.Items.GLASS)
                        .patternLine("#B#")
                        .patternLine("BBB")
                        .patternLine("#B#")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.scorchedBrick))
-                       .build(consumer, location(folder + "gauge"));
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(SearedTankBlock.TankType.WINDOW))
+                       .build(consumer, location(folder + "fuel_gauge"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK))
                        .key('#', TinkerSmeltery.scorchedBrick)
                        .key('B', Tags.Items.GLASS)
                        .patternLine("#B#")
                        .patternLine("#B#")
                        .patternLine("#B#")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.scorchedBrick))
-                       .build(consumer, location(folder + "window"));
+                       .build(consumer, location(folder + "ingot_tank"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE))
+                       .key('#', TinkerSmeltery.scorchedBrick)
+                       .key('B', Tags.Items.GLASS)
+                       .patternLine("B#B")
+                       .patternLine("#B#")
+                       .patternLine("B#B")
+                       .addCriterion("has_item", hasItem(TinkerSmeltery.scorchedBrick))
+                       .build(consumer, location(folder + "ingot_gauge"));
 
     // fluid transfer
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedFaucet.get(), 2)
@@ -571,7 +586,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // controllers
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedAlloyer)
-                       .key('G', TinkerSmeltery.scorchedTank.get(TankType.GAUGE))
+                       .key('G', Ingredient.fromItems(TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE), TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE)))
                        .key('B', TinkerSmeltery.scorchedBrick)
                        .patternLine("BGB")
                        .patternLine("BBB")
@@ -630,13 +645,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 7, 2.5f)
                         .build(consumer, location(meltingFolder + "casting"));
     // glass and tanks
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedTank.get(TankType.TANK)), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 8, 3f)
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK)), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 8, 3f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK))
-                        .build(consumer, location(meltingFolder + "tank"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedTank.get(TankType.WINDOW)), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 6, 2.5f)
+                        .build(consumer, location(meltingFolder + "fuel_tank"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK)), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 6, 2.5f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK * 3))
-                        .build(consumer, location(meltingFolder + "window"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedTank.get(TankType.GAUGE)), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 4, 2f)
+                        .build(consumer, location(meltingFolder + "ingot_tank"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE)), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 4, 2f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK * 5))
                         .build(consumer, location(meltingFolder + "gauge"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedGlass), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 4, 2f)

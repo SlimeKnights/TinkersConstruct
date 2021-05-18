@@ -1,8 +1,13 @@
 {
   "type": "tconstruct:melting",
-  "ingredient": {
-    "item": "tconstruct:seared_gauge"
-  },
+  "ingredient": [
+    {
+      "item": "tconstruct:seared_fuel_gauge"
+    },
+    {
+      "item": "tconstruct:seared_ingot_gauge"
+    }
+  ],
   "result": {
     "fluid": "tconstruct:seared_stone",
     "amount": 576

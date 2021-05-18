@@ -1,7 +1,0 @@
-{
-  "parent": "tconstruct:block/template/tank_knob",
-  "textures": {
-    "top":  "tconstruct:block/foundry/tank/tank_top",
-    "side": "tconstruct:block/foundry/tank/tank_side"
-  }
-}
