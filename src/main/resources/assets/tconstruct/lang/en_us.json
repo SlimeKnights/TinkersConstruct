@@ -912,6 +912,7 @@
    
     "block.tconstruct.scorched_alloyer": "Scorched Alloyer",
     "block.tconstruct.scorched_alloyer.tooltip": "Simple alloying machine.\nPlace above a tank or heater to fuel.",
+    "gui.tconstruct.alloyer": "Alloyer",
    
     
     "gui.tconstruct.fluid.kilobucket": "%s kb",

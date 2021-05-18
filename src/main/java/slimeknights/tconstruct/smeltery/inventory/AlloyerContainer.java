@@ -2,9 +2,9 @@ package slimeknights.tconstruct.smeltery.inventory;
 
 import lombok.Getter;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -14,32 +14,33 @@ import slimeknights.mantle.inventory.ItemHandlerSlot;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.utils.ValidZeroIntReference;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.tileentity.AlloyerTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.module.alloying.MixerAlloyTank;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class MelterContainer extends BaseContainer<MelterTileEntity> {
-  @SuppressWarnings("MismatchedReadAndWriteOfArray")
-  @Getter
-  private final Slot[] inputs;
+public class AlloyerContainer extends BaseContainer<AlloyerTileEntity> {
   @Getter
   private boolean hasFuelSlot = false;
-  public MelterContainer(int id, @Nullable PlayerInventory inv, @Nullable MelterTileEntity melter) {
-    super(TinkerSmeltery.melterContainer.get(), id, inv, melter);
+  public AlloyerContainer(int id, @Nullable PlayerInventory inv, @Nullable AlloyerTileEntity alloyer) {
+    super(TinkerSmeltery.alloyerContainer.get(), id, inv, alloyer);
 
     // create slots
-    if (melter != null) {
-      MeltingModuleInventory inventory = melter.getMeltingInventory();
-      inputs = new Slot[inventory.getSlots()];
-      for (int i = 0; i < inputs.length; i++) {
-        inputs[i] = this.addSlot(new ItemHandlerSlot(inventory, i, 22, 16 + (i * 18)));
+    if (alloyer != null) {
+      // refresh cache of neighboring tanks
+      World world = alloyer.getWorld();
+      if (world != null && world.isRemote) {
+        MixerAlloyTank alloyTank = alloyer.getAlloyTank();
+        for (Direction direction : Direction.values()) {
+          if (direction != Direction.DOWN) {
+            alloyTank.refresh(direction, true);
+          }
+        }
       }
 
-      // add fuel slot if present, we only add for the melter though
-      World world = melter.getWorld();
-      BlockPos down = melter.getPos().down();
+      // add fuel slot if present
+      BlockPos down = alloyer.getPos().down();
       if (world != null && world.getBlockState(down).isIn(TinkerTags.Blocks.FUEL_TANKS)) {
         TileEntity te = world.getTileEntity(down);
         if (te != null) {
@@ -54,14 +55,11 @@ public class MelterContainer extends BaseContainer<MelterTileEntity> {
 
       // syncing
       Consumer<IntReferenceHolder> referenceConsumer = this::trackInt;
-      ValidZeroIntReference.trackIntArray(referenceConsumer, melter.getFuelModule());
-      inventory.trackInts(array -> ValidZeroIntReference.trackIntArray(referenceConsumer, array));
-    } else {
-      inputs = new Slot[0];
+      ValidZeroIntReference.trackIntArray(referenceConsumer, alloyer.getFuelModule());
     }
   }
 
-  public MelterContainer(int id, PlayerInventory inv, PacketBuffer buf) {
-    this(id, inv, getTileEntityFromBuf(buf, MelterTileEntity.class));
+  public AlloyerContainer(int id, PlayerInventory inv, PacketBuffer buf) {
+    this(id, inv, getTileEntityFromBuf(buf, AlloyerTileEntity.class));
   }
 }

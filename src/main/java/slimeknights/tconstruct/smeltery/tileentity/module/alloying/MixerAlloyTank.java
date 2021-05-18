@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.tileentity.module.alloying;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -14,6 +15,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -81,6 +83,16 @@ public class MixerAlloyTank implements IMutableAlloyTank {
     return indexedList;
   }
 
+  /** Gets the fluid handler for the given tank index */
+  public IFluidHandler getFluidHandler(int tank) {
+    checkTanks();
+    // invalid index, nothing
+    if (tank >= currentTanks || tank < 0) {
+      return EmptyFluidHandler.INSTANCE;
+    }
+    return indexTanks()[tank];
+  }
+
   @Override
   public FluidStack getFluidInTank(int tank) {
     checkTanks();
@@ -120,7 +132,7 @@ public class MixerAlloyTank implements IMutableAlloyTank {
   private void checkTanks() {
     // need world to do anything
     World world = parent.getWorld();
-    if (world == null || world.isRemote) {
+    if (world == null) {
       return;
     }
     if (needsRefresh) {
@@ -153,6 +165,15 @@ public class MixerAlloyTank implements IMutableAlloyTank {
         }
       }
       needsRefresh = false;
+
+      // close the UI for any players in this UI
+      if (!world.isRemote) {
+        for (PlayerEntity player : world.getPlayers()) {
+          if (player.openContainer instanceof BaseContainer && ((BaseContainer<?>)player.openContainer).getTile() == parent) {
+            player.closeScreen();
+          }
+        }
+      }
     }
   }
 

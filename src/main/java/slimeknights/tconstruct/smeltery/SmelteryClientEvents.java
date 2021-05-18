@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.client.model.block.MelterModel;
 import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.smeltery.client.SingleItemScreenFactory;
+import slimeknights.tconstruct.smeltery.client.inventory.AlloyerScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
 import slimeknights.tconstruct.smeltery.client.render.CastingTileEntityRenderer;
@@ -99,6 +100,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     ScreenManager.registerFactory(TinkerSmeltery.melterContainer.get(), MelterScreen::new);
     ScreenManager.registerFactory(TinkerSmeltery.smelteryContainer.get(), SmelteryScreen::new);
     ScreenManager.registerFactory(TinkerSmeltery.singleItemContainer.get(), new SingleItemScreenFactory());
+    ScreenManager.registerFactory(TinkerSmeltery.alloyerContainer.get(), AlloyerScreen::new);
 
     FluidTooltipHandler.init();
   }

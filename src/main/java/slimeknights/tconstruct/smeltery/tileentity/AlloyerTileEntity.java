@@ -3,6 +3,9 @@ package slimeknights.tconstruct.smeltery.tileentity;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -12,14 +15,16 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
+import slimeknights.tconstruct.smeltery.inventory.AlloyerContainer;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.alloying.MixerAlloyTank;
 import slimeknights.tconstruct.smeltery.tileentity.module.alloying.SingleAlloyingModule;
@@ -30,7 +35,7 @@ import java.util.Collections;
 /**
  * Dedicated alloying block
  */
-public class AlloyerTileEntity extends MantleTileEntity implements ITankTileEntity, ITickableTileEntity {
+public class AlloyerTileEntity extends NamableTileEntity implements ITankTileEntity, ITickableTileEntity {
   /** Max capacity for the tank */
   private static final int TANK_CAPACITY = MaterialValues.METAL_BLOCK * 3;
 
@@ -42,6 +47,7 @@ public class AlloyerTileEntity extends MantleTileEntity implements ITankTileEnti
 
   // modules
   /** Logic for a mixer alloying */
+  @Getter
   private final MixerAlloyTank alloyTank = new MixerAlloyTank(this, tank);
   /** Base alloy logic */
   private final SingleAlloyingModule alloyingModule = new SingleAlloyingModule(this, alloyTank);
@@ -61,7 +67,7 @@ public class AlloyerTileEntity extends MantleTileEntity implements ITankTileEnti
   }
 
   protected AlloyerTileEntity(TileEntityType<?> type) {
-    super(type);
+    super(type, Util.makeTranslation("gui", "alloyer"));
   }
 
   /*
@@ -143,6 +149,16 @@ public class AlloyerTileEntity extends MantleTileEntity implements ITankTileEnti
     alloyTank.refresh(side, true);
   }
 
+  /*
+   * Display
+   */
+
+  @Nullable
+  @Override
+  public Container createMenu(int id, PlayerInventory inv, PlayerEntity playerEntity) {
+    return new AlloyerContainer(id, inv, this);
+  }
+
 
   /*
    * NBT
@@ -154,7 +170,7 @@ public class AlloyerTileEntity extends MantleTileEntity implements ITankTileEnti
   }
 
   @Override
-  protected void writeSynced(CompoundNBT tag) {
+  public void writeSynced(CompoundNBT tag) {
     super.writeSynced(tag);
     tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundNBT()));
   }
