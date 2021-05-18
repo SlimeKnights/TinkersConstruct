@@ -4,7 +4,13 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.world.TinkerStructures;
 
 public class Config {
   /**
@@ -260,4 +266,23 @@ public class Config {
     COMMON = specPair.getLeft();
   }
 
+  /** Registers any relevant listeners for config */
+  public static void init() {
+    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
+    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(Config::configChanged);
+  }
+
+  /** Called when config reloaded to update cached settings */
+  private static void configChanged(ModConfig.Reloading event) {
+    ModConfig config = event.getConfig();
+    if (config.getModId().equals(TConstruct.modID)) {
+      ForgeConfigSpec spec = config.getSpec();
+      if (spec == Config.commonSpec) {
+        TinkerStructures.addStructureSeparation();
+      }
+    }
+  }
 }

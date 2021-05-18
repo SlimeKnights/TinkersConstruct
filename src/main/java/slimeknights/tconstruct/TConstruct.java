@@ -13,9 +13,7 @@ import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -73,8 +71,7 @@ public class TConstruct {
   public TConstruct() {
     instance = this;
 
-    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+    Config.init();
 
     // initialize modules, done this way rather than with annotations to give us control over the order
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
