@@ -20,3 +20,5 @@ assignees: ''
 **Confirm below that this issue is not covered on the roadmap or "Whats New?"**
 
 **Can it be reproduced with *just* Tinkers Construct? If not, list the other mods *required* to reproduce the issue.**
+
+Should be fewer than 10 mods, you should be running no mods besides those 10 when you reproduce the issue.
