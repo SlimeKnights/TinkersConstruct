@@ -1,12 +1,63 @@
 {
-  "type": "tconstruct:ore_melting",
-  "ingredient": {
-    "tag": "forge:ores/gold"
-  },
-  "result": {
-    "fluid": "tconstruct:molten_gold",
-    "amount": 144
-  },
-  "temperature": 700,
-  "time": 85
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/silver",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "ingredient": {
+          "tag": "forge:ores/gold"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_gold",
+          "amount": 144
+        },
+        "temperature": 700,
+        "time": 85,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_silver",
+            "amount": 48
+          }
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/copper",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "ingredient": {
+          "tag": "forge:ores/gold"
+        },
+        "result": {
+          "fluid": "tconstruct:molten_gold",
+          "amount": 144
+        },
+        "temperature": 700,
+        "time": 85,
+        "byproducts": [
+          {
+            "fluid": "tconstruct:molten_copper",
+            "amount": 48
+          }
+        ]
+      }
+    }
+  ]
 }

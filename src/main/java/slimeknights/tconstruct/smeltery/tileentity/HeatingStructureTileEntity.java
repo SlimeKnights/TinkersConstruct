@@ -30,7 +30,6 @@ import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
-import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.SmelteryControllerBlock;
@@ -58,13 +57,8 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   private static final String TAG_TANK = "tank";
   private static final String TAG_INVENTORY = "inventory";
 
-  /** Fluid capacity per internal block */
-  private static final int CAPACITY_PER_BLOCK = MaterialValues.INGOT * 8;
-  /** Number of wall blocks needed to increase the fuel cost by 1 */
-  private static final int BLOCKS_PER_FUEL = 10;
-
   /** Sub module to detect the multiblock for this structure */
-  private final HeatingStructureMultiblock<?> multiblock = getMultiblock();
+  private final HeatingStructureMultiblock<?> multiblock = createMultiblock();
 
 
   /* Saved data, written to NBT */
@@ -80,7 +74,8 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
 
   /** Inventory handling melting items */
   @Getter
-  protected final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, this::getNuggetsPerOre);
+  protected final MeltingModuleInventory meltingInventory = createMeltingInventory();
+
   private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> meltingInventory);
 
   /** Fuel module */
@@ -121,11 +116,11 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
 
   /* Abstract methods */
 
-  /** Gets the multiblock for this tile */
-  protected abstract HeatingStructureMultiblock<?> getMultiblock();
+  /** Creates the multiblock for this tile */
+  protected abstract HeatingStructureMultiblock<?> createMultiblock();
 
-  /** Gets the number of nuggets for a melted ore block */
-  protected abstract int getNuggetsPerOre();
+  /** Creates the melting inventory for this structure  */
+  protected abstract MeltingModuleInventory createMeltingInventory();
 
   /** Called while active to heat the contained items */
   protected abstract void heat();

@@ -17,5 +17,11 @@
     "amount": 144
   },
   "temperature": 975,
-  "time": 98
+  "time": 98,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_iron",
+      "amount": 48
+    }
+  ]
 }

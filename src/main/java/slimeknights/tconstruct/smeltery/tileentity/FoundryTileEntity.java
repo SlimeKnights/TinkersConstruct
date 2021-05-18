@@ -7,6 +7,8 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
+import slimeknights.tconstruct.smeltery.tileentity.module.ByproductMeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.FoundryMultiblock;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock.StructureData;
@@ -25,13 +27,14 @@ public class FoundryTileEntity extends HeatingStructureTileEntity {
   }
 
   @Override
-  protected HeatingStructureMultiblock<?> getMultiblock() {
+  protected HeatingStructureMultiblock<?> createMultiblock() {
     return new FoundryMultiblock(this);
   }
 
+
   @Override
-  protected int getNuggetsPerOre() {
-    return Config.COMMON.foundryNuggetsPerOre.get();
+  protected MeltingModuleInventory createMeltingInventory() {
+    return new ByproductMeltingModuleInventory(this, tank, Config.COMMON.foundryNuggetsPerOre::get);
   }
 
   @Override

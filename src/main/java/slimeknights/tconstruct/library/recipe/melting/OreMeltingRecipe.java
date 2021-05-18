@@ -12,9 +12,8 @@ import java.util.List;
  * Extension of melting recipe to boost results of ores
  */
 public class OreMeltingRecipe extends MeltingRecipe {
-  private List<List<FluidStack>> displayOutput;
-  public OreMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time) {
-    super(id, group, input, output, temperature, time);
+  public OreMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts) {
+    super(id, group, input, output, temperature, time, byproducts);
   }
 
   /**
