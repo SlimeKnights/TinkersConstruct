@@ -95,11 +95,11 @@ public class FoundryTileEntity extends HeatingStructureTileEntity {
     super.setStructure(structure);
     if (structure != null) {
       int dx = structure.getInnerX(), dy = structure.getInnerY(), dz = structure.getInnerZ();
-      // tank capacity includes walls
-      tank.setCapacity(CAPACITY_PER_BLOCK * (dx + 2) * dy * (dz + 2));
+      // tank capacity includes walls and floor
+      tank.setCapacity(CAPACITY_PER_BLOCK * (dx + 2) * (dy + 1) * (dz + 2));
       // item capacity uses just inner space
       meltingInventory.resize(dx * dy * dz, dropItem);
-      // fuel rate: every 14 blocks in the wall makes the fuel cost 1 more
+      // fuel rate: every 20 blocks in the wall makes the fuel cost 1 more
       // perimeter: to prevent double counting, frame just added on X and floor
       fuelRate = 1 + (2 * ((dx+2) * dy) + 2 * (dy * dz) + ((dx+2) * (dz+2))) / BLOCKS_PER_FUEL;
     }
