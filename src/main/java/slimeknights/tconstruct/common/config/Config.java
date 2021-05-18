@@ -22,6 +22,7 @@ public class Config {
 
     public final ConfigValue<Integer> melterNuggetsPerOre;
     public final ConfigValue<Integer> smelteryNuggetsPerOre;
+    public final ConfigValue<Integer> foundryNuggetsPerOre;
 
     public final BooleanValue generateCobalt;
     public final ConfigValue<Integer> veinCountCobalt;
@@ -111,6 +112,10 @@ public class Config {
         .comment("Number of nuggets produced when an ore block is melted in the smeltery. 9 nuggets would give 1 ingot")
         .translation("tconstruct.configgui.smelteryNuggetsPerOre")
         .defineInRange("smelteryNuggetsPerOre", 18, 1, 45);
+      this.foundryNuggetsPerOre = builder
+        .comment("Number of nuggets produced when an ore block is melted in the foundry. 9 nuggets would give 1 ingot")
+        .translation("tconstruct.configgui.foundryNuggetsPerOre")
+        .defineInRange("foundryNuggetsPerOre", 15, 1, 45);
 
       builder.pop();
 

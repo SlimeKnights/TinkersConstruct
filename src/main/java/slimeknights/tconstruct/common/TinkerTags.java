@@ -44,21 +44,34 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Block> SEARED_BRICKS = tag("seared_bricks");
+    public static final IOptionalNamedTag<Block> SEARED_TANKS = tag("seared_tanks");
 
     public static final IOptionalNamedTag<Block> SCORCHED_BLOCKS = tag("scorched_blocks");
+    public static final IOptionalNamedTag<Block> SCORCHED_TANKS = tag("scorched_tanks");
+
 
     /** Blocks valid as a fuel tank for the melter or alloyer, should be item handlers with 1 slot or fluid handlers with 1 fluid */
     public static final IOptionalNamedTag<Block> FUEL_TANKS = tag("fuel_tanks");
+    /** Tanks that serve as a valid input for the alloyer, should be fluid handlers with 1 fluid */
+    public static final IOptionalNamedTag<Block> ALLOYER_TANKS = tag("alloyer_tanks");
+
     /** Blocks that make up the smeltery structure */
     public static final IOptionalNamedTag<Block> SMELTERY = tag("smeltery");
     /** Blocks valid as a smeltery tank, required for fuel */
     public static final IOptionalNamedTag<Block> SMELTERY_TANKS = tag("smeltery/tanks");
     /** Blocks valid as a smeltery floor */
     public static final IOptionalNamedTag<Block> SMELTERY_FLOOR = tag("smeltery/floor");
-    /** Blocks valid in any area of the smeltery */
+    /** Blocks valid in the smeltery wall */
     public static final IOptionalNamedTag<Block> SMELTERY_WALL = tag("smeltery/wall");
-    /** Tanks that serve as a valid input for the alloyer, should be fluid handlers with 1 fluid */
-    public static final IOptionalNamedTag<Block> ALLOYER_TANKS = tag("alloyer_tanks");
+
+    /** Blocks that make up the foundry structure */
+    public static final IOptionalNamedTag<Block> FOUNDRY = tag("foundry");
+    /** Blocks valid as a foundry tank, required for fuel */
+    public static final IOptionalNamedTag<Block> FOUNDRY_TANKS = tag("foundry/tanks");
+    /** Blocks valid as a foundry floor */
+    public static final IOptionalNamedTag<Block> FOUNDRY_FLOOR = tag("foundry/floor");
+    /** Blocks valid in the foundry wall */
+    public static final IOptionalNamedTag<Block> FOUNDRY_WALL = tag("foundry/wall");
 
     /** Any block that can be harvested using a kama or scythe */
     public static final IOptionalNamedTag<Block> HARVESTABLE = tag("harvestable");

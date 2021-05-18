@@ -3,8 +3,7 @@
   "parent": "block/block",
   "textures": {
     "particle": "#side",
-    "front":    "tconstruct:block/smeltery/io/back",
-    "fluid":    "tconstruct:block/smeltery/black"
+    "fluid": "tconstruct:block/black"
   },
   "fluids": ["fluid"],
   "parent": "block/block",

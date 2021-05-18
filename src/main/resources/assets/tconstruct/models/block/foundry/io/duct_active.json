@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/template/active_io",
+  "textures": {
+    "side": "tconstruct:block/foundry/io/duct_front_active"
+  }
+}

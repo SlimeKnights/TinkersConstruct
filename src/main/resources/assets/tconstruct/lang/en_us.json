@@ -774,6 +774,8 @@
     "gui.tconstruct.melting.fuel.solid": "Solid fuel",
     "gui.tconstruct.melting.fuel.temperature": "Temperature: %s°C",
     "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
+    
+    "gui.tconstruct.duct": "Duct",
    
     
     "_comment": "Tinkers Smeltery",
@@ -855,7 +857,6 @@
     "block.tconstruct.seared_drain.tooltip": "Smeltery fluid input and output",
     "block.tconstruct.seared_duct": "Seared Duct",
     "block.tconstruct.seared_duct.tooltip": "Filtered smeltery fluid input and output using copper cans or buckets",
-    "gui.tconstruct.duct": "Duct",
     "block.tconstruct.seared_chute": "Seared Chute",
     "block.tconstruct.seared_chute.tooltip": "Smeltery item input and output",
     
@@ -913,6 +914,17 @@
     "block.tconstruct.scorched_alloyer": "Scorched Alloyer",
     "block.tconstruct.scorched_alloyer.tooltip": "Simple alloying machine.\nPlace above a tank or heater to fuel.",
     "gui.tconstruct.alloyer": "Alloyer",
+    
+    "block.tconstruct.foundry_controller": "Foundry Controller",
+    "block.tconstruct.foundry_controller.tooltip": "Brain of the Foundry.",
+    "gui.tconstruct.foundry": "Foundry",
+    
+    "block.tconstruct.scorched_drain": "Scorched Drain",
+    "block.tconstruct.scorched_drain.tooltip": "Foundry fluid input and output",
+    "block.tconstruct.scorched_duct": "Scorched Duct",
+    "block.tconstruct.scorched_duct.tooltip": "Filtered Foundry fluid input and output using copper cans or buckets",
+    "block.tconstruct.scorched_chute": "Scorched Chute",
+    "block.tconstruct.scorched_chute.tooltip": "Foundry item input and output",
    
     
     "gui.tconstruct.fluid.kilobucket": "%s kb",

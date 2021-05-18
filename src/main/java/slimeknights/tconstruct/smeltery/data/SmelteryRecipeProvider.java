@@ -260,7 +260,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("C C")
                        .patternLine("# #")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
-                       .build(consumer, location("smeltery/drain"));
+                       .build(consumer, location("smeltery/seared/drain"));
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedChute)
                        .key('#', TinkerSmeltery.searedBrick)
                        .key('C', TinkerMaterials.copper.getIngotTag())
@@ -268,7 +268,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("   ")
                        .patternLine("#C#")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
-                       .build(consumer, location("smeltery/chute"));
+                       .build(consumer, location("smeltery/seared/chute"));
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedDuct)
                        .key('#', TinkerSmeltery.searedBrick)
                        .key('C', TinkerMaterials.cobalt.getIngotTag())
@@ -276,7 +276,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("C C")
                        .patternLine("# #")
                        .addCriterion("has_item", hasItem(TinkerMaterials.cobalt.getIngotTag()))
-                       .build(consumer, location("smeltery/duct"));
+                       .build(consumer, location("smeltery/seared/duct"));
 
     // controllers
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedMelter)
@@ -529,6 +529,33 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerSmeltery.scorchedBrick))
                        .build(consumer, location("smeltery/casting/scorched_table"));
 
+
+    // peripherals
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedDrain)
+                       .key('#', TinkerSmeltery.scorchedBrick)
+                       .key('C', TinkerCommons.obsidianPane)
+                       .patternLine("# #")
+                       .patternLine("C C")
+                       .patternLine("# #")
+                       .addCriterion("has_item", hasItem(TinkerSmeltery.scorchedBrick))
+                       .build(consumer, location("smeltery/scorched/drain"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedChute)
+                       .key('#', TinkerSmeltery.scorchedBrick)
+                       .key('C', TinkerCommons.obsidianPane)
+                       .patternLine("#C#")
+                       .patternLine("   ")
+                       .patternLine("#C#")
+                       .addCriterion("has_item", hasItem(TinkerSmeltery.scorchedBrick))
+                       .build(consumer, location("smeltery/scorched/chute"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedDuct)
+                       .key('#', TinkerSmeltery.scorchedBrick)
+                       .key('C', TinkerMaterials.cobalt.getIngotTag())
+                       .patternLine("# #")
+                       .patternLine("C C")
+                       .patternLine("# #")
+                       .addCriterion("has_item", hasItem(TinkerMaterials.cobalt.getIngotTag()))
+                       .build(consumer, location("smeltery/scorched/duct"));
+
     // controllers
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedAlloyer)
                        .key('G', TinkerSmeltery.scorchedTank.get(TankType.GAUGE))
@@ -554,6 +581,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // craft scorched stone from magma and basalt
     addScorchedCastingRecipe(consumer, TinkerSmeltery.scorchedStone, Ingredient.fromItems(Blocks.BASALT ,Blocks.GRAVEL), castingFolder + "stone_from_magma");
     addScorchedCastingRecipe(consumer, TinkerSmeltery.polishedScorchedStone, Ingredient.fromItems(Blocks.POLISHED_BASALT), castingFolder + "polished_from_magma");
+    // foundry controller
+    ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.foundryController)
+                            .setCast(TinkerSmeltery.scorchedBricks, true) // TODO: can I find a "heater" for the nether?
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK))
+                            .build(consumer, prefix(TinkerSmeltery.foundryController, castingFolder));
 
 
     // melting

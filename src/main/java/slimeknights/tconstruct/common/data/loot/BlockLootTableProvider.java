@@ -217,6 +217,7 @@ public class BlockLootTableProvider extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerSmeltery.netherGrout.get());
     // controller
     this.registerDropSelfLootTable(TinkerSmeltery.scorchedAlloyer.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.foundryController.get());
 
     // smeltery component
     this.registerDropSelfLootTable(TinkerSmeltery.scorchedStone.get());
@@ -227,6 +228,9 @@ public class BlockLootTableProvider extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerSmeltery.scorchedLadder.get());
     this.registerDropSelfLootTable(TinkerSmeltery.scorchedGlass.get());
     this.registerDropSelfLootTable(TinkerSmeltery.scorchedGlassPane.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedDrain.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedChute.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.scorchedDuct.get());
 
     for (SearedTankBlock.TankType type : SearedTankBlock.TankType.values()) {
       this.registerLootTable(TinkerSmeltery.scorchedTank.get(type), (block) -> droppingWithFunctions(block, builder ->

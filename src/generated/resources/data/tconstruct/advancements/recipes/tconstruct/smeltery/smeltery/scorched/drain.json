@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:smeltery/duct"
+      "tconstruct:smeltery/scorched/drain"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:ingots/cobalt"
+            "item": "tconstruct:scorched_brick"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:smeltery/duct"
+        "recipe": "tconstruct:smeltery/scorched/drain"
       }
     }
   },

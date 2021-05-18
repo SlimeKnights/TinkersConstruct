@@ -2,17 +2,18 @@ package slimeknights.tconstruct.smeltery.tileentity.multiblock;
 
 import com.google.common.collect.ImmutableList;
 import lombok.Getter;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery.StructureData;
+import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock.StructureData;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -20,18 +21,26 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
+/**
+ *
+ */
+public abstract class HeatingStructureMultiblock<T extends MantleTileEntity & IMasterLogic> extends MultiblockCuboid<StructureData> {
   private static final String TAG_TANKS = "tanks";
   private static final String TAG_INSIDE_CHECK = "insideCheck";
 
-  /** Parent smeltery instance */
-  private final SmelteryTileEntity smeltery;
-  /** Boolean to check if a tank is found between valid block checks */
-  private final List<BlockPos> tanks = new ArrayList<>();
+  /** Parent structure instance */
+  protected final T parent;
+  /** List to check if a tank is found between valid block checks */
+  protected final List<BlockPos> tanks = new ArrayList<>();
 
-  public MultiblockSmeltery(SmelteryTileEntity smeltery) {
-    super(true, false, false);
-    this.smeltery = smeltery;
+  public HeatingStructureMultiblock(T parent, boolean hasFloor, boolean hasFrame, boolean hasCeiling, int maxHeight, int innerLimit) {
+    super(hasFloor, hasFrame, hasCeiling, maxHeight, innerLimit);
+    this.parent = parent;
+  }
+
+  public HeatingStructureMultiblock(T parent, boolean hasFloor, boolean hasFrame, boolean hasCeiling) {
+    super(hasFloor, hasFrame, hasCeiling);
+    this.parent = parent;
   }
 
   @Override
@@ -73,9 +82,6 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
     return super.readFromNBT(nbt);
   }
 
-
-  /* Block checks */
-
   /**
    * Checks if the given block position is a valid slave
    * @param world  World instance
@@ -87,51 +93,10 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
 
     // slave-blocks are only allowed if they already belong to this smeltery
     if (te instanceof IServantLogic) {
-      return ((IServantLogic)te).isValidMaster(smeltery);
+      return ((IServantLogic)te).isValidMaster(parent);
     }
 
     return true;
-  }
-
-  @Override
-  protected boolean isValidBlock(World world, BlockPos pos, CuboidSide side, boolean isFrame) {
-    // controller always is valid
-    if (pos.equals(smeltery.getPos())) {
-      return true;
-    }
-    if (!isValidSlave(world, pos)) {
-      return false;
-    }
-
-    // floor has a smaller list
-    BlockState state = world.getBlockState(pos);
-    if (side == CuboidSide.FLOOR) {
-      return TinkerTags.Blocks.SMELTERY_FLOOR.contains(state.getBlock());
-    }
-
-    // add tanks to the internal lists
-    if (TinkerTags.Blocks.SMELTERY_TANKS.contains(state.getBlock())) {
-      tanks.add(pos.toImmutable());
-      return true;
-    }
-    return TinkerTags.Blocks.SMELTERY_WALL.contains(state.getBlock());
-  }
-
-  @Override
-  public boolean shouldUpdate(World world, MultiblockStructureData structure, BlockPos pos, BlockState state) {
-    if (structure.withinBounds(pos)) {
-      // if its a part of the structure, need to update if its not a valid smeltery block
-      if (structure.contains(pos)) {
-        return !TinkerTags.Blocks.SMELTERY.contains(state.getBlock());
-      }
-      // if not part of the actual structure, we only care if its a block that's not air in the inner section
-      // in other words, ignore blocks added into the frame
-      // note we don't do a check for a valid inner block, if it is a valid inner block we need to update to include it
-      return structure.isInside(pos) && !state.isAir(world, pos);
-    }
-
-    // if its one block above, might be trying to expand upwards
-    return structure.isDirectlyAbove(pos) && TinkerTags.Blocks.SMELTERY_WALL.contains(state.getBlock());
   }
 
   /**
@@ -143,6 +108,62 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
     BlockPos to = data.getMaxPos().up();
     // want two positions one layer above the structure
     return detectLayer(world, new BlockPos(min.getX(), to.getY(), min.getZ()), to, pos -> {});
+  }
+
+
+  /* Block checks */
+
+  /** Return true for blocks valid at any location in the structure */
+  protected abstract boolean isValidBlock(Block block);
+
+  /** Return true for blocks valid in the structure floor */
+  protected abstract boolean isValidFloor(Block block);
+
+  /** Return true for blocks that serve as tanks */
+  protected abstract boolean isValidTank(Block block);
+
+  /** Return true for blocks valid in the structure walls */
+  protected abstract boolean isValidWall(Block block);
+
+  @Override
+  protected boolean isValidBlock(World world, BlockPos pos, CuboidSide side, boolean isFrame) {
+    // controller always is valid
+    if (pos.equals(parent.getPos())) {
+      return true;
+    }
+    if (!isValidSlave(world, pos)) {
+      return false;
+    }
+
+    // floor has a smaller list
+    BlockState state = world.getBlockState(pos);
+    if (side == CuboidSide.FLOOR) {
+      return isValidFloor(state.getBlock());
+    }
+
+    // add tanks to the internal lists
+    if (isValidTank(state.getBlock())) {
+      tanks.add(pos.toImmutable());
+      return true;
+    }
+    return isValidWall(state.getBlock());
+  }
+
+  @Override
+  public boolean shouldUpdate(World world, MultiblockStructureData structure, BlockPos pos, BlockState state) {
+    if (structure.withinBounds(pos)) {
+      // if its a part of the structure, need to update if its not a valid smeltery block
+      if (structure.contains(pos)) {
+        return !isValidBlock(state.getBlock());
+      }
+      // if not part of the actual structure, we only care if its a block that's not air in the inner section
+      // in other words, ignore blocks added into the frame
+      // note we don't do a check for a valid inner block, if it is a valid inner block we need to update to include it
+      return structure.isInside(pos) && !state.isAir(world, pos);
+    }
+
+    // if its one block above, might be trying to expand upwards
+    return structure.isDirectlyAbove(pos) && isValidWall(state.getBlock());
   }
 
   /** Extension of structure data to contain tanks list and the inside check */
@@ -171,40 +192,40 @@ public class MultiblockSmeltery extends MultiblockCuboid<StructureData> {
      * @param prev  Previous inside position
      * @return  Next inside position based on the previous one
      */
-		private BlockPos getNextInsideCheck(@Nullable BlockPos prev) {
+    private BlockPos getNextInsideCheck(@Nullable BlockPos prev) {
       BlockPos min = getMinInside();
-		  if (prev == null) {
-		    return min;
+      if (prev == null) {
+        return min;
       }
-		  // smaller than min means the structure size changed
-		  if (prev.getX() < min.getX() || prev.getY() < min.getY() || prev.getZ() < min.getZ()) {
-		    return min;
+      // smaller than min means the structure size changed
+      if (prev.getX() < min.getX() || prev.getY() < min.getY() || prev.getZ() < min.getZ()) {
+        return min;
       }
 
-		  BlockPos max = getMaxInside();
+      BlockPos max = getMaxInside();
       // end of row
-		  if (prev.getZ() >= max.getZ()) {
-		    // end of layer
-		    if (prev.getX() >= max.getX()) {
-		      // top of structure
-		      if (prev.getY() >= max.getY()) {
-		        return min;
+      if (prev.getZ() >= max.getZ()) {
+        // end of layer
+        if (prev.getX() >= max.getX()) {
+          // top of structure
+          if (prev.getY() >= max.getY()) {
+            return min;
           } else {
-		        return new BlockPos(min.getX(), prev.getY() + 1, min.getZ());
+            return new BlockPos(min.getX(), prev.getY() + 1, min.getZ());
           }
         } else {
           return new BlockPos(prev.getX() + 1, prev.getY(), min.getZ());
         }
       } else {
-		    return prev.add(0, 0, 1);
+        return prev.add(0, 0, 1);
       }
-		}
+    }
 
     /**
      * Gets the next inside position to check in the structure
      * @return  Next inside position based on the previous one
      */
-		public BlockPos getNextInsideCheck() {
+    public BlockPos getNextInsideCheck() {
       insideCheck = getNextInsideCheck(insideCheck);
       return insideCheck;
     }

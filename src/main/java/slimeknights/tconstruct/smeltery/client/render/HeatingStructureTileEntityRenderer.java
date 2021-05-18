@@ -16,18 +16,18 @@ import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
-import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockSmeltery.StructureData;
+import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock.StructureData;
 
-public class SmelteryTileEntityRenderer extends TileEntityRenderer<SmelteryTileEntity> {
+public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<HeatingStructureTileEntity> {
  private static final float ITEM_SCALE = 15f/16f;
-  public SmelteryTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
+  public HeatingStructureTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
     super(rendererDispatcherIn);
   }
 
   @Override
-  public void render(SmelteryTileEntity smeltery, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
+  public void render(HeatingStructureTileEntity smeltery, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
     World world = smeltery.getWorld();
     if (world == null) return;
     BlockState state = smeltery.getBlockState();
@@ -79,7 +79,7 @@ public class SmelteryTileEntityRenderer extends TileEntityRenderer<SmelteryTileE
   }
 
   @Override
-  public boolean isGlobalRenderer(SmelteryTileEntity tile) {
+  public boolean isGlobalRenderer(HeatingStructureTileEntity tile) {
     return tile.getBlockState().get(ControllerBlock.IN_STRUCTURE) && tile.getStructure() != null;
   }
 }

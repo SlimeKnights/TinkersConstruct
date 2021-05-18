@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:scorched_tank",
+    "tconstruct:scorched_gauge",
+    "tconstruct:scorched_window"
+  ]
+}

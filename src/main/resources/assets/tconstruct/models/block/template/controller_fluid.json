@@ -3,9 +3,7 @@
   "parent": "block/block",
   "textures": {
     "particle": "#front",
-    "top":      "tconstruct:block/smeltery/seared/bricks",
-    "side":     "tconstruct:block/smeltery/seared/bricks",
-    "fluid":    "tconstruct:block/smeltery/black"
+    "fluid": "tconstruct:block/black"
   },
   "fluids": ["fluid"],
   "elements": [

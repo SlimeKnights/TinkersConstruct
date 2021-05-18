@@ -13,38 +13,38 @@ import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiMeltingModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiSmelteryTank;
-import slimeknights.tconstruct.smeltery.client.inventory.module.SmelterySideInventoryScreen;
-import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.client.inventory.module.HeatingStructureSideInventoryScreen;
+import slimeknights.tconstruct.smeltery.inventory.HeatingStructureContainer;
+import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 
 import javax.annotation.Nullable;
 
-public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> implements IScreenWithFluidTank {
+public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureContainer> implements IScreenWithFluidTank {
   public static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/smeltery.png");
   private static final ElementScreen SCALA = new ElementScreen(176, 76, 52, 52, 256, 256);
 
-  private final SmelterySideInventoryScreen sideInventory;
-  private final SmelteryTileEntity smeltery;
+  private final HeatingStructureSideInventoryScreen sideInventory;
+  private final HeatingStructureTileEntity te;
   private final GuiSmelteryTank tank;
   public final GuiMeltingModule melting;
   private final GuiFuelModule fuel;
 
-  public SmelteryScreen(SmelteryContainer container, PlayerInventory playerInventory, ITextComponent title) {
+  public HeatingStructureScreen(HeatingStructureContainer container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
 
-    SmelteryTileEntity te = container.getTile();
+    HeatingStructureTileEntity te = container.getTile();
     if (te != null) {
-      this.smeltery = te;
+      this.te = te;
       this.tank = new GuiSmelteryTank(this, te.getTank(), 8, 16, SCALA.w, SCALA.h);
       int slots = te.getMeltingInventory().getSlots();
-      this.sideInventory = new SmelterySideInventoryScreen(this, container.getSideInventory(), playerInventory, slots, SmelteryContainer.calcColumns(slots));
+      this.sideInventory = new HeatingStructureSideInventoryScreen(this, container.getSideInventory(), playerInventory, slots, HeatingStructureContainer.calcColumns(slots));
       addModule(sideInventory);
       FuelModule fuelModule = te.getFuelModule();
       this.melting = new GuiMeltingModule(this, te.getMeltingInventory(), fuelModule::getTemperature, sideInventory::shouldDrawSlot);
       this.fuel = new GuiFuelModule(this, fuelModule, 71, 32, 12, 36, 70, 15, false);
     } else {
-      this.smeltery = null;
+      this.te = null;
       this.tank = null;
       this.melting = null;
       this.fuel = null;
@@ -56,8 +56,8 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> impleme
   public void tick() {
     super.tick();
     // if the smeltery becomes invalid or the slot size changes, kill the UI
-    if (smeltery == null || !smeltery.getBlockState().get(ControllerBlock.IN_STRUCTURE)
-        || smeltery.getMeltingInventory().getSlots() != sideInventory.getSlotCount()) {
+    if (te == null || !te.getBlockState().get(ControllerBlock.IN_STRUCTURE)
+        || te.getMeltingInventory().getSlots() != sideInventory.getSlotCount()) {
       this.closeScreen();
     }
   }
@@ -104,8 +104,8 @@ public class SmelteryScreen extends MultiModuleScreen<SmelteryContainer> impleme
     if (tank != null) tank.drawTooltip(matrices, mouseX, mouseY);
     if (fuel != null) {
       boolean hasTank = false;
-      if (smeltery.getStructure() != null) {
-        hasTank = smeltery.getStructure().hasTanks();
+      if (te.getStructure() != null) {
+        hasTank = te.getStructure().hasTanks();
       }
       fuel.addTooltip(matrices, mouseX, mouseY, hasTank);
     }

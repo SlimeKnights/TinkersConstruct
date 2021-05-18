@@ -5,16 +5,16 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
-import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen;
+import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
 import slimeknights.tconstruct.tables.client.inventory.module.SideInventoryScreen;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 
-public class SmelterySideInventoryScreen extends SideInventoryScreen<SmelteryScreen,SideInventoryContainer<SmelteryTileEntity>> {
-  public static final ResourceLocation SLOT_LOCATION = SmelteryScreen.BACKGROUND;
+public class HeatingStructureSideInventoryScreen extends SideInventoryScreen<HeatingStructureScreen,SideInventoryContainer<? extends HeatingStructureTileEntity>> {
+  public static final ResourceLocation SLOT_LOCATION = HeatingStructureScreen.BACKGROUND;
 
   // TODO: read from a proper place
-  public SmelterySideInventoryScreen(SmelteryScreen parent, SideInventoryContainer<SmelteryTileEntity> container, PlayerInventory playerInventory, int slotCount, int columns) {
+  public HeatingStructureSideInventoryScreen(HeatingStructureScreen parent, SideInventoryContainer<? extends HeatingStructureTileEntity> container, PlayerInventory playerInventory, int slotCount, int columns) {
     super(parent, container, playerInventory, StringTextComponent.EMPTY, slotCount, columns, false, true);
     slot = new ScalableElementScreen(0, 166, 22, 18, 256, 256);
     slotEmpty = new ScalableElementScreen(22, 166, 22, 18, 256, 256);

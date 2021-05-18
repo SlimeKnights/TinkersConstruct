@@ -7,27 +7,27 @@ import net.minecraft.util.IntReferenceHolder;
 import slimeknights.mantle.inventory.MultiModuleContainer;
 import slimeknights.tconstruct.library.utils.ValidZeroIntReference;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class SmelteryContainer extends MultiModuleContainer<SmelteryTileEntity> {
+public class HeatingStructureContainer extends MultiModuleContainer<HeatingStructureTileEntity> {
   @Getter
-  private final SideInventoryContainer<SmelteryTileEntity> sideInventory;
-  public SmelteryContainer(int id, @Nullable PlayerInventory inv, @Nullable SmelteryTileEntity smeltery) {
-    super(TinkerSmeltery.smelteryContainer.get(), id, inv, smeltery);
-    if (inv != null && smeltery != null) {
+  private final SideInventoryContainer<HeatingStructureTileEntity> sideInventory;
+  public HeatingStructureContainer(int id, @Nullable PlayerInventory inv, @Nullable HeatingStructureTileEntity structure) {
+    super(TinkerSmeltery.smelteryContainer.get(), id, inv, structure);
+    if (inv != null && structure != null) {
       // can hold 7 in a column, so try to fill the first column first
       // cap to 4 columns
-      MeltingModuleInventory inventory = smeltery.getMeltingInventory();
-      sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer.get(), id, inv, smeltery, 0, 0, calcColumns(inventory.getSlots()));
+      MeltingModuleInventory inventory = structure.getMeltingInventory();
+      sideInventory = new SideInventoryContainer<>(TinkerSmeltery.smelteryContainer.get(), id, inv, structure, 0, 0, calcColumns(inventory.getSlots()));
       addSubContainer(sideInventory, true);
 
       Consumer<IntReferenceHolder> referenceConsumer = this::trackInt;
-      ValidZeroIntReference.trackIntArray(referenceConsumer, smeltery.getFuelModule());
+      ValidZeroIntReference.trackIntArray(referenceConsumer, structure.getFuelModule());
       inventory.trackInts(array -> ValidZeroIntReference.trackIntArray(referenceConsumer, array));
     } else {
       sideInventory = null;
@@ -35,8 +35,8 @@ public class SmelteryContainer extends MultiModuleContainer<SmelteryTileEntity> 
     addInventorySlots();
   }
 
-  public SmelteryContainer(int id, PlayerInventory inv, PacketBuffer buf) {
-    this(id, inv, getTileEntityFromBuf(buf, SmelteryTileEntity.class));
+  public HeatingStructureContainer(int id, PlayerInventory inv, PacketBuffer buf) {
+    this(id, inv, getTileEntityFromBuf(buf, HeatingStructureTileEntity.class));
   }
 
   /**

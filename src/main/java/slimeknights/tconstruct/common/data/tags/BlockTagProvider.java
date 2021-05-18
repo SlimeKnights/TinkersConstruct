@@ -189,21 +189,26 @@ public class BlockTagProvider extends BlockTagsProvider {
       TinkerSmeltery.chiseledScorchedBricks.get());
     this.getOrCreateBuilder(BlockTags.FENCES).add(TinkerSmeltery.scorchedBricks.getFence());
 
+    // tanks
+    Builder<Block> searedTankBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SEARED_TANKS);
+    TinkerSmeltery.searedTank.forEach(searedTankBuilder::addItemEntry);
+    Builder<Block> scorchedTankBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SCORCHED_TANKS);
+    TinkerSmeltery.scorchedTank.forEach(scorchedTankBuilder::addItemEntry);
+
     // structure tags
     // melter supports the heater as a tank
-    Builder<Block> fuelBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.FUEL_TANKS).add(TinkerSmeltery.searedHeater.get());
-    Builder<Block> smelteryBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_TANKS);
-    Builder<Block> alloyerBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.ALLOYER_TANKS).add(TinkerSmeltery.scorchedAlloyer.get(), TinkerSmeltery.searedMelter.get());
-    TinkerSmeltery.searedTank.forEach(tank -> {
-      fuelBuilder.add(tank);
-      smelteryBuilder.add(tank);
-      alloyerBuilder.add(tank);
-    });
-    TinkerSmeltery.scorchedTank.forEach(tank -> {
-      fuelBuilder.add(tank);
-      alloyerBuilder.add(tank);
-    });
+    this.getOrCreateBuilder(TinkerTags.Blocks.FUEL_TANKS)
+        .add(TinkerSmeltery.searedHeater.get())
+        .addTag(TinkerTags.Blocks.SEARED_TANKS)
+        .addTag(TinkerTags.Blocks.SCORCHED_TANKS);
+    this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_TANKS).addTag(TinkerTags.Blocks.SEARED_TANKS);
+    this.getOrCreateBuilder(TinkerTags.Blocks.FOUNDRY_TANKS).addTag(TinkerTags.Blocks.SCORCHED_TANKS);
+    this.getOrCreateBuilder(TinkerTags.Blocks.ALLOYER_TANKS)
+        .add(TinkerSmeltery.scorchedAlloyer.get(), TinkerSmeltery.searedMelter.get())
+        .addTag(TinkerTags.Blocks.SEARED_TANKS)
+        .addTag(TinkerTags.Blocks.SCORCHED_TANKS);
 
+    // smeltery blocks
     // floor allows any basic seared blocks and all IO blocks
     this.getOrCreateBuilder(TinkerTags.Blocks.SMELTERY_FLOOR)
         .addTag(TinkerTags.Blocks.SEARED_BLOCKS)
@@ -219,6 +224,23 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.SMELTERY_WALL)
         .addTag(TinkerTags.Blocks.SMELTERY_FLOOR)
         .addTag(TinkerTags.Blocks.SMELTERY_TANKS);
+
+    // foundry blocks
+    // floor allows any basic seared blocks and all IO blocks
+    this.getOrCreateBuilder(TinkerTags.Blocks.FOUNDRY_FLOOR)
+        .addTag(TinkerTags.Blocks.SCORCHED_BLOCKS)
+        .add(TinkerSmeltery.scorchedDrain.get(), TinkerSmeltery.scorchedChute.get(), TinkerSmeltery.scorchedDuct.get());
+    // wall allows seared blocks, tanks, glass, and IO
+    this.getOrCreateBuilder(TinkerTags.Blocks.FOUNDRY_WALL)
+        .addTag(TinkerTags.Blocks.SCORCHED_BLOCKS)
+        .addTag(TinkerTags.Blocks.FOUNDRY_TANKS)
+        .add(TinkerSmeltery.scorchedGlass.get(), TinkerSmeltery.scorchedLadder.get(),
+             TinkerSmeltery.scorchedDrain.get(), TinkerSmeltery.scorchedChute.get(), TinkerSmeltery.scorchedDuct.get());
+    // foundry allows any of the three
+    this.getOrCreateBuilder(TinkerTags.Blocks.FOUNDRY)
+        .addTag(TinkerTags.Blocks.FOUNDRY_WALL)
+        .addTag(TinkerTags.Blocks.FOUNDRY_FLOOR)
+        .addTag(TinkerTags.Blocks.FOUNDRY_TANKS);
 
     // climb seared ladder
     this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get(), TinkerSmeltery.scorchedLadder.get());

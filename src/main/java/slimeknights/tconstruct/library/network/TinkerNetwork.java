@@ -13,8 +13,8 @@ import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClickedPacket;
-import slimeknights.tconstruct.smeltery.network.SmelteryStructureUpdatedPacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryTankUpdatePacket;
+import slimeknights.tconstruct.smeltery.network.StructureUpdatePacket;
 import slimeknights.tconstruct.tables.network.StationTabPacket;
 import slimeknights.tconstruct.tables.network.TinkerStationSelectionPacket;
 import slimeknights.tconstruct.tables.network.UpdateCraftingRecipePacket;
@@ -62,7 +62,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(FaucetActivationPacket.class, FaucetActivationPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(ChannelFlowPacket.class, ChannelFlowPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(SmelteryTankUpdatePacket.class, SmelteryTankUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(SmelteryStructureUpdatedPacket.class, SmelteryStructureUpdatedPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(StructureUpdatePacket.class, StructureUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(SmelteryFluidClickedPacket.class, SmelteryFluidClickedPacket::new, NetworkDirection.PLAY_TO_SERVER);
   }
 

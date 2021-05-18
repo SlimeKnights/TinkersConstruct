@@ -7,22 +7,22 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Packet sent when the smeltery structure changes
+ * Packet sent when the smeltery or foundry structure changes
  */
 @AllArgsConstructor
-public class SmelteryStructureUpdatedPacket implements IThreadsafePacket {
+public class StructureUpdatePacket implements IThreadsafePacket {
   private final BlockPos pos;
   private final BlockPos minPos;
   private final BlockPos maxPos;
   private final List<BlockPos> tanks;
 
-  public SmelteryStructureUpdatedPacket(PacketBuffer buffer) {
+  public StructureUpdatePacket(PacketBuffer buffer) {
     pos = buffer.readBlockPos();
     minPos = buffer.readBlockPos();
     maxPos = buffer.readBlockPos();
@@ -50,8 +50,8 @@ public class SmelteryStructureUpdatedPacket implements IThreadsafePacket {
   }
 
   private static class HandleClient {
-    private static void handle(SmelteryStructureUpdatedPacket packet) {
-      TileEntityHelper.getTile(SmelteryTileEntity.class, Minecraft.getInstance().world, packet.pos)
+    private static void handle(StructureUpdatePacket packet) {
+      TileEntityHelper.getTile(HeatingStructureTileEntity.class, Minecraft.getInstance().world, packet.pos)
                       .ifPresent(te -> te.setStructureSize(packet.minPos, packet.maxPos, packet.tanks));
     }
   }

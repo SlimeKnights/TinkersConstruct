@@ -48,6 +48,7 @@ import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
+import slimeknights.tconstruct.smeltery.block.FoundryControllerBlock;
 import slimeknights.tconstruct.smeltery.block.HeaterBlock;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.SmelteryControllerBlock;
@@ -62,9 +63,9 @@ import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
 import slimeknights.tconstruct.smeltery.inventory.AlloyerContainer;
+import slimeknights.tconstruct.smeltery.inventory.HeatingStructureContainer;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
-import slimeknights.tconstruct.smeltery.inventory.SmelteryContainer;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.AlloyerTileEntity;
@@ -73,6 +74,7 @@ import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.DrainTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.DuctTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.FoundryTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.HeaterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
@@ -125,6 +127,10 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Block> searedLadder = BLOCKS.register("seared_ladder", () -> new SearedLadderBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<ClearGlassPaneBlock> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
+  // peripherals
+  public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(SEARED), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> searedDuct = BLOCKS.register("seared_duct", () -> new SearedDuctBlock(SEARED), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new OrientableSmelteryBlock(SEARED, ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
 
   // scorched blocks
   private static final Block.Properties SCORCHED = builder(Material.ROCK, ToolType.PICKAXE, SoundType.BASALT)
@@ -142,11 +148,10 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Block> scorchedLadder = BLOCKS.register("scorched_ladder", () -> new SearedLadderBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<SearedGlassBlock> scorchedGlass = BLOCKS.register("scorched_glass", () -> new SearedGlassBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<ClearGlassPaneBlock> scorchedGlassPane = BLOCKS.register("scorched_glass_pane", () -> new ClearGlassPaneBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
-
   // peripherals
-  public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(SEARED), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> searedDuct = BLOCKS.register("seared_duct", () -> new SearedDuctBlock(SEARED), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new OrientableSmelteryBlock(SEARED, ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> scorchedDrain = BLOCKS.register("scorched_drain", () -> new SearedDrainBlock(SCORCHED), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> scorchedDuct = BLOCKS.register("scorched_duct", () -> new SearedDuctBlock(SCORCHED), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> scorchedChute = BLOCKS.register("scorched_chute", () -> new OrientableSmelteryBlock(SCORCHED, ChuteTileEntity::new), TOOLTIP_BLOCK_ITEM);
 
   /** Properties for a faucet block */
   // seared
@@ -166,6 +171,7 @@ public final class TinkerSmeltery extends TinkerModule {
   private static final Supplier<Block.Properties> SEARED_CONTROLLER = () -> builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(3.0F, 9.0F).setLightLevel(s -> s.get(ControllerBlock.ACTIVE) ? 13 : 0);
   private static final Supplier<Block.Properties> SCORCHED_CONTROLLER = () -> builder(Material.ROCK, ToolType.PICKAXE, SoundType.BASALT).setRequiresTool().hardnessAndResistance(2.5F, 8.0F).setLightLevel(s -> s.get(ControllerBlock.ACTIVE) ? 13 : 0);
   public static final ItemObject<SmelteryControllerBlock> smelteryController = BLOCKS.register("smeltery_controller", () -> new SmelteryControllerBlock(SEARED_CONTROLLER.get()), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<FoundryControllerBlock> foundryController = BLOCKS.register("foundry_controller", () -> new FoundryControllerBlock(SCORCHED_CONTROLLER.get()), TOOLTIP_BLOCK_ITEM);
   // tiny
   public static final ItemObject<MelterBlock> searedMelter = BLOCKS.register("seared_melter", () -> new MelterBlock(SEARED_CONTROLLER.get().notSolid()), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<HeaterBlock> searedHeater = BLOCKS.register("seared_heater", () -> new HeaterBlock(SEARED_CONTROLLER.get()), TOOLTIP_BLOCK_ITEM);
@@ -187,9 +193,9 @@ public final class TinkerSmeltery extends TinkerModule {
     set.addAll(scorchedBricks.values());
     set.addAll(scorchedRoad.values());
   });
-  public static final RegistryObject<TileEntityType<SmelteryFluidIO>> drain = TILE_ENTITIES.register("drain", DrainTileEntity::new, searedDrain);
-  public static final RegistryObject<TileEntityType<ChuteTileEntity>> chute = TILE_ENTITIES.register("chute", ChuteTileEntity::new, searedChute);
-  public static final RegistryObject<TileEntityType<DuctTileEntity>> duct = TILE_ENTITIES.register("duct", DuctTileEntity::new, searedDuct);
+  public static final RegistryObject<TileEntityType<SmelteryFluidIO>> drain = TILE_ENTITIES.register("drain", DrainTileEntity::new, set -> set.add(searedDrain.get(), scorchedDrain.get()));
+  public static final RegistryObject<TileEntityType<ChuteTileEntity>> chute = TILE_ENTITIES.register("chute", ChuteTileEntity::new, set -> set.add(searedChute.get(), scorchedChute.get()));
+  public static final RegistryObject<TileEntityType<DuctTileEntity>> duct = TILE_ENTITIES.register("duct", DuctTileEntity::new, set -> set.add(searedDuct.get(), scorchedDuct.get()));
   public static final RegistryObject<TileEntityType<TankTileEntity>> tank = TILE_ENTITIES.register("tank", TankTileEntity::new, set -> {
     set.addAll(searedTank.values());
     set.addAll(scorchedTank.values());
@@ -197,6 +203,7 @@ public final class TinkerSmeltery extends TinkerModule {
   // controller
   public static final RegistryObject<TileEntityType<MelterTileEntity>> melter = TILE_ENTITIES.register("melter", MelterTileEntity::new, searedMelter);
   public static final RegistryObject<TileEntityType<SmelteryTileEntity>> smeltery = TILE_ENTITIES.register("smeltery", SmelteryTileEntity::new, smelteryController);
+  public static final RegistryObject<TileEntityType<FoundryTileEntity>> foundry = TILE_ENTITIES.register("foundry", FoundryTileEntity::new, foundryController);
   public static final RegistryObject<TileEntityType<HeaterTileEntity>> heater = TILE_ENTITIES.register("heater", HeaterTileEntity::new, searedHeater);
   public static final RegistryObject<TileEntityType<AlloyerTileEntity>> alloyer = TILE_ENTITIES.register("alloyer", AlloyerTileEntity::new, scorchedAlloyer);
   // fluid transfer
@@ -273,7 +280,7 @@ public final class TinkerSmeltery extends TinkerModule {
    * Inventory
    */
   public static final RegistryObject<ContainerType<MelterContainer>> melterContainer = CONTAINERS.register("melter", MelterContainer::new);
-  public static final RegistryObject<ContainerType<SmelteryContainer>> smelteryContainer = CONTAINERS.register("smeltery", SmelteryContainer::new);
+  public static final RegistryObject<ContainerType<HeatingStructureContainer>> smelteryContainer = CONTAINERS.register("smeltery", HeatingStructureContainer::new);
   public static final RegistryObject<ContainerType<SingleItemContainer>> singleItemContainer = CONTAINERS.register("single_item", SingleItemContainer::new);
   public static final RegistryObject<ContainerType<AlloyerContainer>> alloyerContainer = CONTAINERS.register("alloyer", AlloyerContainer::new);
 
