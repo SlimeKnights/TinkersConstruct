@@ -27,7 +27,7 @@ public class SingleAlloyingModule implements IAlloyingModule {
   @Nullable
   private AlloyRecipe findRecipe() {
     World world = getWorld();
-    if (lastRecipe != null && lastRecipe.matches(alloyTank, world)) {
+    if (lastRecipe != null && lastRecipe.canPerform(alloyTank)) {
       return lastRecipe;
     }
     // fetch the first recipe that matches the inputs and fits in the tank
@@ -37,7 +37,7 @@ public class SingleAlloyingModule implements IAlloyingModule {
                                         .values().stream()
                                         .filter(r -> r instanceof AlloyRecipe)
                                         .map(r -> (AlloyRecipe) r)
-                                        .filter(r -> alloyTank.canFit(r.getOutput(), 0) && r.matches(alloyTank, world))
+                                        .filter(r -> alloyTank.canFit(r.getOutput(), 0) && r.canPerform(alloyTank))
                                         .findAny();
     // if found, cache and return
     if (recipe.isPresent()) {
@@ -50,8 +50,7 @@ public class SingleAlloyingModule implements IAlloyingModule {
 
   @Override
   public boolean canAlloy() {
-    AlloyRecipe recipe = findRecipe();
-    return recipe != null && recipe.canPerform(alloyTank);
+    return findRecipe() != null;
   }
 
   @Override
