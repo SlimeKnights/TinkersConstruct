@@ -44,17 +44,34 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Block> SEARED_BRICKS = tag("seared_bricks");
+    public static final IOptionalNamedTag<Block> SEARED_TANKS = tag("seared_tanks");
 
-    /** Blocks valid as a smeltery tank, required for fuel */
-    public static final IOptionalNamedTag<Block> MELTER_TANKS = tag("melter_tanks");
+    public static final IOptionalNamedTag<Block> SCORCHED_BLOCKS = tag("scorched_blocks");
+    public static final IOptionalNamedTag<Block> SCORCHED_TANKS = tag("scorched_tanks");
+
+
+    /** Blocks valid as a fuel tank for the melter or alloyer, should be item handlers with 1 slot or fluid handlers with 1 fluid */
+    public static final IOptionalNamedTag<Block> FUEL_TANKS = tag("fuel_tanks");
+    /** Tanks that serve as a valid input for the alloyer, should be fluid handlers with 1 fluid */
+    public static final IOptionalNamedTag<Block> ALLOYER_TANKS = tag("alloyer_tanks");
+
     /** Blocks that make up the smeltery structure */
     public static final IOptionalNamedTag<Block> SMELTERY = tag("smeltery");
     /** Blocks valid as a smeltery tank, required for fuel */
     public static final IOptionalNamedTag<Block> SMELTERY_TANKS = tag("smeltery/tanks");
     /** Blocks valid as a smeltery floor */
     public static final IOptionalNamedTag<Block> SMELTERY_FLOOR = tag("smeltery/floor");
-    /** Blocks valid in any area of the smeltery */
+    /** Blocks valid in the smeltery wall */
     public static final IOptionalNamedTag<Block> SMELTERY_WALL = tag("smeltery/wall");
+
+    /** Blocks that make up the foundry structure */
+    public static final IOptionalNamedTag<Block> FOUNDRY = tag("foundry");
+    /** Blocks valid as a foundry tank, required for fuel */
+    public static final IOptionalNamedTag<Block> FOUNDRY_TANKS = tag("foundry/tanks");
+    /** Blocks valid as a foundry floor */
+    public static final IOptionalNamedTag<Block> FOUNDRY_FLOOR = tag("foundry/floor");
+    /** Blocks valid in the foundry wall */
+    public static final IOptionalNamedTag<Block> FOUNDRY_WALL = tag("foundry/wall");
 
     /** Any block that can be harvested using a kama or scythe */
     public static final IOptionalNamedTag<Block> HARVESTABLE = tag("harvestable");
@@ -93,8 +110,9 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> ORES_COPPER = forgeTag("ores/copper");
 
     public static final IOptionalNamedTag<Item> SEARED_BLOCKS = tag("seared_blocks");
-
     public static final IOptionalNamedTag<Item> SEARED_BRICKS = tag("seared_bricks");
+    public static final IOptionalNamedTag<Item> SCORCHED_BLOCKS = tag("scorched_blocks");
+
     public static final IOptionalNamedTag<Item> EARTH_SLIMEBALL = forgeTag("slimeball/green");
     public static final IOptionalNamedTag<Item> SKY_SLIMEBALL = forgeTag("slimeball/sky");
     public static final IOptionalNamedTag<Item> ICHOR_SLIMEBALL = forgeTag("slimeball/ichor");
@@ -118,6 +136,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> RODS_STONE = forgeTag("rods/stone");
     public static final IOptionalNamedTag<Item> WITHER_BONES = forgeTag("wither_bones");
     public static final IOptionalNamedTag<Item> BOOKS = forgeTag("books");
+    public static final IOptionalNamedTag<Item> GUIDEBOOKS = forgeTag("books/guide");
 
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");
@@ -149,6 +168,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
     /** Modifiable items that can have range increased */
     public static final IOptionalNamedTag<Item> AOE = tag("modifiable/aoe");
+    /** Modifiable items that prevent usage of the offhand */
+    public static final IOptionalNamedTag<Item> TWO_HANDED = tag("modifiable/two_handed");
     // /** Modifiable items that support ranged attacks, such as bows */
     // public static final IOptionalNamedTag<Item> RANGED = tag("modifiable/ranged");
     /** Tag so mods like thermal know our scyhtes can harvest */

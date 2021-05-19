@@ -44,8 +44,11 @@ public class ItemTagProvider extends ItemTagsProvider {
   }
 
   private void addCommon() {
-    this.getOrCreateBuilder(TinkerTags.Items.BOOKS)
-        .add(TinkerCommons.materialsAndYou.get(), TinkerCommons.punySmelting.get(), TinkerCommons.mightySmelting.get(), TinkerCommons.tinkersGadgetry.get());
+    this.getOrCreateBuilder(TinkerTags.Items.GUIDEBOOKS)
+        .add(TinkerCommons.materialsAndYou.get(), TinkerCommons.tinkersGadgetry.get(),
+             TinkerCommons.punySmelting.get(), TinkerCommons.mightySmelting.get(),
+             TinkerCommons.fantasticFoundry.get());
+    this.getOrCreateBuilder(TinkerTags.Items.BOOKS).addTag(TinkerTags.Items.GUIDEBOOKS);
 
     this.getOrCreateBuilder(Tags.Items.SLIMEBALLS)
         .addTag(TinkerTags.Items.SKY_SLIMEBALL)
@@ -58,7 +61,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.BLOOD));
     this.getOrCreateBuilder(TinkerTags.Items.ICHOR_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ICHOR));
 
-    this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerCommons.driedBrick.get(), TinkerSmeltery.searedBrick.get());
+    this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerCommons.driedBrick.get(), TinkerSmeltery.searedBrick.get(), TinkerSmeltery.scorchedBrick.get());
     this.getOrCreateBuilder(TinkerTags.Items.WITHER_BONES).add(TinkerModifiers.necroticBone.get());
 
     // ores
@@ -165,6 +168,10 @@ public class ItemTagProvider extends ItemTagsProvider {
 						 TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
 						 TinkerTools.kama.get(), TinkerTools.scythe.get(),
 						 TinkerTools.sword.get(), TinkerTools.cleaver.get());
+    this.getOrCreateBuilder(TinkerTags.Items.TWO_HANDED)
+        .add(TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
+             TinkerTools.excavator.get(), TinkerTools.broadAxe.get(),
+             TinkerTools.scythe.get(), TinkerTools.cleaver.get());
     // support all weapon modifiers
     this.getOrCreateBuilder(TinkerTags.Items.COMBAT)
         .add(TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
@@ -210,6 +217,7 @@ public class ItemTagProvider extends ItemTagsProvider {
   private void addSmeltery() {
     this.copy(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Items.SEARED_BRICKS);
     this.copy(TinkerTags.Blocks.SEARED_BLOCKS, TinkerTags.Items.SEARED_BLOCKS);
+    this.copy(TinkerTags.Blocks.SCORCHED_BLOCKS, TinkerTags.Items.SCORCHED_BLOCKS);
     this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, ItemTags.SOUL_FIRE_BASE_BLOCKS);
 
     // tag each type of cast
@@ -266,6 +274,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     // tank tag
     Builder<Item> tankBuilder = this.getOrCreateBuilder(TinkerTags.Items.TANKS);
     TinkerSmeltery.searedTank.forEach(tank -> tankBuilder.add(tank.asItem()));
+    TinkerSmeltery.scorchedTank.forEach(tank -> tankBuilder.add(tank.asItem()));
   }
 
   @Override

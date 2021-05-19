@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top":   "tconstruct:block/foundry/io/duct_front_inactive",
+    "front": "tconstruct:block/foundry/io/back",
+    "side":  "tconstruct:block/foundry/io/duct_front_inactive"
+  }
+}

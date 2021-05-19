@@ -9,13 +9,16 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Arrays;
@@ -144,14 +147,38 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
   /* Helpers */
 
+  /** Gets the modifiers list for a tool, ignoring partial levels from incremental modifiers */
+  public static List<ModifierEntry> getModifiersIgnoringPartial(ToolStack toolStack) {
+    ImmutableList.Builder<ModifierEntry> finalList = ImmutableList.builder();
+    IModDataReadOnly persistentData = toolStack.getPersistentData();
+    for (ModifierEntry entry : toolStack.getModifierList()) {
+      Modifier modifier = entry.getModifier();
+      // if the modifier is not incremental, or does not has the key set, nothing to do
+      int needed = ModifierRecipeLookup.getNeededPerLevel(modifier);
+      if (needed == 0 || !persistentData.contains(modifier.getId(), NBT.TAG_ANY_NUMERIC)) {
+        finalList.add(entry);
+      } else {
+        // if the modifier has enough, nothing to do
+        // if not enough, decrease level by 1, skipping if now at 0
+        int has = persistentData.getInt(modifier.getId());
+        if (has >= needed) {
+          finalList.add(entry);
+        } else if (entry.getLevel() > 1) {
+          finalList.add(new ModifierEntry(modifier, entry.getLevel() - 1));
+        }
+      }
+    }
+    return finalList.build();
+  }
+
   /**
    * Validates that this tool meets the modifier requirements, is not too high of a level, and has enough upgrade/ability slots
    * @param tool           Tool stack instance
    * @return  Validated result with error, or pass if no error
    */
   protected ValidatedResult validatePrerequisites(ToolStack tool) {
-    // validate modifier prereqs
-    if (!requirements.test(tool.getModifierList())) {
+    // validate modifier prereqs, skip building fancy list for always
+    if (requirements != ModifierMatch.ALWAYS && !requirements.test(getModifiersIgnoringPartial(tool))) {
       return requirementsError.isEmpty() ? REQUIREMENTS_ERROR : ValidatedResult.failure(requirementsError);
     }
     // max level of modifier

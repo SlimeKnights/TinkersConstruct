@@ -1,0 +1,33 @@
+{
+  "loader": "tconstruct:fluid_texture",
+  "parent": "block/block",
+  "textures": {
+    "particle": "#side",
+    "fluid": "tconstruct:block/black"
+  },
+  "fluids": ["fluid"],
+  "parent": "block/block",
+  "elements": [
+    { "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#fluid", "cullface": "down",  "tintindex": 1 },
+        "up":    { "texture": "#fluid", "cullface": "up",    "tintindex": 1 },
+        "south": { "texture": "#fluid", "cullface": "south", "tintindex": 1 },
+        "west":  { "texture": "#fluid", "cullface": "west",  "tintindex": 1 },
+        "east":  { "texture": "#fluid", "cullface": "east",  "tintindex": 1 }
+      }
+    },
+    { "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#side",  "cullface": "down"  },
+        "up":    { "texture": "#side",  "cullface": "up"    },
+        "north": { "texture": "#front", "cullface": "north" },
+        "south": { "texture": "#side",  "cullface": "south" },
+        "west":  { "texture": "#side",  "cullface": "west"  },
+        "east":  { "texture": "#side",  "cullface": "east"  }
+      }
+    }
+  ]
+}

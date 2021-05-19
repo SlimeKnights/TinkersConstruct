@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:scorched_fuel_tank",
+    "tconstruct:scorched_fuel_gauge",
+    "tconstruct:scorched_ingot_tank",
+    "tconstruct:scorched_ingot_gauge"
+  ]
+}

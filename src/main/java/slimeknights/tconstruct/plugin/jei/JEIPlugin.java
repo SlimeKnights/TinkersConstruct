@@ -66,15 +66,16 @@ import slimeknights.tconstruct.plugin.jei.entity.DefaultEntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.entity.EntityIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.entity.EntityIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.entity.EntityMeltingRecipeCategory;
+import slimeknights.tconstruct.plugin.jei.melting.FoundryCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierRecipeCategory;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.IScreenWithFluidTank;
 import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
-import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -113,6 +114,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new MeltingCategory(guiHelper));
     registry.addRecipeCategories(new AlloyRecipeCategory(guiHelper));
     registry.addRecipeCategories(new EntityMeltingRecipeCategory(guiHelper));
+    registry.addRecipeCategories(new FoundryCategory(guiHelper));
     // tinker station
     registry.addRecipeCategories(new ModifierRecipeCategory(guiHelper));
     registry.addRecipeCategories(new BeheadingCategory(guiHelper));
@@ -137,6 +139,7 @@ public class JEIPlugin implements IModPlugin {
     // melting
     List<MeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.MELTING, MeltingRecipe.class);
     register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.melting);
+    register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.foundry);
     MeltingFuelHandler.setMeltngFuels(RecipeHelper.getRecipes(manager, RecipeTypes.FUEL, MeltingFuel.class));
 
     // entity melting
@@ -183,11 +186,15 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-    addCastingCatalyst(registry, TinkerSmeltery.castingTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
-    addCastingCatalyst(registry, TinkerSmeltery.castingBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
+    addCastingCatalyst(registry, TinkerSmeltery.searedTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
+    addCastingCatalyst(registry, TinkerSmeltery.searedBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
+    addCastingCatalyst(registry, TinkerSmeltery.scorchedTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
+    addCastingCatalyst(registry, TinkerSmeltery.scorchedBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructRecipeCategoryUid.melting);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructRecipeCategoryUid.melting, TConstructRecipeCategoryUid.alloy, TConstructRecipeCategoryUid.entityMelting);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.scorchedAlloyer), TConstructRecipeCategoryUid.alloy);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.foundryController), TConstructRecipeCategoryUid.foundry);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructRecipeCategoryUid.modifiers);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructRecipeCategoryUid.modifiers);
     for (Item item : TinkerTags.Items.MELEE.getAllElements()) {
@@ -230,7 +237,7 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void registerGuiHandlers(IGuiHandlerRegistration registration) {
     registration.addGenericGuiContainerHandler(MelterScreen.class, new GuiContainerTankHandler<>());
-    registration.addGenericGuiContainerHandler(SmelteryScreen.class, new GuiContainerTankHandler<>());
+    registration.addGenericGuiContainerHandler(HeatingStructureScreen.class, new GuiContainerTankHandler<>());
   }
 
   @Override

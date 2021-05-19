@@ -41,7 +41,7 @@ public class ClayIslandVariant implements IIslandVariant {
   @Nullable
   @Override
   public BlockState getPlant(Random random) {
-    Block block = random.nextInt(8) == 0 ? Blocks.FERN : Blocks.TALL_GRASS;
+    Block block = random.nextInt(8) == 0 ? Blocks.FERN : Blocks.GRASS;
     return block.getDefaultState();
   }
 

@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.IIntArray;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -37,7 +36,7 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
   /** Tile entity containing this melting module */
   private final MantleTileEntity parent;
   /** Function that accepts fluid output from this module */
-  private final Predicate<FluidStack> outputFunction;
+  private final Predicate<IMeltingRecipe> outputFunction;
   /** Function that gives the nuggets per ore for this module */
   private final IntSupplier nuggetsPerOre;
   /** Slot index for updates */
@@ -196,14 +195,8 @@ public class MeltingModule implements IMeltingInventory, IIntArray {
       return true;
     }
 
-    // get output fluid
-    FluidStack output = recipe.getOutput(this);
-    if (output.isEmpty()) {
-      return true;
-    }
-
     // try filling the output tank, if successful empty the slot
-    if (outputFunction.test(output)) {
+    if (outputFunction.test(recipe)) {
       setStack(ItemStack.EMPTY);
       return true;
     }

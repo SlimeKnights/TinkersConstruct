@@ -64,6 +64,10 @@ final class MaterialStats {
                      new HeadMaterialStats(150, 5f, IRON, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.8f).withAttackDamage(1.2f),
                      ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.scorchedStone,
+                     new HeadMaterialStats(120, 4.5f, IRON, 2.5f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.7f).withAttackDamage(1.1f).withAttackSpeed(1.1f),
+                     ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.copper,
                      new HeadMaterialStats(210, 6.5f, IRON, 1.5f),
                      HandleMaterialStats.DEFAULT.withDurability(0.8f).withMiningSpeed(1.2f),

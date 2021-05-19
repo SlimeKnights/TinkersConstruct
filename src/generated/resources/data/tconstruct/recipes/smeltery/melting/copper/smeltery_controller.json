@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:smeltery_controller"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_copper",
+    "amount": 576
+  },
+  "temperature": 500,
+  "time": 175,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:seared_stone",
+      "amount": 1152
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "type": "mantle:without",
+    "base": {
+      "tag": "tconstruct:scorched_blocks"
+    },
+    "without": {
+      "item": "tconstruct:chiseled_scorched_bricks"
+    }
+  },
+  "result": "tconstruct:chiseled_scorched_bricks",
+  "count": 1
+}

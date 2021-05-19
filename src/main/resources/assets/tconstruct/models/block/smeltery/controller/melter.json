@@ -3,7 +3,7 @@
   "parent": "block/block",
   "textures": {
     "particle": "#front",
-    "top":   "tconstruct:block/smeltery/tank/seared_window_top",
+    "top":   "tconstruct:block/smeltery/tank/gauge_top",
     "side":  "tconstruct:block/smeltery/controller/melter_side",
     "brick": "tconstruct:block/smeltery/seared/bricks"
   },

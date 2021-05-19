@@ -17,16 +17,17 @@ import slimeknights.tconstruct.library.book.sectiontransformer.materials.TieredM
 import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 
 public class TinkerBook extends BookData {
-
   private static final ResourceLocation MATERIALS_BOOK_ID = Util.getResource("materials_and_you");
   private static final ResourceLocation MIGHTY_SMELTING_ID = Util.getResource("mighty_smelting");
   private static final ResourceLocation PUNY_SMELTING_ID = Util.getResource("puny_smelting");
   private static final ResourceLocation TINKERS_GADGETRY_ID = Util.getResource("tinkers_gadgetry");
+  private static final ResourceLocation FANTASTIC_FOUNDRY_ID = Util.getResource("fantastic_foundry");
 
   public final static BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID.toString(), false, false);
   public final static BookData PUNY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
   public final static BookData MIGHTY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
   public final static BookData TINKERS_GADGETRY = BookLoader.registerBook(TINKERS_GADGETRY_ID.toString(), false, false);
+  public final static BookData FANTASTIC_FOUNDRY = BookLoader.registerBook(FANTASTIC_FOUNDRY_ID.toString(), false, false);
 
   /**
    * Initializes the books
@@ -42,6 +43,7 @@ public class TinkerBook extends BookData {
     addData(PUNY_SMELTING, PUNY_SMELTING_ID);
     addData(MIGHTY_SMELTING, MIGHTY_SMELTING_ID);
     addData(TINKERS_GADGETRY, TINKERS_GADGETRY_ID);
+    addData(FANTASTIC_FOUNDRY, FANTASTIC_FOUNDRY_ID);
   }
 
   /**
@@ -80,6 +82,8 @@ public class TinkerBook extends BookData {
         return MIGHTY_SMELTING;
       case TINKERS_GADGETRY:
         return TINKERS_GADGETRY;
+      case FANTASTIC_FOUNDRY:
+        return FANTASTIC_FOUNDRY;
     }
     return MATERIALS_AND_YOU;
   }

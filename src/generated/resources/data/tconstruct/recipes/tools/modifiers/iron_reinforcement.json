@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:obsidian_pane"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_iron",
+    "amount": 48
+  },
+  "result": "tconstruct:iron_reinforcement",
+  "cooling_time": 35
+}

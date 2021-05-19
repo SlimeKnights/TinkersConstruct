@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "type": "forge:nbt",
+    "item": "tconstruct:copper_can",
+    "count": 1
+  },
+  "result": {
+    "fluid": "tconstruct:molten_copper",
+    "amount": 144
+  },
+  "temperature": 500,
+  "time": 50
+}

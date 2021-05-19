@@ -3,7 +3,7 @@
   "input": "tconstruct:stone",
   "fluid": {
     "name": "tconstruct:molten_clay",
-    "amount": 125
+    "amount": 250
   },
   "result": "tconstruct:seared_stone",
   "temperature": 450

@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,7 +85,8 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
           Ingredient.fromStacks(item.withMaterial(mat)),
           new FluidStack(mat.getFluid(), mat.getFluidPerUnit() * cost),
           mat.getTemperature(),
-          getTime(mat)
+          getTime(mat),
+          Collections.emptyList()
         );
       }).collect(Collectors.toList());
     }

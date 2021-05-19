@@ -1,0 +1,131 @@
+{
+  "loader": "tconstruct:channel",
+  "textures": {
+    "particle": "#texture"
+  },
+  "elements": [
+    {
+      "name": "Base",
+      "from": [ 4, 4, 4 ], 
+      "to": [ 12, 6, 12 ], 
+      "faces": {
+        "north": { "texture": "#texture" },
+        "east":  { "texture": "#texture" },
+        "south": { "texture": "#texture" },
+        "west":  { "texture": "#texture" },
+        "down":  { "texture": "#texture" }
+      }
+    },
+    {
+      "name": "Top",
+      "from": [ 6, 6, 6 ], 
+      "to": [ 10, 6, 10 ], 
+      "faces": {
+        "up": { "texture": "#texture" }
+      }
+    },
+    {
+      "name": "Northeast",
+      "from": [ 10, 6, 4 ], 
+      "to": [ 12, 9, 6 ], 
+      "faces": {
+        "north": { "texture": "#texture" },
+        "east":  { "texture": "#texture" },
+        "south": { "texture": "#texture" },
+        "west":  { "texture": "#texture" },
+        "up":    { "texture": "#texture" }
+      }
+    },
+    {
+      "name": "Northwest",
+      "from": [ 4, 6, 4 ], 
+      "to": [ 6, 9, 6 ], 
+      "faces": {
+        "north": { "texture": "#texture" },
+        "east":  { "texture": "#texture" },
+        "south": { "texture": "#texture" },
+        "west":  { "texture": "#texture" },
+        "up":    { "texture": "#texture" }
+      }
+    },
+    {
+      "name": "Southwest",
+      "from": [ 4, 6, 10 ], 
+      "to": [ 6, 9, 12 ], 
+      "faces": {
+        "north": { "texture": "#texture" },
+        "east":  { "texture": "#texture" },
+        "south": { "texture": "#texture" },
+        "west":  { "texture": "#texture" },
+        "up":    { "texture": "#texture" }
+      }
+    },
+    {
+      "name": "Southeast",
+      "from": [ 10, 6, 10 ], 
+      "to": [ 12, 9, 12 ], 
+      "faces": {
+        "north": { "texture": "#texture" },
+        "east":  { "texture": "#texture" },
+        "south": { "texture": "#texture" },
+        "west":  { "texture": "#texture" },
+        "up":    { "texture": "#texture" }
+      }
+    }
+  ],
+  "fluids": {
+    "center": {
+      "still": {
+        "from": [  6, 6,  6 ],
+        "to":   [ 10, 8, 10 ],
+        "faces": { "up": {}, "down": {} }
+      },
+      "flowing": {
+        "from": [  6, 6,  6 ],
+        "to":   [ 10, 8, 10 ],
+        "faces": {
+          "up":   { "flowing": true },
+          "down": { "flowing": true, "rotation": 180 }
+        }
+      }
+    },
+    "down": {
+      "from": [  6, 0,  6 ],
+      "to":   [ 10, 6, 10 ],
+      "faces": {
+        "north": { "flowing": true },
+        "south": { "flowing": true },
+        "west":  { "flowing": true },
+        "east":  { "flowing": true }
+      }
+    },
+    "side": {
+      "still": {
+        "from": [  6, 6, 10 ],
+        "to":   [ 10, 8, 10 ],
+        "faces": { "south": {} }
+      },
+      "in": {
+        "from": [  6, 8, 10 ],
+        "to":   [ 10, 8, 16 ],
+        "faces": {
+          "up": { "flowing": true, "rotation": 180 }
+        }
+      },
+      "out": {
+        "from": [  6, 8, 10 ],
+        "to":   [ 10, 8, 16 ],
+        "faces": {
+          "up": { "flowing": true }
+        }
+      },
+      "edge": {
+        "from": [  6, 6, 16 ],
+        "to":   [ 10, 8, 16 ],
+        "faces": {
+          "south": { "flowing": true }
+        }
+      }
+    }
+  }
+}

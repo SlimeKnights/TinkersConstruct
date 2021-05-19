@@ -14,9 +14,15 @@ public class OvercastModifier extends Modifier {
   }
 
   @Override
+  public int getPriority() {
+    return 90; // after overslime and overforced
+  }
+
+  @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     OverslimeModifier overslime = TinkerModifiers.overslime.get();
     overslime.setFriend(volatileData);
-    overslime.addCapacity(volatileData, level * 75);
+    overslime.addCapacity(volatileData, level * 25);
+    overslime.multiplyCapacity(volatileData, 1f + (level * 0.5f));
   }
 }

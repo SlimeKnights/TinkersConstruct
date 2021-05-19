@@ -1,8 +1,13 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:seared_tank",
-    "tconstruct:seared_gauge",
-    "tconstruct:seared_window"
+    "tconstruct:seared_fuel_tank",
+    "tconstruct:seared_fuel_gauge",
+    "tconstruct:seared_ingot_tank",
+    "tconstruct:seared_ingot_gauge",
+    "tconstruct:scorched_fuel_tank",
+    "tconstruct:scorched_fuel_gauge",
+    "tconstruct:scorched_ingot_tank",
+    "tconstruct:scorched_ingot_gauge"
   ]
 }

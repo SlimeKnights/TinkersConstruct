@@ -1,18 +1,6 @@
 {
+  "parent": "tconstruct:block/template/channel/side_wall",
   "textures": {
-    "particle": "tconstruct:block/smeltery/seared/stone",
     "texture": "tconstruct:block/smeltery/seared/stone"
-  },
-  "elements": [
-    {
-      "name": "Northeast",
-      "from": [ 6, 6, 4 ], 
-      "to": [ 10, 9, 6 ], 
-      "faces": {
-        "north": { "texture": "#texture" },
-        "south": { "texture": "#texture" },
-        "up":    { "texture": "#texture" }
-      }
-    }
-  ]
+  }
 }

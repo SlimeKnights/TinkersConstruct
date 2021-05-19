@@ -53,9 +53,6 @@ public class WorldClientEvents extends ClientEventBase {
     RenderType cutout = RenderType.getCutout();
     RenderType cutoutMipped = RenderType.getCutoutMipped();
 
-    // render types - ores
-    RenderTypeLookup.setRenderLayer(TinkerWorld.cobaltOre.get(), cutoutMipped);
-
     // render types - slime plants
     for (SlimeType type : SlimeType.values()) {
       if (type != SlimeType.BLOOD) {

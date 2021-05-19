@@ -13,9 +13,7 @@ import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -41,6 +39,7 @@ import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
@@ -73,8 +72,7 @@ public class TConstruct {
   public TConstruct() {
     instance = this;
 
-    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+    Config.init();
 
     // initialize modules, done this way rather than with annotations to give us control over the order
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -132,6 +130,19 @@ public class TConstruct {
       case "firewood": return TinkerCommons.blazewood.get();
       case "firewood_slab": return TinkerCommons.blazewood.getSlab();
       case "firewood_stairs": return TinkerCommons.blazewood.getStairs();
+      // prefix with seared
+      case "faucet": return TinkerSmeltery.searedFaucet.get();
+      case "channel": return TinkerSmeltery.searedChannel.get();
+      case "casting_table": return TinkerSmeltery.searedTable.get();
+      case "casting_basin": return TinkerSmeltery.searedBasin.get();
+      case "melter": return TinkerSmeltery.searedMelter.get();
+      // tank renames
+      case "seared_tank": return TinkerSmeltery.searedTank.get(TankType.FUEL_TANK);
+      case "seared_gauge": return TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE);
+      case "seared_window": return TinkerSmeltery.searedTank.get(TankType.INGOT_TANK);
+      case "scorched_tank": return TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK);
+      case "scorched_gauge": return TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE);
+      case "scorched_window": return TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK);
     }
     return null;
   }
@@ -169,6 +180,8 @@ public class TConstruct {
         case "kama_head_red_sand_cast": return TinkerSmeltery.swordBladeCast.getRedSand();
         // broadsword -> sword
         case "broad_sword": return TinkerTools.sword.get();
+        //  reinforcement splitting
+        case "reinforcement": return TinkerModifiers.ironReinforcement.get();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();

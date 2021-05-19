@@ -93,7 +93,7 @@ public final class TinkerWorld extends TinkerModule {
    * Blocks
    */
   // ores
-  private static final Block.Properties NETHER_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.NETHER_ORE).setRequiresTool().harvestLevel(HarvestLevels.DIAMOND).hardnessAndResistance(10.0F).notSolid();
+  private static final Block.Properties NETHER_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.NETHER_ORE).setRequiresTool().harvestLevel(HarvestLevels.DIAMOND).hardnessAndResistance(10.0F);
   public static final ItemObject<Block> cobaltOre = BLOCKS.register("cobalt_ore", () -> new Block(NETHER_ORE), DEFAULT_BLOCK_ITEM);
 
   private static final Block.Properties OVERWORLD_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).setRequiresTool().harvestLevel(HarvestLevels.STONE).hardnessAndResistance(3.0F, 3.0F);
@@ -138,7 +138,7 @@ public final class TinkerWorld extends TinkerModule {
   public static final EnumObject<SlimeType, SlimeGrassSeedItem> slimeGrassSeeds = ITEMS.registerEnum(SlimeType.values(), "slime_grass_seeds", type -> new SlimeGrassSeedItem(WORLD_PROPS, type));
 
   // plants
-  private static final Block.Properties GRASS = builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).zeroHardnessAndResistance().doesNotBlockMovement().tickRandomly();
+  private static final Block.Properties GRASS = builder(Material.TALL_PLANTS, NO_TOOL, SoundType.PLANT).zeroHardnessAndResistance().doesNotBlockMovement().tickRandomly();
   public static final EnumObject<SlimeType, SlimeTallGrassBlock> slimeFern = BLOCKS.registerEnum(SlimeType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), DEFAULT_BLOCK_ITEM);
   public static final EnumObject<SlimeType, SlimeTallGrassBlock> slimeTallGrass = BLOCKS.registerEnum(SlimeType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), DEFAULT_BLOCK_ITEM);
 

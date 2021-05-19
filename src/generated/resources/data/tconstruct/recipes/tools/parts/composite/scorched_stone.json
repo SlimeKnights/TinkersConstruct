@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "input": "tconstruct:flint",
+  "fluid": {
+    "name": "tconstruct:magma_cream",
+    "amount": 250
+  },
+  "result": "tconstruct:scorched_stone",
+  "temperature": 300
+}

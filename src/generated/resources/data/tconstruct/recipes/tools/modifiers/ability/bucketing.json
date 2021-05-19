@@ -2,13 +2,27 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:faucet"
+      "ingredient": [
+        {
+          "item": "tconstruct:seared_faucet"
+        },
+        {
+          "item": "tconstruct:scorched_faucet"
+        }
+      ]
     },
     {
       "item": "minecraft:bucket"
     },
     {
-      "item": "tconstruct:faucet"
+      "ingredient": [
+        {
+          "item": "tconstruct:seared_faucet"
+        },
+        {
+          "item": "tconstruct:scorched_faucet"
+        }
+      ]
     },
     {
       "item": "minecraft:ender_pearl"

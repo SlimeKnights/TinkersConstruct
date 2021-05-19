@@ -13,6 +13,10 @@ public class OverlordModifier extends Modifier {
   public OverlordModifier() {
     super(0x236c45);
   }
+  @Override
+  public int getPriority() {
+    return 80; // after overcast
+  }
 
   /** Gets the durability boost per level */
   private int getBoost(StatsNBT baseStats, int level, float perLevel) {

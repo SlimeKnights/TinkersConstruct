@@ -25,7 +25,6 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock.VineStage;
-import slimeknights.tconstruct.world.worldgen.ConfigSeparationSettings;
 import slimeknights.tconstruct.world.worldgen.islands.BloodSlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.ClayIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.EarthSlimeIslandStructure;
@@ -43,6 +42,7 @@ import java.util.Objects;
  */
 @SuppressWarnings("unused")
 public final class TinkerStructures extends TinkerModule {
+  private static boolean structureSettingsReady = false;
 
   static final Logger log = Util.getLogger("tinker_structures");
 
@@ -102,6 +102,43 @@ public final class TinkerStructures extends TinkerModule {
     Structure.NAME_STRUCTURE_BIMAP.put(Objects.requireNonNull(structure.getRegistryName()).toString(), structure);
   }
 
+  /** Adds all structure separation settings to the relevant maps */
+  public static void addStructureSeparation() {
+    if (!structureSettingsReady) {
+      return;
+    }
+    // add each structure to all relevant dimensions, note this may not allow changing after first world load as everything is serialized
+    StructureSeparationSettings earthSettings = new StructureSeparationSettings(Config.COMMON.earthSlimeIslandSeparation.get(), 5, 25988585);
+    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(earthSlimeIsland.get(), earthSettings);
+    addStructureSettings(DimensionSettings.field_242735_d, earthSlimeIsland.get(), earthSettings);
+
+    StructureSeparationSettings skySettings = new StructureSeparationSettings(Config.COMMON.skySlimeIslandSeparation.get(), 5, 14357800);
+    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(skySlimeIsland.get(), skySettings);
+    addStructureSettings(DimensionSettings.field_242735_d, skySlimeIsland.get(), skySettings);
+    addStructureSettings(DimensionSettings.field_242739_h, skySlimeIsland.get(), skySettings);
+
+    StructureSeparationSettings claySettings = new StructureSeparationSettings(Config.COMMON.clayIslandSeparation.get(), 5, 162976988);
+    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(clayIsland.get(), claySettings);
+    addStructureSettings(DimensionSettings.field_242735_d, clayIsland.get(), claySettings);
+    addStructureSettings(DimensionSettings.field_242739_h, clayIsland.get(), claySettings);
+
+    StructureSeparationSettings netherSettings = new StructureSeparationSettings(Config.COMMON.bloodIslandSeparation.get(), 5, 65245622);
+    addStructureSettings(DimensionSettings.field_242736_e, bloodSlimeIsland.get(), netherSettings);
+
+    StructureSeparationSettings endSettings = new StructureSeparationSettings(Config.COMMON.endSlimeIslandSeparation.get(), 5, 368963602);
+    addStructureSettings(DimensionSettings.field_242737_f, endSlimeIsland.get(), endSettings);
+
+    // add to the default for anyone creating dimension settings later, hopefully its soon enough
+    ImmutableMap.Builder<Structure<?>, StructureSeparationSettings> builder = ImmutableMap.builder();
+    builder.putAll(DimensionStructuresSettings.field_236191_b_);
+    builder.put(earthSlimeIsland.get(), earthSettings);
+    builder.put(skySlimeIsland.get(), skySettings);
+    builder.put(clayIsland.get(), claySettings);
+    builder.put(bloodSlimeIsland.get(), netherSettings);
+    builder.put(endSlimeIsland.get(), endSettings);
+    DimensionStructuresSettings.field_236191_b_ = builder.build();
+  }
+
   /**
    * Feature configuration
    *
@@ -117,45 +154,14 @@ public final class TinkerStructures extends TinkerModule {
 
     // earth slime islands
     EARTH_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("earth_slime_island"), earthSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    StructureSeparationSettings earthSettings = new ConfigSeparationSettings(Config.COMMON.earthSlimeIslandSeparation, 5, 25988585);
-    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(earthSlimeIsland.get(), earthSettings);
-    addStructureSettings(DimensionSettings.field_242735_d, earthSlimeIsland.get(), earthSettings);
-
-    // sky slime islands
     SKY_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("sky_slime_island"), skySlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    StructureSeparationSettings skySettings = new ConfigSeparationSettings(Config.COMMON.skySlimeIslandSeparation, 5, 14357800);
-    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(skySlimeIsland.get(), skySettings);
-    addStructureSettings(DimensionSettings.field_242735_d, skySlimeIsland.get(), skySettings);
-    addStructureSettings(DimensionSettings.field_242739_h, skySlimeIsland.get(), skySettings);
-
-    // clay islands
     CLAY_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("clay_island"), clayIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    StructureSeparationSettings claySettings = new ConfigSeparationSettings(Config.COMMON.clayIslandSeparation, 5, 162976988);
-    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(clayIsland.get(), claySettings);
-    addStructureSettings(DimensionSettings.field_242735_d, clayIsland.get(), claySettings);
-    addStructureSettings(DimensionSettings.field_242739_h, clayIsland.get(), claySettings);
-
-    // blood slime islands
     BLOOD_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("blood_slime_island"), bloodSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    StructureSeparationSettings netherSettings = new ConfigSeparationSettings(Config.COMMON.bloodIslandSeparation, 5, 65245622);
-    addStructureSettings(DimensionSettings.field_242736_e, bloodSlimeIsland.get(), netherSettings);
-
-    // end slime islands
     END_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("end_slime_island"), endSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-    StructureSeparationSettings endSettings = new ConfigSeparationSettings(Config.COMMON.endSlimeIslandSeparation, 5, 368963602);
-    addStructureSettings(DimensionSettings.field_242737_f, endSlimeIsland.get(), endSettings);
 
-    // add to the default for anyone creating dimension settings later, hopefully its soon enough
-    event.enqueueWork(() -> {
-      ImmutableMap.Builder<Structure<?>, StructureSeparationSettings> builder = ImmutableMap.builder();
-      builder.putAll(DimensionStructuresSettings.field_236191_b_);
-      builder.put(earthSlimeIsland.get(), earthSettings);
-      builder.put(skySlimeIsland.get(), skySettings);
-      builder.put(clayIsland.get(), claySettings);
-      builder.put(bloodSlimeIsland.get(), netherSettings);
-      builder.put(endSlimeIsland.get(), endSettings);
-      DimensionStructuresSettings.field_236191_b_ = builder.build();
-    });
+    // mark ready, so the config can also call that method
+    structureSettingsReady = true;
+    event.enqueueWork(TinkerStructures::addStructureSeparation);
 
     EARTH_SLIME_TREE = Registry.register(
       WorldGenRegistries.CONFIGURED_FEATURE, location("earth_slime_tree"),

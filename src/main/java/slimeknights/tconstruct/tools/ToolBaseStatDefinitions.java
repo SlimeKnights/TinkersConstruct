@@ -26,7 +26,6 @@ public final class ToolBaseStatDefinitions {
     .setDamageBonus(1.0f).setDamageModifier(1.25f)
     .setAttackSpeed(1.0f).setMiningSpeedModifier(0.3f)
     .setDurabilityModifier(3.75f)
-    .setKnockbackBonus(1f)
     .setDefaultUpgrades(2).build();
 
   // axes

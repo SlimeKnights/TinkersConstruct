@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "tconstruct:seared_blocks"
   },
-  "value": 4,
+  "value": 2,
   "needed": 1,
   "material": "tconstruct:seared_stone"
 }

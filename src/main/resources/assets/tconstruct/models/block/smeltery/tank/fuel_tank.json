@@ -1,0 +1,7 @@
+{
+  "parent": "tconstruct:block/template/tank_knob",
+  "textures": {
+    "top":  "tconstruct:block/smeltery/tank/tank_top",
+    "side": "tconstruct:block/smeltery/tank/fuel_tank"
+  }
+}

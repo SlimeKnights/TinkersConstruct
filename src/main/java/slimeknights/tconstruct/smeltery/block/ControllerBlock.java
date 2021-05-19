@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
@@ -90,22 +91,37 @@ public abstract class ControllerBlock extends InventoryBlock {
    * @param side   Block side offset
    */
   protected void spawnFireParticles(IWorld world, BlockState state, double x, double y, double z, double front, double side) {
+    spawnFireParticles(world, state, x, y, z, front, side, ParticleTypes.FLAME);
+  }
+
+  /**
+   * Spawns fire particles at the given location
+   * @param world     World instance
+   * @param state     Block state
+   * @param x         Block X position
+   * @param y         Block Y position
+   * @param z         Block Z position
+   * @param front     Block front
+   * @param side      Block side offset
+   * @param particle  Particle to draw
+   */
+  protected void spawnFireParticles(IWorld world, BlockState state, double x, double y, double z, double front, double side, IParticleData particle) {
     switch(state.get(FACING)) {
       case WEST:
         world.addParticle(ParticleTypes.SMOKE, x - front, y, z + side, 0.0D, 0.0D, 0.0D);
-        world.addParticle(ParticleTypes.FLAME, x - front, y, z + side, 0.0D, 0.0D, 0.0D);
+        world.addParticle(particle,            x - front, y, z + side, 0.0D, 0.0D, 0.0D);
         break;
       case EAST:
         world.addParticle(ParticleTypes.SMOKE, x + front, y, z + side, 0.0D, 0.0D, 0.0D);
-        world.addParticle(ParticleTypes.FLAME, x + front, y, z + side, 0.0D, 0.0D, 0.0D);
+        world.addParticle(particle,            x + front, y, z + side, 0.0D, 0.0D, 0.0D);
         break;
       case NORTH:
         world.addParticle(ParticleTypes.SMOKE, x + side, y, z - front, 0.0D, 0.0D, 0.0D);
-        world.addParticle(ParticleTypes.FLAME, x + side, y, z - front, 0.0D, 0.0D, 0.0D);
+        world.addParticle(particle,            x + side, y, z - front, 0.0D, 0.0D, 0.0D);
         break;
       case SOUTH:
         world.addParticle(ParticleTypes.SMOKE, x + side, y, z + front, 0.0D, 0.0D, 0.0D);
-        world.addParticle(ParticleTypes.FLAME, x + side, y, z + front, 0.0D, 0.0D, 0.0D);
+        world.addParticle(particle,            x + side, y, z + front, 0.0D, 0.0D, 0.0D);
         break;
     }
   }

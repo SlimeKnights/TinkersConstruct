@@ -1,0 +1,17 @@
+{
+  "textures": {
+    "particle": "#texture"
+  },
+  "elements": [
+    {
+      "name": "Northeast",
+      "from": [ 6, 6, 4 ], 
+      "to": [ 10, 9, 6 ], 
+      "faces": {
+        "north": { "texture": "#texture" },
+        "south": { "texture": "#texture" },
+        "up":    { "texture": "#texture" }
+      }
+    }
+  ]
+}

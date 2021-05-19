@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tconstruct:smeltery/seared/seared_triangle_bricks_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:seared_stone"
+          }
+        ]
+      }
+    },
+    "has_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "tconstruct:seared_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tconstruct:smeltery/seared/seared_triangle_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_stone",
+      "has_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.inventory.ItemHandlerSlot;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.utils.ValidZeroIntReference;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
@@ -39,7 +40,7 @@ public class MelterContainer extends BaseContainer<MelterTileEntity> {
       // add fuel slot if present, we only add for the melter though
       World world = melter.getWorld();
       BlockPos down = melter.getPos().down();
-      if (world != null && world.getBlockState(down).isIn(TinkerSmeltery.searedHeater.get())) {
+      if (world != null && world.getBlockState(down).isIn(TinkerTags.Blocks.FUEL_TANKS)) {
         TileEntity te = world.getTileEntity(down);
         if (te != null) {
           hasFuelSlot = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(handler -> {

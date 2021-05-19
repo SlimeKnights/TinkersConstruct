@@ -9,7 +9,7 @@ import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 public interface IAlloyTank extends IEmptyInventory {
   /**
    * Gets the current temperature of this alloy tank
-   * @return
+   * @return  Temperature
    */
   int getTemperature();
 

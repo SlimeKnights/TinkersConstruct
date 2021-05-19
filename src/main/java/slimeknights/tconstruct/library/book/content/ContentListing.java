@@ -44,19 +44,24 @@ public class ContentListing extends TinkerPage {
     int y = yOff;
     int x = 0;
     int w = BookScreen.PAGE_WIDTH;
-    int line_height = 9;
+    int line_height = 10;
 
-    int bot = BookScreen.PAGE_HEIGHT - 30;
-
-    if (this.entries.size() * line_height + yOff > bot) {
-      w /= 2;
+    int columnHeight = BookScreen.PAGE_HEIGHT - 30;
+    int totalHeight = this.entries.size() * 10 + yOff;
+    if (totalHeight > columnHeight) {
+      if (totalHeight > (columnHeight * 2)) {
+        w /= 3;
+      } else {
+        w /= 2;
+      }
     }
 
     for (TextData data : this.entries) {
-      list.add(this.createListingElement(y, x, w, line_height, data));
-      y += line_height;
+      int height = this.parent.parent.parent.fontRenderer.getWordWrappedHeight(data.text, w) * line_height / 9;
+      list.add(this.createListingElement(y, x, w, height, data));
+      y += height;
 
-      if (y > bot) {
+      if (y > columnHeight) {
         x += w;
         y = yOff;
       }

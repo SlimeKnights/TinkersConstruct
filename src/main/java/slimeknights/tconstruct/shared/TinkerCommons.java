@@ -28,6 +28,7 @@ import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.recipe.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.block.BetterPaneBlock;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
@@ -68,6 +69,8 @@ public final class TinkerCommons extends TinkerModule {
   public static final BuildingBlockObject lavawood = BLOCKS.registerBuilding("lavawood", WOOD, GENERAL_BLOCK_ITEM);
   public static final BuildingBlockObject blazewood = BLOCKS.registerBuilding("blazewood", WOOD, GENERAL_BLOCK_ITEM);
 
+  public static final ItemObject<Block> obsidianPane = BLOCKS.register("obsidian_pane", () -> new BetterPaneBlock(builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).setRequiresTool().notSolid().hardnessAndResistance(25.0F, 400.0F)), GENERAL_BLOCK_ITEM);
+
   /*
    * Items
    */
@@ -77,6 +80,7 @@ public final class TinkerCommons extends TinkerModule {
   public static final ItemObject<TinkerBookItem> punySmelting = ITEMS.register("puny_smelting", () -> new TinkerBookItem(BOOK, BookType.PUNY_SMELTING));
   public static final ItemObject<TinkerBookItem> mightySmelting = ITEMS.register("mighty_smelting", () -> new TinkerBookItem(BOOK, BookType.MIGHTY_SMELTING));
   public static final ItemObject<TinkerBookItem> tinkersGadgetry = ITEMS.register("tinkers_gadgetry", () -> new TinkerBookItem(BOOK, BookType.TINKERS_GADGETRY));
+  public static final ItemObject<TinkerBookItem> fantasticFoundry = ITEMS.register("fantastic_foundry", () -> new TinkerBookItem(BOOK, BookType.FANTASTIC_FOUNDRY));
   // TODO: move to natura
   public static final ItemObject<Item> driedBrick = ITEMS.register("dried_brick", HIDDEN_PROPS);
 

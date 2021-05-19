@@ -1,0 +1,7 @@
+{
+  "parent": "tconstruct:block/template/pane/side",
+  "textures": {
+    "edge": "minecraft:block/obsidian",
+    "pane": "minecraft:block/obsidian"
+  }
+}

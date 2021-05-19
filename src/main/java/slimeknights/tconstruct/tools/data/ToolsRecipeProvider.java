@@ -81,8 +81,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.necroticBone, Ingredient.fromTag(TinkerTags.Items.WITHER_BONES), 1, 1, "necrotic_bone");
     // tier 2
     registerMetalMaterial(consumer, MaterialIds.iron, "iron", false);
-    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick), 1, 1, "seared_stone/brick");
-    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 4, 1, "seared_stone/block");
+    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick), 1, 2, "seared_stone/brick");
+    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 2, 1, "seared_stone/block");
+    registerMaterial(consumer, MaterialIds.scorchedStone, Ingredient.fromItems(TinkerSmeltery.scorchedBrick), 1, 2, "scorched_stone/brick");
+    registerMaterial(consumer, MaterialIds.scorchedStone, Ingredient.fromTag(TinkerTags.Items.SCORCHED_BLOCKS), 2, 1, "scorched_stone/block");
     registerMetalMaterial(consumer, MaterialIds.copper, "copper", false);
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.EARTH_SLIMEBALL), 1, 1, "slimewood/ball");
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.EARTH)), 4, 1, "slimewood/congealed");

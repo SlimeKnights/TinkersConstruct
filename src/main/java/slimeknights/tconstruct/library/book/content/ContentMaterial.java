@@ -213,8 +213,8 @@ public class ContentMaterial extends TinkerPage {
       displayTools.add(elementItem);
     }
     if (material.get().getFluid() != Fluids.EMPTY) {
-      ItemStack castingBasin = new ItemStack(TinkerSmeltery.castingBasin.asItem());
-      ItemStack castingTable = new ItemStack(TinkerSmeltery.castingTable.asItem());
+      ItemStack castingBasin = new ItemStack(TinkerSmeltery.searedBasin.asItem());
+      ItemStack castingTable = new ItemStack(TinkerSmeltery.searedTable.asItem());
 
       ItemStackList stacks = ItemStackList.of(castingBasin, castingTable);
 

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:obsidian_pane"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_slimesteel",
+    "amount": 48
+  },
+  "result": "tconstruct:slimesteel_reinforcement",
+  "cooling_time": 37
+}

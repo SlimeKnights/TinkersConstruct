@@ -1,0 +1,8 @@
+{
+  "parent": "tconstruct:block/template/basin",
+  "textures": {
+    "top":    "tconstruct:block/smeltery/casting/basin_top",
+    "side":   "tconstruct:block/smeltery/casting/basin_side",
+    "bottom": "tconstruct:block/smeltery/casting/basin_bottom"
+  }
+}

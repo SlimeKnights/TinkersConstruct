@@ -34,11 +34,13 @@ public final class ToolDefinitions {
   public static final ToolDefinition MATTOCK = new ToolDefinition(
     ToolBaseStatDefinitions.MATTOCK,
     requirements(TinkerToolParts.smallAxeHead, TinkerToolParts.toolHandle, TinkerToolParts.pickaxeHead),
-    () -> Collections.singletonList(new ModifierEntry(TinkerModifiers.shovelTransformHidden.get(), 1)));
+    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.knockback.get(), 1),
+                           new ModifierEntry(TinkerModifiers.shovelTransformHidden.get(), 1)));
   public static final ToolDefinition EXCAVATOR = new ToolDefinition(
     ToolBaseStatDefinitions.EXCAVATOR,
     requirements(TinkerToolParts.largePlate, TinkerToolParts.toughHandle, TinkerToolParts.largePlate, TinkerToolParts.toughHandle),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.shovelTransformHidden.get(), 1),
+    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.knockback.get(), 2),
+                           new ModifierEntry(TinkerModifiers.shovelTransformHidden.get(), 1),
                            new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
 
   // wood

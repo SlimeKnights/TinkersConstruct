@@ -21,8 +21,8 @@ public final class MaterialValues {
   /** Value of a single metal brick block, is divisible by 36 */
   public static final int METAL_BRICK = INGOT * 4;
 
-  /** Value of a gem such as emerald or an ender pearl, divides into buckets well */
-  public static final int GEM = 250;
+  /** Value of a gem such as diamond or emerald, needs to be divible by 3 for ore multipliers */
+  public static final int GEM = 144;
   /** Value of a block of 9 gems, such as emerald or an ender pearl */
   public static final int GEM_BLOCK = GEM * 9;
 
@@ -31,7 +31,7 @@ public final class MaterialValues {
   /** Value of a glass pane, slightly cheaper than vanilla */
   public static final int GLASS_PANE = GLASS_BLOCK / 4;
 
-  /** Value of a single slimeball, also used for clay and slime substitutes */
+  /** Value of a single slimeball, also used for clay, slime substitutes, and ender pearls */
   public static final int SLIMEBALL = 250;
   /** Value of a block worth 4 slime, see also congealed */
   public static final int SLIME_CONGEALED = SLIMEBALL * 4;

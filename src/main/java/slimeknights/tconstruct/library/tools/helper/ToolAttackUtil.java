@@ -160,10 +160,6 @@ public class ToolAttackUtil {
     } else {
       sound = SoundEvents.ENTITY_PLAYER_ATTACK_WEAK;
     }
-    // apply extra bonus when fully charged
-    if (fullyCharged) {
-      knockback += tool.getDefinition().getBaseStatDefinition().getKnockbackBonus();
-    }
 
     // knockback moved lower
 

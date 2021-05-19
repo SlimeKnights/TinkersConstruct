@@ -73,6 +73,11 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                             .setFluidAndTime(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.INGOT))
                             .setCast(Items.BOOK, true)
                             .build(consumer, prefix(TinkerCommons.mightySmelting, "common/"));
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.fantasticFoundry)
+                          .addIngredient(Items.BOOK)
+                          .addIngredient(TinkerSmeltery.netherGrout)
+                          .addCriterion("has_item", hasItem(TinkerSmeltery.netherGrout))
+                          .build(consumer, prefix(TinkerCommons.fantasticFoundry, "common/"));
 
     // glass
     folder = "common/glass/";

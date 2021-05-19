@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "forge:glass_panes/colorless"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:scorched_stone",
+    "amount": 144
+  },
+  "result": "tconstruct:scorched_glass_pane",
+  "cooling_time": 50
+}
