@@ -424,6 +424,16 @@
     "fluid.tconstruct.flowing_molten_emerald": "Flowing Molten Emerald",
     "item.tconstruct.molten_emerald_bucket": "Molten Emerald Bucket",
 
+    "block.tconstruct.molten_quartz_fluid": "Molten Quartz",
+    "fluid.tconstruct.molten_quartz": "Molten Quartz",
+    "fluid.tconstruct.flowing_molten_quartz": "Flowing Molten Quartz",
+    "item.tconstruct.molten_quartz_bucket": "Molten Quartz Bucket",
+
+    "block.tconstruct.molten_diamond_fluid": "Molten Diamond",
+    "fluid.tconstruct.molten_diamond": "Molten Diamond",
+    "fluid.tconstruct.flowing_molten_diamond": "Flowing Molten Diamond",
+    "item.tconstruct.molten_diamond_bucket": "Molten Diamond Bucket",
+
     "block.tconstruct.molten_ender_fluid": "Molten Ender",
     "fluid.tconstruct.molten_ender": "Molten Ender",
     "fluid.tconstruct.flowing_molten_ender": "Flowing Molten Ender",

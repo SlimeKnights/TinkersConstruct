@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "tag": "forge:storage_blocks/quartz"
+    },
+    [
+      {
+        "item": "minecraft:quartz_pillar"
+      },
+      {
+        "item": "minecraft:quartz_bricks"
+      },
+      {
+        "item": "minecraft:chiseled_quartz_block"
+      },
+      {
+        "item": "minecraft:quartz_stairs"
+      },
+      {
+        "item": "minecraft:smooth_quartz_stairs"
+      }
+    ]
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_quartz",
+    "amount": 576
+  },
+  "temperature": 637,
+  "time": 110
+}

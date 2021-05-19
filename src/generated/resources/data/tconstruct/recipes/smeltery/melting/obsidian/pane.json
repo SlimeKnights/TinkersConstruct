@@ -1,12 +1,12 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "item": "minecraft:ender_chest"
+    "item": "tconstruct:obsidian_pane"
   },
   "result": {
     "fluid": "tconstruct:molten_obsidian",
-    "amount": 8000
+    "amount": 250
   },
   "temperature": 1000,
-  "time": 332
+  "time": 99
 }

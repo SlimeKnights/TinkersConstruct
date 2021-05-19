@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:smeltery/casting/seared_table"
+      "tconstruct:smeltery/scorched/alloyer"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:seared_brick"
+            "item": "tconstruct:scorched_brick"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:smeltery/casting/seared_table"
+        "recipe": "tconstruct:smeltery/scorched/alloyer"
       }
     }
   },

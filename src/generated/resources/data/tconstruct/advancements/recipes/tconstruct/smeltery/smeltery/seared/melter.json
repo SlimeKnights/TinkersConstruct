@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:smeltery/casting/scorched_basin"
+      "tconstruct:smeltery/seared/melter"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:scorched_brick"
+            "item": "tconstruct:seared_brick"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:smeltery/casting/scorched_basin"
+        "recipe": "tconstruct:smeltery/seared/melter"
       }
     }
   },

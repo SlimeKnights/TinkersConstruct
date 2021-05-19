@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "item": "minecraft:diamond_boots"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_diamond",
+    "amount": 576
+  },
+  "temperature": 1450,
+  "time": 158
+}

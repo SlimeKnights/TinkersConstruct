@@ -4,9 +4,9 @@
     "tag": "tconstruct:casts/multi_use/gem"
   },
   "fluid": {
-    "name": "tconstruct:molten_ender",
-    "amount": 250
+    "name": "tconstruct:molten_diamond",
+    "amount": 144
   },
-  "result": "minecraft:ender_pearl",
-  "cooling_time": 65
+  "result": "minecraft:diamond",
+  "cooling_time": 79
 }

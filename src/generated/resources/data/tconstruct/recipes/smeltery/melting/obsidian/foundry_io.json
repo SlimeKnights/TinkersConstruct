@@ -16,7 +16,7 @@
   "time": 166,
   "byproducts": [
     {
-      "fluid": "tconstruct:seared_stone",
+      "fluid": "tconstruct:scorched_stone",
       "amount": 576
     }
   ]

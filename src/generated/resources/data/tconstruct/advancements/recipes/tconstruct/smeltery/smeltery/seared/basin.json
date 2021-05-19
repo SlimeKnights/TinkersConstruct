@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:smeltery/casting/seared_basin"
+      "tconstruct:smeltery/seared/basin"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:smeltery/casting/seared_basin"
+        "recipe": "tconstruct:smeltery/seared/basin"
       }
     }
   },
