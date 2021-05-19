@@ -55,9 +55,6 @@ public final class ToolBaseStatDefinition {
    */
   private final float attackSpeed;
 
-  /** Knockback bonus to apply when fully charged. 0.5 is the same as 1 level of vanilla knockback, or the bonus from sprinting */
-  private final float knockbackBonus;
-
   /**
    * Applies the extra tool stats to the tool like a modifier
    * @param builder  Tool stats builder
@@ -90,7 +87,6 @@ public final class ToolBaseStatDefinition {
     private float damageBonus = 0f;
     private float damageModifier = 1f;
     private float attackSpeed = 1f;
-    private float knockbackBonus = 0;
 
     /** Creates the tool stat definition */
     public ToolBaseStatDefinition build() {
@@ -101,8 +97,7 @@ public final class ToolBaseStatDefinition {
         durabilityModifier, primaryHeadWeight,
         defaultUpgrades, defaultAbilities, defaultTraits,
         reachBonus, miningSpeedModifier,
-        damageBonus, damageModifier,
-        attackSpeed, knockbackBonus
+        damageBonus, damageModifier, attackSpeed
       );
     }
   }
