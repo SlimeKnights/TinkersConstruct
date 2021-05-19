@@ -113,10 +113,13 @@ public final class TinkerSmeltery extends TinkerModule {
   // seared blocks
   private static final Block.Properties SEARED = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL)
     .setRequiresTool().hardnessAndResistance(3.0F, 9.0F).setAllowsSpawn((s, r, p, e) -> !s.hasProperty(SearedBlock.IN_STRUCTURE) || !s.get(SearedBlock.IN_STRUCTURE));
-  private static final Supplier<SearedBlock> SEARED_BLOCK = () -> new SearedBlock(SEARED);
-  private static final Block.Properties SEARED_NON_SOLID = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL)
+  private static final Function<SoundType,Block.Properties> SEARED_NON_SOLID_TEMPLATE = sound -> builder(Material.ROCK, ToolType.PICKAXE, sound)
     .setRequiresTool().hardnessAndResistance(3.0F, 9.0F).notSolid()
     .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+  private static final Block.Properties SEARED_GLASS = SEARED_NON_SOLID_TEMPLATE.apply(SoundType.GLASS);
+  private static final Block.Properties SEARED_NON_SOLID = SEARED_NON_SOLID_TEMPLATE.apply(SoundType.GLASS);
+  private static final Supplier<SearedBlock> SEARED_BLOCK = () -> new SearedBlock(SEARED);
+  // blocks
   public static final BuildingBlockObject searedStone = BLOCKS.registerBuilding("seared_stone", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final WallBuildingBlockObject searedCobble = BLOCKS.registerWallBuilding("seared_cobble", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedPaver = BLOCKS.registerBuilding("seared_paver", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
@@ -125,8 +128,8 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Block> searedFancyBricks = BLOCKS.register("seared_fancy_bricks", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> searedTriangleBricks = BLOCKS.register("seared_triangle_bricks", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> searedLadder = BLOCKS.register("seared_ladder", () -> new SearedLadderBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<ClearGlassPaneBlock> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SEARED_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ClearGlassPaneBlock> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SEARED_GLASS), TOOLTIP_BLOCK_ITEM);
   // peripherals
   public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(SEARED), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> searedDuct = BLOCKS.register("seared_duct", () -> new SearedDuctBlock(SEARED), TOOLTIP_BLOCK_ITEM);
@@ -135,19 +138,22 @@ public final class TinkerSmeltery extends TinkerModule {
   // scorched blocks
   private static final Block.Properties SCORCHED = builder(Material.ROCK, ToolType.PICKAXE, SoundType.BASALT)
     .setRequiresTool().hardnessAndResistance(2.5F, 8.0F).setAllowsSpawn((s, r, p, e) -> !s.hasProperty(SearedBlock.IN_STRUCTURE) || !s.get(SearedBlock.IN_STRUCTURE));
-  private static final Block.Properties SCORCHED_NON_SOLID = builder(Material.ROCK, ToolType.PICKAXE, SoundType.BASALT)
+  private static final Function<SoundType,Block.Properties> SCORCHED_NON_SOLID_TEMPLATE = sound -> builder(Material.ROCK, ToolType.PICKAXE, sound)
     .setRequiresTool().hardnessAndResistance(2.5F, 8.0F).notSolid()
     .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+  private static final Block.Properties SCORCHED_GLASS = SEARED_NON_SOLID_TEMPLATE.apply(SoundType.GLASS);
+  private static final Block.Properties SCORCHED_NON_SOLID = SEARED_NON_SOLID_TEMPLATE.apply(SoundType.GLASS);
   private static final Supplier<SearedBlock> SCORCHED_BLOCK = () -> new SearedBlock(SCORCHED);
   private static final Supplier<SearedPillarBlock> SCORCHED_PILLAR = () -> new SearedPillarBlock(SCORCHED);
+  // blocks
   public static final ItemObject<Block> scorchedStone = BLOCKS.register("scorched_stone", SCORCHED_PILLAR, TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> polishedScorchedStone = BLOCKS.register("polished_scorched_stone", SCORCHED_PILLAR, TOOLTIP_BLOCK_ITEM);
   public static final FenceBuildingBlockObject scorchedBricks = BLOCKS.registerFenceBuilding("scorched_bricks", SCORCHED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject scorchedRoad = BLOCKS.registerBuilding("scorched_road", SCORCHED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> chiseledScorchedBricks = BLOCKS.register("chiseled_scorched_bricks", SCORCHED_BLOCK, TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> scorchedLadder = BLOCKS.register("scorched_ladder", () -> new SearedLadderBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<SearedGlassBlock> scorchedGlass = BLOCKS.register("scorched_glass", () -> new SearedGlassBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<ClearGlassPaneBlock> scorchedGlassPane = BLOCKS.register("scorched_glass_pane", () -> new ClearGlassPaneBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SearedGlassBlock> scorchedGlass = BLOCKS.register("scorched_glass", () -> new SearedGlassBlock(SCORCHED_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ClearGlassPaneBlock> scorchedGlassPane = BLOCKS.register("scorched_glass_pane", () -> new ClearGlassPaneBlock(SCORCHED_GLASS), TOOLTIP_BLOCK_ITEM);
   // peripherals
   public static final ItemObject<Block> scorchedDrain = BLOCKS.register("scorched_drain", () -> new SearedDrainBlock(SCORCHED), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> scorchedDuct = BLOCKS.register("scorched_duct", () -> new SearedDuctBlock(SCORCHED), TOOLTIP_BLOCK_ITEM);
