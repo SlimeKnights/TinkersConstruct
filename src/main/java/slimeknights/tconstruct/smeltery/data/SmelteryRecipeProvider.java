@@ -1167,12 +1167,36 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // netherite
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.LODESTONE), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT)
                         .build(consumer, location(metalFolder + "netherite/lodestone"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(
-      Items.NETHERITE_HELMET, Items.NETHERITE_CHESTPLATE, Items.NETHERITE_LEGGINGS, Items.NETHERITE_BOOTS,
-      Items.NETHERITE_HOE, Items.NETHERITE_AXE, Items.NETHERITE_PICKAXE, Items.NETHERITE_SHOVEL, Items.NETHERITE_SWORD
-                                                     ), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT, 1.0f)
+    // armor
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.NETHERITE_HELMET), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT)
                         .setDamagable()
-                        .build(consumer, location(metalFolder + "netherite/tools_and_armor"));
+                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), MaterialValues.GEM * 5))
+                        .build(consumer, location(folder + "netherite/helmet"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.NETHERITE_CHESTPLATE), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT)
+                        .setDamagable()
+                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), MaterialValues.GEM * 8))
+                        .build(consumer, location(folder + "netherite/chestplate"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.NETHERITE_LEGGINGS), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT)
+                        .setDamagable()
+                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), MaterialValues.GEM * 7))
+                        .build(consumer, location(folder + "netherite/leggings"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.NETHERITE_BOOTS), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT)
+                        .setDamagable()
+                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), MaterialValues.GEM * 4))
+                        .build(consumer, location(folder + "netherite/boots"));
+    // tools
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.NETHERITE_AXE, Items.NETHERITE_PICKAXE), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT)
+                        .setDamagable()
+                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), MaterialValues.GEM * 3))
+                        .build(consumer, location(folder + "netherite/axes"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.NETHERITE_SWORD, Items.NETHERITE_HOE), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT)
+                        .setDamagable()
+                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), MaterialValues.GEM * 2))
+                        .build(consumer, location(folder + "netherite/weapon"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.NETHERITE_SHOVEL), TinkerFluids.moltenNetherite.get(), MaterialValues.INGOT)
+                        .setDamagable()
+                        .addByproduct(new FluidStack(TinkerFluids.moltenDiamond.get(), MaterialValues.GEM))
+                        .build(consumer, location(folder + "netherite/shovel"));
 
     // quartz
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.OBSERVER, Blocks.COMPARATOR, TinkerGadgets.quartzShuriken), TinkerFluids.moltenQuartz.get(), MaterialValues.GEM * 3)

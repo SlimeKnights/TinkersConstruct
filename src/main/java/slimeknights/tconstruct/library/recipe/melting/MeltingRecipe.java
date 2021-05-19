@@ -86,9 +86,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   public void handleByproducts(IMeltingInventory inv, IFluidHandler handler) {
     // fill byproducts until we run out of space or byproducts
     for (FluidStack fluidStack : byproducts) {
-      if (handler.fill(fluidStack.copy(), FluidAction.EXECUTE) < fluidStack.getAmount()) {
-        break;
-      }
+      handler.fill(fluidStack.copy(), FluidAction.EXECUTE);
     }
   }
 
