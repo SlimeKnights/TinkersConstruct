@@ -47,9 +47,9 @@
       "faces": {
         "up":    { "uv": [  4, 10, 12, 16 ], "texture": "#tex"},
         "down":  { "uv": [  4, 10, 12, 16 ], "texture": "#tex", "rotation": 180},
-        "north": { "uv": [  4,  8, 12, 10 ], "texture": "#tex"},
+        "north": { "uv": [  4,  9, 12, 11 ], "texture": "#tex"},
         "east":  { "uv": [ 12, 10, 14, 16 ], "texture": "#tex", "rotation": 90},
-        "south": { "uv": [  4, 10, 12,  8 ], "texture": "#tex", "cullface": "south"},
+        "south": { "uv": [  4, 11, 12,  9 ], "texture": "#tex", "cullface": "south"},
         "west":  { "uv": [  2, 10,  4, 16 ], "texture": "#tex", "rotation": 270 }
       },
       "__comment": "The bottom platform, facing south with the dark texture side"
@@ -59,9 +59,9 @@
       "to":   [ 12, 10, 16 ],
       "faces": {
         "up":    { "uv": [ 13, 10, 15, 16 ], "texture": "#tex"},
-        "north": { "uv": [  6, 10,  8,  6 ], "texture": "#tex"},
+        "north": { "uv": [  4,  9,  6,  5 ], "texture": "#tex"},
         "east":  { "uv": [  8, 10, 12, 16 ], "texture": "#tex", "rotation": 90},
-        "south": { "uv": [  6, 10,  8,  6 ], "texture": "#tex", "cullface": "south"},
+        "south": { "uv": [ 10,  9, 12,  5 ], "texture": "#tex", "cullface": "south"},
         "west":  { "uv": [  2, 10,  6, 16 ], "texture": "#tex", "rotation": 270}
       },
       "__comment": "Left side from front (east)"
@@ -71,10 +71,10 @@
       "to":   [  6, 10, 16 ],
       "faces": {
         "up":    { "uv": [  1, 10,  3, 16 ], "texture": "#tex"},
-        "north": { "uv": [  6, 10,  8,  6 ], "texture": "#tex"},
+        "north": { "uv": [ 10,  9, 12,  5 ], "texture": "#tex"},
         "east":  { "uv": [  2, 10,  6, 16 ], "texture": "#tex", "rotation": 90},
-        "south": { "uv": [  6, 10,  4,  6 ], "texture": "#tex", "cullface": "south"},
-        "west":  { "uv": [  6, 10, 12, 16 ], "texture": "#tex", "rotation": 270}
+        "south": { "uv": [  6,  9,  4,  5 ], "texture": "#tex", "cullface": "south"},
+        "west":  { "uv": [  7, 10, 11, 16 ], "texture": "#tex", "rotation": 270}
       },
       "__comment": "Right side from front (west)"
     }
