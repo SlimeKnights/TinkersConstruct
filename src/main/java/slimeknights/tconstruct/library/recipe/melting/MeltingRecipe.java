@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -25,11 +24,13 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Recipe to melt an ingredient into a specific fuel
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MeltingRecipe implements IMeltingRecipe {
   @Getter
   private final ResourceLocation id;
@@ -43,7 +44,8 @@ public class MeltingRecipe implements IMeltingRecipe {
   /** Number of "steps" needed to melt this, by default lava increases steps by 5 every 4 ticks (25 a second) */
   @Getter
   private final int time;
-  private final List<FluidStack> byproducts;
+  protected final List<FluidStack> byproducts;
+  private List<List<FluidStack>> outputWithByproducts;
 
   @Override
   public boolean matches(IMeltingInventory inv, World world) {
@@ -93,6 +95,16 @@ public class MeltingRecipe implements IMeltingRecipe {
   /** Gets the recipe output for display in JEI */
   public List<List<FluidStack>> getDisplayOutput() {
     return Collections.singletonList(Collections.singletonList(output));
+  }
+
+  /** Gets the recipe output for display in JEI */
+  public List<List<FluidStack>> getOutputWithByproducts() {
+    if (outputWithByproducts == null) {
+      outputWithByproducts = Stream.concat(Stream.of(output), byproducts.stream())
+                                   .map(Collections::singletonList)
+                                   .collect(Collectors.toList());
+    }
+    return outputWithByproducts;
   }
 
   /** Interface for use in the serializer */

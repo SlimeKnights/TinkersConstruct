@@ -1576,6 +1576,7 @@
     "jei.tconstruct.melting.time": "Melting time: %s s",
     "jei.tconstruct.melting.smeltery": "In smeltery:",
     "jei.tconstruct.melting.melter": "In melter:",
+    "jei.tconstruct.foundry.title": "Foundry",
 
     "jei.tconstruct.entity_melting.title": "Entity Melting",
     "jei.tconstruct.entity_melting.per_hearts": "Per %s Hearts Damage",

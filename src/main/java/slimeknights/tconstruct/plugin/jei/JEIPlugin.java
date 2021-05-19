@@ -66,6 +66,7 @@ import slimeknights.tconstruct.plugin.jei.entity.DefaultEntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.entity.EntityIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.entity.EntityIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.entity.EntityMeltingRecipeCategory;
+import slimeknights.tconstruct.plugin.jei.melting.FoundryCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientHelper;
@@ -113,6 +114,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new MeltingCategory(guiHelper));
     registry.addRecipeCategories(new AlloyRecipeCategory(guiHelper));
     registry.addRecipeCategories(new EntityMeltingRecipeCategory(guiHelper));
+    registry.addRecipeCategories(new FoundryCategory(guiHelper));
     // tinker station
     registry.addRecipeCategories(new ModifierRecipeCategory(guiHelper));
     registry.addRecipeCategories(new BeheadingCategory(guiHelper));
@@ -137,6 +139,7 @@ public class JEIPlugin implements IModPlugin {
     // melting
     List<MeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.MELTING, MeltingRecipe.class);
     register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.melting);
+    register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.foundry);
     MeltingFuelHandler.setMeltngFuels(RecipeHelper.getRecipes(manager, RecipeTypes.FUEL, MeltingFuel.class));
 
     // entity melting
@@ -191,6 +194,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructRecipeCategoryUid.melting, TConstructRecipeCategoryUid.alloy, TConstructRecipeCategoryUid.entityMelting);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.scorchedAlloyer), TConstructRecipeCategoryUid.alloy);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.foundryController), TConstructRecipeCategoryUid.foundry);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructRecipeCategoryUid.modifiers);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructRecipeCategoryUid.modifiers);
     for (Item item : TinkerTags.Items.MELEE.getAllElements()) {
