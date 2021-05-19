@@ -17,6 +17,7 @@ public final class MaterialIds {
   // tier 2
   public static final MaterialId iron = id("iron");
   public static final MaterialId searedStone = id("seared_stone");
+  public static final MaterialId scorchedStone = id("scorched_stone");
   public static final MaterialId copper = id("copper");
   public static final MaterialId slimewood = id("slimewood");
   // tier 2.5 - its an alloy but its not a higher mining level

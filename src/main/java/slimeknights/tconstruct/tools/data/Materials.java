@@ -49,10 +49,11 @@ final class Materials {
   // tier 1 - nether
   public static final IMaterial necroticBone = mat(MaterialIds.necroticBone,  1, ORDER_SPECIAL, true, 0x4D4D4D, TinkerModifiers.necrotic);
   // tier 2
-  public static final IMaterial iron        = mat(MaterialIds.iron,        2, ORDER_GENERAL, TinkerFluids.moltenIron, false, 0xcacaca, TinkerModifiers.sturdy);
-  public static final IMaterial copper      = mat(MaterialIds.copper,      2, ORDER_HARVEST, TinkerFluids.moltenCopper, true, 0xfba165, TinkerModifiers.dwarven);
-  public static final IMaterial searedStone = mat(MaterialIds.searedStone, 2, ORDER_WEAPON,  TinkerFluids.searedStone, false, 0x3f3f3f, TinkerModifiers.searing);
-  public static final IMaterial slimewood   = mat(new DataMaterial(MaterialIds.slimewood, 2, ORDER_SPECIAL, false, 0x82c873, getOverslimeTrait(TinkerModifiers.overgrowth)));
+  public static final IMaterial iron          = mat(MaterialIds.iron,          2, ORDER_GENERAL, TinkerFluids.moltenIron,    false, 0xcacaca, TinkerModifiers.sturdy);
+  public static final IMaterial copper        = mat(MaterialIds.copper,        2, ORDER_HARVEST, TinkerFluids.moltenCopper,  true,  0xfba165, TinkerModifiers.dwarven);
+  public static final IMaterial searedStone   = mat(new DataMaterial(MaterialIds.searedStone,   2, ORDER_WEAPON, TinkerFluids.searedStone,   MaterialValues.INGOT * 2, false, 0x3f3f3f, traitSupplier(TinkerModifiers.searing)));
+  public static final IMaterial scorchedStone = mat(new DataMaterial(MaterialIds.scorchedStone, 2, ORDER_NETHER, TinkerFluids.scorchedStone, MaterialValues.INGOT * 2, false, 0x3e3029, traitSupplier(TinkerModifiers.scorching)));
+  public static final IMaterial slimewood     = mat(new DataMaterial(MaterialIds.slimewood, 2, ORDER_SPECIAL, false, 0x82c873, getOverslimeTrait(TinkerModifiers.overgrowth)));
   // tier 3
   public static final IMaterial slimesteel = overslimeMat(MaterialIds.slimesteel, 3, ORDER_GENERAL, TinkerFluids.moltenSlimesteel, false, 0x74c8c7, TinkerModifiers.overcast);
   public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, 3, ORDER_HARVEST, TinkerFluids.moltenTinkersBronze, false, 0xf9cf72, TinkerModifiers.wellMaintained);

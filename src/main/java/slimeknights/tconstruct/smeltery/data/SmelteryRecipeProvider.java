@@ -850,8 +850,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     String compositeFolder = "tools/parts/composite/";
     // half a clay is 1 seared brick per grout amounts
     CompositeCastingRecipeBuilder.table(MaterialIds.stone, MaterialIds.searedStone)
-                                 .setFluid(new FluidStack(TinkerFluids.moltenClay.get(), MaterialValues.SLIMEBALL / 2))
+                                 .setFluid(new FluidStack(TinkerFluids.moltenClay.get(), MaterialValues.SLIMEBALL))
                                  .build(consumer, location(compositeFolder + "seared_stone"));
+    CompositeCastingRecipeBuilder.table(MaterialIds.flint, MaterialIds.scorchedStone)
+                                 .setFluid(new FluidStack(TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL))
+                                 .build(consumer, location(compositeFolder + "scorched_stone"));
     CompositeCastingRecipeBuilder.table(MaterialIds.wood, MaterialIds.slimewood)
                                  .setFluid(TinkerFluids.earthSlime.getForgeTag(), MaterialValues.SLIMEBALL)
                                  .setTemperature(getTemperature(TinkerFluids.earthSlime))

@@ -62,6 +62,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.MomentumModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.ScorchingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SearingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TastyModifier;
@@ -210,6 +211,7 @@ public final class TinkerModifiers extends TinkerModule {
   // traits - tier 2
   public static final RegistryObject<SturdyModifier> sturdy = MODIFIERS.register("sturdy", SturdyModifier::new);
   public static final RegistryObject<SearingModifier> searing = MODIFIERS.register("searing", SearingModifier::new);
+  public static final RegistryObject<ScorchingModifier> scorching = MODIFIERS.register("scorching", ScorchingModifier::new);
   public static final RegistryObject<DwarvenModifier> dwarven = MODIFIERS.register("dwarven", DwarvenModifier::new);
   public static final RegistryObject<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
   // traits - tier 3
