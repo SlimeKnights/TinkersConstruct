@@ -17,7 +17,7 @@ public class SearingModifier extends Modifier {
   private static final float BASELINE_TEMPERATURE = 0.75f;
 
   public SearingModifier() {
-    super(0x3f3f3f);
+    super(0x4F4A47);
   }
 
   @Override

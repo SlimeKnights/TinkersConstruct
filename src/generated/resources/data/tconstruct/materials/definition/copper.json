@@ -4,7 +4,7 @@
   "sortOrder": 1,
   "fluid": "tconstruct:molten_copper",
   "fluidPerUnit": 144,
-  "textColor": "#FBA165",
+  "textColor": "#F98648",
   "temperature": 500,
   "traits": [
     {

@@ -2,7 +2,7 @@
   "craftable": false,
   "tier": 3,
   "sortOrder": 2,
-  "textColor": "#601CC4",
+  "textColor": "#3B2754",
   "traits": [
     {
       "name": "tconstruct:lacerating",

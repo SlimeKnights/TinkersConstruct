@@ -45,21 +45,21 @@ final class Materials {
   public static final IMaterial wood  = mat(MaterialIds.wood,  1, ORDER_GENERAL, true, 0x8e661b, TinkerModifiers.cultivated);
   public static final IMaterial stone = mat(MaterialIds.stone, 1, ORDER_HARVEST, true, 0x999999, TinkerModifiers.stonebound);
   public static final IMaterial flint = mat(MaterialIds.flint, 1, ORDER_WEAPON,  true, 0x696969, TinkerModifiers.jagged);
-  public static final IMaterial bone  = mat(MaterialIds.bone,  1, ORDER_SPECIAL, true, 0xede6bf, TinkerModifiers.fractured);
+  public static final IMaterial bone  = mat(MaterialIds.bone,  1, ORDER_SPECIAL, true, 0xE8E5D2, TinkerModifiers.fractured);
   // tier 1 - nether
   public static final IMaterial necroticBone = mat(MaterialIds.necroticBone,  1, ORDER_SPECIAL, true, 0x4D4D4D, TinkerModifiers.necrotic);
   // tier 2
-  public static final IMaterial iron          = mat(MaterialIds.iron,          2, ORDER_GENERAL, TinkerFluids.moltenIron,    false, 0xcacaca, TinkerModifiers.sturdy);
-  public static final IMaterial copper        = mat(MaterialIds.copper,        2, ORDER_HARVEST, TinkerFluids.moltenCopper,  true,  0xfba165, TinkerModifiers.dwarven);
-  public static final IMaterial searedStone   = mat(new DataMaterial(MaterialIds.searedStone,   2, ORDER_WEAPON, TinkerFluids.searedStone,   MaterialValues.INGOT * 2, false, 0x3f3f3f, traitSupplier(TinkerModifiers.searing)));
-  public static final IMaterial scorchedStone = mat(new DataMaterial(MaterialIds.scorchedStone, 2, ORDER_NETHER, TinkerFluids.scorchedStone, MaterialValues.INGOT * 2, false, 0x3e3029, traitSupplier(TinkerModifiers.scorching)));
+  public static final IMaterial iron          = mat(MaterialIds.iron,          2, ORDER_GENERAL, TinkerFluids.moltenIron,    false, 0xD8D8D8, TinkerModifiers.sturdy);
+  public static final IMaterial copper        = mat(MaterialIds.copper,        2, ORDER_HARVEST, TinkerFluids.moltenCopper,  true,  0xF98648, TinkerModifiers.dwarven);
+  public static final IMaterial searedStone   = mat(new DataMaterial(MaterialIds.searedStone,   2, ORDER_WEAPON, TinkerFluids.searedStone,   MaterialValues.INGOT * 2, false, 0x4F4A47, traitSupplier(TinkerModifiers.searing)));
+  public static final IMaterial scorchedStone = mat(new DataMaterial(MaterialIds.scorchedStone, 2, ORDER_NETHER, TinkerFluids.scorchedStone, MaterialValues.INGOT * 2, false, 0x5B4C43, traitSupplier(TinkerModifiers.scorching)));
   public static final IMaterial slimewood     = mat(new DataMaterial(MaterialIds.slimewood, 2, ORDER_SPECIAL, false, 0x82c873, getOverslimeTrait(TinkerModifiers.overgrowth)));
   // tier 3
-  public static final IMaterial slimesteel = overslimeMat(MaterialIds.slimesteel, 3, ORDER_GENERAL, TinkerFluids.moltenSlimesteel, false, 0x74c8c7, TinkerModifiers.overcast);
-  public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, 3, ORDER_HARVEST, TinkerFluids.moltenTinkersBronze, false, 0xf9cf72, TinkerModifiers.wellMaintained);
-  public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl,       3, ORDER_WEAPON,  false, 0x601cc4, TinkerModifiers.lacerating);
-  public static final IMaterial roseGold      = mat(MaterialIds.roseGold,      3, ORDER_SPECIAL, TinkerFluids.moltenRoseGold, false, 0xf7cdbb, TinkerModifiers.enhanced);
-  public static final IMaterial pigIron       = mat(MaterialIds.pigIron,       3, ORDER_SPECIAL, TinkerFluids.moltenPigIron, false, 0xf0a8a4, TinkerModifiers.tasty);
+  public static final IMaterial slimesteel = overslimeMat(MaterialIds.slimesteel, 3, ORDER_GENERAL, TinkerFluids.moltenSlimesteel, false, 0x27C6C6, TinkerModifiers.overcast);
+  public static final IMaterial tinkersBronze = mat(MaterialIds.tinkersBronze, 3, ORDER_HARVEST, TinkerFluids.moltenTinkersBronze, false, 0xE8B465, TinkerModifiers.wellMaintained);
+  public static final IMaterial nahuatl       = mat(MaterialIds.nahuatl,       3, ORDER_WEAPON,  false, 0x3B2754, TinkerModifiers.lacerating);
+  public static final IMaterial roseGold      = mat(MaterialIds.roseGold,      3, ORDER_SPECIAL, TinkerFluids.moltenRoseGold, false, 0xF7CDBB, TinkerModifiers.enhanced);
+  public static final IMaterial pigIron       = mat(MaterialIds.pigIron,       3, ORDER_SPECIAL, TinkerFluids.moltenPigIron, false, 0xF0A8A4, TinkerModifiers.tasty);
 
   // tier 2 (nether)
   //public static final IMaterial witherBone = mat(MaterialIds.witherBone, true, 0xede6bf);
@@ -75,13 +75,13 @@ final class Materials {
   //public static final IMaterial endstone = mat(MaterialIds.endstone, true, 0xe0d890);
 
   // tier 2 (mod integration)
-  public static final IMaterial lead     = compatMat(MaterialIds.lead,   2, ORDER_COMPAT, TinkerFluids.moltenLead,   TinkerModifiers.heavy);
-  public static final IMaterial silver   = compatMat(MaterialIds.silver, 2, ORDER_COMPAT, TinkerFluids.moltenSilver, TinkerModifiers.smite);
+  public static final IMaterial lead     = compatMat(MaterialIds.lead,   2, ORDER_COMPAT, TinkerFluids.moltenLead,   0x575E79, TinkerModifiers.heavy);
+  public static final IMaterial silver   = compatMat(MaterialIds.silver, 2, ORDER_COMPAT, TinkerFluids.moltenSilver, 0xD3DFE8, TinkerModifiers.smite);
   // tier 3 (mod integration)
-  public static final IMaterial electrum   = compatMat(MaterialIds.electrum,   3, ORDER_COMPAT,  TinkerFluids.moltenElectrum,   TinkerModifiers.experienced);
-  public static final IMaterial bronze     = compatMat(MaterialIds.bronze,     3, ORDER_HARVEST, TinkerFluids.moltenBronze,     TinkerModifiers.wellMaintained2);
-  public static final IMaterial steel      = compatMat(MaterialIds.steel,      3, ORDER_GENERAL, TinkerFluids.moltenSteel,      TinkerModifiers.ductile);
-  public static final IMaterial constantan = compatMat(MaterialIds.constantan, 3, ORDER_COMPAT,  TinkerFluids.moltenConstantan, TinkerModifiers.temperate);
+  public static final IMaterial electrum   = compatMat(MaterialIds.electrum,   3, ORDER_COMPAT,  TinkerFluids.moltenElectrum,   0xD9C25F, TinkerModifiers.experienced);
+  public static final IMaterial bronze     = compatMat(MaterialIds.bronze,     3, ORDER_HARVEST, TinkerFluids.moltenBronze,     0xD58F36, TinkerModifiers.wellMaintained2);
+  public static final IMaterial steel      = compatMat(MaterialIds.steel,      3, ORDER_GENERAL, TinkerFluids.moltenSteel,      0x959595, TinkerModifiers.ductile);
+  public static final IMaterial constantan = compatMat(MaterialIds.constantan, 3, ORDER_COMPAT,  TinkerFluids.moltenConstantan, 0x9C5643, TinkerModifiers.temperate);
 
   // bowstring IMaterials
 //  public static final IMaterial string = mat(MaterialIds.string, true, 0xeeeeee);
@@ -126,10 +126,10 @@ final class Materials {
   }
 
   /** Creates a new compat material */
-  private static IMaterial compatMat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, @Nullable Supplier<? extends Modifier> trait) {
+  private static IMaterial compatMat(MaterialId location, int tier, int order, Supplier<? extends Fluid> fluid, int color, @Nullable Supplier<? extends Modifier> trait) {
     // all our addon materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
     ICondition condition = new NotCondition(new TagEmptyCondition("forge", "ingots/" + location.getPath()));
-    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT, false, fluid.get().getAttributes().getColor() & 0xFFFFFF, traitSupplier(trait)), condition);
+    return mat(new DataMaterial(location, tier, order, fluid, MaterialValues.INGOT, false, color & 0xFFFFFF, traitSupplier(trait)), condition);
   }
 
   /** Gets an overslime based trait for the given tool */

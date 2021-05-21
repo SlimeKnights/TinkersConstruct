@@ -10,7 +10,7 @@ public class TemperateModifier extends Modifier {
   private static final float BASELINE_TEMPERATURE = 0.75f;
 
   public TemperateModifier() {
-    super(0xff9e7f);
+    super(0x9C5643);
   }
 
   @Override

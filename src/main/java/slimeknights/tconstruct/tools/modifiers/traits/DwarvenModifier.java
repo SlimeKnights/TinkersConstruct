@@ -12,7 +12,7 @@ public class DwarvenModifier extends Modifier {
   private static final float BOOST_AT_0 = 0.1f;
 
   public DwarvenModifier() {
-    super(0xed9f07);
+    super(0xF98648);
   }
 
   @Override

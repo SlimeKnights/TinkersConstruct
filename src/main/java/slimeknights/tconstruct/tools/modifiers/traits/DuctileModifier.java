@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 public class DuctileModifier extends Modifier {
   public DuctileModifier() {
-    super(0xa7a7a7);
+    super(0x959595);
   }
 
   @Override

@@ -12,7 +12,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class ScorchingModifier extends Modifier {
   public ScorchingModifier() {
-    super(0x3E3029);
+    super(0x5B4C43);
   }
 
   @Override

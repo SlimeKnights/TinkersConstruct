@@ -2,7 +2,7 @@
   "craftable": true,
   "tier": 1,
   "sortOrder": 3,
-  "textColor": "#EDE6BF",
+  "textColor": "#E8E5D2",
   "traits": [
     {
       "name": "tconstruct:fractured",

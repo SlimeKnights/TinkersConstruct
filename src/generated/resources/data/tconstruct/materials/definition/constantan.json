@@ -11,7 +11,7 @@
   "sortOrder": 5,
   "fluid": "tconstruct:molten_constantan",
   "fluidPerUnit": 144,
-  "textColor": "#FF9E7F",
+  "textColor": "#9C5643",
   "temperature": 920,
   "traits": [
     {

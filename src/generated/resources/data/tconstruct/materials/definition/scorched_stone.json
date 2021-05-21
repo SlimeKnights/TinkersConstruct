@@ -4,7 +4,7 @@
   "sortOrder": 7,
   "fluid": "tconstruct:scorched_stone",
   "fluidPerUnit": 288,
-  "textColor": "#3E3029",
+  "textColor": "#5B4C43",
   "temperature": 500,
   "traits": [
     {

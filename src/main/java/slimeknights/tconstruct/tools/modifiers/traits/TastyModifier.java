@@ -26,7 +26,7 @@ import java.util.List;
 public class TastyModifier extends Modifier {
   private static final ResourceLocation IS_EATING = Util.getResource("eating_tasty");
   public TastyModifier() {
-    super(0xef9e9b);
+    super(0xF0A8A4);
   }
 
   @Override

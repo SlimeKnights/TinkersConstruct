@@ -5,7 +5,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 /** Well maintained for classic Bronze */
 public class MaintainedModifier2 extends MaintainedModifier {
   public MaintainedModifier2() {
-    super(0xcea179);
+    super(0xD58F36);
   }
 
   @Override

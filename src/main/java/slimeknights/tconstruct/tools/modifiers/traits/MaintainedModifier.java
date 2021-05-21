@@ -20,7 +20,7 @@ public class MaintainedModifier extends Modifier {
   private static final ITextComponent MINING_SPEED = Util.makeTranslation("modifier", "fake_attribute.mining_speed");
   private static final ResourceLocation KEY_ORIGINAL_DURABILITY = Util.getResource("durability");
   public MaintainedModifier() {
-    super(0xe3bd68);
+    super(0xE8B465);
   }
 
   protected MaintainedModifier(int color) {

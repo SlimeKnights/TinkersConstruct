@@ -10,7 +10,7 @@ import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 
 public class OvercastModifier extends Modifier {
   public OvercastModifier() {
-    super(0x74c8c7);
+    super(0x27C6C6);
   }
 
   @Override

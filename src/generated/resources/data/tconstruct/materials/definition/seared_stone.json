@@ -4,7 +4,7 @@
   "sortOrder": 2,
   "fluid": "tconstruct:seared_stone",
   "fluidPerUnit": 288,
-  "textColor": "#3F3F3F",
+  "textColor": "#4F4A47",
   "temperature": 600,
   "traits": [
     {
