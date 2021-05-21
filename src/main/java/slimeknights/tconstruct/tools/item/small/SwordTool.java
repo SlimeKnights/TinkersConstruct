@@ -59,7 +59,7 @@ public class SwordTool extends ToolCore {
       float sweepDamage = TinkerModifiers.sweeping.get().getSweepingDamage(tool, damage);
       for (LivingEntity livingEntity : living.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, targetEntity.getBoundingBox().grow(range, 0.25D, range))) {
         if (livingEntity != living && livingEntity != targetEntity && !living.isOnSameTeam(livingEntity)
-            && (!(livingEntity instanceof ArmorStandEntity) || !((ArmorStandEntity) livingEntity).hasMarker()) && living.getDistanceSq(livingEntity) < 8.0D + range) {
+            && (!(livingEntity instanceof ArmorStandEntity) || !((ArmorStandEntity) livingEntity).hasMarker()) && living.getDistanceSq(livingEntity) < 10.0D + range) {
           livingEntity.applyKnockback(0.4F, MathHelper.sin(living.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(living.rotationYaw * ((float) Math.PI / 180F)));
           super.dealDamage(tool, living, livingEntity, sweepDamage, false, true);
         }
