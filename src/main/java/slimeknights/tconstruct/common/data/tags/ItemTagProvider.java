@@ -217,11 +217,11 @@ public class ItemTagProvider extends ItemTagsProvider {
     // tag for tool parts, mostly used by JEI right now
     this.getOrCreateBuilder(TinkerTags.Items.TOOL_PARTS)
         .add(TinkerToolParts.pickaxeHead.get(), TinkerToolParts.hammerHead.get(),
-             TinkerToolParts.smallAxeHead.get(), TinkerToolParts.broadAxeHead.get(),
-             TinkerToolParts.swordBlade.get(), TinkerToolParts.broadBlade.get(),
-             TinkerToolParts.toolBinding.get(), TinkerToolParts.largePlate.get(),
-             TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
-             TinkerToolParts.repairKit.get()); // repair kit is not strictly a tool part, but this list just helps out JEI
+						 TinkerToolParts.smallAxeHead.get(), TinkerToolParts.broadAxeHead.get(),
+						 TinkerToolParts.smallBlade.get(), TinkerToolParts.broadBlade.get(),
+						 TinkerToolParts.toolBinding.get(), TinkerToolParts.largePlate.get(),
+						 TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
+						 TinkerToolParts.repairKit.get()); // repair kit is not strictly a tool part, but this list just helps out JEI
   }
 
   private void addSmeltery() {
@@ -261,7 +261,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     // small heads
     addCast.accept(TinkerSmeltery.pickaxeHeadCast);
     addCast.accept(TinkerSmeltery.smallAxeHeadCast);
-    addCast.accept(TinkerSmeltery.swordBladeCast);
+    addCast.accept(TinkerSmeltery.smallBladeCast);
     // large heads
     addCast.accept(TinkerSmeltery.hammerHeadCast);
     addCast.accept(TinkerSmeltery.broadAxeHeadCast);

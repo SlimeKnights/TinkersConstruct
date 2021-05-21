@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "item": "tconstruct:sword_blade",
+    "item": "tconstruct:small_blade",
     "type": "tconstruct:material"
   },
   "cast_consumed": true,
@@ -10,6 +10,6 @@
     "name": "tconstruct:molten_gold",
     "amount": 144
   },
-  "result": "tconstruct:sword_blade_cast",
+  "result": "tconstruct:small_blade_cast",
   "cooling_time": 57
 }

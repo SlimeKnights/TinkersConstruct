@@ -116,11 +116,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .build(consumer, wrap(TinkerModifiers.ancientAxeHead, folder, "_sand_cast"));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ancientHoeHead)
                             .setFluidAndTime(debris)
-                            .setCast(TinkerSmeltery.swordBladeCast.getMultiUseTag(), false)
+                            .setCast(TinkerSmeltery.smallBladeCast.getMultiUseTag(), false)
                             .build(consumer, wrap(TinkerModifiers.ancientHoeHead, folder, "_gold_cast"));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ancientHoeHead)
                             .setFluidAndTime(debris)
-                            .setCast(TinkerSmeltery.swordBladeCast.getSingleUseTag(), true)
+                            .setCast(TinkerSmeltery.smallBladeCast.getSingleUseTag(), true)
                             .build(consumer, wrap(TinkerModifiers.ancientHoeHead, folder, "_sand_cast"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerModifiers.ancientShovelHead,
                                                       TinkerModifiers.ancientAxeHead,

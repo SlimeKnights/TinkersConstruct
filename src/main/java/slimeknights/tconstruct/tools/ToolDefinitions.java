@@ -57,7 +57,7 @@ public final class ToolDefinitions {
   // scythes
   public static final ToolDefinition KAMA = new ToolDefinition(
     ToolBaseStatDefinitions.KAMA,
-    requirements(TinkerToolParts.swordBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding),
+    requirements(TinkerToolParts.smallBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding),
     () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.hoeTransformHidden.get(), 1),
                            new ModifierEntry(TinkerModifiers.shears.get(), 1),
                            new ModifierEntry(TinkerModifiers.harvest.get(), 1)));
@@ -72,7 +72,7 @@ public final class ToolDefinitions {
   // swords
   public static final ToolDefinition SWORD = new ToolDefinition(
     ToolBaseStatDefinitions.SWORD,
-    requirements(TinkerToolParts.swordBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolHandle),
+    requirements(TinkerToolParts.smallBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolHandle),
     () -> Collections.singletonList(new ModifierEntry(TinkerModifiers.silkyShears.get(), 1)));
   public static final ToolDefinition CLEAVER = new ToolDefinition(
     ToolBaseStatDefinitions.CLEAVER,

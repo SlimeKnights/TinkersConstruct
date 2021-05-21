@@ -96,7 +96,7 @@ public class ToolClientEvents extends ClientEventBase {
     registerMaterialItemColors(colors, TinkerToolParts.hammerHead);
     registerMaterialItemColors(colors, TinkerToolParts.smallAxeHead);
     registerMaterialItemColors(colors, TinkerToolParts.broadAxeHead);
-    registerMaterialItemColors(colors, TinkerToolParts.swordBlade);
+    registerMaterialItemColors(colors, TinkerToolParts.smallBlade);
     registerMaterialItemColors(colors, TinkerToolParts.broadBlade);
     // other parts
     registerMaterialItemColors(colors, TinkerToolParts.toolBinding);

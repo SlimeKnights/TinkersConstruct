@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "tag": "tconstruct:casts/single_use/sword_blade"
+    "tag": "tconstruct:casts/single_use/small_blade"
   },
   "cast_consumed": true,
   "fluid": {
