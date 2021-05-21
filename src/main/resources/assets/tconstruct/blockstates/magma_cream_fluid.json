@@ -1,7 +1,7 @@
 {
-    "variants": {
-        "": {
-            "model": "tconstruct:block/fluid/magma_cream"
-        }
+  "variants": {
+    "": {
+      "model": "tconstruct:block/fluid/slime/magma_cream"
     }
+  }
 }

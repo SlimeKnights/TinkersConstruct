@@ -1,7 +1,7 @@
 {
-    "variants": {
-        "": {
-            "model": "tconstruct:block/fluid/liquid"
-        }
+  "variants": {
+    "": {
+      "model": "tconstruct:block/fluid/slime/ender"
     }
+  }
 }
