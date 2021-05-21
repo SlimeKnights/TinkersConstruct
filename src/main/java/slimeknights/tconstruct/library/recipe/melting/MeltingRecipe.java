@@ -162,7 +162,7 @@ public class MeltingRecipe implements IMeltingRecipe {
       recipe.output.writeToPacket(buffer);
       buffer.writeInt(recipe.temperature);
       buffer.writeVarInt(recipe.time);
-      buffer.writeInt(recipe.byproducts.size());
+      buffer.writeVarInt(recipe.byproducts.size());
       for (FluidStack fluidStack : recipe.byproducts) {
         fluidStack.writeToPacket(buffer);
       }
