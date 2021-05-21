@@ -92,7 +92,7 @@ public class CRTHelper {
         builder.append("\n\tFluid: ").append(new MCFluidStackMutable(new FluidStack(iMaterial.getFluid(), 1)).getCommandString());
         builder.append("\n\tFluidPerUnit: ").append(iMaterial.getFluidPerUnit());
         builder.append("\n\tTranslation Key: `").append(iMaterial.getTranslationKey()).append("`");
-        builder.append("\n\tColor: ").append(iMaterial.getColor().getHex());
+        builder.append("\n\tColor: ").append(String.format("#%06X", iMaterial.getColor().getColor()));
         builder.append("\n\tTemperature: ").append(iMaterial.getTemperature());
         builder.append("\n\tTier: ").append(iMaterial.getTier());
         builder.append("\n\tSort Order: ").append(iMaterial.getSortOrder());
@@ -126,7 +126,7 @@ public class CRTHelper {
         builder.append("Modifier: `").append(modifier.getId()).append("` {");
         builder.append("\n\tDisplay Name: `").append(modifier.getDisplayName().getString()).append("`");
         builder.append("\n\tTranslation Key: `").append(modifier.getTranslationKey()).append("`");
-        builder.append("\n\tColor: ").append(Color.fromInt(modifier.getColor()).getHex());
+        builder.append("\n\tColor: ").append(String.format("#%06X", modifier.getColor()));
         builder.append("\n\tPriority: ").append(modifier.getPriority());
         builder.append("\n\tIncremental: ").append(modifier instanceof IncrementalModifier);
         builder.append("\n\tSingle Use: ").append(modifier instanceof SingleUseModifier);
