@@ -131,36 +131,44 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   private static final Lazy<ModifierEntry> RESULT = Lazy.of(() -> new ModifierEntry(TinkerModifiers.overslime.get(), 1));
   /** Cache of tools for input, same for all overslime */
   private static final Lazy<List<ItemStack>> DISPLAY_TOOLS = Lazy.of(() -> IDisplayModifierRecipe.getAllModifiable().map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList()));
+
+  private List<ItemStack> toolWithModifier = null;
   /** Cache of display outputs, value depends on recipe */
   private List<List<ItemStack>> displayItems = null;
 
-  @SuppressWarnings("deprecation")
   @Override
   public List<List<ItemStack>> getDisplayItems() {
     if (displayItems == null) {
       // set cap and amount based on the restore amount for output
-      CompoundNBT volatileNBT = new CompoundNBT();
-      ModDataNBT volatileData = ModDataNBT.readFromNBT(volatileNBT);
-      OverslimeModifier overslime = TinkerModifiers.overslime.get();
-      overslime.setCapacity(volatileData, 500);
-      CompoundNBT persistentNBT = new CompoundNBT();
-      overslime.setOverslime(ModDataNBT.readFromNBT(persistentNBT), restoreAmount);
-      List<ItemStack> displayOutputs = IDisplayModifierRecipe.getAllModifiable()
-                                                             .map(MAP_TOOL_FOR_RENDERING)
-                                                             .map(stack -> {
-                                                               ItemStack result = IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get());
-                                                               CompoundNBT nbt = result.getOrCreateTag();
-                                                               nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
-                                                               nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);
-                                                               return result;
-                                                             })
-                                                             .collect(Collectors.toList());
       displayItems = Arrays.asList(
-        displayOutputs,
         DISPLAY_TOOLS.get(),
         Arrays.asList(ingredient.getMatchingStacks()));
     }
     return displayItems;
+  }
+
+  @SuppressWarnings("deprecation")
+  @Override
+  public List<ItemStack> getToolWithModifier() {
+    if (toolWithModifier == null) {
+      OverslimeModifier overslime = TinkerModifiers.overslime.get();
+      CompoundNBT volatileNBT = new CompoundNBT();
+      CompoundNBT persistentNBT = new CompoundNBT();
+      overslime.setOverslime(ModDataNBT.readFromNBT(persistentNBT), restoreAmount);
+      ModDataNBT volatileData = ModDataNBT.readFromNBT(volatileNBT);
+      overslime.setCapacity(volatileData, 500);
+      toolWithModifier = IDisplayModifierRecipe.getAllModifiable()
+                                               .map(MAP_TOOL_FOR_RENDERING)
+                                               .map(stack -> {
+                                                 ItemStack result = IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get());
+                                                 CompoundNBT nbt = result.getOrCreateTag();
+                                                 nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
+                                                 nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);
+                                                 return result;
+                                               })
+                                               .collect(Collectors.toList());
+    }
+    return toolWithModifier;
   }
 
   @Override

@@ -72,6 +72,7 @@ import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierRecipeCategory;
+import slimeknights.tconstruct.plugin.jei.transfer.TinkerStationTransferInfo;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.IScreenWithFluidTank;
@@ -243,6 +244,7 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
     registration.addRecipeTransferHandler(new CraftingStationTransferInfo());
+    registration.addRecipeTransferHandler(new TinkerStationTransferInfo());
   }
 
   /**

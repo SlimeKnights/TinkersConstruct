@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 
+import lombok.Getter;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
@@ -10,8 +11,13 @@ import slimeknights.tconstruct.tables.inventory.table.LazyResultSlot;
 import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class TinkerStationContainer extends BaseStationContainer<TinkerStationTileEntity> {
+  @Getter
+  private final List<Slot> inputSlots;
   private final LazyResultSlot resultSlot;
 
   /**
@@ -29,11 +35,12 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       tile.syncRecipe(inv.player);
 
 
-      this.addSlot(new TinkerableSlot(tile, TinkerStationTileEntity.TINKER_SLOT, 0, 0));
+      inputSlots = new ArrayList<>();
+      inputSlots.add(this.addSlot(new TinkerableSlot(tile, TinkerStationTileEntity.TINKER_SLOT, 0, 0)));
 
       int index;
       for (index = 0; index < tile.getSizeInventory() - 1; index++) {
-        this.addSlot(new TinkerStationInputSlot(tile, index + TinkerStationTileEntity.INPUT_SLOT, 0, 0));
+        inputSlots.add(this.addSlot(new TinkerStationInputSlot(tile, index + TinkerStationTileEntity.INPUT_SLOT, 0, 0)));
       }
 
       // add result slot, will fetch result cache
@@ -42,6 +49,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
     else {
       // requirement for final variable
       this.resultSlot = null;
+      this.inputSlots = Collections.emptyList();
     }
 
     this.addInventorySlots();

@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -85,8 +86,29 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
 
   /* JEI display */
+  /** Cache of input items shared between result and input */
+  @Nullable
+  private List<ItemStack> toolInputs = null;
+
+  /** Gets or builds the list of tool inputs */
+  private List<ItemStack> getToolInputs() {
+    if (toolInputs == null) {
+      toolInputs = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(stack -> {
+        if (stack.getItem() instanceof ToolCore) {
+          return ((ToolCore)stack.getItem()).buildToolForRendering();
+        }
+        return stack;
+      }).collect(Collectors.toList());
+    }
+    return toolInputs;
+  }
+
   /** Cache of display inputs */
   private List<List<ItemStack>> displayItems = null;
+
+  /** Cache of display output */
+  private List<ItemStack> toolWithModifier = null;
+
   /** Display result, may be a higher level than real result */
   private ModifierEntry displayResult;
 
@@ -114,21 +136,21 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   public List<List<ItemStack>> getDisplayItems() {
     if (displayItems == null) {
       // if empty requirement, assume any modifiable
-      List<ItemStack> toolInputs = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(stack -> {
-        if (stack.getItem() instanceof ToolCore) {
-          return ((ToolCore)stack.getItem()).buildToolForRendering();
-        }
-        return stack;
-      }).collect(Collectors.toList());
       ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
-      // outputs
-      builder.add(toolInputs.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, result)).collect(Collectors.toList()));
       // inputs
-      builder.add(toolInputs.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, null)).collect(Collectors.toList()));
+      builder.add(getToolInputs().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, null)).collect(Collectors.toList()));
       addIngredients(builder);
       displayItems = builder.build();
     }
     return displayItems;
+  }
+
+  @Override
+  public List<ItemStack> getToolWithModifier() {
+    if (toolWithModifier == null) {
+      toolWithModifier = getToolInputs().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, result)).collect(Collectors.toList());
+    }
+    return toolWithModifier;
   }
 
   @Override
