@@ -82,6 +82,9 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   protected static final UUID REACH_MODIFIER = UUID.fromString("9b26fa32-5774-4b4e-afc3-b4055ecb1f6a");
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
+  /** Modifier key to make a tool spawn an indestructable entity */
+  public static final ResourceLocation SHINY = Util.getResource("shiny");
+
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
   private static final ITextComponent TOOLTIP_HOLD_CTRL;
   static {
@@ -106,8 +109,9 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   @Override
   public boolean hasEffect(ItemStack stack) {
-    // we use enchantments to handle some modifiers, don't glow from them
-    return false;
+    // we use enchantments to handle some modifiers, so don't glow from them
+    // however, if a modifier wants to glow let them
+    return ToolStack.from(stack).getVolatileData().getBoolean(SHINY);
   }
 
   @Override

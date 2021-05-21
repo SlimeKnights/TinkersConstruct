@@ -1177,6 +1177,10 @@
     "modifier.tconstruct.empty.flavor": "Missing!",
     "modifier.tconstruct.empty.description": "Fallback for when a modifier is missing",
 
+    "modifier.tconstruct.shiny": "Shiny",
+    "modifier.tconstruct.shiny.flavor": "Magical Energy Flows!",
+    "modifier.tconstruct.shiny.description": "Tool glows with an enchanted glint",
+
     "_comment": "Durability",
     "modifier.tconstruct.reinforced": "Reinforced",
     "modifier.tconstruct.reinforced.flavor": "Long Lasting!",
@@ -1266,6 +1270,10 @@
     "modifier.tconstruct.cooling.flavor": "Frosty!",
     "modifier.tconstruct.cooling.description": "Tool does bonus damage to fire based creatures!",
     "modifier.tconstruct.cooling.damage": "Cool Damage",
+    "modifier.tconstruct.sweeping_edge": "Sweeping Edge",
+    "modifier.tconstruct.sweeping_edge.flavor": "Samurai!",
+    "modifier.tconstruct.sweeping_edge.description": "Targets of sweep attack take a larger percentage of this tool's damage",
+    "modifier.tconstruct.sweeping_edge.damage": "Sweeping Damage",
 
     "modifier.tconstruct.sharpness": "Sharpness",
     "modifier.tconstruct.sharpness.1": "Sharp",

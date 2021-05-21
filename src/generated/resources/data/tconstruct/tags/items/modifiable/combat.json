@@ -1,11 +1,10 @@
 {
   "replace": false,
   "values": [
+    "#tconstruct:modifiable/sword",
     "tconstruct:hand_axe",
     "tconstruct:broad_axe",
     "tconstruct:sledge_hammer",
-    "tconstruct:scythe",
-    "tconstruct:sword",
-    "tconstruct:cleaver"
+    "tconstruct:scythe"
   ]
 }

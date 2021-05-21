@@ -41,6 +41,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
+import slimeknights.tconstruct.tools.modifiers.free.ShinyModifier;
 import slimeknights.tconstruct.tools.modifiers.free.WorldboundModifier;
 import slimeknights.tconstruct.tools.modifiers.shared.ExperiencedModifier;
 import slimeknights.tconstruct.tools.modifiers.shared.ExtraModifier;
@@ -86,6 +87,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SharpnessModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SoulboundModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.SweepingEdgeModifier;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.tools.recipe.PlayerBeheadingRecipe;
 import slimeknights.tconstruct.tools.recipe.SnowGolemBeheadingRecipe;
@@ -141,6 +143,7 @@ public final class TinkerModifiers extends TinkerModule {
   // general effects
   public static final RegistryObject<ExperiencedModifier> experienced = MODIFIERS.register("experienced", ExperiencedModifier::new);
   public static final RegistryObject<MagneticModifier> magnetic = MODIFIERS.register("magnetic", MagneticModifier::new);
+  public static final RegistryObject<ShinyModifier> shiny = MODIFIERS.register("shiny", ShinyModifier::new);
 
   // speed
   public static final RegistryObject<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
@@ -160,6 +163,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ScaledTypeDamageModifier> antiaquatic = MODIFIERS.register("antiaquatic", () -> new ScaledTypeDamageModifier(0xD58520, CreatureAttribute.WATER));
   public static final RegistryObject<CoolingModifier> cooling = MODIFIERS.register("cooling", CoolingModifier::new);
   public static final RegistryObject<SharpnessModifier> sharpness = MODIFIERS.register("sharpness", SharpnessModifier::new);
+  public static final RegistryObject<SweepingEdgeModifier> sweeping = MODIFIERS.register("sweeping_edge", SweepingEdgeModifier::new);
 
   // abilities
   public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);

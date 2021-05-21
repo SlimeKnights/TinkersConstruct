@@ -158,6 +158,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> MULTIPART_TOOL = tag("modifiable/multipart");
     /** Modifiable items that support melee attacks */
     public static final IOptionalNamedTag<Item> MELEE = tag("modifiable/melee");
+    /** Modifiable items that are also swords, typically no use outside of combat */
+    public static final IOptionalNamedTag<Item> SWORD = tag("modifiable/sword");
     /** Modifiable items that specifically are designed for combat */
     public static final IOptionalNamedTag<Item> COMBAT = tag("modifiable/combat");
     /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
