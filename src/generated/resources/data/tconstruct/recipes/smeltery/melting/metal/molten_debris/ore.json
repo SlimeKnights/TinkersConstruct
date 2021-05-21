@@ -11,8 +11,12 @@
   "time": 143,
   "byproducts": [
     {
-      "fluid": "tconstruct:molten_cobalt",
+      "fluid": "tconstruct:molten_diamond",
       "amount": 48
+    },
+    {
+      "fluid": "tconstruct:molten_gold",
+      "amount": 144
     }
   ]
 }
