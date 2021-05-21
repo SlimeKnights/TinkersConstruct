@@ -12,8 +12,8 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import java.util.List;
 
 /** Melting recipe that scale output based on input damage */
-public class DamagableMeltingRecipe extends MeltingRecipe {
-  public DamagableMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts) {
+public class DamageableMeltingRecipe extends MeltingRecipe {
+  public DamageableMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts) {
     super(id, group, input, output, temperature, time, byproducts);
   }
 
