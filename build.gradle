@@ -54,6 +54,11 @@ repositories {
         name 'tterrag maven'
         url "https://maven.tterrag.com/"
     }
+    maven { // CraftTweaker
+        name 'BlameJared Maven'
+        url 'https://maven.blamejared.com'
+    }
+
 }
 
 group = 'slimeknights.tconstruct'
@@ -199,6 +204,8 @@ dependencies {
 
     compile fg.deobf("mcjty.theoneprobe:TheOneProbe-${minecraft_base_version}:${minecraft_base_version}-${probe_version}")
 
+    compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${crt_version}")
+
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
@@ -219,7 +226,8 @@ def modsTomlSpec = copySpec{
             'loader_range': loader_range,
             'minecraft_range': minecraft_range,
             'forge_range': forge_range,
-            'mantle_range': mantle_range
+            'mantle_range': mantle_range,
+            'crt_range': crt_range
     }
 }
 // need to copy into each build directory, unfortunately does not seem easy to do this automatically
