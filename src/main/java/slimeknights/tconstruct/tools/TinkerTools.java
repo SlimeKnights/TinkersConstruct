@@ -89,11 +89,12 @@ public final class TinkerTools extends TinkerModule {
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
     if (event.includeServer()) {
-      DataGenerator datagenerator = event.getGenerator();
-      datagenerator.addProvider(new ToolsRecipeProvider(datagenerator));
-      datagenerator.addProvider(new ModifierRecipeProvider(datagenerator));
-      datagenerator.addProvider(new MaterialDataProvider(datagenerator));
-      datagenerator.addProvider(new MaterialStatsDataProvider(datagenerator));
+      DataGenerator generator = event.getGenerator();
+      generator.addProvider(new ToolsRecipeProvider(generator));
+      generator.addProvider(new ModifierRecipeProvider(generator));
+      MaterialDataProvider materials = new MaterialDataProvider(generator);
+      generator.addProvider(materials);
+      generator.addProvider(new MaterialStatsDataProvider(generator, materials));
     }
   }
 }
