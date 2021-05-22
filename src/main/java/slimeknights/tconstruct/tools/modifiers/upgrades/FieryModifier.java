@@ -27,10 +27,8 @@ public class FieryModifier extends IncrementalModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
-    if (!target.isBurning()) {
-      target.setFire(Math.round(getScaledLevel(tool, level) * 5));
-    }
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown) {
+    target.setFire(Math.round(getScaledLevel(tool, level) * 5));
     return 0;
   }
 }

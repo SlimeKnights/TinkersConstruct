@@ -287,7 +287,7 @@ public class ToolAttackUtil {
     int durabilityLost = 1;
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damageDealt, isCritical, fullyCharged);
+        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damageDealt, isCritical, cooldown);
       }
     }
 
