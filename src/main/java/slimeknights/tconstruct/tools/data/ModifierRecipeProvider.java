@@ -384,6 +384,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setAbilitySlots(1)
                          .setTools(TinkerTags.Items.HARVEST)
                          .build(consumer, prefixR(TinkerModifiers.silky, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.exchanging.get())
+                         .addInput(Items.STICKY_PISTON)
+                         .addInput(TinkerMaterials.hepatizon.getIngotTag())
+                         .addInput(Items.STICKY_PISTON)
+                         .addInput(Items.ENDER_PEARL)
+                         .addInput(Items.ENDER_PEARL)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .setTools(TinkerTags.Items.HARVEST)
+                         .build(consumer, prefixR(TinkerModifiers.exchanging, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.autosmelt.get())
                          .addInput(Items.FIRE_CHARGE)
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))

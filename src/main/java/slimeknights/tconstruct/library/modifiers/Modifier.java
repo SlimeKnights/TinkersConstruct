@@ -505,16 +505,44 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
+   * Removes the block from the world
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #afterBlockBreak(IModifierToolStack, int, World, BlockState, BlockPos, LivingEntity, boolean, boolean)}: Called after the block is successfully removed.</li>
+   * </ul>
+   * @param tool         Tool used
+   * @param level        Modifier level
+   * @param player       Player breaking the block
+   * @param world        World instance
+   * @param pos          Position targeted
+   * @param state        State being broken
+   * @param canHarvest   If true, the block will drop its drops
+   * @param isEffective  If true, the player can canHarvest the block. False is typically creative
+   * @return  True to override the default block removing logic and stop all later modifiers from running. False to override default without breaking the block. Null to let default logic run
+   */
+  @Nullable
+  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
+    return null;
+  }
+
+  /**
    * Called after a block is broken to apply special effects
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #removeBlock(IModifierToolStack, int, PlayerEntity, World, BlockPos, BlockState, boolean, boolean)}: Called before the block is set to air.</li>
+   * </ul>
    * @param tool          Tool used
    * @param level         Modifier level
    * @param world         World instance
    * @param state         Block broken
    * @param pos           Position broken
    * @param living        Entity breaking the block
+   * @param canHarvest    If true, the block dropped items
    * @param wasEffective  If true, tool was effective at breaking this block
    */
-  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean wasEffective) {}
+  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean canHarvest, boolean wasEffective) {}
 
 
   /* Attack hooks */

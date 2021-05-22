@@ -26,9 +26,6 @@ public class CircleAOEHarvestLogic extends ToolHarvestLogic {
 
   @Override
   public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
-    if (!canAOE(tool, stack, state, matchType)) {
-      return Collections.emptyList();
-    }
     // expanded gives an extra width every odd level, and an extra height every even level
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
     return calculate(this, tool, stack, world, player, origin, sideHit, diameter + expanded, is3D, matchType);

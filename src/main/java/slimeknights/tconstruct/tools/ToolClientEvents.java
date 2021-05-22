@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
@@ -38,6 +39,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 
@@ -145,7 +147,10 @@ public class ToolClientEvents extends ClientEventBase {
     }
     ItemStack stack = player.getHeldItemMainhand();
     if (stack.getItem().isIn(TinkerTags.Items.TWO_HANDED)) {
-      event.setCanceled(true);
+      // special support for replacing modifier
+      if (!(event.getItemStack().getItem() instanceof BlockItem) || ToolStack.from(stack).getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
+        event.setCanceled(true);
+      }
     }
   }
 

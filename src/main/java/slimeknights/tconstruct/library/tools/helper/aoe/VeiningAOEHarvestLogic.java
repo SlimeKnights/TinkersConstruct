@@ -15,7 +15,6 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.ArrayDeque;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
@@ -30,9 +29,6 @@ public class VeiningAOEHarvestLogic extends ToolHarvestLogic {
 
   @Override
   public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
-    if (!canAOE(tool, stack, state, matchType)) {
-      return Collections.emptyList();
-    }
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
     return calculate(state, world, origin, maxDistance + expanded);
   }

@@ -22,9 +22,6 @@ public class DepthAOEHarvestLogic extends ToolHarvestLogic {
 
   @Override
   public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
-    if (!canAOE(tool, stack, state, matchType)) {
-      return Collections.emptyList();
-    }
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
     return calculate(this, tool, stack, player, world, origin, extraHeight + expanded / 2, extraDepth + (expanded + 1) / 2 * 2, matchType);
   }

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.vertex.MatrixApplyingVertexBuilder;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -29,6 +30,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -70,7 +72,12 @@ public class ToolRenderEvents {
     }
     BlockRayTraceResult blockTrace = event.getTarget();
     BlockPos origin = blockTrace.getPos();
-    Iterator<BlockPos> extraBlocks = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic().getAOEBlocks(tool, stack, player, world.getBlockState(origin), world, origin, blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
+    ToolHarvestLogic harvestLogic = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic();
+    BlockState state = world.getBlockState(origin);
+    if (!harvestLogic.isEffective(tool, stack, state)) {
+      return;
+    }
+    Iterator<BlockPos> extraBlocks = harvestLogic.getAOEBlocks(tool, stack, player, world.getBlockState(origin), world, origin, blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }
@@ -147,7 +154,12 @@ public class ToolRenderEvents {
       return;
     }
     // determine extra blocks to highlight
-    Iterator<BlockPos> extraBlocks = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic().getAOEBlocks(tool, stack, player, world.getBlockState(target), world, target, blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
+    ToolHarvestLogic harvestLogic = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic();
+    BlockState state = world.getBlockState(target);
+    if (!harvestLogic.isEffective(tool, stack, state)) {
+      return;
+    }
+    Iterator<BlockPos> extraBlocks = harvestLogic.getAOEBlocks(tool, stack, player, state, world, target, blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }

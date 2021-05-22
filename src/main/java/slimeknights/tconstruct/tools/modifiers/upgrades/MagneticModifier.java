@@ -14,7 +14,7 @@ public class MagneticModifier extends Modifier {
   }
 
   @Override
-  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean wasEffective) {
+  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean canHarvest, boolean wasEffective) {
     TinkerModifiers.magneticEffect.get().apply(living, 30, level - 1);
   }
 

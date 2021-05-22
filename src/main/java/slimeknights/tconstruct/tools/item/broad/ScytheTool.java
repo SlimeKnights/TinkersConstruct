@@ -20,17 +20,11 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.item.small.KamaTool;
 
-import java.util.Collections;
-
 public class ScytheTool extends KamaTool {
   /** Tool harvest logic to damage when breaking instant break blocks */
   public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic(3, true) {
     @Override
     public Iterable<BlockPos> getAOEBlocks(IModifierToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, World world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
-      if (!canAOE(tool, stack, state, matchType)) {
-        return Collections.emptyList();
-      }
-
       // include depth in boost
       int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
       int sides = (expanded + 1) / 2;

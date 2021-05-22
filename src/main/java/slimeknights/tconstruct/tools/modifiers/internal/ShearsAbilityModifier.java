@@ -1,12 +1,16 @@
 package slimeknights.tconstruct.tools.modifiers.internal;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.TripWireBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
@@ -107,6 +111,12 @@ public class ShearsAbilityModifier extends SingleUseModifier {
 
     return false;
   }
-  
-  
+
+  @Override
+  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
+    if (isShears(tool) && state.getBlock() instanceof TripWireBlock) {
+      world.setBlockState(pos, state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
+    }
+    return null;
+  }
 }

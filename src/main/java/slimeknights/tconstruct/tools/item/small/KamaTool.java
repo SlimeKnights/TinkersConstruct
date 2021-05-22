@@ -3,11 +3,8 @@ package slimeknights.tconstruct.tools.item.small;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.TripWireBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -59,15 +56,6 @@ public class KamaTool extends HarvestTool {
     @Override
     public int getDamage(ToolStack tool, ItemStack stack, World world, BlockPos pos, BlockState state) {
       return state.isIn(BlockTags.FIRE) ? 0 : 1;
-    }
-
-    @Override
-    protected boolean removeBlock(PlayerEntity player, World world, BlockPos pos, boolean canHarvest) {
-      BlockState state = world.getBlockState(pos);
-      if (state.getBlock() instanceof TripWireBlock) {
-        world.setBlockState(pos, state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
-      }
-      return super.removeBlock(player, world, pos, canHarvest);
     }
   }
 }
