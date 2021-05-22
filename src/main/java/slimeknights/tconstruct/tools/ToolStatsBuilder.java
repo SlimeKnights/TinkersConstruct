@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
 @Getter(AccessLevel.PROTECTED)
 public final class ToolStatsBuilder {
 
+  private final float damageBonus;
   private final List<HeadMaterialStats> heads;
   private final List<HandleMaterialStats> handles;
   private final List<ExtraMaterialStats> extras;
@@ -44,15 +46,16 @@ public final class ToolStatsBuilder {
       throw TinkerAPIMaterialException.statBuilderWithInvalidMaterialCount();
     }
 
+    ToolBaseStatDefinition baseStats = toolDefinition.getBaseStatDefinition();
     List<HeadMaterialStats> headStats = listOfCompatibleWith(HeadMaterialStats.ID, materials, requiredComponents);
-    int primaryWeight = toolDefinition.getBaseStatDefinition().getPrimaryHeadWeight();
+    int primaryWeight = baseStats.getPrimaryHeadWeight();
     if (primaryWeight > 1 && headStats.size() > 1) {
       for (int i = 1; i < primaryWeight; i++) {
         headStats.add(headStats.get(0));
       }
     }
 
-    return new ToolStatsBuilder(headStats,
+    return new ToolStatsBuilder(baseStats.getDamageBonus(), headStats,
       listOfCompatibleWith(HandleMaterialStats.ID, materials, requiredComponents),
       listOfCompatibleWith(ExtraMaterialStats.ID, materials, requiredComponents)
     );
@@ -110,7 +113,7 @@ public final class ToolStatsBuilder {
   }
 
   public float buildAttack() {
-    double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack);
+    double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack) + damageBonus;
     double averageHandle = getAverageValue(handles, HandleMaterialStats::getAttackDamage, 1.0f);
     return (float)Math.max(0.0d, averageHeadAttack * averageHandle);
   }

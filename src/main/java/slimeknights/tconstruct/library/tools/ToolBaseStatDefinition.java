@@ -66,7 +66,7 @@ public final class ToolBaseStatDefinition {
     // harvest
     builder.multiplyMiningSpeed(miningSpeedModifier);
     // weapon
-    builder.addAttackDamage(damageBonus);
+    // builder.addAttackDamage(damageBonus);  damage bonus added in ToolStatsBuilder
     builder.multiplyAttackDamage(damageModifier);
     builder.multiplyAttackSpeed(attackSpeed);
   }

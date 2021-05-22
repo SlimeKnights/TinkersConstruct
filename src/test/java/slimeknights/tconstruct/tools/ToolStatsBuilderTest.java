@@ -91,7 +91,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
 
   @Test
   void calculateValues_noStats() {
-    ToolStatsBuilder builder = new ToolStatsBuilder(Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
 
     assertThat(builder.buildDurability()).isEqualTo(1);
     assertThat(builder.buildHarvestLevel()).isEqualTo(0);
@@ -106,7 +106,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HeadMaterialStats stats1 = new HeadMaterialStats(100, 0, 0, 0);
     HeadMaterialStats stats2 = new HeadMaterialStats(50, 0, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
 
     assertThat(builder.buildDurability()).isEqualTo(75);
   }
@@ -116,7 +116,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HeadMaterialStats statsHead = new HeadMaterialStats(200, 0, 0, 0);
     HandleMaterialStats statsHandle = new HandleMaterialStats(0.5f, 0, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(statsHead), ImmutableList.of(statsHandle), Collections.emptyList());
 
     assertThat(builder.buildDurability()).isEqualTo(100);
   }
@@ -127,7 +127,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HandleMaterialStats statsHandle = new HandleMaterialStats(0, 0.5f, 0, 0);
     ExtraMaterialStats statsExtra = ExtraMaterialStats.DEFAULT;
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle), ImmutableList.of(statsExtra));
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(statsHead), ImmutableList.of(statsHandle), ImmutableList.of(statsExtra));
 
     assertThat(builder.buildMiningSpeed()).isEqualTo(1.0f);
   }
@@ -138,7 +138,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HandleMaterialStats statsHandle1 = new HandleMaterialStats(0.3f, 0, 0, 0);
     HandleMaterialStats statsHandle2 = new HandleMaterialStats(0.7f, 0, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), Collections.emptyList());
 
     assertThat(builder.buildDurability()).isEqualTo(100);
   }
@@ -149,7 +149,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HandleMaterialStats statsHandle1 = new HandleMaterialStats(0, 0.3f, 0, 0);
     HandleMaterialStats statsHandle2 = new HandleMaterialStats(0, 0.7f, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), Collections.emptyList());
 
     assertThat(builder.buildMiningSpeed()).isEqualTo(1.0f);
   }
@@ -159,7 +159,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HeadMaterialStats stats1 = new HeadMaterialStats(1, 10, 0, 0);
     HeadMaterialStats stats2 = new HeadMaterialStats(1, 5, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
 
     assertThat(builder.buildMiningSpeed()).isEqualTo(7.5f);
   }
@@ -169,9 +169,9 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HeadMaterialStats stats1 = new HeadMaterialStats(1, 0, 0, 5);
     HeadMaterialStats stats2 = new HeadMaterialStats(1, 0, 0, 10);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(10, ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
 
-    assertThat(builder.buildAttack()).isEqualTo(7.5f);
+    assertThat(builder.buildAttack()).isEqualTo(17.5f);
   }
 
   @Test
@@ -181,14 +181,14 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HeadMaterialStats stats3 = new HeadMaterialStats(1, 1, 5, 0);
     HeadMaterialStats stats4 = new HeadMaterialStats(1, 1, -1, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(stats1, stats2, stats3, stats4), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(stats1, stats2, stats3, stats4), Collections.emptyList(), Collections.emptyList());
 
     assertThat(builder.buildHarvestLevel()).isEqualTo(5);
   }
 
   @Test
   void buildAttackSpeed_default() {
-    ToolStatsBuilder builder = new ToolStatsBuilder(Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
     assertThat(builder.buildAttackSpeed()).isEqualTo(1.0f);
   }
 
@@ -196,9 +196,9 @@ class ToolStatsBuilderTest extends BaseMcTest {
   void buildAttackSpeed_testHandleAttackDamage() {
     HeadMaterialStats head = new HeadMaterialStats(0, 0, 0, 2);
     HandleMaterialStats stats = new HandleMaterialStats(0, 0, 0, 0.5f);
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(head), ImmutableList.of(stats), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(1, ImmutableList.of(head), ImmutableList.of(stats), Collections.emptyList());
 
-    assertThat(builder.buildAttack()).isEqualTo(1.0f);
+    assertThat(builder.buildAttack()).isEqualTo(1.5f);
   }
 
   @Test
@@ -207,15 +207,15 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HandleMaterialStats stats1 = new HandleMaterialStats(0, 0, 0, 1.3f);
     HandleMaterialStats stats2 = new HandleMaterialStats(0, 0, 0, 1.7f);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(head), ImmutableList.of(stats1, stats2), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(2, ImmutableList.of(head), ImmutableList.of(stats1, stats2), Collections.emptyList());
 
-    assertThat(builder.buildAttack()).isEqualTo(6);
+    assertThat(builder.buildAttack()).isEqualTo(9);
   }
 
   @Test
   void buildAttackSpeed_testHandleAttackSpeed() {
     HandleMaterialStats stats = new HandleMaterialStats(0, 0, 1.5f, 0);
-    ToolStatsBuilder builder = new ToolStatsBuilder(Collections.emptyList(), ImmutableList.of(stats), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, Collections.emptyList(), ImmutableList.of(stats), Collections.emptyList());
 
     assertThat(builder.buildAttackSpeed()).isEqualTo(1.5f);
   }
@@ -225,7 +225,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HandleMaterialStats stats1 = new HandleMaterialStats(0, 0, 1.3f, 0);
     HandleMaterialStats stats2 = new HandleMaterialStats(0, 0, 1.7f, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(Collections.emptyList(), ImmutableList.of(stats1, stats2), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(0, Collections.emptyList(), ImmutableList.of(stats1, stats2), Collections.emptyList());
 
     assertThat(builder.buildAttackSpeed()).isEqualTo(1.5f);
   }

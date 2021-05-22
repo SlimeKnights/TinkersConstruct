@@ -10,7 +10,7 @@ public final class ToolBaseStatDefinitions {
   static final ToolBaseStatDefinition PICKAXE = new ToolBaseStatDefinition.Builder()
     .setDamageBonus(0f).setAttackSpeed(1.2f).build(); // gains +1 damage from tool piercing
   static final ToolBaseStatDefinition SLEDGE_HAMMER = new ToolBaseStatDefinition.Builder()
-    .setDamageBonus(3f).setDamageModifier(1.5f) // gains +5 undead damage from tool smite
+    .setDamageBonus(3f).setDamageModifier(1.35f) // gains +5 undead damage from tool smite
     .setAttackSpeed(0.75f).setMiningSpeedModifier(0.4f)
     .setDurabilityModifier(4f).setPrimaryHeadWeight(2)
     .setDefaultUpgrades(2).build();
@@ -23,7 +23,7 @@ public final class ToolBaseStatDefinitions {
   // shovels
   static final ToolBaseStatDefinition MATTOCK = new ToolBaseStatDefinition.Builder().setDamageBonus(1.5f).setAttackSpeed(1f).build();
   static final ToolBaseStatDefinition EXCAVATOR = new ToolBaseStatDefinition.Builder()
-    .setDamageBonus(1.0f).setDamageModifier(1.25f)
+    .setDamageBonus(1.5f).setDamageModifier(1.2f)
     .setAttackSpeed(1.0f).setMiningSpeedModifier(0.3f)
     .setDurabilityModifier(3.75f)
     .setDefaultUpgrades(2).build();
@@ -31,7 +31,7 @@ public final class ToolBaseStatDefinitions {
   // axes
   static final ToolBaseStatDefinition HAND_AXE = new ToolBaseStatDefinition.Builder().setDamageBonus(6.0f).setAttackSpeed(0.9f).build();
   static final ToolBaseStatDefinition BROAD_AXE = new ToolBaseStatDefinition.Builder()
-    .setDamageBonus(3f).setDamageModifier(2f)
+    .setDamageBonus(5f).setDamageModifier(1.5f)
     .setAttackSpeed(0.6f).setMiningSpeedModifier(0.3f)
     .setDurabilityModifier(4.25f).setPrimaryHeadWeight(2)
     .setDefaultUpgrades(2).build();
@@ -53,7 +53,7 @@ public final class ToolBaseStatDefinitions {
     .setDurabilityModifier(1.1f)
     .setDefaultUpgrades(2).setDefaultAbilities(2).build();
   static final ToolBaseStatDefinition CLEAVER = new ToolBaseStatDefinition.Builder()
-    .setDamageBonus(3f).setDamageModifier(1.75f)
+    .setDamageBonus(3.5f).setDamageModifier(1.5f)
     .setAttackSpeed(0.9f)
     .setMiningSpeedModifier(0.25f).setReachBonus(1f)
     .setDurabilityModifier(3.5f).setPrimaryHeadWeight(2)
