@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
@@ -16,7 +17,14 @@ public class PiercingModifier extends IncrementalModifier {
   @Override
   public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
     // deals 0.5 pierce damage per level, scaled, half of sharpness
-    attackEntitySecondary(DamageSource.causeThornsDamage(attacker), getScaledLevel(tool, level) * tool.getDefinition().getBaseStatDefinition().getDamageModifier() * 0.5f, target, true);
+    DamageSource source;
+    if (attacker instanceof PlayerEntity) {
+      source = DamageSource.causePlayerDamage(((PlayerEntity)attacker));
+    } else {
+      source = DamageSource.causeMobDamage(target);
+    }
+    source.setDamageBypassesArmor();
+    attackEntitySecondary(source, getScaledLevel(tool, level) * tool.getDefinition().getBaseStatDefinition().getDamageModifier() * 0.5f, target, true);
     return 0;
   }
 
