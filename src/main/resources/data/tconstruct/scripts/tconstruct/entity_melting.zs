@@ -10,6 +10,8 @@
  * Removes the all Entity Melting Recipes that produce Molten Iron (Fluid).
  */
 
-// <recipetype:tconstruct:entity_melting>.removeRecipe(input as IFluidStack)
+// <recipetype:tconstruct:entity_melting>.removeRecipe(output as IFluidStack)
+// <recipetype:tconstruct:entity_melting>.removeRecipe(entity as MCEntityType)
 
 <recipetype:tconstruct:entity_melting>.removeRecipe(<fluid:tconstruct:molten_iron>);
+<recipetype:tconstruct:entity_melting>.removeRecipe(<entitytype:minecraft:villager>);

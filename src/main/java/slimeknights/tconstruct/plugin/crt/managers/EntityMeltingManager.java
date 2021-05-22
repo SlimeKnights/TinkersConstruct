@@ -34,7 +34,7 @@ public class EntityMeltingManager implements IRecipeManager {
   
   @Override
   public void removeRecipe(IItemStack output) {
-    throw new IllegalArgumentException("Cannot remove Entity Melting Recipes by an IItemStack output as it outputs Fluids! Use `removeRecipe(Fluid output)` instead!");
+    throw new IllegalArgumentException("Cannot remove Entity Melting Recipes by an IItemStack output as it outputs Fluids! Use `removeRecipe(Fluid output)` or `removeRecipe(MCEntityType entity)`instead!");
   }
   
   @ZenCodeType.Method
@@ -47,7 +47,18 @@ public class EntityMeltingManager implements IRecipeManager {
       return false;
     }));
   }
-  
+
+  @ZenCodeType.Method
+  public void removeRecipe(MCEntityType entity) {
+    CraftTweakerAPI.apply(new ActionRemoveRecipe(this, iRecipe -> {
+      if(iRecipe instanceof EntityMeltingRecipe) {
+        EntityMeltingRecipe recipe = (EntityMeltingRecipe) iRecipe;
+        return recipe.matches(entity.getInternal());
+      }
+      return false;
+    }));
+  }
+
   @Override
   public IRecipeType<EntityMeltingRecipe> getRecipeType() {
     return RecipeTypes.ENTITY_MELTING;

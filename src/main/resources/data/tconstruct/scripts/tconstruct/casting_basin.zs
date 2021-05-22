@@ -1,4 +1,8 @@
 /*
+ *
+ * NOTE: Composite casting recipes only work for parts that already have an existing material casting recipe.
+ * The recipe is only listed to show an example but it will not actually craft.
+ *
  * Adds four Casting Basin recipes that do the following:
  * 
  * 1) Adds an Item Casting Recipe that, when a Honey Bottle is used as a Cast for 1000mb of Blood (Fluid), it gets cast into a Diamond of 200 ticks of cooling time. The Honey Bottle is not consumed and does not switch slots with the Diamond.
@@ -18,7 +22,7 @@
 // <recipetype:tconstruct:casting_basin>.makeContainerFillingRecipe(name as string, fluidAmount as int, containerIn as Item)
 
 <recipetype:tconstruct:casting_basin>.addItemCastingRecipe("item_casting_basin_test", <item:minecraft:honey_bottle>, <fluid:tconstruct:blood> * 1000, <item:minecraft:diamond>, 200, false, false);
-<recipetype:tconstruct:casting_basin>.addMaterialCastingRecipe("material_casting_basin_test", <item:minecraft:diamond>, 250, <item:tconstruct:axe_head>, true, false);
+<recipetype:tconstruct:casting_basin>.addMaterialCastingRecipe("material_casting_basin_test", <item:minecraft:diamond>, 250, <item:tconstruct:small_axe_head>, true, false);
 <recipetype:tconstruct:casting_basin>.addCompositeCastingRecipe("composite_casting_basin_test", "tconstruct:iron", <fluid:minecraft:water>, "tconstruct:bone", 0);
 // <recipetype:tconstruct:casting_basin>.makeContainerFillingRecipe("filling_casting_test", 100, <item:tconstruct:copper_can>);
 
@@ -26,11 +30,11 @@
  * Removes two recipes from the Casting Basin. If you are having trouble removing by the output, you may need to remove the recipe by its name.
  *  
  * 1) Removes the all Casting Basin recipes for Blazewood.
- * 2) Removes the Copper Can filling recipe.
+ * 2) Removes the Diamond block Casting Basin recipe.
  */
 
 // <recipetype:tconstruct:casting_basin>.removeRecipe(output as IItemStack)
 // <recipetype:tconstruct:casting_basin>.removeByName(name as string)
 
 <recipetype:tconstruct:casting_basin>.removeRecipe(<item:tconstruct:blazewood>);
-<recipetype:tconstruct:casting_basin>.removeByName("tconstruct:smeltery/casting/filling/copper_can");
+<recipetype:tconstruct:casting_basin>.removeByName("tconstruct:smeltery/casting/diamond/block");

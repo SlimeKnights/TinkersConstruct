@@ -8,15 +8,20 @@ import com.blamejared.crafttweaker.api.item.IIngredientWithAmount;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
+import com.blamejared.crafttweaker.impl.actions.recipes.ActionRemoveRecipe;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import org.openzen.zencode.java.ZenCodeType;
 import slimeknights.mantle.recipe.SizedIngredient;
+import slimeknights.tconstruct.library.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipe;
@@ -74,6 +79,20 @@ public class TinkerStationManager implements IRecipeManager {
   @Override
   public void removeRecipe(IItemStack output) {
     throw new IllegalArgumentException("Cannot remove Tinker Station Recipes by an IItemStack output! Use `removeByName(String name)` instead!");
+  }
+
+  @ZenCodeType.Method
+  public void removeRecipe(String modifierId) {
+    Modifier modifier = CRTHelper.getModifier(modifierId);
+
+    CraftTweakerAPI.apply(new ActionRemoveRecipe(this, iRecipe -> {
+      if (iRecipe instanceof IDisplayModifierRecipe) {
+        IDisplayModifierRecipe recipe = (IDisplayModifierRecipe) iRecipe;
+        return recipe.getDisplayResult().getModifier().getId().equals(modifier.getId());
+      }
+      return false;
+    }));
+
   }
 
   @Override

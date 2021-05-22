@@ -18,7 +18,7 @@
 // <recipetype:tconstruct:casting_table>.makeContainerFillingRecipe(name as string, fluidAmount as int, containerIn as Item)
 
 <recipetype:tconstruct:casting_table>.addItemCastingRecipe("item_casting_table_test", <item:minecraft:honey_bottle>, <fluid:tconstruct:blood> * 1000, <item:minecraft:diamond>, 200, false, true);
-<recipetype:tconstruct:casting_table>.addMaterialCastingRecipe("material_casting_table_test", <item:minecraft:diamond>, 250, <item:tconstruct:axe_head>, true, false);
+<recipetype:tconstruct:casting_table>.addMaterialCastingRecipe("material_casting_table_test", <item:minecraft:diamond>, 250, <item:tconstruct:small_axe_head>, true, false);
 <recipetype:tconstruct:casting_table>.addCompositeCastingRecipe("composite_casting_table_test", "tconstruct:iron", <fluid:minecraft:water>, "tconstruct:bone", 0);
 // <recipetype:tconstruct:casting_table>.makeContainerFillingRecipe("filling_casting_test", 100, <item:tconstruct:copper_can>);
 

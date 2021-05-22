@@ -1,4 +1,7 @@
 /*
+ * NOTE: You should not have multiple incremental modifier recipes for the same modifier that take different items as it
+ * may lead to unexpected results!
+ *
  * Adds thirteen Tinker Station recipes that do the following:
  * 1) Adds an Overslime Modifier Recipe that uses Dirt to repair 800 durability.
  * 2) Adds a Modifier Recipe that uses 3 Sticks to add the Experienced Modifier to a Pickaxe.
@@ -75,9 +78,14 @@
 <recipetype:tconstruct:tinker_station>.addIncrementalAbilityModifierRecipe("incremental_ability_modifier_requirements_example", <item:minecraft:magenta_wool>, 1, 2, <tag:items:tconstruct:modifiable>, "tconstruct:antiaquatic", 1, 4, 1, <item:minecraft:magenta_wool>, {"tconstruct:diamond": 1, "tconstruct:haste": 2}, 2, "recipe.tconstruct.modifier.requirements_error");
 
 /*
- * Removes the Expanded upgrade from the Tinker Station.
+ * Removes two recipes from the Tinker Station.
+ *
+ * 1) Removes the Expanded upgrade from the Tinker Station.
+ * 2) Removes all recipes that produce the "haste" modifier.
  */
 
 // <recipetype:tconstruct:tinker_station>.removeByName(name as string)
+// <recipetype:tconstruct:tinker_station>.removeRecipe(modifierId as string)
 
-<recipetype:tconstruct:tinker_station>.removeByName("tconstruct:tools/modifiers/upgrade/expanded");
+<recipetype:tconstruct:tinker_station>.removeByName("tconstruct:tools/modifiers/ability/expanded");
+<recipetype:tconstruct:tinker_station>.removeRecipe("tconstruct:haste");
