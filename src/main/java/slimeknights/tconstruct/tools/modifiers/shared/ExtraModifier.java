@@ -22,7 +22,7 @@ public class ExtraModifier extends Modifier {
   }
 
   public ExtraModifier(int color, ExtraType type, ModifierSource source) {
-    this(color, type, source, 1);
+    this(color, type, source, 5);
   }
 
   public ExtraModifier(int color) {
