@@ -6,12 +6,12 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.function.BiConsumer;
 
-public class FortuneModifier extends Modifier {
+public class FortuneModifier extends SingleLevelModifier {
   public FortuneModifier() {
     super(0xA982BC);
   }

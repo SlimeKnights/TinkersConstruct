@@ -1,7 +1,6 @@
-package slimeknights.tconstruct.tools.modifiers.shared;
+package slimeknights.tconstruct.library.modifiers;
 
 import net.minecraft.util.text.ITextComponent;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -26,7 +25,7 @@ public class ExtraModifier extends Modifier {
   }
 
   public ExtraModifier(int color) {
-    this(color, ExtraType.UPGRADE, ModifierSource.SINGLE_USE);
+    this(color, ExtraType.UPGRADE, ModifierSource.SINGLE_LEVEL);
   }
 
   @Override
@@ -36,12 +35,12 @@ public class ExtraModifier extends Modifier {
 
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT data) {
-    type.add(data, source.isSingleUse() ? slotsPerLevel : level * slotsPerLevel);
+    type.add(data, level * slotsPerLevel);
   }
 
   @Override
   public ITextComponent getDisplayName(int level) {
-    if (source.isSingleUse()) {
+    if (source.isSingleLevel() && level == 1) {
       return getDisplayName();
     }
     return super.getDisplayName(level);
@@ -50,21 +49,21 @@ public class ExtraModifier extends Modifier {
   @Override
   public int getPriority() {
     // show lower priority, the trait should be above the rest though
-    return source.isSingleUse() ? 50 : 75;
+    return source.isSingleLevel() ? 50 : 75;
   }
 
   /** Way this modifier is applied */
   public enum ModifierSource {
     /** Modifier can be applied once, generally hidden for simplicity */
-    SINGLE_USE,
+    SINGLE_LEVEL,
     /** Modifier can be applied multiple times, generally hidden for simplicity */
-    MULTI_USE,
+    MULTI_LEVEL,
     /** Modifier came from a trait, should always show and is multiuse */
     TRAIT;
 
     /** Modifier can be used just once */
-    public boolean isSingleUse() {
-      return this == SINGLE_USE;
+    public boolean isSingleLevel() {
+      return this == SINGLE_LEVEL;
     }
 
     /** Modifier always shows */

@@ -2,12 +2,12 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
 
-public class LootingModifier extends Modifier {
+public class LootingModifier extends SingleLevelModifier {
   public LootingModifier() {
     super(0x345EC3);
   }
