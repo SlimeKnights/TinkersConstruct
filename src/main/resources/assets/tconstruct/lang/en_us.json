@@ -1377,6 +1377,17 @@
     "modifier.tconstruct.draconic.flavor": "Conquered the End!",
     "modifier.tconstruct.draconic.description": "The head of the great beast allows your tool a second ability slot!",
 
+    "__comment": "Three more +1 upgrade modifiers for modpacks",
+    "modifier.tconstruct.red_extra_upgrade": "Red Extra Upgrade",
+    "modifier.tconstruct.red_extra_upgrade.flavor": "For modpacks!",
+    "modifier.tconstruct.red_extra_upgrade.description": "Ask your modpack maker to provide a resource pack giving this better lore",
+    "modifier.tconstruct.green_extra_upgrade": "Green Extra Upgrade",
+    "modifier.tconstruct.green_extra_upgrade.flavor": "For modpacks!",
+    "modifier.tconstruct.green_extra_upgrade.description": "Ask your modpack maker to provide a resource pack giving this better lore",
+    "modifier.tconstruct.blue_extra_upgrade": "Blue Extra Upgrade",
+    "modifier.tconstruct.blue_extra_upgrade.flavor": "For modpacks!",
+    "modifier.tconstruct.blue_extra_upgrade.description": "Ask your modpack maker to provide a resource pack giving this better lore",
+
     
     "__comment": "Tier 1 Traits",
     "modifier.tconstruct.fake_attribute.mining_speed": "Mining Speed",

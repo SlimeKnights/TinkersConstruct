@@ -207,6 +207,10 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ExtraModifier> resurrected = MODIFIERS.register("resurrected", () -> new ExtraModifier(0xbe95d4));
   public static final RegistryObject<ExtraModifier> gilded = MODIFIERS.register("gilded", () -> new ExtraModifier(0xeccb45, ExtraType.UPGRADE, ModifierSource.MULTI_USE, 2));
   public static final RegistryObject<ExtraModifier> draconic = MODIFIERS.register("draconic", () -> new ExtraModifier(0x707070, ExtraType.ABILITY, ModifierSource.SINGLE_USE));
+  // extra modifier slots for modpacks
+  public static final RegistryObject<ExtraModifier> redExtraUpgrade = MODIFIERS.register("red_extra_upgrade", () -> new ExtraModifier(0xff0000));
+  public static final RegistryObject<ExtraModifier> greenExtraUpgrade = MODIFIERS.register("green_extra_upgrade", () -> new ExtraModifier(0x00ff00));
+  public static final RegistryObject<ExtraModifier> blueExtraUpgrade = MODIFIERS.register("blue_extra_upgrade", () -> new ExtraModifier(0x0000ff));
   // creative
   public static final RegistryObject<ExtraModifier> creativeUpgrade = MODIFIERS.register("creative_upgrade", () -> new ExtraModifier(0xCCBA47, ExtraType.UPGRADE, ModifierSource.MULTI_USE));
   public static final RegistryObject<ExtraModifier> creativeAbility = MODIFIERS.register("creative_ability", () -> new ExtraModifier(0xB8A0FF, ExtraType.ABILITY, ModifierSource.MULTI_USE));
