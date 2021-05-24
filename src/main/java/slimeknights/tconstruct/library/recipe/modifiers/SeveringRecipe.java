@@ -26,14 +26,14 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Recipe to convert an entity into a head for the beheading modifier
+ * Recipe to convert an entity into a head or other item for the severing modifier
  */
 @RequiredArgsConstructor
-public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
+public class SeveringRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   @Getter
   private final ResourceLocation id;
-  private final EntityIngredient ingredient;
-  private final ItemOutput output;
+  protected final EntityIngredient ingredient;
+  protected final ItemOutput output;
 
   @SuppressWarnings("rawtypes")
   private List<List<EntityType>> displayInputs;
@@ -48,7 +48,7 @@ public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   }
 
   /**
-   * Gets the output for this recipe for display in JEI
+   * Gets the output for this recipe for display in JEI, needs to be consistent
    * @return  Display output
    */
   public ItemStack getOutput() {
@@ -56,9 +56,9 @@ public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   }
 
   /**
-   * Gets the output for this recipe
+   * Gets the output for this recipe, does not need to be consistent (can use randomness) and may be empty
    * @param entity  Entity being melted
-   * @return  Fluid output
+   * @return  Item output
    */
   public ItemStack getOutput(Entity entity) {
     return getOutput().copy();
@@ -83,12 +83,12 @@ public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
 
   @Override
   public IRecipeSerializer<?> getSerializer() {
-    return TinkerModifiers.beheadingSerializer.get();
+    return TinkerModifiers.severingSerializer.get();
   }
 
   @Override
   public IRecipeType<?> getType() {
-    return RecipeTypes.BEHEADING;
+    return RecipeTypes.SEVERING;
   }
 
   /** @deprecated use {@link #matches(EntityType)}*/
@@ -99,24 +99,24 @@ public class BeheadingRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   }
 
   /** Serializer for this recipe */
-  public static class Serializer extends RecipeSerializer<BeheadingRecipe> {
+  public static class Serializer extends RecipeSerializer<SeveringRecipe> {
     @Override
-    public BeheadingRecipe read(ResourceLocation id, JsonObject json) {
+    public SeveringRecipe read(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
       ItemOutput output = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
-      return new BeheadingRecipe(id, ingredient, output);
+      return new SeveringRecipe(id, ingredient, output);
     }
 
     @Nullable
     @Override
-    public BeheadingRecipe read(ResourceLocation id, PacketBuffer buffer) {
+    public SeveringRecipe read(ResourceLocation id, PacketBuffer buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       ItemOutput output = ItemOutput.read(buffer);
-      return new BeheadingRecipe(id, ingredient, output);
+      return new SeveringRecipe(id, ingredient, output);
     }
 
     @Override
-    public void write(PacketBuffer buffer, BeheadingRecipe recipe) {
+    public void write(PacketBuffer buffer, SeveringRecipe recipe) {
       recipe.ingredient.write(buffer);
       recipe.output.write(buffer);
     }

@@ -21,7 +21,8 @@ import slimeknights.tconstruct.library.modifiers.ExtraModifier.ExtraType;
 import slimeknights.tconstruct.library.modifiers.ExtraModifier.ModifierSource;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
-import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.AgeableSeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipe;
@@ -70,7 +71,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TastyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.TemperateModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.BaneOfArthropodsModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.BeheadingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.BlastingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.CoolingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
@@ -88,12 +88,15 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.OverforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.PiercingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ReinforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.SeveringModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SharpnessModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SoulboundModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.SweepingEdgeModifier;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
-import slimeknights.tconstruct.tools.recipe.PlayerBeheadingRecipe;
-import slimeknights.tconstruct.tools.recipe.SnowGolemBeheadingRecipe;
+import slimeknights.tconstruct.tools.recipe.severing.MooshroomDemushroomingRecipe;
+import slimeknights.tconstruct.tools.recipe.severing.PlayerBeheadingRecipe;
+import slimeknights.tconstruct.tools.recipe.severing.SheepShearingRecipe;
+import slimeknights.tconstruct.tools.recipe.severing.SnowGolemBeheadingRecipe;
 
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
@@ -158,7 +161,7 @@ public final class TinkerModifiers extends TinkerModule {
   // weapon
   public static final RegistryObject<KnockbackModifier> knockback = MODIFIERS.register("knockback", KnockbackModifier::new);
   public static final RegistryObject<FieryModifier> fiery = MODIFIERS.register("fiery", FieryModifier::new);
-  public static final RegistryObject<BeheadingModifier> beheading = MODIFIERS.register("beheading", BeheadingModifier::new);
+  public static final RegistryObject<SeveringModifier> severing = MODIFIERS.register("severing", SeveringModifier::new);
   public static final RegistryObject<LootingModifier> looting = MODIFIERS.register("looting", LootingModifier::new);
 
   // damage boost
@@ -266,9 +269,12 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<OverslimeModifierRecipe.Serializer> overslimeSerializer = RECIPE_SERIALIZERS.register("overslime_modifier", OverslimeModifierRecipe.Serializer::new);
   public static final RegistryObject<ModifierRemovalRecipe.Serializer> removeModifierSerializer = RECIPE_SERIALIZERS.register("remove_modifier", ModifierRemovalRecipe.Serializer::new);
   public static final RegistryObject<ModifierLootModifier.Serializer> modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", ModifierLootModifier.Serializer::new);
-  // beheading
-  public static final RegistryObject<BeheadingRecipe.Serializer> beheadingSerializer = RECIPE_SERIALIZERS.register("beheading", BeheadingRecipe.Serializer::new);
+  // severing
+  public static final RegistryObject<SeveringRecipe.Serializer> severingSerializer = RECIPE_SERIALIZERS.register("severing", SeveringRecipe.Serializer::new);
+  public static final RegistryObject<AgeableSeveringRecipe.Serializer> ageableSeveringSerializer = RECIPE_SERIALIZERS.register("ageable_severing", AgeableSeveringRecipe.Serializer::new);
+  // special severing
   public static final RegistryObject<SpecialRecipeSerializer<PlayerBeheadingRecipe>> playerBeheadingSerializer = RECIPE_SERIALIZERS.register("player_beheading", () -> new SpecialRecipeSerializer<>(PlayerBeheadingRecipe::new));
   public static final RegistryObject<SpecialRecipeSerializer<SnowGolemBeheadingRecipe>> snowGolemBeheadingSerializer = RECIPE_SERIALIZERS.register("snow_golem_beheading", () -> new SpecialRecipeSerializer<>(SnowGolemBeheadingRecipe::new));
-
+  public static final RegistryObject<SpecialRecipeSerializer<MooshroomDemushroomingRecipe>> mooshroomDemushroomingSerializer = RECIPE_SERIALIZERS.register("mooshroom_demushrooming", () -> new SpecialRecipeSerializer<>(MooshroomDemushroomingRecipe::new));
+  public static final RegistryObject<SpecialRecipeSerializer<SheepShearingRecipe>> sheepShearing = RECIPE_SERIALIZERS.register("sheep_shearing", () -> new SpecialRecipeSerializer<>(SheepShearingRecipe::new));
 }

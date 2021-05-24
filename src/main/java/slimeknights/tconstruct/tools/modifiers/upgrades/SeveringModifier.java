@@ -6,14 +6,14 @@ import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
 import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipeCache;
+import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipeCache;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.List;
 
-public class BeheadingModifier extends Modifier {
-  public BeheadingModifier() {
+public class SeveringModifier extends Modifier {
+  public SeveringModifier() {
     super(0xBB8972);
   }
 
@@ -31,11 +31,19 @@ public class BeheadingModifier extends Modifier {
       // ensure no head so far
       if (generatedLoot.stream().noneMatch(stack -> Tags.Items.HEADS.contains(stack.getItem()))) {
         // find proper recipe
-        BeheadingRecipe recipe = BeheadingRecipeCache.findRecipe(context.getWorld().getRecipeManager(), entity.getType());
-        if (recipe != null) {
+        List<SeveringRecipe> recipes = SeveringRecipeCache.findRecipe(context.getWorld().getRecipeManager(), entity.getType());
+        if (!recipes.isEmpty()) {
           // 5% chance per level, bonus 5% per level of looting
-          if (RANDOM.nextFloat() < ((level + context.getLootingModifier()) * 0.05f)) {
-            generatedLoot.add(recipe.getOutput(entity));
+          float chance = (level + context.getLootingModifier()) * 0.05f;
+          for (SeveringRecipe recipe : recipes) {
+            ItemStack result = recipe.getOutput(entity);
+            if (!result.isEmpty() && RANDOM.nextFloat() < chance) {
+              // if count is not 1, its a random range from 1 to count
+              if (result.getCount() > 1) {
+                result.setCount(RANDOM.nextInt(result.getCount()) + 1);
+              }
+              generatedLoot.add(result);
+            }
           }
         }
       }

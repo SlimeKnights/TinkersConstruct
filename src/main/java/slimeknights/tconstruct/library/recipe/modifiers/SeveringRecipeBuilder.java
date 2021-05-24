@@ -16,14 +16,27 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 /** Builder for entity melting recipes */
-@RequiredArgsConstructor(staticName = "beheading")
-public class BeheadingRecipeBuilder extends AbstractRecipeBuilder<BeheadingRecipeBuilder> {
+@RequiredArgsConstructor(staticName = "severing")
+public class SeveringRecipeBuilder extends AbstractRecipeBuilder<SeveringRecipeBuilder> {
   private final EntityIngredient ingredient;
   private final ItemOutput output;
+  private boolean isAgeable = false;
+  private ItemOutput childOutput = null;
 
   /** Creates a new builder from an item */
-  public static BeheadingRecipeBuilder beheading(EntityIngredient ingredient, IItemProvider output) {
-    return beheading(ingredient, ItemOutput.fromItem(output));
+  public static SeveringRecipeBuilder severing(EntityIngredient ingredient, IItemProvider output) {
+    return SeveringRecipeBuilder.severing(ingredient, ItemOutput.fromItem(output));
+  }
+
+  /**
+   * Makes this an ageable severing recipe
+   * @param childOutput  Output when a child, if null just does no output for children
+   * @return  Builder instance
+   */
+  public SeveringRecipeBuilder setChildOutput(@Nullable ItemOutput childOutput) {
+    this.isAgeable = true;
+    this.childOutput = childOutput;
+    return this;
   }
 
   @Override
@@ -33,7 +46,7 @@ public class BeheadingRecipeBuilder extends AbstractRecipeBuilder<BeheadingRecip
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "beheading");
+    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "severing");
     consumer.accept(new FinishedRecipe(id, advancementId));
   }
 
@@ -45,12 +58,19 @@ public class BeheadingRecipeBuilder extends AbstractRecipeBuilder<BeheadingRecip
     @Override
     public void serialize(JsonObject json) {
       json.add("entity", ingredient.serialize());
-      json.add("result", output.serialize());
+      if (isAgeable) {
+        json.add("adult_result", output.serialize());
+        if (childOutput != null) {
+          json.add("child_result", childOutput.serialize());
+        }
+      } else {
+        json.add("result", output.serialize());
+      }
     }
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-      return TinkerModifiers.beheadingSerializer.get();
+      return isAgeable ? TinkerModifiers.ageableSeveringSerializer.get() : TinkerModifiers.severingSerializer.get();
     }
   }
 }

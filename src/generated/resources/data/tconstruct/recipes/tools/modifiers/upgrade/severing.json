@@ -18,7 +18,7 @@
     "tag": "tconstruct:modifiable/melee"
   },
   "result": {
-    "name": "tconstruct:beheading",
+    "name": "tconstruct:severing",
     "level": 1
   },
   "max_level": 5,

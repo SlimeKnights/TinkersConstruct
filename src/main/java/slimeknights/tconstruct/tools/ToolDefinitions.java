@@ -77,7 +77,7 @@ public final class ToolDefinitions {
   public static final ToolDefinition CLEAVER = new ToolDefinition(
     ToolBaseStatDefinitions.CLEAVER,
     requirements(TinkerToolParts.broadBlade, TinkerToolParts.toughHandle, TinkerToolParts.toughHandle, TinkerToolParts.largePlate),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.beheading.get(), 2),
+    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.severing.get(), 2),
                            new ModifierEntry(TinkerModifiers.silkyShears.get(), 1),
                            new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
 

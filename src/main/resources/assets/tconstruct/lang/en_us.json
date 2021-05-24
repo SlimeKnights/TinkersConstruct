@@ -1241,9 +1241,9 @@
     "modifier.tconstruct.knockback": "Knockback",
     "modifier.tconstruct.knockback.flavor": "Weeeeee!",
     "modifier.tconstruct.knockback.description": "Hitting things makes them go flying further!",
-    "modifier.tconstruct.beheading": "Beheading",
-    "modifier.tconstruct.beheading.flavor": "Charged Creeper on a Stick!",
-    "modifier.tconstruct.beheading.description": "Potentially blasts the heads of mobs right off!",
+    "modifier.tconstruct.severing": "Severing",
+    "modifier.tconstruct.severing.flavor": "Not just the heads, but the feet, and the feathers!",
+    "modifier.tconstruct.severing.description": "Potentially blasts heads or other parts of mobs right off!",
     "modifier.tconstruct.fiery": "Fiery",
     "modifier.tconstruct.fiery.flavor": "Infused with the fires of hell!",
     "modifier.tconstruct.fiery.description": "Ignites targets",
@@ -1629,5 +1629,5 @@
     "jei.tconstruct.modifiers.incremental": "Recipe is incremental, you can apply part of the input for a partial effect",
     "jei.tconstruct.modifiers.max": "Max: ",
 
-    "jei.tconstruct.beheading.title": "Beheading"
+    "jei.tconstruct.severing.title": "Severing"
 }

@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:severing",
+  "entity": {
+    "types": [
+      "minecraft:spider",
+      "minecraft:cave_spider"
+    ]
+  },
+  "result": "minecraft:spider_eye"
+}

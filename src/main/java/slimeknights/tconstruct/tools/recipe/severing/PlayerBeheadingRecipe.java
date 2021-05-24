@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.recipe;
+package slimeknights.tconstruct.tools.recipe.severing;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.Entity;
@@ -12,11 +12,11 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
-import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** Beheading recipe that sets player skin */
-public class PlayerBeheadingRecipe extends BeheadingRecipe {
+public class PlayerBeheadingRecipe extends SeveringRecipe {
   public PlayerBeheadingRecipe(ResourceLocation id) {
     super(id, EntityIngredient.of(EntityType.PLAYER), ItemOutput.fromItem(Items.PLAYER_HEAD));
   }

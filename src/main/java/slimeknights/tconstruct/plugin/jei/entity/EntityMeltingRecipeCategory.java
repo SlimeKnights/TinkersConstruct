@@ -39,6 +39,7 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Entity melting display in JEI
@@ -81,10 +82,19 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     return EntityMeltingRecipe.class;
   }
 
+  /**
+   * Maps a list of entities to a list of item stacks
+   * @param entities  Entities
+   * @return  Input item stack list
+   */
+  public static List<List<ItemStack>> getSpawnEggs(Stream<EntityType<?>> entities) {
+    return ImmutableList.of(entities.map(SpawnEggItem::getEgg).filter(Objects::nonNull).map(ItemStack::new).collect(Collectors.toList()));
+  }
+
   @Override
   public void setIngredients(EntityMeltingRecipe recipe, IIngredients ingredients) {
     ingredients.setInputLists(JEIPlugin.ENTITY_TYPE, recipe.getDisplayInputs());
-    ingredients.setInputLists(VanillaTypes.ITEM, ImmutableList.of(recipe.getInputs().stream().map(SpawnEggItem::getEgg).filter(Objects::nonNull).map(ItemStack::new).collect(Collectors.toList())));
+    ingredients.setInputLists(VanillaTypes.ITEM, getSpawnEggs(recipe.getInputs().stream()));
     ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutput());
   }
 

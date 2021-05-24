@@ -8,16 +8,18 @@ import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 
-import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Class handling a recipe cache for entity melting recipes, since any given entity type has one recipe
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class BeheadingRecipeCache {
-  private static final Map<EntityType<?>,BeheadingRecipe> CACHE = new HashMap<>();
+public class SeveringRecipeCache {
+  private static final Map<EntityType<?>,List<SeveringRecipe>> CACHE = new HashMap<>();
 
   static {
     RecipeCacheInvalidator.addReloadListener(client -> CACHE.clear());
@@ -29,22 +31,24 @@ public class BeheadingRecipeCache {
    * @param type     Entity type
    * @return  Recipe, or null if no recipe for this type
    */
-  @Nullable
-  public static BeheadingRecipe findRecipe(RecipeManager manager, EntityType<?> type) {
+  public static List<SeveringRecipe> findRecipe(RecipeManager manager, EntityType<?> type) {
     if (CACHE.containsKey(type)) {
       return CACHE.get(type);
     }
 
-    // find a recipe if none exist
-    for (BeheadingRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.BEHEADING, BeheadingRecipe.class)) {
+    // find all severing recipes for the entity
+    List<SeveringRecipe> list = new ArrayList<>();
+    for (SeveringRecipe recipe : RecipeHelper.getRecipes(manager, RecipeTypes.SEVERING, SeveringRecipe.class)) {
       if (recipe.matches(type)) {
-        CACHE.put(type, recipe);
-        return recipe;
+        list.add(recipe);
       }
+    }
+    if (list.isEmpty()) {
+      list = Collections.emptyList();
     }
 
     // cache nothing was found
-    CACHE.put(type, null);
-    return null;
+    CACHE.put(type, list);
+    return list;
   }
 }

@@ -53,7 +53,7 @@ import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -61,11 +61,11 @@ import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
-import slimeknights.tconstruct.plugin.jei.entity.BeheadingCategory;
 import slimeknights.tconstruct.plugin.jei.entity.DefaultEntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.entity.EntityIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.entity.EntityIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.entity.EntityMeltingRecipeCategory;
+import slimeknights.tconstruct.plugin.jei.entity.SeveringCategory;
 import slimeknights.tconstruct.plugin.jei.melting.FoundryCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
@@ -118,7 +118,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new FoundryCategory(guiHelper));
     // tinker station
     registry.addRecipeCategories(new ModifierRecipeCategory(guiHelper));
-    registry.addRecipeCategories(new BeheadingCategory(guiHelper));
+    registry.addRecipeCategories(new SeveringCategory(guiHelper));
   }
 
   @Override
@@ -165,8 +165,8 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(modifierRecipes, TConstructRecipeCategoryUid.modifiers);
 
     // beheading
-    List<BeheadingRecipe> beheadingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.BEHEADING, BeheadingRecipe.class);
-    register.addRecipes(beheadingRecipes, TConstructRecipeCategoryUid.beheading);
+    List<SeveringRecipe> severingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.SEVERING, SeveringRecipe.class);
+    register.addRecipes(severingRecipes, TConstructRecipeCategoryUid.severing);
   }
 
   /**
@@ -200,7 +200,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructRecipeCategoryUid.modifiers);
     for (Item item : TinkerTags.Items.MELEE.getAllElements()) {
       ItemStack stack = item instanceof ToolCore ? ((ToolCore)item).buildToolForRendering() : new ItemStack(item);
-      registry.addRecipeCatalyst(stack, TConstructRecipeCategoryUid.beheading);
+      registry.addRecipeCatalyst(stack, TConstructRecipeCategoryUid.severing);
     }
   }
 

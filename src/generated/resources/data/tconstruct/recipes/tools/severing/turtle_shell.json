@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:ageable_severing",
+  "entity": {
+    "type": "minecraft:turtle"
+  },
+  "adult_result": {
+    "item": "minecraft:turtle_helmet",
+    "nbt": "{Damage:0}"
+  },
+  "child_result": "minecraft:scute"
+}

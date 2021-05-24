@@ -16,6 +16,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -26,7 +27,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeBuilder;
@@ -274,7 +275,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE)
                          .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.beheading.get())
+    ModifierRecipeBuilder.modifier(TinkerModifiers.severing.get())
                          .addInput(TinkerTags.Items.WITHER_BONES)
                          .addInput(TinkerMaterials.copper.getIngotTag())
                          .addInput(TinkerTags.Items.WITHER_BONES)
@@ -282,7 +283,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(5) // max +25% head drop chance, combine with +15% chance from luck
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE)
-                         .build(consumer, prefixR(TinkerModifiers.beheading, upgradeFolder));
+                         .build(consumer, prefixR(TinkerModifiers.severing, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.BLAZE_POWDER, 1, 25)
@@ -551,16 +552,71 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
   }
 
   private void addHeadRecipes(Consumer<IFinishedRecipe> consumer) {
-    String folder = "tools/beheading/";
-    BeheadingRecipeBuilder.beheading(EntityIngredient.of(EntityType.ZOMBIE, EntityType.HUSK, EntityType.DROWNED), Items.ZOMBIE_HEAD)
-                          .build(consumer, prefix(Items.ZOMBIE_HEAD, folder));
-    BeheadingRecipeBuilder.beheading(EntityIngredient.of(EntityType.SKELETON, EntityType.STRAY), Items.SKELETON_SKULL)
-                          .build(consumer, prefix(Items.SKELETON_SKULL, folder));
-    BeheadingRecipeBuilder.beheading(EntityIngredient.of(EntityType.WITHER_SKELETON, EntityType.WITHER), Items.WITHER_SKELETON_SKULL)
-                          .build(consumer, prefix(Items.WITHER_SKELETON_SKULL, folder));
-    BeheadingRecipeBuilder.beheading(EntityIngredient.of(EntityType.CREEPER), Items.CREEPER_HEAD)
-                          .build(consumer, prefix(Items.CREEPER_HEAD, folder));
-    CustomRecipeBuilder.customRecipe(TinkerModifiers.playerBeheadingSerializer.get()).build(consumer, locationString(folder + "player"));
-    CustomRecipeBuilder.customRecipe(TinkerModifiers.snowGolemBeheadingSerializer.get()).build(consumer, locationString(folder + "snow_golem"));
+    String folder = "tools/severing/";
+    // first, beheading
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.ZOMBIE, EntityType.HUSK, EntityType.DROWNED), Items.ZOMBIE_HEAD)
+												 .build(consumer, location(folder + "zombie_head"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.SKELETON, EntityType.STRAY), Items.SKELETON_SKULL)
+												 .build(consumer, location(folder + "skeleton_skull"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.WITHER_SKELETON, EntityType.WITHER), Items.WITHER_SKELETON_SKULL)
+												 .build(consumer, location(folder + "wither_skeleton_skull"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.CREEPER), Items.CREEPER_HEAD)
+												 .build(consumer, location(folder + "creeper_head"));
+    CustomRecipeBuilder.customRecipe(TinkerModifiers.playerBeheadingSerializer.get()).build(consumer, locationString(folder + "player_head"));
+    CustomRecipeBuilder.customRecipe(TinkerModifiers.snowGolemBeheadingSerializer.get()).build(consumer, locationString(folder + "snow_golem_head"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.IRON_GOLEM), Blocks.CARVED_PUMPKIN)
+                         .build(consumer, location(folder + "iron_golem_head"));
+
+    // other body parts
+    // hostile
+    // beeyeing
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.SPIDER, EntityType.CAVE_SPIDER), Items.SPIDER_EYE)
+                         .build(consumer, location(folder + "spider_eye"));
+    // be-internal-combustion-device
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.CREEPER), Blocks.TNT)
+                         .build(consumer, location(folder + "creeper_tnt"));
+    // bemembraning?
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.PHANTOM), Items.PHANTOM_MEMBRANE)
+                         .build(consumer, location(folder + "phantom_membrane"));
+    // beshelling
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.SHULKER), Items.SHULKER_SHELL)
+                         .build(consumer, location(folder + "shulker_shell"));
+    // deboning
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.SKELETON, EntityType.SKELETON_HORSE, EntityType.STRAY), ItemOutput.fromStack(new ItemStack(Items.BONE, 2)))
+                         .build(consumer, location(folder + "skeleton_bone"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.WITHER_SKELETON), ItemOutput.fromStack(new ItemStack(TinkerModifiers.necroticBone, 2)))
+                         .build(consumer, location(folder + "wither_skeleton_bone"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.BLAZE), ItemOutput.fromStack(new ItemStack(Items.BLAZE_ROD, 2)))
+                         .build(consumer, location(folder + "blaze_rod"));
+    // desliming (you cut off a chunk of slime)
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.SLIME, TinkerWorld.earthSlimeEntity.get()), Items.SLIME_BALL)
+                         .build(consumer, location(folder + "earthslime_ball"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(TinkerWorld.skySlimeEntity.get()), TinkerCommons.slimeball.get(SlimeType.SKY))
+                         .build(consumer, location(folder + "skyslime_ball"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(TinkerWorld.enderSlimeEntity.get()), TinkerCommons.slimeball.get(SlimeType.ENDER))
+                         .build(consumer, location(folder + "enderslime_ball"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.MAGMA_CUBE), Items.MAGMA_CREAM)
+                         .build(consumer, location(folder + "magma_cream"));
+    // descaling? I don't know what to call those
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN), ItemOutput.fromStack(new ItemStack(Items.PRISMARINE_SHARD, 2)))
+                         .build(consumer, location(folder + "guardian_shard"));
+
+    // passive
+    // befeating
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.RABBIT), Items.RABBIT_FOOT)
+                         .setChildOutput(null) // only adults
+												 .build(consumer, location(folder + "rabbit_foot"));
+    // befeathering
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.CHICKEN), ItemOutput.fromStack(new ItemStack(Items.FEATHER, 2)))
+                         .setChildOutput(null) // only adults
+                         .build(consumer, location(folder + "chicken_feather"));
+    // beshrooming
+    CustomRecipeBuilder.customRecipe(TinkerModifiers.mooshroomDemushroomingSerializer.get()).build(consumer, locationString(folder + "mooshroom_shroom"));
+    // beshelling
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.TURTLE), Items.TURTLE_HELMET)
+                         .setChildOutput(ItemOutput.fromItem(Items.SCUTE))
+                         .build(consumer, location(folder + "turtle_shell"));
+    // befleecing
+    CustomRecipeBuilder.customRecipe(TinkerModifiers.sheepShearing.get()).build(consumer, locationString(folder + "sheep_wool"));
   }
 }

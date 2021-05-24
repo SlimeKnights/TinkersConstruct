@@ -14,7 +14,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -210,6 +209,7 @@ public class TConstruct {
         case "axe_transform": return TinkerModifiers.stripping.get();
         case "shovel_transform": return TinkerModifiers.pathing.get();
         case "hoe_transform": return TinkerModifiers.tilling.get();
+        case "beheading": return TinkerModifiers.severing.get();
       }
       return null;
     });
