@@ -76,10 +76,12 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.CoolingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.DiamondModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.EmeraldModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.FieryModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.FortuneModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.HasteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.HydraulicModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.KnockbackModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.LightspeedModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.LootingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.MagneticModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.NetheriteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.OverforcedModifier;
@@ -146,16 +148,18 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<MagneticModifier> magnetic = MODIFIERS.register("magnetic", MagneticModifier::new);
   public static final RegistryObject<ShinyModifier> shiny = MODIFIERS.register("shiny", ShinyModifier::new);
 
-  // speed
+  // harvest
   public static final RegistryObject<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
   public static final RegistryObject<BlastingModifier> blasting = MODIFIERS.register("blasting", BlastingModifier::new);
   public static final RegistryObject<HydraulicModifier> hydraulic = MODIFIERS.register("hydraulic", HydraulicModifier::new);
   public static final RegistryObject<LightspeedModifier> lightspeed = MODIFIERS.register("lightspeed", LightspeedModifier::new);
+  public static final RegistryObject<FortuneModifier> fortune = MODIFIERS.register("fortune", FortuneModifier::new);
 
   // weapon
   public static final RegistryObject<KnockbackModifier> knockback = MODIFIERS.register("knockback", KnockbackModifier::new);
   public static final RegistryObject<FieryModifier> fiery = MODIFIERS.register("fiery", FieryModifier::new);
   public static final RegistryObject<BeheadingModifier> beheading = MODIFIERS.register("beheading", BeheadingModifier::new);
+  public static final RegistryObject<LootingModifier> looting = MODIFIERS.register("looting", LootingModifier::new);
 
   // damage boost
   public static final RegistryObject<PiercingModifier> piercing = MODIFIERS.register("piercing", PiercingModifier::new);

@@ -1204,6 +1204,8 @@
     "modifier.tconstruct.netherite.flavor": "Refined!",
     "modifier.tconstruct.netherite.description": "Harness the power of ancient metal, making the tool stronger and immune to external damage such as fire",
     "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
+
+
     "modifier.tconstruct.overslime": "Overslime",
     "modifier.tconstruct.overslime.flavor": "Slimy!",
     "modifier.tconstruct.overslime.description": "Tool consumes overslime instead of durability, until it runs out! Not friendly towards tools lacking slime",
@@ -1300,9 +1302,17 @@
     "modifier.tconstruct.luck.1": "Luck",
     "modifier.tconstruct.luck.2": "Luckier",
     "modifier.tconstruct.luck.3": "Luckiest",
-    "modifier.tconstruct.luck.beyond": "Lucky++",
     "modifier.tconstruct.luck.flavor": "Flashy!",
     "modifier.tconstruct.luck.description": "Gives you more nice things when mining or killing mobs!",
+    "recipe.tconstruct.modifier.luck.level_2": "Luckier requires a different recipe for the first level",
+    "recipe.tconstruct.modifier.luck.level_3": "Luckiest requires a different recipe for the first two levels",
+    "modifier.tconstruct.fortune": "Fortune",
+    "modifier.tconstruct.fortune.flavor": "Luck of the Ores!",
+    "modifier.tconstruct.fortune.description": "Gives you more nice things when mining!",
+    "modifier.tconstruct.looting": "Looting",
+    "modifier.tconstruct.looting.flavor": "Luck of the Mobs!",
+    "modifier.tconstruct.looting.description": "Gives you more nice things when killing mobs!",
+
     "_comment": "Expanders",
     "modifier.tconstruct.expanded": "Expanded",
     "modifier.tconstruct.expanded.flavor": "Did not skip leg day!",

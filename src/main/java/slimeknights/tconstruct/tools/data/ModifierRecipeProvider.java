@@ -209,6 +209,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * Speed
      */
+
     // haste can use redstone or blocks
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.haste.get())
                                     .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
@@ -359,20 +360,40 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(2)
                          .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.gilded, abilityFolder));
-    // luck can use lapis or blocks
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
-                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
-                                    .setInput(Tags.Items.GEMS_LAPIS, 1, 108) // 36 per effective level
-                                    .setMaxLevel(1)
-                                    .setAbilitySlots(1)
-                                    .build(consumer, wrapR(TinkerModifiers.luck, abilityFolder, "_from_dust"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
-                                    .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
-                                    .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 108)
-                                    .setLeftover(new ItemStack(Items.LAPIS_LAZULI))
-                                    .setMaxLevel(1)
-                                    .setAbilitySlots(1)
-                                    .build(consumer, wrapR(TinkerModifiers.luck, abilityFolder, "_from_block"));
+    // luck is 3 recipes, first uses slots, second 2 do not
+    ModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .addInput(TinkerMaterials.copper.getIngotTag())
+                         .addInput(Items.RABBIT_FOOT)
+                         .addInput(TinkerMaterials.copper.getIngotTag())
+                         .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
+                         .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .build(consumer, wrapR(TinkerModifiers.luck, abilityFolder, "_level_1"));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .addInput(Tags.Items.INGOTS_GOLD)
+                         .addInput(Items.RABBIT_FOOT)
+                         .addInput(Tags.Items.INGOTS_GOLD)
+                         .addInput(Tags.Items.ENDER_PEARLS)
+                         .addInput(Tags.Items.ENDER_PEARLS)
+                         .setRequirements(ModifierMatch.entry(TinkerModifiers.luck.get(), 1))
+                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.luck.level_2"))
+                         .setMaxLevel(2)
+                         .build(consumer, wrapR(TinkerModifiers.luck, abilityFolder, "_level_2"));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
+                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .addInput(TinkerMaterials.roseGold.getIngotTag())
+                         .addInput(Items.RABBIT_FOOT)
+                         .addInput(TinkerMaterials.roseGold.getIngotTag())
+                         .addInput(Tags.Items.GEMS_DIAMOND)
+                         .addInput(Items.NAME_TAG)
+                         .setRequirements(ModifierMatch.entry(TinkerModifiers.luck.get(), 2))
+                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.luck.level_3"))
+                         .setMaxLevel(3)
+                         .build(consumer, wrapR(TinkerModifiers.luck, abilityFolder, "_level_3"));
+    // silky: all the cloth
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky.get())
                          .addInput(TinkerModifiers.silkyCloth)
                          .addInput(TinkerModifiers.silkyCloth)
