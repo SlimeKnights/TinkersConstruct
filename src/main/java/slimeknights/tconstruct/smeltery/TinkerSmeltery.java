@@ -117,7 +117,7 @@ public final class TinkerSmeltery extends TinkerModule {
     .setRequiresTool().hardnessAndResistance(3.0F, 9.0F).notSolid()
     .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
   private static final Block.Properties SEARED_GLASS = SEARED_NON_SOLID_TEMPLATE.apply(SoundType.GLASS);
-  private static final Block.Properties SEARED_NON_SOLID = SEARED_NON_SOLID_TEMPLATE.apply(SoundType.GLASS);
+  private static final Block.Properties SEARED_NON_SOLID = SEARED_NON_SOLID_TEMPLATE.apply(SoundType.METAL);
   private static final Supplier<SearedBlock> SEARED_BLOCK = () -> new SearedBlock(SEARED);
   // blocks
   public static final BuildingBlockObject searedStone = BLOCKS.registerBuilding("seared_stone", SEARED_BLOCK, TOOLTIP_BLOCK_ITEM);
@@ -142,7 +142,7 @@ public final class TinkerSmeltery extends TinkerModule {
     .setRequiresTool().hardnessAndResistance(2.5F, 8.0F).notSolid()
     .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
   private static final Block.Properties SCORCHED_GLASS = SEARED_NON_SOLID_TEMPLATE.apply(SoundType.GLASS);
-  private static final Block.Properties SCORCHED_NON_SOLID = SEARED_NON_SOLID_TEMPLATE.apply(SoundType.GLASS);
+  private static final Block.Properties SCORCHED_NON_SOLID = SEARED_NON_SOLID_TEMPLATE.apply(SoundType.BASALT);
   private static final Supplier<SearedBlock> SCORCHED_BLOCK = () -> new SearedBlock(SCORCHED);
   private static final Supplier<SearedPillarBlock> SCORCHED_PILLAR = () -> new SearedPillarBlock(SCORCHED);
   // blocks
