@@ -41,8 +41,6 @@ import java.util.Map;
  * Logic for channel fluid transfer
  */
 public class ChannelTileEntity extends MantleTileEntity implements ITickableTileEntity, IFluidPacketReceiver {
-	public static final int LIQUID_TRANSFER = 16;
-
 	/** Channel internal tank */
 	private final ChannelTank tank = new ChannelTank(36, this);
 	/** Handler to return from channel top */
