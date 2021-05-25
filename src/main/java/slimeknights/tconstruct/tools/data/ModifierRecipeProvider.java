@@ -358,7 +358,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      */
     ModifierRecipeBuilder.modifier(TinkerModifiers.gilded.get())
                          .addInput(Items.GOLDEN_APPLE)
-                         .setMaxLevel(2)
                          .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.gilded, abilityFolder));
     // luck is 3 recipes, first uses slots, second 2 do not
@@ -460,7 +459,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerTags.Items.ICHOR_SLIMEBALL)
                          .addInput(TinkerTags.Items.ICHOR_SLIMEBALL)
                          .setAbilitySlots(1)
-                         .setMaxLevel(2)
                          .setTools(TinkerTags.Items.AOE)
                          .build(consumer, prefixR(TinkerModifiers.expanded, abilityFolder));
     // reach expander
@@ -471,7 +469,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.PISTON)
                          .addInput(TinkerTags.Items.ENDER_SLIMEBALL)
                          .addInput(TinkerTags.Items.ENDER_SLIMEBALL)
-                         .setMaxLevel(2)
                          .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.reach, abilityFolder));
     // block transformers
