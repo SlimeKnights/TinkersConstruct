@@ -13,7 +13,7 @@
       "durability": 1.0,
       "miningSpeed": 1.0,
       "attackSpeed": 0.7,
-      "attackDamage": 1.25
+      "attackDamage": 1.2
     },
     {
       "id": "tconstruct:extra"

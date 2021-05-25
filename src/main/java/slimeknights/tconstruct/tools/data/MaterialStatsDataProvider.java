@@ -86,7 +86,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.lead,
                      new HeadMaterialStats(200, 5f, IRON, 2.5f),
-                     HandleMaterialStats.DEFAULT.withAttackSpeed(0.7f).withAttackDamage(1.25f),
+                     HandleMaterialStats.DEFAULT.withAttackSpeed(0.7f).withAttackDamage(1.2f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.electrum,
                      new HeadMaterialStats(225, 11f, IRON, 1.5f),
@@ -101,7 +101,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.nahuatl,
                      new HeadMaterialStats(350, 4.5f, DIAMOND, 3f),
-                     HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.5f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.8f).withAttackSpeed(0.8f).withAttackDamage(1.4f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.tinkersBronze,
                      new HeadMaterialStats(720, 7f, DIAMOND, 2f),
@@ -138,7 +138,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.manyullyn,
                      new HeadMaterialStats(1500, 8f, NETHERITE, 4f),
-                     HandleMaterialStats.DEFAULT.withDurability(1.2f).withAttackDamage(1.4f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.2f).withAttackDamage(1.3f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.hepatizon,
                      new HeadMaterialStats(1450, 10f, NETHERITE, 3f),
