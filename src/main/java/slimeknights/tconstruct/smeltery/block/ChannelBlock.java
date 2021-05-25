@@ -235,9 +235,9 @@ public class ChannelBlock extends Block {
 			if (facingState.getBlock() == this) {
 				state = state.with(prop, facingState.get(DIRECTION_MAP.get(facing.getOpposite())).getOpposite());
 			} else {
-				// in is invalid as it must point to a block, out is only valid if facing a fluid handler
+				// out is only valid if facing a fluid handler
 				ChannelConnection connection = state.get(prop);
-				if (connection == ChannelConnection.IN || (connection == ChannelConnection.OUT && !isFluidHandler(world, facing.getOpposite(), facingPos))) {
+				if (connection == ChannelConnection.OUT && !isFluidHandler(world, facing.getOpposite(), facingPos)) {
 					state = state.with(prop, ChannelConnection.NONE);
 				}
 			}
@@ -262,19 +262,13 @@ public class ChannelBlock extends Block {
 			BlockPos facingPos = pos.offset(side);
 			// if facing another channel, toggle to next connection prop
 			BlockState facingState = world.getBlockState(facingPos);
-			if (facingState.getBlock() == this) {
-				ChannelConnection newConnect = connection.getNext(player.isSneaking());
-				player.sendStatusMessage(SIDE_CONNECTION.get(newConnect), true);
-				return state.with(prop, newConnect);
-				// if not connected and we can connect, do so
-			} else if (connection != ChannelConnection.OUT && isFluidHandler(world, side.getOpposite(), facingPos)) {
-				player.sendStatusMessage(SIDE_OUT, true);
-				return state.with(prop, ChannelConnection.OUT);
-				// if connected, disconnect
-			} else if (connection != ChannelConnection.NONE) {
-				player.sendStatusMessage(SIDE_NONE, true);
-				return state.with(prop, ChannelConnection.NONE);
+			ChannelConnection newConnect = connection.getNext(player.isSneaking());
+			// if its not a fluid handler, cannot set out
+			if (newConnect == ChannelConnection.OUT && facingState.getBlock() != this && !isFluidHandler(world, side.getOpposite(), facingPos)) {
+				newConnect = newConnect.getNext(player.isSneaking());
 			}
+			player.sendStatusMessage(SIDE_CONNECTION.get(newConnect), true);
+			return state.with(prop, newConnect);
 		}
 
 		return null;
@@ -291,6 +285,9 @@ public class ChannelBlock extends Block {
 
 		// default to using the clicked side, though null (is that valid?) and up act as down
 		Direction side = hitFace == Direction.UP ? Direction.DOWN : hitFace;
+		if (player.isSneaking() && side != Direction.DOWN) {
+			side = side.getOpposite();
+		}
 
 		// try each of the sides, if clicked use that
 		Vector3d hitVec = hit.getHitVec().subtract(pos.getX(), pos.getY(), pos.getZ());
@@ -307,13 +304,13 @@ public class ChannelBlock extends Block {
 
 		// toggle the side clicked
 		BlockState newState = interactWithSide(state, world, pos, player, side);
-		if (newState == null && side != Direction.DOWN) {
-			// if the side did not change, toggle the bottom connection
-			newState = interactWithSide(state, world, pos, player, Direction.DOWN);
-		}
 
 		// if we have changes, apply them and return success
 		if (newState != null) {
+			Direction finalSide = side;
+			if (!world.isRemote) {
+				TileEntityHelper.getTile(ChannelTileEntity.class, world, pos).ifPresent(te -> te.refreshNeighbor(newState, finalSide));
+			}
 			world.setBlockState(pos, newState);
 			return ActionResultType.SUCCESS;
 		}
