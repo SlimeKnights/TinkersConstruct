@@ -12,6 +12,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -20,6 +21,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
+import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.mantle.inventory.MultiModuleContainer;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -141,7 +143,9 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
 
       // if we found something, add the side inventory
       if (inventoryTE != null) {
-        this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), windowId, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
+        int invSlots = inventoryTE.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, accessDir).orElse(EmptyItemHandler.INSTANCE).getSlots();
+        int columns = MathHelper.clamp((invSlots - 1) / 9 + 1, 3, 6);
+        this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), windowId, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, columns), false);
       }
     }
   }
