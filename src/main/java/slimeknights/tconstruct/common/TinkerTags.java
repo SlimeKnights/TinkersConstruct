@@ -84,6 +84,9 @@ public class TinkerTags {
     /** Any block that counts as a tree trunk for the lumber axe. Note it must also be harvestable by axes to be effective */
     public static final IOptionalNamedTag<Block> TREE_LOGS = tag("tree_log");
 
+    // ceramics compat
+    public static final IOptionalNamedTag<Block> CISTERN_CONNECTIONS = BlockTags.createOptional(new ResourceLocation("ceramics", "cistern_connections"));
+
     private static IOptionalNamedTag<Block> tag(String name) {
       return BlockTags.createOptional(Util.getResource(name));
     }

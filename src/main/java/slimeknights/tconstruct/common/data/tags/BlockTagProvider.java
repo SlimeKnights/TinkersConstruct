@@ -189,6 +189,10 @@ public class BlockTagProvider extends BlockTagsProvider {
       TinkerSmeltery.chiseledScorchedBricks.get());
     this.getOrCreateBuilder(BlockTags.FENCES).add(TinkerSmeltery.scorchedBricks.getFence());
 
+    this.getOrCreateBuilder(TinkerTags.Blocks.CISTERN_CONNECTIONS)
+        // cannot add channels as it requires a block state property to properly detect, look into a way to fix this later
+        .add(TinkerSmeltery.searedFaucet.get(), TinkerSmeltery.scorchedFaucet.get());
+
     // tanks
     Builder<Block> searedTankBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SEARED_TANKS);
     TinkerSmeltery.searedTank.forEach(searedTankBuilder::addItemEntry);
