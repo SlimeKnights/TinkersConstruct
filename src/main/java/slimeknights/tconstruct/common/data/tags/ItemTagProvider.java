@@ -148,28 +148,35 @@ public class ItemTagProvider extends ItemTagsProvider {
   private void addTools() {
     // harvest
     // mine blocks
-    this.getOrCreateBuilder(TinkerTags.Items.STONE_HARVEST).add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get());
-    this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
-        .addTag(TinkerTags.Items.STONE_HARVEST)
-        .add(TinkerTools.mattock.get(), TinkerTools.excavator.get(),
+    this.getOrCreateBuilder(TinkerTags.Items.STONE_HARVEST)
+        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get());
+    this.getOrCreateBuilder(TinkerTags.Items.HARVEST_PRIMARY)
+        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
+             TinkerTools.mattock.get(), TinkerTools.excavator.get(),
              TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
              TinkerTools.kama.get(), TinkerTools.scythe.get());
+    this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
+        .addTag(TinkerTags.Items.HARVEST_PRIMARY)
+        .addTag(TinkerTags.Items.STONE_HARVEST)
+        .add(TinkerTools.sword.get(), TinkerTools.cleaver.get());
 
     // weapon
     // can receive sweeping and a few other special sword modifiers
     this.getOrCreateBuilder(TinkerTags.Items.SWORD)
         .add(TinkerTools.sword.get(), TinkerTools.cleaver.get());
     // support all weapon modifiers
-    this.getOrCreateBuilder(TinkerTags.Items.COMBAT)
-        .addTag(TinkerTags.Items.SWORD)
-        .add(TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
+    this.getOrCreateBuilder(TinkerTags.Items.MELEE_PRIMARY)
+        .add(TinkerTools.sword.get(), TinkerTools.cleaver.get(),
+             TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
              TinkerTools.sledgeHammer.get(), TinkerTools.scythe.get());
     // can receive damage boosts
     this.getOrCreateBuilder(TinkerTags.Items.MELEE)
-        .addTag(TinkerTags.Items.COMBAT)
+        .addTag(TinkerTags.Items.MELEE_PRIMARY)
+        .addTag(TinkerTags.Items.SWORD)
         .add(TinkerTools.pickaxe.get(), TinkerTools.veinHammer.get(),
              TinkerTools.kama.get(), TinkerTools.scythe.get(),
              TinkerTools.mattock.get(), TinkerTools.excavator.get());
+
     // supports modifiers
     this.getOrCreateBuilder(TinkerTags.Items.MELEE_OR_HARVEST)
         .addTag(TinkerTags.Items.MELEE)

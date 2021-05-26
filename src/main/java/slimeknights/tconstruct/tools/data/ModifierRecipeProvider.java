@@ -204,7 +204,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.shiny.get())
                          .addInput(Items.ENCHANTED_GOLDEN_APPLE)
                          .setMaxLevel(1)
-                         .setTools(TinkerTags.Items.MODIFIABLE)
                          .build(consumer, prefixR(TinkerModifiers.shiny, slotlessFolder));
 
     /*
@@ -412,7 +411,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.ENDER_PEARL)
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
-                         .setTools(TinkerTags.Items.HARVEST)
+                         .setTools(TinkerTags.Items.HARVEST_PRIMARY)
                          .build(consumer, prefixR(TinkerModifiers.exchanging, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.autosmelt.get())
                          .addInput(Items.FIRE_CHARGE)
@@ -422,7 +421,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerCommons.blazewood)
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
-                         .setTools(TinkerTags.Items.HARVEST)
+                         .setTools(TinkerTags.Items.HARVEST_PRIMARY)
                          .build(consumer, prefixR(TinkerModifiers.autosmelt, abilityFolder));
     // fluid stuff
     ModifierRecipeBuilder.modifier(TinkerModifiers.melting.get())
@@ -473,19 +472,19 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefixR(TinkerModifiers.reach, abilityFolder));
     // block transformers
     ModifierRecipeBuilder.modifier(TinkerModifiers.pathing.get())
-                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.mattock, TinkerTools.excavator)))
+                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST_PRIMARY), Ingredient.fromItems(TinkerTools.mattock, TinkerTools.excavator)))
                          .addInput(TinkerModifiers.ancientShovelHead.get())
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.pathing, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.stripping.get())
-                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.handAxe, TinkerTools.broadAxe)))
+                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST_PRIMARY), Ingredient.fromItems(TinkerTools.handAxe, TinkerTools.broadAxe)))
                          .addInput(TinkerModifiers.ancientAxeHead.get())
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
                          .build(consumer, prefixR(TinkerModifiers.stripping, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tilling.get())
-                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST), Ingredient.fromItems(TinkerTools.kama, TinkerTools.scythe)))
+                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.HARVEST_PRIMARY), Ingredient.fromItems(TinkerTools.kama, TinkerTools.scythe)))
                          .addInput(TinkerModifiers.ancientHoeHead.get())
                          .setMaxLevel(1)
                          .setAbilitySlots(1)

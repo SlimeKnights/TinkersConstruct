@@ -577,8 +577,10 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   public List<ITextComponent> getStatInformation(ToolStack tool, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     builder.addDurability();
-    builder.addAttackDamage();
-    builder.addAttackSpeed();
+    if (TinkerTags.Items.MELEE.contains(tool.getItem())) {
+      builder.addAttackDamage();
+      builder.addAttackSpeed();
+    }
     if (TinkerTags.Items.HARVEST.contains(tool.getItem())) {
       builder.addHarvestLevel();
       builder.addMiningSpeed();

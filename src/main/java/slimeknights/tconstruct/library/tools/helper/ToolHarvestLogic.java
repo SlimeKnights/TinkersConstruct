@@ -53,7 +53,7 @@ public class ToolHarvestLogic {
       return 0;
     }
     // if it lacks the harvest tag, it takes double damage (swords for instance)
-    return tool.getItem().isIn(TinkerTags.Items.HARVEST) ? 1 : 2;
+    return tool.getItem().isIn(TinkerTags.Items.HARVEST_PRIMARY) ? 1 : 2;
   }
 
   /**

@@ -152,28 +152,36 @@ public class TinkerTags {
      */
     /** Anything that can be modified in the tool station */
     public static final IOptionalNamedTag<Item> TOOL_PARTS = tag("parts");
+
     /** Anything that can be modified in the tool station */
     public static final IOptionalNamedTag<Item> MODIFIABLE = tag("modifiable");
+
     /** Modifiable items that contain multiple parts */
     public static final IOptionalNamedTag<Item> MULTIPART_TOOL = tag("modifiable/multipart");
-    /** Modifiable items that support melee attacks */
-    public static final IOptionalNamedTag<Item> MELEE = tag("modifiable/melee");
-    /** Modifiable items that are also swords, typically no use outside of combat */
-    public static final IOptionalNamedTag<Item> SWORD = tag("modifiable/sword");
-    /** Modifiable items that specifically are designed for combat */
-    public static final IOptionalNamedTag<Item> COMBAT = tag("modifiable/combat");
-    /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
-    public static final IOptionalNamedTag<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
-    /** Modifiable items that can break blocks */
-    public static final IOptionalNamedTag<Item> HARVEST = tag("modifiable/harvest");
-    /** Modifiable items that can break stone blocks */
-    public static final IOptionalNamedTag<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
     /** Modifiable items that can have range increased */
     public static final IOptionalNamedTag<Item> AOE = tag("modifiable/aoe");
     /** Modifiable items that prevent usage of the offhand */
     public static final IOptionalNamedTag<Item> TWO_HANDED = tag("modifiable/two_handed");
+
+    /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
+    public static final IOptionalNamedTag<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
+
+    /** Modifiable items that support melee attacks */
+    public static final IOptionalNamedTag<Item> MELEE = tag("modifiable/melee");
+    /** Modifiable items that specifically are designed for melee, removes melee penalties */
+    public static final IOptionalNamedTag<Item> MELEE_PRIMARY = tag("modifiable/melee/primary");
+    /** Modifiable items that are also swords, typically no use outside of combat */
+    public static final IOptionalNamedTag<Item> SWORD = tag("modifiable/melee/sword");
+
+    /** Modifiable items that can break blocks */
+    public static final IOptionalNamedTag<Item> HARVEST = tag("modifiable/harvest");
+    /** Modifiable items that are specifically designed for harvest, removes harvest penalties */
+    public static final IOptionalNamedTag<Item> HARVEST_PRIMARY = tag("modifiable/harvest/primary");
+    /** Modifiable items that can break stone blocks */
+    public static final IOptionalNamedTag<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
     // /** Modifiable items that support ranged attacks, such as bows */
     // public static final IOptionalNamedTag<Item> RANGED = tag("modifiable/ranged");
+
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final IOptionalNamedTag<Item> SCYTHES = forgeTag("tools/scythe");
 

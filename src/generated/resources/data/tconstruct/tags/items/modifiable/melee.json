@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#tconstruct:modifiable/combat",
+    "#tconstruct:modifiable/melee/primary",
+    "#tconstruct:modifiable/melee/sword",
     "tconstruct:pickaxe",
     "tconstruct:vein_hammer",
     "tconstruct:kama",

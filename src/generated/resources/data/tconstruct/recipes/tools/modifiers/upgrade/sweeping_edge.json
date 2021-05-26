@@ -6,7 +6,7 @@
   "amount_per_item": 1,
   "needed_per_level": 18,
   "tools": {
-    "tag": "tconstruct:modifiable/sword"
+    "tag": "tconstruct:modifiable/melee/sword"
   },
   "result": {
     "name": "tconstruct:sweeping_edge",
