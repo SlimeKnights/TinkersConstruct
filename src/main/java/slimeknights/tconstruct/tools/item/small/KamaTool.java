@@ -32,7 +32,7 @@ public class KamaTool extends HarvestTool {
   /** Harvest logic to match shears and hoes */
   public static class HarvestLogic extends CircleAOEHarvestLogic {
     private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(
-      Material.LEAVES, Material.WEB, Material.WOOL,
+      Material.LEAVES, Material.WEB, Material.WOOL, Material.CACTUS,
       Material.PLANTS, Material.TALL_PLANTS, Material.NETHER_PLANTS, Material.OCEAN_PLANT);
 
     public HarvestLogic(int diameter, boolean is3D) {
