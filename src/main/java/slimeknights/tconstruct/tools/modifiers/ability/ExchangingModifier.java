@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants.BlockFlags;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -34,14 +35,23 @@ public class ExchangingModifier extends SingleUseModifier {
     if (!isEffective || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem)) {
       return null;
     }
-    // block is unchanged no need to replace, just cancel breaking entirely
-    BlockItem blockItem = (BlockItem) offhand.getItem();
-    if (state.getBlock() == blockItem.getBlock()) {
-      return false;
-    }
 
     // from this point on, we are in charge of breaking the block, start by harvesting it so piglins get mad and stuff
     state.getBlock().onBlockHarvested(world, pos, state, player);
+
+    // block is unchanged, stuck setting it to a temporary block before replacing, as otherwise we risk duplication with the TE and tryPlace will likely fail
+    BlockItem blockItem = (BlockItem) offhand.getItem();
+    BlockState fluidState = world.getFluidState(pos).getBlockState();
+    boolean placedBlock = false;
+    if (state.getBlock() == blockItem.getBlock()) {
+      // the 0 in the last parameter prevents neighbor updates, meaning torches won't drop
+      // this is fine as the block will be replaced in the next step by the proper block,
+      // however doing it in one step is probably more ideal for block updates, hence only doing it when needed
+      placedBlock = world.setBlockState(pos, fluidState, 0, 0);
+      if (!placedBlock) {
+        return false;
+      }
+    }
 
     // generate placing context
     Direction sideHit = BlockSideHitListener.getSideHit(player);
@@ -55,9 +65,15 @@ public class ExchangingModifier extends SingleUseModifier {
     if (success.isSuccessOrConsume()) {
       player.swing(Hand.OFF_HAND, false);
       return true;
+    } else if (placedBlock) {
+      // notify that the fluid was placed properly, as it was suppressed earlier, and placing again will fail to hit it
+      state.updateDiagonalNeighbors(world, pos, BlockFlags.BLOCK_UPDATE, 511);
+      fluidState.updateNeighbours(world, pos, BlockFlags.BLOCK_UPDATE, 511);
+      fluidState.updateDiagonalNeighbors(world, pos, BlockFlags.BLOCK_UPDATE, 511);
+      return true;
     } else {
       // so we failed to place the new block for some reason, remove the old block to prevent dupes
-      return world.setBlockState(pos, world.getFluidState(pos).getBlockState(), 3);
+      return world.setBlockState(pos, fluidState, 3);
     }
   }
 }
