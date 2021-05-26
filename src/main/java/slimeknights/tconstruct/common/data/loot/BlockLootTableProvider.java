@@ -124,6 +124,7 @@ public class BlockLootTableProvider extends BlockLootTables {
     this.registerLootTable(TinkerTables.partBuilder.get(), addTable);
     this.registerLootTable(TinkerTables.tinkerStation.get(), addTable);
     this.registerLootTable(TinkerTables.tinkersAnvil.get(), addTable);
+    this.registerLootTable(TinkerTables.scorchedAnvil.get(), addTable);
   }
 
   private void addWorld() {

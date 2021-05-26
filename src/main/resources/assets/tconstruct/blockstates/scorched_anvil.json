@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "tconstruct:block/table/scorched_anvil", "y":  90 },
+    "facing=south": { "model": "tconstruct:block/table/scorched_anvil", "y": 270 },
+    "facing=west":  { "model": "tconstruct:block/table/scorched_anvil" },
+    "facing=east":  { "model": "tconstruct:block/table/scorched_anvil", "y": 180 }
+  }
+}

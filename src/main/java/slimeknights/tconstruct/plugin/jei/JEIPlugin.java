@@ -198,6 +198,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.foundryController), TConstructRecipeCategoryUid.foundry);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructRecipeCategoryUid.modifiers);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructRecipeCategoryUid.modifiers);
+    registry.addRecipeCatalyst(new ItemStack(TinkerTables.scorchedAnvil), TConstructRecipeCategoryUid.modifiers);
     for (Item item : TinkerTags.Items.MELEE.getAllElements()) {
       ItemStack stack = item instanceof ToolCore ? ((ToolCore)item).buildToolForRendering() : new ItemStack(item);
       registry.addRecipeCatalyst(stack, TConstructRecipeCategoryUid.severing);
@@ -212,6 +213,7 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerTables.partBuilder.asItem(), tables);
     registry.registerSubtypeInterpreter(TinkerTables.tinkerStation.asItem(), tables);
     registry.registerSubtypeInterpreter(TinkerTables.tinkersAnvil.asItem(), tables);
+    registry.registerSubtypeInterpreter(TinkerTables.scorchedAnvil.asItem(), tables);
 
     ISubtypeInterpreter toolPartInterpreter = itemStack -> {
       IMaterial material = IMaterialItem.getMaterialFromStack(itemStack);
