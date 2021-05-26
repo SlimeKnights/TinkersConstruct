@@ -469,9 +469,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addScorchedStonecutter(consumer, TinkerSmeltery.chiseledScorchedBricks, folder);
 
     // scorched glass
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedGlass) // TODO: nether crafting?
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedGlass)
                        .key('b', TinkerSmeltery.scorchedBrick)
-                       .key('G', Tags.Items.GLASS_COLORLESS)
+                       .key('G', Tags.Items.GEMS_QUARTZ)
                        .patternLine(" b ")
                        .patternLine("bGb")
                        .patternLine(" b ")
@@ -498,7 +498,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // tanks
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK))
                        .key('#', TinkerSmeltery.scorchedBrick)
-                       .key('B', Tags.Items.GLASS)
+                       .key('B', Tags.Items.GEMS_QUARTZ)
                        .patternLine("###")
                        .patternLine("#B#")
                        .patternLine("###")
@@ -506,7 +506,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, location(folder + "fuel_tank"));
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE))
                        .key('#', TinkerSmeltery.scorchedBrick)
-                       .key('B', Tags.Items.GLASS)
+                       .key('B', Tags.Items.GEMS_QUARTZ)
                        .patternLine("#B#")
                        .patternLine("BBB")
                        .patternLine("#B#")
@@ -514,7 +514,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, location(folder + "fuel_gauge"));
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK))
                        .key('#', TinkerSmeltery.scorchedBrick)
-                       .key('B', Tags.Items.GLASS)
+                       .key('B', Tags.Items.GEMS_QUARTZ)
                        .patternLine("#B#")
                        .patternLine("#B#")
                        .patternLine("#B#")
@@ -522,7 +522,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .build(consumer, location(folder + "ingot_tank"));
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE))
                        .key('#', TinkerSmeltery.scorchedBrick)
-                       .key('B', Tags.Items.GLASS)
+                       .key('B', Tags.Items.GEMS_QUARTZ)
                        .patternLine("B#B")
                        .patternLine("#B#")
                        .patternLine("B#B")
@@ -600,13 +600,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addBlockCastingRecipe(consumer, TinkerFluids.scorchedStone, MaterialValues.METAL_BRICK, TinkerSmeltery.scorchedStone, castingFolder + "stone_from_scorched");
     this.addIngotCastingRecipe(consumer, TinkerFluids.scorchedStone, TinkerSmeltery.scorchedBrick, castingFolder + "brick");
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.scorchedGlass)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.scorchedStone.get(), MaterialValues.METAL_BRICK))
-                            .setCast(Tags.Items.GLASS_COLORLESS, true)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenQuartz.get(), MaterialValues.GEM))
+                            .setCast(TinkerSmeltery.scorchedBricks, true)
                             .build(consumer, location(castingFolder + "glass"));
     // discount for casting panes
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.scorchedGlassPane)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.scorchedStone.get(), MaterialValues.INGOT))
-                            .setCast(Tags.Items.GLASS_PANES_COLORLESS, true)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenQuartz.get(), MaterialValues.GEM / 4))
+                            .setCast(TinkerSmeltery.scorchedBrick, true)
                             .build(consumer, location(castingFolder + "glass_pane"));
     // craft scorched stone from magma and basalt
     addScorchedCastingRecipe(consumer, TinkerSmeltery.scorchedStone, Ingredient.fromItems(Blocks.BASALT ,Blocks.GRAVEL), castingFolder + "stone_from_magma");
@@ -648,23 +648,23 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, location(meltingFolder + "casting"));
     // glass and tanks
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK)), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 8, 3f)
-                        .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), MaterialValues.GEM))
                         .build(consumer, location(meltingFolder + "fuel_tank"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK)), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 6, 2.5f)
-                        .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK * 3))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), MaterialValues.GEM * 3))
                         .build(consumer, location(meltingFolder + "ingot_tank"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE)), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 4, 2f)
-                        .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK * 5))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), MaterialValues.GEM * 5))
                         .build(consumer, location(meltingFolder + "gauge"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedGlass), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 4, 2f)
-                        .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), MaterialValues.GEM))
                         .build(consumer, location(meltingFolder + "glass"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedGlassPane), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT, 1.0f)
-                        .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_PANE))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), MaterialValues.GEM / 4))
                         .build(consumer, location(meltingFolder + "pane"));
     // controllers
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedAlloyer), TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 9, 3.5f)
-                        .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK * 5))
+                        .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), MaterialValues.GEM * 5))
                         .build(consumer, location(meltingFolder + "melter"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.foundryController), TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK, 3.5f)
                         .addByproduct(new FluidStack(TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 4))
@@ -1302,7 +1302,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // obsidian: 1 water + 1 lava = 2
     // note this is not a progression break, as the same tier lets you combine glass and copper for same mining level
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK / 10)
-                      .addInput(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 10)
+                      .addInput(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 20)
                       .addInput(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 10)
                       .build(consumer, prefixR(TinkerFluids.moltenObsidian, folder));
 

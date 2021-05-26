@@ -1,13 +1,13 @@
 {
   "type": "tconstruct:casting_basin",
   "cast": {
-    "tag": "forge:glass/colorless"
+    "item": "tconstruct:scorched_bricks"
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:scorched_stone",
-    "amount": 576
+    "name": "tconstruct:molten_quartz",
+    "amount": 144
   },
   "result": "tconstruct:scorched_glass",
-  "cooling_time": 100
+  "cooling_time": 55
 }

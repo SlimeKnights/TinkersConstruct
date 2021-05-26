@@ -11,8 +11,8 @@
   "time": 150,
   "byproducts": [
     {
-      "fluid": "tconstruct:molten_glass",
-      "amount": 1000
+      "fluid": "tconstruct:molten_quartz",
+      "amount": 144
     }
   ]
 }
