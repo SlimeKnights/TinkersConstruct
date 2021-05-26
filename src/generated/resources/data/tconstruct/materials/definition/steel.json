@@ -12,11 +12,5 @@
   "fluid": "tconstruct:molten_steel",
   "fluidPerUnit": 144,
   "textColor": "#959595",
-  "temperature": 950,
-  "traits": [
-    {
-      "name": "tconstruct:ductile",
-      "level": 1
-    }
-  ]
+  "temperature": 950
 }

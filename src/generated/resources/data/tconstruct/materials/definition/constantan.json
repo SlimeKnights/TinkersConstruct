@@ -12,11 +12,5 @@
   "fluid": "tconstruct:molten_constantan",
   "fluidPerUnit": 144,
   "textColor": "#9C5643",
-  "temperature": 920,
-  "traits": [
-    {
-      "name": "tconstruct:temperate",
-      "level": 1
-    }
-  ]
+  "temperature": 920
 }

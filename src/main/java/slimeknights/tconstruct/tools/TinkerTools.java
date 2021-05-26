@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
+import slimeknights.tconstruct.tools.data.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
 import slimeknights.tconstruct.tools.data.ToolsRecipeProvider;
 import slimeknights.tconstruct.tools.item.broad.BroadAxeTool;
@@ -95,6 +96,7 @@ public final class TinkerTools extends TinkerModule {
       MaterialDataProvider materials = new MaterialDataProvider(generator);
       generator.addProvider(materials);
       generator.addProvider(new MaterialStatsDataProvider(generator, materials));
+      generator.addProvider(new MaterialTraitsDataProvider(generator, materials));
     }
   }
 }

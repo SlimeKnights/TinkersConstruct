@@ -5,11 +5,5 @@
   "fluid": "tconstruct:molten_hepatizon",
   "fluidPerUnit": 144,
   "textColor": "#60496B",
-  "temperature": 1400,
-  "traits": [
-    {
-      "name": "tconstruct:momentum",
-      "level": 1
-    }
-  ]
+  "temperature": 1400
 }

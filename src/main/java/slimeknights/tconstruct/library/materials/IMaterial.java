@@ -5,9 +5,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-
-import java.util.List;
 
 public interface IMaterial extends Comparable<IMaterial> {
   /** ID of fallback material */
@@ -72,12 +69,6 @@ public interface IMaterial extends Comparable<IMaterial> {
    * @return  Temperature of the material, 0 if not relevant
    */
   int getTemperature();
-
-  /**
-   * Gets the traits for this material. Empty if this material has no traits
-   * @return  Traits
-   */
-  List<ModifierEntry> getTraits();
 
 
   /* Display */

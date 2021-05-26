@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.traits;
+package slimeknights.tconstruct.library.materials.traits;
 
 import mcp.MethodsReturnNonnullByDefault;
 

@@ -5,11 +5,5 @@
   "fluid": "tconstruct:seared_stone",
   "fluidPerUnit": 288,
   "textColor": "#4F4A47",
-  "temperature": 600,
-  "traits": [
-    {
-      "name": "tconstruct:searing",
-      "level": 1
-    }
-  ]
+  "temperature": 600
 }

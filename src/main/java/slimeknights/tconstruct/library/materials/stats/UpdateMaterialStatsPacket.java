@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.network;
+package slimeknights.tconstruct.library.materials.stats;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,6 @@ import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
-import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import java.util.ArrayList;
 import java.util.Collection;

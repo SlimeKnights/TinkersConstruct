@@ -12,11 +12,5 @@
   "fluid": "tconstruct:molten_electrum",
   "fluidPerUnit": 144,
   "textColor": "#D9C25F",
-  "temperature": 760,
-  "traits": [
-    {
-      "name": "tconstruct:experienced",
-      "level": 1
-    }
-  ]
+  "temperature": 760
 }

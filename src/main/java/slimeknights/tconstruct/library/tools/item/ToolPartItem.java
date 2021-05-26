@@ -58,7 +58,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     IMaterial material = this.getMaterial(stack);
     // add all traits to the info
     if (!this.checkMissingMaterialTooltip(stack, material, tooltip)) {
-      for (ModifierEntry entry : material.getTraits()) {
+      for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(material.getIdentifier(), getStatType())) {
         tooltip.add(entry.getModifier().getDisplayName(entry.getLevel()));
       }
     }

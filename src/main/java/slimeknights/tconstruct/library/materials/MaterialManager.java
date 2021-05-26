@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.materials;
 
-import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -25,8 +24,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Type;
@@ -52,7 +49,6 @@ public class MaterialManager extends JsonReloadListener {
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
-    .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
     .registerTypeAdapter(ICondition.class, new ConditionSerializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
@@ -176,8 +172,7 @@ public class MaterialManager extends JsonReloadListener {
                             .orElse(Material.WHITE);
 
       // parse trait
-      ModifierEntry[] traits = materialJson.getTraits();
-      return new Material(materialId, orDefault(materialJson.getTier(), 0), orDefault(materialJson.getSortOrder(), 100), fluid, fluidPerUnit, isCraftable, color, temperature, traits == null ? Collections.emptyList() : ImmutableList.copyOf(traits));
+      return new Material(materialId, orDefault(materialJson.getTier(), 0), orDefault(materialJson.getSortOrder(), 100), fluid, fluidPerUnit, isCraftable, color, temperature);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;

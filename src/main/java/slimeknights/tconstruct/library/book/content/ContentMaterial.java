@@ -90,13 +90,13 @@ public class ContentMaterial extends TinkerPage {
     int w = BookScreen.PAGE_WIDTH / 2 - 10;
 
     // head stats
-    this.addStatsDisplay(x, y, w, list, material, HeadMaterialStats.ID);
+    int headTraits = this.addStatsDisplay(x, y, w, list, material, HeadMaterialStats.ID);
     // handle
-    this.addStatsDisplay(x + w, y, w - 10, list, material, HandleMaterialStats.ID);
+    int handleTraits = this.addStatsDisplay(x + w, y, w - 10, list, material, HandleMaterialStats.ID);
 
     // extra
-    y += 65 + 10 * material.getTraits().size();
-    this.addStatsDisplay(x, y, w, list, material, ExtraMaterialStats.ID);
+    y+= 65;
+    this.addStatsDisplay(x, y + 10 * headTraits, w, list, material, ExtraMaterialStats.ID);
 
     // inspirational quote
     MaterialId id = material.getIdentifier();
@@ -105,18 +105,18 @@ public class ContentMaterial extends TinkerPage {
     if (flavour != null) {
       TextData flavourData = new TextData("\"" + flavour + "\"");
       flavourData.italic = true;
-      list.add(new TextElement(x + w, y, w - 16, 60, flavourData));
+      list.add(new TextElement(x + w, y + 10 * handleTraits, w - 16, 60, flavourData));
     }
   }
 
-  private void addStatsDisplay(int x, int y, int w, ArrayList<BookElement> list, IMaterial material, MaterialStatsId statsId) {
+  private int addStatsDisplay(int x, int y, int w, ArrayList<BookElement> list, IMaterial material, MaterialStatsId statsId) {
     Optional<IMaterialStats> stats = MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statsId);
 
     if (!stats.isPresent()) {
-      return;
+      return 0;
     }
 
-    List<ModifierEntry> traits = material.getTraits();
+    List<ModifierEntry> traits = MaterialRegistry.getInstance().getTraits(material.getIdentifier(), statsId);
 
     // create a list of all valid toolparts with the stats
     List<ItemStack> parts = Lists.newLinkedList();
@@ -145,6 +145,8 @@ public class ContentMaterial extends TinkerPage {
     lineData.addAll(getTraitLines(traits, material));
 
     list.add(new TextComponentElement(x, y, w, BookScreen.PAGE_HEIGHT, lineData));
+
+    return traits.size();
   }
 
   public static List<TextComponentData> getStatLines(IMaterialStats stats) {

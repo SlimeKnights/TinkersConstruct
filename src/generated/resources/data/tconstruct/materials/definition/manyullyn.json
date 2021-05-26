@@ -5,11 +5,5 @@
   "fluid": "tconstruct:molten_manyullyn",
   "fluidPerUnit": 144,
   "textColor": "#9261CC",
-  "temperature": 1200,
-  "traits": [
-    {
-      "name": "tconstruct:insatiable",
-      "level": 1
-    }
-  ]
+  "temperature": 1200
 }

@@ -1,6 +1,5 @@
-package slimeknights.tconstruct.library.network;
+package slimeknights.tconstruct.library.materials;
 
-import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.fluid.Fluid;
@@ -11,14 +10,9 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -41,13 +35,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       int fluidPerUnit = buffer.readVarInt();
       int color = buffer.readInt();
       int temperature = buffer.readInt();
-      // buffer has a boolean stating if the trait is nonnull
-      ImmutableList.Builder<ModifierEntry> builder = ImmutableList.builder();
-      int size = buffer.readVarInt();
-      for (int t = 0; t < size; t++) {
-        builder.add(ModifierEntry.read(buffer));
-      }
-      this.materials.add(new Material(id, tier, sortOrder, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, builder.build()));
+      this.materials.add(new Material(id, tier, sortOrder, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature));
     }
   }
 
@@ -64,11 +52,6 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       // the color int getter is private
       buffer.writeInt(material.getColor().color);
       buffer.writeInt(material.getTemperature());
-      List<ModifierEntry> traits = material.getTraits();
-      buffer.writeVarInt(traits.size());
-      for (ModifierEntry entry : traits) {
-        entry.write(buffer);
-      }
     });
   }
 

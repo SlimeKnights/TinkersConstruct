@@ -181,19 +181,6 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       tips.add(StringTextComponent.EMPTY);
     }
 
-    List<ModifierEntry> traits = material.getTraits();
-    if (!traits.isEmpty()) {
-      stats.add(TRAIT_TITLE);
-      tips.add(StringTextComponent.EMPTY);
-      for (ModifierEntry trait : traits) {
-        Modifier mod = trait.getModifier();
-        stats.add(mod.getDisplayName(trait.getLevel()));
-        tips.add(mod.getDescription());
-      }
-      stats.add(StringTextComponent.EMPTY);
-      tips.add(StringTextComponent.EMPTY);
-    }
-
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
       List<ITextComponent> info = stat.getLocalizedInfo();
 
@@ -203,6 +190,15 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
 
         stats.addAll(info);
         tips.addAll(stat.getLocalizedDescriptions());
+
+        List<ModifierEntry> traits = MaterialRegistry.getInstance().getTraits(material.getIdentifier(), stat.getIdentifier());
+        if (!traits.isEmpty()) {
+          for (ModifierEntry trait : traits) {
+            Modifier mod = trait.getModifier();
+            stats.add(mod.getDisplayName(trait.getLevel()));
+            tips.add(mod.getDescription());
+          }
+        }
 
         stats.add(StringTextComponent.EMPTY);
         tips.add(StringTextComponent.EMPTY);

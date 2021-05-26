@@ -12,11 +12,5 @@
   "fluid": "tconstruct:molten_lead",
   "fluidPerUnit": 144,
   "textColor": "#575E79",
-  "temperature": 330,
-  "traits": [
-    {
-      "name": "tconstruct:heavy",
-      "level": 1
-    }
-  ]
+  "temperature": 330
 }

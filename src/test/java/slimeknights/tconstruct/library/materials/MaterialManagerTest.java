@@ -11,14 +11,11 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.JsonFileLoader;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +29,6 @@ class MaterialManagerTest extends BaseMcTest {
   @BeforeAll
   static void setUp() {
     materialManager = new MaterialManager();
-    ModifierFixture.init();
   }
 
   @Test
@@ -49,11 +45,6 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(testMaterial.isCraftable()).isTrue();
     assertThat(testMaterial.getColor().color).isEqualTo(0x1234ab);
     assertThat(testMaterial.getTemperature()).isEqualTo(1234);
-
-    List<ModifierEntry> traits = testMaterial.getTraits();
-    assertThat(traits).hasSize(1);
-    assertThat(traits.get(0).getModifier()).isEqualTo(ModifierFixture.TEST_MODIFIER_2);
-    assertThat(traits.get(0).getLevel()).isEqualTo(2);
   }
 
   @Test
@@ -70,7 +61,6 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(testMaterial.isCraftable()).isFalse();
     assertThat(testMaterial.getColor().color & 0xffffff).isEqualTo(0xffffff);
     assertThat(testMaterial.getTemperature()).isEqualTo(0);
-    assertThat(testMaterial.getTraits()).isEmpty();
   }
 
   @Test
@@ -85,15 +75,6 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(FluidState::isEmpty);
     assertThat(testMaterial.getColor().color & 0xffffff).isEqualTo(0xffffff);
     assertThat(testMaterial.getTemperature()).isEqualTo(0);
-  }
-
-  @Test
-  void invalidTrait_throwSyntaxException() {
-    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("bad_trait");
-
-    materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
-    Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
-    assertThat(allMaterials).hasSize(0);
   }
 
   @Test

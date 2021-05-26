@@ -12,11 +12,5 @@
   "fluid": "tconstruct:molten_silver",
   "fluidPerUnit": 144,
   "textColor": "#D3DFE8",
-  "temperature": 790,
-  "traits": [
-    {
-      "name": "tconstruct:smite",
-      "level": 1
-    }
-  ]
+  "temperature": 790
 }

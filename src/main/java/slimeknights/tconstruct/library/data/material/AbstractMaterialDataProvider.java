@@ -16,18 +16,11 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialManager;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * Extendable material provider, useful for addons
@@ -67,6 +60,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
     if (addMaterialsRun) {
       return;
     }
+    addMaterialsRun = true;
     addMaterials();
   }
 
@@ -88,51 +82,43 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
 
   /* Methods to use */
 
-  /** Creates a supplier for the given trait */
-  private static Supplier<List<ModifierEntry>> traitSupplier(@Nullable Supplier<? extends Modifier> trait) {
-    if (trait == null) {
-      return Collections::emptyList;
-    }
-    return () -> Collections.singletonList(new ModifierEntry(trait.get(), 1));
-  }
-
   /** Adds a material to be generated with a condition */
   protected void addMaterial(IMaterial material, @Nullable ICondition condition) {
     allMaterials.put(material.getIdentifier(), Pair.of(material, condition));
   }
 
   /** Creates a normal material with a condition */
-  protected void addMaterial(MaterialId location, int tier, int order, Fluid fluid, int fluidPerUnit, boolean craftable, int color, Modifier[] traits, @Nullable ICondition condition) {
+  protected void addMaterial(MaterialId location, int tier, int order, Fluid fluid, int fluidPerUnit, boolean craftable, int color, @Nullable ICondition condition) {
     int temperature = fluid == Fluids.EMPTY ? 0 : fluid.getAttributes().getTemperature() - 300;
-    addMaterial(new Material(location, tier, order, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature, Arrays.stream(traits).map(trait -> new ModifierEntry(trait, 1)).collect(Collectors.toList())), condition);
+    addMaterial(new Material(location, tier, order, fluid, fluidPerUnit, craftable, Color.fromInt(color), temperature), condition);
   }
 
   /** Creates a normal material */
-  protected void addMaterial(MaterialId location, int tier, int order, Fluid fluid, int fluidPerUnit, boolean craftable, int color, Modifier... traits) {
-    addMaterial(location, tier, order, fluid, fluidPerUnit, craftable, color, traits, null);
+  protected void addMaterial(MaterialId location, int tier, int order, Fluid fluid, int fluidPerUnit, boolean craftable, int color) {
+    addMaterial(location, tier, order, fluid, fluidPerUnit, craftable, color, null);
   }
 
   /** Creates a material with a fluid */
-  protected void addMaterialWithFluid(MaterialId location, int tier, int order, Fluid fluid, int fluidPerUnit, boolean craftable, int color, Modifier... traits) {
-    addMaterial(location, tier, order, fluid, fluidPerUnit, craftable, color, traits);
+  protected void addMaterialWithFluid(MaterialId location, int tier, int order, Fluid fluid, int fluidPerUnit, boolean craftable, int color) {
+    addMaterial(location, tier, order, fluid, fluidPerUnit, craftable, color);
   }
 
   /** Creates a material with a fluid */
-  protected void addMetalMaterial(MaterialId location, int tier, int order, Fluid fluid, int color, Modifier... traits) {
-    addMaterialWithFluid(location, tier, order, fluid, MaterialValues.INGOT, false, color, traits);
+  protected void addMetalMaterial(MaterialId location, int tier, int order, Fluid fluid, int color) {
+    addMaterialWithFluid(location, tier, order, fluid, MaterialValues.INGOT, false, color);
   }
 
   /** Creates a material with no fluid */
-  protected void addMaterialNoFluid(MaterialId location, int tier, int order, boolean craftable, int color, Modifier... traits) {
-    addMaterial(location, tier, order, Fluids.EMPTY, 0, craftable, color, traits);
+  protected void addMaterialNoFluid(MaterialId location, int tier, int order, boolean craftable, int color) {
+    addMaterial(location, tier, order, Fluids.EMPTY, 0, craftable, color);
   }
 
 
   /** Creates a new compat material */
-  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, Fluid fluid, int color, Modifier... traits) {
+  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, Fluid fluid, int color) {
     // all our addon materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
     ICondition condition = new NotCondition(new TagEmptyCondition("forge", "ingots/" + location.getPath()));
-    addMaterial(location, tier, order, fluid, MaterialValues.INGOT, false, color & 0xFFFFFF, traits, condition);
+    addMaterial(location, tier, order, fluid, MaterialValues.INGOT, false, color & 0xFFFFFF, condition);
   }
 
 
@@ -145,14 +131,11 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
    * @return  Material JSON
    */
   private MaterialJson convert(IMaterial material, @Nullable ICondition condition) {
-    List<ModifierEntry> list = material.getTraits();
-    ModifierEntry[] traits = list.isEmpty() ? null : list.toArray(new ModifierEntry[0]);
-
     // if empty, no fluid, no temperature
     String color = material.getColor().getName();
     if (material.getFluid() == Fluids.EMPTY) {
-      return new MaterialJson(condition, material.isCraftable(), material.getTier(), material.getSortOrder(), null, null, color, null, traits);
+      return new MaterialJson(condition, material.isCraftable(), material.getTier(), material.getSortOrder(), null, null, color, null);
     }
-    return new MaterialJson(condition, material.isCraftable(), material.getTier(), material.getSortOrder(), material.getFluid().getRegistryName(), material.getFluidPerUnit(), color, material.getTemperature(), traits);
+    return new MaterialJson(condition, material.isCraftable(), material.getTier(), material.getSortOrder(), material.getFluid().getRegistryName(), material.getFluidPerUnit(), color, material.getTemperature());
   }
 }

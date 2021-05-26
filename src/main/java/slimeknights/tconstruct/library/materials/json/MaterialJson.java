@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.materials.json;
 import lombok.Data;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
 
@@ -25,6 +24,4 @@ public class MaterialJson {
   private final String textColor;
   @Nullable
   private final Integer temperature;
-  @Nullable
-  private final ModifierEntry[] traits;
 }

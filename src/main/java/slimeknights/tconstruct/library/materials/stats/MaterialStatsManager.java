@@ -17,7 +17,6 @@ import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
-import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

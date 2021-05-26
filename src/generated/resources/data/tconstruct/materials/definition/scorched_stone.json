@@ -5,11 +5,5 @@
   "fluid": "tconstruct:scorched_stone",
   "fluidPerUnit": 288,
   "textColor": "#5B4C43",
-  "temperature": 500,
-  "traits": [
-    {
-      "name": "tconstruct:scorching",
-      "level": 1
-    }
-  ]
+  "temperature": 500
 }
