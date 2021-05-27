@@ -7,7 +7,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -175,16 +174,16 @@ public class ContentMaterial extends TinkerPage {
       TextComponentData textComponentData = new TextComponentData(mod.getDisplayName());
 
       List<ITextComponent> textComponents = mod.getDescriptionList();
-      List<IFormattableTextComponent> formatted = new ArrayList<>();
+      List<ITextComponent> formatted = new ArrayList<>();
 
 
       for (int index = 0; index < textComponents.size(); index++) {
         ITextComponent textComponent = textComponents.get(index);
 
         if (index == 0) {
-          formatted.add(((IFormattableTextComponent) textComponent).modifyStyle(style -> style.setColor(material.getColor())));
+          formatted.add(textComponent.deepCopy().modifyStyle(style -> style.setColor(material.getColor())));
         } else {
-          formatted.add(((IFormattableTextComponent) textComponent));
+          formatted.add(textComponent);
         }
       }
 
