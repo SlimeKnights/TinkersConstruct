@@ -47,12 +47,16 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
    * Decodes a single stat
    * @param buffer         Buffer instance
    * @param classResolver  Stat to decode
-   * @return
+   * @return  Optional of the decoded material stats
    */
   private Optional<IMaterialStats> decodeStat(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
     MaterialStatsId statsId = new MaterialStatsId(buffer.readResourceLocation());
     try {
       Class<?> clazz = classResolver.apply(statsId);
+      if (clazz == null) {
+        log.error("Unknown stat type {}. Are client and server in sync?", statsId);
+        return Optional.empty();
+      }
       IMaterialStats stats = (IMaterialStats) clazz.newInstance();
       stats.decode(buffer);
       return Optional.of(stats);

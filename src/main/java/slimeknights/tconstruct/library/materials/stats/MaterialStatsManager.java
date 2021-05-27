@@ -3,56 +3,50 @@ package slimeknights.tconstruct.library.materials.stats;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
+import com.google.gson.JsonSyntaxException;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.data.MergingJsonDataLoader;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
-import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
+import slimeknights.tconstruct.library.materials.json.MaterialStatJson;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Loads the different material stats from the datapacks.
- * The file locations do not matter per se, the file must specify which material it contains stats for.
- * Each file contains stats for exactly one one material.
+ * The file location determines the material it contains stats for, each file contains stats for exactly one one material.
  * The stats must be registered with TiC before loading or it'll fail.
  * <p>
- * The reason for the material id inside the file is so that multiple mods can add different stats to the same material.
+ * Files with the same name are merged in a similar way to tags, so multiple mods can add different stats to the same material.
  * If two different sources add the same stats to the same material the first one encountered will be used, and the second one will be skipped.
  * (e.g. having a 'Laser' stat type, and there are 2 mods who add Laser stat types to the iron material)
  * <p>
  * The location inside datapacks is "materials/stats".
- * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/stats".
+ * So if the material's mod name is "foobar", the location for your material's stats is "data/foobar/materials/stats".
  */
 @Log4j2
-public class MaterialStatsManager extends JsonReloadListener {
+public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLocation,JsonObject>> {
   public static final String FOLDER = "materials/stats";
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
+
   /**
    * This map represents the known stats of the manager. Only known materials can be loaded.
    * Usually they're registered by the registry, when a new material stats type is registered.
@@ -60,12 +54,18 @@ public class MaterialStatsManager extends JsonReloadListener {
    */
   private final Map<MaterialStatsId, Class<? extends IMaterialStats>> materialStatClasses = new HashMap<>();
 
-  private Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> materialToStatsPerType = ImmutableMap.of();
+  /** Final map of material ID to material stat ID to material stats */
+  private Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> materialToStatsPerType = Collections.emptyMap();
 
   public MaterialStatsManager() {
-    super(GSON, FOLDER);
+    super(GSON, FOLDER, id -> new HashMap<>());
   }
 
+  /**
+   * Registers a new material stat type
+   * @param materialStatType  Material stat type
+   * @param statsClass        Class representing the type
+   */
   public void registerMaterialStat(MaterialStatsId materialStatType, Class<? extends IMaterialStats> statsClass) {
     if (materialStatClasses.containsKey(materialStatType)) {
       throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(materialStatType);
@@ -73,10 +73,23 @@ public class MaterialStatsManager extends JsonReloadListener {
     materialStatClasses.put(materialStatType, statsClass);
   }
 
+  /**
+   * Gets the class for the given stats ID
+   * @param id  Stats class
+   * @return  Stats ID
+   */
+  @Nullable
   public Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
     return materialStatClasses.get(id);
   }
 
+  /**
+   * Gets the stats for the given material and stats ID
+   * @param materialId  Material
+   * @param statId      Stats
+   * @param <T>  Stats type
+   * @return  Optional containing the stats, empty if no stats
+   */
   public <T extends IMaterialStats> Optional<T> getStats(MaterialId materialId, MaterialStatsId statId) {
     Map<MaterialStatsId, IMaterialStats> materialStats = materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of());
     IMaterialStats stats = materialStats.get(statId);
@@ -85,6 +98,11 @@ public class MaterialStatsManager extends JsonReloadListener {
     return Optional.ofNullable((T) stats);
   }
 
+  /**
+   * Gets all stats for the given material ID
+   * @param materialId  Material
+   * @return  Collection of all stats
+   */
   public Collection<IMaterialStats> getAllStats(MaterialId materialId) {
     return materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of()).values();
   }
@@ -106,33 +124,28 @@ public class MaterialStatsManager extends JsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation, JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-    // Combine all loaded material files into one map, removing possible conflicting stats and printing a warning about them
-    // this map can't contain any duplicate material stats in one material anymore.
-    Map<MaterialId, Map<MaterialStatsId, StatContent>> statContentMappedByMaterial = splashList.entrySet().stream()
-      .filter(entry -> entry.getValue().isJsonObject())
-      .map(entry -> loadFileContent(entry.getKey(), entry.getValue().getAsJsonObject()))
-      .filter(Objects::nonNull)
-      .collect(Collectors.toMap(
-        statsFileContent -> statsFileContent.materialId,
-        statsFileContent -> transformAndCombineStatsForMaterial(statsFileContent.stats, Collections.emptyList()),
-        (map1, map2) -> transformAndCombineStatsForMaterial(map1.values(), map2.values())
-      ));
+  protected void parse(Map<ResourceLocation, JsonObject> builder, ResourceLocation id, JsonElement element) throws JsonSyntaxException {
+    MaterialStatJson json = GSON.fromJson(element, MaterialStatJson.class);
+    for (Entry<ResourceLocation, JsonObject> entry : json.getStats().entrySet()) {
+      builder.put(entry.getKey(), entry.getValue());
+    }
+  }
 
+  @Override
+  protected void finishLoad(Map<ResourceLocation,Map<ResourceLocation, JsonObject>> map, IResourceManager manager) {
     // Take the final structure and actually load the different material stats. This drops all invalid stats
-    materialToStatsPerType = statContentMappedByMaterial.entrySet().stream()
-      .collect(Collectors.toMap(
-        Map.Entry::getKey,
-        entry -> deserializeMaterialStatsFromContent(entry.getValue())
-      ));
+    materialToStatsPerType = map.entrySet().stream()
+                                .collect(Collectors.toMap(
+                                  entry -> new MaterialId(entry.getKey()),
+                                  entry -> deserializeMaterialStatsFromContent(entry.getValue())));
 
     log.debug("Loaded stats for materials:{}",
-      Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
-        .map(entry -> String.format("%s - %s", entry.getKey(), Arrays.toString(entry.getValue().keySet().toArray())))
-        .collect(Collectors.toList())));
+              Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
+                                                              .map(entry -> String.format("%s - %s", entry.getKey(), Arrays.toString(entry.getValue().keySet().toArray())))
+                                                              .collect(Collectors.toList())));
     log.info("{} stats loaded for {} materials",
-      materialToStatsPerType.values().stream().mapToInt(stats -> stats.keySet().size()).sum(),
-      materialToStatsPerType.size());
+             materialToStatsPerType.values().stream().mapToInt(stats -> stats.keySet().size()).sum(),
+             materialToStatsPerType.size());
   }
 
   /**
@@ -148,73 +161,26 @@ public class MaterialStatsManager extends JsonReloadListener {
     return new UpdateMaterialStatsPacket(networkPayload);
   }
 
-  private Map<MaterialStatsId, IMaterialStats> deserializeMaterialStatsFromContent(Map<MaterialStatsId, StatContent> contents) {
-    Map<MaterialStatsId, Optional<IMaterialStats>> loadedStats = contents.entrySet().stream()
-      .collect(Collectors.toMap(
-        Map.Entry::getKey,
-        entry -> deserializeMaterialStat(entry.getValue().statsId, entry.getValue().json)
-      ));
-
-    // drop all entries that couldn't be deserialized
-    return loadedStats.entrySet().stream()
-      .filter(entry -> entry.getValue().isPresent())
-      .collect(Collectors.toMap(
-        Map.Entry::getKey,
-        entry -> entry.getValue().get()
-      ));
+  /**
+   * Builds a map of stat IDs and stat contents into material stats
+   * @param contentsMap  Contents of the JSON
+   * @return  Stats map
+   */
+  private Map<MaterialStatsId, IMaterialStats> deserializeMaterialStatsFromContent(Map<ResourceLocation, JsonObject> contentsMap) {
+    ImmutableMap.Builder<MaterialStatsId, IMaterialStats> builder = ImmutableMap.builder();
+    contentsMap.forEach((loc, contents) -> {
+      MaterialStatsId id = new MaterialStatsId(loc);
+      deserializeMaterialStat(id, contents).ifPresent(stats -> builder.put(id, stats));
+    });
+    return builder.build();
   }
 
-  private Map<MaterialStatsId, StatContent> transformAndCombineStatsForMaterial(Collection<StatContent> statsList1, Collection<StatContent> statsList2) {
-    return Stream.concat(statsList1.stream(), statsList2.stream())
-      .collect(Collectors.toMap(
-        o -> o.statsId,
-        statContent -> statContent,
-        (statContent, statContent2) -> {
-          log.error("Duplicate stats {} for a material, ignoring additional definitions. " +
-            "Some mod is probably trying to add duplicate stats to another mods material.", statContent.statsId);
-          return statContent;
-        }
-      ));
-  }
-
-  @Nullable
-  private StatsFileContent loadFileContent(ResourceLocation file, JsonObject jsonObject) {
-    try {
-      MaterialStatJsonWrapper materialStatJsonWrapper = GSON.fromJson(jsonObject, MaterialStatJsonWrapper.class);
-      MaterialId materialId = materialStatJsonWrapper.getMaterialId();
-      if (materialId == null) {
-        throw TinkerJSONException.materialStatsJsonWithoutMaterial();
-      }
-      JsonArray statsJsonArray = jsonObject.getAsJsonArray("stats");
-      List<StatContent> stats = new ArrayList<>();
-
-      if (statsJsonArray != null) {
-        for (JsonElement statJson : statsJsonArray) {
-          try {
-            stats.add(loadStatContent(statJson));
-          } catch (Exception e) {
-            log.error("Could not deserialize material stats from file {}. JSON: {}", file, statJson, e);
-          }
-        }
-      }
-
-      return new StatsFileContent(new MaterialId(materialId), stats);
-    } catch (Exception e) {
-      log.error("Could not deserialize material stats file {}. JSON: {}", file, jsonObject, e);
-      return null;
-    }
-  }
-
-  private StatContent loadStatContent(JsonElement statsJson) {
-    MaterialStatJsonWrapper.BaseMaterialStatsJson IMaterialStatsJson = GSON.fromJson(statsJson, MaterialStatJsonWrapper.BaseMaterialStatsJson.class);
-    ResourceLocation statsId = IMaterialStatsJson.getId();
-    if (statsId == null) {
-      throw TinkerJSONException.materialStatsJsonWithoutId();
-    }
-
-    return new StatContent(new MaterialStatsId(statsId), statsJson);
-  }
-
+  /**
+   * Deserializes the json element and stats ID into material stats
+   * @param statsId    Stats ID
+   * @param statsJson  Stats JSON
+   * @return  Optional of the element, empty if the stats failed to parse
+   */
   private Optional<IMaterialStats> deserializeMaterialStat(MaterialStatsId statsId, JsonElement statsJson) {
     Class<? extends IMaterialStats> materialStatClass = materialStatClasses.get(statsId);
     if (materialStatClass == null) {
@@ -222,19 +188,5 @@ public class MaterialStatsManager extends JsonReloadListener {
       return Optional.empty();
     }
     return Optional.ofNullable(GSON.fromJson(statsJson, materialStatClass));
-  }
-
-  @AllArgsConstructor
-  private static class StatContent {
-
-    private final MaterialStatsId statsId;
-    private final JsonElement json;
-  }
-
-  @AllArgsConstructor
-  private static class StatsFileContent {
-
-    private final MaterialId materialId;
-    private final List<StatContent> stats;
   }
 }

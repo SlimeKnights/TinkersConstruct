@@ -18,6 +18,7 @@ import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 
 public final class MaterialRegistry {
@@ -156,6 +157,7 @@ public final class MaterialRegistry {
    * @param id  Material stat type
    * @return  Material stat class
    */
+  @Nullable
   public static Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
     return INSTANCE.materialStatsManager.getClassForStat(id);
   }

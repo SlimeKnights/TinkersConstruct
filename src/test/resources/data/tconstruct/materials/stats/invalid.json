@@ -1,8 +1,5 @@
 {
-    "materialId": "tconstruct:material",
-    "stats": [
-        {
-            "id": "test:fails"
-        }
-    ]
+    "stats": {
+        "test:fails": {}
+    }
 }
