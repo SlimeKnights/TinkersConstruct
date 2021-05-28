@@ -49,7 +49,7 @@ public class ExtraModifier extends Modifier {
   @Override
   public int getPriority() {
     // show lower priority, the trait should be above the rest though
-    return source.isSingleLevel() ? 50 : 75;
+    return source.isSingleLevel() ? 50 : 60;
   }
 
   /** Way this modifier is applied */

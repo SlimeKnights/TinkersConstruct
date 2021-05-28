@@ -230,7 +230,7 @@ public class HarvestAbilityModifier extends SingleUseModifier {
   }
 
   @Override
-  public ActionResultType onBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
 	ItemStack stack = context.getItem();
     Item item = stack.getItem();
     if (item instanceof IModifiableHarvest) {

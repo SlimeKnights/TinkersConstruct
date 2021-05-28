@@ -389,7 +389,20 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().onBlockUse(tool, entry.getLevel(), context);
+      ActionResultType result = entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context);
+      if (result.isSuccessOrConsume()) {
+        return result;
+      }
+    }
+    return super.onItemUseFirst(stack, context);
+  }
+
+  @Override
+  public ActionResultType onItemUse(ItemUseContext context) {
+    ItemStack stack = context.getItem();
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      ActionResultType result = entry.getModifier().afterBlockUse(tool, entry.getLevel(), context);
       if (result.isSuccessOrConsume()) {
         return result;
       }

@@ -19,13 +19,13 @@ public class GlowingModifier extends SingleUseModifier {
 
   @Override
   public int getPriority() {
-    return 180;
+    return 70; // after bucketing
   }
   
   @Override
-  public ActionResultType onBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
     PlayerEntity player = context.getPlayer();
-    if (tool.getCurrentDurability() >= 5 && (player == null || player.isSneaking())) {
+    if (tool.getCurrentDurability() >= 5) {
       if (!context.getWorld().isRemote) {
         World world = context.getWorld();
         Direction face = context.getFace();

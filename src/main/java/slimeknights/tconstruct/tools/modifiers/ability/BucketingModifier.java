@@ -69,10 +69,10 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public ActionResultType onBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
     // only place fluid if sneaking, we contain at least a bucket, and its a block
     PlayerEntity player = context.getPlayer();
-    if (player == null || !player.isCrouching()) {
+    if (player == null || !player.isSneaking()) {
       return ActionResultType.PASS;
     }
     FluidStack fluidStack = getFluid(tool);

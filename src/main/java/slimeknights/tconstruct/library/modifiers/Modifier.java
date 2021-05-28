@@ -348,12 +348,16 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
 
+  /* Interaction hooks */
+
   /**
-    * Called when this item is used when targeting a block, <i>before</i> the block is activated.
+   * Called when this item is used when targeting a block, <i>before</i> the block is activated.
+   * In general it is better to use {@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)} for consistency with vanilla items.
    * <br>
    * Alternatives:
    * <ul>
    *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
+   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Runs after the block is activated, preferred hook. </li>
    *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
@@ -361,7 +365,26 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param context        Full item use context
    * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
    */
-  public ActionResultType onBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+  public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+    return ActionResultType.PASS;
+  }
+
+
+  /**
+   * Called when this item is used when targeting a block, <i>after</i> the block is activated. This is the perferred hook for block based tool interactions
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
+   *   <li>{@link #beforeBlockUse(IModifierToolStack, int, ItemUseContext)}: Runs before the block is activated, can be used to prevent block interaction entirely but less consistent with vanilla </li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param context        Full item use context
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
     return ActionResultType.PASS;
   }
 
@@ -370,7 +393,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
    *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
    * @param tool           Current tool instance
@@ -389,7 +412,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #onBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
    *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Processes use actions on entities.</li>
    * </ul>
    * @param tool           Current tool instance
@@ -457,7 +480,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public UseAction getUseAction(IModifierToolStack tool, int level) {
      return UseAction.NONE;
   }
-  
+
+
   /* Harvest hooks */
 
   /**
