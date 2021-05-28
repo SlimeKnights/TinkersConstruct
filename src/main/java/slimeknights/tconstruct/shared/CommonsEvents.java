@@ -1,22 +1,34 @@
 package slimeknights.tconstruct.shared;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+@SuppressWarnings("unused")
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Mod.EventBusSubscriber(modid = TConstruct.modID)
-public class BlockEvents {
+public class CommonsEvents {
 
   // Slimy block jump stuff
   @SubscribeEvent
-  public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
+  static void onLivingJump(LivingEvent.LivingJumpEvent event) {
     if (event.getEntity() == null) {
       return;
     }
@@ -41,5 +53,20 @@ public class BlockEvents {
     entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 0.5f + amount, 1f);
   }
 
-  private BlockEvents() {}
+  /** Tag for players who have received the book */
+  private static final String TAG_PLAYER_HAS_BOOK = Util.prefix("spawned_book");
+
+  @SubscribeEvent
+  static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+    if (Config.COMMON.shouldSpawnWithTinkersBook.get()) {
+      CompoundNBT playerData = event.getPlayer().getPersistentData();
+      CompoundNBT data = TagUtil.getTagSafe(playerData, PlayerEntity.PERSISTED_NBT_TAG);
+
+      if (!data.getBoolean(TAG_PLAYER_HAS_BOOK)) {
+        ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(TinkerCommons.materialsAndYou.get()));
+        data.putBoolean(TAG_PLAYER_HAS_BOOK, true);
+        playerData.put(PlayerEntity.PERSISTED_NBT_TAG, data);
+      }
+    }
+  }
 }
