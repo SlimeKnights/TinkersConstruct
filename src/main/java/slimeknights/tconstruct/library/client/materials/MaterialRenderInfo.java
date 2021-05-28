@@ -22,6 +22,7 @@ public class MaterialRenderInfo {
   /** ID of this render info */
   @Getter
   private final MaterialId identifier;
+  @Nullable
   private final ResourceLocation texture;
   private final String[] fallbacks;
   /* color used to tint this model as an item colors handler */
@@ -51,9 +52,12 @@ public class MaterialRenderInfo {
    * @return  Pair of the sprite, and a boolean indicating whether the sprite should be tinted
    */
   public TintedSprite getSprite(RenderMaterial base, Function<RenderMaterial,TextureAtlasSprite> spriteGetter) {
-    TextureAtlasSprite sprite = trySprite(base, getSuffix(texture), spriteGetter);
-    if (sprite != null) {
-      return TintedSprite.of(sprite, false);
+    TextureAtlasSprite sprite = null;
+    if (texture != null) {
+      sprite = trySprite(base, getSuffix(texture), spriteGetter);
+      if (sprite != null) {
+        return TintedSprite.of(sprite, false);
+      }
     }
     for (String fallback : fallbacks) {
       sprite = trySprite(base, fallback, spriteGetter);
@@ -70,7 +74,9 @@ public class MaterialRenderInfo {
    * @param base      Base texture, will be used to generate texture names
    */
   public void getTextureDependencies(Consumer<RenderMaterial> textures, RenderMaterial base) {
-    textures.accept(getMaterial(base.getTextureLocation(), getSuffix(texture)));
+    if (texture != null) {
+      textures.accept(getMaterial(base.getTextureLocation(), getSuffix(texture)));
+    }
     for (String fallback : fallbacks) {
       textures.accept(getMaterial(base.getTextureLocation(), fallback));
     }

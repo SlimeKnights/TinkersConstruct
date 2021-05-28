@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "tag": "forge:ingots/silicon_bronze"
+    },
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "tag": "forge:slimeball/ichor"
+    },
+    {
+      "tag": "forge:slimeball/ichor"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/aoe"
+  },
+  "result": {
+    "name": "tconstruct:expanded",
+    "level": 1
+  },
+  "ability_slots": 1
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "b b",
+    "b b",
+    "BBB"
+  ],
+  "key": {
+    "b": {
+      "item": "tconstruct:scorched_brick"
+    },
+    "B": {
+      "tag": "tconstruct:scorched_blocks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:scorched_ladder",
+    "count": 4
+  }
+}

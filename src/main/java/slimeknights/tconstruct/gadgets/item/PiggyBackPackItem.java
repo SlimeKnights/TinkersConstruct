@@ -26,6 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.TooltipItem;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
@@ -75,7 +76,7 @@ public class PiggyBackPackItem extends TooltipItem {
   }
 
   private boolean pickupEntity(PlayerEntity player, Entity target) {
-    if (player.getEntityWorld().isRemote) {
+    if (player.getEntityWorld().isRemote || TinkerTags.EntityTypes.PIGGYBACKPACK_BLACKLIST.contains(target.getType())) {
       return false;
     }
     // silly players, clicking on entities they're already carrying or riding

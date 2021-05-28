@@ -1,6 +1,6 @@
 {
   "loader": "mantle:connected",
-  "parent": "tconstruct:block/pane/side_alt",
+  "parent": "tconstruct:block/template/pane/side_alt",
   "textures": {
     "edge": "tconstruct:block/soul_glass_top",
     "pane": "tconstruct:block/soul_glass"

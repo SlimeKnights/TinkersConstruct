@@ -19,12 +19,12 @@ public class HeavyModifier extends Modifier {
   private static final UUID ATTRIBUTE_UUID = UUID.fromString("f8a6e738-642b-11eb-ae93-0242ac130002");
   private static final String ATTRIBUTE_NAME = Util.prefix("heavy");
   public HeavyModifier() {
-    super(0x4d4968);
+    super(0x575E79);
   }
 
   @Override
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    builder.multiplyAttackDamage(1 + (0.2f * level));
+    builder.multiplyAttackDamage(1 + (0.1f * level));
   }
 
   /**

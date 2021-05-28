@@ -2,7 +2,6 @@ package slimeknights.tconstruct.shared.block;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.item.ItemGroup;
@@ -64,12 +63,6 @@ public class GlowBlock extends Block {
 
   @Deprecated
   @Override
-  public BlockRenderType getRenderType(BlockState state) {
-    return BlockRenderType.INVISIBLE;
-  }
-
-  @Deprecated
-  @Override
   public BlockState rotate(BlockState state, Rotation rot) {
     return state.with(FACING, rot.rotate(state.get(FACING)));
   }
@@ -120,7 +113,8 @@ public class GlowBlock extends Block {
    */
   public boolean addGlow(World world, BlockPos pos, Direction direction) {
     // only place the block if the current block at the location is replaceable (eg, air, tall grass, etc.)
-    if (world.getBlockState(pos).getMaterial().isReplaceable()) {
+    BlockState state = world.getBlockState(pos);
+    if (state.getBlock() != this && state.getMaterial().isReplaceable()) {
       // if the location is valid, place the block directly
       if (this.canBlockStay(world, pos, direction)) {
         if (!world.isRemote) {

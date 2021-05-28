@@ -5,8 +5,8 @@
   },
   "fluid": {
     "name": "tconstruct:molten_emerald",
-    "amount": 250
+    "amount": 144
   },
   "result": "minecraft:emerald",
-  "cooling_time": 85
+  "cooling_time": 64
 }

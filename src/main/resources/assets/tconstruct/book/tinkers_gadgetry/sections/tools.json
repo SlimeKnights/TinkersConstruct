@@ -1,0 +1,7 @@
+[
+  {
+    "name": "damage_tools",
+    "type": "imageText2",
+    "data": "tools/damage_tools.json"
+  }
+]

@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "tconstruct:block/smeltery/casting/table" },
-    "facing=south": { "model": "tconstruct:block/smeltery/casting/table", "y": 180 },
-    "facing=west":  { "model": "tconstruct:block/smeltery/casting/table", "y": 270 },
-    "facing=east":  { "model": "tconstruct:block/smeltery/casting/table", "y":  90 }
-  }
-}

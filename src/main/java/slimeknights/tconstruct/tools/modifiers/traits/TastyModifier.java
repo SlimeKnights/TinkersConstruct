@@ -1,36 +1,106 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.FoodStats;
+import net.minecraft.item.UseAction;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootParameters;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.shared.TinkerCommons;
+
+import java.util.List;
 
 public class TastyModifier extends Modifier {
+  private static final ResourceLocation IS_EATING = Util.getResource("eating_tasty");
   public TastyModifier() {
-    super(0xef9e9b);
+    super(0xF0A8A4);
   }
 
   @Override
-  public void onInventoryTick(IModifierToolStack tool, int level, World world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {
-    // must be holding the tool to eat, or I suppose if this somehow ended up on armor wearing it is fine
-    // update once a second, only for players
-    if (isCorrectSlot && !tool.isBroken() && holder.ticksExisted % 20 == 0 && !holder.world.isRemote && holder instanceof PlayerEntity) {
-      FoodStats foodStats = ((PlayerEntity) holder).getFoodStats();
-      // 5% chance of eating per level, more pig iron makes it tastier
-      // unless we are starving, then we just immediately eat
-      if (!holder.world.isRemote && foodStats.needFood() && (foodStats.getFoodLevel() < 7 || RANDOM.nextFloat() < (0.01f * level))) {
-        // restores 1 per pig iron level, and better pig iron is more filling
-        foodStats.addStats(level, level * 0.1f);
+  public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
+    if (player.canEat(false)) {
+      player.setActiveHand(hand);
+      // mark tool as eating as use action is only stack sensitive
+      tool.getPersistentData().putBoolean(IS_EATING, true);
+      return ActionResultType.CONSUME;
+    } else {
+      // clear is eating boolean if we cannot eat, prevents messing with other modifier's animations
+      tool.getPersistentData().remove(IS_EATING);
+    }
+    return ActionResultType.PASS;
+  }
+
+  @Override
+  public boolean onStoppedUsing(IModifierToolStack tool, int level, World world, LivingEntity entity, int timeLeft) {
+    tool.getPersistentData().remove(IS_EATING);
+    return false;
+  }
+
+  @Override
+  public boolean onFinishUsing(IModifierToolStack tool, int level, World world, LivingEntity entity) {
+    if (tool.getPersistentData().getBoolean(IS_EATING) && entity instanceof PlayerEntity) {
+      // clear eating marker
+      tool.getPersistentData().remove(IS_EATING);
+      PlayerEntity player = (PlayerEntity) entity;
+      if (player.canEat(false)) {
+        // eat the food
+        player.getFoodStats().addStats(level, level * 0.1f);
+        player.addStat(Stats.ITEM_USED.get(tool.getItem()));
+        world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
+        world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.NEUTRAL, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+
         // 5 damage for a bite per level, does not process reinforced/overslime, your teeth are tough
-        tool.setDamage(tool.getDamage() + (5 * level));
-        // play the munch sound
-        holder.getEntityWorld().playSound(null, holder.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.8f, 1.0f);
+        if (ToolDamageUtil.directDamage(tool, 5 * level, player, player.getActiveItemStack())) {
+          player.sendBreakAnimation(player.getActiveHand());
+        }
+
+        return true;
       }
     }
+    return false;
+  }
+
+  @Override
+  public UseAction getUseAction(IModifierToolStack tool, int level) {
+    return tool.getPersistentData().getBoolean(IS_EATING) ? UseAction.EAT : UseAction.NONE;
+  }
+
+  @Override
+  public int getUseDuration(IModifierToolStack tool, int level) {
+    return tool.getPersistentData().getBoolean(IS_EATING) ? 16 : 0;
+  }
+
+  @Override
+  public List<ItemStack> processLoot(IModifierToolStack tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+    // if no damage source, probably not a mob
+    // otherwise blocks breaking (where THIS_ENTITY is the player) start dropping bacon
+    if (!context.has(LootParameters.DAMAGE_SOURCE)) {
+      return generatedLoot;
+    }
+
+    // must have an entity
+    Entity entity = context.get(LootParameters.THIS_ENTITY);
+    if (entity != null && TinkerTags.EntityTypes.BACON_PRODUCER.contains(entity.getType())) {
+      // at tasty 1, 2, 3, and 4 its a 2%, 4.15%, 6.25%, 8% per level
+      int looting = context.getLootingModifier();
+      if (RANDOM.nextInt(48 / level) <= looting) {
+        // bacon
+        generatedLoot.add(new ItemStack(TinkerCommons.bacon));
+      }
+    }
+    return generatedLoot;
   }
 }

@@ -3,12 +3,14 @@
   "values": [
     "tconstruct:pickaxe",
     "tconstruct:sledge_hammer",
+    "tconstruct:vein_hammer",
     "tconstruct:mattock",
     "tconstruct:excavator",
-    "tconstruct:axe",
+    "tconstruct:hand_axe",
+    "tconstruct:broad_axe",
     "tconstruct:kama",
     "tconstruct:scythe",
-    "tconstruct:broad_sword",
+    "tconstruct:sword",
     "tconstruct:cleaver"
   ]
 }

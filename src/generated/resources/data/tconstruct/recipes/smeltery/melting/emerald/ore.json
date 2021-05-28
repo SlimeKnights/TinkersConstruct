@@ -1,12 +1,18 @@
 {
-  "type": "tconstruct:melting",
+  "type": "tconstruct:ore_melting",
   "ingredient": {
     "tag": "forge:ores/emerald"
   },
   "result": {
     "fluid": "tconstruct:molten_emerald",
-    "amount": 250
+    "amount": 144
   },
   "temperature": 934,
-  "time": 96
+  "time": 96,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_diamond",
+      "amount": 48
+    }
+  ]
 }

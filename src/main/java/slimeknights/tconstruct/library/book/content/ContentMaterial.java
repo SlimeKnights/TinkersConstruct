@@ -7,7 +7,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -15,7 +14,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
 import slimeknights.mantle.client.book.data.element.TextData;
@@ -91,13 +89,13 @@ public class ContentMaterial extends TinkerPage {
     int w = BookScreen.PAGE_WIDTH / 2 - 10;
 
     // head stats
-    this.addStatsDisplay(x, y, w, list, material, HeadMaterialStats.ID);
+    int headTraits = this.addStatsDisplay(x, y, w, list, material, HeadMaterialStats.ID);
     // handle
-    this.addStatsDisplay(x + w, y, w - 10, list, material, HandleMaterialStats.ID);
+    int handleTraits = this.addStatsDisplay(x + w, y, w - 10, list, material, HandleMaterialStats.ID);
 
     // extra
-    y += 65 + 10 * material.getTraits().size();
-    this.addStatsDisplay(x, y, w, list, material, ExtraMaterialStats.ID);
+    y+= 65;
+    this.addStatsDisplay(x, y + 10 * headTraits, w, list, material, ExtraMaterialStats.ID);
 
     // inspirational quote
     MaterialId id = material.getIdentifier();
@@ -106,18 +104,18 @@ public class ContentMaterial extends TinkerPage {
     if (flavour != null) {
       TextData flavourData = new TextData("\"" + flavour + "\"");
       flavourData.italic = true;
-      list.add(new TextElement(x + w, y, w - 16, 60, flavourData));
+      list.add(new TextElement(x + w, y + 10 * handleTraits, w - 16, 60, flavourData));
     }
   }
 
-  private void addStatsDisplay(int x, int y, int w, ArrayList<BookElement> list, IMaterial material, MaterialStatsId statsId) {
+  private int addStatsDisplay(int x, int y, int w, ArrayList<BookElement> list, IMaterial material, MaterialStatsId statsId) {
     Optional<IMaterialStats> stats = MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statsId);
 
     if (!stats.isPresent()) {
-      return;
+      return 0;
     }
 
-    List<ModifierEntry> traits = material.getTraits();
+    List<ModifierEntry> traits = MaterialRegistry.getInstance().getTraits(material.getIdentifier(), statsId);
 
     // create a list of all valid toolparts with the stats
     List<ItemStack> parts = Lists.newLinkedList();
@@ -146,6 +144,8 @@ public class ContentMaterial extends TinkerPage {
     lineData.addAll(getTraitLines(traits, material));
 
     list.add(new TextComponentElement(x, y, w, BookScreen.PAGE_HEIGHT, lineData));
+
+    return traits.size();
   }
 
   public static List<TextComponentData> getStatLines(IMaterialStats stats) {
@@ -153,7 +153,11 @@ public class ContentMaterial extends TinkerPage {
 
     for (int i = 0; i < stats.getLocalizedInfo().size(); i++) {
       TextComponentData text = new TextComponentData(stats.getLocalizedInfo().get(i));
-      text.tooltips = new ITextComponent[]{stats.getLocalizedDescriptions().get(i)};
+      if (stats.getLocalizedDescriptions().get(i).getString().isEmpty()) {
+        text.tooltips = null;
+      } else {
+        text.tooltips = new ITextComponent[]{stats.getLocalizedDescriptions().get(i)};
+      }
 
       lineData.add(text);
       lineData.add(new TextComponentData("\n"));
@@ -170,16 +174,16 @@ public class ContentMaterial extends TinkerPage {
       TextComponentData textComponentData = new TextComponentData(mod.getDisplayName());
 
       List<ITextComponent> textComponents = mod.getDescriptionList();
-      List<IFormattableTextComponent> formatted = new ArrayList<>();
+      List<ITextComponent> formatted = new ArrayList<>();
 
 
       for (int index = 0; index < textComponents.size(); index++) {
         ITextComponent textComponent = textComponents.get(index);
 
         if (index == 0) {
-          formatted.add(((IFormattableTextComponent) textComponent).modifyStyle(style -> style.setColor(material.getColor())));
+          formatted.add(textComponent.deepCopy().modifyStyle(style -> style.setColor(material.getColor())));
         } else {
-          formatted.add(((IFormattableTextComponent) textComponent));
+          formatted.add(textComponent);
         }
       }
 
@@ -210,8 +214,8 @@ public class ContentMaterial extends TinkerPage {
       displayTools.add(elementItem);
     }
     if (material.get().getFluid() != Fluids.EMPTY) {
-      ItemStack castingBasin = new ItemStack(TinkerSmeltery.castingBasin.asItem());
-      ItemStack castingTable = new ItemStack(TinkerSmeltery.castingTable.asItem());
+      ItemStack castingBasin = new ItemStack(TinkerSmeltery.searedBasin.asItem());
+      ItemStack castingTable = new ItemStack(TinkerSmeltery.searedTable.asItem());
 
       ItemStackList stacks = ItemStackList.of(castingBasin, castingTable);
 
@@ -255,7 +259,7 @@ public class ContentMaterial extends TinkerPage {
   }
 
   public List<IToolPart> getToolParts() {
-    return ForgeRegistries.ITEMS.getValues().stream().filter(item -> item instanceof IToolPart).map(item -> (IToolPart) item).collect(Collectors.toList());
+    return TinkerTags.Items.TOOL_PARTS.getAllElements().stream().filter(item -> item instanceof IToolPart).map(item -> (IToolPart) item).collect(Collectors.toList());
   }
 
 }

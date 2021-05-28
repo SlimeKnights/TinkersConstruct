@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 public class TConstructLootTableProvider extends LootTableProvider {
 
   private LootTableProvider x;
-  private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> lootTables = ImmutableList.of(Pair.of(TConstructBlockLootTables::new, LootParameterSets.BLOCK), Pair.of(TConstructEntityLootTables::new, LootParameterSets.ENTITY));
+  private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> lootTables = ImmutableList.of(Pair.of(BlockLootTableProvider::new, LootParameterSets.BLOCK), Pair.of(EntityLootTableProvider::new, LootParameterSets.ENTITY));
 
   public TConstructLootTableProvider(DataGenerator gen) {
     super(gen);

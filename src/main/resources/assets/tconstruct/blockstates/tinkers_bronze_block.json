@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/tinkers_bronze_block"
+            "model": "tconstruct:block/storage/tinkers_bronze"
         }
     }
 }

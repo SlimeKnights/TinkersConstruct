@@ -12,7 +12,7 @@ public class BaneOfArthropodsModifier extends ScaledTypeDamageModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown) {
     if (target.getCreatureAttribute() == CreatureAttribute.ARTHROPOD) {
       int duration = 20 + attacker.getRNG().nextInt(10 * level);
       target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, duration, 3));

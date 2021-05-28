@@ -1,0 +1,22 @@
+[
+  {
+    "name": "intro",
+    "type": "imageText2",
+    "data": "molten_blaze/intro.json"
+  },
+  {
+    "name": "carry",
+    "type": "imageText2",
+    "data": "molten_blaze/carry.json"
+  },
+  {
+    "name": "smeltery",
+    "type": "imageText2",
+    "data": "molten_blaze/smeltery.json"
+  },
+  {
+    "name": "melting",
+    "type": "modifier",
+    "data": "molten_blaze/melting.json"
+  }
+]

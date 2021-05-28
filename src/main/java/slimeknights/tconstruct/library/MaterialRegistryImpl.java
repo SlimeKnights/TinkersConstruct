@@ -14,8 +14,9 @@ import slimeknights.tconstruct.library.materials.MaterialManager;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
+import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,7 +43,7 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
    * Used for the defaults and for existence/class checks.
    * Basically all existing stat types need to be in this map.. or they don't exist
    */
-  private Map<MaterialStatsId, IMaterialStats> materialStatDefaults = new HashMap<>();
+  private final Map<MaterialStatsId, IMaterialStats> materialStatDefaults = new HashMap<>();
 
   protected MaterialRegistryImpl(MaterialManager materialManager, MaterialStatsManager materialStatsManager, MaterialTraitsManager materialTraitsManager) {
     this.materialManager = materialManager;
@@ -93,6 +94,21 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
     materialStatDefaults.put(statsId, defaultStats);
   }
 
+  @Override
+  public List<ModifierEntry> getDefaultTraits(MaterialId materialId) {
+    return materialTraitsManager.getDefaultTraits(materialId);
+  }
+
+  @Override
+  public boolean hasUniqueTraits(MaterialId materialId, MaterialStatsId statsId) {
+    return materialTraitsManager.hasUniqueTraits(materialId, statsId);
+  }
+
+  @Override
+  public List<ModifierEntry> getTraits(MaterialId materialId, MaterialStatsId statsId) {
+    return materialTraitsManager.getTraits(materialId, statsId);
+  }
+
   /* Reloading */
 
   /** Called when the player logs in to send packets */
@@ -104,6 +120,7 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
       PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
       network.send(target, materialManager.getUpdatePacket());
       network.send(target, materialStatsManager.getUpdatePacket());
+      network.send(target, materialTraitsManager.getUpdatePacket());
     }
   }
 

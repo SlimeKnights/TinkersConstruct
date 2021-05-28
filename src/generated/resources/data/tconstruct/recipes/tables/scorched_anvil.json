@@ -1,0 +1,23 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "pattern": [
+    "mmm",
+    " s ",
+    "sss"
+  ],
+  "key": {
+    "m": {
+      "tag": "tconstruct:anvil_metal"
+    },
+    "s": {
+      "tag": "tconstruct:scorched_blocks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:scorched_anvil"
+  },
+  "texture": {
+    "tag": "tconstruct:anvil_metal"
+  },
+  "match_all": false
+}

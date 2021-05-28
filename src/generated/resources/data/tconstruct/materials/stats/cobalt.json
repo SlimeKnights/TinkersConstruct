@@ -1,22 +1,17 @@
 {
-  "materialId": "tconstruct:cobalt",
-  "stats": [
-    {
-      "id": "tconstruct:head",
-      "durability": 800,
-      "miningSpeed": 8.0,
-      "harvestLevel": 3,
-      "attack": 2.5
-    },
-    {
-      "id": "tconstruct:handle",
+  "stats": {
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
       "durability": 1.1,
       "miningSpeed": 1.1,
       "attackSpeed": 1.1,
       "attackDamage": 1.0
     },
-    {
-      "id": "tconstruct:extra"
+    "tconstruct:head": {
+      "durability": 800,
+      "miningSpeed": 8.0,
+      "harvestLevel": 3,
+      "attack": 2.5
     }
-  ]
+  }
 }

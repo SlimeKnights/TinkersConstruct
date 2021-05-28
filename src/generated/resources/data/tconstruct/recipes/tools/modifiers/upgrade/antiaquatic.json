@@ -1,10 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "item": "minecraft:cactus"
+    "item": "minecraft:pufferfish"
   },
   "amount_per_item": 1,
-  "needed_per_level": 40,
+  "needed_per_level": 20,
   "tools": {
     "tag": "tconstruct:modifiable/melee"
   },

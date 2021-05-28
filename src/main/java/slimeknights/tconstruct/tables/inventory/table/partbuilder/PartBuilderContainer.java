@@ -65,6 +65,7 @@ public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEn
     // inputs
     this.addSlot(this.patternSlot = new PatternSlot(this, 8, 34));
     this.addSlot(this.inputSlot = new MaterialSlot(this, 29, 34));
+    this.addChestSideInventory();
     this.addInventorySlots();
 
     // recipes

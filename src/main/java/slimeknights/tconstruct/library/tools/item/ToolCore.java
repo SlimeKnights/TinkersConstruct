@@ -5,7 +5,9 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -16,8 +18,13 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Rarity;
+import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -33,13 +40,15 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -73,6 +82,9 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   protected static final UUID REACH_MODIFIER = UUID.fromString("9b26fa32-5774-4b4e-afc3-b4055ecb1f6a");
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
+  /** Modifier key to make a tool spawn an indestructable entity */
+  public static final ResourceLocation SHINY = Util.getResource("shiny");
+
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
   private static final ITextComponent TOOLTIP_HOLD_CTRL;
   static {
@@ -97,8 +109,9 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   @Override
   public boolean hasEffect(ItemStack stack) {
-    // we use enchantments to handle some modifiers, don't glow from them
-    return false;
+    // we use enchantments to handle some modifiers, so don't glow from them
+    // however, if a modifier wants to glow let them
+    return ToolStack.from(stack).getVolatileData().getBoolean(SHINY);
   }
 
   @Override
@@ -253,7 +266,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     if (!worldIn.isRemote) {
       boolean isEffective = getToolHarvestLogic().isEffective(tool, stack, state);
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), worldIn, state, pos, entityLiving, isEffective);
+        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), worldIn, state, pos, entityLiving, true, isEffective);
       }
       ToolDamageUtil.damageAnimated(tool, getToolHarvestLogic().getDamage(tool, stack, worldIn, pos, state), entityLiving);
     }
@@ -289,11 +302,6 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     }
 
     return super.hitEntity(stack, target, attacker);
-  }
-
-  @Override
-  public float getDamageCutoff() {
-    return getToolDefinition().getBaseStatDefinition().getDamageCutoff();
   }
 
   @Override
@@ -374,7 +382,92 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       }
     }
   }
+  
+  /* Right click hooks */
+  
+  @Override
+  public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      ActionResultType result = entry.getModifier().onBlockUse(tool, entry.getLevel(), context);
+      if (result.isSuccessOrConsume()) {
+        return result;
+      }
+    }
+    return super.onItemUseFirst(stack, context);
+  }
 
+  @Override
+  public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      ActionResultType result = entry.getModifier().onEntityUse(tool, entry.getLevel(), playerIn, target, hand);
+      if (result.isSuccessOrConsume()) {
+        return result;
+      }
+    }
+    return super.itemInteractionForEntity(stack, playerIn, target, hand);
+  }
+
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    ItemStack stack = playerIn.getHeldItem(handIn);
+    ToolStack tool = ToolStack.from(playerIn.getHeldItem(handIn));
+    for (ModifierEntry entry : tool.getModifierList()) {
+      ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, handIn);
+      if (result.isSuccessOrConsume()) {
+        return new ActionResult<ItemStack>(result, stack);
+      }
+    }
+    return super.onItemRightClick(worldIn, playerIn, handIn);
+  }
+
+  @Override
+  public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      if (entry.getModifier().onFinishUsing(tool, entry.getLevel(), worldIn, entityLiving)) {
+        return stack;
+      }
+    }
+    return super.onItemUseFinish(stack, worldIn, entityLiving);
+  }
+
+  @Override
+  public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      boolean result = entry.getModifier().onStoppedUsing(tool, entry.getLevel(), worldIn, entityLiving, timeLeft);
+      if (result) {
+        return;
+      }
+    }
+    super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
+  }
+
+  @Override
+  public int getUseDuration(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      int result = entry.getModifier().getUseDuration(tool, entry.getLevel());
+      if (result > 0) {
+        return result;
+      }
+    }
+    return super.getUseDuration(stack);
+  }
+
+  @Override
+  public UseAction getUseAction(ItemStack stack) {
+    ToolStack tool = ToolStack.from(stack);
+    for (ModifierEntry entry : tool.getModifierList()) {
+      UseAction result = entry.getModifier().getUseAction(tool, entry.getLevel());
+      if (result != UseAction.NONE) {
+        return result;
+      }
+    }
+     return super.getUseAction(stack);
+  }
 
   /* Information */
 
@@ -382,6 +475,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     CompoundNBT tag = stack.getTag();
+    boolean isAdvanced = flagIn == TooltipFlags.ADVANCED;
     // if the display tag is set, hide material info
     if (tag != null && tag.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
       ToolStack tool = ToolStack.from(stack);
@@ -390,14 +484,14 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
           tooltip.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
         }
       }
-    } else if (Util.isShiftKeyDown()) {
+    } else if (Screen.hasShiftDown()) {
       // component data
-      this.getTooltip(stack, tooltip, TooltipType.SHIFT);
-    } else if (Util.isCtrlKeyDown()) {
+      this.getTooltip(stack, tooltip, TooltipType.SHIFT, isAdvanced);
+    } else if (Screen.hasControlDown()) {
       // modifiers
-      this.getTooltip(stack, tooltip, TooltipType.CONTROL);
+      this.getTooltip(stack, tooltip, TooltipType.CONTROL, isAdvanced);
     } else {
-      this.getTooltip(stack, tooltip, TooltipType.NORMAL);
+      this.getTooltip(stack, tooltip, TooltipType.NORMAL, isAdvanced);
       tooltip.add(StringTextComponent.EMPTY);
       tooltip.add(TOOLTIP_HOLD_SHIFT);
       tooltip.add(TOOLTIP_HOLD_CTRL);
@@ -410,12 +504,12 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
    * Displays different information based on the tooltip type
    * If the SHIFT key is held, the detailed information is displayed
    * If CONTROL key is held, the materials the tool is made out of is displayed
-   *
-   * @param stack the given itemstack
-   * @param tooltips the list of tooltips to add to
-   * @param tooltipType the tooltip type to display
+   * @param stack        the given itemstack
+   * @param tooltips     the list of tooltips to add to
+   * @param tooltipType  the tooltip type to display
+   * @param isAdvanced   if true, this is an advanced tooltip
    */
-  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType) {
+  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType, boolean isAdvanced) {
     switch (tooltipType) {
       case NORMAL: {
         ToolStack tool = ToolStack.from(stack);
@@ -431,7 +525,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       }
 
       case SHIFT:
-        tooltips.addAll(this.getInformation(stack, false));
+        this.getStatInformation(ToolStack.from(stack), tooltips, isAdvanced, false);
         break;
 
       case CONTROL: {
@@ -446,13 +540,16 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
         if (materials.size() < components.size()) {
           return;
         }
-        for (int i = 0; i < components.size(); i++) {
+        int max = components.size() - 1;
+        for (int i = 0; i <= max; i++) {
           IToolPart requirement = components.get(i);
           IMaterial material = materials.get(i);
           ItemStack partStack = requirement.withMaterial(material);
           tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
           MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
-          tooltips.add(StringTextComponent.EMPTY);
+          if (i != max) {
+            tooltips.add(StringTextComponent.EMPTY);
+          }
         }
         break;
       }
@@ -466,23 +563,25 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   @Override
   public List<ITextComponent> getInformation(ItemStack stack) {
-    return this.getInformation(stack, true);
+    return this.getStatInformation(ToolStack.from(stack), new ArrayList<>(), false, true);
   }
 
   /**
    * Gets the information for the given tool stack
    *
-   * @param stack the tool stack
-   * @param detailed if it should be detailed or not, used for durability
+   * @param tool      the tool stack
+   * @param isAdvanced  if true, advanced tooltip
+   * @param detailed  If true, should show detailed info
    * @return the information for the given stack
    */
-  public List<ITextComponent> getInformation(ItemStack stack, boolean detailed) {
-    ToolStack tool = ToolStack.from(stack);
-    TooltipBuilder builder = new TooltipBuilder(tool);
+  public List<ITextComponent> getStatInformation(ToolStack tool, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
+    TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     builder.addDurability();
-    builder.addAttackDamage();
-    builder.addAttackSpeed();
-    if (TinkerTags.Items.HARVEST.contains(stack.getItem())) {
+    if (TinkerTags.Items.MELEE.contains(tool.getItem())) {
+      builder.addAttackDamage();
+      builder.addAttackSpeed();
+    }
+    if (TinkerTags.Items.HARVEST.contains(tool.getItem())) {
       builder.addHarvestLevel();
       builder.addMiningSpeed();
     }
@@ -496,6 +595,10 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     builder.addFreeUpgrades();
     builder.addFreeAbilities();
 
+    for (ModifierEntry entry : tool.getModifierList()) {
+      entry.getModifier().addInformation(tool, entry.getLevel(), tooltip, isAdvanced, detailed);
+    }
+
     return builder.getTooltips();
   }
 
@@ -506,32 +609,51 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     }
   }
 
-  protected void addDefaultSubItems(List<ItemStack> items, Material... fixedMaterials) {
+  /** Adds all default sub items */
+  protected void addDefaultSubItems(List<ItemStack> items, IMaterial... fixedMaterials) {
     if (MaterialRegistry.initialized()) {
-      List<IToolPart> required = this.getToolDefinition().getRequiredComponents();
-      for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
-        List<IMaterial> materials = new ArrayList<>(this.getToolDefinition().getRequiredComponents().size());
-
-        for (int i = 0; i < this.getToolDefinition().getRequiredComponents().size(); i++) {
-          if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).canUseMaterial(fixedMaterials[i])) {
-            materials.add(fixedMaterials[i]);
-          }
-          else {
-            // todo: check for applicability with stats
-            materials.add(material);
+      // if a specific material is set, show just that
+      String showOnlyId = Config.COMMON.showOnlyToolMaterial.get();
+      boolean added = false;
+      if (!showOnlyId.isEmpty()) {
+        MaterialId materialId = MaterialId.tryCreate(showOnlyId);
+        if (materialId != null) {
+          IMaterial material = MaterialRegistry.getMaterial(materialId);
+          if (material != IMaterial.UNKNOWN) {
+            if (addSubItem(items, material, fixedMaterials)) {
+              added = true;
+            }
           }
         }
-
-        ItemStack tool = ToolBuildHandler.buildItemFromMaterials(this, materials);
-        // only valid ones
-        if (this.hasValidMaterials(tool)) {
-          items.add(tool);
-          if (!Config.COMMON.listAllToolMaterials.get()) {
+      }
+      // if the material was not applicable or we do not have a filter set, search the rest
+      if (!added) {
+        for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
+          // if we added it and we want a single material, we are done
+          if (addSubItem(items, material, fixedMaterials) && !showOnlyId.isEmpty()) {
             break;
           }
         }
       }
     }
+  }
+
+  /** Makes a single sub item for the given materials */
+  protected boolean addSubItem(List<ItemStack> items, IMaterial material, IMaterial[] fixedMaterials) {
+    List<IToolPart> required = this.getToolDefinition().getRequiredComponents();
+    List<IMaterial> materials = new ArrayList<>(required.size());
+    for (int i = 0; i < required.size(); i++) {
+      if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).canUseMaterial(fixedMaterials[i])) {
+        materials.add(fixedMaterials[i]);
+      }
+      else if (required.get(i).canUseMaterial(material)) {
+        materials.add(material);
+      } else {
+        return false;
+      }
+    }
+    items.add(ToolBuildHandler.buildItemFromMaterials(this, materials));
+    return true;
   }
 
   /**
@@ -723,5 +845,11 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     }
     // no changes, no reequip
     return false;
+  }
+
+  @Nullable
+  @Override
+  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+    return new ToolCapabilityProvider(stack);
   }
 }

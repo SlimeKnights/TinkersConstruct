@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_trapdoor",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:greenheart_planks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:greenheart_trapdoor",
+    "count": 2
+  }
+}

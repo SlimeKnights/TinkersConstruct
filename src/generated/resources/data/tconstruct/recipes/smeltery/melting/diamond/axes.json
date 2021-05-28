@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": [
+    {
+      "item": "minecraft:diamond_axe"
+    },
+    {
+      "item": "minecraft:diamond_pickaxe"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_diamond",
+    "amount": 432
+  },
+  "temperature": 1450,
+  "time": 137
+}

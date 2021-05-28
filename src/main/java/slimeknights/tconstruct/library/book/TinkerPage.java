@@ -49,20 +49,17 @@ public abstract class TinkerPage extends PageContent {
     this.addText(list, subText, dropShadow, color, 0);
   }
 
-  public void addText(ArrayList<BookElement> list, String text, boolean dropShadow, int color, int y) {
+  public int addText(ArrayList<BookElement> list, String text, boolean dropShadow, int color, int y) {
     TextData subText = new TextData(text);
 
-    subText.scale = 1.2f;
     subText.dropshadow = dropShadow;
 
     if (color != 0) {
       subText.useOldColor = false;
       subText.rgbColor = color;
     }
-
-    int w = (int) Math.ceil(this.parent.parent.parent.fontRenderer.getStringWidth(text) * subText.scale);
-    int x = (BookScreen.PAGE_WIDTH - w) / 2;
-
-    list.add(new TextElement(x, y, w, 24, subText));
+    int height = this.parent.parent.parent.fontRenderer.getWordWrappedHeight(text, BookScreen.PAGE_WIDTH - 20) * 12 / 9;
+    list.add(new TextElement(10, y, BookScreen.PAGE_WIDTH - 20, height, subText));
+    return height;
   }
 }

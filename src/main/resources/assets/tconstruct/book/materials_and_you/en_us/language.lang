@@ -1,23 +1,31 @@
 // Sections
 intro=Introduction
 materials=Tool materials
-bowmaterials=Bow materials
 tools=Tools
 modifiers=Modifiers
-smeltery=Smeltery
-seared_furnace=Seared Furnace
-tinker_tank=Tinker Tank
 tier_one_materials=Tier 1 Materials
 
 repairing=Repairing
-offhand=Offhand Harvesting
-bolt_core=Bolt Crafting
+
+bonus_upgrades=§1§lUpgrades++§r
+general=§1§lGeneral§r
+harvest=§1§lHarvest§r
+weapon=§1§lWeapon§r
+slotless=§1§lSlotless§r
+ability=§1§lAbility§r
+further_reading=Further Reading
+terminology=Terminology
+
 
 modifier.effect=Effects:
 tool.properties=Properties:
 
 material.craft_partbuilder=Can be crafted in the Part Builder
-material.craft_casting=Can be cast from 
+material.craft_casting=Can be cast from %s
 
+tier_one_materials.subtext=Materials are the first part to making any tool. These materials can be placed in the part builder to create tool parts.
 material.tconstruct.wood.book=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
 material.tconstruct.stone.book=Rock solid
+material.tconstruct.flint.book=This will spark the flames of a tinker's heart!
+material.tconstruct.bone.book=I am the bone of my sword
+material.tconstruct.necrotic_bone.book=Do you have a bone to pick with me?

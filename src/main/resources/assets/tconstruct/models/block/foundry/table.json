@@ -1,0 +1,8 @@
+{
+  "parent": "tconstruct:block/template/table",
+  "textures": {
+    "side":   "tconstruct:block/foundry/casting/table_side",
+    "top":    "tconstruct:block/foundry/casting/table_top",
+    "bottom": "tconstruct:block/foundry/casting/table_bottom"
+  }
+}

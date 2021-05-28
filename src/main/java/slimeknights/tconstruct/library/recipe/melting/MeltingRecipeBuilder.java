@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,8 @@ import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -28,6 +31,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
   private final int time;
   private boolean isOre = false;
   private boolean isDamagable = false;
+  private final List<FluidStack> byproducts = new ArrayList<>();
 
   /**
    * Creates a new builder instance using a specific temperature
@@ -96,6 +100,16 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
     return this;
   }
 
+  /**
+   * Adds a byproduct to this recipe
+   * @param fluidStack  Byproduct to add
+   * @return  Builder instance
+   */
+  public MeltingRecipeBuilder addByproduct(FluidStack fluidStack) {
+    byproducts.add(fluidStack);
+    return this;
+  }
+
   @Override
   public void build(Consumer<IFinishedRecipe> consumer) {
     build(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
@@ -125,6 +139,13 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
       json.add("result", RecipeHelper.serializeFluidStack(output));
       json.addProperty("temperature", temperature);
       json.addProperty("time", time);
+      if (!byproducts.isEmpty()) {
+        JsonArray array = new JsonArray();
+        for (FluidStack fluidStack : byproducts) {
+          array.add(RecipeHelper.serializeFluidStack(fluidStack));
+        }
+        json.add("byproducts", array);
+      }
     }
 
     @Override

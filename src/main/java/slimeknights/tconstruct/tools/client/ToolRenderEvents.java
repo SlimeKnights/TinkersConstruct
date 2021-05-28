@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.vertex.MatrixApplyingVertexBuilder;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -29,6 +30,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -39,7 +41,7 @@ import java.util.Iterator;
 @Mod.EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ToolRenderEvents {
   /** Maximum number of blocks from the iterator to render */
-  private static final int MAX_BLOCKS = 30;
+  private static final int MAX_BLOCKS = 60;
 
   /**
    * Renders the outline on the extra blocks
@@ -55,7 +57,7 @@ public class ToolRenderEvents {
     }
     // must have the right tags
     ItemStack stack = player.getHeldItemMainhand();
-    if (stack.isEmpty() || !TinkerTags.Items.HARVEST.contains(stack.getItem())) {
+    if (stack.isEmpty() || !TinkerTags.Items.HARVEST_PRIMARY.contains(stack.getItem())) {
       return;
     }
     // must be targeting a block
@@ -69,7 +71,13 @@ public class ToolRenderEvents {
       return;
     }
     BlockRayTraceResult blockTrace = event.getTarget();
-    Iterator<BlockPos> extraBlocks = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic().getAOEBlocks(tool, stack, world, player, blockTrace.getPos(), blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
+    BlockPos origin = blockTrace.getPos();
+    ToolHarvestLogic harvestLogic = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic();
+    BlockState state = world.getBlockState(origin);
+    if (!harvestLogic.isEffective(tool, stack, state)) {
+      return;
+    }
+    Iterator<BlockPos> extraBlocks = harvestLogic.getAOEBlocks(tool, stack, player, world.getBlockState(origin), world, origin, blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }
@@ -119,7 +127,7 @@ public class ToolRenderEvents {
     }
     // must have the right tags
     ItemStack stack = player.getHeldItemMainhand();
-    if (stack.isEmpty() || !TinkerTags.Items.HARVEST.contains(stack.getItem())) {
+    if (stack.isEmpty() || !TinkerTags.Items.HARVEST_PRIMARY.contains(stack.getItem())) {
       return;
     }
     // must be targeting a block
@@ -146,7 +154,12 @@ public class ToolRenderEvents {
       return;
     }
     // determine extra blocks to highlight
-    Iterator<BlockPos> extraBlocks = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic().getAOEBlocks(tool, stack, world, player, target, blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
+    ToolHarvestLogic harvestLogic = ((IModifiableHarvest) stack.getItem()).getToolHarvestLogic();
+    BlockState state = world.getBlockState(target);
+    if (!harvestLogic.isEffective(tool, stack, state)) {
+      return;
+    }
+    Iterator<BlockPos> extraBlocks = harvestLogic.getAOEBlocks(tool, stack, player, state, world, target, blockTrace.getFace(), AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }

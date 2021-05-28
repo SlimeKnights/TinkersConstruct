@@ -1,0 +1,9 @@
+{
+  "loader": "mantle:fluid_texture",
+  "textures": {
+    "still": "tconstruct:block/fluid/liquid/still",
+    "flowing": "tconstruct:block/fluid/liquid/flowing"
+  },
+  "color": "EF6FEA60"
+}
+

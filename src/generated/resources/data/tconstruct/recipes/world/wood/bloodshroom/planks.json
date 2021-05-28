@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "tconstruct:bloodshroom_logs"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:bloodshroom_planks",
+    "count": 4
+  }
+}

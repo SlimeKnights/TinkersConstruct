@@ -4,12 +4,6 @@
   "sortOrder": 0,
   "fluid": "tconstruct:molten_iron",
   "fluidPerUnit": 144,
-  "textColor": "#CACACA",
-  "temperature": 800,
-  "traits": [
-    {
-      "name": "tconstruct:reinforced",
-      "level": 1
-    }
-  ]
+  "textColor": "#D8D8D8",
+  "temperature": 800
 }

@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:severing",
+  "entity": {
+    "types": [
+      "minecraft:wither_skeleton",
+      "minecraft:wither"
+    ]
+  },
+  "result": "minecraft:wither_skeleton_skull"
+}

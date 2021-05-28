@@ -3,10 +3,14 @@ package slimeknights.tconstruct.common.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.ArrayList;
-import java.util.List;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.world.TinkerStructures;
 
 public class Config {
   /**
@@ -24,6 +28,7 @@ public class Config {
 
     public final ConfigValue<Integer> melterNuggetsPerOre;
     public final ConfigValue<Integer> smelteryNuggetsPerOre;
+    public final ConfigValue<Integer> foundryNuggetsPerOre;
 
     public final BooleanValue generateCobalt;
     public final ConfigValue<Integer> veinCountCobalt;
@@ -31,15 +36,24 @@ public class Config {
     public final BooleanValue generateCopper;
     public final ConfigValue<Integer> veinCountCopper;
 
-    public final BooleanValue generateSlimeIslands;
+    // overworld
+    public final BooleanValue generateEarthSlimeIslands;
+    public final BooleanValue generateSkySlimeIslands;
+    public final BooleanValue generateClayIslands;
+    public final IntValue earthSlimeIslandSeparation;
+    public final IntValue skySlimeIslandSeparation;
+    public final IntValue clayIslandSeparation;
+    // nether
+    public final BooleanValue generateBloodIslands;
+    public final IntValue bloodIslandSeparation;
+    // end
+    public final BooleanValue generateEndSlimeIslands;
+    public final IntValue endSlimeIslandSeparation;
 
     // public final BooleanValue chestsKeepInventory;
 
-    public final ConfigValue<List<String>> craftingStationBlacklist;
-
-    public final BooleanValue listAllToolMaterials;
-
-    public final BooleanValue listAllPartMaterials;
+    public final ConfigValue<String> showOnlyToolMaterial;
+    public final ConfigValue<String> showOnlyPartMaterial;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -56,23 +70,17 @@ public class Config {
 //        .worldRestart()
 //        .define("chestsKeepInventory", true);
 
-      this.craftingStationBlacklist = builder
-        .comment("Blacklist of registry names for the crafting station to connect to. Mainly for compatibility.")
-        .translation("tconstruct.configgui.craftingStationBlacklist")
+      this.showOnlyToolMaterial = builder
+        .comment("If non-empty, only this material will be shown on tools in creative and JEI (or the first valid material if this is invalid for the tool).", "If empty, all materials will show")
+        .translation("tconstruct.configgui.showOnlyToolMaterial")
         .worldRestart()
-        .define("craftingStationBlacklist", new ArrayList<>());
+        .define("showOnlyToolMaterial", "");
 
-      this.listAllToolMaterials = builder
-        .comment("If true all material variants of the different tools will be listed in creative. Set to false to only have the first found material for all tools (usually wood).")
-        .translation("tconstruct.configgui.listAllToolMaterials")
+      this.showOnlyPartMaterial = builder
+        .comment("If non-empty, only material will be shown on parts in creative and JEI (or the first valid material if this is invalid for the part).", "If empty, all materials will show")
+        .translation("tconstruct.configgui.showOnlyPartMaterial")
         .worldRestart()
-        .define("listAllToolMaterials", true);
-
-      this.listAllPartMaterials = builder
-        .comment("If true all material variants of the different parts will be listed in creative. Set to false to only have the first found material for all parts (usually wood).")
-        .translation("tconstruct.configgui.listAllPartMaterials")
-        .worldRestart()
-        .define("listAllPartMaterials", true);
+        .define("showOnlyPartMaterial", "");
 
       builder.pop();
 
@@ -110,6 +118,10 @@ public class Config {
         .comment("Number of nuggets produced when an ore block is melted in the smeltery. 9 nuggets would give 1 ingot")
         .translation("tconstruct.configgui.smelteryNuggetsPerOre")
         .defineInRange("smelteryNuggetsPerOre", 18, 1, 45);
+      this.foundryNuggetsPerOre = builder
+        .comment("Number of nuggets produced when an ore block is melted in the foundry. 9 nuggets would give 1 ingot")
+        .translation("tconstruct.configgui.foundryNuggetsPerOre")
+        .defineInRange("foundryNuggetsPerOre", 15, 1, 45);
 
       builder.pop();
 
@@ -137,11 +149,61 @@ public class Config {
         .worldRestart()
         .define("veinCountCobalt", 8);
 
-      this.generateSlimeIslands = builder
-        .comment("Set this to false to disable slime islands spawning in the world")
-        .translation("tconstruct.configgui.generateSlimeIslands")
+      builder.comment("Options related to slime islands").push("slime_islands");
+      builder.comment("Options related to earth slime islands spawning in the oceans").push("earth");
+      this.generateEarthSlimeIslands = builder
+        .comment("If true, this island generates")
         .worldRestart()
-        .define("generateSlimeIslands", true);
+        .define("generate", true);
+      this.earthSlimeIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 15, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for sky slime islands in the overworld sky").push("sky");
+      this.generateSkySlimeIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.skySlimeIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 30, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for clay islands in the overworld sky").push("clay");
+      this.generateClayIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.clayIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 100, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for blood islands in the nether lava ocean").push("blood");
+      this.generateBloodIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.bloodIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 13, 10, 500);
+      builder.pop();
+
+      builder.comment("Settings for end slime islands in the outer end islands").push("end");
+      this.generateEndSlimeIslands = builder
+        .comment("If true, this island generates")
+        .worldRestart()
+        .define("generate", true);
+      this.endSlimeIslandSeparation = builder
+        .comment("How many chunks on average between islands")
+        .worldRestart()
+        .defineInRange("separation", 25, 10, 500);
+      builder.pop(2);
 
       builder.pop();
     }
@@ -152,10 +214,9 @@ public class Config {
    */
   public static class Client {
     //public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
-
     public final ForgeConfigSpec.BooleanValue tankFluidModel;
-
     public final ForgeConfigSpec.BooleanValue extraToolTips;
+    public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -177,6 +238,11 @@ public class Config {
         .comment("If true tools will show additional info in their tooltips")
         .translation("tconstruct.configgui.extraToolTips")
         .define("extraToolTips", true);
+
+      this.logMissingMaterialTextures = builder
+        .comment("If true, the game will log all material textures which do not exist in resource packs but can be added, can be helpful for moddevs or resourcepack makers")
+        .translation("tconstruct.configgui.logMissingMaterialTextures")
+        .define("logMissingMaterialTextures", false);
 
       builder.pop();
     }
@@ -200,4 +266,23 @@ public class Config {
     COMMON = specPair.getLeft();
   }
 
+  /** Registers any relevant listeners for config */
+  public static void init() {
+    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
+    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(Config::configChanged);
+  }
+
+  /** Called when config reloaded to update cached settings */
+  private static void configChanged(ModConfig.Reloading event) {
+    ModConfig config = event.getConfig();
+    if (config.getModId().equals(TConstruct.modID)) {
+      ForgeConfigSpec spec = config.getSpec();
+      if (spec == Config.commonSpec) {
+        TinkerStructures.addStructureSeparation();
+      }
+    }
+  }
 }

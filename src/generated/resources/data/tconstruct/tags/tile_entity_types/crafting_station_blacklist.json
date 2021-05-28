@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:crafting_station",
+    "tconstruct:tinker_station",
+    "tconstruct:part_builder",
+    "tconstruct:part_chest",
+    "tconstruct:modifier_chest",
+    "tconstruct:cast_chest",
+    "tconstruct:basin",
+    "tconstruct:table",
+    "tconstruct:smeltery"
+  ]
+}

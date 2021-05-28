@@ -74,8 +74,8 @@ public class ContentPageIconList extends TinkerPage {
     }
 
     if(this.subText != null) {
-      this.addText(list, this.subText, false, 0, yOff);
-      yOff = 40;
+      int height = this.addText(list, this.subText, false, 0, yOff);
+      yOff = height + 16;
     }
 
     int offset = 15;

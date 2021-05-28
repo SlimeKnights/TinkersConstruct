@@ -1,22 +1,17 @@
 {
-  "materialId": "tconstruct:seared_stone",
-  "stats": [
-    {
-      "id": "tconstruct:head",
-      "durability": 150,
-      "miningSpeed": 5.0,
-      "harvestLevel": 2,
-      "attack": 2.25
-    },
-    {
-      "id": "tconstruct:handle",
+  "stats": {
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
       "durability": 0.8,
       "miningSpeed": 1.0,
       "attackSpeed": 1.0,
       "attackDamage": 1.2
     },
-    {
-      "id": "tconstruct:extra"
+    "tconstruct:head": {
+      "durability": 150,
+      "miningSpeed": 5.0,
+      "harvestLevel": 2,
+      "attack": 2.25
     }
-  ]
+  }
 }

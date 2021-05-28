@@ -53,7 +53,7 @@ import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -61,20 +61,22 @@ import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
-import slimeknights.tconstruct.plugin.jei.entity.BeheadingCategory;
 import slimeknights.tconstruct.plugin.jei.entity.DefaultEntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.entity.EntityIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.entity.EntityIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.entity.EntityMeltingRecipeCategory;
+import slimeknights.tconstruct.plugin.jei.entity.SeveringCategory;
+import slimeknights.tconstruct.plugin.jei.melting.FoundryCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierRecipeCategory;
+import slimeknights.tconstruct.plugin.jei.transfer.TinkerStationTransferInfo;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.IScreenWithFluidTank;
 import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
-import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -113,9 +115,10 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new MeltingCategory(guiHelper));
     registry.addRecipeCategories(new AlloyRecipeCategory(guiHelper));
     registry.addRecipeCategories(new EntityMeltingRecipeCategory(guiHelper));
+    registry.addRecipeCategories(new FoundryCategory(guiHelper));
     // tinker station
     registry.addRecipeCategories(new ModifierRecipeCategory(guiHelper));
-    registry.addRecipeCategories(new BeheadingCategory(guiHelper));
+    registry.addRecipeCategories(new SeveringCategory(guiHelper));
   }
 
   @Override
@@ -137,6 +140,7 @@ public class JEIPlugin implements IModPlugin {
     // melting
     List<MeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.MELTING, MeltingRecipe.class);
     register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.melting);
+    register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.foundry);
     MeltingFuelHandler.setMeltngFuels(RecipeHelper.getRecipes(manager, RecipeTypes.FUEL, MeltingFuel.class));
 
     // entity melting
@@ -161,8 +165,8 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(modifierRecipes, TConstructRecipeCategoryUid.modifiers);
 
     // beheading
-    List<BeheadingRecipe> beheadingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.BEHEADING, BeheadingRecipe.class);
-    register.addRecipes(beheadingRecipes, TConstructRecipeCategoryUid.beheading);
+    List<SeveringRecipe> severingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.SEVERING, SeveringRecipe.class);
+    register.addRecipes(severingRecipes, TConstructRecipeCategoryUid.severing);
   }
 
   /**
@@ -183,16 +187,21 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-    addCastingCatalyst(registry, TinkerSmeltery.castingTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
-    addCastingCatalyst(registry, TinkerSmeltery.castingBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
+    addCastingCatalyst(registry, TinkerSmeltery.searedTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
+    addCastingCatalyst(registry, TinkerSmeltery.searedBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
+    addCastingCatalyst(registry, TinkerSmeltery.scorchedTable, TConstructRecipeCategoryUid.castingTable, RecipeTypes.MOLDING_TABLE);
+    addCastingCatalyst(registry, TinkerSmeltery.scorchedBasin, TConstructRecipeCategoryUid.castingBasin, RecipeTypes.MOLDING_BASIN);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructRecipeCategoryUid.melting);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), TConstructRecipeCategoryUid.melting, TConstructRecipeCategoryUid.alloy, TConstructRecipeCategoryUid.entityMelting);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.scorchedAlloyer), TConstructRecipeCategoryUid.alloy);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedHeater), VanillaRecipeCategoryUid.FUEL);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.foundryController), TConstructRecipeCategoryUid.foundry);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructRecipeCategoryUid.modifiers);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructRecipeCategoryUid.modifiers);
+    registry.addRecipeCatalyst(new ItemStack(TinkerTables.scorchedAnvil), TConstructRecipeCategoryUid.modifiers);
     for (Item item : TinkerTags.Items.MELEE.getAllElements()) {
       ItemStack stack = item instanceof ToolCore ? ((ToolCore)item).buildToolForRendering() : new ItemStack(item);
-      registry.addRecipeCatalyst(stack, TConstructRecipeCategoryUid.beheading);
+      registry.addRecipeCatalyst(stack, TConstructRecipeCategoryUid.severing);
     }
   }
 
@@ -204,6 +213,7 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerTables.partBuilder.asItem(), tables);
     registry.registerSubtypeInterpreter(TinkerTables.tinkerStation.asItem(), tables);
     registry.registerSubtypeInterpreter(TinkerTables.tinkersAnvil.asItem(), tables);
+    registry.registerSubtypeInterpreter(TinkerTables.scorchedAnvil.asItem(), tables);
 
     ISubtypeInterpreter toolPartInterpreter = itemStack -> {
       IMaterial material = IMaterialItem.getMaterialFromStack(itemStack);
@@ -230,12 +240,13 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void registerGuiHandlers(IGuiHandlerRegistration registration) {
     registration.addGenericGuiContainerHandler(MelterScreen.class, new GuiContainerTankHandler<>());
-    registration.addGenericGuiContainerHandler(SmelteryScreen.class, new GuiContainerTankHandler<>());
+    registration.addGenericGuiContainerHandler(HeatingStructureScreen.class, new GuiContainerTankHandler<>());
   }
 
   @Override
   public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
     registration.addRecipeTransferHandler(new CraftingStationTransferInfo());
+    registration.addRecipeTransferHandler(new TinkerStationTransferInfo());
   }
 
   /**
@@ -264,7 +275,10 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
     IIngredientManager manager = jeiRuntime.getIngredientManager();
+    // update part materials if possible
     materialReloader.manager = manager;
+    materialReloader.run();
+
     // hide knightslime and slimesteel until implemented
     removeFluid(manager, TinkerFluids.moltenSoulsteel.get(), TinkerFluids.moltenSoulsteel.asItem());
     removeFluid(manager, TinkerFluids.moltenKnightslime.get(), TinkerFluids.moltenKnightslime.asItem());
@@ -336,9 +350,13 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void run() {
-      if (manager != null) {
+      // FIXME: this does not remove old tool parts from the previous materials list, if the two are different could cause weird behavior
+      if (manager != null && !MaterialRegistry.getMaterials().isEmpty()) {
         NonNullList<ItemStack> newStacks = NonNullList.create();
         for (Item item : TinkerTags.Items.TOOL_PARTS.getAllElements()) {
+          item.fillItemGroup(ItemGroup.SEARCH, newStacks);
+        }
+        for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
           item.fillItemGroup(ItemGroup.SEARCH, newStacks);
         }
         if (!newStacks.isEmpty()) {

@@ -100,11 +100,11 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   @Override
   public void draw(IDisplayModifierRecipe recipe, MatrixStack matrices, double mouseX, double mouseY) {
     List<List<ItemStack>> inputs = recipe.getDisplayItems();
-    drawSlot(matrices, inputs, 2,  2, 32);
-    drawSlot(matrices, inputs, 3, 24, 14);
-    drawSlot(matrices, inputs, 4, 46, 32);
-    drawSlot(matrices, inputs, 5, 42, 57);
-    drawSlot(matrices, inputs, 6,  6, 57);
+    drawSlot(matrices, inputs, 1,  2, 32);
+    drawSlot(matrices, inputs, 2, 24, 14);
+    drawSlot(matrices, inputs, 3, 46, 32);
+    drawSlot(matrices, inputs, 4, 42, 57);
+    drawSlot(matrices, inputs, 5,  6, 57);
 
     // draw info icons
     if (recipe.hasRequirements()) {
@@ -175,30 +175,35 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
 
     // set items for display
     IGuiItemStackGroup items = layout.getItemStacks();
-    items.init(0, true, 104, 33);
-    items.init(1, true, 24, 37);
-    items.init(2, true,  2, 32);
-    items.init(3, true, 24, 14);
-    items.init(4, true, 46, 32);
-    items.init(5, true, 42, 57);
-    items.init(6, true,  6, 57);
+    items.init(0, true, 24, 37);
+    items.init(1, true,  2, 32);
+    items.init(2, true, 24, 14);
+    items.init(3, true, 46, 32);
+    items.init(4, true, 42, 57);
+    items.init(5, true,  6, 57);
     items.set(ingredients);
+
+    // start up the output slot
+    items.init(-1, false, 104, 33);
 
     // if focusing on a tool, filter out other tools
     IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM);
-    if (focus != null && focus.getValue().getItem().isIn(TinkerTags.Items.MULTIPART_TOOL)) {
-      List<List<ItemStack>> allItems = recipe.getDisplayItems();
-      if (allItems.size() >= 2) {
-        Item item = focus.getValue().getItem();
-        allItems.get(0).stream().filter(stack -> stack.getItem() == item)
-                .findFirst().ifPresent(stack -> items.set(0, stack));
-        allItems.get(1).stream().filter(stack -> stack.getItem() == item)
-                .findFirst().ifPresent(stack -> items.set(1, stack));
+    List<ItemStack> output = recipe.getToolWithModifier();
+    items.set(-1, output);
+    if (focus != null) {
+      Item item = focus.getValue().getItem();
+      if (item.isIn(TinkerTags.Items.MODIFIABLE)) {
+        List<List<ItemStack>> allItems = recipe.getDisplayItems();
+        if (allItems.size() >= 1) {
+          allItems.get(0).stream().filter(stack -> stack.getItem() == item)
+                  .findFirst().ifPresent(stack -> items.set(0, stack));
+        }
+        output.stream().filter(stack -> stack.getItem() == item).findFirst().ifPresent(stack -> items.set(-1, stack));
       }
     }
 
     // set modifiers for display
-    modifiers.init(7, false, modifierRenderer, 2, 2, 124, 10, 0, 0);
+    modifiers.init(6, false, modifierRenderer, 2, 2, 124, 10, 0, 0);
     modifiers.set(ingredients);
   }
 }

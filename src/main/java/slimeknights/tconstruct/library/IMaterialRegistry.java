@@ -5,8 +5,10 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface IMaterialRegistry {
@@ -71,6 +73,30 @@ public interface IMaterialRegistry {
    * @param clazz         Stat type class
    */
   <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz);
+
+  /**
+   * Gets the default material traits for the given material
+   * @param materialId  Material ID
+   * @return  Material traits
+   */
+  List<ModifierEntry> getDefaultTraits(MaterialId materialId);
+
+  /**
+   * Checks if the given material and stat pair have unique traits
+   * @param materialId  Material ID
+   * @param statsId     Stats type
+   * @return  If the traits for this stat type are unique
+   */
+  boolean hasUniqueTraits(MaterialId materialId, MaterialStatsId statsId);
+
+  /**
+   * Gets the material traits for the given material and type
+   * @param materialId  Material ID
+   * @param statsId     Stats type
+   * @return  Material traits
+   */
+  List<ModifierEntry> getTraits(MaterialId materialId, MaterialStatsId statsId);
+
 
   /**
    * Adds a runnable called when materials reload on the client

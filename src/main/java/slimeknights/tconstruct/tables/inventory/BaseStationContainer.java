@@ -5,19 +5,26 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
+import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.mantle.inventory.MultiModuleContainer;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
@@ -92,6 +99,80 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
     this.stationBlocks.sort(COMPARATOR);
   }
 
+  /** Adds a side inventory to this container */
+  protected void addChestSideInventory() {
+    if (tile == null || inv == null) {
+      return;
+    }
+    World world = tile.getWorld();
+    if (world != null) {
+      // detect side inventory
+      TileEntity inventoryTE = null;
+      Direction accessDir = null;
+
+      BlockPos pos = tile.getPos();
+      horizontals:
+      for (Direction dir : Direction.Plane.HORIZONTAL) {
+        // skip any tables in this multiblock
+        BlockPos neighbor = pos.offset(dir);
+        for (Pair<BlockPos,BlockState> tinkerPos : this.stationBlocks) {
+          if (tinkerPos.getLeft().equals(neighbor)) {
+            continue horizontals;
+          }
+        }
+
+        // fetch tile entity
+        TileEntity te = world.getTileEntity(neighbor);
+        if (te != null && isUsable(te, inv.player)) {
+          // try internal access first
+          if (hasItemHandler(te, null)) {
+            inventoryTE = te;
+            accessDir = null;
+            break;
+          }
+
+          // try sided access next
+          Direction side = dir.getOpposite();
+          if (hasItemHandler(te, side)) {
+            inventoryTE = te;
+            accessDir = side;
+            break;
+          }
+        }
+      }
+
+      // if we found something, add the side inventory
+      if (inventoryTE != null) {
+        int invSlots = inventoryTE.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, accessDir).orElse(EmptyItemHandler.INSTANCE).getSlots();
+        int columns = MathHelper.clamp((invSlots - 1) / 9 + 1, 3, 6);
+        this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), windowId, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, columns), false);
+      }
+    }
+  }
+
+  /**
+   * Checks if the given tile entity is blacklisted
+   * @param tileEntity  Tile to check
+   * @return  True if blacklisted
+   */
+  private static boolean isUsable(TileEntity tileEntity, PlayerEntity player) {
+    // must not be blacklisted and be usable
+    return !TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST.contains(tileEntity.getType())
+           && (!(tileEntity instanceof IInventory) || ((IInventory)tileEntity).isUsableByPlayer(player));
+  }
+
+  /**
+   * Checks to see if the given Tile Entity has an item handler that's compatible with the side inventory
+   * The Tile Entity's item handler must be an instance of IItemHandlerModifiable
+   * @param tileEntity Tile to check
+   * @param direction the given direction
+   * @return True if compatible.
+   */
+  private static boolean hasItemHandler(TileEntity tileEntity, @Nullable Direction direction) {
+    return tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).filter(cap -> cap instanceof IItemHandlerModifiable).isPresent();
+  }
+
+
   /**
    * Sends a update to the client's current screen.
    */
@@ -138,7 +219,7 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
   private static void clientScreenUpdate() {
     Screen screen = Minecraft.getInstance().currentScreen;
     if (screen instanceof BaseStationScreen) {
-      ((BaseStationScreen) screen).updateDisplay();
+      ((BaseStationScreen<?,?>) screen).updateDisplay();
     }
   }
 
@@ -151,7 +232,7 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
   private static void clientError(IFormattableTextComponent errorMessage) {
     Screen screen = Minecraft.getInstance().currentScreen;
     if (screen instanceof BaseStationScreen) {
-      ((BaseStationScreen) screen).error(errorMessage);
+      ((BaseStationScreen<?,?>) screen).error(errorMessage);
     }
   }
 
@@ -164,7 +245,7 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
   private static void clientWarning(IFormattableTextComponent warningMessage) {
     Screen screen = Minecraft.getInstance().currentScreen;
     if (screen instanceof BaseStationScreen) {
-      ((BaseStationScreen) screen).warning(warningMessage);
+      ((BaseStationScreen<?,?>) screen).warning(warningMessage);
     }
   }
 

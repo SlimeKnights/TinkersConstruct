@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "item": "tconstruct:seared_melter"
+    },
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee_or_harvest"
+  },
+  "result": {
+    "name": "tconstruct:melting",
+    "level": 1
+  },
+  "max_level": 1,
+  "ability_slots": 1
+}

@@ -62,7 +62,16 @@ public class CopperCanItem extends Item {
 
   /** Sets the fluid on the given stack */
   public static ItemStack setFluid(ItemStack stack, Fluid fluid) {
-    if (stack.hasTag() || fluid != Fluids.EMPTY) {
+    // if empty, try to remove the NBT, helps with recipes
+    if (fluid == Fluids.EMPTY) {
+      CompoundNBT nbt = stack.getTag();
+      if (nbt != null) {
+        nbt.remove(TAG_FLUID);
+        if (nbt.isEmpty()) {
+          stack.setTag(null);
+        }
+      }
+    } else {
       CompoundNBT nbt = stack.getOrCreateTag();
       nbt.putString(TAG_FLUID, Objects.requireNonNull(fluid.getRegistryName()).toString());
     }

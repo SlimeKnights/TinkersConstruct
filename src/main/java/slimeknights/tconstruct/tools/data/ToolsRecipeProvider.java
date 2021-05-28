@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
@@ -52,12 +53,13 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
+    addPartRecipe(consumer, TinkerToolParts.repairKit, 2, TinkerSmeltery.repairKitCast);
     // head
     addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.axeHead, 2, TinkerSmeltery.axeHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.kamaHead, 2, TinkerSmeltery.kamaHeadCast);
-    addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, TinkerSmeltery.swordBladeCast);
+    addPartRecipe(consumer, TinkerToolParts.smallAxeHead, 2, TinkerSmeltery.smallAxeHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.broadAxeHead, 8, TinkerSmeltery.broadAxeHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.smallBlade, 2, TinkerSmeltery.smallBladeCast);
     addPartRecipe(consumer, TinkerToolParts.broadBlade, 8, TinkerSmeltery.broadBladeCast);
     // other parts
     addPartRecipe(consumer, TinkerToolParts.toolBinding, 1, TinkerSmeltery.toolBindingCast);
@@ -72,15 +74,17 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood/planks");
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood/logs");
     registerMaterial(consumer, MaterialIds.stone, new CompoundIngredient(
-      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.POLISHED_BLACKSTONE)
+      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE)
     ), 1, 1, "stone");
     registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT, Blocks.BASALT, Blocks.POLISHED_BASALT), 1, 1, "flint");
     registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone");
     registerMaterial(consumer, MaterialIds.necroticBone, Ingredient.fromTag(TinkerTags.Items.WITHER_BONES), 1, 1, "necrotic_bone");
     // tier 2
     registerMetalMaterial(consumer, MaterialIds.iron, "iron", false);
-    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick), 1, 1, "seared_stone/brick");
-    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 4, 1, "seared_stone/block");
+    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromItems(TinkerSmeltery.searedBrick), 1, 2, "seared_stone/brick");
+    registerMaterial(consumer, MaterialIds.searedStone, Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS), 2, 1, "seared_stone/block");
+    registerMaterial(consumer, MaterialIds.scorchedStone, Ingredient.fromItems(TinkerSmeltery.scorchedBrick), 1, 2, "scorched_stone/brick");
+    registerMaterial(consumer, MaterialIds.scorchedStone, Ingredient.fromTag(TinkerTags.Items.SCORCHED_BLOCKS), 2, 1, "scorched_stone/block");
     registerMetalMaterial(consumer, MaterialIds.copper, "copper", false);
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.EARTH_SLIMEBALL), 1, 1, "slimewood/ball");
     registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.EARTH)), 4, 1, "slimewood/congealed");
@@ -91,6 +95,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "nahuatl");
     registerMetalMaterial(consumer, MaterialIds.tinkersBronze, "silicon_bronze", false);
     registerMetalMaterial(consumer, MaterialIds.pigIron, "pig_iron", false);
+    registerMaterial(consumer, MaterialIds.pigIron, Ingredient.fromItems(TinkerCommons.bacon), 1, 4, "pig_iron/bacon");
 
     // tier 2 (nether)
     // tier 3 (nether)
@@ -121,16 +126,18 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
   private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {
     registerBuildingRecipe(consumer, TinkerTools.pickaxe);
     registerBuildingRecipe(consumer, TinkerTools.sledgeHammer);
+    registerBuildingRecipe(consumer, TinkerTools.veinHammer);
 
     registerBuildingRecipe(consumer, TinkerTools.mattock);
     registerBuildingRecipe(consumer, TinkerTools.excavator);
 
-    registerBuildingRecipe(consumer, TinkerTools.axe);
+    registerBuildingRecipe(consumer, TinkerTools.handAxe);
+    registerBuildingRecipe(consumer, TinkerTools.broadAxe);
 
     registerBuildingRecipe(consumer, TinkerTools.kama);
     registerBuildingRecipe(consumer, TinkerTools.scythe);
 
-    registerBuildingRecipe(consumer, TinkerTools.broadSword);
+    registerBuildingRecipe(consumer, TinkerTools.sword);
     registerBuildingRecipe(consumer, TinkerTools.cleaver);
   }
 

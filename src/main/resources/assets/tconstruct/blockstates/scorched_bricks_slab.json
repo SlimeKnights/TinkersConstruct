@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "tconstruct:block/foundry/scorched/bricks_slab" },
+    "type=top":    { "model": "tconstruct:block/foundry/scorched/bricks_slab_top" },
+    "type=double": { "model": "tconstruct:block/foundry/scorched/bricks" }
+  }
+}

@@ -16,8 +16,9 @@ public class TConstructRecipeCategoryUid {
   public static final ResourceLocation melting = Util.getResource("melting");
   public static final ResourceLocation entityMelting = Util.getResource("entity_melting");
   public static final ResourceLocation alloy = Util.getResource("alloy");
+  public static final ResourceLocation foundry = Util.getResource("foundry");
 
   // tinker station
   public static final ResourceLocation modifiers = Util.getResource("modifiers");
-  public static final ResourceLocation beheading = Util.getResource("beheading");
+  public static final ResourceLocation severing = Util.getResource("severing");
 }

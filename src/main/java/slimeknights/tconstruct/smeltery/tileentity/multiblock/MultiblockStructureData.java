@@ -49,9 +49,9 @@ public class MultiblockStructureData {
   @Getter
   private final BlockPos maxInside;
 
-  /** Size of the inside of the structure */
+  /** Inside sizes */
   @Getter
-  private final int internalSize;
+  private final int innerX, innerY, innerZ;
 
   /** Bounding box representing the area inside the structure */
   @Getter
@@ -68,9 +68,9 @@ public class MultiblockStructureData {
     // inner positions
     minInside = minPos.add(1, hasFloor ? 1 : 0, 1);
     maxInside = maxPos.add(-1, hasCeiling ? -1 : 0, -1);
-    internalSize = (maxInside.getX() - minInside.getX() + 1)
-                   * (maxInside.getY() - minInside.getY() + 1)
-                   * (maxInside.getZ() - minInside.getZ() + 1);
+    innerX = maxInside.getX() - minInside.getX() + 1;
+    innerY = maxInside.getY() - minInside.getY() + 1;
+    innerZ = maxInside.getZ() - minInside.getZ() + 1;
     bounds = new AxisAlignedBB(minInside, maxInside.add(1, 1, 1));
   }
 

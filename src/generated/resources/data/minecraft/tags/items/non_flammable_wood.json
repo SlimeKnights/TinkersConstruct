@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:bloodshroom_planks",
+    "tconstruct:bloodshroom_planks_slab",
+    "tconstruct:bloodshroom_planks_stairs",
+    "tconstruct:bloodshroom_fence",
+    "tconstruct:bloodshroom_fence_gate",
+    "tconstruct:bloodshroom_door",
+    "tconstruct:bloodshroom_trapdoor",
+    "tconstruct:bloodshroom_pressure_plate",
+    "tconstruct:bloodshroom_button",
+    "#tconstruct:bloodshroom_logs"
+  ]
+}

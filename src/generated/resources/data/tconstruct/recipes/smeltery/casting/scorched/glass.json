@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "tconstruct:scorched_bricks"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_quartz",
+    "amount": 144
+  },
+  "result": "tconstruct:scorched_glass",
+  "cooling_time": 55
+}

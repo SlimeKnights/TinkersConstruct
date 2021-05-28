@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 
-public class DiamondModifier extends SingleUseModifier {
+public class DiamondModifier extends SingleLevelModifier {
   public DiamondModifier() {
     super(0x8cf4e2);
   }

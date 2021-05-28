@@ -1,22 +1,17 @@
 {
-  "materialId": "tconstruct:electrum",
-  "stats": [
-    {
-      "id": "tconstruct:head",
-      "durability": 225,
-      "miningSpeed": 11.0,
-      "harvestLevel": 2,
-      "attack": 1.5
-    },
-    {
-      "id": "tconstruct:handle",
+  "stats": {
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
       "durability": 0.8,
       "miningSpeed": 1.2,
       "attackSpeed": 1.15,
       "attackDamage": 1.0
     },
-    {
-      "id": "tconstruct:extra"
+    "tconstruct:head": {
+      "durability": 225,
+      "miningSpeed": 11.0,
+      "harvestLevel": 2,
+      "attack": 1.5
     }
-  ]
+  }
 }

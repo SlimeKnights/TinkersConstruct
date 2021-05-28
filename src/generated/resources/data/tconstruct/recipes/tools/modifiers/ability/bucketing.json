@@ -1,0 +1,43 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "ingredient": [
+        {
+          "item": "tconstruct:seared_faucet"
+        },
+        {
+          "item": "tconstruct:scorched_faucet"
+        }
+      ]
+    },
+    {
+      "item": "minecraft:bucket"
+    },
+    {
+      "ingredient": [
+        {
+          "item": "tconstruct:seared_faucet"
+        },
+        {
+          "item": "tconstruct:scorched_faucet"
+        }
+      ]
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee_or_harvest"
+  },
+  "result": {
+    "name": "tconstruct:bucketing",
+    "level": 1
+  },
+  "max_level": 1,
+  "ability_slots": 1
+}

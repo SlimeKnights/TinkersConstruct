@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:severing",
+  "entity": {
+    "types": [
+      "minecraft:zombie",
+      "minecraft:husk",
+      "minecraft:drowned"
+    ]
+  },
+  "result": "minecraft:zombie_head"
+}

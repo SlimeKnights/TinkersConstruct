@@ -10,6 +10,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
@@ -41,8 +42,7 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
                 // we got a block we flowed from and the block we flowed from has slimedirt below
                 // change the dirt below us to slimedirt too
                 world.setBlockState(pos.down(), dirt);
-              }
-              if (dirt.getBlock() == TinkerWorld.earthSlimeGrass.get(SlimeGrassBlock.FoliageType.SKY)) {
+              } else if (dirt.getBlock() == TinkerWorld.earthSlimeGrass.get(SlimeType.SKY)) {
                 world.setBlockState(pos.down(), SlimeGrassBlock.getDirtState(dirt));
               }
             }

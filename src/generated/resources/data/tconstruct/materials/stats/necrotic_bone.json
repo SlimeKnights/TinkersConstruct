@@ -1,22 +1,17 @@
 {
-  "materialId": "tconstruct:necrotic_bone",
-  "stats": [
-    {
-      "id": "tconstruct:head",
-      "durability": 125,
-      "miningSpeed": 2.0,
-      "harvestLevel": 1,
-      "attack": 1.5
-    },
-    {
-      "id": "tconstruct:handle",
+  "stats": {
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
       "durability": 0.65,
       "miningSpeed": 1.0,
       "attackSpeed": 1.15,
       "attackDamage": 1.0
     },
-    {
-      "id": "tconstruct:extra"
+    "tconstruct:head": {
+      "durability": 125,
+      "miningSpeed": 2.0,
+      "harvestLevel": 1,
+      "attack": 1.5
     }
-  ]
+  }
 }

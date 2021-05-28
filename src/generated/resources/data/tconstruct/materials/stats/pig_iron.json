@@ -1,22 +1,17 @@
 {
-  "materialId": "tconstruct:pig_iron",
-  "stats": [
-    {
-      "id": "tconstruct:head",
-      "durability": 580,
-      "miningSpeed": 6.0,
-      "harvestLevel": 3,
-      "attack": 2.5
-    },
-    {
-      "id": "tconstruct:handle",
+  "stats": {
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
       "durability": 1.15,
       "miningSpeed": 0.8,
       "attackSpeed": 1.0,
       "attackDamage": 1.1
     },
-    {
-      "id": "tconstruct:extra"
+    "tconstruct:head": {
+      "durability": 580,
+      "miningSpeed": 6.0,
+      "harvestLevel": 3,
+      "attack": 2.5
     }
-  ]
+  }
 }

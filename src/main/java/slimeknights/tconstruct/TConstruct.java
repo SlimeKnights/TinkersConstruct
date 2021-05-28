@@ -13,9 +13,8 @@ import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -26,19 +25,23 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructBlockTagsProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructEntityTypeTagsProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructFluidTagsProvider;
-import slimeknights.tconstruct.common.data.tags.TConstructItemTagsProvider;
+import slimeknights.tconstruct.common.data.tags.BlockTagProvider;
+import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
+import slimeknights.tconstruct.common.data.tags.FluidTagProvider;
+import slimeknights.tconstruct.common.data.tags.ItemTagProvider;
+import slimeknights.tconstruct.common.data.tags.TileEntityTypeTagProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.plugin.crt.CRTHelper;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
@@ -71,8 +74,7 @@ public class TConstruct {
   public TConstruct() {
     instance = this;
 
-    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+    Config.init();
 
     // initialize modules, done this way rather than with annotations to give us control over the order
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -99,6 +101,9 @@ public class TConstruct {
     // init client logic
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
     MinecraftForge.EVENT_BUS.register(this);
+    if (ModList.get().isLoaded("crafttweaker")) {
+      MinecraftForge.EVENT_BUS.register(new CRTHelper());
+    }
   }
 
   @SubscribeEvent
@@ -111,11 +116,12 @@ public class TConstruct {
     if (event.includeServer()) {
       DataGenerator datagenerator = event.getGenerator();
       ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator, existingFileHelper);
+      BlockTagProvider blockTags = new BlockTagProvider(datagenerator, existingFileHelper);
       datagenerator.addProvider(blockTags);
-      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags, existingFileHelper));
-      datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator, existingFileHelper));
-      datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new ItemTagProvider(datagenerator, blockTags, existingFileHelper));
+      datagenerator.addProvider(new FluidTagProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new EntityTypeTagProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new TileEntityTypeTagProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
     }
   }
@@ -129,6 +135,19 @@ public class TConstruct {
       case "firewood": return TinkerCommons.blazewood.get();
       case "firewood_slab": return TinkerCommons.blazewood.getSlab();
       case "firewood_stairs": return TinkerCommons.blazewood.getStairs();
+      // prefix with seared
+      case "faucet": return TinkerSmeltery.searedFaucet.get();
+      case "channel": return TinkerSmeltery.searedChannel.get();
+      case "casting_table": return TinkerSmeltery.searedTable.get();
+      case "casting_basin": return TinkerSmeltery.searedBasin.get();
+      case "melter": return TinkerSmeltery.searedMelter.get();
+      // tank renames
+      case "seared_tank": return TinkerSmeltery.searedTank.get(TankType.FUEL_TANK);
+      case "seared_gauge": return TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE);
+      case "seared_window": return TinkerSmeltery.searedTank.get(TankType.INGOT_TANK);
+      case "scorched_tank": return TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK);
+      case "scorched_gauge": return TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE);
+      case "scorched_window": return TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK);
     }
     return null;
   }
@@ -153,6 +172,25 @@ public class TConstruct {
         case "tough_tool_rod_cast": return TinkerSmeltery.toughHandleCast.get();
         case "tough_tool_rod_sand_cast": return TinkerSmeltery.toughHandleCast.getSand();
         case "tough_tool_rod_red_sand_cast": return TinkerSmeltery.toughHandleCast.getRedSand();
+        // axe -> hand_axe, axe_head -> small_axe_head
+        case "axe": return TinkerTools.handAxe.get();
+        case "axe_head": return TinkerToolParts.smallAxeHead.get();
+        case "axe_head_cast": return TinkerSmeltery.smallAxeHeadCast.get();
+        case "axe_head_sand_cast": return TinkerSmeltery.smallAxeHeadCast.getSand();
+        case "axe_head_red_sand_cast": return TinkerSmeltery.smallAxeHeadCast.getRedSand();
+        // kama head removed, sword blade to small blade
+        case "kama_head": case "sword_blade":
+          return TinkerToolParts.smallBlade.get();
+        case "kama_head_cast": case "sword_blade_cast":
+          return TinkerSmeltery.smallBladeCast.get();
+        case "kama_head_sand_cast": case "sword_blade_sand_cast":
+          return TinkerSmeltery.smallBladeCast.getSand();
+        case "kama_head_red_sand_cast": case "sword_blade_red_sand_cast":
+          return TinkerSmeltery.smallBladeCast.getRedSand();
+        // broadsword -> sword
+        case "broad_sword": return TinkerTools.sword.get();
+        //  reinforcement splitting
+        case "reinforcement": return TinkerModifiers.ironReinforcement.get();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
@@ -162,5 +200,18 @@ public class TConstruct {
   @SubscribeEvent
   void missingBlocks(final MissingMappings<Block> event) {
     RegistrationHelper.handleMissingMappings(event, modID, TConstruct::missingBlock);
+  }
+
+  @SubscribeEvent
+  void missingModifiers(final MissingMappings<Modifier> event) {
+    RegistrationHelper.handleMissingMappings(event, modID, name -> {
+      switch(name) {
+        case "axe_transform": return TinkerModifiers.stripping.get();
+        case "shovel_transform": return TinkerModifiers.pathing.get();
+        case "hoe_transform": return TinkerModifiers.tilling.get();
+        case "beheading": return TinkerModifiers.severing.get();
+      }
+      return null;
+    });
   }
 }

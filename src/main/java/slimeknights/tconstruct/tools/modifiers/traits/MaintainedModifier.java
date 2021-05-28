@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.traits;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -13,13 +13,16 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
+import java.util.List;
+
 /** Well maintained for Tinkers Bronze */
 public class MaintainedModifier extends Modifier {
-  public static final String KEY_MINING_BOOST = Util.makeTranslationKey("modifier", "maintained.boost");
+  private static final ITextComponent MINING_SPEED = Util.makeTranslation("modifier", "fake_attribute.mining_speed");
   private static final ResourceLocation KEY_ORIGINAL_DURABILITY = Util.getResource("durability");
   public MaintainedModifier() {
-    super(0xe3bd68);
+    super(0xE8B465);
   }
+
   protected MaintainedModifier(int color) {
     super(color);
   }
@@ -57,27 +60,25 @@ public class MaintainedModifier extends Modifier {
     int durability = tool.getCurrentDurability();
     int baseMax = tool.getVolatileData().getInt(KEY_ORIGINAL_DURABILITY);
 
-    // from 50% to 100%: 20% boost
-    float boost = boost(durability, 0.2f, baseMax / 2, baseMax);
-    // grant an extra 10% boost for getting up to 200% durability using modifiers
+    // from 50% to 100%: 10% boost
+    float boost = boost(durability, 0.1f, baseMax / 2, baseMax);
+    // grant an extra 5% boost for getting up to 200% durability using modifiers
     // compared to WellMaintained2, this will grant slightly higher at top and maintain that higher speed though a bit more durability
     int fullMax = tool.getStats().getDurability();
     if (fullMax > baseMax) {
       // from 100% to 200% or full, whichever is larger
-      boost += boost(durability, 0.1f, baseMax, Math.max(baseMax * 2, fullMax));
+      boost += boost(durability, 0.05f, baseMax, Math.max(baseMax * 2, fullMax));
     }
-    // max is 30% boost at 400% durability or above, with 3 levels (pickaxe), that gives up to 90%
+    // max is 15% boost at 400% durability or above, with 3 levels (pickaxe), that gives up to 90%
     return boost * level;
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
-    float boost = getTotalBoost(tool, level);
-    ITextComponent name = super.getDisplayName(level);
-    if (boost > 0) {
-      name = name.deepCopy().append(new TranslationTextComponent(KEY_MINING_BOOST, Util.dfPercent.format(boost)));
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
+    double boost = getTotalBoost(tool, level);
+    if (boost != 0) {
+      tooltip.add(applyStyle(new StringTextComponent(Util.dfPercentBoost.format(boost)).appendString(" ").append(MINING_SPEED)));
     }
-    return name;
   }
 
   @Override

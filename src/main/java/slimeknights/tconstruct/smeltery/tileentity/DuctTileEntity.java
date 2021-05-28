@@ -101,6 +101,11 @@ public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerPr
   /* NBT */
 
   @Override
+  protected boolean shouldSyncOnUpdate() {
+    return true;
+  }
+
+  @Override
   public void read(BlockState state, CompoundNBT tags) {
     super.read(state, tags);
     if (tags.contains(TAG_ITEM, NBT.TAG_COMPOUND)) {

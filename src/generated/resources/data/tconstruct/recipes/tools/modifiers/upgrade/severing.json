@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:wither_bones"
+    },
+    {
+      "tag": "forge:ingots/copper"
+    },
+    {
+      "tag": "forge:wither_bones"
+    },
+    {
+      "item": "minecraft:tnt"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
+  "result": {
+    "name": "tconstruct:severing",
+    "level": 1
+  },
+  "max_level": 5,
+  "upgrade_slots": 1
+}

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:obsidian_pane"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_obsidian",
+    "amount": 250
+  },
+  "temperature": 1000,
+  "time": 99
+}

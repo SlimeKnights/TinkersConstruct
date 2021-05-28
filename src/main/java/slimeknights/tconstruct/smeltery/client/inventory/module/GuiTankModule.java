@@ -1,13 +1,14 @@
 package slimeknights.tconstruct.smeltery.client.inventory.module;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidTank;
-import slimeknights.tconstruct.library.Util;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 
@@ -21,8 +22,10 @@ import java.util.function.BiConsumer;
  */
 @RequiredArgsConstructor
 public class GuiTankModule {
+  private static final int TANK_INDEX = 0;
   private final ContainerScreen<?> screen;
-  private final IFluidTank tank;
+  private final IFluidHandler tank;
+  @Getter
   private final int x, y, width, height;
 
   /**
@@ -40,7 +43,7 @@ public class GuiTankModule {
    * @return  Fluid height
    */
   private int getFluidHeight() {
-    return height * tank.getFluidAmount() / tank.getCapacity();
+    return height * tank.getFluidInTank(TANK_INDEX).getAmount() / tank.getTankCapacity(TANK_INDEX);
   }
 
   /**
@@ -48,7 +51,7 @@ public class GuiTankModule {
    * @param matrices  Matrix stack instance
    */
   public void draw(MatrixStack matrices) {
-    GuiUtil.renderFluidTank(matrices, screen, tank.getFluid(), tank.getCapacity(), x, y, width, height, 100);
+    GuiUtil.renderFluidTank(matrices, screen, tank.getFluidInTank(TANK_INDEX), tank.getTankCapacity(TANK_INDEX), x, y, width, height, 100);
   }
 
   /**
@@ -84,16 +87,17 @@ public class GuiTankModule {
     int checkY = mouseY - screen.guiTop;
 
     if (isHovered(checkX, checkY)) {
-      int amount = tank.getFluidAmount();
-      int capacity = tank.getCapacity();
+      FluidStack fluid = tank.getFluidInTank(TANK_INDEX);
+      int amount = fluid.getAmount();
+      int capacity = tank.getTankCapacity(TANK_INDEX);
 
       // if hovering over the fluid, display with name
       final List<ITextComponent> tooltip;
       if (checkY > (y + height) - getFluidHeight()) {
-        tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluid());
+        tooltip = FluidTooltipHandler.getFluidTooltip(fluid);
       } else {
         // function to call for amounts
-        BiConsumer<Integer, List<ITextComponent>> formatter = Util.isShiftKeyDown()
+        BiConsumer<Integer, List<ITextComponent>> formatter = Screen.hasShiftDown()
                                                               ? FluidTooltipHandler::appendBuckets
                                                               : FluidTooltipHandler::appendIngots;
 
@@ -125,7 +129,7 @@ public class GuiTankModule {
   @Nullable
   public FluidStack getIngreientUnderMouse(int checkX, int checkY) {
     if (isHovered(checkX, checkY) && checkY > (y + height) - getFluidHeight()) {
-      return tank.getFluid();
+      return tank.getFluidInTank(TANK_INDEX);
     }
     return null;
   }

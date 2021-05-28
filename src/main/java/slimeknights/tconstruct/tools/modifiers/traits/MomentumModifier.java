@@ -31,8 +31,8 @@ public class MomentumModifier extends Modifier {
   }
 
   @Override
-  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean wasEffective) {
-    if (wasEffective) {
+  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean canHarvest, boolean wasEffective) {
+    if (canHarvest && wasEffective) {
       // 16 blocks gets you to max, levels faster at higher levels
       int effectLevel = Math.min(31, TinkerModifiers.momentumEffect.get().getLevel(living) + 1);
       // funny formula from 1.12, guess it makes faster tools have a slightly shorter effect

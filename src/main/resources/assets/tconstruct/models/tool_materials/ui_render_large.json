@@ -1,4 +1,5 @@
 {
   "fallbacks": ["metal"],
-  "color": "a15cf8"
+  "color": "a15cf8",
+  "skipUniqueTexture": true
 }

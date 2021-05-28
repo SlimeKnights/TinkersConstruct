@@ -3,7 +3,7 @@ name: 1.16 Enhancement
 about: Suggest changes to existing features. For new feature suggestions, please bring
   to Discord.
 title: ''
-labels: Enhancement, Unreviewed, 1.16
+labels: 1.16, Enhancement, Unreviewed
 assignees: ''
 
 ---

@@ -9,10 +9,10 @@ public class DwarvenModifier extends Modifier {
   /** Baseline height where boost is 1 */
   private static final int SEA_LEVEL = 64;
   /** Max percentage bonus per level when y = 0 */
-  private static final float BOOST_AT_0 = 0.2f;
+  private static final float BOOST_AT_0 = 0.1f;
 
   public DwarvenModifier() {
-    super(0xed9f07);
+    super(0xF98648);
   }
 
   @Override

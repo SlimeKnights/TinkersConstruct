@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.melting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -32,6 +33,13 @@ public interface IMeltingRecipe extends ICustomOutputRecipe<IMeltingInventory> {
    * @return  Recipe time
    */
   int getTime(IMeltingInventory inv);
+
+  /**
+   * Adds recipe byproducts into the given inventory, used in the foundry, but not all smelteries
+   * @param inv      Input inventory
+   * @param handler  Fluid handler to fill with the byproduct
+   */
+  default void handleByproducts(IMeltingInventory inv, IFluidHandler handler) {}
 
   /* Recipe data */
 

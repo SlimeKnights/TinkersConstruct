@@ -26,7 +26,7 @@ import java.util.List;
 public class SmelteryTankRenderer {
   /** Like {@link FluidRenderer#RENDER_TYPE}, but disables cull so both sides show */
   private static final RenderType RENDER_TYPE = RenderType.makeType(
-    Util.resource("smeltery_fluid"), DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP, 7, 256, true, false,
+    Util.resource("smeltery_fluid"), DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP, 7, 256, true, true,
     State.getBuilder()
          .texture(new TextureState(PlayerContainer.LOCATION_BLOCKS_TEXTURE, false, false))
          .shadeModel(RenderType.SHADE_ENABLED)

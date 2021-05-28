@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/soulsteel_block"
+            "model": "tconstruct:block/storage/soulsteel"
         }
     }
 }

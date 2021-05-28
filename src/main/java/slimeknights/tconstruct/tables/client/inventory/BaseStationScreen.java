@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -12,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.client.screen.ElementScreen;
@@ -20,8 +22,10 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
+import slimeknights.tconstruct.tables.client.inventory.module.SideInventoryScreen;
 import slimeknights.tconstruct.tables.client.inventory.module.TinkerTabsScreen;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
+import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.network.StationTabPacket;
 
 public class BaseStationScreen<TILE extends TileEntity & IInventory, CONTAINER extends BaseStationContainer<TILE>> extends MultiModuleScreen<CONTAINER> {
@@ -111,5 +115,19 @@ public class BaseStationScreen<TILE extends TileEntity & IInventory, CONTAINER e
   }
 
   public void updateDisplay() {
+  }
+
+  protected void addChestSideInventory() {
+    SideInventoryContainer<?> sideInventoryContainer = container.getSubContainer(SideInventoryContainer.class);
+    if (sideInventoryContainer != null) {
+      // no title if missing one
+      ITextComponent sideInventoryName = StringTextComponent.EMPTY;
+      TileEntity te = sideInventoryContainer.getTile();
+      if (te instanceof INamedContainerProvider) {
+        sideInventoryName = ((INamedContainerProvider) te).getDisplayName();
+      }
+
+      this.addModule(new SideInventoryScreen<>(this, sideInventoryContainer, playerInventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.getColumns()));
+    }
   }
 }

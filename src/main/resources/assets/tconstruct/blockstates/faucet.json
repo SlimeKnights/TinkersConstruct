@@ -1,9 +1,0 @@
-{
-  "variants": {
-    "facing=down":  { "model": "tconstruct:block/faucet_up" },
-    "facing=north": { "model": "tconstruct:block/faucet", "y":   0 },
-    "facing=east":  { "model": "tconstruct:block/faucet", "y":  90 },
-    "facing=south": { "model": "tconstruct:block/faucet", "y": 180 },
-    "facing=west":  { "model": "tconstruct:block/faucet", "y": 270 }
-  }
-}

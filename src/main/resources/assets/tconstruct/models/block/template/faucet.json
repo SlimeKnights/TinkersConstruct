@@ -1,0 +1,103 @@
+{
+  "loader": "mantle:fluids",
+  "comment": "Model is facing South (as in: the block it's connected to is south of it)",
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#tex"
+  },
+  "display": {
+    "gui": {
+      "rotation": [ 30, 225, 0 ],
+      "translation": [ 3, -1, 0 ],
+      "scale": [ 0.9375, 0.9375, 0.9375 ]
+    },
+    "ground": {
+      "translation": [ 0, 3, -1 ],
+      "scale": [ 0.25, 0.25, 0.25 ]
+    },
+    "fixed": {
+      "translation": [ 0, 0, -1 ],
+      "scale": [ 0.5, 0.5, 0.5 ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [ 75, 45, 0 ],
+      "translation": [ 0, 3, 0.5 ],
+      "scale": [ 0.4, 0.4, 0.4 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 75, 45, 0 ],
+      "translation": [ 0, 3, 0.5 ],
+      "scale": [ 0.4, 0.4, 0.4 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 0, 135, 0 ],
+      "translation": [ 0, 0.5, 0 ],
+      "scale": [ 0.5, 0.5, 0.5 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, 135, 0 ],
+      "translation": [ 0, 0.5, 0 ],
+      "scale": [ 0.5, 0.5, 0.5 ]
+    }
+  },
+  "elements": [
+    {
+      "from": [  4,  4, 10 ],
+      "to":   [ 12,  6, 16 ],
+      "faces": {
+        "up":    { "uv": [  4, 10, 12, 16 ], "texture": "#tex"},
+        "down":  { "uv": [  4, 10, 12, 16 ], "texture": "#tex", "rotation": 180},
+        "north": { "uv": [  4,  9, 12, 11 ], "texture": "#tex"},
+        "east":  { "uv": [ 12, 10, 14, 16 ], "texture": "#tex", "rotation": 90},
+        "south": { "uv": [  4, 11, 12,  9 ], "texture": "#tex", "cullface": "south"},
+        "west":  { "uv": [  2, 10,  4, 16 ], "texture": "#tex", "rotation": 270 }
+      },
+      "__comment": "The bottom platform, facing south with the dark texture side"
+    },
+    {
+      "from": [ 10,  6, 10 ],
+      "to":   [ 12, 10, 16 ],
+      "faces": {
+        "up":    { "uv": [ 13, 10, 15, 16 ], "texture": "#tex"},
+        "north": { "uv": [  4,  9,  6,  5 ], "texture": "#tex"},
+        "east":  { "uv": [  8, 10, 12, 16 ], "texture": "#tex", "rotation": 90},
+        "south": { "uv": [ 10,  9, 12,  5 ], "texture": "#tex", "cullface": "south"},
+        "west":  { "uv": [  2, 10,  6, 16 ], "texture": "#tex", "rotation": 270}
+      },
+      "__comment": "Left side from front (east)"
+    },
+    {
+      "from": [  4,  6, 10 ],
+      "to":   [  6, 10, 16 ],
+      "faces": {
+        "up":    { "uv": [  1, 10,  3, 16 ], "texture": "#tex"},
+        "north": { "uv": [ 10,  9, 12,  5 ], "texture": "#tex"},
+        "east":  { "uv": [  2, 10,  6, 16 ], "texture": "#tex", "rotation": 90},
+        "south": { "uv": [  6,  9,  4,  5 ], "texture": "#tex", "cullface": "south"},
+        "west":  { "uv": [  7, 10, 11, 16 ], "texture": "#tex", "rotation": 270}
+      },
+      "__comment": "Right side from front (west)"
+    }
+  ],
+  "fluids": [
+    {
+      "from": [  6, 6, 0 ],
+      "to":   [ 10, 9, 6 ],
+      "faces": {
+        "up":    { "flowing": true },
+        "north": {}
+      }
+    },
+    {
+      "from": [  6, 0, 6 ],
+      "to":   [ 10, 9, 8 ],
+      "faces": {
+        "up":    { "flowing": true },
+        "north": { "flowing": true },
+        "east":  { "flowing": true },
+        "south": { "flowing": true },
+        "west":  { "flowing": true }
+      }
+    }
+  ]
+}

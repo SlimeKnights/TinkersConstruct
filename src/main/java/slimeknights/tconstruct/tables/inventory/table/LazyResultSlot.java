@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tables.inventory.table;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
+import slimeknights.tconstruct.tables.tileentity.table.crafting.LazyResultInventory;
 
 /**
  * Slot for display of {@link LazyResultInventory}.

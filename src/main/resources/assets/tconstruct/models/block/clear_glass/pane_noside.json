@@ -1,6 +1,6 @@
 {
   "loader": "mantle:connected",
-  "parent": "tconstruct:block/pane/noside",
+  "parent": "tconstruct:block/template/pane/noside",
   "textures": {
     "pane": "tconstruct:block/clear_glass"
   },

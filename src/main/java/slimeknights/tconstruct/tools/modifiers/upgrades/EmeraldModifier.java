@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
-import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 
-public class EmeraldModifier extends SingleUseModifier {
+public class EmeraldModifier extends SingleLevelModifier {
   public EmeraldModifier() {
     super(0x41f384);
   }

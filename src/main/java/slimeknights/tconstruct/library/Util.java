@@ -5,10 +5,8 @@
 package slimeknights.tconstruct.library;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.InputMappings;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -23,7 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import org.lwjgl.glfw.GLFW;
+import slimeknights.tconstruct.TConstruct;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -43,6 +41,10 @@ public class Util {
   public static final DecimalFormat df = new DecimalFormat("#,###,###.##", DecimalFormatSymbols.getInstance(Locale.US));
   public static final DecimalFormat dfPercent = new DecimalFormat("#%");
   public static final DecimalFormat dfMultiplier = new DecimalFormat("#.##x");
+  public static final DecimalFormat dfPercentBoost = new DecimalFormat("#%");
+  static {
+    dfPercentBoost.setPositivePrefix("+");
+  }
 
   public static Logger getLogger(String type) {
     String log = MODID;
@@ -144,23 +146,6 @@ public class Util {
     return I18n.format(I18n.format(key, pars).trim()).trim();
   }
 
-  /* Code for ctl and shift down  from TicTooltips by squeek502
-   * https://github.com/squeek502/TiC-Tooltips/blob/1.7.10/java/squeek/tictooltips/helpers/KeyHelper.java
-   */
-  public static boolean isCtrlKeyDown() {
-    // prioritize CONTROL, but allow OPTION as well on Mac (note: GuiScreen's isCtrlKeyDown only checks for the OPTION key on Mac)
-    boolean isCtrlKeyDown = InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_CONTROL) || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_CONTROL);
-    if (!isCtrlKeyDown && Minecraft.IS_RUNNING_ON_MAC) {
-      isCtrlKeyDown = InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_ALT) || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_ALT);
-    }
-
-    return isCtrlKeyDown;
-  }
-
-  public static boolean isShiftKeyDown() {
-    return InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT);
-  }
-
   /**
    * Returns the actual color value for a chatformatting
    */
@@ -254,5 +239,22 @@ public class Util {
       return 0;
     }
     return value > 0 ? 1 : -1;
+  }
+
+  /**
+   * Obtains a direction based on the difference between two positions
+   * @param pos       Tile position
+   * @param neighbor  Position of offset
+   * @return  Direction, or down if missing
+   */
+  public static Direction directionFromOffset(BlockPos pos, BlockPos neighbor) {
+    BlockPos offset = neighbor.subtract(pos);
+    for (Direction direction : Direction.values()) {
+      if (direction.getDirectionVec().equals(offset)) {
+        return direction;
+      }
+    }
+    TConstruct.log.error("Channel found no offset for position pair {} and {} on neighbor changed", pos, neighbor);
+    return Direction.DOWN;
   }
 }

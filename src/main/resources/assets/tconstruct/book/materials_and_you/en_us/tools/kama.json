@@ -2,18 +2,13 @@
   "tool": "tconstruct:kama",
   "text": [
     {
-      "text": "The Kama is a precision reaping tool, mowing down plants and shearing animals."
+      "text": "The Kama is a precision reaping tool, fantastic at mowing down plants and shearing animals."
     },
-    {
-      "text": "\n"
-    },
-    {
-      "text": "Rightclicking on crops or sugarcane harvests and replants all fully grown plants in the area."
-    }
   ],
   "properties": [
-    "Harvests crops on right click",
+    "Interact with crops to harvest them",
     "Shears blocks and animals",
-    "Effective on plants"
+    "Effective on plants",
+	"Hoes dirt"
   ]
 }

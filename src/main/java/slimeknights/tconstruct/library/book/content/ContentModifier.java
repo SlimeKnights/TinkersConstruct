@@ -30,9 +30,7 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
@@ -65,8 +63,6 @@ public class ContentModifier extends TinkerPage {
   private transient int currentRecipe = 0;
   private final transient List<BookElement> parts = new ArrayList<>();
 
-  private final transient Map<IDisplayModifierRecipe, List<List<ItemStack>>> modifierRecipeListMap = new HashMap<>();
-
   public TextData[] text;
   public String[] effects;
 
@@ -96,13 +92,6 @@ public class ContentModifier extends TinkerPage {
       System.out.println("Modifier with id " + modifierID + " not found");
       return;
     }
-
-    for (IDisplayModifierRecipe recipe : this.recipes) {
-      List<List<ItemStack>> inputs = recipe.getDisplayItems();
-
-      this.modifierRecipeListMap.put(recipe, inputs);
-    }
-
     this.addTitle(list, this.modifier.getDisplayName().getString(), true, this.modifier.getColor());
 
     // description
@@ -133,7 +122,7 @@ public class ContentModifier extends TinkerPage {
         ArrowButton.ArrowType.RIGHT, col, colHover, this, book, list));
     }
 
-    this.buildAndAddRecipeDisplay(book, list, this.modifierRecipeListMap.get(this.recipes.get(this.currentRecipe)), null);
+    this.buildAndAddRecipeDisplay(book, list, this.recipes.get(this.currentRecipe), null);
   }
 
   /**
@@ -141,16 +130,17 @@ public class ContentModifier extends TinkerPage {
    *
    * @param book   the book data
    * @param list   the list of book elements
-   * @param inputs the itemstacks to use for the recipe
+   * @param recipe recipe to display
    * @param parent the parent book screen, only used when there is multiple recipes
    */
-  public void buildAndAddRecipeDisplay(BookData book, ArrayList<BookElement> list, @Nullable List<List<ItemStack>> inputs, @Nullable BookScreen parent) {
-    if (inputs != null) {
-      ImageData img = IMG_SLOTS[inputs.size() - 3];
+  public void buildAndAddRecipeDisplay(BookData book, ArrayList<BookElement> list, @Nullable IDisplayModifierRecipe recipe, @Nullable BookScreen parent) {
+    if (recipe != null) {
+      List<List<ItemStack>> inputs = recipe.getDisplayItems();
+      ImageData img = IMG_SLOTS[inputs.size() - 2];
       int[] slotsX = SLOTS_X;
       int[] slotsY = SLOTS_Y;
 
-      if (inputs.size() == 6) {
+      if (inputs.size() == 5) {
         slotsX = SLOTS_X_4;
         slotsY = SLOTS_Y_4;
       }
@@ -177,7 +167,7 @@ public class ContentModifier extends TinkerPage {
       this.parts.add(slot);
       list.add(slot);
 
-      ItemStackList demo = getDemoTools(inputs.get(0));
+      ItemStackList demo = getDemoTools(recipe.getToolWithModifier());
 
       TinkerItemElement demoTools = new TinkerItemElement(imgX + (img.width - 16) / 2, imgY - 24, 1f, demo);
 
@@ -195,8 +185,8 @@ public class ContentModifier extends TinkerPage {
       this.parts.add(image);
       list.add(image);
 
-      for (int i = 2; i < inputs.size(); i++) {
-        TinkerItemElement part = new TinkerItemElement(imgX + slotsX[i - 2], imgY + slotsY[i - 2], 1f, inputs.get(i));
+      for (int i = 1; i < inputs.size(); i++) {
+        TinkerItemElement part = new TinkerItemElement(imgX + slotsX[i - 1], imgY + slotsY[i - 1], 1f, inputs.get(i));
 
         if (parent != null)
           part.parent = parent;
@@ -245,6 +235,6 @@ public class ContentModifier extends TinkerPage {
 
     this.parts.clear();
 
-    this.buildAndAddRecipeDisplay(book, list, this.modifierRecipeListMap.get(this.recipes.get(this.currentRecipe)), parent);
+    this.buildAndAddRecipeDisplay(book, list, this.recipes.get(this.currentRecipe), parent);
   }
 }

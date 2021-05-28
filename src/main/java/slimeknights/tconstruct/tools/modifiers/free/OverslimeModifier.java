@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.free;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -13,7 +11,6 @@ import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
 
@@ -24,7 +21,7 @@ public class OverslimeModifier extends SingleUseModifier {
   /** Key for max overslime on a tool */
   private static final ResourceLocation KEY_OVERSLIME_CAP = Util.getResource("overslime_cap");
   /** Key marking another modifier as an overslime "friend". If no friends exist, overslime causes some debuffs */
-  public static final ResourceLocation KEY_OVERSLIME_FRIEND = Util.getResource("overslime_friend");
+  private static final ResourceLocation KEY_OVERSLIME_FRIEND = Util.getResource("overslime_friend");
 
   public OverslimeModifier() {
     super(0x71DC85);
@@ -32,7 +29,7 @@ public class OverslimeModifier extends SingleUseModifier {
 
   @Override
   public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
-    return getDisplayName().deepCopy().appendString(": " + getOverslime(tool) + " / " + getCap(tool));
+    return getDisplayName().deepCopy().appendString(": " + getOverslime(tool) + " / " + getCapacity(tool));
   }
 
 
@@ -40,10 +37,8 @@ public class OverslimeModifier extends SingleUseModifier {
 
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    // add overslime cap if missing, just a consistency thing really
-    if (!volatileData.contains(KEY_OVERSLIME_CAP, NBT.TAG_ANY_NUMERIC)) {
-      volatileData.putInt(KEY_OVERSLIME_CAP, getDefaultCap(toolDefinition));
-    }
+    // base cap
+    addCapacity(volatileData, (int)(50 * toolDefinition.getBaseStatDefinition().getDurabilityModifier()));
   }
 
   @Override
@@ -55,9 +50,9 @@ public class OverslimeModifier extends SingleUseModifier {
   }
 
   @Override
-  public ValidatedResult validate(ToolStack tool, int level) {
+  public ValidatedResult validate(IModifierToolStack tool, int level) {
     // clear excess overslime
-    int cap = getCap(tool);
+    int cap = getCapacity(tool);
     if (getOverslime(tool) > cap) {
       setOverslime(tool, cap);
     }
@@ -96,7 +91,7 @@ public class OverslimeModifier extends SingleUseModifier {
   public double getDamagePercentage(IModifierToolStack tool, int level) {
     int overslime = getOverslime(tool);
     if (overslime > 0) {
-      int cap = getCap(tool);
+      int cap = getCapacity(tool);
       if (overslime > cap) {
         return 0;
       }
@@ -109,7 +104,7 @@ public class OverslimeModifier extends SingleUseModifier {
   @Override
   public Boolean showDurabilityBar(IModifierToolStack tool, int level) {
     // only show as fully repaired if overslime is full
-    return getOverslime(tool) < getCap(tool);
+    return getOverslime(tool) < getCapacity(tool);
   }
 
   @Override
@@ -122,28 +117,37 @@ public class OverslimeModifier extends SingleUseModifier {
   }
 
 
-  /* NBT helpers */
+  /* Data keys */
 
-  /**
-   * Gets the default overslime cap
-   * @param toolDefinition  Tool definiton
-   * @return  Default cap
-   */
-  private static int getDefaultCap(ToolDefinition toolDefinition) {
-    // cap is 10% of base durability
-    return (int)(50 * toolDefinition.getBaseStatDefinition().getDurabilityModifier());
+  /** Gets the key for overslime */
+  public ResourceLocation getOverslimeKey() {
+    return KEY_OVERSLIME;
   }
+
+  /** Gets the key for overslime capacity */
+  public ResourceLocation getCapacityKey() {
+    return KEY_OVERSLIME_CAP;
+  }
+
+  /** Gets the key for overslime friends */
+  public ResourceLocation getFriendKey() {
+    return KEY_OVERSLIME_FRIEND;
+  }
+
+  /** Sets the friend key in this tool */
+  public void setFriend(ModDataNBT volatileData) {
+    volatileData.putBoolean(getFriendKey(), true);
+  }
+
+  /* Capacity helpers */
 
   /**
    * Gets the current overslime cap
    * @param volatileData  Volatile data instance
    * @return  Current cap
    */
-  public static int getCap(ToolDefinition toolDefinition, IModDataReadOnly volatileData) {
-    if (volatileData.contains(KEY_OVERSLIME_CAP, NBT.TAG_ANY_NUMERIC)) {
-      return volatileData.getInt(KEY_OVERSLIME_CAP);
-    }
-    return getDefaultCap(toolDefinition);
+  public int getCapacity(IModDataReadOnly volatileData) {
+    return volatileData.getInt(getCapacityKey());
   }
 
   /**
@@ -151,17 +155,17 @@ public class OverslimeModifier extends SingleUseModifier {
    * @param tool  Tool instance
    * @return  Overslime cap
    */
-  public static int getCap(IModifierToolStack tool) {
-    return getCap(tool.getDefinition(), tool.getVolatileData());
+  public int getCapacity(IModifierToolStack tool) {
+    return getCapacity(tool.getVolatileData());
   }
 
   /**
    * Sets the given amount to the cap, if you are going to use this method, your modifier should be high priority to prevent blocking others
-   * In general, {@link #addCap(ToolDefinition, ModDataNBT, int)} or {@link #multiplyCap(ToolDefinition, ModDataNBT, float)} will serve you better
+   * In general, {@link #addCapacity(ModDataNBT, int)} or {@link #multiplyCapacity(ModDataNBT, float)} will serve you better
    * @param volatileData  Volatile data instance
    * @param amount        Amount to set
    */
-  public static void setCap(ModDataNBT volatileData, int amount) {
+  public void setCapacity(ModDataNBT volatileData, int amount) {
     volatileData.putInt(KEY_OVERSLIME_CAP, amount);
   }
 
@@ -170,8 +174,8 @@ public class OverslimeModifier extends SingleUseModifier {
    * @param volatileData  Volatile data instance
    * @param amount        Amount to add
    */
-  public static void addCap(ToolDefinition toolDefinition, ModDataNBT volatileData, int amount) {
-    setCap(volatileData, getCap(toolDefinition, volatileData) + amount);
+  public void addCapacity(ModDataNBT volatileData, int amount) {
+    setCapacity(volatileData, getCapacity(volatileData) + amount);
   }
 
   /**
@@ -179,37 +183,44 @@ public class OverslimeModifier extends SingleUseModifier {
    * @param volatileData  Volatile data instance
    * @param factor        Multiplication factor
    */
-  public static void multiplyCap(ToolDefinition toolDefinition, ModDataNBT volatileData, float factor) {
-    volatileData.putInt(KEY_OVERSLIME_CAP, (int)(getCap(toolDefinition, volatileData) * factor));
+  public void multiplyCapacity(ModDataNBT volatileData, float factor) {
+    volatileData.putInt(KEY_OVERSLIME_CAP, (int)(getCapacity(volatileData) * factor));
   }
+
+
+  /* Overslime helpers */
 
   /**
    * Gets the current overslime on the tool
    * @param tool  Tool stack instance
    * @return  Default cap
    */
-  public static int getOverslime(IModifierToolStack tool) {
-    return tool.getPersistentData().getInt(KEY_OVERSLIME);
+  public int getOverslime(IModifierToolStack tool) {
+    return tool.getPersistentData().getInt(getOverslimeKey());
+  }
+
+  /**
+   * Sets the overslime, bypassing the capacity
+   * @param persistentData  Persistent data
+   * @param amount          Amount to set
+   * @deprecated For display use only, in general use {@link #setOverslime(IModifierToolStack, int)}
+   */
+  @Deprecated
+  public void setOverslime(ModDataNBT persistentData, int amount) {
+    persistentData.putInt(getOverslimeKey(), Math.max(amount, 0));
   }
 
   /**
    * Sets the overslime on a tool
    */
-  public static void setOverslime(ToolDefinition toolDefinition, ModDataNBT persistentData, IModDataReadOnly volatileData, int amount) {
-    persistentData.putInt(KEY_OVERSLIME, MathHelper.clamp(amount, 0, getCap(toolDefinition, volatileData)));
-  }
-
-  /**
-   * Sets the overslime on a tool
-   */
-  public static void setOverslime(IModifierToolStack tool, int amount) {
-    setOverslime(tool.getDefinition(), tool.getPersistentData(), tool.getVolatileData(), amount);
+  public void setOverslime(IModifierToolStack tool, int amount) {
+    setOverslime(tool.getPersistentData(), Math.min(amount, getCapacity(tool)));
   }
 
   /**
    * Adds to the overslime on a tool
    */
-  public static void addOverslime(IModifierToolStack tool, int amount) {
+  public void addOverslime(IModifierToolStack tool, int amount) {
     setOverslime(tool, getOverslime(tool) + amount);
   }
 }

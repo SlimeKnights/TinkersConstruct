@@ -27,7 +27,5 @@ public class TestToolCore extends ToolCore {
   }
 
   @Override
-  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType) {
-
-  }
+  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType, boolean isAdvanced) {}
 }

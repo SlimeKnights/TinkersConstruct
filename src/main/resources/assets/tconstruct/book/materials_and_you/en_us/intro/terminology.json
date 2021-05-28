@@ -1,0 +1,26 @@
+{
+  "title":"Terminology",
+  "text": [
+    {
+      "text": "§lModifiers§r - Modifiers are traits, abilities, and upgrades. Anything that happens to a tool beyond what you'd expect. Modifiers can be thought of as enchantments."
+    },
+	{
+      "text": "\n"
+    },
+	{
+      "text": "§lTraits§r - Inborne abilities related to the material of the tool. They are brought out with superior quality, sympathetic magic, or by running enough energy into the tool that it starts exhibiting unusual properties."
+    },
+	{
+      "text": "\n"
+    },
+	{
+      "text": "§lUpgrades§r - Standard improvements to a tool. Usually done by applying an item and 'rubbing off' some of its magic qualities, like redstone making tools faster."
+    },
+	{
+      "text": "\n"
+    },
+	{
+      "text": "§lSlotless§r - Either basic modifiers that don't require slots or advanced modifiers that have significant tradeoffs."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.utils;
 
-import com.google.common.collect.Lists;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.Color;
@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -27,18 +28,13 @@ public class TooltipBuilder {
   private final static Color ABILITY_COLOR = Color.fromInt(0xFFB8A0FF);
   private final static Color ATTACK_SPEED_COLOR = Color.fromInt(0xFF8547CC);
 
-  /** Final list of tooltips */
-  private final List<ITextComponent> tips = Lists.newLinkedList();
   private final ToolStack tool;
+  @Getter
+  private final List<ITextComponent> tooltips;
 
-
-  /**
-   * Gets the tooltips from the builder
-   *
-   * @return the list of tooltips
-   */
-  public List<ITextComponent> getTooltips() {
-    return this.tips;
+  public TooltipBuilder(ToolStack tool) {
+    this.tool = tool;
+    this.tooltips = new ArrayList<>();
   }
 
   /**
@@ -48,7 +44,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder add(ITextComponent textComponent) {
-    this.tips.add(textComponent);
+    this.tooltips.add(textComponent);
 
     return this;
   }
@@ -59,7 +55,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addMiningSpeed() {
-    this.tips.add(HeadMaterialStats.formatMiningSpeed(tool.getStats().getMiningSpeed()));
+    this.tooltips.add(HeadMaterialStats.formatMiningSpeed(tool.getStats().getMiningSpeed()));
     return this;
   }
 
@@ -69,7 +65,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addHarvestLevel() {
-    this.tips.add(HeadMaterialStats.formatHarvestLevel(tool.getStats().getHarvestLevel()));
+    this.tooltips.add(HeadMaterialStats.formatHarvestLevel(tool.getStats().getHarvestLevel()));
     return this;
   }
 
@@ -80,7 +76,7 @@ public class TooltipBuilder {
    */
   public TooltipBuilder addDurability() {
     // never show broken text in this context
-    this.tips.add(HeadMaterialStats.formatDurability(tool.getCurrentDurability(), tool.getStats().getDurability(), false));
+    this.tooltips.add(HeadMaterialStats.formatDurability(tool.getCurrentDurability(), tool.getStats().getDurability(), false));
     return this;
   }
 
@@ -91,7 +87,7 @@ public class TooltipBuilder {
    */
   public TooltipBuilder addAttackDamage() {
     float attack = ToolAttackUtil.getActualDamage(tool, Minecraft.getInstance().player);
-    this.tips.add(HeadMaterialStats.formatAttack(attack));
+    this.tooltips.add(HeadMaterialStats.formatAttack(attack));
     return this;
   }
 
@@ -101,7 +97,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addAttackSpeed() {
-    this.tips.add(BaseMaterialStats.formatNumber(KEY_ATTACK_SPEED, ATTACK_SPEED_COLOR, tool.getStats().getAttackSpeed()));
+    this.tooltips.add(BaseMaterialStats.formatNumber(KEY_ATTACK_SPEED, ATTACK_SPEED_COLOR, tool.getStats().getAttackSpeed()));
     return this;
   }
 
@@ -113,7 +109,7 @@ public class TooltipBuilder {
   public TooltipBuilder addFreeUpgrades() {
     int modifiers = tool.getFreeUpgrades();
     if (modifiers > 0) {
-      this.tips.add(BaseMaterialStats.formatNumber(KEY_FREE_UPGRADES, UPGRADE_COLOR, modifiers));
+      this.tooltips.add(BaseMaterialStats.formatNumber(KEY_FREE_UPGRADES, UPGRADE_COLOR, modifiers));
     }
 
     return this;
@@ -127,7 +123,7 @@ public class TooltipBuilder {
   public TooltipBuilder addFreeAbilities() {
     int abilities = tool.getFreeAbilities();
     if (abilities > 0) {
-      this.tips.add(BaseMaterialStats.formatNumber(KEY_FREE_ABILITIES, ABILITY_COLOR, abilities));
+      this.tooltips.add(BaseMaterialStats.formatNumber(KEY_FREE_ABILITIES, ABILITY_COLOR, abilities));
     }
 
     return this;
@@ -141,7 +137,7 @@ public class TooltipBuilder {
   public TooltipBuilder addModifierInfo(boolean advanced) {
     for (ModifierEntry entry : tool.getModifierList()) {
       if (entry.getModifier().shouldDisplay(advanced)) {
-        this.tips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
+        this.tooltips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
       }
     }
     return this;
@@ -154,7 +150,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addDrawSpeed() {
-    this.tips.add(new StringTextComponent("TODO: implement getting draw speed"));
+    this.tooltips.add(new StringTextComponent("TODO: implement getting draw speed"));
 
     //todo implement code below and remove line above.
     /*float speed = ProjectileLauncherNBT.from(stack).drawSpeed;
@@ -173,7 +169,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addRange() {
-    this.tips.add(new StringTextComponent("TODO: implement getting range"));
+    this.tooltips.add(new StringTextComponent("TODO: implement getting range"));
 
     //todo implement code below and remove line above.
     //this.tips.add(BowMaterialStats.formatRange(ProjectileLauncherNBT.from(stack).range));

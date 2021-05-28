@@ -16,10 +16,13 @@ import java.util.stream.Stream;
 /** Common interface for modifier recipes that can show in JEI */
 public interface IDisplayModifierRecipe {
   /**
-   * Gets a list of ingredients to display in JEI. First entry is the tool with the modifier, second is the tool without the modifier, then next 1-5 are items to add the modifier
+   * Gets a list of ingredients to display in JEI. First entry is the tool without the modifier, then next 1-5 are items to add the modifier
    * @return  Display item list
    */
   List<List<ItemStack>> getDisplayItems();
+
+  /** Gets the result tool with this modifier added */
+  List<ItemStack> getToolWithModifier();
 
   /** Gets the modifier output of this recipe */
   ModifierEntry getDisplayResult();

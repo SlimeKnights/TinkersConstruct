@@ -8,12 +8,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants.NBT;
+import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
+import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -147,6 +149,18 @@ public class ToolStack implements IModifierToolStack {
     tool.stats = this.stats;
     // skipping mod data as those are mutable, so not safe to share the same instance
     return tool;
+  }
+
+  /** Clears all cached data, used with capabilities to prevent cached data from being out of sync due to external changes */
+  public void clearCache() {
+    this.damage = -1;
+    this.broken = null;
+    this.materials = null;
+    this.upgrades = null;
+    this.modifiers = null;
+    this.stats = null;
+    this.volatileModData = null;
+    this.persistentModData = null;
   }
 
   /**
@@ -388,6 +402,21 @@ public class ToolStack implements IModifierToolStack {
     rebuildStats();
   }
 
+  /**
+   * Adds a single modifier to this tool
+   * @param modifier  Modifier to add
+   * @param level     Level to add
+   */
+  public void removeModifier(Modifier modifier, int level) {
+    if (level <= 0) {
+      throw new IllegalArgumentException("Invalid level, must be above 0");
+    }
+    ModifierNBT newModifiers = getUpgrades().withoutModifier(modifier, level);
+    this.upgrades = newModifiers;
+    nbt.put(TAG_UPGRADES, newModifiers.serializeToNBT());
+    rebuildStats();
+  }
+
   @Override
   public ModifierNBT getModifiers() {
     if (modifiers == null) {
@@ -489,8 +518,10 @@ public class ToolStack implements IModifierToolStack {
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();
     modBuilder.add(getUpgrades());
     modBuilder.add(getDefinition().getModifiers());
-    for (IMaterial material : materials) {
-      modBuilder.add(material.getTraits());
+    List<IToolPart> parts = getDefinition().getRequiredComponents();
+    int max = Math.min(materials.size(), parts.size());
+    for (int i = 0; i < max; i++) {
+      modBuilder.add(MaterialRegistry.getInstance().getTraits(materials.get(i).getIdentifier(), parts.get(i).getStatType()));
     }
     ModifierNBT allMods = modBuilder.build();
     setModifiers(allMods);

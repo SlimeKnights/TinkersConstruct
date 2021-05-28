@@ -3,13 +3,14 @@
   "values": [
     "tconstruct:pickaxe_head",
     "tconstruct:hammer_head",
-    "tconstruct:axe_head",
-    "tconstruct:kama_head",
-    "tconstruct:sword_blade",
+    "tconstruct:small_axe_head",
+    "tconstruct:broad_axe_head",
+    "tconstruct:small_blade",
     "tconstruct:broad_blade",
     "tconstruct:tool_binding",
     "tconstruct:large_plate",
     "tconstruct:tool_handle",
-    "tconstruct:tough_handle"
+    "tconstruct:tough_handle",
+    "tconstruct:repair_kit"
   ]
 }

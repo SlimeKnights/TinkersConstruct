@@ -9,6 +9,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.registration.WoodBlockObject;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -93,5 +94,86 @@ public class WorldRecipeProvider extends BaseRecipeProvider {
                           .addIngredient(Tags.Items.SLIMEBALLS)
                           .addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER))
                           .build(consumer, location("common/slime/magma_cream"));
+
+    // wood
+    String woodFolder = "world/wood/";
+    registerWoodRecipes(consumer, TinkerWorld.greenheart,  woodFolder + "greenheart/");
+    registerWoodRecipes(consumer, TinkerWorld.skyroot,     woodFolder + "skyroot/");
+    registerWoodRecipes(consumer, TinkerWorld.bloodshroom, woodFolder + "bloodshroom/");
+  }
+
+  /**
+   * Registers recipes relevant to wood
+   * @param consumer  Recipe consumer
+   * @param wood      Wood types
+   * @param folder    Wood folder
+   */
+  private void registerWoodRecipes(Consumer<IFinishedRecipe> consumer, WoodBlockObject wood, String folder) {
+    // planks
+    ShapelessRecipeBuilder.shapelessRecipe(wood, 4).addIngredient(wood.getLogItemTag())
+                          .setGroup("planks")
+                          .addCriterion("has_log", hasItem(wood.getLogItemTag()))
+                          .build(consumer, location(folder + "planks"));
+    ShapedRecipeBuilder.shapedRecipe(wood.getSlab(), 6)
+                       .key('#', wood)
+                       .patternLine("###")
+                       .setGroup("wooden_slab")
+                       .addCriterion("has_planks", hasItem(wood))
+                       .build(consumer, location(folder + "slab"));
+    ShapedRecipeBuilder.shapedRecipe(wood.getStairs(), 4)
+                       .key('#', wood)
+                       .patternLine("#  ").patternLine("## ").patternLine("###")
+                       .setGroup("wooden_stairs").addCriterion("has_planks", hasItem(wood))
+                       .build(consumer, location(folder + "stairs"));
+    // log to stripped
+    ShapedRecipeBuilder.shapedRecipe(wood.getWood(), 3)
+                       .key('#', wood.getLog())
+                       .patternLine("##").patternLine("##")
+                       .setGroup("bark")
+                       .addCriterion("has_log", hasItem(wood.getLog()))
+                       .build(consumer, location(folder + "log_to_wood"));
+    ShapedRecipeBuilder.shapedRecipe(wood.getStrippedWood(), 3)
+                       .key('#', wood.getStrippedLog())
+                       .patternLine("##").patternLine("##")
+                       .setGroup("bark")
+                       .addCriterion("has_log", hasItem(wood.getStrippedLog()))
+                       .build(consumer, location(folder + "stripped_log_to_wood"));
+    // doors
+    ShapedRecipeBuilder.shapedRecipe(wood.getFence(), 3)
+                       .key('#', Tags.Items.RODS_WOODEN).key('W', wood)
+                       .patternLine("W#W").patternLine("W#W")
+                       .setGroup("wooden_fence")
+                       .addCriterion("has_planks", hasItem(wood))
+                       .build(consumer, location(folder + "fence"));
+    ShapedRecipeBuilder.shapedRecipe(wood.getFenceGate())
+                       .key('#', Items.STICK).key('W', wood)
+                       .patternLine("#W#").patternLine("#W#")
+                       .setGroup("wooden_fence_gate")
+                       .addCriterion("has_planks", hasItem(wood))
+                       .build(consumer, location(folder + "fence_gate"));
+    ShapedRecipeBuilder.shapedRecipe(wood.getDoor(), 3)
+                       .key('#', wood)
+                       .patternLine("##").patternLine("##").patternLine("##")
+                       .setGroup("wooden_door")
+                       .addCriterion("has_planks", hasItem(wood))
+                       .build(consumer, location(folder + "door"));
+    ShapedRecipeBuilder.shapedRecipe(wood.getTrapdoor(), 2)
+                       .key('#', wood)
+                       .patternLine("###").patternLine("###")
+                       .setGroup("wooden_trapdoor")
+                       .addCriterion("has_planks", hasItem(wood))
+                       .build(consumer, location(folder + "trapdoor"));
+    // buttons
+    ShapelessRecipeBuilder.shapelessRecipe(wood.getButton())
+                          .addIngredient(wood)
+                          .setGroup("wooden_button")
+                          .addCriterion("has_planks", hasItem(wood))
+                          .build(consumer, location(folder + "button"));
+    ShapedRecipeBuilder.shapedRecipe(wood.getPressurePlate())
+                       .key('#', wood)
+                       .patternLine("##")
+                       .setGroup("wooden_pressure_plate")
+                       .addCriterion("has_planks", hasItem(wood))
+                       .build(consumer, location(folder + "pressure_plate"));
   }
 }

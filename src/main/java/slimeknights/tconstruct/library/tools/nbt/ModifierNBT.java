@@ -85,6 +85,34 @@ public class ModifierNBT {
     return new ModifierNBT(builder.build());
   }
 
+  /**
+   * Creates a copy of this NBT without the given modifier
+   * @param modifier  Modifier to remove
+   * @param level     Level to remove
+   * @return  ModifierNBT without the given modifier
+   */
+  public ModifierNBT withoutModifier(Modifier modifier, int level) {
+    if (level <= 0) {
+      throw new IllegalArgumentException("Invalid level, must be above zero");
+    }
+
+    // rather than using the builder, just use a raw list builder
+    // easier for adding a single entry, and the cases that call this method don't care about sorting
+    ImmutableList.Builder<ModifierEntry> builder = ImmutableList.builder();
+    for (ModifierEntry entry : this.modifiers) {
+      if (entry.getModifier() == modifier && level > 0) {
+        if (entry.getLevel() > level) {
+          builder.add(new ModifierEntry(modifier, entry.getLevel() - level));
+        } else {
+          level -= entry.getLevel();
+        }
+      } else {
+        builder.add(entry);
+      }
+    }
+    return new ModifierNBT(builder.build());
+  }
+
   /** Re-adds the modifier list from NBT */
   public static ModifierNBT readFromNBT(@Nullable INBT inbt) {
     if (inbt == null || inbt.getId() != NBT.TAG_LIST) {

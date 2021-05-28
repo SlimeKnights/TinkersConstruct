@@ -90,7 +90,7 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     this.itemHandler = new SidedInvWrapper(this, Direction.DOWN);
     this.castingType = castingType;
     this.moldingType = moldingType;
-    this.castingInventory = new TileCastingWrapper(this, Fluids.EMPTY);
+    this.castingInventory = new TileCastingWrapper(this);
     this.moldingInventory = new MoldingInventoryWrapper(itemHandler, INPUT);
   }
 
@@ -304,15 +304,44 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
     if (this.currentRecipe != null || this.recipeName != null) {
       return 0;
     }
+
+    boolean hasInput = !getStackInSlot(INPUT).isEmpty();
+    boolean hasOutput = !getStackInSlot(OUTPUT).isEmpty();
+
+    // no space for output, done
+    if (hasInput && hasOutput) {
+      return 0;
+    }
+
     this.castingInventory.setFluid(fluid);
-    ICastingRecipe castingRecipe = findCastingRecipe();
-    if (castingRecipe != null) {
-      if (action == IFluidHandler.FluidAction.EXECUTE) {
-        this.currentRecipe = castingRecipe;
-        this.recipeName = null;
-        this.lastOutput = null;
+    // normal casting requires an empty output
+    if (!hasOutput) {
+      castingInventory.useInput();
+      ICastingRecipe castingRecipe = findCastingRecipe();
+      if (castingRecipe != null) {
+        if (action == FluidAction.EXECUTE) {
+          this.currentRecipe = castingRecipe;
+          this.recipeName = null;
+          this.lastOutput = null;
+        }
+        return castingRecipe.getFluidAmount(castingInventory);
       }
-      return castingRecipe.getFluidAmount(castingInventory);
+    } else {
+      // if we have an output and no input, try using that as the input
+      castingInventory.useOutput();
+      ICastingRecipe castingRecipe = findCastingRecipe();
+      if (castingRecipe != null) {
+        if (action == FluidAction.EXECUTE) {
+          this.currentRecipe = castingRecipe;
+          this.recipeName = null;
+          this.lastOutput = null;
+          // move output to input slot, prevents removing and ensures item is reduced properly
+          setInventorySlotContents(INPUT, getStackInSlot(OUTPUT));
+          setInventorySlotContents(OUTPUT, ItemStack.EMPTY);
+          castingInventory.useInput();
+        }
+        return castingRecipe.getFluidAmount(castingInventory);
+      }
     }
     return 0;
   }
@@ -410,11 +439,16 @@ public abstract class CastingTileEntity extends TableTileEntity implements ITick
   }
 
   @Override
+  public void writeSynced(CompoundNBT tags) {
+    super.writeSynced(tags);
+    tags.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
+    tags.putInt(TAG_TIMER, timer);
+  }
+
+  @Override
   @Nonnull
   public CompoundNBT write(CompoundNBT tags) {
     tags = super.write(tags);
-    tags.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
-    tags.putInt(TAG_TIMER, timer);
     if (currentRecipe != null) {
       tags.putString(TAG_RECIPE, currentRecipe.getId().toString());
     } else if (recipeName != null) {

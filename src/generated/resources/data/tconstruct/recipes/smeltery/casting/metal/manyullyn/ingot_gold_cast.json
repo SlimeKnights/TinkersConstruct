@@ -7,6 +7,8 @@
     "name": "tconstruct:molten_manyullyn",
     "amount": 144
   },
-  "result": "tconstruct:manyullyn_ingot",
+  "result": {
+    "tag": "forge:ingots/manyullyn"
+  },
   "cooling_time": 72
 }

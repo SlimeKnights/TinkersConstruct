@@ -48,39 +48,7 @@ public class ToolAttackUtil {
         damage = (float) instance.getValue();
       }
     }
-    damage += stack.getStats().getAttackDamage();
-    return calculateCutoffDamage(damage, stack.getDefinition().getBaseStatDefinition().getDamageCutoff());
-  }
-
-  /**
-   * Used to calculate the damage to start doing diminishing returns
-   *
-   * @param damageIn the current damage the tool does
-   * @param cutoffDamage the fixed damage value for the diminishing effects to kick in
-   * @return the damage to use from the cutoff
-   */
-  public static float calculateCutoffDamage(float damageIn, float cutoffDamage) {
-    float percent = 1f;
-    float oldDamage = damageIn;
-
-    damageIn = 0f;
-    while (oldDamage > cutoffDamage) {
-      damageIn += percent * cutoffDamage;
-      // safety for ridiculous values
-      if (percent > 0.001f) {
-        percent *= 0.9f;
-      }
-      else {
-        damageIn += percent * cutoffDamage * ((oldDamage / cutoffDamage) - 1f);
-        return damageIn;
-      }
-
-      oldDamage -= cutoffDamage;
-    }
-
-    damageIn += percent * oldDamage;
-
-    return damageIn;
+    return damage + stack.getStats().getAttackDamage();
   }
 
   /**
@@ -151,24 +119,22 @@ public class ToolAttackUtil {
 
     // missing: enchantment modifiers, we handle ourselves
 
-    // calculate if it's a critical hit
-    // that is, in the air, not blind, targeting living, and not sprinting
-    boolean isCritical = !isExtraAttack && attackerLiving.fallDistance > 0.0F && !attackerLiving.isOnGround() && !attackerLiving.isOnLadder()
-                         && !attackerLiving.isInWater() && !attackerLiving.isPotionActive(Effects.BLINDNESS)
-                         && !attackerLiving.isPassenger() && targetLiving != null && !attackerLiving.isSprinting();
-
     // determine cooldown
     float cooldown = 1.0f;
     if (applyCoolDown && attackerPlayer != null) {
       cooldown = attackerPlayer.getCooledAttackStrength(0.5f);
       // cooldown reset by player controller
     }
-
-    // if sprinting, deal bonus knockback
     boolean fullyCharged = cooldown > 0.9f;
 
-    // calculate actual damage
 
+    // calculate if it's a critical hit
+    // that is, in the air, not blind, targeting living, and not sprinting
+    boolean isCritical = !isExtraAttack && fullyCharged && attackerLiving.fallDistance > 0.0F && !attackerLiving.isOnGround() && !attackerLiving.isOnLadder()
+                         && !attackerLiving.isInWater() && !attackerLiving.isPotionActive(Effects.BLINDNESS)
+                         && !attackerLiving.isPassenger() && targetLiving != null && !attackerLiving.isSprinting();
+
+    // calculate actual damage
     // boost damage from traits
     float baseDamage = damage;
     List<ModifierEntry> modifiers = tool.getModifierList();
@@ -183,6 +149,7 @@ public class ToolAttackUtil {
       return !isExtraAttack;
     }
 
+    // if sprinting, deal bonus knockback
     float knockback = 0;
     SoundEvent sound;
     if (attackerLiving.isSprinting() && fullyCharged) {
@@ -192,10 +159,6 @@ public class ToolAttackUtil {
       sound = SoundEvents.ENTITY_PLAYER_ATTACK_STRONG;
     } else {
       sound = SoundEvents.ENTITY_PLAYER_ATTACK_WEAK;
-    }
-    // apply extra bonus when fully charged
-    if (fullyCharged) {
-      knockback += tool.getDefinition().getBaseStatDefinition().getKnockbackBonus();
     }
 
     // knockback moved lower
@@ -220,7 +183,6 @@ public class ToolAttackUtil {
 
     // apply cutoff and cooldown, store if damage was above base for magic particles
     boolean isMagic = damage > baseDamage;
-    damage = calculateCutoffDamage(damage, weapon.getDamageCutoff());
     if (cooldown < 1) {
       damage *= (0.2f + cooldown * cooldown * 0.8f);
     }
@@ -325,7 +287,7 @@ public class ToolAttackUtil {
     int durabilityLost = 1;
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damageDealt, isCritical, fullyCharged);
+        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damageDealt, isCritical, cooldown);
       }
     }
 
@@ -342,12 +304,10 @@ public class ToolAttackUtil {
     }
 
     // damage the tool
-    if (attackerPlayer == null || !attackerPlayer.isCreative()) {
-      if (!TinkerTags.Items.COMBAT.contains(tool.getItem())) {
-        durabilityLost *= 2;
-      }
-      ToolDamageUtil.damageAnimated(tool, durabilityLost, attackerLiving);
+    if (!TinkerTags.Items.MELEE_PRIMARY.contains(tool.getItem())) {
+      durabilityLost *= 2;
     }
+    ToolDamageUtil.damageAnimated(tool, durabilityLost, attackerLiving);
 
     return true;
   }

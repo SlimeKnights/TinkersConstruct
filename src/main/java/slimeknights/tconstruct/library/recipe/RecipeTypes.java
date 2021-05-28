@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.BeheadingRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -35,7 +35,7 @@ public interface RecipeTypes {
   IRecipeType<AlloyRecipe> ALLOYING = register("alloying");
 
   // modifiers
-  IRecipeType<BeheadingRecipe> BEHEADING = register("beheading");
+  IRecipeType<SeveringRecipe> SEVERING = register("severing");
 
   /**
    * Registers a new recipe type, prefixing with the mod ID

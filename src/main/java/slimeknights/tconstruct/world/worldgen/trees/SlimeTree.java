@@ -10,8 +10,8 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.server.ServerWorld;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
 import javax.annotation.Nullable;
@@ -19,9 +19,9 @@ import java.util.Random;
 
 public class SlimeTree extends Tree {
 
-  private final SlimeGrassBlock.FoliageType foliageType;
+  private final SlimeType foliageType;
 
-  public SlimeTree(SlimeGrassBlock.FoliageType foliageType) {
+  public SlimeTree(SlimeType foliageType) {
     this.foliageType = foliageType;
   }
 
@@ -38,6 +38,8 @@ public class SlimeTree extends Tree {
   @Nullable
   public ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random randomIn, boolean largeHive) {
     switch (this.foliageType) {
+      case EARTH:
+        return TinkerStructures.EARTH_SLIME_TREE;
       case SKY:
         return TinkerStructures.SKY_SLIME_TREE;
       case ENDER:

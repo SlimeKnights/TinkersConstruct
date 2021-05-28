@@ -2,18 +2,16 @@
   "modifier_id": "tconstruct:haste",
   "text": [
     {
-      "text": "Adding redstone to a tool seems to increase its speed. Redstones mining speed effect is more potent on slower tools."
+      "text": "Adding redstone to a tool seems to increase its speed. The mining speed boost is more potent on slower tools."
     },
     {
-      "text": "\n"
-    },
-    {
-      "text": "Redstone. Crazy stuff, amiright?"
+      "text": "Redstone. Crazy stuff, amiright?",
+      "paragraph": true
     }
   ],
   "effects": [
-    "Each redstone dust increases mining speed by a small amount",
-    "Increases attack speed",
-    "Multiple levels"
+    "Increases mining and attack speed",
+    "Multiple levels, each level increases speed a bit more",
+    "Requires 1 Upgrade Slot per level"
   ]
 }

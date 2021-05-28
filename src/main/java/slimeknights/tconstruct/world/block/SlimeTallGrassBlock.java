@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.world.block;
 
 import com.google.common.collect.Lists;
+import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BushBlock;
@@ -18,8 +19,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.PlantType;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,10 +32,12 @@ public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
 
   private static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
-  private final SlimeGrassBlock.FoliageType foliageType;
+  @Getter
+  private final SlimeType foliageType;
+  @Getter
   private final SlimePlantType plantType;
 
-  public SlimeTallGrassBlock(Properties properties, SlimeGrassBlock.FoliageType foliageType, SlimePlantType plantType) {
+  public SlimeTallGrassBlock(Properties properties, SlimeType foliageType, SlimePlantType plantType) {
     super(properties);
     this.foliageType = foliageType;
     this.plantType = plantType;
@@ -75,17 +78,9 @@ public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
     return TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.earthSlimeGrass.contains(block) || TinkerWorld.skySlimeGrass.contains(block) || TinkerWorld.enderSlimeGrass.contains(block) || TinkerWorld.ichorSlimeGrass.contains(block);
   }
 
-  public SlimeGrassBlock.FoliageType getFoliageType() {
-    return this.foliageType;
-  }
-
-  public SlimePlantType getPlantType() {
-    return this.plantType;
-  }
-
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.foliageType != FoliageType.ICHOR) {
+    if (this.foliageType != SlimeType.ICHOR) {
       super.fillItemGroup(group, items);
     }
   }

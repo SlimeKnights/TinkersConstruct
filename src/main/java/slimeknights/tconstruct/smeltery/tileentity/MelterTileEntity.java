@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -27,7 +28,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
@@ -53,8 +54,10 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   /** Capability holder for the tank */
   private final LazyOptional<IFluidHandler> tankHolder = LazyOptional.of(() -> tank);
   /** Tank data for the model */
+  @Getter
   private final IModelData modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   /** Last comparator strength to reduce block updates */
+  @Getter @Setter
   private int lastStrength = -1;
 
   /** Internal tick counter */
@@ -110,21 +113,6 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
     this.inventoryHolder.invalidate();
   }
 
-  @Override
-  public int getLastStrength() {
-    return lastStrength;
-  }
-
-  @Override
-  public void setLastStrength(int strength) {
-    lastStrength = strength;
-  }
-
-  @Override
-  public IModelData getModelData() {
-    return modelData;
-  }
-
   /*
    * Melting
    */
@@ -161,7 +149,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
             // update the heater below
             BlockPos down = pos.down();
             BlockState downState = world.getBlockState(down);
-            if (TinkerTags.Blocks.MELTER_TANKS.contains(downState.getBlock()) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.get(ControllerBlock.ACTIVE) != hasFuel) {
+            if (TinkerTags.Blocks.FUEL_TANKS.contains(downState.getBlock()) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.get(ControllerBlock.ACTIVE) != hasFuel) {
               world.setBlockState(down, downState.with(ControllerBlock.ACTIVE, hasFuel));
             }
           }
@@ -184,9 +172,14 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
    */
 
   @Override
+  protected boolean shouldSyncOnUpdate() {
+    return true;
+  }
+
+  @Override
   public void read(BlockState state, CompoundNBT tag) {
     super.read(state, tag);
-    tank.readFromNBT(tag.getCompound(Tags.TANK));
+    tank.readFromNBT(tag.getCompound(NBTTags.TANK));
     fuelModule.readFromNBT(tag);
     if (tag.contains(TAG_INVENTORY, NBT.TAG_COMPOUND)) {
       meltingInventory.readFromNBT(tag.getCompound(TAG_INVENTORY));
@@ -195,7 +188,8 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
 
   @Override
   public void writeSynced(CompoundNBT tag) {
-    tag.put(Tags.TANK, tank.writeToNBT(new CompoundNBT()));
+    super.writeSynced(tag);
+    tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundNBT()));
     tag.put(TAG_INVENTORY, meltingInventory.writeToNBT());
   }
 

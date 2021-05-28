@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
 public class SturdyModifier extends Modifier {
   public SturdyModifier() {
-    super(0xa7a7a7);
+    super(0xD8D8D8);
   }
 
   @Override

@@ -50,22 +50,10 @@ public final class ToolBaseStatDefinition {
   private final float damageModifier;
 
   /**
-   * A fixed damage value where the calculations start to apply dimishing returns.
-   * Basically if you'd hit more than that damage with this tool, the damage is gradually reduced depending on how much the cutoff is exceeded.
-   * Helps keeping power creep in check.
-   * The default is 15, in general this should be sufficient and only needs increasing if it's a stronger weapon.
-   * A diamond sword with sharpness V has 15 damage
-   */
-  private final float damageCutoff;
-
-  /**
    * Allows you set the base attack speed, can be changed by modifiers. Equivalent to the vanilla attack speed.
    * 4 is equal to any standard item. Value has to be greater than zero.
    */
   private final float attackSpeed;
-
-  /** Knockback bonus to apply when fully charged. 0.5 is the same as 1 level of vanilla knockback, or the bonus from sprinting */
-  private final float knockbackBonus;
 
   /**
    * Applies the extra tool stats to the tool like a modifier
@@ -78,7 +66,7 @@ public final class ToolBaseStatDefinition {
     // harvest
     builder.multiplyMiningSpeed(miningSpeedModifier);
     // weapon
-    builder.addAttackDamage(damageBonus);
+    // builder.addAttackDamage(damageBonus);  damage bonus added in ToolStatsBuilder
     builder.multiplyAttackDamage(damageModifier);
     builder.multiplyAttackSpeed(attackSpeed);
   }
@@ -98,9 +86,7 @@ public final class ToolBaseStatDefinition {
     // weapon
     private float damageBonus = 0f;
     private float damageModifier = 1f;
-    private float damageCutoff = 15f;
     private float attackSpeed = 1f;
-    private float knockbackBonus = 0;
 
     /** Creates the tool stat definition */
     public ToolBaseStatDefinition build() {
@@ -111,8 +97,7 @@ public final class ToolBaseStatDefinition {
         durabilityModifier, primaryHeadWeight,
         defaultUpgrades, defaultAbilities, defaultTraits,
         reachBonus, miningSpeedModifier,
-        damageBonus, damageModifier, damageCutoff,
-        attackSpeed, knockbackBonus
+        damageBonus, damageModifier, attackSpeed
       );
     }
   }

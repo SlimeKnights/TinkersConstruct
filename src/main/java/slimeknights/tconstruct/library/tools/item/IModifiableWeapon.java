@@ -18,11 +18,4 @@ public interface IModifiableWeapon {
   default boolean dealDamage(ToolStack stack, LivingEntity attacker, Entity target, float damage, boolean isCritical, boolean fullyCharged) {
     return ToolAttackUtil.dealDefaultDamage(attacker, target, damage);
   }
-
-  /**
-   * Gets the damage cutoff for this weapon, that is the point where damage starts to cap
-   *
-   * @return  Damage cutoff
-   */
-  float getDamageCutoff();
 }

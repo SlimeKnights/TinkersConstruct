@@ -138,6 +138,14 @@ public class ModDataNBT implements IModDataReadOnly {
   }
 
   /**
+   * Removes the given key from the NBT
+   * @param name  Key to remove
+   */
+  public void remove(ResourceLocation name) {
+    data.remove(name.toString());
+  }
+
+  /**
    * Parses the mod data from NBT
    * @param data  data
    * @return  Parsed mod data

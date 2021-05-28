@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "item": "minecraft:netherite_helmet"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_netherite",
+    "amount": 144
+  },
+  "temperature": 1250,
+  "time": 74,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_diamond",
+      "amount": 720
+    }
+  ]
+}

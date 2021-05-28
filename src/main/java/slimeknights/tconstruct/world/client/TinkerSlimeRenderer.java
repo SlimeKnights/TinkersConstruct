@@ -12,7 +12,8 @@ import slimeknights.tconstruct.library.Util;
 
 @OnlyIn(Dist.CLIENT)
 public class TinkerSlimeRenderer extends SlimeRenderer {
-  public static final Factory BLUE_SLIME_FACTORY = new Factory(Util.getResource("textures/entity/blue_slime.png"));
+  public static final Factory SKY_SLIME_FACTORY = new Factory(Util.getResource("textures/entity/sky_slime.png"));
+  public static final Factory ENDER_SLIME_FACTORY = new Factory(Util.getResource("textures/entity/ender_slime.png"));
 
   private final ResourceLocation texture;
   public TinkerSlimeRenderer(EntityRendererManager renderManagerIn, ResourceLocation texture) {

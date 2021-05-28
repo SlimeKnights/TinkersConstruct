@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "item": "tconstruct:bacon"
+  },
+  "value": 1,
+  "needed": 4,
+  "material": "tconstruct:pig_iron"
+}

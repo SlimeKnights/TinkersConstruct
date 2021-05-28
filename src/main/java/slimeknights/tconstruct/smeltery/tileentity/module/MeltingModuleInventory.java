@@ -11,11 +11,11 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.tileentity.MantleTileEntity;
+import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.IntSupplier;
-import java.util.function.Predicate;
 
 /**
  * Inventory composite made of a set of melting module inventories
@@ -28,15 +28,13 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   /** Parent tile entity */
   private final MantleTileEntity parent;
   /** Fluid handler for outputs */
-  private final IFluidHandler fluidHandler;
+  protected final IFluidHandler fluidHandler;
   /** Array of modules containing each slot */
   private MeltingModule[] modules;
   /** If true, module cannot be resized */
   private final boolean strictSize;
   /** Number of nuggets to produce when melting an ore */
   private final IntSupplier nuggetsPerOre;
-  /** Cache of predicate for fluid output */
-  private final Predicate<FluidStack> outputFunction = this::tryFillTank;
 
   /**
    * Creates a new inventory with a fixed size
@@ -135,7 +133,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       throw new IndexOutOfBoundsException();
     }
     if (modules[slot] == null) {
-      modules[slot] = new MeltingModule(parent, outputFunction, nuggetsPerOre, slot);
+      modules[slot] = new MeltingModule(parent, recipe -> tryFillTank(slot, recipe), nuggetsPerOre, slot);
     }
     return modules[slot];
   }
@@ -258,12 +256,13 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   }
 
   /**
-   *
    * Tries to fill the fluid handler with the given fluid
-   * @param fluid  Fluid to add
+   * @param index   Index of the module being filled
+   * @param recipe  Recipe to add
    * @return  True if filled, false if not enough space for the whole fluid
    */
-  protected boolean tryFillTank(FluidStack fluid) {
+  protected boolean tryFillTank(int index, IMeltingRecipe recipe) {
+    FluidStack fluid = recipe.getOutput(getModule(index));
     if (fluidHandler.fill(fluid.copy(), FluidAction.SIMULATE) == fluid.getAmount()) {
       fluidHandler.fill(fluid, FluidAction.EXECUTE);
       return true;
@@ -321,9 +320,18 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    */
   public void readFromNBT(CompoundNBT nbt) {
     if (!strictSize) {
-      // no need to resize, as we ignore old data
-      modules = new MeltingModule[nbt.getByte(TAG_SIZE) & 255];
+      int newSize = nbt.getByte(TAG_SIZE) & 255;
+      if (newSize != modules.length) {
+        modules = Arrays.copyOf(modules, newSize);
+      }
     }
+    // remove old data
+    for (MeltingModule module : modules) {
+      if (module != null) {
+        module.setStack(ItemStack.EMPTY);
+      }
+    }
+
     ListNBT list = nbt.getList(TAG_ITEMS, NBT.TAG_COMPOUND);
     for (int i = 0; i < list.size(); i++) {
       CompoundNBT item = list.getCompound(i);

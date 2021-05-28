@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:part_builder",
-  "pattern": "tconstruct:sword_blade",
-  "cost": 2,
-  "result": {
-    "item": "tconstruct:sword_blade"
-  }
-}

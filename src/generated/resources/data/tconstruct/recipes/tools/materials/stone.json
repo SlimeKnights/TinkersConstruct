@@ -7,9 +7,14 @@
     {
       "tag": "forge:cobblestone"
     },
-    {
-      "item": "minecraft:polished_blackstone"
-    }
+    [
+      {
+        "item": "minecraft:blackstone"
+      },
+      {
+        "item": "minecraft:polished_blackstone"
+      }
+    ]
   ],
   "value": 1,
   "needed": 1,

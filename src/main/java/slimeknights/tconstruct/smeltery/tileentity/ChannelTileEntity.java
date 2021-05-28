@@ -19,6 +19,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -38,19 +40,21 @@ import java.util.Map;
 /**
  * Logic for channel fluid transfer
  */
-public class ChannelTileEntity extends TileEntity implements ITickableTileEntity, IFluidPacketReceiver {
-	public static final int LIQUID_TRANSFER = 16;
-
+public class ChannelTileEntity extends MantleTileEntity implements ITickableTileEntity, IFluidPacketReceiver {
 	/** Channel internal tank */
 	private final ChannelTank tank = new ChannelTank(36, this);
 	/** Handler to return from channel top */
 	private final LazyOptional<IFluidHandler> topHandler = LazyOptional.of(() -> new FillOnlyFluidHandler(tank));
 	/** Tanks for inserting on each side */
-	private final Map<Direction,LazyOptional<IFluidHandler>> sideTanks = Util.make(new EnumMap<>(Direction.class), map -> {
+	private final Map<Direction,IFluidHandler> sideTanks = Util.make(new EnumMap<>(Direction.class), map -> {
 		for (Direction direction : Plane.HORIZONTAL) {
-			map.put(direction, LazyOptional.of(() -> new ChannelSideTank(this, tank, direction)));
+			map.put(direction, new ChannelSideTank(this, tank, direction));
 		}
 	});
+	/** Tanks for inserting on each side */
+	private final Map<Direction,LazyOptional<IFluidHandler>> sideHandlers = new EnumMap<>(Direction.class);
+	/** Tanks for alerting neighbors the given side is present */
+	private final Map<Direction,LazyOptional<IFluidHandler>> emptySideHandler = new EnumMap<>(Direction.class);
 
 	/** Cache of tanks on all neighboring sides */
 	private final Map<Direction,LazyOptional<IFluidHandler>> neighborTanks = new EnumMap<>(Direction.class);
@@ -82,6 +86,22 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 		return new AxisAlignedBB(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
 	}
 
+	/** Called when a capability invalidates to clear the given side */
+	private void invalidateSide(Direction side, LazyOptional<IFluidHandler> capability) {
+		if (neighborTanks.get(side) == capability) {
+			neighborTanks.remove(side);
+			// update the block state to no longer be pointing in that direction
+			if (world != null) {
+				BlockState currentState = getBlockState();
+				if (side == Direction.DOWN) {
+					world.setBlockState(pos, currentState.with(ChannelBlock.DOWN, false));
+				} else {
+					world.setBlockState(pos, getBlockState().with(ChannelBlock.DIRECTION_MAP.get(side), ChannelConnection.NONE));
+				}
+			}
+		}
+	}
+
 
 	/* Fluid handlers */
 
@@ -93,8 +113,16 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
         return topHandler.cast();
       }
       // side tanks keep track of which side inserts
-      if (side != Direction.DOWN && getBlockState().get(ChannelBlock.DIRECTION_MAP.get(side)) == ChannelConnection.IN) {
-        return sideTanks.get(side).cast();
+      if (side != Direction.DOWN) {
+        ChannelConnection connection = getBlockState().get(ChannelBlock.DIRECTION_MAP.get(side));
+        if (connection == ChannelConnection.IN) {
+          return sideHandlers.computeIfAbsent(side, s -> LazyOptional.of(() -> sideTanks.get(s))).cast();
+        }
+        // for out, return an empty fluid handler so the block we are pouring into knows we support fluids, even though we disallow any interaction
+        // this will get invalidated when the connection goes back to in later
+        if (connection == ChannelConnection.OUT) {
+          return emptySideHandler.computeIfAbsent(side, s -> LazyOptional.of(() -> EmptyFluidHandler.INSTANCE)).cast();
+        }
       }
     }
 
@@ -113,7 +141,7 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 		if (te != null) {
 			LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
 			if (handler.isPresent()) {
-				handler.addListener(neighborConsumers.computeIfAbsent(side, s -> new WeakConsumerWrapper<>(this, (self, lazy) -> self.neighborTanks.remove(s))));
+				handler.addListener(neighborConsumers.computeIfAbsent(side, s -> new WeakConsumerWrapper<>(this, (self, lazy) -> self.invalidateSide(s, lazy))));
 				return handler;
 			}
 		}
@@ -130,20 +158,58 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 	}
 
 	/**
-	 * Removes a cached handler from the given neighbor
+	 * Removes a cached handler from the given neighbor as the block changed
 	 * @param side  Side to remove
 	 */
 	public void removeCachedNeighbor(Direction side) {
 		neighborTanks.remove(side);
 	}
 
+	/**
+	 * Refreshes a neighbor based on the new connection
+	 * @param state  The state that will later be put in the world, may not be the state currently in the world
+	 * @param side   Side to update
+	 */
+	public void refreshNeighbor(BlockState state, Direction side) {
+		// for below, only thing that needs to invalidate is if we are no longer connected down, remove the listener below
+		if (side == Direction.DOWN) {
+			if (!state.get(ChannelBlock.DOWN)) {
+				neighborTanks.remove(Direction.DOWN);
+			}
+		} else if (side != Direction.UP) {
+			ChannelConnection connection = state.get(ChannelBlock.DIRECTION_MAP.get(side));
+			// if no longer flowing out, remove the neighbor tank
+			if (connection != ChannelConnection.OUT) {
+				neighborTanks.remove(Direction.DOWN);
+				// remove the empty handler, mostly so the neighbor knows to update
+				LazyOptional<IFluidHandler> handler = emptySideHandler.remove(side);
+				if (handler != null) {
+					handler.invalidate();
+				}
+			}
+			// remove the side handler, if we changed from out or from in the handler is no longer correct
+			if (connection != ChannelConnection.IN) {
+				LazyOptional<IFluidHandler> handler = sideHandlers.remove(side);
+				if (handler != null) {
+					handler.invalidate();
+				}
+			}
+		}
+	}
 
 	@Override
 	protected void invalidateCaps() {
 		super.invalidateCaps();
 		topHandler.invalidate();
-		for (LazyOptional<IFluidHandler> handler : sideTanks.values()) {
-			handler.invalidate();
+		for (LazyOptional<IFluidHandler> handler : sideHandlers.values()) {
+			if (handler != null) {
+				handler.invalidate();
+			}
+		}
+		for (LazyOptional<IFluidHandler> handler : emptySideHandler.values()) {
+			if (handler != null) {
+				handler.invalidate();
+			}
 		}
 	}
 
@@ -357,21 +423,17 @@ public class ChannelTileEntity extends TileEntity implements ITickableTileEntity
 		tank.setFluid(fluid);
 	}
 
-	@Override
-	public CompoundNBT getUpdateTag() {
-		// new tag instead of super since default implementation calls the super of writeToNBT
-		return write(new CompoundNBT());
-	}
+  @Override
+  protected boolean shouldSyncOnUpdate() {
+    return true;
+  }
 
-	@Override
-	public CompoundNBT write(CompoundNBT nbt) {
-		nbt = super.write(nbt);
-
-		nbt.putByteArray(TAG_IS_FLOWING, isFlowing);
-		nbt.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
-
-		return nbt;
-	}
+  @Override
+  protected void writeSynced(CompoundNBT nbt) {
+    super.writeSynced(nbt);
+    nbt.putByteArray(TAG_IS_FLOWING, isFlowing);
+    nbt.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
+  }
 
 	@Override
 	public void read(BlockState state, CompoundNBT nbt) {

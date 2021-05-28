@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tables.network;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.crafting.ICraftingRecipe;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -11,8 +11,10 @@ import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
-import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
+import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
+import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
+
+import java.util.Optional;
 
 /**
  * Packet to send the current crafting recipe to a player who opens the tinker station
@@ -46,8 +48,24 @@ public class UpdateTinkerStationRecipePacket implements IThreadsafePacket {
     private static void handle(UpdateTinkerStationRecipePacket packet) {
       World world = Minecraft.getInstance().world;
       if (world != null) {
-        TileEntityHelper.getTile(TinkerStationTileEntity.class, world, packet.pos).ifPresent(te ->
-          RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, ITinkerStationRecipe.class).ifPresent(te::updateRecipe));
+        Optional<ITinkerStationRecipe> recipe = RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, ITinkerStationRecipe.class);
+
+        // if the screen is open, use that to get the TE and update the screen
+        boolean handled = false;
+        Screen screen = Minecraft.getInstance().currentScreen;
+        if (screen instanceof TinkerStationScreen) {
+          TinkerStationScreen stationScreen = (TinkerStationScreen) screen;
+          TinkerStationTileEntity te = stationScreen.getTileEntity();
+          if (te.getPos().equals(packet.pos)) {
+            recipe.ifPresent(te::updateRecipe);
+            stationScreen.updateDisplay();
+            handled = true;
+          }
+        }
+        // if the wrong screen is open or no screen, use the tile directly
+        if (!handled) {
+          TileEntityHelper.getTile(TinkerStationTileEntity.class, world, packet.pos).ifPresent(te -> recipe.ifPresent(te::updateRecipe));
+        }
       }
     }
   }

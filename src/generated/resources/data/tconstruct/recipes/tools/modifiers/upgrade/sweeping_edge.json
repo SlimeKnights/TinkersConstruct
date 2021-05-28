@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "minecraft:chain"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 18,
+  "tools": {
+    "tag": "tconstruct:modifiable/melee/sword"
+  },
+  "result": {
+    "name": "tconstruct:sweeping_edge",
+    "level": 1
+  },
+  "max_level": 4,
+  "upgrade_slots": 1
+}

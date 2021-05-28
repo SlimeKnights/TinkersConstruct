@@ -1,20 +1,34 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
+import java.util.List;
+import java.util.UUID;
+import java.util.function.BiConsumer;
+
 /**
  * Shared logic for jagged and stonebound. Trait boosts attack damage as it lowers mining speed.
  */
 public class DamageSpeedTradeModifier extends Modifier {
-  private static final String KEY_MINING_BOOST = Util.makeTranslationKey("modifier", "damage_speed_trade.suffix");
+  private static final ITextComponent MINING_SPEED = Util.makeTranslation("modifier", "fake_attribute.mining_speed");
   private final float multiplier;
+  private final Lazy<UUID> uuid = Lazy.of(() -> UUID.nameUUIDFromBytes(getId().toString().getBytes()));
+  private final Lazy<String> attributeName = Lazy.of(() -> {
+    ResourceLocation id = getId();
+    return id.getPath() + "." + id.getNamespace() + ".attack_damage";
+  });
 
   /**
    * Creates a new instance of
@@ -32,18 +46,19 @@ public class DamageSpeedTradeModifier extends Modifier {
   }
 
   @Override
-  public ITextComponent getDisplayName(IModifierToolStack tool, int level) {
-    double boost = Math.abs(getMultiplier(tool, level));
-    ITextComponent name = super.getDisplayName(level);
-    if (boost > 0) {
-      name = name.deepCopy().append(new TranslationTextComponent(KEY_MINING_BOOST, Util.dfPercent.format(boost)));
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
+    double boost = getMultiplier(tool, level);
+    if (boost != 0) {
+      tooltip.add(applyStyle(new StringTextComponent(Util.dfPercentBoost.format(-boost)).appendString(" ").append(MINING_SPEED)));
     }
-    return name;
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
-    return (int)(damage * (1 + getMultiplier(tool, level)));
+  public void addAttributes(IModifierToolStack tool, int level, BiConsumer<Attribute,AttributeModifier> consumer) {
+    double boost = getMultiplier(tool, level);
+    if (boost != 0) {
+      consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid.get(), attributeName.get(), boost, Operation.MULTIPLY_TOTAL));
+    }
   }
 
   @Override

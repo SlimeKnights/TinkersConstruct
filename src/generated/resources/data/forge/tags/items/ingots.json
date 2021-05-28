@@ -3,6 +3,7 @@
   "values": [
     "tconstruct:dried_brick",
     "tconstruct:seared_brick",
+    "tconstruct:scorched_brick",
     "#forge:ingots/copper",
     "#forge:ingots/cobalt",
     "#forge:ingots/slimesteel",

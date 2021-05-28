@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "tconstruct:block/wood/greenheart/stripped_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "tconstruct:block/wood/greenheart/stripped_log"
+    },
+    "axis=z": {
+      "model": "tconstruct:block/wood/greenheart/stripped_log_horizontal",
+      "x": 90
+    }
+  }
+}

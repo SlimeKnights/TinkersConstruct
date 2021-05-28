@@ -11,9 +11,9 @@ public class LaceratingModifier extends Modifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, boolean fullyCharged) {
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown) {
     // 25% chance of applying per level
-    if (fullyCharged && target.isAlive() && RANDOM.nextFloat() < 0.50f) {
+    if (cooldown > 0.9 && target.isAlive() && RANDOM.nextFloat() < 0.50f) {
       // set entity so the potion is attributed as a player kill
       target.setLastAttackedEntity(attacker);
       // potions are 0 indexed instead of 1 indexed

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:seared_heater",
+    "#tconstruct:seared_tanks",
+    "#tconstruct:scorched_tanks"
+  ]
+}

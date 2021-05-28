@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "": {
+            "model": "tconstruct:block/fluid/molten/scorched_stone"
+        }
+    }
+}

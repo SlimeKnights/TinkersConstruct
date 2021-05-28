@@ -19,8 +19,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.TileEntityHelper;
+import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
@@ -55,7 +56,7 @@ public class SearedTankBlock extends SearedBlock {
   @Deprecated
   @Override
   public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-    if (ITankTileEntity.interactWithTank(world, pos, player, hand, hit)) {
+    if (FluidTransferUtil.interactWithTank(world, pos, player, hand, hit)) {
       return ActionResultType.SUCCESS;
     }
     return super.onBlockActivated(state, world, pos, player, hand, hit);
@@ -75,7 +76,7 @@ public class SearedTankBlock extends SearedBlock {
   public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
     if (nbt != null) {
-      TileEntityHelper.getTile(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(Tags.TANK)));
+      TileEntityHelper.getTile(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
     }
     super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
   }
@@ -94,9 +95,10 @@ public class SearedTankBlock extends SearedBlock {
 
   @AllArgsConstructor
   public enum TankType implements IStringSerializable {
-    TANK(TankTileEntity.DEFAULT_CAPACITY),
-    GAUGE(MaterialValues.METAL_BLOCK * 3),
-    WINDOW(TankTileEntity.DEFAULT_CAPACITY);
+    FUEL_TANK(TankTileEntity.DEFAULT_CAPACITY),
+    FUEL_GAUGE(TankTileEntity.DEFAULT_CAPACITY),
+    INGOT_TANK(MaterialValues.INGOT * 32),
+    INGOT_GAUGE(MaterialValues.INGOT * 32);
 
     @Getter
     private final int capacity;

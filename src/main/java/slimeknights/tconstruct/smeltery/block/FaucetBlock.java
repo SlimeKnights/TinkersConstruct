@@ -96,12 +96,6 @@ public class FaucetBlock extends Block {
     return ActionResultType.SUCCESS;
   }
 
-  @Override
-  public boolean canConnectRedstone(BlockState state, IBlockReader world, BlockPos pos, @Nullable Direction side) {
-    // TODO: keep?
-    return true;
-  }
-
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override

@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "#tconstruct:greenheart_logs",
+    "#tconstruct:skyroot_logs",
+    "#tconstruct:bloodshroom_logs",
     "tconstruct:earth_congealed_slime",
     "tconstruct:sky_congealed_slime",
     "tconstruct:ichor_congealed_slime",

@@ -6,12 +6,13 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
+import net.minecraft.util.text.TranslationTextComponent;
+import slimeknights.mantle.tileentity.InventoryTileEntity;
 import slimeknights.tconstruct.tables.inventory.TinkerChestContainer;
 
 import javax.annotation.Nullable;
 
-public abstract class TinkerChestTileEntity extends TableTileEntity {
+public abstract class TinkerChestTileEntity extends InventoryTileEntity {
   /** Default maximum size */
   protected static final int DEFAULT_MAX = 256;
   /** Current visual size of the inventory */
@@ -22,7 +23,7 @@ public abstract class TinkerChestTileEntity extends TableTileEntity {
   }
 
   public TinkerChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name, int inventorySize, int maxStackSize) {
-    super(tileEntityTypeIn, name, inventorySize, maxStackSize);
+    super(tileEntityTypeIn, new TranslationTextComponent(name), inventorySize, maxStackSize);
   }
 
   @Nullable

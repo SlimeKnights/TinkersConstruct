@@ -14,13 +14,12 @@ import net.minecraft.world.World;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import javax.annotation.Nullable;
 
 public class SlimeGrassSeedItem extends TooltipItem {
-  private final FoliageType foliage;
-  public SlimeGrassSeedItem(Properties properties, FoliageType foliage) {
+  private final SlimeType foliage;
+  public SlimeGrassSeedItem(Properties properties, SlimeType foliage) {
     super(properties);
     this.foliage = foliage;
   }
@@ -59,7 +58,7 @@ public class SlimeGrassSeedItem extends TooltipItem {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.foliage != FoliageType.ICHOR) {
+    if (this.foliage != SlimeType.ICHOR) {
       super.fillItemGroup(group, items);
     }
   }

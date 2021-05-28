@@ -1,7 +1,7 @@
 {
-    "variants": {
-        "": {
-            "model": "tconstruct:block/fluid/stone"
-        }
+  "variants": {
+    "": {
+      "model": "tconstruct:block/fluid/molten/obsidian"
     }
+  }
 }

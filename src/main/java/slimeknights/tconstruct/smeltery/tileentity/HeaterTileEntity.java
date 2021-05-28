@@ -74,7 +74,7 @@ public class HeaterTileEntity extends NamableTileEntity {
 
   @Override
   public CompoundNBT write(CompoundNBT tags) {
-    super.writeSynced(tags);
+    tags = super.write(tags);
     tags.put(TAG_ITEM, itemHandler.writeToNBT());
     return tags;
   }

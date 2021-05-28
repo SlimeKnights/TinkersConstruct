@@ -2,26 +2,25 @@ package slimeknights.tconstruct.library;
 
 import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.fluid.Fluid;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialManager;
+import slimeknights.tconstruct.library.materials.UpdateMaterialsPacket;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
-import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
-import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
-import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
+import slimeknights.tconstruct.library.materials.stats.UpdateMaterialStatsPacket;
+import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
+import slimeknights.tconstruct.library.materials.traits.UpdateMaterialTraitsPacket;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 
-@Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class MaterialRegistry {
 
   protected static MaterialRegistry INSTANCE;
@@ -30,6 +29,10 @@ public final class MaterialRegistry {
   private final MaterialStatsManager materialStatsManager;
   private final MaterialTraitsManager materialTraitsManager;
   private final IMaterialRegistry registry;
+  // booleans to keeep track of which packets the client has received
+  private boolean materialsSynced = false;
+  private boolean statsSynced = false;
+  private boolean traitsSynced = false;
 
   public static IMaterialRegistry getInstance() {
     return INSTANCE.registry;
@@ -37,6 +40,7 @@ public final class MaterialRegistry {
 
   public static void init() {
     MaterialRegistry.INSTANCE = new MaterialRegistry();
+    MinecraftForge.EVENT_BUS.addListener(MaterialRegistry::addDataPackListeners);
   }
 
   /**
@@ -47,8 +51,8 @@ public final class MaterialRegistry {
     return INSTANCE != null;
   }
 
-  @SubscribeEvent
-  static void addDataPackListeners(final AddReloadListenerEvent event) {
+  /** Adds the managers as datapack listeners */
+  private static void addDataPackListeners(final AddReloadListenerEvent event) {
     event.addListener(INSTANCE.materialManager);
     event.addListener(INSTANCE.materialStatsManager);
     event.addListener(INSTANCE.materialTraitsManager);
@@ -73,12 +77,27 @@ public final class MaterialRegistry {
     this.materialTraitsManager = null;
   }
 
+
+  /* Networking */
+
+  /** Checks if all three types have synced, ensures we can receive the three packets in any order */
+  private void checkSync() {
+    if (materialsSynced && statsSynced && traitsSynced) {
+      registry.onMaterialSync();
+      materialsSynced = false;
+      statsSynced = false;
+      traitsSynced = false;
+    }
+  }
+
   /**
    * Updates the material list from the server list. Should only be called client side
    * @param packet  Materials packet
    */
   public static void updateMaterialsFromServer(UpdateMaterialsPacket packet) {
     INSTANCE.materialManager.updateMaterialsFromServer(packet.getMaterials());
+    INSTANCE.materialsSynced = true;
+    INSTANCE.checkSync();
   }
 
   /**
@@ -87,17 +106,22 @@ public final class MaterialRegistry {
    */
   public static void updateMaterialStatsFromServer(UpdateMaterialStatsPacket packet) {
     INSTANCE.materialStatsManager.updateMaterialStatsFromServer(packet.getMaterialToStats());
-    INSTANCE.registry.onMaterialSync(); // called on stat reload as it should happen second
+    INSTANCE.statsSynced = true;
+    INSTANCE.checkSync();
   }
 
   /**
-   * Gets the class for a material stat ID
-   * @param id  Material stat type
-   * @return  Material stat class
+   * Updates material traits from the server list. Should only be called client side
+   * @param packet  Materials traits packet
    */
-  public static Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
-    return INSTANCE.materialStatsManager.getClassForStat(id);
+  public static void updateMaterialTraitsFromServer(UpdateMaterialTraitsPacket packet) {
+    INSTANCE.materialTraitsManager.updateFromServer(packet.getMaterialToTraits());
+    INSTANCE.traitsSynced = true;
+    INSTANCE.checkSync();
   }
+
+
+  /* Materials */
 
   /**
    * Gets a material by ID
@@ -124,54 +148,17 @@ public final class MaterialRegistry {
   public static Collection<IMaterial> getMaterials() {
     return INSTANCE.registry.getMaterials();
   }
-//
-//  public static <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
-//    return INSTANCE.getMaterialStats(materialId, statsId);
-//  }
-//
-//  public static <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId) {
-//    return INSTANCE.getDefaultStats(statsId);
-//  }
-//
-//  public static Collection<IMaterialStats> getAllStats(MaterialId materialId) {
-//    return INSTANCE.getAllStats(materialId);
-//  }
+
+
+  /* Stats */
 
   /**
-   * Convenience method. Default stats for all part types must exist, to be used when an invalid material with missing stats is used.
+   * Gets the class for a material stat ID
+   * @param id  Material stat type
+   * @return  Material stat class
    */
-//  static <T extends IMaterialStats> T getDefaultStatsForType(MaterialStatType partType) {
-//    return (T) UNKNOWN.getStatsForType(partType).orElseThrow(() -> new IllegalStateException("Trying to get the fallback materials stats for a type that doesn't exist. You're either using something unregistered or some external influence messed things up, since that's impossible by design."));
-//  }
-
-  /**
-   * Obtain the stats for the given part type.
-   * Those are usually used to calculate the stats of a tool.
-   * If an empty optional is returned it means this material is not fit to be used for this part type.
-   *
-   * @return Optional containing the stats, or empty optional if there are no stats for the given type.
-   */
-  //<T extends IMaterialStats> Optional<T> getStatsForType(MaterialStatType partType);
-
-  /**
-   * Get the traits that shall be added to a tool if the given part type is used.
-   *
-   * @return List of traits to be used.
-   */
-  //List<ITrait> getAllTraitsForStats(MaterialStatType partType);
-
-  /**
-   * All stats available with this material. Usually only used for display purposes.
-   *
-   * @return A collection of all stats registered with this material. Usually ordered, but not guaranteed.
-   */
-  //Collection<IMaterialStats> getAllStats();
-
-  /**
-   * All traits possible with this material, regardless of part type.
-   * Usually only used for display purposes.
-   *
-   * @return A collection of all traits registered with this material. Usually ordered, but not guaranteed.
-   */
-  //Collection<ITrait> getAllTraits();
+  @Nullable
+  public static Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
+    return INSTANCE.materialStatsManager.getClassForStat(id);
+  }
 }
