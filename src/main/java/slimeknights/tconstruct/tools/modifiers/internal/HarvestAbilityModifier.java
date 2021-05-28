@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -197,23 +198,35 @@ public class HarvestAbilityModifier extends SingleUseModifier {
       return false;
     }
     // try harvest event
+    boolean didHarvest = false;
     Result result = new ToolHarvestEvent(stack, tool, context, world, state, pos, player).fire();
     if (result != Result.DEFAULT) {
-      return result == Result.ALLOW;
+      didHarvest = result == Result.ALLOW;
+
+      // crops that work based on right click interact (berry bushes)
+    } else if (TinkerTags.Blocks.HARVESTABLE_INTERACT.contains(block)) {
+      didHarvest = harvestInteract(context, world, state, pos, player);
+
+      // next, try sugar cane like blocks
+    } else if (TinkerTags.Blocks.HARVESTABLE_STACKABLE.contains(block)) {
+      didHarvest = harvestStackable(world, state, pos, player);
+
+      // normal crops like wheat or carrots
+    } else if (TinkerTags.Blocks.HARVESTABLE_CROPS.contains(block)) {
+      didHarvest = harvestCrop(stack, world, state, pos, player);
     }
-    // crops that work based on right click interact (berry bushes)
-    if (TinkerTags.Blocks.HARVESTABLE_INTERACT.contains(block)) {
-      return harvestInteract(context, world, state, pos, player);
+
+    // if we successfully harvested, run the modifier hook
+    if (didHarvest) {
+      for (ModifierEntry entry : tool.getModifierList()) {
+        IHarvestModifier harvest = entry.getModifier().getModule(IHarvestModifier.class);
+        if (harvest != null) {
+          harvest.afterHarvest(tool, entry.getLevel(), context, world, state, pos);
+        }
+      }
     }
-    // next, try sugar cane like blocks
-    if (TinkerTags.Blocks.HARVESTABLE_STACKABLE.contains(block)) {
-      return harvestStackable(world, state, pos, player);
-    }
-    // normal crops like wheat or carrots
-    if (TinkerTags.Blocks.HARVESTABLE_CROPS.contains(block)) {
-      return harvestCrop(stack, world, state, pos, player);
-    }
-    return false;
+
+    return didHarvest;
   }
 
   @Override
@@ -277,4 +290,16 @@ public class HarvestAbilityModifier extends SingleUseModifier {
     return ActionResultType.PASS;
   }
 
+  public interface IHarvestModifier {
+    /**
+     * Called after a block is successfully harvested
+     * @param tool     Tool used in harvesting
+     * @param level    Tool level
+     * @param context  Item use context, cooresponds to the original targeted position
+     * @param world    Server world instance
+     * @param state    State before it was harvested
+     * @param pos      Position that was harvested, may be different from the context
+     */
+    void afterHarvest(IModifierToolStack tool, int level, ItemUseContext context, ServerWorld world, BlockState state, BlockPos pos);
+  }
 }
