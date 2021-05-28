@@ -248,6 +248,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // climb seared ladder
     this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get(), TinkerSmeltery.scorchedLadder.get());
+    this.getOrCreateBuilder(BlockTags.DRAGON_IMMUNE).add(TinkerCommons.obsidianPane.get());
   }
 
   private void addFluids() {
