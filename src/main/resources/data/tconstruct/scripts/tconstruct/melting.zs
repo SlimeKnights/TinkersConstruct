@@ -2,7 +2,7 @@
  * Adds four Melting recipes that do the following:
  * 
  * 1) Adds a normal Melting Recipe that produces 1mb of Water (Fluid) when Black Dye is melted at 0°C.
- * 2) Adds a Damageable Melting Recipe that producess 1000mb of Water (Fluid) when an Elytra is melted at 0°C.
+ * 2) Adds a Damageable Melting Recipe that produces 1000mb of Water (Fluid) when an Elytra is melted at 0°C.
  * 2.1) Damageable Melting Recipes are recipes who's output amount (the amount of Fluid that is produced) changes depending on how damaged the input item is.
  * 3) Adds an Ore Melting recipe that produces 100mb of Water (Fluid) when a Stick is melted at 0°C.
  * 3.1) Ore Melting Recipes are recipes who's output amount (the amount of Fluid that is produced) changes depending on which Controller (Smeltery or Melter) the recipe is made in.
@@ -25,7 +25,7 @@
 <recipetype:tconstruct:melting>.addMaterialMeltingRecipe("material_melting_test", <item:tconstruct:broad_axe_head>, 5);
 
 /*
- * Removes the the Anvil to Molten Iron (Fluid) recipe.
+ * Removes the Anvil to Molten Iron (Fluid) recipe.
  */
 
 // <recipetype:tconstruct:melting>.removeByName(name as string)

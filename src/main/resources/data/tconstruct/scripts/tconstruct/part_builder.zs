@@ -16,6 +16,6 @@
  * Removes the Part Builder recipe for the Tool Binding part.
  */
 
-// <recipetype:tconstruct:part_builder>.removeRecipe(name as string)
+// <recipetype:tconstruct:part_builder>.removeByName(name as string)
 
 <recipetype:tconstruct:part_builder>.removeByName("tconstruct:tools/parts/builder/tool_binding");
