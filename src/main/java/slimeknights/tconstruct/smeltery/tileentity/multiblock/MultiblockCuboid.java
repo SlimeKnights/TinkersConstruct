@@ -66,7 +66,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
     BlockPos center = getOuterPos(world, master.offset(facing.getOpposite()), Direction.DOWN, maxHeight).up();
 
     // below lowest internal position
-    if (!hasFrame && master.getY() < center.getY()) {
+    if (master.getY() < center.getY() && (!hasFrame || !isInnerBlock(world, center))) {
       return null;
     }
 
@@ -108,7 +108,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
     }
 
     // no walls?
-    if(height <= master.getY() - center.getY()) {
+    if (height == 0 || height <= master.getY() - center.getY()) {
       return null;
     }
 
