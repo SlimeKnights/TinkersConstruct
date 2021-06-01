@@ -23,15 +23,18 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.IngredientIntersection;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.data.ItemNameOutput;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -78,6 +81,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addCastingRecipes(consumer);
     this.addAlloyRecipes(consumer);
     this.addEntityMeltingRecipes(consumer);
+
+    this.addCompatRecipes(consumer);
   }
 
   private void addCraftingRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -1355,8 +1360,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // brass
     wrapped = withCondition(consumer, tagCondition("ingots/brass"), tagCondition("ingots/zinc"));
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenBrass.get(), MaterialValues.INGOT * 4)
-                      .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.INGOT * 3)
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenBrass.get(), MaterialValues.INGOT * 2)
+                      .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.INGOT)
                       .addInput(TinkerFluids.moltenZinc.get(), MaterialValues.INGOT)
                       .build(wrapped, prefixR(TinkerFluids.moltenBrass, folder));
 
@@ -1457,6 +1462,21 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.WITHER),
                                        new FluidStack(TinkerFluids.liquidSoul.get(), MaterialValues.GLASS_BLOCK / 20), 2)
                               .build(consumer, prefixR(EntityType.WITHER, folder));
+  }
+
+  private void addCompatRecipes(Consumer<IFinishedRecipe> consumer) {
+    String folder = "compat/";
+    // create - cast andesite alloy
+    ItemOutput andesiteAlloy = ItemNameOutput.fromName(new ResourceLocation("create", "andesite_alloy"));
+    Consumer<IFinishedRecipe> createConsumer = withCondition(consumer, new ModLoadedCondition("create"));
+    ItemCastingRecipeBuilder.basinRecipe(andesiteAlloy)
+                            .setCast(Blocks.ANDESITE, true)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET))
+                            .build(createConsumer, location(folder + "create/andesite_alloy_iron"));
+    ItemCastingRecipeBuilder.basinRecipe(andesiteAlloy)
+                            .setCast(Blocks.ANDESITE, true)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenZinc.get(), MaterialValues.NUGGET))
+                            .build(createConsumer, location(folder + "create/andesite_alloy_zinc"));
   }
 
 

@@ -19,7 +19,7 @@
   "inputs": [
     {
       "name": "tconstruct:molten_copper",
-      "amount": 432
+      "amount": 144
     },
     {
       "name": "tconstruct:molten_zinc",
@@ -28,7 +28,7 @@
   ],
   "result": {
     "fluid": "tconstruct:molten_brass",
-    "amount": 576
+    "amount": 288
   },
   "temperature": 605
 }
