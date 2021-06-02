@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
@@ -1477,6 +1478,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                             .setCast(Blocks.ANDESITE, true)
                             .setFluidAndTime(new FluidStack(TinkerFluids.moltenZinc.get(), MaterialValues.NUGGET))
                             .build(createConsumer, location(folder + "create/andesite_alloy_zinc"));
+
+    // immersive engineering - casting treated wood
+    ItemCastingRecipeBuilder.basinRecipe(ItemNameOutput.fromName(new ResourceLocation("immersiveengineering", "treated_wood_horizontal")))
+                            .setCast(ItemTags.PLANKS, true)
+                            .setFluid(FluidTags.makeWrapperTag("forge:creosote"), 125)
+                            .setCoolingTime(100)
+                            .build(withCondition(consumer, new ModLoadedCondition("immersiveengineering")), location(folder + "immersiveengineering/treated_wood"));
   }
 
 
