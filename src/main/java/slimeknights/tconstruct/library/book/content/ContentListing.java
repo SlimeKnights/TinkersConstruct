@@ -12,16 +12,18 @@ import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.ListingLeftElement;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class ContentListing extends TinkerPage {
 
-  public String title;
-  private final List<TextData> entries = Lists.newArrayList();
+  public String title = null;
+  public String subText = null;
+  private transient final List<TextData> entries = Lists.newArrayList();
 
-  public void addEntry(String text, PageData link) {
+  public void addEntry(String text, @Nullable PageData link) {
     TextData data = new TextData(text);
     if (link != null) {
       data.action = ProtocolGoToPage.GO_TO_RTN + ":" + link.parent.name + "." + link.name;
@@ -39,6 +41,10 @@ public class ContentListing extends TinkerPage {
     if (this.title != null) {
       this.addTitle(list, this.title, false);
       yOff = 20;
+    }
+    if (this.subText != null) {
+      int height = this.addText(list, this.subText, false, 0, yOff);
+      yOff = height + 16;
     }
 
     int y = yOff;

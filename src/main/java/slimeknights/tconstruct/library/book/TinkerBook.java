@@ -7,6 +7,7 @@ import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.repository.FileRepository;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.content.ContentImageText2;
+import slimeknights.tconstruct.library.book.content.ContentIndex;
 import slimeknights.tconstruct.library.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.book.content.ContentModifier;
 import slimeknights.tconstruct.library.book.content.ContentTool;
@@ -38,6 +39,7 @@ public class TinkerBook extends BookData {
     BookLoader.registerPageType(ContentMaterial.ID, ContentMaterial.class);
     BookLoader.registerPageType(ContentTool.ID, ContentTool.class);
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
+    BookLoader.registerPageType(ContentIndex.ID, ContentIndex.class);
 
     addData(MATERIALS_AND_YOU, MATERIALS_BOOK_ID);
     addData(PUNY_SMELTING, PUNY_SMELTING_ID);

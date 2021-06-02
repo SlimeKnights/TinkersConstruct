@@ -1,8 +1,8 @@
 [
   {
-    "name": "intro",
-    "type": "imageText2",
-    "data": "molten_blaze/intro.json"
+    "name": "index",
+    "type": "index",
+    "data": "molten_blaze/index.json"
   },
   {
     "name": "carry",
