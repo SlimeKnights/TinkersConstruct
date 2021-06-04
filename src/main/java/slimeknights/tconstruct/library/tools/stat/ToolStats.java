@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class handling all tool stats, can register custom stat types during {@link net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent}
+ * Class handling all tool stats.
+ *
+ * Custom stat types need to be initialized before item registration for most uses, and need to be registered before worldload. Safe to statically register as done for TConstruct stat types
  */
 public class ToolStats {
   /** Map of ID to stat */
