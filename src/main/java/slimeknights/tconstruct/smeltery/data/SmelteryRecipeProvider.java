@@ -822,6 +822,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                             .setCast(Items.REDSTONE, true)
                             .build(consumer, location(metalFolder + "gold/clock"));
     // misc casting - iron
+    ItemCastingRecipeBuilder.tableRecipe(Blocks.IRON_BARS)  // cheaper by 6mb, not a duplication as the melting recipe was adjusted too (like panes)
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 3))
+                            .build(consumer, location(metalFolder + "iron/bars"));
     ItemCastingRecipeBuilder.tableRecipe(Items.LANTERN)
                             .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 8))
                             .setCast(Blocks.TORCH, true)
@@ -1056,8 +1059,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, location(metalFolder + "iron/chain"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.ANVIL), TinkerFluids.moltenIron.get(), MaterialValues.INGOT * 4 + MaterialValues.METAL_BLOCK * 3)
                         .build(consumer, location(metalFolder + "iron/anvil"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.IRON_BARS, Blocks.RAIL), TinkerFluids.moltenIron.get(), MaterialValues.INGOT * 6 / 16)
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.RAIL), TinkerFluids.moltenIron.get(), MaterialValues.INGOT * 6 / 16)
                         .build(consumer, location(metalFolder + "iron/ingot_6_16"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.IRON_BARS), TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 3)
+                        .build(consumer, location(metalFolder + "iron/nugget_3"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.TRIPWIRE_HOOK), TinkerFluids.moltenIron.get(), MaterialValues.INGOT / 2)
                         .build(consumer, location(metalFolder + "iron/tripwire"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.LANTERN, Blocks.SOUL_LANTERN), TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 8)
