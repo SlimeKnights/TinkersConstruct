@@ -54,7 +54,11 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
   @Override
   public boolean matches(ICastingInventory inv, World worldIn) {
-    return this.cast.test(inv.getStack()) && MaterialRegistry.getInstance().getMaterial(inv.getFluid()) != IMaterial.UNKNOWN;
+    if (!this.cast.test(inv.getStack())) {
+      return false;
+    }
+    IMaterial material = MaterialRegistry.getInstance().getMaterial(inv.getFluid());
+    return material != IMaterial.UNKNOWN && result.canUseMaterial(material);
   }
 
   @Override
@@ -86,7 +90,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
       List<ItemStack> castItems = Arrays.asList(cast.getMatchingStacks());
       multiRecipes = MaterialRegistry
         .getMaterials().stream()
-        .filter(mat -> mat.getFluid() != Fluids.EMPTY)
+        .filter(mat -> mat.getFluid() != Fluids.EMPTY && result.canUseMaterial(mat))
         .map(mat -> new DisplayCastingRecipe(type, castItems, Collections.singletonList(new FluidStack(mat.getFluid(), itemCost * mat.getFluidPerUnit())),
                                              result.withMaterial(mat), ICastingRecipe.calcCoolingTime(mat.getTemperature(), itemCost * mat.getFluidPerUnit()), consumed))
         .collect(Collectors.toList());

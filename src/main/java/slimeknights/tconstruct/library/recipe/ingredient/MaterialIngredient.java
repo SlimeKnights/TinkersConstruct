@@ -101,7 +101,7 @@ public class MaterialIngredient extends Ingredient {
       } else {
         // specific material? apply to all stacks
         IMaterial material = MaterialRegistry.getMaterial(this.materialID);
-        items = items.map(stack -> IMaterialItem.withMaterial(stack, material));
+        items = items.map(stack -> IMaterialItem.withMaterial(stack, material)).filter(ItemStack::hasTag);
       }
       materialStacks = items.distinct().toArray(ItemStack[]::new);
     }

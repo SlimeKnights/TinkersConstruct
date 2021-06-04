@@ -82,7 +82,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     Item item = stack.getItem();
     if (item instanceof IMaterialItem) {
       IMaterialItem part = (IMaterialItem) item;
-      return getMaterialItemCost(part) > 0 && inputId.equals(part.getMaterial(stack).getIdentifier());
+      return getMaterialItemCost(part) > 0 && inputId.equals(part.getMaterial(stack).getIdentifier()) && part.canUseMaterial(outputMaterial.get());
     }
     return false;
   }
@@ -138,6 +138,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
       } else {
         multiRecipes = parts.stream()
                             .filter(entry -> entry.getIntValue() > 0)
+                            .filter(entry -> entry.getKey().canUseMaterial(inputMaterial.get()) && entry.getKey().canUseMaterial(outputMaterial.get()))
                             .map(entry -> {
                               IMaterialItem part = entry.getKey();
                               List<FluidStack> recipeFluids = fluids;
