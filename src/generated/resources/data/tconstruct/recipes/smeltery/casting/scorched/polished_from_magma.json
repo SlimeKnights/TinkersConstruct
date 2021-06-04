@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:magma_cream",
+    "name": "tconstruct:magma",
     "amount": 500
   },
   "result": "tconstruct:polished_scorched_stone",

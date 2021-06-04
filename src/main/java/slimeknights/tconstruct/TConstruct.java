@@ -3,6 +3,7 @@ package slimeknights.tconstruct;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.IItemProvider;
@@ -148,6 +149,8 @@ public class TConstruct {
       case "scorched_tank": return TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK);
       case "scorched_gauge": return TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE);
       case "scorched_window": return TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK);
+      // magma cream -> magma
+      case "magma_cream_fluid": return TinkerFluids.magma.getBlock();
     }
     return null;
   }
@@ -191,6 +194,8 @@ public class TConstruct {
         case "broad_sword": return TinkerTools.sword.get();
         //  reinforcement splitting
         case "reinforcement": return TinkerModifiers.ironReinforcement.get();
+        // magma cream -> magma
+        case "magma_cream_bucket": return TinkerFluids.magma.asItem();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
@@ -200,6 +205,17 @@ public class TConstruct {
   @SubscribeEvent
   void missingBlocks(final MissingMappings<Block> event) {
     RegistrationHelper.handleMissingMappings(event, modID, TConstruct::missingBlock);
+  }
+
+  @SubscribeEvent
+  void missingFluids(final MissingMappings<Fluid> event) {
+    RegistrationHelper.handleMissingMappings(event, modID, name -> {
+      switch(name) {
+        case "magma_cream": return TinkerFluids.magma.get();
+        case "flowing_magma_cream": return TinkerFluids.magma.getFlowing();
+      }
+      return null;
+    });
   }
 
   @SubscribeEvent

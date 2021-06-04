@@ -699,10 +699,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addSlimeCastingRecipe(consumer, TinkerFluids.skySlime.getLocalTag(),   getTemperature(TinkerFluids.skySlime),   SlimeType.SKY, slimeFolder);
     this.addSlimeCastingRecipe(consumer, TinkerFluids.enderSlime.getLocalTag(), getTemperature(TinkerFluids.enderSlime), SlimeType.ENDER, slimeFolder);
     // magma cream
-    addBlockCastingRecipe(consumer, TinkerFluids.magmaCream.getForgeTag(), getTemperature(TinkerFluids.magmaCream), MaterialValues.SLIME_CONGEALED, Blocks.MAGMA_BLOCK, slimeFolder + "magma_cream/block");
-    ItemCastingRecipeBuilder.tableRecipe(Items.MAGMA_CREAM)
-                            .setFluidAndTime(getTemperature(TinkerFluids.magmaCream), TinkerFluids.magmaCream.getForgeTag(), MaterialValues.SLIMEBALL)
-                            .build(consumer, location(slimeFolder + "magma_cream/ball"));
+    addBlockCastingRecipe(consumer, TinkerFluids.magma.getForgeTag(), getTemperature(TinkerFluids.magma), MaterialValues.SLIME_CONGEALED, Blocks.MAGMA_BLOCK, slimeFolder + "magma_block");
 
     // glass
     this.addBlockCastingRecipe(consumer, TinkerFluids.moltenGlass, MaterialValues.GLASS_BLOCK, TinkerCommons.clearGlass, folder + "glass/block");
@@ -859,7 +856,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                                  .setFluid(new FluidStack(TinkerFluids.moltenClay.get(), MaterialValues.SLIMEBALL))
                                  .build(consumer, location(compositeFolder + "seared_stone"));
     CompositeCastingRecipeBuilder.table(MaterialIds.flint, MaterialIds.scorchedStone)
-                                 .setFluid(new FluidStack(TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL))
+                                 .setFluid(new FluidStack(TinkerFluids.magma.get(), MaterialValues.SLIMEBALL))
                                  .build(consumer, location(compositeFolder + "scorched_stone"));
     CompositeCastingRecipeBuilder.table(MaterialIds.wood, MaterialIds.slimewood)
                                  .setFluid(TinkerFluids.earthSlime.getForgeTag(), MaterialValues.SLIMEBALL)
@@ -983,10 +980,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     addSlimeMeltingRecipe(consumer, TinkerFluids.enderSlime, SlimeType.ENDER, TinkerTags.Items.ENDER_SLIMEBALL, slimeFolder);
     addSlimeMeltingRecipe(consumer, TinkerFluids.blood, SlimeType.BLOOD, TinkerTags.Items.BLOOD_SLIMEBALL, slimeFolder);
     // magma cream
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.MAGMA_CREAM), TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL, 1.0f)
-                        .build(consumer, location(slimeFolder + "magma_cream/ball"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.MAGMA_BLOCK), TinkerFluids.magmaCream.get(), MaterialValues.SLIME_CONGEALED, 3.0f)
-                        .build(consumer, location(slimeFolder + "magma_cream/block"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.MAGMA_CREAM), TinkerFluids.magma.get(), MaterialValues.SLIMEBALL, 1.0f)
+                        .build(consumer, location(slimeFolder + "magma/ball"));
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.MAGMA_BLOCK), TinkerFluids.magma.get(), MaterialValues.SLIME_CONGEALED, 3.0f)
+                        .build(consumer, location(slimeFolder + "magma/block"));
 
     // copper cans if empty
     MeltingRecipeBuilder.melting(new NBTIngredient(new ItemStack(TinkerSmeltery.copperCan)), TinkerFluids.moltenCopper.get(), MaterialValues.INGOT, 1.0f)
@@ -1318,7 +1315,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenQueensSlime.get(), MaterialValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCobalt.get(), MaterialValues.INGOT)
                       .addInput(TinkerFluids.moltenGold.get(), MaterialValues.INGOT)
-                      .addInput(TinkerFluids.magmaCream.getForgeTag(), MaterialValues.SLIMEBALL)
+                      .addInput(TinkerFluids.magma.getForgeTag(), MaterialValues.SLIMEBALL)
                       .build(consumer, prefixR(TinkerFluids.moltenQueensSlime, folder));
 
     // manyullyn: 3 cobalt + 1 debris = 3
@@ -1420,7 +1417,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                               .build(consumer, prefixR(TinkerWorld.skySlimeEntity, folder));
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(TinkerWorld.enderSlimeEntity.get()), new FluidStack(TinkerFluids.enderSlime.get(), MaterialValues.SLIMEBALL / 10))
                               .build(consumer, prefixR(TinkerWorld.enderSlimeEntity, folder));
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.MAGMA_CUBE), new FluidStack(TinkerFluids.magmaCream.get(), MaterialValues.SLIMEBALL / 10))
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.MAGMA_CUBE), new FluidStack(TinkerFluids.magma.get(), MaterialValues.SLIMEBALL / 10))
                               .build(consumer, prefixR(EntityType.MAGMA_CUBE, folder));
 
     // iron golems can be healed using an iron ingot 25 health
@@ -1681,7 +1678,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
    */
   private static void addScorchedCastingRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider block, Ingredient cast, int amount, String location) {
     ItemCastingRecipeBuilder.basinRecipe(block)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.magmaCream.get(), amount))
+                            .setFluidAndTime(new FluidStack(TinkerFluids.magma.get(), amount))
                             .setCast(cast, true)
                             .build(consumer, location(location));
   }

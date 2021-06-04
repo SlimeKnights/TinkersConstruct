@@ -22,7 +22,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagAll(TinkerFluids.earthSlime);
     tagLocal(TinkerFluids.skySlime);
     tagLocal(TinkerFluids.enderSlime);
-    tagAll(TinkerFluids.magmaCream);
+    tagAll(TinkerFluids.magma);
     // basic molten
     tagLocal(TinkerFluids.searedStone);
     tagLocal(TinkerFluids.scorchedStone);
@@ -81,7 +81,7 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.skySlime.getLocalTag())
         .addTag(TinkerFluids.enderSlime.getLocalTag());
     this.getOrCreateBuilder(TinkerTags.Fluids.SLIMELIKE)
-        .addTag(TinkerFluids.magmaCream.getForgeTag())
+        .addTag(TinkerFluids.magma.getForgeTag())
         .addTag(TinkerFluids.blood.getLocalTag())
         .addTag(TinkerFluids.moltenEnder.getLocalTag())
         .addTag(TinkerTags.Fluids.SLIME);

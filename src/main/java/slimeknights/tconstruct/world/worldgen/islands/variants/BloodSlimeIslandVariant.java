@@ -40,7 +40,7 @@ public class BloodSlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public BlockState getLakeFluid() {
-    return Objects.requireNonNull(TinkerFluids.magmaCream.getBlock()).getDefaultState();
+    return Objects.requireNonNull(TinkerFluids.magma.getBlock()).getDefaultState();
   }
 
   @Nullable

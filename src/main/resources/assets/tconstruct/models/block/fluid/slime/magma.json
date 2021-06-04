@@ -1,0 +1,8 @@
+{
+  "loader": "mantle:fluid_texture",
+  "textures": {
+    "still": "tconstruct:block/fluid/magma/still",
+    "flowing": "tconstruct:block/fluid/magma/flowing"
+  }
+}
+

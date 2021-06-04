@@ -27,9 +27,9 @@ public final class TinkerFluids extends TinkerModule {
 
   // slime -  note second name parameter is forge tag name
   public static final FluidObject<ForgeFlowingFluid> earthSlime = FLUIDS.register("earth_slime", "slime",  coolBuilder().density(1400).viscosity(1400).temperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<ForgeFlowingFluid> skySlime = FLUIDS.register("sky_slime",               coolBuilder().density(1500).viscosity(1500).temperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<ForgeFlowingFluid> skySlime   = FLUIDS.register("sky_slime",             coolBuilder().density(1500).viscosity(1500).temperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
   public static final FluidObject<ForgeFlowingFluid> enderSlime = FLUIDS.register("ender_slime",           coolBuilder().density(1600).viscosity(1600).temperature(370), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
-  public static final FluidObject<ForgeFlowingFluid> magmaCream  = FLUIDS.register("magma_cream", "magma", coolBuilder().density(1900).viscosity(1900).temperature(600), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 4);
+  public static final FluidObject<ForgeFlowingFluid> magma      = FLUIDS.register("magma",                 coolBuilder().density(1900).viscosity(1900).temperature(600), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 4);
   public static final Map<SlimeType, FluidObject<ForgeFlowingFluid>> slime;
   static {
     slime = new EnumMap<>(SlimeType.class);

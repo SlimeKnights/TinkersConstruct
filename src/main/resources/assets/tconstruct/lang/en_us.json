@@ -377,10 +377,10 @@
     "fluid.tconstruct.flowing_sky_slime": "Flowing Skyslime",
     "item.tconstruct.sky_slime_bucket": "Skyslime Bucket",
 
-    "block.tconstruct.magma_cream_fluid": "Magma Cream",
-    "fluid.tconstruct.magma_cream": "Magma Cream",
-    "fluid.tconstruct.flowing_magma_cream": "Flowing Magma Cream",
-    "item.tconstruct.magma_cream_bucket": "Magma Cream Bucket",
+    "block.tconstruct.magma_fluid": "Magma Cream",
+    "fluid.tconstruct.magma": "Magma Cream",
+    "fluid.tconstruct.flowing_magma": "Flowing Magma Cream",
+    "item.tconstruct.magma_bucket": "Magma Cream Bucket",
     
     "block.tconstruct.ender_slime_fluid": "Enderslime",
     "fluid.tconstruct.ender_slime": "Enderslime",

@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:casting_table",
-  "fluid": {
-    "tag": "forge:magma",
-    "amount": 250
-  },
-  "result": "minecraft:magma_cream",
-  "cooling_time": 56
-}
