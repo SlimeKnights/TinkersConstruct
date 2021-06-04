@@ -202,6 +202,7 @@ public class TinkerTags {
     private static void init() {}
     public static final IOptionalNamedTag<Fluid> SLIMELIKE = tag("slimelike");
     public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
+    public static final IOptionalNamedTag<Fluid> METAL_LIKE = tag("metal_like");
 
     private static IOptionalNamedTag<Fluid> tag(String name) {
       return FluidTags.createOptional(Util.getResource(name));

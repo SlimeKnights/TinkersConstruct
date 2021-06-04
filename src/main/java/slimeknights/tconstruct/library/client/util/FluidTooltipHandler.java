@@ -46,6 +46,7 @@ public class FluidTooltipHandler {
   private static final FluidGuiEntry BUCKET = new FluidGuiEntry("bucket", 1000);
   private static final FluidGuiEntry MILLIBUCKET = new FluidGuiEntry("millibucket", 1);
   private static final FluidGuiEntry INGOT = new FluidGuiEntry("ingot", MaterialValues.INGOT);
+  private static final FluidGuiEntry NUGGET = new FluidGuiEntry("nugget", MaterialValues.NUGGET);
   private static final FluidGuiEntry BLOCK = new FluidGuiEntry("block", MaterialValues.METAL_BLOCK);
   private static final FluidGuiEntry PANE = new FluidGuiEntry("pane", MaterialValues.GLASS_PANE);
   private static final FluidGuiEntry SLIMEBALL = new FluidGuiEntry("slimeball", MaterialValues.SLIMEBALL);
@@ -57,7 +58,7 @@ public class FluidTooltipHandler {
   public static void init() {
     MinecraftForge.EVENT_BUS.addListener(FluidTooltipHandler::onRecipesUpdated);
     TOOLTIP_OPTIONS.put(TinkerSmeltery.ingotCast.get(), INGOT);
-    TOOLTIP_OPTIONS.put(TinkerSmeltery.nuggetCast.get(), new FluidGuiEntry("nugget", MaterialValues.NUGGET));
+    TOOLTIP_OPTIONS.put(TinkerSmeltery.nuggetCast.get(), NUGGET);
     TOOLTIP_OPTIONS.put(TinkerSmeltery.gemCast.get(), new FluidGuiEntry("gem", MaterialValues.GEM));
   }
 
@@ -193,8 +194,11 @@ public class FluidTooltipHandler {
         Ingredient cast = recipe.getCast();
         // if empty, add an entry if a table recipe matches an expected unit
         if (cast == Ingredient.EMPTY) {
-          FluidGuiEntry entry = fluid.isIn(TinkerTags.Fluids.SLIMELIKE) ? SLIMEBALL : PANE;
-          list.add(entry.withAmount(ingredient.getAmount(fluid)));
+          // skip pane and slimeball for metals, some metals like gold have an empty table casting recipe
+          if (!TinkerTags.Fluids.METAL_LIKE.contains(fluid)) {
+            FluidGuiEntry entry = fluid.isIn(TinkerTags.Fluids.SLIMELIKE) ? SLIMEBALL : PANE;
+            list.add(entry.withAmount(ingredient.getAmount(fluid)));
+          }
         } else {
           // if a cast, check for a matching item in the map
           Arrays.stream(recipe.getCast().getMatchingStacks())
@@ -212,6 +216,20 @@ public class FluidTooltipHandler {
       FluidIngredient ingredient = recipe.getFluid();
       if (recipe.getCast() == Ingredient.EMPTY && ingredient.test(fluid)) {
         list.add(BLOCK.withAmount(ingredient.getAmount(fluid)));
+      }
+    }
+
+    // certain slimeball variants lack a direct slimeball recipe, so add it directly
+    if (TinkerTags.Fluids.SLIMELIKE.contains(fluid)) {
+      if (list.stream().noneMatch(entry -> entry.translationKey.equals(SLIMEBALL.translationKey))) {
+        list.add(SLIMEBALL);
+      }
+    }
+
+    // certain "metals" do not have nuggets, make sure they get them
+    if (TinkerTags.Fluids.METAL_LIKE.contains(fluid)) {
+      if (list.stream().noneMatch(entry -> entry.translationKey.equals(NUGGET.translationKey))) {
+        list.add(NUGGET);
       }
     }
 
