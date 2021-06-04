@@ -30,12 +30,14 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.recipe.data.CompoundIngredient;
+import slimeknights.mantle.recipe.data.ItemNameOutput;
+import slimeknights.mantle.recipe.data.NBTIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientIntersection;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
-import slimeknights.tconstruct.common.data.ItemNameOutput;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -59,7 +61,6 @@ import slimeknights.tconstruct.tools.data.MaterialIds;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -332,10 +333,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // craft seared stone from clay and stone
     // cobble
-    addSearedCastingRecipe(consumer, TinkerSmeltery.searedCobble, new CompoundIngredient(
-      Ingredient.fromTag(Tags.Items.COBBLESTONE),
-      Ingredient.fromItems(Blocks.GRAVEL)
-    ), castingFolder + "cobble/block");
+    addSearedCastingRecipe(consumer, TinkerSmeltery.searedCobble, CompoundIngredient.from(Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.GRAVEL)), castingFolder + "cobble/block");
     addSearedSlabCastingRecipe(consumer, TinkerSmeltery.searedCobble.getSlab(), Ingredient.fromItems(Blocks.COBBLESTONE_SLAB), castingFolder + "cobble/slab");
     addSearedCastingRecipe(consumer, TinkerSmeltery.searedCobble.getStairs(), Ingredient.fromItems(Blocks.COBBLESTONE_STAIRS), castingFolder + "cobble/stairs");
     addSearedCastingRecipe(consumer, TinkerSmeltery.searedCobble.getWall(), Ingredient.fromItems(Blocks.COBBLESTONE_WALL), castingFolder + "cobble/wall");
@@ -361,9 +359,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, location(meltingFolder + "grout"));
     // seared stone
     // stairs are here since the cheapest stair recipe is stone cutter, 1 to 1
-    MeltingRecipeBuilder.melting(new CompoundIngredient(Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS),
-                                                        Ingredient.fromItems(TinkerSmeltery.searedLadder, TinkerSmeltery.searedCobble.getWall(), TinkerSmeltery.searedBricks.getWall(),
-                                                                             TinkerSmeltery.searedCobble.getStairs(), TinkerSmeltery.searedStone.getStairs(), TinkerSmeltery.searedBricks.getStairs(), TinkerSmeltery.searedPaver.getStairs())),
+    MeltingRecipeBuilder.melting(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.SEARED_BLOCKS),
+                                                         Ingredient.fromItems(TinkerSmeltery.searedLadder, TinkerSmeltery.searedCobble.getWall(), TinkerSmeltery.searedBricks.getWall(),
+                                                                              TinkerSmeltery.searedCobble.getStairs(), TinkerSmeltery.searedStone.getStairs(), TinkerSmeltery.searedBricks.getStairs(), TinkerSmeltery.searedPaver.getStairs())),
                                  TinkerFluids.searedStone.get(), MaterialValues.METAL_BRICK, 2.0f)
                         .build(consumer, location(meltingFolder + "block"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.searedCobble.getSlab(), TinkerSmeltery.searedStone.getSlab(), TinkerSmeltery.searedBricks.getSlab(), TinkerSmeltery.searedPaver.getSlab()),
@@ -633,8 +631,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // scorched stone
     // stairs are here since the cheapest stair recipe is stone cutter, 1 to 1
-    MeltingRecipeBuilder.melting(new CompoundIngredient(Ingredient.fromTag(TinkerTags.Items.SCORCHED_BLOCKS),
-                                                        Ingredient.fromItems(TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedBricks.getStairs(), TinkerSmeltery.scorchedRoad.getStairs())),
+    MeltingRecipeBuilder.melting(CompoundIngredient.from(Ingredient.fromTag(TinkerTags.Items.SCORCHED_BLOCKS),
+                                                         Ingredient.fromItems(TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedBricks.getStairs(), TinkerSmeltery.scorchedRoad.getStairs())),
                                  TinkerFluids.scorchedStone.get(), MaterialValues.METAL_BRICK, 2.0f)
                         .build(consumer, location(meltingFolder + "block"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerSmeltery.scorchedBricks.getSlab(), TinkerSmeltery.scorchedBricks.getSlab(), TinkerSmeltery.scorchedRoad.getSlab()),
@@ -989,11 +987,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .build(consumer, location(slimeFolder + "magma/block"));
 
     // copper cans if empty
-    MeltingRecipeBuilder.melting(new NBTIngredient(new ItemStack(TinkerSmeltery.copperCan)), TinkerFluids.moltenCopper.get(), MaterialValues.INGOT, 1.0f)
+    MeltingRecipeBuilder.melting(NBTIngredient.from(new ItemStack(TinkerSmeltery.copperCan)), TinkerFluids.moltenCopper.get(), MaterialValues.INGOT, 1.0f)
                         .build(consumer, location(metalFolder + "copper/can"));
     // ender
     MeltingRecipeBuilder.melting(
-      new CompoundIngredient(Ingredient.fromTag(Tags.Items.ENDER_PEARLS), Ingredient.fromItems(Items.ENDER_EYE)),
+      CompoundIngredient.from(Ingredient.fromTag(Tags.Items.ENDER_PEARLS), Ingredient.fromItems(Items.ENDER_EYE)),
       TinkerFluids.moltenEnder.get(), MaterialValues.SLIMEBALL, 1.0f)
                         .build(consumer, location(folder + "ender/pearl"));
 
@@ -1025,8 +1023,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     MeltingRecipeBuilder.melting(Ingredient.fromTag(Tags.Items.GEMS_QUARTZ), TinkerFluids.moltenQuartz.get(), MaterialValues.GEM, 1.0f)
                         .build(consumer, location(folder + "quartz/gem"));
     MeltingRecipeBuilder.melting(
-      new CompoundIngredient(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_QUARTZ), Ingredient.fromItems(Blocks.QUARTZ_PILLAR, Blocks.QUARTZ_BRICKS, Blocks.CHISELED_QUARTZ_BLOCK, Blocks.QUARTZ_STAIRS, Blocks.SMOOTH_QUARTZ_STAIRS))
-      , TinkerFluids.moltenQuartz.get(), MaterialValues.GEM * 4, 2.0f)
+      CompoundIngredient.from(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_QUARTZ), Ingredient.fromItems(Blocks.QUARTZ_PILLAR, Blocks.QUARTZ_BRICKS, Blocks.CHISELED_QUARTZ_BLOCK, Blocks.QUARTZ_STAIRS, Blocks.SMOOTH_QUARTZ_STAIRS)),
+      TinkerFluids.moltenQuartz.get(), MaterialValues.GEM * 4, 2.0f)
                         .build(consumer, location(folder + "quartz/block"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.QUARTZ_SLAB, Blocks.SMOOTH_QUARTZ_SLAB), TinkerFluids.moltenQuartz.get(), MaterialValues.GEM * 2, 1.5f)
                         .build(consumer, location(folder + "quartz/slab"));
@@ -1499,9 +1497,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
    * @param folder    Recipe folder path
    */
   private void addSearedStonecutter(Consumer<IFinishedRecipe> consumer, IItemProvider output, String folder) {
-    SingleItemRecipeBuilder.stonecuttingRecipe(new CompoundIngredient(Arrays.asList(
+    SingleItemRecipeBuilder.stonecuttingRecipe(CompoundIngredient.from(
       Ingredient.fromItems(TinkerSmeltery.searedStone),
-      new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.SEARED_BRICKS), Ingredient.fromItems(output)))), output, 1)
+      new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.SEARED_BRICKS), Ingredient.fromItems(output))), output, 1)
                            .addCriterion("has_stone", hasItem(TinkerSmeltery.searedStone))
                            .addCriterion("has_bricks", hasItem(TinkerTags.Items.SEARED_BRICKS))
                            .build(consumer, wrap(output, folder, "_stonecutting"));

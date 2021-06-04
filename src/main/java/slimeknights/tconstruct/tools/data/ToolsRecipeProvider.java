@@ -8,6 +8,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.recipe.data.CompoundIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.CastItemObject;
@@ -73,9 +74,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(Tags.Items.RODS_WOODEN), 1, 2, "wood/sticks");
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.PLANKS), 1, 1, "wood/planks");
     registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(ItemTags.LOGS), 4, 1, "wood/logs");
-    registerMaterial(consumer, MaterialIds.stone, new CompoundIngredient(
-      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE)
-    ), 1, 1, "stone");
+    registerMaterial(consumer, MaterialIds.stone, CompoundIngredient.from(
+      Ingredient.fromTag(Tags.Items.STONE), Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE)), 1, 1, "stone");
     registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT, Blocks.BASALT, Blocks.POLISHED_BASALT), 1, 1, "flint");
     registerMaterial(consumer, MaterialIds.bone, Ingredient.fromTag(Tags.Items.BONES), 1, 1, "bone");
     registerMaterial(consumer, MaterialIds.necroticBone, Ingredient.fromTag(TinkerTags.Items.WITHER_BONES), 1, 1, "necrotic_bone");
