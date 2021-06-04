@@ -27,15 +27,15 @@ public class HandleMaterialStats extends BaseMaterialStats {
   public static final MaterialStatsId ID = new MaterialStatsId(Util.getResource("handle"));
   public static final HandleMaterialStats DEFAULT = new HandleMaterialStats(1f, 1f, 1f, 1f);
   // tooltip prefixes
-  private static final String DURABILITY_PREFIX = makeTooltipKey("durability");
-  private static final String ATTACK_DAMAGE_PREFIX = makeTooltipKey("attack_damage");
-  private static final String ATTACK_SPEED_PREFIX = makeTooltipKey("attack_speed");
-  private static final String MINING_SPEED_PREFIX = makeTooltipKey("mining_speed");
+  private static final String DURABILITY_PREFIX = makeTooltipKey(Util.getResource("durability"));
+  private static final String ATTACK_DAMAGE_PREFIX = makeTooltipKey(Util.getResource("attack_damage"));
+  private static final String ATTACK_SPEED_PREFIX = makeTooltipKey(Util.getResource("attack_speed"));
+  private static final String MINING_SPEED_PREFIX = makeTooltipKey(Util.getResource("mining_speed"));
   // tooltip descriptions
-  private static final ITextComponent DURABILITY_DESCRIPTION = makeTooltip("handle.durability.description");
-  private static final ITextComponent ATTACK_DAMAGE_DESCRIPTION = makeTooltip("handle.attack_damage.description");
-  private static final ITextComponent ATTACK_SPEED_DESCRIPTION = makeTooltip("handle.attack_speed.description");
-  private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip("handle.mining_speed.description");
+  private static final ITextComponent DURABILITY_DESCRIPTION = makeTooltip(Util.getResource("handle.durability.description"));
+  private static final ITextComponent ATTACK_DAMAGE_DESCRIPTION = makeTooltip(Util.getResource("handle.attack_damage.description"));
+  private static final ITextComponent ATTACK_SPEED_DESCRIPTION = makeTooltip(Util.getResource("handle.attack_speed.description"));
+  private static final ITextComponent MINING_SPEED_DESCRIPTION = makeTooltip(Util.getResource("handle.mining_speed.description"));
   private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(DURABILITY_DESCRIPTION, ATTACK_DAMAGE_DESCRIPTION, ATTACK_SPEED_DESCRIPTION, MINING_SPEED_DESCRIPTION);
 
   // multipliers

@@ -21,7 +21,7 @@ import java.util.List;
 public class ExtraMaterialStats extends BaseMaterialStats {
   public static final MaterialStatsId ID = new MaterialStatsId(Util.getResource("extra"));
   public static final ExtraMaterialStats DEFAULT = new ExtraMaterialStats();
-  private static final ITextComponent NO_STATS = makeTooltip("extra.no_stats");
+  private static final ITextComponent NO_STATS = makeTooltip(Util.getResource("extra.no_stats"));
   private static final List<ITextComponent> LOCALIZED = Collections.singletonList(NO_STATS);
   private static final List<ITextComponent> DESCRIPTION = Collections.singletonList(StringTextComponent.EMPTY);
 
