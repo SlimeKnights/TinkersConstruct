@@ -10,6 +10,8 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialItemCostLookup;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -21,10 +23,8 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Recipe that replaces a tool part with another
@@ -125,25 +125,23 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
           return toolValidation;
         }
 
-        // if swapping in a new head, repair the tool
-        if (part.getStatType().equals(HeadMaterialStats.ID)) {
-          ToolStack finalTool = tool;
+        // if swapping in a new head, repair the tool (assuming the give stats type can repair)
+        IMaterialStats stats = MaterialRegistry.getInstance().getMaterialStats(partMaterial.getIdentifier(), part.getStatType()).orElse(null);
+        if (stats instanceof IRepairableMaterialStats) {
           // must have a registered recipe
           int cost = MaterialItemCostLookup.getTableCost(part);
           if (cost > 0) {
-            // head stats determine repair amount
-            Optional<HeadMaterialStats> optional = MaterialRegistry.getInstance().getMaterialStats(partMaterial.getIdentifier(), HeadMaterialStats.ID);
-            optional.ifPresent(stats -> {
-              // apply modifier repair boost
-              float factor = cost / MaterialRecipe.INGOTS_PER_REPAIR;
-              for (ModifierEntry entry : finalTool.getModifierList()) {
-                factor = entry.getModifier().getRepairFactor(finalTool, entry.getLevel(), factor);
-                if (factor <= 0) {
-                  return;
-                }
+            // apply modifier repair boost
+            float factor = cost / MaterialRecipe.INGOTS_PER_REPAIR;
+            for (ModifierEntry entry : tool.getModifierList()) {
+              factor = entry.getModifier().getRepairFactor(tool, entry.getLevel(), factor);
+              if (factor <= 0) {
+                break;
               }
-              ToolDamageUtil.repair(finalTool, (int)(stats.getDurability() * factor));
-            });
+            }
+            if (factor > 0) {
+              ToolDamageUtil.repair(tool, (int)(((IRepairableMaterialStats)stats).getDurability() * factor));
+            }
           }
         }
 

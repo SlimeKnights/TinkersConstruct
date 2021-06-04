@@ -10,6 +10,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
@@ -17,11 +18,13 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInvent
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.function.IntConsumer;
 
@@ -39,15 +42,15 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
    * Checks if the tool can be repaired with the given material
    * @param tool      Tool to check
    * @param material  Material to try
-   * @return  True if the tool can be repaired with the given material
+   * @return  Index if can repair, -1 if invalid
    */
-  public static boolean canRepairWith(ToolStack tool, IMaterial material) {
+  public static int getRepairIndex(ToolStack tool, IMaterial material) {
     for (int part : tool.getDefinition().getRepairParts()) {
       if (tool.getMaterial(part) == material) {
-        return true;
+        return part;
       }
     }
-    return false;
+    return -1;
   }
 
   /**
@@ -70,18 +73,31 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     return IMaterial.UNKNOWN;
   }
 
+  /** Gets the default stats ID to use if the item is not a tool part */
+  public static MaterialStatsId getDefaultStatsId(ToolStack tool, IMaterial repairMaterial) {
+    int repairIndex = getRepairIndex(tool, repairMaterial);
+    if (repairIndex < 0) {
+      return HeadMaterialStats.ID; // should never happen, but just for safety
+    }
+    return tool.getDefinition().getRequiredComponents().get(repairIndex).getStatType();
+  }
+
   /** Gets the amount to repair per item */
-  protected float repairFactorPerItem(ITinkerStationInventory inv, int slot, IMaterial repairMaterial) {
+  protected float repairFactorPerItem(ToolStack tool, ITinkerStationInventory inv, int slot, IMaterial repairMaterial) {
     ItemStack stack = inv.getInput(slot);
     // repair kit first
     if (stack.getItem() == TinkerToolParts.repairKit.get()) {
       // multiply by 2 (part cost), divide again by the repair factor to get the final percent
-      return MaterialRecipe.getHeadDurability(repairMaterial.getIdentifier()) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
-    }
-    // material recipe fallback
-    MaterialRecipe recipe = inv.getInputMaterial(slot);
-    if (recipe != null) {
-      return recipe.getRepairPerItem();
+      return MaterialRecipe.getRepairDurability(repairMaterial.getIdentifier(), getDefaultStatsId(tool, repairMaterial)) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
+    } else {
+      // material recipe fallback
+      MaterialRecipe recipe = inv.getInputMaterial(slot);
+      if (recipe != null) {
+        if (stack.getItem() instanceof IToolPart) {
+          return recipe.getRepairPerItem(((IToolPart)stack.getItem()).getStatType());
+        }
+        return recipe.getRepairPerItem(getDefaultStatsId(tool, repairMaterial));
+      }
     }
     return 0;
   }
@@ -114,7 +130,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
       // on first match, store and validate the material. For later matches, just ensure material matches
       if (material == null) {
         material = inputMaterial;
-        if (!canRepairWith(tool, material)) {
+        if (getRepairIndex(tool, material) < 0) {
           return false;
         }
       } else if (material != inputMaterial) {
@@ -193,26 +209,28 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     if (!stack.isEmpty()) {
       // we have a recipe with matching stack, find out how much we can repair
       IMaterial repairMaterial = getMaterialFrom(inv, slot);
-      float durabilityPerItem = repairFactorPerItem(inv, slot, repairMaterial);
-      if (repairMaterial != IMaterial.UNKNOWN && durabilityPerItem > 0) {
-        // if not the primary material, reduced effectiveness
-        if (repairMaterial != primaryMaterial) {
-          durabilityPerItem /= tool.getDefinition().getBaseStatDefinition().getPrimaryHeadWeight();
-        }
-
-        // adjust the factor based on modifiers
-        // main example is wood, +25% per level
-        for (ModifierEntry entry : tool.getModifierList()) {
-          durabilityPerItem = entry.getModifier().getRepairFactor(tool, entry.getLevel(), durabilityPerItem);
-          if (durabilityPerItem <= 0) {
-            return 0;
+      if (repairMaterial != IMaterial.UNKNOWN) {
+        float durabilityPerItem = repairFactorPerItem(tool, inv, slot, repairMaterial);
+        if (durabilityPerItem > 0) {
+          // if not the primary material, reduced effectiveness
+          if (repairMaterial != primaryMaterial) {
+            durabilityPerItem /= tool.getDefinition().getBaseStatDefinition().getPrimaryHeadWeight();
           }
-        }
 
-        // apply this recipe as many times as we need (if stack has more than enough to repair) or can (if stack will not fully repair)
-        int applied = Math.min(stack.getCount(), (int)Math.ceil(repairNeeded / durabilityPerItem));
-        amountConsumer.accept(applied);
-        return (int)(applied * durabilityPerItem);
+          // adjust the factor based on modifiers
+          // main example is wood, +25% per level
+          for (ModifierEntry entry : tool.getModifierList()) {
+            durabilityPerItem = entry.getModifier().getRepairFactor(tool, entry.getLevel(), durabilityPerItem);
+            if (durabilityPerItem <= 0) {
+              return 0;
+            }
+          }
+
+          // apply this recipe as many times as we need (if stack has more than enough to repair) or can (if stack will not fully repair)
+          int applied = Math.min(stack.getCount(), (int)Math.ceil(repairNeeded / durabilityPerItem));
+          amountConsumer.accept(applied);
+          return (int)(applied * durabilityPerItem);
+        }
       }
     }
 

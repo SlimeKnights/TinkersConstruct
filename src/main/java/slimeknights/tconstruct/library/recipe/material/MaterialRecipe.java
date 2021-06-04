@@ -14,12 +14,12 @@ import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 /**
  * Recipe to get the material from an ingredient
@@ -134,10 +134,10 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    * Gets the amount to repair per item for tool repair
    * @return  Float amount per item to repair
    */
-  public float getRepairPerItem() {
+  public float getRepairPerItem(MaterialStatsId statsId) {
     if (repairPerItem == null) {
       // multiply by recipe value (iron block is 9x), divide by needed (nuggets need 9), divide again by ingots per repair
-      repairPerItem = this.getValue() * getHeadDurability(materialId) / INGOTS_PER_REPAIR / this.getNeeded();
+      repairPerItem = this.getValue() * getRepairDurability(materialId, statsId) / INGOTS_PER_REPAIR / this.getNeeded();
     }
     return repairPerItem;
   }
@@ -147,8 +147,10 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    * @param materialId  Material
    * @return  Head durability
    */
-  public static int getHeadDurability(MaterialId materialId) {
-    Optional<HeadMaterialStats> stats = MaterialRegistry.getInstance().getMaterialStats(materialId, HeadMaterialStats.ID);
-    return stats.map(HeadMaterialStats::getDurability).orElse(0);
+  public static int getRepairDurability(MaterialId materialId, MaterialStatsId statsId) {
+    return MaterialRegistry.getInstance().getMaterialStats(materialId, statsId)
+      .filter(stats -> stats instanceof IRepairableMaterialStats)
+      .map(stats -> ((IRepairableMaterialStats)stats).getDurability())
+      .orElse(0);
   }
 }

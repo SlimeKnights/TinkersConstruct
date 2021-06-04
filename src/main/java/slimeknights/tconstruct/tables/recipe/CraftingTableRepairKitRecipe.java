@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -76,7 +77,7 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
   @Override
   public boolean matches(CraftingInventory inv, World worldIn) {
     Pair<ToolStack, IMaterial> inputs = getRelevantInputs(inv);
-    return inputs != null && TinkerStationRepairRecipe.canRepairWith(inputs.getFirst(), inputs.getSecond());
+    return inputs != null && TinkerStationRepairRecipe.getRepairIndex(inputs.getFirst(), inputs.getSecond()) >= 0;
   }
 
   @Override
@@ -90,9 +91,10 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
     // first identify materials and durablity
     ToolStack tool = inputs.getFirst().copy();
     IMaterial repairMaterial = inputs.getSecond();
-    IMaterial primaryMaterial = tool.getMaterial(tool.getDefinition().getRepairParts()[0]);
+    MaterialStatsId repairStats = TinkerStationRepairRecipe.getDefaultStatsId(tool, repairMaterial);
+    IMaterial primaryMaterial = tool.getMaterial( tool.getDefinition().getRepairParts()[0]);
     // vanilla says 25% durability per ingot, repair kits are worth 2 ingots
-    float repairAmount = MaterialRecipe.getHeadDurability(repairMaterial.getIdentifier()) / 2f;
+    float repairAmount = MaterialRecipe.getRepairDurability(repairMaterial.getIdentifier(), repairStats) / 2f;
     if (repairAmount > 0) {
       if (repairMaterial != primaryMaterial) {
         repairAmount /= tool.getDefinition().getBaseStatDefinition().getPrimaryHeadWeight();

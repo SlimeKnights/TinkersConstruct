@@ -61,7 +61,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.library.utils.TooltipType;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -710,8 +709,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
     if (materials.size() == components.size()) {
       for (int i = 0; i < components.size(); i++) {
-        // TODO: repair materials?
-        if (HeadMaterialStats.ID.equals(components.get(i).getStatType()) && i < materials.size()) {
+        if (i < materials.size() && MaterialRegistry.getInstance().canRepair(components.get(i).getStatType())) {
           nameMaterials.add(materials.get(i));
         }
       }

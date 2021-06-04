@@ -19,7 +19,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   @Test
   void testLoadFile_statsExist() {
-    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
+    materialStatsManager.registerMaterialStat(new ComplexTestStats(STATS_ID_SIMPLE), ComplexTestStats.class);
 
     MaterialId material = new MaterialId(Util.getResource("teststat"));
     fileLoader.loadAndParseFiles(null, material);
@@ -30,7 +30,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   @Test
   void testLoadFile_complexStats() {
-    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
+    materialStatsManager.registerMaterialStat(new ComplexTestStats(STATS_ID_SIMPLE), ComplexTestStats.class);
 
     MaterialId material = new MaterialId(Util.getResource("teststat"));
     fileLoader.loadAndParseFiles(null, material);
@@ -47,9 +47,9 @@ class MaterialStatsManagerTest extends BaseMcTest {
   void testLoadFile_multipleStatsInOneFile() {
     MaterialId material = new MaterialId(Util.getResource("multiple"));
     MaterialStatsId statId1 = new MaterialStatsId("test", "stat1");
-    materialStatsManager.registerMaterialStat(statId1, ComplexTestStats.class);
+    materialStatsManager.registerMaterialStat(new ComplexTestStats(statId1), ComplexTestStats.class);
     MaterialStatsId statId2 = new MaterialStatsId("test", "stat2");
-    materialStatsManager.registerMaterialStat(statId2, ComplexTestStats.class);
+    materialStatsManager.registerMaterialStat(new ComplexTestStats(statId2), ComplexTestStats.class);
 
     fileLoader.loadAndParseFiles(null, material);
 
@@ -80,8 +80,8 @@ class MaterialStatsManagerTest extends BaseMcTest {
   @Test
   void testLoadMultipleFiles_addDifferentStatsToSameMaterial() {
     MaterialStatsId otherStatId = new MaterialStatsId("test", "otherstat");
-    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
-    materialStatsManager.registerMaterialStat(otherStatId, ComplexTestStats.class);
+    materialStatsManager.registerMaterialStat(new ComplexTestStats(STATS_ID_SIMPLE), ComplexTestStats.class);
+    materialStatsManager.registerMaterialStat(new ComplexTestStats(otherStatId), ComplexTestStats.class);
 
     MaterialId material = new MaterialId(Util.getResource("teststat"));
     fileLoader.loadAndParseFiles("extrastats", material);
@@ -94,7 +94,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   // the top data pack should override lower ones, meaning the duplicate stats are kept
   @Test
   void testLoadMultipleFiles_addSameStatsFromDifferentSources_useFirst() {
-    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
+    materialStatsManager.registerMaterialStat(new ComplexTestStats(STATS_ID_SIMPLE), ComplexTestStats.class);
 
     MaterialId material = new MaterialId(Util.getResource("teststat"));
     fileLoader.loadAndParseFiles("duplicate", material);

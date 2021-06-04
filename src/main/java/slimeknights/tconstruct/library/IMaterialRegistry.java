@@ -7,6 +7,7 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +55,17 @@ public interface IMaterialRegistry {
    * @param <T>      Stats class type
    * @return  Default stats for the type
    */
+  @Nullable
   <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId);
+
+  /**
+   * Checks if the given material stats ID can repair, this is equivelent to an instanceof check on a stat type for {@link slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats}
+   * @param statsId  Stats ID
+   * @return  True if it can repair
+   */
+  default boolean canRepair(MaterialStatsId statsId) {
+    return false;
+  }
 
   /**
    * This method serves two purposes:

@@ -7,7 +7,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.PacketDistributor.PacketTarget;
-import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialManager;
@@ -79,19 +78,17 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
 
   @Override
   public <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId) {
-    //noinspection unchecked
-    return (T) materialStatDefaults.get(statsId);
+    return materialStatsManager.getDefaultStats(statsId);
+  }
+
+  @Override
+  public boolean canRepair(MaterialStatsId statsId) {
+    return materialStatsManager.canRepair(statsId);
   }
 
   @Override
   public <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz) {
-    MaterialStatsId statsId = defaultStats.getIdentifier();
-    if (materialStatDefaults.containsKey(statsId)) {
-      throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(statsId);
-    }
-    // todo: implement check if class is compatible with the requirements for a network syncable stats class
-    materialStatsManager.registerMaterialStat(statsId, clazz);
-    materialStatDefaults.put(statsId, defaultStats);
+    materialStatsManager.registerMaterialStat(defaultStats, clazz);
   }
 
   @Override

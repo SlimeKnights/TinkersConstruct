@@ -1,18 +1,16 @@
 package slimeknights.tconstruct.library.tools;
 
-import com.google.common.collect.ImmutableSet;
 import net.minecraftforge.common.util.Lazy;
+import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.AbstractToolStatsBuilder;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
@@ -23,7 +21,6 @@ import java.util.stream.IntStream;
  * Contains information about what's needed to craft the tool, how it behaves...
  */
 public class ToolDefinition {
-  private static final Set<MaterialStatsId> REPAIR_STATS = ImmutableSet.of(HeadMaterialStats.ID);
   public static final ToolDefinition EMPTY = new ToolDefinition(new ToolBaseStatDefinition.Builder().build(), Collections::emptyList);
   /** Default stat builder for melee and harvest tools */
   public static final BiFunction<ToolDefinition,List<IMaterial>,? extends AbstractToolStatsBuilder> TOOL_STAT_BUILDER = ToolStatsBuilder::from;
@@ -94,7 +91,7 @@ public class ToolDefinition {
       // get indices of all head parts
       List<IToolPart> components = requiredComponents.get();
       repairIndices = IntStream.range(0, components.size())
-                               .filter(i -> REPAIR_STATS.contains(components.get(i).getStatType()))
+                               .filter(i -> MaterialRegistry.getInstance().getDefaultStats(components.get(i).getStatType()) instanceof IRepairableMaterialStats)
                                .toArray();
     }
     return repairIndices;

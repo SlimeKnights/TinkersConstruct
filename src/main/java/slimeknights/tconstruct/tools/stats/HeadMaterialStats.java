@@ -12,6 +12,7 @@ import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -22,7 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString
-public class HeadMaterialStats extends BaseMaterialStats {
+public class HeadMaterialStats extends BaseMaterialStats implements IRepairableMaterialStats {
   public static final MaterialStatsId ID = new MaterialStatsId(Util.getResource("head"));
   public static final HeadMaterialStats DEFAULT = new HeadMaterialStats(1, 1f, 0, 1f);
   // tooltip descriptions

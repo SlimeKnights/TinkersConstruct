@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 
 import java.util.ArrayList;
@@ -14,11 +13,14 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class ComplexTestStats extends BaseMaterialStats {
-
   private MaterialStatsId identifier;
   private int num;
   private float floating;
   private String text;
+
+  public ComplexTestStats(MaterialStatsId identifier) {
+    this.identifier = identifier;
+  }
 
   @Override
   public void encode(PacketBuffer buffer) {
