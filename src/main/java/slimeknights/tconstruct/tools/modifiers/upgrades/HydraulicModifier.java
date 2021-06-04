@@ -7,6 +7,7 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 public class HydraulicModifier extends IncrementalModifier {
   public HydraulicModifier() {
@@ -37,7 +38,7 @@ public class HydraulicModifier extends IncrementalModifier {
       bonus = 4;
     }
     if (bonus > 0) {
-      bonus *= level * tool.getDefinition().getBaseStatDefinition().getMiningSpeedModifier() * miningSpeedModifier;
+      bonus *= level * tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.DURABILITY) * miningSpeedModifier;
       event.setNewSpeed(event.getNewSpeed() + bonus);
     }
   }

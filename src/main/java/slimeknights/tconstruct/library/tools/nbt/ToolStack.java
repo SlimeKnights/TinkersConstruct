@@ -16,10 +16,11 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.IToolPart;
-import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -239,7 +240,7 @@ public class ToolStack implements IModifierToolStack {
    * Breaks the tool
    */
   protected void breakTool() {
-    setDamage(getStats().getDurability());
+    setDamage(getStats().getInt(ToolStats.DURABILITY));
   }
 
   /**
@@ -260,11 +261,12 @@ public class ToolStack implements IModifierToolStack {
   @Override
   public int getDamage() {
     // if broken, return full damage
+    int durability = getStats().getInt(ToolStats.DURABILITY);
     if (isBroken()) {
-      return getStats().getDurability();
+      return durability;
     }
     // ensure we never return a number larger than max
-    return Math.min(getDamageRaw(), getStats().getDurability() - 1);
+    return Math.min(getDamageRaw(), durability - 1);
   }
 
   /**
@@ -277,7 +279,7 @@ public class ToolStack implements IModifierToolStack {
       return 0;
     }
     // ensure we never return a number smaller than 0
-    return Math.max(0, getStats().getDurability() - getDamageRaw());
+    return Math.max(0, getStats().getInt(ToolStats.DURABILITY) - getDamageRaw());
   }
 
   /**
@@ -286,7 +288,7 @@ public class ToolStack implements IModifierToolStack {
    */
   @Override
   public void setDamage(int damage) {
-    int durability = getStats().getDurability();
+    int durability = getStats().getInt(ToolStats.DURABILITY);
     if (damage >= durability) {
       damage = Math.max(0, durability);
       setBrokenRaw(true);
@@ -319,7 +321,7 @@ public class ToolStack implements IModifierToolStack {
     this.stats = stats;
     nbt.put(TAG_STATS, stats.serializeToNBT());
     // if we no longer have enough durability, decrease the damage and mark it broken
-    int newMax = stats.getDurability();
+    int newMax = getStats().getInt(ToolStats.DURABILITY);
     if (getDamageRaw() >= newMax) {
       setDamage(newMax);
     }

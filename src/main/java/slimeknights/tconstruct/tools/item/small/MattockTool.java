@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.tools.helper.aoe.VeiningAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.Set;
 
@@ -36,7 +37,7 @@ public class MattockTool extends ToolCore {
         return 1f;
       }
       // slower when a non-shovel block
-      float speed = tool.getStats().getMiningSpeed();
+      float speed = tool.getStats().getFloat(ToolStats.MINING_SPEED);
       if (!blockState.isToolEffective(ToolType.SHOVEL)) {
         speed *= 0.75f;
       }

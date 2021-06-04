@@ -6,6 +6,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.List;
 
@@ -24,12 +25,12 @@ public class PiercingModifier extends IncrementalModifier {
       source = DamageSource.causeMobDamage(target);
     }
     source.setDamageBypassesArmor();
-    attackEntitySecondary(source, getScaledLevel(tool, level) * tool.getDefinition().getBaseStatDefinition().getDamageModifier() * 0.5f * cooldown, target, true);
+    attackEntitySecondary(source, getScaledLevel(tool, level) * tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.ATTACK_DAMAGE) * 0.5f * cooldown, target, true);
     return 0;
   }
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    ScaledTypeDamageModifier.addDamageTooltip(this, tool, level, tool.getDefinition().getBaseStatDefinition().getDamageModifier() * 0.5f, tooltip);
+    ScaledTypeDamageModifier.addDamageTooltip(this, tool, level, tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.ATTACK_DAMAGE) * 0.5f, tooltip);
   }
 }

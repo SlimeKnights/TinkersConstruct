@@ -5,6 +5,7 @@ import net.minecraft.nbt.INBT;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import slimeknights.tconstruct.library.MaterialRegistryExtension;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,45 +13,52 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MaterialRegistryExtension.class)
 class StatsNBTTest extends BaseMcTest {
 
-  private final StatsNBT testStatsNBT = new StatsNBT(1, 2, 3, 4, 5, 6);
+  private final StatsNBT testStatsNBT = StatsNBT.builder()
+                                                .set(ToolStats.DURABILITY, 1)
+                                                .set(ToolStats.HARVEST_LEVEL, 2)
+                                                .set(ToolStats.ATTACK_DAMAGE, 3)
+                                                .set(ToolStats.MINING_SPEED, 4)
+                                                .set(ToolStats.ATTACK_SPEED, 5)
+                                                .set(ToolStats.REACH, 6)
+                                                .build();
 
   @Test
   void serialize() {
     CompoundNBT nbt = testStatsNBT.serializeToNBT();
     
-    assertThat(nbt.getInt(StatsNBT.TAG_DURABILITY)).isEqualTo(1);
-    assertThat(nbt.getInt(StatsNBT.TAG_HARVEST_LEVEL)).isEqualTo(2);
-    assertThat(nbt.getFloat(StatsNBT.TAG_ATTACK_DAMAGE)).isEqualTo(3);
-    assertThat(nbt.getFloat(StatsNBT.TAG_MINING_SPEED)).isEqualTo(4);
-    assertThat(nbt.getFloat(StatsNBT.TAG_ATTACK_SPEED)).isEqualTo(5);
-    assertThat(nbt.getFloat(StatsNBT.TAG_REACH)).isEqualTo(6);
+    assertThat(nbt.getInt(ToolStats.DURABILITY.getName().toString())).isEqualTo(1);
+    assertThat(nbt.getInt(ToolStats.HARVEST_LEVEL.getName().toString())).isEqualTo(2);
+    assertThat(nbt.getFloat(ToolStats.ATTACK_DAMAGE.getName().toString())).isEqualTo(3);
+    assertThat(nbt.getFloat(ToolStats.MINING_SPEED.getName().toString())).isEqualTo(4);
+    assertThat(nbt.getFloat(ToolStats.ATTACK_SPEED.getName().toString())).isEqualTo(5);
+    assertThat(nbt.getFloat(ToolStats.REACH.getName().toString())).isEqualTo(6);
   }
 
   @Test
   void serializeEmpty_emptyList() {
     CompoundNBT nbt = StatsNBT.EMPTY.serializeToNBT();
 
-    assertThat(nbt.size()).isEqualTo(6);
+    assertThat(nbt.size()).isEqualTo(0);
   }
 
   @Test
   void deserialize() {
     CompoundNBT nbt = new CompoundNBT();
-    nbt.putInt(StatsNBT.TAG_DURABILITY, 6);
-    nbt.putInt(StatsNBT.TAG_HARVEST_LEVEL, 5);
-    nbt.putFloat(StatsNBT.TAG_ATTACK_DAMAGE, 4);
-    nbt.putFloat(StatsNBT.TAG_MINING_SPEED, 3);
-    nbt.putFloat(StatsNBT.TAG_ATTACK_SPEED, 2);
-    nbt.putFloat(StatsNBT.TAG_REACH, 1);
+    nbt.putInt(ToolStats.DURABILITY.getName().toString(), 6);
+    nbt.putInt(ToolStats.HARVEST_LEVEL.getName().toString(), 5);
+    nbt.putFloat(ToolStats.ATTACK_DAMAGE.getName().toString(), 4);
+    nbt.putFloat(ToolStats.MINING_SPEED.getName().toString(), 3.5f);
+    nbt.putFloat(ToolStats.ATTACK_SPEED.getName().toString(), 2);
+    nbt.putFloat(ToolStats.REACH.getName().toString(), 1);
 
     StatsNBT statsNBT = StatsNBT.readFromNBT(nbt);
 
-    assertThat(statsNBT.getDurability()).isEqualTo(6);
-    assertThat(statsNBT.getHarvestLevel()).isEqualTo(5);
-    assertThat(statsNBT.getAttackDamage()).isEqualTo(4);
-    assertThat(statsNBT.getMiningSpeed()).isEqualTo(3);
-    assertThat(statsNBT.getAttackSpeed()).isEqualTo(2);
-    assertThat(statsNBT.getReach()).isEqualTo(1);
+    assertThat(statsNBT.getInt(ToolStats.DURABILITY)).isEqualTo(6);
+    assertThat(statsNBT.getInt(ToolStats.HARVEST_LEVEL)).isEqualTo(5);
+    assertThat(statsNBT.getFloat(ToolStats.ATTACK_DAMAGE)).isEqualTo(4);
+    assertThat(statsNBT.getFloat(ToolStats.MINING_SPEED)).isEqualTo(3.5f);
+    assertThat(statsNBT.getFloat(ToolStats.ATTACK_SPEED)).isEqualTo(2);
+    assertThat(statsNBT.getFloat(ToolStats.REACH)).isEqualTo(1);
   }
 
   @Test
@@ -69,5 +77,16 @@ class StatsNBTTest extends BaseMcTest {
     StatsNBT statsNBT = StatsNBT.readFromNBT(wrongNbt);
 
     assertThat(statsNBT).isEqualTo(StatsNBT.EMPTY);
+  }
+
+  @Test
+  void missing_isDefault() {
+    StatsNBT partialStatsNBT = StatsNBT.builder()
+                                       .set(ToolStats.DURABILITY, 1)
+                                       .set(ToolStats.HARVEST_LEVEL, 2)
+                                       .set(ToolStats.ATTACK_DAMAGE, 3)
+                                       .set(ToolStats.MINING_SPEED, 4)
+                                       .build();
+    assertThat(partialStatsNBT.getFloat(ToolStats.REACH)).isEqualTo(ToolStats.REACH.getDefaultValue());
   }
 }

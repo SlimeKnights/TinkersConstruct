@@ -58,6 +58,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.library.utils.TooltipType;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -152,7 +153,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   @Override
   public int getMaxDamage(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
-    int durability = tool.getStats().getDurability();
+    int durability = tool.getStats().getInt(ToolStats.DURABILITY);
     // vanilla deletes tools if max damage == getDamage, so tell vanilla our max is one higher when broken
     return tool.isBroken() ? durability + 1 : durability;
   }
@@ -206,7 +207,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     }
 
     // no one took it? just use regular durability
-    return (double) tool.getDamage() / tool.getStats().getDurability();
+    return (double) tool.getDamage() / tool.getStats().getInt(ToolStats.DURABILITY);
   }
 
   @Override
@@ -250,7 +251,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
     // brokenness is calculated in by the toolTypes check
     if (this.getToolTypes(stack).contains(toolClass)) {
-      return ToolStack.from(stack).getStats().getHarvestLevel();
+      return ToolStack.from(stack).getStats().getInt(ToolStats.HARVEST_LEVEL);
     }
 
     return -1;
@@ -294,7 +295,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   @Override
   public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-    float speed = ToolStack.from(stack).getStats().getAttackSpeed();
+    float speed = ToolStack.from(stack).getStats().getFloat(ToolStats.ATTACK_SPEED);
     int time = Math.round(20f / speed);
     if (time < target.hurtResistantTime / 2) {
       target.hurtResistantTime = (target.hurtResistantTime + time) / 2;
@@ -316,11 +317,11 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     if (slot == EquipmentSlotType.MAINHAND && !tool.isBroken()) {
       // base stats
       StatsNBT statsNBT = tool.getStats();
-      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "tconstruct.tool.attack_damage", statsNBT.getAttackDamage(), AttributeModifier.Operation.ADDITION));
+      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "tconstruct.tool.attack_damage", statsNBT.getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
       // base attack speed is 4, but our numbers start from 4
-      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "tconstruct.tool.attack_speed", statsNBT.getAttackSpeed() - 4d, AttributeModifier.Operation.ADDITION));
+      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "tconstruct.tool.attack_speed", statsNBT.getFloat(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));
       // base value is 5, but our number start from 5
-      double reach = statsNBT.getReach() - 5d;
+      double reach = statsNBT.getFloat(ToolStats.REACH) - 5d;
       if (reach != 0) {
         builder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER, "tconstruct.tool.reach", reach, AttributeModifier.Operation.ADDITION));
       }
@@ -527,7 +528,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       case NORMAL: {
         ToolStack tool = ToolStack.from(stack);
         // shows as broken when broken, hold shift for proper durability
-        tooltips.add(HeadMaterialStats.formatDurability(tool.getCurrentDurability(), tool.getStats().getDurability(), true));
+        tooltips.add(TooltipBuilder.formatDurability(tool.getCurrentDurability(), tool.getStats().getInt(ToolStats.DURABILITY), true));
         // modifier tooltip
         for (ModifierEntry entry : tool.getModifierList()) {
           if (entry.getModifier().shouldDisplay(false)) {
@@ -591,19 +592,13 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     builder.addDurability();
     if (TinkerTags.Items.MELEE.contains(tool.getItem())) {
-      builder.addAttackDamage();
-      builder.addAttackSpeed();
+      builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
+      builder.add(ToolStats.ATTACK_SPEED);
     }
     if (TinkerTags.Items.HARVEST.contains(tool.getItem())) {
-      builder.addHarvestLevel();
-      builder.addMiningSpeed();
+      builder.add(ToolStats.HARVEST_LEVEL);
+      builder.add(ToolStats.MINING_SPEED);
     }
-
-//    if (this.getToolDefinition().hasCategory(Category.LAUNCHER)) {
-//      info.addDrawSpeed();
-//      info.addRange();
-//      info.addProjectileBonusDamage();
-//    }
 
     builder.addFreeUpgrades();
     builder.addFreeAbilities();

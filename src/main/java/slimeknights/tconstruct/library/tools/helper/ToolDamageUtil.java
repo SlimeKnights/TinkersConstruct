@@ -11,6 +11,7 @@ import net.minecraft.util.Hand;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
 
@@ -89,7 +90,7 @@ public class ToolDamageUtil {
       return false;
     }
 
-    int durability = tool.getStats().getDurability();
+    int durability = tool.getStats().getInt(ToolStats.DURABILITY);
     int damage = tool.getDamage();
     int current = durability - damage;
     amount = Math.min(amount, current);

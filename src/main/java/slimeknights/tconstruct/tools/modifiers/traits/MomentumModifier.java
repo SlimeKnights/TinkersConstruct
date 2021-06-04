@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class MomentumModifier extends Modifier {
@@ -36,7 +37,7 @@ public class MomentumModifier extends Modifier {
       // 16 blocks gets you to max, levels faster at higher levels
       int effectLevel = Math.min(31, TinkerModifiers.momentumEffect.get().getLevel(living) + 1);
       // funny formula from 1.12, guess it makes faster tools have a slightly shorter effect
-      int duration = (int) ((10f / tool.getStats().getMiningSpeed()) * 1.5f * 20f);
+      int duration = (int) ((10f / tool.getStats().getFloat(ToolStats.MINING_SPEED)) * 1.5f * 20f);
       TinkerModifiers.momentumEffect.get().apply(living, duration, effectLevel);
     }
   }

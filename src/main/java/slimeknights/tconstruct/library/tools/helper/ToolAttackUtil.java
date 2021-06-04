@@ -4,7 +4,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -32,24 +31,6 @@ import java.util.List;
 
 public class ToolAttackUtil {
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
-
-  /**
-   * Gets the actual damage a tool does
-   *
-   * @param stack the ItemStack to check
-   * @param player the current player
-   * @return the actual damage of the tool
-   */
-  public static float getActualDamage(ToolStack stack, @Nullable LivingEntity player) {
-    float damage = (float) Attributes.ATTACK_DAMAGE.getDefaultValue();
-    if (player != null) {
-      ModifiableAttributeInstance instance = player.getAttribute(Attributes.ATTACK_DAMAGE);
-      if (instance != null) {
-        damage = (float) instance.getValue();
-      }
-    }
-    return damage + stack.getStats().getAttackDamage();
-  }
 
   /**
    * General version of attackEntity. Applies cooldowns but has no projectile entity

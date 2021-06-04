@@ -13,6 +13,7 @@ import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.tools.ToolCoreTest;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.Arrays;
 
@@ -21,9 +22,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ToolStackTest extends ToolCoreTest {
   private final StatsNBT testStatsNBT = StatsNBT.builder()
-                                                .durability(100).harvestLevel(2)
-                                                .attackDamage(2f).miningSpeed(3f)
-                                                .attackSpeed(5f).reach(6f).build();
+                                                .set(ToolStats.DURABILITY, 100)
+                                                .set(ToolStats.HARVEST_LEVEL, 2)
+                                                .set(ToolStats.ATTACK_DAMAGE, 2f)
+                                                .set(ToolStats.MINING_SPEED, 3f)
+                                                .set(ToolStats.ATTACK_SPEED, 5f)
+                                                .set(ToolStats.REACH, 6f)
+                                                .build();
 
   @BeforeAll
   static void before() {
@@ -117,7 +122,7 @@ class ToolStackTest extends ToolCoreTest {
   @Test
   void serialize_damageBroken() {
     ToolStack stack = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinitionFixture.getStandardToolDefinition(), new CompoundNBT());
-    stack.setStats(StatsNBT.builder().durability(100).build());
+    stack.setStats(StatsNBT.builder().set(ToolStats.DURABILITY, 100).build());
     stack.setDamage(1);
     stack.setBrokenRaw(true);
 
@@ -148,7 +153,7 @@ class ToolStackTest extends ToolCoreTest {
     nbt.putInt(ToolStack.TAG_DAMAGE, 9999);
 
     ToolStack tool = ToolStack.from(testItemStack);
-    assertThat(tool.getDamage()).isLessThanOrEqualTo(tool.getStats().getDurability());
+    assertThat(tool.getDamage()).isLessThanOrEqualTo(tool.getStats().getInt(ToolStats.DURABILITY));
   }
 
   @Test
@@ -248,7 +253,7 @@ class ToolStackTest extends ToolCoreTest {
     stack.setDamage(100);
 
     ToolStack tool = ToolStack.from(stack);
-    tool.setStats(StatsNBT.builder().durability(50).build());
+    tool.setStats(StatsNBT.builder().set(ToolStats.DURABILITY, 50).build());
     assertThat(tool.getDamageRaw()).isEqualTo(50);
     assertThat(tool.isBroken()).isTrue();
   }

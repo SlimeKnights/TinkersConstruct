@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
-import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 public class NetheriteModifier extends SingleLevelModifier {
@@ -21,9 +22,10 @@ public class NetheriteModifier extends SingleLevelModifier {
 
   @Override
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    builder.multiplyDurability(1.25f);
-    builder.multiplyAttackDamage(1.25f);
-    builder.multiplyMiningSpeed(1.25f);
-    builder.setHarvestLevel(HarvestLevels.NETHERITE);
+    ToolStats.DURABILITY.multiply(builder, 1.25f);
+    ToolStats.ATTACK_DAMAGE.multiply(builder, 1.25f);
+    ToolStats.MINING_SPEED.multiply(builder, 1.25f);
+    ToolStats.DURABILITY.multiply(builder, 1.25f);
+    ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.NETHERITE);
   }
 }

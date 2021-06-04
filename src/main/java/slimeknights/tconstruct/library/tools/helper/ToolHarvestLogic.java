@@ -28,6 +28,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.Collections;
 import java.util.function.Predicate;
@@ -80,7 +81,7 @@ public class ToolHarvestLogic {
     }
 
     // harvest level too low -> not effective
-    if (state.getRequiresTool() && tool.getStats().getHarvestLevel() < state.getHarvestLevel()) {
+    if (state.getRequiresTool() && tool.getStats().getInt(ToolStats.HARVEST_LEVEL) < state.getHarvestLevel()) {
       return false;
     }
 
@@ -111,7 +112,7 @@ public class ToolHarvestLogic {
     }
 
     // calculate speed depending on stats
-    return tool.getStats().getMiningSpeed();
+    return tool.getStats().getFloat(ToolStats.MINING_SPEED);
   }
 
   /**

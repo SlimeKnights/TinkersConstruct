@@ -12,6 +12,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class MaintainedModifier extends Modifier {
 
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    volatileData.putInt(KEY_ORIGINAL_DURABILITY, (int)(baseStats.getDurability() * toolDefinition.getBaseStatDefinition().getDurabilityModifier()));
+    volatileData.putInt(KEY_ORIGINAL_DURABILITY, (int)(baseStats.getFloat(ToolStats.DURABILITY) * toolDefinition.getBaseStatDefinition().getModifier(ToolStats.DURABILITY)));
   }
 
   /**
@@ -64,7 +65,7 @@ public class MaintainedModifier extends Modifier {
     float boost = boost(durability, 0.1f, baseMax / 2, baseMax);
     // grant an extra 5% boost for getting up to 200% durability using modifiers
     // compared to WellMaintained2, this will grant slightly higher at top and maintain that higher speed though a bit more durability
-    int fullMax = tool.getStats().getDurability();
+    int fullMax = tool.getStats().getInt(ToolStats.DURABILITY);
     if (fullMax > baseMax) {
       // from 100% to 200% or full, whichever is larger
       boost += boost(durability, 0.05f, baseMax, Math.max(baseMax * 2, fullMax));

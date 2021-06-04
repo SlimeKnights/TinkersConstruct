@@ -6,12 +6,14 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.stat.AbstractToolStatsBuilder;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
@@ -23,6 +25,8 @@ import java.util.stream.IntStream;
 public class ToolDefinition {
   private static final Set<MaterialStatsId> REPAIR_STATS = ImmutableSet.of(HeadMaterialStats.ID);
   public static final ToolDefinition EMPTY = new ToolDefinition(new ToolBaseStatDefinition.Builder().build(), Collections::emptyList);
+  /** Default stat builder for melee and harvest tools */
+  public static final BiFunction<ToolDefinition,List<IMaterial>,? extends AbstractToolStatsBuilder> TOOL_STAT_BUILDER = ToolStatsBuilder::from;
 
   /** Inherent stats of the tool. */
   private final ToolBaseStatDefinition baseStatDefinition;
@@ -30,14 +34,21 @@ public class ToolDefinition {
   protected final Lazy<List<IToolPart>> requiredComponents;
   /** Modifiers applied automatically by this tool */
   protected final Lazy<List<ModifierEntry>> modifiers;
+  /** Function to convert from tool definition and materials into tool stats */
+  protected final BiFunction<ToolDefinition,List<IMaterial>,? extends AbstractToolStatsBuilder> statsBuilder;
 
   /** Cached indices that can be used to repair this tool */
   private int[] repairIndices;
 
-  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Supplier<List<ModifierEntry>> modifiers) {
+  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Supplier<List<ModifierEntry>> modifiers, BiFunction<ToolDefinition,List<IMaterial>,? extends AbstractToolStatsBuilder> statsBuilder) {
     this.baseStatDefinition = baseStatDefinition;
     this.requiredComponents = Lazy.of(requiredComponents);
     this.modifiers = Lazy.of(modifiers);
+    this.statsBuilder = statsBuilder;
+  }
+
+  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Supplier<List<ModifierEntry>> modifiers) {
+    this(baseStatDefinition, requiredComponents, modifiers, TOOL_STAT_BUILDER);
   }
 
   public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents) {
@@ -67,7 +78,7 @@ public class ToolDefinition {
    * @return  Stats NBT
    */
   public StatsNBT buildStats(List<IMaterial> materials) {
-    return ToolStatsBuilder.from(materials, this).buildStats();
+    return statsBuilder.apply(this, materials).buildStats();
   }
 
   /** Gets the modifiers applied by this tool */

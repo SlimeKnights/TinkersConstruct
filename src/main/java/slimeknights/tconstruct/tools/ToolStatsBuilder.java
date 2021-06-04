@@ -1,46 +1,40 @@
 package slimeknights.tconstruct.tools;
 
-import com.google.common.collect.Streams;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.With;
-import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
-import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.stat.AbstractToolStatsBuilder;
+import slimeknights.tconstruct.library.tools.stat.IToolStat;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
- * Common stats builder. Allows you to calculate the default stats of a tool, adhering to the standards
- * set by all TiC tools. Of course you can always set your own too.
- * <p>
- * It's encouraged to use this for the base of your calculation, and then modify the result as needed.
+ * Standard stat builder for melee and harvest tools. Calculates the five main stat types, and handles the bonuses for other types
  */
-@With
-@RequiredArgsConstructor
 @Getter(AccessLevel.PROTECTED)
-public final class ToolStatsBuilder {
-
-  private final float damageBonus;
+public final class ToolStatsBuilder extends AbstractToolStatsBuilder {
   private final List<HeadMaterialStats> heads;
   private final List<HandleMaterialStats> handles;
   private final List<ExtraMaterialStats> extras;
 
-  public static ToolStatsBuilder from(List<IMaterial> materials, ToolDefinition toolDefinition) {
+  public ToolStatsBuilder(ToolBaseStatDefinition baseStats, List<HeadMaterialStats> heads, List<HandleMaterialStats> handles, List<ExtraMaterialStats> extras) {
+    super(baseStats);
+    this.heads = heads;
+    this.handles = handles;
+    this.extras = extras;
+  }
+
+  /** Creates a builder from the definition and materials */
+  public static ToolStatsBuilder from(ToolDefinition toolDefinition, List<IMaterial> materials) {
     List<IToolPart> requiredComponents = toolDefinition.getRequiredComponents();
     if (materials.size() != requiredComponents.size()) {
       throw TinkerAPIMaterialException.statBuilderWithInvalidMaterialCount();
@@ -55,56 +49,52 @@ public final class ToolStatsBuilder {
       }
     }
 
-    return new ToolStatsBuilder(baseStats.getDamageBonus(), headStats,
+    return new ToolStatsBuilder(baseStats, headStats,
       listOfCompatibleWith(HandleMaterialStats.ID, materials, requiredComponents),
       listOfCompatibleWith(ExtraMaterialStats.ID, materials, requiredComponents)
     );
   }
 
-  private static <T extends IMaterialStats> List<T> listOfCompatibleWith(MaterialStatsId statsId, List<IMaterial> materials, List<IToolPart> requiredComponents) {
-    return Streams.zip(materials.stream(), requiredComponents.stream(),
-      (material, partMaterialType) -> ToolStatsBuilder.<T>fetchStatsOrDefault(statsId, material, partMaterialType))
-      .filter(Objects::nonNull)
-      .collect(Collectors.toList());
+  @Override
+  protected void setStats(StatsNBT.Builder builder) {
+    // add in specific stat types handled by our materials
+    builder.set(ToolStats.DURABILITY, buildDurability());
+    builder.set(ToolStats.HARVEST_LEVEL, buildHarvestLevel());
+    builder.set(ToolStats.ATTACK_DAMAGE, buildAttackDamage());
+    builder.set(ToolStats.ATTACK_SPEED, buildAttackSpeed());
+    builder.set(ToolStats.MINING_SPEED, buildMiningSpeed());
   }
 
-  @Nullable
-  private static <T extends IMaterialStats> T fetchStatsOrDefault(MaterialStatsId statsId, IMaterial material, IToolPart requiredComponent) {
-    if (statsId.equals(requiredComponent.getStatType())) {
-      return MaterialRegistry.getInstance().<T>getMaterialStats(material.getIdentifier(), statsId)
-        .orElseGet(() -> MaterialRegistry.getInstance().getDefaultStats(statsId));
-    } else {
-      return null;
-    }
+  @Override
+  protected boolean handles(IToolStat<?> stat) {
+    return stat == ToolStats.DURABILITY || stat == ToolStats.HARVEST_LEVEL
+           || stat == ToolStats.ATTACK_DAMAGE || stat == ToolStats.ATTACK_SPEED || stat == ToolStats.MINING_SPEED;
   }
 
-  /** Builds default stats */
-  public StatsNBT buildStats() {
-    return StatsNBT.builder()
-      .durability(buildDurability()).harvestLevel(buildHarvestLevel())
-      .attackDamage(buildAttack()).attackSpeed(buildAttackSpeed())
-      .miningSpeed(buildMiningSpeed()).build();
-  }
-
-  public int buildDurability() {
-    double averageHeadDurability = getAverageValue(heads, HeadMaterialStats::getDurability);
+  /** Builds durability for the tool */
+  public float buildDurability() {
+    double averageHeadDurability = getAverageValue(heads, HeadMaterialStats::getDurability) + baseStats.getBonus(ToolStats.DURABILITY);
     double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getDurability, 1);
     // durability should never be below 1
     return Math.max(1, (int)(averageHeadDurability * averageHandleModifier));
   }
 
+  /** Builds mining speed for the tool */
   public float buildMiningSpeed() {
-    double averageHeadSpeed = getAverageValue(heads, HeadMaterialStats::getMiningSpeed);
+    double averageHeadSpeed = getAverageValue(heads, HeadMaterialStats::getMiningSpeed) + baseStats.getBonus(ToolStats.MINING_SPEED);
     double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getMiningSpeed, 1);
 
     return (float)Math.max(0.1d, averageHeadSpeed * averageHandleModifier);
   }
 
+  /** Builds attack speed for the tool */
   public float buildAttackSpeed() {
+    float baseSpeed = 1 + baseStats.getBonus(ToolStats.ATTACK_SPEED);
     double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getAttackSpeed, 1);
-    return (float)averageHandleModifier;
+    return (float)Math.max(0, baseSpeed * averageHandleModifier);
   }
 
+  /** Builds the harvest level for the tool */
   public int buildHarvestLevel() {
     return heads.stream()
       .mapToInt(HeadMaterialStats::getHarvestLevel)
@@ -112,35 +102,10 @@ public final class ToolStatsBuilder {
       .orElse(0);
   }
 
-  public float buildAttack() {
-    double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack) + damageBonus;
+  /** Builds attack damage for the tool */
+  public float buildAttackDamage() {
+    double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack) + baseStats.getBonus(ToolStats.ATTACK_DAMAGE);
     double averageHandle = getAverageValue(handles, HandleMaterialStats::getAttackDamage, 1.0f);
     return (float)Math.max(0.0d, averageHeadAttack * averageHandle);
-  }
-
-  /**
-   * Gets the average value from a list of stat types
-   * @param stats       Stat list
-   * @param statGetter  Function to get the value
-   * @param <T>  Material type
-   * @return  Average value
-   */
-  private <T extends IMaterialStats> double getAverageValue(List<T> stats, Function<T, ? extends Number> statGetter) {
-    return getAverageValue(stats, statGetter, 0);
-  }
-
-  /**
-   * Gets the average value from a list of stat types
-   * @param stats         Stat list
-   * @param statGetter    Function to get the value
-   * @param missingValue  Default value to use for missing stats
-   * @param <T>  Material type
-   * @return  Average value
-   */
-  private <T extends IMaterialStats, N extends Number> double getAverageValue(List<T> stats, Function<T, N> statGetter, double missingValue) {
-    return stats.stream()
-      .mapToDouble(value -> statGetter.apply(value).doubleValue())
-      .average()
-      .orElse(missingValue);
   }
 }

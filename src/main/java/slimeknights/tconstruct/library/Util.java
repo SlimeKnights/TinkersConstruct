@@ -102,13 +102,23 @@ public class Util {
   }
 
   /**
+   * Makes a translation key for the given name, redirect to the vanilla method
+   * @param base  Base name, such as "block" or "gui"
+   * @param name  Object name
+   * @return  Translation key
+   */
+  public static String makeTranslationKey(String base, ResourceLocation name) {
+    return net.minecraft.util.Util.makeTranslationKey(base, name);
+  }
+
+  /**
    * Makes a translation key for the given name
    * @param base  Base name, such as "block" or "gui"
    * @param name  Object name
    * @return  Translation key
    */
   public static String makeTranslationKey(String base, String name) {
-    return net.minecraft.util.Util.makeTranslationKey(base, getResource(name));
+    return makeTranslationKey(base, getResource(name));
   }
 
   /**

@@ -5,12 +5,13 @@ import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
 
@@ -38,14 +39,14 @@ public class OverslimeModifier extends SingleUseModifier {
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     // base cap
-    addCapacity(volatileData, (int)(50 * toolDefinition.getBaseStatDefinition().getDurabilityModifier()));
+    addCapacity(volatileData, (int)(50 * toolDefinition.getBaseStatDefinition().getModifier(ToolStats.DURABILITY)));
   }
 
   @Override
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
     if (!volatileData.getBoolean(KEY_OVERSLIME_FRIEND)) {
-      builder.multiplyAttackDamage(0.9f);
-      builder.multiplyMiningSpeed(0.9f);
+      ToolStats.ATTACK_DAMAGE.multiply(builder, 0.9f);
+      ToolStats.MINING_SPEED.multiply(builder, 0.9f);
     }
   }
 

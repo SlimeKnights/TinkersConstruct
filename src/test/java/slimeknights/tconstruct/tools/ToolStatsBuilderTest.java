@@ -7,6 +7,8 @@ import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.MaterialRegistryExtension;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
@@ -27,7 +29,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
   void init_onlyHead() {
     ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_HEAD, MATERIAL_WITH_HEAD, MATERIAL_WITH_HEAD);
 
-    ToolStatsBuilder builder = ToolStatsBuilder.from(materials, ToolDefinitionFixture.getStandardToolDefinition());
+    ToolStatsBuilder builder = ToolStatsBuilder.from(ToolDefinitionFixture.getStandardToolDefinition(), materials);
 
     assertThat(builder.getHeads()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HEAD);
     assertThat(builder.getHandles()).containsExactly(HandleMaterialStats.DEFAULT);
@@ -38,7 +40,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
   void init_onlyHandle() {
     ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_HANDLE, MATERIAL_WITH_HANDLE, MATERIAL_WITH_HANDLE);
 
-    ToolStatsBuilder builder = ToolStatsBuilder.from(materials, ToolDefinitionFixture.getStandardToolDefinition());
+    ToolStatsBuilder builder = ToolStatsBuilder.from(ToolDefinitionFixture.getStandardToolDefinition(), materials);
 
     assertThat(builder.getHeads()).containsExactly(HeadMaterialStats.DEFAULT);
     assertThat(builder.getHandles()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HANDLE);
@@ -49,7 +51,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
   void init_onlyExtra() {
     ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_EXTRA, MATERIAL_WITH_EXTRA, MATERIAL_WITH_EXTRA);
 
-    ToolStatsBuilder builder = ToolStatsBuilder.from(materials, ToolDefinitionFixture.getStandardToolDefinition());
+    ToolStatsBuilder builder = ToolStatsBuilder.from(ToolDefinitionFixture.getStandardToolDefinition(), materials);
 
     assertThat(builder.getHeads()).containsExactly(HeadMaterialStats.DEFAULT);
     assertThat(builder.getHandles()).containsExactly(HandleMaterialStats.DEFAULT);
@@ -60,7 +62,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
   void init_allCorrectStats() {
     ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_HEAD, MATERIAL_WITH_HANDLE, MATERIAL_WITH_EXTRA);
 
-    ToolStatsBuilder builder = ToolStatsBuilder.from(materials, ToolDefinitionFixture.getStandardToolDefinition());
+    ToolStatsBuilder builder = ToolStatsBuilder.from(ToolDefinitionFixture.getStandardToolDefinition(), materials);
 
     assertThat(builder.getHeads()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HEAD);
     assertThat(builder.getHandles()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HANDLE);
@@ -71,7 +73,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
   void init_wrongOrder() {
     ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_HANDLE, MATERIAL_WITH_EXTRA, MATERIAL_WITH_HEAD);
 
-    ToolStatsBuilder builder = ToolStatsBuilder.from(materials, ToolDefinitionFixture.getStandardToolDefinition());
+    ToolStatsBuilder builder = ToolStatsBuilder.from(ToolDefinitionFixture.getStandardToolDefinition(), materials);
 
     assertThat(builder.getHeads()).containsExactly(HeadMaterialStats.DEFAULT);
     assertThat(builder.getHandles()).containsExactly(HandleMaterialStats.DEFAULT);
@@ -82,7 +84,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
   void init_singleMaterialAllStats() {
     ImmutableList<IMaterial> materials = ImmutableList.of(MATERIAL_WITH_ALL_STATS, MATERIAL_WITH_ALL_STATS, MATERIAL_WITH_ALL_STATS);
 
-    ToolStatsBuilder builder = ToolStatsBuilder.from(materials, ToolDefinitionFixture.getStandardToolDefinition());
+    ToolStatsBuilder builder = ToolStatsBuilder.from(ToolDefinitionFixture.getStandardToolDefinition(), materials);
 
     assertThat(builder.getHeads()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HEAD);
     assertThat(builder.getHandles()).containsExactly(MaterialStatsFixture.MATERIAL_STATS_HANDLE);
@@ -91,14 +93,14 @@ class ToolStatsBuilderTest extends BaseMcTest {
 
   @Test
   void calculateValues_noStats() {
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(ToolDefinitionFixture.DEFAULT_BASE_STATS, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
 
     assertThat(builder.buildDurability()).isEqualTo(1);
     assertThat(builder.buildHarvestLevel()).isEqualTo(0);
     assertThat(builder.buildMiningSpeed()).isGreaterThan(0);
     assertThat(builder.buildMiningSpeed()).isLessThanOrEqualTo(1);
-    assertThat(builder.buildAttack()).isEqualTo(0);
-    assertThat(builder.buildAttack()).isLessThanOrEqualTo(1);
+    assertThat(builder.buildAttackDamage()).isEqualTo(0);
+    assertThat(builder.buildAttackSpeed()).isEqualTo(1);
   }
 
   @Test
@@ -106,9 +108,9 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HeadMaterialStats stats1 = new HeadMaterialStats(100, 0, 0, 0);
     HeadMaterialStats stats2 = new HeadMaterialStats(50, 0, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(new ToolBaseStatDefinition.Builder().bonus(ToolStats.DURABILITY, 100).build(), ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
 
-    assertThat(builder.buildDurability()).isEqualTo(75);
+    assertThat(builder.buildDurability()).isEqualTo(175);
   }
 
   @Test
@@ -116,7 +118,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HeadMaterialStats statsHead = new HeadMaterialStats(200, 0, 0, 0);
     HandleMaterialStats statsHandle = new HandleMaterialStats(0.5f, 0, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(statsHead), ImmutableList.of(statsHandle), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(ToolDefinitionFixture.DEFAULT_BASE_STATS, ImmutableList.of(statsHead), ImmutableList.of(statsHandle), Collections.emptyList());
 
     assertThat(builder.buildDurability()).isEqualTo(100);
   }
@@ -127,7 +129,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HandleMaterialStats statsHandle = new HandleMaterialStats(0, 0.5f, 0, 0);
     ExtraMaterialStats statsExtra = ExtraMaterialStats.DEFAULT;
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(statsHead), ImmutableList.of(statsHandle), ImmutableList.of(statsExtra));
+    ToolStatsBuilder builder = new ToolStatsBuilder(ToolDefinitionFixture.DEFAULT_BASE_STATS, ImmutableList.of(statsHead), ImmutableList.of(statsHandle), ImmutableList.of(statsExtra));
 
     assertThat(builder.buildMiningSpeed()).isEqualTo(1.0f);
   }
@@ -138,7 +140,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HandleMaterialStats statsHandle1 = new HandleMaterialStats(0.3f, 0, 0, 0);
     HandleMaterialStats statsHandle2 = new HandleMaterialStats(0.7f, 0, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(ToolDefinitionFixture.DEFAULT_BASE_STATS, ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), Collections.emptyList());
 
     assertThat(builder.buildDurability()).isEqualTo(100);
   }
@@ -149,7 +151,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HandleMaterialStats statsHandle1 = new HandleMaterialStats(0, 0.3f, 0, 0);
     HandleMaterialStats statsHandle2 = new HandleMaterialStats(0, 0.7f, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(ToolDefinitionFixture.DEFAULT_BASE_STATS, ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), Collections.emptyList());
 
     assertThat(builder.buildMiningSpeed()).isEqualTo(1.0f);
   }
@@ -159,9 +161,9 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HeadMaterialStats stats1 = new HeadMaterialStats(1, 10, 0, 0);
     HeadMaterialStats stats2 = new HeadMaterialStats(1, 5, 0, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(new ToolBaseStatDefinition.Builder().bonus(ToolStats.MINING_SPEED, 10).build(), ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
 
-    assertThat(builder.buildMiningSpeed()).isEqualTo(7.5f);
+    assertThat(builder.buildMiningSpeed()).isEqualTo(17.5f);
   }
 
   @Test
@@ -169,9 +171,9 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HeadMaterialStats stats1 = new HeadMaterialStats(1, 0, 0, 5);
     HeadMaterialStats stats2 = new HeadMaterialStats(1, 0, 0, 10);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(10, ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(new ToolBaseStatDefinition.Builder().bonus(ToolStats.ATTACK_DAMAGE, 10).build(), ImmutableList.of(stats1, stats2), Collections.emptyList(), Collections.emptyList());
 
-    assertThat(builder.buildAttack()).isEqualTo(17.5f);
+    assertThat(builder.buildAttackDamage()).isEqualTo(17.5f);
   }
 
   @Test
@@ -181,24 +183,24 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HeadMaterialStats stats3 = new HeadMaterialStats(1, 1, 5, 0);
     HeadMaterialStats stats4 = new HeadMaterialStats(1, 1, -1, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, ImmutableList.of(stats1, stats2, stats3, stats4), Collections.emptyList(), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(ToolDefinitionFixture.DEFAULT_BASE_STATS, ImmutableList.of(stats1, stats2, stats3, stats4), Collections.emptyList(), Collections.emptyList());
 
     assertThat(builder.buildHarvestLevel()).isEqualTo(5);
   }
 
   @Test
-  void buildAttackSpeed_default() {
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
-    assertThat(builder.buildAttackSpeed()).isEqualTo(1.0f);
+  void buildAttackSpeed_bonus() {
+    ToolStatsBuilder builder = new ToolStatsBuilder(new ToolBaseStatDefinition.Builder().bonus(ToolStats.ATTACK_SPEED, 0.5f).build(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
+    assertThat(builder.buildAttackSpeed()).isEqualTo(1.5f);
   }
 
   @Test
   void buildAttackSpeed_testHandleAttackDamage() {
     HeadMaterialStats head = new HeadMaterialStats(0, 0, 0, 2);
     HandleMaterialStats stats = new HandleMaterialStats(0, 0, 0, 0.5f);
-    ToolStatsBuilder builder = new ToolStatsBuilder(1, ImmutableList.of(head), ImmutableList.of(stats), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(ToolDefinitionFixture.DEFAULT_BASE_STATS, ImmutableList.of(head), ImmutableList.of(stats), Collections.emptyList());
 
-    assertThat(builder.buildAttack()).isEqualTo(1.5f);
+    assertThat(builder.buildAttackDamage()).isEqualTo(1.0f);
   }
 
   @Test
@@ -207,15 +209,15 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HandleMaterialStats stats1 = new HandleMaterialStats(0, 0, 0, 1.3f);
     HandleMaterialStats stats2 = new HandleMaterialStats(0, 0, 0, 1.7f);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(2, ImmutableList.of(head), ImmutableList.of(stats1, stats2), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(new ToolBaseStatDefinition.Builder().bonus(ToolStats.ATTACK_DAMAGE, 2).build(), ImmutableList.of(head), ImmutableList.of(stats1, stats2), Collections.emptyList());
 
-    assertThat(builder.buildAttack()).isEqualTo(9);
+    assertThat(builder.buildAttackDamage()).isEqualTo(9);
   }
 
   @Test
   void buildAttackSpeed_testHandleAttackSpeed() {
     HandleMaterialStats stats = new HandleMaterialStats(0, 0, 1.5f, 0);
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, Collections.emptyList(), ImmutableList.of(stats), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(ToolDefinitionFixture.DEFAULT_BASE_STATS, Collections.emptyList(), ImmutableList.of(stats), Collections.emptyList());
 
     assertThat(builder.buildAttackSpeed()).isEqualTo(1.5f);
   }
@@ -225,7 +227,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
     HandleMaterialStats stats1 = new HandleMaterialStats(0, 0, 1.3f, 0);
     HandleMaterialStats stats2 = new HandleMaterialStats(0, 0, 1.7f, 0);
 
-    ToolStatsBuilder builder = new ToolStatsBuilder(0, Collections.emptyList(), ImmutableList.of(stats1, stats2), Collections.emptyList());
+    ToolStatsBuilder builder = new ToolStatsBuilder(ToolDefinitionFixture.DEFAULT_BASE_STATS, Collections.emptyList(), ImmutableList.of(stats1, stats2), Collections.emptyList());
 
     assertThat(builder.buildAttackSpeed()).isEqualTo(1.5f);
   }
