@@ -34,12 +34,14 @@ public class MagneticEffect extends TinkerEffect {
       if (item.getItem().isEmpty() || !item.isAlive()) {
         continue;
       }
-
       // calculate direction: item -> player
       Vector3d vec = entity.getPositionVec()
                            .subtract(item.getPosX(), item.getPosY(), item.getPosZ())
                            .normalize()
                            .scale(0.05f + amplifier * 0.05f);
+      if (!item.hasNoGravity()) {
+        vec = vec.add(0, 0.04f, 0);
+      }
 
       // we calculated the movement vector and set it to the correct strength.. now we apply it \o/
       item.setMotion(item.getMotion().add(vec));
