@@ -88,15 +88,17 @@ public class ChannelTileEntity extends MantleTileEntity implements ITickableTile
 
 	/** Called when a capability invalidates to clear the given side */
 	private void invalidateSide(Direction side, LazyOptional<IFluidHandler> capability) {
-		if (neighborTanks.get(side) == capability) {
-			neighborTanks.remove(side);
-			// update the block state to no longer be pointing in that direction
-			if (world != null) {
-				BlockState currentState = getBlockState();
-				if (side == Direction.DOWN) {
-					world.setBlockState(pos, currentState.with(ChannelBlock.DOWN, false));
-				} else {
-					world.setBlockState(pos, getBlockState().with(ChannelBlock.DIRECTION_MAP.get(side), ChannelConnection.NONE));
+		if (!this.isRemoved()) {
+			if (neighborTanks.get(side) == capability) {
+				neighborTanks.remove(side);
+				// update the block state to no longer be pointing in that direction
+				if (world != null) {
+					BlockState currentState = getBlockState();
+					if (side == Direction.DOWN) {
+						world.setBlockState(pos, currentState.with(ChannelBlock.DOWN, false));
+					} else {
+						world.setBlockState(pos, currentState.with(ChannelBlock.DIRECTION_MAP.get(side), ChannelConnection.NONE));
+					}
 				}
 			}
 		}
