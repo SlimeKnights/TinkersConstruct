@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": {
+    "item": "ceramics:porcelain_gauge"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_porcelain",
+    "amount": 250
+  },
+  "temperature": 700,
+  "time": 57,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_glass",
+      "amount": 62
+    }
+  ]
+}

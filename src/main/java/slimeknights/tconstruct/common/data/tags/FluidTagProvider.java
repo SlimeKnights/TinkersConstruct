@@ -29,6 +29,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagLocal(TinkerFluids.moltenClay);
     tagLocal(TinkerFluids.moltenGlass);
     tagLocal(TinkerFluids.liquidSoul);
+    tagLocal(TinkerFluids.moltenPorcelain);
     // fancy molten
     tagLocal(TinkerFluids.moltenObsidian);
     tagLocal(TinkerFluids.moltenEmerald);

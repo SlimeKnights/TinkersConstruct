@@ -38,6 +38,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -288,6 +289,9 @@ public class JEIPlugin implements IModPlugin {
       if (ingot == null || ingot.getAllElements().isEmpty()) {
         removeFluid(manager, compat.getFluid(), compat.getBucket());
       }
+    }
+    if (!ModList.get().isLoaded("ceramics")) {
+      removeFluid(manager, TinkerFluids.moltenPorcelain.get(), TinkerFluids.moltenPorcelain.asItem());
     }
     optionalCast(manager, TinkerSmeltery.plateCast);
     optionalCast(manager, TinkerSmeltery.gearCast);

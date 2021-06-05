@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": [
+    {
+      "item": "ceramics:unfired_faucet"
+    },
+    {
+      "item": "ceramics:unfired_channel"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_clay",
+    "amount": 500
+  },
+  "temperature": 450,
+  "time": 31
+}

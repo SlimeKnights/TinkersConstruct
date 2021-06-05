@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": {
+    "item": "ceramics:unfired_cistern"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_clay",
+    "amount": 750
+  },
+  "temperature": 450,
+  "time": 43
+}

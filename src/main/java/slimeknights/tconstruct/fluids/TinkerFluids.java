@@ -40,11 +40,13 @@ public final class TinkerFluids extends TinkerModule {
   }
 
   // base molten fluids
-  public static final FluidObject<ForgeFlowingFluid> searedStone    = FLUIDS.register("seared_stone",   hotBuilder().temperature( 900), Material.LAVA,  7);
-  public static final FluidObject<ForgeFlowingFluid> scorchedStone  = FLUIDS.register("scorched_stone", hotBuilder().temperature( 800), Material.LAVA,  9);
-  public static final FluidObject<ForgeFlowingFluid> moltenClay     = FLUIDS.register("molten_clay",    hotBuilder().temperature( 750), Material.LAVA,  3);
-  public static final FluidObject<ForgeFlowingFluid> moltenGlass    = FLUIDS.register("molten_glass",   hotBuilder().temperature(1050), Material.LAVA, 10);
-  public static final FluidObject<ForgeFlowingFluid> liquidSoul     = FLUIDS.register("liquid_soul",    hotBuilder().temperature( 700), Material.LAVA,  2);
+  public static final FluidObject<ForgeFlowingFluid> searedStone   = FLUIDS.register("seared_stone",   hotBuilder().temperature( 900), Material.LAVA,  7);
+  public static final FluidObject<ForgeFlowingFluid> scorchedStone = FLUIDS.register("scorched_stone", hotBuilder().temperature( 800), Material.LAVA,  9);
+  public static final FluidObject<ForgeFlowingFluid> moltenClay    = FLUIDS.register("molten_clay",    hotBuilder().temperature( 750), Material.LAVA,  3);
+  public static final FluidObject<ForgeFlowingFluid> moltenGlass   = FLUIDS.register("molten_glass",   hotBuilder().temperature(1050), Material.LAVA, 10);
+  public static final FluidObject<ForgeFlowingFluid> liquidSoul    = FLUIDS.register("liquid_soul",    hotBuilder().temperature( 700), Material.LAVA,  2);
+  // ceramics compat
+  public static final FluidObject<ForgeFlowingFluid> moltenPorcelain = FLUIDS.register("molten_porcelain", hotBuilder().temperature(1000), Material.LAVA,  4);
   // fancy molten fluids
   public static final FluidObject<ForgeFlowingFluid> moltenObsidian = FLUIDS.register("molten_obsidian", hotBuilder().temperature(1300), Material.LAVA, 11);
   public static final FluidObject<ForgeFlowingFluid> moltenEnder    = FLUIDS.register("molten_ender",    hotBuilder().temperature( 777), Material.LAVA,  7);

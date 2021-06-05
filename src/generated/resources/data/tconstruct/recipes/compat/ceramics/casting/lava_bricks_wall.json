@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "cast": {
+    "item": "minecraft:brick_wall"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "minecraft:lava",
+    "amount": 100
+  },
+  "result": "ceramics:lava_bricks_wall",
+  "cooling_time": 55
+}

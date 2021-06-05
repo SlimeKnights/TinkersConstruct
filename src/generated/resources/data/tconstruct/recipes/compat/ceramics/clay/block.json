@@ -1,0 +1,35 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": [
+    {
+      "item": "ceramics:dark_bricks"
+    },
+    {
+      "item": "ceramics:dark_bricks_stairs"
+    },
+    {
+      "item": "ceramics:dark_bricks_wall"
+    },
+    {
+      "item": "ceramics:dragon_bricks"
+    },
+    {
+      "item": "ceramics:dragon_bricks_stairs"
+    },
+    {
+      "item": "ceramics:dragon_bricks_wall"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_clay",
+    "amount": 1000
+  },
+  "temperature": 450,
+  "time": 96
+}

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:smeltery/seared/seared_bricks"
+      "tconstruct:smeltery/seared/seared_brick"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:smeltery/seared/seared_bricks"
+        "recipe": "tconstruct:smeltery/seared/seared_brick"
       }
     }
   },

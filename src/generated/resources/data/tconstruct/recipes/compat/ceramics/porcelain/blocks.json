@@ -1,0 +1,61 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "ceramics",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": [
+    {
+      "tag": "ceramics:porcelain_block"
+    },
+    {
+      "tag": "ceramics:rainbow_porcelain"
+    },
+    [
+      {
+        "item": "ceramics:porcelain_bricks"
+      },
+      {
+        "item": "ceramics:porcelain_bricks_stairs"
+      },
+      {
+        "item": "ceramics:porcelain_bricks_wall"
+      },
+      {
+        "item": "ceramics:monochrome_bricks"
+      },
+      {
+        "item": "ceramics:monochrome_bricks_stairs"
+      },
+      {
+        "item": "ceramics:monochrome_bricks_wall"
+      },
+      {
+        "item": "ceramics:marine_bricks"
+      },
+      {
+        "item": "ceramics:marine_bricks_stairs"
+      },
+      {
+        "item": "ceramics:marine_bricks_wall"
+      },
+      {
+        "item": "ceramics:rainbow_bricks"
+      },
+      {
+        "item": "ceramics:rainbow_bricks_stairs"
+      },
+      {
+        "item": "ceramics:rainbow_bricks_wall"
+      }
+    ]
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_porcelain",
+    "amount": 1000
+  },
+  "temperature": 700,
+  "time": 114
+}

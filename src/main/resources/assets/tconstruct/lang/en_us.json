@@ -438,6 +438,11 @@
     "fluid.tconstruct.molten_ender": "Molten Ender",
     "fluid.tconstruct.flowing_molten_ender": "Flowing Molten Ender",
     "item.tconstruct.molten_ender_bucket": "Molten Ender Bucket",
+
+    "block.tconstruct.molten_porcelain_fluid": "Molten Porcelain",
+    "fluid.tconstruct.molten_porcelain": "Molten Porcelain",
+    "fluid.tconstruct.flowing_molten_porcelain": "Flowing Molten Porcelain",
+    "item.tconstruct.molten_porcelain_bucket": "Molten Porcelain Bucket",
     
     "_comment": "Ores",
 
