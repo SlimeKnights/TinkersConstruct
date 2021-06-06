@@ -217,6 +217,7 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue tankFluidModel;
     public final ForgeConfigSpec.BooleanValue extraToolTips;
     public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
+    public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -243,6 +244,11 @@ public class Config {
         .comment("If true, the game will log all material textures which do not exist in resource packs but can be added, can be helpful for moddevs or resourcepack makers")
         .translation("tconstruct.configgui.logMissingMaterialTextures")
         .define("logMissingMaterialTextures", false);
+
+      this.logMissingModifierTextures = builder
+        .comment("If true, the game will log all modifier textures which do not exist in resource packs but can be added, can be helpful for moddevs or resourcepack makers")
+        .translation("tconstruct.configgui.logMissingMaterialTextures")
+        .define("logMissingModifierTextures", false);
 
       builder.pop();
     }

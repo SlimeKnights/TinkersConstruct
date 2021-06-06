@@ -11,8 +11,8 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
 import javax.annotation.Nullable;
-import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Determines the type of texture used for rendering a specific material
@@ -73,12 +73,12 @@ public class MaterialRenderInfo {
    * @param textures  Texture consumer
    * @param base      Base texture, will be used to generate texture names
    */
-  public void getTextureDependencies(Consumer<RenderMaterial> textures, RenderMaterial base) {
+  public void getTextureDependencies(Predicate<RenderMaterial> textures, RenderMaterial base) {
     if (texture != null) {
-      textures.accept(getMaterial(base.getTextureLocation(), getSuffix(texture)));
+      textures.test(getMaterial(base.getTextureLocation(), getSuffix(texture)));
     }
     for (String fallback : fallbacks) {
-      textures.accept(getMaterial(base.getTextureLocation(), fallback));
+      textures.test(getMaterial(base.getTextureLocation(), fallback));
     }
   }
 

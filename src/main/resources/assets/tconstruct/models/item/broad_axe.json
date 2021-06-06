@@ -16,6 +16,10 @@
     "large_broken_back":  "tconstruct:item/tool/broad_axe/large/broken_back",
     "large_binding":      "tconstruct:item/tool/broad_axe/large/binding"
   },
+  "modifier_roots": {
+    "small": [ "tconstruct:item/tool/broad_axe/modifiers/" ],
+    "large": [ "tconstruct:item/tool/broad_axe/large/modifiers/" ]
+  },
   "large": true,
   "large_offset": [-2, 2],
   "parts": [

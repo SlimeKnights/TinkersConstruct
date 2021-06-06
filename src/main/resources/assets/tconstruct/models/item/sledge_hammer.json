@@ -18,6 +18,10 @@
     "large_front":        "tconstruct:item/tool/sledge_hammer/large/front",
     "large_broken_front": "tconstruct:item/tool/sledge_hammer/large/broken_front"
   },
+  "modifier_roots": {
+    "small": [ "tconstruct:item/tool/sledge_hammer/modifiers/" ],
+    "large": [ "tconstruct:item/tool/sledge_hammer/large/modifiers/" ]
+  },
   "large": true,
   "large_offset": [-2, 2],
   "parts": [

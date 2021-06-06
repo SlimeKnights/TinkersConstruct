@@ -56,10 +56,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 @AllArgsConstructor
 @Log4j2
 public class MaterialModel implements IModelGeometry<MaterialModel> {
+  /** Set of all textures that are missing from the resource pack, to avoid logging twice */
+  private static final Set<ResourceLocation> SKIPPED_TEXTURES = new HashSet<>();
+
   /** Shared loader instance */
   public static final Loader LOADER = new Loader();
 
@@ -80,28 +84,31 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
 
   /**
    * Gets a consumer to add textures to the given collection
-   * @param texture      Texture base
-   * @param allTextures  Collection of textures
+   * @param textureLocation  Texture base
+   * @param allTextures      Collection of textures
    * @return  Texture consumer
    */
-  public static Consumer<RenderMaterial> getTextureAdder(RenderMaterial texture, Collection<RenderMaterial> allTextures) {
-    if (texture.getTextureLocation().getPath().startsWith("item/tool")) {
-      // keep track of skipped textures, so we do not debug print the same resource twice
-      Set<ResourceLocation> skipped = new HashSet<>();
+  public static Predicate<RenderMaterial> getTextureAdder(ResourceLocation textureLocation, Collection<RenderMaterial> allTextures, boolean logMissingTextures) {
+    if (textureLocation.getPath().startsWith("item/tool")) {
       return mat -> {
         // either must be non-blocks, or must exist. We have fallbacks if it does not exist
         ResourceLocation loc = mat.getTextureLocation();
         if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || TinkerClient.textureValidator.test(loc)) {
           allTextures.add(mat);
-        } else if (Config.CLIENT.logMissingMaterialTextures.get() && !skipped.contains(loc)) {
-          skipped.add(loc);
+          return true;
+        } else if (logMissingTextures && !SKIPPED_TEXTURES.contains(loc)) {
+          SKIPPED_TEXTURES.add(loc);
           log.debug("Skipping loading texture '{}' as it does not exist in the resource pack", loc);
         }
+        return false;
       };
     } else {
       // just directly add with no filter, nothing we can do
-      log.error("Texture '{}' is not in item/tool, unable to safely validate optional material textures", texture.getTextureLocation());
-      return allTextures::add;
+      log.error("Texture '{}' is not in item/tool, unable to safely validate optional material textures", textureLocation);
+      return mat -> {
+        allTextures.add(mat);
+        return true;
+      };
     }
   }
 
@@ -119,7 +126,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     // if the texture is missing, stop here
     if (!MissingTextureSprite.getLocation().equals(texture.getTextureLocation())) {
       // texture should exist in item/tool, or the validator cannot handle them
-      Consumer<RenderMaterial> textureAdder = getTextureAdder(texture, allTextures);
+      Predicate<RenderMaterial> textureAdder = getTextureAdder(texture.getTextureLocation(), allTextures, Config.CLIENT.logMissingMaterialTextures.get());
       // if no specific material is set, load all materials as dependencies. If just one material, use just that one
       if (material == null) {
         MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach(info -> info.getTextureDependencies(textureAdder, texture));
@@ -254,7 +261,9 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    */
   private static class Loader implements IModelLoader<MaterialModel> {
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {}
+    public void onResourceManagerReload(IResourceManager resourceManager) {
+      SKIPPED_TEXTURES.clear();
+    }
 
     @Override
     public MaterialModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
