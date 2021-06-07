@@ -19,9 +19,18 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
     this.type = type;
   }
 
+  /**
+   * Method to check if this modifier is effective on the given entity
+   * @param target  Entity
+   * @return  True if effective
+   */
+  protected boolean isEffective(LivingEntity target) {
+    return target.getCreatureAttribute() == type;
+  }
+
   @Override
   public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attackerLiving, LivingEntity targetLiving, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
-    if (targetLiving.getCreatureAttribute() == type) {
+    if (isEffective(targetLiving)) {
       damage += getScaledLevel(tool, level) * 2.5f;
     }
     return damage;

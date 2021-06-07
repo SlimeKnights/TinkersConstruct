@@ -226,6 +226,7 @@ public class TConstruct {
         case "shovel_transform": return TinkerModifiers.pathing.get();
         case "hoe_transform": return TinkerModifiers.tilling.get();
         case "beheading": return TinkerModifiers.severing.get();
+        case "bane_of_arthropods": return TinkerModifiers.baneOfSssss.get();
       }
       return null;
     });

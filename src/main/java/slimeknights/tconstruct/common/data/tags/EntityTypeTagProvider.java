@@ -24,6 +24,8 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
     this.getOrCreateBuilder(TinkerTags.EntityTypes.MELTING_SHOW).add(EntityType.IRON_GOLEM, EntityType.SNOW_GOLEM, EntityType.VILLAGER, EntityType.PLAYER);
     this.getOrCreateBuilder(TinkerTags.EntityTypes.MELTING_HIDE).add(EntityType.GIANT);
     this.getOrCreateBuilder(TinkerTags.EntityTypes.PIGGYBACKPACK_BLACKLIST);
+
+    this.getOrCreateBuilder(TinkerTags.EntityTypes.CREEPERS).add(EntityType.CREEPER);
   }
 
   @Override

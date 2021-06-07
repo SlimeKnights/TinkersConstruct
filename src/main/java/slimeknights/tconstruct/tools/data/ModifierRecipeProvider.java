@@ -313,12 +313,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(5) // +12.5 undead damage
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefixR(TinkerModifiers.smite, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.baneOfArthropods.get())
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.baneOfSssss.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.FERMENTED_SPIDER_EYE, 1, 15)
                                     .setMaxLevel(5) // +12.5 spider damage
                                     .setUpgradeSlots(1)
-                                    .build(consumer, prefixR(TinkerModifiers.baneOfArthropods, upgradeFolder));
+                                    .build(consumer, prefixR(TinkerModifiers.baneOfSssss, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.antiaquatic.get())
                                     .setTools(TinkerTags.Items.MELEE)
                                     .setInput(Items.PUFFERFISH, 1, 20)
