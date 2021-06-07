@@ -19,5 +19,7 @@
 
   "tconstruct:luck":    "tconstruct:normal",
   "tconstruct:silky":   "tconstruct:normal",
-  "tconstruct:glowing": "tconstruct:normal"
+  "tconstruct:glowing": "tconstruct:normal",
+  
+  "tconstruct:tank": "tconstruct:tank"
 }
