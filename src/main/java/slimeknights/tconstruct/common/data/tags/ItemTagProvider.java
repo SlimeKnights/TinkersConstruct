@@ -289,9 +289,11 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.DUCT_CONTAINERS).add(Items.BUCKET, TinkerSmeltery.copperCan.get());
 
     // tank tag
-    Builder<Item> tankBuilder = this.getOrCreateBuilder(TinkerTags.Items.TANKS);
-    TinkerSmeltery.searedTank.forEach(tank -> tankBuilder.add(tank.asItem()));
-    TinkerSmeltery.scorchedTank.forEach(tank -> tankBuilder.add(tank.asItem()));
+    this.copy(TinkerTags.Blocks.SEARED_TANKS, TinkerTags.Items.SEARED_TANKS);
+    this.copy(TinkerTags.Blocks.SCORCHED_TANKS, TinkerTags.Items.SCORCHED_TANKS);
+    this.getOrCreateBuilder(TinkerTags.Items.TANKS)
+        .addTag(TinkerTags.Items.SEARED_TANKS)
+        .addTag(TinkerTags.Items.SCORCHED_TANKS);
   }
 
   @Override

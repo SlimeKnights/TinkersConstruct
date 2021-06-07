@@ -134,6 +134,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> MULTI_USE_CASTS = tag("casts/multi_use");
 
     /** All basic tinkers tanks */
+    public static final IOptionalNamedTag<Item> SEARED_TANKS = tag("seared_tanks");
+    public static final IOptionalNamedTag<Item> SCORCHED_TANKS = tag("scorched_tanks");
     public static final IOptionalNamedTag<Item> TANKS = tag("tanks");
 
     public static final IOptionalNamedTag<Item> RODS_STONE = forgeTag("rods/stone");
