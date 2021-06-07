@@ -1316,7 +1316,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                       .build(consumer, prefixR(TinkerFluids.moltenSlimesteel, folder));
 
     // tinker's bronze: 3 copper + 1 silicon (1/4 glass) = 4
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenTinkersBronze.get(), MaterialValues.INGOT * 4)
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenTinkersBronze.get(), MaterialValues.INGOT * 3)
                       .addInput(TinkerFluids.moltenCopper.get(), MaterialValues.INGOT * 3)
                       .addInput(TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK)
                       .build(consumer, prefixR(TinkerFluids.moltenTinkersBronze, folder));
