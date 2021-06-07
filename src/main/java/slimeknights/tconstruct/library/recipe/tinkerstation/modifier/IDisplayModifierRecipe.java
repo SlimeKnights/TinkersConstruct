@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.ListNBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
@@ -86,7 +87,9 @@ public interface IDisplayModifierRecipe {
       builder.add(newModifier);
     }
     ItemStack output = stack.copy();
-    output.getOrCreateTag().put(ToolStack.TAG_MODIFIERS, builder.build().serializeToNBT());
+    ListNBT modifiers = builder.build().serializeToNBT();
+    output.getOrCreateTag().put(ToolStack.TAG_UPGRADES, modifiers);
+    output.getOrCreateTag().put(ToolStack.TAG_MODIFIERS, modifiers);
     return output;
   }
 }
