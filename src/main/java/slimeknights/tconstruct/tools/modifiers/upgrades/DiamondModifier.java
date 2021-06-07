@@ -16,7 +16,7 @@ public class DiamondModifier extends SingleLevelModifier {
   @Override
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
     ToolStats.DURABILITY.add(builder, 500);
-    ToolStats.ATTACK_DAMAGE.add(builder, 0.5f);
+    ToolStats.ATTACK_DAMAGE.add(builder, 1f);
     ToolStats.MINING_SPEED.add(builder, 1f);
     ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.DIAMOND);
   }

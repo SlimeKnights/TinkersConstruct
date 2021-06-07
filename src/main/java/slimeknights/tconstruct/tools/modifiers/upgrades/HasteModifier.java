@@ -30,7 +30,7 @@ public class HasteModifier extends IncrementalModifier {
     // for comparison, vanilla gives +2, 5, 10, 17, 26 for efficiency I to V
     // 5 per level gives us          +5, 10, 15, 20, 25 for 5 levels
     ToolStats.MINING_SPEED.add(builder, scaledLevel * 5f);
-    // means 10 levels is 1 second off attack time, number just from 1.12
-    ToolStats.ATTACK_SPEED.add(builder, scaledLevel * 0.1f);
+    // maxes at 150%, number chosen to be comparable DPS to quartz
+    ToolStats.ATTACK_SPEED.multiply(builder, 1 + scaledLevel * 0.1f);
   }
 }

@@ -22,10 +22,9 @@ public class NetheriteModifier extends SingleLevelModifier {
 
   @Override
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    ToolStats.DURABILITY.multiply(builder, 1.25f);
-    ToolStats.ATTACK_DAMAGE.multiply(builder, 1.25f);
-    ToolStats.MINING_SPEED.multiply(builder, 1.25f);
-    ToolStats.DURABILITY.multiply(builder, 1.25f);
+    ToolStats.DURABILITY.multiply(builder, 1.20f);
+    ToolStats.ATTACK_DAMAGE.multiply(builder, 1.10f);
+    ToolStats.MINING_SPEED.multiply(builder, 1.10f);
     ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.NETHERITE);
   }
 }
