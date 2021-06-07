@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.client.screen.book.element;
+package slimeknights.tconstruct.library.book.elements;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;

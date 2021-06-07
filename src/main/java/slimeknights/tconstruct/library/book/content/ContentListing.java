@@ -47,13 +47,16 @@ public class ContentListing extends TinkerPage {
       yOff = height + 16;
     }
 
-    int y = yOff;
-    int x = 0;
-    int w = BookScreen.PAGE_WIDTH;
-    int line_height = 10;
+    // 16 gives space for the bottom and ensures a round number, yOff ensures the top is not counted
+    int lineHeight = 10;
+    int columnHeight = BookScreen.PAGE_HEIGHT - yOff - 16;
+    if (columnHeight % lineHeight != 0) {
+      columnHeight -= columnHeight % lineHeight;
+    }
 
-    int columnHeight = BookScreen.PAGE_HEIGHT - 30;
-    int totalHeight = this.entries.size() * 10 + yOff;
+    // determine how wide we can make each column, support up to 3
+    int w = BookScreen.PAGE_WIDTH;
+    int totalHeight = this.entries.size() * lineHeight;
     if (totalHeight > columnHeight) {
       if (totalHeight > (columnHeight * 2)) {
         w /= 3;
@@ -62,14 +65,15 @@ public class ContentListing extends TinkerPage {
       }
     }
 
+    int x = 0;
+    int y = 0;
     for (TextData data : this.entries) {
-      int height = this.parent.parent.parent.fontRenderer.getWordWrappedHeight(data.text, w) * line_height / 9;
-      list.add(this.createListingElement(y, x, w, height, data));
+      int height = this.parent.parent.parent.fontRenderer.getWordWrappedHeight(data.text, w) * lineHeight / 9;
+      list.add(this.createListingElement(y + yOff, x, w, height, data));
       y += height;
-
-      if (y > columnHeight) {
+      if (y >= columnHeight) {
         x += w;
-        y = yOff;
+        y = 0;
       }
     }
   }
