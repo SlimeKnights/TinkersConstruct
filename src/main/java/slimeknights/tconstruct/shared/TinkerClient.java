@@ -12,6 +12,7 @@ import slimeknights.tconstruct.library.client.util.ResourceValidator;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.smeltery.SmelteryClientEvents;
 import slimeknights.tconstruct.tables.TableClientEvents;
+import slimeknights.tconstruct.tools.ToolClientEvents;
 import slimeknights.tconstruct.world.WorldClientEvents;
 
 import java.util.function.Consumer;
@@ -53,5 +54,6 @@ public class TinkerClient {
     MaterialRenderInfoLoader.addResourceListener(manager);
     manager.addReloadListener(textureValidator);
     manager.addReloadListener(HarvestLevels.INSTANCE);
+    ToolClientEvents.addResourceListener(manager);
   }
 }

@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
@@ -38,6 +37,14 @@ public class ModifierNBT {
   /** Sorted list of modifiers */
   @Getter
   private final List<ModifierEntry> modifiers;
+
+  /**
+   * Checks if the NBT has no modifiers
+   * @return  True if there are no modifiers
+   */
+  public boolean isEmpty() {
+    return modifiers.isEmpty();
+  }
 
   /**
    * Gets the level of a modifier
@@ -152,19 +159,6 @@ public class ModifierNBT {
       list.add(tag);
     }
     return list;
-  }
-
-  /**
-   * Parses the modifier list from the given stack, shortcut for the model from using a full {@link ToolStack}
-   * @param stack  Stack
-   * @return  Standard list of modifiers
-   */
-  public static ModifierNBT fromUpgrades(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    if (nbt != null) {
-      return readFromNBT(nbt.getList(ToolStack.TAG_UPGRADES, NBT.TAG_COMPOUND));
-    }
-    return EMPTY;
   }
 
   /**

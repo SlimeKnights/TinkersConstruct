@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -33,6 +34,10 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
+import slimeknights.tconstruct.library.client.modifiers.BreakableModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
+import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
+import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -40,6 +45,7 @@ import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 
@@ -47,13 +53,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 @EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Bus.MOD)
 public class ToolClientEvents extends ClientEventBase {
+  /**
+   * Called by TinkerClient to add the resource listeners, runs during constructor
+   */
+  public static void addResourceListener(IReloadableResourceManager manager) {
+    ModifierModelManager.init(manager);
+  }
 
   @SubscribeEvent
   static void registerModelLoaders(ModelRegistryEvent event) {
     ModelLoaderRegistry.registerLoader(Util.getResource("material"), MaterialModel.LOADER);
     ModelLoaderRegistry.registerLoader(Util.getResource("tool"), ToolModel.LOADER);
+  }
+
+  @SubscribeEvent
+  static void registerModifierModels(ModifierModelRegistrationEvent event) {
+    event.registerModel(Util.getResource("normal"), NormalModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(Util.getResource("breakable"), BreakableModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(Util.getResource("overslime"), OverslimeModifierModel.UNBAKED_INSTANCE);
   }
 
   @SubscribeEvent

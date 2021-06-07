@@ -71,6 +71,9 @@ public interface IModifierToolStack {
 
   /* Modifiers */
 
+  /** Gets a list of modifiers that are specifically added to this tool. Unlike {@link #getModifiers()}, does not include modifiers from the tool or materials */
+  ModifierNBT getUpgrades();
+
   /** Gets a full list of effective modifiers on this tool, from both upgrades/abilities and material traits */
   ModifierNBT getModifiers();
 
