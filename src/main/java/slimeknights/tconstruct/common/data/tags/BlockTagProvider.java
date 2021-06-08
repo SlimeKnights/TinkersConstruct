@@ -252,7 +252,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   }
 
   private void addFluids() {
-    this.getOrCreateBuilder(BlockTags.STRIDER_WARM_BLOCKS).add(TinkerFluids.magma.getBlock(), TinkerFluids.moltenBlaze.getBlock());
+    this.getOrCreateBuilder(BlockTags.STRIDER_WARM_BLOCKS).add(TinkerFluids.magma.getBlock(), TinkerFluids.blazingBlood.getBlock());
   }
 
   @Override

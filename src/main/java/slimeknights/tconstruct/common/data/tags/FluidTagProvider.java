@@ -36,7 +36,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagLocal(TinkerFluids.moltenQuartz);
     tagLocal(TinkerFluids.moltenDiamond);
     tagLocal(TinkerFluids.moltenEnder);
-    tagLocal(TinkerFluids.moltenBlaze);
+    tagLocal(TinkerFluids.blazingBlood);
     // ores
     tagLocal(TinkerFluids.moltenIron);
     tagLocal(TinkerFluids.moltenGold);

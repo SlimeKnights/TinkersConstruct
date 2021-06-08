@@ -15,7 +15,7 @@ import slimeknights.tconstruct.TConstruct;
 public class FluidEvents {
   @SubscribeEvent
   static void onFurnaceFuel(FurnaceFuelBurnTimeEvent event) {
-    if (event.getItemStack().getItem() == TinkerFluids.moltenBlaze.asItem()) {
+    if (event.getItemStack().getItem() == TinkerFluids.blazingBlood.asItem()) {
       // 150% efficiency compared to lava bucket, compare to casting blaze rods, which cast into 120%
       event.setBurnTime(30000);
     }

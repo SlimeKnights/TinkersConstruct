@@ -50,7 +50,7 @@ public final class TinkerFluids extends TinkerModule {
   // fancy molten fluids
   public static final FluidObject<ForgeFlowingFluid> moltenObsidian = FLUIDS.register("molten_obsidian", hotBuilder().temperature(1300), Material.LAVA, 11);
   public static final FluidObject<ForgeFlowingFluid> moltenEnder    = FLUIDS.register("molten_ender",    hotBuilder().temperature( 777), Material.LAVA,  7);
-  public static final FluidObject<ForgeFlowingFluid> moltenBlaze    = FLUIDS.register("molten_blaze",    hotBuilder().temperature(1800).density(3500), Material.LAVA, 14);
+  public static final FluidObject<ForgeFlowingFluid> blazingBlood   = FLUIDS.register("blazing_blood",   hotBuilder().temperature(1800).density(3500), Material.LAVA, 14);
 
   // ores
   public static final FluidObject<ForgeFlowingFluid> moltenEmerald = FLUIDS.register("molten_emerald", hotBuilder().temperature(1234), Material.LAVA,  4);

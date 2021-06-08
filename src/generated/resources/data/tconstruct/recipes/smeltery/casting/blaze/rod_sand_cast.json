@@ -1,10 +1,11 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "tag": "tconstruct:casts/multi_use/rod"
+    "tag": "tconstruct:casts/single_use/rod"
   },
+  "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_blaze",
+    "name": "tconstruct:blazing_blood",
     "amount": 100
   },
   "result": "minecraft:blaze_rod",

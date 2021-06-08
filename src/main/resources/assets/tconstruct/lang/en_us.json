@@ -353,12 +353,10 @@
     
     "_comment": "Tinkers Fluids",
 
-    "fluid.tconstruct.milk": "Milk",
-
-    "block.tconstruct.molten_blaze_fluid": "Molten Blaze",
-    "fluid.tconstruct.molten_blaze": "Molten Blaze",
-    "fluid.tconstruct.flowing_molten_blaze": "Flowing Molten Blaze",
-    "item.tconstruct.molten_blaze_bucket": "Molten Blaze Bucket",
+    "block.tconstruct.blazing_blood_fluid": "Blazing Blood",
+    "fluid.tconstruct.blazing_blood": "Blazing Blood",
+    "fluid.tconstruct.flowing_blazing_blood": "Flowing Blazing Blood",
+    "item.tconstruct.blazing_blood_bucket": "Blazing Blood Bucket",
     
     "_comment": "Slime",
 

@@ -151,6 +151,8 @@ public class TConstruct {
       case "scorched_window": return TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK);
       // magma cream -> magma
       case "magma_cream_fluid": return TinkerFluids.magma.getBlock();
+      // molten blaze -> blazing blood
+      case "molten_blaze_fluid": return TinkerFluids.blazingBlood.getBlock();
     }
     return null;
   }
@@ -196,6 +198,8 @@ public class TConstruct {
         case "reinforcement": return TinkerModifiers.ironReinforcement.get();
         // magma cream -> magma
         case "magma_cream_bucket": return TinkerFluids.magma.asItem();
+        // molten blaze -> blazing blood
+        case "molten_blaze_bucket": return TinkerFluids.blazingBlood.asItem();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
@@ -211,8 +215,12 @@ public class TConstruct {
   void missingFluids(final MissingMappings<Fluid> event) {
     RegistrationHelper.handleMissingMappings(event, modID, name -> {
       switch(name) {
+        // magma cream -> magma
         case "magma_cream": return TinkerFluids.magma.get();
         case "flowing_magma_cream": return TinkerFluids.magma.getFlowing();
+        // molten blaze -> blazing blood
+        case "molten_blaze": return TinkerFluids.blazingBlood.get();
+        case "flowing_molten_blaze": return TinkerFluids.blazingBlood.getFlowing();
       }
       return null;
     });

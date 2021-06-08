@@ -802,7 +802,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                             .setCast(ItemTags.PLANKS, true)
                             .build(consumer, prefix(TinkerCommons.lavawood, folder));
     ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.blazewood)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 10))
+                            .setFluidAndTime(new FluidStack(TinkerFluids.blazingBlood.get(), FluidAttributes.BUCKET_VOLUME / 10))
                             .setCast(new IngredientIntersection(Ingredient.fromTag(ItemTags.PLANKS), Ingredient.fromTag(ItemTags.NON_FLAMMABLE_WOOD)), true)
                             .build(consumer, prefix(TinkerCommons.blazewood, folder));
     ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.mudBricks)
@@ -811,7 +811,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                             .build(consumer, prefix(TinkerCommons.mudBricks, folder));
 
     // cast molten blaze into blaze rods
-    addCastingWithCastRecipe(consumer, TinkerFluids.moltenBlaze, FluidAttributes.BUCKET_VOLUME / 10, TinkerSmeltery.rodCast, Items.BLAZE_ROD, folder + "blaze_/rod");
+    addCastingWithCastRecipe(consumer, TinkerFluids.blazingBlood, FluidAttributes.BUCKET_VOLUME / 10, TinkerSmeltery.rodCast, Items.BLAZE_ROD, folder + "blaze/rod");
 
     // Cast recipes
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.blankCast)
@@ -1297,7 +1297,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     // fuels
     MeltingFuelBuilder.fuel(new FluidStack(Fluids.LAVA, 50), 100)
                       .build(consumer, location(folder + "fuel/lava"));
-    MeltingFuelBuilder.fuel(new FluidStack(TinkerFluids.moltenBlaze.get(), 50), 150)
+    MeltingFuelBuilder.fuel(new FluidStack(TinkerFluids.blazingBlood.get(), 50), 150)
                       .build(consumer, location(folder + "fuel/blaze"));
   }
 
@@ -1458,7 +1458,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                               .build(consumer, prefixR(EntityType.SNOW_GOLEM, folder));
 
     // "melt" blazes to get fuel
-    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.BLAZE), new FluidStack(TinkerFluids.moltenBlaze.get(), FluidAttributes.BUCKET_VOLUME / 50), 2)
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.BLAZE), new FluidStack(TinkerFluids.blazingBlood.get(), FluidAttributes.BUCKET_VOLUME / 50), 2)
                               .build(consumer, prefixR(EntityType.BLAZE, folder));
 
     // guardians are rock, seared stone is rock, don't think about it too hard
