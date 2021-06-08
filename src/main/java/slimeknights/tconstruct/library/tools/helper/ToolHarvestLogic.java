@@ -141,7 +141,7 @@ public class ToolHarvestLogic {
    * @return  True if the block was removed
    */
   private boolean removeBlock(IModifierToolStack tool, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
-    Boolean removed = false;
+    Boolean removed = null;
     if (!tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
         removed = entry.getModifier().removeBlock(tool, entry.getLevel(), player, world, pos, state, canHarvest, isEffective);
