@@ -61,12 +61,15 @@ public class ShearsAbilityModifier extends SingleUseModifier {
   
   @Override
   public ActionResultType onEntityUse(IModifierToolStack tool, int level, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+    if (tool.isBroken()) {
+      return ActionResultType.PASS;
+    }
     ItemStack stack = playerIn.getHeldItem(hand);
     // only run AOE on shearable entities
     if (isShears(tool) && target instanceof IForgeShearable) {
       // use looting instead of fortune, as that is our hook with entity access
       // modifier can always use tags or the nullable parameter to distinguish if needed
-      if (!tool.isBroken() && this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, ModifierUtil.getLootingLevel(tool, playerIn, target, null))) {
+      if (this.shearEntity(stack, playerIn.getEntityWorld(), playerIn, target, ModifierUtil.getLootingLevel(tool, playerIn, target, null))) {
         ToolDamageUtil.damageAnimated(tool, 1, playerIn, hand);
         this.swingTool(playerIn, hand);
         return ActionResultType.SUCCESS;

@@ -231,16 +231,16 @@ public class HarvestAbilityModifier extends SingleUseModifier {
 
   @Override
   public ActionResultType beforeBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
-	ItemStack stack = context.getItem();
+    if (tool.isBroken()) {
+      return ActionResultType.PASS;
+    }
+
+    ItemStack stack = context.getItem();
     Item item = stack.getItem();
     if (item instanceof IModifiableHarvest) {
       IModifiableHarvest toolCore = (IModifiableHarvest) item;
       PlayerEntity player = context.getPlayer();
       if (player != null && player.isSneaking()) {
-        return ActionResultType.PASS;
-      }
-      // fetch tool
-      if (tool.isBroken()) {
         return ActionResultType.PASS;
       }
   

@@ -35,10 +35,15 @@ public class BlockTransformModifier extends SingleUseModifier {
 
   @Override
   public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
+    // tool must not be broken
+    if (tool.isBroken()) {
+      return ActionResultType.PASS;
+    }
+
     Item item = tool.getItem();
     if (item instanceof IModifiableHarvest) {
       IModifiableHarvest toolCore = (IModifiableHarvest) item;
-      return toolCore.getToolHarvestLogic().transformBlocks(context, toolType, sound, requireGround);
+      return toolCore.getToolHarvestLogic().transformBlocks(tool, context, toolType, sound, requireGround);
     }
     return ActionResultType.PASS;
   }

@@ -31,7 +31,7 @@ public class TastyModifier extends Modifier {
 
   @Override
   public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
-    if (player.canEat(false)) {
+    if (!tool.isBroken() && player.canEat(false)) {
       player.setActiveHand(hand);
       // mark tool as eating as use action is only stack sensitive
       tool.getPersistentData().putBoolean(IS_EATING, true);
@@ -51,7 +51,7 @@ public class TastyModifier extends Modifier {
 
   @Override
   public boolean onFinishUsing(IModifierToolStack tool, int level, World world, LivingEntity entity) {
-    if (tool.getPersistentData().getBoolean(IS_EATING) && entity instanceof PlayerEntity) {
+    if (!tool.isBroken() && tool.getPersistentData().getBoolean(IS_EATING) && entity instanceof PlayerEntity) {
       // clear eating marker
       tool.getPersistentData().remove(IS_EATING);
       PlayerEntity player = (PlayerEntity) entity;
@@ -70,6 +70,7 @@ public class TastyModifier extends Modifier {
         return true;
       }
     }
+    tool.getPersistentData().remove(IS_EATING);
     return false;
   }
 

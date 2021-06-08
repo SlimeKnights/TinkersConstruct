@@ -303,18 +303,10 @@ public class ToolHarvestLogic {
    * @param sound     Sound to play on tilling
    * @return  Action result from tilling
    */
-  public ActionResultType transformBlocks(ItemUseContext context, ToolType toolType, SoundEvent sound, boolean requireGround) {
+  public ActionResultType transformBlocks(IModifierToolStack tool, ItemUseContext context, ToolType toolType, SoundEvent sound, boolean requireGround) {
     PlayerEntity player = context.getPlayer();
     if (player != null && player.isSneaking()) {
       return ActionResultType.PASS;
-    }
-
-    // tool must not be broken
-    Hand hand = context.getHand();
-    ItemStack stack = context.getItem();
-    ToolStack tool = ToolStack.from(stack);
-    if (tool.isBroken()) {
-      return ActionResultType.FAIL;
     }
 
     // for hoes and shovels, must have nothing but plants above
@@ -332,6 +324,7 @@ public class ToolHarvestLogic {
 
     // must actually transform
     BlockState original = world.getBlockState(pos);
+    ItemStack stack = context.getItem();
     BlockState transformed = original.getToolModifiedState(world, pos, player, stack, toolType);
     boolean isCampfire = false;
     boolean didTransform = transformed != null;
@@ -377,6 +370,7 @@ public class ToolHarvestLogic {
     // note we consider anything effective, as hoes are not effective on all tillable blocks
     int totalTransformed = 0;
     if (player != null && !tool.isBroken()) {
+      Hand hand = context.getHand();
       for (BlockPos newPos : getAOEBlocks(tool, stack, player, original, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
         if (pos.equals(newPos)) {
           //in case it attempts to run the same position twice
