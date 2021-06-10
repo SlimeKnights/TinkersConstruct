@@ -1578,6 +1578,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     Function<String,ResourceLocation> ceramicsId = name -> new ResourceLocation(ceramics, name);
     Consumer<IFinishedRecipe> ceramicsConsumer = withCondition(consumer, new ModLoadedCondition(ceramics));
 
+    // fill clay and cracked clay buckets
+    ContainerFillingRecipeBuilder.tableRecipe(ceramicsId.apply("clay_bucket"), FluidAttributes.BUCKET_VOLUME)
+                                 .build(ceramicsConsumer, location(ceramicsFolder + "filling_clay_bucket"));
+    ContainerFillingRecipeBuilder.tableRecipe(ceramicsId.apply("cracked_clay_bucket"), FluidAttributes.BUCKET_VOLUME)
+                                 .build(ceramicsConsumer, location(ceramicsFolder + "filling_cracked_clay_bucket"));
+
     // porcelain for ceramics
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenPorcelain.get(), MaterialValues.SLIMEBALL * 4)
                       .addInput(TinkerFluids.moltenClay.get(), MaterialValues.SLIMEBALL * 3)
