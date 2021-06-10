@@ -22,7 +22,6 @@ import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 
@@ -39,8 +38,8 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
    * @return  Capacity
    */
   public static int getCapacity(Block block) {
-    if (block instanceof SearedTankBlock) {
-      return ((SearedTankBlock) block).getCapacity();
+    if (block instanceof ITankBlock) {
+      return ((ITankBlock) block).getCapacity();
     }
     return DEFAULT_CAPACITY;
   }
@@ -73,13 +72,13 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   }
 
   /** Main constructor */
-  public TankTileEntity(SearedTankBlock block) {
+  public TankTileEntity(ITankBlock block) {
     this(TinkerSmeltery.tank.get(), block);
   }
 
   /** Extendable constructor */
   @SuppressWarnings("WeakerAccess")
-  protected TankTileEntity(TileEntityType<?> type, SearedTankBlock block) {
+  protected TankTileEntity(TileEntityType<?> type, ITankBlock block) {
     super(type);
     tank = new FluidTankAnimated(block.getCapacity(), this);
     holder = LazyOptional.of(() -> tank);
@@ -175,5 +174,11 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
     if (!tank.isEmpty()) {
       tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundNBT()));
     }
+  }
+
+  /** Interface for blocks to return their capacity */
+  public interface ITankBlock {
+    /** Gets the capacity for this tank */
+    int getCapacity();
   }
 }

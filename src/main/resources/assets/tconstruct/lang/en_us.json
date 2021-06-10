@@ -843,6 +843,8 @@
     "block.tconstruct.seared_ingot_tank.tooltip": "Ideal for metals, holding 32 ingots of fluid.\nRetains liquid when broken.",
     "block.tconstruct.seared_ingot_gauge": "Seared Ingot Gauge",
     "block.tconstruct.seared_ingot_gauge.tooltip": "Ideal for metals, holding 32 ingots of fluid.\nRetains liquid when broken.",
+    "block.tconstruct.seared_lantern": "Seared Lantern",
+    "block.tconstruct.seared_lantern.tooltip": "Ideal for decoration, holding 100mb of fluid.\nRetains liquid when broken.",
     
     "block.tconstruct.seared_faucet": "Seared Faucet",
     "block.tconstruct.seared_faucet.tooltip": "Drains liquids from Smelteries and Tanks",
@@ -918,6 +920,8 @@
     "block.tconstruct.scorched_ingot_tank.tooltip": "Ideal for metals, holding 3 molten blocks.\nRetains liquid when broken.",
     "block.tconstruct.scorched_ingot_gauge": "Scorched Ingot Gauge",
     "block.tconstruct.scorched_ingot_gauge.tooltip": "Ideal for metals, holding 3 molten blocks.\nRetains liquid when broken.",
+    "block.tconstruct.scorched_lantern": "Scorched Lantern",
+    "block.tconstruct.scorched_lantern.tooltip": "Ideal for decoration, holding 100mb of fluid.\nRetains liquid when broken.",
 
     "block.tconstruct.scorched_faucet": "Scorched Faucet",
     "block.tconstruct.scorched_faucet.tooltip": "Drains liquids from Foundries and Tanks",

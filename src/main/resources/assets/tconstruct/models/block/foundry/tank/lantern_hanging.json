@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/template/lantern_hanging",
+  "textures": {
+    "lantern": "tconstruct:block/foundry/lantern"
+  }
+}

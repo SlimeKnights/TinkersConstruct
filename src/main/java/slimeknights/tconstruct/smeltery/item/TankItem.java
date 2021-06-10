@@ -11,7 +11,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.item.BlockTooltipItem;
@@ -30,12 +29,17 @@ public class TankItem extends BlockTooltipItem {
   private static final String KEY_INGOTS = Util.makeTranslationKey("block", "tank.ingots");
   private static final String KEY_MIXED = Util.makeTranslationKey("block", "tank.mixed");
 
-  public TankItem(Block blockIn, Properties builder) {
+  private final boolean limitStackSize;
+  public TankItem(Block blockIn, Properties builder, boolean limitStackSize) {
     super(blockIn, builder);
+    this.limitStackSize = limitStackSize;
   }
 
   @Override
   public int getItemStackLimit(ItemStack stack) {
+    if (!limitStackSize) {
+      return super.getItemStackLimit(stack);
+    }
     FluidTank tank = getFluidTank(stack);
     return tank.isEmpty() ? 64 : 16;
   }
@@ -48,7 +52,7 @@ public class TankItem extends BlockTooltipItem {
       if (tank.getFluidAmount() > 0) {
         tooltip.add(new TranslationTextComponent(KEY_FLUID, tank.getFluid().getDisplayName()).mergeStyle(TextFormatting.GRAY));
         int amount = tank.getFluidAmount();
-        if (tank.getCapacity() % FluidAttributes.BUCKET_VOLUME == 0 || Screen.hasShiftDown()) {
+        if (tank.getCapacity() % MaterialValues.INGOT != 0 || Screen.hasShiftDown()) {
           tooltip.add(new TranslationTextComponent(KEY_MB, amount).mergeStyle(TextFormatting.GRAY));
         } else {
           int ingots = amount / MaterialValues.INGOT;

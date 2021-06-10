@@ -1,48 +1,33 @@
-package slimeknights.tconstruct.smeltery.block.component;
+package slimeknights.tconstruct.smeltery.block;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.LanternBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
-import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.LanternTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity.ITankBlock;
 
 import javax.annotation.Nullable;
-import java.util.Locale;
 
-public class SearedTankBlock extends SearedBlock implements ITankBlock {
+public class SearedLanternBlock extends LanternBlock implements ITankBlock {
   @Getter
   private final int capacity;
-  public SearedTankBlock(Properties properties, int capacity) {
+  public SearedLanternBlock(Properties properties, int capacity) {
     super(properties);
     this.capacity = capacity;
-  }
-
-  @Deprecated
-  @Override
-  @OnlyIn(Dist.CLIENT)
-  public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
-    return 1.0F;
   }
 
   @Override
@@ -52,16 +37,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock {
 
   @Override
   public TileEntity createTileEntity(BlockState state, IBlockReader worldIn) {
-    return new TankTileEntity(this);
-  }
-
-  @Deprecated
-  @Override
-  public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-    if (FluidTransferUtil.interactWithTank(world, pos, player, hand, hit)) {
-      return ActionResultType.SUCCESS;
-    }
-    return super.onBlockActivated(state, world, pos, player, hand, hit);
+    return new LanternTileEntity(this);
   }
 
   @Override
@@ -71,7 +47,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock {
       FluidStack fluid = ((TankTileEntity) te).getTank().getFluid();
       return fluid.getFluid().getAttributes().getLuminosity(fluid);
     }
-    return super.getLightValue(state, world, pos);
+    return 0;
   }
 
   @Override
@@ -80,15 +56,16 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock {
     if (nbt != null) {
       TileEntityHelper.getTile(TankTileEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
     }
-    super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
   }
 
+  @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public boolean hasComparatorInputOverride(BlockState state) {
     return true;
   }
 
+  @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
@@ -100,21 +77,5 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock {
     ItemStack stack = new ItemStack(this);
     TileEntityHelper.getTile(TankTileEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
     return stack;
-  }
-
-  @AllArgsConstructor
-  public enum TankType implements IStringSerializable {
-    FUEL_TANK(TankTileEntity.DEFAULT_CAPACITY),
-    FUEL_GAUGE(TankTileEntity.DEFAULT_CAPACITY),
-    INGOT_TANK(MaterialValues.INGOT * 32),
-    INGOT_GAUGE(MaterialValues.INGOT * 32);
-
-    @Getter
-    private final int capacity;
-
-    @Override
-    public String getString() {
-      return this.toString().toLowerCase(Locale.US);
-    }
   }
 }
