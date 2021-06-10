@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -23,6 +24,7 @@ import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.item.TankItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -130,6 +132,14 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   /*
    * NBT
    */
+
+  /**
+   * Sets the tag on the stack based on the contained tank
+   * @param stack  Stack
+   */
+  public void setTankTag(ItemStack stack) {
+    TankItem.setTank(stack, tank);
+  }
 
   /**
    * Updates the tank from an NBT tag, used in the block

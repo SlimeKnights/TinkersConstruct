@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -64,6 +65,27 @@ public class TankItem extends BlockTooltipItem {
     else {
       super.addInformation(stack, worldIn, tooltip, flagIn);
     }
+  }
+
+  /**
+   * Sets the tank to the given stack
+   * @param stack  Stack
+   * @param tank   Tank instance
+   * @return  Stack with tank
+   */
+  public static ItemStack setTank(ItemStack stack, FluidTank tank) {
+    if (tank.isEmpty()) {
+      CompoundNBT nbt = stack.getTag();
+      if (nbt != null) {
+        nbt.remove(NBTTags.TANK);
+        if (nbt.isEmpty()) {
+          stack.setTag(null);
+        }
+      }
+    } else {
+      stack.getOrCreateTag().put(NBTTags.TANK, tank.writeToNBT(new CompoundNBT()));
+    }
+    return stack;
   }
 
   /**
