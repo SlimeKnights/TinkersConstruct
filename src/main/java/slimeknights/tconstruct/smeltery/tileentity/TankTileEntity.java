@@ -150,6 +150,9 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
       tank.setFluid(FluidStack.EMPTY);
     } else {
       tank.readFromNBT(nbt);
+      if (world != null) {
+        world.getLightManager().checkBlock(pos);
+      }
     }
   }
 
