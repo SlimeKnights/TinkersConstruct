@@ -715,6 +715,24 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                                  .build(consumer, location(folder + "filling/bucket"));
     ContainerFillingRecipeBuilder.tableRecipe(TinkerSmeltery.copperCan, MaterialValues.INGOT)
                                  .build(consumer, location(folder + "filling/copper_can"));
+    // tank filling - seared
+    ContainerFillingRecipeBuilder.basinRecipe(TinkerSmeltery.searedTank.get(TankType.INGOT_TANK), MaterialValues.INGOT)
+                                 .build(consumer, location(folder + "filling/seared_ingot_tank"));
+    ContainerFillingRecipeBuilder.basinRecipe(TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE), MaterialValues.INGOT)
+                                 .build(consumer, location(folder + "filling/seared_ingot_gauge"));
+    ContainerFillingRecipeBuilder.basinRecipe(TinkerSmeltery.searedTank.get(TankType.FUEL_TANK), FluidAttributes.BUCKET_VOLUME / 4)
+                                 .build(consumer, location(folder + "filling/seared_fuel_tank"));
+    ContainerFillingRecipeBuilder.basinRecipe(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE), FluidAttributes.BUCKET_VOLUME / 4)
+                                 .build(consumer, location(folder + "filling/seared_fuel_gauge"));
+    // tank filling - scorched
+    ContainerFillingRecipeBuilder.basinRecipe(TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK), MaterialValues.INGOT)
+                                 .build(consumer, location(folder + "filling/scorched_ingot_tank"));
+    ContainerFillingRecipeBuilder.basinRecipe(TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE), MaterialValues.INGOT)
+                                 .build(consumer, location(folder + "filling/scorched_ingot_gauge"));
+    ContainerFillingRecipeBuilder.basinRecipe(TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK), FluidAttributes.BUCKET_VOLUME / 4)
+                                 .build(consumer, location(folder + "filling/scorched_fuel_tank"));
+    ContainerFillingRecipeBuilder.basinRecipe(TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE), FluidAttributes.BUCKET_VOLUME / 4)
+                                 .build(consumer, location(folder + "filling/scorched_fuel_gauge"));
     // Slime
     String slimeFolder = folder + "slime/";
     this.addSlimeCastingRecipe(consumer, TinkerFluids.blood.getLocalTag(),      getTemperature(TinkerFluids.blood),      SlimeType.BLOOD, slimeFolder);

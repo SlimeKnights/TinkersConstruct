@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.tconstruct.library.Util;
@@ -65,6 +66,12 @@ public class TankItem extends BlockTooltipItem {
     else {
       super.addInformation(stack, worldIn, tooltip, flagIn);
     }
+  }
+
+  @Nullable
+  @Override
+  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+    return new TankItemFluidHandler(stack);
   }
 
   /**
