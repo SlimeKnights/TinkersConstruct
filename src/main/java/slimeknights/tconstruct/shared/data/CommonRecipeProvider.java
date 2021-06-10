@@ -13,7 +13,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;

@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.common.conditions;
+package slimeknights.tconstruct.common.json;
 
 import mcp.MethodsReturnNonnullByDefault;
 

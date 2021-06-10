@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.loot.LootConditionType;
+import net.minecraft.loot.LootFunctionType;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolType;
@@ -24,7 +25,8 @@ import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
+import slimeknights.tconstruct.common.json.SetFluidLootFunction;
 import slimeknights.tconstruct.common.recipe.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.Util;
@@ -87,6 +89,7 @@ public final class TinkerCommons extends TinkerModule {
   /* Loot conditions */
   public static LootConditionType lootConfig;
   public static LootConditionType lootBlockOrEntity;
+  public static LootFunctionType lootSetFluid;
 
   /* Slime Balls are edible, believe it or not */
   public static final EnumObject<SlimeType, Item> slimeball = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
@@ -103,6 +106,7 @@ public final class TinkerCommons extends TinkerModule {
     CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
     lootConfig = Registry.register(Registry.LOOT_CONDITION_TYPE, ConfigEnabledCondition.ID, new LootConditionType(ConfigEnabledCondition.SERIALIZER));
     lootBlockOrEntity = Registry.register(Registry.LOOT_CONDITION_TYPE, BlockOrEntityCondition.ID, new LootConditionType(BlockOrEntityCondition.SERIALIZER));
+    lootSetFluid = Registry.register(Registry.LOOT_FUNCTION_TYPE, SetFluidLootFunction.ID, new LootFunctionType(new SetFluidLootFunction.Serializer()));
   }
 
   @SubscribeEvent
