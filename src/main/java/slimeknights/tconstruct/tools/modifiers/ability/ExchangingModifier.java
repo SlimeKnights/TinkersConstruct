@@ -32,7 +32,7 @@ public class ExchangingModifier extends SingleUseModifier {
   public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
     // must have blocks in the offhand
     ItemStack offhand = player.getHeldItemOffhand();
-    if (!isEffective || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem)) {
+    if ((!isEffective && state.getBlockHardness(world, pos) > 0) || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem)) {
       return null;
     }
 
