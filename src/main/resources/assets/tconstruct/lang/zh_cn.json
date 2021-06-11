@@ -1,0 +1,1089 @@
+{
+    "_comment": "Tinkers Common",
+
+    "block.tconstruct.grout": "砖泥",
+    "block.tconstruct.grout.tooltip": "哪里需要哪里搬！",
+    "block.tconstruct.slimy_mud_green": "绿色黏液泥",
+    "block.tconstruct.slimy_mud_green.tooltip": "减慢行走速度，但能让你跳得更高",
+    "block.tconstruct.slimy_mud_blue": "蓝色黏液泥",
+    "block.tconstruct.slimy_mud_blue.tooltip": "block.tconstruct.slimy_mud_green.tooltip",
+    "block.tconstruct.slimy_mud_magma": "岩浆黏液泥",
+    "block.tconstruct.slimy_mud_magma.tooltip": "block.tconstruct.slimy_mud_green.tooltip",
+    "block.tconstruct.graveyard_soil": "黄泉土",
+    "block.tconstruct.graveyard_soil.tooltip": "治疗亡灵生物",
+    "block.tconstruct.consecrated_soil": "神圣土",
+    "block.tconstruct.consecrated_soil.tooltip": "伤害亡灵生物",
+
+    "block.tconstruct.blue_slime": "黏液块",
+    "block.tconstruct.blue_slime.tooltip": "block.tconstruct.slime.tooltip",
+    "block.tconstruct.purple_slime": "黏液块",
+    "block.tconstruct.purple_slime.tooltip": "block.tconstruct.slime.tooltip",
+    "block.tconstruct.blood_slime": "黏血块",
+    "block.tconstruct.blood_slime.tooltip": "block.tconstruct.slime.tooltip",
+    "block.tconstruct.magma_slime": "黏液块",
+    "block.tconstruct.magma_slime.tooltip": "block.tconstruct.slime.tooltip",
+    "block.tconstruct.pink_slime": "黏液块",
+    "block.tconstruct.pink_slime.tooltip": "block.tconstruct.slime.tooltip",
+    "block.tconstruct.slime.tooltip": "可用于建造活塞机关！",
+
+    "block.tconstruct.green_congealed_slime": "凝固黏液块",
+    "block.tconstruct.green_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.blue_congealed_slime": "凝固黏液块",
+    "block.tconstruct.blue_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.purple_congealed_slime": "凝固黏液块",
+    "block.tconstruct.purple_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.blood_congealed_slime": "凝固黏血块",
+    "block.tconstruct.blood_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.magma_congealed_slime": "凝固黏液块",
+    "block.tconstruct.magma_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.pink_congealed_slime": "凝固黏液块",
+    "block.tconstruct.pink_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.congealed_slime.tooltip": "让你能高高跃起",
+
+    "block.tconstruct.mud_bricks": "泥砖块",
+    "block.tconstruct.mud_bricks_slab": "泥砖台阶",
+    "block.tconstruct.mud_bricks_stairs": "泥砖楼梯",
+
+    "block.tconstruct.lavawood": "熔岩木",
+    "block.tconstruct.lavawood_slab": "熔岩木台阶",
+    "block.tconstruct.lavawood_stairs": "熔岩木楼梯",
+
+    "block.tconstruct.firewood": "烈焰木",
+    "block.tconstruct.firewood_slab": "烈焰木台阶",
+    "block.tconstruct.firewood_stairs": "烈焰木楼梯",
+
+    "block.tconstruct.clear_glass": "通透玻璃",
+    "block.tconstruct.clear_glass_pane": "通透玻璃板",
+    
+    "block.tconstruct.white_clear_stained_glass": "白色染色通透玻璃",
+    "block.tconstruct.orange_clear_stained_glass": "橙色染色通透玻璃",
+    "block.tconstruct.magenta_clear_stained_glass": "品红色染色通透玻璃",
+    "block.tconstruct.light_blue_clear_stained_glass": "淡蓝色染色通透玻璃",
+    "block.tconstruct.yellow_clear_stained_glass": "黄色染色通透玻璃",
+    "block.tconstruct.lime_clear_stained_glass": "黄绿色染色通透玻璃",
+    "block.tconstruct.pink_clear_stained_glass": "粉红色染色通透玻璃",
+    "block.tconstruct.gray_clear_stained_glass": "灰色染色通透玻璃",
+    "block.tconstruct.light_gray_clear_stained_glass": "淡灰色染色通透玻璃",
+    "block.tconstruct.cyan_clear_stained_glass": "青色染色通透玻璃",
+    "block.tconstruct.purple_clear_stained_glass": "紫色染色通透玻璃",
+    "block.tconstruct.blue_clear_stained_glass": "蓝色染色通透玻璃",
+    "block.tconstruct.brown_clear_stained_glass": "棕色染色通透玻璃",
+    "block.tconstruct.green_clear_stained_glass": "绿色染色通透玻璃",
+    "block.tconstruct.red_clear_stained_glass": "红色染色通透玻璃",
+    "block.tconstruct.black_clear_stained_glass": "黑色染色通透玻璃",
+    
+    "block.tconstruct.white_clear_stained_glass_pane": "白色染色通透玻璃板",
+    "block.tconstruct.orange_clear_stained_glass_pane": "橙色染色通透玻璃板",
+    "block.tconstruct.magenta_clear_stained_glass_pane": "品红色染色通透玻璃板",
+    "block.tconstruct.light_blue_clear_stained_glass_pane": "淡蓝色染色通透玻璃板",
+    "block.tconstruct.yellow_clear_stained_glass_pane": "黄色染色通透玻璃板",
+    "block.tconstruct.lime_clear_stained_glass_pane": "黄绿色染色通透玻璃板",
+    "block.tconstruct.pink_clear_stained_glass_pane": "粉红色染色通透玻璃板",
+    "block.tconstruct.gray_clear_stained_glass_pane": "灰色染色通透玻璃板",
+    "block.tconstruct.light_gray_clear_stained_glass_pane": "淡灰色染色通透玻璃板",
+    "block.tconstruct.cyan_clear_stained_glass_pane": "青色染色通透玻璃板",
+    "block.tconstruct.purple_clear_stained_glass_pane": "紫色染色通透玻璃板",
+    "block.tconstruct.blue_clear_stained_glass_pane": "蓝色染色通透玻璃板",
+    "block.tconstruct.brown_clear_stained_glass_pane": "棕色染色通透玻璃板",
+    "block.tconstruct.green_clear_stained_glass_pane": "绿色染色通透玻璃板",
+    "block.tconstruct.red_clear_stained_glass_pane": "红色染色通透玻璃板",
+    "block.tconstruct.black_clear_stained_glass_pane": "黑色染色通透玻璃板",
+
+    "block.tconstruct.soul_glass": "Soul Glass",
+    "block.tconstruct.soul_glass_pane": "Soul Glass Pane",
+
+    "block.tconstruct.glow": "荧光球",
+    "block.tconstruct.silky_jewel_block": "裹绸宝石块",
+    "block.tconstruct.silky_jewel_block.tooltip": "可用于建造信标基座",
+    
+    
+    "__comment": "Ore Metals",
+
+    "block.tconstruct.copper_ore": "铜矿石",
+    "block.tconstruct.copper_block": "铜块",
+    "block.tconstruct.copper_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.copper_ingot": "铜锭",
+    "item.tconstruct.copper_nugget": "铜粒",
+
+    "block.tconstruct.cobalt_ore": "钴矿石",
+    "block.tconstruct.cobalt_block": "钴块",
+    "block.tconstruct.cobalt_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.cobalt_ingot": "钴锭",
+    "item.tconstruct.cobalt_nugget": "钴粒",
+    
+    "block.tconstruct.ardite_ore": "阿迪特矿石",
+    "block.tconstruct.ardite_block": "阿迪特块",
+    "block.tconstruct.ardite_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.ardite_ingot": "阿迪特锭",
+    "item.tconstruct.ardite_nugget": "阿迪特粒",
+    
+    
+    "__comment": "Tier 3 Metals",
+    
+    "block.tconstruct.slimesteel_block": "Block of Slimesteel",
+    "block.tconstruct.slimesteel_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.slimesteel_ingot": "Slimesteel Ingot",
+    "item.tconstruct.slimesteel_nugget": "Slimesteel Nugget",
+    
+    "block.tconstruct.tinkers_bronze_block": "Block of Tinker's Bronze",
+    "block.tconstruct.tinkers_bronze_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.tinkers_bronze_ingot": "Tinker's Bronze Ingot",
+    "item.tconstruct.tinkers_bronze_nugget": "Tinker's Bronze Nugget",
+    
+    "block.tconstruct.rose_gold_block": "Block of Rose Gold",
+    "block.tconstruct.rose_gold_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.rose_gold_ingot": "Rose Gold Ingot",
+    "item.tconstruct.rose_gold_nugget": "Rose Gold Nugget",
+    
+    "block.tconstruct.pigiron_block": "生铁块",
+    "block.tconstruct.pigiron_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.pigiron_ingot": "生铁锭",
+    "item.tconstruct.pigiron_nugget": "生铁粒",
+
+    
+    "__comment": "Tier 4 Metals",
+    
+    "block.tconstruct.manyullyn_block": "玛玉灵块",
+    "block.tconstruct.manyullyn_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.manyullyn_ingot": "玛玉灵锭",
+    "item.tconstruct.manyullyn_nugget": "玛玉灵粒",
+    
+    "block.tconstruct.hepatizon_block": "Block of Hepatizon",
+    "block.tconstruct.hepatizon_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.hepatizon_ingot": "Hepatizon Ingot",
+    "item.tconstruct.hepatizon_nugget": "Hepatizon Nugget",
+    
+    "block.tconstruct.queens_slime_block": "Block of Queen's Slime",
+    "block.tconstruct.queens_slime_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.queens_slime_ingot": "Queen's Slime Ingot",
+    "item.tconstruct.queens_slime_nugget": "Queen's Slime Nugget",
+    
+    "block.tconstruct.soulsteel_block": "Block of Soulsteel",
+    "block.tconstruct.soulsteel_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.soulsteel_ingot": "Soulsteel Ingot",
+    "item.tconstruct.soulsteel_nugget": "Soulsteel Nugget",
+    
+    "item.tconstruct.netherite_nugget": "下界合金粒",
+
+    
+    "__comment": "Tier 5 Metals",
+    
+    "block.tconstruct.knightslime_block": "骑士史莱姆块",
+    "block.tconstruct.knightslime_block.tooltip": "可用于建造信标基座",
+    "item.tconstruct.knightslime_ingot": "骑士史莱姆锭",
+    "item.tconstruct.knightslime_ingot.tooltip": "既粘弹又像金属，实际上却是一种石料？多么令人惊叹！",
+    "item.tconstruct.knightslime_nugget": "骑士史莱姆粒",
+    
+
+    "item.tconstruct.book": "匠魂宝典：材料与你",
+    "item.tconstruct.book.tooltip": "每位工匠都需要这本书\nSkyla 著",
+
+    "item.tconstruct.bacon": "培根",
+    "item.tconstruct.blue_slime_ball": "黏液球",
+    "item.tconstruct.purple_slime_ball": "黏液球",
+    "item.tconstruct.blood_slime_ball": "凝血球",
+    "item.tconstruct.magma_slime_ball": "黏液球",
+    "item.tconstruct.pink_slime_ball": "黏液球",
+    "item.tconstruct.beef_jerky": "牛肉干",
+    "item.tconstruct.beef_jerky.tooltip": "Saturating!",
+    "item.tconstruct.chicken_jerky": "鸡肉干",
+    "item.tconstruct.chicken_jerky.tooltip": "Saturating!",
+    "item.tconstruct.pork_jerky": "猪肉干",
+    "item.tconstruct.pork_jerky.tooltip": "Saturating!",
+    "item.tconstruct.mutton_jerky": "羊肉干",
+    "item.tconstruct.mutton_jerky.tooltip": "Saturating!",
+    "item.tconstruct.rabbit_jerky": "兔肉干",
+    "item.tconstruct.rabbit_jerky.tooltip": "Saturating!",
+    "item.tconstruct.fish_jerky": "鳕鱼干",
+    "item.tconstruct.fish_jerky.tooltip": "Saturating!",
+    "item.tconstruct.salmon_jerky": "鲑鱼干",
+    "item.tconstruct.salmon_jerky.tooltip": "Saturating!",
+    "item.tconstruct.clownfish_jerky": "热带鱼干",
+    "item.tconstruct.clownfish_jerky.tooltip": "Colorful!",
+    "item.tconstruct.pufferfish_jerky": "河豚干",
+    "item.tconstruct.pufferfish_jerky.tooltip": "Safe to eat!",
+    "item.tconstruct.monster_jerky": "腐肉干",
+    "item.tconstruct.monster_jerky.tooltip": "Safe to eat!",
+    "item.tconstruct.green_slime_drop": "黏胶滴",
+    "item.tconstruct.blue_slime_drop": "黏胶滴",
+    "item.tconstruct.purple_slime_drop": "黏胶滴",
+    "item.tconstruct.blood_slime_drop": "凝血滴",
+    "item.tconstruct.magma_slime_drop": "黏胶滴",
+
+    "item.tconstruct.seared_brick": "焦黑砖",
+    "item.tconstruct.mud_brick": "泥砖",
+    "item.tconstruct.mud_brick.tooltip": "大小建筑都能用的建材",
+    "item.tconstruct.dried_brick": "干制砖",
+    "item.tconstruct.green_slime_crystal": "绿色黏液晶体",
+    "item.tconstruct.green_slime_crystal.tooltip": "用于制作黏液工具",
+    "item.tconstruct.blue_slime_crystal": "蓝色黏液晶体",
+    "item.tconstruct.blue_slime_crystal.tooltip": "item.tconstruct.green_slime_crystal.tooltip",
+    "item.tconstruct.magma_slime_crystal": "岩浆黏液晶体",
+    "item.tconstruct.magma_slime_crystal.tooltip": "item.tconstruct.green_slime_crystal.tooltip",
+    "item.tconstruct.width_expander": "范围扩展器（水平）",
+    "item.tconstruct.width_expander.tooltip": "别再在练腿日偷懒啦！",
+    "item.tconstruct.height_expander": "范围扩展器（垂直）",
+    "item.tconstruct.height_expander.tooltip": "你别是连身高都一起膨胀了吧？",
+    "item.tconstruct.reinforcement": "加固板",
+    "item.tconstruct.reinforcement.tooltip": "“加固”强化",
+    "item.tconstruct.silky_cloth": "丝绢",
+    "item.tconstruct.silky_jewel": "裹绸宝石",
+    "item.tconstruct.silky_jewel.tooltip": "“精准采集”强化",
+    "item.tconstruct.necrotic_bone": "噬生之骨",
+    "item.tconstruct.necrotic_bone.tooltip": "“噬生”强化",
+    "item.tconstruct.moss": "苔藓球",
+    "item.tconstruct.moss.tooltip": "用它右击书架\n以将其转化为修复苔藓。\n§o该过程消耗10级经验",
+    "item.tconstruct.mending_moss": "修复苔藓",
+    "item.tconstruct.mending_moss.tooltip": "“苔藓修复”强化",
+    "item.tconstruct.creative_modifier": "创造强化品",
+    "item.tconstruct.creative_modifier.tooltip": "附加一个额外的强化槽",    
+    
+    "item.tconstruct.copper_can": "Copper Can",
+    "item.tconstruct.copper_can.tooltip": "Stackable container holding 1 ingot of fluid",
+    "item.tconstruct.copper_can.contents": "Contains: 1 ingot %s",
+
+    
+    "_comment": "Tinkers Gold Casts",
+    
+    "item.tconstruct.blank_cast": "空白黄金铸模",
+    "item.tconstruct.ingot_cast": "锭黄金铸模",
+    "item.tconstruct.nugget_cast": "粒黄金铸模",
+    "item.tconstruct.gem_cast": "宝石黄金铸模",
+    "item.tconstruct.gear_cast": "齿轮黄金铸模",
+    
+    "item.tconstruct.sharpening_kit_cast": "打磨件黄金铸模",
+    
+    "_comment": "Small Head Gold Casts",
+    
+    "item.tconstruct.pickaxe_head_cast": "镐头黄金铸模",
+    "item.tconstruct.shovel_head_cast": "锹尖黄金铸模",
+    "item.tconstruct.axe_head_cast": "斧刃黄金铸模",
+    "item.tconstruct.kama_head_cast": "短镰刃黄金铸模",
+    "item.tconstruct.sword_blade_cast": "剑刃黄金铸模",
+    "item.tconstruct.sign_head_cast": "牌板黄金铸模",
+    "item.tconstruct.bow_limb_cast": "弓臂黄金铸模",
+    
+    "_comment": "Large Head Gold Casts",
+    
+    "item.tconstruct.hammer_head_cast": "锤头黄金铸模",
+    "item.tconstruct.excavator_head_cast": "宽铲头黄金铸模",
+    "item.tconstruct.broad_axe_head_cast": "板斧刃黄金铸模",
+    "item.tconstruct.scythe_head_cast": "镰刀刃黄金铸模",
+    "item.tconstruct.large_sword_blade_cast": "大刀刃黄金铸模",
+    "item.tconstruct.large_plate_cast": "大板黄金铸模",
+    
+    "_comment": "Binding Gold Casts",
+    
+    "item.tconstruct.small_binding_cast": "绑定金黄金铸模",
+    "item.tconstruct.tough_binding_cast": "坚韧绑定结黄金铸模",
+    
+    "_comment": "Tool Rod Gold Casts",
+    
+    "item.tconstruct.tool_rod_cast": "手柄黄金铸模",
+    "item.tconstruct.tough_tool_rod_cast": "坚韧手柄黄金铸模",
+    
+    
+    "_comment": "Tinkers Sand Casts",
+    
+    "item.tconstruct.blank_sand_cast": "Blank Sand Cast",
+    "item.tconstruct.ingot_sand_cast": "Ingot Sand Cast",
+    "item.tconstruct.nugget_sand_cast": "Nugget Sand Cast",
+    "item.tconstruct.gem_sand_cast": "Gem Sand Cast",
+    "item.tconstruct.gear_sand_cast": "Gear Sand Cast",
+    
+    "item.tconstruct.sharpening_kit_sand_cast": "Sharpening Kit Sand Cast",
+    
+    "_comment": "Small Head Sand Casts",
+    
+    "item.tconstruct.pickaxe_head_sand_cast": "Pickaxe Head Sand Cast",
+    "item.tconstruct.shovel_head_sand_cast": "Shovel Head Sand Cast",
+    "item.tconstruct.axe_head_sand_cast": "Axe Head Sand Cast",
+    "item.tconstruct.kama_head_sand_cast": "Kama Head Sand Cast",
+    "item.tconstruct.sword_blade_sand_cast": "Sword Blade Sand Cast",
+    "item.tconstruct.sign_head_sand_cast": "Sign Head Sand Cast",
+    "item.tconstruct.bow_limb_sand_cast": "Bow Limb Sand Cast",
+    
+    "_comment": "Large Head Sand Casts",
+    
+    "item.tconstruct.hammer_head_sand_cast": "Hammer Head Sand Cast",
+    "item.tconstruct.excavator_head_sand_cast": "Excavator Head Sand Cast",
+    "item.tconstruct.broad_axe_head_sand_cast": "Broad Axe Head Sand Cast",
+    "item.tconstruct.scythe_head_sand_cast": "Scythe Head Sand Cast",
+    "item.tconstruct.large_sword_blade_sand_cast": "Large Sword Blade Sand Cast",
+    "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
+    
+    "_comment": "Binding Sand Casts",
+    
+    "item.tconstruct.small_binding_sand_cast": "Binding Sand Cast",
+    "item.tconstruct.tough_binding_sand_cast": "Tough Binding Sand Cast",
+    
+    "_comment": "Tool Rod Sand Casts",
+    
+    "item.tconstruct.tool_rod_sand_cast": "Tool Rod Sand Cast",
+    "item.tconstruct.tough_tool_rod_sand_cast": "Tough Tool Rod Sand Cast",
+    
+    
+    "_comment": "Tinkers Red Sand Casts",
+    
+    "item.tconstruct.blank_red_sand_cast": "Blank Red Sand Cast",
+    "item.tconstruct.ingot_red_sand_cast": "Ingot Red Sand Cast",
+    "item.tconstruct.nugget_red_sand_cast": "Nugget Red Sand Cast",
+    "item.tconstruct.gem_red_sand_cast": "Gem Red Sand Cast",
+    "item.tconstruct.gear_red_sand_cast": "Gear Red Sand Cast",
+    
+    "item.tconstruct.sharpening_kit_red_sand_cast": "Sharpening Kit Red Sand Cast",
+    
+    "_comment": "Small Head Red Sand Casts",
+    
+    "item.tconstruct.pickaxe_head_red_sand_cast": "Pickaxe Head Red Sand Cast",
+    "item.tconstruct.shovel_head_red_sand_cast": "Shovel Head Red Sand Cast",
+    "item.tconstruct.axe_head_red_sand_cast": "Axe Head Red Sand Cast",
+    "item.tconstruct.kama_head_red_sand_cast": "Kama Head Red Sand Cast",
+    "item.tconstruct.sword_blade_red_sand_cast": "Sword Blade Red Sand Cast",
+    "item.tconstruct.sign_head_red_sand_cast": "Sign Head Red Sand Cast",
+    "item.tconstruct.bow_limb_red_sand_cast": "Bow Limb Red Sand Cast",
+    
+    "_comment": "Large Head Red Sand Casts",
+    
+    "item.tconstruct.hammer_head_red_sand_cast": "Hammer Head Red Sand Cast",
+    "item.tconstruct.excavator_head_red_sand_cast": "Excavator Head Red Sand Cast",
+    "item.tconstruct.broad_axe_head_red_sand_cast": "Broad Axe Head Red Sand Cast",
+    "item.tconstruct.scythe_head_red_sand_cast": "Scythe Head Red Sand Cast",
+    "item.tconstruct.large_sword_blade_red_sand_cast": "Large Sword Blade Red Sand Cast",
+    "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
+    
+    "_comment": "Binding Red Sand Casts",
+    
+    "item.tconstruct.small_binding_red_sand_cast": "Binding Red Sand Cast",
+    "item.tconstruct.tough_binding_red_sand_cast": "Tough Binding Red Sand Cast",
+    
+    "_comment": "Tool Rod Red Sand Casts",
+    
+    "item.tconstruct.tool_rod_red_sand_cast": "Tool Rod Red Sand Cast",
+    "item.tconstruct.tough_tool_rod_red_sand_cast": "Tough Tool Rod Red Sand Cast",
+
+    
+    "_comment": "Tinkers Fluids",
+
+    "fluid.tconstruct.milk": "牛奶",
+
+    "block.tconstruct.molten_blaze_fluid": "Molten Blaze",
+    "fluid.tconstruct.molten_blaze": "Molten Blaze",
+    "fluid.tconstruct.flowing_molten_blaze": "Flowing Molten Blaze",
+    "item.tconstruct.molten_blaze_bucket": "Molten Blaze Bucket",
+    
+    "_comment": "Slime",
+
+    "block.tconstruct.blood_fluid": "血",
+    "fluid.tconstruct.blood": "血",
+    "fluid.tconstruct.flowing_blood": "流动血",
+    "item.tconstruct.blood_bucket": "血桶",
+
+    "block.tconstruct.green_slime_fluid": "绿色黏液",
+    "fluid.tconstruct.green_slime": "绿色黏液",
+    "fluid.tconstruct.flowing_green_slime": "流动绿色黏液",
+    "item.tconstruct.green_slime_bucket": "绿色黏液桶",
+
+    "block.tconstruct.blue_slime_fluid": "蓝色黏液",
+    "fluid.tconstruct.blue_slime": "蓝色黏液",
+    "fluid.tconstruct.flowing_blue_slime": "流动蓝色黏液",
+    "item.tconstruct.blue_slime_bucket": "蓝色黏液桶",
+
+    "block.tconstruct.magma_cream_fluid": "Magma Cream",
+    "fluid.tconstruct.magma_cream": "Magma Cream",
+    "fluid.tconstruct.flowing_magma_cream": "Flowing Magma Cream",
+    "item.tconstruct.magma_cream_bucket": "Magma Cream Bucket",
+
+    "block.tconstruct.purple_slime_fluid": "紫色黏液",
+    "fluid.tconstruct.purple_slime": "紫色黏液",
+    "fluid.tconstruct.flowing_purple_slime": "流动紫色黏液",
+    "item.tconstruct.purple_slime_bucket": "紫色黏液桶",
+    
+    "_comment": "Rock",
+
+    "block.tconstruct.seared_stone_fluid": "焦黑熔石",
+    "fluid.tconstruct.seared_stone": "焦黑熔石",
+    "fluid.tconstruct.flowing_seared_stone": "流动焦黑熔石",
+    "item.tconstruct.seared_stone_bucket": "焦黑熔石桶",
+
+    "block.tconstruct.molten_clay_fluid": "熔融黏土",
+    "fluid.tconstruct.molten_clay": "熔融黏土",
+    "fluid.tconstruct.flowing_molten_clay": "流动熔融黏土",
+    "item.tconstruct.molten_clay_bucket": "熔融黏土桶",
+
+    "block.tconstruct.molten_glass_fluid": "熔融玻璃",
+    "fluid.tconstruct.molten_glass": "熔融玻璃",
+    "fluid.tconstruct.flowing_molten_glass": "流动熔融玻璃",
+    "item.tconstruct.molten_glass_bucket": "熔融玻璃桶",
+
+    "block.tconstruct.liquid_soul_fluid": "Liquid Soul",
+    "fluid.tconstruct.liquid_soul": "Liquid Soul",
+    "fluid.tconstruct.flowing_liquid_soul": "Flowing Liquid Soul",
+    "item.tconstruct.liquid_soul_bucket": "Liquid Soul Bucket",
+
+    "block.tconstruct.molten_obsidian_fluid": "熔融黑曜石",
+    "fluid.tconstruct.molten_obsidian": "熔融黑曜石",
+    "fluid.tconstruct.flowing_molten_obsidian": "流动熔融黑曜石",
+    "item.tconstruct.molten_obsidian_bucket": "熔融黑曜石桶",
+
+    "block.tconstruct.molten_emerald_fluid": "熔融绿宝石",
+    "fluid.tconstruct.molten_emerald": "熔融绿宝石",
+    "fluid.tconstruct.flowing_molten_emerald": "流动熔融绿宝石",
+    "item.tconstruct.molten_emerald_bucket": "熔融绿宝石桶",
+
+    "block.tconstruct.molten_ender_fluid": "Molten Ender",
+    "fluid.tconstruct.molten_ender": "Molten Ender",
+    "fluid.tconstruct.flowing_molten_ender": "Flowing Molten Ender",
+    "item.tconstruct.molten_ender_bucket": "Molten Ender Bucket",
+    
+    "_comment": "Ores",
+
+    "block.tconstruct.molten_iron_fluid": "熔融铁",
+    "fluid.tconstruct.molten_iron": "熔融铁",
+    "fluid.tconstruct.flowing_molten_iron": "流动熔融铁",
+    "item.tconstruct.molten_iron_bucket": "熔融铁桶",
+
+    "block.tconstruct.molten_gold_fluid": "熔融金",
+    "fluid.tconstruct.molten_gold": "熔融金",
+    "fluid.tconstruct.flowing_molten_gold": "流动熔融金",
+    "item.tconstruct.molten_gold_bucket": "熔融金桶",
+
+    "block.tconstruct.molten_copper_fluid": "熔融铜",
+    "fluid.tconstruct.molten_copper": "熔融铜",
+    "fluid.tconstruct.flowing_molten_copper": "流动熔融铜",
+    "item.tconstruct.molten_copper_bucket": "熔融铜桶",
+
+    "block.tconstruct.molten_cobalt_fluid": "熔融钴",
+    "fluid.tconstruct.molten_cobalt": "熔融钴",
+    "fluid.tconstruct.flowing_molten_cobalt": "流动熔融钴",
+    "item.tconstruct.molten_cobalt_bucket": "熔融钴桶",
+
+    "block.tconstruct.molten_debris_fluid": "Molten Debris",
+    "fluid.tconstruct.molten_debris": "Molten Debris",
+    "fluid.tconstruct.flowing_molten_debris": "Flowing Molten Debris",
+    "item.tconstruct.molten_debris_bucket": "Molten Debris Bucket",
+
+    "block.tconstruct.molten_ardite_fluid": "熔融阿迪特",
+    "fluid.tconstruct.molten_ardite": "熔融阿迪特",
+    "fluid.tconstruct.flowing_molten_ardite": "流动熔融阿迪特",
+    "item.tconstruct.molten_ardite_bucket": "熔融阿迪特桶",
+    
+    "_comment": "Tier 3 Alloys",
+
+    "block.tconstruct.molten_slimesteel_fluid": "Molten Slimesteel",
+    "fluid.tconstruct.molten_slimesteel": "Molten Slimesteel",
+    "fluid.tconstruct.flowing_molten_slimesteel": "Flowing Molten Slimesteel",
+    "item.tconstruct.molten_slimesteel_bucket": "Molten Slimesteel Bucket",
+
+    "block.tconstruct.molten_tinkers_bronze_fluid": "Molten Tinker's Bronze",
+    "fluid.tconstruct.molten_tinkers_bronze": "Molten Tinker's Bronze",
+    "fluid.tconstruct.flowing_molten_tinkers_bronze": "Flowing Molten Tinker's Bronze",
+    "item.tconstruct.molten_tinkers_bronze_bucket": "Molten Tinker's Bronze Bucket",
+
+    "block.tconstruct.molten_rose_gold_fluid": "Molten Rose Gold",
+    "fluid.tconstruct.molten_rose_gold": "Molten Rose Gold",
+    "fluid.tconstruct.flowing_molten_rose_gold": "Flowing Molten Rose Gold",
+    "item.tconstruct.molten_rose_gold_bucket": "Molten Rose Gold Bucket",
+
+    "block.tconstruct.molten_pig_iron_fluid": "熔融生铁",
+    "fluid.tconstruct.molten_pig_iron": "熔融生铁",
+    "fluid.tconstruct.flowing_molten_pig_iron": "流动熔融生铁",
+    "item.tconstruct.molten_pig_iron_bucket": "熔融生铁桶",
+    
+    "_comment": "Tier 4 Alloys",
+
+    "block.tconstruct.molten_manyullyn_fluid": "熔融玛玉灵",
+    "fluid.tconstruct.molten_manyullyn": "熔融玛玉灵",
+    "fluid.tconstruct.flowing_molten_manyullyn": "流动熔融玛玉灵",
+    "item.tconstruct.molten_manyullyn_bucket": "熔融玛玉灵桶",
+
+    "block.tconstruct.molten_hepatizon_fluid": "Molten Hepatizon",
+    "fluid.tconstruct.molten_hepatizon": "Molten Hepatizon",
+    "fluid.tconstruct.flowing_molten_hepatizon": "Flowing Molten Hepatizon",
+    "item.tconstruct.molten_hepatizon_bucket": "Molten Hepatizon Bucket",
+
+    "block.tconstruct.molten_queens_slime_fluid": "Molten Queen's Slime",
+    "fluid.tconstruct.molten_queens_slime": "Molten Queen's Slime",
+    "fluid.tconstruct.flowing_molten_queens_slime": "Flowing Molten Queen's Slime",
+    "item.tconstruct.molten_queens_slime_bucket": "Molten Queen's Slime Bucket",
+
+    "block.tconstruct.molten_soulsteel_fluid": "Molten Soulsteel",
+    "fluid.tconstruct.molten_soulsteel": "Molten Soulsteel",
+    "fluid.tconstruct.flowing_molten_soulsteel": "Flowing Molten Soulsteel",
+    "item.tconstruct.molten_soulsteel_bucket": "Molten Soulsteel Bucket",
+
+    "block.tconstruct.molten_netherite_fluid": "熔融下界合金",
+    "fluid.tconstruct.molten_netherite": "熔融下界合金",
+    "fluid.tconstruct.flowing_molten_netherite": "流动熔融下界合金",
+    "item.tconstruct.molten_netherite_bucket": "下界合金桶",
+
+    "block.tconstruct.molten_knightslime_fluid": "熔融骑士史莱姆",
+    "fluid.tconstruct.molten_knightslime": "熔融骑士史莱姆",
+    "fluid.tconstruct.flowing_molten_knightslime": "流动熔融骑士史莱姆",
+    "item.tconstruct.molten_knightslime_bucket": "熔融骑士史莱姆桶",
+    
+    "_comment": "Compat Ores",
+
+    "block.tconstruct.molten_tin_fluid": "熔融锡",
+    "fluid.tconstruct.molten_tin": "熔融锡",
+    "fluid.tconstruct.flowing_molten_tin": "流动熔融锡",
+    "item.tconstruct.molten_tin_bucket": "熔融锡桶",
+
+    "block.tconstruct.molten_aluminum_fluid": "熔融铝",
+    "fluid.tconstruct.molten_aluminum": "熔融铝",
+    "fluid.tconstruct.flowing_molten_aluminum": "流动熔融铝",
+    "item.tconstruct.molten_aluminum_bucket": "熔融铝桶",
+
+    "block.tconstruct.molten_lead_fluid": "熔融铅",
+    "fluid.tconstruct.molten_lead": "熔融铅",
+    "fluid.tconstruct.flowing_molten_lead": "流动熔融铅",
+    "item.tconstruct.molten_lead_bucket": "熔融铅桶",
+
+    "block.tconstruct.molten_silver_fluid": "熔融银",
+    "fluid.tconstruct.molten_silver": "熔融银",
+    "fluid.tconstruct.flowing_molten_silver": "流动熔融银",
+    "item.tconstruct.molten_silver_bucket": "熔融银桶",
+
+    "block.tconstruct.molten_nickel_fluid": "熔融镍",
+    "fluid.tconstruct.molten_nickel": "熔融镍",
+    "fluid.tconstruct.flowing_molten_nickel": "流动熔融镍",
+    "item.tconstruct.molten_nickel_bucket": "熔融镍桶",
+
+    "block.tconstruct.molten_zinc_fluid": "熔融锌",
+    "fluid.tconstruct.molten_zinc": "熔融锌",
+    "fluid.tconstruct.flowing_molten_zinc": "流动熔融锌",
+    "item.tconstruct.molten_zinc_bucket": "熔融锌桶",
+
+    "block.tconstruct.molten_platinum_fluid": "熔融铂",
+    "fluid.tconstruct.molten_platinum": "熔融铂",
+    "fluid.tconstruct.flowing_molten_platinum": "流动熔融铂",
+    "item.tconstruct.molten_platinum_bucket": "熔融铂桶",
+
+    "block.tconstruct.molten_tungsten_fluid": "熔融钨",
+    "fluid.tconstruct.molten_tungsten": "熔融钨",
+    "fluid.tconstruct.flowing_molten_tungsten": "流动熔融钨",
+    "item.tconstruct.molten_tungsten_bucket": "熔融钨桶",
+
+    "block.tconstruct.molten_osmium_fluid": "熔融锇",
+    "fluid.tconstruct.molten_osmium": "熔融锇",
+    "fluid.tconstruct.flowing_molten_osmium": "流动熔融锇",
+    "item.tconstruct.molten_osmium_bucket": "熔融锇桶",
+
+    "block.tconstruct.molten_uranium_fluid": "熔融铀",
+    "fluid.tconstruct.molten_uranium": "熔融铀",
+    "fluid.tconstruct.flowing_molten_uranium": "流动熔融铀",
+    "item.tconstruct.molten_uranium_bucket": "熔融铀桶",
+    
+    "_comment": "Compat Alloys",
+
+    "block.tconstruct.molten_bronze_fluid": "熔融青铜",
+    "fluid.tconstruct.molten_bronze": "熔融青铜",
+    "fluid.tconstruct.flowing_molten_bronze": "流动熔融青铜",
+    "item.tconstruct.molten_bronze_bucket": "熔融青铜桶",
+
+    "block.tconstruct.molten_brass_fluid": "熔融黄铜",
+    "fluid.tconstruct.molten_brass": "熔融黄铜",
+    "fluid.tconstruct.flowing_molten_brass": "流动熔融黄铜",
+    "item.tconstruct.molten_brass_bucket": "熔融黄铜桶",
+
+    "block.tconstruct.molten_electrum_fluid": "熔融琥珀金",
+    "fluid.tconstruct.molten_electrum": "熔融琥珀金",
+    "fluid.tconstruct.flowing_molten_electrum": "流动熔融琥珀金",
+    "item.tconstruct.molten_electrum_bucket": "熔融琥珀金桶",
+
+    "block.tconstruct.molten_invar_fluid": "熔融殷钢",
+    "fluid.tconstruct.molten_invar": "熔融殷钢",
+    "fluid.tconstruct.flowing_molten_invar": "流动熔融殷钢",
+    "item.tconstruct.molten_invar_bucket": "熔融殷钢桶",
+
+    "block.tconstruct.molten_constantan_fluid": "熔融康铜",
+    "fluid.tconstruct.molten_constantan": "熔融康铜",
+    "fluid.tconstruct.flowing_molten_constantan": "流动熔融康铜",
+    "item.tconstruct.molten_constantan_bucket": "熔融康铜桶",
+
+    "block.tconstruct.molten_steel_fluid": "熔融钢",
+    "fluid.tconstruct.molten_steel": "熔融钢",
+    "fluid.tconstruct.flowing_molten_steel": "流动熔融钢",
+    "item.tconstruct.molten_steel_bucket": "熔融钢桶",
+    
+
+    "_comment": "Tinkers Gadgets",
+
+    "block.tconstruct.stone_torch": "石棍火把",
+    "block.tconstruct.stone_ladder": "石棍梯子",
+
+    "block.tconstruct.punji": "尖竹钉",
+    "block.tconstruct.punji.tooltip": "很尖锐！还能安装在墙上。",
+
+    "block.tconstruct.wooden_rail": "木轨",
+    "block.tconstruct.wooden_dropper_rail": "活板门木轨",
+    "block.tconstruct.wooden_dropper_rail.tooltip": "漏斗矿车能通过它\n向下方的方块输出物品",
+
+    "block.tconstruct.wooden_hopper": "木漏斗",
+    "block.tconstruct.wooden_hopper.tooltip": "运输缓慢但造价低廉的漏斗代用品",
+
+    "block.tconstruct.dried_clay": "干制黏土块",
+    "block.tconstruct.dried_clay_bricks": "干制砖块",
+    "block.tconstruct.dried_clay_slab": "干制黏土台阶",
+    "block.tconstruct.dried_clay_bricks_slab": "干制砖台阶",
+    "block.tconstruct.dried_clay_stairs": "干制黏土楼梯",
+    "block.tconstruct.dried_clay_bricks_stairs": "干制砖楼梯",
+
+    "item.tconstruct.stone_stick": "石棍",
+
+    "item.tconstruct.jewel_item_frame": "精美物品展示框",
+    "item.tconstruct.aluminum_brass_item_frame": "铝黄铜物品展示框",
+    "item.tconstruct.cobalt_item_frame": "钴物品展示框",
+    "item.tconstruct.ardite_item_frame": "阿迪特物品展示框",
+    "item.tconstruct.manyullyn_item_frame": "玛玉灵物品展示框",
+    "item.tconstruct.gold_item_frame": "黄金物品展示框",
+    "item.tconstruct.clear_item_frame": "通透玻璃物品展示框",
+
+    "item.tconstruct.glow_ball": "荧光球",
+    "item.tconstruct.glow_ball.tooltip": "不宜食用。",
+    "item.tconstruct.efln_ball": "EFLN",
+    "item.tconstruct.efln_ball.tooltip": "爆破，一种安全的挖矿方式！",
+
+    "item.tconstruct.quartz_shuriken": "Quartz Shuriken",
+    "item.tconstruct.quartz_shuriken.tooltip": "A throwable weapon with higher damage",
+    "item.tconstruct.flint_shuriken": "Flint Shuriken",
+    "item.tconstruct.flint_shuriken.tooltip": "A throwable weapon with high knockback",
+
+    "item.tconstruct.green_slime_sling": "黏液弹弓",
+    "item.tconstruct.green_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.blue_slime_sling": "黏液弹弓",
+    "item.tconstruct.blue_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.purple_slime_sling": "黏液弹弓",
+    "item.tconstruct.purple_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.blood_slime_sling": "黏液弹弓",
+    "item.tconstruct.blood_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.magma_slime_sling": "黏液弹弓",
+    "item.tconstruct.magma_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.pink_slime_sling": "黏液弹弓",
+    "item.tconstruct.pink_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.slime_sling.tooltip": "蓄力，瞄准，发射！\n珍爱生命，记得穿上黏液靴子！",
+
+    "item.tconstruct.green_slime_boots": "黏液靴子",
+    "item.tconstruct.green_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.blue_slime_boots": "黏液靴子",
+    "item.tconstruct.blue_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.purple_slime_boots": "黏液靴子",
+    "item.tconstruct.purple_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.blood_slime_boots": "凝血靴子",
+    "item.tconstruct.blood_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.magma_slime_boots": "黏液靴子",
+    "item.tconstruct.magma_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.pink_slime_boots": "黏液靴子",
+    "item.tconstruct.pink_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.slime_boots.tooltip": "让你落地时再次弹跳起来",
+
+    "item.tconstruct.piggy_backpack": "肩驮架",
+    "item.tconstruct.piggy_backpack.tooltip": "右击生物可以驮起它们",
+
+    "item.tconstruct.hard_spaghetti": "Impossibly Hard Wheat Sticks",
+    "item.tconstruct.hard_spaghetti.tooltip": "Impossibly Hard Wheat Sticks",
+    "item.tconstruct.soggy_spaghetti": "Soggy Noodles",
+    "item.tconstruct.soggy_spaghetti.tooltip": "Now they're all wet, even your spaghetti arms can bend them now.\nLet's hang them up and get them dry.",
+    "item.tconstruct.cold_spaghetti": "Cold Dried Noodles",
+    "item.tconstruct.cold_spaghetti.tooltip": "Well, that's better, but they still taste gross.\nWarming them up should make them edible.\nThey might even be good enough to get you off your weak knees.",
+
+    "_comment": "Tinkers Tables",
+
+    "block.tconstruct.crafting_station": "工作站",
+
+    "block.tconstruct.tinker_station": "Tinker Station",
+
+    "block.tconstruct.part_builder": "部件制造桌",
+
+    "block.tconstruct.part_chest": "Part Chest",
+    "block.tconstruct.part_chest.tooltip": "Can hold a large amount of toolparts",
+
+    "block.tconstruct.modifier_chest": "Modifier Chest",
+    "block.tconstruct.modifier_chest.tooltip": "Holds modifiers",
+    
+    "item.tconstruct.pattern": "模具",
+
+    "gui.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
+    
+    "_comment": "Tinkers Tools",
+    
+    "item.tconstruct.pickaxe": "镐",
+    "item.tconstruct.hammer": "锤",
+    "item.tconstruct.shovel": "锹",
+    "item.tconstruct.excavator": "开掘铲",
+    "item.tconstruct.axe": "短柄斧",
+    "item.tconstruct.kama": "短刃镰",
+    "item.tconstruct.broad_sword": "阔剑",
+    
+    "_comment": "Tinkers Tool Parts",
+
+    "item.tconstruct.pickaxe_head": "镐头",
+    "item.tconstruct.hammer_head": "锤头",
+    "item.tconstruct.shovel_head": "锹尖",
+    "item.tconstruct.excavator_head": "开掘铲头",
+    "item.tconstruct.axe_head": "斧刃",
+    "item.tconstruct.kama_head": "短镰刃",
+    "item.tconstruct.sword_blade": "剑刃",
+    "item.tconstruct.tool_rod": "手柄",
+    "item.tconstruct.tough_tool_rod": "坚韧手柄",
+    "item.tconstruct.small_binding": "小型绑定结",
+    "item.tconstruct.tough_binding": "坚韧绑定结",
+    "item.tconstruct.large_plate": "大板",
+
+    "_conment": "Tool Descriptions",
+
+    "item.tconstruct.pickaxe.description":"镐是一种单体采矿工具，能够高效采掘石料和矿石。\n这玩意是拿来挖方块的知道吧？",
+    "item.tconstruct.hammer.description": "锤是一种矿范围采工具，能大范围地开采方块。\n攻击亡灵生物有奇效。",
+    "item.tconstruct.shovel.description": "锹是用于开掘泥土的工具，能够高效开掘泥土、沙子、沙砾和雪。\n请勿自掘坟墓！",
+    "item.tconstruct.excavator.description": "开掘铲是一种范围挖掘工具，能大范围地挖掘大片区域中的泥土和雪。\n地球化！",
+    "item.tconstruct.axe.description": "短柄斧能砍伐木材，也能高效清理树叶，还是一种凑合能用的武器。\n快劈，快！",
+    "item.tconstruct.kama.description": "短刃镰是一种单体收割工具，可用于收割植物和给动物剪毛。\n右击：收获作物并重新播种",
+    "item.tconstruct.broad_sword.description": "阔剑是一种泛用型武器，其横扫攻击能阻截成群结队的敌人。\n还能高效清理蜘蛛网！",
+
+    "_comment": "Tinkers Smeltery",
+
+    "block.tconstruct.seared_stone": "焦黑石头",
+    "block.tconstruct.seared_stone.tooltip": "搭建冶炼炉的建材，安全可靠的装饰材料。",
+    "block.tconstruct.seared_stone_slab": "焦黑石头台阶",
+    "block.tconstruct.seared_stone_stairs": "焦黑石头楼梯",
+    
+    "block.tconstruct.seared_cobble": "焦黑圆石",
+    "block.tconstruct.seared_cobble.tooltip": "搭建冶炼炉的建材，安全可靠的装饰材料。",
+    "block.tconstruct.seared_cobble_slab": "焦黑圆石台阶",
+    "block.tconstruct.seared_cobble_stairs": "焦黑圆石楼梯",
+    "block.tconstruct.seared_cobble_wall": "焦黑圆石墙",
+    
+    "block.tconstruct.seared_bricks": "焦黑石砖",
+    "block.tconstruct.seared_bricks.tooltip": "搭建冶炼炉的建材，安全可靠的装饰材料。",
+    "block.tconstruct.seared_bricks_slab": "焦黑石砖台阶",
+    "block.tconstruct.seared_bricks_stairs": "焦黑石砖楼梯",
+    "block.tconstruct.seared_bricks_wall": "焦黑石砖墙",
+    
+    "block.tconstruct.seared_paver": "焦黑地砖",
+    "block.tconstruct.seared_paver.tooltip": "搭建冶炼炉的建材，安全可靠的装饰材料。",
+    "block.tconstruct.seared_paver_slab": "焦黑地砖台阶",
+    "block.tconstruct.seared_paver_stairs": "焦黑地砖楼梯",
+    
+    "block.tconstruct.seared_cracked_bricks": "裂纹焦黑石砖",
+    "block.tconstruct.seared_cracked_bricks.tooltip": "搭建冶炼炉的建材，安全可靠的装饰材料。",
+    "block.tconstruct.seared_fancy_bricks": "精美焦黑石砖",
+    "block.tconstruct.seared_fancy_bricks.tooltip": "搭建冶炼炉的建材，安全可靠的装饰材料。",
+    "block.tconstruct.seared_triangle_bricks": "三角纹焦黑石砖",
+    "block.tconstruct.seared_triangle_bricks.tooltip": "搭建冶炼炉的建材，安全可靠的装饰材料。",
+
+    "block.tconstruct.seared_glass": "焦黑玻璃",
+    "block.tconstruct.seared_glass.tooltip": "搭建冶炼炉的建材，安全可靠的装饰材料。\n不能储存液体。",
+    "block.tconstruct.seared_glass_pane": "焦黑玻璃板",
+    "block.tconstruct.seared_glass_pane.tooltip": "不能用于搭建冶炼炉。",
+    
+
+    "block.tconstruct.seared_ladder": "焦黑梯子",
+    "block.tconstruct.seared_ladder.tooltip": "可供攀爬的冶炼炉建材，安全可靠的装饰材料。",
+    
+    "block.tconstruct.seared_tank": "焦黑储罐",
+    "block.tconstruct.seared_tank.tooltip": "冶炼炉的心脏\n被破坏时也能保存液体。",
+    "block.tconstruct.seared_gauge": "焦黑量器",
+    "block.tconstruct.seared_gauge.tooltip": "理想的液态金属容器，能存储相当于3个方块的液体。\n被破坏时也能保存液体。",
+    "block.tconstruct.seared_window": "焦黑视窗",
+    "block.tconstruct.seared_window.tooltip": "替用的冶炼炉储罐。\n被破坏时也能保存液体。",
+    "block.tconstruct.tank.fluid": "液体储量：%s",
+    "block.tconstruct.tank.mb": "%d mb",
+    "block.tconstruct.tank.ingots": "%d 锭",
+    "block.tconstruct.tank.mixed": "%d 锭， %d mb",
+    
+    "block.tconstruct.faucet": "焦黑浇注口",
+    "block.tconstruct.faucet.tooltip": "从冶炼炉或储罐中排出液体",
+    "block.tconstruct.casting_basin": "铸造盆",
+    "block.tconstruct.casting_basin.tooltip": "利用冶炼炉中的液态金属铸造物品",
+    "block.tconstruct.casting_table": "铸件台",
+    "block.tconstruct.casting_table.tooltip": "利用冶炼炉中的液态金属铸造物品",
+   
+    "block.tconstruct.channel": "焦黑浇注道",
+    "block.tconstruct.channel.tooltip": "分流从上方的浇注口中流下的液体。",
+    "block.tconstruct.channel.side.in": "将该方向设置为向内流动",
+    "block.tconstruct.channel.side.out": "将该方向设置为向外流动",
+    "block.tconstruct.channel.side.none": "禁止液体在该方向流动",
+    "block.tconstruct.channel.down.out": "允许液体向下流动",
+    "block.tconstruct.channel.down.none": "禁止液体向下流动",
+
+    "block.tconstruct.melter": "焦黑熔化炉",
+    "block.tconstruct.melter.tooltip": "你的首座冶炼炉。\n将其安放在焦黑液罐或加热器的上方以为其提供热源。",
+    "gui.tconstruct.melter": "熔化炉",
+    "gui.tconstruct.melting.capacity": "容量：",
+    "gui.tconstruct.melting.available": "空余：",
+    "gui.tconstruct.melting.used": "已用：",
+    
+    "block.tconstruct.seared_heater": "焦黑加热器",
+    "block.tconstruct.seared_heater.tooltip": "利用固态燃料为熔化炉提供热源。",
+    "gui.tconstruct.heater": "加热器",
+    
+    "block.tconstruct.smeltery_controller": "冶炼炉控制器",
+    "block.tconstruct.smeltery_controller.tooltip": "冶炼炉的大脑。",
+    "gui.tconstruct.smeltery": "冶炼炉",
+    "death.attack.tconstruct.smeltery_heat": "%1$s意欲研制熔融态玩家",
+    "death.attack.tconstruct.smeltery_magic": "%1$s与冶炼炉化为了一体",
+    
+    "block.tconstruct.seared_drain": "焦黑排液孔",
+    "block.tconstruct.seared_drain.tooltip": "冶炼炉输入和输出液体的端口",
+    "block.tconstruct.seared_duct": "Seared Duct",
+    "block.tconstruct.seared_duct.tooltip": "Filtered smeltery fluid input and output using copper cans or buckets",
+    "gui.tconstruct.duct": "Duct",
+    "block.tconstruct.seared_chute": "Seared Chute",
+    "block.tconstruct.seared_chute.tooltip": "Smeltery item input and output",
+
+    "gui.tconstruct.melting.no_recipe": "当前物品不可熔炼。",
+    "gui.tconstruct.melting.no_heat": "炉内温度不足以熔炼当前物品。",
+    "gui.tconstruct.melting.no_space": "空余空间无法容纳熔炼出的液体。",
+
+    "gui.tconstruct.melting.fuel.no_tank": "结构内无储罐",
+    "gui.tconstruct.melting.fuel.empty": "未发现燃料",
+    "gui.tconstruct.melting.fuel.solid": "固态燃料",
+    "gui.tconstruct.melting.fuel.temperature": "温度：%s°C",
+    "gui.tconstruct.melting.fuel.invalid": "无效的液态燃料！",
+    
+    "gui.tconstruct.fluid.kilobucket": "%s kb",
+    "gui.tconstruct.fluid.bucket": "%s b",
+    "gui.tconstruct.fluid.millibucket": "%s mb",
+    "gui.tconstruct.fluid.ingot": "%s锭",
+    "gui.tconstruct.fluid.nugget": "%s粒",
+    "gui.tconstruct.fluid.block": "%s块",
+    "gui.tconstruct.fluid.pane": "%s板",
+    "gui.tconstruct.fluid.gem": "%s宝石",
+    "gui.tconstruct.fluid.slimeball": "%s黏液球",
+    
+    "gui.tconstruct.fluid.hold_shift": "按住§e§oShift§r§7会以桶为单位显示",
+    
+    "_comment": "Tinkers World",
+
+    "entity.tconstruct.blue_slime": "蓝色史莱姆",
+
+    "block.tconstruct.green_slime_dirt": "绿色黏性泥土",
+    "block.tconstruct.green_slime_dirt.tooltip": "block.tconstruct.slime_dirt.tooltip",
+    "block.tconstruct.blue_slime_dirt": "蓝色黏性泥土",
+    "block.tconstruct.blue_slime_dirt.tooltip": "block.tconstruct.slime_dirt.tooltip",
+    "block.tconstruct.purple_slime_dirt": "紫色黏性泥土",
+    "block.tconstruct.purple_slime_dirt.tooltip": "block.tconstruct.slime_dirt.tooltip",
+    "block.tconstruct.magma_slime_dirt": "岩浆黏性泥土",
+    "block.tconstruct.magma_slime_dirt.tooltip": "block.tconstruct.slime_dirt.tooltip",
+    "block.tconstruct.slime_dirt.tooltip": "黏脚，却能让你跳得更高",
+
+    "block.tconstruct.blue_vanilla_slime_grass": "黏性草方块",
+    "block.tconstruct.blue_vanilla_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.purple_vanilla_slime_grass": "黏性草方块",
+    "block.tconstruct.purple_vanilla_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.orange_vanilla_slime_grass": "黏性草方块",
+    "block.tconstruct.orange_vanilla_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+
+    "block.tconstruct.blue_green_slime_grass": "绿色黏性草方块",
+    "block.tconstruct.blue_green_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.purple_green_slime_grass": "绿色黏性草方块",
+    "block.tconstruct.purple_green_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.orange_green_slime_grass": "绿色黏性草方块",
+    "block.tconstruct.orange_green_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+
+    "block.tconstruct.blue_blue_slime_grass": "蓝色黏性草方块",
+    "block.tconstruct.blue_blue_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.purple_blue_slime_grass": "蓝色黏性草方块",
+    "block.tconstruct.purple_blue_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.orange_blue_slime_grass": "蓝色黏性草方块",
+    "block.tconstruct.orange_blue_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+
+    "block.tconstruct.blue_purple_slime_grass": "紫色黏性草方块",
+    "block.tconstruct.blue_purple_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.purple_purple_slime_grass": "紫色黏性草方块",
+    "block.tconstruct.purple_purple_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.orange_purple_slime_grass": "紫色黏性草方块",
+    "block.tconstruct.orange_purple_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+
+    "block.tconstruct.blue_magma_slime_grass": "岩浆黏性草方块",
+    "block.tconstruct.blue_magma_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.purple_magma_slime_grass": "岩浆黏性草方块",
+    "block.tconstruct.purple_magma_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.orange_magma_slime_grass": "岩浆黏性草方块",
+    "block.tconstruct.orange_magma_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+
+    "block.tconstruct.slime_grass.tooltip": "好软啊！能让你跳得更高",
+
+    "block.tconstruct.blue_slime_leaves": "史莱姆树叶",
+    "block.tconstruct.purple_slime_leaves": "史莱姆树叶",
+    "block.tconstruct.orange_slime_leaves": "史莱姆树叶",
+
+    "block.tconstruct.blue_slime_tall_grass": "史莱姆草",
+    "block.tconstruct.purple_slime_tall_grass": "史莱姆草",
+    "block.tconstruct.orange_slime_tall_grass": "史莱姆草",
+
+    "block.tconstruct.blue_slime_fern": "史莱姆蕨",
+    "block.tconstruct.purple_slime_fern": "史莱姆蕨",
+    "block.tconstruct.orange_slime_fern": "史莱姆蕨",
+
+    "block.tconstruct.blue_slime_sapling": "蓝色史莱姆树苗",
+    "block.tconstruct.blue_slime_sapling.tooltip": "block.tconstruct.slime_sapling.tooltip",
+    "block.tconstruct.purple_slime_sapling": "紫色史莱姆树苗",
+    "block.tconstruct.purple_slime_sapling.tooltip": "block.tconstruct.slime_sapling.tooltip",
+    "block.tconstruct.orange_slime_sapling": "岩浆史莱姆树苗",
+    "block.tconstruct.orange_slime_sapling.tooltip": "block.tconstruct.slime_sapling.tooltip",
+    "block.tconstruct.slime_sapling.tooltip": "只能在黏性泥土/黏性草方块上生长",
+
+    "block.tconstruct.purple_slime_vine": "紫色史莱姆藤蔓",
+    "block.tconstruct.purple_slime_vine_middle": "紫色史莱姆藤蔓",
+    "block.tconstruct.purple_slime_vine_end": "紫色史莱姆藤蔓",
+
+    "block.tconstruct.blue_slime_vine": "蓝色史莱姆藤蔓",
+    "block.tconstruct.blue_slime_vine_middle": "蓝色史莱姆藤蔓",
+    "block.tconstruct.blue_slime_vine_end": "蓝色史莱姆藤蔓",
+
+    "item.tconstruct.blue_slime_spawn_egg": "蓝色史莱姆刷怪蛋",
+    
+    
+    "__comment": "Tier 1 Materials",
+    "material.tconstruct.wood": "木",
+    "material.tconstruct.wood.format": "木制%s",
+    "material.tconstruct.stone": "石头",
+    "material.tconstruct.flint": "燧石",
+    "material.tconstruct.bone": "骨头",
+    
+    "__comment": "Tier 2 Materials",
+    "material.tconstruct.iron": "铁",
+    "material.tconstruct.seared_stone": "焦黑石头",
+    "material.tconstruct.copper": "铜",
+    "material.tconstruct.slimewood": "Slimewood",
+    
+    "__comment": "Tier 3 Materials",
+    "material.tconstruct.slimesteel": "Slimesteel",
+    "material.tconstruct.nahuatl": "Nahuatl",
+    "material.tconstruct.tinkers_bronze": "Tinker's Bronze",
+    "material.tconstruct.rose_gold": "Rose Gold",
+    "material.tconstruct.pig_iron": "生铁",
+    
+    
+    "__comment": "Tier Nether Materials",
+    "material.tconstruct.cobalt": "钴",
+    "material.tconstruct.manyullyn": "玛玉灵",
+    "material.tconstruct.hepatizon": "Hepatizon",
+    "material.tconstruct.queens_slime": "Queen's Slime",
+    "material.tconstruct.soulsteel": "Soulsteel",
+    
+    
+    "__comment": "Tier End Materials",
+    "material.tconstruct.endstone": "End",
+    "material.tconstruct.knightslime": "骑士史莱姆",
+    
+    
+    "__comment": "Tier 2 Integration Materials",
+    "material.tconstruct.lead": "铅",
+    "material.tconstruct.silver": "银",
+    
+    "__comment": "Tier 3 Integration Materials",
+    "material.tconstruct.electrum": "琥珀金",
+    "material.tconstruct.bronze": "青铜",
+    "material.tconstruct.steel": "钢",
+    
+
+    "_comment": "Stats",
+
+    "stat.tconstruct.head": "顶端",
+    "stat.tconstruct.head.durability": "耐久度：",
+    "stat.tconstruct.head.durability.description": "计算工具耐久度所依据的基准值。\n通常是工具整体耐久不可或缺的一部分。",
+    "stat.tconstruct.head.mining_speed": "挖掘速度：",
+    "stat.tconstruct.head.mining_speed.description": "若使用该材料制作顶端，该数据体现工具在挖掘方块时的挖掘速度。\n可能受到工具其余部件的影响。",
+    "stat.tconstruct.head.harvest_level": "挖掘等级：",
+    "stat.tconstruct.head.harvest_level.description": "若使用该材料制作顶端，此项决定工具可挖掘方块的等级范围。",
+    "stat.tconstruct.head.attack": "攻击力：",
+    "stat.tconstruct.head.attack.description": "若使用该材料制作顶端，此项决定工具可挖掘方块的等级范围。",
+
+    "stat.tconstruct.handle": "手柄",
+    "stat.tconstruct.handle.durability": "倍率：",
+    "stat.tconstruct.handle.durability.description": "工具的总耐久会是基础值与该系数相乘的结果。",
+    "stat.tconstruct.handle.attack_damage": "攻击伤害：",
+    "stat.tconstruct.handle.attack_damage.description": "工具的总攻击力会被这一数值修正。",
+    "stat.tconstruct.handle.attack_speed": "攻击速度：",
+    "stat.tconstruct.handle.attack_speed.description": "工具的最终攻击速度会被这一数值修正。",
+    "stat.tconstruct.handle.mining_speed": "挖掘速度：",
+    "stat.tconstruct.handle.mining_speed.description": "工具的总挖掘速度会被这一数值修正。",
+
+    "stat.tconstruct.extra": "附件",
+    "stat.tconstruct.extra.no_stats": "无数据",
+
+    "stat.tconstruct.mining_level.wood": "木头",
+    "stat.tconstruct.mining_level.stone": "石头",
+    "stat.tconstruct.mining_level.iron": "铁",
+    "stat.tconstruct.mining_level.diamond": "钻石",
+    "stat.tconstruct.mining_level.netherite": "下界合金",
+
+    "_comment": "Tooltips",
+    "tooltip.tool.modifiers": "强化",
+    "tooltip.tool.broken": "损坏",
+    "tooltip.tool.empty": "空",
+    "tooltip.tool.hold_shift": "按住§e§oShift键§r§7查看统计数据",
+    "tooltip.tool.hold_ctrl": "按住§e§bCtrl键§r§7查看详细信息",
+
+    "tooltip.part.material_added_by": "材料由%s添加",
+    "tooltip.part.missing_material": "缺失材料：%s",
+    "tooltip.part.missing_stats": "材料缺失以下必要数据：\n{0}",
+    "tooltip.part.missing_info": "部件无数据",
+
+    "_comment": "GUIs",
+
+    "itemGroup.tconstruct.general": "匠魂丨常规物品",
+    "itemGroup.tconstruct.tools": "匠魂丨工具",
+    "itemGroup.tconstruct.tool_parts": "匠魂丨部件",
+    "itemGroup.tconstruct.smeltery": "匠魂丨冶炼",
+    "itemGroup.tconstruct.world": "匠魂丨世界",
+    "itemGroup.tconstruct.gadgets": "匠魂丨器物",
+
+    "gui.tconstruct.crafting_station": "工作站",
+
+    "gui.tconstruct.part_builder": "Part Builder",
+    "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put a blank pattern into the left slot and select the part you want. The remaining slot hold the material you want to craft your part out of.",
+    "gui.tconstruct.part_builder.material_value": "材料值：%s",
+    "gui.tconstruct.part_builder.cost": "模具消耗：%s",
+
+    "gui.tconstruct.part_crafter": "Part Crafter",
+
+    "gui.tconstruct.pattern_chest": "模具箱",
+    "gui.tconstruct.cast_chest": "铸模箱",
+    "gui.tconstruct.part_chest": "部件箱",
+
+    "gui.tconstruct.tinker_station": "Tinker Station",
+    "gui.tconstruct.tinker_station.repair": "修复&强化",
+    "gui.tconstruct.tinker_station.traits": "特性",
+    "gui.tconstruct.tinker_station.components": "组成部件",
+    "gui.tconstruct.tinker_station.info": "修复和改装你工具的主要手段。在左侧安放工具和材料即可开始。",
+    "gui.tconstruct.tinker_station.no_traits": "无:[",
+    "gui.tconstruct.tinker_station.traits.coming_soon": "特性即将到来",
+
+    "_comment": "GUIs Messages",
+
+    "gui.tconstruct.caption": "Caption",
+    "gui.tconstruct.error": "错误",
+    "gui.tconstruct.warning": "警告",
+    "gui.tconstruct.general.hover": "将指针悬停在条目上以获取更多信息",
+    "gui.tconstruct.error.invalid_pattern": "Pattern does not contain a valid tool part!",
+    "gui.tconstruct.error.invalid_recipe": "Invalid Recipe!",
+    "gui.tconstruct.error.unknown_material": "未知材料",
+    "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\n\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.",
+    "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required.",
+
+    "_comment": "JEI Strings",
+    "jei.tconstruct.time": "%s秒",
+    "jei.tconstruct.temperature": "%s°C",
+    
+    "jei.tconstruct.casting.basin": "Casting Basin",
+    "jei.tconstruct.casting.table": "Casting Table",
+    "jei.tconstruct.casting.cast_kept": "Cast item can be reused in later recipes",
+    "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
+    
+    "jei.tconstruct.molding.title": "Molding",
+    "jei.tconstruct.molding.mold_consumed": "Mold item is consumed on crafting",
+    
+    "jei.tconstruct.melting.title": "Melting",
+    "jei.tconstruct.melting.multiplier": "Speed multiplier: %sx",
+    "jei.tconstruct.melting.ore": "Recipe output is boosted based on the controller type",
+    "jei.tconstruct.melting.time": "Melting time: %s s",
+
+    "jei.tconstruct.entity_melting.title": "Entity Melting",
+    "jei.tconstruct.entity_melting.per_hearts": "Per %s Hearts Damage",
+    "jei.tconstruct.entity_melting.per_heart": "Per 1.0 Heart Damage",
+
+    "jei.tconstruct.alloy.title": "Alloying"
+}
