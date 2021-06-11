@@ -7,9 +7,9 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.mantle.tileentity.InventoryTileEntity;
+import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
-import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
