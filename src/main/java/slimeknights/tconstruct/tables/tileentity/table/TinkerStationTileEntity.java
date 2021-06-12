@@ -91,7 +91,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   /* Crafting */
 
   @Override
-  public ItemStack calcResult() {
+  public ItemStack calcResult(@Nullable PlayerEntity player) {
     if (this.world == null) {
       return ItemStack.EMPTY;
     }
