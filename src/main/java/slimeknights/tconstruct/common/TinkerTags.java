@@ -142,6 +142,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> WITHER_BONES = forgeTag("wither_bones");
     public static final IOptionalNamedTag<Item> BOOKS = forgeTag("books");
     public static final IOptionalNamedTag<Item> GUIDEBOOKS = forgeTag("books/guide");
+    public static final IOptionalNamedTag<Item> TINKERS_GUIDES = tag("guides");
 
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");
