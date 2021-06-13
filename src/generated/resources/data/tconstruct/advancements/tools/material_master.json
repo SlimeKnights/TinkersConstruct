@@ -1,0 +1,326 @@
+{
+  "parent": "tconstruct:tools/tinker_tool",
+  "display": {
+    "icon": {
+      "item": "tconstruct:manyullyn_ingot"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.tools.material_master.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.tools.material_master.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "wood": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:wood"
+            ]
+          }
+        ]
+      }
+    },
+    "flint": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:flint"
+            ]
+          }
+        ]
+      }
+    },
+    "stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:stone"
+            ]
+          }
+        ]
+      }
+    },
+    "bone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:bone"
+            ]
+          }
+        ]
+      }
+    },
+    "necrotic_bone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:necrotic_bone"
+            ]
+          }
+        ]
+      }
+    },
+    "iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:iron"
+            ]
+          }
+        ]
+      }
+    },
+    "seared_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:seared_stone"
+            ]
+          }
+        ]
+      }
+    },
+    "scorched_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:scorched_stone"
+            ]
+          }
+        ]
+      }
+    },
+    "copper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:copper"
+            ]
+          }
+        ]
+      }
+    },
+    "slimewood": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:slimewood"
+            ]
+          }
+        ]
+      }
+    },
+    "rose_gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:rose_gold"
+            ]
+          }
+        ]
+      }
+    },
+    "slimesteel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:slimesteel"
+            ]
+          }
+        ]
+      }
+    },
+    "nahuatl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:nahuatl"
+            ]
+          }
+        ]
+      }
+    },
+    "tinkers_bronze": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:tinkers_bronze"
+            ]
+          }
+        ]
+      }
+    },
+    "pig_iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:pig_iron"
+            ]
+          }
+        ]
+      }
+    },
+    "cobalt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:cobalt"
+            ]
+          }
+        ]
+      }
+    },
+    "manyullyn": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:manyullyn"
+            ]
+          }
+        ]
+      }
+    },
+    "hepatizon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:hepatizon"
+            ]
+          }
+        ]
+      }
+    },
+    "queens_slime": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:queens_slime"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "wood"
+    ],
+    [
+      "flint"
+    ],
+    [
+      "stone"
+    ],
+    [
+      "bone"
+    ],
+    [
+      "necrotic_bone"
+    ],
+    [
+      "iron"
+    ],
+    [
+      "seared_stone"
+    ],
+    [
+      "scorched_stone"
+    ],
+    [
+      "copper"
+    ],
+    [
+      "slimewood"
+    ],
+    [
+      "rose_gold"
+    ],
+    [
+      "slimesteel"
+    ],
+    [
+      "nahuatl"
+    ],
+    [
+      "tinkers_bronze"
+    ],
+    [
+      "pig_iron"
+    ],
+    [
+      "cobalt"
+    ],
+    [
+      "manyullyn"
+    ],
+    [
+      "hepatizon"
+    ],
+    [
+      "queens_slime"
+    ]
+  ]
+}

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.GlassBlock;
 import net.minecraft.block.SoundType;
@@ -38,6 +39,7 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.shared.data.CommonRecipeProvider;
+import slimeknights.tconstruct.shared.inventory.BlockContainerOpenedTrigger;
 import slimeknights.tconstruct.shared.item.TinkerBookItem;
 import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 
@@ -97,6 +99,8 @@ public final class TinkerCommons extends TinkerModule {
     .putAll(ITEMS.registerEnum(SlimeType.TINKER, "slime_ball", (type) -> new EdibleItem(type.getSlimeFood(type), TAB_GENERAL)))
     .build();
 
+  public static final BlockContainerOpenedTrigger CONTAINER_OPENED_TRIGGER = new BlockContainerOpenedTrigger();
+
   public TinkerCommons() {
     MinecraftForge.EVENT_BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
   }
@@ -107,6 +111,7 @@ public final class TinkerCommons extends TinkerModule {
     lootConfig = Registry.register(Registry.LOOT_CONDITION_TYPE, ConfigEnabledCondition.ID, new LootConditionType(ConfigEnabledCondition.SERIALIZER));
     lootBlockOrEntity = Registry.register(Registry.LOOT_CONDITION_TYPE, BlockOrEntityCondition.ID, new LootConditionType(BlockOrEntityCondition.SERIALIZER));
     lootSetFluid = Registry.register(Registry.LOOT_FUNCTION_TYPE, SetFluidLootFunction.ID, new LootFunctionType(new SetFluidLootFunction.Serializer()));
+    CriteriaTriggers.register(CONTAINER_OPENED_TRIGGER);
   }
 
   @SubscribeEvent
