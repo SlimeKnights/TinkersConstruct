@@ -14,6 +14,19 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
     super(props, SlimeType.SKY);
   }
 
+  @Override
+  public float getForce(ItemStack stack, int timeLeft) {
+    int i = this.getUseDuration(stack) - timeLeft;
+    float f = i / 20.0F;
+    f = (f * f + f * 2.0F) / 3.0F;
+    f *= 4f;
+
+    if (f > 3f) {
+      f = 3f;
+    }
+    return f;
+  }
+
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
@@ -28,7 +41,7 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
       return;
     }
 
-    float f = getForce(stack, timeLeft) / 2;
+    float f = getForce(stack, timeLeft);
 
     player.addExhaustion(0.2F);
     player.getCooldownTracker().setCooldown(stack.getItem(), 3);
