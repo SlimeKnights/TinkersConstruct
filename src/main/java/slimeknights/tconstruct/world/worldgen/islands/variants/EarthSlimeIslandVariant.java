@@ -45,7 +45,7 @@ public class EarthSlimeIslandVariant extends AbstractSlimeIslandVariant {
   }
 
   private static boolean isWater(ISeedReader world, BlockPos pos) {
-    return world.getBlockState(pos).getBlock() == Blocks.WATER;
+    return world.isAirBlock(pos) || world.getBlockState(pos).getBlock() == Blocks.WATER;
   }
 
   @Override

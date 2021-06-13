@@ -111,6 +111,7 @@ public final class TinkerStructures extends TinkerModule {
     StructureSeparationSettings earthSettings = new StructureSeparationSettings(Config.COMMON.earthSlimeIslandSeparation.get(), 5, 25988585);
     DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(earthSlimeIsland.get(), earthSettings);
     addStructureSettings(DimensionSettings.field_242735_d, earthSlimeIsland.get(), earthSettings);
+    addStructureSettings(DimensionSettings.field_242739_h, earthSlimeIsland.get(), earthSettings);
 
     StructureSeparationSettings skySettings = new StructureSeparationSettings(Config.COMMON.skySlimeIslandSeparation.get(), 5, 14357800);
     DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(skySlimeIsland.get(), skySettings);
