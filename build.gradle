@@ -126,9 +126,9 @@ repositories {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }
-    maven {
-        name 'ForgeFS'
-        url 'http://files.minecraftforge.net/maven'
+	maven {
+        name = 'code chicken lib'
+        url 'https://maven.cil.li/'
     }
 }
 
