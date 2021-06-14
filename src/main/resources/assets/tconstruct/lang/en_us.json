@@ -1664,6 +1664,9 @@
 
   "jei.tconstruct.severing.title": "Severing",
 
+  "jei.tconstruct.part_builder.title": "Part Builder",
+  "jei.tconstruct.part_builder.cost": "Cost: %s",
+
 
   "_comment": "Tool Advancements",
   "advancements.tconstruct.tools.materials_and_you.title": "Tinker In Training",

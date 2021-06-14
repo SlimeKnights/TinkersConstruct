@@ -151,8 +151,8 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
       int x = left + relative % 4 * 18 + 1;
       int y = top + (relative / 4) * 18 + 1;
       // get the sprite for the pattern and draw
-      ResourceLocation pattern = list.get(i);
-      TextureAtlasSprite sprite = spriteGetter.apply(new ResourceLocation(pattern.getNamespace(), "gui/tinker_pattern/" + pattern.getPath()));
+      Pattern pattern = list.get(i);
+      TextureAtlasSprite sprite = spriteGetter.apply(pattern.getTexture());
       blit(matrices, x, y, 100, 16, 16, sprite);
     }
   }

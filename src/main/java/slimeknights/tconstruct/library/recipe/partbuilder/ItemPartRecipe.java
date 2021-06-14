@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
  * Recipe to craft an ordinary item using the part builder
  */
 @RequiredArgsConstructor
-public class ItemPartRecipe implements IPartBuilderRecipe {
+public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   @Getter
   private final ResourceLocation id;
   private final MaterialId materialId;
@@ -38,7 +38,8 @@ public class ItemPartRecipe implements IPartBuilderRecipe {
   private final ItemOutput result;
 
   /** Gets the material used in this recipe */
-  protected IMaterial getMaterial() {
+  @Override
+  public IMaterial getMaterial() {
     if (material == null) {
       material = MaterialRegistry.getMaterial(materialId);
     }

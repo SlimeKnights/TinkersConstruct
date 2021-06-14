@@ -21,6 +21,8 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Recipe to get the material from an ingredient
@@ -93,6 +95,11 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   @Override
   public NonNullList<Ingredient> getIngredients() {
     return NonNullList.from(Ingredient.EMPTY, ingredient);
+  }
+
+  /** Gets a list of stacks for display in the recipe */
+  public List<ItemStack> getDisplayItems() {
+    return Arrays.asList(ingredient.getMatchingStacks());
   }
 
   /**

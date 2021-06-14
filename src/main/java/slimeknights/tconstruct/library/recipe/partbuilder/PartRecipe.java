@@ -1,21 +1,28 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Recipe to make a tool part from a material item in the part builder
  */
-@AllArgsConstructor
-public class PartRecipe implements IPartBuilderRecipe {
+@RequiredArgsConstructor
+public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartRecipe> {
   @Getter
   protected final ResourceLocation id;
   @Getter
@@ -100,5 +107,21 @@ public class PartRecipe implements IPartBuilderRecipe {
       material = materialRecipe.getMaterial();
     }
     return this.getRecipeOutput(material);
+  }
+
+  /** Cache of recipes for display in JEI */
+  @Nullable
+  private List<ItemPartRecipe> multiRecipes;
+
+  @Override
+  public List<ItemPartRecipe> getRecipes() {
+    if (multiRecipes == null) {
+      multiRecipes = MaterialRegistry
+        .getMaterials().stream()
+        .filter(mat -> mat.isCraftable() && output.canUseMaterial(mat))
+        .map(mat -> new ItemPartRecipe(id, mat.getIdentifier(), pattern, getCost(), ItemOutput.fromStack(output.withMaterial(mat))))
+        .collect(Collectors.toList());
+    }
+    return multiRecipes;
   }
 }

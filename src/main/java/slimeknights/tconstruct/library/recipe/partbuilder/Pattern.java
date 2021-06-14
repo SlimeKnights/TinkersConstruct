@@ -46,4 +46,12 @@ public class Pattern extends ResourceLocation {
   public ITextComponent getDisplayName() {
     return new TranslationTextComponent(Util.makeTranslationKey("pattern", this));
   }
+
+  /**
+   * Gets the texture for this pattern for rendering
+   * @return  Pattern texture
+   */
+  public ResourceLocation getTexture() {
+    return new ResourceLocation(getNamespace(), "gui/tinker_pattern/" + getPath());
+  }
 }
