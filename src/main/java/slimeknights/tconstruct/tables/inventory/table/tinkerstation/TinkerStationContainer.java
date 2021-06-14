@@ -3,8 +3,10 @@ package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 import lombok.Getter;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.LazyResultSlot;
@@ -79,8 +81,9 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
    * Updates the active slots from the screen
    * @param activeSlots     Active slots
    * @param mainSlotHidden  If true, main slot is hidden
+   * @param filter          Slot filter to apply, if null clear any filters
    */
-  public void setToolSelection(int activeSlots, boolean mainSlotHidden) {
+  public void setToolSelection(int activeSlots, boolean mainSlotHidden, @Nullable ToolDefinition filter) {
     assert this.tile != null;
 
     if (activeSlots > this.tile.getSizeInventory()) {
@@ -91,12 +94,24 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       Slot slot = this.inventorySlots.get(i);
 
       if (slot instanceof TinkerStationSlot) {
+        // activate or deactivate the slots
         TinkerStationSlot slotToolPart = (TinkerStationSlot) slot;
-        if (i == TinkerStationTileEntity.TINKER_SLOT ? mainSlotHidden : i > activeSlots) {
+        boolean isHidden = i == TinkerStationTileEntity.TINKER_SLOT ? mainSlotHidden : i > activeSlots;
+        if (isHidden) {
           slotToolPart.deactivate();
         }
         else {
           slotToolPart.activate();
+        }
+
+        // update the filters
+        if (slot instanceof TinkerStationInputSlot) {
+          TinkerStationInputSlot inputSlot = (TinkerStationInputSlot) slot;
+          Item filterItem = null;
+          if (!isHidden && filter != null && i <= filter.getRequiredComponents().size()) {
+            filterItem = filter.getRequiredComponents().get(i - 1).asItem();
+          }
+          inputSlot.setFilter(filterItem);
         }
       }
     }

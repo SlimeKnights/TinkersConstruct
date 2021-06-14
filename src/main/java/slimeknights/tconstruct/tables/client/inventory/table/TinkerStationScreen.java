@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -25,9 +26,11 @@ import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
@@ -46,6 +49,7 @@ import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity.INPUT_SLOT;
@@ -407,11 +411,11 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
           continue;
         }
 
-        ResourceLocation icon = ((TinkerStationInputSlot) slot).getIcon();
+        Pattern icon = ((TinkerStationInputSlot) slot).getIcon();
         if (icon != null) {
           this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
           Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-          TextureAtlasSprite sprite = spriteGetter.apply(new ResourceLocation(icon.getNamespace(), "gui/tinker_pattern/" + icon.getPath()));
+          TextureAtlasSprite sprite = spriteGetter.apply(icon.getTexture());
           blit(matrices, x + this.cornerX + slot.xPos, y + this.cornerY + slot.yPos, 100, 16, 16, sprite);
         }
       }
@@ -691,9 +695,10 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.activeSlots = Math.min(data.getPoints().size(), maxInputs);
     this.currentData = data;
 
-    List<IToolPart> requiredComponents = null;
+    // determine the tool definition to display
+    ToolDefinition definition = null;
     if (!currentData.isRepair() && currentData.getItem() instanceof ToolCore) {
-      requiredComponents = ((ToolCore)currentData.getItem()).getToolDefinition().getRequiredComponents();
+      definition = ((ToolCore) currentData.getItem()).getToolDefinition();
     }
 
     Slot slot = this.container.getSlot(TINKER_SLOT);
@@ -718,15 +723,18 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         }
         else {
           toolPartSlot.activate();
-          if (requiredComponents != null && i < requiredComponents.size()) {
-            toolPartSlot.setIcon(requiredComponents.get(i).asItem().getRegistryName());
+          if (definition != null && i < definition.getRequiredComponents().size()) {
+            toolPartSlot.setIcon(new Pattern(Objects.requireNonNull(definition.getRequiredComponents().get(i).asItem().getRegistryName())));
           }
         }
       }
     }
 
-    this.container.setToolSelection(activeSlots, data.getToolSlot().isHidden());
-    TinkerNetwork.getInstance().sendToServer(new TinkerStationSelectionPacket(activeSlots, data.getToolSlot().isHidden()));
+    // update the active slots and filter in the container
+    boolean isStrict = data.isStrictSlots();
+    boolean isToolHidden = data.getToolSlot().isHidden();
+    this.container.setToolSelection(activeSlots, isToolHidden, isStrict ? definition : null);
+    TinkerNetwork.getInstance().sendToServer(new TinkerStationSelectionPacket(activeSlots, isToolHidden, isStrict ? currentData.getItem() : Items.AIR));
 
     this.updateScreen();
   }
