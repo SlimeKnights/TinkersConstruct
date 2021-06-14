@@ -56,7 +56,7 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
 
   @Override
   public void setIngredients(IDisplayPartBuilderRecipe recipe, IIngredients ingredients) {
-    ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(MaterialItemList.getItems(recipe.getMaterial()), recipe.getPatternItems()));
+    ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(MaterialItemList.getItems(recipe.getMaterialId()), recipe.getPatternItems()));
     ingredients.setInput(JEIPlugin.PATTERN_TYPE, recipe.getPattern());
     ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
   }

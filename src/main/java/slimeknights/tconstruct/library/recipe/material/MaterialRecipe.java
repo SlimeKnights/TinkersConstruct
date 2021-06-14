@@ -43,6 +43,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   @Getter
   protected final int needed;
   /** Material ID for the recipe return */
+  @Getter
   protected final MaterialId materialId;
   /** Leftover stack of value 1, used if the value is more than 1 */
   protected final ItemOutput leftover;

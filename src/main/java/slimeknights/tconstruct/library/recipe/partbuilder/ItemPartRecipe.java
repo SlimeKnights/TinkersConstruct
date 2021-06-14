@@ -28,6 +28,7 @@ import javax.annotation.Nullable;
 public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   @Getter
   private final ResourceLocation id;
+  @Getter
   private final MaterialId materialId;
   @Nullable
   private IMaterial material = null;
