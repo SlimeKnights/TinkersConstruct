@@ -10,6 +10,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -41,6 +42,9 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   protected final int needed;
   /** Material ID for the recipe return */
   protected final MaterialId materialId;
+  /** Leftover stack of value 1, used if the value is more than 1 */
+  protected final ItemOutput leftover;
+
   /** Material returned by this recipe, lazy loaded */
   private final LazyValue<IMaterial> material;
   /** Durability restored per item input, lazy loaded */
@@ -51,7 +55,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    * Creates a new material recipe
    */
   @SuppressWarnings("WeakerAccess")
-  public MaterialRecipe(ResourceLocation id, String group, Ingredient ingredient, int value, int needed, MaterialId materialId) {
+  public MaterialRecipe(ResourceLocation id, String group, Ingredient ingredient, int value, int needed, MaterialId materialId, ItemOutput leftover) {
     this.id = id;
     this.group = group;
     this.ingredient = ingredient;
@@ -59,6 +63,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
     this.needed = needed;
     this.materialId = materialId;
     this.material = new LazyValue<>(() -> MaterialRegistry.getMaterial(materialId));
+    this.leftover = leftover;
   }
 
   /* Basic */
@@ -152,5 +157,13 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
       .filter(stats -> stats instanceof IRepairableMaterialStats)
       .map(stats -> ((IRepairableMaterialStats)stats).getDurability())
       .orElse(0);
+  }
+
+  /**
+   * Gets a copy of the leftover stack for this recipe
+   * @return  Leftover stack
+   */
+  public ItemStack getLeftover() {
+    return this.leftover.get().copy();
   }
 }

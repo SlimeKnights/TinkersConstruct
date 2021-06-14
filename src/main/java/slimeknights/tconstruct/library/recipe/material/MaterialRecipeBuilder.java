@@ -11,6 +11,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -22,13 +23,16 @@ import java.util.function.Consumer;
  * Builder for a recipe to determine the material from an input
  */
 @RequiredArgsConstructor(staticName = "materialRecipe")
+@Accessors(chain = true)
 public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeBuilder> {
   private final MaterialId material;
   private Ingredient ingredient = Ingredient.EMPTY;
-  @Setter @Accessors(chain = true)
+  @Setter
   private int value = 1;
-  @Setter @Accessors(chain = true)
+  @Setter
   private int needed = 1;
+  @Setter
+  private ItemOutput leftover = null;
 
   /**
    * Sets the input ingredient for this material recipe
@@ -95,6 +99,9 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
       json.addProperty("value", value);
       json.addProperty("needed", needed);
       json.addProperty("material", material.toString());
+      if (value > 1 && leftover != null) {
+        json.add("leftover", leftover.serialize());
+      }
     }
 
     @Override

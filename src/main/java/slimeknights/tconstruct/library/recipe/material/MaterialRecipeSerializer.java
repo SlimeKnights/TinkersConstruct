@@ -2,13 +2,14 @@ package slimeknights.tconstruct.library.recipe.material;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.mantle.recipe.RecipeSerializer;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
 import javax.annotation.Nullable;
@@ -17,6 +18,8 @@ import javax.annotation.Nullable;
  * Serialiser for {@link MaterialRecipe}
  */
 public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRecipe> {
+  private static final ItemOutput EMPTY = ItemOutput.fromStack(ItemStack.EMPTY);
+
   /**
    * Gets a material ID from JSON
    * @param json  Json parent
@@ -38,7 +41,11 @@ public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRe
     int value = JSONUtils.getInt(json, "value", 1);
     int needed = JSONUtils.getInt(json, "needed", 1);
     MaterialId materialId = getMaterial(json, "material");
-    return new MaterialRecipe(recipeId, group, ingredient, value, needed, new MaterialId(materialId));
+    ItemOutput leftover = EMPTY;
+    if (value > 1 && json.has("leftover")) {
+      leftover = ItemOutput.fromJson(json.get("leftover"));
+    }
+    return new MaterialRecipe(recipeId, group, ingredient, value, needed, new MaterialId(materialId), leftover);
   }
 
   @Nullable
@@ -49,7 +56,8 @@ public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRe
     int value = buffer.readInt();
     int needed = buffer.readInt();
     String materialId = buffer.readString(Short.MAX_VALUE);
-    return new MaterialRecipe(recipeId, group, ingredient, value, needed, new MaterialId(materialId));
+    ItemOutput leftover = ItemOutput.read(buffer);
+    return new MaterialRecipe(recipeId, group, ingredient, value, needed, new MaterialId(materialId), leftover);
   }
 
   @Override
@@ -59,5 +67,6 @@ public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRe
     buffer.writeInt(recipe.value);
     buffer.writeInt(recipe.needed);
     buffer.writeString(recipe.materialId.toString());
+    recipe.leftover.write(buffer);
   }
 }

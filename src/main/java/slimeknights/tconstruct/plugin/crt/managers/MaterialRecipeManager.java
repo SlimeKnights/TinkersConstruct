@@ -9,6 +9,8 @@ import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import org.openzen.zencode.java.ZenCodeType;
+import org.openzen.zencode.java.ZenCodeType.Optional;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -19,11 +21,11 @@ import slimeknights.tconstruct.plugin.crt.CRTHelper;
 public class MaterialRecipeManager implements IRecipeManager {
   
   @ZenCodeType.Method
-  public void addItem(String name, IIngredient ingredient, int value, int needed, String materialId) {
+  public void addItem(String name, IIngredient ingredient, int value, int needed, String materialId, @Optional ItemOutput leftover) {
     MaterialId material = CRTHelper.getMaterialId(materialId);
     name = fixRecipeName(name);
     ResourceLocation id = new ResourceLocation("crafttweaker", name);
-    MaterialRecipe recipe = new MaterialRecipe(id, "", ingredient.asVanillaIngredient(), value, needed, material);
+    MaterialRecipe recipe = new MaterialRecipe(id, "", ingredient.asVanillaIngredient(), value, needed, material, leftover);
     CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe));
   }
   
