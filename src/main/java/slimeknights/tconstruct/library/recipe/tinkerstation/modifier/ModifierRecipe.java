@@ -199,7 +199,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    public void write(PacketBuffer buffer, ModifierRecipe recipe) {
+    protected void writeSafe(PacketBuffer buffer, ModifierRecipe recipe) {
       super.write(buffer, recipe);
       buffer.writeVarInt(recipe.inputs.size());
       for (SizedIngredient ingredient : recipe.inputs) {

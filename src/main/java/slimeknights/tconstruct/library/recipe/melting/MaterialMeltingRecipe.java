@@ -14,8 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
-import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -96,7 +95,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   /**
    * Serializer for {@link MaterialMeltingRecipe}
    */
-  public static class Serializer extends RecipeSerializer<MaterialMeltingRecipe> {
+  public static class Serializer extends LoggingRecipeSerializer<MaterialMeltingRecipe> {
     @Override
     public MaterialMeltingRecipe read(ResourceLocation id, JsonObject json) {
       String group = JSONUtils.getString(json, "group", "");
@@ -107,28 +106,18 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
 
     @Nullable
     @Override
-    public MaterialMeltingRecipe read(ResourceLocation id, PacketBuffer buffer) {
-      try {
-        String group = buffer.readString(Short.MAX_VALUE);
-        IMaterialItem item = RecipeHelper.readItem(buffer, IMaterialItem.class);
-        int amount = buffer.readVarInt();
-        return new MaterialMeltingRecipe(id, group, item, amount);
-      } catch(Exception e) {
-        TConstruct.log.error("Error reading material melting recipe from packet.", e);
-        throw e;
-      }
+    protected MaterialMeltingRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
+      String group = buffer.readString(Short.MAX_VALUE);
+      IMaterialItem item = RecipeHelper.readItem(buffer, IMaterialItem.class);
+      int amount = buffer.readVarInt();
+      return new MaterialMeltingRecipe(id, group, item, amount);
     }
 
     @Override
-    public void write(PacketBuffer buffer, MaterialMeltingRecipe recipe) {
-      try {
-        buffer.writeString(recipe.group);
-        RecipeHelper.writeItem(buffer, recipe.item);
-        buffer.writeVarInt(recipe.cost);
-      } catch(Exception e) {
-        TConstruct.log.error("Error reading material melting recipe from packet.", e);
-        throw e;
-      }
+    protected void writeSafe(PacketBuffer buffer, MaterialMeltingRecipe recipe) {
+      buffer.writeString(recipe.group);
+      RecipeHelper.writeItem(buffer, recipe.item);
+      buffer.writeVarInt(recipe.cost);
     }
   }
 }

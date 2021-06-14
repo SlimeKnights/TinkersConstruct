@@ -16,7 +16,7 @@ import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.IMultiRecipe;
-import slimeknights.mantle.recipe.RecipeSerializer;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -208,7 +208,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
 
   /** Serializer for casting tables and basins */
   @RequiredArgsConstructor
-  public static class Serializer<T extends CompositeCastingRecipe> extends RecipeSerializer<T> {
+  public static class Serializer<T extends CompositeCastingRecipe> extends LoggingRecipeSerializer<T> {
     private final IFactory<T> factory;
 
     @Override
@@ -221,7 +221,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     }
 
     @Override
-    public T read(ResourceLocation id, PacketBuffer buffer) {
+    protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
       MaterialId input = new MaterialId(buffer.readString(Short.MAX_VALUE));
       FluidIngredient fluid = FluidIngredient.read(buffer);
       MaterialId output = new MaterialId(buffer.readString(Short.MAX_VALUE));
@@ -230,7 +230,7 @@ public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRe
     }
 
     @Override
-    public void write(PacketBuffer buffer, T recipe) {
+    protected void writeSafe(PacketBuffer buffer, T recipe) {
       buffer.writeString(recipe.inputId.toString());
       recipe.fluid.write(buffer);
       buffer.writeString(recipe.outputId.toString());

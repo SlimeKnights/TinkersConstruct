@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 /**
  * Serialiser for {@link MaterialRecipe}
  */
-public class MaterialRecipeSerializer extends RecipeSerializer<MaterialRecipe> {
+public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRecipe> {
   /**
    * Gets a material ID from JSON
    * @param json  Json parent
@@ -43,31 +43,21 @@ public class MaterialRecipeSerializer extends RecipeSerializer<MaterialRecipe> {
 
   @Nullable
   @Override
-  public MaterialRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-    try {
-      String group = buffer.readString(Short.MAX_VALUE);
-      Ingredient ingredient = Ingredient.read(buffer);
-      int value = buffer.readInt();
-      int needed = buffer.readInt();
-      String materialId = buffer.readString(Short.MAX_VALUE);
-      return new MaterialRecipe(recipeId, group, ingredient, value, needed, new MaterialId(materialId));
-    } catch (Exception e) {
-      TConstruct.log.error("Error reading material recipe from packet.", e);
-      throw e;
-    }
+  protected MaterialRecipe readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
+    String group = buffer.readString(Short.MAX_VALUE);
+    Ingredient ingredient = Ingredient.read(buffer);
+    int value = buffer.readInt();
+    int needed = buffer.readInt();
+    String materialId = buffer.readString(Short.MAX_VALUE);
+    return new MaterialRecipe(recipeId, group, ingredient, value, needed, new MaterialId(materialId));
   }
 
   @Override
-  public void write(PacketBuffer buffer, MaterialRecipe recipe) {
-    try {
-      buffer.writeString(recipe.group);
-      recipe.ingredient.write(buffer);
-      buffer.writeInt(recipe.value);
-      buffer.writeInt(recipe.needed);
-      buffer.writeString(recipe.materialId.toString());
-    } catch (Exception e) {
-      TConstruct.log.error("Error writing material recipe to packet.", e);
-      throw e;
-    }
+  protected void writeSafe(PacketBuffer buffer, MaterialRecipe recipe) {
+    buffer.writeString(recipe.group);
+    recipe.ingredient.write(buffer);
+    buffer.writeInt(recipe.value);
+    buffer.writeInt(recipe.needed);
+    buffer.writeString(recipe.materialId.toString());
   }
 }

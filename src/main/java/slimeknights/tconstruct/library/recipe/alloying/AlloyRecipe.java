@@ -15,9 +15,9 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -208,7 +208,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     return TinkerSmeltery.alloyingSerializer.get();
   }
 
-  public static class Serializer extends RecipeSerializer<AlloyRecipe> {
+  public static class Serializer extends LoggingRecipeSerializer<AlloyRecipe> {
     @Override
     public AlloyRecipe read(ResourceLocation id, JsonObject json) {
       FluidStack result = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
@@ -228,7 +228,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     }
 
     @Override
-    public void write(PacketBuffer buffer, AlloyRecipe recipe) {
+    protected void writeSafe(PacketBuffer buffer, AlloyRecipe recipe) {
       buffer.writeFluidStack(recipe.output);
       buffer.writeVarInt(recipe.inputs.size());
       for (FluidIngredient input : recipe.inputs) {
@@ -239,7 +239,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
 
     @Nullable
     @Override
-    public AlloyRecipe read(ResourceLocation id, PacketBuffer buffer) {
+    protected AlloyRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
       FluidStack output = buffer.readFluidStack();
       int inputCount = buffer.readVarInt();
       ImmutableList.Builder<FluidIngredient> builder = ImmutableList.builder();

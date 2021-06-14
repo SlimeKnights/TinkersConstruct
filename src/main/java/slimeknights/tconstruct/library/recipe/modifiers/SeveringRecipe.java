@@ -15,9 +15,9 @@ import net.minecraft.world.World;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.ItemOutput;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -99,7 +99,7 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyInventory> {
   }
 
   /** Serializer for this recipe */
-  public static class Serializer extends RecipeSerializer<SeveringRecipe> {
+  public static class Serializer extends LoggingRecipeSerializer<SeveringRecipe> {
     @Override
     public SeveringRecipe read(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
@@ -109,14 +109,14 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyInventory> {
 
     @Nullable
     @Override
-    public SeveringRecipe read(ResourceLocation id, PacketBuffer buffer) {
+    protected SeveringRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       ItemOutput output = ItemOutput.read(buffer);
       return new SeveringRecipe(id, ingredient, output);
     }
 
     @Override
-    public void write(PacketBuffer buffer, SeveringRecipe recipe) {
+    protected void writeSafe(PacketBuffer buffer, SeveringRecipe recipe) {
       recipe.ingredient.write(buffer);
       recipe.output.write(buffer);
     }
