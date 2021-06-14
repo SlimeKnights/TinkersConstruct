@@ -11,14 +11,14 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
-import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 
 /**
  * Class containing all of Tinkers Construct recipe types
  */
 public interface RecipeTypes {
-  IRecipeType<PartRecipe> PART_BUILDER = register("part_builder");
+  IRecipeType<IPartBuilderRecipe> PART_BUILDER = register("part_builder");
   IRecipeType<MaterialRecipe> MATERIAL = register("material");
   IRecipeType<ITinkerStationRecipe> TINKER_STATION = register("tinker_station");
 

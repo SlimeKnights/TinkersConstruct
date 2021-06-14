@@ -14,7 +14,7 @@ public class PartRecipeSerializer extends LoggingRecipeSerializer<PartRecipe> {
   @Override
   public PartRecipe read(ResourceLocation recipeId, JsonObject json) {
     String group = JSONUtils.getString(json, "group", "");
-    ResourceLocation pattern = new ResourceLocation(JSONUtils.getString(json, "pattern"));
+    Pattern pattern = new Pattern(JSONUtils.getString(json, "pattern"));
     int cost = JSONUtils.getInt(json, "cost");
 
     // output fetch as a material item, its an error if it does not implement that interface
@@ -29,7 +29,7 @@ public class PartRecipeSerializer extends LoggingRecipeSerializer<PartRecipe> {
   @Override
   protected PartRecipe readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
     String group = buffer.readString(Short.MAX_VALUE);
-    ResourceLocation pattern = new ResourceLocation(buffer.readString(Short.MAX_VALUE));
+    Pattern pattern = new Pattern(buffer.readString(Short.MAX_VALUE));
     int cost = buffer.readInt();
     // output must be a material item
     IMaterialItem item = RecipeHelper.readItem(buffer, IMaterialItem.class);

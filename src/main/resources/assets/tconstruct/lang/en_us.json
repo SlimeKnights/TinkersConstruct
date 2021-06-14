@@ -234,6 +234,35 @@
   "item.tconstruct.copper_can.contents": "Contains: 1 ingot %s",
 
 
+  "_comment": "Tinkers Patterns",
+
+  "pattern.tconstruct.repair_kit": "Repair Kit",
+
+  "_comment": "Small Head Gold Casts",
+
+  "pattern.tconstruct.pickaxe_head": "Pickaxe Head",
+  "pattern.tconstruct.small_axe_head": "Small Axe Head",
+  "pattern.tconstruct.small_blade": "Small Blade",
+  "pattern.tconstruct.sign_head": "Sign Head",
+  "pattern.tconstruct.bow_limb": "Bow Limb",
+
+  "_comment": "Large Head Gold Casts",
+
+  "pattern.tconstruct.hammer_head": "Hammer Head",
+  "pattern.tconstruct.broad_axe_head": "Broad Axe Head",
+  "pattern.tconstruct.broad_blade": "Broad Blade",
+
+  "_comment": "Binding Gold Casts",
+
+  "pattern.tconstruct.tool_binding": "Tool Binding",
+  "pattern.tconstruct.large_plate": "Large Plate",
+
+  "_comment": "Tool Handle Gold Casts",
+
+  "pattern.tconstruct.tool_handle": "Tool Handle",
+  "pattern.tconstruct.tough_handle": "Tough Handle",
+
+
   "_comment": "Tinkers Gold Casts",
 
   "item.tconstruct.blank_cast": "Blank Gold Cast",
