@@ -263,21 +263,23 @@ public final class TinkerWorld extends TinkerModule {
     });
 
     // ores
-    COPPER_ORE_FEATURE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("copper_ore"),
-                                           Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.BASE_STONE_OVERWORLD, TinkerWorld.copperOre.get().getDefaultState(), 9))
-                                                      .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(40, 0, 60)))
-                                                      .square()
-                                                      .func_242731_b(Config.COMMON.veinCountCopper.get()));
-    // small veins, standard distribution
-    COBALT_ORE_FEATURE_SMALL = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("cobalt_ore_small"),
-                                                 Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.NETHERRACK, cobaltOre.get().getDefaultState(), 4))
-                                                            .withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT)
-                                                            .square().func_242731_b(Config.COMMON.veinCountCobalt.get() / 2));
-    // large veins, around y=16, up to 48
-    COBALT_ORE_FEATURE_LARGE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("cobalt_ore_large"),
-                                                 Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.NETHERRACK, cobaltOre.get().getDefaultState(), 8))
-                                                            .withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(32, 16)))
-                                                            .square().func_242731_b(Config.COMMON.veinCountCobalt.get() / 2));
+    event.enqueueWork(() -> {
+      COPPER_ORE_FEATURE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("copper_ore"),
+                                             Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.BASE_STONE_OVERWORLD, TinkerWorld.copperOre.get().getDefaultState(), 9))
+                                                        .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(40, 0, 60)))
+                                                        .square()
+                                                        .func_242731_b(Config.COMMON.veinCountCopper.get()));
+      // small veins, standard distribution
+      COBALT_ORE_FEATURE_SMALL = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("cobalt_ore_small"),
+                                                   Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.NETHERRACK, cobaltOre.get().getDefaultState(), 4))
+                                                              .withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT)
+                                                              .square().func_242731_b(Config.COMMON.veinCountCobalt.get() / 2));
+      // large veins, around y=16, up to 48
+      COBALT_ORE_FEATURE_LARGE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location("cobalt_ore_large"),
+                                                   Feature.ORE.withConfiguration(new OreFeatureConfig(FillerBlockType.NETHERRACK, cobaltOre.get().getDefaultState(), 8))
+                                                              .withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(32, 16)))
+                                                              .square().func_242731_b(Config.COMMON.veinCountCobalt.get() / 2));
+    });
   }
 
   @SubscribeEvent
