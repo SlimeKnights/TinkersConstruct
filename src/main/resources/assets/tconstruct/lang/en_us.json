@@ -154,7 +154,10 @@
   "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
 
   "item.tconstruct.materials_and_you": "Materials and You",
-  "item.tconstruct.materials_and_you.tooltip": "The book every Tinker needs\nby Selena",
+  "item.tconstruct.materials_and_you.tooltip": "The introduction book into tools and materials\nby Selena",
+  "item.tconstruct.encyclopedia": "Encyclopedia of Materials",
+  "item.tconstruct.encyclopedia.tooltip": "The reference book every tinker needs\nby Selena",
+
   "item.tconstruct.tinkers_gadgetry": "Tinker's Gadgetry",
   "item.tconstruct.tinkers_gadgetry.tooltip": "Book of uses of slime in everyday tasks\nby Melvin",
 
@@ -1736,7 +1739,9 @@
   "advancements.tconstruct.world.slime_sling.title": "Sling Expert",
   "advancements.tconstruct.world.slime_sling.description": "Sufficiently use each of the 4 slime sling types",
   "advancements.tconstruct.world.piggybackpack.title": "Pig Piggyback",
-  "advancements.tconstruct.world.piggybackpack.description": "Pick up a pig with a piggybackpack"
+  "advancements.tconstruct.world.piggybackpack.description": "Pick up a pig with a piggybackpack",
+  "advancements.tconstruct.world.encyclopedia.title": "Encyclopedia",
+  "advancements.tconstruct.world.encyclopedia.description": "Craft the encyclopedia of materials with your knowledge from exploration"
 
 }
 

@@ -1,0 +1,43 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/intro.json",
+    "icon": {
+      "item": {
+        "id": "minecraft:paper"
+      }
+    }
+  },
+  {
+    "name": "tier_one_materials",
+    "icon": {
+      "item": {
+        "id": "minecraft:stone"
+      }
+    }
+  },
+  {
+    "name": "tier_two_materials",
+    "icon": {
+      "item": {
+        "id": "tconstruct:copper_ingot"
+      }
+    }
+  },
+  {
+    "name": "tier_three_materials",
+    "icon": {
+      "item": {
+        "id": "tconstruct:slimesteel_ingot"
+      }
+    }
+  },
+  {
+    "name": "tier_four_materials",
+    "icon": {
+      "item": {
+        "id": "tconstruct:manyullyn_ingot"
+      }
+    }
+  }
+]

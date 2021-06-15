@@ -37,6 +37,7 @@ public class TinkerBookItem extends LecternBookItem {
     PUNY_SMELTING,
     MIGHTY_SMELTING,
     TINKERS_GADGETRY,
-    FANTASTIC_FOUNDRY
+    FANTASTIC_FOUNDRY,
+    ENCYCLOPEDIA
   }
 }

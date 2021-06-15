@@ -271,6 +271,8 @@ public class AdvancementsProvider extends GenericDataProvider {
       IntBound mojangDeletedTheMaxMethods = IntBound.fromJson(boundJSON);
       TinkerGadgets.slimeSling.forEach((type, sling) -> builder.withCriterion(type.getString(), ItemDurabilityTrigger.Instance.create(AndPredicate.ANY_AND, ItemPredicate.Builder.create().item(sling).build(), mojangDeletedTheMaxMethods)));
     });
+    builder(TinkerCommons.encyclopedia, location("world/encyclopedia"), slimes, FrameType.GOAL, builder ->
+      builder.withCriterion("crafted_book", hasItem(TinkerCommons.encyclopedia)));
     builder(TinkerGadgets.piggyBackpack, location("world/piggybackpack"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.withCriterion("used_pack", PlayerEntityInteractionTrigger.Instance.create(AndPredicate.ANY_AND, ItemPredicate.Builder.create().item(TinkerGadgets.piggyBackpack), EntityPredicate.AndPredicate.createAndFromEntityCondition(EntityPredicate.Builder.create().type(EntityType.PIG).build()))));
   }
