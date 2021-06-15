@@ -49,8 +49,9 @@ public class SlotInformationLoader extends JsonReloadListener {
       ResourceLocation location = entry.getKey();
       try {
         JsonObject json = entry.getValue().getAsJsonObject();
-
-        this.slotInformationMap.put(location, SlotInformation.fromJson(json));
+        if (!json.entrySet().isEmpty()) {
+          this.slotInformationMap.put(location, SlotInformation.fromJson(json));
+        }
       }
       catch (Exception e) {
         log.warn("Exception loading slot information '{}': {}", location, e.getMessage());

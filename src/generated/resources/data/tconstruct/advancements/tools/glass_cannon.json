@@ -1,0 +1,46 @@
+{
+  "parent": "tconstruct:tools/modified",
+  "display": {
+    "icon": {
+      "item": "tconstruct:cleaver",
+      "nbt": "{tic_broken:0b,tic_display_tool:1b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\"]}"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.tools.glass_cannon.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.tools.glass_cannon.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "crafted_tool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "stats": [
+              {
+                "stat": "tconstruct:durability",
+                "max": 100.0
+              },
+              {
+                "stat": "tconstruct:attack_damage",
+                "min": 20.0
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crafted_tool"
+    ]
+  ]
+}

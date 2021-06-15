@@ -83,6 +83,10 @@ public class SmelteryTankRenderer {
       // determine x and z bounds, constant
       int xd = tankMaxPos.getX() - tankMinPos.getX();
       int zd = tankMaxPos.getZ() - tankMinPos.getZ();
+      // somehow people are getting a rendering crash with these being negative, no idea how but easy to catch
+      if (xd < 0 || zd < 0) {
+        return;
+      }
       float[] xBounds = getBlockBounds(xd);
       float[] zBounds = getBlockBounds(zd);
 

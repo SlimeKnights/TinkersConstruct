@@ -24,12 +24,14 @@ public class TinkerBook extends BookData {
   private static final ResourceLocation PUNY_SMELTING_ID = Util.getResource("puny_smelting");
   private static final ResourceLocation TINKERS_GADGETRY_ID = Util.getResource("tinkers_gadgetry");
   private static final ResourceLocation FANTASTIC_FOUNDRY_ID = Util.getResource("fantastic_foundry");
+  private static final ResourceLocation ENCYCLOPEDIA_ID = Util.getResource("encyclopedia");
 
   public final static BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID.toString(), false, false);
   public final static BookData PUNY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
   public final static BookData MIGHTY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
   public final static BookData TINKERS_GADGETRY = BookLoader.registerBook(TINKERS_GADGETRY_ID.toString(), false, false);
   public final static BookData FANTASTIC_FOUNDRY = BookLoader.registerBook(FANTASTIC_FOUNDRY_ID.toString(), false, false);
+  public final static BookData ENCYCLOPEDIA = BookLoader.registerBook(ENCYCLOPEDIA_ID.toString(), false, false);
 
   /**
    * Initializes the books
@@ -48,6 +50,7 @@ public class TinkerBook extends BookData {
     addData(MIGHTY_SMELTING, MIGHTY_SMELTING_ID);
     addData(TINKERS_GADGETRY, TINKERS_GADGETRY_ID);
     addData(FANTASTIC_FOUNDRY, FANTASTIC_FOUNDRY_ID);
+    addData(ENCYCLOPEDIA, ENCYCLOPEDIA_ID);
   }
 
   /**
@@ -78,7 +81,7 @@ public class TinkerBook extends BookData {
    */
   public static BookData getBook(BookType bookType) {
     switch (bookType) {
-      case MATERIALS_AND_YOU:
+      default: case MATERIALS_AND_YOU:
         return MATERIALS_AND_YOU;
       case PUNY_SMELTING:
         return PUNY_SMELTING;
@@ -88,7 +91,8 @@ public class TinkerBook extends BookData {
         return TINKERS_GADGETRY;
       case FANTASTIC_FOUNDRY:
         return FANTASTIC_FOUNDRY;
+      case ENCYCLOPEDIA:
+        return ENCYCLOPEDIA;
     }
-    return MATERIALS_AND_YOU;
   }
 }

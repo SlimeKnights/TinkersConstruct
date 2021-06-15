@@ -20,7 +20,7 @@ import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
@@ -363,7 +363,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .addInput(TinkerMaterials.copper.getIngotTag())
-                         .addInput(Items.RABBIT_FOOT)
+                         .addInput(Blocks.CORNFLOWER)
                          .addInput(TinkerMaterials.copper.getIngotTag())
                          .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
                          .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
@@ -373,7 +373,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
                          .addInput(Tags.Items.INGOTS_GOLD)
-                         .addInput(Items.RABBIT_FOOT)
+                         .addInput(Items.GOLDEN_CARROT)
                          .addInput(Tags.Items.INGOTS_GOLD)
                          .addInput(Tags.Items.ENDER_PEARLS)
                          .addInput(Tags.Items.ENDER_PEARLS)

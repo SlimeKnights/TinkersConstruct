@@ -1,12 +1,15 @@
 package slimeknights.tconstruct.tools;
 
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -15,6 +18,7 @@ import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
+import slimeknights.tconstruct.library.tools.ToolPredicate;
 import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
@@ -86,6 +90,11 @@ public final class TinkerTools extends TinkerModule {
   /*
    * Events
    */
+
+  @SubscribeEvent
+  void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+    ItemPredicate.register(ToolPredicate.ID, ToolPredicate::deserialize);
+  }
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {

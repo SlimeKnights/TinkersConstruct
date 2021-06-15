@@ -7,8 +7,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.mantle.recipe.RecipeSerializer;
-import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 
 import javax.annotation.Nullable;
 
@@ -17,7 +16,7 @@ import javax.annotation.Nullable;
  * @param <T>  Recipe output class type
  */
 @AllArgsConstructor
-public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> extends RecipeSerializer<T> {
+public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> extends LoggingRecipeSerializer<T> {
   private final ContainerFillingRecipeSerializer.IFactory<T> factory;
 
   @Override
@@ -30,28 +29,18 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
 
   @Nullable
   @Override
-  public T read(ResourceLocation recipeId, PacketBuffer buffer) {
-    try {
-      String group = buffer.readString(Short.MAX_VALUE);
-      int fluidAmount = buffer.readInt();
-      Item result = RecipeHelper.readItem(buffer);
-      return this.factory.create(recipeId, group, fluidAmount, result);
-    } catch (Exception e) {
-      TConstruct.log.error("Error reading container filling recipe from packet.", e);
-      throw e;
-    }
+  protected T readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
+    String group = buffer.readString(Short.MAX_VALUE);
+    int fluidAmount = buffer.readInt();
+    Item result = RecipeHelper.readItem(buffer);
+    return this.factory.create(recipeId, group, fluidAmount, result);
   }
 
   @Override
-  public void write(PacketBuffer buffer, T recipe) {
-    try {
-      buffer.writeString(recipe.group);
-      buffer.writeInt(recipe.fluidAmount);
-      RecipeHelper.writeItem(buffer, recipe.container);
-    } catch (Exception e) {
-      TConstruct.log.error("Error writing container filling recipe to packet.", e);
-      throw e;
-    }
+  protected void writeSafe(PacketBuffer buffer, T recipe) {
+    buffer.writeString(recipe.group);
+    buffer.writeInt(recipe.fluidAmount);
+    RecipeHelper.writeItem(buffer, recipe.container);
   }
 
   /**

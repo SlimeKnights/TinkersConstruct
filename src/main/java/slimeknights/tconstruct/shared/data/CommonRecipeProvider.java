@@ -13,8 +13,8 @@ import net.minecraft.util.IItemProvider;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.common.conditions.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialValues;
@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -78,6 +79,16 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                           .addIngredient(TinkerSmeltery.netherGrout)
                           .addCriterion("has_item", hasItem(TinkerSmeltery.netherGrout))
                           .build(consumer, prefix(TinkerCommons.fantasticFoundry, "common/"));
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.encyclopedia)
+                          .addIngredient(Items.BOOK)
+                          .addIngredient(SlimeType.EARTH.getSlimeBallTag())
+                          .addIngredient(SlimeType.SKY.getSlimeBallTag())
+                          .addIngredient(SlimeType.BLOOD.getSlimeBallTag())
+                          .addIngredient(Items.MAGMA_CREAM)
+                          .addIngredient(SlimeType.ICHOR.getSlimeBallTag())
+                          .addIngredient(SlimeType.ENDER.getSlimeBallTag())
+                          .addCriterion("has_item", hasItem(SlimeType.ENDER.getSlimeBallTag()))
+                          .build(consumer, prefix(TinkerCommons.encyclopedia, "common/"));
 
     // glass
     folder = "common/glass/";

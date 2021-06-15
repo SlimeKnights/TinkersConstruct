@@ -1,7 +1,9 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "item": "tconstruct:scorched_ingot_tank"
+    "type": "forge:nbt",
+    "item": "tconstruct:scorched_ingot_tank",
+    "count": 1
   },
   "result": {
     "fluid": "tconstruct:scorched_stone",

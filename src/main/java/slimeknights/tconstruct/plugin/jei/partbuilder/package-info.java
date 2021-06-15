@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.common.conditions;
+package slimeknights.tconstruct.plugin.jei.partbuilder;
 
 import mcp.MethodsReturnNonnullByDefault;
 

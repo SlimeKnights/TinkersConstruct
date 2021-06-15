@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "minecraft:slime_block"
   },
-  "value": 5,
+  "value": 9,
   "needed": 1,
   "material": "tconstruct:slimewood"
 }

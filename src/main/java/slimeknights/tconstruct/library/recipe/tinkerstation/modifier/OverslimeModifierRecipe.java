@@ -11,9 +11,9 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Lazy;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
@@ -176,7 +176,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     return RESULT.get();
   }
 
-  public static class Serializer extends RecipeSerializer<OverslimeModifierRecipe> {
+  public static class Serializer extends LoggingRecipeSerializer<OverslimeModifierRecipe> {
     @Override
     public OverslimeModifierRecipe read(ResourceLocation id, JsonObject json) {
       Ingredient ingredient = Ingredient.deserialize(JsonHelper.getElement(json, "ingredient"));
@@ -186,14 +186,14 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
     @Nullable
     @Override
-    public OverslimeModifierRecipe read(ResourceLocation id, PacketBuffer buffer) {
+    protected OverslimeModifierRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
       Ingredient ingredient = Ingredient.read(buffer);
       int restoreAmount = buffer.readVarInt();
       return new OverslimeModifierRecipe(id, ingredient, restoreAmount);
     }
 
     @Override
-    public void write(PacketBuffer buffer, OverslimeModifierRecipe recipe) {
+    protected void writeSafe(PacketBuffer buffer, OverslimeModifierRecipe recipe) {
       recipe.ingredient.write(buffer);
       buffer.writeVarInt(recipe.restoreAmount);
     }

@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.tables.inventory.table.partbuilder;
+package slimeknights.tconstruct.common.json;
 
 import mcp.MethodsReturnNonnullByDefault;
 

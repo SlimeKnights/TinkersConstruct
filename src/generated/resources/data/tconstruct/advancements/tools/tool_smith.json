@@ -1,0 +1,166 @@
+{
+  "parent": "tconstruct:tools/tinker_tool",
+  "display": {
+    "icon": {
+      "item": "tconstruct:vein_hammer",
+      "nbt": "{tic_broken:0b,tic_display_tool:1b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\"]}"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.tools.tool_smith.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.tools.tool_smith.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:pickaxe"
+          }
+        ]
+      }
+    },
+    "sledge_hammer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:sledge_hammer"
+          }
+        ]
+      }
+    },
+    "vein_hammer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:vein_hammer"
+          }
+        ]
+      }
+    },
+    "mattock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:mattock"
+          }
+        ]
+      }
+    },
+    "excavator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:excavator"
+          }
+        ]
+      }
+    },
+    "hand_axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:hand_axe"
+          }
+        ]
+      }
+    },
+    "broad_axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:broad_axe"
+          }
+        ]
+      }
+    },
+    "kama": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:kama"
+          }
+        ]
+      }
+    },
+    "scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:scythe"
+          }
+        ]
+      }
+    },
+    "sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:sword"
+          }
+        ]
+      }
+    },
+    "cleaver": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:cleaver"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "pickaxe"
+    ],
+    [
+      "sledge_hammer"
+    ],
+    [
+      "vein_hammer"
+    ],
+    [
+      "mattock"
+    ],
+    [
+      "excavator"
+    ],
+    [
+      "hand_axe"
+    ],
+    [
+      "broad_axe"
+    ],
+    [
+      "kama"
+    ],
+    [
+      "scythe"
+    ],
+    [
+      "sword"
+    ],
+    [
+      "cleaver"
+    ]
+  ]
+}

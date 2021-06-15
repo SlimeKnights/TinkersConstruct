@@ -1,32 +1,34 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import slimeknights.mantle.recipe.ICommonRecipe;
+import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-import java.util.Optional;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Recipe to make a tool part from a material item in the part builder
  */
-@AllArgsConstructor
-public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
+@RequiredArgsConstructor
+public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartRecipe> {
   @Getter
   protected final ResourceLocation id;
   @Getter
   protected final String group;
   @Getter
-  protected final ResourceLocation pattern;
+  protected final Pattern pattern;
   /** Recipe material cost */
   @Getter
   protected final int cost;
@@ -36,31 +38,31 @@ public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
   protected final int outputCount;
 
   @Override
-  public IRecipeType<?> getType() {
-    return RecipeTypes.PART_BUILDER;
-  }
-
-  @Override
-  public ItemStack getIcon() {
-    return new ItemStack(TinkerTables.partBuilder);
-  }
-
-  @Override
   public IRecipeSerializer<?> getSerializer() {
     return TinkerTables.partRecipeSerializer.get();
   }
 
-  /**
-   * Checks if the recipe supports the given pattern, used to filter out the button list
-   * @param inv  Inventory instance
-   * @return  True if the recipe matches the given pattern
-   */
-  public boolean matchesPattern(IPartBuilderInventory inv) {
-    return inv.getPatternStack().getItem() == TinkerTables.pattern.get();
+  @Override
+  public boolean partialMatch(IPartBuilderInventory inv) {
+    // first, must have a pattern
+    if (inv.getPatternStack().getItem() != TinkerTables.pattern.get()) {
+      return false;
+    }
+    // if there is a material item, it must have a valid material and be craftable
+    if (!inv.getStack().isEmpty()) {
+      MaterialRecipe materialRecipe = inv.getMaterial();
+      if (materialRecipe == null) {
+        return false;
+      }
+      IMaterial material = materialRecipe.getMaterial();
+      return material.isCraftable() && output.canUseMaterial(material);
+    }
+    // no material item? return match in case we get one later
+    return true;
   }
 
   /**
-   * Checks if the recipe is valid for the given input. Assumes {@link #matchesPattern(IPartBuilderInventory)} is true
+   * Checks if the recipe is valid for the given input. Assumes {@link #partialMatch(IPartBuilderInventory)} is true
    * @param inv    Inventory instance
    * @param world  World instance
    * @return  True if this recipe matches
@@ -76,17 +78,6 @@ public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
              && inv.getStack().getCount() >= materialRecipe.getItemsUsed(cost);
     }
     return false;
-  }
-
-  /**
-   * Gets the number of material items consumed by this recipe
-   * @param inv  Crafting inventory
-   * @return  Number of items consumed
-   */
-  public int getItemsUsed(IPartBuilderInventory inv) {
-    return Optional.ofNullable(inv.getMaterial())
-                   .map(mat -> mat.getItemsUsed(cost))
-                   .orElse(1);
   }
 
   /** @deprecated use {@link #getRecipeOutput(IMaterial)} */
@@ -116,5 +107,21 @@ public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
       material = materialRecipe.getMaterial();
     }
     return this.getRecipeOutput(material);
+  }
+
+  /** Cache of recipes for display in JEI */
+  @Nullable
+  private List<ItemPartRecipe> multiRecipes;
+
+  @Override
+  public List<ItemPartRecipe> getRecipes() {
+    if (multiRecipes == null) {
+      multiRecipes = MaterialRegistry
+        .getMaterials().stream()
+        .filter(mat -> mat.isCraftable() && output.canUseMaterial(mat))
+        .map(mat -> new ItemPartRecipe(id, mat.getIdentifier(), pattern, getCost(), ItemOutput.fromStack(output.withMaterial(mat))))
+        .collect(Collectors.toList());
+    }
+    return multiRecipes;
   }
 }

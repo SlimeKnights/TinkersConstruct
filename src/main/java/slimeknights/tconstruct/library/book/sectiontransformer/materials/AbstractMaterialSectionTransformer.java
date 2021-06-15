@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.book.sectiontransformer.materials;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -25,7 +24,6 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
@@ -62,15 +60,11 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
 
     for (IMaterial material : materialList) {
       assert Minecraft.getInstance().world != null;
-      List<MaterialRecipe> recipes = RecipeHelper.getJEIRecipes(Minecraft.getInstance().world.getRecipeManager(), RecipeTypes.MATERIAL, MaterialRecipe.class).stream().filter(recipe -> recipe.getMaterial() == material).collect(Collectors.toList());
+      List<MaterialRecipe> recipes = RecipeHelper.getUIRecipes(Minecraft.getInstance().world.getRecipeManager(), RecipeTypes.MATERIAL, MaterialRecipe.class, recipe -> recipe.getMaterial() == material);
       List<ItemStack> displayStacks = new ArrayList<>();
 
       for (MaterialRecipe recipe : recipes) {
-        for (Ingredient ingredient : recipe.getIngredients()) {
-          if (!ingredient.hasNoMatchingItems()) {
-            displayStacks.addAll(Arrays.asList(ingredient.getMatchingStacks()));
-          }
-        }
+        displayStacks.addAll(recipe.getDisplayItems());
       }
 
       PageData page = this.addPage(sectionData, material.getIdentifier().toString(), ContentMaterial.ID, this.getPageContent(material, displayStacks));

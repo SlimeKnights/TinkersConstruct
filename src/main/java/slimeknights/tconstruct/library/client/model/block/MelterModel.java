@@ -30,7 +30,7 @@ public class MelterModel extends TankModel {
   private final List<ModelItem> items;
   @SuppressWarnings("WeakerAccess")
   protected MelterModel(SimpleBlockModel model, @Nullable SimpleBlockModel gui, IncrementalFluidCuboid fluid, List<ModelItem> items) {
-    super(model, gui, fluid);
+    super(model, gui, fluid, false);
     this.items = items;
   }
 

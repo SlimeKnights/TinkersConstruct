@@ -10,7 +10,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants.NBT;
-import slimeknights.mantle.recipe.RecipeSerializer;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -218,7 +218,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   }
 
   /** Shared serializer logic */
-  public static abstract class Serializer<T extends AbstractModifierRecipe> extends RecipeSerializer<T> {
+  public static abstract class Serializer<T extends AbstractModifierRecipe> extends LoggingRecipeSerializer<T> {
     /**
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
@@ -263,7 +263,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     }
 
     @Override
-    public final T read(ResourceLocation id, PacketBuffer buffer) {
+    protected final T readSafe(ResourceLocation id, PacketBuffer buffer) {
       Ingredient toolRequirement = Ingredient.read(buffer);
       ModifierMatch requirements = ModifierMatch.read(buffer);
       String requirementsError = buffer.readString(Short.MAX_VALUE);
@@ -276,7 +276,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
     /** Writes relevant packet data. When overriding, call super first for consistency with {@link #read(ResourceLocation, PacketBuffer)} */
     @Override
-    public void write(PacketBuffer buffer, T recipe) {
+    protected void writeSafe(PacketBuffer buffer, T recipe) {
       recipe.toolRequirement.write(buffer);
       recipe.requirements.write(buffer);
       buffer.writeString(recipe.requirementsError);

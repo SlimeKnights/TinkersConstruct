@@ -2,8 +2,9 @@ package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.crafting.LazyResultInventory;
 
@@ -13,7 +14,9 @@ import javax.annotation.Nullable;
 public class TinkerStationInputSlot extends TinkerStationSlot {
   private final LazyResultInventory craftResult;
   @Nullable @Getter @Setter
-  private ResourceLocation icon;
+  private Pattern icon;
+  @Nullable @Getter @Setter
+  private Item filter;
 
   public TinkerStationInputSlot(TinkerStationTileEntity tile, int index, int xPosition, int yPosition) {
     super(tile, index, xPosition, yPosition);
@@ -26,8 +29,8 @@ public class TinkerStationInputSlot extends TinkerStationSlot {
     if (this.isDormant()) {
       return false;
     }
-
-    return super.isItemValid(stack);
+    // if we have a filter, use the filter
+    return filter == null || filter == stack.getItem();
   }
 
   @Override

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.common.network;
+package slimeknights.tconstruct.common.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;

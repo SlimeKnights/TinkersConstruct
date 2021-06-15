@@ -15,7 +15,7 @@ import java.util.List;
 /** Slot information to show in the tool station */
 @RequiredArgsConstructor
 public class SlotInformation {
-  public static final SlotInformation EMPTY = new SlotInformation(Collections.emptyList(), SlotPosition.EMPTY, Items.AIR, -1);
+  public static final SlotInformation EMPTY = new SlotInformation(Collections.emptyList(), SlotPosition.EMPTY, Items.AIR, -1, false);
 
   @Getter
   private final List<SlotPosition> points;
@@ -25,6 +25,8 @@ public class SlotInformation {
   private final Item item;
   @Getter
   private final int sortIndex;
+  @Getter
+  private final boolean strictSlots;
 
   /** Cache of the tool rendering stack */
   private ItemStack toolForRendering;
@@ -38,20 +40,20 @@ public class SlotInformation {
   public static SlotInformation fromJson(JsonObject json) {
     List<SlotPosition> slots = SlotPosition.listFromJson(json, "slots");
     Item item = Items.AIR;
-
     if (json.has("item")) {
       item = JSONUtils.getItem(json, "item");
     }
 
     SlotPosition slotPosition = new SlotPosition(-1, -1);
-
     if (json.has("tool")) {
-      slotPosition = SlotPosition.fromJson(json.get("tool").getAsJsonObject());
+      slotPosition = SlotPosition.fromJson(JSONUtils.getJsonObject(json, "tool"));
     }
 
     int sortIndex = JSONUtils.getInt(json, "sortIndex");
+    // strict defaults to true if its a tool core as it has a definition to be strict
+    boolean strictSlots = JSONUtils.getBoolean(json, "strictSlots", item instanceof ToolCore);
 
-    return new SlotInformation(slots, slotPosition, item, sortIndex);
+    return new SlotInformation(slots, slotPosition, item, sortIndex, strictSlots);
   }
 
   /**

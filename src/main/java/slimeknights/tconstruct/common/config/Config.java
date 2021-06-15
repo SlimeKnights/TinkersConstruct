@@ -158,7 +158,7 @@ public class Config {
       this.earthSlimeIslandSeparation = builder
         .comment("How many chunks on average between islands")
         .worldRestart()
-        .defineInRange("separation", 15, 10, 500);
+        .defineInRange("separation", 25, 10, 500);
       builder.pop();
 
       builder.comment("Settings for sky slime islands in the overworld sky").push("sky");

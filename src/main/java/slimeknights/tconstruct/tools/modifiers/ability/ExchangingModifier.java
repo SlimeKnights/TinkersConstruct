@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -13,7 +14,9 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.BlockFlags;
+import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
@@ -32,7 +35,7 @@ public class ExchangingModifier extends SingleUseModifier {
   public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
     // must have blocks in the offhand
     ItemStack offhand = player.getHeldItemOffhand();
-    if (!isEffective || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem)) {
+    if ((!isEffective && state.getBlockHardness(world, pos) > 0) || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem)) {
       return null;
     }
 
@@ -63,6 +66,9 @@ public class ExchangingModifier extends SingleUseModifier {
     // swap the block, it never goes to air so things like torches will remain
     ActionResultType success = blockItem.tryPlace(context);
     if (success.isSuccessOrConsume()) {
+      if (player instanceof ServerPlayerEntity) {
+        TinkerNetwork.getInstance().sendTo(new UpdateNeighborsPacket(state, pos), (ServerPlayerEntity)player);
+      }
       player.swing(Hand.OFF_HAND, false);
       return true;
     } else if (placedBlock) {

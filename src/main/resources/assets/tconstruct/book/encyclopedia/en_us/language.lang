@@ -1,0 +1,27 @@
+// Sections
+intro=Introduction
+tier_one_materials=Tier 1 Materials
+tier_two_materials=Tier 2 Materials
+tier_three_materials=Tier 3 Materials
+tier_four_materials=Tier 4 Materials
+
+modifier.effect=Effects:
+tool.properties=Properties:
+
+material.craft_partbuilder=Can be crafted in the Part Builder
+material.craft_casting=Can be cast from
+
+tier_one_materials.subtext=These materials are easy to find, and can be placed in the part builder to create tool parts
+material.tconstruct.wood.book=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
+material.tconstruct.stone.book=Rock solid
+material.tconstruct.flint.book=This will spark the flames of a tinker's heart!
+material.tconstruct.bone.book=I am the bone of my sword
+material.tconstruct.necrotic_bone.book=Do you have a bone to pick with me?
+
+tier_two_materials.subtext=These materials require melting and casting to create, and may be a bit more rare
+material.tconstruct.slimewood.book=Casting liquid earth slime on wood parts produces a durable, regenerative material!
+
+tier_three_materials.subtext=These materials require alloying, either through an alloyer or a smeltery
+material.tconstruct.nahuatl.book=An ancient material made from casting molten obsidian on wooden parts
+
+tier_four_materials.subtext=These materials cannot be found without traveling to the Nether

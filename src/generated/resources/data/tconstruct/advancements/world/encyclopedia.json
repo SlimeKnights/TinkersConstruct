@@ -1,0 +1,35 @@
+{
+  "parent": "tconstruct:world/slime_collector",
+  "display": {
+    "icon": {
+      "item": "tconstruct:encyclopedia"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.world.encyclopedia.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.world.encyclopedia.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "crafted_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:encyclopedia"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crafted_book"
+    ]
+  ]
+}
