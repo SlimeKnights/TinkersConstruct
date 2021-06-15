@@ -296,7 +296,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
 
     @Override
     protected void writeSafe(PacketBuffer buffer, IncrementalModifierRecipe recipe) {
-      super.write(buffer, recipe);
+      super.writeSafe(buffer, recipe);
       recipe.input.write(buffer);
       buffer.writeVarInt(recipe.amountPerInput);
       buffer.writeVarInt(recipe.neededPerLevel);
