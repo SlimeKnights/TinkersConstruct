@@ -79,7 +79,14 @@ public class PartBuilderTileEntity extends RetexturedTableTileEntity implements 
                        .filter(r -> r.partialMatch(inventoryWrapper))
                        .sorted(Comparator.comparing(IRecipe::getId))
                        .collect(Collectors.toMap(IPartBuilderRecipe::getPattern, Function.identity(), (a, b) -> a));
-        sortedButtons = recipes.keySet().stream().sorted().collect(Collectors.toList());
+        sortedButtons = recipes.values().stream()
+                               .sorted((a, b) -> {
+                                 if (a.getCost() != b.getCost()) {
+                                   return Integer.compare(a.getCost(), b.getCost());
+                                 }
+                                 return a.getPattern().compareTo(b.getPattern());
+                               })
+                               .map(IPartBuilderRecipe::getPattern).collect(Collectors.toList());
       }
     }
     return recipes;
