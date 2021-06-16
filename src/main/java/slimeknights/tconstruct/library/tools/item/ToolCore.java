@@ -56,6 +56,7 @@ import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -84,6 +85,8 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation SHINY = Util.getResource("shiny");
+  /** Modifier key to make a tool spawn an indestructable entity */
+  public static final ResourceLocation RARITY = Util.getResource("rarity");
 
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
   private static final ITextComponent TOOLTIP_HOLD_CTRL;
@@ -112,6 +115,24 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     // we use enchantments to handle some modifiers, so don't glow from them
     // however, if a modifier wants to glow let them
     return ToolStack.from(stack).getVolatileData().getBoolean(SHINY);
+  }
+
+  @Override
+  public Rarity getRarity(ItemStack stack) {
+    int rarity = ToolStack.from(stack).getVolatileData().getInt(RARITY);
+    return Rarity.values()[MathHelper.clamp(rarity, 0, 3)];
+  }
+
+  /**
+   * Sets the rarity of the stack
+   * @param volatileData     NBT
+   * @param rarity  Rarity, only supports vanilla values
+   */
+  public static void setRarity(ModDataNBT volatileData, Rarity rarity) {
+    int current = volatileData.getInt(RARITY);
+    if (rarity.ordinal() > current) {
+      volatileData.putInt(RARITY, rarity.ordinal());
+    }
   }
 
   @Override
@@ -768,11 +789,6 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       toolForRendering = ToolBuildHandler.buildToolForRendering(this, this.getToolDefinition());
     }
     return toolForRendering;
-  }
-
-  @Override
-  public Rarity getRarity(ItemStack stack) {
-    return Rarity.COMMON;
   }
 
 

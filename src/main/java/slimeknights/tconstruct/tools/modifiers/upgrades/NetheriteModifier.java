@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
+import net.minecraft.item.Rarity;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
@@ -18,6 +19,7 @@ public class NetheriteModifier extends SingleLevelModifier {
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     volatileData.putBoolean(ToolCore.INDESTRUCTIBLE_ENTITY, true);
+    ToolCore.setRarity(volatileData, Rarity.RARE);
   }
 
   @Override
