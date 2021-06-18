@@ -23,7 +23,7 @@ tool.properties=특징:
 material.craft_partbuilder=부품 제작대로 제작할 수 있습니다
 material.craft_casting=이 블록으로 %s을(를) 주조할 수 있습니다
 
-tier_one_materials.subtext=재료는 도구를 만들 때 필요한 가장 중요한 아이템입니다. 이러한 재료를 사용하여, 부품 제작대에서 도구 부품을 제작할 수 있습니다.
+tier_one_materials.subtext=재료는 도구를 만들 때 필요한 가장 중요한 아이템입니다. 이 재료를 사용하여, 부품 제작대에서 도구 부품을 제작할 수 있습니다
 material.tconstruct.wood.book=나무 도끼로 나무를 나무낼 수 있다면 나무 도끼로 얼마나 많은 나무를 나무낼 수 있을까?
 material.tconstruct.stone.book=바위처럼 단단한
 material.tconstruct.flint.book=팅커의 심장에 불꽃을 튀긴다!
