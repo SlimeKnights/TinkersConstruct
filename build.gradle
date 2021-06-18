@@ -13,7 +13,7 @@ buildscript {
         jcenter()
         maven {
             name = "forge"
-            url = "https://files.minecraftforge.net/maven"
+            url = "https://maven.minecraftforge.net/"
         }
         maven {
             name = "sonatype"
@@ -32,7 +32,7 @@ plugins {
 repositories {
     maven {
         name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven'
+        url 'https://dvs1.progwml6.com/files/maven'
     }
     maven { // TOP
         name 'tterrag maven'
@@ -44,7 +44,7 @@ repositories {
     }
     maven {
         name 'forge'
-        url 'https://files.minecraftforge.net/maven'
+        url 'https://maven.minecraftforge.net/'
     }
     maven {
          name "Tehnut Maven FS"
