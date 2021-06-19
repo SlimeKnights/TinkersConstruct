@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.world;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Sets;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -36,6 +37,8 @@ import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureC
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Contains any logic relevant to structure generation, including trees and islands
@@ -131,7 +134,11 @@ public final class TinkerStructures extends TinkerModule {
 
     // add to the default for anyone creating dimension settings later, hopefully its soon enough
     ImmutableMap.Builder<Structure<?>, StructureSeparationSettings> builder = ImmutableMap.builder();
-    builder.putAll(DimensionStructuresSettings.field_236191_b_);
+    // skip old values that match one of the islands, we are replacing those
+    Set<Structure<?>> ignore = Sets.newHashSet(earthSlimeIsland.get(), skySlimeIsland.get(), clayIsland.get(), bloodSlimeIsland.get(), endSlimeIsland.get());
+    builder.putAll(DimensionStructuresSettings.field_236191_b_.entrySet().stream()
+                                                              .filter(entry -> !ignore.contains(entry.getKey())).collect(Collectors.toList()));
+    // add new islands
     builder.put(earthSlimeIsland.get(), earthSettings);
     builder.put(skySlimeIsland.get(), skySettings);
     builder.put(clayIsland.get(), claySettings);
