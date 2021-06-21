@@ -119,7 +119,7 @@ public class FluidTransferUtil {
     ItemStack stack = player.getHeldItem(hand);
     Direction face = hit.getFace();
     // fetch capability before copying, bit more work when its a fluid handler, but saves copying time when its not
-    if (stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent()) {
+    if (!stack.isEmpty() && stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent()) {
       // only server needs to transfer stuff
       if (!world.isRemote) {
         TileEntity te = world.getTileEntity(pos);
