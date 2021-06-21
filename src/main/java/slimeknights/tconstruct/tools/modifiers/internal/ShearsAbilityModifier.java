@@ -116,7 +116,7 @@ public class ShearsAbilityModifier extends SingleUseModifier {
   }
 
   @Override
-  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
+  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective, boolean isAOEBlock) {
     if (isShears(tool) && state.getBlock() instanceof TripWireBlock) {
       world.setBlockState(pos, state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
     }

@@ -107,7 +107,7 @@ public class MeltingModifier extends TankModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown) {
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
     // must have done damage, and must be fully charged
     if (damageDealt > 0 && cooldown > 0.9) {
       // first, find the proper recipe

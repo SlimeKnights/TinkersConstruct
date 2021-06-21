@@ -533,7 +533,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterBlockBreak(IModifierToolStack, int, World, BlockState, BlockPos, LivingEntity, boolean, boolean)}: Called after the block is successfully removed.</li>
+   *   <li>{@link #afterBlockBreak(IModifierToolStack, int, World, BlockState, BlockPos, LivingEntity, boolean, boolean, boolean)}: Called after the block is successfully removed.</li>
    * </ul>
    * @param tool         Tool used
    * @param level        Modifier level
@@ -543,10 +543,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param state        State being broken
    * @param canHarvest   If true, the block will drop its drops
    * @param isEffective  If true, the player can canHarvest the block. False is typically creative
+   * @param isAOEBlock   If true, this block was broken by AOE harvesting. False is the block directly targeted by the tool
    * @return  True to override the default block removing logic and stop all later modifiers from running. False to override default without breaking the block. Null to let default logic run
    */
   @Nullable
-  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
+  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective, boolean isAOEBlock) {
     return null;
   }
 
@@ -555,7 +556,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #removeBlock(IModifierToolStack, int, PlayerEntity, World, BlockPos, BlockState, boolean, boolean)}: Called before the block is set to air.</li>
+   *   <li>{@link #removeBlock(IModifierToolStack, int, PlayerEntity, World, BlockPos, BlockState, boolean, boolean, boolean)}: Called before the block is set to air.</li>
    * </ul>
    * @param tool          Tool used
    * @param level         Modifier level
@@ -565,8 +566,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param living        Entity breaking the block
    * @param canHarvest    If true, the block dropped items
    * @param wasEffective  If true, tool was effective at breaking this block
+   * @param isAOEBlock    If true, this block was broken by AOE harvesting. False is the block directly targeted by the tool
    */
-  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean canHarvest, boolean wasEffective) {}
+  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean canHarvest, boolean wasEffective, boolean isAOEBlock) {}
 
 
   /* Attack hooks */
@@ -577,8 +579,8 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
-   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, float)}: Perform special attacks on entity hit beyond damage boosts</li>
-   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Apply effects that must run before hit</li>
+   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, float, boolean)}: Perform special attacks on entity hit beyond damage boosts</li>
+   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean, boolean)}: Apply effects that must run before hit</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
@@ -588,19 +590,20 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param damage        Computed damage from all prior modifiers
    * @param isCritical    If true, this attack is a critical hit
    * @param fullyCharged  If true, this attack was fully charged (could perform a sword sweep)
+   * @param isExtraAttack If true, this attack is targeting a secondary entity, such as through the scythe sweep attack
    * @return  New damage to deal
    */
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
+  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
     return damage;
   }
 
   /**
    * Called right before an entity is hit, used to modify knockback applied or to apply special effects that need to run before damage. Damage is final damage including critical damage.
-   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean)} will run.
+   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean, boolean)} will run.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, float)}: Perform special attacks on entity hit beyond knockback boosts</li>
+   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, float, boolean)}: Perform special attacks on entity hit beyond knockback boosts</li>
    * </ul>
    * @param tool           Tool used to attack
    * @param level          Modifier level
@@ -611,9 +614,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param knockback      Computed knockback from all prior modifiers
    * @param isCritical     If true, this attack is a critical hit
    * @param fullyCharged   If true, this attack was fully charged (could perform a sword sweep)
+   * @param isExtraAttack If true, this attack is targeting a secondary entity, such as through the scythe sweep attack
    * @return  New knockback to apply. 0.5 is equivelent to 1 level of the vanilla enchant
    */
-  public float beforeLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged) {
+  public float beforeLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
     return knockback;
   }
 
@@ -623,9 +627,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Adjusts the base tool stats that affect damage</li>
-   *   <li>{@link #applyLivingDamage(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, boolean, boolean)}: Change the amount of damage dealt with attacker context</li>
-   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Change the amount of knockback dealt</li>
-   *   <li>{@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean)}: Called after living hit when damage was not dealt</li>
+   *   <li>{@link #applyLivingDamage(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, boolean, boolean, boolean)}: Change the amount of damage dealt with attacker context</li>
+   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean, boolean)}: Change the amount of knockback dealt</li>
+   *   <li>{@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean, boolean)}: Called after living hit when damage was not dealt</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
@@ -634,9 +638,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param damageDealt   Amount of damage successfully dealt
    * @param isCritical    If true, this attack is a critical hit
    * @param cooldown      Current attack cooldown
+   * @param isExtraAttack If true, this attack is targeting a secondary entity, such as through the scythe sweep attack
    * @return  Extra damage to deal to the tool
    */
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown) {
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
     return 0;
   }
 
@@ -648,8 +653,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param target        Entity being attacked
    * @param isCritical    If true, this attack is a critical hit
    * @param fullyCharged  If true, this attack was fully charged (could perform a sword sweep)
+   * @param isExtraAttack If true, this attack is targeting a secondary entity, such as through the scythe sweep attack
    */
-  public void failedLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, boolean isCritical, boolean fullyCharged) {}
+  public void failedLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {}
 
 
   /* Display */

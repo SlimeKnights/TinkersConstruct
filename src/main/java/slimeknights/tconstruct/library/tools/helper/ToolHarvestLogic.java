@@ -138,13 +138,14 @@ public class ToolHarvestLogic {
    * @param pos         Position to break
    * @param canHarvest  If true, the block will drop items
    * @param isEffective If true, the tool is effective against this block
+   * @param isAOEBlock   If true, this block is being broken by AOE rather than being directly targeted
    * @return  True if the block was removed
    */
-  private boolean removeBlock(IModifierToolStack tool, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
+  private boolean removeBlock(IModifierToolStack tool, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective, boolean isAOEBlock) {
     Boolean removed = null;
     if (!tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
-        removed = entry.getModifier().removeBlock(tool, entry.getLevel(), player, world, pos, state, canHarvest, isEffective);
+        removed = entry.getModifier().removeBlock(tool, entry.getLevel(), player, world, pos, state, canHarvest, isEffective, isAOEBlock);
         if (removed != null) {
           break;
         }
@@ -169,10 +170,11 @@ public class ToolHarvestLogic {
    * @param world        World instance
    * @param pos          Position to break
    * @param state        State being broken
+   * @param isAOEBlock   If true, this block is being broken by AOE rather than being directly targeted
    * @param isEffective  If true, the tool is effective against the targeted block
    * @return  True if broken
    */
-  protected boolean breakBlock(ToolStack tool, ItemStack stack, ServerPlayerEntity player, ServerWorld world, BlockPos pos, BlockState state, boolean isEffective) {
+  protected boolean breakBlock(ToolStack tool, ItemStack stack, ServerPlayerEntity player, ServerWorld world, BlockPos pos, BlockState state, boolean isEffective, boolean isAOEBlock) {
     // have to rerun the event to get the EXP, also ensures extra blocks broken get EXP properly
     GameType type = player.interactionManager.getGameType();
     int exp = ForgeHooks.onBlockBreakEvent(world, type, player, pos);
@@ -186,7 +188,7 @@ public class ToolHarvestLogic {
 
     // creative just removes the block
     if (player.isCreative()) {
-      removeBlock(tool, player, world, pos, state, false, isEffective);
+      removeBlock(tool, player, world, pos, state, false, isEffective, isAOEBlock);
       return true;
     }
 
@@ -197,7 +199,7 @@ public class ToolHarvestLogic {
 
     // block harvest callbacks
     TileEntity te = canHarvest ? world.getTileEntity(pos) : null;
-    boolean removed = removeBlock(tool, player, world, pos, state, canHarvest, isEffective);
+    boolean removed = removeBlock(tool, player, world, pos, state, canHarvest, isEffective, isAOEBlock);
     if (removed && canHarvest) {
       state.getBlock().harvestBlock(world, player, pos, state, te, stack);
     }
@@ -211,7 +213,7 @@ public class ToolHarvestLogic {
     // broken means we are using "empty hand"
     if (!tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), world, state, pos, player, canHarvest, isEffective);
+        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), world, state, pos, player, canHarvest, isEffective, isAOEBlock);
       }
       ToolDamageUtil.damageAnimated(tool, damage, player);
     }
@@ -240,7 +242,7 @@ public class ToolHarvestLogic {
 
     // break the actual block
     pos = pos.toImmutable(); // prevent mutable position leak, breakBlock has a few places wanting immutable
-    if (breakBlock(tool, stack, player, world, pos, state, true)) {
+    if (breakBlock(tool, stack, player, world, pos, state, true, true)) {
       world.playEvent(WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getStateId(state));
       TinkerNetwork.getInstance().sendVanillaPacket(player, new SChangeBlockPacket(world, pos));
     }
@@ -269,7 +271,7 @@ public class ToolHarvestLogic {
     // if broken, clear the item stack temporarily then break
     if (tool.isBroken()) {
       player.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
-      breakBlock(tool, ItemStack.EMPTY, serverPlayer, world, pos, state, false);
+      breakBlock(tool, ItemStack.EMPTY, serverPlayer, world, pos, state, false, false);
       player.setHeldItem(Hand.MAIN_HAND, stack);
     } else {
       // add enchants
@@ -281,7 +283,7 @@ public class ToolHarvestLogic {
       Iterable<BlockPos> extraBlocks = isEffective ? getAOEBlocks(tool, stack, player, state, world, pos, sideHit, AOEMatchType.BREAKING) : Collections.emptyList();
 
       // actually break the block, run AOE if successful
-      if (breakBlock(tool, stack, serverPlayer, world, pos, state, isEffective)) {
+      if (breakBlock(tool, stack, serverPlayer, world, pos, state, isEffective, false)) {
         for (BlockPos extraPos : extraBlocks) {
           breakExtraBlock(tool, stack, serverPlayer, world, extraPos);
         }

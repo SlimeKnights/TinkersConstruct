@@ -121,7 +121,7 @@ public class ToolAttackUtil {
     List<ModifierEntry> modifiers = tool.getModifierList();
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        damage = entry.getModifier().applyLivingDamage(tool, entry.getLevel(), attackerLiving, targetLiving, baseDamage, damage, isCritical, fullyCharged);
+        damage = entry.getModifier().applyLivingDamage(tool, entry.getLevel(), attackerLiving, targetLiving, baseDamage, damage, isCritical, fullyCharged, isExtraAttack);
       }
     }
 
@@ -182,7 +182,7 @@ public class ToolAttackUtil {
     float baseKnockback = knockback;
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        knockback = entry.getModifier().beforeLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damage, baseKnockback, knockback, isCritical, fullyCharged);
+        knockback = entry.getModifier().beforeLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damage, baseKnockback, knockback, isCritical, fullyCharged, isExtraAttack);
       }
     }
 
@@ -204,7 +204,7 @@ public class ToolAttackUtil {
       // alert modifiers nothing was hit, mainly used for fiery
       if (targetLiving != null) {
         for (ModifierEntry entry : modifiers) {
-          entry.getModifier().failedLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, isCritical, fullyCharged);
+          entry.getModifier().failedLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, isCritical, fullyCharged, isExtraAttack);
         }
       }
 
@@ -268,7 +268,7 @@ public class ToolAttackUtil {
     int durabilityLost = 1;
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damageDealt, isCritical, cooldown);
+        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damageDealt, isCritical, cooldown, isExtraAttack);
       }
     }
 

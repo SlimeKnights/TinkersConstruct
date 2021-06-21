@@ -16,7 +16,7 @@ public class PiercingModifier extends IncrementalModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown) {
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
     // deals 0.5 pierce damage per level, scaled, half of sharpness
     DamageSource source;
     if (attacker instanceof PlayerEntity) {

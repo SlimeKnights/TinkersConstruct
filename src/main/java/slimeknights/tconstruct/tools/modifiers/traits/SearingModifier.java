@@ -30,7 +30,7 @@ public class SearingModifier extends Modifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
+  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
     BlockPos attackerPos = attacker.getPosition();
     return damage + temperatureBoost(attacker.world.getBiome(attackerPos).getTemperature(attackerPos), level);
   }

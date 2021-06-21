@@ -287,7 +287,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     if (!worldIn.isRemote) {
       boolean isEffective = getToolHarvestLogic().isEffective(tool, stack, state);
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), worldIn, state, pos, entityLiving, true, isEffective);
+        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), worldIn, state, pos, entityLiving, true, isEffective, false);
       }
       ToolDamageUtil.damageAnimated(tool, getToolHarvestLogic().getDamage(tool, stack, worldIn, pos, state), entityLiving);
     }

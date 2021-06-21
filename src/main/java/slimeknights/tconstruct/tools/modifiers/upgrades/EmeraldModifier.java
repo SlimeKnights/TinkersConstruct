@@ -31,7 +31,7 @@ public class EmeraldModifier extends SingleLevelModifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
+  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
     if (target.getCreatureAttribute() == CreatureAttribute.ILLAGER) {
       damage += 2.5f;
     }

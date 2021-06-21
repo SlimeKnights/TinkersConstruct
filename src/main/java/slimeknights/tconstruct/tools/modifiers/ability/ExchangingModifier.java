@@ -32,7 +32,7 @@ public class ExchangingModifier extends SingleUseModifier {
   }
 
   @Override
-  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
+  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective, boolean isAOEBlock) {
     // must have blocks in the offhand
     ItemStack offhand = player.getHeldItemOffhand();
     if ((!isEffective && state.getBlockHardness(world, pos) > 0) || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem)) {
@@ -66,7 +66,7 @@ public class ExchangingModifier extends SingleUseModifier {
     // swap the block, it never goes to air so things like torches will remain
     ActionResultType success = blockItem.tryPlace(context);
     if (success.isSuccessOrConsume()) {
-      if (player instanceof ServerPlayerEntity) {
+      if (!isAOEBlock && player instanceof ServerPlayerEntity) {
         TinkerNetwork.getInstance().sendTo(new UpdateNeighborsPacket(state, pos), (ServerPlayerEntity)player);
       }
       player.swing(Hand.OFF_HAND, false);
