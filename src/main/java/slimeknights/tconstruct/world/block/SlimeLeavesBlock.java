@@ -64,7 +64,7 @@ public class SlimeLeavesBlock extends LeavesBlock {
   }
 
   private static int getDistance(BlockState neighbor) {
-    if (TinkerTags.Blocks.SLIMY_LOGS.contains(neighbor.getBlock())) {
+    if (TinkerTags.Blocks.SLIMY_TREE_TRUNKS.contains(neighbor.getBlock())) {
       return 0;
     } else {
       return neighbor.getBlock() instanceof SlimeLeavesBlock ? neighbor.get(DISTANCE) : 7;

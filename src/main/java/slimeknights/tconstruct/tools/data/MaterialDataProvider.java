@@ -29,7 +29,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMetalMaterial(MaterialIds.iron, 2, ORDER_GENERAL, TinkerFluids.moltenIron.get(), 0xD8D8D8);
     addMaterialWithFluid(MaterialIds.copper,        2, ORDER_HARVEST, TinkerFluids.moltenCopper.get(), MaterialValues.INGOT,     true,  0xF98648);
     addMaterialWithFluid(MaterialIds.searedStone,   2, ORDER_WEAPON, TinkerFluids.searedStone.get(),   MaterialValues.INGOT * 2, false, 0x4F4A47);
-    addMaterialNoFluid(MaterialIds.slimewood, 2, ORDER_SPECIAL, false, 0x82c873);
+    addMaterialNoFluid(MaterialIds.slimewood, 2, ORDER_SPECIAL, true, 0x82c873);
     // tier 2 - nether
     addMaterialWithFluid(MaterialIds.scorchedStone, 2, ORDER_NETHER, TinkerFluids.scorchedStone.get(), MaterialValues.INGOT * 2, false, 0x5B4C43);
 
