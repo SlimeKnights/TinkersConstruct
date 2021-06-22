@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -13,7 +14,7 @@ public class CoolingModifier extends IncrementalModifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
+  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
     if (target.isImmuneToFire()) {
       damage += getScaledLevel(tool, level) * 2f;
     }

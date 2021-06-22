@@ -1,11 +1,17 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Multimap;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.AttributeModifierManager;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
 import net.minecraft.particles.IParticleData;
@@ -13,6 +19,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
@@ -24,26 +31,60 @@ import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.SingleKeyMultimap;
 
-import javax.annotation.Nullable;
 import java.util.List;
+import java.util.UUID;
+import java.util.function.BiConsumer;
 
 public class ToolAttackUtil {
+  private static final UUID OFFHAND_DAMAGE_MODIFIER_UUID = UUID.fromString("fd666e50-d2cc-11eb-b8bc-0242ac130003");
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
 
   /**
-   * General version of attackEntity. Applies cooldowns but has no projectile entity
+   * Gets the attack damage for the given hand, acting as though it was used in the main hand
+   *
+   * If your goal is damage for display, you are better off checking the tool attack damage stat directly, then displaying relevant attribute modifiers in the tooltip
+   * @param tool     Held tool
+   * @param holder   Entity holding the tool
+   * @param hand     Hand used
+   * @return  Attack damage
    */
-  public static boolean attackEntity(ItemStack stack, IModifiableWeapon weapon, PlayerEntity attacker, Entity targetEntity) {
-    return attackEntity(stack, weapon, attacker, targetEntity, null, true);
-  }
+  public static float getAttributeAttackDamage(IModifierToolStack tool, LivingEntity holder, Hand hand) {
+    if (hand == Hand.OFF_HAND) {
+      // first, get a map of existing damage modifiers to exclude
+      Multimap<Attribute,AttributeModifier> mainModifiers = new SingleKeyMultimap<>(Attributes.ATTACK_DAMAGE, holder.getHeldItemMainhand().getAttributeModifiers(EquipmentSlotType.MAINHAND).get(Attributes.ATTACK_DAMAGE));
 
-  /**
-   * Version of attackEntity for use with projectiles. Does not apply cooldowns and has a separate projectile for logic
-   */
-  public static boolean attackEntity(ItemStack stack, IModifiableWeapon weapon, PlayerEntity attacker, Entity targetEntity, Entity projectileEntity) {
-    return attackEntity(stack, weapon, attacker, targetEntity, projectileEntity, false);
+      // next, build a list of damage modifiers from the offhand stack, handled directly as it saves parsing the tool twice and lets us simplify by filtering
+      ImmutableList.Builder<AttributeModifier> listBuilder = ImmutableList.builder();
+      listBuilder.add(new AttributeModifier(OFFHAND_DAMAGE_MODIFIER_UUID, "tconstruct.tool.offhand_attack_damage", tool.getStats().getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
+      BiConsumer<Attribute, AttributeModifier> attributeConsumer = (attribute, modifier) -> {
+        if (attribute == Attributes.ATTACK_DAMAGE) {
+          listBuilder.add(modifier);
+        }
+      };
+      for (ModifierEntry entry : tool.getModifierList()) {
+        entry.getModifier().addAttributes(tool, entry.getLevel(), EquipmentSlotType.MAINHAND, attributeConsumer);
+      }
+      Multimap<Attribute,AttributeModifier> offhandModifiers = new SingleKeyMultimap<>(Attributes.ATTACK_DAMAGE, listBuilder.build());
+
+      // remove the old, add the new
+      AttributeModifierManager modifiers = holder.getAttributeManager();
+      modifiers.removeModifiers(mainModifiers);
+      modifiers.reapplyModifiers(offhandModifiers);
+      // fetch damage using these temporary modifiers
+      float damage = (float) holder.getAttributeValue(Attributes.ATTACK_DAMAGE);
+      // revert modifiers to the original state
+      modifiers.removeModifiers(offhandModifiers);
+      modifiers.reapplyModifiers(mainModifiers);
+      return damage;
+    } else {
+      // if is the held tool, attributes are already set up
+      return (float) holder.getAttributeValue(Attributes.ATTACK_DAMAGE);
+    }
   }
 
   /** Performs a standard attack */
@@ -55,20 +96,17 @@ public class ToolAttackUtil {
   }
 
   /**
-   * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
-   * Most of this function is the same as {@link net.minecraft.entity.player.PlayerEntity#attackTargetEntityWithCurrentItem(Entity targetEntity)}
-   * @return true if replaces vanilla logic
+   * General version of attackEntity. Applies cooldowns but has no projectile entity
    */
-  public static boolean attackEntity(ItemStack stack, IModifiableWeapon weapon, LivingEntity attackerLiving, Entity targetEntity, @Nullable Entity projectileEntity, boolean applyCoolDown) {
-    return attackEntity(stack, weapon, ToolStack.from(stack), attackerLiving, targetEntity, projectileEntity, applyCoolDown, false);
+  public static boolean attackEntity(ItemStack stack, IModifiableWeapon weapon, PlayerEntity attacker, Entity targetEntity) {
+    return attackEntity(weapon, ToolStack.from(stack), attacker, Hand.MAIN_HAND, targetEntity, true, false);
   }
 
   /**
    * Base attack logic, used by normal attacks, projectils, and extra attacks
    */
-  public static boolean attackEntity(ItemStack stack, IModifiableWeapon weapon, ToolStack tool, LivingEntity attackerLiving, Entity targetEntity,
-                                     @Nullable Entity projectileEntity, boolean applyCoolDown, boolean isExtraAttack) {
-    // no NBT? give to vanilla
+  public static boolean attackEntity(IModifiableWeapon weapon, IModifierToolStack tool, LivingEntity attackerLiving, Hand hand,
+                                     Entity targetEntity, boolean applyCoolDown, boolean isExtraAttack) {
     // TODO: general modifiable
     // broken? give to vanilla
     if (tool.isBroken()) {
@@ -94,9 +132,9 @@ public class ToolAttackUtil {
       attackerPlayer = (PlayerEntity) attackerLiving;
     }
 
-
     // players base damage (includes tools damage stat)
-    float damage = (float) attackerLiving.getAttributeValue(Attributes.ATTACK_DAMAGE);
+    // hack for offhand attributes: remove mainhand temporarily, and apply offhand
+    float damage = getAttributeAttackDamage(tool, attackerLiving, hand);
 
     // missing: enchantment modifiers, we handle ourselves
 
@@ -121,7 +159,7 @@ public class ToolAttackUtil {
     List<ModifierEntry> modifiers = tool.getModifierList();
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        damage = entry.getModifier().applyLivingDamage(tool, entry.getLevel(), attackerLiving, targetLiving, baseDamage, damage, isCritical, fullyCharged, isExtraAttack);
+        damage = entry.getModifier().applyLivingDamage(tool, entry.getLevel(), attackerLiving, hand, targetLiving, baseDamage, damage, isCritical, fullyCharged, isExtraAttack);
       }
     }
 
@@ -182,9 +220,12 @@ public class ToolAttackUtil {
     float baseKnockback = knockback;
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        knockback = entry.getModifier().beforeLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damage, baseKnockback, knockback, isCritical, fullyCharged, isExtraAttack);
+        knockback = entry.getModifier().beforeLivingHit(tool, entry.getLevel(), attackerLiving, hand, targetLiving, damage, baseKnockback, knockback, isCritical, fullyCharged, isExtraAttack);
       }
     }
+
+    // set hand for proper looting context
+    ModifierLootingHandler.setLootingHand(attackerLiving, hand);
 
     ///////////////////
     // actual attack //
@@ -195,8 +236,10 @@ public class ToolAttackUtil {
     if (isExtraAttack) {
       didHit = dealDefaultDamage(attackerLiving, targetEntity, damage);
     } else {
-      didHit = weapon.dealDamage(tool, attackerLiving, targetEntity, damage, isCritical, fullyCharged);
+      didHit = weapon.dealDamage(tool, attackerLiving, hand, targetEntity, damage, isCritical, fullyCharged);
     }
+    // reset hand to make sure we don't mess with vanilla tools
+    ModifierLootingHandler.setLootingHand(attackerLiving, Hand.MAIN_HAND);
     if (!didHit) {
       if (!isExtraAttack) {
         attackerLiving.world.playSound(null, attackerLiving.getPosX(), attackerLiving.getPosY(), attackerLiving.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_NODAMAGE, attackerLiving.getSoundCategory(), 1.0F, 1.0F);
@@ -204,7 +247,7 @@ public class ToolAttackUtil {
       // alert modifiers nothing was hit, mainly used for fiery
       if (targetLiving != null) {
         for (ModifierEntry entry : modifiers) {
-          entry.getModifier().failedLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, isCritical, fullyCharged, isExtraAttack);
+          entry.getModifier().failedLivingHit(tool, entry.getLevel(), attackerLiving, hand, targetLiving, isCritical, fullyCharged, isExtraAttack);
         }
       }
 
@@ -268,15 +311,18 @@ public class ToolAttackUtil {
     int durabilityLost = 1;
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), attackerLiving, targetLiving, damageDealt, isCritical, cooldown, isExtraAttack);
+        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), attackerLiving, hand, targetLiving, damageDealt, isCritical, cooldown, isExtraAttack);
       }
     }
 
     // final attack hooks
     if (attackerPlayer != null) {
       if (targetLiving != null) {
-        if (!attackerLiving.world.isRemote && !stack.isEmpty()) {
-          stack.hitEntity(targetLiving, attackerPlayer);
+        if (!attackerLiving.world.isRemote && !isExtraAttack) {
+          ItemStack held = attackerLiving.getHeldItem(hand);
+          if (!held.isEmpty()) {
+            held.hitEntity(targetLiving, attackerPlayer);
+          }
         }
         attackerPlayer.addStat(Stats.DAMAGE_DEALT, Math.round(damageDealt * 10.0F));
       }
@@ -301,8 +347,8 @@ public class ToolAttackUtil {
    * @param targetEntity    Target
    * @return  True if hit
    */
-  public static boolean extraEntityAttack(IModifiableWeapon weapon, ToolStack tool, LivingEntity attackerLiving, Entity targetEntity) {
-    return attackEntity(ItemStack.EMPTY, weapon, tool, attackerLiving, targetEntity, null, false, true);
+  public static boolean extraEntityAttack(IModifiableWeapon weapon, IModifierToolStack tool, LivingEntity attackerLiving, Hand hand, Entity targetEntity) {
+    return attackEntity(weapon, tool, attackerLiving, hand, targetEntity, false, true);
   }
 
   /**

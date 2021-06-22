@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -30,7 +31,7 @@ public class SearingModifier extends Modifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
+  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
     BlockPos attackerPos = attacker.getPosition();
     return damage + temperatureBoost(attacker.world.getBiome(attackerPos).getTemperature(attackerPos), level);
   }

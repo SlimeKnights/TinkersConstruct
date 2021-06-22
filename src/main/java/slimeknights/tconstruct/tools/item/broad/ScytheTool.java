@@ -7,6 +7,7 @@ import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -16,7 +17,6 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.item.small.KamaTool;
 
@@ -42,8 +42,8 @@ public class ScytheTool extends KamaTool {
   }
 
   @Override
-  public boolean dealDamage(ToolStack tool, LivingEntity living, Entity targetEntity, float damage, boolean isCritical, boolean fullyCharged) {
-    boolean hit = super.dealDamage(tool, living, targetEntity, damage, isCritical, fullyCharged);
+  public boolean dealDamage(IModifierToolStack tool, LivingEntity living, Hand hand, Entity targetEntity, float damage, boolean isCritical, boolean fullyCharged) {
+    boolean hit = super.dealDamage(tool, living, hand, targetEntity, damage, isCritical, fullyCharged);
     // only need fully charged for scythe sweep, easier than sword sweep
     if (fullyCharged) {
       // basically sword sweep logic, just deals full damage to all entities
@@ -52,7 +52,7 @@ public class ScytheTool extends KamaTool {
         if (sideEntity != living && sideEntity != targetEntity && !living.isOnSameTeam(sideEntity)
             && (!(sideEntity instanceof ArmorStandEntity) || !((ArmorStandEntity) sideEntity).hasMarker()) && living.getDistanceSq(sideEntity) < 8.0D + range) {
           sideEntity.applyKnockback(0.4F, MathHelper.sin(living.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(living.rotationYaw * ((float) Math.PI / 180F)));
-          hit |= ToolAttackUtil.extraEntityAttack(this, tool, living, sideEntity);
+          hit |= ToolAttackUtil.extraEntityAttack(this, tool, living, hand, sideEntity);
         }
       }
 

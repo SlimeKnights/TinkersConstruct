@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -79,7 +80,7 @@ import java.util.function.Consumer;
  * This class handles how all the data for items made out of different
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
-public abstract class ToolCore extends Item implements ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
+public class ToolCore extends Item implements ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
   protected static final UUID REACH_MODIFIER = UUID.fromString("9b26fa32-5774-4b4e-afc3-b4055ecb1f6a");
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
@@ -334,22 +335,26 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
     ToolStack tool = ToolStack.from(stack);
-    if (slot == EquipmentSlotType.MAINHAND && !tool.isBroken()) {
+    if (!tool.isBroken()) {
       // base stats
-      StatsNBT statsNBT = tool.getStats();
-      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "tconstruct.tool.attack_damage", statsNBT.getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
-      // base attack speed is 4, but our numbers start from 4
-      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "tconstruct.tool.attack_speed", statsNBT.getFloat(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));
-      // base value is 5, but our number start from 5
-      double reach = statsNBT.getFloat(ToolStats.REACH) - 5d;
-      if (reach != 0) {
-        builder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER, "tconstruct.tool.reach", reach, AttributeModifier.Operation.ADDITION));
+      if (slot == EquipmentSlotType.MAINHAND) {
+        StatsNBT statsNBT = tool.getStats();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "tconstruct.tool.attack_damage", statsNBT.getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
+        // base attack speed is 4, but our numbers start from 4
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "tconstruct.tool.attack_speed", statsNBT.getFloat(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));
+        // base value is 5, but our number start from 5
+        double reach = statsNBT.getFloat(ToolStats.REACH) - 5d;
+        if (reach != 0) {
+          builder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER, "tconstruct.tool.reach", reach, AttributeModifier.Operation.ADDITION));
+        }
       }
 
-      // grab attributes from modifiers
-      BiConsumer<Attribute, AttributeModifier> attributeConsumer = builder::put;
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().addAttributes(tool, entry.getLevel(), attributeConsumer);
+      // grab attributes from modifiers, only do for hands (other slots would just be weird)
+      if (slot.getSlotType() == Group.HAND) {
+        BiConsumer<Attribute,AttributeModifier> attributeConsumer = builder::put;
+        for (ModifierEntry entry : tool.getModifierList()) {
+          entry.getModifier().addAttributes(tool, entry.getLevel(), slot, attributeConsumer);
+        }
       }
     }
 

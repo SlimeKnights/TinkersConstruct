@@ -1,0 +1,14 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":        "tconstruct:item/tool/dagger/blade",
+    "broken_head": "tconstruct:item/tool/dagger/broken_blade",
+    "crossguard":  "tconstruct:item/tool/dagger/crossguard"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/dagger/modifiers/" ],
+  "parts": [
+    { "name": "crossguard", "index": 1 },
+    { "name": "head",       "index": 0, "broken": "broken_head" }
+  ]
+}

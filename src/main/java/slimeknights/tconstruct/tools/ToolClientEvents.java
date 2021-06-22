@@ -26,6 +26,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -110,6 +111,7 @@ public class ToolClientEvents extends ClientEventBase {
     registerToolItemColors(colors, TinkerTools.kama);
     registerToolItemColors(colors, TinkerTools.scythe);
     // weapon
+    registerToolItemColors(colors, TinkerTools.dagger);
     registerToolItemColors(colors, TinkerTools.sword);
     registerToolItemColors(colors, TinkerTools.cleaver);
 
@@ -134,9 +136,10 @@ public class ToolClientEvents extends ClientEventBase {
     if (event.getItemStack().getItem() instanceof ToolCore) {
       boolean isShift = Screen.hasShiftDown();
       boolean isCtrl = !isShift && Screen.hasControlDown();
+      MutableInt removedWhenIn = new MutableInt(0);
       event.getToolTip().removeIf(text -> {
         // its hard to find the blank line before attributes, so shift just removes all of them
-        if (isShift && text == StringTextComponent.EMPTY) {
+        if ((isShift || (isCtrl && removedWhenIn.intValue() > 0)) && text == StringTextComponent.EMPTY) {
           return true;
         }
         // the attack damage and attack speed ones are formatted weirdly, suppress on both tooltips
@@ -148,12 +151,17 @@ public class ToolClientEvents extends ClientEventBase {
         }
         if (text instanceof TranslationTextComponent) {
           String key = ((TranslationTextComponent)text).getKey();
+
+          // we want to ignore all modifiers after "when in off hand" as its typically redundant to the main hand, you will see without shift
+          if ((isCtrl || isShift) && key.startsWith("item.modifiers.")) {
+            removedWhenIn.add(1);
+            return true;
+          }
+
           // suppress durability from advanced, we display our own
           return key.equals("item.durability")
                  // the "when in main hand" text, don't need on either tooltip
-            || ((isCtrl || isShift) && key.startsWith("item.modifiers."))
-                 // individual modifiers, want on shift, ignore on control
-            || (isCtrl && key.startsWith("attribute.modifier."));
+            || ((isCtrl || (isShift && removedWhenIn.intValue() > 1)) && key.startsWith("attribute.modifier."));
         }
         return false;
       });

@@ -107,6 +107,16 @@
         ]
       }
     },
+    "dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:dagger"
+          }
+        ]
+      }
+    },
     "sword": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -155,6 +165,9 @@
     ],
     [
       "scythe"
+    ],
+    [
+      "dagger"
     ],
     [
       "sword"

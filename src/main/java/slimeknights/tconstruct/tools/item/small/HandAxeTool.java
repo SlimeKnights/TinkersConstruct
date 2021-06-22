@@ -6,12 +6,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.CircleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.Set;
@@ -34,8 +34,8 @@ public class HandAxeTool extends HarvestTool {
   }
 
   @Override
-  public boolean dealDamage(ToolStack tool, LivingEntity player, Entity entity, float damage, boolean isCriticalHit, boolean fullyCharged) {
-    boolean hit = super.dealDamage(tool, player, entity, damage, isCriticalHit, fullyCharged);
+  public boolean dealDamage(IModifierToolStack tool, LivingEntity player, Hand hand, Entity entity, float damage, boolean isCriticalHit, boolean fullyCharged) {
+    boolean hit = super.dealDamage(tool, player, hand, entity, damage, isCriticalHit, fullyCharged);
     if (hit && fullyCharged) {
       ToolAttackUtil.spawnAttachParticle(TinkerTools.axeAttackParticle.get(), player, 0.8d);
     }

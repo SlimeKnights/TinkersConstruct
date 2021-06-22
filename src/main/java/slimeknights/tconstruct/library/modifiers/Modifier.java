@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
@@ -262,7 +263,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addAttributes(IModifierToolStack, int, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
+   *   <li>{@link #addAttributes(IModifierToolStack, int, EquipmentSlotType, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
    *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed, Direction, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
    * @param toolDefinition  Tool definition, will be empty for non-multitools
@@ -283,9 +284,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * </ul>
    * @param tool      Current tool instance
    * @param level     Modifier level
+   * @param slot      Slot for the attributes
    * @param consumer  Attribute consumer
    */
-  public void addAttributes(IModifierToolStack tool, int level, BiConsumer<Attribute,AttributeModifier> consumer) {}
+  public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {}
 
   /**
    * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
@@ -579,12 +581,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
-   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, float, boolean)}: Perform special attacks on entity hit beyond damage boosts</li>
-   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean, boolean)}: Apply effects that must run before hit</li>
+   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, Hand, LivingEntity, float, boolean, float, boolean)}: Perform special attacks on entity hit beyond damage boosts</li>
+   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, Hand, LivingEntity, float, float, float, boolean, boolean, boolean)}: Apply effects that must run before hit</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
    * @param attacker      Entity doing the attacking
+   * @param hand          Hand used to perform the attack
    * @param target        Entity being attacked
    * @param baseDamage    Base damage dealt before modifiers
    * @param damage        Computed damage from all prior modifiers
@@ -593,21 +596,22 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param isExtraAttack If true, this attack is targeting a secondary entity, such as through the scythe sweep attack
    * @return  New damage to deal
    */
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
+  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
     return damage;
   }
 
   /**
    * Called right before an entity is hit, used to modify knockback applied or to apply special effects that need to run before damage. Damage is final damage including critical damage.
-   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean, boolean)} will run.
+   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedLivingHit(IModifierToolStack, int, LivingEntity, Hand, LivingEntity, boolean, boolean, boolean)} will run.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, float, boolean)}: Perform special attacks on entity hit beyond knockback boosts</li>
+   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, Hand, LivingEntity, float, boolean, float, boolean)}: Perform special attacks on entity hit beyond knockback boosts</li>
    * </ul>
    * @param tool           Tool used to attack
    * @param level          Modifier level
    * @param attacker       Entity doing the attacking
+   * @param hand           Hand used to perform the attack
    * @param target         Entity being attacked
    * @param damage         Damage to deal to the attacker
    * @param baseKnockback  Base knockback before modifiers
@@ -617,7 +621,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param isExtraAttack If true, this attack is targeting a secondary entity, such as through the scythe sweep attack
    * @return  New knockback to apply. 0.5 is equivelent to 1 level of the vanilla enchant
    */
-  public float beforeLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
+  public float beforeLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
     return knockback;
   }
 
@@ -627,13 +631,14 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Adjusts the base tool stats that affect damage</li>
-   *   <li>{@link #applyLivingDamage(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, boolean, boolean, boolean)}: Change the amount of damage dealt with attacker context</li>
-   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean, boolean)}: Change the amount of knockback dealt</li>
-   *   <li>{@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean, boolean)}: Called after living hit when damage was not dealt</li>
+   *   <li>{@link #applyLivingDamage(IModifierToolStack, int, LivingEntity, Hand, LivingEntity, float, float, boolean, boolean, boolean)}: Change the amount of damage dealt with attacker context</li>
+   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, Hand, LivingEntity, float, float, float, boolean, boolean, boolean)}: Change the amount of knockback dealt</li>
+   *   <li>{@link #failedLivingHit(IModifierToolStack, int, LivingEntity, Hand, LivingEntity, boolean, boolean, boolean)}: Called after living hit when damage was not dealt</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
    * @param attacker      Entity doing the attacking
+   * @param hand          Hand used to perform the attack
    * @param target        Entity being attacked
    * @param damageDealt   Amount of damage successfully dealt
    * @param isCritical    If true, this attack is a critical hit
@@ -641,7 +646,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param isExtraAttack If true, this attack is targeting a secondary entity, such as through the scythe sweep attack
    * @return  Extra damage to deal to the tool
    */
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
     return 0;
   }
 
@@ -650,12 +655,13 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param tool          Tool used to attack
    * @param level         Modifier level
    * @param attacker      Entity doing the attacking
+   * @param hand          Hand used to perform the attack
    * @param target        Entity being attacked
    * @param isCritical    If true, this attack is a critical hit
    * @param fullyCharged  If true, this attack was fully charged (could perform a sword sweep)
    * @param isExtraAttack If true, this attack is targeting a secondary entity, such as through the scythe sweep attack
    */
-  public void failedLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {}
+  public void failedLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {}
 
 
   /* Display */
@@ -758,16 +764,16 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @return  Tool stack
    */
   @Nullable
-  public static ToolStack getHeldTool(@Nullable LivingEntity living) {
+  public static ToolStack getHeldTool(@Nullable LivingEntity living, Hand hand) {
     if (living == null) {
       return null;
     }
-    ItemStack stack = living.getHeldItemMainhand();
+    ItemStack stack = living.getHeldItem(hand);
     if (stack.isEmpty() || !stack.getItem().isIn(TinkerTags.Items.MODIFIABLE)) {
       return null;
     }
     ToolStack tool = ToolStack.from(stack);
-    return tool.isBroken() ? null : ToolStack.from(stack);
+    return tool.isBroken() ? null : tool;
   }
 
   /**

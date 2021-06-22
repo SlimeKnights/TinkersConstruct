@@ -160,7 +160,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
         .addTag(TinkerTags.Items.HARVEST_PRIMARY)
         .addTag(TinkerTags.Items.STONE_HARVEST)
-        .add(TinkerTools.sword.get(), TinkerTools.cleaver.get());
+        .add(TinkerTools.dagger.get(), TinkerTools.sword.get(), TinkerTools.cleaver.get());
 
     // weapon
     // can receive sweeping and a few other special sword modifiers
@@ -168,7 +168,7 @@ public class ItemTagProvider extends ItemTagsProvider {
         .add(TinkerTools.sword.get(), TinkerTools.cleaver.get());
     // support all weapon modifiers
     this.getOrCreateBuilder(TinkerTags.Items.MELEE_PRIMARY)
-        .add(TinkerTools.sword.get(), TinkerTools.cleaver.get(),
+        .add(TinkerTools.dagger.get(), TinkerTools.sword.get(), TinkerTools.cleaver.get(),
              TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
              TinkerTools.sledgeHammer.get(), TinkerTools.scythe.get());
     // can receive damage boosts
@@ -203,7 +203,7 @@ public class ItemTagProvider extends ItemTagsProvider {
              TinkerTools.mattock.get(), TinkerTools.excavator.get(),
              TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
              TinkerTools.kama.get(), TinkerTools.scythe.get(),
-             TinkerTools.sword.get(), TinkerTools.cleaver.get());
+             TinkerTools.dagger.get(), TinkerTools.sword.get(), TinkerTools.cleaver.get());
 
     // general
     this.getOrCreateBuilder(TinkerTags.Items.MODIFIABLE)

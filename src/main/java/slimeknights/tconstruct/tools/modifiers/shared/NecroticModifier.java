@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.shared;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -12,7 +13,7 @@ public class NecroticModifier extends Modifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
     if (cooldown > 0.9 && damageDealt > 0) {
       // heals between 0 and (level) * 5% of damage dealt
       float heal = attacker.getRNG().nextFloat() * damageDealt * level * 0.05f;

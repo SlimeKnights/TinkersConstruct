@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Hand;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -21,7 +22,7 @@ public class ScorchingModifier extends Modifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
+  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
     if (target.isBurning()) {
       damage += 2f * level;
     }

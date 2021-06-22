@@ -46,6 +46,7 @@ import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.free.VolatileFlagModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.BlockTransformModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.HarvestAbilityModifier;
+import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.SilkyShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.TwoHandedAbilityModifier;
@@ -203,7 +204,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, Short.MIN_VALUE));
   public static final RegistryObject<HarvestAbilityModifier> harvest = MODIFIERS.register("harvest", () -> new HarvestAbilityModifier(0x3eed78, Integer.MIN_VALUE + 51));
   public static final RegistryObject<TwoHandedAbilityModifier> twoHanded = MODIFIERS.register("two_handed", TwoHandedAbilityModifier::new);
-  
+  public static final RegistryObject<OffhandAttackModifier> offhandAttack = MODIFIERS.register("offhand_attack", () -> new OffhandAttackModifier(-1));
+
+
   // bonus modifier slots
   public static final RegistryObject<ExtraModifier> writable = MODIFIERS.register("writable", () -> new ExtraModifier(0xffffff));
   public static final RegistryObject<ExtraModifier> recapitated = MODIFIERS.register("recapitated", () -> new ExtraModifier(0x67d755));

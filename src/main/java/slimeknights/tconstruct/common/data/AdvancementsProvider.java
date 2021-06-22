@@ -157,6 +157,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.broadAxe.get());
       with.accept(TinkerTools.kama.get());
       with.accept(TinkerTools.scythe.get());
+      with.accept(TinkerTools.dagger.get());
       with.accept(TinkerTools.sword.get());
       with.accept(TinkerTools.cleaver.get());
     });

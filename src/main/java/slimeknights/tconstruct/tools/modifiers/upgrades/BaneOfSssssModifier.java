@@ -4,6 +4,7 @@ import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.Hand;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
@@ -18,7 +19,7 @@ public class BaneOfSssssModifier extends ScaledTypeDamageModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
     if (isEffective(target)) {
       int duration = 20;
       int maxBonus = (int)(10 * getScaledLevel(tool, level));

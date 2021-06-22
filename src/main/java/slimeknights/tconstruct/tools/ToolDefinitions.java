@@ -70,6 +70,11 @@ public final class ToolDefinitions {
                            new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
 
   // swords
+  public static final ToolDefinition DAGGER = new ToolDefinition(
+    ToolBaseStatDefinitions.DAGGER,
+    requirements(Stream.of(TinkerToolParts.smallBlade, TinkerToolParts.toolHandle)),
+    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.offhandAttack.get(), 1),
+                           new ModifierEntry(TinkerModifiers.silkyShears.get(), 1)));
   public static final ToolDefinition SWORD = new ToolDefinition(
     ToolBaseStatDefinitions.SWORD,
     requirements(TinkerToolParts.smallBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolHandle),

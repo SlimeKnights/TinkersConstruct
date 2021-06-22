@@ -142,6 +142,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerBuildingRecipe(consumer, TinkerTools.kama);
     registerBuildingRecipe(consumer, TinkerTools.scythe);
 
+    registerBuildingRecipe(consumer, TinkerTools.dagger);
     registerBuildingRecipe(consumer, TinkerTools.sword);
     registerBuildingRecipe(consumer, TinkerTools.cleaver);
   }

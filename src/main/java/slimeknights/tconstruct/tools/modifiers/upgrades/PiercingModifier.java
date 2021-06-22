@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -16,7 +17,7 @@ public class PiercingModifier extends IncrementalModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
+  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
     // deals 0.5 pierce damage per level, scaled, half of sharpness
     DamageSource source;
     if (attacker instanceof PlayerEntity) {

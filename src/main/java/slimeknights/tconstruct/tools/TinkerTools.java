@@ -20,6 +20,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
 import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
+import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialTraitsDataProvider;
@@ -36,6 +37,7 @@ import slimeknights.tconstruct.tools.item.small.HarvestTool;
 import slimeknights.tconstruct.tools.item.small.KamaTool;
 import slimeknights.tconstruct.tools.item.small.MattockTool;
 import slimeknights.tconstruct.tools.item.small.PickaxeTool;
+import slimeknights.tconstruct.tools.item.small.SweepingSwordTool;
 import slimeknights.tconstruct.tools.item.small.SwordTool;
 
 import java.util.function.Supplier;
@@ -46,6 +48,7 @@ import java.util.function.Supplier;
 public final class TinkerTools extends TinkerModule {
   public TinkerTools() {
     BlockSideHitListener.init();
+    ModifierLootingHandler.init();
   }
 
   /** Creative tab for all tool items */
@@ -69,8 +72,9 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL.get().addToolType(ToolType.HOE, 0).addToolType(ToolType.get("shears"), 0), ToolDefinitions.KAMA));
   public static final ItemObject<KamaTool> scythe = ITEMS.register("scythe", () -> new ScytheTool(TOOL.get().addToolType(ToolType.HOE, 0), ToolDefinitions.SCYTHE));
 
-  public static final ItemObject<SwordTool> sword = ITEMS.register("sword", () -> new SwordTool(TOOL.get().addToolType(ToolType.get("sword"), 0), ToolDefinitions.SWORD));
-  public static final ItemObject<CleaverTool> cleaver = ITEMS.register("cleaver", () -> new CleaverTool(TOOL.get().addToolType(ToolType.get("sword"), 0), ToolDefinitions.CLEAVER));
+  public static final ItemObject<SwordTool> dagger = ITEMS.register("dagger", () -> new SwordTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.DAGGER));
+  public static final ItemObject<SweepingSwordTool> sword = ITEMS.register("sword", () -> new SweepingSwordTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.SWORD));
+  public static final ItemObject<CleaverTool> cleaver = ITEMS.register("cleaver", () -> new CleaverTool(TOOL.get().addToolType(SwordTool.TOOL_TYPE, 0), ToolDefinitions.CLEAVER));
 
   /*
    * Particles
