@@ -1,11 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Rarity;
-import net.minecraft.util.Hand;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -32,8 +31,8 @@ public class EmeraldModifier extends SingleLevelModifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged, boolean isExtraAttack) {
-    if (target.getCreatureAttribute() == CreatureAttribute.ILLAGER) {
+  public float applyLivingDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
+    if (context.getTarget().getCreatureAttribute() == CreatureAttribute.ILLAGER) {
       damage += 2.5f;
     }
     return damage;

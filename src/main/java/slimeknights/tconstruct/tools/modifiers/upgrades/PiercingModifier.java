@@ -1,11 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -17,16 +16,17 @@ public class PiercingModifier extends IncrementalModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
+  public int afterLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     // deals 0.5 pierce damage per level, scaled, half of sharpness
     DamageSource source;
-    if (attacker instanceof PlayerEntity) {
-      source = DamageSource.causePlayerDamage(((PlayerEntity)attacker));
+    PlayerEntity player = context.getPlayerAttacker();
+    if (player != null) {
+      source = DamageSource.causePlayerDamage(player);
     } else {
-      source = DamageSource.causeMobDamage(target);
+      source = DamageSource.causeMobDamage(context.getAttacker());
     }
     source.setDamageBypassesArmor();
-    attackEntitySecondary(source, getScaledLevel(tool, level) * tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.ATTACK_DAMAGE) * 0.5f * cooldown, target, true);
+    attackEntitySecondary(source, getScaledLevel(tool, level) * tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.ATTACK_DAMAGE) * 0.5f * context.getCooldown(), context.getTarget(), true);
     return 0;
   }
 

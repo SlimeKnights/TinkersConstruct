@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tools.item.small;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -24,28 +24,30 @@ public class SweepingSwordTool extends SwordTool {
 
   // sword sweep attack
   @Override
-  public boolean dealDamage(IModifierToolStack tool, LivingEntity living, Hand hand, Entity targetEntity, float damage, boolean isCritical, boolean fullyCharged) {
+  public boolean dealDamage(IModifierToolStack tool, ToolAttackContext context, float damage) {
     // deal damage first
-    boolean hit = super.dealDamage(tool, living, hand, targetEntity, damage, isCritical, fullyCharged);
+    boolean hit = super.dealDamage(tool, context, damage);
 
     // sweep code from EntityPlayer#attackTargetEntityWithCurrentItem()
     // basically: no crit, no sprinting and has to stand on the ground for sweep. Also has to move regularly slowly
-    if (hit && fullyCharged && !living.isSprinting() && !isCritical && living.isOnGround() && (living.distanceWalkedModified - living.prevDistanceWalkedModified) < living.getAIMoveSpeed()) {
+    LivingEntity attacker = context.getAttacker();
+    if (hit && context.isFullyCharged() && !attacker.isSprinting() && !context.isCritical() && attacker.isOnGround() && (attacker.distanceWalkedModified - attacker.prevDistanceWalkedModified) < attacker.getAIMoveSpeed()) {
       // loop through all nearby entities
       double range = getSweepRange(tool);
       // if the modifier is missing, sweeping damage will be 0, so easiest to let it fully control this
       float sweepDamage = TinkerModifiers.sweeping.get().getSweepingDamage(tool, damage);
-      for (LivingEntity livingEntity : living.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, targetEntity.getBoundingBox().grow(range, 0.25D, range))) {
-        if (livingEntity != living && livingEntity != targetEntity && !living.isOnSameTeam(livingEntity)
-            && (!(livingEntity instanceof ArmorStandEntity) || !((ArmorStandEntity) livingEntity).hasMarker()) && living.getDistanceSq(livingEntity) < 10.0D + range) {
-          livingEntity.applyKnockback(0.4F, MathHelper.sin(living.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(living.rotationYaw * ((float) Math.PI / 180F)));
-          super.dealDamage(tool, living, hand, livingEntity, sweepDamage, false, true);
+      LivingEntity target = context.getTarget();
+      for (LivingEntity aoeTarget : attacker.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(range, 0.25D, range))) {
+        if (aoeTarget != attacker && aoeTarget != target && !attacker.isOnSameTeam(aoeTarget)
+            && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity) aoeTarget).hasMarker()) && attacker.getDistanceSq(aoeTarget) < 10.0D + range) {
+          aoeTarget.applyKnockback(0.4F, MathHelper.sin(attacker.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(attacker.rotationYaw * ((float) Math.PI / 180F)));
+          ToolAttackUtil.dealDefaultDamage(attacker, aoeTarget, sweepDamage);
         }
       }
 
-      living.world.playSound(null, living.getPosX(), living.getPosY(), living.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, living.getSoundCategory(), 1.0F, 1.0F);
-      if (living instanceof PlayerEntity) {
-        ((PlayerEntity) living).spawnSweepParticles();
+      attacker.world.playSound(null, attacker.getPosX(), attacker.getPosY(), attacker.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, attacker.getSoundCategory(), 1.0F, 1.0F);
+      if (attacker instanceof PlayerEntity) {
+        ((PlayerEntity) attacker).spawnSweepParticles();
       }
     }
 

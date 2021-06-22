@@ -10,12 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.List;
@@ -116,9 +116,10 @@ public class ShearsAbilityModifier extends SingleUseModifier {
   }
 
   @Override
-  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective, boolean isAOEBlock) {
+  public Boolean removeBlock(IModifierToolStack tool, int level, ToolHarvestContext context) {
+    BlockState state = context.getState();
     if (isShears(tool) && state.getBlock() instanceof TripWireBlock) {
-      world.setBlockState(pos, state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
+      context.getWorld().setBlockState(context.getPos(), state.with(BlockStateProperties.DISARMED, Boolean.TRUE), 4);
     }
     return null;
   }

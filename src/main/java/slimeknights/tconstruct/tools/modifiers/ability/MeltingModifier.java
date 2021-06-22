@@ -5,7 +5,6 @@ import lombok.Setter;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
-import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
@@ -17,6 +16,7 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 
@@ -108,11 +108,12 @@ public class MeltingModifier extends TankModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, Hand hand, LivingEntity target, float damageDealt, boolean isCritical, float cooldown, boolean isExtraAttack) {
+  public int afterLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     // must have done damage, and must be fully charged
-    if (damageDealt > 0 && cooldown > 0.9) {
+    if (damageDealt > 0 && context.isFullyCharged()) {
       // first, find the proper recipe
-      EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(attacker.getEntityWorld().getRecipeManager(), target.getType());
+      LivingEntity target = context.getTarget();
+      EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(context.getAttacker().getEntityWorld().getRecipeManager(), target.getType());
       FluidStack output;
       int damagePerOutput;
       if (recipe != null) {

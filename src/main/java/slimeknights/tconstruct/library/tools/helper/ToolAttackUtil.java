@@ -153,13 +153,16 @@ public class ToolAttackUtil {
                          && !attackerLiving.isInWater() && !attackerLiving.isPotionActive(Effects.BLINDNESS)
                          && !attackerLiving.isPassenger() && targetLiving != null && !attackerLiving.isSprinting();
 
+    // shared context for all modifier hooks
+    ToolAttackContext context = new ToolAttackContext(attackerLiving, attackerPlayer, hand, targetLiving, isCritical, cooldown, isExtraAttack);
+
     // calculate actual damage
     // boost damage from traits
     float baseDamage = damage;
     List<ModifierEntry> modifiers = tool.getModifierList();
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        damage = entry.getModifier().applyLivingDamage(tool, entry.getLevel(), attackerLiving, hand, targetLiving, baseDamage, damage, isCritical, fullyCharged, isExtraAttack);
+        damage = entry.getModifier().applyLivingDamage(tool, entry.getLevel(), context, baseDamage, damage);
       }
     }
 
@@ -220,7 +223,7 @@ public class ToolAttackUtil {
     float baseKnockback = knockback;
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        knockback = entry.getModifier().beforeLivingHit(tool, entry.getLevel(), attackerLiving, hand, targetLiving, damage, baseKnockback, knockback, isCritical, fullyCharged, isExtraAttack);
+        knockback = entry.getModifier().beforeLivingHit(tool, entry.getLevel(), context, damage, baseKnockback, knockback);
       }
     }
 
@@ -236,7 +239,7 @@ public class ToolAttackUtil {
     if (isExtraAttack) {
       didHit = dealDefaultDamage(attackerLiving, targetEntity, damage);
     } else {
-      didHit = weapon.dealDamage(tool, attackerLiving, hand, targetEntity, damage, isCritical, fullyCharged);
+      didHit = weapon.dealDamage(tool, context, damage);
     }
     // reset hand to make sure we don't mess with vanilla tools
     ModifierLootingHandler.setLootingHand(attackerLiving, Hand.MAIN_HAND);
@@ -247,7 +250,7 @@ public class ToolAttackUtil {
       // alert modifiers nothing was hit, mainly used for fiery
       if (targetLiving != null) {
         for (ModifierEntry entry : modifiers) {
-          entry.getModifier().failedLivingHit(tool, entry.getLevel(), attackerLiving, hand, targetLiving, isCritical, fullyCharged, isExtraAttack);
+          entry.getModifier().failedLivingHit(tool, entry.getLevel(), context);
         }
       }
 
@@ -311,7 +314,7 @@ public class ToolAttackUtil {
     int durabilityLost = 1;
     if (targetLiving != null) {
       for (ModifierEntry entry : modifiers) {
-        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), attackerLiving, hand, targetLiving, damageDealt, isCritical, cooldown, isExtraAttack);
+        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), context, damageDealt);
       }
     }
 
@@ -358,7 +361,7 @@ public class ToolAttackUtil {
    * @param entity the entity
    * @param height the height offset for the particle position
    */
-  public static void spawnAttachParticle(IParticleData particleData, Entity entity, double height) {
+  public static void spawnAttackParticle(IParticleData particleData, Entity entity, double height) {
     double xd = -MathHelper.sin(entity.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(entity.rotationPitch / 180.0F * (float) Math.PI);
     double zd = +MathHelper.cos(entity.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(entity.rotationPitch / 180.0F * (float) Math.PI);
     double yd = -MathHelper.sin(entity.rotationPitch / 180.0F * (float) Math.PI);

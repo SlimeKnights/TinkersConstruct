@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.tools.helper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
@@ -11,8 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -31,16 +28,15 @@ public final class ModifierUtil {
   /**
    * Adds all enchantments from tools. Separate method as tools don't have enchants all the time.
    * Typically called before actions which involve loot, such as breaking blocks or attacking mobs.
-   * @param tool    Tool instance
-   * @param stack   Base stack instance
-   * @param player  Player instance, just used for creative check
-   * @param state   State targeted
-   * @param pos     Position targeted
+   * @param tool     Tool instance
+   * @param stack    Base stack instance
+   * @param context  Tool harvest context
    * @return  True if enchants were applied
    */
-  public static boolean applyHarvestEnchants(ToolStack tool, ItemStack stack, PlayerEntity player, BlockState state, BlockPos pos, Direction sideHit) {
+  public static boolean applyHarvestEnchants(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
     boolean addedEnchants = false;
-    if (!player.isCreative()) {
+    PlayerEntity player = context.getPlayer();
+    if (player == null || !player.isCreative()) {
       Map<Enchantment, Integer> enchantments = new HashMap<>();
       BiConsumer<Enchantment,Integer> enchantmentConsumer = (ench, add) -> {
         if (ench != null && add != null) {
@@ -52,7 +48,7 @@ public final class ModifierUtil {
         }
       };
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().applyHarvestEnchantments(tool, entry.getLevel(), player, state, pos, sideHit, enchantmentConsumer);
+        entry.getModifier().applyHarvestEnchantments(tool, entry.getLevel(), context, enchantmentConsumer);
       }
       if (!enchantments.isEmpty()) {
         addedEnchants = true;

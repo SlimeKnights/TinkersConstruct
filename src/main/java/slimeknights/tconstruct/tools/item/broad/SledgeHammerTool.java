@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.tools.item.broad;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Hand;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -18,12 +16,11 @@ public class SledgeHammerTool extends HarvestTool {
   }
 
   @Override
-  public boolean dealDamage(IModifierToolStack tool, LivingEntity player, Hand hand, Entity entity, float damage, boolean isCriticalHit, boolean fullyCharged) {
-    boolean hit = super.dealDamage(tool, player, hand, entity, damage, isCriticalHit, fullyCharged);
-    if (hit && fullyCharged) {
-      ToolAttackUtil.spawnAttachParticle(TinkerTools.hammerAttackParticle.get(), player, 0.8d);
+  public boolean dealDamage(IModifierToolStack tool, ToolAttackContext context, float damage) {
+    boolean hit = super.dealDamage(tool, context, damage);
+    if (hit && context.isFullyCharged()) {
+      ToolAttackUtil.spawnAttackParticle(TinkerTools.hammerAttackParticle.get(), context.getAttacker(), 0.8d);
     }
-
     return hit;
   }
 
