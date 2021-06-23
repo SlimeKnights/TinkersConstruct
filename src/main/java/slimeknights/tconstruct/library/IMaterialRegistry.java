@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library;
 
-import net.minecraft.fluid.Fluid;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
@@ -21,17 +20,16 @@ public interface IMaterialRegistry {
   IMaterial getMaterial(MaterialId id);
 
   /**
-   * Gets a material by fluid lookup
-   * @param fluid  Fluid instance
-   * @return  Material, or IMateiral.UNKNOWN if none match the fluid
+   * Gets all currently registered materials
+   * @return  Collection of all materials
    */
-  IMaterial getMaterial(Fluid fluid);
+  Collection<IMaterial> getVisibleMaterials();
 
   /**
    * Gets all currently registered materials
    * @return  Collection of all materials
    */
-  Collection<IMaterial> getMaterials();
+  Collection<IMaterial> getAllMaterials();
 
   /**
    * Gets the material stats for the given material and type

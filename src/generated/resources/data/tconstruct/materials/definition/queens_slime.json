@@ -2,8 +2,6 @@
   "craftable": false,
   "tier": 4,
   "sortOrder": 0,
-  "fluid": "tconstruct:molten_queens_slime",
-  "fluidPerUnit": 144,
   "textColor": "#236C45",
-  "temperature": 1150
+  "hidden": false
 }

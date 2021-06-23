@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.fixture;
 
 import lombok.AllArgsConstructor;
-import net.minecraft.fluid.Fluid;
 import slimeknights.tconstruct.library.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -16,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class MaterialRegistryFixture implements IMaterialRegistry {
@@ -32,12 +32,12 @@ public class MaterialRegistryFixture implements IMaterialRegistry {
   }
 
   @Override
-  public IMaterial getMaterial(Fluid fluid) {
-    return materials.values().stream().filter((mat) -> mat.getFluid() == fluid).findFirst().orElse(IMaterial.UNKNOWN);
+  public Collection<IMaterial> getVisibleMaterials() {
+    return materials.values().stream().filter(mat -> !mat.isHidden()).collect(Collectors.toList());
   }
 
   @Override
-  public Collection<IMaterial> getMaterials() {
+  public Collection<IMaterial> getAllMaterials() {
     return materials.values();
   }
 

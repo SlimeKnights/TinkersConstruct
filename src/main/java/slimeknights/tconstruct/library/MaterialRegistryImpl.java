@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -57,12 +56,12 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   }
 
   @Override
-  public IMaterial getMaterial(Fluid fluid) {
-    return materialManager.getMaterial(fluid).orElse(IMaterial.UNKNOWN);
+  public Collection<IMaterial> getVisibleMaterials() {
+    return materialManager.getVisibleMaterials();
   }
 
   @Override
-  public Collection<IMaterial> getMaterials() {
+  public Collection<IMaterial> getAllMaterials() {
     return materialManager.getAllMaterials();
   }
 

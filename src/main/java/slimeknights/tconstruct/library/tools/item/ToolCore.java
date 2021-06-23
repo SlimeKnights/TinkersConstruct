@@ -665,7 +665,7 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
       }
       // if the material was not applicable or we do not have a filter set, search the rest
       if (!added) {
-        for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
+        for (IMaterial material : MaterialRegistry.getInstance().getVisibleMaterials()) {
           // if we added it and we want a single material, we are done
           if (addSubItem(items, material, fixedMaterials) && !showOnlyId.isEmpty()) {
             break;

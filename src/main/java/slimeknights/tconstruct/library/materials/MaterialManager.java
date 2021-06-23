@@ -11,8 +11,6 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.JSONUtils;
@@ -20,7 +18,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Color;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
@@ -55,7 +52,6 @@ public class MaterialManager extends JsonReloadListener {
     .create();
 
   private Map<MaterialId, IMaterial> materials = Collections.emptyMap();
-  private Map<Fluid, IMaterial> fluidLookup = Collections.emptyMap();
   private List<IMaterial> sortedMaterials = Collections.emptyList();
 
   public MaterialManager() {
@@ -66,8 +62,16 @@ public class MaterialManager extends JsonReloadListener {
    * Gets a collection of all loaded materials, sorted by tier and sort orders
    * @return  All loaded materials
    */
-  public Collection<IMaterial> getAllMaterials() {
+  public Collection<IMaterial> getVisibleMaterials() {
     return sortedMaterials;
+  }
+
+  /**
+   * Gets a collection of all loaded materials, unsorted and including hidden materials
+   * @return  All loaded materials
+   */
+  public Collection<IMaterial> getAllMaterials() {
+    return materials.values();
   }
 
   /**
@@ -80,22 +84,12 @@ public class MaterialManager extends JsonReloadListener {
   }
 
   /**
-   * Gets a material based on a fluid
-   * @param fluid  Fluid to check
-   * @return  Optional of material, empty if fluid does not match any material
-   */
-  public Optional<IMaterial> getMaterial(Fluid fluid) {
-    return Optional.ofNullable(fluidLookup.get(fluid));
-  }
-
-  /**
    * Recreates the fluid lookup and sorted list using the new materials list
    */
   private void onMaterialUpdate() {
-    this.fluidLookup = this.materials.values().stream()
-                                     .filter((mat) -> mat.getFluid() != Fluids.EMPTY)
-                                     .collect(Collectors.toMap(IMaterial::getFluid, Function.identity()));
-    this.sortedMaterials = this.materials.values().stream().sorted().collect(Collectors.toList());
+    this.sortedMaterials = this.materials.values().stream()
+                                         .filter(mat -> !mat.isHidden())
+                                         .sorted().collect(Collectors.toList());
   }
 
   /**
@@ -157,13 +151,7 @@ public class MaterialManager extends JsonReloadListener {
       }
 
       boolean isCraftable = Boolean.TRUE.equals(materialJson.getCraftable());
-      int temperature = 0;
-      int fluidPerUnit = 0;
-      Fluid fluid = loadFluid(materialId, materialJson);
-      if (fluid != Fluids.EMPTY) {
-        fluidPerUnit = Optional.ofNullable(materialJson.getFluidPerUnit()).orElse(0);
-        temperature = Optional.ofNullable(materialJson.getTemperature()).filter(n -> n >= 0).orElse(0);
-      }
+      boolean hidden = Boolean.TRUE.equals(materialJson.getHidden());
 
       // parse color from string
       Color color = Optional.ofNullable(materialJson.getTextColor())
@@ -171,31 +159,13 @@ public class MaterialManager extends JsonReloadListener {
                             .map(Color::fromHex)
                             .orElse(Material.WHITE);
 
+
       // parse trait
-      return new Material(materialId, orDefault(materialJson.getTier(), 0), orDefault(materialJson.getSortOrder(), 100), fluid, fluidPerUnit, isCraftable, color, temperature);
+      return new Material(materialId, orDefault(materialJson.getTier(), 0), orDefault(materialJson.getSortOrder(), 100), isCraftable, color, hidden);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;
     }
-  }
-
-  /**
-   * Find a fluid for the material JSON
-   * @param materialId    Material ID
-   * @param materialJson  Material JSON
-   * @return  Fluid, or Fluids.EMPTY if none
-   */
-  private Fluid loadFluid(ResourceLocation materialId, MaterialJson materialJson) {
-    ResourceLocation fluidId = materialJson.getFluid();
-    Fluid fluid = Fluids.EMPTY;
-    if (fluidId != null) {
-      fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
-      if (fluid == null || fluid.getDefaultState().isEmpty()) {
-        log.warn("Could not find fluid {} for material {}", fluidId, materialId);
-        fluid = Fluids.EMPTY;
-      }
-    }
-    return fluid;
   }
 
   private static class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> {

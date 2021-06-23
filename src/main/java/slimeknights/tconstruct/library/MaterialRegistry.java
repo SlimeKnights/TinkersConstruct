@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library;
 
 import com.google.common.annotations.VisibleForTesting;
-import net.minecraft.fluid.Fluid;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -133,20 +132,11 @@ public final class MaterialRegistry {
   }
 
   /**
-   * Gets a material by fluid lookup
-   * @param fluid  Fluid instance
-   * @return  Material, or IMateiral.UNKNOWN if none match the fluid
-   */
-  public static IMaterial getMaterial(Fluid fluid) {
-    return INSTANCE.registry.getMaterial(fluid);
-  }
-
-  /**
    * Gets all currently registered materials
    * @return  Collection of all materials
    */
   public static Collection<IMaterial> getMaterials() {
-    return INSTANCE.registry.getMaterials();
+    return INSTANCE.registry.getVisibleMaterials();
   }
 
 

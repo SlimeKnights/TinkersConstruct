@@ -37,6 +37,9 @@ public interface RecipeTypes {
   // modifiers
   IRecipeType<SeveringRecipe> SEVERING = register("severing");
 
+  /** Internal recipe type for recipes that are not pulled by any specific crafting block */
+  IRecipeType<IRecipe<?>> DATA = register("data");
+
   /**
    * Registers a new recipe type, prefixing with the mod ID
    * @param name  Recipe type name

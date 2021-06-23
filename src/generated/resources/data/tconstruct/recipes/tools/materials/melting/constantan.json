@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:constantan",
+  "temperature": 920,
+  "result": {
+    "fluid": "tconstruct:molten_constantan",
+    "amount": 144
+  }
+}

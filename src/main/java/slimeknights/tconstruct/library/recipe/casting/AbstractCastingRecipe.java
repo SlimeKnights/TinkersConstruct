@@ -9,6 +9,7 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
@@ -35,6 +36,11 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
 
   @Override
   public abstract ItemStack getRecipeOutput();
+
+  @Override
+  public NonNullList<Ingredient> getIngredients() {
+    return NonNullList.from(Ingredient.EMPTY, this.cast);
+  }
 
   /**
    * Seralizer for {@link ItemCastingRecipe}.

@@ -16,7 +16,4 @@ bolt_core=Bolt Crafting
 modifier.effect=Effects:
 tool.properties=Properties:
 
-material.craft_partbuilder=Can be crafted in the Part Builder
-material.craft_casting=Can be cast from
-
 material.tconstruct.slimewood.book=Casting liquid earth slime on wood parts produces a durable, regenerative material!

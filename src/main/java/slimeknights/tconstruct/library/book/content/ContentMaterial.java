@@ -3,17 +3,15 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Lazy;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
 import slimeknights.mantle.client.book.data.element.TextData;
@@ -22,9 +20,9 @@ import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
-import slimeknights.mantle.util.ItemStackList;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.MaterialRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -33,10 +31,11 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
+import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipe;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
@@ -44,12 +43,15 @@ import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
 public class ContentMaterial extends TinkerPage {
+  private static final ITextComponent PART_BUILDER = Util.makeTranslation("book", "material.part_builder");
+  private static final String CAST_FROM = Util.makeTranslationKey("book", "material.cast_from");
+  private static final String COMPOSITE_FROM = Util.makeTranslationKey("book", "material.composite_from");
 
   public static final String ID = "toolmaterial";
 
@@ -210,20 +212,37 @@ public class ContentMaterial extends TinkerPage {
     if (material.get().isCraftable()) {
       ItemStack partBuilder = new ItemStack(TinkerTables.partBuilder.asItem());
       ItemElement elementItem = new TinkerItemElement(partBuilder);
-      elementItem.tooltip = ImmutableList.of(new StringTextComponent(parent.translate("material.craft_partbuilder")));
+      elementItem.tooltip = ImmutableList.of(PART_BUILDER);
       displayTools.add(elementItem);
     }
-    if (material.get().getFluid() != Fluids.EMPTY) {
-      ItemStack castingBasin = new ItemStack(TinkerSmeltery.searedBasin.asItem());
-      ItemStack castingTable = new ItemStack(TinkerSmeltery.searedTable.asItem());
-
-      ItemStackList stacks = ItemStackList.of(castingBasin, castingTable);
-
-      ItemElement elementItem = new TinkerItemElement(0, 0, 1, stacks);
-      String text = this.parent.translate("material.craft_casting");
-      Fluid fluid = material.get().getFluid();
-      elementItem.tooltip = ImmutableList.of(new StringTextComponent(text).appendString(" ").append(new TranslationTextComponent("fluid." + Objects.requireNonNull(fluid.getRegistryName()).getNamespace() + "." + Objects.requireNonNull(fluid.getRegistryName()).getPath())));
+    // regular casting recipes
+    List<MaterialFluidRecipe> fluids = MaterialCastingLookup.getCastingFluids(materialId);
+    if (!fluids.isEmpty()) {
+      ItemElement elementItem = new TinkerItemElement(0, 0, 1, fluids.stream().flatMap(recipe -> recipe.getFluids().stream())
+                                                                     .map(fluid -> new ItemStack(fluid.getFluid().getFilledBucket()))
+                                                                     .collect(Collectors.toList()));
+      FluidStack firstFluid = fluids.stream()
+                                    .flatMap(recipe -> recipe.getFluids().stream())
+                                    .findFirst().orElse(FluidStack.EMPTY);
+      elementItem.tooltip = ImmutableList.of(new TranslationTextComponent(CAST_FROM, firstFluid.getFluid().getAttributes().getDisplayName(firstFluid)));
       displayTools.add(elementItem);
+    }
+    // composite casting
+    List<MaterialFluidRecipe> composites = MaterialCastingLookup.getCompositeFluids(materialId);
+    for (MaterialFluidRecipe composite : composites) {
+      IMaterial input = composite.getInput();
+      if (input != null) {
+        ItemElement elementItem = new TinkerItemElement(0, 0, 1, MaterialCastingLookup.getAllItemCosts().stream()
+                                                                                      .map(Entry::getKey)
+                                                                                      .filter(part -> part.canUseMaterial(input) && part.canUseMaterial(material.get()))
+                                                                                      .map(part -> part.withMaterial(input))
+                                                                                      .collect(Collectors.toList()));
+        FluidStack firstFluid = composite.getFluids().stream().findFirst().orElse(FluidStack.EMPTY);
+        elementItem.tooltip = ImmutableList.of(new TranslationTextComponent(COMPOSITE_FROM,
+                                                                            firstFluid.getFluid().getAttributes().getDisplayName(firstFluid),
+                                                                            new TranslationTextComponent(input.getTranslationKey())));
+        displayTools.add(elementItem);
+      }
     }
 
     int y = 10;

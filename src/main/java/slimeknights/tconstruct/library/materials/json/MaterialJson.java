@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.materials.json;
 
 import lombok.Data;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 
 import javax.annotation.Nullable;
@@ -17,11 +16,7 @@ public class MaterialJson {
   @Nullable
   private final Integer sortOrder;
   @Nullable
-  private final ResourceLocation fluid;
-  @Nullable
-  private final Integer fluidPerUnit;
-  @Nullable
   private final String textColor;
   @Nullable
-  private final Integer temperature;
+  private final Boolean hidden;
 }

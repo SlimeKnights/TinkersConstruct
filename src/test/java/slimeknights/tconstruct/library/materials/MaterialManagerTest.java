@@ -3,9 +3,6 @@ package slimeknights.tconstruct.library.materials;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -41,10 +38,11 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
     assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "full"));
-    assertThat(testMaterial.getFluid()).isEqualTo(Fluids.WATER);
     assertThat(testMaterial.isCraftable()).isTrue();
     assertThat(testMaterial.getColor().color).isEqualTo(0x1234ab);
-    assertThat(testMaterial.getTemperature()).isEqualTo(1234);
+    assertThat(testMaterial.getTier()).isEqualTo(15);
+    assertThat(testMaterial.getSortOrder()).isEqualTo(4);
+    assertThat(testMaterial.isHidden()).isTrue();
   }
 
   @Test
@@ -57,14 +55,15 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
     assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "minimal"));
-    assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(FluidState::isEmpty);
     assertThat(testMaterial.isCraftable()).isFalse();
     assertThat(testMaterial.getColor().color & 0xffffff).isEqualTo(0xffffff);
-    assertThat(testMaterial.getTemperature()).isEqualTo(0);
+    assertThat(testMaterial.getTier()).isEqualTo(0);
+    assertThat(testMaterial.getSortOrder()).isEqualTo(100);
+    assertThat(testMaterial.isHidden()).isFalse();
   }
 
   @Test
-  void invalidFluid_useDefault() {
+  void invalid_skipped() {
     Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("invalid");
 
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
@@ -72,13 +71,13 @@ class MaterialManagerTest extends BaseMcTest {
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
-    assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(FluidState::isEmpty);
+    assertThat(testMaterial.isCraftable()).isFalse();
     assertThat(testMaterial.getColor().color & 0xffffff).isEqualTo(0xffffff);
-    assertThat(testMaterial.getTemperature()).isEqualTo(0);
+    assertThat(testMaterial.isHidden()).isFalse();
   }
 
   @Test
-  void craftableIsRequired_failOnMissing() {
+  void failOnMissing() {
     ResourceLocation materialId = Util.getResource("nonexistant");
     Map<ResourceLocation, JsonElement> splashList = ImmutableMap.of(materialId, new JsonObject());
 

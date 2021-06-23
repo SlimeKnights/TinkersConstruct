@@ -8,9 +8,6 @@ tier_four_materials=Tier 4 Materials
 modifier.effect=Effects:
 tool.properties=Properties:
 
-material.craft_partbuilder=Can be crafted in the Part Builder
-material.craft_casting=Can be cast from
-
 tier_one_materials.subtext=These materials are easy to find, and can be placed in the part builder to create tool parts
 material.tconstruct.wood.book=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
 material.tconstruct.stone.book=Rock solid

@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "tag": "tconstruct:molten_steel",
+    "amount": 144
+  },
+  "temperature": 950,
+  "output": "tconstruct:steel"
+}

@@ -1632,6 +1632,14 @@
   "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\n\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.",
   "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required.",
 
+
+  "_comment": "Book Strings",
+
+  "book.tconstruct.material.part_builder": "Can be made in the part builder",
+  "book.tconstruct.material.cast_from": "Can be casted from %s in casts",
+  "book.tconstruct.material.composite_from": "Can be casted from %s on %s parts",
+
+
   "_comment": "JEI Strings",
   "jei.tconstruct.time": "%s s",
   "jei.tconstruct.temperature": "%s°C",

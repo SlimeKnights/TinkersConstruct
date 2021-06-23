@@ -21,17 +21,16 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.casting.material.CompositeCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -94,13 +93,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.scorchedStone, Ingredient.fromItems(TinkerSmeltery.scorchedBrick), 1, 2, "scorched_stone/brick");
     registerMaterial(consumer, MaterialIds.scorchedStone, Ingredient.fromTag(TinkerTags.Items.SCORCHED_BLOCKS), 2, 1, ItemOutput.fromItem(TinkerSmeltery.scorchedBrick), "scorched_stone/block");
     registerMetalMaterial(consumer, MaterialIds.copper, "copper", false);
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.EARTH_SLIMEBALL), 1, 1, "slimewood/ball");
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.congealedSlime.get(SlimeType.EARTH)), 4, 1, "slimewood/congealed");
-    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromItems(TinkerWorld.slime.get(SlimeType.EARTH)), 9, 1, "slimewood/block");
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(TinkerTags.Items.SLIMY_PLANKS), 1, 1, "slimewood/planks");
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(TinkerWorld.greenheart.getLogItemTag()), 4, 1, ItemOutput.fromItem(TinkerWorld.greenheart), "slimewood/greenheart_logs");
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(TinkerWorld.skyroot.getLogItemTag()), 4, 1, ItemOutput.fromItem(TinkerWorld.skyroot), "slimewood/skyroot_logs");
-    registerMaterial(consumer, MaterialIds.wood, Ingredient.fromTag(TinkerWorld.bloodshroom.getLogItemTag()), 4, 1, ItemOutput.fromItem(TinkerWorld.bloodshroom), "slimewood/bloodshroom_logs");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerTags.Items.SLIMY_PLANKS), 1, 1, "slimewood/planks");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerWorld.greenheart.getLogItemTag()), 4, 1, ItemOutput.fromItem(TinkerWorld.greenheart), "slimewood/greenheart_logs");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerWorld.skyroot.getLogItemTag()), 4, 1, ItemOutput.fromItem(TinkerWorld.skyroot), "slimewood/skyroot_logs");
+    registerMaterial(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerWorld.bloodshroom.getLogItemTag()), 4, 1, ItemOutput.fromItem(TinkerWorld.bloodshroom), "slimewood/bloodshroom_logs");
     registerMetalMaterial(consumer, MaterialIds.roseGold, "rose_gold", false);
     // tier 3
     registerMetalMaterial(consumer, MaterialIds.slimesteel, "slimesteel", false);
@@ -196,6 +192,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                                 .setItemCost(cost)
                                 .setCast(cast.getSingleUseTag(), true)
                                 .build(consumer, location(castingFolder + name + "_sand_cast"));
+    CompositeCastingRecipeBuilder.table(part, cost)
+                                 .build(consumer, location(castingFolder + name + "_composite"));
 
     // Cast Casting
     MaterialIngredient ingredient = MaterialIngredient.fromItem(part);
@@ -215,9 +213,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                         .setMaterial(TinkerSmeltery.blankCast.getRedSand())
                         .setPattern(ingredient, false)
                         .build(consumer, location("smeltery/casting/red_sand_casts/" + partName));
-
-    // Part melting
-    MaterialMeltingRecipeBuilder.melting(part, cost).build(consumer, location(folder + "melting/" + part));
   }
 
   /**

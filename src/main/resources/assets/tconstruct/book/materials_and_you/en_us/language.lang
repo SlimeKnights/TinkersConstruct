@@ -20,9 +20,6 @@ terminology=Terminology
 modifier.effect=Effects:
 tool.properties=Properties:
 
-material.craft_partbuilder=Can be crafted in the Part Builder
-material.craft_casting=Can be cast from %s
-
 tier_one_materials.subtext=Materials are the first part to making any tool. These materials can be placed in the part builder to create tool parts.
 material.tconstruct.wood.book=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
 material.tconstruct.stone.book=Rock solid

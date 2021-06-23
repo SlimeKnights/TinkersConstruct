@@ -21,7 +21,7 @@ import java.util.List;
 public final class TinkerToolParts extends TinkerModule {
   /** Tab for all tool parts */
   public static final ItemGroup TAB_TOOL_PARTS = new SupplierItemGroup(TConstruct.modID, "tool_parts", () -> {
-    List<IMaterial> materials = new ArrayList<>(MaterialRegistry.getInstance().getMaterials());
+    List<IMaterial> materials = new ArrayList<>(MaterialRegistry.getInstance().getVisibleMaterials());
     if (materials.isEmpty()) {
       return new ItemStack(TinkerToolParts.pickaxeHead);
     }
