@@ -996,7 +996,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
 
     // blood
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.ROTTEN_FLESH), TinkerFluids.blood.get(), MaterialValues.SLIMEBALL / 5, 1.0f)
-                        .build(consumer, location("blood_from_flesh"));
+                        .build(consumer, location(folder + "slime/blood/flesh"));
 
     // glass
     MeltingRecipeBuilder.melting(Ingredient.fromTag(Tags.Items.SAND), TinkerFluids.moltenGlass.get(), MaterialValues.GLASS_BLOCK, 1.5f)
