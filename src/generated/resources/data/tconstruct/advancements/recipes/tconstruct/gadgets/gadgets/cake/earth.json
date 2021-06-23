@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tconstruct:gadgets/cake/earth"
+    ]
+  },
+  "criteria": {
+    "has_slime": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:earth_slime_bucket"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tconstruct:gadgets/cake/earth"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_slime",
+      "has_the_recipe"
+    ]
+  ]
+}

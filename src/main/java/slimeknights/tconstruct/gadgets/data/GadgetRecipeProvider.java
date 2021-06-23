@@ -13,6 +13,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -206,6 +207,18 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     registerSlabStair(consumer, TinkerCommons.driedClay, folder, true);
     registerSlabStair(consumer, TinkerCommons.driedClayBricks, folder, true);
      */
+    String cakeFolder = "gadgets/cake/";
+    TinkerGadgets.cake.forEach((slime, cake) -> {
+      Item bucket = slime == SlimeType.BLOOD ? TinkerFluids.magma.asItem() : TinkerFluids.slime.get(slime).asItem();
+      ShapedRecipeBuilder.shapedRecipe(cake)
+                         .key('M', bucket)
+                         .key('S', Items.SUGAR)
+                         .key('E', Items.EGG)
+                         .key('W', TinkerWorld.slimeTallGrass.get(slime))
+                         .patternLine("MMM").patternLine("SES").patternLine("WWW")
+                         .addCriterion("has_slime", hasItem(bucket))
+                         .build(consumer, location(cakeFolder + slime.getString()));
+    });
   }
 
 

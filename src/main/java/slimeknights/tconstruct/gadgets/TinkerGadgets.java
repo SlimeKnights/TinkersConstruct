@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.gadgets;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.data.DataGenerator;
@@ -23,6 +25,7 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.gadgets.block.FoodCakeBlock;
 import slimeknights.tconstruct.gadgets.block.PunjiBlock;
 import slimeknights.tconstruct.gadgets.data.GadgetRecipeProvider;
 import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
@@ -94,6 +97,8 @@ public final class TinkerGadgets extends TinkerModule {
   public static final ItemObject<EflnBallItem> efln = ITEMS.register("efln_ball", EflnBallItem::new);
 
   // foods
+  private static final AbstractBlock.Properties CAKE = builder(Material.CAKE, NO_TOOL, SoundType.CLOTH).hardnessAndResistance(0.5F);
+  public static final EnumObject<SlimeType,FoodCakeBlock> cake = BLOCKS.registerEnum(SlimeType.LIQUID, "cake", type -> new FoodCakeBlock(CAKE, TinkerFood.getCake(type)), block -> new BlockItem(block, UNSTACKABLE_PROPS));
 
   // Shurikens
   private static final Item.Properties THROWABLE_PROPS = new Item.Properties().maxStackSize(16).group(TAB_GADGETS);
@@ -157,6 +162,7 @@ public final class TinkerGadgets extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     CapabilityTinkerPiggyback.register();
     MinecraftForge.EVENT_BUS.register(new GadgetEvents());
+    event.enqueueWork(() -> cake.forEach(block -> ComposterBlock.registerCompostable(1.0f, block)));
   }
 
   @SubscribeEvent

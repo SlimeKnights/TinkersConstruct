@@ -636,6 +636,12 @@
   "item.tconstruct.quartz_shuriken.tooltip": "A throwable weapon with higher damage",
   "item.tconstruct.flint_shuriken": "Flint Shuriken",
   "item.tconstruct.flint_shuriken.tooltip": "A throwable weapon with high knockback",
+  
+  "block.tconstruct.earth_cake": "Earthslime Cake",
+  "block.tconstruct.sky_cake":   "Skyslime Cake",
+  "block.tconstruct.ichor_cake": "Ichor Cake",
+  "block.tconstruct.ender_cake": "Enderslime Cake",
+  "block.tconstruct.blood_cake": "Magma Cake",
 
   "item.tconstruct.earth_slime_sling": "Slime Sling",
   "item.tconstruct.earth_slime_sling.tooltip": "Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!",

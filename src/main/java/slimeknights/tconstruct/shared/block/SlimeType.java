@@ -28,6 +28,9 @@ public enum SlimeType implements IStringSerializable {
    */
   public static final SlimeType[] TRUE_SLIME = {EARTH, SKY, ENDER, ICHOR};
 
+  /** Slime types that flow downwards, ichor flows up */
+  public static final SlimeType[] LIQUID = {EARTH, SKY, BLOOD, ENDER};
+
   /* Block color for this slime type */
   @Getter
   private final int color;

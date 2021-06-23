@@ -162,6 +162,7 @@ public class BlockLootTableProvider extends BlockLootTables {
 
   private void addGadgets() {
     this.registerDropSelfLootTable(TinkerGadgets.punji.get());
+    TinkerGadgets.cake.forEach(block -> this.registerLootTable(block, blockNoDrop()));
   }
 
   private void addSmeltery() {
