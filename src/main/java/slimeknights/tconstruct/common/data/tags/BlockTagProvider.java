@@ -15,7 +15,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.common.registration.WoodBlockObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
@@ -35,7 +34,6 @@ public class BlockTagProvider extends BlockTagsProvider {
   @Override
   protected void registerTags() {
     this.addCommon();
-    this.addGadgets();
     this.addTools();
     this.addWorld();
     this.addSmeltery();
@@ -169,10 +167,6 @@ public class BlockTagProvider extends BlockTagsProvider {
     addWoodTags(TinkerWorld.greenheart, true);
     addWoodTags(TinkerWorld.skyroot, true);
     addWoodTags(TinkerWorld.bloodshroom, false);
-  }
-
-  private void addGadgets() {
-    this.getOrCreateBuilder(BlockTags.RAILS).add(TinkerGadgets.woodenRail.get(), TinkerGadgets.woodenDropperRail.get());
   }
 
   private void addSmeltery() {

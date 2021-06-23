@@ -103,8 +103,6 @@ public class BlockLootTableProvider extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerCommons.soulGlassPane.get());
 
     this.registerBuildingLootTables(TinkerCommons.mudBricks);
-    this.registerBuildingLootTables(TinkerCommons.driedClay);
-    this.registerBuildingLootTables(TinkerCommons.driedClayBricks);
   }
 
   private void addTools() {
@@ -163,16 +161,7 @@ public class BlockLootTableProvider extends BlockLootTables {
   }
 
   private void addGadgets() {
-    this.registerDropSelfLootTable(TinkerGadgets.stoneLadder.get());
-
-    this.registerDropSelfLootTable(TinkerGadgets.stoneTorch.get());
-
-    this.registerDropping(TinkerGadgets.wallStoneTorch.get(), TinkerGadgets.stoneTorch.get());
-
     this.registerDropSelfLootTable(TinkerGadgets.punji.get());
-
-    this.registerDropSelfLootTable(TinkerGadgets.woodenRail.get());
-    this.registerDropSelfLootTable(TinkerGadgets.woodenDropperRail.get());
   }
 
   private void addSmeltery() {

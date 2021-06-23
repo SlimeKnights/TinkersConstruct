@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.gadgets;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
@@ -17,8 +15,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.gadgets.client.FancyItemFrameRenderer;
-import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.gadgets.client.RenderShuriken;
+import slimeknights.tconstruct.gadgets.entity.FrameType;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
@@ -43,13 +41,6 @@ public class GadgetClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetup(FMLClientSetupEvent event) {
     Minecraft mc = Minecraft.getInstance();
-
-    RenderTypeLookup.setRenderLayer(TinkerGadgets.stoneLadder.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerGadgets.stoneTorch.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerGadgets.wallStoneTorch.get(), RenderType.getCutout());
-
-    RenderTypeLookup.setRenderLayer(TinkerGadgets.woodenRail.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerGadgets.woodenDropperRail.get(), RenderType.getCutout());
 
     RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.itemFrameEntity.get(), (manager) -> new FancyItemFrameRenderer(manager, mc.getItemRenderer()));
     RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.glowBallEntity.get(), (manager) -> new SpriteRenderer<>(manager, mc.getItemRenderer()));

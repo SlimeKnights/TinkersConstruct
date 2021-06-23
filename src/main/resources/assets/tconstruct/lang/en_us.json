@@ -175,36 +175,6 @@
   "item.tconstruct.ichor_slime_ball": "Ichor Ball",
 
   "item.tconstruct.bacon": "Bacon",
-  "item.tconstruct.beef_jerky": "Beef Jerky",
-  "item.tconstruct.beef_jerky.tooltip": "Saturating!",
-  "item.tconstruct.chicken_jerky": "Chicken Jerky",
-  "item.tconstruct.chicken_jerky.tooltip": "Saturating!",
-  "item.tconstruct.pork_jerky": "Bacon Jerky",
-  "item.tconstruct.pork_jerky.tooltip": "Saturating!",
-  "item.tconstruct.mutton_jerky": "Mutton Jerky",
-  "item.tconstruct.mutton_jerky.tooltip": "Saturating!",
-  "item.tconstruct.rabbit_jerky": "Rabbit Jerky",
-  "item.tconstruct.rabbit_jerky.tooltip": "Saturating!",
-  "item.tconstruct.fish_jerky": "Cod Jerky",
-  "item.tconstruct.fish_jerky.tooltip": "Saturating!",
-  "item.tconstruct.salmon_jerky": "Salmon Jerky",
-  "item.tconstruct.salmon_jerky.tooltip": "Saturating!",
-  "item.tconstruct.clownfish_jerky": "Tropical Fish Jerky",
-  "item.tconstruct.clownfish_jerky.tooltip": "Colorful!",
-  "item.tconstruct.pufferfish_jerky": "Fugu Jerky",
-  "item.tconstruct.pufferfish_jerky.tooltip": "Safe to eat!",
-  "item.tconstruct.monster_jerky": "Monster Jerky",
-  "item.tconstruct.monster_jerky.tooltip": "Safe to eat!",
-
-  "item.tconstruct.earth_slime_drop": "Gelatinous Slime Drop",
-  "item.tconstruct.sky_slime_drop": "Gelatinous Skyslime Drop",
-  "item.tconstruct.ichor_slime_drop": "Gelatinous Ichor Drop",
-  "item.tconstruct.ender_slime_drop": "Gelatinous Enderslime Drop",
-  "item.tconstruct.blood_slime_drop": "Coagulated Blood Drop",
-
-  "item.tconstruct.mud_brick": "Mud Brick",
-  "item.tconstruct.mud_brick.tooltip": "Building blocks for small and big",
-  "item.tconstruct.dried_brick": "Dried Brick",
 
   "item.tconstruct.earth_slime_crystal": "Slime Crystal",
   "item.tconstruct.earth_slime_crystal.tooltip": "Used to overslime tools",
@@ -647,24 +617,8 @@
 
   "_comment": "Tinkers Gadgets",
 
-  "block.tconstruct.stone_torch": "Stone Torch",
-  "block.tconstruct.stone_ladder": "Stone Ladder",
-
   "block.tconstruct.punji": "Punji Sticks",
   "block.tconstruct.punji.tooltip": "Pointy! Also sticks to walls.",
-
-  "block.tconstruct.wooden_rail": "Wooden Rail",
-  "block.tconstruct.wooden_dropper_rail": "Wooden Dropper Rail",
-  "block.tconstruct.wooden_dropper_rail.tooltip": "Minecarts with a Hopper can\ninsert into the block below",
-
-  "block.tconstruct.dried_clay": "Dried Clay",
-  "block.tconstruct.dried_clay_bricks": "Dried Bricks",
-  "block.tconstruct.dried_clay_slab": "Dried Clay Slab",
-  "block.tconstruct.dried_clay_bricks_slab": "Dried Bricks Slab",
-  "block.tconstruct.dried_clay_stairs": "Dried Clay Stairs",
-  "block.tconstruct.dried_clay_bricks_stairs": "Dried Bricks Stairs",
-
-  "item.tconstruct.stone_stick": "Stone Rod",
 
   "item.tconstruct.jewel_item_frame": "Fancy Item Frame",
   "item.tconstruct.aluminum_brass_item_frame": "Aluminium Brass Item Frame",
@@ -707,12 +661,6 @@
   "item.tconstruct.piggy_backpack.tooltip": "Use on a mob to pick it up",
   "effect.tconstruct.carry": "Carrying",
 
-  "item.tconstruct.hard_spaghetti": "Impossibly Hard Wheat Sticks",
-  "item.tconstruct.hard_spaghetti.tooltip": "Impossibly Hard Wheat Sticks",
-  "item.tconstruct.soggy_spaghetti": "Soggy Noodles",
-  "item.tconstruct.soggy_spaghetti.tooltip": "Now they're all wet, even your spaghetti arms can bend them now.\nLet's hang them up and get them dry.",
-  "item.tconstruct.cold_spaghetti": "Cold Dried Noodles",
-  "item.tconstruct.cold_spaghetti.tooltip": "Well, that's better, but they still taste gross.\nWarming them up should make them edible.\nThey might even be good enough to get you off your weak knees.",
 
   "_comment": "Tinkers Tables",
 

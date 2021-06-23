@@ -1,8 +1,0 @@
-{
-    "parent": "block/outer_stairs",
-    "textures": {
-        "bottom": "tconstruct:block/dried_clay_bricks",
-        "top": "tconstruct:block/dried_clay_bricks",
-        "side": "tconstruct:block/dried_clay_bricks"
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "tconstruct:block/dried_clay",
-        "top": "tconstruct:block/dried_clay",
-        "side": "tconstruct:block/dried_clay"
-    }
-}

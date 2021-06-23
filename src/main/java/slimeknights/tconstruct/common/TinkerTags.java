@@ -143,7 +143,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> SCORCHED_TANKS = tag("scorched_tanks");
     public static final IOptionalNamedTag<Item> TANKS = tag("tanks");
 
-    public static final IOptionalNamedTag<Item> RODS_STONE = forgeTag("rods/stone");
     public static final IOptionalNamedTag<Item> WITHER_BONES = forgeTag("wither_bones");
     public static final IOptionalNamedTag<Item> BOOKS = forgeTag("books");
     public static final IOptionalNamedTag<Item> GUIDEBOOKS = forgeTag("books/guide");
