@@ -1,7 +1,7 @@
 /*
  * Adds four Casting Table recipes that do the following:
  * 
- * 1) Adds an Item Casting Recipe that, when a Honey Bottle is used as a Cast for 1000mb of Blood (Fluid), it gets cast into a Diamond of 200 ticks of cooling time. The Honey Bottle is not consumed and does not switch slots with the Diamond.
+ * 1) Adds an Item Casting Recipe that, when a Honey Bottle is used as a Cast for 1000mb of Blood (Fluid), it gets cast into a Diamond after 200 ticks of cooling time. The Honey Bottle is not consumed and does not switch slots with the Diamond.
  * 2) Adds a Material Casting Recipe that will allow a Diamond to be used as a Cast to make any Axe Head (Part), regardless of material (The Diamond acts as an Axe Head Cast). The Diamond is consumed by the recipe and does not switch slots with the Axe Head.
  * 2.1) The result Item needs to be an Item that works with Materials, you can find a list of valid items by running `/ct dump ticMaterialItems`.
  * 3) Adds a Composite Casting Recipe that uses Iron Tool Parts (Iron Axe Head for example) and Water (Fluid) to create a Bone version of that part. The recipe has a cooling temperature of 0°C. 

@@ -42,8 +42,8 @@
  * 11.3) If there are any increments left over (if there was 18 increments and another Red Wool is used, for a total of 22 increments), the recipe will return a Red Dye.
  * 11.4) The Recipe requires the Tool that it is being applied on to have the Diamond Modifier at level 1 or more.
  * 11.5) The Modifier will use 1 Upgrade slot on the Tool.
- * 12) Adds an Incremental Ability Modifier Recipe that uses Brown Wool to add the Luck Modifier to any item in the tconstruct:modifiable Item Tag.
- * 12.1) The Modifier can be applied 4 times, for a total of Luck 4.
+ * 12) Adds an Incremental Ability Modifier Recipe that uses Brown Wool to add the Sweeping Edge Modifier to any item in the tconstruct:modifiable Item Tag.
+ * 12.1) The Modifier can be applied 4 times, for a total of Sweeping Edge 4.
  * 12.2) The Recipe has 2 increments and each Brown Wool adds 1 increments, meaning a total of 2 Brown Wool will be required per level.
  * 12.3) If there are any increments left over (this should never happen as each Brown Wool adds 1 increment), the recipe will return a Brown Dye.
  * 12.4) The Modifier will use 1 Ability slot on the Tool.
@@ -74,7 +74,7 @@
 <recipetype:tconstruct:tinker_station>.addIncrementalModifierRecipe("incremental_modifier_requirements_example", <item:minecraft:yellow_wool>, 3, 8, <tag:items:tconstruct:modifiable>, "tconstruct:sharpness", 1, 8, <item:minecraft:yellow_dye>, {"tconstruct:emerald": 1}, 1, "recipe.tconstruct.modifier.requirements_error");
 <recipetype:tconstruct:tinker_station>.addIncrementalUpgradeModifierRecipe("incremental_upgrade_modifier_example", <item:minecraft:blue_wool>, 4, 20, <tag:items:tconstruct:modifiable>, "tconstruct:bane_of_arthropods", 1, 3, 1, <item:minecraft:blue_dye>);
 <recipetype:tconstruct:tinker_station>.addIncrementalUpgradeModifierRecipe("incremental_upgrade_modifier_requirements_example", <item:minecraft:red_wool>, 4, 20, <tag:items:tconstruct:modifiable>, "tconstruct:fiery", 1, 3, 1, <item:minecraft:red_dye>, {"tconstruct:diamond": 1}, 1, "recipe.tconstruct.modifier.requirements_error");
-<recipetype:tconstruct:tinker_station>.addIncrementalAbilityModifierRecipe("incremental_ability_modifier_example", <item:minecraft:brown_wool>, 1, 2, <tag:items:tconstruct:modifiable>, "tconstruct:luck", 1, 4, 1, <item:minecraft:brown_dye>);
+<recipetype:tconstruct:tinker_station>.addIncrementalAbilityModifierRecipe("incremental_ability_modifier_example", <item:minecraft:brown_wool>, 1, 2, <tag:items:tconstruct:modifiable>, "tconstruct:sweeping_edge", 1, 4, 1, <item:minecraft:brown_dye>);
 <recipetype:tconstruct:tinker_station>.addIncrementalAbilityModifierRecipe("incremental_ability_modifier_requirements_example", <item:minecraft:magenta_wool>, 1, 2, <tag:items:tconstruct:modifiable>, "tconstruct:antiaquatic", 1, 4, 1, <item:minecraft:magenta_wool>, {"tconstruct:diamond": 1, "tconstruct:haste": 2}, 2, "recipe.tconstruct.modifier.requirements_error");
 
 /*
