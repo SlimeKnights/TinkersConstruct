@@ -67,6 +67,9 @@ public class CRTHelper {
     if (resultId == null) {
       throw new IllegalArgumentException("Invalid ResourceLocation provided! Provided: " + modifierId);
     }
+    if (!TinkerRegistries.MODIFIERS.containsKey(resultId)) {
+      throw new IllegalArgumentException("Modifier does not exist! Provided: " + resultId);
+    }
     Modifier resultModifier = TinkerRegistries.MODIFIERS.getValue(resultId);
     if (resultModifier == null) {
       throw new IllegalArgumentException("Modifier does not exist! Provided: " + resultId);
