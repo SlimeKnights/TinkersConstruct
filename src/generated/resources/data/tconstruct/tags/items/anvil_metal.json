@@ -36,6 +36,50 @@
     {
       "id": "#forge:storage_blocks/steel",
       "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/refined_obsidian",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/refined_glowstone",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/alfsteel",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/energized_steel",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/enderium",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/lumium",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/signalum",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/arcane_gold",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/terminite",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/aeternium",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/terrasteel",
+      "required": false
     }
   ]
 }
