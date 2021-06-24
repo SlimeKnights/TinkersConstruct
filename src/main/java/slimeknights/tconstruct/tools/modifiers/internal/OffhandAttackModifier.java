@@ -35,7 +35,12 @@ public class OffhandAttackModifier extends Modifier {
   @Override
   public ActionResultType onEntityUse(IModifierToolStack tool, int level, PlayerEntity player, LivingEntity target, Hand hand) {
     if (hand == Hand.OFF_HAND && !player.getCooldownTracker().hasCooldown(tool.getItem()) && tool.getItem() instanceof IModifiableWeapon) {
-      ToolAttackUtil.attackEntity((IModifiableWeapon) tool.getItem(), tool, player, Hand.OFF_HAND, target, false, false);
+      int oldHurtResistance = target.hurtResistantTime;
+      if (!player.world.isRemote()) {
+        target.hurtResistantTime = 0;
+        ToolAttackUtil.attackEntity((IModifiableWeapon)tool.getItem(), tool, player, Hand.OFF_HAND, target, false, false);
+        target.hurtResistantTime = oldHurtResistance;
+      }
       player.swingArm(Hand.OFF_HAND);
       player.getCooldownTracker().setCooldown(tool.getItem(), (int)(20 / tool.getStats().getFloat(ToolStats.ATTACK_SPEED)));
       return ActionResultType.SUCCESS;

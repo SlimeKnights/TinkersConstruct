@@ -54,7 +54,7 @@ public class ToolAttackUtil {
    * @return  Attack damage
    */
   public static float getAttributeAttackDamage(IModifierToolStack tool, LivingEntity holder, Hand hand) {
-    if (hand == Hand.OFF_HAND) {
+    if (hand == Hand.OFF_HAND && !holder.world.isRemote()) {
       // first, get a map of existing damage modifiers to exclude
       Multimap<Attribute,AttributeModifier> mainModifiers = new SingleKeyMultimap<>(Attributes.ATTACK_DAMAGE, holder.getHeldItemMainhand().getAttributeModifiers(EquipmentSlotType.MAINHAND).get(Attributes.ATTACK_DAMAGE));
 
@@ -113,7 +113,8 @@ public class ToolAttackUtil {
       return false;
     }
     // nothing to do? cancel
-    if (!targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attackerLiving)) {
+    // TODO: is it a problem that we return true instead of false when isExtraAttack and the final damage is 0 or we fail to hit? I don't think anywhere clientside uses that
+    if (attackerLiving.getEntityWorld().isRemote || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attackerLiving)) {
       return true;
     }
 
