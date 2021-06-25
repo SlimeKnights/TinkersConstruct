@@ -54,13 +54,13 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.tools.OffhandCooldownTracker;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
-import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
 
 import java.util.List;
 import java.util.Optional;
@@ -210,13 +210,8 @@ public class ToolClientEvents extends ClientEventBase {
       return;
     }
     // check if we have cooldown
-    float cooldown = minecraft.player.getCooldownTracker().getCooldown(held.getItem(), minecraft.getRenderPartialTicks());
-    if (cooldown == 0) {
-      return;
-    }
-    // check if the tool is duel wieldable
-    ToolStack tool = ToolStack.from(held);
-    if (!tool.getVolatileData().getBoolean(OffhandAttackModifier.DUEL_WIELDING)) {
+    float cooldown = OffhandCooldownTracker.getCooldown(minecraft.player);
+    if (cooldown >= 1.0f) {
       return;
     }
 
@@ -232,7 +227,7 @@ public class ToolClientEvents extends ClientEventBase {
             // integer division makes this a pain to line up, there might be a simplier version of this formula but I cannot think of one
             int y = (scaledHeight / 2) - 14 + (2 * (scaledHeight % 2));
             int x = minecraft.getMainWindow().getScaledWidth() / 2 - 8;
-            int width = (int)((1 - cooldown) * 17.0F);
+            int width = (int)(cooldown * 17.0F);
             minecraft.getTextureManager().bindTexture(AbstractGui.GUI_ICONS_LOCATION);
             minecraft.ingameGUI.blit(matrixStack, x, y, 36, 94, 16, 4);
             minecraft.ingameGUI.blit(matrixStack, x, y, 52, 94, width, 4);
@@ -251,7 +246,7 @@ public class ToolClientEvents extends ClientEventBase {
             x = centerWidth + 91 + 6 + 32;
           }
           minecraft.getTextureManager().bindTexture(AbstractGui.GUI_ICONS_LOCATION);
-          int l1 = (int)((1 - cooldown) * 19.0F);
+          int l1 = (int)(cooldown * 19.0F);
           RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
           minecraft.ingameGUI.blit(matrixStack, x, y, 0, 94, 18, 18);
           minecraft.ingameGUI.blit(matrixStack, x, y + 18 - l1, 18, 112 - l1, 18, l1);

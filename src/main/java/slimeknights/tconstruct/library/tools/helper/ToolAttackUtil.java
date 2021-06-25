@@ -33,6 +33,7 @@ import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.OffhandCooldownTracker;
 import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -44,11 +45,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.BiConsumer;
+import java.util.function.DoubleSupplier;
 
 public class ToolAttackUtil {
   private static final UUID OFFHAND_DAMAGE_MODIFIER_UUID = UUID.fromString("fd666e50-d2cc-11eb-b8bc-0242ac130003");
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
   private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.modID + ".anti_knockback", 1f, Operation.ADDITION);
+  /** Function to ignore attack cooldown */
+  public static final DoubleSupplier NO_COOLDOWN = () -> 1.0;
+
+  /**
+   * Gets the cooldown function for the given player and hand
+   * @param player  Player instance
+   * @param hand    Attacking hand
+   * @return  Cooldown function
+   */
+  public static DoubleSupplier getCooldownFunction(PlayerEntity player, Hand hand) {
+    if (hand == Hand.OFF_HAND) {
+      return () -> OffhandCooldownTracker.getCooldown(player);
+    }
+    return () -> player.getCooledAttackStrength(0.5f);
+  }
 
   /**
    * Gets the attack damage for the given hand, acting as though it was used in the main hand
@@ -105,14 +122,14 @@ public class ToolAttackUtil {
    * General version of attackEntity. Applies cooldowns but has no projectile entity
    */
   public static boolean attackEntity(ItemStack stack, IModifiableWeapon weapon, PlayerEntity attacker, Entity targetEntity) {
-    return attackEntity(weapon, ToolStack.from(stack), attacker, Hand.MAIN_HAND, targetEntity, true, false);
+    return attackEntity(weapon, ToolStack.from(stack), attacker, Hand.MAIN_HAND, targetEntity, getCooldownFunction(attacker, Hand.MAIN_HAND), false);
   }
 
   /**
    * Base attack logic, used by normal attacks, projectils, and extra attacks
    */
   public static boolean attackEntity(IModifiableWeapon weapon, IModifierToolStack tool, LivingEntity attackerLiving, Hand hand,
-                                     Entity targetEntity, boolean applyCoolDown, boolean isExtraAttack) {
+                                     Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack) {
     // TODO: general modifiable
     // broken? give to vanilla
     if (tool.isBroken()) {
@@ -146,11 +163,7 @@ public class ToolAttackUtil {
     // missing: enchantment modifiers, we handle ourselves
 
     // determine cooldown
-    float cooldown = 1.0f;
-    if (applyCoolDown && attackerPlayer != null) {
-      cooldown = attackerPlayer.getCooledAttackStrength(0.5f);
-      // cooldown reset by player controller
-    }
+    float cooldown = (float)cooldownFunction.getAsDouble();
     boolean fullyCharged = cooldown > 0.9f;
 
 
@@ -379,7 +392,7 @@ public class ToolAttackUtil {
    * @return  True if hit
    */
   public static boolean extraEntityAttack(IModifiableWeapon weapon, IModifierToolStack tool, LivingEntity attackerLiving, Hand hand, Entity targetEntity) {
-    return attackEntity(weapon, tool, attackerLiving, hand, targetEntity, false, true);
+    return attackEntity(weapon, tool, attackerLiving, hand, targetEntity, NO_COOLDOWN, true);
   }
 
   /**
