@@ -160,7 +160,7 @@ public class ToolPredicate extends ItemPredicate {
     boolean hasUpgrades = JSONUtils.getBoolean(json, "has_upgrades", false);
     ModifierMatch upgrades = ModifierMatch.ALWAYS;
     if (json.has("upgrades")) {
-      upgrades = ModifierMatch.deserialize(JSONUtils.getJsonObject(json, "modifiers"));
+      upgrades = ModifierMatch.deserialize(JSONUtils.getJsonObject(json, "upgrades"));
     }
     // modifiers
     ModifierMatch modifiers = ModifierMatch.ALWAYS;

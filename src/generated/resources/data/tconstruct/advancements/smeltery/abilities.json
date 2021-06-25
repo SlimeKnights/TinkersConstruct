@@ -1,14 +1,14 @@
 {
-  "parent": "tconstruct:tools/modified",
+  "parent": "tconstruct:smeltery/tinkers_anvil",
   "display": {
     "icon": {
       "item": "tconstruct:silky_cloth"
     },
     "title": {
-      "translate": "advancements.tconstruct.tools.abilities.title"
+      "translate": "advancements.tconstruct.smeltery.abilities.title"
     },
     "description": {
-      "translate": "advancements.tconstruct.tools.abilities.description"
+      "translate": "advancements.tconstruct.smeltery.abilities.description"
     },
     "frame": "challenge",
     "show_toast": true,

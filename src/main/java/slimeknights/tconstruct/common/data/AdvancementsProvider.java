@@ -44,8 +44,6 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMatch;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
-import slimeknights.tconstruct.library.tools.stat.StatPredicate;
-import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -98,28 +96,6 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.withCriterion("crafted_block", hasItem(TinkerTables.tinkerStation)));
     Advancement tinkerTool = builder(TinkerTools.pickaxe.get().buildToolForRendering(), location("tools/tinker_tool"), tinkerStation, FrameType.TASK, builder ->
       builder.withCriterion("crafted_tool", hasTag(TinkerTags.Items.MULTIPART_TOOL)));
-    Advancement modified = builder(Items.REDSTONE, location("tools/modified"), tinkerTool, FrameType.TASK, builder ->
-      builder.withCriterion("crafted_tool", InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().hasUpgrades(true).build())));
-    builder(TinkerModifiers.silkyCloth, location("tools/abilities"), modified, FrameType.CHALLENGE, builder -> {
-      Consumer<Supplier<? extends Modifier>> with = modifier -> builder.withCriterion(modifier.get().getId().getPath(), InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier.get())).build()));
-      with.accept(TinkerModifiers.luck);
-      with.accept(TinkerModifiers.silky);
-      with.accept(TinkerModifiers.autosmelt);
-      with.accept(TinkerModifiers.expanded);
-      with.accept(TinkerModifiers.reach);
-      with.accept(TinkerModifiers.unbreakable);
-      with.accept(TinkerModifiers.exchanging);
-      with.accept(TinkerModifiers.melting);
-      with.accept(TinkerModifiers.glowing);
-      with.accept(TinkerModifiers.pathing);
-      with.accept(TinkerModifiers.stripping);
-      with.accept(TinkerModifiers.tilling);
-    });
-    builder(TinkerTools.cleaver.get().buildToolForRendering(), location("tools/glass_cannon"), modified, FrameType.CHALLENGE, builder ->
-      builder.withCriterion("crafted_tool", InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder()
-                                                                                                  .withStat(StatPredicate.max(ToolStats.DURABILITY, 100))
-                                                                                                  .withStat(StatPredicate.min(ToolStats.ATTACK_DAMAGE, 20))
-                                                                                                  .build())));
     builder(TinkerMaterials.manyullyn.getIngot(), location("tools/material_master"), tinkerTool, FrameType.CHALLENGE, builder -> {
       Consumer<MaterialId> with = id -> builder.withCriterion(id.getPath(), InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().withMaterial(id).build()));
       // tier 1
@@ -146,21 +122,30 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.hepatizon);
       with.accept(MaterialIds.queensSlime);
     });
-    builder(TinkerTools.veinHammer.get().buildToolForRendering(), location("tools/tool_smith"), tinkerTool, FrameType.CHALLENGE, builder -> {
+    builder(TinkerTools.pickaxe.get().buildToolForRendering(), location("tools/tool_smith"), tinkerTool, FrameType.CHALLENGE, builder -> {
       Consumer<Item> with = item -> builder.withCriterion(Objects.requireNonNull(item.getRegistryName()).getPath(), hasItem(item));
       with.accept(TinkerTools.pickaxe.get());
-      with.accept(TinkerTools.sledgeHammer.get());
-      with.accept(TinkerTools.veinHammer.get());
       with.accept(TinkerTools.mattock.get());
-      with.accept(TinkerTools.excavator.get());
       with.accept(TinkerTools.handAxe.get());
-      with.accept(TinkerTools.broadAxe.get());
       with.accept(TinkerTools.kama.get());
-      with.accept(TinkerTools.scythe.get());
       with.accept(TinkerTools.dagger.get());
       with.accept(TinkerTools.sword.get());
-      with.accept(TinkerTools.cleaver.get());
     });
+    Advancement modified = builder(Items.REDSTONE, location("tools/modified"), tinkerTool, FrameType.TASK, builder ->
+      builder.withCriterion("crafted_tool", InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().hasUpgrades(true).build())));
+    //    builder(TinkerTools.cleaver.get().buildToolForRendering(), location("tools/glass_cannon"), modified, FrameType.CHALLENGE, builder ->
+    //      builder.withCriterion("crafted_tool", InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder()
+    //                                                                                                  .withStat(StatPredicate.max(ToolStats.DURABILITY, 100))
+    //                                                                                                  .withStat(StatPredicate.min(ToolStats.ATTACK_DAMAGE, 20))
+    //                                                                                                  .build())));
+    builder(Items.WRITABLE_BOOK, location("tools/upgrade_slots"), modified, FrameType.CHALLENGE, builder ->
+      builder.withCriterion("has_modified", InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().upgrades(
+        ModifierMatch.list(5, ModifierMatch.entry(TinkerModifiers.writable.get()),
+                           ModifierMatch.entry(TinkerModifiers.recapitated.get()),
+                           ModifierMatch.entry(TinkerModifiers.harmonious.get()),
+                           ModifierMatch.entry(TinkerModifiers.resurrected.get()),
+                           ModifierMatch.entry(TinkerModifiers.gilded.get()))).build()))
+    );
 
     // smeltery path
     Advancement punySmelting = builder(TinkerCommons.punySmelting, location("smeltery/puny_smelting"), materialsAndYou, FrameType.TASK, builder ->
@@ -202,8 +187,37 @@ public class AdvancementsProvider extends GenericDataProvider {
     });
     Advancement mightySmelting = builder(TinkerCommons.mightySmelting, location("smeltery/mighty_smelting"), melter, FrameType.TASK, builder ->
       builder.withCriterion("crafted_book", hasItem(TinkerCommons.mightySmelting)));
-    builder(TinkerSmeltery.smelteryController, location("smeltery/structure"), mightySmelting, FrameType.TASK, builder ->
+    Advancement smeltery = builder(TinkerSmeltery.smelteryController, location("smeltery/structure"), mightySmelting, FrameType.TASK, builder ->
       builder.withCriterion("open_smeltery", BlockContainerOpenedTrigger.Instance.container(TinkerSmeltery.smeltery.get())));
+    Advancement anvil = builder(TinkerTables.tinkersAnvil, location("smeltery/tinkers_anvil"), smeltery, FrameType.GOAL, builder -> {
+      builder.withCriterion("crafted_overworld", hasItem(TinkerTables.tinkersAnvil));
+      builder.withCriterion("crafted_nether", hasItem(TinkerTables.scorchedAnvil));
+      builder.withRequirementsStrategy(IRequirementsStrategy.OR);
+    });
+    builder(TinkerTools.veinHammer.get().buildToolForRendering(), location("smeltery/tool_forge"), anvil, FrameType.CHALLENGE, builder -> {
+      Consumer<Item> with = item -> builder.withCriterion(Objects.requireNonNull(item.getRegistryName()).getPath(), hasItem(item));
+      with.accept(TinkerTools.sledgeHammer.get());
+      with.accept(TinkerTools.veinHammer.get());
+      with.accept(TinkerTools.excavator.get());
+      with.accept(TinkerTools.broadAxe.get());
+      with.accept(TinkerTools.scythe.get());
+      with.accept(TinkerTools.cleaver.get());
+    });
+    builder(TinkerModifiers.silkyCloth, location("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
+      Consumer<Supplier<? extends Modifier>> with = modifier -> builder.withCriterion(modifier.get().getId().getPath(), InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier.get())).build()));
+      with.accept(TinkerModifiers.luck);
+      with.accept(TinkerModifiers.silky);
+      with.accept(TinkerModifiers.autosmelt);
+      with.accept(TinkerModifiers.expanded);
+      with.accept(TinkerModifiers.reach);
+      with.accept(TinkerModifiers.unbreakable);
+      with.accept(TinkerModifiers.exchanging);
+      with.accept(TinkerModifiers.melting);
+      with.accept(TinkerModifiers.glowing);
+      with.accept(TinkerModifiers.pathing);
+      with.accept(TinkerModifiers.stripping);
+      with.accept(TinkerModifiers.tilling);
+    });
 
     // foundry path
     Advancement fantasticFoundry = builder(TinkerCommons.fantasticFoundry, location("foundry/fantastic_foundry"), materialsAndYou, FrameType.TASK, builder ->
