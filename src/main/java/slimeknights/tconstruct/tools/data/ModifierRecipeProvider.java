@@ -20,8 +20,8 @@ import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
@@ -274,6 +274,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE)
                          .build(consumer, prefixR(TinkerModifiers.knockback, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.padded.get())
+                         .addInput(Items.LEATHER)
+                         .addInput(ItemTags.WOOL)
+                         .addInput(Items.LEATHER)
+                         .setMaxLevel(3) // max 25% knockback, or 20% on the dagger
+                         .setUpgradeSlots(1)
+                         .setTools(TinkerTags.Items.MELEE)
+                         .build(consumer, prefixR(TinkerModifiers.padded, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.severing.get())
                          .addInput(TinkerTags.Items.WITHER_BONES)
                          .addInput(TinkerMaterials.copper.getIngotTag())
