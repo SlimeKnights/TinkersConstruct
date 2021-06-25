@@ -1553,6 +1553,8 @@
   "gui.tconstruct.tinker_station": "Tinker Station",
   "gui.tconstruct.tinker_station.repair": "Repair & Modify",
   "gui.tconstruct.tinker_station.modifiers": "Modifiers",
+  "gui.tconstruct.tinker_station.upgrades": "Upgrades & Abilities",
+  "gui.tconstruct.tinker_station.traits": "Traits",
   "gui.tconstruct.tinker_station.components": "Components",
   "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
   "gui.tconstruct.tinker_station.no_traits": "None :[",

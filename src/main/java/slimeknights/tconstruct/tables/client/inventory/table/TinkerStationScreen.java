@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tables.client.inventory.table;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.Getter;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -17,6 +18,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import org.lwjgl.glfw.GLFW;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
@@ -49,8 +51,10 @@ import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity.INPUT_SLOT;
 import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity.TINKER_SLOT;
@@ -59,6 +63,8 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   private static final ITextComponent COMPONENTS_TEXT = Util.makeTranslation("gui", "tinker_station.components");
 
   private static final ITextComponent MODIFIERS_TEXT = Util.makeTranslation("gui", "tinker_station.modifiers");
+  private static final ITextComponent UPGRADES_TEXT = Util.makeTranslation("gui", "tinker_station.upgrades");
+  private static final ITextComponent TRAITS_TEXT = Util.makeTranslation("gui", "tinker_station.traits");
   private static final ITextComponent REPAIR_TEXT = Util.makeTranslation("gui", "tinker_station.repair");
   private static final ITextComponent ASCII_ANVIL = new StringTextComponent("\n\n")
     .appendString("       .\n")
@@ -268,18 +274,45 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
       // TODO: generalize to all modifiable tools
       ToolStack tool = ToolStack.from(toolStack);
-      List<ITextComponent> modifiers = new ArrayList<>();
+      List<ITextComponent> modifierNames = new ArrayList<>();
       List<ITextComponent> modifierInfo = new ArrayList<>();
-      for (ModifierEntry entry : tool.getModifierList()) {
-        Modifier mod = entry.getModifier();
-        if (mod.shouldDisplay(true)) {
-          modifiers.add(mod.getDisplayName(tool, entry.getLevel()));
-          modifierInfo.add(mod.getDescription());
+      ITextComponent title;
+      // control displays just traits, bit trickier to do
+      if (hasControlDown()) {
+        title = TRAITS_TEXT;
+        Map<Modifier,Integer> upgrades = tool.getUpgrades().getModifiers().stream()
+                                             .collect(Collectors.toMap(ModifierEntry::getModifier, ModifierEntry::getLevel));
+        for (ModifierEntry entry : tool.getModifierList()) {
+          Modifier mod = entry.getModifier();
+          if (mod.shouldDisplay(true)) {
+            int level = entry.getLevel() - upgrades.getOrDefault(mod, 0);
+            if (level > 0) {
+              modifierNames.add(mod.getDisplayName(tool, level));
+              modifierInfo.add(mod.getDescription());
+            }
+          }
+        }
+      } else {
+        // shift is just upgrades/abilities, otherwise all
+        List<ModifierEntry> modifiers;
+        if (hasShiftDown()) {
+          modifiers = tool.getUpgrades().getModifiers();
+          title = UPGRADES_TEXT;
+        } else {
+          modifiers = tool.getModifierList();
+          title = MODIFIERS_TEXT;
+        }
+        for (ModifierEntry entry : modifiers) {
+          Modifier mod = entry.getModifier();
+          if (mod.shouldDisplay(true)) {
+            modifierNames.add(mod.getDisplayName(tool, entry.getLevel()));
+            modifierInfo.add(mod.getDescription());
+          }
         }
       }
 
-      this.modifierInfo.setCaption(MODIFIERS_TEXT);
-      this.modifierInfo.setText(modifiers, modifierInfo);
+      this.modifierInfo.setCaption(title);
+      this.modifierInfo.setText(modifierNames, modifierInfo);
     }
     // Repair info
     else if (this.currentData.isRepair()) {
@@ -569,12 +602,21 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     return super.mouseReleased(mouseX, mouseY, state);
   }
 
+  /** Returns true if a key changed that requires a display update */
+  private static boolean needsDisplayUpdate(int keyCode) {
+    if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
+      return true;
+    }
+    if (Minecraft.IS_RUNNING_ON_MAC) {
+      return keyCode == GLFW.GLFW_KEY_LEFT_SUPER || keyCode == GLFW.GLFW_KEY_RIGHT_SUPER;
+    }
+    return keyCode == GLFW.GLFW_KEY_LEFT_CONTROL || keyCode == GLFW.GLFW_KEY_RIGHT_CONTROL;
+  }
+
   @Override
   public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-    if (keyCode == 256) {
-      assert this.minecraft != null;
-      assert this.minecraft.player != null;
-      this.minecraft.player.closeScreen();
+    if (needsDisplayUpdate(keyCode)) {
+      updateDisplay();
     }
 
     // TODO: textField
@@ -585,6 +627,14 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     //}
     // keyPressed || this.textField.canWrite() ||
     return super.keyPressed(keyCode, scanCode, modifiers);
+  }
+
+  @Override
+  public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+    if (needsDisplayUpdate(keyCode)) {
+      updateDisplay();
+    }
+    return super.keyReleased(keyCode, scanCode, modifiers);
   }
 
   /* TODO: textField
