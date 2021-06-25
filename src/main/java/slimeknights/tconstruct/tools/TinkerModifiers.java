@@ -47,6 +47,7 @@ import slimeknights.tconstruct.tools.modifiers.free.VolatileFlagModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.BlockTransformModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.HarvestAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
+import slimeknights.tconstruct.tools.modifiers.internal.ReducedKnockbackModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.SilkyShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.TwoHandedAbilityModifier;
@@ -205,6 +206,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<HarvestAbilityModifier> harvest = MODIFIERS.register("harvest", () -> new HarvestAbilityModifier(0x3eed78, Integer.MIN_VALUE + 51));
   public static final RegistryObject<TwoHandedAbilityModifier> twoHanded = MODIFIERS.register("two_handed", TwoHandedAbilityModifier::new);
   public static final RegistryObject<OffhandAttackModifier> offhandAttack = MODIFIERS.register("offhand_attack", () -> new OffhandAttackModifier(-1));
+  public static final RegistryObject<ReducedKnockbackModifier> reducedKnockback = MODIFIERS.register("reduced_knockback", () -> new ReducedKnockbackModifier(-1, Short.MIN_VALUE));
 
 
   // bonus modifier slots

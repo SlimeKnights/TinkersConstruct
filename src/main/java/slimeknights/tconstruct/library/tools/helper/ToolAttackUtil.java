@@ -7,8 +7,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.AttributeModifierManager;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -28,6 +30,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
@@ -36,13 +39,16 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.SingleKeyMultimap;
 
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
 public class ToolAttackUtil {
   private static final UUID OFFHAND_DAMAGE_MODIFIER_UUID = UUID.fromString("fd666e50-d2cc-11eb-b8bc-0242ac130003");
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
+  private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.modID + ".anti_knockback", 1f, Operation.ADDITION);
 
   /**
    * Gets the attack damage for the given hand, acting as though it was used in the main hand
@@ -155,6 +161,7 @@ public class ToolAttackUtil {
                          && !attackerLiving.isPassenger() && targetLiving != null && !attackerLiving.isSprinting();
 
     // shared context for all modifier hooks
+    // note that while targetLiving is nullable, this context is only used after a null check
     ToolAttackContext context = new ToolAttackContext(attackerLiving, attackerPlayer, hand, targetLiving, isCritical, cooldown, isExtraAttack);
 
     // calculate actual damage
@@ -173,11 +180,11 @@ public class ToolAttackUtil {
     }
 
     // if sprinting, deal bonus knockback
-    float knockback = 0;
+    float knockback = targetLiving != null ? 0.4f : 0; // vanilla applies 0.4 knockback to living via the attack hook
     SoundEvent sound;
     if (attackerLiving.isSprinting() && fullyCharged) {
       sound = SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK;
-      knockback = 0.5f;
+      knockback += 0.5f;
     } else if (fullyCharged) {
       sound = SoundEvents.ENTITY_PLAYER_ATTACK_STRONG;
     } else {
@@ -231,6 +238,18 @@ public class ToolAttackUtil {
     // set hand for proper looting context
     ModifierLootingHandler.setLootingHand(attackerLiving, hand);
 
+    // prevent knockback if needed
+    Optional<ModifiableAttributeInstance> knockbackModifier = getKnockbackAttribute(targetLiving);
+    // if knockback is below the vanilla amount, we need to prevent knockback, the remainder will be applied later
+    boolean canceledKnockback = false;
+    if (knockback < 0.4f) {
+      canceledKnockback = true;
+      knockbackModifier.ifPresent(ToolAttackUtil::disableKnockback);
+    } else if (targetLiving != null) {
+      // we will apply 0.4 of the knockback in the attack hook, need to apply the remainder ourself
+      knockback -= 0.4f;
+    }
+
     ///////////////////
     // actual attack //
     ///////////////////
@@ -242,8 +261,16 @@ public class ToolAttackUtil {
     } else {
       didHit = weapon.dealDamage(tool, context, damage);
     }
+
     // reset hand to make sure we don't mess with vanilla tools
     ModifierLootingHandler.setLootingHand(attackerLiving, Hand.MAIN_HAND);
+
+    // reset knockback if needed
+    if (canceledKnockback) {
+      knockbackModifier.ifPresent(ToolAttackUtil::enableKnockback);
+    }
+
+    // if we failed to hit, fire failure hooks
     if (!didHit) {
       if (!isExtraAttack) {
         attackerLiving.world.playSound(null, attackerLiving.getPosX(), attackerLiving.getPosY(), attackerLiving.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_NODAMAGE, attackerLiving.getSoundCategory(), 1.0F, 1.0F);
@@ -374,5 +401,54 @@ public class ToolAttackUtil {
     if (entity.world instanceof ServerWorld) {
       ((ServerWorld) entity.world).spawnParticle(particleData, entity.getPosX() + xd, entity.getPosY() + entity.getHeight() * height, entity.getPosZ() + zd, 0, xd, yd, zd, 1.0D);
     }
+  }
+
+  /** Gets the knockback attribute instance if the modifier is not already present */
+  private static Optional<ModifiableAttributeInstance> getKnockbackAttribute(@Nullable LivingEntity living) {
+    return Optional.ofNullable(living)
+                   .map(e -> e.getAttribute(Attributes.KNOCKBACK_RESISTANCE))
+                   .filter(attribute -> !attribute.hasModifier(ANTI_KNOCKBACK_MODIFIER));
+  }
+
+  /** Enable the anti-knockback modifier */
+  private static void disableKnockback(ModifiableAttributeInstance instance) {
+    instance.applyNonPersistentModifier(ANTI_KNOCKBACK_MODIFIER);
+  }
+
+  /** Disables the anti knockback modifier */
+  private static void enableKnockback(ModifiableAttributeInstance instance) {
+    instance.removeModifier(ANTI_KNOCKBACK_MODIFIER);
+  }
+
+  /**
+   * Adds secondary damage to an entity
+   * @param source       Damage source
+   * @param damage       Damage amount
+   * @param target       Target
+   * @param noKnockback  If true, prevents extra knockback
+   * @return  True if damaged
+   */
+  public static boolean attackEntitySecondary(DamageSource source, float damage, LivingEntity target, boolean noKnockback) {
+    Optional<ModifiableAttributeInstance> knockbackResistance = getKnockbackAttribute(target);
+    // store last damage before secondary attack
+    float oldLastDamage = target.lastDamage;
+
+    // prevent knockback in secondary attacks, if requested
+    if (noKnockback) {
+      knockbackResistance.ifPresent(ToolAttackUtil::disableKnockback);
+    }
+
+    // set hurt resistance time to 0 because we always want to deal damage in traits
+    target.hurtResistantTime = 0;
+    boolean hit = target.attackEntityFrom(source, damage);
+    // set total received damage, important for AI and stuff
+    target.lastDamage += oldLastDamage;
+
+    // remove no knockback marker
+    if (noKnockback) {
+      knockbackResistance.ifPresent(ToolAttackUtil::enableKnockback);
+    }
+
+    return hit;
   }
 }

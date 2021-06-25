@@ -5,13 +5,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
-public class OffhandAttackModifier extends Modifier {
+public class OffhandAttackModifier extends SingleUseModifier {
   public OffhandAttackModifier(int color) {
     super(color);
   }
@@ -26,7 +26,8 @@ public class OffhandAttackModifier extends Modifier {
     if (hand == Hand.OFF_HAND && !player.getCooldownTracker().hasCooldown(tool.getItem()) && tool.getItem() instanceof IModifiableWeapon) {
       // target done in onEntityUse, this is just for cooldown cause you missed
       player.swingArm(Hand.OFF_HAND);
-      player.getCooldownTracker().setCooldown(tool.getItem(), (int)(20 / tool.getStats().getFloat(ToolStats.ATTACK_SPEED)));
+      // vanilla is 20 / attackSpeed, making it 25 / attackSpeed makes the offhand only 80% of the speed
+      player.getCooldownTracker().setCooldown(tool.getItem(), (int)(25 / (tool.getStats().getFloat(ToolStats.ATTACK_SPEED))));
       return ActionResultType.SUCCESS;
     }
     return ActionResultType.PASS;
