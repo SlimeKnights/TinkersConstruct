@@ -185,6 +185,10 @@ public class ItemTagProvider extends ItemTagsProvider {
 						 TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
 						 TinkerTools.kama.get(), TinkerTools.scythe.get(),
 						 TinkerTools.sword.get(), TinkerTools.cleaver.get());
+    this.getOrCreateBuilder(TinkerTags.Items.ONE_HANDED)
+        .add(TinkerTools.pickaxe.get(), TinkerTools.mattock.get(),
+             TinkerTools.handAxe.get(), TinkerTools.kama.get(),
+             TinkerTools.dagger.get(), TinkerTools.sword.get());
     this.getOrCreateBuilder(TinkerTags.Items.TWO_HANDED)
         .add(TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
              TinkerTools.excavator.get(), TinkerTools.broadAxe.get(),

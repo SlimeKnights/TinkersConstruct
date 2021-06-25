@@ -33,6 +33,7 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.BucketingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.DuelWieldingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ExchangingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.GlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
@@ -179,11 +180,14 @@ public final class TinkerModifiers extends TinkerModule {
 
   // abilities
   public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);
+  public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
+  public static final RegistryObject<UnbreakableModifier> unbreakable = MODIFIERS.register("unbreakable", UnbreakableModifier::new);
+  // weapon
+  public static final RegistryObject<DuelWieldingModifier> duelWielding = MODIFIERS.register("duel_wielding", DuelWieldingModifier::new);
+  // harvest
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
   public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
   public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", () -> new Modifier(0xff9f50));
-  public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
-  public static final RegistryObject<UnbreakableModifier> unbreakable = MODIFIERS.register("unbreakable", UnbreakableModifier::new);
   public static final RegistryObject<ExchangingModifier> exchanging = MODIFIERS.register("exchanging", ExchangingModifier::new);
 
   // fluid abilities
@@ -206,7 +210,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, Short.MIN_VALUE));
   public static final RegistryObject<HarvestAbilityModifier> harvest = MODIFIERS.register("harvest", () -> new HarvestAbilityModifier(0x3eed78, Integer.MIN_VALUE + 51));
   public static final RegistryObject<TwoHandedAbilityModifier> twoHanded = MODIFIERS.register("two_handed", TwoHandedAbilityModifier::new);
-  public static final RegistryObject<OffhandAttackModifier> offhandAttack = MODIFIERS.register("offhand_attack", () -> new OffhandAttackModifier(-1));
+  public static final RegistryObject<OffhandAttackModifier> offhandAttack = MODIFIERS.register("offhand_attack", () -> new OffhandAttackModifier(-1, 25));
 
 
   // bonus modifier slots

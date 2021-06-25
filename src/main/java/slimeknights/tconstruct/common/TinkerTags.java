@@ -170,6 +170,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> MULTIPART_TOOL = tag("modifiable/multipart");
     /** Modifiable items that can have range increased */
     public static final IOptionalNamedTag<Item> AOE = tag("modifiable/aoe");
+    /** Modifiable items that can be held in a single hand */
+    public static final IOptionalNamedTag<Item> ONE_HANDED = tag("modifiable/one_handed");
     /** Modifiable items that prevent usage of the offhand */
     public static final IOptionalNamedTag<Item> TWO_HANDED = tag("modifiable/two_handed");
 

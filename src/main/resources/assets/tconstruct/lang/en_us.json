@@ -1290,6 +1290,10 @@
   "modifier.tconstruct.unbreakable.flavor": "Frozen state!",
   "modifier.tconstruct.unbreakable.description": "Tool no longer takes damage from normal usage",
   "recipe.tconstruct.modifier.unbreakable_requirements": "Unbreakable requires Netherite and Reinforced V to apply",
+  "modifier.tconstruct.duel_wielding": "Duel Wielding",
+  "modifier.tconstruct.duel_wielding.flavor": "Double action!",
+  "modifier.tconstruct.duel_wielding.description": "Can attack from the offhand, provided the main hand can also duel wield. Tools attack slower in the offhand",
+
   "_comment": "Loot",
   "modifier.tconstruct.silky": "Silky",
   "modifier.tconstruct.silky.flavor": "Smooth as silk!",

@@ -230,7 +230,7 @@ public class ToolClientEvents extends ClientEventBase {
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             int scaledHeight = minecraft.getMainWindow().getScaledHeight();
             // integer division makes this a pain to line up, there might be a simplier version of this formula but I cannot think of one
-            int y = (scaledHeight / 2) - 12 - (2 * (1 - (scaledHeight % 2)));
+            int y = (scaledHeight / 2) - 14 + (2 * (scaledHeight % 2));
             int x = minecraft.getMainWindow().getScaledWidth() / 2 - 8;
             int width = (int)((1 - cooldown) * 17.0F);
             minecraft.getTextureManager().bindTexture(AbstractGui.GUI_ICONS_LOCATION);
