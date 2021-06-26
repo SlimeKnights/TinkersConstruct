@@ -79,8 +79,6 @@ public final class TinkerGadgets extends TinkerModule {
   /*
    * Items
    */
-  // TODO: moving to natura
-  public static final ItemObject<Item> stoneStick = ITEMS.register("stone_stick", HIDDEN_PROPS);
   public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", () -> new PiggyBackPackItem(new Properties().group(TinkerGadgets.TAB_GADGETS).maxStackSize(16)));
   public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
   // slime tools
