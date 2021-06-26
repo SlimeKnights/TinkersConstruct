@@ -30,8 +30,9 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
-    if (isEffective(context.getTarget())) {
+  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
+    LivingEntity target = context.getLivingTarget();
+    if (target != null && isEffective(target)) {
       damage += getScaledLevel(tool, level) * 2.5f;
     }
     return damage;

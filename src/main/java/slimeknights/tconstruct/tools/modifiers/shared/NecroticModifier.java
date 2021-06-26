@@ -13,7 +13,7 @@ public class NecroticModifier extends Modifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     if (context.isFullyCharged() && damageDealt > 0) {
       // heals between 0 and (level) * 5% of damage dealt
       LivingEntity attacker = context.getAttacker();

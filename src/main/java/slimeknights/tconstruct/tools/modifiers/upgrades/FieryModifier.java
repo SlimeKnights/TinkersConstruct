@@ -11,27 +11,30 @@ public class FieryModifier extends IncrementalModifier {
   }
 
   @Override
-  public float beforeLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+  public float beforeEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     // vanilla hack: apply fire so the entity drops the proper items on instant kill
-    LivingEntity target = context.getTarget();
-    if (!target.isBurning()) {
+    LivingEntity target = context.getLivingTarget();
+    if (target != null && !target.isBurning()) {
       target.setFire(1);
     }
     return knockback;
   }
 
   @Override
-  public void failedLivingHit(IModifierToolStack tool, int level, ToolAttackContext context) {
+  public void failedEntityHit(IModifierToolStack tool, int level, ToolAttackContext context) {
     // conclusion of vanilla hack: we don't want the target on fire if we did not hit them
-    LivingEntity target = context.getTarget();
-    if (target.isBurning()) {
+    LivingEntity target = context.getLivingTarget();
+    if (target != null && target.isBurning()) {
       target.extinguish();
     }
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
-    context.getTarget().setFire(Math.round(getScaledLevel(tool, level) * 5));
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+    LivingEntity target = context.getLivingTarget();
+    if (target != null) {
+      target.setFire(Math.round(getScaledLevel(tool, level) * 5));
+    }
     return 0;
   }
 }

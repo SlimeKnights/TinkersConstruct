@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.item.small;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,7 +37,7 @@ public class SweepingSwordTool extends SwordTool {
       double range = getSweepRange(tool);
       // if the modifier is missing, sweeping damage will be 0, so easiest to let it fully control this
       float sweepDamage = TinkerModifiers.sweeping.get().getSweepingDamage(tool, damage);
-      LivingEntity target = context.getTarget();
+      Entity target = context.getTarget();
       for (LivingEntity aoeTarget : attacker.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(range, 0.25D, range))) {
         if (aoeTarget != attacker && aoeTarget != target && !attacker.isOnSameTeam(aoeTarget)
             && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity) aoeTarget).hasMarker()) && attacker.getDistanceSq(aoeTarget) < 10.0D + range) {

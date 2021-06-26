@@ -10,7 +10,7 @@ public class KnockbackModifier extends Modifier {
   }
 
   @Override
-  public float beforeLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+  public float beforeEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     return knockback + level * 0.5f;
   }
 }

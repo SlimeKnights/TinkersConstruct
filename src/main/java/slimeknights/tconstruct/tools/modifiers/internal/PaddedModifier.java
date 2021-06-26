@@ -11,7 +11,7 @@ public class PaddedModifier extends Modifier {
   }
 
   @Override
-  public float beforeLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+  public float beforeEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     // at level 1, leaves 0.2f by default, and 0.25f per level of knockback
     return (float)(knockback / (Math.pow(2, level)));
   }

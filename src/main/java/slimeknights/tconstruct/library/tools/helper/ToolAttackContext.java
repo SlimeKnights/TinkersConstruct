@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import lombok.Data;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
@@ -20,9 +21,12 @@ public class ToolAttackContext {
   /** Hand containing the tool */
   @Nonnull
   private final Hand hand;
-  /** Target entity */
+  /** Originally targeted entity, may be different from {@link #getTarget()} for multipart entities */
   @Nonnull
-  private final LivingEntity target;
+  private final Entity target;
+  /** Target entity */
+  @Nullable
+  private final LivingEntity livingTarget;
   /** If true, attack is a critical hit */
   private final boolean isCritical;
   /** Current attack cooldown */

@@ -49,7 +49,7 @@ public class BleedingEffect extends TinkerEffect {
 
     // perform damage
     int hurtResistantTime = target.hurtResistantTime;
-    ToolAttackUtil.attackEntitySecondary(source, (level + 1f) / 2f, target, true);
+    ToolAttackUtil.attackEntitySecondary(source, (level + 1f) / 2f, target, target, true);
     target.hurtResistantTime = hurtResistantTime;
 
     // damage particles

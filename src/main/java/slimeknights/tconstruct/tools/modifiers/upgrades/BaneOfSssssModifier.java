@@ -19,9 +19,9 @@ public class BaneOfSssssModifier extends ScaledTypeDamageModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
-    LivingEntity target = context.getTarget();
-    if (isEffective(target)) {
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+    LivingEntity target = context.getLivingTarget();
+    if (target != null && isEffective(target)) {
       int duration = 20;
       int maxBonus = (int)(10 * getScaledLevel(tool, level));
       if (maxBonus > 0) {

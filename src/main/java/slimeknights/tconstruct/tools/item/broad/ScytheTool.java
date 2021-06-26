@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.item.broad;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -48,7 +49,7 @@ public class ScytheTool extends KamaTool {
       // basically sword sweep logic, just deals full damage to all entities
       double range = 3 + tool.getModifierLevel(TinkerModifiers.expanded.get());
       LivingEntity attacker = context.getAttacker();
-      LivingEntity target = context.getTarget();
+      Entity target = context.getTarget();
       for (LivingEntity aoeTarget : attacker.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(range, 0.25D, range))) {
         if (aoeTarget != attacker && aoeTarget != target && !attacker.isOnSameTeam(aoeTarget)
             && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity) aoeTarget).hasMarker()) && attacker.getDistanceSq(aoeTarget) < 8.0D + range) {

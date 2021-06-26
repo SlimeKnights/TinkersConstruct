@@ -137,7 +137,7 @@ public class ToolAttackUtil {
     }
     // nothing to do? cancel
     // TODO: is it a problem that we return true instead of false when isExtraAttack and the final damage is 0 or we fail to hit? I don't think anywhere clientside uses that
-    if (attackerLiving.getEntityWorld().isRemote || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attackerLiving)) {
+    if (attackerLiving.world.isRemote || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attackerLiving)) {
       return true;
     }
 
@@ -174,17 +174,14 @@ public class ToolAttackUtil {
                          && !attackerLiving.isPassenger() && targetLiving != null && !attackerLiving.isSprinting();
 
     // shared context for all modifier hooks
-    // note that while targetLiving is nullable, this context is only used after a null check
-    ToolAttackContext context = new ToolAttackContext(attackerLiving, attackerPlayer, hand, targetLiving, isCritical, cooldown, isExtraAttack);
+    ToolAttackContext context = new ToolAttackContext(attackerLiving, attackerPlayer, hand, targetEntity, targetLiving, isCritical, cooldown, isExtraAttack);
 
     // calculate actual damage
     // boost damage from traits
     float baseDamage = damage;
     List<ModifierEntry> modifiers = tool.getModifierList();
-    if (targetLiving != null) {
-      for (ModifierEntry entry : modifiers) {
-        damage = entry.getModifier().applyLivingDamage(tool, entry.getLevel(), context, baseDamage, damage);
-      }
+    for (ModifierEntry entry : modifiers) {
+      damage = entry.getModifier().getEntityDamage(tool, entry.getLevel(), context, baseDamage, damage);
     }
 
     // no damage? do nothing
@@ -242,10 +239,8 @@ public class ToolAttackUtil {
 
     // apply modifier knockback and special effects
     float baseKnockback = knockback;
-    if (targetLiving != null) {
-      for (ModifierEntry entry : modifiers) {
-        knockback = entry.getModifier().beforeLivingHit(tool, entry.getLevel(), context, damage, baseKnockback, knockback);
-      }
+    for (ModifierEntry entry : modifiers) {
+      knockback = entry.getModifier().beforeEntityHit(tool, entry.getLevel(), context, damage, baseKnockback, knockback);
     }
 
     // set hand for proper looting context
@@ -289,10 +284,8 @@ public class ToolAttackUtil {
         attackerLiving.world.playSound(null, attackerLiving.getPosX(), attackerLiving.getPosY(), attackerLiving.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_NODAMAGE, attackerLiving.getSoundCategory(), 1.0F, 1.0F);
       }
       // alert modifiers nothing was hit, mainly used for fiery
-      if (targetLiving != null) {
-        for (ModifierEntry entry : modifiers) {
-          entry.getModifier().failedLivingHit(tool, entry.getLevel(), context);
-        }
+      for (ModifierEntry entry : modifiers) {
+        entry.getModifier().failedEntityHit(tool, entry.getLevel(), context);
       }
 
       return !isExtraAttack;
@@ -352,11 +345,9 @@ public class ToolAttackUtil {
 
     // apply modifier effects
     // removed: bane of arthropods hook, replaced by this
-    int durabilityLost = 1;
-    if (targetLiving != null) {
-      for (ModifierEntry entry : modifiers) {
-        durabilityLost += entry.getModifier().afterLivingHit(tool, entry.getLevel(), context, damageDealt);
-      }
+    int durabilityLost = targetLiving != null ? 1 : 0;
+    for (ModifierEntry entry : modifiers) {
+      durabilityLost += entry.getModifier().afterEntityHit(tool, entry.getLevel(), context, damageDealt);
     }
 
     // final attack hooks
@@ -437,14 +428,15 @@ public class ToolAttackUtil {
    * Adds secondary damage to an entity
    * @param source       Damage source
    * @param damage       Damage amount
-   * @param target       Target
+   * @param target       Target entity
+   * @param living       If the target is living, the living target. May be a different entity from target for multipart entities
    * @param noKnockback  If true, prevents extra knockback
    * @return  True if damaged
    */
-  public static boolean attackEntitySecondary(DamageSource source, float damage, LivingEntity target, boolean noKnockback) {
-    Optional<ModifiableAttributeInstance> knockbackResistance = getKnockbackAttribute(target);
+  public static boolean attackEntitySecondary(DamageSource source, float damage, Entity target, @Nullable LivingEntity living, boolean noKnockback) {
+    Optional<ModifiableAttributeInstance> knockbackResistance = getKnockbackAttribute(living);
     // store last damage before secondary attack
-    float oldLastDamage = target.lastDamage;
+    float oldLastDamage = living == null ? 0 : living.lastDamage;
 
     // prevent knockback in secondary attacks, if requested
     if (noKnockback) {
@@ -455,7 +447,9 @@ public class ToolAttackUtil {
     target.hurtResistantTime = 0;
     boolean hit = target.attackEntityFrom(source, damage);
     // set total received damage, important for AI and stuff
-    target.lastDamage += oldLastDamage;
+    if (living != null) {
+      living.lastDamage += oldLastDamage;
+    }
 
     // remove no knockback marker
     if (noKnockback) {

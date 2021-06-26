@@ -17,7 +17,7 @@ public class PiercingModifier extends IncrementalModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     // deals 0.5 pierce damage per level, scaled, half of sharpness
     DamageSource source;
     PlayerEntity player = context.getPlayerAttacker();
@@ -27,7 +27,8 @@ public class PiercingModifier extends IncrementalModifier {
       source = DamageSource.causeMobDamage(context.getAttacker());
     }
     source.setDamageBypassesArmor();
-    ToolAttackUtil.attackEntitySecondary(source, getScaledLevel(tool, level) * tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.ATTACK_DAMAGE) * 0.5f * context.getCooldown(), context.getTarget(), true);
+    float secondaryDamage = getScaledLevel(tool, level) * tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.ATTACK_DAMAGE) * 0.5f * context.getCooldown();
+    ToolAttackUtil.attackEntitySecondary(source, secondaryDamage, context.getTarget(), context.getLivingTarget(), true);
     return 0;
   }
 

@@ -13,7 +13,7 @@ public class CoolingModifier extends IncrementalModifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
+  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     if (context.getTarget().isImmuneToFire()) {
       damage += getScaledLevel(tool, level) * 2f;
     }

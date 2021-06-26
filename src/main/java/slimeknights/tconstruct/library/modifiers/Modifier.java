@@ -555,13 +555,14 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /* Attack hooks */
 
   /**
-   * Called when a living entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt. Do not modify the entity here, its possible the attack will still be canceled
+   * Called when an entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt.
+   * Do not modify the entity here, its possible the attack will still be canceled without calling further hooks due to 0 damage being dealt.
    * <br>
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
-   *   <li>{@link #afterLivingHit(IModifierToolStack, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond damage boosts</li>
-   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, ToolAttackContext, float, float, float)}: Apply effects that must run before hit</li>
+   *   <li>{@link #beforeEntityHit(IModifierToolStack, int, ToolAttackContext, float, float, float)}: If you need to modify the entity before attacking, use this hook</li>
+   *   <li>{@link #afterEntityHit(IModifierToolStack, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond damage boosts</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
@@ -570,17 +571,17 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param damage        Computed damage from all prior modifiers
    * @return  New damage to deal
    */
-  public float applyLivingDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
+  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     return damage;
   }
 
   /**
    * Called right before an entity is hit, used to modify knockback applied or to apply special effects that need to run before damage. Damage is final damage including critical damage.
-   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedLivingHit(IModifierToolStack, int, ToolAttackContext)} will run.
+   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedEntityHit(IModifierToolStack, int, ToolAttackContext)} will run.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterLivingHit(IModifierToolStack, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond knockback boosts</li>
+   *   <li>{@link #afterEntityHit(IModifierToolStack, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond knockback boosts</li>
    * </ul>
    * @param tool           Tool used to attack
    * @param level          Modifier level
@@ -590,7 +591,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param knockback      Computed knockback from all prior modifiers
    * @return  New knockback to apply. 0.5 is equivelent to 1 level of the vanilla enchant
    */
-  public float beforeLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+  public float beforeEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     return knockback;
   }
 
@@ -600,9 +601,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Adjusts the base tool stats that affect damage</li>
-   *   <li>{@link #applyLivingDamage(IModifierToolStack, int, ToolAttackContext, float, float)}: Change the amount of damage dealt with attacker context</li>
-   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, ToolAttackContext, float, float, float)}: Change the amount of knockback dealt</li>
-   *   <li>{@link #failedLivingHit(IModifierToolStack, int, ToolAttackContext)}: Called after living hit when damage was not dealt</li>
+   *   <li>{@link #getEntityDamage(IModifierToolStack, int, ToolAttackContext, float, float)}: Change the amount of damage dealt with attacker context</li>
+   *   <li>{@link #beforeEntityHit(IModifierToolStack, int, ToolAttackContext, float, float, float)}: Change the amount of knockback dealt</li>
+   *   <li>{@link #failedEntityHit(IModifierToolStack, int, ToolAttackContext)}: Called after living hit when damage was not dealt</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
@@ -610,7 +611,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param damageDealt   Amount of damage successfully dealt
    * @return  Extra damage to deal to the tool
    */
-  public int afterLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     return 0;
   }
 
@@ -620,7 +621,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param level         Modifier level
    * @param context       Attack context
    */
-  public void failedLivingHit(IModifierToolStack tool, int level, ToolAttackContext context) {}
+  public void failedEntityHit(IModifierToolStack tool, int level, ToolAttackContext context) {}
 
 
   /* Display */

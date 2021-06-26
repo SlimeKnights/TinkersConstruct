@@ -27,7 +27,7 @@ public class MagneticModifier extends Modifier implements IHarvestModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     if (!context.isExtraAttack()) {
       TinkerModifiers.magneticEffect.get().apply(context.getAttacker(), 30, level - 1);
     }

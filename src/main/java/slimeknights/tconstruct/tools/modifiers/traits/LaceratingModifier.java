@@ -12,10 +12,10 @@ public class LaceratingModifier extends Modifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     // 25% chance of applying per level
-    LivingEntity target = context.getTarget();
-    if (context.isFullyCharged() && target.isAlive() && RANDOM.nextFloat() < 0.50f) {
+    LivingEntity target = context.getLivingTarget();
+    if (target != null && context.isFullyCharged() && target.isAlive() && RANDOM.nextFloat() < 0.50f) {
       // set entity so the potion is attributed as a player kill
       target.setLastAttackedEntity(context.getAttacker());
       // potions are 0 indexed instead of 1 indexed
