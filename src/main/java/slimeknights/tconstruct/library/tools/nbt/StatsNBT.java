@@ -27,7 +27,7 @@ import java.util.Set;
 @ToString
 public class StatsNBT {
   /** Empty stats */
-  static final StatsNBT EMPTY = new StatsNBT(ImmutableMap.of());
+  public static final StatsNBT EMPTY = new StatsNBT(ImmutableMap.of());
 
   /** All currently contained stats */
   private final ImmutableMap<IToolStat<?>, Float> stats;

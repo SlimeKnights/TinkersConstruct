@@ -5,7 +5,6 @@ import lombok.Getter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
@@ -20,7 +19,6 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStatio
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
@@ -152,20 +150,9 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
       OverslimeModifier overslime = TinkerModifiers.overslime.get();
-      CompoundNBT volatileNBT = new CompoundNBT();
-      CompoundNBT persistentNBT = new CompoundNBT();
-      overslime.setOverslime(ModDataNBT.readFromNBT(persistentNBT), restoreAmount);
-      ModDataNBT volatileData = ModDataNBT.readFromNBT(volatileNBT);
-      overslime.setCapacity(volatileData, 500);
       toolWithModifier = IDisplayModifierRecipe.getAllModifiable()
                                                .map(MAP_TOOL_FOR_RENDERING)
-                                               .map(stack -> {
-                                                 ItemStack result = IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get());
-                                                 CompoundNBT nbt = result.getOrCreateTag();
-                                                 nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
-                                                 nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);
-                                                 return result;
-                                               })
+                                               .map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get(), data -> overslime.setOverslime(data, restoreAmount)))
                                                .collect(Collectors.toList());
     }
     return toolWithModifier;
