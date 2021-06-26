@@ -10,7 +10,7 @@ public class CultivatedModifier extends Modifier {
 
   @Override
   public float getRepairFactor(IModifierToolStack toolStack, int level, float factor) {
-    // +25% repair per level
-    return (factor * (1 + (level * 0.25f)));
+    // +50% repair per level
+    return (factor * (1 + (level * 0.5f)));
   }
 }
