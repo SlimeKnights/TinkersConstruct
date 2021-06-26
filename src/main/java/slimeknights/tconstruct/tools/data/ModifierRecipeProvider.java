@@ -159,7 +159,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      * general effects
      */
     ModifierRecipeBuilder.modifier(TinkerModifiers.experienced.get())
-                         .addInput(Items.EXPERIENCE_BOTTLE, 5)
+                         .addInput(Items.EXPERIENCE_BOTTLE)
+                         .addInput(Items.EXPERIENCE_BOTTLE)
+                         .addInput(Items.EXPERIENCE_BOTTLE)
                          .setMaxLevel(5) // max +250%
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
@@ -526,7 +528,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.draconic.get())
                          .addInput(Items.DRAGON_HEAD)
                          .setMaxLevel(1)
-                         .build(consumer, prefixR(TinkerModifiers.draconic, slotlessFolder));
+                         .build(consumer, wrapR(TinkerModifiers.draconic, slotlessFolder, "_from_head"));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.draconic.get())
+                         .addInput(TinkerModifiers.dragonScale)
+                         .addInput(TinkerModifiers.dragonScale)
+                         .addInput(TinkerModifiers.dragonScale)
+                         .addInput(TinkerModifiers.dragonScale)
+                         .addInput(TinkerModifiers.dragonScale)
+                         .setMaxLevel(1)
+                         .build(consumer, wrapR(TinkerModifiers.draconic, slotlessFolder, "_from_scales"));
     // creative
     ModifierRecipeBuilder.modifier(TinkerModifiers.creativeUpgrade.get())
                          .addInput(TinkerModifiers.creativeUpgradeItem)
