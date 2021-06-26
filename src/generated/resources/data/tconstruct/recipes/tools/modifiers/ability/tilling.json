@@ -2,7 +2,15 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:ancient_hoe_head"
+      "item": "tconstruct:small_blade",
+      "type": "tconstruct:material"
+    },
+    {
+      "tag": "forge:ingots/netherite_scrap"
+    },
+    {
+      "item": "tconstruct:tool_binding",
+      "type": "tconstruct:material"
     }
   ],
   "tools": {

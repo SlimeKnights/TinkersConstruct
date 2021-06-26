@@ -124,9 +124,6 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ItemObject<Item> silkyCloth = ITEMS.register("silky_cloth", GENERAL_PROPS);
   public static final ItemObject<Item> silkyJewel = ITEMS.register("silky_jewel", HIDDEN_PROPS);
   public static final ItemObject<Item> necroticBone = ITEMS.register("necrotic_bone", GENERAL_PROPS);
-  public static final ItemObject<Item> ancientShovelHead = ITEMS.register("ancient_shovel_head", GENERAL_PROPS);
-  public static final ItemObject<Item> ancientAxeHead = ITEMS.register("ancient_axe_head", GENERAL_PROPS);
-  public static final ItemObject<Item> ancientHoeHead = ITEMS.register("ancient_hoe_head", GENERAL_PROPS);
   // reinforcements
   public static final ItemObject<Item> ironReinforcement = ITEMS.register("iron_reinforcement", GENERAL_PROPS);
   public static final ItemObject<Item> slimesteelReinforcement = ITEMS.register("slimesteel_reinforcement", GENERAL_PROPS);

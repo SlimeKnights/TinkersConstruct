@@ -198,9 +198,6 @@
   "item.tconstruct.creative_upgrade.tooltip": "Adds an additional upgrade slot to a tool",
   "item.tconstruct.creative_ability": "Creative Ability",
   "item.tconstruct.creative_ability.tooltip": "Adds an additional ability slot to a tool",
-  "item.tconstruct.ancient_shovel_head": "Ancient Shovel Head",
-  "item.tconstruct.ancient_axe_head": "Ancient Axe Head",
-  "item.tconstruct.ancient_hoe_head": "Ancient Kama Head",
 
   "item.tconstruct.copper_can": "Copper Can",
   "item.tconstruct.copper_can.tooltip": "Stackable container holding 1 ingot of fluid",
@@ -1426,7 +1423,7 @@
   "modifier.tconstruct.overgrowth.description": "Tool slowly grows overslime",
 
   "modifier.tconstruct.enhanced": "Enhanced",
-  "modifier.tconstruct.enhanced.flavor": "Shiny!",
+  "modifier.tconstruct.enhanced.flavor": "Flashy!",
   "modifier.tconstruct.enhanced.description": "Rose gold goes great with a bonus upgrade!",
 
   "__comment": "Tier 3 Traits",

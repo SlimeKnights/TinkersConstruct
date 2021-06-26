@@ -10,7 +10,7 @@ import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
 
 public class DuelWieldingModifier extends OffhandAttackModifier {
   public DuelWieldingModifier() {
-    super(0xFF0000, 30);
+    super(0xA6846A, 30);
   }
 
   @Override

@@ -1,0 +1,43 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:ingots/manyullyn"
+    },
+    {
+      "item": "minecraft:nautilus_shell"
+    },
+    {
+      "tag": "forge:ingots/manyullyn"
+    },
+    {
+      "tag": "forge:slimeball/sky"
+    },
+    {
+      "tag": "forge:slimeball/sky"
+    }
+  ],
+  "tools": {
+    "type": "mantle:without",
+    "base": {
+      "type": "mantle:intersection",
+      "ingredients": [
+        {
+          "tag": "tconstruct:modifiable/melee"
+        },
+        {
+          "tag": "tconstruct:modifiable/one_handed"
+        }
+      ]
+    },
+    "without": {
+      "item": "tconstruct:dagger"
+    }
+  },
+  "result": {
+    "name": "tconstruct:duel_wielding",
+    "level": 1
+  },
+  "max_level": 1,
+  "ability_slots": 1
+}

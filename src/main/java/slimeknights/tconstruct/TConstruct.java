@@ -197,6 +197,8 @@ public class TConstruct {
         case "ender_slime_drop": return TinkerCommons.slimeball.get(SlimeType.ENDER);
         case "stone_stick": return Blocks.COBBLESTONE.asItem();
         case "dried_brick": return Items.BRICK;
+        // removed ancient heads, use netherite directly
+        case "ancient_axe_head": case "ancient_shovel_head": case "ancient_hoe_head": return Items.NETHERITE_SCRAP;
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
