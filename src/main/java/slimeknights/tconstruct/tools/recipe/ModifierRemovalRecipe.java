@@ -100,6 +100,14 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     if (validated.hasError()) {
       return validated;
     }
+    // if this was the last level, validate the tool is still valid without it
+    if (tool.getModifierLevel(toRemove) == 0) {
+      validated = toRemove.validate(tool, 0);
+      if (validated.hasError()) {
+        return validated;
+      }
+    }
+
     // successfully removed
     return ValidatedResult.success(tool.createStack());
   }

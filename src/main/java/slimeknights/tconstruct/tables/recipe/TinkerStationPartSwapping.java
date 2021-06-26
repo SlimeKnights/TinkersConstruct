@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInvent
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -119,8 +120,8 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         tool = tool.copy();
         tool.replaceMaterial(index, partMaterial);
 
-        // ensure no modifier problems
-        ValidatedResult toolValidation = tool.validate();
+        // ensure no modifier problems after removing
+        ValidatedResult toolValidation = ModifierUtil.validateRemovedModifiers(tool, MaterialRegistry.getInstance().getTraits(toolMaterial.getIdentifier(), part.getStatType()));
         if (toolValidation.hasError()) {
           return toolValidation;
         }

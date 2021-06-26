@@ -10,12 +10,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -88,5 +91,32 @@ public final class ModifierUtil {
       looting = entry.getModifier().getLootingValue(tool, entry.getLevel(), holder, target, damageSource, looting);
     }
     return looting;
+  }
+
+  /**
+   * Validates that the tool is still valid after removing the given modifiers.
+   * Alternative to calling {@link ToolStack#validate()} when a list of modifiers are being removed.
+   * @param tool              Tool
+   * @param modifiersToCheck  List of modifiers to check, only runs validate on any modifiers not currently on the tool
+   * @return  Validated result, either pass or an error
+   */
+  public static ValidatedResult validateRemovedModifiers(ToolStack tool, List<ModifierEntry> modifiersToCheck) {
+    // first try validating the tool
+    ValidatedResult toolResult = tool.validate();
+    if (toolResult.hasError()) {
+      return toolResult;
+    }
+
+    // validate all removed traits
+    for (ModifierEntry entry : modifiersToCheck) {
+      Modifier modifier = entry.getModifier();
+      if (tool.getModifierLevel(modifier) == 0) {
+        ValidatedResult result = modifier.validate(tool, 0);
+        if (result.hasError()) {
+          return result;
+        }
+      }
+    }
+    return ValidatedResult.PASS;
   }
 }
