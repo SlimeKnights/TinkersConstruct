@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -385,10 +386,31 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
-    * Called when this item is used when targeting an entity.
+    * Called when this item is used when targeting an entity. Runs before the native entity interaction hooks and on all entities instead of just living
    * <br>
    * Alternatives:
    * <ul>
+   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Standard interaction hook, generally preferred over this one</li>
+   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param player         Player holding tool
+   * @param target         Target
+   * @param hand           Current hand
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType onEntityUseFirst(IModifierToolStack tool, int level, PlayerEntity player, Entity target, Hand hand) {
+    return ActionResultType.PASS;
+  }
+
+  /**
+   * Called when this item is used when targeting an entity.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onEntityUseFirst(IModifierToolStack, int, PlayerEntity, Entity, Hand)}: Runs on all entities instead of just living, and runs before normal entity interaction</li>
    *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
    *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
@@ -517,7 +539,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param looting          Luck value set from previous modifiers
    * @return New luck value
    */
-  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, LivingEntity target, @Nullable DamageSource damageSource, int looting) {
+  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
     return looting;
   }
 

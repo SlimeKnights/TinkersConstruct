@@ -6,17 +6,21 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.CarvedPumpkinBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BeehiveTileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -37,7 +41,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = TConstruct.modID, bus = Bus.FORGE)
 public class ToolEvents {
-
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
     // Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
@@ -61,6 +64,28 @@ public class ToolEvents {
             break;
           }
         }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void interactWithEntity(EntityInteract event) {
+    // Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
+    ItemStack stack = event.getItemStack();
+    if (!TinkerTags.Items.HARVEST.contains(stack.getItem())) {
+      return;
+    }
+    ToolStack tool = ToolStack.from(stack);
+    PlayerEntity player = event.getPlayer();
+    Hand hand = event.getHand();
+    Entity target = event.getTarget();
+    for (ModifierEntry entry : tool.getModifierList()) {
+      // exit on first successful result
+      ActionResultType result = entry.getModifier().onEntityUseFirst(tool, entry.getLevel(), player, target, hand);
+      if (result.isSuccessOrConsume()) {
+        event.setCanceled(true);
+        event.setCancellationResult(result);
+        return;
       }
     }
   }

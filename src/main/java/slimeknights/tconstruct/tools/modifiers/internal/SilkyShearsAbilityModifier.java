@@ -5,8 +5,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class SilkyShearsAbilityModifier extends ShearsAbilityModifier {
 
-  public SilkyShearsAbilityModifier(int color, int priority) {
-    super(color, priority);
+  public SilkyShearsAbilityModifier(int color, int range, int priority) {
+    super(color, range, priority);
   }
   
   @Override

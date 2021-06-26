@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
@@ -33,7 +34,7 @@ public class LuckModifier extends Modifier {
   }
 
   @Override
-  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, @Nullable LivingEntity target, @Nullable DamageSource damageSource, int looting) {
+  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
     return looting + level;
   }
 }

@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -82,7 +83,7 @@ public final class ModifierUtil {
    * @param damageSource   Damage source for looting, may ben null if no attack
    * @return  Looting value for the tool
    */
-  public static int getLootingLevel(IModifierToolStack tool, LivingEntity holder, LivingEntity target, @Nullable DamageSource damageSource) {
+  public static int getLootingLevel(IModifierToolStack tool, LivingEntity holder, Entity target, @Nullable DamageSource damageSource) {
     if (tool.isBroken()) {
       return 0;
     }
