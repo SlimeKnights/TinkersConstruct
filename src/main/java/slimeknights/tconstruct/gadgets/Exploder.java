@@ -25,7 +25,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.tconstruct.gadgets.entity.EFLNExplosion;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
+import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 
 import java.util.Collections;
 import java.util.List;

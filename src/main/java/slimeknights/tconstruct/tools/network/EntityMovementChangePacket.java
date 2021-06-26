@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.common.network;
+package slimeknights.tconstruct.tools.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;

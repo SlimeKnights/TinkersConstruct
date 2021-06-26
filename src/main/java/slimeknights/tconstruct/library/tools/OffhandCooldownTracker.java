@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 public class OffhandCooldownTracker implements ICapabilityProvider {
   public static final ResourceLocation KEY = Util.getResource("offhand_cooldown");
   private static final NonNullFunction<OffhandCooldownTracker,Float> COOLDOWN_TRACKER = OffhandCooldownTracker::getCooldown;
+  private static final NonNullFunction<OffhandCooldownTracker,Boolean> ATTACK_READY = OffhandCooldownTracker::isAttackReady;
 
   /**
    * Capability instance for dimension compasses
@@ -108,6 +109,14 @@ public class OffhandCooldownTracker implements ICapabilityProvider {
     return MathHelper.clamp((this.lastCooldown + ticksExisted - this.attackReady) / (float) this.lastCooldown, 0f, 1f);
   }
 
+  /**
+   * Checks if we can perform another attack yet.
+   * This counteracts rapid attacks via click macros, in a similar way to vanilla by limiting to once every 10 ticks
+   */
+  public boolean isAttackReady() {
+    return getTicksExisted() + this.lastCooldown > this.attackReady;
+  }
+
 
   /* Helpers */
 
@@ -130,11 +139,19 @@ public class OffhandCooldownTracker implements ICapabilityProvider {
   }
 
   /**
+   * Applies cooldown to the given player
+   * @param player  Player
+   */
+  public static boolean isAttackReady(PlayerEntity player) {
+    return player.getCapability(CAPABILITY).map(ATTACK_READY).orElse(true);
+  }
+
+  /**
    * Applies cooldown using a tool and its attack speed stat
    * @param toolStack     Tool instance
    * @param cooldownTime  Relative cooldown time for the given source, 20 is vanilla
    */
   public static void applyCooldown(PlayerEntity player, IModifierToolStack toolStack, int cooldownTime) {
-    applyCooldown(player, (int) (cooldownTime / toolStack.getStats().getFloat(ToolStats.ATTACK_SPEED)));
+    applyCooldown(player, Math.round(cooldownTime / toolStack.getStats().getFloat(ToolStats.ATTACK_SPEED)));
   }
 }

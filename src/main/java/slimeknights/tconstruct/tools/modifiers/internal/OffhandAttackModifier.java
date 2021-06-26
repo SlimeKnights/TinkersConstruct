@@ -44,7 +44,7 @@ public class OffhandAttackModifier extends SingleUseModifier {
 
   /** If true, we can use the attack */
   protected boolean canAttack(IModifierToolStack tool, PlayerEntity player, Hand hand) {
-    return hand == Hand.OFF_HAND && !player.getCooldownTracker().hasCooldown(tool.getItem()) && tool.getItem() instanceof IModifiableWeapon;
+    return hand == Hand.OFF_HAND && OffhandCooldownTracker.isAttackReady(player) && tool.getItem() instanceof IModifiableWeapon;
   }
 
   /** Called when an entity is right clicked, since we only get living entities in the normal hook */
@@ -59,14 +59,11 @@ public class OffhandAttackModifier extends SingleUseModifier {
       if (!tool.isBroken() && tool.getModifierLevel(this) > 0 && canAttack(tool, player, event.getHand())) {
         Entity target = event.getTarget();
         if (!player.world.isRemote()) {
-          int oldHurtResistance = target.hurtResistantTime;
-          target.hurtResistantTime = 0;
           ToolAttackUtil.attackEntity((IModifiableWeapon)tool.getItem(), tool, player, Hand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, Hand.OFF_HAND), false);
-          target.hurtResistantTime = oldHurtResistance;
         }
         OffhandCooldownTracker.applyCooldown(player, tool, cooldownTime);
         // we handle swinging the arm, return consume to prevent resetting cooldown
-        player.swing(Hand.OFF_HAND, !player.world.isRemote());
+        ToolAttackUtil.swingHand(player, Hand.OFF_HAND, false);
         event.setCanceled(true);
         event.setCancellationResult(ActionResultType.CONSUME);
       }
@@ -76,11 +73,10 @@ public class OffhandAttackModifier extends SingleUseModifier {
   @Override
   public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
     if (canAttack(tool, player, hand)) {
-      // target done in onEntityUse, this is just for cooldown cause you missed
-      player.swing(Hand.OFF_HAND, false);
+      // target done in onEntityInteract, this is just for cooldown cause you missed
       OffhandCooldownTracker.applyCooldown(player, tool, cooldownTime);
       // we handle swinging the arm, return consume to prevent resetting cooldown
-      player.swing(Hand.OFF_HAND, !player.world.isRemote());
+      ToolAttackUtil.swingHand(player, Hand.OFF_HAND, false);
       return ActionResultType.CONSUME;
     }
     return ActionResultType.PASS;

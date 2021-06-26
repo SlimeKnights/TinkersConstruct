@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.tools.common.network;
+package slimeknights.tconstruct.tools.network;
 
 import mcp.MethodsReturnNonnullByDefault;
 

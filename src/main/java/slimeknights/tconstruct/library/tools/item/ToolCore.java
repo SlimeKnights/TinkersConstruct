@@ -319,18 +319,6 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
   }
 
   @Override
-  public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-    float speed = ToolStack.from(stack).getStats().getFloat(ToolStats.ATTACK_SPEED);
-    int time = Math.round(20f / speed);
-    if (time < target.hurtResistantTime / 2) {
-      target.hurtResistantTime = (target.hurtResistantTime + time) / 2;
-      target.hurtTime = (target.hurtTime + time) / 2;
-    }
-
-    return super.hitEntity(stack, target, attacker);
-  }
-
-  @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
     if (nbt == null || nbt.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
