@@ -763,4 +763,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     }
     return modifier;
   }
+
+  @Override
+  public String toString() {
+    return "Modifier{" + registryName + '}';
+  }
 }

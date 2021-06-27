@@ -43,4 +43,9 @@ public class Material implements IMaterial {
   protected Material(ResourceLocation identifier, boolean craftable, boolean hidden) {
     this(identifier, 0, -1, craftable, WHITE, hidden);
   }
+
+  @Override
+  public String toString() {
+    return "Material{" + identifier + '}';
+  }
 }
