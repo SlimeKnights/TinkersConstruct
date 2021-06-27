@@ -105,7 +105,7 @@ public class JEIPlugin implements IModPlugin {
   private final MaterialReloadListener materialReloader;
   public JEIPlugin() {
     this.materialReloader = new MaterialReloadListener();
-    MaterialRegistry.getInstance().addMaterialSyncListener(this.materialReloader);
+    MaterialRegistry.addMaterialsLoadedListener(this.materialReloader);
   }
 
   @Override
@@ -242,11 +242,11 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerTables.scorchedAnvil.asItem(), tables);
 
     ISubtypeInterpreter toolPartInterpreter = itemStack -> {
-      IMaterial material = IMaterialItem.getMaterialFromStack(itemStack);
-      if (material == IMaterial.UNKNOWN) {
+      MaterialId materialId = IMaterialItem.getMaterialIdFromStack(itemStack);
+      if (materialId.equals(IMaterial.UNKNOWN_ID)) {
         return ISubtypeInterpreter.NONE;
       }
-      return material.getIdentifier().toString();
+      return materialId.toString();
     };
 
     // parts
@@ -303,7 +303,9 @@ public class JEIPlugin implements IModPlugin {
     IIngredientManager manager = jeiRuntime.getIngredientManager();
     // update part materials if possible
     materialReloader.manager = manager;
-    materialReloader.run();
+    if (MaterialRegistry.isFullyLoaded()) {
+      materialReloader.run();
+    }
 
     // hide knightslime and slimesteel until implemented
     removeFluid(manager, TinkerFluids.moltenSoulsteel.get(), TinkerFluids.moltenSoulsteel.asItem());
@@ -379,7 +381,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void run() {
-      // FIXME: this does not remove old tool parts from the previous materials list, if the two are different could cause weird behavior
+      // note this does not remove old tool parts from the previous materials list, though that is only an issue if the reload command is used
       if (manager != null && !MaterialRegistry.getMaterials().isEmpty()) {
         NonNullList<ItemStack> newStacks = NonNullList.create();
         for (Item item : TinkerTags.Items.TOOL_PARTS.getAllElements()) {

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.materials;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -51,11 +52,21 @@ public class MaterialManager extends JsonReloadListener {
     .disableHtmlEscaping()
     .create();
 
+  /** Runnable to run after loading material stats */
+  private final Runnable onLoaded;
+  /** Map of all materials */
   private Map<MaterialId, IMaterial> materials = Collections.emptyMap();
+  /** Sorted list of visible materials */
   private List<IMaterial> sortedMaterials = Collections.emptyList();
 
-  public MaterialManager() {
+  public MaterialManager(Runnable onLoaded) {
     super(GSON, FOLDER);
+    this.onLoaded = onLoaded;
+  }
+
+  @VisibleForTesting
+  MaterialManager() {
+    this(() -> {});
   }
 
   /**
@@ -90,6 +101,7 @@ public class MaterialManager extends JsonReloadListener {
     this.sortedMaterials = this.materials.values().stream()
                                          .filter(mat -> !mat.isHidden())
                                          .sorted().collect(Collectors.toList());
+    onLoaded.run();
   }
 
   /**

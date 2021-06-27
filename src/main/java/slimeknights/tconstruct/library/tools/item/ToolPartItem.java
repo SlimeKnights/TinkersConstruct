@@ -61,19 +61,19 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
       for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(material.getIdentifier(), getStatType())) {
         tooltip.add(entry.getModifier().getDisplayName(entry.getLevel()));
       }
-    }
-    // add stats
-    if (Config.CLIENT.extraToolTips.get()) {
-      if (Screen.hasShiftDown()) {
-        this.addStatInfoTooltip(material, tooltip);
-      } else {
-        // info tooltip for detailed and component info
-        tooltip.add(StringTextComponent.EMPTY);
-        tooltip.add(ToolCore.TOOLTIP_HOLD_SHIFT);
+      // add stats
+      if (Config.CLIENT.extraToolTips.get()) {
+        if (Screen.hasShiftDown()) {
+          this.addStatInfoTooltip(material, tooltip);
+        } else {
+          // info tooltip for detailed and component info
+          tooltip.add(StringTextComponent.EMPTY);
+          tooltip.add(ToolCore.TOOLTIP_HOLD_SHIFT);
+        }
       }
+      // and finally, mod
+      addModTooltip(material, tooltip);
     }
-    // and finally, mod
-    addModTooltip(material, tooltip);
   }
 
   /**
@@ -102,11 +102,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   protected boolean checkMissingMaterialTooltip(ItemStack stack, IMaterial material, List<ITextComponent> tooltip) {
     if (material == IMaterial.UNKNOWN) {
       Optional<MaterialId> materialId = getMaterialId(stack);
-      if (materialId.isPresent()) {
-        tooltip.add(new TranslationTextComponent(MISSING_MATERIAL_KEY, materialId.get()));
-      } else {
-        tooltip.add(MISSING_INFO);
-      }
+      materialId.ifPresent(id -> tooltip.add(new TranslationTextComponent(MISSING_MATERIAL_KEY, id)));
       return true;
     }
     else if (!canUseMaterial(material)) {

@@ -105,16 +105,4 @@ public interface IMaterialRegistry {
    * @return  Material traits
    */
   List<ModifierEntry> getTraits(MaterialId materialId, MaterialStatsId statsId);
-
-
-  /**
-   * Adds a runnable called when materials reload on the client
-   * @param runnable  Runnable to call
-   */
-  default void addMaterialSyncListener(Runnable runnable) {}
-
-  /**
-   * Called when materials reload on hte client
-   */
-  default void onMaterialSync() {}
 }

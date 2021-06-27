@@ -60,7 +60,7 @@ public class MaterialItem extends Item implements IMaterialItem {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group) && MaterialRegistry.initialized()) {
+    if (this.isInGroup(group) && MaterialRegistry.isFullyLoaded()) {
       // if a specific material is set in the config, try adding that
       String showOnlyId = Config.COMMON.showOnlyPartMaterial.get();
       boolean added = false;

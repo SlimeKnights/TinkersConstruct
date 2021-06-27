@@ -636,7 +636,7 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
 
   /** Adds all default sub items */
   protected void addDefaultSubItems(List<ItemStack> items, IMaterial... fixedMaterials) {
-    if (MaterialRegistry.initialized()) {
+    if (MaterialRegistry.isFullyLoaded()) {
       // if a specific material is set, show just that
       String showOnlyId = Config.COMMON.showOnlyToolMaterial.get();
       boolean added = false;
