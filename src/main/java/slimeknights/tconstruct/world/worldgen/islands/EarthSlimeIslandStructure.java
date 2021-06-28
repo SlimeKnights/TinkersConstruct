@@ -27,6 +27,6 @@ public class EarthSlimeIslandStructure extends AbstractIslandStructure {
 
   @Override
   protected int getHeight(ChunkGenerator generator, Rotation rotation, int x, int z, Random random) {
-    return generator.getSeaLevel() - 9;
+    return Math.max(generator.getSeaLevel() - 7, 0);
   }
 }

@@ -2,16 +2,14 @@ package slimeknights.tconstruct.library.modifiers;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
@@ -26,7 +24,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -38,10 +35,11 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -53,7 +51,6 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
@@ -63,7 +60,6 @@ import java.util.function.BiConsumer;
  */
 @RequiredArgsConstructor
 public class Modifier implements IForgeRegistryEntry<Modifier> {
-  private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.modID + ".anti_knockback", 1f, Operation.ADDITION);
 
   /** Modifier random instance, use for chance based effects */
   protected static Random RANDOM = new Random();
@@ -262,7 +258,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #addAttributes(IModifierToolStack, int, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
+   *   <li>{@link #addAttributes(IModifierToolStack, int, EquipmentSlotType, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
    *   <li>{@link #onBreakSpeed(IModifierToolStack, int, BreakSpeed, Direction, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
    * </ul>
    * @param toolDefinition  Tool definition, will be empty for non-multitools
@@ -283,15 +279,16 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * </ul>
    * @param tool      Current tool instance
    * @param level     Modifier level
+   * @param slot      Slot for the attributes
    * @param consumer  Attribute consumer
    */
-  public void addAttributes(IModifierToolStack tool, int level, BiConsumer<Attribute,AttributeModifier> consumer) {}
+  public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {}
 
   /**
    * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
    * Do not validate max level here, simply ignore levels over max if needed.
    * @param tool   Current tool instance
-   * @param level  Modifier level
+   * @param level  Modifier level, may be 0 if the modifier is removed.
    * @return  PASS result if success, failure if there was an error.
    */
   public ValidatedResult validate(IModifierToolStack tool, int level) {
@@ -389,10 +386,31 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
-    * Called when this item is used when targeting an entity.
+    * Called when this item is used when targeting an entity. Runs before the native entity interaction hooks and on all entities instead of just living
    * <br>
    * Alternatives:
    * <ul>
+   *   <li>{@link #onEntityUse(IModifierToolStack, int, PlayerEntity, LivingEntity, Hand)}: Standard interaction hook, generally preferred over this one</li>
+   *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
+   *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
+   * </ul>
+   * @param tool           Current tool instance
+   * @param level          Modifier level
+   * @param player         Player holding tool
+   * @param target         Target
+   * @param hand           Current hand
+   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
+   */
+  public ActionResultType onEntityUseFirst(IModifierToolStack tool, int level, PlayerEntity player, Entity target, Hand hand) {
+    return ActionResultType.PASS;
+  }
+
+  /**
+   * Called when this item is used when targeting an entity.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onEntityUseFirst(IModifierToolStack, int, PlayerEntity, Entity, Hand)}: Runs on all entities instead of just living, and runs before normal entity interaction</li>
    *   <li>{@link #afterBlockUse(IModifierToolStack, int, ItemUseContext)}: Processes use actions on blocks.</li>
    *   <li>{@link #onToolUse(IModifierToolStack, int, World, PlayerEntity, Hand)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
    * </ul>
@@ -506,13 +524,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * For looting, see {@link #getLootingValue(IModifierToolStack, int, LivingEntity, LivingEntity, DamageSource, int)}
    * @param tool      Tool used
    * @param level     Modifier level
-   * @param player    Player holding this tool
-   * @param state     Block being harvested
-   * @param pos       Position of block being harvested
-   * @param sideHit   Side of the block that was hit
+   * @param context   Harvest context
    * @param consumer  Consumer accepting any enchantments
    */
-  public void applyHarvestEnchantments(IModifierToolStack tool, int level, PlayerEntity player, BlockState state, BlockPos pos, Direction sideHit, BiConsumer<Enchantment,Integer> consumer) {}
+  public void applyHarvestEnchantments(IModifierToolStack tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {}
 
   /**
    * Gets the amount of luck contained in this tool
@@ -524,7 +539,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * @param looting          Luck value set from previous modifiers
    * @return New luck value
    */
-  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, LivingEntity target, @Nullable DamageSource damageSource, int looting) {
+  public int getLootingValue(IModifierToolStack tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
     return looting;
   }
 
@@ -533,20 +548,15 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterBlockBreak(IModifierToolStack, int, World, BlockState, BlockPos, LivingEntity, boolean, boolean)}: Called after the block is successfully removed.</li>
+   *   <li>{@link #afterBlockBreak(IModifierToolStack, int, ToolHarvestContext)}: Called after the block is successfully removed.</li>
    * </ul>
-   * @param tool         Tool used
-   * @param level        Modifier level
-   * @param player       Player breaking the block
-   * @param world        World instance
-   * @param pos          Position targeted
-   * @param state        State being broken
-   * @param canHarvest   If true, the block will drop its drops
-   * @param isEffective  If true, the player can canHarvest the block. False is typically creative
+   * @param tool      Tool used
+   * @param level     Modifier level
+   * @param context   Harvest context
    * @return  True to override the default block removing logic and stop all later modifiers from running. False to override default without breaking the block. Null to let default logic run
    */
   @Nullable
-  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
+  public Boolean removeBlock(IModifierToolStack tool, int level, ToolHarvestContext context) {
     return null;
   }
 
@@ -555,65 +565,55 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #removeBlock(IModifierToolStack, int, PlayerEntity, World, BlockPos, BlockState, boolean, boolean)}: Called before the block is set to air.</li>
+   *   <li>{@link #removeBlock(IModifierToolStack, int, ToolHarvestContext)}: Called before the block is set to air.</li>
    * </ul>
-   * @param tool          Tool used
-   * @param level         Modifier level
-   * @param world         World instance
-   * @param state         Block broken
-   * @param pos           Position broken
-   * @param living        Entity breaking the block
-   * @param canHarvest    If true, the block dropped items
-   * @param wasEffective  If true, tool was effective at breaking this block
+   * @param tool      Tool used
+   * @param level     Modifier level
+   * @param context   Harvest context
    */
-  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean canHarvest, boolean wasEffective) {}
+  public void afterBlockBreak(IModifierToolStack tool, int level, ToolHarvestContext context) {}
 
 
   /* Attack hooks */
 
   /**
-   * Called when a living entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt. Do not modify the entity here, its possible the attack will still be canceled
+   * Called when an entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt.
+   * Do not modify the entity here, its possible the attack will still be canceled without calling further hooks due to 0 damage being dealt.
    * <br>
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
-   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, float)}: Perform special attacks on entity hit beyond damage boosts</li>
-   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Apply effects that must run before hit</li>
+   *   <li>{@link #beforeEntityHit(IModifierToolStack, int, ToolAttackContext, float, float, float)}: If you need to modify the entity before attacking, use this hook</li>
+   *   <li>{@link #afterEntityHit(IModifierToolStack, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond damage boosts</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
-   * @param attacker      Entity doing the attacking
-   * @param target        Entity being attacked
+   * @param context       Attack context
    * @param baseDamage    Base damage dealt before modifiers
    * @param damage        Computed damage from all prior modifiers
-   * @param isCritical    If true, this attack is a critical hit
-   * @param fullyCharged  If true, this attack was fully charged (could perform a sword sweep)
    * @return  New damage to deal
    */
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
+  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     return damage;
   }
 
   /**
    * Called right before an entity is hit, used to modify knockback applied or to apply special effects that need to run before damage. Damage is final damage including critical damage.
-   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean)} will run.
+   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedEntityHit(IModifierToolStack, int, ToolAttackContext)} will run.
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link #afterLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, boolean, float)}: Perform special attacks on entity hit beyond knockback boosts</li>
+   *   <li>{@link #afterEntityHit(IModifierToolStack, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond knockback boosts</li>
    * </ul>
    * @param tool           Tool used to attack
    * @param level          Modifier level
-   * @param attacker       Entity doing the attacking
-   * @param target         Entity being attacked
+   * @param context        Attack context
    * @param damage         Damage to deal to the attacker
    * @param baseKnockback  Base knockback before modifiers
    * @param knockback      Computed knockback from all prior modifiers
-   * @param isCritical     If true, this attack is a critical hit
-   * @param fullyCharged   If true, this attack was fully charged (could perform a sword sweep)
    * @return  New knockback to apply. 0.5 is equivelent to 1 level of the vanilla enchant
    */
-  public float beforeLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damage, float baseKnockback, float knockback, boolean isCritical, boolean fullyCharged) {
+  public float beforeEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     return knockback;
   }
 
@@ -623,20 +623,17 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>{@link #addToolStats(ToolDefinition, StatsNBT, IModDataReadOnly, IModDataReadOnly, int, ModifierStatsBuilder)}: Adjusts the base tool stats that affect damage</li>
-   *   <li>{@link #applyLivingDamage(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, boolean, boolean)}: Change the amount of damage dealt with attacker context</li>
-   *   <li>{@link #beforeLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, float, float, float, boolean, boolean)}: Change the amount of knockback dealt</li>
-   *   <li>{@link #failedLivingHit(IModifierToolStack, int, LivingEntity, LivingEntity, boolean, boolean)}: Called after living hit when damage was not dealt</li>
+   *   <li>{@link #getEntityDamage(IModifierToolStack, int, ToolAttackContext, float, float)}: Change the amount of damage dealt with attacker context</li>
+   *   <li>{@link #beforeEntityHit(IModifierToolStack, int, ToolAttackContext, float, float, float)}: Change the amount of knockback dealt</li>
+   *   <li>{@link #failedEntityHit(IModifierToolStack, int, ToolAttackContext)}: Called after living hit when damage was not dealt</li>
    * </ul>
    * @param tool          Tool used to attack
    * @param level         Modifier level
-   * @param attacker      Entity doing the attacking
-   * @param target        Entity being attacked
+   * @param context       Attack context
    * @param damageDealt   Amount of damage successfully dealt
-   * @param isCritical    If true, this attack is a critical hit
-   * @param cooldown      Current attack cooldown
    * @return  Extra damage to deal to the tool
    */
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown) {
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     return 0;
   }
 
@@ -644,12 +641,9 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Called after attacking an entity when no damage was dealt
    * @param tool          Tool used to attack
    * @param level         Modifier level
-   * @param attacker      Entity doing the attacking
-   * @param target        Entity being attacked
-   * @param isCritical    If true, this attack is a critical hit
-   * @param fullyCharged  If true, this attack was fully charged (could perform a sword sweep)
+   * @param context       Attack context
    */
-  public void failedLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, boolean isCritical, boolean fullyCharged) {}
+  public void failedEntityHit(IModifierToolStack tool, int level, ToolAttackContext context) {}
 
 
   /* Display */
@@ -714,54 +708,21 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /* Utils */
 
   /**
-   * Adds secondary damage to an entity
-   * @param source       Damage source
-   * @param damage       Damage amount
-   * @param target       Target
-   * @param noKnockback  If true, prevents extra knockback
-   * @return  True if damaged
-   */
-  public static boolean attackEntitySecondary(DamageSource source, float damage, LivingEntity target, boolean noKnockback) {
-    Optional<ModifiableAttributeInstance> knockbackResistance = Optional.ofNullable(target.getAttribute(Attributes.KNOCKBACK_RESISTANCE))
-                                                                        .filter(attribute -> !attribute.hasModifier(ANTI_KNOCKBACK_MODIFIER));
-    // store last damage before secondary attack
-    float oldLastDamage = target.lastDamage;
-
-    // prevent knockback in secondary attacks, if requested
-    if (noKnockback) {
-      knockbackResistance.ifPresent(attribute -> attribute.applyNonPersistentModifier(ANTI_KNOCKBACK_MODIFIER));
-    }
-
-    // set hurt resistance time to 0 because we always want to deal damage in traits
-    target.hurtResistantTime = 0;
-    boolean hit = target.attackEntityFrom(source, damage);
-    // set total received damage, important for AI and stuff
-    target.lastDamage += oldLastDamage;
-
-    // remove no knockback marker
-    if (noKnockback) {
-      knockbackResistance.ifPresent(attribute -> attribute.removeModifier(ANTI_KNOCKBACK_MODIFIER));
-    }
-
-    return hit;
-  }
-
-  /**
    * Gets the tool stack from the given entities mainhand. Useful for specialized event handling in modifiers
    * @param living  Entity instance
    * @return  Tool stack
    */
   @Nullable
-  public static ToolStack getHeldTool(@Nullable LivingEntity living) {
+  public static ToolStack getHeldTool(@Nullable LivingEntity living, Hand hand) {
     if (living == null) {
       return null;
     }
-    ItemStack stack = living.getHeldItemMainhand();
+    ItemStack stack = living.getHeldItem(hand);
     if (stack.isEmpty() || !stack.getItem().isIn(TinkerTags.Items.MODIFIABLE)) {
       return null;
     }
     ToolStack tool = ToolStack.from(stack);
-    return tool.isBroken() ? null : ToolStack.from(stack);
+    return tool.isBroken() ? null : tool;
   }
 
   /**
@@ -801,5 +762,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
       modifier /= 5.0F;
     }
     return modifier;
+  }
+
+  @Override
+  public String toString() {
+    return "Modifier{" + registryName + '}';
   }
 }

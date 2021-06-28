@@ -9,7 +9,7 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.tools.modifiers.traits.LaceratingModifier;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class BleedingEffect extends TinkerEffect {
 
     // perform damage
     int hurtResistantTime = target.hurtResistantTime;
-    Modifier.attackEntitySecondary(source, (level + 1f) / 2f, target, true);
+    ToolAttackUtil.attackEntitySecondary(source, (level + 1f) / 2f, target, target, true);
     target.hurtResistantTime = hurtResistantTime;
 
     // damage particles

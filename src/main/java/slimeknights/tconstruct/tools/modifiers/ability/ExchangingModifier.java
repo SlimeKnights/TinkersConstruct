@@ -13,8 +13,10 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.BlockFlags;
+import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class ExchangingModifier extends SingleUseModifier {
@@ -29,15 +31,21 @@ public class ExchangingModifier extends SingleUseModifier {
   }
 
   @Override
-  public Boolean removeBlock(IModifierToolStack tool, int level, PlayerEntity player, World world, BlockPos pos, BlockState state, boolean canHarvest, boolean isEffective) {
+  public Boolean removeBlock(IModifierToolStack tool, int level, ToolHarvestContext context) {
     // must have blocks in the offhand
-    ItemStack offhand = player.getHeldItemOffhand();
-    if (!isEffective || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem)) {
+    ItemStack offhand = context.getLiving().getHeldItemOffhand();
+    BlockState state = context.getState();
+    World world = context.getWorld();
+    BlockPos pos = context.getPos();
+    if ((!context.isEffective() && state.getBlockHardness(world, pos) > 0) || offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem)) {
       return null;
     }
 
     // from this point on, we are in charge of breaking the block, start by harvesting it so piglins get mad and stuff
-    state.getBlock().onBlockHarvested(world, pos, state, player);
+    PlayerEntity player = context.getPlayer();
+    if (player != null) {
+      state.getBlock().onBlockHarvested(world, pos, state, player);
+    }
 
     // block is unchanged, stuck setting it to a temporary block before replacing, as otherwise we risk duplication with the TE and tryPlace will likely fail
     BlockItem blockItem = (BlockItem) offhand.getItem();
@@ -54,16 +62,19 @@ public class ExchangingModifier extends SingleUseModifier {
     }
 
     // generate placing context
-    Direction sideHit = BlockSideHitListener.getSideHit(player);
+    Direction sideHit = context.getSideHit();
     // subtract the offsets instead of adding as the position is empty, want to "hit" a realistic location
     Vector3d hit = new Vector3d((double)pos.getX() + 0.5D - sideHit.getXOffset() * 0.5D, pos.getY() + 0.5D - sideHit.getYOffset() * 0.5D, pos.getZ() + 0.5D - sideHit.getZOffset() * 0.5D);
-    BlockItemUseContext context = new BlockItemUseContext(world, player, Hand.OFF_HAND, offhand, new BlockRayTraceResult(hit, sideHit, pos, false));
-    context.replaceClicked = true; // force replacement, even if the position is not replacable (as it most always will be)
+    BlockItemUseContext blockUseContext = new BlockItemUseContext(world, player, Hand.OFF_HAND, offhand, new BlockRayTraceResult(hit, sideHit, pos, false));
+    blockUseContext.replaceClicked = true; // force replacement, even if the position is not replacable (as it most always will be)
 
     // swap the block, it never goes to air so things like torches will remain
-    ActionResultType success = blockItem.tryPlace(context);
+    ActionResultType success = blockItem.tryPlace(blockUseContext);
     if (success.isSuccessOrConsume()) {
-      player.swing(Hand.OFF_HAND, false);
+      if (!context.isAOE() && player != null) {
+        TinkerNetwork.getInstance().sendTo(new UpdateNeighborsPacket(state, pos), player);
+      }
+      context.getLiving().swing(Hand.OFF_HAND, false);
       return true;
     } else if (placedBlock) {
       // notify that the fluid was placed properly, as it was suppressed earlier, and placing again will fail to hit it

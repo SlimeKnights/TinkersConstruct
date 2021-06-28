@@ -9,10 +9,10 @@ import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
-import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.inventory.ItemHandlerSlot;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.utils.ValidZeroIntReference;
+import slimeknights.tconstruct.shared.inventory.TriggeringBaseContainer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.AlloyerTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.alloying.MixerAlloyTank;
@@ -20,7 +20,7 @@ import slimeknights.tconstruct.smeltery.tileentity.module.alloying.MixerAlloyTan
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class AlloyerContainer extends BaseContainer<AlloyerTileEntity> {
+public class AlloyerContainer extends TriggeringBaseContainer<AlloyerTileEntity> {
   @Getter
   private boolean hasFuelSlot = false;
   public AlloyerContainer(int id, @Nullable PlayerInventory inv, @Nullable AlloyerTileEntity alloyer) {

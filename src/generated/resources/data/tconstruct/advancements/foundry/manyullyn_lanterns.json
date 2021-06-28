@@ -1,0 +1,55 @@
+{
+  "parent": "tconstruct:foundry/structure",
+  "display": {
+    "icon": {
+      "item": "tconstruct:scorched_lantern",
+      "nbt": "{tank:{FluidName:\"tconstruct:molten_manyullyn\",Amount:100}}"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.foundry.manyullyn_lanterns.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.foundry.manyullyn_lanterns.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "seared_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:seared_lantern",
+            "count": {
+              "min": 64
+            },
+            "nbt": "{tank:{FluidName:\"tconstruct:molten_manyullyn\",Amount:100}}"
+          }
+        ]
+      }
+    },
+    "scorched_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:scorched_lantern",
+            "count": {
+              "min": 64
+            },
+            "nbt": "{tank:{FluidName:\"tconstruct:molten_manyullyn\",Amount:100}}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "seared_lantern",
+      "scorched_lantern"
+    ]
+  ]
+}

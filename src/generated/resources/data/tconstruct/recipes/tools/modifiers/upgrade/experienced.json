@@ -2,8 +2,13 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:experience_bottle",
-      "amount_needed": 5
+      "item": "minecraft:experience_bottle"
+    },
+    {
+      "item": "minecraft:experience_bottle"
+    },
+    {
+      "item": "minecraft:experience_bottle"
     }
   ],
   "tools": {

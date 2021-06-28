@@ -1,9 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.shared;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Hand;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.function.Consumer;
@@ -30,7 +33,8 @@ public class ExperiencedModifier extends Modifier {
    * @param event  Event
    */
   private void beforeBlockBreak(BreakEvent event) {
-    ToolStack tool = getHeldTool(event.getPlayer());
+    // only support main hand block breaking currently
+    ToolStack tool = getHeldTool(event.getPlayer(), Hand.MAIN_HAND);
     if (tool != null) {
       int level = tool.getModifierLevel(this);
       if (level > 0) {
@@ -44,11 +48,14 @@ public class ExperiencedModifier extends Modifier {
    * @param event  Event
    */
   private void onEntityKill(LivingExperienceDropEvent event) {
-    ToolStack tool = getHeldTool(event.getAttackingPlayer());
-    if (tool != null) {
-      int level = tool.getModifierLevel(this);
-      if (level > 0) {
-        event.setDroppedExperience(boost(event.getDroppedExperience(), level));
+    PlayerEntity player = event.getAttackingPlayer();
+    if (player != null) {
+      ToolStack tool = getHeldTool(player, ModifierLootingHandler.getLootingHand(player));
+      if (tool != null) {
+        int level = tool.getModifierLevel(this);
+        if (level > 0) {
+          event.setDroppedExperience(boost(event.getDroppedExperience(), level));
+        }
       }
     }
   }

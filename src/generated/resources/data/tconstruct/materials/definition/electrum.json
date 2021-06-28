@@ -9,8 +9,6 @@
   "craftable": false,
   "tier": 3,
   "sortOrder": 5,
-  "fluid": "tconstruct:molten_electrum",
-  "fluidPerUnit": 144,
   "textColor": "#D9C25F",
-  "temperature": 760
+  "hidden": false
 }

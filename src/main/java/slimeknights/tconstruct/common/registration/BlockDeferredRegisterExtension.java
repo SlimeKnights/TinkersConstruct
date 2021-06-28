@@ -28,6 +28,7 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.shared.item.BurnableBlockItem;
 import slimeknights.tconstruct.shared.item.BurnableTallBlockItem;
 import slimeknights.tconstruct.world.block.StrippableLogBlock;
+import slimeknights.tconstruct.world.block.WoodenDoorBlock;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -132,7 +133,7 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
     ItemObject<RotatedPillarBlock> wood = register(name + "_wood", () -> new StrippableLogBlock(strippedWood, AbstractBlock.Properties.create(barkMaterial, barkColor).harvestTool(ToolType.AXE).hardnessAndResistance(2.0f).sound(barkSound)), burnable300);
 
     // doors
-    ItemObject<DoorBlock> door = register(name + "_door", () -> new DoorBlock(AbstractBlock.Properties.create(planksMaterial, planksColor).harvestTool(planksTool).hardnessAndResistance(3.0F).sound(plankSound).notSolid()), burnableTallItem.apply(200));
+    ItemObject<DoorBlock> door = register(name + "_door", () -> new WoodenDoorBlock(AbstractBlock.Properties.create(planksMaterial, planksColor).harvestTool(planksTool).hardnessAndResistance(3.0F).sound(plankSound).notSolid()), burnableTallItem.apply(200));
     ItemObject<TrapDoorBlock> trapdoor = register(name + "_trapdoor", () -> new TrapDoorBlock(AbstractBlock.Properties.create(planksMaterial, planksColor).harvestTool(planksTool).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid().setAllowsSpawn(Blocks::neverAllowSpawn)), burnable300);
     ItemObject<FenceGateBlock> fenceGate = register(name + "_fence_gate", () -> new FenceGateBlock(planksProps), burnable300);
     // redstone

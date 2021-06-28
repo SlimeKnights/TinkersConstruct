@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "tconstruct:dagger",
     "tconstruct:sword",
     "tconstruct:cleaver",
     "tconstruct:hand_axe",

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.block.Block;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.item.Item;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.SoundEvents;
@@ -32,6 +33,7 @@ import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.BucketingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.DuelWieldingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ExchangingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.GlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.LuckModifier;
@@ -45,6 +47,8 @@ import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.free.VolatileFlagModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.BlockTransformModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.HarvestAbilityModifier;
+import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
+import slimeknights.tconstruct.tools.modifiers.internal.PaddedModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.SilkyShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.internal.TwoHandedAbilityModifier;
@@ -119,10 +123,8 @@ public final class TinkerModifiers extends TinkerModule {
    */
   public static final ItemObject<Item> silkyCloth = ITEMS.register("silky_cloth", GENERAL_PROPS);
   public static final ItemObject<Item> silkyJewel = ITEMS.register("silky_jewel", HIDDEN_PROPS);
-  public static final ItemObject<Item> necroticBone = ITEMS.register("necrotic_bone", GENERAL_PROPS);
-  public static final ItemObject<Item> ancientShovelHead = ITEMS.register("ancient_shovel_head", GENERAL_PROPS);
-  public static final ItemObject<Item> ancientAxeHead = ITEMS.register("ancient_axe_head", GENERAL_PROPS);
-  public static final ItemObject<Item> ancientHoeHead = ITEMS.register("ancient_hoe_head", GENERAL_PROPS);
+  public static final ItemObject<Item> necroticBone = ITEMS.register("necrotic_bone", TOOLTIP_ITEM);
+  public static final ItemObject<Item> dragonScale = ITEMS.register("dragon_scale", TOOLTIP_ITEM);
   // reinforcements
   public static final ItemObject<Item> ironReinforcement = ITEMS.register("iron_reinforcement", GENERAL_PROPS);
   public static final ItemObject<Item> slimesteelReinforcement = ITEMS.register("slimesteel_reinforcement", GENERAL_PROPS);
@@ -149,7 +151,7 @@ public final class TinkerModifiers extends TinkerModule {
   // general effects
   public static final RegistryObject<ExperiencedModifier> experienced = MODIFIERS.register("experienced", ExperiencedModifier::new);
   public static final RegistryObject<MagneticModifier> magnetic = MODIFIERS.register("magnetic", MagneticModifier::new);
-  public static final RegistryObject<VolatileFlagModifier> shiny = MODIFIERS.register("shiny", () -> new VolatileFlagModifier(0xFFA3EF, ToolCore.SHINY));
+  public static final RegistryObject<VolatileFlagModifier> shiny = MODIFIERS.register("shiny", () -> new VolatileFlagModifier(0xFFA3EF, ToolCore.SHINY, Rarity.EPIC));
 
   // harvest
   public static final RegistryObject<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
@@ -160,6 +162,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // weapon
   public static final RegistryObject<KnockbackModifier> knockback = MODIFIERS.register("knockback", KnockbackModifier::new);
+  public static final RegistryObject<PaddedModifier> padded = MODIFIERS.register("padded", PaddedModifier::new);
   public static final RegistryObject<FieryModifier> fiery = MODIFIERS.register("fiery", FieryModifier::new);
   public static final RegistryObject<SeveringModifier> severing = MODIFIERS.register("severing", SeveringModifier::new);
   public static final RegistryObject<LootingModifier> looting = MODIFIERS.register("looting", LootingModifier::new);
@@ -175,11 +178,14 @@ public final class TinkerModifiers extends TinkerModule {
 
   // abilities
   public static final RegistryObject<LuckModifier> luck = MODIFIERS.register("luck", LuckModifier::new);
+  public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
+  public static final RegistryObject<UnbreakableModifier> unbreakable = MODIFIERS.register("unbreakable", UnbreakableModifier::new);
+  // weapon
+  public static final RegistryObject<DuelWieldingModifier> duelWielding = MODIFIERS.register("duel_wielding", DuelWieldingModifier::new);
+  // harvest
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
   public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
   public static final RegistryObject<Modifier> expanded = MODIFIERS.register("expanded", () -> new Modifier(0xff9f50));
-  public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
-  public static final RegistryObject<UnbreakableModifier> unbreakable = MODIFIERS.register("unbreakable", UnbreakableModifier::new);
   public static final RegistryObject<ExchangingModifier> exchanging = MODIFIERS.register("exchanging", ExchangingModifier::new);
 
   // fluid abilities
@@ -198,11 +204,14 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<BlockTransformModifier> axeTransformHidden = MODIFIERS.register("axe_transform_hidden", () -> new BlockTransformModifier(0xab7a55, Integer.MIN_VALUE + 50, ToolType.AXE, SoundEvents.ITEM_AXE_STRIP, false));
   public static final RegistryObject<BlockTransformModifier> hoeTransformHidden = MODIFIERS.register("hoe_transform_hidden", () -> new BlockTransformModifier(0x633c1e, Integer.MIN_VALUE + 50, ToolType.HOE, SoundEvents.ITEM_HOE_TILL, true));
 
-  public static final RegistryObject<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0xd8e3e1, Short.MIN_VALUE));
-  public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, Short.MIN_VALUE));
+  public static final RegistryObject<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0xd8e3e1, 0, Short.MIN_VALUE));
+  public static final RegistryObject<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, 0, Short.MIN_VALUE));
+  public static final RegistryObject<SilkyShearsAbilityModifier> aoeSilkyShears = MODIFIERS.register("silky_aoe_shears", () -> new SilkyShearsAbilityModifier(0xd8e3e1, 1, Short.MIN_VALUE));
   public static final RegistryObject<HarvestAbilityModifier> harvest = MODIFIERS.register("harvest", () -> new HarvestAbilityModifier(0x3eed78, Integer.MIN_VALUE + 51));
   public static final RegistryObject<TwoHandedAbilityModifier> twoHanded = MODIFIERS.register("two_handed", TwoHandedAbilityModifier::new);
-  
+  public static final RegistryObject<OffhandAttackModifier> offhandAttack = MODIFIERS.register("offhand_attack", () -> new OffhandAttackModifier(-1, 25));
+
+
   // bonus modifier slots
   public static final RegistryObject<ExtraModifier> writable = MODIFIERS.register("writable", () -> new ExtraModifier(0xffffff));
   public static final RegistryObject<ExtraModifier> recapitated = MODIFIERS.register("recapitated", () -> new ExtraModifier(0x67d755));

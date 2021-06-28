@@ -5,6 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -30,7 +31,8 @@ public class SearingModifier extends Modifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
+  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
+    LivingEntity attacker = context.getAttacker();
     BlockPos attackerPos = attacker.getPosition();
     return damage + temperatureBoost(attacker.world.getBiome(attackerPos).getTemperature(attackerPos), level);
   }

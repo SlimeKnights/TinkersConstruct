@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "tag": "forge:slimeball/green"
+    },
+    {
+      "tag": "forge:slimeball/sky"
+    },
+    {
+      "tag": "forge:slimeball/blood"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "tag": "forge:slimeball/ichor"
+    },
+    {
+      "tag": "forge:slimeball/ender"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:encyclopedia"
+  }
+}

@@ -1,6 +1,5 @@
 {
     "craftable": "blue",
-    "fluid": "in:valid",
-    "textColor": "theBestColor",
-    "temperature": -100
+    "hidden": "purple",
+    "textColor": "theBestColor"
 }

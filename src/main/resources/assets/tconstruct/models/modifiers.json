@@ -1,25 +1,2 @@
 {
-  "tconstruct:reinforced": "tconstruct:normal",
-  "tconstruct:emerald":    "tconstruct:normal",
-  "tconstruct:diamond":    "tconstruct:normal",
-  "tconstruct:soulbound":  "tconstruct:normal",
-  "tconstruct:overslime":  "tconstruct:overslime",
-
-  "tconstruct:haste":    "tconstruct:normal",
-  "tconstruct:blasting": "tconstruct:normal",
-
-  "tconstruct:knockback": "tconstruct:normal",
-  "tconstruct:fiery":     "tconstruct:normal",
-  "tconstruct:severing":  "tconstruct:normal",
-  "tconstruct:necrotic":  "tconstruct:normal",
-
-  "tconstruct:smite":         "tconstruct:normal",
-  "tconstruct:bane_of_sssss": "tconstruct:normal",
-  "tconstruct:sharpness":     "tconstruct:normal",
-
-  "tconstruct:luck":    "tconstruct:normal",
-  "tconstruct:silky":   "tconstruct:normal",
-  "tconstruct:glowing": "tconstruct:normal",
-  
-  "tconstruct:tank": "tconstruct:tank"
 }

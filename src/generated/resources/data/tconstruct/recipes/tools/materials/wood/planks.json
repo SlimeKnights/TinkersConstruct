@@ -1,7 +1,13 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "minecraft:planks"
+    "type": "mantle:without",
+    "base": {
+      "tag": "minecraft:planks"
+    },
+    "without": {
+      "tag": "tconstruct:slimy_planks"
+    }
   },
   "value": 1,
   "needed": 1,

@@ -22,8 +22,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.inventory.EmptyItemHandler;
-import slimeknights.mantle.inventory.MultiModuleContainer;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.shared.inventory.TriggeringMultiModuleContainer;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-public class BaseStationContainer<TILE extends TileEntity & IInventory> extends MultiModuleContainer<TILE> {
+public class BaseStationContainer<TILE extends TileEntity & IInventory> extends TriggeringMultiModuleContainer<TILE> {
   private static final TinkerBlockComp COMPARATOR = new TinkerBlockComp();
   public final List<Pair<BlockPos, BlockState>> stationBlocks;
 

@@ -1,12 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -32,9 +30,10 @@ public class MomentumModifier extends Modifier {
   }
 
   @Override
-  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean canHarvest, boolean wasEffective) {
-    if (canHarvest && wasEffective) {
+  public void afterBlockBreak(IModifierToolStack tool, int level, ToolHarvestContext context) {
+    if (context.canHarvest() && context.isEffective() && !context.isAOE()) {
       // 16 blocks gets you to max, levels faster at higher levels
+      LivingEntity living = context.getLiving();
       int effectLevel = Math.min(31, TinkerModifiers.momentumEffect.get().getLevel(living) + 1);
       // funny formula from 1.12, guess it makes faster tools have a slightly shorter effect
       int duration = (int) ((10f / tool.getStats().getFloat(ToolStats.MINING_SPEED)) * 1.5f * 20f);

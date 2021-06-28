@@ -2,8 +2,6 @@
   "craftable": false,
   "tier": 3,
   "sortOrder": 0,
-  "fluid": "tconstruct:molten_slimesteel",
-  "fluidPerUnit": 144,
   "textColor": "#27C6C6",
-  "temperature": 900
+  "hidden": false
 }

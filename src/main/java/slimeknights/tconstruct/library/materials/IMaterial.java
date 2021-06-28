@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.materials;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.TConstruct;
@@ -17,7 +15,7 @@ public interface IMaterial extends Comparable<IMaterial> {
    * <p>
    * The fallback material needs to have all part types associated with it.
    */
-  IMaterial UNKNOWN = new Material(UNKNOWN_ID, Fluids.EMPTY, false);
+  IMaterial UNKNOWN = new Material(UNKNOWN_ID, false, true);
 
   /**
    * Used to identify the material in NBT and other constructs.
@@ -33,23 +31,6 @@ public interface IMaterial extends Comparable<IMaterial> {
   boolean isCraftable();
 
   /**
-   * The fluid associated with this material, if not Fluids.EMPTY.
-   * Prerequisite for parts to be cast using the casting table and a cast.
-   * Just to make this completely clear: This is the indicator if a material is castable.
-   *
-   * @return The associated fluid or Fluids.EMPTY if material is not castable
-   */
-  Fluid getFluid();
-
-  /**
-   * Gets the amount of fluid needed to produce one "unit" of this material. Typically {@link MaterialValues#INGOT} for metal based materials.
-   * Will be 0 for non-fluids
-   *
-   * @return  Amount of fluid per unit.
-   */
-  int getFluidPerUnit();
-
-  /**
    * Gets the translation key for this material
    * @return the translation key
    */
@@ -63,12 +44,8 @@ public interface IMaterial extends Comparable<IMaterial> {
    */
   Color getColor();
 
-  /**
-   * Gets the temperature of this material for use in melting and casting recipes.
-   * If this is not castable or meltable, will be 0;
-   * @return  Temperature of the material, 0 if not relevant
-   */
-  int getTemperature();
+  /** If true, this material is hidden from display, such as in JEI and the books */
+  boolean isHidden();
 
 
   /* Display */

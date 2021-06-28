@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import net.minecraft.entity.LivingEntity;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -21,8 +21,8 @@ public class ScorchingModifier extends Modifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
-    if (target.isBurning()) {
+  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
+    if (context.getTarget().isBurning()) {
       damage += 2f * level;
     }
     return damage;

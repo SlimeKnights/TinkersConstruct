@@ -95,7 +95,7 @@ public class TooltipBuilder {
     if (player != null) {
       ModifiableAttributeInstance instance = player.getAttribute(attribute);
       if (instance != null) {
-        damage = (float) instance.getValue();
+        damage = (float) instance.getBaseValue();
       }
     }
     this.tooltips.add(ToolStats.ATTACK_DAMAGE.formatValue(damage + tool.getStats().getFloat(stat)));

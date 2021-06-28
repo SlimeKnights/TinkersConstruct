@@ -1,240 +1,122 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
 import com.google.gson.JsonObject;
-import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.recipe.FluidIngredient;
-import slimeknights.mantle.recipe.IMultiRecipe;
-import slimeknights.mantle.recipe.RecipeSerializer;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
-import java.util.Collection;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Recipe type that converts a material item from one material to another using a fluid
+ * Casting recipe taking a part of a material and a fluid and outputting the part with a new material
  */
-public abstract class CompositeCastingRecipe implements ICastingRecipe, IMultiRecipe<IDisplayableCastingRecipe> {
-  @Getter
-  protected final IRecipeType<?> type;
-  @Getter
-  private final ResourceLocation id;
-  /** Material type to check from the input stack */
-  protected final MaterialId inputId;
-  /** Fluid required to make the upgrade, size determines cost per ingot */
-  protected final FluidIngredient fluid;
-  /** Material type to check fron the output stack */
-  protected final MaterialId outputId;
-  /** Temperature used in calculating cooling time */
-  protected final int coolingTemperature;
-  /** Lazy loaded materials */
-  private final Lazy<IMaterial> inputMaterial, outputMaterial;
-  /** Cached list of recipes used for display in JEI */
-  private List<IDisplayableCastingRecipe> multiRecipes;
-  protected CompositeCastingRecipe(IRecipeType<?> type, ResourceLocation id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {
-    this.type = type;
-    this.id = id;
-    this.inputId = inputId;
-    this.fluid = fluid;
-    this.outputId = outputId;
-    this.coolingTemperature = coolingTemperature;
-    this.inputMaterial = Lazy.of(() -> MaterialRegistry.getMaterial(this.inputId));
-    this.outputMaterial = Lazy.of(() -> MaterialRegistry.getMaterial(this.outputId));
-  }
-
-  /**
-   * Gets the cost in mb for the given material item
-   * @param item  Item to check
-   * @return  Cost, or 0 if no valid recipe exists
-   */
-  protected abstract int getMaterialItemCost(IMaterialItem item);
-
-  @Override
-  public boolean matches(ICastingInventory inv, World worldIn) {
-    if (!fluid.test(inv.getFluid())) {
-      return false;
-    }
-
-    ItemStack stack = inv.getStack();
-    Item item = stack.getItem();
-    if (item instanceof IMaterialItem) {
-      IMaterialItem part = (IMaterialItem) item;
-      return getMaterialItemCost(part) > 0 && inputId.equals(part.getMaterial(stack).getIdentifier()) && part.canUseMaterial(outputMaterial.get());
-    }
-    return false;
+public abstract class CompositeCastingRecipe extends MaterialCastingRecipe {
+  public CompositeCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, IMaterialItem result, int itemCost) {
+    super(type, id, group, Ingredient.fromItems(result), itemCost, result, true, false);
   }
 
   @Override
-  public int getFluidAmount(ICastingInventory inv) {
-    Item item = inv.getStack().getItem();
-    if (item instanceof IMaterialItem) {
-      return fluid.getAmount(inv.getFluid()) * getMaterialItemCost((IMaterialItem) item);
-    }
-    return 0;
+  protected Optional<MaterialFluidRecipe> getMaterialFluid(ICastingInventory inv) {
+    return MaterialCastingLookup.getCompositeFluid(inv);
   }
 
+  /* JEI display */
   @Override
-  public int getCoolingTime(ICastingInventory inv) {
-    return ICastingRecipe.calcCoolingTime(coolingTemperature, getFluidAmount(inv));
-  }
-
-  @Override
-  public ItemStack getRecipeOutput() {
-    return ItemStack.EMPTY;
-  }
-
-  @Override
-  public boolean isConsumed() {
-    return true;
-  }
-
-  @Override
-  public boolean switchSlots() {
-    return false;
-  }
-
-  @Override
-  public ItemStack getCraftingResult(ICastingInventory inv) {
-    Item item = inv.getStack().getItem();
-    if (item instanceof IMaterialItem) {
-      return ((IMaterialItem)item).withMaterial(outputMaterial.get());
-    }
-    return ItemStack.EMPTY;
-  }
-
-  /**
-   * Base logic to get and cache a list of recipes for the given parts list
-   * @return  Display recipe list
-   */
-  @SuppressWarnings("WeakerAccess")
-  protected List<IDisplayableCastingRecipe> getRecipes(Collection<Entry<IMaterialItem>> parts) {
+  public List<IDisplayableCastingRecipe> getRecipes() {
     if (multiRecipes == null) {
-      List<FluidStack> fluids = this.fluid.getFluids();
-      if (fluids.isEmpty()) {
-        multiRecipes = Collections.emptyList();
-      } else {
-        multiRecipes = parts.stream()
-                            .filter(entry -> entry.getIntValue() > 0)
-                            .filter(entry -> entry.getKey().canUseMaterial(inputMaterial.get()) && entry.getKey().canUseMaterial(outputMaterial.get()))
-                            .map(entry -> {
-                              IMaterialItem part = entry.getKey();
-                              List<FluidStack> recipeFluids = fluids;
-                              int partCost = entry.getIntValue();
-                              if (partCost != 1) {
-                                recipeFluids = recipeFluids.stream()
-                                                           .map(fluid -> new FluidStack(fluid, fluid.getAmount() * partCost))
-                                                           .collect(Collectors.toList());
-                              }
-                              return new DisplayCastingRecipe(getType(), Collections.singletonList(part.withMaterial(inputMaterial.get())), recipeFluids,
-                                                              part.withMaterial(outputMaterial.get()), ICastingRecipe.calcCoolingTime(coolingTemperature, recipeFluids.get(0).getAmount()), true);
-                          })
-                          .collect(Collectors.toList());
-      }
+      IRecipeType<?> type = getType();
+      multiRecipes = MaterialCastingLookup
+        .getAllCompositeFluids().stream()
+        .filter(recipe -> !recipe.getOutput().isHidden() && result.canUseMaterial(recipe.getOutput())
+                          && recipe.getInput() != null && !recipe.getInput().isHidden() && result.canUseMaterial(recipe.getInput()))
+        .map(recipe -> {
+          List<FluidStack> fluids = resizeFluids(recipe.getFluids());
+          int fluidAmount = fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0);
+          return new DisplayCastingRecipe(type, Collections.singletonList(result.withMaterial(recipe.getInput())), fluids, result.withMaterial(recipe.getOutput()),
+                                          ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * fluidAmount), consumed);
+        })
+        .collect(Collectors.toList());
     }
     return multiRecipes;
   }
 
-  /** Implementaiton for casting basins */
+  /** Basin implementation */
   public static class Basin extends CompositeCastingRecipe {
-    public Basin(ResourceLocation id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {
-      super(RecipeTypes.CASTING_BASIN, id, inputId, fluid, outputId, coolingTemperature);
-    }
-
-    @Override
-    protected int getMaterialItemCost(IMaterialItem item) {
-      return MaterialItemCostLookup.getBasinCost(item);
+    public Basin(ResourceLocation id, String group, IMaterialItem result, int itemCost) {
+      super(RecipeTypes.CASTING_BASIN, id, group, result, itemCost);
     }
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.basinCompositeSerializer.get();
     }
-
-    @Override
-    public List<IDisplayableCastingRecipe> getRecipes() {
-      return getRecipes(MaterialItemCostLookup.getAllBasinParts());
-    }
   }
 
-  /** Implementaiton for casting tables */
+  /** Table implementation */
   public static class Table extends CompositeCastingRecipe {
-    public Table(ResourceLocation id, MaterialId inputId, FluidIngredient fluid, MaterialId outputId, int coolingTemperature) {
-      super(RecipeTypes.CASTING_TABLE, id, inputId, fluid, outputId, coolingTemperature);
-    }
-
-    @Override
-    protected int getMaterialItemCost(IMaterialItem item) {
-      return MaterialItemCostLookup.getTableCost(item);
+    public Table(ResourceLocation id, String group, IMaterialItem result, int itemCost) {
+      super(RecipeTypes.CASTING_TABLE, id, group, result, itemCost);
     }
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
       return TinkerSmeltery.tableCompositeSerializer.get();
     }
-
-    @Override
-    public List<IDisplayableCastingRecipe> getRecipes() {
-      return getRecipes(MaterialItemCostLookup.getAllTableParts());
-    }
   }
 
-  /** Constructor factory for this casting recipe */
+  /**
+   * Interface representing a composite casting recipe constructor
+   * @param <T>  Recipe class type
+   */
   public interface IFactory<T extends CompositeCastingRecipe> {
-    T create(ResourceLocation id, MaterialId input, FluidIngredient fluid, MaterialId output, int coolingTemperature);
+    T create(ResourceLocation id, String group, IMaterialItem result, int itemCost);
   }
 
-  /** Serializer for casting tables and basins */
+  /** Shared serializer logic */
   @RequiredArgsConstructor
-  public static class Serializer<T extends CompositeCastingRecipe> extends RecipeSerializer<T> {
+  public static class Serializer<T extends CompositeCastingRecipe> extends LoggingRecipeSerializer<T> {
     private final IFactory<T> factory;
 
     @Override
     public T read(ResourceLocation id, JsonObject json) {
-      MaterialId input = MaterialRecipeSerializer.getMaterial(json, "input");
-      FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
-      MaterialId output = MaterialRecipeSerializer.getMaterial(json, "result");
-      int coolingTemperature = JSONUtils.getInt(json, "temperature");
-      return factory.create(id, input, fluid, output, coolingTemperature);
+      String group = JSONUtils.getString(json, "group", "");
+      IMaterialItem result = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", IMaterialItem.class);
+      int itemCost = JSONUtils.getInt(json, "item_cost");
+      return factory.create(id, group, result, itemCost);
+    }
+
+    @Nullable
+    @Override
+    protected T readSafe(ResourceLocation id, PacketBuffer buffer) {
+      String group = buffer.readString(Short.MAX_VALUE);
+      IMaterialItem result = RecipeHelper.readItem(buffer, IMaterialItem.class);
+      int itemCost = buffer.readVarInt();
+      return factory.create(id, group, result, itemCost);
     }
 
     @Override
-    public T read(ResourceLocation id, PacketBuffer buffer) {
-      MaterialId input = new MaterialId(buffer.readString(Short.MAX_VALUE));
-      FluidIngredient fluid = FluidIngredient.read(buffer);
-      MaterialId output = new MaterialId(buffer.readString(Short.MAX_VALUE));
-      int coolingTemperature = buffer.readVarInt();
-      return factory.create(id, input, fluid, output, coolingTemperature);
-    }
-
-    @Override
-    public void write(PacketBuffer buffer, T recipe) {
-      buffer.writeString(recipe.inputId.toString());
-      recipe.fluid.write(buffer);
-      buffer.writeString(recipe.outputId.toString());
-      buffer.writeVarInt(recipe.coolingTemperature);
+    protected void writeSafe(PacketBuffer buffer, T recipe) {
+      buffer.writeString(recipe.group);
+      RecipeHelper.writeItem(buffer, recipe.result);
+      buffer.writeVarInt(recipe.itemCost);
     }
   }
 }

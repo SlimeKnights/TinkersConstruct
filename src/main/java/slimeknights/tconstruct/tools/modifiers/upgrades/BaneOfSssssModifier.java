@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class BaneOfSssssModifier extends ScaledTypeDamageModifier {
@@ -18,12 +19,13 @@ public class BaneOfSssssModifier extends ScaledTypeDamageModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown) {
-    if (isEffective(target)) {
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+    LivingEntity target = context.getLivingTarget();
+    if (target != null && isEffective(target)) {
       int duration = 20;
       int maxBonus = (int)(10 * getScaledLevel(tool, level));
       if (maxBonus > 0) {
-        duration += attacker.getRNG().nextInt(maxBonus);
+        duration += context.getAttacker().getRNG().nextInt(maxBonus);
       }
       target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, duration, 3));
     }

@@ -72,9 +72,8 @@ public class SmelteryClientEvents extends ClientEventBase {
     // peripherals
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedDrain.get(), cutout);
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedDuct.get(), cutout);
-    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedDrain.get(), cutout);
-    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedDuct.get(), cutout);
     TinkerSmeltery.searedTank.forEach(tank -> RenderTypeLookup.setRenderLayer(tank, cutout));
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedLantern.get(), cutout);
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedGlass.get(), cutout);
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedGlassPane.get(), cutout);
     // scorched
@@ -85,7 +84,10 @@ public class SmelteryClientEvents extends ClientEventBase {
     // controller
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedAlloyer.get(), cutout);
     // peripherals
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedDrain.get(), cutout);
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedDuct.get(), cutout);
     TinkerSmeltery.scorchedTank.forEach(tank -> RenderTypeLookup.setRenderLayer(tank, cutout));
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedLantern.get(), cutout);
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedGlass.get(), cutout);
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.scorchedGlassPane.get(), cutout);
 
@@ -133,6 +135,8 @@ public class SmelteryClientEvents extends ClientEventBase {
     };
     TinkerSmeltery.searedTank.forEach(tank -> colors.register(handler, tank));
     TinkerSmeltery.scorchedTank.forEach(tank -> colors.register(handler, tank));
+    colors.register(handler, TinkerSmeltery.searedLantern.get());
+    colors.register(handler, TinkerSmeltery.scorchedLantern.get());
     colors.register(handler, TinkerSmeltery.searedMelter.get(), TinkerSmeltery.scorchedAlloyer.get());
 
     // color the extra fluid textures
@@ -181,5 +185,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     };
     TinkerSmeltery.searedTank.forEach(tank -> itemColors.register(handler, tank));
     TinkerSmeltery.scorchedTank.forEach(tank -> itemColors.register(handler, tank));
+    itemColors.register(handler, TinkerSmeltery.searedLantern.get());
+    itemColors.register(handler, TinkerSmeltery.scorchedLantern.get());
   }
 }

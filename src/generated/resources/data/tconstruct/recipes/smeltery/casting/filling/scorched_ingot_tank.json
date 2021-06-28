@@ -1,0 +1,5 @@
+{
+  "type": "tconstruct:basin_filling",
+  "fluid_amount": 144,
+  "container": "tconstruct:scorched_ingot_tank"
+}

@@ -15,7 +15,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.common.registration.WoodBlockObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
@@ -35,7 +34,6 @@ public class BlockTagProvider extends BlockTagsProvider {
   @Override
   protected void registerTags() {
     this.addCommon();
-    this.addGadgets();
     this.addTools();
     this.addWorld();
     this.addSmeltery();
@@ -126,15 +124,19 @@ public class BlockTagProvider extends BlockTagsProvider {
   private void addWorld() {
     TagsProvider.Builder<Block> slimeBlockBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIME_BLOCK);
     TagsProvider.Builder<Block> congealedBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.CONGEALED_SLIME);
-    TagsProvider.Builder<Block> logBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LOGS);
-    logBuilder.addTag(TinkerWorld.greenheart.getLogBlockTag())
-              .addTag(TinkerWorld.skyroot.getLogBlockTag())
-              .addTag(TinkerWorld.bloodshroom.getLogBlockTag());
+    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LOGS)
+        .addTag(TinkerWorld.greenheart.getLogBlockTag())
+        .addTag(TinkerWorld.skyroot.getLogBlockTag())
+        .addTag(TinkerWorld.bloodshroom.getLogBlockTag());
+    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_PLANKS)
+        .add(TinkerWorld.greenheart.get(), TinkerWorld.skyroot.get(), TinkerWorld.bloodshroom.get());
+    TagsProvider.Builder<Block> treeTrunkBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_TREE_TRUNKS)
+                                                       .addTag(TinkerTags.Blocks.SLIMY_LOGS);
     for (SlimeType type : SlimeType.values()) {
       slimeBlockBuilder.add(TinkerWorld.slime.get(type));
       Block congealed = TinkerWorld.congealedSlime.get(type);
       congealedBuilder.add(congealed);
-      logBuilder.add(congealed); // for old worlds
+      treeTrunkBuilder.add(congealed); // for old worlds
     }
 
     TagsProvider.Builder<Block> leavesBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LEAVES);
@@ -160,13 +162,11 @@ public class BlockTagProvider extends BlockTagsProvider {
     TinkerWorld.slimeDirt.forEach(endermanHoldable::addItemEntry);
     TinkerWorld.slimeGrass.forEach((key, type) -> type.forEach(endermanHoldable::addItemEntry));
 
+    this.getOrCreateBuilder(BlockTags.PLANKS).addTag(TinkerTags.Blocks.SLIMY_PLANKS);
+    this.getOrCreateBuilder(BlockTags.LOGS).addTag(TinkerTags.Blocks.SLIMY_LOGS);
     addWoodTags(TinkerWorld.greenheart, true);
     addWoodTags(TinkerWorld.skyroot, true);
     addWoodTags(TinkerWorld.bloodshroom, false);
-  }
-
-  private void addGadgets() {
-    this.getOrCreateBuilder(BlockTags.RAILS).add(TinkerGadgets.woodenRail.get(), TinkerGadgets.woodenDropperRail.get());
   }
 
   private void addSmeltery() {
@@ -280,13 +280,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 
   /** Adds all tags relevant to the given wood object */
   private void addWoodTags(WoodBlockObject object, boolean doesBurn) {
-    // planks
-    this.getOrCreateBuilder(BlockTags.PLANKS).add(object.get());
+    // planks, handled by slimy planks tag
+    //this.getOrCreateBuilder(BlockTags.PLANKS).add(object.get());
     this.getOrCreateBuilder(BlockTags.WOODEN_SLABS).add(object.getSlab());
     this.getOrCreateBuilder(BlockTags.WOODEN_STAIRS).add(object.getStairs());
     // logs
     this.getOrCreateBuilder(object.getLogBlockTag()).add(object.getLog(), object.getStrippedLog(), object.getWood(), object.getStrippedWood());
-    this.getOrCreateBuilder(doesBurn ? BlockTags.LOGS_THAT_BURN : BlockTags.LOGS).addTag(object.getLogBlockTag());
+
     // doors
     this.getOrCreateBuilder(BlockTags.WOODEN_FENCES).add(object.getFence());
     this.getOrCreateBuilder(Tags.Blocks.FENCES_WOODEN).add(object.getFence());
@@ -298,7 +298,10 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(BlockTags.WOODEN_BUTTONS).add(object.getButton());
     this.getOrCreateBuilder(BlockTags.WOODEN_PRESSURE_PLATES).add(object.getPressurePlate());
 
-    if (!doesBurn) {
+    if (doesBurn) {
+      // regular logs is handled by slimy logs tag
+      this.getOrCreateBuilder(BlockTags.LOGS_THAT_BURN).addTag(object.getLogBlockTag());
+    } else {
       this.getOrCreateBuilder(BlockTags.NON_FLAMMABLE_WOOD)
           .add(object.get(), object.getSlab(), object.getStairs(),
                object.getFence(), object.getFenceGate(), object.getDoor(), object.getTrapdoor(),

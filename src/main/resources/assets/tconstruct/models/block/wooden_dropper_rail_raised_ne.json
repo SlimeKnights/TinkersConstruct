@@ -1,6 +1,0 @@
-{
-    "parent": "block/template_rail_raised_ne",
-    "textures": {
-        "rail": "tconstruct:block/wooden_dropper_rail"
-    }
-}

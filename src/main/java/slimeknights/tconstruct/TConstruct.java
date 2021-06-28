@@ -25,6 +25,7 @@ import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.data.AdvancementsProvider;
 import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.tags.BlockTagProvider;
 import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
@@ -41,6 +42,7 @@ import slimeknights.tconstruct.plugin.crt.CRTHelper;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -124,18 +126,13 @@ public class TConstruct {
       datagenerator.addProvider(new EntityTypeTagProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new TileEntityTypeTagProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
+      datagenerator.addProvider(new AdvancementsProvider(datagenerator));
     }
   }
 
   @Nullable
   private static Block missingBlock(String name) {
     switch (name) {
-      // soils
-      case "graveyard_soil": case "consecrated_soil": return Blocks.DIRT;
-      // firewood to blazewood
-      case "firewood": return TinkerCommons.blazewood.get();
-      case "firewood_slab": return TinkerCommons.blazewood.getSlab();
-      case "firewood_stairs": return TinkerCommons.blazewood.getStairs();
       // prefix with seared
       case "faucet": return TinkerSmeltery.searedFaucet.get();
       case "channel": return TinkerSmeltery.searedChannel.get();
@@ -153,6 +150,16 @@ public class TConstruct {
       case "magma_cream_fluid": return TinkerFluids.magma.getBlock();
       // molten blaze -> blazing blood
       case "molten_blaze_fluid": return TinkerFluids.blazingBlood.getBlock();
+      // old gadgets that are removed
+      case "stone_ladder": return Blocks.LADDER;
+      case "stone_torch": return Blocks.TORCH;
+      case "wall_stone_torch": return Blocks.WALL_TORCH;
+      case "wooden_rail": case "wooden_dropper_rail": return Blocks.RAIL;
+      // dried blocks to remove
+      case "dried_clay": return Blocks.TERRACOTTA;
+      case "dried_clay_bricks": return Blocks.BRICKS;
+      case "dried_clay_slab": case "dried_clay_bricks_slab": return Blocks.BRICK_SLAB;
+      case "dried_clay_stairs": case "dried_clay_bricks_stairs": return Blocks.BRICK_STAIRS;
     }
     return null;
   }
@@ -161,45 +168,37 @@ public class TConstruct {
   void missingItems(final MissingMappings<Item> event) {
     RegistrationHelper.handleMissingMappings(event, modID, name -> {
       switch (name) {
-        // moss removed
-        case "moss": case "mending_moss": return Items.MOSSY_COBBLESTONE;
-        // book spliting
-        case "book": return TinkerCommons.materialsAndYou.get();
-        // expanders use 5 items now
-        case "ichor_expander": return TinkerMaterials.tinkersBronze.getIngot();
-        case "ender_expander": return TinkerMaterials.manyullyn.getIngot();
-        // tool rods -> tool handles
-        case "tool_rod": return TinkerToolParts.toolHandle.get();
-        case "tough_tool_rod": return TinkerToolParts.toughHandle.get();
-        case "tool_rod_cast": return TinkerSmeltery.toolHandleCast.get();
-        case "tool_rod_sand_cast": return TinkerSmeltery.toolHandleCast.getSand();
-        case "tool_rod_red_sand_cast": return TinkerSmeltery.toolHandleCast.getRedSand();
-        case "tough_tool_rod_cast": return TinkerSmeltery.toughHandleCast.get();
-        case "tough_tool_rod_sand_cast": return TinkerSmeltery.toughHandleCast.getSand();
-        case "tough_tool_rod_red_sand_cast": return TinkerSmeltery.toughHandleCast.getRedSand();
-        // axe -> hand_axe, axe_head -> small_axe_head
-        case "axe": return TinkerTools.handAxe.get();
-        case "axe_head": return TinkerToolParts.smallAxeHead.get();
-        case "axe_head_cast": return TinkerSmeltery.smallAxeHeadCast.get();
-        case "axe_head_sand_cast": return TinkerSmeltery.smallAxeHeadCast.getSand();
-        case "axe_head_red_sand_cast": return TinkerSmeltery.smallAxeHeadCast.getRedSand();
         // kama head removed, sword blade to small blade
-        case "kama_head": case "sword_blade":
-          return TinkerToolParts.smallBlade.get();
-        case "kama_head_cast": case "sword_blade_cast":
-          return TinkerSmeltery.smallBladeCast.get();
-        case "kama_head_sand_cast": case "sword_blade_sand_cast":
-          return TinkerSmeltery.smallBladeCast.getSand();
-        case "kama_head_red_sand_cast": case "sword_blade_red_sand_cast":
-          return TinkerSmeltery.smallBladeCast.getRedSand();
-        // broadsword -> sword
-        case "broad_sword": return TinkerTools.sword.get();
+        case "sword_blade": return TinkerToolParts.smallBlade.get();
+        case "sword_blade_cast": return TinkerSmeltery.smallBladeCast.get();
+        case "sword_blade_sand_cast": return TinkerSmeltery.smallBladeCast.getSand();
+        case "sword_blade_red_sand_cast": return TinkerSmeltery.smallBladeCast.getRedSand();
         //  reinforcement splitting
         case "reinforcement": return TinkerModifiers.ironReinforcement.get();
         // magma cream -> magma
         case "magma_cream_bucket": return TinkerFluids.magma.asItem();
         // molten blaze -> blazing blood
         case "molten_blaze_bucket": return TinkerFluids.blazingBlood.asItem();
+        // old foods, some will move to natura
+        case "monster_jerky": return Items.ROTTEN_FLESH;
+        case "beef_jerky": return Items.COOKED_BEEF;
+        case "chicken_jerky": return Items.COOKED_CHICKEN;
+        case "pork_jerky": return Items.COOKED_PORKCHOP;
+        case "mutton_jerky": return Items.COOKED_MUTTON;
+        case "rabbit_jerky": return Items.COOKED_RABBIT;
+        case "fish_jerky": return Items.COOKED_COD;
+        case "salmon_jerky": return Items.COOKED_SALMON;
+        case "clownfish_jerky": return Items.TROPICAL_FISH;
+        case "pufferfish_jerky": return Items.PUFFERFISH;
+        case "earth_slime_drop": return Items.SLIME_BALL;
+        case "sky_slime_drop": return TinkerCommons.slimeball.get(SlimeType.SKY);
+        case "ichor_slime_drop": return TinkerCommons.slimeball.get(SlimeType.ICHOR);
+        case "blood_slime_drop": return TinkerCommons.slimeball.get(SlimeType.BLOOD);
+        case "ender_slime_drop": return TinkerCommons.slimeball.get(SlimeType.ENDER);
+        case "stone_stick": return Blocks.COBBLESTONE.asItem();
+        case "dried_brick": return Items.BRICK;
+        // removed ancient heads, use netherite directly
+        case "ancient_axe_head": case "ancient_shovel_head": case "ancient_hoe_head": return Items.NETHERITE_SCRAP;
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
@@ -230,9 +229,6 @@ public class TConstruct {
   void missingModifiers(final MissingMappings<Modifier> event) {
     RegistrationHelper.handleMissingMappings(event, modID, name -> {
       switch(name) {
-        case "axe_transform": return TinkerModifiers.stripping.get();
-        case "shovel_transform": return TinkerModifiers.pathing.get();
-        case "hoe_transform": return TinkerModifiers.tilling.get();
         case "beheading": return TinkerModifiers.severing.get();
         case "bane_of_arthropods": return TinkerModifiers.baneOfSssss.get();
       }

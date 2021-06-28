@@ -12,11 +12,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.item.small.KamaTool;
 
@@ -42,23 +42,25 @@ public class ScytheTool extends KamaTool {
   }
 
   @Override
-  public boolean dealDamage(ToolStack tool, LivingEntity living, Entity targetEntity, float damage, boolean isCritical, boolean fullyCharged) {
-    boolean hit = super.dealDamage(tool, living, targetEntity, damage, isCritical, fullyCharged);
+  public boolean dealDamage(IModifierToolStack tool, ToolAttackContext context, float damage) {
+    boolean hit = super.dealDamage(tool, context, damage);
     // only need fully charged for scythe sweep, easier than sword sweep
-    if (fullyCharged) {
+    if (context.isFullyCharged()) {
       // basically sword sweep logic, just deals full damage to all entities
       double range = 3 + tool.getModifierLevel(TinkerModifiers.expanded.get());
-      for (LivingEntity sideEntity : living.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, targetEntity.getBoundingBox().grow(range, 0.25D, range))) {
-        if (sideEntity != living && sideEntity != targetEntity && !living.isOnSameTeam(sideEntity)
-            && (!(sideEntity instanceof ArmorStandEntity) || !((ArmorStandEntity) sideEntity).hasMarker()) && living.getDistanceSq(sideEntity) < 8.0D + range) {
-          sideEntity.applyKnockback(0.4F, MathHelper.sin(living.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(living.rotationYaw * ((float) Math.PI / 180F)));
-          hit |= ToolAttackUtil.extraEntityAttack(this, tool, living, sideEntity);
+      LivingEntity attacker = context.getAttacker();
+      Entity target = context.getTarget();
+      for (LivingEntity aoeTarget : attacker.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(range, 0.25D, range))) {
+        if (aoeTarget != attacker && aoeTarget != target && !attacker.isOnSameTeam(aoeTarget)
+            && (!(aoeTarget instanceof ArmorStandEntity) || !((ArmorStandEntity) aoeTarget).hasMarker()) && attacker.getDistanceSq(aoeTarget) < 8.0D + range) {
+          aoeTarget.applyKnockback(0.4F, MathHelper.sin(attacker.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(attacker.rotationYaw * ((float) Math.PI / 180F)));
+          hit |= ToolAttackUtil.extraEntityAttack(this, tool, attacker, context.getHand(), aoeTarget);
         }
       }
 
-      living.world.playSound(null, living.getPosX(), living.getPosY(), living.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, living.getSoundCategory(), 1.0F, 1.0F);
-      if (living instanceof PlayerEntity) {
-        ((PlayerEntity) living).spawnSweepParticles();
+      attacker.world.playSound(null, attacker.getPosX(), attacker.getPosY(), attacker.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, attacker.getSoundCategory(), 1.0F, 1.0F);
+      if (attacker instanceof PlayerEntity) {
+        ((PlayerEntity) attacker).spawnSweepParticles();
       }
     }
 

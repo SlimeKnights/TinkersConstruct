@@ -61,7 +61,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
   /* Crafting */
 
   @Override
-  public ItemStack calcResult() {
+  public ItemStack calcResult(@Nullable PlayerEntity player) {
     if (this.world == null || isEmpty()) {
       return ItemStack.EMPTY;
     }
@@ -73,13 +73,17 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       // first, try the cached recipe
       ICraftingRecipe recipe = lastRecipe;
       // if it does not match, find a new recipe
+      // note we intentionally have no player access during matches, that could lead to an unstable recipe
       if (recipe == null || !recipe.matches(this.craftingInventory, this.world)) {
         recipe = manager.getRecipe(IRecipeType.CRAFTING, this.craftingInventory, this.world).orElse(null);
       }
 
       // if we have a recipe, fetch its result
       if (recipe != null) {
+        ForgeHooks.setCraftingPlayer(player);
         result = recipe.getCraftingResult(this.craftingInventory);
+        ForgeHooks.setCraftingPlayer(null);
+
         // sync if the recipe is different
         if (recipe != lastRecipe) {
           this.lastRecipe = recipe;
@@ -88,13 +92,15 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
       }
     }
     else if (this.lastRecipe != null && this.lastRecipe.matches(this.craftingInventory, this.world)) {
+      ForgeHooks.setCraftingPlayer(player);
       result = this.lastRecipe.getCraftingResult(this.craftingInventory);
+      ForgeHooks.setCraftingPlayer(null);
     }
     return result;
   }
 
   /**
-   * Gets the player sensitive crafting result, also validating the player has access to this recule
+   * Gets the player sensitive crafting result, also validating the player has access to this recipe
    * @param player  Player
    * @return  Player sensitive result
    */

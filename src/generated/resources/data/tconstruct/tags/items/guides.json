@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:materials_and_you",
+    "tconstruct:tinkers_gadgetry",
+    "tconstruct:puny_smelting",
+    "tconstruct:mighty_smelting",
+    "tconstruct:fantastic_foundry",
+    "tconstruct:encyclopedia"
+  ]
+}

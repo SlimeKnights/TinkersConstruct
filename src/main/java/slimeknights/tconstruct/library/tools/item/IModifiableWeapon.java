@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.tools.item;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 /**
  * Interface for extra hooks needed on modifyable weapons
@@ -15,7 +15,7 @@ public interface IModifiableWeapon {
    *
    * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
    */
-  default boolean dealDamage(ToolStack stack, LivingEntity attacker, Entity target, float damage, boolean isCritical, boolean fullyCharged) {
-    return ToolAttackUtil.dealDefaultDamage(attacker, target, damage);
+  default boolean dealDamage(IModifierToolStack stack, ToolAttackContext context, float damage) {
+    return ToolAttackUtil.dealDefaultDamage(context.getAttacker(), context.getTarget(), damage);
   }
 }

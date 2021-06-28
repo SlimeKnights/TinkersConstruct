@@ -83,28 +83,50 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, IToolt
     fontRenderer.drawString(matrices, tempString, x, 5, Color.GRAY.getRGB());
   }
 
-  @Override
-  public void setRecipe(IRecipeLayout layout, AlloyRecipe recipe, IIngredients ingredients) {
-    // find maximum used amount in the recipe so relations are correct
-    List<List<FluidStack>> inputs = recipe.getDisplayInputs();
-    int maxAmount = recipe.getOutput().getAmount();
-    for(List<FluidStack> inputList : inputs) {
-      for(FluidStack input : inputList) {
-        if (input.getAmount() > maxAmount) {
-          maxAmount = input.getAmount();
+  /**
+   * Draws a variable number of fluids
+   * @param fluidGroup   JEI fluid group
+   * @param x            X start
+   * @param y            Y start
+   * @param totalWidth   Total width
+   * @param height       Tank height
+   * @param fluids       List of fluids to draw
+   * @param indexOffset  Amount to offset the index by
+   * @param minAmount    Minimum tank size
+   * @return Max amount based on fluids
+   */
+  public static int drawVariableFluids(IGuiFluidStackGroup fluidGroup, int indexOffset, boolean isInput, int x, int y, int totalWidth, int height, List<List<FluidStack>> fluids, int minAmount) {
+    int count = fluids.size();
+    int maxAmount = minAmount;
+    if (count > 0) {
+      // first, find maximum used amount in the recipe so relations are correct
+      for(List<FluidStack> list : fluids) {
+        for(FluidStack input : list) {
+          if (input.getAmount() > maxAmount) {
+            maxAmount = input.getAmount();
+          }
         }
       }
+      // next, draw all fluids but the last
+      int w = totalWidth / count;
+      int max = count - 1;
+      for (int i = 0; i < max; i++) {
+        int fluidX = x + i * w;
+        fluidGroup.init(i + indexOffset, isInput, fluidX, y, w, height, maxAmount, false, null);
+      }
+      // for the last, the width is the full remaining width
+      int fluidX = x + max * w;
+      fluidGroup.init(max + indexOffset, isInput, fluidX, y, totalWidth - (w * max), height, maxAmount, false, null);
     }
+    return maxAmount;
+  }
 
+  @Override
+  public void setRecipe(IRecipeLayout layout, AlloyRecipe recipe, IIngredients ingredients) {
     // inputs
     IGuiFluidStackGroup fluids = layout.getFluidStacks();
     fluids.addTooltipCallback(this);
-    float width = 48f / inputs.size();
-    for (int i = 0; i < inputs.size(); i++) {
-      int x = 19 + (int) (i * width);
-      int w = (int) ((i + 1) * width - i * width);
-      fluids.init(i + 2, true, x, 11, w, 32, maxAmount, false, null);
-    }
+    int maxAmount = drawVariableFluids(fluids, 2, true, 19, 11, 48, 32, recipe.getDisplayInputs(), recipe.getOutput().getAmount());
 
     // output
     fluids.init(0, false, 137, 11, 16, 32, maxAmount, false, null);

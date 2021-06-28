@@ -13,10 +13,10 @@ import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInforma
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 @Log4j2
 public class SlotInformationLoader extends JsonReloadListener {
@@ -49,17 +49,26 @@ public class SlotInformationLoader extends JsonReloadListener {
       ResourceLocation location = entry.getKey();
       try {
         JsonObject json = entry.getValue().getAsJsonObject();
-
-        this.slotInformationMap.put(location, SlotInformation.fromJson(json));
+        if (!json.entrySet().isEmpty()) {
+          this.slotInformationMap.put(location, SlotInformation.fromJson(json));
+        } else {
+          this.slotInformationMap.remove(location);
+        }
       }
       catch (Exception e) {
         log.warn("Exception loading slot information '{}': {}", location, e.getMessage());
       }
     }
 
-    this.slotInformationList.addAll(this.slotInformationMap.values());
-
-    this.slotInformationList.sort(Comparator.comparing(SlotInformation::getSortIndex));
+    // fill the list with the new data
+    this.slotInformationMap.entrySet().stream().sorted((entry1, entry2) -> {
+      int sort1 = entry1.getValue().getSortIndex();
+      int sort2 = entry2.getValue().getSortIndex();
+      if (sort1 != sort2) {
+        return Integer.compare(sort1, sort2);
+      }
+      return entry1.getKey().compareTo(entry2.getKey());
+    }).map(Entry::getValue).forEach(this.slotInformationList::add);
   }
 
   /**

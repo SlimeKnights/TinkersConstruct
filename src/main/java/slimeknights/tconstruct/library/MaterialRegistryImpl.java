@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -17,7 +16,6 @@ import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +34,6 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   private final MaterialManager materialManager;
   private final MaterialStatsManager materialStatsManager;
   private final MaterialTraitsManager materialTraitsManager;
-  private final List<Runnable> onMaterialReload = new ArrayList<>();
 
   /**
    * Used for the defaults and for existence/class checks.
@@ -57,12 +54,12 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   }
 
   @Override
-  public IMaterial getMaterial(Fluid fluid) {
-    return materialManager.getMaterial(fluid).orElse(IMaterial.UNKNOWN);
+  public Collection<IMaterial> getVisibleMaterials() {
+    return materialManager.getVisibleMaterials();
   }
 
   @Override
-  public Collection<IMaterial> getMaterials() {
+  public Collection<IMaterial> getAllMaterials() {
     return materialManager.getAllMaterials();
   }
 
@@ -118,18 +115,6 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
       network.send(target, materialManager.getUpdatePacket());
       network.send(target, materialStatsManager.getUpdatePacket());
       network.send(target, materialTraitsManager.getUpdatePacket());
-    }
-  }
-
-  @Override
-  public void addMaterialSyncListener(Runnable listener) {
-    onMaterialReload.add(listener);
-  }
-
-  @Override
-  public void onMaterialSync() {
-    for (Runnable runnable : onMaterialReload) {
-      runnable.run();
     }
   }
 }

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
-import com.google.common.collect.ImmutableList.Builder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -27,6 +26,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class IncrementalModifierRecipe extends AbstractModifierRecipe {
@@ -148,7 +148,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  protected void addIngredients(Builder<List<ItemStack>> builder) {
+  protected void addIngredients(Consumer<List<ItemStack>> builder) {
     // fill extra item slots
     List<ItemStack> items = Arrays.asList(input.getMatchingStacks());
     int maxStackSize = items.stream().mapToInt(ItemStack::getMaxStackSize).min().orElse(64);
@@ -160,13 +160,13 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
     Lazy<List<ItemStack>> fullSize = Lazy.of(() -> items.stream().map(stack -> ItemHandlerHelper.copyStackWithSize(stack, maxStackSize)).collect(Collectors.toList()));
     while (needed > maxStackSize) {
-      builder.add(fullSize.get());
+      builder.accept(fullSize.get());
       needed -= maxStackSize;
     }
     // set proper stack size on remaining
     if (needed > 0) {
       int remaining = needed;
-      builder.add(items.stream().map(stack -> ItemHandlerHelper.copyStackWithSize(stack, remaining)).collect(Collectors.toList()));
+      builder.accept(items.stream().map(stack -> ItemHandlerHelper.copyStackWithSize(stack, remaining)).collect(Collectors.toList()));
     }
   }
 
@@ -295,8 +295,8 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    public void write(PacketBuffer buffer, IncrementalModifierRecipe recipe) {
-      super.write(buffer, recipe);
+    protected void writeSafe(PacketBuffer buffer, IncrementalModifierRecipe recipe) {
+      super.writeSafe(buffer, recipe);
       recipe.input.write(buffer);
       buffer.writeVarInt(recipe.amountPerInput);
       buffer.writeVarInt(recipe.neededPerLevel);

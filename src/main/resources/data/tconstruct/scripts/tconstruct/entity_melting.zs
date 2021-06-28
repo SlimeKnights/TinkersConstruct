@@ -7,7 +7,11 @@
 <recipetype:tconstruct:entity_melting>.addRecipe("entity_melting_test", <entitytype:minecraft:sheep>, <fluid:tconstruct:molten_rose_gold>, 1);
 
 /*
- * Removes the all Entity Melting Recipes that produce Molten Iron (Fluid).
+ * Removes two Entity Melting Recipes.
+ *
+ * 1) Removes all recipes that output Molten Iron (Fluid).
+ * 2) Removes all recipes that use a Villager (Entity) as the input.
+ * 2.1) Note this will put the villager back to the default blood recipe unless you use the tag to blacklist villager melting
  */
 
 // <recipetype:tconstruct:entity_melting>.removeRecipe(output as IFluidStack)

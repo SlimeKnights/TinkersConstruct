@@ -9,8 +9,6 @@
   "craftable": false,
   "tier": 3,
   "sortOrder": 1,
-  "fluid": "tconstruct:molten_bronze",
-  "fluidPerUnit": 144,
   "textColor": "#D58F36",
-  "temperature": 700
+  "hidden": false
 }

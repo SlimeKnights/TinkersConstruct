@@ -1,0 +1,10 @@
+{
+  "parent": "block/cake_slice5",
+  "textures": {
+    "particle": "tconstruct:block/slime/cake/earth_side",
+    "bottom":   "tconstruct:block/slime/cake/earth_bottom",
+    "top":      "tconstruct:block/slime/cake/earth_top",
+    "side":     "tconstruct:block/slime/cake/earth_side",
+    "inside":   "tconstruct:block/slime/cake/earth_inner"
+  }
+}

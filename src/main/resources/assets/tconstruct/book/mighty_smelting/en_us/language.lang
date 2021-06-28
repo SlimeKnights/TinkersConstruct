@@ -13,7 +13,4 @@ tier_four_materials=Tier 4 Materials
 modifier.effect=Effects:
 tool.properties=Properties:
 
-material.craft_partbuilder=Can be crafted in the Part Builder
-material.craft_casting=Can be cast from
-
 material.tconstruct.nahuatl.book=An ancient material made from casting molten obsidian on wooden parts

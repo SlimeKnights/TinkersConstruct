@@ -1,15 +1,20 @@
 package slimeknights.tconstruct.shared.tileentity;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.mantle.tileentity.InventoryTileEntity;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.SoundUtils;
+import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
-import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
+import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -69,5 +74,24 @@ public abstract class TableTileEntity extends InventoryTileEntity {
       })
       // send packets
       .forEach(action);
+  }
+
+  /**
+   * Plays the crafting sound for all players around the given player
+   *
+   * @param player the player
+   */
+  protected void playCraftSound(PlayerEntity player) {
+    SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
+  }
+
+  /**
+   * Update the screen to the given player
+   * @param player  Player to send an update to
+   */
+  protected void syncScreen(PlayerEntity player) {
+    if (this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
+      TinkerNetwork.getInstance().sendTo(new UpdateStationScreenPacket(), (ServerPlayerEntity) player);
+    }
   }
 }

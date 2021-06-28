@@ -4,6 +4,7 @@ import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -55,10 +56,12 @@ public class DamageSpeedTradeModifier extends Modifier {
   }
 
   @Override
-  public void addAttributes(IModifierToolStack tool, int level, BiConsumer<Attribute,AttributeModifier> consumer) {
-    double boost = getMultiplier(tool, level);
-    if (boost != 0) {
-      consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid.get(), attributeName.get(), boost, Operation.MULTIPLY_TOTAL));
+  public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {
+    if (slot == EquipmentSlotType.MAINHAND) {
+      double boost = getMultiplier(tool, level);
+      if (boost != 0) {
+        consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid.get(), attributeName.get(), boost, Operation.MULTIPLY_TOTAL));
+      }
     }
   }
 

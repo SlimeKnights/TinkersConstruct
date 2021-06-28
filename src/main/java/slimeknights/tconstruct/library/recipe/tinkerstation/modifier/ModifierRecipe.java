@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableList.Builder;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -22,6 +21,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.BitSet;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Standard recipe to add a modifier
@@ -173,9 +173,9 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   /* JEI display */
 
   @Override
-  protected void addIngredients(Builder<List<ItemStack>> builder) {
+  protected void addIngredients(Consumer<List<ItemStack>> builder) {
     for (SizedIngredient ingredient : inputs) {
-      builder.add(ingredient.getMatchingStacks());
+      builder.accept(ingredient.getMatchingStacks());
     }
   }
 
@@ -199,8 +199,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     }
 
     @Override
-    public void write(PacketBuffer buffer, ModifierRecipe recipe) {
-      super.write(buffer, recipe);
+    protected void writeSafe(PacketBuffer buffer, ModifierRecipe recipe) {
+      super.writeSafe(buffer, recipe);
       buffer.writeVarInt(recipe.inputs.size());
       for (SizedIngredient ingredient : recipe.inputs) {
         ingredient.write(buffer);

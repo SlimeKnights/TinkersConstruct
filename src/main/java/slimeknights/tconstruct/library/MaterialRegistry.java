@@ -1,9 +1,12 @@
 package slimeknights.tconstruct.library;
 
 import com.google.common.annotations.VisibleForTesting;
-import net.minecraft.fluid.Fluid;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedOutEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.fml.DistExecutor;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialManager;
@@ -19,7 +22,9 @@ import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public final class MaterialRegistry {
 
@@ -29,10 +34,14 @@ public final class MaterialRegistry {
   private final MaterialStatsManager materialStatsManager;
   private final MaterialTraitsManager materialTraitsManager;
   private final IMaterialRegistry registry;
-  // booleans to keeep track of which packets the client has received
-  private boolean materialsSynced = false;
-  private boolean statsSynced = false;
-  private boolean traitsSynced = false;
+
+  // booleans to keep track of which packets the client has received
+  private static boolean materialsLoaded = false;
+  private static boolean statsLoaded = false;
+  private static boolean traitsLoaded = false;
+  /** True if the material registry is fully loaded on the client */
+  private static boolean fullyLoaded = false;
+  private static final List<Runnable> onMaterialReload = new ArrayList<>();
 
   public static IMaterialRegistry getInstance() {
     return INSTANCE.registry;
@@ -41,14 +50,16 @@ public final class MaterialRegistry {
   public static void init() {
     MaterialRegistry.INSTANCE = new MaterialRegistry();
     MinecraftForge.EVENT_BUS.addListener(MaterialRegistry::addDataPackListeners);
+    // on the client, mark materials not fully loaded when the client logs out. This also runs when starting a world in SP, but its early enough to not be an issue
+    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LoggedOutEvent.class, e -> fullyLoaded = false));
   }
 
   /**
    * Returns true if the material registry is initialized
    * @return  True when initialized
    */
-  public static boolean initialized() {
-    return INSTANCE != null;
+  public static boolean isFullyLoaded() {
+    return INSTANCE != null && fullyLoaded;
   }
 
   /** Adds the managers as datapack listeners */
@@ -59,9 +70,18 @@ public final class MaterialRegistry {
   }
 
   public MaterialRegistry() {
-    materialManager = new MaterialManager();
-    materialStatsManager = new MaterialStatsManager();
-    materialTraitsManager = new MaterialTraitsManager();
+    materialManager = new MaterialManager(() -> {
+      materialsLoaded = true;
+      checkAllLoaded();
+    });
+    materialStatsManager = new MaterialStatsManager(() -> {
+      statsLoaded = true;
+      checkAllLoaded();
+    });
+    materialTraitsManager = new MaterialTraitsManager(() -> {
+      traitsLoaded = true;
+      checkAllLoaded();
+    });
     registry = new MaterialRegistryImpl(materialManager, materialStatsManager, materialTraitsManager);
 
     registry.registerStatType(HeadMaterialStats.DEFAULT, HeadMaterialStats.class);
@@ -80,24 +100,12 @@ public final class MaterialRegistry {
 
   /* Networking */
 
-  /** Checks if all three types have synced, ensures we can receive the three packets in any order */
-  private void checkSync() {
-    if (materialsSynced && statsSynced && traitsSynced) {
-      registry.onMaterialSync();
-      materialsSynced = false;
-      statsSynced = false;
-      traitsSynced = false;
-    }
-  }
-
   /**
    * Updates the material list from the server list. Should only be called client side
    * @param packet  Materials packet
    */
   public static void updateMaterialsFromServer(UpdateMaterialsPacket packet) {
     INSTANCE.materialManager.updateMaterialsFromServer(packet.getMaterials());
-    INSTANCE.materialsSynced = true;
-    INSTANCE.checkSync();
   }
 
   /**
@@ -106,8 +114,6 @@ public final class MaterialRegistry {
    */
   public static void updateMaterialStatsFromServer(UpdateMaterialStatsPacket packet) {
     INSTANCE.materialStatsManager.updateMaterialStatsFromServer(packet.getMaterialToStats());
-    INSTANCE.statsSynced = true;
-    INSTANCE.checkSync();
   }
 
   /**
@@ -116,8 +122,6 @@ public final class MaterialRegistry {
    */
   public static void updateMaterialTraitsFromServer(UpdateMaterialTraitsPacket packet) {
     INSTANCE.materialTraitsManager.updateFromServer(packet.getMaterialToTraits());
-    INSTANCE.traitsSynced = true;
-    INSTANCE.checkSync();
   }
 
 
@@ -133,20 +137,11 @@ public final class MaterialRegistry {
   }
 
   /**
-   * Gets a material by fluid lookup
-   * @param fluid  Fluid instance
-   * @return  Material, or IMateiral.UNKNOWN if none match the fluid
-   */
-  public static IMaterial getMaterial(Fluid fluid) {
-    return INSTANCE.registry.getMaterial(fluid);
-  }
-
-  /**
    * Gets all currently registered materials
    * @return  Collection of all materials
    */
   public static Collection<IMaterial> getMaterials() {
-    return INSTANCE.registry.getMaterials();
+    return INSTANCE.registry.getVisibleMaterials();
   }
 
 
@@ -160,5 +155,31 @@ public final class MaterialRegistry {
   @Nullable
   public static Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
     return INSTANCE.materialStatsManager.getClassForStat(id);
+  }
+
+
+  /* Loading */
+
+  /**
+   * Adds a runnable called when materials are all reloaded
+   * @param listener  Runnable to call
+   */
+  public static void addMaterialsLoadedListener(Runnable listener) {
+    onMaterialReload.add(listener);
+  }
+
+  /** Checks if all three material types have loaded, running callbacks if they have */
+  private static void checkAllLoaded() {
+    if (materialsLoaded && statsLoaded && traitsLoaded) {
+      materialsLoaded = false;
+      statsLoaded = false;
+      traitsLoaded = false;
+      fullyLoaded = true;
+      for (Runnable runnable : onMaterialReload) {
+        runnable.run();
+      }
+    } else {
+      fullyLoaded = false;
+    }
   }
 }

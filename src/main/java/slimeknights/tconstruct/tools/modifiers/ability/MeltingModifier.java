@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 
@@ -107,28 +108,31 @@ public class MeltingModifier extends TankModifier {
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown) {
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
     // must have done damage, and must be fully charged
-    if (damageDealt > 0 && cooldown > 0.9) {
+    if (damageDealt > 0 && context.isFullyCharged()) {
       // first, find the proper recipe
-      EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(attacker.getEntityWorld().getRecipeManager(), target.getType());
-      FluidStack output;
-      int damagePerOutput;
-      if (recipe != null) {
-        output = recipe.getOutput(target);
-        damagePerOutput = recipe.getDamage();
-      } else {
-        output = EntityMeltingModule.getDefaultFluid();
-        damagePerOutput = 2;
-      }
-      // recipe amount determines how much we get per hit, only scale (downwards) if we did not reach the damage threshold
-      int fluidAmount = output.getAmount();
-      if (damageDealt < damagePerOutput) {
-        fluidAmount = (int)(fluidAmount * damageDealt / damagePerOutput);
-      }
+      LivingEntity target = context.getLivingTarget();
+      if (target != null) {
+        EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(context.getAttacker().getEntityWorld().getRecipeManager(), target.getType());
+        FluidStack output;
+        int damagePerOutput;
+        if (recipe != null) {
+          output = recipe.getOutput(target);
+          damagePerOutput = recipe.getDamage();
+        } else {
+          output = EntityMeltingModule.getDefaultFluid();
+          damagePerOutput = 2;
+        }
+        // recipe amount determines how much we get per hit, only scale (downwards) if we did not reach the damage threshold
+        int fluidAmount = output.getAmount();
+        if (damageDealt < damagePerOutput) {
+          fluidAmount = (int)(fluidAmount * damageDealt / damagePerOutput);
+        }
 
-      // fluid must match that which is stored in the tank
-      fill(tool, getFluid(tool), output, fluidAmount);
+        // fluid must match that which is stored in the tank
+        fill(tool, getFluid(tool), output, fluidAmount);
+      }
     }
     return 0;
   }

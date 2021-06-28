@@ -2,15 +2,20 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -79,6 +84,15 @@ public interface IDisplayModifierRecipe {
 
   /* Gets a copy of the stack with the given modifiers */
   static ItemStack withModifiers(ItemStack stack, @Nullable ModifierMatch match, @Nullable ModifierEntry newModifier) {
+    return withModifiers(stack, match, newModifier, data -> {});
+  }
+
+  /* Gets a copy of the stack with the given modifiers */
+  static ItemStack withModifiers(ItemStack stack, @Nullable ModifierMatch match, @Nullable ModifierEntry newModifier, Consumer<ModDataNBT> persistentDataConsumer) {
+    ItemStack output = stack.copy();
+    CompoundNBT nbt = output.getOrCreateTag();
+
+    // build modifiers list
     ModifierNBT.Builder builder = ModifierNBT.builder();
     if (match != null) {
       match.apply(builder);
@@ -86,10 +100,23 @@ public interface IDisplayModifierRecipe {
     if (newModifier != null) {
       builder.add(newModifier);
     }
-    ItemStack output = stack.copy();
-    ListNBT modifiers = builder.build().serializeToNBT();
-    output.getOrCreateTag().put(ToolStack.TAG_UPGRADES, modifiers);
-    output.getOrCreateTag().put(ToolStack.TAG_MODIFIERS, modifiers);
+    ModifierNBT modifiers = builder.build();
+    ListNBT list = modifiers.serializeToNBT();
+    nbt.put(ToolStack.TAG_UPGRADES, list);
+    nbt.put(ToolStack.TAG_MODIFIERS, list);
+
+    // build persistent and volatile NBT
+    CompoundNBT persistentNBT = new CompoundNBT();
+    ModDataNBT persistentData = ModDataNBT.readFromNBT(persistentNBT);
+    CompoundNBT volatileNBT = new CompoundNBT();
+    ModDataNBT volatileData = ModDataNBT.readFromNBT(volatileNBT);
+    persistentDataConsumer.accept(persistentData);
+    for (ModifierEntry entry : modifiers.getModifiers()) {
+      entry.getModifier().addVolatileData(ToolDefinition.EMPTY, StatsNBT.EMPTY, persistentData, entry.getLevel(), volatileData);
+    }
+    nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
+    nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);
+
     return output;
   }
 }

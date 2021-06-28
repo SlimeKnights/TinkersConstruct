@@ -1,0 +1,9 @@
+{
+  "parent": "block/cake",
+  "textures": {
+    "particle": "tconstruct:block/slime/cake/sky_side",
+    "bottom":   "tconstruct:block/slime/cake/sky_bottom",
+    "top":      "tconstruct:block/slime/cake/sky_top",
+    "side":     "tconstruct:block/slime/cake/sky_side"
+  }
+}

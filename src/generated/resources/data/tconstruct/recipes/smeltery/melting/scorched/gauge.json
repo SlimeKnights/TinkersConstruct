@@ -2,10 +2,14 @@
   "type": "tconstruct:melting",
   "ingredient": [
     {
-      "item": "tconstruct:scorched_fuel_gauge"
+      "type": "forge:nbt",
+      "item": "tconstruct:scorched_fuel_gauge",
+      "count": 1
     },
     {
-      "item": "tconstruct:scorched_ingot_gauge"
+      "type": "forge:nbt",
+      "item": "tconstruct:scorched_ingot_gauge",
+      "count": 1
     }
   ],
   "result": {

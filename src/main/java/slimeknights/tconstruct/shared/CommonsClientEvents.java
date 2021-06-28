@@ -45,6 +45,7 @@ public class CommonsClientEvents extends ClientEventBase {
     TinkerBook.PUNY_SMELTING.fontRenderer = unicode;
     TinkerBook.MIGHTY_SMELTING.fontRenderer = unicode;
     TinkerBook.FANTASTIC_FOUNDRY.fontRenderer = unicode;
+    TinkerBook.ENCYCLOPEDIA.fontRenderer = unicode;
   }
 
   @SubscribeEvent
@@ -63,6 +64,7 @@ public class CommonsClientEvents extends ClientEventBase {
 
   private static FontRenderer unicodeRenderer;
 
+  /** Gets the unicode font renderer */
   public static FontRenderer unicodeFontRender() {
     if (unicodeRenderer == null)
       unicodeRenderer = new FontRenderer(rl -> {

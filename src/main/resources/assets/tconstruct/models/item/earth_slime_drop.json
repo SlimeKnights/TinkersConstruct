@@ -1,6 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "tconstruct:item/food/earth_slime_drop"
-    }
-}

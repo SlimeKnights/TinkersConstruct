@@ -47,12 +47,21 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
     .disableHtmlEscaping()
     .create();
 
+  /** Runnable to run after loading traits */
+  private final Runnable onLoaded;
+
   /** Map of material ID to all relevant trait data */
   @VisibleForTesting
   protected Map<MaterialId, MaterialTraits> materialTraits = Collections.emptyMap();
 
-  public MaterialTraitsManager() {
+  public MaterialTraitsManager(Runnable onLoaded) {
     super(GSON, FOLDER, id -> new MaterialTraits.Builder());
+    this.onLoaded = onLoaded;
+  }
+
+  @VisibleForTesting
+  MaterialTraitsManager() {
+    this(() -> {});
   }
 
   /**
@@ -101,6 +110,7 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
    */
   public void updateFromServer(Map<MaterialId,MaterialTraits> materialToTraits) {
     this.materialTraits = materialToTraits;
+    onLoaded.run();
   }
 
   @Override
@@ -127,5 +137,6 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
                                                 .collect(Collectors.toList())));
     }
     materialTraits = builder.build();
+    onLoaded.run();
   }
 }

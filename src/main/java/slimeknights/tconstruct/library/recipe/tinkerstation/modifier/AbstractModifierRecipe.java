@@ -10,7 +10,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants.NBT;
-import slimeknights.mantle.recipe.RecipeSerializer;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /** Shared logic between modifier and incremental modifier recipes */
@@ -103,8 +104,8 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     return toolInputs;
   }
 
-  /** Cache of display inputs */
-  private List<List<ItemStack>> displayItems = null;
+  /** Cache of display tool inputs */
+  private List<ItemStack> displayInputs = null;
 
   /** Cache of display output */
   private List<ItemStack> toolWithModifier = null;
@@ -130,19 +131,19 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
    * Add extra ingredients for display in JEI
    * @param builder  Ingredient list builder
    */
-  protected abstract void addIngredients(ImmutableList.Builder<List<ItemStack>> builder);
+  protected abstract void addIngredients(Consumer<List<ItemStack>> builder);
 
   @Override
   public List<List<ItemStack>> getDisplayItems() {
-    if (displayItems == null) {
-      // if empty requirement, assume any modifiable
-      ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
-      // inputs
-      builder.add(getToolInputs().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, null)).collect(Collectors.toList()));
-      addIngredients(builder);
-      displayItems = builder.build();
+    if (displayInputs == null) {
+      displayInputs = getToolInputs().stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, requirements, null)).collect(Collectors.toList());
     }
-    return displayItems;
+    // if empty requirement, assume any modifiable
+    ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
+    // inputs
+    builder.add(displayInputs);
+    addIngredients(builder::add);
+    return builder.build();
   }
 
   @Override
@@ -218,7 +219,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   }
 
   /** Shared serializer logic */
-  public static abstract class Serializer<T extends AbstractModifierRecipe> extends RecipeSerializer<T> {
+  public static abstract class Serializer<T extends AbstractModifierRecipe> extends LoggingRecipeSerializer<T> {
     /**
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
@@ -263,7 +264,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     }
 
     @Override
-    public final T read(ResourceLocation id, PacketBuffer buffer) {
+    protected final T readSafe(ResourceLocation id, PacketBuffer buffer) {
       Ingredient toolRequirement = Ingredient.read(buffer);
       ModifierMatch requirements = ModifierMatch.read(buffer);
       String requirementsError = buffer.readString(Short.MAX_VALUE);
@@ -276,7 +277,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
     /** Writes relevant packet data. When overriding, call super first for consistency with {@link #read(ResourceLocation, PacketBuffer)} */
     @Override
-    public void write(PacketBuffer buffer, T recipe) {
+    protected void writeSafe(PacketBuffer buffer, T recipe) {
       recipe.toolRequirement.write(buffer);
       recipe.requirements.write(buffer);
       buffer.writeString(recipe.requirementsError);

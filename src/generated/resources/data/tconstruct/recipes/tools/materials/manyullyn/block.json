@@ -5,5 +5,8 @@
   },
   "value": 9,
   "needed": 1,
-  "material": "tconstruct:manyullyn"
+  "material": "tconstruct:manyullyn",
+  "leftover": {
+    "tag": "forge:ingots/manyullyn"
+  }
 }

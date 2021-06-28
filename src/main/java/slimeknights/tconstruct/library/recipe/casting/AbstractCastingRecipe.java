@@ -9,17 +9,18 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** Shared logic between item and material casting */
 @AllArgsConstructor
 public abstract class AbstractCastingRecipe implements ICastingRecipe {
-  @Getter
+  @Getter @Nonnull
   protected final IRecipeType<?> type;
   @Getter
   protected final ResourceLocation id;
@@ -36,12 +37,17 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
   @Override
   public abstract ItemStack getRecipeOutput();
 
+  @Override
+  public NonNullList<Ingredient> getIngredients() {
+    return NonNullList.from(Ingredient.EMPTY, this.cast);
+  }
+
   /**
    * Seralizer for {@link ItemCastingRecipe}.
    * @param <T>  Casting recipe class type
    */
   @AllArgsConstructor
-  public abstract static class Serializer<T extends AbstractCastingRecipe> extends RecipeSerializer<T> {
+  public abstract static class Serializer<T extends AbstractCastingRecipe> extends LoggingRecipeSerializer<T> {
     /** Creates a new instance from JSON */
     protected abstract T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json);
 
@@ -66,31 +72,21 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
 
     @Nullable
     @Override
-    public T read(ResourceLocation recipeId, PacketBuffer buffer) {
-      try {
-        String group = buffer.readString(Short.MAX_VALUE);
-        Ingredient cast = Ingredient.read(buffer);
-        boolean consumed = buffer.readBoolean();
-        boolean switchSlots = buffer.readBoolean();
-        return create(recipeId, group, cast, consumed, switchSlots, buffer);
-      } catch (Exception e) {
-        TConstruct.log.error("Error reading item casting recipe from packet.", e);
-        throw e;
-      }
+    protected T readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
+      String group = buffer.readString(Short.MAX_VALUE);
+      Ingredient cast = Ingredient.read(buffer);
+      boolean consumed = buffer.readBoolean();
+      boolean switchSlots = buffer.readBoolean();
+      return create(recipeId, group, cast, consumed, switchSlots, buffer);
     }
 
     @Override
-    public void write(PacketBuffer buffer, T recipe) {
-      try {
-        buffer.writeString(recipe.group);
-        recipe.cast.write(buffer);
-        buffer.writeBoolean(recipe.consumed);
-        buffer.writeBoolean(recipe.switchSlots);
-        writeExtra(buffer, recipe);
-      } catch (Exception e) {
-        TConstruct.log.error("Error writing item casting recipe to packet.", e);
-        throw e;
-      }
+    protected void writeSafe(PacketBuffer buffer, T recipe) {
+      buffer.writeString(recipe.group);
+      recipe.cast.write(buffer);
+      buffer.writeBoolean(recipe.consumed);
+      buffer.writeBoolean(recipe.switchSlots);
+      writeExtra(buffer, recipe);
     }
   }
 }

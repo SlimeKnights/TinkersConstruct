@@ -2,8 +2,6 @@ package slimeknights.tconstruct.fixture;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
@@ -21,8 +19,8 @@ public final class MaterialFixture {
   // declaration order is important here, the builder needs to be the first thing declared for this to work!
   private static final ImmutableList.Builder<Material> ALL_MATERIALS_BUILDER = ImmutableList.builder();
   private static final ImmutableMap.Builder<IMaterial, List<IMaterialStats>> ALL_MATERIAL_FIXTURES_BUILDER = ImmutableMap.builder();
-  public static final Material MATERIAL_1 = material("mat1", Fluids.WATER, true, MaterialStatsFixture.MATERIAL_STATS);
-  public static final Material MATERIAL_2 = material("mat2", Fluids.LAVA, false, MaterialStatsFixture.MATERIAL_STATS_2);
+  public static final Material MATERIAL_1 = material("mat1", true, MaterialStatsFixture.MATERIAL_STATS);
+  public static final Material MATERIAL_2 = material("mat2", false, MaterialStatsFixture.MATERIAL_STATS_2);
 
   public static final Material MATERIAL_WITH_HEAD = material("mat_head", MaterialStatsFixture.MATERIAL_STATS_HEAD);
   public static final Material MATERIAL_WITH_HANDLE = material("mat_handle", MaterialStatsFixture.MATERIAL_STATS_HANDLE);
@@ -33,15 +31,11 @@ public final class MaterialFixture {
   public static final Map<IMaterial, List<IMaterialStats>> ALL_MATERIAL_FIXTURES = ALL_MATERIAL_FIXTURES_BUILDER.build();
 
   private static Material material(String mat, IMaterialStats... stats) {
-    return material(mat, Fluids.EMPTY, stats);
+    return material(mat, true, stats);
   }
 
-  private static Material material(String mat, Fluid fluid, IMaterialStats... stats) {
-    return material(mat, fluid, fluid == Fluids.EMPTY, stats);
-  }
-
-  private static Material material(String mat, Fluid fluid, boolean craftable, IMaterialStats... stats) {
-    Material material = new TestMaterial(new ResourceLocation("test", mat), fluid, craftable);
+  private static Material material(String mat, boolean craftable, IMaterialStats... stats) {
+    Material material = new TestMaterial(new ResourceLocation("test", mat), craftable, false);
     ALL_MATERIALS_BUILDER.add(material);
     ALL_MATERIAL_FIXTURES_BUILDER.put(material, ImmutableList.copyOf(stats));
     return material;

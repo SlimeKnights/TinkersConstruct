@@ -1,0 +1,101 @@
+{
+  "parent": "tconstruct:smeltery/tinkers_anvil",
+  "display": {
+    "icon": {
+      "item": "tconstruct:vein_hammer",
+      "nbt": "{tic_broken:0b,tic_display_tool:1b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\",\"tconstruct:ui_render_large\"]}"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.tool_forge.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.tool_forge.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sledge_hammer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:sledge_hammer"
+          }
+        ]
+      }
+    },
+    "vein_hammer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:vein_hammer"
+          }
+        ]
+      }
+    },
+    "excavator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:excavator"
+          }
+        ]
+      }
+    },
+    "broad_axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:broad_axe"
+          }
+        ]
+      }
+    },
+    "scythe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:scythe"
+          }
+        ]
+      }
+    },
+    "cleaver": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:cleaver"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "sledge_hammer"
+    ],
+    [
+      "vein_hammer"
+    ],
+    [
+      "excavator"
+    ],
+    [
+      "broad_axe"
+    ],
+    [
+      "scythe"
+    ],
+    [
+      "cleaver"
+    ]
+  ]
+}

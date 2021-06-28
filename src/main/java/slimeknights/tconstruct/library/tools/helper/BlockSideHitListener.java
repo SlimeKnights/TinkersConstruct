@@ -10,17 +10,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Logic to keep track of the side of the block that was last hit
+ */
 public class BlockSideHitListener {
   private static final Map<UUID,Direction> HIT_FACE = new HashMap<>();
   private static boolean init = false;
 
+  /** Initializies this listener */
   public static void init() {
     if (init) {
       return;
     }
     init = true;
     MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeftClickBlock);
-    MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeftClickBlock);
+    MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeaveServer);
   }
 
   /** Called when the player left clicks a block to store the face */
@@ -34,7 +38,7 @@ public class BlockSideHitListener {
   }
 
   /**
-   * Gets the side this player last hit
+   * Gets the side this player last hit, should return correct values in most modifier hooks related to block breaking
    * @param player  Player
    * @return  Side last hit
    */

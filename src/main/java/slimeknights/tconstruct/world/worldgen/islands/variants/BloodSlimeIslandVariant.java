@@ -55,7 +55,7 @@ public class BloodSlimeIslandVariant extends AbstractSlimeIslandVariant {
   }
 
   private static boolean isLava(ISeedReader world, BlockPos pos) {
-    return world.getBlockState(pos).getBlock() == Blocks.LAVA;
+    return world.isAirBlock(pos) || world.getBlockState(pos).getBlock() == Blocks.LAVA;
   }
 
   @Override

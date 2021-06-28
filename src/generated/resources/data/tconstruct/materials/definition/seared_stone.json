@@ -2,8 +2,6 @@
   "craftable": false,
   "tier": 2,
   "sortOrder": 2,
-  "fluid": "tconstruct:seared_stone",
-  "fluidPerUnit": 288,
   "textColor": "#4F4A47",
-  "temperature": 600
+  "hidden": false
 }

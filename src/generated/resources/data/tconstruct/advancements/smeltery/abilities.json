@@ -1,0 +1,226 @@
+{
+  "parent": "tconstruct:smeltery/tinkers_anvil",
+  "display": {
+    "icon": {
+      "item": "tconstruct:silky_cloth"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.abilities.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.abilities.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "luck": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:luck",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "silky": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:silky",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "autosmelt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:autosmelt",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "expanded": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:expanded",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "reach": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:reach",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "unbreakable": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:unbreakable",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "exchanging": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:exchanging",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "melting": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:melting",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "glowing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:glowing",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "pathing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:pathing",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "stripping": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:stripping",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "tilling": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:tilling",
+              "level": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "luck"
+    ],
+    [
+      "silky"
+    ],
+    [
+      "autosmelt"
+    ],
+    [
+      "expanded"
+    ],
+    [
+      "reach"
+    ],
+    [
+      "unbreakable"
+    ],
+    [
+      "exchanging"
+    ],
+    [
+      "melting"
+    ],
+    [
+      "glowing"
+    ],
+    [
+      "pathing"
+    ],
+    [
+      "stripping"
+    ],
+    [
+      "tilling"
+    ]
+  ]
+}

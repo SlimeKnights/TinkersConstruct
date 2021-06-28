@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType.Group;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -24,6 +25,7 @@ import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -36,6 +38,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
@@ -56,6 +59,8 @@ import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -78,12 +83,14 @@ import java.util.function.Consumer;
  * This class handles how all the data for items made out of different
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
-public abstract class ToolCore extends Item implements ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
+public class ToolCore extends Item implements ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
   protected static final UUID REACH_MODIFIER = UUID.fromString("9b26fa32-5774-4b4e-afc3-b4055ecb1f6a");
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation SHINY = Util.getResource("shiny");
+  /** Modifier key to make a tool spawn an indestructable entity */
+  public static final ResourceLocation RARITY = Util.getResource("rarity");
 
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
   private static final ITextComponent TOOLTIP_HOLD_CTRL;
@@ -112,6 +119,24 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
     // we use enchantments to handle some modifiers, so don't glow from them
     // however, if a modifier wants to glow let them
     return ToolStack.from(stack).getVolatileData().getBoolean(SHINY);
+  }
+
+  @Override
+  public Rarity getRarity(ItemStack stack) {
+    int rarity = ToolStack.from(stack).getVolatileData().getInt(RARITY);
+    return Rarity.values()[MathHelper.clamp(rarity, 0, 3)];
+  }
+
+  /**
+   * Sets the rarity of the stack
+   * @param volatileData     NBT
+   * @param rarity  Rarity, only supports vanilla values
+   */
+  public static void setRarity(ModDataNBT volatileData, Rarity rarity) {
+    int current = volatileData.getInt(RARITY);
+    if (rarity.ordinal() > current) {
+      volatileData.putInt(RARITY, rarity.ordinal());
+    }
   }
 
   @Override
@@ -263,10 +288,11 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       return false;
     }
 
-    if (!worldIn.isRemote) {
+    if (!worldIn.isRemote && worldIn instanceof ServerWorld) {
       boolean isEffective = getToolHarvestLogic().isEffective(tool, stack, state);
+      ToolHarvestContext context = new ToolHarvestContext((ServerWorld) worldIn, entityLiving, state, pos, Direction.UP, true, isEffective);
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), worldIn, state, pos, entityLiving, true, isEffective);
+        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), context);
       }
       ToolDamageUtil.damageAnimated(tool, getToolHarvestLogic().getDamage(tool, stack, worldIn, pos, state), entityLiving);
     }
@@ -293,18 +319,6 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
   }
 
   @Override
-  public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-    float speed = ToolStack.from(stack).getStats().getFloat(ToolStats.ATTACK_SPEED);
-    int time = Math.round(20f / speed);
-    if (time < target.hurtResistantTime / 2) {
-      target.hurtResistantTime = (target.hurtResistantTime + time) / 2;
-      target.hurtTime = (target.hurtTime + time) / 2;
-    }
-
-    return super.hitEntity(stack, target, attacker);
-  }
-
-  @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
     if (nbt == null || nbt.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
@@ -313,22 +327,26 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
     ToolStack tool = ToolStack.from(stack);
-    if (slot == EquipmentSlotType.MAINHAND && !tool.isBroken()) {
+    if (!tool.isBroken()) {
       // base stats
-      StatsNBT statsNBT = tool.getStats();
-      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "tconstruct.tool.attack_damage", statsNBT.getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
-      // base attack speed is 4, but our numbers start from 4
-      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "tconstruct.tool.attack_speed", statsNBT.getFloat(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));
-      // base value is 5, but our number start from 5
-      double reach = statsNBT.getFloat(ToolStats.REACH) - 5d;
-      if (reach != 0) {
-        builder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER, "tconstruct.tool.reach", reach, AttributeModifier.Operation.ADDITION));
+      if (slot == EquipmentSlotType.MAINHAND) {
+        StatsNBT statsNBT = tool.getStats();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "tconstruct.tool.attack_damage", statsNBT.getFloat(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
+        // base attack speed is 4, but our numbers start from 4
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "tconstruct.tool.attack_speed", statsNBT.getFloat(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));
+        // base value is 5, but our number start from 5
+        double reach = statsNBT.getFloat(ToolStats.REACH) - 5d;
+        if (reach != 0) {
+          builder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER, "tconstruct.tool.reach", reach, AttributeModifier.Operation.ADDITION));
+        }
       }
 
-      // grab attributes from modifiers
-      BiConsumer<Attribute, AttributeModifier> attributeConsumer = builder::put;
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().addAttributes(tool, entry.getLevel(), attributeConsumer);
+      // grab attributes from modifiers, only do for hands (other slots would just be weird)
+      if (slot.getSlotType() == Group.HAND) {
+        BiConsumer<Attribute,AttributeModifier> attributeConsumer = builder::put;
+        for (ModifierEntry entry : tool.getModifierList()) {
+          entry.getModifier().addAttributes(tool, entry.getLevel(), slot, attributeConsumer);
+        }
       }
     }
 
@@ -618,7 +636,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
 
   /** Adds all default sub items */
   protected void addDefaultSubItems(List<ItemStack> items, IMaterial... fixedMaterials) {
-    if (MaterialRegistry.initialized()) {
+    if (MaterialRegistry.isFullyLoaded()) {
       // if a specific material is set, show just that
       String showOnlyId = Config.COMMON.showOnlyToolMaterial.get();
       boolean added = false;
@@ -635,7 +653,7 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       }
       // if the material was not applicable or we do not have a filter set, search the rest
       if (!added) {
-        for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
+        for (IMaterial material : MaterialRegistry.getInstance().getVisibleMaterials()) {
           // if we added it and we want a single material, we are done
           if (addSubItem(items, material, fixedMaterials) && !showOnlyId.isEmpty()) {
             break;
@@ -768,11 +786,6 @@ public abstract class ToolCore extends Item implements ITinkerStationDisplay, IM
       toolForRendering = ToolBuildHandler.buildToolForRendering(this, this.getToolDefinition());
     }
     return toolForRendering;
-  }
-
-  @Override
-  public Rarity getRarity(ItemStack stack) {
-    return Rarity.COMMON;
   }
 
 

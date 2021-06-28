@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.internal.HarvestAbilityModifier.IHarvestModifier;
@@ -20,13 +20,17 @@ public class MagneticModifier extends Modifier implements IHarvestModifier {
   }
 
   @Override
-  public void afterBlockBreak(IModifierToolStack tool, int level, World world, BlockState state, BlockPos pos, LivingEntity living, boolean canHarvest, boolean wasEffective) {
-    TinkerModifiers.magneticEffect.get().apply(living, 30, level - 1);
+  public void afterBlockBreak(IModifierToolStack tool, int level, ToolHarvestContext context) {
+    if (!context.isAOE()) {
+      TinkerModifiers.magneticEffect.get().apply(context.getLiving(), 30, level - 1);
+    }
   }
 
   @Override
-  public int afterLivingHit(IModifierToolStack tool, int level, LivingEntity attacker, LivingEntity target, float damageDealt, boolean isCritical, float cooldown) {
-    TinkerModifiers.magneticEffect.get().apply(attacker, 30, level - 1);
+  public int afterEntityHit(IModifierToolStack tool, int level, ToolAttackContext context, float damageDealt) {
+    if (!context.isExtraAttack()) {
+      TinkerModifiers.magneticEffect.get().apply(context.getAttacker(), 30, level - 1);
+    }
     return 0;
   }
 

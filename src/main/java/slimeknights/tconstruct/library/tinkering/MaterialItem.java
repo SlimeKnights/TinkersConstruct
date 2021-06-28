@@ -60,7 +60,7 @@ public class MaterialItem extends Item implements IMaterialItem {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.isInGroup(group) && MaterialRegistry.initialized()) {
+    if (this.isInGroup(group) && MaterialRegistry.isFullyLoaded()) {
       // if a specific material is set in the config, try adding that
       String showOnlyId = Config.COMMON.showOnlyPartMaterial.get();
       boolean added = false;
@@ -76,7 +76,7 @@ public class MaterialItem extends Item implements IMaterialItem {
       }
       // if no material is set or we failed to find it, iterate all materials
       if (!added) {
-        for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
+        for (IMaterial material : MaterialRegistry.getInstance().getVisibleMaterials()) {
           if (this.canUseMaterial(material)) {
             items.add(this.withMaterial(material));
             // if a specific material was requested and not found, stop after first

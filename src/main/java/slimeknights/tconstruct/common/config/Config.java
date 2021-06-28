@@ -54,6 +54,8 @@ public class Config {
 
     public final ConfigValue<String> showOnlyToolMaterial;
     public final ConfigValue<String> showOnlyPartMaterial;
+    public final ForgeConfigSpec.BooleanValue showAllTableVariants;
+    public final ForgeConfigSpec.BooleanValue showAllAnvilVariants;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -81,6 +83,16 @@ public class Config {
         .translation("tconstruct.configgui.showOnlyPartMaterial")
         .worldRestart()
         .define("showOnlyPartMaterial", "");
+
+      this.showAllTableVariants = builder
+        .comment("If true, tables such as the part builder and tinker station will show all variants. If false they will show just the first entry in the tag, typically oak.")
+        .translation("tconstruct.configgui.showAllTableVariants")
+        .define("showAllTableVariants", true);
+
+      this.showAllAnvilVariants = builder
+        .comment("If true, anvils will show all metal variants. If false, only the first variant in the tag will show (typically tinkers bronze)")
+        .translation("tconstruct.configgui.showAllAnvilVariants")
+        .define("showAllAnvilVariants", true);
 
       builder.pop();
 
@@ -158,7 +170,7 @@ public class Config {
       this.earthSlimeIslandSeparation = builder
         .comment("How many chunks on average between islands")
         .worldRestart()
-        .defineInRange("separation", 15, 10, 500);
+        .defineInRange("separation", 25, 10, 500);
       builder.pop();
 
       builder.comment("Settings for sky slime islands in the overworld sky").push("sky");

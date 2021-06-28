@@ -1,0 +1,101 @@
+{
+  "parent": "tconstruct:tools/tinker_tool",
+  "display": {
+    "icon": {
+      "item": "tconstruct:pickaxe",
+      "nbt": "{tic_broken:0b,tic_display_tool:1b,Damage:0,tic_materials:[\"tconstruct:ui_render_head\",\"tconstruct:ui_render_handle\",\"tconstruct:ui_render_extra\"]}"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.tools.tool_smith.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.tools.tool_smith.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:pickaxe"
+          }
+        ]
+      }
+    },
+    "mattock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:mattock"
+          }
+        ]
+      }
+    },
+    "hand_axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:hand_axe"
+          }
+        ]
+      }
+    },
+    "kama": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:kama"
+          }
+        ]
+      }
+    },
+    "dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:dagger"
+          }
+        ]
+      }
+    },
+    "sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:sword"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "pickaxe"
+    ],
+    [
+      "mattock"
+    ],
+    [
+      "hand_axe"
+    ],
+    [
+      "kama"
+    ],
+    [
+      "dagger"
+    ],
+    [
+      "sword"
+    ]
+  ]
+}

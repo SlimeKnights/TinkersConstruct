@@ -5,22 +5,20 @@ import lombok.Getter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Lazy;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.free.OverslimeModifier;
@@ -152,20 +150,9 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
       OverslimeModifier overslime = TinkerModifiers.overslime.get();
-      CompoundNBT volatileNBT = new CompoundNBT();
-      CompoundNBT persistentNBT = new CompoundNBT();
-      overslime.setOverslime(ModDataNBT.readFromNBT(persistentNBT), restoreAmount);
-      ModDataNBT volatileData = ModDataNBT.readFromNBT(volatileNBT);
-      overslime.setCapacity(volatileData, 500);
       toolWithModifier = IDisplayModifierRecipe.getAllModifiable()
                                                .map(MAP_TOOL_FOR_RENDERING)
-                                               .map(stack -> {
-                                                 ItemStack result = IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get());
-                                                 CompoundNBT nbt = result.getOrCreateTag();
-                                                 nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
-                                                 nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);
-                                                 return result;
-                                               })
+                                               .map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get(), data -> overslime.setOverslime(data, restoreAmount)))
                                                .collect(Collectors.toList());
     }
     return toolWithModifier;
@@ -176,7 +163,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     return RESULT.get();
   }
 
-  public static class Serializer extends RecipeSerializer<OverslimeModifierRecipe> {
+  public static class Serializer extends LoggingRecipeSerializer<OverslimeModifierRecipe> {
     @Override
     public OverslimeModifierRecipe read(ResourceLocation id, JsonObject json) {
       Ingredient ingredient = Ingredient.deserialize(JsonHelper.getElement(json, "ingredient"));
@@ -186,14 +173,14 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
     @Nullable
     @Override
-    public OverslimeModifierRecipe read(ResourceLocation id, PacketBuffer buffer) {
+    protected OverslimeModifierRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
       Ingredient ingredient = Ingredient.read(buffer);
       int restoreAmount = buffer.readVarInt();
       return new OverslimeModifierRecipe(id, ingredient, restoreAmount);
     }
 
     @Override
-    public void write(PacketBuffer buffer, OverslimeModifierRecipe recipe) {
+    protected void writeSafe(PacketBuffer buffer, OverslimeModifierRecipe recipe) {
       recipe.ingredient.write(buffer);
       buffer.writeVarInt(recipe.restoreAmount);
     }

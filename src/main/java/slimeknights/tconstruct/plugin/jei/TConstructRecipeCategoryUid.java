@@ -21,4 +21,7 @@ public class TConstructRecipeCategoryUid {
   // tinker station
   public static final ResourceLocation modifiers = Util.getResource("modifiers");
   public static final ResourceLocation severing = Util.getResource("severing");
+
+  // part builder
+  public static final ResourceLocation partBuilder = Util.getResource("part_builder");
 }

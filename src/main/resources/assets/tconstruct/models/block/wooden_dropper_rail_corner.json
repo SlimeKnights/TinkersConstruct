@@ -1,6 +1,0 @@
-{
-    "parent": "block/rail_curved",
-    "textures": {
-        "rail": "tconstruct:block/wooden_dropper_rail_corner"
-    }
-}

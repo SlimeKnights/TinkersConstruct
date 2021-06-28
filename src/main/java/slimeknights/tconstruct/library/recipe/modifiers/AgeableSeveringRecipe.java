@@ -8,8 +8,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
-import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 
 import javax.annotation.Nullable;
 
@@ -30,7 +30,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
   }
 
   /** Serializer for this recipe */
-  public static class Serializer extends RecipeSerializer<AgeableSeveringRecipe> {
+  public static class Serializer extends LoggingRecipeSerializer<AgeableSeveringRecipe> {
     @Override
     public AgeableSeveringRecipe read(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
@@ -44,7 +44,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
 
     @Nullable
     @Override
-    public AgeableSeveringRecipe read(ResourceLocation id, PacketBuffer buffer) {
+    protected AgeableSeveringRecipe readSafe(ResourceLocation id, PacketBuffer buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       ItemOutput adult = ItemOutput.read(buffer);
       ItemOutput child = null;
@@ -55,7 +55,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
     }
 
     @Override
-    public void write(PacketBuffer buffer, AgeableSeveringRecipe recipe) {
+    protected void writeSafe(PacketBuffer buffer, AgeableSeveringRecipe recipe) {
       recipe.ingredient.write(buffer);
       recipe.output.write(buffer);
       if (recipe.childOutput == null) {

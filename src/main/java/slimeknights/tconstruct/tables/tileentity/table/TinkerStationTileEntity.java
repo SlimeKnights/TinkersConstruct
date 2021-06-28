@@ -13,9 +13,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.SoundUtils;
-import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -23,7 +20,6 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
-import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
 import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
 import slimeknights.tconstruct.tables.tileentity.table.crafting.LazyResultInventory;
 import slimeknights.tconstruct.tables.tileentity.table.crafting.TinkerStationInventoryWrapper;
@@ -91,7 +87,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   /* Crafting */
 
   @Override
-  public ItemStack calcResult() {
+  public ItemStack calcResult(@Nullable PlayerEntity player) {
     if (this.world == null) {
       return ItemStack.EMPTY;
     }
@@ -201,25 +197,6 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   public void updateRecipe(ITinkerStationRecipe recipe) {
     this.lastRecipe = recipe;
     this.craftingResult.clear();
-  }
-
-  /**
-   * Update the screen to the given player
-   * @param player  Player to send an update to
-   */
-  public void syncScreen(PlayerEntity player) {
-    if (this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
-      TinkerNetwork.getInstance().sendTo(new UpdateStationScreenPacket(), (ServerPlayerEntity) player);
-    }
-  }
-
-  /**
-   * Plays the crafting sound for all players around the given player
-   *
-   * @param player the player
-   */
-  protected void playCraftSound(PlayerEntity player) {
-    SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
   }
 
   @Override

@@ -9,8 +9,6 @@
   "craftable": false,
   "tier": 3,
   "sortOrder": 0,
-  "fluid": "tconstruct:molten_steel",
-  "fluidPerUnit": 144,
   "textColor": "#959595",
-  "temperature": 950
+  "hidden": false
 }

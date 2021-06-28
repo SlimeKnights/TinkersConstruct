@@ -65,11 +65,17 @@ public final class ToolDefinitions {
     ToolBaseStatDefinitions.SCYTHE,
     requirements(TinkerToolParts.broadBlade, TinkerToolParts.toughHandle, TinkerToolParts.toolBinding, TinkerToolParts.toughHandle),
     () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.hoeTransformHidden.get(), 1),
-                           new ModifierEntry(TinkerModifiers.silkyShears.get(), 1),
+                           new ModifierEntry(TinkerModifiers.aoeSilkyShears.get(), 1),
                            new ModifierEntry(TinkerModifiers.harvest.get(), 1),
                            new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
 
   // swords
+  public static final ToolDefinition DAGGER = new ToolDefinition(
+    ToolBaseStatDefinitions.DAGGER,
+    requirements(Stream.of(TinkerToolParts.smallBlade, TinkerToolParts.toolHandle)),
+    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.offhandAttack.get(), 1),
+                           new ModifierEntry(TinkerModifiers.padded.get(), 1),
+                           new ModifierEntry(TinkerModifiers.silkyShears.get(), 1)));
   public static final ToolDefinition SWORD = new ToolDefinition(
     ToolBaseStatDefinitions.SWORD,
     requirements(TinkerToolParts.smallBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolHandle),
@@ -78,7 +84,7 @@ public final class ToolDefinitions {
     ToolBaseStatDefinitions.CLEAVER,
     requirements(TinkerToolParts.broadBlade, TinkerToolParts.toughHandle, TinkerToolParts.toughHandle, TinkerToolParts.largePlate),
     () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.severing.get(), 2),
-                           new ModifierEntry(TinkerModifiers.silkyShears.get(), 1),
+                           new ModifierEntry(TinkerModifiers.aoeSilkyShears.get(), 1),
                            new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
 
   /** Creates a requirements supplier from a list */

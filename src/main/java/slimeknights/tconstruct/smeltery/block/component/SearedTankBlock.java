@@ -13,6 +13,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,11 +25,12 @@ import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity.ITankBlock;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-public class SearedTankBlock extends SearedBlock {
+public class SearedTankBlock extends SearedBlock implements ITankBlock {
   @Getter
   private final int capacity;
   public SearedTankBlock(Properties properties, int capacity) {
@@ -91,6 +93,13 @@ public class SearedTankBlock extends SearedBlock {
   @Override
   public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
     return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
+  }
+
+  @Override
+  public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
+    ItemStack stack = new ItemStack(this);
+    TileEntityHelper.getTile(TankTileEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
+    return stack;
   }
 
   @AllArgsConstructor

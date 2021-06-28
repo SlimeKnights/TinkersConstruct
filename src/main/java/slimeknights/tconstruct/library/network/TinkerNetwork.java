@@ -7,7 +7,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fml.network.PacketDistributor;
 import slimeknights.mantle.network.NetworkWrapper;
+import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
+import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.UpdateMaterialsPacket;
 import slimeknights.tconstruct.library.materials.stats.UpdateMaterialStatsPacket;
@@ -23,8 +26,8 @@ import slimeknights.tconstruct.tables.network.TinkerStationSelectionPacket;
 import slimeknights.tconstruct.tables.network.UpdateCraftingRecipePacket;
 import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
 import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
-import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
-import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
+import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
+import slimeknights.tconstruct.tools.network.SwingArmPacket;
 
 import javax.annotation.Nullable;
 
@@ -47,6 +50,7 @@ public class TinkerNetwork extends NetworkWrapper {
   public static void setup() {
     instance = new TinkerNetwork();
     instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(UpdateNeighborsPacket.class, UpdateNeighborsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     // gadgets
     instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkDirection.PLAY_TO_CLIENT);
@@ -60,6 +64,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(TinkerStationSelectionPacket.class, TinkerStationSelectionPacket::new, NetworkDirection.PLAY_TO_SERVER);
     instance.registerPacket(UpdateTinkerStationRecipePacket.class, UpdateTinkerStationRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateStationScreenPacket.class, UpdateStationScreenPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(SwingArmPacket.class, SwingArmPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     // smeltery
     instance.registerPacket(FluidUpdatePacket.class, FluidUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);
@@ -87,5 +92,25 @@ public class TinkerNetwork extends NetworkWrapper {
     if (world instanceof ServerWorld) {
       sendToClientsAround(msg, (ServerWorld)world, position);
     }
+  }
+
+  /**
+   * Sends a packet to all entities tracking the given entity
+   * @param msg     Packet
+   * @param world   World instance
+   * @param entity  Entity to check
+   */
+  public void sendToTrackingAndSelf(Object msg, Entity entity) {
+    this.network.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), msg);
+  }
+
+  /**
+   * Sends a packet to all entities tracking the given entity
+   * @param msg     Packet
+   * @param world   World instance
+   * @param entity  Entity to check
+   */
+  public void sendToTracking(Object msg, Entity entity) {
+    this.network.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), msg);
   }
 }

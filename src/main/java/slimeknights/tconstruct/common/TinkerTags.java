@@ -35,6 +35,10 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SLIME_BLOCK = tag("slime_block");
     public static final IOptionalNamedTag<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Block> SLIMY_LOGS = tag("slimy_logs");
+    public static final IOptionalNamedTag<Block> SLIMY_PLANKS = tag("slimy_planks");
+    /** @deprecated  Remove in 1.17, temporary fallback until we remove congealed slime from tree supports */
+    @Deprecated
+    public static final IOptionalNamedTag<Block> SLIMY_TREE_TRUNKS = tag("slimy_tree_trunks");
     public static final IOptionalNamedTag<Block> SLIMY_LEAVES = tag("slimy_leaves");
     public static final IOptionalNamedTag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
     public static final IOptionalNamedTag<Block> SLIMY_GRASS = tag("slimy_grass");
@@ -106,6 +110,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> SLIME_BLOCK = tag("slime_block");
     public static final IOptionalNamedTag<Item> CONGEALED_SLIME = tag("congealed_slime");
     public static final IOptionalNamedTag<Item> SLIMY_LOGS = tag("slimy_logs");
+    public static final IOptionalNamedTag<Item> SLIMY_PLANKS = tag("slimy_planks");
     public static final IOptionalNamedTag<Item> SLIMY_LEAVES = tag("slimy_leaves");
     public static final IOptionalNamedTag<Item> SLIMY_SAPLINGS = tag("slimy_saplings");
 
@@ -138,10 +143,10 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> SCORCHED_TANKS = tag("scorched_tanks");
     public static final IOptionalNamedTag<Item> TANKS = tag("tanks");
 
-    public static final IOptionalNamedTag<Item> RODS_STONE = forgeTag("rods/stone");
     public static final IOptionalNamedTag<Item> WITHER_BONES = forgeTag("wither_bones");
     public static final IOptionalNamedTag<Item> BOOKS = forgeTag("books");
     public static final IOptionalNamedTag<Item> GUIDEBOOKS = forgeTag("books/guide");
+    public static final IOptionalNamedTag<Item> TINKERS_GUIDES = tag("guides");
 
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");
@@ -165,6 +170,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> MULTIPART_TOOL = tag("modifiable/multipart");
     /** Modifiable items that can have range increased */
     public static final IOptionalNamedTag<Item> AOE = tag("modifiable/aoe");
+    /** Modifiable items that can be held in a single hand */
+    public static final IOptionalNamedTag<Item> ONE_HANDED = tag("modifiable/one_handed");
     /** Modifiable items that prevent usage of the offhand */
     public static final IOptionalNamedTag<Item> TWO_HANDED = tag("modifiable/two_handed");
 

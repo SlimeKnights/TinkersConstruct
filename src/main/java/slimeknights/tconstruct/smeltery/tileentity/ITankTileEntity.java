@@ -66,6 +66,11 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    * Fluid tank updater
    */
 
+  /** If true, the fluid is rendered as part of the model */
+  default boolean isFluidInModel() {
+    return Config.CLIENT.tankFluidModel.get();
+  }
+
   @Override
   default void updateFluidTo(FluidStack fluid) {
     // update tank fluid
@@ -79,10 +84,10 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
 
     // update the block model
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-      if (Config.CLIENT.tankFluidModel.get()) {
+      if (isFluidInModel()) {
         // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
         TileEntity te = getTE();
-        TankModel.BakedModel model = ModelHelper.getBakedModel(te.getBlockState(), TankModel.BakedModel.class);
+        TankModel.BakedModel<?> model = ModelHelper.getBakedModel(te.getBlockState(), TankModel.BakedModel.class);
         if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getFluid().getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
           //this.requestModelDataUpdate();
           Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, te.getPos(), null, null, 3);

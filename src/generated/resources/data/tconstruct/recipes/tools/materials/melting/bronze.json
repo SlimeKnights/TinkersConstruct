@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:bronze",
+  "temperature": 700,
+  "result": {
+    "fluid": "tconstruct:molten_bronze",
+    "amount": 144
+  }
+}

@@ -69,6 +69,7 @@ public class TankModel implements IModelGeometry<TankModel> {
   @Nullable
   protected final SimpleBlockModel gui;
   protected final IncrementalFluidCuboid fluid;
+  protected final boolean forceModelFluid;
 
   @Override
   public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
@@ -225,7 +226,7 @@ public class TankModel implements IModelGeometry<TankModel> {
     @Nonnull
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData data) {
-      if (Config.CLIENT.tankFluidModel.get() && data.hasProperty(ModelProperties.FLUID_TANK)) {
+      if ((original.forceModelFluid || Config.CLIENT.tankFluidModel.get()) && data.hasProperty(ModelProperties.FLUID_TANK)) {
         IFluidTank tank = data.getData(ModelProperties.FLUID_TANK);
         if (tank != null && !tank.getFluid().isEmpty()) {
           return getCachedModel(tank.getFluid(), tank.getCapacity()).getQuads(state, side, rand, EmptyModelData.INSTANCE);
@@ -256,7 +257,8 @@ public class TankModel implements IModelGeometry<TankModel> {
         gui = SimpleBlockModel.deserialize(deserializationContext, JSONUtils.getJsonObject(modelContents, "gui"));
       }
       IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
-      return new TankModel(model, gui, fluid);
+      boolean forceModelFluid = JSONUtils.getBoolean(modelContents, "render_fluid_in_model", false);
+      return new TankModel(model, gui, fluid, forceModelFluid);
     }
   }
 }

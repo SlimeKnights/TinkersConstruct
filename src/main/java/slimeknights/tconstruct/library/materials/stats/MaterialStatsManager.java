@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.materials.stats;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,6 +48,9 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
     .disableHtmlEscaping()
     .create();
 
+  /** Runnable to run after loading material stats */
+  private final Runnable onLoaded;
+
   /**
    * This map represents the known stats of the manager. Only known materials can be loaded.
    * Usually they're registered by the registry, when a new material stats type is registered.
@@ -57,8 +61,14 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   /** Final map of material ID to material stat ID to material stats */
   private Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> materialToStatsPerType = Collections.emptyMap();
 
-  public MaterialStatsManager() {
+  public MaterialStatsManager(Runnable onLoaded) {
     super(GSON, FOLDER, id -> new HashMap<>());
+    this.onLoaded = onLoaded;
+  }
+
+  @VisibleForTesting
+  MaterialStatsManager() {
+    this(() -> {});
   }
 
   /**
@@ -147,6 +157,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
             Function.identity()
           )))
       );
+    onLoaded.run();
   }
 
   @Override
@@ -172,6 +183,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
     log.info("{} stats loaded for {} materials",
              materialToStatsPerType.values().stream().mapToInt(stats -> stats.keySet().size()).sum(),
              materialToStatsPerType.size());
+    onLoaded.run();
   }
 
   /**

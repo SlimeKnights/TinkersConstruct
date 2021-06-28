@@ -6,21 +6,26 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.CarvedPumpkinBlock;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BeehiveTileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.living.LootingLevelEvent;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -30,8 +35,8 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
+import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.List;
@@ -42,7 +47,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = TConstruct.modID, bus = Bus.FORGE)
 public class ToolEvents {
-
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
     // Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
@@ -66,6 +70,28 @@ public class ToolEvents {
             break;
           }
         }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void interactWithEntity(EntityInteract event) {
+    // Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
+    ItemStack stack = event.getItemStack();
+    if (!TinkerTags.Items.HARVEST.contains(stack.getItem())) {
+      return;
+    }
+    ToolStack tool = ToolStack.from(stack);
+    PlayerEntity player = event.getPlayer();
+    Hand hand = event.getHand();
+    Entity target = event.getTarget();
+    for (ModifierEntry entry : tool.getModifierList()) {
+      // exit on first successful result
+      ActionResultType result = entry.getModifier().onEntityUseFirst(tool, entry.getLevel(), player, target, hand);
+      if (result.isSuccessOrConsume()) {
+        event.setCanceled(true);
+        event.setCancellationResult(result);
+        return;
       }
     }
   }
@@ -130,26 +156,40 @@ public class ToolEvents {
     }
   }
 
-  /** Applies the looting bonus for this modifier */
-  @SubscribeEvent
-  static void onLooting(LootingLevelEvent event) {
-    // must be an attacker with our tool
-    DamageSource damageSource = event.getDamageSource();
-    if (damageSource == null) {
-      return;
+  /** Shears the dragon */
+  public static void shearDragon(World world, PlayerEntity player, Entity target, int fortune) {
+    world.playMovingSound(null, target, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
+    if (!world.isRemote) {
+      if (target.attackEntityFrom(DamageSource.causePlayerDamage(player), 1.0f) && world.rand.nextFloat() < (0.2 + fortune * 0.1)) {
+        ToolShearEvent.dropItem(target, new ItemStack(TinkerModifiers.dragonScale));
+      }
     }
-    Entity source = damageSource.getTrueSource();
-    if (source instanceof LivingEntity) {
-      // TODO: consider offhand usage, bows or daggers
-      // TODO: extend to armor eventually
-      LivingEntity holder = ((LivingEntity)source);
-      ItemStack held = holder.getHeldItemMainhand();
-      if (TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
-        ToolStack tool = ToolStack.from(held);
-        int newLevel = ModifierUtil.getLootingLevel(tool, holder,  event.getEntityLiving(), damageSource);
-        if (newLevel > event.getLootingLevel()) {
-          event.setLootingLevel(newLevel);
-        }
+  }
+
+  /** Tinker tool dragon shearing */
+  @SubscribeEvent
+  static void onToolShear(ToolShearEvent event) {
+    Entity target = event.getTarget();
+    if (target.getType() == EntityType.ENDER_DRAGON) {
+      shearDragon(event.getWorld(), event.getPlayer(), target, event.getFortune());
+      event.setResult(Result.ALLOW);
+    }
+  }
+
+  /** Vanilla shears dragon shearing */
+  @SubscribeEvent
+  static void shearDragonVanilla(EntityInteract event) {
+    Entity target = event.getTarget();
+    if (event.getTarget().getType() == EntityType.ENDER_DRAGON) {
+      ItemStack held = event.getItemStack();
+      // tinker tools are handled in our own modifier logic, this is for vanilla shears
+      if (Tags.Items.SHEARS.contains(held.getItem()) && !TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
+        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, held);
+        PlayerEntity player = event.getPlayer();
+        shearDragon(event.getWorld(), event.getPlayer(), target, fortune);
+        held.damageItem(1, player, p -> p.sendBreakAnimation(event.getHand()));
+        event.setCanceled(true);
+        event.setCancellationResult(ActionResultType.SUCCESS);
       }
     }
   }

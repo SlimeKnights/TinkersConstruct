@@ -34,6 +34,6 @@ public class BloodSlimeIslandStructure extends AbstractIslandStructure {
 
   @Override
   protected int getHeight(ChunkGenerator generator, Rotation rotation, int x, int z, Random random) {
-    return generator.getSeaLevel() - 7;
+    return Math.max(generator.getSeaLevel() - 7, 0);
   }
 }

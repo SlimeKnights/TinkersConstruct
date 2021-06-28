@@ -16,7 +16,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -37,17 +36,18 @@ public class ItemTagProvider extends ItemTagsProvider {
   @Override
   protected void registerTags() {
     this.addCommon();
-    this.addGadgets();
     this.addWorld();
     this.addSmeltery();
     this.addTools();
   }
 
   private void addCommon() {
-    this.getOrCreateBuilder(TinkerTags.Items.GUIDEBOOKS)
+    this.getOrCreateBuilder(TinkerTags.Items.TINKERS_GUIDES)
         .add(TinkerCommons.materialsAndYou.get(), TinkerCommons.tinkersGadgetry.get(),
              TinkerCommons.punySmelting.get(), TinkerCommons.mightySmelting.get(),
-             TinkerCommons.fantasticFoundry.get());
+             TinkerCommons.fantasticFoundry.get(), TinkerCommons.encyclopedia.get());
+    this.getOrCreateBuilder(ItemTags.LECTERN_BOOKS).addTag(TinkerTags.Items.TINKERS_GUIDES);
+    this.getOrCreateBuilder(TinkerTags.Items.GUIDEBOOKS).addTag(TinkerTags.Items.TINKERS_GUIDES);
     this.getOrCreateBuilder(TinkerTags.Items.BOOKS).addTag(TinkerTags.Items.GUIDEBOOKS);
 
     this.getOrCreateBuilder(Tags.Items.SLIMEBALLS)
@@ -61,7 +61,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.BLOOD));
     this.getOrCreateBuilder(TinkerTags.Items.ICHOR_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ICHOR));
 
-    this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerCommons.driedBrick.get(), TinkerSmeltery.searedBrick.get(), TinkerSmeltery.scorchedBrick.get());
+    this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerSmeltery.searedBrick.get(), TinkerSmeltery.scorchedBrick.get());
     this.getOrCreateBuilder(TinkerTags.Items.WITHER_BONES).add(TinkerModifiers.necroticBone.get());
 
     // ores
@@ -106,6 +106,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(TinkerTags.Blocks.SLIME_BLOCK, TinkerTags.Items.SLIME_BLOCK);
     this.copy(TinkerTags.Blocks.CONGEALED_SLIME, TinkerTags.Items.CONGEALED_SLIME);
     this.copy(TinkerTags.Blocks.SLIMY_LOGS, TinkerTags.Items.SLIMY_LOGS);
+    this.copy(TinkerTags.Blocks.SLIMY_PLANKS, TinkerTags.Items.SLIMY_PLANKS);
     this.copy(TinkerTags.Blocks.SLIMY_LEAVES, TinkerTags.Items.SLIMY_LEAVES);
     this.copy(TinkerTags.Blocks.SLIMY_SAPLINGS, TinkerTags.Items.SLIMY_SAPLINGS);
     this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
@@ -138,12 +139,6 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
   }
 
-  private void addGadgets() {
-    this.copy(BlockTags.RAILS, ItemTags.RAILS);
-    this.getOrCreateBuilder(Tags.Items.RODS).addTag(TinkerTags.Items.RODS_STONE);
-    this.getOrCreateBuilder(TinkerTags.Items.RODS_STONE).add(TinkerGadgets.stoneStick.get());
-  }
-
 
   private void addTools() {
     // harvest
@@ -158,7 +153,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
         .addTag(TinkerTags.Items.HARVEST_PRIMARY)
         .addTag(TinkerTags.Items.STONE_HARVEST)
-        .add(TinkerTools.sword.get(), TinkerTools.cleaver.get());
+        .add(TinkerTools.dagger.get(), TinkerTools.sword.get(), TinkerTools.cleaver.get());
 
     // weapon
     // can receive sweeping and a few other special sword modifiers
@@ -166,7 +161,7 @@ public class ItemTagProvider extends ItemTagsProvider {
         .add(TinkerTools.sword.get(), TinkerTools.cleaver.get());
     // support all weapon modifiers
     this.getOrCreateBuilder(TinkerTags.Items.MELEE_PRIMARY)
-        .add(TinkerTools.sword.get(), TinkerTools.cleaver.get(),
+        .add(TinkerTools.dagger.get(), TinkerTools.sword.get(), TinkerTools.cleaver.get(),
              TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
              TinkerTools.sledgeHammer.get(), TinkerTools.scythe.get());
     // can receive damage boosts
@@ -190,6 +185,10 @@ public class ItemTagProvider extends ItemTagsProvider {
 						 TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
 						 TinkerTools.kama.get(), TinkerTools.scythe.get(),
 						 TinkerTools.sword.get(), TinkerTools.cleaver.get());
+    this.getOrCreateBuilder(TinkerTags.Items.ONE_HANDED)
+        .add(TinkerTools.pickaxe.get(), TinkerTools.mattock.get(),
+             TinkerTools.handAxe.get(), TinkerTools.kama.get(),
+             TinkerTools.dagger.get(), TinkerTools.sword.get());
     this.getOrCreateBuilder(TinkerTags.Items.TWO_HANDED)
         .add(TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
              TinkerTools.excavator.get(), TinkerTools.broadAxe.get(),
@@ -201,7 +200,7 @@ public class ItemTagProvider extends ItemTagsProvider {
              TinkerTools.mattock.get(), TinkerTools.excavator.get(),
              TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
              TinkerTools.kama.get(), TinkerTools.scythe.get(),
-             TinkerTools.sword.get(), TinkerTools.cleaver.get());
+             TinkerTools.dagger.get(), TinkerTools.sword.get(), TinkerTools.cleaver.get());
 
     // general
     this.getOrCreateBuilder(TinkerTags.Items.MODIFIABLE)
@@ -286,7 +285,7 @@ public class ItemTagProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.SAND_CASTS)
         .addTag(TinkerTags.Items.RED_SAND_CASTS);
 
-    this.getOrCreateBuilder(TinkerTags.Items.DUCT_CONTAINERS).add(Items.BUCKET, TinkerSmeltery.copperCan.get());
+    this.getOrCreateBuilder(TinkerTags.Items.DUCT_CONTAINERS).add(Items.BUCKET, TinkerSmeltery.copperCan.get(), TinkerSmeltery.searedLantern.asItem(), TinkerSmeltery.scorchedLantern.asItem());
 
     // tank tag
     this.copy(TinkerTags.Blocks.SEARED_TANKS, TinkerTags.Items.SEARED_TANKS);

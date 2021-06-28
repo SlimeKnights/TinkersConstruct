@@ -2,8 +2,6 @@
   "craftable": true,
   "tier": 2,
   "sortOrder": 1,
-  "fluid": "tconstruct:molten_copper",
-  "fluidPerUnit": 144,
   "textColor": "#F98648",
-  "temperature": 500
+  "hidden": false
 }

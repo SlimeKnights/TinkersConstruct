@@ -4,13 +4,11 @@ import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.entity.CTEntityIngredient;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
 import com.blamejared.crafttweaker.impl.commands.CTCommandCollectionEvent;
-import com.blamejared.crafttweaker.impl.fluid.MCFluidStackMutable;
 import com.blamejared.crafttweaker.impl_native.item.ExpandItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.FluidIngredient;
@@ -69,6 +67,9 @@ public class CRTHelper {
     if (resultId == null) {
       throw new IllegalArgumentException("Invalid ResourceLocation provided! Provided: " + modifierId);
     }
+    if (!TinkerRegistries.MODIFIERS.containsKey(resultId)) {
+      throw new IllegalArgumentException("Modifier does not exist! Provided: " + resultId);
+    }
     Modifier resultModifier = TinkerRegistries.MODIFIERS.getValue(resultId);
     if (resultModifier == null) {
       throw new IllegalArgumentException("Modifier does not exist! Provided: " + resultId);
@@ -86,11 +87,8 @@ public class CRTHelper {
         StringBuilder builder = new StringBuilder();
         builder.append("Material: `").append(iMaterial.getIdentifier()).append("` {");
         builder.append("\n\tCraftable: ").append(iMaterial.isCraftable());
-        builder.append("\n\tFluid: ").append(new MCFluidStackMutable(new FluidStack(iMaterial.getFluid(), 1)).getCommandString());
-        builder.append("\n\tFluidPerUnit: ").append(iMaterial.getFluidPerUnit());
         builder.append("\n\tTranslation Key: `").append(iMaterial.getTranslationKey()).append("`");
         builder.append("\n\tColor: ").append(String.format("#%06X", iMaterial.getColor().getColor()));
-        builder.append("\n\tTemperature: ").append(iMaterial.getTemperature());
         builder.append("\n\tTier: ").append(iMaterial.getTier());
         builder.append("\n\tSort Order: ").append(iMaterial.getSortOrder());
         builder.append("\n}");

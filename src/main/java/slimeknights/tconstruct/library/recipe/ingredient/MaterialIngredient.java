@@ -92,9 +92,12 @@ public class MaterialIngredient extends Ingredient {
   @Override
   public ItemStack[] getMatchingStacks() {
     if (materialStacks == null) {
+      if (!MaterialRegistry.isFullyLoaded()) {
+        return getPlainMatchingStacks();
+      }
       // no material? apply all materials for variants
       Stream<ItemStack> items = Arrays.stream(getPlainMatchingStacks());
-      if (materialID == WILDCARD) {
+      if (materialID.equals(WILDCARD)) {
         items = items.flatMap(stack -> MaterialRegistry.getMaterials().stream()
                                                        .map(mat -> IMaterialItem.withMaterial(stack, mat))
                                                        .filter(ItemStack::hasTag));

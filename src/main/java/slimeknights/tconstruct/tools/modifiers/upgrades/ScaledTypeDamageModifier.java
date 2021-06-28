@@ -7,6 +7,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.List;
@@ -29,8 +30,9 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
   }
 
   @Override
-  public float applyLivingDamage(IModifierToolStack tool, int level, LivingEntity attackerLiving, LivingEntity targetLiving, float baseDamage, float damage, boolean isCritical, boolean fullyCharged) {
-    if (isEffective(targetLiving)) {
+  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
+    LivingEntity target = context.getLivingTarget();
+    if (target != null && isEffective(target)) {
       damage += getScaledLevel(tool, level) * 2.5f;
     }
     return damage;
