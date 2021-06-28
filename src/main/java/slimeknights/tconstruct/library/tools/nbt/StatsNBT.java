@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStatId;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
+import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -26,6 +27,8 @@ import java.util.Set;
 @EqualsAndHashCode
 @ToString
 public class StatsNBT {
+  /** Set of all tool stat IDs that failed to parse, to reduce log spam as they get parsed many times in UIs when dumb mods don't call proper methods */
+  private static final Set<ToolStatId> ERRORED_IDS = new HashSet<>();
   /** Empty stats */
   public static final StatsNBT EMPTY = new StatsNBT(ImmutableMap.of());
 
@@ -76,8 +79,9 @@ public class StatsNBT {
           IToolStat<?> stat = ToolStats.getToolStat(statName);
           if (stat != null) {
             builder.put(stat, nbt.getFloat(key));
-          } else {
-            TConstruct.log.warn("Ignoring unknown stat " + statName + " in tool stat NBT");
+          } else if (!ERRORED_IDS.contains(statName)) {
+            ERRORED_IDS.add(statName);
+            TConstruct.log.error("Ignoring unknown stat " + statName + " in tool stat NBT");
           }
         }
       }
