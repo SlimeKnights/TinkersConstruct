@@ -1,16 +1,8 @@
 package slimeknights.tconstruct.library.client.modifiers;
 
-import com.google.common.collect.ImmutableList;
 import lombok.Data;
-import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.vector.TransformationMatrix;
-import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.model.ItemTextureQuadConverter;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -18,12 +10,11 @@ import slimeknights.tconstruct.library.modifiers.TankModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import javax.annotation.Nullable;
-import java.util.function.Function;
 
 /**
  * Model for tank modifiers, also displays the fluid
  */
-public class TankModifierModel extends NormalModifierModel {
+public class TankModifierModel extends FluidModifierModel {
   /** Constant unbaked model instance, as they are all the same */
   public static final IUnbakedModifierModel UNBAKED_INSTANCE = (smallGetter, largeGetter) -> {
     RenderMaterial smallTexture = smallGetter.apply("");
@@ -38,14 +29,10 @@ public class TankModifierModel extends NormalModifierModel {
     return null;
   };
 
-  /** Textures to show */
-  private final RenderMaterial[] fluidTextures;
-
   public TankModifierModel(@Nullable RenderMaterial smallTexture, @Nullable RenderMaterial largeTexture,
                            @Nullable RenderMaterial smallPartial, @Nullable RenderMaterial largePartial,
                            @Nullable RenderMaterial smallFull, @Nullable RenderMaterial largeFull) {
-    super(smallTexture, largeTexture);
-    this.fluidTextures = new RenderMaterial[] { smallPartial, largePartial, smallFull, largeFull };
+    super(smallTexture, largeTexture, new RenderMaterial[] { smallPartial, largePartial, smallFull, largeFull });
   }
 
   @Nullable
@@ -54,9 +41,7 @@ public class TankModifierModel extends NormalModifierModel {
     if (entry.getModifier() instanceof TankModifier) {
       TankModifier tank = (TankModifier) entry.getModifier();
       FluidStack fluid = tank.getFluid(tool);
-      if (fluid.isEmpty()) {
-        return tank;
-      } else {
+      if (!fluid.isEmpty()) {
         // cache by modifier, fluid, and not being full
         return new TankModifierCacheKey(tank, fluid.getFluid(), fluid.getAmount() < tank.getCapacity(tool));
       }
@@ -65,34 +50,10 @@ public class TankModifierModel extends NormalModifierModel {
   }
 
   @Override
-  public ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry entry, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge) {
-    // first, determine stored fluid
-    ImmutableList<BakedQuad> quads = super.getQuads(tool, entry, spriteGetter, transforms, isLarge);
-    // modifier must be tank
-    if (entry.getModifier() instanceof TankModifier) {
-      TankModifier tank = (TankModifier) entry.getModifier();
-      FluidStack fluid = tank.getFluid(tool);
-      // must have fluid
-      if (!fluid.isEmpty()) {
-        // must have texture for the proper state
-        boolean isFull = fluid.getAmount() == tank.getCapacity(tool);
-        RenderMaterial template = fluidTextures[(isFull ? 2 : 0) | (isLarge ? 1 : 0)];
-        if (template != null) {
-          // finally, build (mostly based on bucket model)
-          ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-          builder.addAll(quads);
-          FluidAttributes attributes = fluid.getFluid().getAttributes();
-          TextureAtlasSprite fluidSprite = spriteGetter.apply(ForgeHooksClient.getBlockMaterial(attributes.getStillTexture(fluid)));
-          int color = attributes.getColor(fluid);
-          int luminosity = attributes.getLuminosity(fluid);
-          TextureAtlasSprite templateSprite = spriteGetter.apply(template);
-          builder.addAll(ItemTextureQuadConverter.convertTexture(transforms, templateSprite, fluidSprite, 7.498f / 16f, Direction.NORTH, color, -1, luminosity));
-          builder.addAll(ItemTextureQuadConverter.convertTexture(transforms, templateSprite, fluidSprite, 8.502f / 16f, Direction.SOUTH, color, -1, luminosity));
-          quads = builder.build();
-        }
-      }
-    }
-    return quads;
+  @Nullable
+  protected RenderMaterial getTemplate(TankModifier tank, IModifierToolStack tool, FluidStack fluid, boolean isLarge) {
+    boolean isFull = fluid.getAmount() == tank.getCapacity(tool);
+    return fluidTextures[(isFull ? 2 : 0) | (isLarge ? 1 : 0)];
   }
 
   /** Cache key for the model */

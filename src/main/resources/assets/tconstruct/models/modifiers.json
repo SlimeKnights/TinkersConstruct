@@ -27,5 +27,5 @@
   "tconstruct:unbreakable": "tconstruct:normal",
   
   "tconstruct:tank":      "tconstruct:tank",
-  "tconstruct:bucketing": "tconstruct:tank"
+  "tconstruct:bucketing": "tconstruct:fluid"
 }
