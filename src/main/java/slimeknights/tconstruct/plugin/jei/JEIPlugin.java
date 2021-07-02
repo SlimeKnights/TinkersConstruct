@@ -379,20 +379,25 @@ public class JEIPlugin implements IModPlugin {
   private static class MaterialReloadListener implements Runnable {
     private IIngredientManager manager;
 
+    /** Run on the main thread when ready */
+    private void deferredRun() {
+      NonNullList<ItemStack> newStacks = NonNullList.create();
+      for (Item item : TinkerTags.Items.TOOL_PARTS.getAllElements()) {
+        item.fillItemGroup(ItemGroup.SEARCH, newStacks);
+      }
+      for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
+        item.fillItemGroup(ItemGroup.SEARCH, newStacks);
+      }
+      if (!newStacks.isEmpty()) {
+        manager.addIngredientsAtRuntime(VanillaTypes.ITEM, newStacks);
+      }
+    }
+
     @Override
     public void run() {
       // note this does not remove old tool parts from the previous materials list, though that is only an issue if the reload command is used
       if (manager != null && !MaterialRegistry.getMaterials().isEmpty()) {
-        NonNullList<ItemStack> newStacks = NonNullList.create();
-        for (Item item : TinkerTags.Items.TOOL_PARTS.getAllElements()) {
-          item.fillItemGroup(ItemGroup.SEARCH, newStacks);
-        }
-        for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
-          item.fillItemGroup(ItemGroup.SEARCH, newStacks);
-        }
-        if (!newStacks.isEmpty()) {
-          manager.addIngredientsAtRuntime(VanillaTypes.ITEM, newStacks);
-        }
+        Minecraft.getInstance().execute(this::deferredRun);
       }
     }
   }
