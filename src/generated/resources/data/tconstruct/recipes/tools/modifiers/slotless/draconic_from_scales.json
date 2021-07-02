@@ -2,13 +2,13 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "tconstruct:dragon_scale"
+      "item": "minecraft:shulker_shell"
     },
     {
       "item": "tconstruct:dragon_scale"
     },
     {
-      "item": "tconstruct:dragon_scale"
+      "item": "minecraft:wither_rose"
     },
     {
       "item": "tconstruct:dragon_scale"

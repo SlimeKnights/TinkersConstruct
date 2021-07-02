@@ -530,9 +530,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .build(consumer, wrapR(TinkerModifiers.draconic, slotlessFolder, "_from_head"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.draconic.get())
+                         .addInput(Items.SHULKER_SHELL)
                          .addInput(TinkerModifiers.dragonScale)
-                         .addInput(TinkerModifiers.dragonScale)
-                         .addInput(TinkerModifiers.dragonScale)
+                         .addInput(Blocks.WITHER_ROSE)
                          .addInput(TinkerModifiers.dragonScale)
                          .addInput(TinkerModifiers.dragonScale)
                          .setMaxLevel(1)
