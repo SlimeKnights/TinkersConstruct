@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -17,7 +16,6 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 @AllArgsConstructor
 @Getter
@@ -82,15 +80,5 @@ public abstract class TinkerToolEvent extends Event {
       return this.getResult();
     }
 
-    /** Drops an item at the entity position */
-    public static void dropItem(Entity target, ItemStack stack) {
-      ItemEntity ent = target.entityDropItem(stack, 1.0F);
-      if (ent != null) {
-        Random rand = target.world.rand;
-        ent.setMotion(ent.getMotion().add((rand.nextFloat() - rand.nextFloat()) * 0.1F,
-                                          rand.nextFloat() * 0.05F,
-                                          (rand.nextFloat() - rand.nextFloat()) * 0.1F));
-      }
-    }
   }
 }

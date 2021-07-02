@@ -6,6 +6,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipDisplayFlags;
@@ -21,6 +22,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.function.BiConsumer;
 
 /** Generic modifier hooks that don't quite fit elsewhere */
@@ -119,5 +121,16 @@ public final class ModifierUtil {
       }
     }
     return ValidatedResult.PASS;
+  }
+
+  /** Drops an item at the entity position */
+  public static void dropItem(Entity target, ItemStack stack) {
+    ItemEntity ent = target.entityDropItem(stack, 1.0F);
+    if (ent != null) {
+      Random rand = target.world.rand;
+      ent.setMotion(ent.getMotion().add((rand.nextFloat() - rand.nextFloat()) * 0.1F,
+                                        rand.nextFloat() * 0.05F,
+                                        (rand.nextFloat() - rand.nextFloat()) * 0.1F));
+    }
   }
 }

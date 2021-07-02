@@ -37,6 +37,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.List;
@@ -161,7 +162,7 @@ public class ToolEvents {
     world.playMovingSound(null, target, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
     if (!world.isRemote) {
       if (target.attackEntityFrom(DamageSource.causePlayerDamage(player), 1.0f) && world.rand.nextFloat() < (0.2 + fortune * 0.1)) {
-        ToolShearEvent.dropItem(target, new ItemStack(TinkerModifiers.dragonScale));
+        ModifierUtil.dropItem(target, new ItemStack(TinkerModifiers.dragonScale));
       }
     }
   }

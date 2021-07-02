@@ -115,7 +115,7 @@ public class ShearsAbilityModifier extends SingleUseModifier {
       if (target.isShearable(itemStack, world, entity.getPosition())) {
         if (!world.isRemote) {
           target.onSheared(player, itemStack, world, entity.getPosition(), fortune)
-                .forEach(stack -> ToolShearEvent.dropItem(entity, stack));
+                .forEach(stack -> ModifierUtil.dropItem(entity, stack));
         }
         return true;
       }
