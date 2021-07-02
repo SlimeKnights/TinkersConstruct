@@ -566,6 +566,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     CustomRecipeBuilder.customRecipe(TinkerModifiers.snowGolemBeheadingSerializer.get()).build(consumer, locationString(folder + "snow_golem_head"));
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.IRON_GOLEM), Blocks.CARVED_PUMPKIN)
                          .build(consumer, location(folder + "iron_golem_head"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.ENDER_DRAGON), Items.DRAGON_HEAD)
+                         .build(consumer, location(folder + "ender_dragon_head"));
 
     // other body parts
     // hostile
