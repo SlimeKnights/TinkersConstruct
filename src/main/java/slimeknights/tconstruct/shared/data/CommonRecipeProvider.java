@@ -7,16 +7,16 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
-import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.data.recipe.ICommonRecipeHelper;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -29,7 +29,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
 
-public class CommonRecipeProvider extends BaseRecipeProvider {
+public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonRecipeHelper {
   public CommonRecipeProvider(DataGenerator generator) {
     super(generator);
   }
@@ -48,11 +48,11 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
   private void addCommonRecipes(Consumer<IFinishedRecipe> consumer) {
     // firewood and lavawood
     String folder = "common/firewood/";
-    registerSlabStair(consumer, TinkerCommons.blazewood, folder, false);
-    registerSlabStair(consumer, TinkerCommons.lavawood, folder, false);
+    slabStairsCrafting(consumer, TinkerCommons.blazewood, folder, false);
+    slabStairsCrafting(consumer, TinkerCommons.lavawood, folder, false);
 
     // mud bricks
-    registerSlabStair(consumer, TinkerCommons.mudBricks, "common/", false);
+    slabStairsCrafting(consumer, TinkerCommons.mudBricks, "common/", false);
 
     // book
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.materialsAndYou)
@@ -106,7 +106,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                          .patternLine("###")
                          .patternLine("#X#")
                          .patternLine("###")
-                         .setGroup(locationString("stained_clear_glass"))
+                         .setGroup(modPrefix("stained_clear_glass"))
                          .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlass))
                          .build(consumer, prefix(block, folder));
       Block pane = TinkerCommons.clearStainedGlassPane.get(color);
@@ -114,7 +114,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                          .key('#', block)
                          .patternLine("###")
                          .patternLine("###")
-                         .setGroup(locationString("stained_clear_glass_pane"))
+                         .setGroup(modPrefix("stained_clear_glass_pane"))
                          .addCriterion("has_block", hasItem(block))
                          .build(consumer, prefix(pane, folder));
       ShapedRecipeBuilder.shapedRecipe(pane, 8)
@@ -123,7 +123,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                          .patternLine("###")
                          .patternLine("#X#")
                          .patternLine("###")
-                         .setGroup(locationString("stained_clear_glass_pane"))
+                         .setGroup(modPrefix("stained_clear_glass_pane"))
                          .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlassPane))
                          .build(consumer, wrap(pane, folder, "_from_panes"));
     }
@@ -138,52 +138,40 @@ public class CommonRecipeProvider extends BaseRecipeProvider {
                             ConsumerWrapperBuilder.wrap()
                                                   .addCondition(ConfigEnabledCondition.GRAVEL_TO_FLINT)
                                                   .build(consumer),
-                            location("common/flint"));
+                            modResource("common/flint"));
   }
 
   private void addMaterialRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "common/materials/";
 
     // ores
-    registerMineralRecipes(consumer, TinkerMaterials.copper, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.cobalt, folder);
+    metalCrafting(consumer, TinkerMaterials.copper, folder);
+    metalCrafting(consumer, TinkerMaterials.cobalt, folder);
     // tier 3
-    registerMineralRecipes(consumer, TinkerMaterials.slimesteel,    folder);
-    registerMineralRecipes(consumer, TinkerMaterials.tinkersBronze, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.roseGold,      folder);
-    registerMineralRecipes(consumer, TinkerMaterials.pigIron,       folder);
+    metalCrafting(consumer, TinkerMaterials.slimesteel, folder);
+    metalCrafting(consumer, TinkerMaterials.tinkersBronze, folder);
+    metalCrafting(consumer, TinkerMaterials.roseGold, folder);
+    metalCrafting(consumer, TinkerMaterials.pigIron, folder);
     // tier 4
-    registerMineralRecipes(consumer, TinkerMaterials.queensSlime, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.manyullyn,   folder);
-    registerMineralRecipes(consumer, TinkerMaterials.hepatizon,   folder);
+    metalCrafting(consumer, TinkerMaterials.queensSlime, folder);
+    metalCrafting(consumer, TinkerMaterials.manyullyn, folder);
+    metalCrafting(consumer, TinkerMaterials.hepatizon, folder);
     //registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
-    registerPackingRecipe(consumer, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, folder);
+    packingRecipe(consumer, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, folder);
     // tier 5
     //registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
 
     // smelt ore into ingots, must use a blast furnace for nether ores
-    IItemProvider cobaltIngot = TinkerMaterials.cobalt.getIngot();
+    Item cobaltIngot = TinkerMaterials.cobalt.getIngot();
     CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.cobaltOre))
                         .build(consumer, wrap(cobaltIngot, folder, "_smelting"));
-    IItemProvider copperIngot = TinkerMaterials.copper.getIngot();
+    Item copperIngot = TinkerMaterials.copper.getIngot();
     CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
                         .build(consumer, wrap(copperIngot, folder, "_smelting"));
     CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), copperIngot, 1.5f, 100)
                         .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
                         .build(consumer, wrap(copperIngot, folder, "_blasting"));
-  }
-
-  /**
-   * Adds recipes to convert a block to ingot, ingot to block, and for nuggets
-   * @param consumer  Recipe consumer
-   * @param metal     Metal object
-   * @param folder    Folder for recipes
-   */
-  protected void registerMineralRecipes(Consumer<IFinishedRecipe> consumer, MetalItemObject metal, String folder) {
-    IItemProvider ingot = metal.getIngot();
-    registerPackingRecipe(consumer, "block", metal.get(), "ingot", ingot, metal.getIngotTag(), folder);
-    registerPackingRecipe(consumer, "ingot", ingot, "nugget", metal.getNugget(), metal.getNuggetTag(), folder);
   }
 }

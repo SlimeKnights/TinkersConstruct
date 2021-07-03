@@ -38,7 +38,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     // slime
     String folder = "gadgets/slimeboots/";
     for (SlimeType slime : SlimeType.values()) {
-      ResourceLocation name = location(folder + slime.getString());
+      ResourceLocation name = modResource(folder + slime.getString());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(slime))
                          .setGroup("tconstruct:slime_boots")
                          .key('#', TinkerWorld.congealedSlime.get(slime))
@@ -51,7 +51,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
     folder = "gadgets/slimesling/";
     for (SlimeType slime : SlimeType.TRUE_SLIME) {
-      ResourceLocation name = location(folder + slime.getString());
+      ResourceLocation name = modResource(folder + slime.getString());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(slime))
                          .setGroup("tconstruct:slimesling")
                          .key('#', Items.STRING)
@@ -63,66 +63,6 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                          .addCriterion("has_item", hasItem(slime.getSlimeBallTag()))
                          .build(consumer, name);
     }
-
-    // rails
-    /* TODO: moving to tinkers' mechworks
-    folder = "gadgets/rail/";
-    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.woodenRail, 4)
-                       .key('#', ItemTags.PLANKS)
-                       .key('X', Tags.Items.RODS_WOODEN)
-                       .patternLine("# #")
-                       .patternLine("#X#")
-                       .patternLine("# #")
-                       .addCriterion("has_item", hasItem(ItemTags.PLANKS))
-                       .build(consumer, prefix(TinkerGadgets.woodenRail, folder));
-
-    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.woodenDropperRail, 4)
-                       .key('#', ItemTags.PLANKS)
-                       .key('X', ItemTags.WOODEN_TRAPDOORS)
-                       .patternLine("# #")
-                       .patternLine("#X#")
-                       .patternLine("# #")
-                       .addCriterion("has_item", hasItem(ItemTags.PLANKS))
-                       .build(consumer, prefix(TinkerGadgets.woodenDropperRail, folder));
-     */
-
-    // stone
-    /* TODO: moving to natura
-    folder = "gadgets/stone/";
-    ShapedRecipeBuilder.shapedRecipe(Blocks.JACK_O_LANTERN)
-                       .key('#', Blocks.CARVED_PUMPKIN)
-                       .key('X', TinkerGadgets.stoneTorch.get())
-                       .patternLine("#")
-                       .patternLine("X")
-                       .addCriterion("has_item", hasItem(Blocks.CARVED_PUMPKIN))
-                       .build(consumer, location(folder + "jack_o_lantern"));
-    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneLadder.get(), 3)
-                       .key('#', TinkerTags.Items.RODS_STONE)
-                       .patternLine("# #")
-                       .patternLine("###")
-                       .patternLine("# #")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.RODS_STONE))
-                       .build(consumer, prefix(TinkerGadgets.stoneLadder, folder));
-    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneStick.get(), 4)
-                       .key('#', Ingredient.fromItemListStream(Stream.of(
-                         new Ingredient.TagList(Tags.Items.STONE),
-                         new Ingredient.TagList(Tags.Items.COBBLESTONE))
-                                                              ))
-                       .patternLine("#")
-                       .patternLine("#")
-                       .addCriterion("has_item", hasItem(Tags.Items.STONE))
-                       .build(consumer, prefix(TinkerGadgets.stoneStick, folder));
-    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneTorch.get(), 4)
-                       .key('#', Ingredient.fromItemListStream(Stream.of(
-                         new Ingredient.SingleItemList(new ItemStack(Items.COAL)),
-                         new Ingredient.SingleItemList(new ItemStack(Items.CHARCOAL))
-                                                                        )))
-                       .key('X', TinkerTags.Items.RODS_STONE)
-                       .patternLine("#")
-                       .patternLine("X")
-                       .addCriterion("has_item", hasItem(TinkerTags.Items.RODS_STONE))
-                       .build(consumer, prefix(TinkerGadgets.stoneTorch, folder));
-    */
 
     // throw balls
     folder = "gadgets/throwball/";
@@ -169,21 +109,13 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine("S")
                        .addCriterion("has_item", hasItem(Items.SADDLE))
                        .build(consumer, prefix(TinkerGadgets.piggyBackpack, folder));
-    /* TODO: moving to natura
-    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.punji.get(), 3)
-                       .key('#', Items.SUGAR_CANE)
-                       .patternLine("# #")
-                       .patternLine(" # ")
-                       .patternLine("# #")
-                       .addCriterion("has_item", hasItem(Items.SUGAR_CANE))
-                       .build(consumer, prefix(TinkerGadgets.punji, folder));
-     */
+
     // frames
     folder = "gadgets/fancy_frame/";
-    registerFrameRecipes(consumer, TinkerModifiers.silkyCloth, FrameType.JEWEL);
-    registerFrameRecipes(consumer, TinkerMaterials.cobalt.getNugget(), FrameType.COBALT);
-    registerFrameRecipes(consumer, TinkerMaterials.manyullyn.getNugget(), FrameType.MANYULLYN);
-    registerFrameRecipes(consumer, Items.GOLD_NUGGET, FrameType.GOLD);
+    frameCrafting(consumer, TinkerModifiers.silkyCloth, FrameType.JEWEL);
+    frameCrafting(consumer, TinkerMaterials.cobalt.getNugget(), FrameType.COBALT);
+    frameCrafting(consumer, TinkerMaterials.manyullyn.getNugget(), FrameType.MANYULLYN);
+    frameCrafting(consumer, Items.GOLD_NUGGET, FrameType.GOLD);
     Item clearFrame = TinkerGadgets.itemFrame.get(FrameType.CLEAR);
     ShapedRecipeBuilder.shapedRecipe(clearFrame)
                        .key('e', Tags.Items.GLASS_PANES_COLORLESS)
@@ -192,21 +124,9 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine("eMe")
                        .patternLine(" e ")
                        .addCriterion("has_item", hasItem(Tags.Items.GLASS_PANES_COLORLESS))
-                       .setGroup(locationString("fancy_item_frame"))
+                       .setGroup(modPrefix("fancy_item_frame"))
                        .build(consumer, prefix(clearFrame, folder));
 
-    // dried clay
-    /* TODO: move to natura
-    folder = "gadgets/building/";
-    ShapedRecipeBuilder.shapedRecipe(TinkerCommons.driedClayBricks)
-                       .key('b', TinkerCommons.driedBrick)
-                       .patternLine("bb")
-                       .patternLine("bb")
-                       .addCriterion("has_item", hasItem(TinkerCommons.driedClay))
-                       .build(consumer, prefix(TinkerCommons.driedClayBricks, folder));
-    registerSlabStair(consumer, TinkerCommons.driedClay, folder, true);
-    registerSlabStair(consumer, TinkerCommons.driedClayBricks, folder, true);
-     */
     String cakeFolder = "gadgets/cake/";
     TinkerGadgets.cake.forEach((slime, cake) -> {
       Item bucket = slime == SlimeType.BLOOD ? TinkerFluids.magma.asItem() : TinkerFluids.slime.get(slime).asItem();
@@ -217,7 +137,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                          .key('W', TinkerWorld.slimeTallGrass.get(slime))
                          .patternLine("MMM").patternLine("SES").patternLine("WWW")
                          .addCriterion("has_slime", hasItem(bucket))
-                         .build(consumer, location(cakeFolder + slime.getString()));
+                         .build(consumer, modResource(cakeFolder + slime.getString()));
     });
   }
 
@@ -232,10 +152,10 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
    * @param experience  Experience for the recipe
    * @param folder      Folder to store the recipe
    */
-  private void addCampfireCooking(Consumer<IFinishedRecipe> consumer, IItemProvider input, IItemProvider output, float experience, String folder) {
+  private void campfireCooking(Consumer<IFinishedRecipe> consumer, IItemProvider input, IItemProvider output, float experience, String folder) {
     CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(input), output, experience, 600, IRecipeSerializer.CAMPFIRE_COOKING)
                         .addCriterion("has_item", hasItem(input))
-                        .build(consumer, wrap(output, folder, "_campfire"));
+                        .build(consumer, wrap(output.asItem(), folder, "_campfire"));
   }
 
   /**
@@ -246,17 +166,17 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
    * @param experience  Experience for the recipe
    * @param folder      Folder to store the recipe
    */
-  private void addFoodCooking(Consumer<IFinishedRecipe> consumer, IItemProvider input, IItemProvider output, float experience, String folder) {
-    addCampfireCooking(consumer, input, output, experience, folder);
+  private void foodCooking(Consumer<IFinishedRecipe> consumer, IItemProvider input, IItemProvider output, float experience, String folder) {
+    campfireCooking(consumer, input, output, experience, folder);
     // furnace is 200 ticks
     ICriterionInstance criteria = hasItem(input);
     CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(input), output, experience, 200)
                         .addCriterion("has_item", criteria)
-                        .build(consumer, wrap(output, folder, "_furnace"));
+                        .build(consumer, wrap(output.asItem(), folder, "_furnace"));
     // smoker 100 ticks
     CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(input), output, experience, 100, IRecipeSerializer.SMOKING)
                         .addCriterion("has_item", criteria)
-                        .build(consumer, wrap(output, folder, "_smoker"));
+                        .build(consumer, wrap(output.asItem(), folder, "_smoker"));
   }
 
   /**
@@ -265,7 +185,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
    * @param edges     Edge item
    * @param type      Frame type
    */
-  private void registerFrameRecipes(Consumer<IFinishedRecipe> consumer, IItemProvider edges, FrameType type) {
+  private void frameCrafting(Consumer<IFinishedRecipe> consumer, IItemProvider edges, FrameType type) {
     Item frame = TinkerGadgets.itemFrame.get(type);
     ShapedRecipeBuilder.shapedRecipe(frame)
                        .key('e', edges)
@@ -274,7 +194,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .patternLine("eMe")
                        .patternLine(" e ")
                        .addCriterion("has_item", hasItem(edges))
-                       .setGroup(locationString("fancy_item_frame"))
+                       .setGroup(modPrefix("fancy_item_frame"))
                        .build(consumer, prefix(frame, "gadgets/fancy_frame/"));
 
   }
