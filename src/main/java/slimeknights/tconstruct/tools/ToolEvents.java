@@ -6,10 +6,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.CarvedPumpkinBlock;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -23,7 +22,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.Tags;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.eventbus.api.Event.Result;
@@ -35,7 +34,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
-import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -157,40 +155,16 @@ public class ToolEvents {
     }
   }
 
-  /** Shears the dragon */
-  public static void shearDragon(World world, PlayerEntity player, Entity target, int fortune) {
-    world.playMovingSound(null, target, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
-    if (!world.isRemote) {
-      if (target.attackEntityFrom(DamageSource.causePlayerDamage(player), 1.0f) && world.rand.nextFloat() < (0.2 + fortune * 0.1)) {
-        ModifierUtil.dropItem(target, new ItemStack(TinkerModifiers.dragonScale));
-      }
-    }
-  }
-
-  /** Tinker tool dragon shearing */
   @SubscribeEvent
-  static void onToolShear(ToolShearEvent event) {
-    Entity target = event.getTarget();
-    if (target.getType() == EntityType.ENDER_DRAGON) {
-      shearDragon(event.getWorld(), event.getPlayer(), target, event.getFortune());
-      event.setResult(Result.ALLOW);
-    }
-  }
-
-  /** Vanilla shears dragon shearing */
-  @SubscribeEvent
-  static void shearDragonVanilla(EntityInteract event) {
-    Entity target = event.getTarget();
-    if (event.getTarget().getType() == EntityType.ENDER_DRAGON) {
-      ItemStack held = event.getItemStack();
-      // tinker tools are handled in our own modifier logic, this is for vanilla shears
-      if (Tags.Items.SHEARS.contains(held.getItem()) && !TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
-        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, held);
-        PlayerEntity player = event.getPlayer();
-        shearDragon(event.getWorld(), event.getPlayer(), target, fortune);
-        held.damageItem(1, player, p -> p.sendBreakAnimation(event.getHand()));
-        event.setCanceled(true);
-        event.setCancellationResult(ActionResultType.SUCCESS);
+  static void enderDragonDamage(LivingDamageEvent event) {
+    // dragon being damaged
+    LivingEntity entity = event.getEntityLiving();
+    if (entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0) {
+      // player caused explosion, end crystals and TNT are examples
+      DamageSource source = event.getSource();
+      if (source.isExplosion() && source.getTrueSource() != null && source.getTrueSource().getType() == EntityType.PLAYER) {
+        // drops 1 - 8 scales
+        ModifierUtil.dropItem(entity, new ItemStack(TinkerModifiers.dragonScale, 1 + entity.getEntityWorld().rand.nextInt(8)));
       }
     }
   }
