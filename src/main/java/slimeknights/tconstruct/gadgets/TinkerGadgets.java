@@ -27,6 +27,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.gadgets.block.FoodCakeBlock;
 import slimeknights.tconstruct.gadgets.block.PunjiBlock;
+import slimeknights.tconstruct.gadgets.capability.PiggybackCapability;
 import slimeknights.tconstruct.gadgets.data.GadgetRecipeProvider;
 import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
@@ -47,7 +48,6 @@ import slimeknights.tconstruct.gadgets.item.slimesling.EnderSlimeSlingItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.IchorSlimeSlingItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.SkySlimeSlingItem;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.shared.TinkerFood;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
@@ -158,7 +158,7 @@ public final class TinkerGadgets extends TinkerModule {
    */
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
-    CapabilityTinkerPiggyback.register();
+    PiggybackCapability.register();
     MinecraftForge.EVENT_BUS.register(new GadgetEvents());
     event.enqueueWork(() -> cake.forEach(block -> ComposterBlock.registerCompostable(1.0f, block)));
   }

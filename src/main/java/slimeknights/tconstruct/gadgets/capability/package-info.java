@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.capability.piggyback;
+package slimeknights.tconstruct.gadgets.capability;
 
 import mcp.MethodsReturnNonnullByDefault;
 

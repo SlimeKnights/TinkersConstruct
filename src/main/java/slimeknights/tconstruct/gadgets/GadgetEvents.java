@@ -1,29 +1,17 @@
 package slimeknights.tconstruct.gadgets;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvents;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.capability.piggyback.TinkerPiggybackSerializer;
 
 public class GadgetEvents {
-
-  @SubscribeEvent
-  public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
-    if (event.getObject() instanceof PlayerEntity) {
-      event.addCapability(Util.getResource("piggyback"), new TinkerPiggybackSerializer((PlayerEntity) event.getObject()));
-    }
-  }
-
   @SubscribeEvent
   public void onFall(LivingFallEvent event) {
     LivingEntity entity = event.getEntityLiving();
