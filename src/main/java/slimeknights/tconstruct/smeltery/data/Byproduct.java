@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.fluid.Fluid;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.data.recipe.IByproduct;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 
 import java.util.Locale;
@@ -11,7 +12,7 @@ import java.util.function.Supplier;
 
 /** Standard ore byproducts for smeltery ores, this enum exists to simplify our builders to allow passing 3 args in varargs */
 @RequiredArgsConstructor
-public enum Byproduct {
+public enum Byproduct implements IByproduct {
   // base mod
   COPPER    (true, TinkerFluids.moltenCopper),
   IRON      (true, TinkerFluids.moltenIron),
@@ -40,7 +41,7 @@ public enum Byproduct {
     this.nuggets = FluidValues.NUGGET * 3;
   }
 
-  /** Gets the fluid of this byproduct */
+  @Override
   public Fluid getFluid() {
     return fluidSupplier.get();
   }
