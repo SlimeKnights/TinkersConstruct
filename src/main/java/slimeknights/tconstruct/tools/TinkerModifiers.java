@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRec
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipe;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.tools.item.DragonScaleItem;
 import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.AutosmeltModifier;
@@ -124,7 +125,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ItemObject<Item> silkyCloth = ITEMS.register("silky_cloth", GENERAL_PROPS);
   public static final ItemObject<Item> silkyJewel = ITEMS.register("silky_jewel", HIDDEN_PROPS);
   public static final ItemObject<Item> necroticBone = ITEMS.register("necrotic_bone", TOOLTIP_ITEM);
-  public static final ItemObject<Item> dragonScale = ITEMS.register("dragon_scale", TOOLTIP_ITEM);
+  public static final ItemObject<Item> dragonScale = ITEMS.register("dragon_scale", () -> new DragonScaleItem(new Item.Properties().group(TAB_GENERAL).rarity(Rarity.RARE)));
   // reinforcements
   public static final ItemObject<Item> ironReinforcement = ITEMS.register("iron_reinforcement", GENERAL_PROPS);
   public static final ItemObject<Item> slimesteelReinforcement = ITEMS.register("slimesteel_reinforcement", GENERAL_PROPS);
