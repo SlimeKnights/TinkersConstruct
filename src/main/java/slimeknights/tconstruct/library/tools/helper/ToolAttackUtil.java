@@ -30,17 +30,15 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import slimeknights.mantle.util.OffhandCooldownTracker;
+import slimeknights.mantle.util.SingleKeyMultimap;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.library.tools.OffhandCooldownTracker;
 import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.SingleKeyMultimap;
-import slimeknights.tconstruct.tools.network.SwingArmPacket;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -466,23 +464,5 @@ public class ToolAttackUtil {
     }
 
     return hit;
-  }
-
-
-  /** Swings the entities hand without resetting cooldown */
-  public static void swingHand(LivingEntity entity, Hand hand, boolean updateSelf) {
-    if (!entity.isSwingInProgress || entity.swingProgressInt >= entity.getArmSwingAnimationEnd() / 2 || entity.swingProgressInt < 0) {
-      entity.swingProgressInt = -1;
-      entity.isSwingInProgress = true;
-      entity.swingingHand = hand;
-      if (!entity.world.isRemote) {
-        SwingArmPacket packet = new SwingArmPacket(entity, hand);
-        if (updateSelf) {
-          TinkerNetwork.getInstance().sendToTrackingAndSelf(packet, entity);
-        } else {
-          TinkerNetwork.getInstance().sendToTracking(packet, entity);
-        }
-      }
-    }
   }
 }

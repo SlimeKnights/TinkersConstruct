@@ -12,14 +12,12 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
-import slimeknights.tconstruct.library.tools.OffhandCooldownTracker;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
 import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
@@ -96,11 +94,6 @@ public final class TinkerTools extends TinkerModule {
   /*
    * Events
    */
-
-  @SubscribeEvent
-  void commonSetup(FMLCommonSetupEvent event) {
-    OffhandCooldownTracker.register();
-  }
 
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {

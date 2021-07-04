@@ -4,7 +4,7 @@ import lombok.Getter;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.IntReferenceHolder;
-import slimeknights.tconstruct.library.utils.ValidZeroIntReference;
+import slimeknights.mantle.util.sync.ValidZeroIntReference;
 import slimeknights.tconstruct.shared.inventory.TriggeringMultiModuleContainer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;

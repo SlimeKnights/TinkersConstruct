@@ -1,32 +1,22 @@
 package slimeknights.tconstruct.tools;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.settings.AttackIndicatorStatus;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.Hand;
-import net.minecraft.util.HandSide;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.GameType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
@@ -55,7 +45,6 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tools.OffhandCooldownTracker;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -97,7 +86,6 @@ public class ToolClientEvents extends ClientEventBase {
     RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::onTooltipEvent);
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::renderHand);
-    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::renderOffhandAttackIndicator);
   }
 
   @SubscribeEvent
@@ -195,65 +183,6 @@ public class ToolClientEvents extends ClientEventBase {
       if (!(event.getItemStack().getItem() instanceof BlockItem) || ToolStack.from(stack).getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
         event.setCanceled(true);
       }
-    }
-  }
-
-  // registered with FORGE bus
-  private static void renderOffhandAttackIndicator(RenderGameOverlayEvent.Post event) {
-    // must have a player, not be in spectator, and have the indicator enabled
-    Minecraft minecraft = Minecraft.getInstance();
-    GameSettings settings = minecraft.gameSettings;
-    if (minecraft.player == null || minecraft.playerController == null || minecraft.playerController.getCurrentGameType() == GameType.SPECTATOR || settings.attackIndicator == AttackIndicatorStatus.OFF) {
-      return;
-    }
-    // must be holding something that can duel wield
-    ItemStack held = minecraft.player.getHeldItemOffhand();
-    if (!TinkerTags.Items.MODIFIABLE.contains(held.getItem())) {
-      return;
-    }
-    // check if we have cooldown
-    float cooldown = OffhandCooldownTracker.getCooldown(minecraft.player);
-    if (cooldown >= 1.0f) {
-      return;
-    }
-
-    // show attack indicator
-    MatrixStack matrixStack = event.getMatrixStack();
-    switch (settings.attackIndicator) {
-      case CROSSHAIR:
-        if (event.getType() == ElementType.CROSSHAIRS && minecraft.gameSettings.getPointOfView().func_243192_a()) {
-          if (!settings.showDebugInfo || settings.hideGUI || minecraft.player.hasReducedDebug() || settings.reducedDebugInfo) {
-            // mostly cloned from vanilla attack indicator
-            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            int scaledHeight = minecraft.getMainWindow().getScaledHeight();
-            // integer division makes this a pain to line up, there might be a simplier version of this formula but I cannot think of one
-            int y = (scaledHeight / 2) - 14 + (2 * (scaledHeight % 2));
-            int x = minecraft.getMainWindow().getScaledWidth() / 2 - 8;
-            int width = (int)(cooldown * 17.0F);
-            minecraft.getTextureManager().bindTexture(AbstractGui.GUI_ICONS_LOCATION);
-            minecraft.ingameGUI.blit(matrixStack, x, y, 36, 94, 16, 4);
-            minecraft.ingameGUI.blit(matrixStack, x, y, 52, 94, width, 4);
-          }
-        }
-        break;
-      case HOTBAR:
-        if (event.getType() == ElementType.HOTBAR && minecraft.renderViewEntity == minecraft.player) {
-          int centerWidth = minecraft.getMainWindow().getScaledWidth() / 2;
-          int y = minecraft.getMainWindow().getScaledHeight() - 20;
-          int x;
-          // opposite of the vanilla hand location, extra bit to offset past the offhand slot
-          if (minecraft.player.getPrimaryHand() == HandSide.RIGHT) {
-            x = centerWidth - 91 - 22 - 32;
-          } else {
-            x = centerWidth + 91 + 6 + 32;
-          }
-          minecraft.getTextureManager().bindTexture(AbstractGui.GUI_ICONS_LOCATION);
-          int l1 = (int)(cooldown * 19.0F);
-          RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-          minecraft.ingameGUI.blit(matrixStack, x, y, 0, 94, 18, 18);
-          minecraft.ingameGUI.blit(matrixStack, x, y + 18 - l1, 18, 112 - l1, 18, l1);
-        }
-        break;
     }
   }
 

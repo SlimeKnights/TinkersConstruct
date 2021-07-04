@@ -6,9 +6,9 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.tools.OffhandCooldownTracker;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 public class OffhandAttackModifier extends SingleUseModifier {
   public static final ResourceLocation DUEL_WIELDING = Util.getResource("duel_wielding");
@@ -47,9 +48,9 @@ public class OffhandAttackModifier extends SingleUseModifier {
       if (!player.world.isRemote()) {
         ToolAttackUtil.attackEntity((IModifiableWeapon)tool.getItem(), tool, player, Hand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, Hand.OFF_HAND), false);
       }
-      OffhandCooldownTracker.applyCooldown(player, tool, cooldownTime);
+      OffhandCooldownTracker.applyCooldown(player, tool.getStats().getFloat(ToolStats.ATTACK_SPEED), cooldownTime);
       // we handle swinging the arm, return consume to prevent resetting cooldown
-      ToolAttackUtil.swingHand(player, Hand.OFF_HAND, false);
+      OffhandCooldownTracker.swingHand(player, Hand.OFF_HAND, false);
       return ActionResultType.CONSUME;
     }
     return ActionResultType.PASS;
@@ -59,9 +60,9 @@ public class OffhandAttackModifier extends SingleUseModifier {
   public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
     if (canAttack(tool, player, hand)) {
       // target done in onEntityInteract, this is just for cooldown cause you missed
-      OffhandCooldownTracker.applyCooldown(player, tool, cooldownTime);
+      OffhandCooldownTracker.applyCooldown(player, tool.getStats().getFloat(ToolStats.ATTACK_SPEED), cooldownTime);
       // we handle swinging the arm, return consume to prevent resetting cooldown
-      ToolAttackUtil.swingHand(player, Hand.OFF_HAND, false);
+      OffhandCooldownTracker.swingHand(player, Hand.OFF_HAND, false);
       return ActionResultType.CONSUME;
     }
     return ActionResultType.PASS;

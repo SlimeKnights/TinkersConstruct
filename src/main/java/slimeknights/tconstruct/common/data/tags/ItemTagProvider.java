@@ -12,6 +12,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.data.MantleTags;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
@@ -207,6 +208,7 @@ public class ItemTagProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.MULTIPART_TOOL)
         .addTag(TinkerTags.Items.MELEE_OR_HARVEST)
         .addTag(TinkerTags.Items.AOE);
+    this.getOrCreateBuilder(MantleTags.Items.OFFHAND_COOLDOWN).addTag(TinkerTags.Items.MELEE);
 
     // kamas are a shear type, when broken we don't pass it to loot tables
     this.getOrCreateBuilder(Tags.Items.SHEARS).add(TinkerTools.kama.get());
