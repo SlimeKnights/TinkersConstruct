@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -125,12 +126,15 @@ public final class ModifierUtil {
 
   /** Drops an item at the entity position */
   public static void dropItem(Entity target, ItemStack stack) {
-    ItemEntity ent = target.entityDropItem(stack, 1.0F);
-    if (ent != null) {
+    World world = target.getEntityWorld();
+    if (!stack.isEmpty() && !target.getEntityWorld().isRemote()) {
+      ItemEntity ent = new ItemEntity(world, target.getPosX(), target.getPosY() + 1, target.getPosZ(), stack);
+      ent.setDefaultPickupDelay();
       Random rand = target.world.rand;
       ent.setMotion(ent.getMotion().add((rand.nextFloat() - rand.nextFloat()) * 0.1F,
                                         rand.nextFloat() * 0.05F,
                                         (rand.nextFloat() - rand.nextFloat()) * 0.1F));
+      world.addEntity(ent);
     }
   }
 }

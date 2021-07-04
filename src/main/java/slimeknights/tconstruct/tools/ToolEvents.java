@@ -159,7 +159,7 @@ public class ToolEvents {
   static void enderDragonDamage(LivingDamageEvent event) {
     // dragon being damaged
     LivingEntity entity = event.getEntityLiving();
-    if (entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0) {
+    if (entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0 && !entity.getEntityWorld().isRemote) {
       // player caused explosion, end crystals and TNT are examples
       DamageSource source = event.getSource();
       if (source.isExplosion() && source.getTrueSource() != null && source.getTrueSource().getType() == EntityType.PLAYER) {
