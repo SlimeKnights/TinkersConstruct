@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_invar",
+    "tag": "tconstruct:molten_invar",
     "amount": 48
   },
   "result": {

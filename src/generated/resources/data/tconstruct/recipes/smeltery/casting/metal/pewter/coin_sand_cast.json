@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_pewter",
+    "tag": "tconstruct:molten_pewter",
     "amount": 48
   },
   "result": {

@@ -2,15 +2,15 @@
   "type": "tconstruct:alloy",
   "inputs": [
     {
-      "name": "tconstruct:molten_iron",
+      "tag": "tconstruct:molten_iron",
       "amount": 144
     },
     {
-      "name": "tconstruct:blood",
+      "tag": "tconstruct:blood",
       "amount": 250
     },
     {
-      "name": "tconstruct:molten_clay",
+      "tag": "tconstruct:molten_clay",
       "amount": 250
     }
   ],

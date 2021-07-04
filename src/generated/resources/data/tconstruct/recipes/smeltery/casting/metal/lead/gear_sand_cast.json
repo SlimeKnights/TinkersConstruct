@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_lead",
+    "tag": "tconstruct:molten_lead",
     "amount": 576
   },
   "result": {

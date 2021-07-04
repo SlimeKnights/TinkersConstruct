@@ -8,11 +8,11 @@
   ],
   "inputs": [
     {
-      "name": "tconstruct:molten_clay",
+      "tag": "tconstruct:molten_clay",
       "amount": 750
     },
     {
-      "name": "tconstruct:molten_quartz",
+      "tag": "tconstruct:molten_quartz",
       "amount": 144
     }
   ],

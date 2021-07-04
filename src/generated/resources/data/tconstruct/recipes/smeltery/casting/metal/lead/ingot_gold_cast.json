@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
-    "name": "tconstruct:molten_lead",
+    "tag": "tconstruct:molten_lead",
     "amount": 144
   },
   "result": {

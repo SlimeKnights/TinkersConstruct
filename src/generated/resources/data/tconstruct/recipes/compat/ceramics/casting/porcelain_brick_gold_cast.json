@@ -10,7 +10,7 @@
     "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
-    "name": "tconstruct:molten_porcelain",
+    "tag": "tconstruct:molten_porcelain",
     "amount": 250
   },
   "result": "ceramics:porcelain_brick",

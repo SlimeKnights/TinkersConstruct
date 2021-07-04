@@ -4,7 +4,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "name": "tconstruct:molten_cobalt",
+    "tag": "tconstruct:molten_cobalt",
     "amount": 16
   },
   "result": {

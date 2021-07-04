@@ -18,11 +18,11 @@
   ],
   "inputs": [
     {
-      "name": "tconstruct:molten_iron",
+      "tag": "tconstruct:molten_iron",
       "amount": 288
     },
     {
-      "name": "tconstruct:molten_nickel",
+      "tag": "tconstruct:molten_nickel",
       "amount": 144
     }
   ],

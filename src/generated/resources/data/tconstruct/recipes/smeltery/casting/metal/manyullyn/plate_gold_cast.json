@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/plate"
   },
   "fluid": {
-    "name": "tconstruct:molten_manyullyn",
+    "tag": "tconstruct:molten_manyullyn",
     "amount": 144
   },
   "result": {

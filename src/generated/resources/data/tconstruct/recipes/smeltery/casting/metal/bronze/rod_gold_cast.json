@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/rod"
   },
   "fluid": {
-    "name": "tconstruct:molten_bronze",
+    "tag": "tconstruct:molten_bronze",
     "amount": 72
   },
   "result": {

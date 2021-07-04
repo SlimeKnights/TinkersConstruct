@@ -5,20 +5,18 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
-import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ItemOutput;
+import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
-import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.molding.MoldingRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -28,13 +26,7 @@ import java.util.function.Supplier;
 /**
  * Recipe helper for methods related to melting and casting
  */
-public interface ISmelteryRecipeHelper extends IRecipeHelper {
-  /** Gets the temperature for a fluid in celsius */
-  default int getTemperature(Supplier<? extends Fluid> supplier) {
-    return supplier.get().getAttributes().getTemperature() - 300;
-  }
-
-
+public interface ISmelteryRecipeHelper extends ICastCreationHelper {
   /* Melting */
 
   /**
@@ -138,14 +130,13 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
    * @param output    Recipe output
    * @param location  Recipe base
    */
-  default void castingWithCast(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, int amount, CastItemObject cast, ItemOutput output, String location) {
-    FluidStack fluidStack = new FluidStack(fluid.get(), amount);
+  default void castingWithCast(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, int amount, CastItemObject cast, ItemOutput output, String location) {
     ItemCastingRecipeBuilder.tableRecipe(output)
-                            .setFluidAndTime(fluidStack)
+                            .setFluidAndTime(fluid, amount)
                             .setCast(cast.getMultiUseTag(), false)
                             .build(consumer, modResource(location + "_gold_cast"));
     ItemCastingRecipeBuilder.tableRecipe(output)
-                            .setFluidAndTime(fluidStack)
+                            .setFluidAndTime(fluid, amount)
                             .setCast(cast.getSingleUseTag(), true)
                             .build(consumer, modResource(location + "_sand_cast"));
   }
@@ -159,7 +150,7 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
    * @param output    Recipe output
    * @param location  Recipe base
    */
-  default void castingWithCast(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, int amount, CastItemObject cast, IItemProvider output, String location) {
+  default void castingWithCast(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, int amount, CastItemObject cast, IItemProvider output, String location) {
     castingWithCast(consumer, fluid, amount, cast, ItemOutput.fromItem(output), location);
   }
 
@@ -173,7 +164,7 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
    * @param recipeName   Name of the recipe for output
    * @param optional     If true, conditions the recipe on the tag
    */
-  default void tagCasting(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, int amount, CastItemObject cast, String tagName, String recipeName, boolean optional) {
+  default void tagCasting(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, int amount, CastItemObject cast, String tagName, String recipeName, boolean optional) {
     if (optional) {
       consumer = withCondition(consumer, tagCondition(tagName));
     }
@@ -189,7 +180,7 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
    * @param ingot     Ingot output
    * @param location  Recipe base
    */
-  default void ingotCasting(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, int amount, IItemProvider ingot, String location) {
+  default void ingotCasting(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, int amount, IItemProvider ingot, String location) {
     castingWithCast(consumer, fluid, amount, TinkerSmeltery.ingotCast, ingot, location);
   }
 
@@ -200,7 +191,7 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
    * @param gem       Gem output
    * @param location  Recipe base
    */
-  default void gemCasting(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, IItemProvider gem, String location) {
+  default void gemCasting(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, IItemProvider gem, String location) {
     castingWithCast(consumer, fluid, FluidValues.GEM, TinkerSmeltery.gemCast, gem, location);
   }
 
@@ -211,7 +202,7 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
    * @param ingot     Ingot output
    * @param location  Recipe base
    */
-  default void ingotCasting(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, IItemProvider ingot, String location) {
+  default void ingotCasting(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, IItemProvider ingot, String location) {
     ingotCasting(consumer, fluid, FluidValues.INGOT, ingot, location);
   }
 
@@ -222,36 +213,8 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
    * @param nugget    Nugget output
    * @param location  Recipe base
    */
-  default void nuggetCastingRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, IItemProvider nugget, String location) {
+  default void nuggetCastingRecipe(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, IItemProvider nugget, String location) {
     castingWithCast(consumer, fluid, FluidValues.NUGGET, TinkerSmeltery.nuggetCast, nugget, location);
-  }
-
-  /**
-   * Adds a casting recipe for a block
-   * @param consumer  Recipe consumer
-   * @param fluid     Input fluid
-   * @param amount    Input amount
-   * @param block     Output block
-   * @param location  Output name
-   */
-  default void blockCasting(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, int amount, IItemProvider block, String location) {
-    ItemCastingRecipeBuilder.basinRecipe(block)
-                            .setFluidAndTime(new FluidStack(fluid.get(), amount))
-                            .build(consumer, modResource(location));
-  }
-
-  /**
-   * Adds a casting recipe for a block
-   * @param consumer  Recipe consumer
-   * @param fluid     Input fluid
-   * @param amount    Input amount
-   * @param block     Output block
-   * @param location  Output name
-   */
-  default void blockCasting(Consumer<IFinishedRecipe> consumer, ITag<Fluid> fluid, int temperature, int amount, IItemProvider block, String location) {
-    ItemCastingRecipeBuilder.basinRecipe(block)
-                            .setFluidAndTime(temperature, fluid, amount)
-                            .build(consumer, modResource(location));
   }
 
   /**
@@ -263,10 +226,12 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
    * @param nugget    Nugget result
    * @param folder    Output folder
    */
-  default void metalCasting(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, @Nullable IItemProvider block, @Nullable IItemProvider ingot, @Nullable IItemProvider nugget, String folder, String metal) {
+  default void metalCasting(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, @Nullable IItemProvider block, @Nullable IItemProvider ingot, @Nullable IItemProvider nugget, String folder, String metal) {
     String metalFolder = folder + metal + "/";
     if (block != null) {
-      blockCasting(consumer, fluid, FluidValues.METAL_BLOCK, block, metalFolder + "block");
+      ItemCastingRecipeBuilder.basinRecipe(block)
+                              .setFluidAndTime(fluid, FluidValues.METAL_BLOCK)
+                              .build(consumer, modResource(metalFolder + "block"));
     }
     if (ingot != null) {
       ingotCasting(consumer, fluid, ingot, metalFolder + "ingot");
@@ -288,7 +253,7 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
    * @param metal     Metal object
    * @param folder    Output folder
    */
-  default void metalCasting(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, MetalItemObject metal, String folder, String name) {
+  default void metalCasting(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, MetalItemObject metal, String folder, String name) {
     metalCasting(consumer, fluid, metal.get(), metal.getIngot(), metal.getNugget(), folder, name);
   }
 
@@ -300,7 +265,7 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
    * @param folder         Output folder
    * @param forceStandard  If true, all default materials will always get a recipe, used for common materials provided by the mod (e.g. copper)
    */
-  default void metalTagCasting(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, String name, String folder, boolean forceStandard) {
+  default void metalTagCasting(Consumer<IFinishedRecipe> consumer, FluidObject<?> fluid, String name, String folder, boolean forceStandard) {
     // nugget and ingot
     tagCasting(consumer, fluid, FluidValues.NUGGET, TinkerSmeltery.nuggetCast, "nuggets/" + name, folder + name + "/nugget", !forceStandard);
     tagCasting(consumer, fluid, FluidValues.INGOT, TinkerSmeltery.ingotCast, "ingots/" + name, folder + name + "/ingot", !forceStandard);
@@ -314,43 +279,5 @@ public interface ISmelteryRecipeHelper extends IRecipeHelper {
     ItemCastingRecipeBuilder.basinRecipe(block)
                             .setFluidAndTime(new FluidStack(fluid.get(), FluidValues.METAL_BLOCK))
                             .build(wrapped, modResource(folder + name + "/block"));
-  }
-
-
-  /* Cast creation */
-
-  /**
-   * Adds recipe to create a cast
-   * @param consumer  Recipe consumer
-   * @param input     Item consumed to create cast
-   * @param cast      Produced cast
-   * @param folder    Output folder
-   */
-  default void castCreation(Consumer<IFinishedRecipe> consumer, INamedTag<Item> input, CastItemObject cast, String folder) {
-    castCreation(consumer, Ingredient.fromTag(input), cast, folder, input.getName().getPath());
-  }
-
-  /**
-   * Adds recipe to create a cast
-   * @param consumer  Recipe consumer
-   * @param input     Item consumed to create cast
-   * @param cast      Produced cast
-   * @param folder    Output folder
-   * @param name      Cast name
-   */
-  default void castCreation(Consumer<IFinishedRecipe> consumer, Ingredient input, CastItemObject cast, String folder, String name) {
-    ItemCastingRecipeBuilder.tableRecipe(cast)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), FluidValues.INGOT))
-                            .setCast(input, true)
-                            .setSwitchSlots()
-                            .build(consumer, modResource(folder + "gold_casts/" + name));
-    MoldingRecipeBuilder.moldingTable(cast.getSand())
-                        .setMaterial(TinkerSmeltery.blankCast.getSand())
-                        .setPattern(input, false)
-                        .build(consumer, modResource(folder + "sand_casts/" + name));
-    MoldingRecipeBuilder.moldingTable(cast.getRedSand())
-                        .setMaterial(TinkerSmeltery.blankCast.getRedSand())
-                        .setPattern(input, false)
-                        .build(consumer, modResource(folder + "red_sand_casts/" + name));
   }
 }

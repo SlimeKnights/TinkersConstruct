@@ -2,15 +2,15 @@
   "type": "tconstruct:alloy",
   "inputs": [
     {
-      "name": "tconstruct:molten_iron",
+      "tag": "tconstruct:molten_iron",
       "amount": 144
     },
     {
-      "name": "tconstruct:sky_slime",
+      "tag": "tconstruct:sky_slime",
       "amount": 250
     },
     {
-      "name": "tconstruct:seared_stone",
+      "tag": "tconstruct:seared_stone",
       "amount": 144
     }
   ],

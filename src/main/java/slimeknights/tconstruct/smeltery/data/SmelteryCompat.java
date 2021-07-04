@@ -45,8 +45,8 @@ public enum SmelteryCompat {
   }
 
   /** Gets teh fluid for this compat */
-  public ForgeFlowingFluid getFluid() {
-    return fluid.get();
+  public FluidObject<?> getFluid() {
+    return fluid;
   }
 
   /** Gets teh bucket for this compat */

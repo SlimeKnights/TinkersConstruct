@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_tin",
+    "tag": "tconstruct:molten_tin",
     "amount": 144
   },
   "result": {

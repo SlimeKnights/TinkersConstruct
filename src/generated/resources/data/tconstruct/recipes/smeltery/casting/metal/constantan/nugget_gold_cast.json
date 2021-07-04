@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "name": "tconstruct:molten_constantan",
+    "tag": "tconstruct:molten_constantan",
     "amount": 16
   },
   "result": {

@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/coin"
   },
   "fluid": {
-    "name": "tconstruct:molten_uranium",
+    "tag": "tconstruct:molten_uranium",
     "amount": 48
   },
   "result": {

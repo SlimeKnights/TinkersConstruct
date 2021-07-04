@@ -11,7 +11,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_zinc",
+    "tag": "tconstruct:molten_zinc",
     "amount": 16
   },
   "result": "create:andesite_alloy",

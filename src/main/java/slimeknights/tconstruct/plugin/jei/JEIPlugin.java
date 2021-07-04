@@ -314,7 +314,7 @@ public class JEIPlugin implements IModPlugin {
     for (SmelteryCompat compat : SmelteryCompat.values()) {
       ITag<Item> ingot = TagCollectionManager.getManager().getItemTags().get(new ResourceLocation("forge", "ingots/" + compat.getName()));
       if (ingot == null || ingot.getAllElements().isEmpty()) {
-        removeFluid(manager, compat.getFluid(), compat.getBucket());
+        removeFluid(manager, compat.getFluid().get(), compat.getBucket());
       }
     }
     if (!ModList.get().isLoaded("ceramics")) {

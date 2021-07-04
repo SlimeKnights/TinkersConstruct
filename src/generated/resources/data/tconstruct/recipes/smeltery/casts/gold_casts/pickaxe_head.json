@@ -7,7 +7,7 @@
   "cast_consumed": true,
   "switch_slots": true,
   "fluid": {
-    "name": "tconstruct:molten_gold",
+    "tag": "tconstruct:molten_gold",
     "amount": 144
   },
   "result": "tconstruct:pickaxe_head_cast",

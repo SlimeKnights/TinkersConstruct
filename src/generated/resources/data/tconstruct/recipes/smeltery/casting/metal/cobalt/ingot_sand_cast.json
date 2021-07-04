@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_cobalt",
+    "tag": "tconstruct:molten_cobalt",
     "amount": 144
   },
   "result": {

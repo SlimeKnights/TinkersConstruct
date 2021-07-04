@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_tungsten",
+    "tag": "tconstruct:molten_tungsten",
     "amount": 16
   },
   "result": {

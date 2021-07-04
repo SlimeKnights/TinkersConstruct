@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_soulsteel",
+    "tag": "tconstruct:molten_soulsteel",
     "amount": 576
   },
   "result": {

@@ -2,11 +2,11 @@
   "type": "tconstruct:alloy",
   "inputs": [
     {
-      "name": "tconstruct:molten_cobalt",
+      "tag": "tconstruct:molten_cobalt",
       "amount": 432
     },
     {
-      "name": "tconstruct:molten_debris",
+      "tag": "tconstruct:molten_debris",
       "amount": 144
     }
   ],

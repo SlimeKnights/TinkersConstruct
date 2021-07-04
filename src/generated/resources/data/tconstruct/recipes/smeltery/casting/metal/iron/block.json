@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "fluid": {
-    "name": "tconstruct:molten_iron",
+    "tag": "tconstruct:molten_iron",
     "amount": 1296
   },
   "result": "minecraft:iron_block",

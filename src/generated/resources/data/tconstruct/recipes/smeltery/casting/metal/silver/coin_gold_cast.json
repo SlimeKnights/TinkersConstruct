@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/coin"
   },
   "fluid": {
-    "name": "tconstruct:molten_silver",
+    "tag": "tconstruct:molten_silver",
     "amount": 48
   },
   "result": {

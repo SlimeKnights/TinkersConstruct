@@ -7,7 +7,7 @@
     }
   ],
   "fluid": {
-    "name": "tconstruct:molten_porcelain",
+    "tag": "tconstruct:molten_porcelain",
     "amount": 1000
   },
   "result": "ceramics:white_porcelain",

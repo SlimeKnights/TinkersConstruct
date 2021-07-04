@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_aluminum",
+    "tag": "tconstruct:molten_aluminum",
     "amount": 72
   },
   "result": {

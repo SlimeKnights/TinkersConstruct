@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/coin"
   },
   "fluid": {
-    "name": "tconstruct:molten_tin",
+    "tag": "tconstruct:molten_tin",
     "amount": 48
   },
   "result": {

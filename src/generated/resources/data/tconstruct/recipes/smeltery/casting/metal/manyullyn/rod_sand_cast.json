@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_manyullyn",
+    "tag": "tconstruct:molten_manyullyn",
     "amount": 72
   },
   "result": {

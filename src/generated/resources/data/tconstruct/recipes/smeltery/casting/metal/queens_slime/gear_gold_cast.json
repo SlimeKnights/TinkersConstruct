@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/gear"
   },
   "fluid": {
-    "name": "tconstruct:molten_queens_slime",
+    "tag": "tconstruct:molten_queens_slime",
     "amount": 576
   },
   "result": {

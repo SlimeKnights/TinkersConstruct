@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 /**
  * Interface for tool and part crafting recipes
  */
-public interface IToolRecipeHelper extends IRecipeHelper, ISmelteryRecipeHelper {
+public interface IToolRecipeHelper extends ICastCreationHelper {
 
   /**
    * Registers recipe for tool building

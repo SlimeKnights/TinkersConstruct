@@ -4,7 +4,7 @@
     "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
-    "name": "tconstruct:molten_gold",
+    "tag": "tconstruct:molten_gold",
     "amount": 144
   },
   "result": "minecraft:gold_ingot",

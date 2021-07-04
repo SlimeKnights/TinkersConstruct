@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/gear"
   },
   "fluid": {
-    "name": "tconstruct:molten_tinkers_bronze",
+    "tag": "tconstruct:molten_tinkers_bronze",
     "amount": 576
   },
   "result": {

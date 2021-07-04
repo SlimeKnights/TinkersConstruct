@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/gear"
   },
   "fluid": {
-    "name": "tconstruct:molten_knightslime",
+    "tag": "tconstruct:molten_knightslime",
     "amount": 576
   },
   "result": {

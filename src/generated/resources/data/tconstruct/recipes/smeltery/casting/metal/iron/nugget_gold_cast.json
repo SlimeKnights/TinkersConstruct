@@ -4,7 +4,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "name": "tconstruct:molten_iron",
+    "tag": "tconstruct:molten_iron",
     "amount": 16
   },
   "result": "minecraft:iron_nugget",

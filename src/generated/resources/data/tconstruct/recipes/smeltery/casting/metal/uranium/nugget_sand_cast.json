@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_uranium",
+    "tag": "tconstruct:molten_uranium",
     "amount": 16
   },
   "result": {

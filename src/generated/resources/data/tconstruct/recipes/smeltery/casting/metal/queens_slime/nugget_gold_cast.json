@@ -4,7 +4,7 @@
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "fluid": {
-    "name": "tconstruct:molten_queens_slime",
+    "tag": "tconstruct:molten_queens_slime",
     "amount": 16
   },
   "result": "tconstruct:queens_slime_nugget",

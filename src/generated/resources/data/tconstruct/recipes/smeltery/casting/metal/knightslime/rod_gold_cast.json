@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/rod"
   },
   "fluid": {
-    "name": "tconstruct:molten_knightslime",
+    "tag": "tconstruct:molten_knightslime",
     "amount": 72
   },
   "result": {

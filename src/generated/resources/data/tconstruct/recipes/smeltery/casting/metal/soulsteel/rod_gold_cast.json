@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/rod"
   },
   "fluid": {
-    "name": "tconstruct:molten_soulsteel",
+    "tag": "tconstruct:molten_soulsteel",
     "amount": 72
   },
   "result": {

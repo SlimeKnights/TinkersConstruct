@@ -14,7 +14,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_gold",
+    "tag": "tconstruct:molten_gold",
     "amount": 48
   },
   "result": {

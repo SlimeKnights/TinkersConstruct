@@ -4,7 +4,7 @@
     "tag": "tconstruct:casts/multi_use/ingot"
   },
   "fluid": {
-    "name": "tconstruct:molten_slimesteel",
+    "tag": "tconstruct:molten_slimesteel",
     "amount": 144
   },
   "result": "tconstruct:slimesteel_ingot",

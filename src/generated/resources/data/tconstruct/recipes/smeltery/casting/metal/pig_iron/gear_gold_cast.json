@@ -13,7 +13,7 @@
     "tag": "tconstruct:casts/multi_use/gear"
   },
   "fluid": {
-    "name": "tconstruct:molten_pig_iron",
+    "tag": "tconstruct:molten_pig_iron",
     "amount": 576
   },
   "result": {

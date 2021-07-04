@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_iron",
+    "tag": "tconstruct:molten_iron",
     "amount": 144
   },
   "result": "minecraft:iron_ingot",

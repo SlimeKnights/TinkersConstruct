@@ -2,15 +2,15 @@
   "type": "tconstruct:alloy",
   "inputs": [
     {
-      "name": "tconstruct:molten_copper",
+      "tag": "tconstruct:molten_copper",
       "amount": 288
     },
     {
-      "name": "tconstruct:molten_cobalt",
+      "tag": "tconstruct:molten_cobalt",
       "amount": 144
     },
     {
-      "name": "tconstruct:molten_obsidian",
+      "tag": "tconstruct:molten_obsidian",
       "amount": 1000
     }
   ],
