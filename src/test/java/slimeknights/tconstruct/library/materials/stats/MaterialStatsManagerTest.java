@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.materials.stats;
 
 import org.junit.jupiter.api.Test;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.MergingJsonFileLoader;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 import java.util.Optional;
@@ -21,7 +21,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   void testLoadFile_statsExist() {
     materialStatsManager.registerMaterialStat(new ComplexTestStats(STATS_ID_SIMPLE), ComplexTestStats.class);
 
-    MaterialId material = new MaterialId(Util.getResource("teststat"));
+    MaterialId material = new MaterialId(TConstruct.getResource("teststat"));
     fileLoader.loadAndParseFiles(null, material);
 
     Optional<BaseMaterialStats> optionalStats = materialStatsManager.getStats(material, STATS_ID_SIMPLE);
@@ -32,7 +32,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   void testLoadFile_complexStats() {
     materialStatsManager.registerMaterialStat(new ComplexTestStats(STATS_ID_SIMPLE), ComplexTestStats.class);
 
-    MaterialId material = new MaterialId(Util.getResource("teststat"));
+    MaterialId material = new MaterialId(TConstruct.getResource("teststat"));
     fileLoader.loadAndParseFiles(null, material);
 
     Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(material, STATS_ID_SIMPLE);
@@ -45,7 +45,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   @Test
   void testLoadFile_multipleStatsInOneFile() {
-    MaterialId material = new MaterialId(Util.getResource("multiple"));
+    MaterialId material = new MaterialId(TConstruct.getResource("multiple"));
     MaterialStatsId statId1 = new MaterialStatsId("test", "stat1");
     materialStatsManager.registerMaterialStat(new ComplexTestStats(statId1), ComplexTestStats.class);
     MaterialStatsId statId2 = new MaterialStatsId("test", "stat2");
@@ -59,7 +59,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   @Test
   void testLoadFileWithEmptyStats_ok() {
-    MaterialId material = new MaterialId(Util.getResource("empty"));
+    MaterialId material = new MaterialId(TConstruct.getResource("empty"));
     fileLoader.loadAndParseFiles(null, material);
 
     // ensure that we get this far and that querying the missing material causes no errors
@@ -69,7 +69,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   @Test
   void testLoadFileWithoutStats_ok() {
-    MaterialId material = new MaterialId(Util.getResource("missing_stats"));
+    MaterialId material = new MaterialId(TConstruct.getResource("missing_stats"));
     fileLoader.loadAndParseFiles(null, material);
 
     // ensure that we get this far and that querying the missing material causes no errors
@@ -83,7 +83,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
     materialStatsManager.registerMaterialStat(new ComplexTestStats(STATS_ID_SIMPLE), ComplexTestStats.class);
     materialStatsManager.registerMaterialStat(new ComplexTestStats(otherStatId), ComplexTestStats.class);
 
-    MaterialId material = new MaterialId(Util.getResource("teststat"));
+    MaterialId material = new MaterialId(TConstruct.getResource("teststat"));
     fileLoader.loadAndParseFiles("extrastats", material);
 
     assertThat(materialStatsManager.getStats(material, STATS_ID_SIMPLE)).isNotEmpty();
@@ -96,7 +96,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   void testLoadMultipleFiles_addSameStatsFromDifferentSources_useFirst() {
     materialStatsManager.registerMaterialStat(new ComplexTestStats(STATS_ID_SIMPLE), ComplexTestStats.class);
 
-    MaterialId material = new MaterialId(Util.getResource("teststat"));
+    MaterialId material = new MaterialId(TConstruct.getResource("teststat"));
     fileLoader.loadAndParseFiles("duplicate", material);
 
     Optional<ComplexTestStats> stats = materialStatsManager.getStats(material, STATS_ID_SIMPLE);
@@ -106,7 +106,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   @Test
   void loadMissingFile_ignored() {
-    MaterialId material = new MaterialId(Util.getResource("nonexistant"));
+    MaterialId material = new MaterialId(TConstruct.getResource("nonexistant"));
     fileLoader.loadAndParseFiles(null);
 
     // ensure that we get this far and that querying the missing material causes no errors
@@ -116,7 +116,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   @Test
   void loadFileWithOnlyUnregisteredStats_doNothing() {
-    MaterialId material = new MaterialId(Util.getResource("invalid"));
+    MaterialId material = new MaterialId(TConstruct.getResource("invalid"));
     fileLoader.loadAndParseFiles(null, material);
 
     Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(material, new MaterialStatsId("test", "fails"));

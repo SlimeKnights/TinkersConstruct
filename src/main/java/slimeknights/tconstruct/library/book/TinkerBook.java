@@ -5,7 +5,7 @@ import slimeknights.mantle.client.book.BookLoader;
 import slimeknights.mantle.client.book.BookTransformer;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.repository.FileRepository;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.book.content.ContentImageText2;
 import slimeknights.tconstruct.library.book.content.ContentIndex;
 import slimeknights.tconstruct.library.book.content.ContentMaterial;
@@ -19,12 +19,12 @@ import slimeknights.tconstruct.library.book.sectiontransformer.materials.TieredM
 import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 
 public class TinkerBook extends BookData {
-  private static final ResourceLocation MATERIALS_BOOK_ID = Util.getResource("materials_and_you");
-  private static final ResourceLocation MIGHTY_SMELTING_ID = Util.getResource("mighty_smelting");
-  private static final ResourceLocation PUNY_SMELTING_ID = Util.getResource("puny_smelting");
-  private static final ResourceLocation TINKERS_GADGETRY_ID = Util.getResource("tinkers_gadgetry");
-  private static final ResourceLocation FANTASTIC_FOUNDRY_ID = Util.getResource("fantastic_foundry");
-  private static final ResourceLocation ENCYCLOPEDIA_ID = Util.getResource("encyclopedia");
+  private static final ResourceLocation MATERIALS_BOOK_ID = TConstruct.getResource("materials_and_you");
+  private static final ResourceLocation MIGHTY_SMELTING_ID = TConstruct.getResource("mighty_smelting");
+  private static final ResourceLocation PUNY_SMELTING_ID = TConstruct.getResource("puny_smelting");
+  private static final ResourceLocation TINKERS_GADGETRY_ID = TConstruct.getResource("tinkers_gadgetry");
+  private static final ResourceLocation FANTASTIC_FOUNDRY_ID = TConstruct.getResource("fantastic_foundry");
+  private static final ResourceLocation ENCYCLOPEDIA_ID = TConstruct.getResource("encyclopedia");
 
   public final static BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID.toString(), false, false);
   public final static BookData PUNY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);

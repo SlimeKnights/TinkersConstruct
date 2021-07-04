@@ -10,7 +10,6 @@ import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -24,7 +23,7 @@ import java.util.Set;
 /** Logic to check various modifier recipe based properties */
 public class ModifierRecipeLookup {
   /** Key of default error message, in case an error message for a modifier requirement is missing */
-  public static final String DEFAULT_ERROR_KEY = Util.makeTranslationKey("recipe", "modifier.requirements_error");
+  public static final String DEFAULT_ERROR_KEY = TConstruct.makeTranslationKey("recipe", "modifier.requirements_error");
 
   /** Set of all modifier input items for the chest */
   private static final Set<Item> MODIFIERS = new HashSet<>();
@@ -142,7 +141,7 @@ public class ModifierRecipeLookup {
     if (INCREMENTAL_PER_LEVEL.containsKey(modifier)) {
       int original = INCREMENTAL_PER_LEVEL.getInt(modifier);
       if (original != neededPerLevel) {
-        TConstruct.log.warn("Inconsistent amount needed per level for {}, originally {}, newest {}, keeping largest", modifier, original, neededPerLevel);
+        TConstruct.LOG.warn("Inconsistent amount needed per level for {}, originally {}, newest {}, keeping largest", modifier, original, neededPerLevel);
       }
       // keep largest as that will make it most accurate towards the larger recipe
       if (neededPerLevel > original) {

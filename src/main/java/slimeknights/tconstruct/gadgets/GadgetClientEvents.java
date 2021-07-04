@@ -3,7 +3,6 @@ package slimeknights.tconstruct.gadgets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -19,7 +18,7 @@ import slimeknights.tconstruct.gadgets.client.RenderShuriken;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
+@EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
 public class GadgetClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerModels(ModelRegistryEvent event) {
@@ -33,8 +32,8 @@ public class GadgetClientEvents extends ClientEventBase {
     //}
 
     for (FrameType frameType : FrameType.values()) {
-      ModelLoader.addSpecialModel(new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getString() + "_frame_empty"), "inventory"));
-      ModelLoader.addSpecialModel(new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getString() + "_frame_map"), "inventory"));
+      ModelLoader.addSpecialModel(new ModelResourceLocation(TConstruct.getResource(frameType.getString() + "_frame_empty"), "inventory"));
+      ModelLoader.addSpecialModel(new ModelResourceLocation(TConstruct.getResource(frameType.getString() + "_frame_map"), "inventory"));
     }
   }
 

@@ -20,12 +20,12 @@ import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.SizedIngredient;
 import slimeknights.mantle.recipe.ingredient.IngredientIntersection;
 import slimeknights.mantle.recipe.ingredient.IngredientWithout;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipeBuilder;
@@ -66,11 +66,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // reinforcements
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.ironReinforcement)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.NUGGET * 3))
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenIron.get(), FluidValues.NUGGET * 3))
                             .setCast(TinkerCommons.obsidianPane, true)
                             .build(consumer, prefix(TinkerModifiers.ironReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.slimesteelReinforcement)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenSlimesteel.get(), MaterialValues.NUGGET * 3))
+                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenSlimesteel.get(), FluidValues.NUGGET * 3))
                             .setCast(TinkerCommons.obsidianPane, true)
                             .build(consumer, prefix(TinkerModifiers.slimesteelReinforcement, folder));
 
@@ -142,7 +142,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .setUpgradeSlots(1)
                          .setRequirements(ModifierMatch.list(1, ModifierMatch.entry(TinkerModifiers.diamond.get()), ModifierMatch.entry(TinkerModifiers.emerald.get())))
-                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.netherite_requirements"))
+                         .setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.netherite_requirements"))
                          .build(consumer, prefix(TinkerModifiers.netherite, upgradeFolder));
 
     // overslime
@@ -357,7 +357,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.ENDER_PEARLS)
                          .addInput(Tags.Items.ENDER_PEARLS)
                          .setRequirements(ModifierMatch.entry(TinkerModifiers.luck.get(), 1))
-                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.luck.level_2"))
+                         .setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.luck.level_2"))
                          .setMaxLevel(2)
                          .build(consumer, wrap(TinkerModifiers.luck, abilityFolder, "_level_2"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
@@ -368,7 +368,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.GEMS_DIAMOND)
                          .addInput(Items.NAME_TAG)
                          .setRequirements(ModifierMatch.entry(TinkerModifiers.luck.get(), 2))
-                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.luck.level_3"))
+                         .setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.luck.level_3"))
                          .setMaxLevel(3)
                          .build(consumer, wrap(TinkerModifiers.luck, abilityFolder, "_level_3"));
     // silky: all the cloth
@@ -492,7 +492,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
                          .setRequirements(ModifierMatch.list(2, ModifierMatch.entry(TinkerModifiers.netherite.get(), 1), ModifierMatch.entry(TinkerModifiers.reinforced.get(), 5)))
-                         .setRequirementsError(Util.makeTranslationKey("recipe", "modifier.unbreakable_requirements"))
+                         .setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.unbreakable_requirements"))
                          .build(consumer, prefix(TinkerModifiers.unbreakable, abilityFolder));
     // weapon
     ModifierRecipeBuilder.modifier(TinkerModifiers.duelWielding.get())

@@ -9,12 +9,12 @@ import com.google.gson.JsonSyntaxException;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.data.MergingJsonDataLoader;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialTraitsJson;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Arrays;
 import java.util.Collections;

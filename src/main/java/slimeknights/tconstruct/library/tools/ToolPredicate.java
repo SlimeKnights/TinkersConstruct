@@ -19,10 +19,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags.Items;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMatch;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -37,7 +37,7 @@ import java.util.function.Function;
 /** Variant of ItemPredicate for matching Tinker tools */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToolPredicate extends ItemPredicate {
-  public static final ResourceLocation ID = Util.getResource("tool");
+  public static final ResourceLocation ID = TConstruct.getResource("tool");
 
   @Nullable
   protected final Item item;

@@ -9,7 +9,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
@@ -33,7 +33,7 @@ public class MeltingModifier extends TankModifier {
   private static final MeltingInventory inventory = new MeltingInventory();
 
   public MeltingModifier() {
-    super(0xFFD800, MaterialValues.METAL_BLOCK);
+    super(0xFFD800, FluidValues.METAL_BLOCK);
   }
 
   @Override

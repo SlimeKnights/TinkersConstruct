@@ -14,11 +14,11 @@ import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.book.content.ContentPageIconList;
 import slimeknights.tconstruct.library.book.sectiontransformer.SectionTransformer;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.tools.TinkerToolParts;
@@ -67,7 +67,7 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
         displayStacks.addAll(recipe.getDisplayItems());
       }
       if (displayStacks.isEmpty()) {
-        TConstruct.log.debug("Material with id " + material.getIdentifier() + " has no representation items associated with it, using repair kit");
+        TConstruct.LOG.debug("Material with id " + material.getIdentifier() + " has no representation items associated with it, using repair kit");
         // bypass the valid check, because we need to show something
         displayStacks.add(TinkerToolParts.repairKit.get().withMaterialForDisplay(material.getIdentifier()));
       }

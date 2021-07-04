@@ -159,7 +159,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       if (index != -1) {
         inv.shrinkInput(index, ingredient.getAmountNeeded());
       } else {
-        TConstruct.log.warn("Missing ingredient in modifier recipe input consume");
+        TConstruct.LOG.warn("Missing ingredient in modifier recipe input consume");
       }
     }
   }

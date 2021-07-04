@@ -27,9 +27,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.JEIPlugin;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
@@ -45,10 +45,10 @@ import java.util.stream.Stream;
  * Entity melting display in JEI
  */
 public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltingRecipe> {
-  public static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/melting.png");
-  private static final String KEY_TITLE = Util.makeTranslationKey("jei", "entity_melting.title");
-  private static final String KEY_PER_HEARTS = Util.makeTranslationKey("jei", "entity_melting.per_hearts");
-  private static final ITextComponent TOOLTIP_PER_HEART = new TranslationTextComponent(Util.makeTranslationKey("jei", "entity_melting.per_heart")).mergeStyle(TextFormatting.GRAY);
+  public static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/melting.png");
+  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "entity_melting.title");
+  private static final String KEY_PER_HEARTS = TConstruct.makeTranslationKey("jei", "entity_melting.per_hearts");
+  private static final ITextComponent TOOLTIP_PER_HEART = new TranslationTextComponent(TConstruct.makeTranslationKey("jei", "entity_melting.per_heart")).mergeStyle(TextFormatting.GRAY);
 
   private static final Int2ObjectMap<ITooltipCallback<FluidStack>> TOOLTIP_MAP = new Int2ObjectOpenHashMap<>();
 
@@ -121,7 +121,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     // output
     IGuiFluidStackGroup fluids = layout.getFluidStacks();
     fluids.addTooltipCallback(TOOLTIP_MAP.computeIfAbsent(recipe.getDamage(), FluidTooltip::new));
-    fluids.init(1, false, 115, 11, 16, 32, MaterialValues.INGOT, false, null);
+    fluids.init(1, false, 115, 11, 16, 32, FluidValues.INGOT, false, null);
     fluids.set(ingredients);
 
     // show fuels that are valid for this recipe

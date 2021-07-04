@@ -1,8 +1,7 @@
 package slimeknights.tconstruct.library.exception;
 
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.TinkerAPIException;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 
 public class TinkerAPIMaterialException extends TinkerAPIException {
 

@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.util.Collections;

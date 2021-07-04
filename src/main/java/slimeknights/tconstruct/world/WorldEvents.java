@@ -36,7 +36,7 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-@Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WorldEvents {
   @SubscribeEvent
   static void onBiomeLoad(BiomeLoadingEvent event) {
@@ -112,7 +112,7 @@ public class WorldEvents {
         lootEntries.setAccessible(true);
         foundField = true;
       } catch (UnableToFindFieldException ex) {
-        TConstruct.log.error("Failed to find field", ex);
+        TConstruct.LOG.error("Failed to find field", ex);
         foundField = true;
         return;
       }
@@ -125,7 +125,7 @@ public class WorldEvents {
         entries.add(entry);
       }
     } catch (IllegalAccessException|ClassCastException ex) {
-      TConstruct.log.error("Failed to access field", ex);
+      TConstruct.LOG.error("Failed to access field", ex);
       lootEntries = null;
     }
   }

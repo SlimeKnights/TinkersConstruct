@@ -8,11 +8,10 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.mantle.tileentity.InventoryTileEntity;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
 
@@ -82,7 +81,7 @@ public abstract class TableTileEntity extends InventoryTileEntity {
    * @param player the player
    */
   protected void playCraftSound(PlayerEntity player) {
-    SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
+    SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.getEntityWorld().rand.nextFloat());
   }
 
   /**

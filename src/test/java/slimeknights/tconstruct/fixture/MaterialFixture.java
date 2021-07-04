@@ -3,9 +3,9 @@ package slimeknights.tconstruct.fixture;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.TestMaterial;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.Material;
+import slimeknights.tconstruct.library.materials.definition.TestMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 
 import java.util.List;

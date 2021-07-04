@@ -10,8 +10,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants.NBT;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
@@ -30,11 +30,11 @@ import java.util.stream.Collectors;
 /** Shared logic between modifier and incremental modifier recipes */
 public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
   /** Error for when the tool is at the max modifier level */
-  protected static final String KEY_MAX_LEVEL = Util.makeTranslationKey("recipe", "modifier.max_level");
+  protected static final String KEY_MAX_LEVEL = TConstruct.makeTranslationKey("recipe", "modifier.max_level");
   /** Error for when the tool has too few upgrade slots */
-  protected static final String KEY_NOT_ENOUGH_UPGRADES = Util.makeTranslationKey("recipe", "modifier.not_enough_upgrades");
+  protected static final String KEY_NOT_ENOUGH_UPGRADES = TConstruct.makeTranslationKey("recipe", "modifier.not_enough_upgrades");
   /** Error for when the tool has too few ability slots */
-  protected static final String KEY_NOT_ENOUGH_ABILITIES = Util.makeTranslationKey("recipe", "modifier.not_enough_abilities");
+  protected static final String KEY_NOT_ENOUGH_ABILITIES = TConstruct.makeTranslationKey("recipe", "modifier.not_enough_abilities");
   /** Generic requirements error, for if a proper error is missing */
   protected static final ValidatedResult REQUIREMENTS_ERROR = ValidatedResult.failure(ModifierRecipeLookup.DEFAULT_ERROR_KEY);
 

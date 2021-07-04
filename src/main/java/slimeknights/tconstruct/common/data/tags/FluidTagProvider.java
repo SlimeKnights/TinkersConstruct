@@ -11,7 +11,7 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 public class FluidTagProvider extends FluidTagsProvider {
 
   public FluidTagProvider(DataGenerator generatorIn, ExistingFileHelper helper) {
-    super(generatorIn, TConstruct.modID, helper);
+    super(generatorIn, TConstruct.MOD_ID, helper);
   }
 
   @Override

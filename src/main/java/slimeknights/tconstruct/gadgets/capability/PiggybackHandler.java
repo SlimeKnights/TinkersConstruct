@@ -9,9 +9,8 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 

@@ -11,7 +11,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import slimeknights.mantle.item.ArmorTooltipItem;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class SlimeBootsItem extends ArmorTooltipItem {
@@ -60,7 +60,7 @@ public class SlimeBootsItem extends ArmorTooltipItem {
 
     @Override
     public String getName() {
-      return Util.resource(name);
+      return TConstruct.resourceString(name);
     }
 
     @Override

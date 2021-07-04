@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common;
 
+import lombok.Getter;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -7,7 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
 
-@Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public enum Sounds {
   SAW("little_saw"),
   FRYING_PAN_BOING("frypan_hit"),
@@ -19,15 +20,12 @@ public enum Sounds {
   WOOD_HIT("wood_hit"),
   CROSSBOW_RELOAD("crossbow_reload");
 
-  private SoundEvent sound;
+  @Getter
+  private final SoundEvent sound;
 
   Sounds(String name) {
-    ResourceLocation loc = new ResourceLocation(TConstruct.modID, name);
-    sound = new SoundEvent(loc).setRegistryName(name);
-  }
-
-  public SoundEvent getSound() {
-    return sound;
+    ResourceLocation registryName = TConstruct.getResource(name);
+    sound = new SoundEvent(registryName).setRegistryName(registryName);
   }
 
   @SubscribeEvent

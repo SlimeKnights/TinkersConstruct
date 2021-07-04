@@ -10,13 +10,13 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
 
 /** Capability logic */
 public class PiggybackCapability implements Capability.IStorage<PiggybackHandler> {
-  private static final ResourceLocation ID = Util.getResource("piggyback");
+  private static final ResourceLocation ID = TConstruct.getResource("piggyback");
   @CapabilityInject(PiggybackHandler.class)
   public static Capability<PiggybackHandler> PIGGYBACK = null;
 

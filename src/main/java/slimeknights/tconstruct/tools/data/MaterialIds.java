@@ -2,8 +2,8 @@ package slimeknights.tconstruct.tools.data;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MaterialIds {
@@ -65,6 +65,6 @@ public final class MaterialIds {
    * @return  Material ID object
    */
   private static MaterialId id(String name) {
-    return new MaterialId(Util.getResource(name));
+    return new MaterialId(TConstruct.MOD_ID, name);
   }
 }

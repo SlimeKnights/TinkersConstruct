@@ -5,8 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
@@ -20,11 +20,11 @@ import java.util.stream.Collectors;
 public final class ToolBuildHandler {
   public static final String KEY_DISPLAY_TOOL = "tic_display_tool";
   private static final List<MaterialId> RENDER_MATERIALS = Arrays.asList(
-    new MaterialId(TConstruct.modID, "ui_render_head"),
-    new MaterialId(TConstruct.modID, "ui_render_handle"),
-    new MaterialId(TConstruct.modID, "ui_render_extra"),
-    new MaterialId(TConstruct.modID, "ui_render_large"),
-    new MaterialId(TConstruct.modID, "ui_render_extra_large"));
+    new MaterialId(TConstruct.MOD_ID, "ui_render_head"),
+    new MaterialId(TConstruct.MOD_ID, "ui_render_handle"),
+    new MaterialId(TConstruct.MOD_ID, "ui_render_extra"),
+    new MaterialId(TConstruct.MOD_ID, "ui_render_large"),
+    new MaterialId(TConstruct.MOD_ID, "ui_render_extra_large"));
 
   /**
    * Builds an ItemStack of this tool with the given materials from the ItemStacks, if possible.

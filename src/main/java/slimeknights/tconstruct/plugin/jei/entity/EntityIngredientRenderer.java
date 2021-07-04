@@ -65,7 +65,7 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
             InventoryScreen.drawEntityOnScreen(x + size / 2, y + size, scale, 0, 10, livingEntity);
             return;
           } catch (Exception e) {
-            TConstruct.log.error("Error drawing entity " + type.getRegistryName(), e);
+            TConstruct.LOG.error("Error drawing entity " + type.getRegistryName(), e);
             IGNORED_ENTITIES.add(type);
             ENTITY_MAP.remove(type);
           }

@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.free;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -16,13 +16,13 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import javax.annotation.Nullable;
 
 public class OverslimeModifier extends SingleUseModifier {
-  private static final String KEY_OVERSLIME_AMOUNT = Util.makeTranslationKey("gui", "amount");
+  private static final String KEY_OVERSLIME_AMOUNT = TConstruct.makeTranslationKey("gui", "amount");
   /** Key for remaining overslime on a tool */
-  private static final ResourceLocation KEY_OVERSLIME = Util.getResource("overslime");
+  private static final ResourceLocation KEY_OVERSLIME = TConstruct.getResource("overslime");
   /** Key for max overslime on a tool */
-  private static final ResourceLocation KEY_OVERSLIME_CAP = Util.getResource("overslime_cap");
+  private static final ResourceLocation KEY_OVERSLIME_CAP = TConstruct.getResource("overslime_cap");
   /** Key marking another modifier as an overslime "friend". If no friends exist, overslime causes some debuffs */
-  private static final ResourceLocation KEY_OVERSLIME_FRIEND = Util.getResource("overslime_friend");
+  private static final ResourceLocation KEY_OVERSLIME_FRIEND = TConstruct.getResource("overslime_friend");
 
   public OverslimeModifier() {
     super(0x71DC85);

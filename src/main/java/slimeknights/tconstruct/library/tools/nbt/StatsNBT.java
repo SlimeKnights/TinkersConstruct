@@ -81,7 +81,7 @@ public class StatsNBT {
             builder.put(stat, nbt.getFloat(key));
           } else if (!ERRORED_IDS.contains(statName)) {
             ERRORED_IDS.add(statName);
-            TConstruct.log.error("Ignoring unknown stat " + statName + " in tool stat NBT");
+            TConstruct.LOG.error("Ignoring unknown stat " + statName + " in tool stat NBT");
           }
         }
       }

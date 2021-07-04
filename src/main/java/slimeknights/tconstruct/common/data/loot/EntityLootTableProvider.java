@@ -23,7 +23,7 @@ public class EntityLootTableProvider extends EntityLootTables {
   @Override
   protected Iterable<EntityType<?>> getKnownEntities() {
     return ForgeRegistries.ENTITIES.getValues().stream()
-                                   .filter((block) -> TConstruct.modID.equals(Objects.requireNonNull(block.getRegistryName()).getNamespace()))
+                                   .filter((block) -> TConstruct.MOD_ID.equals(Objects.requireNonNull(block.getRegistryName()).getNamespace()))
                                    .collect(Collectors.toList());
   }
 

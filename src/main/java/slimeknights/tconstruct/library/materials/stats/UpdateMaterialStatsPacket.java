@@ -6,9 +6,9 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;

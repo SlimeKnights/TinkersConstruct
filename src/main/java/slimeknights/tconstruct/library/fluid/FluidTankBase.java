@@ -4,7 +4,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.tileentity.MantleTileEntity;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 
 public class FluidTankBase<T extends MantleTileEntity> extends FluidTank {

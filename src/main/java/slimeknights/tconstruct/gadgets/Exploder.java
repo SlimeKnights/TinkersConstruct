@@ -23,8 +23,8 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.gadgets.entity.EFLNExplosion;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 
 import java.util.Collections;

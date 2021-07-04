@@ -27,7 +27,7 @@ import slimeknights.tconstruct.world.client.TinkerSlimeRenderer;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
+@EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
 public class WorldClientEvents extends ClientEventBase {
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor

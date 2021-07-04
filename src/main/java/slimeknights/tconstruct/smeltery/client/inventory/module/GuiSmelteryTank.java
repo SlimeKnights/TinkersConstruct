@@ -7,10 +7,10 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClickedPacket;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
 
@@ -25,9 +25,9 @@ import java.util.function.BiConsumer;
 @RequiredArgsConstructor
 public class GuiSmelteryTank {
   // fluid tooltips
-  public static final String TOOLTIP_CAPACITY = Util.makeTranslationKey("gui", "melting.capacity");
-  public static final String TOOLTIP_AVAILABLE = Util.makeTranslationKey("gui", "melting.available");
-  public static final String TOOLTIP_USED = Util.makeTranslationKey("gui", "melting.used");
+  public static final String TOOLTIP_CAPACITY = TConstruct.makeTranslationKey("gui", "melting.capacity");
+  public static final String TOOLTIP_AVAILABLE = TConstruct.makeTranslationKey("gui", "melting.available");
+  public static final String TOOLTIP_USED = TConstruct.makeTranslationKey("gui", "melting.used");
 
   private final ContainerScreen<?> parent;
   private final SmelteryTank tank;

@@ -10,12 +10,12 @@ import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
 @NoArgsConstructor
 public class BlockOrEntityCondition implements ILootCondition {
-  public static final ResourceLocation ID = Util.getResource("block_or_entity");
+  public static final ResourceLocation ID = TConstruct.getResource("block_or_entity");
   public static final BlockOrEntityCondition INSTANCE = new BlockOrEntityCondition();
   public static final Serializer SERIALIZER = new Serializer();
 

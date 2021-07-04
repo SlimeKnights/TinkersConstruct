@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.Util;
 
 /**
  * A simple material class without stats.

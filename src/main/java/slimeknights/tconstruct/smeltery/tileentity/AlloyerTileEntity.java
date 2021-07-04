@@ -16,10 +16,10 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.tileentity.NamableTileEntity;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
@@ -37,7 +37,7 @@ import java.util.Collections;
  */
 public class AlloyerTileEntity extends NamableTileEntity implements ITankTileEntity, ITickableTileEntity {
   /** Max capacity for the tank */
-  private static final int TANK_CAPACITY = MaterialValues.METAL_BLOCK * 3;
+  private static final int TANK_CAPACITY = FluidValues.METAL_BLOCK * 3;
 
   /** Tank for this mixer */
   @Getter
@@ -67,7 +67,7 @@ public class AlloyerTileEntity extends NamableTileEntity implements ITankTileEnt
   }
 
   protected AlloyerTileEntity(TileEntityType<?> type) {
-    super(type, Util.makeTranslation("gui", "alloyer"));
+    super(type, TConstruct.makeTranslation("gui", "alloyer"));
   }
 
   /*

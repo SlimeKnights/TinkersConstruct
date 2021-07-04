@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -31,7 +31,7 @@ import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
-  private static final ValidatedResult BROKEN = ValidatedResult.failure(Util.makeTranslationKey("recipe", "damaging.broken"));
+  private static final ValidatedResult BROKEN = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "damaging.broken"));
 
   @Getter
   private final ResourceLocation id;

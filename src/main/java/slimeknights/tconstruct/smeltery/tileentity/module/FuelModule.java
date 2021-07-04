@@ -27,7 +27,7 @@ import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
-import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.NBTUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -164,7 +164,7 @@ public class FuelModule implements IIntArray {
             temperature = SOLID_TEMPERATURE;
             parent.markDirtyFast();
           } else {
-            TConstruct.log.error("Invalid item removed from solid fuel handler");
+            TConstruct.LOG.error("Invalid item removed from solid fuel handler");
           }
         }
         return SOLID_TEMPERATURE;
@@ -196,7 +196,7 @@ public class FuelModule implements IIntArray {
         if (consume) {
           FluidStack drained = handler.drain(new FluidStack(fluid, amount), FluidAction.EXECUTE);
           if (drained.getAmount() != amount) {
-            TConstruct.log.error("Invalid amount of fuel drained from tank");
+            TConstruct.LOG.error("Invalid amount of fuel drained from tank");
           }
           fuel += recipe.getDuration();
           fuelQuality = recipe.getDuration();
@@ -313,7 +313,7 @@ public class FuelModule implements IIntArray {
       temperature = nbt.getInt(TAG_TEMPERATURE);
     }
     if (nbt.contains(TAG_LAST_FUEL, NBT.TAG_ANY_NUMERIC)) {
-      lastPos = TagUtil.readPos(nbt, TAG_LAST_FUEL);
+      lastPos = NBTUtil.readPos(nbt, TAG_LAST_FUEL);
     }
   }
 
@@ -327,7 +327,7 @@ public class FuelModule implements IIntArray {
     nbt.putInt(TAG_TEMPERATURE, temperature);
     // technically unneeded for melters, but does not hurt to add
     if (lastPos != null) {
-      nbt.put(TAG_LAST_FUEL, TagUtil.writePos(lastPos));
+      nbt.put(TAG_LAST_FUEL, NBTUtil.writePos(lastPos));
     }
     return nbt;
   }

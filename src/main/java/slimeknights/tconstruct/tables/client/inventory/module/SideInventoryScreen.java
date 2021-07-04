@@ -14,7 +14,7 @@ import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
 import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 
 public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Container> extends ModuleScreen<P,C> {
 
@@ -37,7 +37,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Conta
   protected ElementScreen sliderBottom = GenericScreen.sliderBottom;
   protected ScalableElementScreen sliderBackground = GenericScreen.sliderBackground;
 
-  protected static final ResourceLocation GENERIC_INVENTORY = Util.getResource("textures/gui/generic.png");
+  protected static final ResourceLocation GENERIC_INVENTORY = TConstruct.getResource("textures/gui/generic.png");
 
   protected BorderWidget border = new BorderWidget();
 

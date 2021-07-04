@@ -25,10 +25,10 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 
 import java.awt.Color;
@@ -38,10 +38,10 @@ import java.util.List;
 public abstract class AbstractCastingCategory implements IRecipeCategory<IDisplayableCastingRecipe>, ITooltipCallback<FluidStack> {
   private static final int INPUT_SLOT = 0;
   private static final int OUTPUT_SLOT = 1;
-  private static final String KEY_COOLING_TIME = Util.makeTranslationKey("jei", "time");
-  private static final String KEY_CAST_KEPT = Util.makeTranslationKey("jei", "casting.cast_kept");
-  private static final String KEY_CAST_CONSUMED = Util.makeTranslationKey("jei", "casting.cast_consumed");
-  protected static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/casting.png");
+  private static final String KEY_COOLING_TIME = TConstruct.makeTranslationKey("jei", "time");
+  private static final String KEY_CAST_KEPT = TConstruct.makeTranslationKey("jei", "casting.cast_kept");
+  private static final String KEY_CAST_CONSUMED = TConstruct.makeTranslationKey("jei", "casting.cast_consumed");
+  protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/casting.png");
 
   @Getter
   private final IDrawable background;
@@ -118,7 +118,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
 
     IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
     fluidStacks.addTooltipCallback(this);
-    int capacity = MaterialValues.METAL_BLOCK;
+    int capacity = FluidValues.METAL_BLOCK;
     fluidStacks.init(0, true, 3, 3, 32, 32, capacity, false, tankOverlay);
     fluidStacks.set(ingredients);
     int h = 11;

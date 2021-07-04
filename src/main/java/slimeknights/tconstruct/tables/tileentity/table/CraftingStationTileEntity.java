@@ -15,8 +15,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 
 public class CraftingStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
-  public static final ITextComponent UNCRAFTABLE = Util.makeTranslation("gui", "crafting_station.uncraftable");
+  public static final ITextComponent UNCRAFTABLE = TConstruct.makeTranslation("gui", "crafting_station.uncraftable");
 
   /** Last crafted crafting recipe */
   @Nullable

@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
@@ -21,7 +21,7 @@ import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import javax.annotation.Nullable;
 
 public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureContainer> implements IScreenWithFluidTank {
-  public static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/smeltery.png");
+  public static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/smeltery.png");
   private static final ElementScreen SCALA = new ElementScreen(176, 76, 52, 52, 256, 256);
 
   private final HeatingStructureSideInventoryScreen sideInventory;

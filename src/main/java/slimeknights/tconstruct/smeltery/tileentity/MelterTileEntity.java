@@ -11,7 +11,6 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -22,12 +21,12 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.tileentity.NamableTileEntity;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
@@ -41,7 +40,7 @@ import java.util.Collections;
 
 public class MelterTileEntity extends NamableTileEntity implements ITankTileEntity, ITickableTileEntity {
   /** Max capacity for the tank */
-  private static final int TANK_CAPACITY = MaterialValues.METAL_BLOCK;
+  private static final int TANK_CAPACITY = FluidValues.METAL_BLOCK;
   /* tags */
   private static final String TAG_FUEL = "fuel";
   private static final String TAG_TEMPERATURE = "temperature";
@@ -82,7 +81,7 @@ public class MelterTileEntity extends NamableTileEntity implements ITankTileEnti
   /** Extendable constructor */
   @SuppressWarnings("WeakerAccess")
   protected MelterTileEntity(TileEntityType<? extends MelterTileEntity> type) {
-    super(type, new TranslationTextComponent(Util.makeTranslationKey("gui", "melter")));
+    super(type, TConstruct.makeTranslation("gui", "melter"));
   }
 
   @Nullable

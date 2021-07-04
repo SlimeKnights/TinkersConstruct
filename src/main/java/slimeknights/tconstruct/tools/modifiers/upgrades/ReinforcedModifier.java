@@ -2,9 +2,9 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.List;
@@ -39,6 +39,6 @@ public class ReinforcedModifier extends IncrementalModifier {
     } else {
       reinforced = 1 - 1f / (getScaledLevel(tool, level) + 1);
     }
-    tooltip.add(applyStyle(new StringTextComponent(Util.dfPercent.format(reinforced)).appendString(" ").append(makeDisplayName())));
+    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_FORMAT.format(reinforced)).appendString(" ").append(makeDisplayName())));
   }
 }

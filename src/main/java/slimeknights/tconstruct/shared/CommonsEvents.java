@@ -17,13 +17,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 @SuppressWarnings("unused")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Mod.EventBusSubscriber(modid = TConstruct.modID)
+@Mod.EventBusSubscriber(modid = TConstruct.MOD_ID)
 public class CommonsEvents {
 
   // Slimy block jump stuff
@@ -54,14 +52,13 @@ public class CommonsEvents {
   }
 
   /** Tag for players who have received the book */
-  private static final String TAG_PLAYER_HAS_BOOK = Util.prefix("spawned_book");
+  private static final String TAG_PLAYER_HAS_BOOK = TConstruct.prefix("spawned_book");
 
   @SubscribeEvent
   static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
     if (Config.COMMON.shouldSpawnWithTinkersBook.get()) {
       CompoundNBT playerData = event.getPlayer().getPersistentData();
-      CompoundNBT data = TagUtil.getTagSafe(playerData, PlayerEntity.PERSISTED_NBT_TAG);
-
+      CompoundNBT data = playerData.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
       if (!data.getBoolean(TAG_PLAYER_HAS_BOOK)) {
         ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(TinkerCommons.materialsAndYou.get()));
         data.putBoolean(TAG_PLAYER_HAS_BOOK, true);

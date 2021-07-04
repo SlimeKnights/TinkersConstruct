@@ -7,7 +7,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.capability.ToolFluidCapability;
 import slimeknights.tconstruct.library.modifiers.capability.ToolFluidCapability.IFluidModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -22,15 +22,15 @@ import java.util.function.BiFunction;
 
 /** Modifier containing the standard tank, extend if you want to share this tank */
 public class TankModifier extends Modifier {
-  private static final String FILLED_KEY = Util.makeTranslationKey("modifier", "tank.filled");
-  private static final String CAPACITY_KEY = Util.makeTranslationKey("modifier", "tank.capacity");
+  private static final String FILLED_KEY = TConstruct.makeTranslationKey("modifier", "tank.filled");
+  private static final String CAPACITY_KEY = TConstruct.makeTranslationKey("modifier", "tank.capacity");
 
   /** Volatile NBT string indicating which modifier is in charge of logic for the one tank */
-  private static final ResourceLocation OWNER = Util.getResource("tank_owner");
+  private static final ResourceLocation OWNER = TConstruct.getResource("tank_owner");
   /** Volatile NBT integer indicating the tank's max capacity */
-  private static final ResourceLocation CAPACITY = Util.getResource("tank_capacity");
+  private static final ResourceLocation CAPACITY = TConstruct.getResource("tank_capacity");
   /** Persistent NBT compound containing the fluid in the tank */
-  private static final ResourceLocation FLUID = Util.getResource("tank_fluid");
+  private static final ResourceLocation FLUID = TConstruct.getResource("tank_fluid");
 
   /** Helper function to parse a fluid from NBT */
   public static final BiFunction<CompoundNBT, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.loadFluidStackFromNBT(nbt.getCompound(key));

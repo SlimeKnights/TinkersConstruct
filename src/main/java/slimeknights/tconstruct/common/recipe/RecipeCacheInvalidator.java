@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.IResourceManager;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
+import slimeknights.tconstruct.library.data.IEarlySafeManagerReloadListener;
 
 import java.util.ArrayList;
 import java.util.List;

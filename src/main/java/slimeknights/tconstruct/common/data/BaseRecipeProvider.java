@@ -25,6 +25,6 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
 
   @Override
   public String getModId() {
-    return TConstruct.modID;
+    return TConstruct.MOD_ID;
   }
 }

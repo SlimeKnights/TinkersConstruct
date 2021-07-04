@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -84,7 +84,7 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
   public ItemStack getCraftingResult(CraftingInventory inv) {
     Pair<ToolStack, IMaterial> inputs = getRelevantInputs(inv);
     if (inputs == null) {
-      TConstruct.log.error("Recipe repair on {} failed to find items after matching", getId());
+      TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getId());
       return ItemStack.EMPTY;
     }
 

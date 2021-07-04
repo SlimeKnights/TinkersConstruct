@@ -18,9 +18,9 @@ import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.Icons;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tables.client.inventory.module.SideInventoryScreen;
 import slimeknights.tconstruct.tables.client.inventory.module.TinkerTabsScreen;
@@ -29,10 +29,10 @@ import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.network.StationTabPacket;
 
 public class BaseStationScreen<TILE extends TileEntity & IInventory, CONTAINER extends BaseStationContainer<TILE>> extends MultiModuleScreen<CONTAINER> {
-  protected static final ITextComponent COMPONENT_WARNING = Util.makeTranslation("gui", "warning");
-  protected static final ITextComponent COMPONENT_ERROR = Util.makeTranslation("gui", "error");
+  protected static final ITextComponent COMPONENT_WARNING = TConstruct.makeTranslation("gui", "warning");
+  protected static final ITextComponent COMPONENT_ERROR = TConstruct.makeTranslation("gui", "error");
 
-  public static final ResourceLocation BLANK_BACK = Util.getResource("textures/gui/blank.png");
+  public static final ResourceLocation BLANK_BACK = TConstruct.getResource("textures/gui/blank.png");
 
   protected final TILE tile;
   protected final CONTAINER container;

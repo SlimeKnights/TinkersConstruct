@@ -7,8 +7,8 @@ import net.minecraft.potion.EffectType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.world.server.ServerWorld;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.effect.TinkerEffect;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.tools.modifiers.traits.LaceratingModifier;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * Potion effect from {@link LaceratingModifier}
  */
 public class BleedingEffect extends TinkerEffect {
-  private static final String SOURCE_KEY = Util.prefix("bleed");
+  private static final String SOURCE_KEY = TConstruct.prefix("bleed");
   public BleedingEffect() {
     super(EffectType.HARMFUL, 0xa80000, false);
   }

@@ -18,10 +18,10 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
@@ -32,13 +32,13 @@ import java.util.List;
 
 /** Shared by melter and smeltery */
 public class MeltingCategory extends AbstractMeltingCategory {
-  private static final String KEY_TITLE = Util.makeTranslationKey("jei", "melting.title");
-  private static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "temperature");
-  private static final String KEY_MULTIPLIER = Util.makeTranslationKey("jei", "melting.multiplier");
+  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "melting.title");
+  private static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
+  private static final String KEY_MULTIPLIER = TConstruct.makeTranslationKey("jei", "melting.multiplier");
   private static final ITextComponent SOLID_TEMPERATURE = new TranslationTextComponent(KEY_TEMPERATURE, FuelModule.SOLID_TEMPERATURE).mergeStyle(TextFormatting.GRAY);
   private static final ITextComponent SOLID_MULTIPLIER = new TranslationTextComponent(KEY_MULTIPLIER, FuelModule.SOLID_TEMPERATURE / 1000f).mergeStyle(TextFormatting.GRAY);
-  private static final ITextComponent TOOLTIP_SMELTERY = Util.makeTranslation("jei", "melting.smeltery").mergeStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
-  private static final ITextComponent TOOLTIP_MELTER = Util.makeTranslation("jei", "melting.melter").mergeStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
+  private static final ITextComponent TOOLTIP_SMELTERY = TConstruct.makeTranslation("jei", "melting.smeltery").mergeStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
+  private static final ITextComponent TOOLTIP_MELTER = TConstruct.makeTranslation("jei", "melting.melter").mergeStyle(TextFormatting.GRAY, TextFormatting.UNDERLINE);
 
   /** Tooltip callback for items */
   private static final ITooltipCallback<ItemStack> ITEM_TOOLTIP = (index, isInput, stack, list) -> {
@@ -91,7 +91,7 @@ public class MeltingCategory extends AbstractMeltingCategory {
 
     // output
     IGuiFluidStackGroup fluids = layout.getFluidStacks();
-    fluids.init(0, false, 96, 4, 32, 32, MaterialValues.METAL_BLOCK, false, tankOverlay);
+    fluids.init(0, false, 96, 4, 32, 32, FluidValues.METAL_BLOCK, false, tankOverlay);
     fluids.set(ingredients);
 
     // show fuels that are valid for this recipe

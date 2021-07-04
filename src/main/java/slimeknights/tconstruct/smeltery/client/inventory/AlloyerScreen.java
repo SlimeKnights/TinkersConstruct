@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiTankModule;
@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 public class AlloyerScreen extends ContainerScreen<AlloyerContainer> implements IScreenWithFluidTank {
   private static final int[] INPUT_TANK_START_X = {54, 22, 38, 70, 6};
-  private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/alloyer.png");
+  private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/alloyer.png");
   private static final ElementScreen SCALA = new ElementScreen(176, 0, 34, 52, 256, 256);
   private static final ElementScreen FUEL_SLOT = new ElementScreen(176, 52, 18, 36, 256, 256);
   private static final ElementScreen FUEL_TANK = new ElementScreen(194, 52, 14, 38, 256, 256);

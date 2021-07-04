@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.stat;
 
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
+import slimeknights.tconstruct.library.tinkering.HarvestLevels;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -58,6 +58,6 @@ public class ToolStats {
 
   /** Creates a resource location for a Tinkers stat */
   private static ToolStatId name(String name) {
-    return new ToolStatId(TConstruct.modID, name);
+    return new ToolStatId(TConstruct.MOD_ID, name);
   }
 }

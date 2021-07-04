@@ -16,13 +16,13 @@ import net.minecraft.world.World;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.TabsWidget;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
 import java.util.List;
 
 public class TinkerTabsScreen extends ModuleScreen {
-  private static final ResourceLocation TAB_IMAGE = Util.getResource("textures/gui/icons.png");
+  private static final ResourceLocation TAB_IMAGE = TConstruct.getResource("textures/gui/icons.png");
   protected static final ElementScreen TAB_ELEMENT = new ElementScreen(0, 18, 26, 30, 256, 256);
   protected static final ElementScreen ACTIVE_TAB_L_ELEMENT = new ElementScreen(26, 18, 26, 30, 256, 256);
   protected static final ElementScreen ACTIVE_TAB_C_ELEMENT = new ElementScreen(52, 18, 26, 30, 256, 256);

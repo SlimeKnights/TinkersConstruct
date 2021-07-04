@@ -15,18 +15,18 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.utils.NBTTags;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Represents an item that has a Material associated with it. The metadata of an itemstack identifies which material the
+ * Represents an item that has a Material associated with it. The NBT of the itemstack identifies which material the
  * itemstack of this item has.
  */
 public class MaterialItem extends Item implements IMaterialItem {

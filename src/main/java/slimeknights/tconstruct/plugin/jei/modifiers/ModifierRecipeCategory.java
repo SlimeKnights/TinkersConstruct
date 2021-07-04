@@ -19,8 +19,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ForgeI18n;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IDisplayModifierRecipe;
@@ -33,17 +33,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierRecipe> {
-  private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/tinker_station.png");
-  private static final String KEY_TITLE = Util.makeTranslationKey("jei", "modifiers.title");
+  private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
+  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "modifiers.title");
 
   // translation
-  private static final List<ITextComponent> TEXT_FREE = Collections.singletonList(Util.makeTranslation("jei", "modifiers.free"));
-  private static final List<ITextComponent> TEXT_SINGLE_UPGRADE = Collections.singletonList(Util.makeTranslation("jei", "modifiers.upgrade"));
-  private static final List<ITextComponent> TEXT_INCREMENTAL = Collections.singletonList(Util.makeTranslation("jei", "modifiers.incremental"));
-  private static final String KEY_UPGRADES = Util.makeTranslationKey("jei", "modifiers.upgrades");
-  private static final List<ITextComponent> TEXT_SINGLE_ABILITY = Collections.singletonList(Util.makeTranslation("jei", "modifiers.ability"));
-  private static final String KEY_ABILITIES = Util.makeTranslationKey("jei", "modifiers.abilities");
-  private static final String KEY_MAX = Util.makeTranslationKey("jei", "modifiers.max");
+  private static final List<ITextComponent> TEXT_FREE = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.free"));
+  private static final List<ITextComponent> TEXT_SINGLE_UPGRADE = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.upgrade"));
+  private static final List<ITextComponent> TEXT_INCREMENTAL = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.incremental"));
+  private static final String KEY_UPGRADES = TConstruct.makeTranslationKey("jei", "modifiers.upgrades");
+  private static final List<ITextComponent> TEXT_SINGLE_ABILITY = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.ability"));
+  private static final String KEY_ABILITIES = TConstruct.makeTranslationKey("jei", "modifiers.abilities");
+  private static final String KEY_MAX = TConstruct.makeTranslationKey("jei", "modifiers.max");
 
   private final ModifierIngredientRenderer modifierRenderer = new ModifierIngredientRenderer(124);
 

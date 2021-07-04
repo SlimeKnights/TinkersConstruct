@@ -14,9 +14,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.item.BlockTooltipItem;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
@@ -24,10 +24,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class TankItem extends BlockTooltipItem {
-  private static final String KEY_FLUID = Util.makeTranslationKey("block", "tank.fluid");
-  private static final String KEY_MB = Util.makeTranslationKey("block", "tank.mb");
-  private static final String KEY_INGOTS = Util.makeTranslationKey("block", "tank.ingots");
-  private static final String KEY_MIXED = Util.makeTranslationKey("block", "tank.mixed");
+  private static final String KEY_FLUID = TConstruct.makeTranslationKey("block", "tank.fluid");
+  private static final String KEY_MB = TConstruct.makeTranslationKey("block", "tank.mb");
+  private static final String KEY_INGOTS = TConstruct.makeTranslationKey("block", "tank.ingots");
+  private static final String KEY_MIXED = TConstruct.makeTranslationKey("block", "tank.mixed");
 
   private final boolean limitStackSize;
   public TankItem(Block blockIn, Properties builder, boolean limitStackSize) {
@@ -52,11 +52,11 @@ public class TankItem extends BlockTooltipItem {
       if (tank.getFluidAmount() > 0) {
         tooltip.add(new TranslationTextComponent(KEY_FLUID, tank.getFluid().getDisplayName()).mergeStyle(TextFormatting.GRAY));
         int amount = tank.getFluidAmount();
-        if (tank.getCapacity() % MaterialValues.INGOT != 0 || Screen.hasShiftDown()) {
+        if (tank.getCapacity() % FluidValues.INGOT != 0 || Screen.hasShiftDown()) {
           tooltip.add(new TranslationTextComponent(KEY_MB, amount).mergeStyle(TextFormatting.GRAY));
         } else {
-          int ingots = amount / MaterialValues.INGOT;
-          int mb = amount % MaterialValues.INGOT;
+          int ingots = amount / FluidValues.INGOT;
+          int mb = amount % FluidValues.INGOT;
           if (mb == 0) {
             tooltip.add(new TranslationTextComponent(KEY_INGOTS, ingots).mergeStyle(TextFormatting.GRAY));
           } else {

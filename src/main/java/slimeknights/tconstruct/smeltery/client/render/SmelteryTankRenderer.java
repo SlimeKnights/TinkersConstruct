@@ -16,7 +16,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.render.FluidRenderer;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiSmelteryTank;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
 
@@ -26,7 +26,7 @@ import java.util.List;
 public class SmelteryTankRenderer {
   /** Like {@link FluidRenderer#RENDER_TYPE}, but disables cull so both sides show */
   private static final RenderType RENDER_TYPE = RenderType.makeType(
-    Util.resource("smeltery_fluid"), DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP, 7, 256, true, true,
+    TConstruct.resourceString("smeltery_fluid"), DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP, 7, 256, true, true,
     State.getBuilder()
          .texture(new TextureState(PlayerContainer.LOCATION_BLOCKS_TEXTURE, false, false))
          .shadeModel(RenderType.SHADE_ENABLED)

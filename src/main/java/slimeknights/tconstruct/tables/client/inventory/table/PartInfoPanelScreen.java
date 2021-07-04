@@ -11,14 +11,14 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
 
 import java.util.ListIterator;
 
 public class PartInfoPanelScreen extends InfoPanelScreen {
-  private static final String COST_KEY = Util.makeTranslationKey("gui", "part_builder.cost");
-  private static final String MATERIAL_VALUE_KEY = Util.makeTranslationKey("gui", "part_builder.material_value");
+  private static final String COST_KEY = TConstruct.makeTranslationKey("gui", "part_builder.cost");
+  private static final String MATERIAL_VALUE_KEY = TConstruct.makeTranslationKey("gui", "part_builder.material_value");
 
   private ITextComponent patternCost;
   private ITextComponent materialValue;

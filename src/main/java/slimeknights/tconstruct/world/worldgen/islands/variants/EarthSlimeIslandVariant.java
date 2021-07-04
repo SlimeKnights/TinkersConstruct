@@ -9,8 +9,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
 
@@ -25,7 +25,7 @@ public class EarthSlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public ResourceLocation getStructureName(String variantName) {
-    return Util.getResource("slime_islands/earth/" + dirtType.getString() + "_" + variantName);
+    return TConstruct.getResource("slime_islands/earth/" + dirtType.getString() + "_" + variantName);
   }
 
   @Override

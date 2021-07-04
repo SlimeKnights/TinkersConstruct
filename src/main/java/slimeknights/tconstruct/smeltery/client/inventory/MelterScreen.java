@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiMeltingModule;
@@ -19,7 +19,7 @@ import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import javax.annotation.Nullable;
 
 public class MelterScreen extends ContainerScreen<MelterContainer> implements IScreenWithFluidTank {
-  private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/melter.png");
+  private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/melter.png");
   private static final ElementScreen SCALA = new ElementScreen(176, 0, 52, 52, 256, 256);
   private static final ElementScreen FUEL_SLOT = new ElementScreen(176, 52, 18, 36, 256, 256);
   private static final ElementScreen FUEL_TANK = new ElementScreen(194, 52, 14, 38, 256, 256);

@@ -20,7 +20,7 @@ import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class InfoPanelScreen extends ModuleScreen {
   private static final int resW = 118;
   private static final int resH = 75;
 
-  protected static ResourceLocation BACKGROUND_IMAGE = Util.getResource("textures/gui/panel.png");
+  protected static ResourceLocation BACKGROUND_IMAGE = TConstruct.getResource("textures/gui/panel.png");
 
   protected static final ElementScreen TOP_LEFT = new ElementScreen(0, 0, 4, 4, 256, 256);
   protected static final ElementScreen TOP_RIGHT = new ElementScreen(resW + 4, 0, 4, 4);

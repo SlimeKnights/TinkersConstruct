@@ -21,7 +21,6 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -30,7 +29,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.BlockFlags;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.smeltery.tileentity.ChannelTileEntity;
 
 import javax.annotation.Nullable;
@@ -39,11 +39,11 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ChannelBlock extends Block {
-	private static final ITextComponent SIDE_IN = new TranslationTextComponent(Util.makeTranslationKey("block", "channel.side.in"));
-	private static final ITextComponent SIDE_OUT = new TranslationTextComponent(Util.makeTranslationKey("block", "channel.side.out"));
-	private static final ITextComponent SIDE_NONE = new TranslationTextComponent(Util.makeTranslationKey("block", "channel.side.none"));
-	private static final ITextComponent DOWN_OUT = new TranslationTextComponent(Util.makeTranslationKey("block", "channel.down.out"));
-	private static final ITextComponent DOWN_NONE = new TranslationTextComponent(Util.makeTranslationKey("block", "channel.down.none"));
+	private static final ITextComponent SIDE_IN = TConstruct.makeTranslation("block", "channel.side.in");
+	private static final ITextComponent SIDE_OUT = TConstruct.makeTranslation("block", "channel.side.out");
+	private static final ITextComponent SIDE_NONE = TConstruct.makeTranslation("block", "channel.side.none");
+	private static final ITextComponent DOWN_OUT = TConstruct.makeTranslation("block", "channel.down.out");
+	private static final ITextComponent DOWN_NONE = TConstruct.makeTranslation("block", "channel.down.none");
 	private static final Map<ChannelConnection,ITextComponent> SIDE_CONNECTION = Util.make(new EnumMap<>(ChannelConnection.class), map -> {
 		map.put(ChannelConnection.IN, SIDE_IN);
 		map.put(ChannelConnection.OUT, SIDE_OUT);

@@ -11,7 +11,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -24,7 +25,7 @@ import java.util.function.BiConsumer;
  * Shared logic for jagged and stonebound. Trait boosts attack damage as it lowers mining speed.
  */
 public class DamageSpeedTradeModifier extends Modifier {
-  private static final ITextComponent MINING_SPEED = Util.makeTranslation("modifier", "fake_attribute.mining_speed");
+  private static final ITextComponent MINING_SPEED = TConstruct.makeTranslation("modifier", "fake_attribute.mining_speed");
   private final float multiplier;
   private final Lazy<UUID> uuid = Lazy.of(() -> UUID.nameUUIDFromBytes(getId().toString().getBytes()));
   private final Lazy<String> attributeName = Lazy.of(() -> {
@@ -51,7 +52,7 @@ public class DamageSpeedTradeModifier extends Modifier {
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     double boost = getMultiplier(tool, level);
     if (boost != 0) {
-      tooltip.add(applyStyle(new StringTextComponent(Util.dfPercentBoost.format(-boost)).appendString(" ").append(MINING_SPEED)));
+      tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(-boost)).appendString(" ").append(MINING_SPEED)));
     }
   }
 

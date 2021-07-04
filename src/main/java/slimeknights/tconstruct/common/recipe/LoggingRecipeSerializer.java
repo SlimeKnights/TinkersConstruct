@@ -38,7 +38,7 @@ public abstract class LoggingRecipeSerializer<T extends IRecipe<?>> extends Reci
     try {
       return readSafe(id, buffer);
     } catch (RuntimeException e) {
-      TConstruct.log.error("{}: Error writing recipe to packet", this.getClass().getSimpleName(), e);
+      TConstruct.LOG.error("{}: Error writing recipe to packet", this.getClass().getSimpleName(), e);
       throw e;
     }
   }
@@ -48,7 +48,7 @@ public abstract class LoggingRecipeSerializer<T extends IRecipe<?>> extends Reci
     try {
       writeSafe(buffer, recipe);
     } catch (RuntimeException e) {
-      TConstruct.log.error("{}: Error reading recipe from packet", this.getClass().getSimpleName(), e);
+      TConstruct.LOG.error("{}: Error reading recipe from packet", this.getClass().getSimpleName(), e);
       throw e;
     }
   }

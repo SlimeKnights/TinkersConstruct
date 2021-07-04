@@ -12,11 +12,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.mantle.util.TranslationHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
@@ -30,9 +30,9 @@ import java.util.Optional;
  * Extension of {@link MaterialItem} which adds stats to the tooltip and has a set stat type
  */
 public class ToolPartItem extends MaterialItem implements IToolPart {
-  private static final ITextComponent MISSING_INFO = Util.makeTranslation("item", "part.missing_info");
-  private static final String MISSING_MATERIAL_KEY = Util.makeTranslationKey("item", "part.missing_material");
-  private static final String MISSING_STATS_KEY = Util.makeTranslationKey("item", "part.missing_stats");
+  private static final ITextComponent MISSING_INFO = TConstruct.makeTranslation("item", "part.missing_info");
+  private static final String MISSING_MATERIAL_KEY = TConstruct.makeTranslationKey("item", "part.missing_material");
+  private static final String MISSING_STATS_KEY = TConstruct.makeTranslationKey("item", "part.missing_stats");
 
   public final MaterialStatsId materialStatId;
 

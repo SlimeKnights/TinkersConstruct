@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
@@ -50,7 +50,7 @@ public class MaterialCastingLookup {
     if (ITEM_COST_LOOKUP.containsKey(item)) {
       int original = ITEM_COST_LOOKUP.getInt(item);
       if (cost != original) {
-        TConstruct.log.error("Inconsistent cost for item {}", item.asItem().getRegistryName());
+        TConstruct.LOG.error("Inconsistent cost for item {}", item.asItem().getRegistryName());
         ITEM_COST_LOOKUP.put(item, Math.min(cost, original));
       }
     } else {

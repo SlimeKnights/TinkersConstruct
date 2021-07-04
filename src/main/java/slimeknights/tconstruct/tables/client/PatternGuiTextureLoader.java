@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tables.client;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import slimeknights.tconstruct.library.client.util.ResourceValidator;
+import slimeknights.tconstruct.library.data.ResourceValidator;
 
 /**
  * Stitches all GUI part textures into the texture sheet

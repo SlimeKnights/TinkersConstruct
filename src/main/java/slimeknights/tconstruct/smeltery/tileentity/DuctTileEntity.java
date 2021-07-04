@@ -11,7 +11,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -20,7 +19,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.inventory.SingleItemContainer;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.SmelteryFluidIO;
@@ -35,7 +34,7 @@ import javax.annotation.Nullable;
  */
 public class DuctTileEntity extends SmelteryFluidIO implements INamedContainerProvider {
   private static final String TAG_ITEM = "item";
-  private static final ITextComponent TITLE = new TranslationTextComponent(Util.makeTranslationKey("gui", "duct"));
+  private static final ITextComponent TITLE = TConstruct.makeTranslation("gui", "duct");
 
   @Getter
   private final DuctItemHandler itemHandler = new DuctItemHandler(this);

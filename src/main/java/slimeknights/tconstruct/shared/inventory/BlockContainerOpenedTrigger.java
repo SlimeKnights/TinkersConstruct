@@ -14,14 +14,14 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
 
 /** Criteria that triggers when a container is opened */
 public class BlockContainerOpenedTrigger extends AbstractCriterionTrigger<BlockContainerOpenedTrigger.Instance> {
-  private static final ResourceLocation ID = Util.getResource("block_container_opened");
+  private static final ResourceLocation ID = TConstruct.getResource("block_container_opened");
 
   @Override
   public ResourceLocation getId() {

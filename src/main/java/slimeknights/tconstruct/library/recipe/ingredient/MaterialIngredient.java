@@ -13,10 +13,10 @@ import net.minecraft.tags.ITag;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 import javax.annotation.Nullable;
@@ -154,7 +154,7 @@ public class MaterialIngredient extends Ingredient {
    */
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Serializer implements IIngredientSerializer<MaterialIngredient> {
-    public static final ResourceLocation ID = Util.getResource("material");
+    public static final ResourceLocation ID = TConstruct.getResource("material");
     public static final Serializer INSTANCE = new Serializer();
 
     @Override

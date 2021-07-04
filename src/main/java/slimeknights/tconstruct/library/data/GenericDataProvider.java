@@ -16,6 +16,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+/**
+ * Generic logic to convert any serializable object into JSON
+ */
 @RequiredArgsConstructor
 @Log4j2
 public abstract class GenericDataProvider implements IDataProvider {
@@ -34,6 +37,7 @@ public abstract class GenericDataProvider implements IDataProvider {
     this(generator, folder, GSON);
   }
 
+  @SuppressWarnings("UnstableApiUsage")
   protected void saveThing(DirectoryCache cache, ResourceLocation location, Object materialJson) {
     try {
       String json = gson.toJson(materialJson);

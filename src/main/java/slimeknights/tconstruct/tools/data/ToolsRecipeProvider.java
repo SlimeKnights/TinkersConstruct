@@ -17,7 +17,7 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.data.recipe.IToolRecipeHelper;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -142,12 +142,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     // tier 2
     addMaterialMeltingCasting(consumer, MaterialIds.iron, TinkerFluids.moltenIron, folder);
     addMaterialMeltingCasting(consumer, MaterialIds.copper,        TinkerFluids.moltenCopper, folder);
-    addMaterialMeltingCasting(consumer, MaterialIds.searedStone, TinkerFluids.searedStone, MaterialValues.INGOT * 2, folder);
-    addMaterialMeltingCasting(consumer, MaterialIds.scorchedStone, TinkerFluids.scorchedStone, MaterialValues.INGOT * 2, folder);
+    addMaterialMeltingCasting(consumer, MaterialIds.searedStone, TinkerFluids.searedStone, FluidValues.INGOT * 2, folder);
+    addMaterialMeltingCasting(consumer, MaterialIds.scorchedStone, TinkerFluids.scorchedStone, FluidValues.INGOT * 2, folder);
     // half a clay is 1 seared brick per grout amounts
-    addCompositeMaterialRecipe(consumer, MaterialIds.stone, MaterialIds.searedStone,   TinkerFluids.moltenClay, MaterialValues.SLIMEBALL, false, folder);
-    addCompositeMaterialRecipe(consumer, MaterialIds.wood,  MaterialIds.slimewood,     TinkerFluids.earthSlime, MaterialValues.SLIMEBALL, true,  folder);
-    addCompositeMaterialRecipe(consumer, MaterialIds.flint, MaterialIds.scorchedStone, TinkerFluids.magma,      MaterialValues.SLIMEBALL, true,  folder);
+    addCompositeMaterialRecipe(consumer, MaterialIds.stone, MaterialIds.searedStone, TinkerFluids.moltenClay, FluidValues.SLIMEBALL, false, folder);
+    addCompositeMaterialRecipe(consumer, MaterialIds.wood, MaterialIds.slimewood, TinkerFluids.earthSlime, FluidValues.SLIMEBALL, true, folder);
+    addCompositeMaterialRecipe(consumer, MaterialIds.flint, MaterialIds.scorchedStone, TinkerFluids.magma, FluidValues.SLIMEBALL, true, folder);
 
     // tier 3
     addMaterialMeltingCasting(consumer, MaterialIds.slimesteel,    TinkerFluids.moltenSlimesteel,    folder);
@@ -155,8 +155,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     addMaterialMeltingCasting(consumer, MaterialIds.roseGold,      TinkerFluids.moltenRoseGold,      folder);
     addMaterialMeltingCasting(consumer, MaterialIds.pigIron,       TinkerFluids.moltenPigIron,       folder);
     addMaterialMeltingCasting(consumer, MaterialIds.cobalt,        TinkerFluids.moltenCobalt,        folder);
-    addCompositeMaterialRecipe(consumer, MaterialIds.wood, MaterialIds.nahuatl, TinkerFluids.moltenObsidian, MaterialValues.GLASS_BLOCK, false, folder);
-    MaterialMeltingRecipeBuilder.material(MaterialIds.nahuatl, new FluidStack(TinkerFluids.moltenObsidian.get(), MaterialValues.GLASS_BLOCK))
+    addCompositeMaterialRecipe(consumer, MaterialIds.wood, MaterialIds.nahuatl, TinkerFluids.moltenObsidian, FluidValues.GLASS_BLOCK, false, folder);
+    MaterialMeltingRecipeBuilder.material(MaterialIds.nahuatl, new FluidStack(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_BLOCK))
                                 .build(consumer, modResource(folder + "melting/nahuatl"));
 
     // tier 4

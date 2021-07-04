@@ -6,7 +6,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.EquipmentSlotType.Group;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -21,7 +21,7 @@ import java.util.function.BiConsumer;
 public class HeavyModifier extends Modifier {
   private static final UUID MAINHAND_ATTRIBUTE_UUID = UUID.fromString("f8a6e738-642b-11eb-ae93-0242ac130002");
   private static final UUID OFFHAND_ATTRIBUTE_UUID = UUID.fromString("9720e9f3-c123-4b0b-bdb2-b4ba52eb39c9");
-  private static final String ATTRIBUTE_NAME = Util.prefix("heavy");
+  private static final String ATTRIBUTE_NAME = TConstruct.prefix("heavy");
   public HeavyModifier() {
     super(0x575E79);
   }

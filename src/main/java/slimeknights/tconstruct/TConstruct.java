@@ -7,6 +7,9 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -32,12 +35,12 @@ import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
 import slimeknights.tconstruct.common.data.tags.FluidTagProvider;
 import slimeknights.tconstruct.common.data.tags.ItemTagProvider;
 import slimeknights.tconstruct.common.data.tags.TileEntityTypeTagProvider;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -53,6 +56,7 @@ import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -62,14 +66,13 @@ import java.util.Random;
  */
 
 @SuppressWarnings("unused")
-@Mod(TConstruct.modID)
+@Mod(TConstruct.MOD_ID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TConstruct {
 
-  public static final String modID = Util.MODID;
-
-  public static final Logger log = LogManager.getLogger(modID);
-  public static final Random random = new Random();
+  public static final String MOD_ID = "tconstruct";
+  public static final Logger LOG = LogManager.getLogger(MOD_ID);
+  public static final Random RANDOM = new Random();
 
   /* Instance of this mod, used for grabbing prototype fields */
   public static TConstruct instance;
@@ -166,7 +169,7 @@ public class TConstruct {
 
   @SubscribeEvent
   void missingItems(final MissingMappings<Item> event) {
-    RegistrationHelper.handleMissingMappings(event, modID, name -> {
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, name -> {
       switch (name) {
         // kama head removed, sword blade to small blade
         case "sword_blade": return TinkerToolParts.smallBlade.get();
@@ -207,12 +210,12 @@ public class TConstruct {
 
   @SubscribeEvent
   void missingBlocks(final MissingMappings<Block> event) {
-    RegistrationHelper.handleMissingMappings(event, modID, TConstruct::missingBlock);
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, TConstruct::missingBlock);
   }
 
   @SubscribeEvent
   void missingFluids(final MissingMappings<Fluid> event) {
-    RegistrationHelper.handleMissingMappings(event, modID, name -> {
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, name -> {
       switch(name) {
         // magma cream -> magma
         case "magma_cream": return TinkerFluids.magma.get();
@@ -227,12 +230,60 @@ public class TConstruct {
 
   @SubscribeEvent
   void missingModifiers(final MissingMappings<Modifier> event) {
-    RegistrationHelper.handleMissingMappings(event, modID, name -> {
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, name -> {
       switch(name) {
         case "beheading": return TinkerModifiers.severing.get();
         case "bane_of_arthropods": return TinkerModifiers.baneOfSssss.get();
       }
       return null;
     });
+  }
+
+
+  /* Utils */
+
+  /**
+   * Gets a resource location for Tinkers
+   * @param name  Resource path
+   * @return  Location for tinkers
+   */
+  public static ResourceLocation getResource(String name) {
+    return new ResourceLocation(MOD_ID, name);
+  }
+
+  /**
+   * Returns the given Resource prefixed with tinkers resource location. Use this function instead of hardcoding
+   * resource locations.
+   */
+  public static String resourceString(String res) {
+    return String.format("%s:%s", MOD_ID, res);
+  }
+
+  /**
+   * Prefixes the given unlocalized name with tinkers prefix. Use this when passing unlocalized names for a uniform
+   * namespace.
+   */
+  public static String prefix(String name) {
+    return String.format("%s.%s", MOD_ID, name.toLowerCase(Locale.US));
+  }
+
+  /**
+   * Makes a translation key for the given name
+   * @param base  Base name, such as "block" or "gui"
+   * @param name  Object name
+   * @return  Translation key
+   */
+  public static String makeTranslationKey(String base, String name) {
+    return Util.makeTranslationKey(base, getResource(name));
+  }
+
+  /**
+   * Makes a translation text component for the given name
+   * @param base  Base name, such as "block" or "gui"
+   * @param name  Object name
+   * @return  Translation key
+   */
+  public static IFormattableTextComponent makeTranslation(String base, String name) {
+    return new TranslationTextComponent(makeTranslationKey(base, name));
   }
 }

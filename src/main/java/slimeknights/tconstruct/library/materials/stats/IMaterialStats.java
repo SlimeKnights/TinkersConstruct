@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.materials.stats;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.network.INetworkSendable;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.List;
 

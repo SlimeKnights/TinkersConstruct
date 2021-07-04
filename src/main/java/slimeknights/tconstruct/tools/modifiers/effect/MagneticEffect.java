@@ -5,7 +5,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
-import slimeknights.tconstruct.library.effect.TinkerEffect;
+import slimeknights.tconstruct.common.TinkerEffect;
 
 import java.util.List;
 

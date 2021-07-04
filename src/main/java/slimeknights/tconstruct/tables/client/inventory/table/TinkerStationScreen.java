@@ -22,12 +22,12 @@ import org.lwjgl.glfw.GLFW;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
@@ -60,12 +60,12 @@ import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileE
 import static slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity.TINKER_SLOT;
 
 public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEntity, TinkerStationContainer> {
-  private static final ITextComponent COMPONENTS_TEXT = Util.makeTranslation("gui", "tinker_station.components");
+  private static final ITextComponent COMPONENTS_TEXT = TConstruct.makeTranslation("gui", "tinker_station.components");
 
-  private static final ITextComponent MODIFIERS_TEXT = Util.makeTranslation("gui", "tinker_station.modifiers");
-  private static final ITextComponent UPGRADES_TEXT = Util.makeTranslation("gui", "tinker_station.upgrades");
-  private static final ITextComponent TRAITS_TEXT = Util.makeTranslation("gui", "tinker_station.traits");
-  private static final ITextComponent REPAIR_TEXT = Util.makeTranslation("gui", "tinker_station.repair");
+  private static final ITextComponent MODIFIERS_TEXT = TConstruct.makeTranslation("gui", "tinker_station.modifiers");
+  private static final ITextComponent UPGRADES_TEXT = TConstruct.makeTranslation("gui", "tinker_station.upgrades");
+  private static final ITextComponent TRAITS_TEXT = TConstruct.makeTranslation("gui", "tinker_station.traits");
+  private static final ITextComponent REPAIR_TEXT = TConstruct.makeTranslation("gui", "tinker_station.repair");
   private static final ITextComponent ASCII_ANVIL = new StringTextComponent("\n\n")
     .appendString("       .\n")
     .appendString("     /( _________\n")
@@ -74,7 +74,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     .appendString("     \"\"")
     .mergeStyle(TextFormatting.DARK_GRAY);
 
-  private static final ResourceLocation TINKER_STATION_TEXTURE = Util.getResource("textures/gui/tinker_station.png");
+  private static final ResourceLocation TINKER_STATION_TEXTURE = TConstruct.getResource("textures/gui/tinker_station.png");
 
   private static final ElementScreen ACTIVE_TEXT_FIELD = new ElementScreen(0, 210, 91, 12, 256, 256);
   private static final ElementScreen ITEM_COVER = new ElementScreen(176, 18, 80, 64);
@@ -145,7 +145,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       this.wood();
     }
     // apply base slot information
-    SlotInformation slotInformation = SlotInformationLoader.get(Util.getResource("repair_" + max));
+    SlotInformation slotInformation = SlotInformationLoader.get(TConstruct.getResource("repair_" + max));
     this.currentData = slotInformation;
     this.activeSlots = Math.min(slotInformation.getPoints().size(), max);
 

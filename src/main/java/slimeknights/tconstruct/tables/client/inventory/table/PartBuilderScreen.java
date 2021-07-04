@@ -15,10 +15,11 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.library.client.Icons;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -33,12 +34,12 @@ import java.util.List;
 import java.util.function.Function;
 
 public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
-  private static final ITextComponent INFO_TEXT = Util.makeTranslation("gui", "part_builder.info");
-  private static final ITextComponent TRAIT_TITLE = Util.makeTranslation("gui", "part_builder.trait").mergeStyle(TextFormatting.UNDERLINE);
-  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL = Util.makeTranslation("gui", "part_builder.uncraftable").mergeStyle(TextFormatting.RED);
-  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL_TOOLTIP = Util.makeTranslation("gui", "part_builder.uncraftable.tooltip");
+  private static final ITextComponent INFO_TEXT = TConstruct.makeTranslation("gui", "part_builder.info");
+  private static final ITextComponent TRAIT_TITLE = TConstruct.makeTranslation("gui", "part_builder.trait").mergeStyle(TextFormatting.UNDERLINE);
+  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL = TConstruct.makeTranslation("gui", "part_builder.uncraftable").mergeStyle(TextFormatting.RED);
+  private static final IFormattableTextComponent UNCRAFTABLE_MATERIAL_TOOLTIP = TConstruct.makeTranslation("gui", "part_builder.uncraftable.tooltip");
 
-  private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/partbuilder.png");
+  private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/partbuilder.png");
 
   /** Part builder side panel */
   protected PartInfoPanelScreen infoPanelScreen;
@@ -197,7 +198,7 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
     // determine how much material we have
     // get exact number of material, rather than rounded
     float value = materialRecipe.getMaterialValue(this.tile.getInventoryWrapper());
-    IFormattableTextComponent formatted = new StringTextComponent(Util.df.format(value));
+    IFormattableTextComponent formatted = new StringTextComponent(Util.COMMA_FORMAT.format(value));
 
     // if we have a part recipe, mark material red when not enough
     IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();

@@ -44,16 +44,18 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
+import slimeknights.tconstruct.library.tinkering.TooltipBuilder;
+import slimeknights.tconstruct.library.tinkering.TooltipType;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
@@ -64,8 +66,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.TooltipBuilder;
-import slimeknights.tconstruct.library.utils.TooltipType;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -86,19 +87,19 @@ import java.util.function.Consumer;
 public class ToolCore extends Item implements ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
   protected static final UUID REACH_MODIFIER = UUID.fromString("9b26fa32-5774-4b4e-afc3-b4055ecb1f6a");
   /** Modifier key to make a tool spawn an indestructable entity */
-  public static final ResourceLocation INDESTRUCTIBLE_ENTITY = Util.getResource("indestructible");
+  public static final ResourceLocation INDESTRUCTIBLE_ENTITY = TConstruct.getResource("indestructible");
   /** Modifier key to make a tool spawn an indestructable entity */
-  public static final ResourceLocation SHINY = Util.getResource("shiny");
+  public static final ResourceLocation SHINY = TConstruct.getResource("shiny");
   /** Modifier key to make a tool spawn an indestructable entity */
-  public static final ResourceLocation RARITY = Util.getResource("rarity");
+  public static final ResourceLocation RARITY = TConstruct.getResource("rarity");
 
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
   private static final ITextComponent TOOLTIP_HOLD_CTRL;
   static {
-    ITextComponent shift = Util.makeTranslation("key", "shift").mergeStyle(TextFormatting.YELLOW, TextFormatting.ITALIC);
-    TOOLTIP_HOLD_SHIFT = new TranslationTextComponent(Util.makeTranslationKey("tooltip", "hold_shift"), shift);
-    ITextComponent ctrl = Util.makeTranslation("key", "ctrl").mergeStyle(TextFormatting.AQUA, TextFormatting.ITALIC);
-    TOOLTIP_HOLD_CTRL = new TranslationTextComponent(Util.makeTranslationKey("tooltip", "hold_ctrl"), ctrl);
+    ITextComponent shift = TConstruct.makeTranslation("key", "shift").mergeStyle(TextFormatting.YELLOW, TextFormatting.ITALIC);
+    TOOLTIP_HOLD_SHIFT = new TranslationTextComponent(TConstruct.makeTranslationKey("tooltip", "hold_shift"), shift);
+    ITextComponent ctrl = TConstruct.makeTranslation("key", "ctrl").mergeStyle(TextFormatting.AQUA, TextFormatting.ITALIC);
+    TOOLTIP_HOLD_CTRL = new TranslationTextComponent(TConstruct.makeTranslationKey("tooltip", "hold_ctrl"), ctrl);
   }
 
 

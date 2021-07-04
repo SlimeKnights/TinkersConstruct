@@ -11,7 +11,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 public class EntityTypeTagProvider extends EntityTypeTagsProvider {
 
   public EntityTypeTagProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
-    super(generatorIn, TConstruct.modID, existingFileHelper);
+    super(generatorIn, TConstruct.MOD_ID, existingFileHelper);
   }
 
   @Override

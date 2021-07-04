@@ -10,7 +10,7 @@ import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -24,7 +24,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class HeadMaterialStats extends BaseMaterialStats implements IRepairableMaterialStats {
-  public static final MaterialStatsId ID = new MaterialStatsId(Util.getResource("head"));
+  public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("head"));
   public static final HeadMaterialStats DEFAULT = new HeadMaterialStats(1, 1f, 0, 1f);
   // tooltip descriptions
   private static final List<ITextComponent> DESCRIPTION = ImmutableList.of(ToolStats.DURABILITY.getDescription(), ToolStats.HARVEST_LEVEL.getDescription(), ToolStats.MINING_SPEED.getDescription(), ToolStats.ATTACK_DAMAGE.getDescription());

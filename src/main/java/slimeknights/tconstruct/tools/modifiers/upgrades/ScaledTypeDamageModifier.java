@@ -5,7 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -52,7 +52,7 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
    * @param tooltip      Tooltip
    */
   public static void addDamageTooltip(IncrementalModifier self, IModifierToolStack tool, int level, float levelAmount, List<ITextComponent> tooltip) {
-    tooltip.add(self.applyStyle(new StringTextComponent("+" + Util.df.format(self.getScaledLevel(tool, level) * levelAmount))
+    tooltip.add(self.applyStyle(new StringTextComponent("+" + Util.COMMA_FORMAT.format(self.getScaledLevel(tool, level) * levelAmount))
                                   .appendString(" ")
                                   .append(new TranslationTextComponent(self.getTranslationKey() + ".damage"))));
   }

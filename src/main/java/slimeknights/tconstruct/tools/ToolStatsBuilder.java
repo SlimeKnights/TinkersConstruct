@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools;
 import lombok.AccessLevel;
 import lombok.Getter;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;

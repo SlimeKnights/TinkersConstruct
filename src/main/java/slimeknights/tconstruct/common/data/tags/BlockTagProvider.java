@@ -28,7 +28,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 public class BlockTagProvider extends BlockTagsProvider {
 
   public BlockTagProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
-    super(generatorIn, TConstruct.modID, existingFileHelper);
+    super(generatorIn, TConstruct.MOD_ID, existingFileHelper);
   }
 
   @Override

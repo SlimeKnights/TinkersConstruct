@@ -13,8 +13,8 @@ import net.minecraft.world.World;
 import slimeknights.mantle.recipe.RecipeSerializer;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
@@ -34,7 +34,7 @@ import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 public class ModifierRemovalRecipe implements ITinkerStationRecipe {
-  private static final ValidatedResult NO_MODIFIERS = ValidatedResult.failure(Util.makeTranslationKey("recipe", "remove_modifier.no_modifiers"));
+  private static final ValidatedResult NO_MODIFIERS = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "remove_modifier.no_modifiers"));
 
   @Getter
   private final ResourceLocation id;

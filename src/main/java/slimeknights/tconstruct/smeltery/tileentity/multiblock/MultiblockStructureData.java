@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
-import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.NBTUtil;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -226,8 +226,8 @@ public class MultiblockStructureData {
    */
   public CompoundNBT writeClientNBT() {
     CompoundNBT nbt = new CompoundNBT();
-    nbt.put(TAG_MIN, TagUtil.writePos(minPos));
-    nbt.put(TAG_MAX, TagUtil.writePos(maxPos));
+    nbt.put(TAG_MIN, NBTUtil.writePos(minPos));
+    nbt.put(TAG_MAX, NBTUtil.writePos(maxPos));
     return nbt;
   }
 
@@ -251,7 +251,7 @@ public class MultiblockStructureData {
   protected static ListNBT writePosList(Collection<BlockPos> collection) {
     ListNBT list = new ListNBT();
     for (BlockPos pos : collection) {
-      list.add(TagUtil.writePos(pos));
+      list.add(NBTUtil.writePos(pos));
     }
     return list;
   }

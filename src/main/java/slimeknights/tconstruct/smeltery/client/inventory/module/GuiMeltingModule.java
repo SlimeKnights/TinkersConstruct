@@ -7,7 +7,7 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 
@@ -23,9 +23,9 @@ public class GuiMeltingModule {
   private static final ScalableElementScreen UNMELTABLE_BAR = new ScalableElementScreen(185, 150, 3, 16, 256, 256);
 
   // progress bar tooltips
-  private static final ITextComponent TOOLTIP_NO_HEAT = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.no_heat"));
-  private static final ITextComponent TOOLTIP_NO_SPACE = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.no_space"));
-  private static final ITextComponent TOOLTIP_UNMELTABLE = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.no_recipe"));
+  private static final ITextComponent TOOLTIP_NO_HEAT = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.no_heat"));
+  private static final ITextComponent TOOLTIP_NO_SPACE = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.no_space"));
+  private static final ITextComponent TOOLTIP_UNMELTABLE = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.no_recipe"));
 
   private final ContainerScreen<?> screen;
   private final MeltingModuleInventory inventory;

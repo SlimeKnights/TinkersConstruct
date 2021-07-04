@@ -3,10 +3,9 @@ package slimeknights.tconstruct.smeltery.tileentity;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.util.text.TranslationTextComponent;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
@@ -20,7 +19,7 @@ import javax.annotation.Nullable;
 
 public class SmelteryTileEntity extends HeatingStructureTileEntity {
   /** Fluid capacity per internal block */
-  private static final int CAPACITY_PER_BLOCK = MaterialValues.INGOT * 8;
+  private static final int CAPACITY_PER_BLOCK = FluidValues.INGOT * 8;
   /** Number of wall blocks needed to increase the fuel cost by 1 */
   private static final int BLOCKS_PER_FUEL = 15;
 
@@ -30,7 +29,7 @@ public class SmelteryTileEntity extends HeatingStructureTileEntity {
   private final MultiAlloyingModule alloyingModule = new MultiAlloyingModule(this, alloyTank);
 
   public SmelteryTileEntity() {
-    super(TinkerSmeltery.smeltery.get(), new TranslationTextComponent(Util.makeTranslationKey("gui", "smeltery")));
+    super(TinkerSmeltery.smeltery.get(), TConstruct.makeTranslation("gui", "smeltery"));
   }
 
   @Override

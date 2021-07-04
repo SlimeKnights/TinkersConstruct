@@ -9,9 +9,9 @@ import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.data.IEarlySafeManagerReloadListener;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

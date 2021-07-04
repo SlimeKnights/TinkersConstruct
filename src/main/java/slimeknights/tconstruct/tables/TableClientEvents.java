@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.block.TableModel;
 import slimeknights.tconstruct.tables.client.PatternGuiTextureLoader;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
@@ -23,7 +22,7 @@ import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
+@EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
 public class TableClientEvents extends ClientEventBase {
 
   /**
@@ -36,7 +35,7 @@ public class TableClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerModelLoader(ModelRegistryEvent event) {
-    ModelLoaderRegistry.registerLoader(Util.getResource("table"), TableModel.LOADER);
+    ModelLoaderRegistry.registerLoader(TConstruct.getResource("table"), TableModel.LOADER);
   }
 
   @SubscribeEvent

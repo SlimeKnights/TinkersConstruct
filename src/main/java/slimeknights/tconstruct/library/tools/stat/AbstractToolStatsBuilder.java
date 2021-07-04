@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.tools.stat;
 
 import com.google.common.collect.Streams;
 import lombok.RequiredArgsConstructor;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -17,7 +17,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Extendable utilities for a stats builder. Includes
+ * Extendable utilities for a stats builder.
  * <p>
  * It's encouraged to use this for the base of your calculation, and then modify the result as needed.
  */

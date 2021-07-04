@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -19,9 +19,9 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 @RequiredArgsConstructor
 public class ToolFluidCapability implements IFluidHandlerItem {
   /** Boolean key to set in volatile mod data to enable the fluid capability */
-  public static final ResourceLocation HAS_CAPABILITY = Util.getResource("has_fluid_capability");
+  public static final ResourceLocation HAS_CAPABILITY = TConstruct.getResource("has_fluid_capability");
   /** Boolean key to set in volatile mod data to enable the fluid capability */
-  public static final ResourceLocation TOTAL_TANKS = Util.getResource("total_tanks");
+  public static final ResourceLocation TOTAL_TANKS = TConstruct.getResource("total_tanks");
 
   @Getter
   private final ItemStack container;

@@ -14,10 +14,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.AlloyRecipeCategory;
@@ -28,7 +28,7 @@ import java.util.List;
 
 /** Extension of melting for byproducts, but ditchs solid fuels */
 public class FoundryCategory extends AbstractMeltingCategory {
-  private static final String KEY_TITLE = Util.makeTranslationKey("jei", "foundry.title");
+  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "foundry.title");
 
   /** Tooltip callback for fluids */
   private static final ITooltipCallback<FluidStack> FLUID_TOOLTIP = new MeltingFluidCallback(false);
@@ -65,7 +65,7 @@ public class FoundryCategory extends AbstractMeltingCategory {
 
     // outputs
     IGuiFluidStackGroup fluids = layout.getFluidStacks();
-    AlloyRecipeCategory.drawVariableFluids(fluids, 0, false, 96, 4, 32, 32, recipe.getOutputWithByproducts(), MaterialValues.METAL_BLOCK);
+    AlloyRecipeCategory.drawVariableFluids(fluids, 0, false, 96, 4, 32, 32, recipe.getOutputWithByproducts(), FluidValues.METAL_BLOCK);
     fluids.set(ingredients);
 
     // liquid fuel

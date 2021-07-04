@@ -31,7 +31,7 @@ import java.util.function.Consumer;
 public class ItemTagProvider extends ItemTagsProvider {
 
   public ItemTagProvider(DataGenerator generatorIn, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
-    super(generatorIn, blockTagProvider, TConstruct.modID, existingFileHelper);
+    super(generatorIn, blockTagProvider, TConstruct.MOD_ID, existingFileHelper);
   }
 
   @Override

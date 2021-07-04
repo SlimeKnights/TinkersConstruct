@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeTagHandler;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 
 public class TinkerTags {
   /** Called on mod construct to set up tags */
@@ -92,7 +92,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> CISTERN_CONNECTIONS = BlockTags.createOptional(new ResourceLocation("ceramics", "cistern_connections"));
 
     private static IOptionalNamedTag<Block> tag(String name) {
-      return BlockTags.createOptional(Util.getResource(name));
+      return BlockTags.createOptional(TConstruct.getResource(name));
     }
 
     private static IOptionalNamedTag<Block> forgeTag(String name) {
@@ -199,7 +199,7 @@ public class TinkerTags {
 
 
     private static IOptionalNamedTag<Item> tag(String name) {
-      return ItemTags.createOptional(Util.getResource(name));
+      return ItemTags.createOptional(TConstruct.getResource(name));
     }
 
     private static IOptionalNamedTag<Item> forgeTag(String name) {
@@ -214,7 +214,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Fluid> METAL_LIKE = tag("metal_like");
 
     private static IOptionalNamedTag<Fluid> tag(String name) {
-      return FluidTags.createOptional(Util.getResource(name));
+      return FluidTags.createOptional(TConstruct.getResource(name));
     }
 
     private static IOptionalNamedTag<Fluid> forgeTag(String name) {
@@ -236,7 +236,7 @@ public class TinkerTags {
 
 
     private static IOptionalNamedTag<EntityType<?>> tag(String name) {
-      return EntityTypeTags.createOptional(Util.getResource(name));
+      return EntityTypeTags.createOptional(TConstruct.getResource(name));
     }
 
     private static IOptionalNamedTag<EntityType<?>> forgeTag(String name) {
@@ -249,7 +249,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<TileEntityType<?>> CRAFTING_STATION_BLACKLIST = tag("crafting_station_blacklist");
 
     private static IOptionalNamedTag<TileEntityType<?>> tag(String name) {
-      return ForgeTagHandler.createOptionalTag(ForgeRegistries.TILE_ENTITIES, Util.getResource(name));
+      return ForgeTagHandler.createOptionalTag(ForgeRegistries.TILE_ENTITIES, TConstruct.getResource(name));
     }
   }
 }

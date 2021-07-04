@@ -8,9 +8,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule.FuelInfo;
 
@@ -27,11 +27,11 @@ public class GuiFuelModule {
   private static final ScalableElementScreen FIRE = new ScalableElementScreen(176, 136, 14, 14, 256, 256);
 
   // tooltips
-  private static final String TOOLTIP_TEMPERATURE = Util.makeTranslationKey("gui", "melting.fuel.temperature");
-  private static final List<ITextComponent> TOOLTIP_NO_TANK = Collections.singletonList(new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.no_tank")));
-  private static final List<ITextComponent> TOOLTIP_NO_FUEL = Collections.singletonList(new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.empty")));
-  private static final ITextComponent TOOLTIP_INVALID_FUEL = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.invalid")).mergeStyle(TextFormatting.RED);
-  private static final ITextComponent TOOLTIP_SOLID_FUEL = new TranslationTextComponent(Util.makeTranslationKey("gui", "melting.fuel.solid"));
+  private static final String TOOLTIP_TEMPERATURE = TConstruct.makeTranslationKey("gui", "melting.fuel.temperature");
+  private static final List<ITextComponent> TOOLTIP_NO_TANK = Collections.singletonList(new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.no_tank")));
+  private static final List<ITextComponent> TOOLTIP_NO_FUEL = Collections.singletonList(new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.empty")));
+  private static final ITextComponent TOOLTIP_INVALID_FUEL = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.invalid")).mergeStyle(TextFormatting.RED);
+  private static final ITextComponent TOOLTIP_SOLID_FUEL = new TranslationTextComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.solid"));
 
   private final ContainerScreen<?> screen;
   private final FuelModule fuelModule;

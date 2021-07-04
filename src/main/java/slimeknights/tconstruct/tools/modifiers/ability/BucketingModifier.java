@@ -176,7 +176,7 @@ public class BucketingModifier extends TankModifier {
             fluidStack.grow(FluidAttributes.BUCKET_VOLUME);
             setFluid(tool, fluidStack);
           } else {
-            TConstruct.log.error("Picked up a fluid {} that does not match the current fluid state {}, this should not happen", pickedUpFluid, fluidState.getFluid());
+            TConstruct.LOG.error("Picked up a fluid {} that does not match the current fluid state {}, this should not happen", pickedUpFluid, fluidState.getFluid());
           }
         }
         return ActionResultType.SUCCESS;

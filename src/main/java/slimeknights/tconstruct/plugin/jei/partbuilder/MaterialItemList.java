@@ -2,7 +2,7 @@ package slimeknights.tconstruct.plugin.jei.partbuilder;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 
 import java.util.Collections;

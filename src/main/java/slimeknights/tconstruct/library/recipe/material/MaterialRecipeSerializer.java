@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 import javax.annotation.Nullable;
 

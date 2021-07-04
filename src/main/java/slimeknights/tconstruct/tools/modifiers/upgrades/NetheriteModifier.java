@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
+import slimeknights.tconstruct.library.tinkering.HarvestLevels;
 
 public class NetheriteModifier extends SingleLevelModifier {
   public NetheriteModifier() {

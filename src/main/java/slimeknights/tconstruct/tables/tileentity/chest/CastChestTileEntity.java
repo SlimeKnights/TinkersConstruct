@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tables.tileentity.chest;
 
 import net.minecraft.item.ItemStack;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 public class CastChestTileEntity extends TinkerChestTileEntity {
   public CastChestTileEntity() {
-    super(TinkerTables.castChestTile.get(), Util.makeTranslationKey("gui", "cast_chest"), DEFAULT_MAX, 4);
+    super(TinkerTables.castChestTile.get(), TConstruct.makeTranslationKey("gui", "cast_chest"), DEFAULT_MAX, 4);
   }
 
   @Override

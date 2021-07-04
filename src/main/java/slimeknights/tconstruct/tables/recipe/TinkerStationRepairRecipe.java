@@ -8,8 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -31,7 +30,7 @@ import java.util.function.IntConsumer;
 /** Recipe for repairing tools */
 @RequiredArgsConstructor
 public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
-  protected static final ValidatedResult FULLY_REPAIRED = ValidatedResult.failure(Util.makeTranslationKey("recipe", "tool_repair.fully_repaired"));
+  protected static final ValidatedResult FULLY_REPAIRED = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "tool_repair.fully_repaired"));
   /** No action int consumer for recipe result */
   private static final IntConsumer NO_ACTION = i -> {};
 
@@ -190,7 +189,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     }
 
     if (repairRemaining > 0) {
-      TConstruct.log.error("Recipe repair on {} consumed too few items. {} durability unaccounted for", result, repairRemaining);
+      TConstruct.LOG.error("Recipe repair on {} consumed too few items. {} durability unaccounted for", result, repairRemaining);
     }
   }
 

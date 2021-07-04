@@ -47,7 +47,7 @@ import slimeknights.tconstruct.gadgets.item.slimesling.EarthSlimeSlingItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.EnderSlimeSlingItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.IchorSlimeSlingItem;
 import slimeknights.tconstruct.gadgets.item.slimesling.SkySlimeSlingItem;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.TinkerFood;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
@@ -59,7 +59,7 @@ import java.util.function.Function;
 @SuppressWarnings("unused")
 public final class TinkerGadgets extends TinkerModule {
   /** Tab for all special tools added by the mod */
-  public static final ItemGroup TAB_GADGETS = new SupplierItemGroup(TConstruct.modID, "gadgets", () -> new ItemStack(TinkerGadgets.slimeSling.get(SlimeType.EARTH)));
+  public static final ItemGroup TAB_GADGETS = new SupplierItemGroup(TConstruct.MOD_ID, "gadgets", () -> new ItemStack(TinkerGadgets.slimeSling.get(SlimeType.EARTH)));
   static final Logger log = Util.getLogger("tinker_gadgets");
 
   /*

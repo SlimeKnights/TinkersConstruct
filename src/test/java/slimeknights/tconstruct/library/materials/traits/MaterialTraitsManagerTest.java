@@ -2,11 +2,11 @@ package slimeknights.tconstruct.library.materials.traits;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.fixture.ModifierFixture;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.data.MergingJsonFileLoader;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.test.BaseMcTest;
 
@@ -16,11 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MaterialTraitsManagerTest extends BaseMcTest {
   // file containing just default traits
-  private static final MaterialId DEFAULT_TRAITS = new MaterialId(Util.getResource("default"));
+  private static final MaterialId DEFAULT_TRAITS = new MaterialId(TConstruct.getResource("default"));
   // file containing just traits per stat type
-  private static final MaterialId PER_STAT_TRAITS = new MaterialId(Util.getResource("per_stat"));
+  private static final MaterialId PER_STAT_TRAITS = new MaterialId(TConstruct.getResource("per_stat"));
   // file containing both, and lists
-  private static final MaterialId MULTIPLE_TRAITS = new MaterialId(Util.getResource("multiple"));
+  private static final MaterialId MULTIPLE_TRAITS = new MaterialId(TConstruct.getResource("multiple"));
 
   private final MaterialTraitsManager traitsManager = new MaterialTraitsManager();
   private final MergingJsonFileLoader<MaterialTraits.Builder> fileLoader = new MergingJsonFileLoader<>(traitsManager);
@@ -32,7 +32,7 @@ class MaterialTraitsManagerTest extends BaseMcTest {
 
   @Test
   void empty() {
-    MaterialId empty = new MaterialId(Util.getResource("empty"));
+    MaterialId empty = new MaterialId(TConstruct.getResource("empty"));
     fileLoader.loadAndParseFiles(null, empty);
 
     // ensure we got this far and there were no errors

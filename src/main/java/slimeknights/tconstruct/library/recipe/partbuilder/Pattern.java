@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 import javax.annotation.Nullable;

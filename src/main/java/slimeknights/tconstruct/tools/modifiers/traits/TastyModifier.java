@@ -14,8 +14,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -24,7 +24,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import java.util.List;
 
 public class TastyModifier extends Modifier {
-  private static final ResourceLocation IS_EATING = Util.getResource("eating_tasty");
+  private static final ResourceLocation IS_EATING = TConstruct.getResource("eating_tasty");
   public TastyModifier() {
     super(0xF0A8A4);
   }

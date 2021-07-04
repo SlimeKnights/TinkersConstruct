@@ -3,8 +3,8 @@ package slimeknights.tconstruct.world.worldgen.islands.variants;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -23,7 +23,7 @@ public class SkySlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Override
   public ResourceLocation getStructureName(String variantName) {
-    return Util.getResource("slime_islands/sky/" + dirtType.getString() + "_" + variantName);
+    return TConstruct.getResource("slime_islands/sky/" + dirtType.getString() + "_" + variantName);
   }
 
   @Override

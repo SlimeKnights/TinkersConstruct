@@ -44,7 +44,7 @@ import java.util.List;
  * Event subscriber for tool events
  */
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid = TConstruct.modID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
 public class ToolEvents {
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {

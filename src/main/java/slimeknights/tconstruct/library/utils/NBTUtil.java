@@ -3,56 +3,53 @@ package slimeknights.tconstruct.library.utils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.util.Constants.NBT;
 
-import java.util.function.BiFunction;
+import javax.annotation.Nullable;
 
+/** Helpers related to NBT */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class NBTUtil {
+public final class NBTUtil {
+  /* Helper functions */
+
   /**
-   * Gets an integer from NBT, or the given default value
-   * @param nbt           NBT instance
-   * @param key           Key
-   * @param defaultValue  Value if missing
-   * @return Integer, or default if the tag is missing
+   * Writes a block position to NBT
+   * @param pos  Position to write
+   * @return  Position in NBT
    */
-  public static int getInt(CompoundNBT nbt, String key, int defaultValue) {
-    return getOrDefault(nbt, key, defaultValue, CompoundNBT::getInt);
+  public static CompoundNBT writePos(BlockPos pos) {
+    CompoundNBT tag = new CompoundNBT();
+    tag.putInt("x", pos.getX());
+    tag.putInt("y", pos.getY());
+    tag.putInt("z", pos.getZ());
+    return tag;
   }
 
   /**
-   * Gets an float from NBT, or the given default value
-   * @param nbt           NBT instance
-   * @param key           Key
-   * @param defaultValue  Value if missing
-   * @return Integer, or default if the tag is missing
+   * Reads a block position from NBT
+   * @param tag  Tag
+   * @return  Block position, or null if invalid
    */
-  public static float getFloat(CompoundNBT nbt, String key, float defaultValue) {
-    return getOrDefault(nbt, key, defaultValue, CompoundNBT::getFloat);
-  }
-
-  /**
-   * Gets an boolean from NBT, or the given default value
-   * @param nbt           NBT instance
-   * @param key           Key
-   * @param defaultValue  Value if missing
-   * @return Integer, or default if the tag is missing
-   */
-  public static boolean getBoolean(CompoundNBT nbt, String key, boolean defaultValue) {
-    return getOrDefault(nbt, key, defaultValue, CompoundNBT::getBoolean);
-  }
-
-  /**
-   * Gets a number value from NBT, or the given default value
-   * @param nbt           NBT instance
-   * @param key           Key
-   * @param defaultValue  Value if missing
-   * @return Integer, or default if the tag is missing
-   */
-  public static <T> T getOrDefault(CompoundNBT nbt, String key, T defaultValue, BiFunction<CompoundNBT, String, T> valueGetter) {
-    if(nbt.contains(key, Constants.NBT.TAG_ANY_NUMERIC)) {
-      return valueGetter.apply(nbt, key);
+  @Nullable
+  public static BlockPos readPos(CompoundNBT tag) {
+    if (tag.contains("x", NBT.TAG_ANY_NUMERIC) && tag.contains("y", NBT.TAG_ANY_NUMERIC) && tag.contains("z", NBT.TAG_ANY_NUMERIC)) {
+      return new BlockPos(tag.getInt("x"), tag.getInt("y"), tag.getInt("z"));
     }
-    return defaultValue;
+    return null;
+  }
+
+  /**
+   * Reads a block position from NBT
+   * @param parent  Parent tag
+   * @param key     Position key
+   * @return  Block position, or null if invalid or missing
+   */
+  @Nullable
+  public static BlockPos readPos(CompoundNBT parent, String key) {
+    if (parent.contains(key, NBT.TAG_COMPOUND)) {
+      return readPos(parent.getCompound(key));
+    }
+    return null;
   }
 }

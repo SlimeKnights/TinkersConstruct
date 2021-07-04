@@ -22,8 +22,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -35,9 +35,9 @@ import java.util.List;
  * Alloy recipe category for JEI display
  */
 public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe>, ITooltipCallback<FluidStack> {
-  private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/alloy.png");
-  private static final String KEY_TITLE = Util.makeTranslationKey("jei", "alloy.title");
-  private static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "temperature");
+  private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/alloy.png");
+  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "alloy.title");
+  private static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
 
   @Getter
   private final IDrawable background;

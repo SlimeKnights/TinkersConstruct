@@ -11,8 +11,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.tools.TinkerTools;
 
+/** Item entity that will never die */
 public class IndestructibleEntityItem extends ItemEntity {
-
   public IndestructibleEntityItem(EntityType<? extends IndestructibleEntityItem> entityType, World world) {
     super(entityType, world);
   }
@@ -31,6 +31,7 @@ public class IndestructibleEntityItem extends ItemEntity {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 
+  /** Copies the pickup delay from another entity */
   public void setPickupDelayFrom(Entity reference) {
     if (reference instanceof ItemEntity) {
       short pickupDelay = this.getPickupDelay((ItemEntity) reference);
@@ -58,11 +59,4 @@ public class IndestructibleEntityItem extends ItemEntity {
     // prevent any damage besides out of world
     return source.getDamageType().equals(DamageSource.OUT_OF_WORLD.damageType);
   }
-/*
-  @SubscribeEvent
-  public void onExpire(ItemExpireEvent event) {
-    if (event.getEntityItem() instanceof IndestructibleEntityItem) {
-      event.setCanceled(true);
-    }
-  }*/
 }

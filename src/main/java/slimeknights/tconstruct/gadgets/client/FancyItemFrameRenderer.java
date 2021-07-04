@@ -55,8 +55,8 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
       // LOCATIONS_MODEL.put(color, new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getName() + "_frame"), "map=false"));
       // LOCATIONS_MODEL_MAP.put(color, new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getName() + "_frame"), "map=true"));
 
-      LOCATIONS_MODEL.put(frameType, new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getString() + "_frame_empty"), "inventory"));
-      LOCATIONS_MODEL_MAP.put(frameType, new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getString() + "_frame_map"), "inventory"));
+      LOCATIONS_MODEL.put(frameType, new ModelResourceLocation(TConstruct.getResource(frameType.getString() + "_frame_empty"), "inventory"));
+      LOCATIONS_MODEL_MAP.put(frameType, new ModelResourceLocation(TConstruct.getResource(frameType.getString() + "_frame_map"), "inventory"));
     }
   }
 

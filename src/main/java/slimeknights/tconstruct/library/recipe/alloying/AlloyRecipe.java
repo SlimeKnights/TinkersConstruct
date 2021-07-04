@@ -185,7 +185,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
           drained = inv.drain(i, toDrain);
           // ensure the right amount of fluid was drained and skip to next ingredient
           if (drained.getAmount() != toDrain.getAmount()) {
-            TConstruct.log.error("Wrong amount of fluid {} drained for recipe {}", drained.getFluid(), id);
+            TConstruct.LOG.error("Wrong amount of fluid {} drained for recipe {}", drained.getFluid(), id);
           }
         }
       }
@@ -193,7 +193,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
       // add the output
       int filled = inv.fill(output.copy());
       if (filled != output.getAmount()) {
-        TConstruct.log.error("Filled only {} for recipe {}", filled, id);
+        TConstruct.LOG.error("Filled only {} for recipe {}", filled, id);
       }
     }
   }

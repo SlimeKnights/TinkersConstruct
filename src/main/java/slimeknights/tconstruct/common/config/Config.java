@@ -296,7 +296,7 @@ public class Config {
   /** Called when config reloaded to update cached settings */
   private static void configChanged(ModConfig.Reloading event) {
     ModConfig config = event.getConfig();
-    if (config.getModId().equals(TConstruct.modID)) {
+    if (config.getModId().equals(TConstruct.MOD_ID)) {
       ForgeConfigSpec spec = config.getSpec();
       if (spec == Config.commonSpec) {
         TinkerStructures.addStructureSeparation();

@@ -25,15 +25,14 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.Util;
 
 /**
  * Alternative to {@link net.minecraftforge.fluids.FluidUtil} since no one has time to make the forge util not a buggy mess
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FluidTransferUtil {
-  private static final String KEY_FILLED = Util.makeTranslationKey("block", "tank.filled");
-  private static final String KEY_DRAINED = Util.makeTranslationKey("block", "tank.drained");
+  private static final String KEY_FILLED = TConstruct.makeTranslationKey("block", "tank.filled");
+  private static final String KEY_DRAINED = TConstruct.makeTranslationKey("block", "tank.drained");
 
   /**
    * Attempts to transfer fluid
@@ -55,7 +54,7 @@ public class FluidTransferUtil {
           // acutally fill
           int actualFill = output.fill(drainedFluid.copy(), FluidAction.EXECUTE);
           if (actualFill != drainedFluid.getAmount()) {
-            TConstruct.log.error("Lost {} fluid during transfer", drainedFluid.getAmount() - actualFill);
+            TConstruct.LOG.error("Lost {} fluid during transfer", drainedFluid.getAmount() - actualFill);
           }
         }
         return drainedFluid;

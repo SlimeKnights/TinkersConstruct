@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat.FloatBuilder;
+import slimeknights.tconstruct.library.utils.Util;
 
 /**
  * Tool stat representing a float value, used for most numbers

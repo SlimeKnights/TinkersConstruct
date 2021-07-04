@@ -7,8 +7,8 @@ import net.minecraft.tags.ITag;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.registration.object.FluidObject;
-import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
@@ -86,7 +86,7 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
 
   /** Adds recipes to melt and cast a material of ingot size */
   default void addMaterialMeltingCasting(Consumer<IFinishedRecipe> consumer, MaterialId material, FluidObject<?> fluid, String folder) {
-    addMaterialMeltingCasting(consumer, material, fluid, MaterialValues.INGOT, folder);
+    addMaterialMeltingCasting(consumer, material, fluid, FluidValues.INGOT, folder);
   }
 
   /** Adds recipes to melt and cast a material of ingot size */

@@ -16,8 +16,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ForgeI18n;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.plugin.jei.JEIPlugin;
@@ -28,9 +28,9 @@ import java.awt.Color;
 import java.util.Arrays;
 
 public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderRecipe> {
-  private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/tinker_station.png");
-  private static final String KEY_TITLE = Util.makeTranslationKey("jei", "part_builder.title");
-  private static final String KEY_COST = Util.makeTranslationKey("jei", "part_builder.cost");
+  private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
+  private static final String KEY_TITLE = TConstruct.makeTranslationKey("jei", "part_builder.title");
+  private static final String KEY_COST = TConstruct.makeTranslationKey("jei", "part_builder.cost");
 
   @Getter
   private final IDrawable background;

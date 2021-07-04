@@ -6,7 +6,7 @@ import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.Util;
 
 /**
  * Interface for all tool stats, can implement to determine the behavior of stats in the modifier stat builder
@@ -79,7 +79,7 @@ public interface IToolStat<B> {
    */
   static ITextComponent formatNumber(String loc, Color color, float number) {
     return new TranslationTextComponent(loc)
-      .append(new StringTextComponent(Util.df.format(number)).modifyStyle(style -> style.setColor(color)));
+      .append(new StringTextComponent(Util.COMMA_FORMAT.format(number)).modifyStyle(style -> style.setColor(color)));
   }
 
   /**
@@ -91,7 +91,7 @@ public interface IToolStat<B> {
    */
   static ITextComponent formatNumberPercent(String loc, Color color, float number) {
     return new TranslationTextComponent(loc)
-      .append(new StringTextComponent(Util.dfPercent.format(number)).modifyStyle(style -> style.setColor(color)));
+      .append(new StringTextComponent(Util.PERCENT_FORMAT.format(number)).modifyStyle(style -> style.setColor(color)));
   }
 
   /**
@@ -103,6 +103,6 @@ public interface IToolStat<B> {
   static ITextComponent formatColoredMultiplier(String loc, float number) {
     // 0.5 is red, 1.0 should be roughly green, 1.5 is blue
     float hue = MathHelper.positiveModulo(number - 0.5f, 2f);
-    return new TranslationTextComponent(loc).append(new StringTextComponent(Util.dfMultiplier.format(number)).modifyStyle(style -> style.setColor(Color.fromInt(MathHelper.hsvToRGB(hue / 1.5f, 1.0f, 0.75f)))));
+    return new TranslationTextComponent(loc).append(new StringTextComponent(Util.MULTIPLIER_FORMAT.format(number)).modifyStyle(style -> style.setColor(Color.fromInt(MathHelper.hsvToRGB(hue / 1.5f, 1.0f, 0.75f)))));
   }
 }

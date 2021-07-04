@@ -52,7 +52,7 @@ public final class TinkerTools extends TinkerModule {
   }
 
   /** Creative tab for all tool items */
-  public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.modID, "tools", () -> TinkerTools.pickaxe.get().buildToolForRendering());
+  public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.MOD_ID, "tools", () -> TinkerTools.pickaxe.get().buildToolForRendering());
 
   /*
    * Items

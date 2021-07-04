@@ -20,13 +20,13 @@ import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -49,9 +49,9 @@ import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
 public class ContentMaterial extends TinkerPage {
-  private static final ITextComponent PART_BUILDER = Util.makeTranslation("book", "material.part_builder");
-  private static final String CAST_FROM = Util.makeTranslationKey("book", "material.cast_from");
-  private static final String COMPOSITE_FROM = Util.makeTranslationKey("book", "material.composite_from");
+  private static final ITextComponent PART_BUILDER = TConstruct.makeTranslation("book", "material.part_builder");
+  private static final String CAST_FROM = TConstruct.makeTranslationKey("book", "material.cast_from");
+  private static final String COMPOSITE_FROM = TConstruct.makeTranslationKey("book", "material.composite_from");
 
   public static final String ID = "toolmaterial";
 

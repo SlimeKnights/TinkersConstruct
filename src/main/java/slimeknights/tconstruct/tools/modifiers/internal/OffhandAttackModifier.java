@@ -7,7 +7,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import slimeknights.mantle.util.OffhandCooldownTracker;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 public class OffhandAttackModifier extends SingleUseModifier {
-  public static final ResourceLocation DUEL_WIELDING = Util.getResource("duel_wielding");
+  public static final ResourceLocation DUEL_WIELDING = TConstruct.getResource("duel_wielding");
   private final int cooldownTime;
   public OffhandAttackModifier(int color, int cooldownTime) {
     super(color);

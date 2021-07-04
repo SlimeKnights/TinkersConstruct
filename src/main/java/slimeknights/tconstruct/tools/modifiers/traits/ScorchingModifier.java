@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
@@ -17,7 +17,7 @@ public class ScorchingModifier extends Modifier {
 
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    TinkerModifiers.tank.get().addCapacity(volatileData, MaterialValues.INGOT * 2);
+    TinkerModifiers.tank.get().addCapacity(volatileData, FluidValues.INGOT * 2);
   }
 
   @Override

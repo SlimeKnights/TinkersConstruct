@@ -16,7 +16,7 @@ import java.nio.file.Path;
 
 public class TileEntityTypeTagProvider extends TagsProvider<TileEntityType<?>> {
   public TileEntityTypeTagProvider(DataGenerator generatorIn, @Nullable ExistingFileHelper existingFileHelper) {
-    super(generatorIn, Registry.BLOCK_ENTITY_TYPE, TConstruct.modID, existingFileHelper, "tile_entity_types");
+    super(generatorIn, Registry.BLOCK_ENTITY_TYPE, TConstruct.MOD_ID, existingFileHelper, "tile_entity_types");
   }
 
   @Override

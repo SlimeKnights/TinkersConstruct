@@ -19,11 +19,11 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.lifecycle.IModBusEvent;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.IEarlySafeManagerReloadListener;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
+import slimeknights.tconstruct.library.data.IEarlySafeManagerReloadListener;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
 @Log4j2
 public class ModifierModelManager implements IEarlySafeManagerReloadListener {
   /** Modifier file to load, merges for all lower packs */
-  private static final ResourceLocation VISIBLE_MODIFIERS = Util.getResource("models/modifiers.json");
+  private static final ResourceLocation VISIBLE_MODIFIERS = TConstruct.getResource("models/modifiers.json");
   /** Instance of this manager */
   public static final ModifierModelManager INSTANCE = new ModifierModelManager();
 

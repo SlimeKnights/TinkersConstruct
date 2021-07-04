@@ -17,8 +17,8 @@ import slimeknights.mantle.client.screen.book.element.ImageElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.mantle.util.ItemStackList;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistries;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.CycleRecipeElement;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
@@ -40,7 +40,7 @@ public class ContentModifier extends TinkerPage {
 
   public static final transient int TEX_SIZE = 256;
 
-  public static final ResourceLocation BOOK_MODIFY = Util.getResource("textures/gui/book/modify.png");
+  public static final ResourceLocation BOOK_MODIFY = TConstruct.getResource("textures/gui/book/modify.png");
 
   public static final transient ImageData IMG_SLOT_1 = new ImageData(BOOK_MODIFY, 0, 75, 22, 22, TEX_SIZE, TEX_SIZE);
   public static final transient ImageData IMG_SLOT_2 = new ImageData(BOOK_MODIFY, 0, 97, 40, 22, TEX_SIZE, TEX_SIZE);

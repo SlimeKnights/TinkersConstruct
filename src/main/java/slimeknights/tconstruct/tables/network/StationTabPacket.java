@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 
 public class StationTabPacket implements IThreadsafePacket {

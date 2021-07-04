@@ -14,14 +14,14 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.recipe.RecipeHelper;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
 /**
  * Loot function to set the fluid on a dropped item
  */
 public class SetFluidLootFunction extends LootFunction {
-  public static final ResourceLocation ID = Util.getResource("set_fluid");
+  public static final ResourceLocation ID = TConstruct.getResource("set_fluid");
 
   /** Fluid to add to the item */
   private final FluidStack fluid;

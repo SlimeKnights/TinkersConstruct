@@ -23,13 +23,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.model.FaucetFluidLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.model.block.CastingModel;
 import slimeknights.tconstruct.library.client.model.block.ChannelModel;
 import slimeknights.tconstruct.library.client.model.block.FluidTextureModel;
 import slimeknights.tconstruct.library.client.model.block.MelterModel;
 import slimeknights.tconstruct.library.client.model.block.TankModel;
-import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.smeltery.client.SingleItemScreenFactory;
 import slimeknights.tconstruct.smeltery.client.inventory.AlloyerScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen;
@@ -47,7 +46,7 @@ import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid= TConstruct.modID, value= Dist.CLIENT, bus= Bus.MOD)
+@EventBusSubscriber(modid= TConstruct.MOD_ID, value= Dist.CLIENT, bus= Bus.MOD)
 public class SmelteryClientEvents extends ClientEventBase {
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor
@@ -113,11 +112,11 @@ public class SmelteryClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerModelLoaders(ModelRegistryEvent event) {
-    ModelLoaderRegistry.registerLoader(Util.getResource("tank"), TankModel.LOADER);
-    ModelLoaderRegistry.registerLoader(Util.getResource("casting"), CastingModel.LOADER);
-    ModelLoaderRegistry.registerLoader(Util.getResource("melter"), MelterModel.LOADER);
-    ModelLoaderRegistry.registerLoader(Util.getResource("channel"), ChannelModel.LOADER);
-    ModelLoaderRegistry.registerLoader(Util.getResource("fluid_texture"), FluidTextureModel.LOADER);
+    ModelLoaderRegistry.registerLoader(TConstruct.getResource("tank"), TankModel.LOADER);
+    ModelLoaderRegistry.registerLoader(TConstruct.getResource("casting"), CastingModel.LOADER);
+    ModelLoaderRegistry.registerLoader(TConstruct.getResource("melter"), MelterModel.LOADER);
+    ModelLoaderRegistry.registerLoader(TConstruct.getResource("channel"), ChannelModel.LOADER);
+    ModelLoaderRegistry.registerLoader(TConstruct.getResource("fluid_texture"), FluidTextureModel.LOADER);
   }
 
   @SubscribeEvent

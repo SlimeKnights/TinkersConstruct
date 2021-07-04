@@ -1,10 +1,9 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.util.text.TranslationTextComponent;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ControllerBlock;
 import slimeknights.tconstruct.smeltery.tileentity.module.ByproductMeltingModuleInventory;
@@ -17,13 +16,13 @@ import javax.annotation.Nullable;
 
 public class FoundryTileEntity extends HeatingStructureTileEntity {
   /** Fluid capacity per internal block */
-  private static final int CAPACITY_PER_BLOCK = MaterialValues.INGOT * 8;
+  private static final int CAPACITY_PER_BLOCK = FluidValues.INGOT * 8;
   /** Number of wall blocks needed to increase the fuel cost by 1
    * this is a bit higher than the smeltery as the structure uses more blocks, balances out in larger structures */
   private static final int BLOCKS_PER_FUEL = 18;
 
   public FoundryTileEntity() {
-    super(TinkerSmeltery.foundry.get(), new TranslationTextComponent(Util.makeTranslationKey("gui", "foundry")));
+    super(TinkerSmeltery.foundry.get(), TConstruct.makeTranslation("gui", "foundry"));
   }
 
   @Override

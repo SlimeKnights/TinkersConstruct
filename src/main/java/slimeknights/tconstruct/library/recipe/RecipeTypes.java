@@ -47,6 +47,6 @@ public interface RecipeTypes {
    * @return  Registered recipe type
    */
   static <T extends IRecipe<?>> IRecipeType<T> register(String name) {
-    return IRecipeType.register(TConstruct.modID + ":" + name);
+    return IRecipeType.register(TConstruct.MOD_ID + ":" + name);
   }
 }

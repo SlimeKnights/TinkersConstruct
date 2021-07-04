@@ -8,9 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants.NBT;
-import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -31,11 +31,11 @@ import java.util.List;
 @RequiredArgsConstructor(staticName = "from")
 public class ToolStack implements IModifierToolStack {
   /** Error messages for when there are not enough remaining modifiers */
-  private static final ValidatedResult VALIDATE_UPGRADES = ValidatedResult.failure(Util.makeTranslationKey("recipe", "modifier.validate_upgrades"));
-  private static final ValidatedResult VALIDATE_ABILITIES = ValidatedResult.failure(Util.makeTranslationKey("recipe", "modifier.validate_abilities"));
+  private static final ValidatedResult VALIDATE_UPGRADES = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "modifier.validate_upgrades"));
+  private static final ValidatedResult VALIDATE_ABILITIES = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "modifier.validate_abilities"));
 
   /** Volatile mod data key for the durability before modifiers */
-  public static final ResourceLocation ORIGINAL_DURABILITY_KEY = Util.getResource("durability");
+  public static final ResourceLocation ORIGINAL_DURABILITY_KEY = TConstruct.getResource("durability");
 
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";

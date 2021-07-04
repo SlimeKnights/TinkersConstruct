@@ -5,8 +5,8 @@ import lombok.Getter;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.stat.TierToolStat.TierBuilder;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.function.IntFunction;
 

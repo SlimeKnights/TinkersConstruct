@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.smeltery.tileentity.AlloyerTileEntity;
 
 import java.util.Random;

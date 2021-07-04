@@ -21,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
-import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
@@ -106,8 +106,8 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock {
   public enum TankType implements IStringSerializable {
     FUEL_TANK(TankTileEntity.DEFAULT_CAPACITY),
     FUEL_GAUGE(TankTileEntity.DEFAULT_CAPACITY),
-    INGOT_TANK(MaterialValues.INGOT * 32),
-    INGOT_GAUGE(MaterialValues.INGOT * 32);
+    INGOT_TANK(FluidValues.INGOT * 32),
+    INGOT_GAUGE(FluidValues.INGOT * 32);
 
     @Getter
     private final int capacity;
