@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
 import net.minecraftforge.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipeCache;
@@ -35,6 +36,10 @@ public class SeveringModifier extends Modifier {
         if (!recipes.isEmpty()) {
           // 5% chance per level, bonus 5% per level of looting
           float chance = (level + context.getLootingModifier()) * 0.05f;
+          // double chance for mobs such as ender dragons and the wither
+          if (TinkerTags.EntityTypes.RARE_MOBS.contains(entity.getType())) {
+            chance *= 2;
+          }
           for (SeveringRecipe recipe : recipes) {
             ItemStack result = recipe.getOutput(entity);
             if (!result.isEmpty() && RANDOM.nextFloat() < chance) {

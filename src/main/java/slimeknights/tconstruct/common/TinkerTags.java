@@ -233,6 +233,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<EntityType<?>> PIGGYBACKPACK_BLACKLIST = tag("piggybackpack_blacklist");
 
     public static final IOptionalNamedTag<EntityType<?>> CREEPERS = forgeTag("creepers");
+    /** Mobs that rarely spawn, boosts drop rate of severing */
+    public static final IOptionalNamedTag<EntityType<?>> RARE_MOBS = tag("rare_mobs");
 
 
     private static IOptionalNamedTag<EntityType<?>> tag(String name) {
