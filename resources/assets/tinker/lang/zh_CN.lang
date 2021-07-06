@@ -16,6 +16,8 @@ crafters.Smeltery=冶炼炉
 crafters.Frypan=煎锅
 inventory.knapsack=背包
 
+nei.options.keys.gui.tinkers_belt=切换旅行者腰带
+
 ToolStation.Crafter.name=工具组装台
 ToolStation.Parts.name=部件加工台
 ToolStation.PatternChest.name=模具箱
@@ -635,9 +637,9 @@ toolpart.Bolt=%%material弩箭
 toolpart.Shaft=%%material箭杆
 
 # Now with translations of specific material and part combinations:
-#toolpart.ToolRod.wood=木手柄
+#toolpart.ToolRod.wood=Wooden Tool Rod
 # If only the material part has to be specific, you can use this
-#toolpart.material.wood=木
+#toolpart.material.wood=Wooden
 
 fluid.iron.molten=熔融铁
 fluid.gold.molten=熔融金
@@ -937,11 +939,11 @@ tool.throwingknife=飞刀
 tool.javelin=标枪
 
 # Customization of default tool names based on tool and material
-#tool.shovel.wood=木铲
+#tool.shovel.wood=Wooden Shovel
 
 tool.kingslimeprefix=史莱姆王
 # Specific localization like materials
-#tool.shovel.kingslime=悲叹之铲
+#tool.shovel.kingslime=Regret
 
 manual.page.material1=满耐久
 manual.page.material2=心
@@ -1064,3 +1066,6 @@ option.tcon.castingchannel=浇注道
 option.tcon.basin=铸造盆
 option.tcon.table=浇铸台
 option.tcon.smeltery=冶炼厂状态
+
+fluid.molten.unstableIngots=熔融不稳定金属锭
+fluid.molten.bedrockiumIngots=熔融基岩锭
