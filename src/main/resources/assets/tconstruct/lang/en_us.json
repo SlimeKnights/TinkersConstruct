@@ -779,6 +779,21 @@
 
   "gui.tconstruct.duct": "Duct",
 
+  "multiblock.tconstruct.generic.no_attempt": "Structure detection has not yet run, this is normally a bug with the mod",
+  "multiblock.tconstruct.generic.not_loaded": "Structure is outside the loaded area, this is normally a bug with the mod",
+  "multiblock.tconstruct.generic.too_high": "Structure requires blocks above the top of the world",
+  "multiblock.tconstruct.generic.too_large": "Structure inside is too large: must be at most %s×%s, but is currently currently %s×%s",
+
+  "multiblock.tconstruct.generic.invalid_inner_block": "Invalid block inside the structure",
+  "multiblock.tconstruct.generic.invalid_wall_block": "Invalid block in the walls",
+  "multiblock.tconstruct.generic.invalid_floor_block": "Invalid block in the floor",
+  "multiblock.tconstruct.generic.invalid_ceiling_block": "Invalid block in the ceiling",
+  "multiblock.tconstruct.generic.invalid_wall_frame": "Invalid block in the wall frame",
+  "multiblock.tconstruct.generic.invalid_floor_frame": "Invalid block on the edges of the floor",
+  "multiblock.tconstruct.generic.invalid_ceiling_frame": "Invalid block on the edges of the ceiling",
+
+  "multiblock.tconstruct.tiny.no_fuel_tank": "Must be placed above a fuel tank or a heater to function",
+
 
   "_comment": "Tinkers Smeltery",
 

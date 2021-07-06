@@ -148,6 +148,9 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> GUIDEBOOKS = forgeTag("books/guide");
     public static final IOptionalNamedTag<Item> TINKERS_GUIDES = tag("guides");
 
+    /** Any items in this tag will show the erroring block in smelteries and foundries when held or worn */
+    public static final IOptionalNamedTag<Item> STRUCTURE_DEBUG = tag("structure_debug");
+
     /** Containers that can be used in the duct */
     public static final IOptionalNamedTag<Item> DUCT_CONTAINERS = tag("duct_containers");
 

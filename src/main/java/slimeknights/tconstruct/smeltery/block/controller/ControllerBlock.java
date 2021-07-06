@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.block;
+package slimeknights.tconstruct.smeltery.block.controller;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -65,15 +65,23 @@ public abstract class ControllerBlock extends InventoryBlock {
     return state.get(IN_STRUCTURE);
   }
 
-  @Override
-  protected boolean openGui(PlayerEntity player, World world, BlockPos pos) {
-    BlockState state = world.getBlockState(pos);
-    if (state.getBlock() == this && canOpenGui(state)) {
-      return super.openGui(player, world, pos);
-    }
+  /** Displays the multiblock's status, typically an error that it cannot form */
+  protected boolean displayStatus(PlayerEntity player, World world, BlockPos pos, BlockState state) {
     return false;
   }
 
+  @Override
+  protected boolean openGui(PlayerEntity player, World world, BlockPos pos) {
+    BlockState state = world.getBlockState(pos);
+    if (state.getBlock() == this) {
+      if (canOpenGui(state)) {
+        return super.openGui(player, world, pos);
+      } else {
+        return displayStatus(player, world, pos, state);
+      }
+    }
+    return false;
+  }
 
 
   /*

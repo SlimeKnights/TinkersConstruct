@@ -50,6 +50,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(ItemTags.LECTERN_BOOKS).addTag(TinkerTags.Items.TINKERS_GUIDES);
     this.getOrCreateBuilder(TinkerTags.Items.GUIDEBOOKS).addTag(TinkerTags.Items.TINKERS_GUIDES);
     this.getOrCreateBuilder(TinkerTags.Items.BOOKS).addTag(TinkerTags.Items.GUIDEBOOKS);
+    this.getOrCreateBuilder(TinkerTags.Items.STRUCTURE_DEBUG).addTag(TinkerTags.Items.TINKERS_GUIDES);
 
     this.getOrCreateBuilder(Tags.Items.SLIMEBALLS)
         .addTag(TinkerTags.Items.SKY_SLIMEBALL)

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.block;
+package slimeknights.tconstruct.smeltery.block.controller;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;

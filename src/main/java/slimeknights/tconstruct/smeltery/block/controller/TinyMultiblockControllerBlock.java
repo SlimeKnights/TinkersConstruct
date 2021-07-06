@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.block;
+package slimeknights.tconstruct.smeltery.block.controller;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,14 +8,18 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 
-public abstract class TinyMultiblockController extends ControllerBlock {
-  protected TinyMultiblockController(Properties builder) {
+public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
+  private static final ITextComponent NO_FUEL_TANK = TConstruct.makeTranslation("multiblock", "tiny.no_fuel_tank");
+
+  protected TinyMultiblockControllerBlock(Properties builder) {
     super(builder);
   }
 
@@ -58,6 +62,14 @@ public abstract class TinyMultiblockController extends ControllerBlock {
       return ActionResultType.SUCCESS;
     }
     return super.onBlockActivated(state, world, pos, player, hand, hit);
+  }
+
+  @Override
+  protected boolean displayStatus(PlayerEntity player, World world, BlockPos pos, BlockState state) {
+    if (!world.isRemote && !state.get(IN_STRUCTURE)) {
+      player.sendStatusMessage(NO_FUEL_TANK, true);
+    }
+    return true;
   }
 
 

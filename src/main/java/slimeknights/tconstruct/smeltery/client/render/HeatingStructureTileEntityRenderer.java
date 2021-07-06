@@ -1,27 +1,47 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderState;
+import net.minecraft.client.renderer.RenderState.LineState;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.smeltery.block.ControllerBlock;
+import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
+import slimeknights.tconstruct.smeltery.block.controller.HeatingControllerBlock;
 import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock.StructureData;
 
+import java.util.OptionalDouble;
+
 public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<HeatingStructureTileEntity> {
- private static final float ITEM_SCALE = 15f/16f;
+  private static final RenderType ERROR_BLOCK = RenderType.makeType(
+    "lines", DefaultVertexFormats.POSITION_COLOR, 1, 256,
+    RenderType.State.getBuilder()
+                    .line(new LineState(OptionalDouble.empty()))
+                    .layer(RenderState.field_239235_M_)
+                    .transparency(RenderState.TRANSLUCENT_TRANSPARENCY)
+                    .target(RenderState.field_241712_U_)
+                    .writeMask(RenderState.COLOR_DEPTH_WRITE)
+                    .depthTest(RenderState.DEPTH_ALWAYS)
+                    .build(false));
+
+  private static final float ITEM_SCALE = 15f/16f;
   public HeatingStructureTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
     super(rendererDispatcherIn);
   }
@@ -31,9 +51,32 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
     World world = smeltery.getWorld();
     if (world == null) return;
     BlockState state = smeltery.getBlockState();
-    if (!state.get(ControllerBlock.IN_STRUCTURE)) return;
     StructureData structure = smeltery.getStructure();
-    if (structure == null) return;
+    boolean structureValid = state.get(ControllerBlock.IN_STRUCTURE) && structure != null;
+
+    // render erroring block, done whether in the structure or not
+    BlockPos errorPos = smeltery.getErrorPos();
+    if (errorPos != null && Minecraft.getInstance().player != null) {
+      // either we must be holding the book, or the structure must be erroring and it be within 10 seconds of last update
+      boolean highlightError = smeltery.isHighlightError();
+      if ((!structureValid && highlightError) || HeatingControllerBlock.holdingBook(Minecraft.getInstance().player)) {
+        // distance check, 512 is the squared length of the diagonal of a max size structure
+        BlockPos pos = smeltery.getPos();
+        BlockPos playerPos = Minecraft.getInstance().player.getPosition();
+        int dx = playerPos.getX() - pos.getX();
+        int dz = playerPos.getZ() - pos.getZ();
+        if ((dx * dx + dz * dz) < 512) {
+          // color will be yellow if the structure is valid (expanding), red if invalid
+          IVertexBuilder vertexBuilder = buffer.getBuffer(highlightError ? ERROR_BLOCK : RenderType.LINES);
+          WorldRenderer.drawShape(matrices, vertexBuilder, VoxelShapes.fullCube(), errorPos.getX() - pos.getX(), errorPos.getY() - pos.getY(), errorPos.getZ() - pos.getZ(), 1f, structureValid ? 1f : 0f, 0f, 0.5f);
+        }
+      }
+    }
+
+    // if no structure, nothing else to do
+    if (!structureValid) {
+      return;
+    }
 
     // relevant positions
     BlockPos pos = smeltery.getPos();

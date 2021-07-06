@@ -1,8 +1,9 @@
-package slimeknights.tconstruct.smeltery.block;
+package slimeknights.tconstruct.smeltery.block.controller;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
@@ -10,32 +11,32 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.FoundryTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class SmelteryControllerBlock extends ControllerBlock {
-  public SmelteryControllerBlock(Properties properties) {
-    super(properties);
+public class FoundryControllerBlock extends HeatingControllerBlock {
+  public FoundryControllerBlock(Properties builder) {
+    super(builder);
   }
 
   @Override
   public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
-    return new SmelteryTileEntity();
+    return new FoundryTileEntity();
   }
 
   @Override
   public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     // check structure
-    TileEntityHelper.getTile(SmelteryTileEntity.class, worldIn, pos).ifPresent(SmelteryTileEntity::updateStructure);
+    TileEntityHelper.getTile(FoundryTileEntity.class, worldIn, pos).ifPresent(FoundryTileEntity::updateStructure);
   }
 
   @Override
   @Deprecated
   public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
     if (!newState.isIn(this)) {
-      TileEntityHelper.getTile(SmelteryTileEntity.class, worldIn, pos).ifPresent(SmelteryTileEntity::invalidateStructure);
+      TileEntityHelper.getTile(FoundryTileEntity.class, worldIn, pos).ifPresent(FoundryTileEntity::invalidateStructure);
     }
     super.onReplaced(state, worldIn, pos, newState, isMoving);
   }
@@ -48,7 +49,7 @@ public class SmelteryControllerBlock extends ControllerBlock {
       double z = pos.getZ() + 0.5D;
       double frontOffset = 0.52D;
       double sideOffset = rand.nextDouble() * 0.6D - 0.3D;
-      spawnFireParticles(world, state, x, y, z, frontOffset, sideOffset);
+      spawnFireParticles(world, state, x, y, z, frontOffset, sideOffset, ParticleTypes.SOUL_FIRE_FLAME);
     }
   }
 

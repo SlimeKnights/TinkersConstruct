@@ -10,6 +10,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -31,15 +32,17 @@ import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
-import slimeknights.tconstruct.smeltery.block.ControllerBlock;
-import slimeknights.tconstruct.smeltery.block.SmelteryControllerBlock;
+import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
+import slimeknights.tconstruct.smeltery.block.controller.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.inventory.HeatingStructureContainer;
+import slimeknights.tconstruct.smeltery.network.StructureErrorPositionPacket;
 import slimeknights.tconstruct.smeltery.network.StructureUpdatePacket;
 import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock.StructureData;
+import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockResult;
 import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 import slimeknights.tconstruct.smeltery.tileentity.tank.SmelteryTank;
@@ -50,16 +53,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public abstract class HeatingStructureTileEntity extends NamableTileEntity implements ITickableTileEntity, IMasterLogic, ISmelteryTankHandler {
   private static final String TAG_STRUCTURE = "structure";
   private static final String TAG_TANK = "tank";
   private static final String TAG_INVENTORY = "inventory";
+  private static final String TAG_ERROR_POS = "errorPos";
 
   /** Sub module to detect the multiblock for this structure */
   private final HeatingStructureMultiblock<?> multiblock = createMultiblock();
 
+  /** Position of the block causing the structure to not form */
+  @Nullable @Getter
+  private BlockPos errorPos;
+  /** World tick time when the error position becomes invisible without holding the book */
+  private long errorVisibleUntil = 0L;
 
   /* Saved data, written to NBT */
   /** Current structure contents */
@@ -128,6 +138,15 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
 
   /* Logic */
 
+  /** Updates the error position and syncs to the client if relevant */
+  private void updateErrorPos() {
+    BlockPos oldErrorPos = this.errorPos;
+    this.errorPos = multiblock.getLastResult().getPos();
+    if (!Objects.equals(oldErrorPos, errorPos)) {
+      TinkerNetwork.getInstance().sendToClientsAround(new StructureErrorPositionPacket(pos, errorPos), world, pos);
+    }
+  }
+
   @Override
   public void tick() {
     if (world == null || world.isRemote) {
@@ -150,11 +169,13 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
       // every 15 seconds, check above the smeltery to try to expand
       if (tick == 0) {
         expandCounter++;
-        if (expandCounter >= 10) {
+        if (expandCounter >= 10 && structure.getInnerY() < 64) {
           expandCounter = 0;
           // instead of rechecking the whole structure, just recheck the layer above and queue an update if its usable
           if (multiblock.canExpand(structure, world)) {
             updateStructure();
+          } else {
+            updateErrorPos();
           }
         }
       } else if (tick % 4 == 0) {
@@ -278,6 +299,9 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
       }
     }
 
+    // update the error position, we do on both success and failure for the sake of expanding positions
+    updateErrorPos();
+
     // clear expand counter either way
     expandCounter = 0;
   }
@@ -289,6 +313,7 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
     if (structure != null) {
       structure.clearMaster(this);
       structure = null;
+      errorPos = null;
     }
   }
 
@@ -305,6 +330,10 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
     }
   }
 
+  /** Gets the last result from this multiblock */
+  public MultiblockResult getStructureResult() {
+    return multiblock.getLastResult();
+  }
 
   /* Tank */
 
@@ -414,6 +443,20 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
     }
   }
 
+  /** Updates the error position from the server */
+  public void setErrorPos(@Nullable BlockPos errorPos) {
+    this.errorPos = errorPos;
+    if (errorPos != null && this.world != null) {
+      // 10 seconds after its set
+      this.errorVisibleUntil = this.world.getGameTime() + 200;
+    }
+  }
+
+  /** If true, the error position should be visible */
+  public boolean isHighlightError() {
+    return this.world != null && this.world.getGameTime() < this.errorVisibleUntil;
+  }
+
 
   /* NBT */
 
@@ -440,6 +483,10 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
       if (structure != null) {
         fluidCapability = LazyOptional.of(() -> tank);
       }
+    }
+    // only exists to be sent server to client in update packets
+    if (nbt.contains(TAG_ERROR_POS, NBT.TAG_COMPOUND)) {
+      setErrorPos(NBTUtil.readBlockPos(nbt.getCompound(TAG_ERROR_POS)));
     }
     fuelModule.readFromNBT(nbt);
   }
@@ -469,6 +516,10 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
     CompoundNBT nbt = super.getUpdateTag();
     if (structure != null) {
       nbt.put(TAG_STRUCTURE, structure.writeClientNBT());
+    }
+    // sync error position, not actually saved in NBT
+    if (errorPos != null) {
+      nbt.put(TAG_ERROR_POS, NBTUtil.writeBlockPos(errorPos));
     }
     return nbt;
   }
