@@ -27,7 +27,7 @@ import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
-import slimeknights.tconstruct.library.utils.NBTUtil;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -313,7 +313,7 @@ public class FuelModule implements IIntArray {
       temperature = nbt.getInt(TAG_TEMPERATURE);
     }
     if (nbt.contains(TAG_LAST_FUEL, NBT.TAG_ANY_NUMERIC)) {
-      lastPos = NBTUtil.readPos(nbt, TAG_LAST_FUEL);
+      lastPos = TagUtil.readPos(nbt, TAG_LAST_FUEL);
     }
   }
 
@@ -327,7 +327,7 @@ public class FuelModule implements IIntArray {
     nbt.putInt(TAG_TEMPERATURE, temperature);
     // technically unneeded for melters, but does not hurt to add
     if (lastPos != null) {
-      nbt.put(TAG_LAST_FUEL, NBTUtil.writePos(lastPos));
+      nbt.put(TAG_LAST_FUEL, TagUtil.writePos(lastPos));
     }
     return nbt;
   }

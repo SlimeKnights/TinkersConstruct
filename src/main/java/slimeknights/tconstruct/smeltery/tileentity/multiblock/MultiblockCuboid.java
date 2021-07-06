@@ -16,7 +16,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.utils.NBTUtil;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -361,8 +361,8 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
    */
   @Nullable
   public T readFromNBT(CompoundNBT nbt) {
-    BlockPos minPos = NBTUtil.readPos(nbt, MultiblockStructureData.TAG_MIN);
-    BlockPos maxPos = NBTUtil.readPos(nbt, MultiblockStructureData.TAG_MAX);
+    BlockPos minPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MIN);
+    BlockPos maxPos = TagUtil.readPos(nbt, MultiblockStructureData.TAG_MAX);
     if (minPos == null || maxPos == null) {
       return null;
     }
@@ -392,7 +392,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
       ListNBT list = rootTag.getList(key, NBT.TAG_COMPOUND);
       collection = new ArrayList<>(list.size());
       for (int i = 0; i < list.size(); i++) {
-        BlockPos pos = NBTUtil.readPos(list.getCompound(i));
+        BlockPos pos = TagUtil.readPos(list.getCompound(i));
         if (pos != null) {
           collection.add(pos);
         }

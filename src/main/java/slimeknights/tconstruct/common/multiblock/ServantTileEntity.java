@@ -12,7 +12,7 @@ import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.library.utils.NBTUtil;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -113,7 +113,7 @@ public class ServantTileEntity extends MantleTileEntity implements IServantLogic
    * @param tags  NBT to read
    */
   protected void readMaster(CompoundNBT tags) {
-    BlockPos masterPos = NBTUtil.readPos(tags, TAG_MASTER_POS);
+    BlockPos masterPos = TagUtil.readPos(tags, TAG_MASTER_POS);
     Block masterBlock = null;
     // if the master position is valid, get the master block
     if (masterPos != null && tags.contains(TAG_MASTER_BLOCK, NBT.TAG_STRING)) {
@@ -141,7 +141,7 @@ public class ServantTileEntity extends MantleTileEntity implements IServantLogic
    */
   protected CompoundNBT writeMaster(CompoundNBT tags) {
     if (masterPos != null && masterBlock != null) {
-      tags.put(TAG_MASTER_POS, NBTUtil.writePos(masterPos));
+      tags.put(TAG_MASTER_POS, TagUtil.writePos(masterPos));
       tags.putString(TAG_MASTER_BLOCK, Objects.requireNonNull(masterBlock.getRegistryName()).toString());
     }
     return tags;

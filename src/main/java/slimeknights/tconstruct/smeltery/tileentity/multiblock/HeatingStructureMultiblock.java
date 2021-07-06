@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
-import slimeknights.tconstruct.library.utils.NBTUtil;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.HeatingStructureMultiblock.StructureData;
 
 import javax.annotation.Nullable;
@@ -262,7 +262,7 @@ public abstract class HeatingStructureMultiblock<T extends MantleTileEntity & IM
     public CompoundNBT writeToNBT() {
       CompoundNBT nbt = super.writeToNBT();
       if (insideCheck != null) {
-        nbt.put(TAG_INSIDE_CHECK, NBTUtil.writePos(insideCheck));
+        nbt.put(TAG_INSIDE_CHECK, TagUtil.writePos(insideCheck));
       }
       return nbt;
     }
