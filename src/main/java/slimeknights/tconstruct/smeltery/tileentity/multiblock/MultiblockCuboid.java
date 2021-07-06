@@ -119,7 +119,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
     int xd = (edges[SOUTH] - edges[NORTH]) - 1;
     int zd = (edges[EAST] - edges[WEST]) - 1;
     if(xd > innerLimit || zd > innerLimit) {
-      setLastResult(MultiblockResult.error(null, TOO_LARGE, innerLimit, innerLimit, xd, zd));
+      setLastResult(MultiblockResult.error(null, TOO_LARGE, xd, zd, innerLimit, innerLimit));
       return null;
     }
 

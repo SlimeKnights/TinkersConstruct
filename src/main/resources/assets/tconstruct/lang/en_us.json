@@ -782,7 +782,7 @@
   "multiblock.tconstruct.generic.no_attempt": "Structure detection has not yet run, this is normally a bug with the mod",
   "multiblock.tconstruct.generic.not_loaded": "Structure is outside the loaded area, this is normally a bug with the mod",
   "multiblock.tconstruct.generic.too_high": "Structure requires blocks above the top of the world",
-  "multiblock.tconstruct.generic.too_large": "Structure inside is too large: must be at most %s×%s, but is currently currently %s×%s",
+  "multiblock.tconstruct.generic.too_large": "Structure inside is too large: currently %s×%s, max %s×%s, ",
 
   "multiblock.tconstruct.generic.invalid_inner_block": "Invalid block inside the structure",
   "multiblock.tconstruct.generic.invalid_wall_block": "Invalid block in the walls",
