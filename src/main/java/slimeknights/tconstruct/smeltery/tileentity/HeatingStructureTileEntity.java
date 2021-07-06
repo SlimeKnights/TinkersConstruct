@@ -18,6 +18,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -394,6 +395,17 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
     return defaultBounds;
   }
 
+  @Override
+  public void setPos(BlockPos posIn) {
+    super.setPos(posIn);
+    defaultBounds = null;
+  }
+
+  @Override
+  public void setWorldAndPos(World world, BlockPos pos) {
+    super.setWorldAndPos(world, pos);
+    defaultBounds = null;
+  }
 
   /* Heating helpers */
 
