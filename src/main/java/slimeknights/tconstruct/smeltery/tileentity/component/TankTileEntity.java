@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.tileentity;
+package slimeknights.tconstruct.smeltery.tileentity.component;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.item.TankItem;
+import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

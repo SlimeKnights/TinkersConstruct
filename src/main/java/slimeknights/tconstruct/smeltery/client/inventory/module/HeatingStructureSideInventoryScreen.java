@@ -6,7 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.smeltery.client.inventory.HeatingStructureScreen;
-import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
 import slimeknights.tconstruct.tables.client.inventory.module.SideInventoryScreen;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 

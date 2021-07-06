@@ -16,7 +16,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.EnumMap;

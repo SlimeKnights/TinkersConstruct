@@ -7,7 +7,7 @@ import net.minecraft.util.IntReferenceHolder;
 import slimeknights.mantle.util.sync.ValidZeroIntReference;
 import slimeknights.tconstruct.shared.inventory.TriggeringMultiModuleContainer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 

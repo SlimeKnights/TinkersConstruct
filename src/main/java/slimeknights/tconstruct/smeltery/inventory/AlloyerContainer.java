@@ -14,7 +14,7 @@ import slimeknights.mantle.util.sync.ValidZeroIntReference;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.inventory.TriggeringBaseContainer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.AlloyerTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.AlloyerTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.alloying.MixerAlloyTank;
 
 import javax.annotation.Nullable;

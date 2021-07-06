@@ -11,7 +11,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.world.IBlockReader;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;

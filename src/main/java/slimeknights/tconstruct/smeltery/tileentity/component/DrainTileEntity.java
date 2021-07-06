@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.tileentity;
+package slimeknights.tconstruct.smeltery.tileentity.component;
 
 import lombok.Getter;
 import net.minecraft.block.BlockState;
@@ -13,7 +13,7 @@ import net.minecraftforge.client.model.data.IModelData;
 import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryInputOutputTileEntity.SmelteryFluidIO;
+import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryInputOutputTileEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.tileentity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 

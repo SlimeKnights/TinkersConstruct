@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.tileentity;
+package slimeknights.tconstruct.smeltery.tileentity.controller;
 
 import lombok.Getter;
 import net.minecraft.block.BlockState;

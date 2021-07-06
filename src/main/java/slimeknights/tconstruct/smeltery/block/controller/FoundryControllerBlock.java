@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.smeltery.tileentity.FoundryTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.FoundryTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;

@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
 
 import javax.annotation.Nullable;
 

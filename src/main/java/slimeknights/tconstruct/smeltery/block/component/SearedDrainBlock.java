@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.fluid.FluidTransferUtil;
-import slimeknights.tconstruct.smeltery.tileentity.DrainTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.DrainTileEntity;
 
 /** Extenson to include interaction behavior */
 public class SearedDrainBlock extends OrientableSmelteryBlock {

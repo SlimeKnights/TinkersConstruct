@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.tileentity;
+package slimeknights.tconstruct.smeltery.tileentity.controller;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +25,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
 import slimeknights.tconstruct.smeltery.inventory.AlloyerContainer;
+import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.alloying.MixerAlloyTank;
 import slimeknights.tconstruct.smeltery.tileentity.module.alloying.SingleAlloyingModule;

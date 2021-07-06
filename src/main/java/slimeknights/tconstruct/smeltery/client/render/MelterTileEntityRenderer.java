@@ -11,7 +11,7 @@ import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.client.model.block.MelterModel;
-import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.MelterTileEntity;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import slimeknights.mantle.util.TileEntityHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.StructureErrorPositionPacket;
-import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.multiblock.MultiblockResult;
 
 /**

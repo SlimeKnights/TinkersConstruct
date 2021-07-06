@@ -13,7 +13,7 @@ import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiMeltingModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiTankModule;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
-import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 
 import javax.annotation.Nullable;

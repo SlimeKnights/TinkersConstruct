@@ -15,7 +15,7 @@ import slimeknights.tconstruct.smeltery.client.inventory.module.GuiMeltingModule
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiSmelteryTank;
 import slimeknights.tconstruct.smeltery.client.inventory.module.HeatingStructureSideInventoryScreen;
 import slimeknights.tconstruct.smeltery.inventory.HeatingStructureContainer;
-import slimeknights.tconstruct.smeltery.tileentity.HeatingStructureTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.HeatingStructureTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 
 import javax.annotation.Nullable;

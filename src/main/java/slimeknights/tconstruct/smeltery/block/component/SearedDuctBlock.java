@@ -18,8 +18,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.mantle.util.TileEntityHelper;
-import slimeknights.tconstruct.smeltery.tileentity.DuctTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.DuctTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.SmelteryComponentTileEntity;
 
 import javax.annotation.Nullable;
 

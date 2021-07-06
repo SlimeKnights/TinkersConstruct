@@ -18,7 +18,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.FluidTooltipHandler;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
-import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.TankTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;

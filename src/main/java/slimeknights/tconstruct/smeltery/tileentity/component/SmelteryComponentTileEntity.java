@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery.tileentity;
+package slimeknights.tconstruct.smeltery.tileentity.component;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

@@ -40,9 +40,9 @@ import slimeknights.tconstruct.smeltery.client.render.HeatingStructureTileEntity
 import slimeknights.tconstruct.smeltery.client.render.MelterTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.TankTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
-import slimeknights.tconstruct.smeltery.tileentity.DrainTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.DuctTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.DrainTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.component.DuctTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.tank.ISmelteryTankHandler;
 
 @SuppressWarnings("unused")

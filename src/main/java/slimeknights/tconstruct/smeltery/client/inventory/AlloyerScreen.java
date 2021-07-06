@@ -12,7 +12,7 @@ import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiFuelModule;
 import slimeknights.tconstruct.smeltery.client.inventory.module.GuiTankModule;
 import slimeknights.tconstruct.smeltery.inventory.AlloyerContainer;
-import slimeknights.tconstruct.smeltery.tileentity.AlloyerTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.controller.AlloyerTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.tileentity.module.alloying.MixerAlloyTank;
 
