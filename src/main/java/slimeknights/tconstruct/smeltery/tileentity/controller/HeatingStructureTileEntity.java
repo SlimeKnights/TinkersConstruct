@@ -170,7 +170,7 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
       // every 15 seconds, check above the smeltery to try to expand
       if (tick == 0) {
         expandCounter++;
-        if (expandCounter >= 10 && structure.getInnerY() < 64) {
+        if (expandCounter >= 10 && structure.getInnerY() < multiblock.getMaxHeight()) {
           expandCounter = 0;
           // instead of rechecking the whole structure, just recheck the layer above and queue an update if its usable
           if (multiblock.canExpand(structure, world)) {
@@ -498,7 +498,7 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
     }
     // only exists to be sent server to client in update packets
     if (nbt.contains(TAG_ERROR_POS, NBT.TAG_COMPOUND)) {
-      setErrorPos(NBTUtil.readBlockPos(nbt.getCompound(TAG_ERROR_POS)));
+      this.errorPos = NBTUtil.readBlockPos(nbt.getCompound(TAG_ERROR_POS));
     }
     fuelModule.readFromNBT(nbt);
   }

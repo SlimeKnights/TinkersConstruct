@@ -71,6 +71,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
   /** If true, the multiblock requires a ceiling */
   protected final boolean hasCeiling;
   /** Maximum number of blocks to detect downwards */
+  @Getter
   private final int maxHeight;
   /** Maximum inner size of the structure */
   private final int innerLimit;
