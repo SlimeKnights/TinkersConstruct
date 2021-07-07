@@ -9,9 +9,10 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 public class ModifierSectionTransformer extends ContentListingSectionTransformer {
+  public static final ModifierSectionTransformer INSTANCE = new ModifierSectionTransformer("modifiers");
 
-  public ModifierSectionTransformer() {
-    super("modifiers");
+  public ModifierSectionTransformer(String name) {
+    super(name);
   }
 
   @Override

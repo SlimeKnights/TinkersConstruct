@@ -10,6 +10,10 @@ import slimeknights.tconstruct.library.book.content.ContentImageText2;
 import slimeknights.tconstruct.library.book.content.ContentIndex;
 import slimeknights.tconstruct.library.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.book.content.ContentModifier;
+import slimeknights.tconstruct.library.book.content.ContentPadding;
+import slimeknights.tconstruct.library.book.content.ContentPadding.ContentLeftPadding;
+import slimeknights.tconstruct.library.book.content.ContentPadding.ContentRightPadding;
+import slimeknights.tconstruct.library.book.content.ContentPadding.PaddingBookTransformer;
 import slimeknights.tconstruct.library.book.content.ContentShowcase;
 import slimeknights.tconstruct.library.book.content.ContentTool;
 import slimeknights.tconstruct.library.book.sectiontransformer.ModifierSectionTransformer;
@@ -44,6 +48,8 @@ public class TinkerBook extends BookData {
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
     BookLoader.registerPageType(ContentIndex.ID, ContentIndex.class);
     BookLoader.registerPageType(ContentShowcase.ID, ContentShowcase.class);
+    BookLoader.registerPageType(ContentPadding.LEFT_ID, ContentLeftPadding.class);
+    BookLoader.registerPageType(ContentPadding.RIGHT_ID, ContentRightPadding.class);
 
     addData(MATERIALS_AND_YOU, MATERIALS_BOOK_ID);
     addData(PUNY_SMELTING, PUNY_SMELTING_ID);
@@ -61,16 +67,19 @@ public class TinkerBook extends BookData {
    */
   private static void addData(BookData book, ResourceLocation id) {
     book.addRepository(new FileRepository(id.getNamespace() + ":book/" + id.getPath()));
-    book.addTransformer(new MaterialSectionTransformer());
-    book.addTransformer(new ToolSectionTransformer());
+    book.addTransformer(MaterialSectionTransformer.INSTANCE);
+    book.addTransformer(ToolSectionTransformer.INSTANCE);
 
-    book.addTransformer(new ModifierSectionTransformer());
+    book.addTransformer(ModifierSectionTransformer.INSTANCE);
     book.addTransformer(new TieredMaterialSectionTransformer("tier_one_materials", 1));
     book.addTransformer(new TieredMaterialSectionTransformer("tier_two_materials", 2));
     book.addTransformer(new TieredMaterialSectionTransformer("tier_three_materials", 3));
     book.addTransformer(new TieredMaterialSectionTransformer("tier_four_materials", 4));
 
+    // TODO: do we want to fire an event to add transformers to our books? Since we need the next two to be last
     book.addTransformer(BookTransformer.indexTranformer());
+    // padding needs to be last to ensure page counts are right
+    book.addTransformer(PaddingBookTransformer.INSTANCE);
   }
 
   /**

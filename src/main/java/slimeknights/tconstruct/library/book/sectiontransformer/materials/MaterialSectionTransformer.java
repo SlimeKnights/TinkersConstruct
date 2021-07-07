@@ -9,11 +9,13 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 
 import java.util.List;
 
+// TODO: still needed? Not used in the mod currently
 @OnlyIn(Dist.CLIENT)
 public class MaterialSectionTransformer extends AbstractMaterialSectionTransformer {
+  public static final MaterialSectionTransformer INSTANCE = new MaterialSectionTransformer("materials");
 
-  public MaterialSectionTransformer() {
-    super("materials");
+  public MaterialSectionTransformer(String name) {
+    super(name);
   }
 
   @Override

@@ -13,9 +13,10 @@ import slimeknights.tconstruct.library.tools.item.ToolCore;
 
 @OnlyIn(Dist.CLIENT)
 public class ToolSectionTransformer extends ContentListingSectionTransformer {
+  public static final ToolSectionTransformer INSTANCE = new ToolSectionTransformer("tools");
 
-  public ToolSectionTransformer() {
-    super("tools");
+  public ToolSectionTransformer(String name) {
+    super(name);
   }
 
   @Override
