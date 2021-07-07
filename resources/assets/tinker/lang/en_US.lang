@@ -1065,7 +1065,7 @@ option.tcon.searedtank=Seared Tank
 option.tcon.castingchannel=Casting Channel
 option.tcon.basin=Casting Basin
 option.tcon.table=Casting Table
-option.tcon.smeltery=Smeltery Status]
+option.tcon.smeltery=Smeltery Status
 
 fluid.molten.unstableIngots=Molten Unstable Ingots
 fluid.molten.bedrockiumIngots=Molten Bedrockium Ingots
