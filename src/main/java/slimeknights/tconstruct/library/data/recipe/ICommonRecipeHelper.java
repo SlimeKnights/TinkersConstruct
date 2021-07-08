@@ -245,5 +245,13 @@ public interface ICommonRecipeHelper extends IRecipeHelper {
                        .setGroup("wooden_pressure_plate")
                        .addCriterion("has_planks", hasPlanks)
                        .build(consumer, modResource(folder + "pressure_plate"));
+    // signs
+    ShapedRecipeBuilder.shapedRecipe(wood.getSign(), 3)
+                       .setGroup("sign")
+                       .key('#', wood).key('X', Tags.Items.RODS_WOODEN)
+                       .patternLine("###").patternLine("###").patternLine(" X ")
+                       .addCriterion("has_planks", RecipeProvider.hasItem(wood))
+                       .build(consumer, modResource(folder + "sign"));
+
   }
 }

@@ -308,5 +308,9 @@ public class BlockTagProvider extends BlockTagsProvider {
                object.getPressurePlate(), object.getButton())
           .addTag(object.getLogBlockTag());
     }
+
+    // signs
+    this.getOrCreateBuilder(BlockTags.STANDING_SIGNS).add(object.getSign());
+    this.getOrCreateBuilder(BlockTags.WALL_SIGNS).add(object.getWallSign());
   }
 }

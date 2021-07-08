@@ -11,13 +11,17 @@ import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.block.PressurePlateBlock.Sensitivity;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.StandingSignBlock;
 import net.minecraft.block.TrapDoorBlock;
+import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WoodButtonBlock;
+import net.minecraft.block.WoodType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.SignItem;
 import net.minecraft.item.TallBlockItem;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.ToolType;
@@ -30,10 +34,15 @@ import slimeknights.tconstruct.shared.item.BurnableTallBlockItem;
 import slimeknights.tconstruct.world.block.StrippableLogBlock;
 import slimeknights.tconstruct.world.block.WoodenDoorBlock;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
+  /** List of all sign blocks to inject into the sign tile entity */
+  private final Collection<Supplier<? extends Block>> signBlocks = new ArrayList<>();
 
   public BlockDeferredRegisterExtension(String modID) {
     super(modID);
@@ -94,16 +103,21 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
   }
 
   /**
-   * Registers everything needed to make a new wood type, including a wood type
-   * @param name         Wood name
-   * @param planksColor  Color of the planks
-   * @param barkColor    Bark color
-   * @param sound        Sound for the wood
-   * @param group        Item group for the wood
-   * @return  Wood object
+   * Registers a new wood object
+   * @param name             Name of the wood object
+   * @param planksMaterial   Material for the planks
+   * @param planksColor      Map color for the planks
+   * @param plankSound       Sound for the planks
+   * @param planksTool       Tool for the planks
+   * @param barkMaterial     Bark material
+   * @param barkColor        Map color for the bark
+   * @param barkSound        Sound for the bark
+   * @param group            Item group
+   * @return Wood object
    */
   public WoodBlockObject registerWood(String name, Material planksMaterial, MaterialColor planksColor, SoundType plankSound, ToolType planksTool, Material barkMaterial, MaterialColor barkColor, SoundType barkSound, ItemGroup group) {
-    //WoodType woodType = WoodType.create(resourceName(name));
+    WoodType woodType = WoodType.create(resourceName(name));
+    WoodType.register(woodType);
     Item.Properties itemProps = new Item.Properties().group(group);
 
     // many of these are already burnable via tags, but simplier to set them all here
@@ -141,10 +155,21 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
     ItemObject<PressurePlateBlock> pressurePlate = register(name + "_pressure_plate", () -> new PressurePlateBlock(Sensitivity.EVERYTHING, redstoneProps), burnable300);
     ItemObject<WoodButtonBlock> button = register(name + "_button", () -> new WoodButtonBlock(redstoneProps), burnableItem.apply(100));
     // signs
-    //RegistryObject<StandingSignBlock> standingSign = registerNoItem(name + "_sign", () -> new StandingSignBlock(AbstractBlock.Properties.create(material, planksColor).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(sound), woodType));
-    //RegistryObject<WallSignBlock> wallSign = registerNoItem(name + "_wall_sign", () -> new WallSignBlock(AbstractBlock.Properties.create(material, planksColor).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(sound).lootFrom(standingSign), woodType));
-    //RegistryObject<SignItem> signItem = this.itemRegister.register(name + "_sign", () -> new SignItem(new Item.Properties().maxStackSize(16).group(group), standingSign.get(), wallSign.get()));
+    RegistryObject<StandingSignBlock> standingSign = registerNoItem(name + "_sign", () -> new StandingSignBlock(AbstractBlock.Properties.create(planksMaterial, planksColor).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(plankSound), woodType));
+    RegistryObject<WallSignBlock> wallSign = registerNoItem(name + "_wall_sign", () -> new WallSignBlock(AbstractBlock.Properties.create(planksMaterial, planksColor).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(plankSound).lootFrom(standingSign), woodType));
+    signBlocks.add(standingSign);
+    signBlocks.add(wallSign);
+    // sign is included automatically in asItem of the standing sign
+    this.itemRegister.register(name + "_sign", () -> new SignItem(new Item.Properties().maxStackSize(16).group(group), standingSign.get(), wallSign.get()));
     // finally, return
-    return new WoodBlockObject(resource(name), /*woodType,*/ planks, log, strippedLog, wood, strippedWood, fence, fenceGate, door, trapdoor, pressurePlate, button/*, standingSign, wallSign*/);
+    return new WoodBlockObject(resource(name), woodType, planks, log, strippedLog, wood, strippedWood, fence, fenceGate, door, trapdoor, pressurePlate, button, standingSign, wallSign);
+  }
+
+  /**
+   * Runs the given consumer on each registered sign block
+   * @param consumer  Consumer to run
+   */
+  public void forEachSignBlock(Consumer<? super Block> consumer) {
+    signBlocks.forEach(sup -> consumer.accept(sup.get()));
   }
 }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.GlassBlock;
@@ -12,6 +13,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.loot.LootConditionType;
 import net.minecraft.loot.LootFunctionType;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolType;
@@ -19,6 +21,7 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.EdibleItem;
@@ -97,6 +100,17 @@ public final class TinkerCommons extends TinkerModule {
 
   public TinkerCommons() {
     MinecraftForge.EVENT_BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
+  }
+
+  @SubscribeEvent
+  void commonSetup(FMLCommonSetupEvent event) {
+    // inject our new signs into the tile entity type
+    event.enqueueWork(() -> {
+      ImmutableSet.Builder<Block> signBlocks = ImmutableSet.builder();
+      signBlocks.addAll(TileEntityType.SIGN.validBlocks);
+      BLOCKS.forEachSignBlock(signBlocks::add);
+      TileEntityType.SIGN.validBlocks = signBlocks.build();
+    });
   }
 
   @SubscribeEvent

@@ -305,14 +305,13 @@ public class BlockLootTableProvider extends BlockLootTables {
 
   /** Adds all loot tables relevant to the given wood object */
   private void registerWoodLootTables(WoodBlockObject object) {
-    registerBuildingLootTables(object);
+    registerFenceBuildingLootTables(object);
     // basic
     this.registerDropSelfLootTable(object.getLog());
     this.registerDropSelfLootTable(object.getStrippedLog());
     this.registerDropSelfLootTable(object.getWood());
     this.registerDropSelfLootTable(object.getStrippedWood());
     // door
-    this.registerDropSelfLootTable(object.getFence());
     this.registerDropSelfLootTable(object.getFenceGate());
     this.registerLootTable(object.getDoor(), BlockLootTables::registerDoor);
     this.registerDropSelfLootTable(object.getTrapdoor());
@@ -320,6 +319,6 @@ public class BlockLootTableProvider extends BlockLootTables {
     this.registerDropSelfLootTable(object.getPressurePlate());
     this.registerDropSelfLootTable(object.getButton());
     // sign
-    //this.registerDropSelfLootTable(object.getSign());
+    this.registerDropSelfLootTable(object.getSign());
   }
 }
