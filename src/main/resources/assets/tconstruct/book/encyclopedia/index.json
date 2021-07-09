@@ -1,10 +1,40 @@
 [
   {
-    "name": "intro",
-    "data": "sections/intro.json",
+    "name": "small_tools",
+    "data": "sections/small_tools.json",
     "icon": {
       "item": {
-        "id": "minecraft:paper"
+        "id": "tconstruct:pickaxe",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display_tool": true,
+          "Damage": 0,
+          "tic_materials": [
+            "tconstruct:ui_render_head",
+            "tconstruct:ui_render_handle",
+            "tconstruct:ui_render_extra"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "large_tools",
+    "data": "sections/large_tools.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:cleaver",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display_tool": true,
+          "Damage": 0,
+          "tic_materials": [
+            "tconstruct:ui_render_head",
+            "tconstruct:ui_render_handle",
+            "tconstruct:ui_render_extra",
+            "tconstruct:ui_render_large"
+          ]
+        }
       }
     }
   },
@@ -37,6 +67,33 @@
     "icon": {
       "item": {
         "id": "tconstruct:manyullyn_ingot"
+      }
+    }
+  },
+  {
+    "name": "upgrades",
+    "data": "sections/upgrades.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:creative_upgrade"
+      }
+    }
+  },
+  {
+    "name": "slotless",
+    "data": "sections/slotless.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:earth_slime_crystal"
+      }
+    }
+  },
+  {
+    "name": "abilities",
+    "data": "sections/abilities.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:creative_ability"
       }
     }
   }

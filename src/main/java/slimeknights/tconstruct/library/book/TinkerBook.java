@@ -19,7 +19,6 @@ import slimeknights.tconstruct.library.book.content.ContentTextTinkers;
 import slimeknights.tconstruct.library.book.content.ContentTool;
 import slimeknights.tconstruct.library.book.sectiontransformer.ModifierSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.ToolSectionTransformer;
-import slimeknights.tconstruct.library.book.sectiontransformer.materials.MaterialSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.materials.TieredMaterialSectionTransformer;
 import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 
@@ -31,12 +30,12 @@ public class TinkerBook extends BookData {
   private static final ResourceLocation FANTASTIC_FOUNDRY_ID = TConstruct.getResource("fantastic_foundry");
   private static final ResourceLocation ENCYCLOPEDIA_ID = TConstruct.getResource("encyclopedia");
 
-  public final static BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID.toString(), false, false);
-  public final static BookData PUNY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
-  public final static BookData MIGHTY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
-  public final static BookData TINKERS_GADGETRY = BookLoader.registerBook(TINKERS_GADGETRY_ID.toString(), false, false);
-  public final static BookData FANTASTIC_FOUNDRY = BookLoader.registerBook(FANTASTIC_FOUNDRY_ID.toString(), false, false);
-  public final static BookData ENCYCLOPEDIA = BookLoader.registerBook(ENCYCLOPEDIA_ID.toString(), false, false);
+  public static final BookData MATERIALS_AND_YOU = BookLoader.registerBook(MATERIALS_BOOK_ID.toString(), false, false);
+  public static final BookData PUNY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
+  public static final BookData MIGHTY_SMELTING = BookLoader.registerBook(MIGHTY_SMELTING_ID.toString(), false, false);
+  public static final BookData TINKERS_GADGETRY = BookLoader.registerBook(TINKERS_GADGETRY_ID.toString(), false, false);
+  public static final BookData FANTASTIC_FOUNDRY = BookLoader.registerBook(FANTASTIC_FOUNDRY_ID.toString(), false, false);
+  public static final BookData ENCYCLOPEDIA = BookLoader.registerBook(ENCYCLOPEDIA_ID.toString(), false, false);
 
   /**
    * Initializes the books
@@ -53,12 +52,44 @@ public class TinkerBook extends BookData {
     BookLoader.registerPageType(ContentPadding.LEFT_ID, ContentLeftPadding.class);
     BookLoader.registerPageType(ContentPadding.RIGHT_ID, ContentRightPadding.class);
 
-    addData(MATERIALS_AND_YOU, MATERIALS_BOOK_ID);
-    addData(PUNY_SMELTING, PUNY_SMELTING_ID);
-    addData(MIGHTY_SMELTING, MIGHTY_SMELTING_ID);
-    addData(TINKERS_GADGETRY, TINKERS_GADGETRY_ID);
-    addData(FANTASTIC_FOUNDRY, FANTASTIC_FOUNDRY_ID);
-    addData(ENCYCLOPEDIA, ENCYCLOPEDIA_ID);
+    // tool transformers
+    MATERIALS_AND_YOU.addTransformer(ToolSectionTransformer.INSTANCE);
+    MIGHTY_SMELTING.addTransformer(ToolSectionTransformer.INSTANCE);
+    ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("small_tools"));
+    ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("large_tools"));
+
+    // material tier transformers
+    TieredMaterialSectionTransformer tier1 = new TieredMaterialSectionTransformer("tier_one_materials", 1);
+    TieredMaterialSectionTransformer tier2 = new TieredMaterialSectionTransformer("tier_two_materials", 2);
+    TieredMaterialSectionTransformer tier3 = new TieredMaterialSectionTransformer("tier_three_materials", 3);
+    TieredMaterialSectionTransformer tier4 = new TieredMaterialSectionTransformer("tier_four_materials", 4);
+    MATERIALS_AND_YOU.addTransformer(tier1);
+    PUNY_SMELTING.addTransformer(tier2);
+    MIGHTY_SMELTING.addTransformer(tier3);
+    FANTASTIC_FOUNDRY.addTransformer(tier4);
+    ENCYCLOPEDIA.addTransformer(tier1);
+    ENCYCLOPEDIA.addTransformer(tier2);
+    ENCYCLOPEDIA.addTransformer(tier3);
+    ENCYCLOPEDIA.addTransformer(tier4);
+
+    // modifier transformers
+    ModifierSectionTransformer upgrades = new ModifierSectionTransformer("upgrades");
+    ModifierSectionTransformer slotless = new ModifierSectionTransformer("slotless");
+    ModifierSectionTransformer abilities = new ModifierSectionTransformer("abilities");
+    PUNY_SMELTING.addTransformer(upgrades);
+    PUNY_SMELTING.addTransformer(slotless);
+    MIGHTY_SMELTING.addTransformer(abilities);
+    ENCYCLOPEDIA.addTransformer(upgrades);
+    ENCYCLOPEDIA.addTransformer(slotless);
+    ENCYCLOPEDIA.addTransformer(abilities);
+
+    // TODO: do we want to fire an event to add transformers to our books? Since we need the next two to be last
+    addStandardData(MATERIALS_AND_YOU, MATERIALS_BOOK_ID);
+    addStandardData(PUNY_SMELTING, PUNY_SMELTING_ID);
+    addStandardData(MIGHTY_SMELTING, MIGHTY_SMELTING_ID);
+    addStandardData(FANTASTIC_FOUNDRY, FANTASTIC_FOUNDRY_ID);
+    addStandardData(TINKERS_GADGETRY, TINKERS_GADGETRY_ID);
+    addStandardData(ENCYCLOPEDIA, ENCYCLOPEDIA_ID);
   }
 
   /**
@@ -67,18 +98,8 @@ public class TinkerBook extends BookData {
    * @param book Book instance
    * @param id   Book ID
    */
-  private static void addData(BookData book, ResourceLocation id) {
+  private static void addStandardData(BookData book, ResourceLocation id) {
     book.addRepository(new FileRepository(id.getNamespace() + ":book/" + id.getPath()));
-    book.addTransformer(MaterialSectionTransformer.INSTANCE);
-    book.addTransformer(ToolSectionTransformer.INSTANCE);
-
-    book.addTransformer(ModifierSectionTransformer.INSTANCE);
-    book.addTransformer(new TieredMaterialSectionTransformer("tier_one_materials", 1));
-    book.addTransformer(new TieredMaterialSectionTransformer("tier_two_materials", 2));
-    book.addTransformer(new TieredMaterialSectionTransformer("tier_three_materials", 3));
-    book.addTransformer(new TieredMaterialSectionTransformer("tier_four_materials", 4));
-
-    // TODO: do we want to fire an event to add transformers to our books? Since we need the next two to be last
     book.addTransformer(BookTransformer.indexTranformer());
     // padding needs to be last to ensure page counts are right
     book.addTransformer(PaddingBookTransformer.INSTANCE);

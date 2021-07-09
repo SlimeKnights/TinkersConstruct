@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:soulbound",
+  "text": [
+    {
+      "text": "Causes the tool to remain in your inventory upon death."
+    }
+  ],
+  "effects": [
+    "Single use",
+    "Requires 1 upgrade slot"
+  ]
+}

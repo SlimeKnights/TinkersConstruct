@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:shiny",
+  "text": [
+    {
+      "text": "This legendary modifier holds the power of the legendary enchanted golden apple. And with a name such as §dShiny§r what could possibly go wrong?"
+    }
+  ],
+  "effects": [
+    "It makes your tool glimmer",
+	"That's literally it",
+	"Disappointing I know"
+  ]
+}

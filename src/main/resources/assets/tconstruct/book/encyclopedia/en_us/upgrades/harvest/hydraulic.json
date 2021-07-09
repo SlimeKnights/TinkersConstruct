@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:hydraulic",
+  "text": [
+    {
+      "text": "Grants +4 mining speed per level in the rain, and +8 mining speed per level underwater (ignoring the debuff from being underwater)"
+    }
+  ],
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

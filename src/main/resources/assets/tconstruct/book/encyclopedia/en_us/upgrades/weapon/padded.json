@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:padded",
+  "text": [
+    {
+      "text": "Reduces knockback on the tool from all sources by 50% per level."
+    },
+    {
+      "text": "Disclaimer: You are a horrible person for using this on fish, turtles, dolphins, or any other peaceful sea life."
+    }
+  ],
+  "effects": [
+    "Maximum of 3 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

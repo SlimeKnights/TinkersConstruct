@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:smite",
+  "text": [
+    {
+      "text": "Grants +2.5 damage against undead mobs per level."
+    }
+  ],
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:mattock",
+  "text": [
+    { "text": "The Mattock is precise digging and chopping tool, effective on woods and dirts." },
+    { "text": "Expanders increase the veining range of the mattock.", "paragraph": true }
+  ],
+  "properties": [
+    "+1.5 Attack Damage",
+	"1.0 Attack Speed",
+    "Knockback I",
+    "Makes paths"
+  ]
+}

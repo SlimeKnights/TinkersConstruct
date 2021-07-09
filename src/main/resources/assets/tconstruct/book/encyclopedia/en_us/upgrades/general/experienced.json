@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "Boosts experience from killing mobs and breaking blocks by 50% per level."
+    }
+  ],
+  "effects": [
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

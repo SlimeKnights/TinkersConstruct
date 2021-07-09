@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:emerald",
+  "text": [
+    {
+      "text": "Grants +50% durability and +2.5 damage against illagers. Increases the tool's harvest level to iron."
+    }
+  ],
+  "effects": [
+    "Single use",
+	  "Requires 1 upgrade slot"
+  ]
+}

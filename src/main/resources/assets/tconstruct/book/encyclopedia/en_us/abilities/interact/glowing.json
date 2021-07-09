@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "Allows the tool to place a glow on use. Placing a glow consumes 25 durability."
+    }
+  ],
+  "effects": [
+    "Single use",
+    "Requires 1 ability slot"
+  ]
+}

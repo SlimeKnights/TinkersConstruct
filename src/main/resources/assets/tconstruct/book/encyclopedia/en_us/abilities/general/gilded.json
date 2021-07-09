@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "Trades 1 ability slot for 2 upgrade slots"
+    }
+  ],
+  "effects": [
+    "No max level",
+    "Requires 1 ability slot per level"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:duel_wielding",
+  "text": [
+    {
+      "text": "Allows the tool to be used from both the main and the offhand. Tools in the offhand have 66% attack speed."
+    },
+    {
+      "text": "In order to wield a tool in the offhand, the tool in the main hand must be either a dagger, or also have the duel wielding modifier.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Single use",
+    "Requires 1 ability slot"
+  ]
+}

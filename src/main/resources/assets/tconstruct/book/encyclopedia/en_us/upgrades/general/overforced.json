@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:overforced",
+  "text": [
+    {
+      "text": "Grants +75 overslime per level."
+    }
+  ],
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

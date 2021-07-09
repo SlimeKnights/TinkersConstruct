@@ -1,0 +1,32 @@
+[
+  {
+    "name": "sword",
+    "type": "tool",
+    "data": "small_tools/sword.json"
+  },
+  {
+    "name": "dagger",
+    "type": "tool",
+    "data": "small_tools/dagger.json"
+  },
+  {
+    "name": "axe",
+    "type": "tool",
+    "data": "small_tools/hand_axe.json"
+  },
+  {
+    "name": "kama",
+    "type": "tool",
+    "data": "small_tools/kama.json"
+  },
+  {
+    "name": "mattock",
+    "type": "tool",
+    "data": "small_tools/mattock.json"
+  },
+  {
+    "name": "pickaxe",
+    "type": "tool",
+    "data": "small_tools/pickaxe.json"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:piercing",
+  "text": [
+    {
+      "text": "Adds +0.5 damage per level, multiplied by the tools attack multiplier. The additional damage pierces armor."
+    }
+  ],
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

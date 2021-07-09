@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:magnetic",
+  "text": [
+    {
+      "text": "Pulls items within 3 blocks at a speed of 0.05 towards the player after mining blocks or attacking mobs, ignoring gravity."
+    },
+    {
+      "text": "Each level adds 1 extra block of range, and 0.05 speed.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

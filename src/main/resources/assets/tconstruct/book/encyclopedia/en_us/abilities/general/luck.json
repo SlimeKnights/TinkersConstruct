@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:luck",
+  "text": [
+    {
+      "text": "Increases drop rates from both blocks and monsters."
+    }
+  ],
+  "effects": [
+    "Maximum of 3 levels",
+    "First level requires 1 ability slot",
+    "Second and third levels are slotless"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:bane_of_sssss",
+  "text": [
+    {
+      "text": "Grants +2.5 damage per level against arthropods and creepers."
+    },
+    {
+      "text": "In addition, applies Slowness IV for 1 second, plus up to half a second per level.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

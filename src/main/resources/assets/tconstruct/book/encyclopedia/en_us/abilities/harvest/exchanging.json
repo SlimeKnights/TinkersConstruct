@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:exchanging",
+  "text": [
+    {
+      "text": "Replaces mined blocks with the block held in the offhand."
+    }
+  ],
+  "effects": [
+    "Single use",
+    "Requires 1 ability slot"
+  ]
+}

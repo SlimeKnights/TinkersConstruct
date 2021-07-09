@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "Alternative to netherite that makes tools invernable when dropped without requiring an upgrade slot, but does not grant any stat boosts"
+    }
+  ],
+  "effects": [
+    "Single use",
+    "Slotless"
+  ]
+}

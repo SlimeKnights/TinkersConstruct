@@ -1,9 +1,30 @@
 // Sections
 intro=Introduction
+
+small_tools=Small Tools
+large_tools=Broad Tools
+
 tier_one_materials=Tier 1 Materials
 tier_two_materials=Tier 2 Materials
 tier_three_materials=Tier 3 Materials
 tier_four_materials=Tier 4 Materials
+
+upgrades=Upgrades
+upgrades.subtext=Each tool gets a limited total number of upgrades slots.
+upgrades.general=§1§lGeneral§r
+upgrades.harvest=§1§lHarvest§r
+upgrades.weapon=§1§lWeapon§r
+
+slotless=Slotless
+slotless.subtext=Slotless modifiers do not require any slots.
+slotless.general=§1§lGeneral§r
+slotless.bonus=§1§lBonus§r
+
+abilities=Abilities
+abilities.subtext=Ability modifiers have fewer slots than upgrades, but are stronger.
+abilities.general=§1§lGeneral§r
+abilities.harvest=§1§lHarvest§r
+abilities.interact=§1§lInteraction§r
 
 modifier.effect=Effects:
 tool.properties=Properties:

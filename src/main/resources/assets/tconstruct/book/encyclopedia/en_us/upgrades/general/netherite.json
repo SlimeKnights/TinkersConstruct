@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:netherite",
+  "text": [
+    {
+      "text": "Grants +20% durability, +10% attack damage, and +10% mining speed. Increases the mining level to netherite, and makes the tool invulnerable when dropped."
+    }
+  ],
+  "effects": [
+    "Single use",
+    "Requires Diamond or Emerald to be applied",
+    "Requires 1 upgrade slot"
+  ]
+}

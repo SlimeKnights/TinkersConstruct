@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "Causes mined blocks to drop themselves. On swords, cleavers, scythes, and daggers, also grants shearing."
+    }
+  ],
+  "effects": [
+    "Single use",
+    "Requires 1 ability slot"
+  ]
+}

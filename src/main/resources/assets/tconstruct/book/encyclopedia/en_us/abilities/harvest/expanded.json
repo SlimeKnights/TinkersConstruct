@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "Increases the area of effect of the tool. Specific effects are described on the tool pages."
+    }
+  ],
+  "effects": [
+    "No max level",
+    "Requires 1 ability slot per level"
+  ]
+}

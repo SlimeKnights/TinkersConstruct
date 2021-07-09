@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "Allows the tool to create paths, similarly to mattocks or excavators. Tools will use their native AOE for placing paths."
+    },
+    {
+      "text": "Runs before the tools native block transformation if present",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Single use",
+    "Requires 1 ability slot"
+  ]
+}

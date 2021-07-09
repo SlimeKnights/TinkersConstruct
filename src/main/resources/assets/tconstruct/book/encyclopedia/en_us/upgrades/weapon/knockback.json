@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Grants 0.5 knockback per level"
+    }
+  ],
+  "effects": [
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

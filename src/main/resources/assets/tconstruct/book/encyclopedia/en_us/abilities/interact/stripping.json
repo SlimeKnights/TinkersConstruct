@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "Allows the tool to strip wood, similarly to hand or broad axes. Tools will use their native AOE for stripping wood."
+    },
+    {
+      "text": "Runs before the tools native block transformation if present",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Single use",
+    "Requires 1 ability slot"
+  ]
+}

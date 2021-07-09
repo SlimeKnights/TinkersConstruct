@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "Increases the mining range of the tool by 1 block per level."
+    }
+  ],
+  "effects": [
+    "No max level",
+    "Requires 1 ability slot per level"
+  ]
+}
