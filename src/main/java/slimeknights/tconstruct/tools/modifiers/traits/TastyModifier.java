@@ -62,8 +62,8 @@ public class TastyModifier extends Modifier {
         world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
         world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.NEUTRAL, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
-        // 5 damage for a bite per level, does not process reinforced/overslime, your teeth are tough
-        if (ToolDamageUtil.directDamage(tool, 5 * level, player, player.getActiveItemStack())) {
+        // 15 damage for a bite per level, does not process reinforced/overslime, your teeth are tough
+        if (ToolDamageUtil.directDamage(tool, 15 * level, player, player.getActiveItemStack())) {
           player.sendBreakAnimation(player.getActiveHand());
         }
 
