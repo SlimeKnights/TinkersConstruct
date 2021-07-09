@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.book.sectiontransformer;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
@@ -19,6 +18,10 @@ public class ContentListingSectionTransformer extends SectionTransformer {
   public void transform(BookData book, SectionData data) {
     ContentListing listing = new ContentListing();
     listing.title = book.translate(sectionName);
+    String subtextKey = sectionName + ".subtext";
+    if (book.strings.containsKey(subtextKey)) {
+      listing.subText = book.translate(subtextKey);
+    }
 
     PageData listingPage = new PageData(true);
     listingPage.name = sectionName;
