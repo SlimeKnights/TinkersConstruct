@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.materials.traits;
 
 import com.google.common.collect.ImmutableList;
-import com.ibm.icu.impl.locale.XCldrStub.ImmutableMap;
+import com.google.common.collect.ImmutableMap;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
