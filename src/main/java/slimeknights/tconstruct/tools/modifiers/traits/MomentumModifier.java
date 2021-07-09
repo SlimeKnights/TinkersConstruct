@@ -25,7 +25,7 @@ public class MomentumModifier extends Modifier {
     if (isEffective) {
       // 50% boost per level at max
       int effectLevel = TinkerModifiers.momentumEffect.get().getLevel(event.getEntityLiving()) + 1;
-      event.setNewSpeed(event.getNewSpeed() * (1 + level * effectLevel / 64f));
+      event.setNewSpeed(event.getNewSpeed() * (1 + (level * effectLevel / 128f)));
     }
   }
 
