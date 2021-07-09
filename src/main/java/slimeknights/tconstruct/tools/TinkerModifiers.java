@@ -191,7 +191,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // fluid abilities
   public static final RegistryObject<MeltingModifier> melting = MODIFIERS.register("melting", MeltingModifier::new);
-  public static final RegistryObject<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(0xf3f3f3f, FluidValues.INGOT * 8));
+  public static final RegistryObject<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(0x3f3f3f, FluidValues.INGOT * 8));
   public static final RegistryObject<BucketingModifier> bucketing = MODIFIERS.register("bucketing", BucketingModifier::new);
   
   // right click abilities
