@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:book"
+      "tag": "forge:slimeball/green"
     },
     {
-      "tag": "forge:slimeball/green"
+      "item": "tconstruct:silky_cloth"
     },
     {
       "tag": "forge:slimeball/sky"
@@ -14,10 +14,16 @@
       "tag": "forge:slimeball/blood"
     },
     {
+      "item": "minecraft:book"
+    },
+    {
       "item": "minecraft:magma_cream"
     },
     {
       "tag": "forge:slimeball/ichor"
+    },
+    {
+      "item": "tconstruct:dragon_scale"
     },
     {
       "tag": "forge:slimeball/ender"
