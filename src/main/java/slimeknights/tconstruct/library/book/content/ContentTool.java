@@ -125,7 +125,7 @@ public class ContentTool extends TinkerPage {
         effectData.add(new TextData("\n"));
       }
 
-      list.add(new TextElement(padding, 40 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));
+      list.add(new TextElement(padding, 44 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));
     }
 
     list.add(new ImageElement(imgX + (img.width - IMG_TABLE.width) / 2, imgY + 28, -1, -1, IMG_TABLE));

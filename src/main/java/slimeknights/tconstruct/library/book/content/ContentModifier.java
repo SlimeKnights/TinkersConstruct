@@ -95,14 +95,14 @@ public class ContentModifier extends TinkerPage {
     this.addTitle(list, this.modifier.getDisplayName().getString(), true, this.modifier.getColor());
 
     // description
-    int h = BookScreen.PAGE_WIDTH / 3 - 10;
-    list.add(new TextElement(10, 20, BookScreen.PAGE_WIDTH - 20, h, text));
+    int h = BookScreen.PAGE_HEIGHT * 2 / 5;
+    list.add(new TextElement(5, 16, BookScreen.PAGE_WIDTH - 10, h, text));
 
     if (this.effects.length > 0) {
       TextData head = new TextData(this.parent.translate("modifier.effect"));
       head.underlined = true;
 
-      list.add(new TextElement(10, 20 + h, BookScreen.PAGE_WIDTH / 2 - 5, BookScreen.PAGE_HEIGHT - h - 20, head));
+      list.add(new TextElement(5, 16 + h, BookScreen.PAGE_WIDTH / 2 - 5, BookScreen.PAGE_HEIGHT - h - 20, head));
 
       List<TextData> effectData = Lists.newArrayList();
 
@@ -112,7 +112,7 @@ public class ContentModifier extends TinkerPage {
         effectData.add(new TextData("\n"));
       }
 
-      list.add(new TextElement(10, 30 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));
+      list.add(new TextElement(5, 30 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));
     }
 
     if (recipes.size() > 1) {

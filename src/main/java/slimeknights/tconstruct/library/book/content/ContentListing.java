@@ -40,11 +40,11 @@ public class ContentListing extends TinkerPage {
     int yOff = 0;
     if (this.title != null) {
       this.addTitle(list, this.title, false);
-      yOff = 20;
+      yOff = 16;
     }
     if (this.subText != null) {
       int height = this.addText(list, this.subText, false, 0, yOff);
-      yOff = height + 16;
+      yOff += height;
     }
 
     // 16 gives space for the bottom and ensures a round number, yOff ensures the top is not counted

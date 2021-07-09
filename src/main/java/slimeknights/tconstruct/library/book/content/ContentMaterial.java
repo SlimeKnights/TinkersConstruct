@@ -22,9 +22,9 @@ import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
@@ -87,8 +87,8 @@ public class ContentMaterial extends TinkerPage {
     int left = rightSide ? 0 : col_margin;
 
     int y = top + 10;
-    int x = left + 10;
-    int w = BookScreen.PAGE_WIDTH / 2 - 10;
+    int x = left + 5;
+    int w = BookScreen.PAGE_WIDTH / 2 - 5;
 
     // head stats
     int headTraits = this.addStatsDisplay(x, y, w, list, material, HeadMaterialStats.ID);
@@ -101,12 +101,11 @@ public class ContentMaterial extends TinkerPage {
 
     // inspirational quote
     MaterialId id = material.getIdentifier();
-    String flavour = parent.parent.parent.strings.get(String.format("material.%s.%s.book", id.getNamespace(), id.getPath()));
-    //flavour = "How much wood could a woodchuck chuck if a woodchuck could chuck wood?";
-    if (flavour != null) {
-      TextData flavourData = new TextData("\"" + flavour + "\"");
+    String flavor = parent.parent.parent.strings.get(String.format("material.%s.%s.book", id.getNamespace(), id.getPath()));
+    if (flavor != null) {
+      TextData flavourData = new TextData("\"" + flavor + "\"");
       flavourData.italic = true;
-      list.add(new TextElement(x + w, y + 10 * handleTraits, w - 16, 60, flavourData));
+      list.add(new TextElement(x + w - 16, y + 10 * handleTraits, w, 60, flavourData));
     }
   }
 
