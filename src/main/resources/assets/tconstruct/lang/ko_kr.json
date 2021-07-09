@@ -1300,10 +1300,10 @@
   "modifier.tconstruct.smite.flavor": "죽어라, 더러운 몬스터!",
   "modifier.tconstruct.smite.description": "언데드는 수박의 힘을 두려워합니다",
   "modifier.tconstruct.smite.damage": "언데드 피해",
-  "modifier.tconstruct.bane_of_sssss": "살ㅊ",
+  "modifier.tconstruct.bane_of_sssss": "살... ㄱ거미!",
   "modifier.tconstruct.bane_of_sssss.flavor": "징그러워!",
   "modifier.tconstruct.bane_of_sssss.description": "거미와 절지동물에게 추가 피해를 줍니다!",
-  "modifier.tconstruct.bane_of_sssss.damage": "ㄱㅁ 피해",
+  "modifier.tconstruct.bane_of_sssss.damage": "거미 피해",
   "modifier.tconstruct.antiaquatic": "반수생",
   "modifier.tconstruct.antiaquatic.flavor": "낚였어!",
   "modifier.tconstruct.antiaquatic.description": "수생 생물에게 추가 피해를 줍니다!",
@@ -1415,7 +1415,7 @@
   "modifier.tconstruct.gilded.description": "능력 슬롯 하나를 2개의 강화 슬롯으로 변경합니다!",
   "modifier.tconstruct.draconic": "드래곤",
   "modifier.tconstruct.draconic.flavor": "엔드 정복!",
-  "modifier.tconstruct.draconic.description": "위대한 드래곤의 머리로 도구의 두번째 능력 슬롯을 추가합니다!",
+  "modifier.tconstruct.draconic.description": "위대한 드래곤의 머리로 도구의 두 번째 능력 슬롯을 추가합니다!",
 
   "__comment": "모드팩의 강화 슬롯 +1 수식어",
   "modifier.tconstruct.red_extra_upgrade": "빨간 추가 강화",
@@ -1464,7 +1464,7 @@
 
   "modifier.tconstruct.enhanced": "향상",
   "modifier.tconstruct.enhanced.flavor": "눈부셔!",
-  "modifier.tconstruct.enhanced.description": "유색 황금은 추가 강화 슬롯과 잘 어울립니다!",
+  "modifier.tconstruct.enhanced.description": "유색 황금은 강화 슬롯과 잘 어울립니다!",
 
   "__comment": "3등급 특성",
   "modifier.tconstruct.overcast": "과주조",
