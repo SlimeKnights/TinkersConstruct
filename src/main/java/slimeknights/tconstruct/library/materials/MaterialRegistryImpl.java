@@ -1,12 +1,5 @@
 package slimeknights.tconstruct.library.materials;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.fml.network.PacketDistributor.PacketTarget;
-import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
@@ -45,7 +38,6 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
     this.materialManager = materialManager;
     this.materialStatsManager = materialStatsManager;
     this.materialTraitsManager = materialTraitsManager;
-    MinecraftForge.EVENT_BUS.addListener(this::handleLogin);
   }
 
   @Override
@@ -101,20 +93,5 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   @Override
   public List<ModifierEntry> getTraits(MaterialId materialId, MaterialStatsId statsId) {
     return materialTraitsManager.getTraits(materialId, statsId);
-  }
-
-  /* Reloading */
-
-  /** Called when the player logs in to send packets */
-  private void handleLogin(PlayerLoggedInEvent event) {
-    PlayerEntity player = event.getPlayer();
-    if (player instanceof ServerPlayerEntity) {
-      ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
-      TinkerNetwork network = TinkerNetwork.getInstance();
-      PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
-      network.send(target, materialManager.getUpdatePacket());
-      network.send(target, materialStatsManager.getUpdatePacket());
-      network.send(target, materialTraitsManager.getUpdatePacket());
-    }
   }
 }

@@ -60,7 +60,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventor
     }
     if (inputId != null) {
       ItemStack stack = inv.getStack();
-      return !stack.isEmpty() && IMaterialItem.getMaterialFromStack(stack) == getInput();
+      return !stack.isEmpty() && IMaterialItem.getMaterialIdFromStack(stack).equals(getInputId());
     }
     return true;
   }
