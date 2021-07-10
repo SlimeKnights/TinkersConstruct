@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "minecraft:light_blue_concrete_powder"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "minecraft:water",
+    "amount": 100
+  },
+  "result": "minecraft:light_blue_concrete",
+  "cooling_time": 23
+}

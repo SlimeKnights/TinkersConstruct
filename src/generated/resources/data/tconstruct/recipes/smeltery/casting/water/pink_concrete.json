@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "minecraft:pink_concrete_powder"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "minecraft:water",
+    "amount": 100
+  },
+  "result": "minecraft:pink_concrete",
+  "cooling_time": 23
+}

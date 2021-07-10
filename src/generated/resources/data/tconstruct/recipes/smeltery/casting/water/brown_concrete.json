@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "minecraft:brown_concrete_powder"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "minecraft:water",
+    "amount": 100
+  },
+  "result": "minecraft:brown_concrete",
+  "cooling_time": 23
+}
