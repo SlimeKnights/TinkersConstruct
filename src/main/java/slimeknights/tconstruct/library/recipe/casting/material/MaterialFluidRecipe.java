@@ -72,6 +72,9 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventor
 
   /** Gets the material output for this recipe */
   public IMaterial getOutput() {
+    if (!MaterialRegistry.isFullyLoaded()) {
+      return IMaterial.UNKNOWN;
+    }
     if (output == null) {
       output = MaterialRegistry.getMaterial(outputId);
     }
@@ -81,6 +84,10 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingInventor
   /** Gets the material input for this recipe */
   @Nullable
   public IMaterial getInput() {
+    // prevent caching if the registry is not loaded
+    if (!MaterialRegistry.isFullyLoaded()) {
+      return IMaterial.UNKNOWN;
+    }
     if (input == null && inputId != null) {
       input = MaterialRegistry.getMaterial(inputId);
     }
