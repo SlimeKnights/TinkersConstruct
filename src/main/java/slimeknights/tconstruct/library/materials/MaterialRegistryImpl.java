@@ -10,9 +10,7 @@ import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -27,12 +25,6 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   private final MaterialManager materialManager;
   private final MaterialStatsManager materialStatsManager;
   private final MaterialTraitsManager materialTraitsManager;
-
-  /**
-   * Used for the defaults and for existence/class checks.
-   * Basically all existing stat types need to be in this map.. or they don't exist
-   */
-  private final Map<MaterialStatsId, IMaterialStats> materialStatDefaults = new HashMap<>();
 
   protected MaterialRegistryImpl(MaterialManager materialManager, MaterialStatsManager materialStatsManager, MaterialTraitsManager materialTraitsManager) {
     this.materialManager = materialManager;

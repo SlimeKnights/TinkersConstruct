@@ -1,12 +1,19 @@
 package slimeknights.tconstruct.library.materials;
 
 import com.google.common.annotations.VisibleForTesting;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedOutEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fml.network.PacketDistributor.PacketTarget;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
@@ -47,8 +54,11 @@ public final class MaterialRegistry {
   }
 
   public static void init() {
-    MaterialRegistry.INSTANCE = new MaterialRegistry();
-    MinecraftForge.EVENT_BUS.addListener(MaterialRegistry::addDataPackListeners);
+    // create registry instance
+    INSTANCE = new MaterialRegistry();
+    // add event listeners
+    MinecraftForge.EVENT_BUS.addListener(INSTANCE::addDataPackListeners);
+    MinecraftForge.EVENT_BUS.addListener(INSTANCE::handleLogin);
     // on the client, mark materials not fully loaded when the client logs out. This also runs when starting a world in SP, but its early enough to not be an issue
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LoggedOutEvent.class, e -> fullyLoaded = false));
   }
@@ -59,13 +69,6 @@ public final class MaterialRegistry {
    */
   public static boolean isFullyLoaded() {
     return INSTANCE != null && fullyLoaded;
-  }
-
-  /** Adds the managers as datapack listeners */
-  private static void addDataPackListeners(final AddReloadListenerEvent event) {
-    event.addListener(INSTANCE.materialManager);
-    event.addListener(INSTANCE.materialStatsManager);
-    event.addListener(INSTANCE.materialTraitsManager);
   }
 
   public MaterialRegistry() {
@@ -132,7 +135,7 @@ public final class MaterialRegistry {
    * @return  Material, or IMaterial.UNKNOWN if missing
    */
   public static IMaterial getMaterial(MaterialId id) {
-    return INSTANCE.registry.getMaterial(id);
+    return getInstance().getMaterial(id);
   }
 
   /**
@@ -174,11 +177,42 @@ public final class MaterialRegistry {
       statsLoaded = false;
       traitsLoaded = false;
       fullyLoaded = true;
-      for (Runnable runnable : onMaterialReload) {
-        runnable.run();
-      }
+      onMaterialReload.forEach(Runnable::run);
     } else {
       fullyLoaded = false;
+    }
+  }
+
+  /* Reloading */
+
+  /** Adds the managers as datapack listeners */
+  private void addDataPackListeners(final AddReloadListenerEvent event) {
+    event.addListener(materialManager);
+    event.addListener(materialStatsManager);
+    event.addListener(materialTraitsManager);
+  }
+
+  /** Called when the player logs in to send packets */
+  private void handleLogin(PlayerLoggedInEvent event) {
+    PlayerEntity player = event.getPlayer();
+    // on an integrated server, the material registries have a single instance on both the client and the server thread
+    // this means syncing is unneeded, and has the side-effect of recreating all the material instances (which can lead to unexpected behavior)
+    // as a result, integrated servers just mark fullyLoaded as true without syncing anything, side-effect is listeners may run twice on single player
+
+    // on a dedicated server, the client is running a separate game instance, this is where we send packets, plus fully loaded should already be true
+    // this event is not fired when connecting to a server
+
+    // when a client is connecting to a dedicated server, this event does not fire at all client side
+    if (FMLEnvironment.dist == Dist.CLIENT) {
+      fullyLoaded = true;
+      onMaterialReload.forEach(Runnable::run);
+    } else if (player instanceof ServerPlayerEntity) {
+      ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
+      TinkerNetwork network = TinkerNetwork.getInstance();
+      PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
+      network.send(target, materialManager.getUpdatePacket());
+      network.send(target, materialStatsManager.getUpdatePacket());
+      network.send(target, materialTraitsManager.getUpdatePacket());
     }
   }
 }
