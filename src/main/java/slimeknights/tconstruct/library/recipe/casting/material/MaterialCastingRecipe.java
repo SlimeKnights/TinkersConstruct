@@ -35,6 +35,8 @@ import java.util.stream.Collectors;
 public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implements IMultiRecipe<IDisplayableCastingRecipe> {
   protected final int itemCost;
   protected final IMaterialItem result;
+  @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+  protected Optional<MaterialFluidRecipe> cachedFluidRecipe = Optional.empty();
 
   public MaterialCastingRecipe(IRecipeType<?> type, ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
     super(type, id, group, cast, consumed, switchSlots);
@@ -48,24 +50,36 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
     return MaterialCastingLookup.getCastingFluid(inv.getFluid());
   }
 
+  /** Gets the cached fluid recipe if it still matches, refetches if not */
+  protected Optional<MaterialFluidRecipe> getCachedMaterialFluid(ICastingInventory inv) {
+    Optional<MaterialFluidRecipe> fluidRecipe = cachedFluidRecipe;
+    if (!fluidRecipe.filter(recipe -> recipe.matches(inv)).isPresent()) {
+      fluidRecipe = getMaterialFluid(inv);
+      if (fluidRecipe.isPresent()) {
+        cachedFluidRecipe = fluidRecipe;
+      }
+    }
+    return fluidRecipe;
+  }
+
   @Override
   public boolean matches(ICastingInventory inv, World worldIn) {
     if (!this.cast.test(inv.getStack())) {
       return false;
     }
-    return getMaterialFluid(inv).filter(recipe -> result.canUseMaterial(recipe.getOutput())).isPresent();
+    return getCachedMaterialFluid(inv).filter(recipe -> result.canUseMaterial(recipe.getOutput())).isPresent();
   }
 
   @Override
   public int getCoolingTime(ICastingInventory inv) {
-    return getMaterialFluid(inv)
+    return getCachedMaterialFluid(inv)
       .map(recipe -> ICastingRecipe.calcCoolingTime(recipe.getTemperature(), recipe.getFluidAmount(inv.getFluid()) * itemCost))
       .orElse(1);
   }
 
   @Override
   public int getFluidAmount(ICastingInventory inv) {
-    return getMaterialFluid(inv)
+    return getCachedMaterialFluid(inv)
              .map(recipe -> recipe.getFluidAmount(inv.getFluid()))
              .orElse(1) * this.itemCost;
   }
@@ -77,7 +91,7 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
 
   @Override
   public ItemStack getCraftingResult(ICastingInventory inv) {
-    IMaterial material = getMaterialFluid(inv).map(MaterialFluidRecipe::getOutput).orElse(IMaterial.UNKNOWN);
+    IMaterial material = getCachedMaterialFluid(inv).map(MaterialFluidRecipe::getOutput).orElse(IMaterial.UNKNOWN);
     return result.withMaterial(material);
   }
 

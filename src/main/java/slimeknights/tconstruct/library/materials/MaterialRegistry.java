@@ -59,7 +59,8 @@ public final class MaterialRegistry {
     // add event listeners
     MinecraftForge.EVENT_BUS.addListener(INSTANCE::addDataPackListeners);
     MinecraftForge.EVENT_BUS.addListener(INSTANCE::handleLogin);
-    // on the client, mark materials not fully loaded when the client logs out. This also runs when starting a world in SP, but its early enough to not be an issue
+    // on the client, mark materials not fully loaded when the client logs out.
+    // this also runs when starting a world in SP, but its early enough that the player login event will correct the state later (see handleLogin method)
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LoggedOutEvent.class, e -> fullyLoaded = false));
   }
 
