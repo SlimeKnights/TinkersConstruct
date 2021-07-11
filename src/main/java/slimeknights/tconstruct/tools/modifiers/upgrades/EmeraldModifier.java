@@ -45,6 +45,6 @@ public class EmeraldModifier extends SingleLevelModifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    ScaledTypeDamageModifier.addDamageTooltip(this, tool, level * 2.5f * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
+    addDamageTooltip(tool, level * 2.5f, tooltip);
   }
 }

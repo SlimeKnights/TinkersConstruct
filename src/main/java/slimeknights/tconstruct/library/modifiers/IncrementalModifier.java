@@ -7,6 +7,8 @@ import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
+import java.util.List;
+
 /** Modifier which can take just part of an input instead of the whole input */
 public class IncrementalModifier extends Modifier {
   public IncrementalModifier(int color) {
@@ -103,5 +105,16 @@ public class IncrementalModifier extends Modifier {
    */
   public static void setAmount(ModDataNBT persistentData, Modifier modifier, int amount) {
     persistentData.putInt(modifier.getId(), amount);
+  }
+
+  /**
+   * Adds a tooltip showing the bonus damage and the type of damage dded
+   * @param tool         Tool instance
+   * @param level        Current level
+   * @param levelAmount  Bonus per level
+   * @param tooltip      Tooltip
+   */
+  protected void addDamageTooltip(IModifierToolStack tool, int level, float levelAmount, List<ITextComponent> tooltip) {
+    addDamageTooltip(tool, getScaledLevel(tool, level) * levelAmount, tooltip);
   }
 }

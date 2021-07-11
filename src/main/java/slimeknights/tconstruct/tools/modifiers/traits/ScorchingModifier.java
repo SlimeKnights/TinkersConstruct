@@ -11,7 +11,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
 
 import java.util.List;
 
@@ -35,6 +34,6 @@ public class ScorchingModifier extends Modifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    ScaledTypeDamageModifier.addDamageTooltip(this, tool, level * 2 * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
+    addDamageTooltip(tool, level * 2, tooltip);
   }
 }

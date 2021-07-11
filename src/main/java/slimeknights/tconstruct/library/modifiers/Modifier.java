@@ -10,6 +10,7 @@ import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
@@ -18,6 +19,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectUtils;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
@@ -45,7 +47,9 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -521,7 +525,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /**
    * Adds harvest loot table related enchantments from this modifier's effect, called before breaking a block.
    * Needed to add enchantments for silk touch and fortune. Can add conditionally if needed.
-   * For looting, see {@link #getLootingValue(IModifierToolStack, int, LivingEntity, LivingEntity, DamageSource, int)}
+   * For looting, see {@link #getLootingValue(IModifierToolStack, int, LivingEntity, Entity, DamageSource, int)}
    * @param tool      Tool used
    * @param level     Modifier level
    * @param context   Harvest context
@@ -704,6 +708,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     return null;
   }
 
+  @Override
+  public String toString() {
+    return "Modifier{" + registryName + '}';
+  }
+
 
   /* Utils */
 
@@ -764,8 +773,29 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     return modifier;
   }
 
-  @Override
-  public String toString() {
-    return "Modifier{" + registryName + '}';
+  /**
+   * Adds a tooltip showing a bonus stat
+   * @param tool       Tool instance
+   * @param stat       Stat added
+   * @param condition  Condition to show the tooltip
+   * @param amount     Amount to show, before scaling by the tool's modifier
+   * @param tooltip    Tooltip list
+   */
+  protected void addStatTooltip(IModifierToolStack tool, FloatToolStat stat, ITag<Item> condition, float amount, List<ITextComponent> tooltip) {
+    if (tool.hasTag(condition)) {
+      tooltip.add(applyStyle(new StringTextComponent("+" + slimeknights.tconstruct.library.utils.Util.COMMA_FORMAT.format(amount * tool.getModifier(stat)))
+                               .appendString(" ")
+                               .append(new TranslationTextComponent(getTranslationKey() + "." + stat.getName().getPath()))));
+    }
+  }
+
+  /**
+   * Adds a tooltip showing the bonus damage and the type of damage
+   * @param tool     Tool instance
+   * @param amount   Damage amount
+   * @param tooltip  Tooltip
+   */
+  protected void addDamageTooltip(IModifierToolStack tool, float amount, List<ITextComponent> tooltip) {
+    addStatTooltip(tool, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE, amount, tooltip);
   }
 }

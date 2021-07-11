@@ -34,6 +34,6 @@ public class PiercingModifier extends IncrementalModifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    ScaledTypeDamageModifier.addDamageTooltip(this, tool, level, 0.5f, tooltip);
+    addDamageTooltip(tool, level, 0.5f, tooltip);
   }
 }

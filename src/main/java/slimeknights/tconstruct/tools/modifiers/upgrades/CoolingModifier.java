@@ -23,6 +23,6 @@ public class CoolingModifier extends IncrementalModifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    ScaledTypeDamageModifier.addDamageTooltip(this, tool, level, 2f, tooltip);
+    addDamageTooltip(tool, level, 2f, tooltip);
   }
 }

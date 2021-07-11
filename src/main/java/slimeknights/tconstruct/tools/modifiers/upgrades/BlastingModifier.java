@@ -1,10 +1,14 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+
+import java.util.List;
 
 public class BlastingModifier extends IncrementalModifier {
   public BlastingModifier() {
@@ -27,5 +31,10 @@ public class BlastingModifier extends IncrementalModifier {
       boost *= tool.getModifier(ToolStats.MINING_SPEED);
       event.setNewSpeed(event.getNewSpeed() + (float)boost);
     }
+  }
+
+  @Override
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
+    addStatTooltip(tool, ToolStats.MINING_SPEED, TinkerTags.Items.HARVEST, 9 * getScaledLevel(tool, level), tooltip);
   }
 }
