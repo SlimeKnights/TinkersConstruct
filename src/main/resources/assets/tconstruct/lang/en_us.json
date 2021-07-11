@@ -1202,6 +1202,7 @@
   "modifier.tconstruct.emerald": "Emerald",
   "modifier.tconstruct.emerald.flavor": "Fancy!",
   "modifier.tconstruct.emerald.description": "Increases durability depending on base durability! Illagers hate it!",
+  "modifier.tconstruct.emerald.damage": "Illager Damage",
   "modifier.tconstruct.diamond": "Diamond",
   "modifier.tconstruct.diamond.flavor": "Rich!",
   "modifier.tconstruct.diamond.description": "Increased durability and stats!",
@@ -1215,7 +1216,6 @@
   "modifier.tconstruct.netherite.flavor": "Refined!",
   "modifier.tconstruct.netherite.description": "Harness the power of ancient metal, making the tool stronger and immune to external damage such as fire",
   "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
-
 
   "modifier.tconstruct.overslime": "Overslime",
   "modifier.tconstruct.overslime.flavor": "Slimy!",
@@ -1429,10 +1429,12 @@
   "modifier.tconstruct.sturdy.description": "Made from the strongest iron",
   "modifier.tconstruct.searing": "Searing",
   "modifier.tconstruct.searing.flavor": "Harness the Smeltery!",
-  "modifier.tconstruct.searing.description": "Tool does bonus fire damage in hot areas, but less overall damage in cold ones",
+  "modifier.tconstruct.searing.description": "Tool does bonus damage in hot areas, but less damage in cold ones",
+  "modifier.tconstruct.searing.damage": "Hottest Damage",
   "modifier.tconstruct.scorching": "Scorching",
   "modifier.tconstruct.scorching.flavor": "Harness the Foundry!",
   "modifier.tconstruct.scorching.description": "Tool does bonus damage to targets that are on fire",
+  "modifier.tconstruct.scorching.damage": "Damage on Fire",
   "modifier.tconstruct.dwarven": "Dwarven",
   "modifier.tconstruct.dwarven.flavor": "Miner's Friend!",
   "modifier.tconstruct.dwarven.description": "Tool mines faster the deeper you mine, just don't mine too deep",
@@ -1474,6 +1476,7 @@
   "modifier.tconstruct.insatiable": "Insatiable",
   "modifier.tconstruct.insatiable.flavor": "Taste For Blood!",
   "modifier.tconstruct.insatiable.description": "During combat you deal more and more damage every time you hit an enemy",
+  "modifier.tconstruct.insatiable.damage": "Momentum Damage",
 
   "__comment": "Tier 2 Mod Compat Traits",
   "modifier.tconstruct.heavy": "Heavy",

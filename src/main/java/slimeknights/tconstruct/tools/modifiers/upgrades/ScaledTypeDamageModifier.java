@@ -5,10 +5,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
   public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     LivingEntity target = context.getLivingTarget();
     if (target != null && isEffective(target)) {
-      damage += getScaledLevel(tool, level) * 2.5f;
+      damage += getScaledLevel(tool, level) * 2.5f * tool.getModifier(ToolStats.ATTACK_DAMAGE);
     }
     return damage;
   }
@@ -52,7 +54,17 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
    * @param tooltip      Tooltip
    */
   public static void addDamageTooltip(IncrementalModifier self, IModifierToolStack tool, int level, float levelAmount, List<ITextComponent> tooltip) {
-    tooltip.add(self.applyStyle(new StringTextComponent("+" + Util.COMMA_FORMAT.format(self.getScaledLevel(tool, level) * levelAmount))
+    addDamageTooltip(self, self.getScaledLevel(tool, level) * levelAmount * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
+  }
+
+  /**
+   * Adds a tooltip showing the bonus damage and the type of damage dded
+   * @param self         Modifier instance
+   * @param amount       Damage amount
+   * @param tooltip      Tooltip
+   */
+  public static void addDamageTooltip(Modifier self, float amount, List<ITextComponent> tooltip) {
+    tooltip.add(self.applyStyle(new StringTextComponent("+" + Util.COMMA_FORMAT.format(amount))
                                   .appendString(" ")
                                   .append(new TranslationTextComponent(self.getTranslationKey() + ".damage"))));
   }

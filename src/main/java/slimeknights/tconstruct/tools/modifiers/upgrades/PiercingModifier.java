@@ -27,13 +27,13 @@ public class PiercingModifier extends IncrementalModifier {
       source = DamageSource.causeMobDamage(context.getAttacker());
     }
     source.setDamageBypassesArmor();
-    float secondaryDamage = getScaledLevel(tool, level) * tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.ATTACK_DAMAGE) * 0.5f * context.getCooldown();
+    float secondaryDamage = getScaledLevel(tool, level) * tool.getModifier(ToolStats.ATTACK_DAMAGE) * 0.5f * context.getCooldown();
     ToolAttackUtil.attackEntitySecondary(source, secondaryDamage, context.getTarget(), context.getLivingTarget(), true);
     return 0;
   }
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    ScaledTypeDamageModifier.addDamageTooltip(this, tool, level, tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.ATTACK_DAMAGE) * 0.5f, tooltip);
+    ScaledTypeDamageModifier.addDamageTooltip(this, tool, level, 0.5f, tooltip);
   }
 }

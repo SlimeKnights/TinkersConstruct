@@ -12,10 +12,10 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.List;
 import java.util.UUID;
@@ -45,7 +45,7 @@ public class DamageSpeedTradeModifier extends Modifier {
 
   /** Gets the multiplier for this modifier at the current durability and level */
   private double getMultiplier(IModifierToolStack tool, int level) {
-    return Math.sqrt(tool.getDamage() * level / tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.DURABILITY)) * multiplier;
+    return Math.sqrt(tool.getDamage() * level / tool.getModifier(ToolStats.DURABILITY)) * multiplier;
   }
 
   @Override

@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 
 import java.util.List;
 
@@ -23,6 +24,11 @@ public interface IModifierToolStack {
 
   /** Gets the tool definition */
   ToolDefinition getDefinition();
+
+  /** Commonly used operation, getting a stat multiplier */
+  default float getModifier(FloatToolStat stat) {
+    return getDefinition().getBaseStatDefinition().getModifier(stat);
+  }
 
 
   /* Damage state */

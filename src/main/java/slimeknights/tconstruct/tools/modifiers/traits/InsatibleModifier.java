@@ -1,10 +1,15 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ScaledTypeDamageModifier;
+
+import java.util.List;
 
 public class InsatibleModifier extends Modifier {
   public InsatibleModifier() {
@@ -15,7 +20,7 @@ public class InsatibleModifier extends Modifier {
   public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     // gives +3 damage per level at max
     int effectLevel = TinkerModifiers.insatiableEffect.get().getLevel(context.getAttacker()) + 1;
-    return damage + level * effectLevel / 3f;
+    return damage + (level * effectLevel / 3f * tool.getModifier(ToolStats.ATTACK_DAMAGE));
   }
 
   @Override
@@ -27,5 +32,10 @@ public class InsatibleModifier extends Modifier {
       TinkerModifiers.insatiableEffect.get().apply(attacker, 5 * 20, effectLevel);
     }
     return 0;
+  }
+
+  @Override
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
+    ScaledTypeDamageModifier.addDamageTooltip(this, level * 3 * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
   }
 }

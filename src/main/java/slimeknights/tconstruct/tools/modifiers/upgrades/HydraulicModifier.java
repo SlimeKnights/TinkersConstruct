@@ -38,7 +38,7 @@ public class HydraulicModifier extends IncrementalModifier {
       bonus = 4;
     }
     if (bonus > 0) {
-      bonus *= level * tool.getDefinition().getBaseStatDefinition().getModifier(ToolStats.DURABILITY) * miningSpeedModifier;
+      bonus *= level * tool.getModifier(ToolStats.DURABILITY) * miningSpeedModifier;
       event.setNewSpeed(event.getNewSpeed() + bonus);
     }
   }

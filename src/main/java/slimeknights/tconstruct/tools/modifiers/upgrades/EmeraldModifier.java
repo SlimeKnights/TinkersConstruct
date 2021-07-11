@@ -3,7 +3,9 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Rarity;
+import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
+import slimeknights.tconstruct.library.tinkering.HarvestLevels;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.item.ToolCore;
@@ -13,7 +15,8 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.tinkering.HarvestLevels;
+
+import java.util.List;
 
 public class EmeraldModifier extends SingleLevelModifier {
   public EmeraldModifier() {
@@ -35,8 +38,13 @@ public class EmeraldModifier extends SingleLevelModifier {
   public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     LivingEntity living = context.getLivingTarget();
     if (living != null && living.getCreatureAttribute() == CreatureAttribute.ILLAGER) {
-      damage += 2.5f;
+      damage += level * 2.5f * tool.getModifier(ToolStats.ATTACK_DAMAGE);
     }
     return damage;
+  }
+
+  @Override
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
+    ScaledTypeDamageModifier.addDamageTooltip(this, level * 2.5f * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
   }
 }
