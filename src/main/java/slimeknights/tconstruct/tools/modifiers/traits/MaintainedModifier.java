@@ -6,7 +6,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.List;
 
@@ -77,9 +78,11 @@ public class MaintainedModifier extends Modifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    double boost = getTotalBoost(tool, level);
-    if (boost != 0) {
-      tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(boost)).appendString(" ").append(MINING_SPEED)));
+    if (tool.hasTag(TinkerTags.Items.HARVEST)) {
+      double boost = getTotalBoost(tool, level);
+      if (boost != 0) {
+        tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(boost)).appendString(" ").append(MINING_SPEED)));
+      }
     }
   }
 

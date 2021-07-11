@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
@@ -54,7 +55,7 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
    * @param tooltip      Tooltip
    */
   public static void addDamageTooltip(IncrementalModifier self, IModifierToolStack tool, int level, float levelAmount, List<ITextComponent> tooltip) {
-    addDamageTooltip(self, self.getScaledLevel(tool, level) * levelAmount * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
+    addDamageTooltip(self, tool, self.getScaledLevel(tool, level) * levelAmount * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
   }
 
   /**
@@ -63,9 +64,11 @@ public class ScaledTypeDamageModifier extends IncrementalModifier {
    * @param amount       Damage amount
    * @param tooltip      Tooltip
    */
-  public static void addDamageTooltip(Modifier self, float amount, List<ITextComponent> tooltip) {
-    tooltip.add(self.applyStyle(new StringTextComponent("+" + Util.COMMA_FORMAT.format(amount))
-                                  .appendString(" ")
-                                  .append(new TranslationTextComponent(self.getTranslationKey() + ".damage"))));
+  public static void addDamageTooltip(Modifier self, IModifierToolStack tool, float amount, List<ITextComponent> tooltip) {
+    if (tool.hasTag(TinkerTags.Items.MELEE)) {
+      tooltip.add(self.applyStyle(new StringTextComponent("+" + Util.COMMA_FORMAT.format(amount))
+                                    .appendString(" ")
+                                    .append(new TranslationTextComponent(self.getTranslationKey() + ".damage"))));
+    }
   }
 }

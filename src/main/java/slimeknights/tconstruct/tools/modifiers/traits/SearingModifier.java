@@ -44,6 +44,6 @@ public class SearingModifier extends Modifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    ScaledTypeDamageModifier.addDamageTooltip(this, level * 2.5f * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
+    ScaledTypeDamageModifier.addDamageTooltip(this, tool, level * 2.5f * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
   }
 }

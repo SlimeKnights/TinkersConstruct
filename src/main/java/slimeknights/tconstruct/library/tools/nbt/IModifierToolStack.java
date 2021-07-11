@@ -4,6 +4,7 @@ package slimeknights.tconstruct.library.tools.nbt;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ITag;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -28,6 +29,11 @@ public interface IModifierToolStack {
   /** Commonly used operation, getting a stat multiplier */
   default float getModifier(FloatToolStat stat) {
     return getDefinition().getBaseStatDefinition().getModifier(stat);
+  }
+
+  /** Checks if the tool has the given tag */
+  default boolean hasTag(ITag<Item> tag) {
+    return tag.contains(getItem());
   }
 
 

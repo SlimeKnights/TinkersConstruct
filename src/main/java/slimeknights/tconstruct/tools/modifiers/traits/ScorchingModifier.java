@@ -35,6 +35,6 @@ public class ScorchingModifier extends Modifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    ScaledTypeDamageModifier.addDamageTooltip(this, level * 2 * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
+    ScaledTypeDamageModifier.addDamageTooltip(this, tool, level * 2 * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
   }
 }

@@ -12,6 +12,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -51,7 +52,7 @@ public class DamageSpeedTradeModifier extends Modifier {
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     double boost = getMultiplier(tool, level);
-    if (boost != 0) {
+    if (boost != 0 && tool.hasTag(TinkerTags.Items.HARVEST)) {
       tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(-boost)).appendString(" ").append(MINING_SPEED)));
     }
   }
