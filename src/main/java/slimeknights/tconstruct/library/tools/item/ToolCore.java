@@ -614,7 +614,9 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
       builder.add(ToolStats.ATTACK_SPEED);
     }
     if (TinkerTags.Items.HARVEST.contains(tool.getItem())) {
-      builder.add(ToolStats.HARVEST_LEVEL);
+      if (TinkerTags.Items.HARVEST_PRIMARY.contains(tool.getItem())) {
+        builder.add(ToolStats.HARVEST_LEVEL);
+      }
       builder.add(ToolStats.MINING_SPEED);
     }
 
