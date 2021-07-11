@@ -234,6 +234,7 @@ public class TConstruct {
       switch(name) {
         case "beheading": return TinkerModifiers.severing.get();
         case "bane_of_arthropods": return TinkerModifiers.baneOfSssss.get();
+        case "duel_wielding": return TinkerModifiers.dualWielding.get();
       }
       return null;
     });

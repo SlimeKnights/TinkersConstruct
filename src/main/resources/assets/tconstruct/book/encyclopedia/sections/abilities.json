@@ -50,7 +50,7 @@
   },
   {
     "type": "modifier",
-    "data": "abilities/weapon/duel_wielding.json"
+    "data": "abilities/weapon/dual_wielding.json"
   },
   {
     "type": "modifier",

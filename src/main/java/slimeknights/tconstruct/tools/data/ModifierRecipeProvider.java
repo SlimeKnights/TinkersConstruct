@@ -495,7 +495,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.unbreakable_requirements"))
                          .build(consumer, prefix(TinkerModifiers.unbreakable, abilityFolder));
     // weapon
-    ModifierRecipeBuilder.modifier(TinkerModifiers.duelWielding.get())
+    ModifierRecipeBuilder.modifier(TinkerModifiers.dualWielding.get())
                          .addInput(TinkerMaterials.manyullyn.getIngotTag())
                          .addInput(Items.NAUTILUS_SHELL)
                          .addInput(TinkerMaterials.manyullyn.getIngotTag())
@@ -504,7 +504,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
                          .setTools(new IngredientWithout(new IngredientIntersection(Ingredient.fromTag(TinkerTags.Items.MELEE), Ingredient.fromTag(TinkerTags.Items.ONE_HANDED)), Ingredient.fromItems(TinkerTools.dagger)))
-                         .build(consumer, prefix(TinkerModifiers.duelWielding, abilityFolder));
+                         .build(consumer, prefix(TinkerModifiers.dualWielding, abilityFolder));
     
     /*
      * extra modifiers

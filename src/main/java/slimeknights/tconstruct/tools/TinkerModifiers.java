@@ -182,7 +182,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ReachModifier> reach = MODIFIERS.register("reach", ReachModifier::new);
   public static final RegistryObject<UnbreakableModifier> unbreakable = MODIFIERS.register("unbreakable", UnbreakableModifier::new);
   // weapon
-  public static final RegistryObject<DuelWieldingModifier> duelWielding = MODIFIERS.register("duel_wielding", DuelWieldingModifier::new);
+  public static final RegistryObject<DuelWieldingModifier> dualWielding = MODIFIERS.register("dual_wielding", DuelWieldingModifier::new);
   // harvest
   public static final RegistryObject<SilkyModifier> silky = MODIFIERS.register("silky", SilkyModifier::new);
   public static final RegistryObject<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
