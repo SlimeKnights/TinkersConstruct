@@ -20,7 +20,7 @@ public final class ToolBaseStatDefinitions {
     .modifier(ToolStats.DURABILITY, 4f)
     .setPrimaryHeadWeight(2).setDefaultUpgrades(2).build();
   static final ToolBaseStatDefinition VEIN_HAMMER = new ToolBaseStatDefinition.Builder()
-    .bonus(ToolStats.ATTACK_DAMAGE, 3f)
+    .bonus(ToolStats.ATTACK_DAMAGE, 3f) // gains +1.25 damage from piercing
     .modifier(ToolStats.ATTACK_DAMAGE, 1.25f)
     .modifier(ToolStats.ATTACK_SPEED, 1.1f)
     .modifier(ToolStats.MINING_SPEED, 0.3f)
@@ -57,7 +57,7 @@ public final class ToolBaseStatDefinitions {
   static final ToolBaseStatDefinition KAMA = new ToolBaseStatDefinition.Builder()
     .bonus(ToolStats.ATTACK_DAMAGE, 1f)
     .modifier(ToolStats.ATTACK_DAMAGE, 0.75f)
-    .modifier(ToolStats.ATTACK_SPEED, 1.9f)
+    .modifier(ToolStats.ATTACK_SPEED, 1.8f)
     .build();
   static final ToolBaseStatDefinition SCYTHE = new ToolBaseStatDefinition.Builder()
     .bonus(ToolStats.ATTACK_DAMAGE, 1f)

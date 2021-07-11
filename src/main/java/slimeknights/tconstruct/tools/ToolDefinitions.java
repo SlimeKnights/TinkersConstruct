@@ -28,7 +28,8 @@ public final class ToolDefinitions {
   public static final ToolDefinition VEIN_HAMMER = new ToolDefinition(
     ToolBaseStatDefinitions.VEIN_HAMMER,
     requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughHandle, TinkerToolParts.pickaxeHead, TinkerToolParts.largePlate),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
+    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.piercing.get(), 2),
+                           new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
 
   // dirt
   public static final ToolDefinition MATTOCK = new ToolDefinition(
