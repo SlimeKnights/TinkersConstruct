@@ -30,7 +30,7 @@ public class EmeraldModifier extends SingleLevelModifier {
 
   @Override
   public void addToolStats(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
-    ToolStats.DURABILITY.multiply(builder, 1.5f);
+    ToolStats.DURABILITY.multiply(builder, 1 + (level * 0.5f));
     ToolStats.HARVEST_LEVEL.set(builder, HarvestLevels.IRON);
   }
 
