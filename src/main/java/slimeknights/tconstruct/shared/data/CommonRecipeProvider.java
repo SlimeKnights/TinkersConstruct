@@ -22,10 +22,8 @@ import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
-import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
@@ -81,16 +79,11 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                           .addCriterion("has_item", hasItem(TinkerSmeltery.netherGrout))
                           .build(consumer, prefix(TinkerCommons.fantasticFoundry, "common/"));
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.encyclopedia)
-                          .addIngredient(SlimeType.EARTH.getSlimeBallTag())
-                          .addIngredient(TinkerModifiers.silkyCloth)
-                          .addIngredient(SlimeType.SKY.getSlimeBallTag())
-                          .addIngredient(SlimeType.BLOOD.getSlimeBallTag())
-                          .addIngredient(Items.BOOK)
-                          .addIngredient(Items.MAGMA_CREAM)
-                          .addIngredient(SlimeType.ICHOR.getSlimeBallTag())
-                          .addIngredient(TinkerModifiers.dragonScale)
-                          .addIngredient(SlimeType.ENDER.getSlimeBallTag())
-                          .addCriterion("has_item", hasItem(SlimeType.ENDER.getSlimeBallTag()))
+                          .addIngredient(TinkerCommons.materialsAndYou)
+                          .addIngredient(TinkerCommons.punySmelting)
+                          .addIngredient(TinkerCommons.mightySmelting)
+                          .addIngredient(TinkerCommons.fantasticFoundry)
+                          .addCriterion("has_item", hasItem(TinkerCommons.fantasticFoundry))
                           .build(consumer, prefix(TinkerCommons.encyclopedia, "common/"));
 
     // glass

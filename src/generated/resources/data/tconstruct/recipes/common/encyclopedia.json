@@ -2,31 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:slimeball/green"
+      "item": "tconstruct:materials_and_you"
     },
     {
-      "item": "tconstruct:silky_cloth"
+      "item": "tconstruct:puny_smelting"
     },
     {
-      "tag": "forge:slimeball/sky"
+      "item": "tconstruct:mighty_smelting"
     },
     {
-      "tag": "forge:slimeball/blood"
-    },
-    {
-      "item": "minecraft:book"
-    },
-    {
-      "item": "minecraft:magma_cream"
-    },
-    {
-      "tag": "forge:slimeball/ichor"
-    },
-    {
-      "item": "tconstruct:dragon_scale"
-    },
-    {
-      "tag": "forge:slimeball/ender"
+      "item": "tconstruct:fantastic_foundry"
     }
   ],
   "result": {

@@ -1724,6 +1724,8 @@
   "advancements.tconstruct.foundry.blaze.description": "Fill a tank with blazing blood",
   "advancements.tconstruct.foundry.manyullyn_lanterns.title": "Rich Lighting",
   "advancements.tconstruct.foundry.manyullyn_lanterns.description": "Create a full stack of seared or scorched lanterns filled with molten manyullyn",
+  "advancements.tconstruct.foundry.encyclopedia.title": "Encyclopedia",
+  "advancements.tconstruct.foundry.encyclopedia.description": "Craft the encyclopedia of materials with your knowledge from all the books",
 
   "_comment": "Gadget Advancements",
   "advancements.tconstruct.world.tinkers_gadgetry.title": "Tinker's Gadgetry",
@@ -1743,9 +1745,7 @@
   "advancements.tconstruct.world.slime_sling.title": "Sling Expert",
   "advancements.tconstruct.world.slime_sling.description": "Sufficiently use each of the 4 slime sling types",
   "advancements.tconstruct.world.piggybackpack.title": "Pig Piggyback",
-  "advancements.tconstruct.world.piggybackpack.description": "Pick up a pig with a piggybackpack",
-  "advancements.tconstruct.world.encyclopedia.title": "Encyclopedia",
-  "advancements.tconstruct.world.encyclopedia.description": "Craft the encyclopedia of materials with your knowledge from exploration"
+  "advancements.tconstruct.world.piggybackpack.description": "Pick up a pig with a piggybackpack"
 
 }
 

@@ -222,6 +222,8 @@ public class AdvancementsProvider extends GenericDataProvider {
     // foundry path
     Advancement fantasticFoundry = builder(TinkerCommons.fantasticFoundry, resource("foundry/fantastic_foundry"), materialsAndYou, FrameType.TASK, builder ->
       builder.withCriterion("crafted_book", hasItem(TinkerCommons.fantasticFoundry)));
+    builder(TinkerCommons.encyclopedia, resource("foundry/encyclopedia"), fantasticFoundry, FrameType.GOAL, builder ->
+      builder.withCriterion("crafted_book", hasItem(TinkerCommons.encyclopedia)));
     Advancement alloyer = builder(TinkerSmeltery.scorchedAlloyer, resource("foundry/alloyer"), fantasticFoundry, FrameType.TASK, builder -> {
       Consumer<Block> with = block -> builder.withCriterion(Objects.requireNonNull(block.getRegistryName()).getPath(), PlacedBlockTrigger.Instance.placedBlock(block));
       with.accept(TinkerSmeltery.scorchedAlloyer.get());
@@ -286,8 +288,6 @@ public class AdvancementsProvider extends GenericDataProvider {
       IntBound mojangDeletedTheMaxMethods = IntBound.fromJson(boundJSON);
       TinkerGadgets.slimeSling.forEach((type, sling) -> builder.withCriterion(type.getString(), ItemDurabilityTrigger.Instance.create(AndPredicate.ANY_AND, ItemPredicate.Builder.create().item(sling).build(), mojangDeletedTheMaxMethods)));
     });
-    builder(TinkerCommons.encyclopedia, resource("world/encyclopedia"), slimes, FrameType.GOAL, builder ->
-      builder.withCriterion("crafted_book", hasItem(TinkerCommons.encyclopedia)));
     builder(TinkerGadgets.piggyBackpack, resource("world/piggybackpack"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.withCriterion("used_pack", PlayerEntityInteractionTrigger.Instance.create(AndPredicate.ANY_AND, ItemPredicate.Builder.create().item(TinkerGadgets.piggyBackpack), EntityPredicate.AndPredicate.createAndFromEntityCondition(EntityPredicate.Builder.create().type(EntityType.PIG).build()))));
   }

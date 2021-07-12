@@ -1,14 +1,14 @@
 {
-  "parent": "tconstruct:world/slime_collector",
+  "parent": "tconstruct:foundry/fantastic_foundry",
   "display": {
     "icon": {
       "item": "tconstruct:encyclopedia"
     },
     "title": {
-      "translate": "advancements.tconstruct.world.encyclopedia.title"
+      "translate": "advancements.tconstruct.foundry.encyclopedia.title"
     },
     "description": {
-      "translate": "advancements.tconstruct.world.encyclopedia.description"
+      "translate": "advancements.tconstruct.foundry.encyclopedia.description"
     },
     "frame": "goal",
     "show_toast": true,
