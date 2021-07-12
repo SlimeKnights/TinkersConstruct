@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:overslime",
   "text": [
     {
-      "text": "Overslime grants tools a second durability bar, which is consumed before the main durability bar. By default tools start with 50 overslime, multiplied by its durability modifier."
+      "text": "Overslime grants tools a second durability bar, which is consumed before the main durability bar. By default, tools start with 50 max overslime, multiplied by its durability modifier."
     },
     {
-      "text": "Tools with no slime based material receive 90% attack damage and mining speed.",
+      "text": "Tools with no slime-based parts have attack damage and mining speed reduced by 10%.",
       "paragraph": true
     }
   ],

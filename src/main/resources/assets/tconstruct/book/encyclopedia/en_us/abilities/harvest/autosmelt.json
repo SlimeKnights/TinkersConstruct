@@ -2,11 +2,11 @@
   "modifier_id": "tconstruct:autosmelt",
   "text": [
     {
-      "text": "Causes items dropped from mined blocks to be smelted as if in a furnace."
+      "text": "Causes items dropped from mined blocks to be smelted, as if in a furnace."
     }
   ],
   "effects": [
-    "Single use",
+    "Maximum of 1 level",
     "Requires 1 ability slot"
   ]
 }

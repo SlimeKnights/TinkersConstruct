@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:tank",
   "text": [
     {
-      "text": "Increases the tank capacity of the tool by 9 ingots (or 1296 mb) per level."
+      "text": "Increases the tank capacity of the tool by 9 ingots (or 1296 mb) per level. Useful alongside abilities such as bucketing or melting."
     },
     {
       "text": "Tools with tanks have the ability to be filled and drained by interacting with fluid tank blocks.",

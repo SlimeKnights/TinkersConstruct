@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Single use",
+    "Maximum of 1 level",
     "Requires Diamond or Emerald to be applied",
     "Requires 1 upgrade slot"
   ]

@@ -1,8 +1,8 @@
 {
   "tool": "tconstruct:vein_hammer",
   "text": [
-    { "text": "The Veining Hammer mines stone blocks and adjectent blocks of the same type, up to two blocks away." },
-    { "text": "Expanders each increase the max distance of a block by 1.", "paragraph": true }
+    { "text": "The Vein Hammer mines stone blocks and adjacent blocks of the same type, up to 2 blocks away." },
+    { "text": "Each expander increases the max distance of a block by 1.", "paragraph": true }
   ],
   "properties": [
     "+3 Attack Damage",

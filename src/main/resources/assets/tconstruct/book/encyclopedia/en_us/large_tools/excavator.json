@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:excavator",
   "text": [
-    { "text": "The Excavator is a broad digging tool, effective on dirts in a 3x3 range." },
+    { "text": "The Excavator is a broad digging tool, effective on dirt, gravel, and sand in a 3x3 range." },
     { "text": "Expanders alternate between increasing width and height.", "paragraph": true }
   ],
   "properties": [

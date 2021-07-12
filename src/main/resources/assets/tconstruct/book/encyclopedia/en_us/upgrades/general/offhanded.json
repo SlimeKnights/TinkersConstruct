@@ -2,11 +2,11 @@
   "modifier_id": "tconstruct:offhanded",
   "text": [
     {
-      "text": "If the offhand is occupied, prevents using the main hand's interaction ability. On two handed tools, this effectively makes it one handed, allowing the use of the offhand again."
+      "text": "Prevents using the main hand's interaction ability if the offhand is occupied. For example, an axe will not strip wood if a shield is in the offhand. On two handed tools, this effectively makes it one handed, allowing the use of the offhand again."
     }
   ],
   "effects": [
-    "Single use",
+    "Maximum of 1 level",
     "Requires 1 upgrade slot"
   ]
 }

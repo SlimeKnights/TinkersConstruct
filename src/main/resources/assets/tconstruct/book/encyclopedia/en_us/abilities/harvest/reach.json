@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:reach",
   "text": [
     {
-      "text": "Increases the mining range of the tool by 1 block per level."
+      "text": "Increases the maximum distance from the player this tool can mine by 1 block per level."
     }
   ],
   "effects": [

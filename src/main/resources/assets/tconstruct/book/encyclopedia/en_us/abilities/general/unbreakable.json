@@ -6,8 +6,8 @@
     }
   ],
   "effects": [
-    "Single use",
-    "Requires Reinforced V and Netherite",
+    "Maximum of 1 level",
+    "Requires Reinforced V and the Netherite modifier",
     "Requires 1 ability slot"
   ]
 }

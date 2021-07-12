@@ -2,12 +2,11 @@
   "modifier_id": "tconstruct:shiny",
   "text": [
     {
-      "text": "This legendary modifier holds the power of the legendary enchanted golden apple. And with a name such as §dShiny§r what could possibly go wrong?"
+      "text": "Makes the tool glow as if enchanted. Thats is it, it is just decorative."
     }
   ],
   "effects": [
-    "It makes your tool glimmer",
-	"That's literally it",
-	"Disappointing I know"
+    "Single use",
+    "Slotless"
   ]
 }

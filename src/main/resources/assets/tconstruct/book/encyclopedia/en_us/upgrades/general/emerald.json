@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Single use",
-	  "Requires 1 upgrade slot"
+    "Maximum of 1 level",
+    "Requires 1 upgrade slot"
   ]
 }

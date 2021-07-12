@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:magnetic",
   "text": [
     {
-      "text": "Pulls items within 3 blocks at a speed of 0.05 towards the player after mining blocks or attacking mobs, ignoring gravity."
+      "text": "After mining blocks or attacking mobs, pulls items within 3 blocks towards the player, ignoring gravity."
     },
     {
-      "text": "Each level adds 1 extra block of range, and 0.05 speed.",
+      "text": "Each level adds 1 extra block of range, and increases the speed.",
       "paragraph": true
     }
   ],

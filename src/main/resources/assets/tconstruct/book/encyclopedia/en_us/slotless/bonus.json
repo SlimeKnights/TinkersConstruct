@@ -3,11 +3,11 @@
   "text": [
     { "text": "Bonus modifiers are a group of slotless modifiers that grant additional modifier slots." },
     {
-      "text": "By default, most small tools start with 3 upgrade slots, and most broad tools start with 2. Upgrades can add an additional 4 slots to the tool.",
+      "text": "By default, most small tools start with 3 upgrade slots, and most broad tools start with 2. Modifiers can add an additional 4 slots to the tool.",
       "paragraph": true
     },
     {
-      "text": "In addition, most tools start with 1 ability slot, except swords which start with 2 ability slots. Upgrades can add an additional ability slot to the tool.",
+      "text": "In addition, most tools start with 1 ability slot, except swords, which start with 2 ability slots. Modifiers can add an additional ability slot to the tool.",
       "paragraph": true
     }
   ]

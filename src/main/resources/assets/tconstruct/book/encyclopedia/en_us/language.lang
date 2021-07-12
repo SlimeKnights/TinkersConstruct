@@ -21,7 +21,7 @@ slotless.general=§1§lGeneral§r
 slotless.bonus=§1§lBonus§r
 
 abilities=Abilities
-abilities.subtext=Ability modifiers have fewer slots than upgrades, but are stronger.
+abilities.subtext=Ability modifiers have fewer slots than upgrades, but are stronger per slot.
 abilities.general=§1§lGeneral§r
 abilities.harvest=§1§lHarvest§r
 abilities.interact=§1§lInteraction§r
@@ -49,7 +49,7 @@ material.tconstruct.silver.book=Gives +2.5 damage against undead per level
 tier_three_materials.subtext=These materials require alloying, either through an alloyer or a smeltery
 material.tconstruct.slimesteel.book=Grants 25 extra overslime, +50% of the total per level
 material.tconstruct.tinkers_bronze.book=Grants +10% to +15% mining speed per level at full durability
-material.tconstruct.nahuatl.book=Has a 50% chance of doing up to 5 damage over time, more at higher levels
+material.tconstruct.nahuatl.book=Has a 50% chance of doing up to 5 damage over time, more damage at higher levels
 material.tconstruct.rose_gold.book=Grants 1 extra upgrade slot per part
 material.tconstruct.pig_iron.book=Can be eaten to restore 1 hunger and 0.1 saturation per level
 material.tconstruct.cobalt.book=Boosts mining and attack speed by 7% per level

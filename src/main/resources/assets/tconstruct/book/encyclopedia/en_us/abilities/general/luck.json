@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:luck",
   "text": [
     {
-      "text": "Increases drop rates from both blocks and monsters."
+      "text": "Increases drop rates from both blocks and monsters. Note that unlike other modifiers which have multiple recipes, luck requires a different recipe for each level, and the recipes must be applied in order."
     }
   ],
   "effects": [

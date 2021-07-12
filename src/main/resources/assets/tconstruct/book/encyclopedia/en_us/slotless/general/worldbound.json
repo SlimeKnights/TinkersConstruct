@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:worldbound",
   "text": [
     {
-      "text": "Alternative to netherite that makes tools invernable when dropped without requiring an upgrade slot, but does not grant any stat boosts"
+      "text": "Alternative to netherite that makes tools invulnerable when dropped without requiring an upgrade slot. Does not grant any stat boosts"
     }
   ],
   "effects": [

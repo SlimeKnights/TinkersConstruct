@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:bucketing",
   "text": [
     {
-      "text": "Allows the tool to pick up fluids on use and placing fluids when sneaking. Also increases the tools tank capacity by 1000 mb and rounds it to the nearest 1000."
+      "text": "Allows the tool to pick up fluids on use and place fluids when sneaking. Also increases the tools tank capacity by 1000 mb and rounds it to the nearest 1000 mb."
     },
     {
       "text": "Tools with bucketing have the ability to be filled and drained by interacting with fluid tank blocks.",
@@ -10,7 +10,7 @@
     }
   ],
   "effects": [
-    "Single use",
+    "Maximum of 1 level",
     "Requires 1 ability slot"
   ]
 }

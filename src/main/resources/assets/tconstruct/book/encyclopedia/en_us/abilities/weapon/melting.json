@@ -10,7 +10,7 @@
     }
   ],
   "effects": [
-    "Single use",
+    "Maximum of 1 level",
     "Requires 1 ability slot"
   ]
 }
