@@ -153,6 +153,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ExperiencedModifier> experienced = MODIFIERS.register("experienced", ExperiencedModifier::new);
   public static final RegistryObject<MagneticModifier> magnetic = MODIFIERS.register("magnetic", MagneticModifier::new);
   public static final RegistryObject<VolatileFlagModifier> shiny = MODIFIERS.register("shiny", () -> new VolatileFlagModifier(0xFFA3EF, ToolCore.SHINY, Rarity.EPIC));
+  public static final RegistryObject<VolatileFlagModifier> offhanded = MODIFIERS.register("offhanded", () -> new VolatileFlagModifier(0x7E627B, ToolCore.DEFER_OFFHAND));
 
   // harvest
   public static final RegistryObject<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);

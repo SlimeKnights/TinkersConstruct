@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:phantom_membrane"
+    },
+    {
+      "tag": "forge:slimeball/ichor"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
+  "result": {
+    "name": "tconstruct:offhanded",
+    "level": 1
+  },
+  "max_level": 1,
+  "upgrade_slots": 1
+}

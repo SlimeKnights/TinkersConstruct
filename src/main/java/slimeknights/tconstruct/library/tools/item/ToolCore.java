@@ -92,6 +92,8 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
   public static final ResourceLocation SHINY = TConstruct.getResource("shiny");
   /** Modifier key to make a tool spawn an indestructable entity */
   public static final ResourceLocation RARITY = TConstruct.getResource("rarity");
+  /** Modifier key to defer tool interaction to the offhand if present */
+  public static final ResourceLocation DEFER_OFFHAND = TConstruct.getResource("defer_offhand");
 
   protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
   private static final ITextComponent TOOLTIP_HOLD_CTRL;
@@ -403,55 +405,67 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
   }
   
   /* Right click hooks */
+
+  /** If true, this interaction hook should defer to the offhand */
+  protected static boolean shouldInteract(@Nullable LivingEntity player, ToolStack toolStack, Hand hand) {
+    return hand == Hand.OFF_HAND || player == null || !toolStack.getVolatileData().getBoolean(DEFER_OFFHAND) || player.getHeldItemOffhand().isEmpty();
+  }
   
   @Override
   public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
     ToolStack tool = ToolStack.from(stack);
-    for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context);
-      if (result.isSuccessOrConsume()) {
-        return result;
+    if (shouldInteract(context.getPlayer(), tool, context.getHand())) {
+      for (ModifierEntry entry : tool.getModifierList()) {
+        ActionResultType result = entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context);
+        if (result.isSuccessOrConsume()) {
+          return result;
+        }
       }
     }
-    return super.onItemUseFirst(stack, context);
+    return ActionResultType.PASS;
   }
 
   @Override
   public ActionResultType onItemUse(ItemUseContext context) {
-    ItemStack stack = context.getItem();
-    ToolStack tool = ToolStack.from(stack);
-    for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().afterBlockUse(tool, entry.getLevel(), context);
-      if (result.isSuccessOrConsume()) {
-        return result;
+    ToolStack tool = ToolStack.from(context.getItem());
+    if (shouldInteract(context.getPlayer(), tool, context.getHand())) {
+      for (ModifierEntry entry : tool.getModifierList()) {
+        ActionResultType result = entry.getModifier().afterBlockUse(tool, entry.getLevel(), context);
+        if (result.isSuccessOrConsume()) {
+          return result;
+        }
       }
     }
-    return super.onItemUseFirst(stack, context);
+    return ActionResultType.PASS;
   }
 
   @Override
   public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     ToolStack tool = ToolStack.from(stack);
-    for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().onEntityUse(tool, entry.getLevel(), playerIn, target, hand);
-      if (result.isSuccessOrConsume()) {
-        return result;
+    if (shouldInteract(playerIn, tool, hand)) {
+      for (ModifierEntry entry : tool.getModifierList()) {
+        ActionResultType result = entry.getModifier().onEntityUse(tool, entry.getLevel(), playerIn, target, hand);
+        if (result.isSuccessOrConsume()) {
+          return result;
+        }
       }
     }
-    return super.itemInteractionForEntity(stack, playerIn, target, hand);
+    return ActionResultType.PASS;
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-    ItemStack stack = playerIn.getHeldItem(handIn);
-    ToolStack tool = ToolStack.from(playerIn.getHeldItem(handIn));
-    for (ModifierEntry entry : tool.getModifierList()) {
-      ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, handIn);
-      if (result.isSuccessOrConsume()) {
-        return new ActionResult<ItemStack>(result, stack);
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand hand) {
+    ItemStack stack = playerIn.getHeldItem(hand);
+    ToolStack tool = ToolStack.from(playerIn.getHeldItem(hand));
+    if (shouldInteract(playerIn, tool, hand)) {
+      for (ModifierEntry entry : tool.getModifierList()) {
+        ActionResultType result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, hand);
+        if (result.isSuccessOrConsume()) {
+          return new ActionResult<>(result, stack);
+        }
       }
     }
-    return super.onItemRightClick(worldIn, playerIn, handIn);
+    return ActionResult.resultPass(stack);
   }
 
   @Override
@@ -462,7 +476,7 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
         return stack;
       }
     }
-    return super.onItemUseFinish(stack, worldIn, entityLiving);
+    return stack;
   }
 
   @Override
@@ -474,7 +488,6 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
         return;
       }
     }
-    super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
   }
 
   @Override
@@ -486,7 +499,7 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
         return result;
       }
     }
-    return super.getUseDuration(stack);
+    return 0;
   }
 
   @Override
@@ -498,7 +511,7 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
         return result;
       }
     }
-     return super.getUseAction(stack);
+    return UseAction.NONE;
   }
 
   /* Information */

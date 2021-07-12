@@ -1191,6 +1191,9 @@
   "modifier.tconstruct.shiny": "Shiny",
   "modifier.tconstruct.shiny.flavor": "Magical Energy Flows!",
   "modifier.tconstruct.shiny.description": "Tool glows with an enchanted glint",
+  "modifier.tconstruct.offhanded": "Offhanded",
+  "modifier.tconstruct.offhanded.flavor": "Dont think about it too hard",
+  "modifier.tconstruct.offhanded.description": "Disables the tools interaction abilities when the offhand is filled",
 
   "_comment": "Durability",
   "modifier.tconstruct.reinforced": "Reinforced",

@@ -176,6 +176,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.ENCHANTED_GOLDEN_APPLE)
                          .setMaxLevel(1)
                          .build(consumer, prefix(TinkerModifiers.shiny, slotlessFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded.get())
+                         .addInput(Items.LEATHER)
+                         .addInput(Items.PHANTOM_MEMBRANE)
+                         .addInput(TinkerTags.Items.ICHOR_SLIMEBALL)
+                         .setMaxLevel(1)
+                         .setUpgradeSlots(1)
+                         .build(consumer, prefix(TinkerModifiers.offhanded, abilityFolder));
 
     /*
      * Speed

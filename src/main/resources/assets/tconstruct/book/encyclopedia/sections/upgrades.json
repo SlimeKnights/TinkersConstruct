@@ -22,6 +22,10 @@
   },
   {
     "type": "modifier",
+    "data": "upgrades/general/offhanded.json"
+  },
+  {
+    "type": "modifier",
     "data": "upgrades/general/overforced.json"
   },
   {

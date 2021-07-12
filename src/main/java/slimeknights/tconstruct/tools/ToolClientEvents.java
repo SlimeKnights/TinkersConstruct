@@ -178,9 +178,12 @@ public class ToolClientEvents extends ClientEventBase {
     }
     ItemStack stack = player.getHeldItemMainhand();
     if (stack.getItem().isIn(TinkerTags.Items.TWO_HANDED)) {
+      ToolStack tool = ToolStack.from(stack);
       // special support for replacing modifier
-      if (!(event.getItemStack().getItem() instanceof BlockItem) || ToolStack.from(stack).getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
-        event.setCanceled(true);
+      if (!tool.getVolatileData().getBoolean(ToolCore.DEFER_OFFHAND)) {
+        if (!(event.getItemStack().getItem() instanceof BlockItem) || tool.getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
+          event.setCanceled(true);
+        }
       }
     }
   }
