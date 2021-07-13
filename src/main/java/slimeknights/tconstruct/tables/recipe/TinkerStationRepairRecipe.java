@@ -113,6 +113,10 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     // validate materials
     IMaterial material = null;
     ToolStack tool = ToolStack.from(tinkerable);
+    // not sure why you are tagging a tool with no parts as multipart, you are wrong and should feel ashamed of yourself
+    if (tool.getDefinition().getRequiredComponents().isEmpty()) {
+      return false;
+    }
     for (int i = 0; i < inv.getInputCount(); i++) {
       // skip empty slots
       ItemStack stack = inv.getInput(i);

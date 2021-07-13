@@ -40,9 +40,11 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     if (!inv.getTinkerableStack().isEmpty()) {
       return false;
     }
-
-    // each part must match the given slot
     List<IToolPart> parts = output.getToolDefinition().getRequiredComponents();
+    if (parts.isEmpty()) {
+      return false;
+    }
+    // each part must match the given slot
     int i;
     for (i = 0; i < parts.size(); i++) {
       if (parts.get(i).asItem() != inv.getInput(i).getItem()) {

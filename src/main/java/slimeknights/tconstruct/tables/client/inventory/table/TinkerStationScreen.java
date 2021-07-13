@@ -335,21 +335,23 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         IModifiable tool = (IModifiable) item;
         IFormattableTextComponent text = new StringTextComponent("");
         List<IToolPart> materialRequirements = tool.getToolDefinition().getRequiredComponents();
-        for (int i = 0; i < materialRequirements.size(); i++) {
-          IToolPart requirement = materialRequirements.get(i);
-          IFormattableTextComponent textComponent = new StringTextComponent(" * ");
+        if (!materialRequirements.isEmpty()) {
+          for (int i = 0; i < materialRequirements.size(); i++) {
+            IToolPart requirement = materialRequirements.get(i);
+            IFormattableTextComponent textComponent = new StringTextComponent(" * ");
 
-          ItemStack slotStack = this.container.getSlot(i + INPUT_SLOT).getStack();
-          if (requirement.asItem() != slotStack.getItem()) {
-            textComponent.mergeStyle(TextFormatting.RED);
+            ItemStack slotStack = this.container.getSlot(i + INPUT_SLOT).getStack();
+            if (requirement.asItem() != slotStack.getItem()) {
+              textComponent.mergeStyle(TextFormatting.RED);
+            }
+            textComponent.append(new TranslationTextComponent(requirement.asItem().getTranslationKey())).appendString("\n");
+
+            text.append(textComponent);
           }
-          textComponent.append(new TranslationTextComponent(requirement.asItem().getTranslationKey())).appendString("\n");
 
-          text.append(textComponent);
+          this.modifierInfo.setCaption(COMPONENTS_TEXT);
+          this.modifierInfo.setText(text);
         }
-
-        this.modifierInfo.setCaption(COMPONENTS_TEXT);
-        this.modifierInfo.setText(text);
       }
     }
   }

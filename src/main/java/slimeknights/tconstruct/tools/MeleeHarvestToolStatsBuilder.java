@@ -2,15 +2,14 @@ package slimeknights.tconstruct.tools;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
-import slimeknights.tconstruct.library.tools.stat.AbstractToolStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.tools.stat.ToolStatsBuilder;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -21,12 +20,12 @@ import java.util.List;
  * Standard stat builder for melee and harvest tools. Calculates the five main stat types, and handles the bonuses for other types
  */
 @Getter(AccessLevel.PROTECTED)
-public final class ToolStatsBuilder extends AbstractToolStatsBuilder {
+public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
   private final List<HeadMaterialStats> heads;
   private final List<HandleMaterialStats> handles;
   private final List<ExtraMaterialStats> extras;
 
-  public ToolStatsBuilder(ToolBaseStatDefinition baseStats, List<HeadMaterialStats> heads, List<HandleMaterialStats> handles, List<ExtraMaterialStats> extras) {
+  public MeleeHarvestToolStatsBuilder(ToolBaseStatDefinition baseStats, List<HeadMaterialStats> heads, List<HandleMaterialStats> handles, List<ExtraMaterialStats> extras) {
     super(baseStats);
     this.heads = heads;
     this.handles = handles;
@@ -36,8 +35,9 @@ public final class ToolStatsBuilder extends AbstractToolStatsBuilder {
   /** Creates a builder from the definition and materials */
   public static ToolStatsBuilder from(ToolDefinition toolDefinition, List<IMaterial> materials) {
     List<IToolPart> requiredComponents = toolDefinition.getRequiredComponents();
+    // if the NBT is invalid, at least we can return the default stats builder, as an exception here could kill itemstacks
     if (materials.size() != requiredComponents.size()) {
-      throw TinkerAPIMaterialException.statBuilderWithInvalidMaterialCount();
+      return ToolStatsBuilder.noParts(toolDefinition);
     }
 
     ToolBaseStatDefinition baseStats = toolDefinition.getBaseStatDefinition();
@@ -49,9 +49,9 @@ public final class ToolStatsBuilder extends AbstractToolStatsBuilder {
       }
     }
 
-    return new ToolStatsBuilder(baseStats, headStats,
-      listOfCompatibleWith(HandleMaterialStats.ID, materials, requiredComponents),
-      listOfCompatibleWith(ExtraMaterialStats.ID, materials, requiredComponents)
+    return new MeleeHarvestToolStatsBuilder(baseStats, headStats,
+                                            listOfCompatibleWith(HandleMaterialStats.ID, materials, requiredComponents),
+                                            listOfCompatibleWith(ExtraMaterialStats.ID, materials, requiredComponents)
     );
   }
 

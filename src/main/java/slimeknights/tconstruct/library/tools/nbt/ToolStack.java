@@ -331,6 +331,9 @@ public class ToolStack implements IModifierToolStack {
 
   @Override
   public MaterialNBT getMaterials() {
+    if (getDefinition().getRequiredComponents().isEmpty()) {
+      return MaterialNBT.EMPTY;
+    }
     if (materials == null) {
       materials = MaterialNBT.readFromNBT(nbt.get(TAG_MATERIALS));
     }
@@ -516,11 +519,11 @@ public class ToolStack implements IModifierToolStack {
    */
   public void rebuildStats() {
     // first, rebuild the list of all modifiers
-    List<IMaterial> materials = getMaterialsList();
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();
     modBuilder.add(getUpgrades());
     modBuilder.add(getDefinition().getModifiers());
     List<IToolPart> parts = getDefinition().getRequiredComponents();
+    List<IMaterial> materials = getMaterialsList();
     int max = Math.min(materials.size(), parts.size());
     for (int i = 0; i < max; i++) {
       modBuilder.add(MaterialRegistry.getInstance().getTraits(materials.get(i).getIdentifier(), parts.get(i).getStatType()));
@@ -528,8 +531,8 @@ public class ToolStack implements IModifierToolStack {
     ModifierNBT allMods = modBuilder.build();
     setModifiers(allMods);
 
-    // for stats, use empty if no materials, in case we have invalid NBT
-    StatsNBT stats = materials.isEmpty() ? StatsNBT.EMPTY : definition.buildStats(materials);
+    // pass in the list to stats, note for no part tools this should always be empty
+    StatsNBT stats = definition.buildStats(materials);
     ModifierStatsBuilder statBuilder = ModifierStatsBuilder.builder();
     definition.getBaseStatDefinition().buildStats(statBuilder);
 

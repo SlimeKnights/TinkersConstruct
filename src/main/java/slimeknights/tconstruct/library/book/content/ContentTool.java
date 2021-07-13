@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,12 +81,16 @@ public class ContentTool extends TinkerPage {
     }
 
     if (this.parts == null) {
-      ImmutableList.Builder<ItemStack> partBuilder = ImmutableList.builder();
       List<IToolPart> required = tool.getToolDefinition().getRequiredComponents();
-      for (int i = 0; i < required.size(); i++) {
-        partBuilder.add(required.get(i).withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(i)));
+      if (required.isEmpty()) {
+        this.parts = Collections.emptyList();
+      } else {
+        ImmutableList.Builder<ItemStack> partBuilder = ImmutableList.builder();
+        for (int i = 0; i < required.size(); i++) {
+          partBuilder.add(required.get(i).withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(i)));
+        }
+        this.parts = partBuilder.build();
       }
-      this.parts = partBuilder.build();
     }
   }
 
@@ -100,6 +105,8 @@ public class ContentTool extends TinkerPage {
     int y = 16;
     list.add(new TextElement(padding, y, BookScreen.PAGE_WIDTH - padding * 2, h, text));
 
+    // TODO: handling for zero part tools, this will NPE
+    // do we want to show the crafting recipe here perhaps? or just nothing?
     ImageData img = IMG_SLOTS[this.parts.size() - 1];
     int[] slotsX = SLOTS_X;
     int[] slotsY = SLOTS_Y;

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
@@ -15,8 +16,11 @@ public class ToolBuildingRecipeSerializer extends LoggingRecipeSerializer<ToolBu
   @Override
   public ToolBuildingRecipe read(ResourceLocation recipeId, JsonObject json) {
     String group = JSONUtils.getString(json, "group", "");
-    // output fetch as a toolcore item, its an error if it does not implement that interface
+    // output fetch as a modifiable item, its an error if it does not implement that interface or does not have parts
     IModifiable item = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", IModifiable.class);
+    if (item.getToolDefinition().getRequiredComponents().isEmpty()) {
+      throw new JsonSyntaxException("Modifiable item must have tool parts to get a tool building recipe");
+    }
     return new ToolBuildingRecipe(recipeId, group, item);
   }
 

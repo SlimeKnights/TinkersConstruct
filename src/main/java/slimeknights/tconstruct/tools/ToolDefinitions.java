@@ -1,107 +1,104 @@
 package slimeknights.tconstruct.tools;
 
-import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.part.IToolPart;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import static slimeknights.tconstruct.tools.TinkerToolParts.broadAxeHead;
+import static slimeknights.tconstruct.tools.TinkerToolParts.broadBlade;
+import static slimeknights.tconstruct.tools.TinkerToolParts.hammerHead;
+import static slimeknights.tconstruct.tools.TinkerToolParts.largePlate;
+import static slimeknights.tconstruct.tools.TinkerToolParts.pickaxeHead;
+import static slimeknights.tconstruct.tools.TinkerToolParts.smallAxeHead;
+import static slimeknights.tconstruct.tools.TinkerToolParts.smallBlade;
+import static slimeknights.tconstruct.tools.TinkerToolParts.toolBinding;
+import static slimeknights.tconstruct.tools.TinkerToolParts.toolHandle;
+import static slimeknights.tconstruct.tools.TinkerToolParts.toughHandle;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ToolDefinitions {
   // rock
-  public static final ToolDefinition PICKAXE = new ToolDefinition(
-    ToolBaseStatDefinitions.PICKAXE,
-    requirements(TinkerToolParts.pickaxeHead, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.piercing.get(), 2)));
-  public static final ToolDefinition SLEDGE_HAMMER = new ToolDefinition(
-    ToolBaseStatDefinitions.SLEDGE_HAMMER,
-    requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughHandle, TinkerToolParts.largePlate, TinkerToolParts.largePlate),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.smite.get(), 2),
-                           new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
-  public static final ToolDefinition VEIN_HAMMER = new ToolDefinition(
-    ToolBaseStatDefinitions.VEIN_HAMMER,
-    requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughHandle, TinkerToolParts.pickaxeHead, TinkerToolParts.largePlate),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.piercing.get(), 2),
-                           new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
+  public static final ToolDefinition PICKAXE = ToolDefinition
+    .builder(ToolBaseStatDefinitions.PICKAXE)
+    .addPart(pickaxeHead).addPart(toolHandle).addPart(toolBinding)
+    .addModifier(TinkerModifiers.piercing, 2)
+    .build();
+  public static final ToolDefinition SLEDGE_HAMMER = ToolDefinition
+    .builder(ToolBaseStatDefinitions.SLEDGE_HAMMER)
+    .addPart(hammerHead).addPart(toughHandle).addPart(largePlate).addPart(largePlate)
+    .addModifier(TinkerModifiers.smite, 2)
+    .addModifier(TinkerModifiers.twoHanded)
+    .build();
+  public static final ToolDefinition VEIN_HAMMER = ToolDefinition
+    .builder(ToolBaseStatDefinitions.VEIN_HAMMER)
+    .addPart(hammerHead).addPart(toughHandle).addPart(pickaxeHead).addPart(largePlate)
+    .addModifier(TinkerModifiers.piercing, 2)
+    .addModifier(TinkerModifiers.twoHanded)
+    .build();
 
   // dirt
-  public static final ToolDefinition MATTOCK = new ToolDefinition(
-    ToolBaseStatDefinitions.MATTOCK,
-    requirements(TinkerToolParts.smallAxeHead, TinkerToolParts.toolHandle, TinkerToolParts.pickaxeHead),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.knockback.get(), 1),
-                           new ModifierEntry(TinkerModifiers.shovelTransformHidden.get(), 1)));
-  public static final ToolDefinition EXCAVATOR = new ToolDefinition(
-    ToolBaseStatDefinitions.EXCAVATOR,
-    requirements(TinkerToolParts.largePlate, TinkerToolParts.toughHandle, TinkerToolParts.largePlate, TinkerToolParts.toughHandle),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.knockback.get(), 2),
-                           new ModifierEntry(TinkerModifiers.shovelTransformHidden.get(), 1),
-                           new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
+  public static final ToolDefinition MATTOCK = ToolDefinition
+    .builder(ToolBaseStatDefinitions.MATTOCK)
+    .addPart(smallAxeHead).addPart(toolHandle).addPart(pickaxeHead)
+    .addModifier(TinkerModifiers.knockback, 1)
+    .addModifier(TinkerModifiers.shovelTransformHidden)
+    .build();
+  public static final ToolDefinition EXCAVATOR = ToolDefinition
+    .builder(ToolBaseStatDefinitions.EXCAVATOR)
+    .addPart(largePlate).addPart(toughHandle).addPart(largePlate).addPart(toughHandle)
+    .addModifier(TinkerModifiers.knockback, 2)
+    .addModifier(TinkerModifiers.shovelTransformHidden)
+    .addModifier(TinkerModifiers.twoHanded)
+    .build();
 
   // wood
-  public static final ToolDefinition HAND_AXE = new ToolDefinition(
-    ToolBaseStatDefinitions.HAND_AXE,
-    requirements(TinkerToolParts.smallAxeHead, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding),
-    () -> Collections.singletonList(new ModifierEntry(TinkerModifiers.axeTransformHidden.get(), 1)));
-  public static final ToolDefinition BROAD_AXE = new ToolDefinition(
-    ToolBaseStatDefinitions.BROAD_AXE,
-    requirements(TinkerToolParts.broadAxeHead, TinkerToolParts.toughHandle, TinkerToolParts.pickaxeHead, TinkerToolParts.largePlate),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.axeTransformHidden.get(), 1),
-                           new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
+  public static final ToolDefinition HAND_AXE = ToolDefinition
+    .builder(ToolBaseStatDefinitions.HAND_AXE)
+    .addPart(smallAxeHead).addPart(toolHandle).addPart(toolBinding)
+    .addModifier(TinkerModifiers.axeTransformHidden)
+    .build();
+  public static final ToolDefinition BROAD_AXE = ToolDefinition
+    .builder(ToolBaseStatDefinitions.BROAD_AXE)
+    .addPart(broadAxeHead).addPart(toughHandle).addPart(pickaxeHead).addPart(largePlate)
+    .addModifier(TinkerModifiers.axeTransformHidden)
+    .addModifier(TinkerModifiers.twoHanded)
+    .build();
 
   // scythes
-  public static final ToolDefinition KAMA = new ToolDefinition(
-    ToolBaseStatDefinitions.KAMA,
-    requirements(TinkerToolParts.smallBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolBinding),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.hoeTransformHidden.get(), 1),
-                           new ModifierEntry(TinkerModifiers.shears.get(), 1),
-                           new ModifierEntry(TinkerModifiers.harvest.get(), 1)));
-  public static final ToolDefinition SCYTHE = new ToolDefinition(
-    ToolBaseStatDefinitions.SCYTHE,
-    requirements(TinkerToolParts.broadBlade, TinkerToolParts.toughHandle, TinkerToolParts.toolBinding, TinkerToolParts.toughHandle),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.hoeTransformHidden.get(), 1),
-                           new ModifierEntry(TinkerModifiers.aoeSilkyShears.get(), 1),
-                           new ModifierEntry(TinkerModifiers.harvest.get(), 1),
-                           new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
+  public static final ToolDefinition KAMA = ToolDefinition
+    .builder(ToolBaseStatDefinitions.KAMA)
+    .addPart(smallBlade).addPart(toolHandle).addPart(toolBinding)
+    .addModifier(TinkerModifiers.hoeTransformHidden)
+    .addModifier(TinkerModifiers.shears)
+    .addModifier(TinkerModifiers.harvest)
+    .build();
+  public static final ToolDefinition SCYTHE = ToolDefinition
+    .builder(ToolBaseStatDefinitions.SCYTHE)
+    .addPart(TinkerToolParts.broadBlade).addPart(TinkerToolParts.toughHandle).addPart(TinkerToolParts.toolBinding).addPart(TinkerToolParts.toughHandle)
+    .addModifier(TinkerModifiers.hoeTransformHidden)
+    .addModifier(TinkerModifiers.aoeSilkyShears)
+    .addModifier(TinkerModifiers.harvest)
+    .addModifier(TinkerModifiers.twoHanded)
+    .build();
 
   // swords
-  public static final ToolDefinition DAGGER = new ToolDefinition(
-    ToolBaseStatDefinitions.DAGGER,
-    requirements(Stream.of(TinkerToolParts.smallBlade, TinkerToolParts.toolHandle)),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.offhandAttack.get(), 1),
-                           new ModifierEntry(TinkerModifiers.padded.get(), 1),
-                           new ModifierEntry(TinkerModifiers.silkyShears.get(), 1)));
-  public static final ToolDefinition SWORD = new ToolDefinition(
-    ToolBaseStatDefinitions.SWORD,
-    requirements(TinkerToolParts.smallBlade, TinkerToolParts.toolHandle, TinkerToolParts.toolHandle),
-    () -> Collections.singletonList(new ModifierEntry(TinkerModifiers.silkyShears.get(), 1)));
-  public static final ToolDefinition CLEAVER = new ToolDefinition(
-    ToolBaseStatDefinitions.CLEAVER,
-    requirements(TinkerToolParts.broadBlade, TinkerToolParts.toughHandle, TinkerToolParts.toughHandle, TinkerToolParts.largePlate),
-    () -> ImmutableList.of(new ModifierEntry(TinkerModifiers.severing.get(), 2),
-                           new ModifierEntry(TinkerModifiers.aoeSilkyShears.get(), 1),
-                           new ModifierEntry(TinkerModifiers.twoHanded.get(), 1)));
-
-  /** Creates a requirements supplier from a list */
-  private static Supplier<List<IToolPart>> requirements(Stream<Supplier<? extends IToolPart>> parts) {
-    return () -> parts.map(Supplier::get).collect(Collectors.toList());
-  }
-
-  /** Creates a requirements supplier from 3 parts */
-  @SuppressWarnings("SameParameterValue")
-  private static Supplier<List<IToolPart>> requirements(Supplier<? extends IToolPart> part1, Supplier<? extends IToolPart> part2, Supplier<? extends IToolPart> part3) {
-    return requirements(Stream.of(part1, part2, part3));
-  }
-
-  /** Creates a requirements supplier from 4 parts */
-  @SuppressWarnings("SameParameterValue")
-  private static Supplier<List<IToolPart>> requirements(Supplier<? extends IToolPart> part1, Supplier<? extends IToolPart> part2, Supplier<? extends IToolPart> part3, Supplier<? extends IToolPart> part4) {
-    return requirements(Stream.of(part1, part2, part3, part4));
-  }
+  public static final ToolDefinition DAGGER = ToolDefinition
+    .builder(ToolBaseStatDefinitions.DAGGER)
+    .addPart(smallBlade).addPart(toolHandle)
+    .addModifier(TinkerModifiers.padded, 1)
+    .addModifier(TinkerModifiers.offhandAttack)
+    .addModifier(TinkerModifiers.silkyShears)
+    .build();
+  public static final ToolDefinition SWORD = ToolDefinition
+    .builder(ToolBaseStatDefinitions.SWORD)
+    .addPart(smallBlade).addPart(toolHandle).addPart(toolHandle)
+    .addModifier(TinkerModifiers.silkyShears)
+    .build();
+  public static final ToolDefinition CLEAVER = ToolDefinition
+    .builder(ToolBaseStatDefinitions.CLEAVER)
+    .addPart(broadBlade).addPart(toughHandle).addPart(toughHandle).addPart(largePlate)
+    .addModifier(TinkerModifiers.severing, 2)
+    .addModifier(TinkerModifiers.aoeSilkyShears)
+    .addModifier(TinkerModifiers.twoHanded)
+    .build();
 }

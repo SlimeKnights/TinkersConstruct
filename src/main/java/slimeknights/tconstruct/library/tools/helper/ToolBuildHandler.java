@@ -38,6 +38,7 @@ public final class ToolBuildHandler {
    * @param stacks Items to build with. Have to be in the correct order and contain material items.
    * @return The built item or null if invalid input.
    */
+  @Deprecated
   public static ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks, IModifiable tool) {
     if (!canToolBeBuilt(stacks, tool)) {
       return ItemStack.EMPTY;
@@ -79,6 +80,10 @@ public final class ToolBuildHandler {
   public static ItemStack buildToolForRendering(Item item, ToolDefinition definition) {
     List<IToolPart> requirements = definition.getRequiredComponents();
     int size = requirements.size();
+    // if no parts, nothing to do, you probably should not be calling this method
+    if (size == 0) {
+      return new ItemStack(item);
+    }
     List<MaterialId> toolMaterials = new ArrayList<>(size);
     for (int i = 0; i < requirements.size(); i++) {
       toolMaterials.add(i, getRenderMaterial(i));
@@ -96,6 +101,7 @@ public final class ToolBuildHandler {
    * @param tool the tool
    * @return if the given tool can be built from the items
    */
+  @Deprecated
   public static boolean canToolBeBuilt(NonNullList<ItemStack> stacks, IModifiable tool) {
     List<IToolPart> requiredComponents = tool.getToolDefinition().getRequiredComponents();
     return stacks.size() == requiredComponents.size() && canBeBuiltFromParts(stacks, requiredComponents);

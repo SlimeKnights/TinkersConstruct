@@ -19,6 +19,7 @@ import slimeknights.tconstruct.tools.item.small.HarvestTool;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -79,7 +80,8 @@ class ToolHarvestLogicTest extends ToolItemTest {
       new Item.Properties().addToolType(ToolType.PICKAXE, 1),
       new ToolDefinition(
         new ToolBaseStatDefinition.Builder().modifier(ToolStats.MINING_SPEED, modifier).build(),
-        () -> ImmutableList.of(MaterialItemFixture.MATERIAL_ITEM_HEAD, MaterialItemFixture.MATERIAL_ITEM_HANDLE, MaterialItemFixture.MATERIAL_ITEM_EXTRA)
+        () -> ImmutableList.of(MaterialItemFixture.MATERIAL_ITEM_HEAD, MaterialItemFixture.MATERIAL_ITEM_HANDLE, MaterialItemFixture.MATERIAL_ITEM_EXTRA),
+        Collections::emptyList
       ));
     ItemStack tool = buildTestTool(toolWithMiningModifier);
 

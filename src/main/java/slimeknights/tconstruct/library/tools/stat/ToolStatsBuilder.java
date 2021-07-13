@@ -1,12 +1,14 @@
 package slimeknights.tconstruct.library.tools.stat;
 
 import com.google.common.collect.Streams;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 
@@ -19,25 +21,37 @@ import java.util.stream.Collectors;
 /**
  * Extendable utilities for a stats builder.
  * <p>
- * It's encouraged to use this for the base of your calculation, and then modify the result as needed.
+ * It's encouraged to extend this for the base of your calculation. Using this class directly will give a no parts stat builder
  */
-@RequiredArgsConstructor
-public abstract class AbstractToolStatsBuilder {
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+public class ToolStatsBuilder {
   /** Tool base stats, primarily for bonuses. The stat builder is responsible for using the bonuses */
   protected final ToolBaseStatDefinition baseStats;
 
   /**
-   * Called after bonuses are processed to set the unique stats for this builder
+   * Gets the stat builder for no tool parts
+   * @param definition  Tool definition
+   * @return  Stats builder
+   */
+  public static ToolStatsBuilder noParts(ToolDefinition definition) {
+    return new ToolStatsBuilder(definition.getBaseStatDefinition());
+  }
+
+  /**
+   * Called after bonuses are processed to set the unique stats for this builder.
+   * Any stats added to the builder here need to return true in {@link #handles(IToolStat)} to prevent errors on tool building with tool definitions setting those stats
    * @param builder  Stats builder
    */
-  protected abstract void setStats(StatsNBT.Builder builder);
+  protected void setStats(StatsNBT.Builder builder) {}
 
   /**
    * Checks if the given stat type is handled by this builder and should be skipped in the bonuses
    * @param stat  Stat type
    * @return  True if handled
    */
-  protected abstract boolean handles(IToolStat<?> stat);
+  protected boolean handles(IToolStat<?> stat) {
+    return false;
+  }
 
   /** Builds default stats */
   public StatsNBT buildStats() {
@@ -84,7 +98,7 @@ public abstract class AbstractToolStatsBuilder {
    */
   public static <T extends IMaterialStats> List<T> listOfCompatibleWith(MaterialStatsId statsId, List<IMaterial> materials, List<IToolPart> requiredComponents) {
     return Streams.zip(materials.stream(), requiredComponents.stream(),
-                       (material, partMaterialType) -> AbstractToolStatsBuilder.<T>fetchStatsOrDefault(statsId, material, partMaterialType))
+                       (material, partMaterialType) -> ToolStatsBuilder.<T>fetchStatsOrDefault(statsId, material, partMaterialType))
                   .filter(Objects::nonNull)
                   .collect(Collectors.toList());
   }

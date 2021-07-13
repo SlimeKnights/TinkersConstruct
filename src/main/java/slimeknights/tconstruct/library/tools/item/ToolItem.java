@@ -484,6 +484,7 @@ public class ToolItem extends Item implements IModifiableDisplay, IModifiableWea
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     CompoundNBT tag = stack.getTag();
     boolean isAdvanced = flagIn == TooltipFlags.ADVANCED;
+    boolean hasComponents = !getToolDefinition().getRequiredComponents().isEmpty();
     // if the display tag is set, hide material info
     if (tag != null && tag.getBoolean(ToolBuildHandler.KEY_DISPLAY_TOOL)) {
       ToolStack tool = ToolStack.from(stack);
@@ -495,14 +496,16 @@ public class ToolItem extends Item implements IModifiableDisplay, IModifiableWea
     } else if (Screen.hasShiftDown()) {
       // component data
       this.getTooltip(stack, tooltip, TooltipType.SHIFT, isAdvanced);
-    } else if (Screen.hasControlDown()) {
+    } else if (Screen.hasControlDown() && hasComponents) {
       // modifiers
       this.getTooltip(stack, tooltip, TooltipType.CONTROL, isAdvanced);
     } else {
       this.getTooltip(stack, tooltip, TooltipType.NORMAL, isAdvanced);
       tooltip.add(StringTextComponent.EMPTY);
       tooltip.add(TOOLTIP_HOLD_SHIFT);
-      tooltip.add(TOOLTIP_HOLD_CTRL);
+      if (hasComponents) {
+        tooltip.add(TOOLTIP_HOLD_CTRL);
+      }
     }
   }
 
@@ -537,14 +540,16 @@ public class ToolItem extends Item implements IModifiableDisplay, IModifiableWea
         break;
 
       case CONTROL: {
-        ToolStack tool = ToolStack.from(stack);
-        List<IMaterial> materials = tool.getMaterialsList();
+        List<IToolPart> components = this.getToolDefinition().getRequiredComponents();
+        if (components.isEmpty()) {
+          return;
+        }
+        List<IMaterial> materials = ToolStack.from(stack).getMaterialsList();
         if (materials.isEmpty()) {
           tooltips.add(new StringTextComponent("No tool data. NBT missing."));
           return;
         }
 
-        List<IToolPart> components = this.getToolDefinition().getRequiredComponents();
         if (materials.size() < components.size()) {
           return;
         }
@@ -615,7 +620,10 @@ public class ToolItem extends Item implements IModifiableDisplay, IModifiableWea
 
   /** Adds all default sub items */
   protected void addDefaultSubItems(List<ItemStack> items, IMaterial... fixedMaterials) {
-    if (MaterialRegistry.isFullyLoaded()) {
+    // no parts? just add this item
+    if (getToolDefinition().getRequiredComponents().isEmpty()) {
+      items.add(new ItemStack(this));
+    } else if (MaterialRegistry.isFullyLoaded()) {
       // if a specific material is set, show just that
       String showOnlyId = Config.COMMON.showOnlyToolMaterial.get();
       boolean added = false;
@@ -670,12 +678,13 @@ public class ToolItem extends Item implements IModifiableDisplay, IModifiableWea
     List<IMaterial> materials = ToolStack.from(stack).getMaterialsList();
 
     // something went wrong
-    if (materials.size() != this.getToolDefinition().getRequiredComponents().size()) {
+    List<IToolPart> requiredComponents = this.getToolDefinition().getRequiredComponents();
+    if (materials.size() != requiredComponents.size()) {
       return false;
     }
 
     // check if all materials used have the stats needed
-    List<IToolPart> requirements = getToolDefinition().getRequiredComponents();
+    List<IToolPart> requirements = requiredComponents;
     for (int i = 0; i < materials.size(); i++) {
       IMaterial material = materials.get(i);
       if (!requirements.get(i).canUseMaterial(material)) {
@@ -698,9 +707,13 @@ public class ToolItem extends Item implements IModifiableDisplay, IModifiableWea
 
   @Override
   public ITextComponent getDisplayName(ItemStack stack) {
+    List<IToolPart> components = getToolDefinition().getRequiredComponents();
+    if (components.isEmpty()) {
+      return super.getDisplayName(stack);
+    }
+
     // if the tool is not named we use the repair tools for a prefix like thing
     List<IMaterial> materials = ToolStack.from(stack).getMaterialsList();
-    List<IToolPart> components = getToolDefinition().getRequiredComponents();
     // we save all the ones for the name in a set so we don't have the same material in it twice
     Set<IMaterial> nameMaterials = Sets.newLinkedHashSet();
 
