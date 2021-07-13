@@ -1,18 +1,63 @@
 [
   {
     "name": "intro",
-    "data": "sections/intro_tmp.json",
+    "data": "sections/introduction.json",
     "icon": {
       "item": {
-        "id": "tconstruct:blue_slime_ball"
+        "id": "tconstruct:blank_red_sand_cast"
       }
     }
   },
+  {
+    "name": "melter",
+    "data": "sections/melting.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:seared_melter"
+      }
+    }
+  },
+  {
+    "name": "moving_fluids",
+    "data": "sections/movingfluids.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:seared_channel"
+      }
+    }
+  },
+  {
+    "name": "Casting",
+    "data": "sections/casting.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:ingot_red_sand_cast"
+      }
+    }
+  }, 
   {
     "name": "tier_two_materials",
     "icon": {
       "item": {
         "id": "tconstruct:copper_ingot"
+      }
+    }
+  },
+  {
+    "name": "modifiers",
+    "data": "sections/modifiers.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:creative_upgrade"
+      }
+    }
+  },
+  {
+    "name": "slotless",
+    "data": "sections/slotless.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:sky_slime_crystal"
       }
     }
   }

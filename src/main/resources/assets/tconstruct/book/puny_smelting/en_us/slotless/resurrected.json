@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:resurrected",
+  "text": [
+    {
+      "text": "The life of the dragon flows through your tool. Well, it would if you used these to summon it. Instead you used it on your tool."
+    }
+  ],
+  "effects": [
+    "Adds an upgrade slot",
+    "Single Use"
+  ]
+}

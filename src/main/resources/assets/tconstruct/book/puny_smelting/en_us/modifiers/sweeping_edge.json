@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sweeping_edge",
+  "text": [
+    {
+      "text": "Chim chiminey chim chiminey chim chim cher-ee, a sweep is as lucky as lucky can be."
+    }
+  ],
+  "effects": [
+     "Targets of the sweep attack take a larger percentage of the tools damage",
+    "Multiple levels, each level increases percentage of damage further",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}

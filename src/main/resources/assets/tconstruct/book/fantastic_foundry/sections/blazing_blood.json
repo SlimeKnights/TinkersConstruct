@@ -1,0 +1,32 @@
+[
+  {
+    "name": "index",
+    "type": "index",
+    "data": "blazing_blood/index.json"
+  },
+  {
+    "name": "intro",
+    "type": "imageText2",
+    "data": "blazing_blood/intro.json"
+  },
+  {
+    "name": "carry",
+    "type": "imageText2",
+    "data": "blazing_blood/carry.json"
+  },
+  {
+    "name": "piggy_backpack_craft",
+    "type": "crafting",
+    "data": "blazing_blood/piggy_backpack_craft.json"
+  },
+  {
+    "name": "smeltery",
+    "type": "imageText2",
+    "data": "blazing_blood/smeltery.json"
+  },
+  {
+    "name": "melting",
+    "type": "modifier",
+    "data": "blazing_blood/melting.json"
+  }
+]

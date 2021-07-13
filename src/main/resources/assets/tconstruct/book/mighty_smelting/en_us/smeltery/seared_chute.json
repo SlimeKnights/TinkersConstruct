@@ -1,0 +1,12 @@
+{
+  "title": "Seared Chute",
+  "item": {
+    "id": "tconstruct:seared_chute"
+  },
+  "text": [
+    {
+      "text": "The seared chute is your way to input/output items in and out of the smeltery. Best placed somewhere easily accessible by a hopper.",
+      "paragraph": true
+    }
+	]
+}

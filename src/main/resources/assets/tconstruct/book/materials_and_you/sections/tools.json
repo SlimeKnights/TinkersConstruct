@@ -5,6 +5,11 @@
     "data": "tools/sword.json"
   },
   {
+    "name": "dagger",
+    "type": "tool",
+    "data": "tools/dagger.json"
+  },
+  {
     "name": "axe",
     "type": "tool",
     "data": "tools/axe.json"

@@ -1,10 +1,38 @@
 [
   {
     "name": "intro",
-    "data": "sections/intro_tmp.json",
+    "data": "sections/introduction.json",
     "icon": {
       "item": {
-        "id": "tconstruct:blue_slime_ball"
+        "id": "tconstruct:blank_cast"
+      }
+    }
+  },
+  {
+    "name": "smeltery",
+    "data": "sections/smeltery.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:smeltery_controller",
+        "damage": 0
+      }
+    }
+  },
+  {
+    "name": "entity_melting",
+    "data": "sections/entitymelting.json",
+    "icon": {
+      "item": {
+        "id": "minecraft:creeper_head",
+        "damage": 0
+      }
+    }
+  },
+  {
+    "name": "tier_three_materials",
+    "icon": {
+      "item": {
+        "id": "tconstruct:slimesteel_ingot"
       }
     }
   },
@@ -13,7 +41,7 @@
     "data": "sections/tools.json",
     "icon": {
       "item": {
-        "id": "tconstruct:hammer",
+        "id": "tconstruct:cleaver",
         "nbt": {
           "tic_broken": false,
           "tic_display_tool": true,
@@ -29,11 +57,13 @@
     }
   },
   {
-    "name": "tier_three_materials",
+    "name": "modifiers",
+    "data": "sections/modifiers.json",
     "icon": {
       "item": {
-        "id": "tconstruct:slimesteel_ingot"
+        "id": "tconstruct:creative_ability"
       }
     }
   }
+  
 ]

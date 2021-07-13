@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Harvest the life of your foes in order to survive longer."
+    }
+  ],
+  "effects": [
+    "Has a chance to steal life from your enemies to heal you",
+    "Multiple levels, increases chance of life steal per level",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}
