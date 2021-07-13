@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;

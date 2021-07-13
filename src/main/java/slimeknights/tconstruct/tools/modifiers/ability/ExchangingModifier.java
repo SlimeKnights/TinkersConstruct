@@ -13,10 +13,10 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.BlockFlags;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.common.network.TinkerNetwork;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class ExchangingModifier extends SingleUseModifier {

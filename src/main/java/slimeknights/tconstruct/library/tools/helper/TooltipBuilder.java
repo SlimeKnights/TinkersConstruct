@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tinkering;
+package slimeknights.tconstruct.library.tools.helper;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

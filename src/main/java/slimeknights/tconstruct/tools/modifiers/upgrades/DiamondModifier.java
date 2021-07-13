@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.item.Rarity;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
-import slimeknights.tconstruct.library.tinkering.HarvestLevels;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
@@ -10,6 +9,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 public class DiamondModifier extends SingleLevelModifier {
   public DiamondModifier() {

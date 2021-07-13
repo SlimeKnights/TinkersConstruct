@@ -15,10 +15,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 

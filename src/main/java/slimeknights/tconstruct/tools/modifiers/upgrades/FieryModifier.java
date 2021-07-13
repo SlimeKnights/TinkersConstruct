@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class FieryModifier extends IncrementalModifier {

@@ -35,6 +35,7 @@ import slimeknights.mantle.util.SingleKeyMultimap;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.item.IModifiableWeapon;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;

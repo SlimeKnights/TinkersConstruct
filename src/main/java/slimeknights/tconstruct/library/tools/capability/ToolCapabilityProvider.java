@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.capability;
+package slimeknights.tconstruct.library.tools.capability;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;

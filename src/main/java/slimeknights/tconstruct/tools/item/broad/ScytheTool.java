@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.RectangleAOEHarvestLogic;

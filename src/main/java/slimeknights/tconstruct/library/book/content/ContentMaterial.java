@@ -33,7 +33,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipe;
-import slimeknights.tconstruct.library.tools.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.internal;
 
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 /** Modifier that cancels the base 0.4 modifier tools get */

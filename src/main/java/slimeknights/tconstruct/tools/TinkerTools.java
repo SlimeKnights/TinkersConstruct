@@ -17,10 +17,10 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
+import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
-import slimeknights.tconstruct.library.tools.helper.BlockSideHitListener;
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
+import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialTraitsDataProvider;
@@ -85,8 +85,8 @@ public final class TinkerTools extends TinkerModule {
   /*
    * Entities
    */
-  public static final RegistryObject<EntityType<IndestructibleEntityItem>> indestructibleItem = ENTITIES.register("indestructible_item", () -> {
-    return EntityType.Builder.<IndestructibleEntityItem>create(IndestructibleEntityItem::new, EntityClassification.MISC)
+  public static final RegistryObject<EntityType<IndestructibleItemEntity>> indestructibleItem = ENTITIES.register("indestructible_item", () -> {
+    return EntityType.Builder.<IndestructibleItemEntity>create(IndestructibleItemEntity::new, EntityClassification.MISC)
       .size(0.25F, 0.25F)
       .immuneToFire();
   });

@@ -6,7 +6,7 @@ import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;

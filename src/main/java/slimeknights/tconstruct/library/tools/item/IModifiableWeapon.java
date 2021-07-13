@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.tools.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.DamageSource;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 

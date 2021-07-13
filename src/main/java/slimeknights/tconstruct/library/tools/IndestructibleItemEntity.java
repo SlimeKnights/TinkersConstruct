@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tinkering;
+package slimeknights.tconstruct.library.tools;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,18 +12,18 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 /** Item entity that will never die */
-public class IndestructibleEntityItem extends ItemEntity {
-  public IndestructibleEntityItem(EntityType<? extends IndestructibleEntityItem> entityType, World world) {
+public class IndestructibleItemEntity extends ItemEntity {
+  public IndestructibleItemEntity(EntityType<? extends IndestructibleItemEntity> entityType, World world) {
     super(entityType, world);
+    this.setNoDespawn();
   }
 
-  public IndestructibleEntityItem(World worldIn, double x, double y, double z, ItemStack stack) {
-    super(TinkerTools.indestructibleItem.get(), worldIn);
+  public IndestructibleItemEntity(World worldIn, double x, double y, double z, ItemStack stack) {
+    this(TinkerTools.indestructibleItem.get(), worldIn);
     this.setPosition(x, y, z);
     this.rotationYaw = this.rand.nextFloat() * 360.0F;
     this.setMotion(this.rand.nextDouble() * 0.2D - 0.1D, 0.2D, this.rand.nextDouble() * 0.2D - 0.1D);
     this.setItem(stack);
-    this.setNoDespawn();
   }
 
   @Override

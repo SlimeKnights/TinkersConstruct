@@ -49,19 +49,19 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.capability.ToolCapabilityProvider;
-import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
-import slimeknights.tconstruct.library.tinkering.TooltipBuilder;
-import slimeknights.tconstruct.library.tinkering.TooltipType;
-import slimeknights.tconstruct.library.tools.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.helper.TooltipBuilder;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.TooltipType;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -126,7 +126,7 @@ public class ToolItem extends Item implements IModifiableDisplay, IModifiableWea
   @Override
   public Entity createEntity(World world, Entity original, ItemStack stack) {
     if (ToolStack.from(stack).getVolatileData().getBoolean(INDESTRUCTIBLE_ENTITY)) {
-      IndestructibleEntityItem entity = new IndestructibleEntityItem(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
+      IndestructibleItemEntity entity = new IndestructibleItemEntity(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
       entity.setPickupDelayFrom(original);
       return entity;
     }

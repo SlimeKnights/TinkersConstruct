@@ -9,14 +9,14 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
+import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingInventory;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.smeltery.tileentity.module.EntityMeltingModule;
 

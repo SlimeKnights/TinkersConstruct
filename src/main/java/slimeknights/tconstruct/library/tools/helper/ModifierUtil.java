@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 

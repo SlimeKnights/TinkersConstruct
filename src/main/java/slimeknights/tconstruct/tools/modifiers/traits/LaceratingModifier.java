@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 

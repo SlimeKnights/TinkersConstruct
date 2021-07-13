@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;

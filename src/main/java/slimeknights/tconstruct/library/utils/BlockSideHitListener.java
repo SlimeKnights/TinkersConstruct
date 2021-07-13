@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools.helper;
+package slimeknights.tconstruct.library.utils;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;

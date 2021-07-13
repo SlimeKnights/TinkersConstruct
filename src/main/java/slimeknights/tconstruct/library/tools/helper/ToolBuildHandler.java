@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.helper;
 
 import com.google.common.collect.Streams;
 import net.minecraft.item.Item;
@@ -7,6 +7,7 @@ import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;

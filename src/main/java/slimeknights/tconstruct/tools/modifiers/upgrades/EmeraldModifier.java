@@ -5,9 +5,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
-import slimeknights.tconstruct.library.tinkering.HarvestLevels;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -15,6 +14,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 import java.util.List;
 

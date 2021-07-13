@@ -5,7 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class BaneOfSssssModifier extends ScaledTypeDamageModifier {

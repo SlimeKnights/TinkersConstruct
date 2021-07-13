@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.stat;
 
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.tinkering.HarvestLevels;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;

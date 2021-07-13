@@ -5,7 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.library.SlimeBounceHandler;
+import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class SkySlimeSlingItem extends BaseSlimeSlingItem {

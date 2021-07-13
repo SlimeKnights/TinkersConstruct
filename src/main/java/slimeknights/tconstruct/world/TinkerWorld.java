@@ -46,7 +46,7 @@ import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.tinkering.HarvestLevels;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.block.BloodSlimeBlock;

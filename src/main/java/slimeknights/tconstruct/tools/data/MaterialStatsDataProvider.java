@@ -7,11 +7,11 @@ import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import static slimeknights.tconstruct.library.tinkering.HarvestLevels.DIAMOND;
-import static slimeknights.tconstruct.library.tinkering.HarvestLevels.IRON;
-import static slimeknights.tconstruct.library.tinkering.HarvestLevels.NETHERITE;
-import static slimeknights.tconstruct.library.tinkering.HarvestLevels.STONE;
-import static slimeknights.tconstruct.library.tinkering.HarvestLevels.WOOD;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.DIAMOND;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.NETHERITE;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.WOOD;
 
 public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider {
   public MaterialStatsDataProvider(DataGenerator gen, AbstractMaterialDataProvider materials) {

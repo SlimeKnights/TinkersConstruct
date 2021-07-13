@@ -18,7 +18,7 @@ import slimeknights.mantle.client.screen.book.element.ImageElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
-import slimeknights.tconstruct.library.tools.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tools.TinkerTools;

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.item.broad;
 
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;

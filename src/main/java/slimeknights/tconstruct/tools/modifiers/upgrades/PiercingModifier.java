@@ -4,7 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;

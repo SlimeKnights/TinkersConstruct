@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.traits;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;

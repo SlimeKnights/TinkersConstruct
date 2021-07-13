@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.materials.MaterialRegistryExtension;
-import slimeknights.tconstruct.library.tools.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.test.BaseMcTest;
 

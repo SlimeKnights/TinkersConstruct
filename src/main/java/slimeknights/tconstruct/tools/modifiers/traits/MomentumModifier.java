@@ -8,7 +8,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;

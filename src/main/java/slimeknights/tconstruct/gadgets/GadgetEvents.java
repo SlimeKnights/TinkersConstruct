@@ -9,7 +9,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
-import slimeknights.tconstruct.library.SlimeBounceHandler;
+import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 
 public class GadgetEvents {
   @SubscribeEvent

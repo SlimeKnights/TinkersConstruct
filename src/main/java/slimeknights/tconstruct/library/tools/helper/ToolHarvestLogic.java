@@ -24,11 +24,13 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.Constants.WorldEvents;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 
 import java.util.Collections;
 import java.util.Objects;

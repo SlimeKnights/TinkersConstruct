@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.tinkering;
+package slimeknights.tconstruct.library.tools.capability;
 
 import mcp.MethodsReturnNonnullByDefault;
 

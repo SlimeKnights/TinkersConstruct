@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tinkering;
+package slimeknights.tconstruct.library.utils;
 
 import com.google.common.collect.Maps;
 import lombok.AccessLevel;
@@ -12,7 +12,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.ISafeManagerReloadListener;
-import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Map;
 

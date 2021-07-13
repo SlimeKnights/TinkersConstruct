@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.tools.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;

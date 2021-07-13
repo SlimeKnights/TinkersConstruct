@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.capability;
+package slimeknights.tconstruct.library.tools.capability;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

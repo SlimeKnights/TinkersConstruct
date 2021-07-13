@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tinkering;
+package slimeknights.tconstruct.library.utils;
 
 /** Options for which tooltip is being used on an item */
 public enum TooltipType {

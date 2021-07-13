@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.modifiers.capability;
+package slimeknights.tconstruct.library.tools.context;
 
 import mcp.MethodsReturnNonnullByDefault;
 

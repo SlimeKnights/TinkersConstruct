@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library;
+package slimeknights.tconstruct.library.utils;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

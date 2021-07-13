@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.upgrades;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
-import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.function.BiConsumer;

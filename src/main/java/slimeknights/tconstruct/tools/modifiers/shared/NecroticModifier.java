@@ -4,7 +4,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 public class NecroticModifier extends Modifier {
