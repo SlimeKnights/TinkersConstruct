@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:gadgets/cake/blood"
+      "tconstruct:gadgets/cake/magma"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:blood_bucket"
+            "item": "tconstruct:magma_bucket"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:gadgets/cake/blood"
+        "recipe": "tconstruct:gadgets/cake/magma"
       }
     }
   },

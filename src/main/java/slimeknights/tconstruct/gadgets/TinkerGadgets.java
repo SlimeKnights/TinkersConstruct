@@ -69,6 +69,7 @@ public final class TinkerGadgets extends TinkerModule {
   private static final Item.Properties UNSTACKABLE_PROPS = new Item.Properties().group(TAB_GADGETS).maxStackSize(1);
   private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GADGET_PROPS);
   private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GADGET_PROPS);
+  private static final Function<Block,? extends BlockItem> UNSTACKABLE_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, UNSTACKABLE_PROPS);
 
   /*
    * Blocks
@@ -96,7 +97,9 @@ public final class TinkerGadgets extends TinkerModule {
 
   // foods
   private static final AbstractBlock.Properties CAKE = builder(Material.CAKE, NO_TOOL, SoundType.CLOTH).hardnessAndResistance(0.5F);
-  public static final EnumObject<SlimeType,FoodCakeBlock> cake = BLOCKS.registerEnum(SlimeType.LIQUID, "cake", type -> new FoodCakeBlock(CAKE, TinkerFood.getCake(type)), block -> new BlockItem(block, UNSTACKABLE_PROPS));
+  public static final EnumObject<SlimeType,FoodCakeBlock> cake = BLOCKS.registerEnum(SlimeType.LIQUID, "cake", type -> new FoodCakeBlock(CAKE, TinkerFood.getCake(type)), UNSTACKABLE_BLOCK_ITEM);
+  public static final ItemObject<FoodCakeBlock> magmaCake = BLOCKS.register("magma_cake", () -> new FoodCakeBlock(CAKE, TinkerFood.MAGMA_CAKE), UNSTACKABLE_BLOCK_ITEM);
+
 
   // Shurikens
   private static final Item.Properties THROWABLE_PROPS = new Item.Properties().maxStackSize(16).group(TAB_GADGETS);
@@ -160,7 +163,10 @@ public final class TinkerGadgets extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     PiggybackCapability.register();
     MinecraftForge.EVENT_BUS.register(new GadgetEvents());
-    event.enqueueWork(() -> cake.forEach(block -> ComposterBlock.registerCompostable(1.0f, block)));
+    event.enqueueWork(() -> {
+      cake.forEach(block -> ComposterBlock.registerCompostable(1.0f, block));
+      ComposterBlock.registerCompostable(1.0f, magmaCake.get());
+    });
   }
 
   @SubscribeEvent

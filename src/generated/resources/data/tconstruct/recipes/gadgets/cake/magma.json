@@ -7,7 +7,7 @@
   ],
   "key": {
     "M": {
-      "item": "tconstruct:blood_bucket"
+      "item": "tconstruct:magma_bucket"
     },
     "S": {
       "tag": "forge:dusts/glowstone"
@@ -16,10 +16,10 @@
       "item": "minecraft:egg"
     },
     "W": {
-      "item": "tconstruct:blood_slime_tall_grass"
+      "item": "minecraft:crimson_roots"
     }
   },
   "result": {
-    "item": "tconstruct:blood_cake"
+    "item": "tconstruct:magma_cake"
   }
 }

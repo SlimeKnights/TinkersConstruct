@@ -15,6 +15,7 @@ public final class TinkerFood {
   public static final Food EARTH_CAKE = new Food.Builder().hunger(1).saturation(0.1f).setAlwaysEdible().effect(() -> new EffectInstance(Effects.LUCK, 20 * 15, 0), 1.0f).build();
   public static final Food SKY_CAKE   = new Food.Builder().hunger(1).saturation(0.1f).setAlwaysEdible().effect(() -> new EffectInstance(Effects.JUMP_BOOST, 20 * 20, 1), 1.0f).build();
   public static final Food ICHOR_CAKE = new Food.Builder().hunger(3).saturation(0.1f).setAlwaysEdible().effect(() -> new EffectInstance(Effects.ABSORPTION, 20 * 30, 0), 1.0f).build();
+  public static final Food BLOOD_CAKE = new Food.Builder().hunger(1).saturation(0.2f).setAlwaysEdible().effect(() -> new EffectInstance(Effects.REGENERATION, 50 * 3, 0), 1.0f).build();
   public static final Food MAGMA_CAKE = new Food.Builder().hunger(1).saturation(0.2f).setAlwaysEdible().effect(() -> new EffectInstance(Effects.FIRE_RESISTANCE, 20 * 30, 0), 1.0f).build();
   public static final Food ENDER_CAKE = new Food.Builder().hunger(2).saturation(0.2f).setAlwaysEdible().effect(() -> new EffectInstance(Effects.LEVITATION, 20 * 10, 0), 1.0f).build();
 
@@ -28,7 +29,7 @@ public final class TinkerFood {
       case EARTH: default: return EARTH_CAKE;
       case SKY: return SKY_CAKE;
       case ICHOR: return ICHOR_CAKE;
-      case BLOOD: return MAGMA_CAKE;
+      case BLOOD: return BLOOD_CAKE;
       case ENDER: return ENDER_CAKE;
     }
   }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.gadgets.data;
 
 import net.minecraft.advancements.ICriterionInstance;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -129,16 +130,25 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
     String cakeFolder = "gadgets/cake/";
     TinkerGadgets.cake.forEach((slime, cake) -> {
-      Item bucket = slime == SlimeType.BLOOD ? TinkerFluids.magma.asItem() : TinkerFluids.slime.get(slime).asItem();
+      Item bucket = TinkerFluids.slime.get(slime).asItem();
       ShapedRecipeBuilder.shapedRecipe(cake)
                          .key('M', bucket)
-                         .key('S', Items.SUGAR)
+                         .key('S', slime == SlimeType.BLOOD ? Ingredient.fromTag(Tags.Items.DUSTS_GLOWSTONE) : Ingredient.fromItems(Items.SUGAR))
                          .key('E', Items.EGG)
                          .key('W', TinkerWorld.slimeTallGrass.get(slime))
                          .patternLine("MMM").patternLine("SES").patternLine("WWW")
                          .addCriterion("has_slime", hasItem(bucket))
                          .build(consumer, modResource(cakeFolder + slime.getString()));
     });
+    Item bucket = TinkerFluids.magma.asItem();
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.magmaCake)
+                       .key('M', bucket)
+                       .key('S', Ingredient.fromTag(Tags.Items.DUSTS_GLOWSTONE))
+                       .key('E', Items.EGG)
+                       .key('W', Blocks.CRIMSON_ROOTS)
+                       .patternLine("MMM").patternLine("SES").patternLine("WWW")
+                       .addCriterion("has_slime", hasItem(bucket))
+                       .build(consumer, modResource(cakeFolder + "magma"));
   }
 
 
