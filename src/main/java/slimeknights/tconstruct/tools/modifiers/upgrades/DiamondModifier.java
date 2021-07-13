@@ -4,7 +4,7 @@ import net.minecraft.item.Rarity;
 import slimeknights.tconstruct.library.modifiers.SingleLevelModifier;
 import slimeknights.tconstruct.library.tinkering.HarvestLevels;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -18,7 +18,7 @@ public class DiamondModifier extends SingleLevelModifier {
 
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
-    ToolCore.setRarity(volatileData, Rarity.UNCOMMON);
+    IModifiable.setRarity(volatileData, Rarity.UNCOMMON);
   }
 
   @Override

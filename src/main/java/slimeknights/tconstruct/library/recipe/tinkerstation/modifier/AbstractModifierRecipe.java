@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
@@ -95,8 +95,8 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   private List<ItemStack> getToolInputs() {
     if (toolInputs == null) {
       toolInputs = Arrays.stream(this.toolRequirement.getMatchingStacks()).map(stack -> {
-        if (stack.getItem() instanceof ToolCore) {
-          return ((ToolCore)stack.getItem()).buildToolForRendering();
+        if (stack.getItem() instanceof IModifiableDisplay) {
+          return ((IModifiableDisplay)stack.getItem()).getRenderTool();
         }
         return stack;
       }).collect(Collectors.toList());

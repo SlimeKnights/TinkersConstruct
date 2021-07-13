@@ -7,7 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.JSONUtils;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,7 +52,7 @@ public class SlotInformation {
 
     int sortIndex = JSONUtils.getInt(json, "sortIndex");
     // strict defaults to true if its a tool core as it has a definition to be strict
-    boolean strictSlots = JSONUtils.getBoolean(json, "strictSlots", item instanceof ToolCore);
+    boolean strictSlots = JSONUtils.getBoolean(json, "strictSlots", item instanceof IModifiable);
 
     return new SlotInformation(slots, slotPosition, item, sortIndex, strictSlots);
   }
@@ -63,12 +64,7 @@ public class SlotInformation {
    */
   public ItemStack getToolForRendering() {
     if (this.toolForRendering == null || this.toolForRendering.isEmpty()) {
-      if (this.item instanceof ToolCore) {
-        this.toolForRendering = ((ToolCore) this.item).buildToolForRendering();
-      }
-      else {
-        this.toolForRendering = new ItemStack(this.item);
-      }
+      this.toolForRendering = IModifiableDisplay.getDisplayStack(this.item);
     }
 
     return this.toolForRendering;

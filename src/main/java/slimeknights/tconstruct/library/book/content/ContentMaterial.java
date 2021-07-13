@@ -33,9 +33,9 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipe;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
@@ -245,16 +245,15 @@ public class ContentMaterial extends TinkerPage {
     }
 
     int y = 10;
-    for (Item tool : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
-      if (tool instanceof ToolCore) {
-        List<IToolPart> requirements = ((ToolCore) tool).getToolDefinition().getRequiredComponents();
+    for (Item item : TinkerTags.Items.MULTIPART_TOOL.getAllElements()) {
+      if (item instanceof IModifiable) {
+        IModifiable tool = ((IModifiable) item);
+        List<IToolPart> requirements = tool.getToolDefinition().getRequiredComponents();
         List<IMaterial> materials = new ArrayList<>(requirements.size());
-
         for (int i = 0; i < requirements.size(); i++) {
           materials.add(i, MaterialRegistry.getInstance().getMaterial(materialId));
         }
-
-        ItemStack display = ToolBuildHandler.buildItemFromMaterials((ToolCore) tool, materials);
+        ItemStack display = ToolBuildHandler.buildItemFromMaterials(tool, materials);
         displayTools.add(new TinkerItemElement(display));
 
         if (displayTools.size() == 9) {

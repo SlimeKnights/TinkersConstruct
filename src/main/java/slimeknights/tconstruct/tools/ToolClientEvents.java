@@ -42,11 +42,12 @@ import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
@@ -134,7 +135,7 @@ public class ToolClientEvents extends ClientEventBase {
 
   // registered with FORGE bus
   private static void onTooltipEvent(ItemTooltipEvent event) {
-    if (event.getItemStack().getItem() instanceof ToolCore) {
+    if (event.getItemStack().getItem() instanceof IModifiableDisplay) {
       boolean isShift = Screen.hasShiftDown();
       boolean isCtrl = !isShift && Screen.hasControlDown();
       MutableInt removedWhenIn = new MutableInt(0);
@@ -180,7 +181,7 @@ public class ToolClientEvents extends ClientEventBase {
     if (stack.getItem().isIn(TinkerTags.Items.TWO_HANDED)) {
       ToolStack tool = ToolStack.from(stack);
       // special support for replacing modifier
-      if (!tool.getVolatileData().getBoolean(ToolCore.DEFER_OFFHAND)) {
+      if (!tool.getVolatileData().getBoolean(IModifiable.DEFER_OFFHAND)) {
         if (!(event.getItemStack().getItem() instanceof BlockItem) || tool.getModifierLevel(TinkerModifiers.exchanging.get()) == 0) {
           event.setCanceled(true);
         }
@@ -223,7 +224,7 @@ public class ToolClientEvents extends ClientEventBase {
    * @param colors  Item colors instance
    * @param item    Material item
    */
-  public static void registerToolItemColors(ItemColors colors, Supplier<? extends ToolCore> item) {
+  public static void registerToolItemColors(ItemColors colors, Supplier<? extends IModifiable> item) {
     colors.register(toolColorHandler, item.get());
   }
 }

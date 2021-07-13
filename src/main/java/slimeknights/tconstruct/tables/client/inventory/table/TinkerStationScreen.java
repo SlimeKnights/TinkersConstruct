@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
@@ -30,11 +31,11 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
@@ -325,27 +326,31 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     // tool build info
     // TODO: not all tinkerable is tool core, switch to IModifyable?
     else {
-      ToolCore tool = (ToolCore) this.currentData.getItem();
-      this.tinkerInfo.setCaption(new TranslationTextComponent(tool.getTranslationKey()));
-      this.tinkerInfo.setText(new TranslationTextComponent(tool.getTranslationKey() + ".description"));
+      Item item = this.currentData.getItem();
+      this.tinkerInfo.setCaption(new TranslationTextComponent(item.getTranslationKey()));
+      this.tinkerInfo.setText(new TranslationTextComponent(item.getTranslationKey() + ".description"));
 
-      IFormattableTextComponent text = new StringTextComponent("");
-      List<IToolPart> materialRequirements = tool.getToolDefinition().getRequiredComponents();
-      for (int i = 0; i < materialRequirements.size(); i++) {
-        IToolPart requirement = materialRequirements.get(i);
-        IFormattableTextComponent textComponent = new StringTextComponent(" * ");
+      // if the tool has a definition, display needs from that
+      if (item instanceof IModifiable) {
+        IModifiable tool = (IModifiable) item;
+        IFormattableTextComponent text = new StringTextComponent("");
+        List<IToolPart> materialRequirements = tool.getToolDefinition().getRequiredComponents();
+        for (int i = 0; i < materialRequirements.size(); i++) {
+          IToolPart requirement = materialRequirements.get(i);
+          IFormattableTextComponent textComponent = new StringTextComponent(" * ");
 
-        ItemStack slotStack = this.container.getSlot(i + INPUT_SLOT).getStack();
-        if (requirement.asItem() != slotStack.getItem()) {
-          textComponent.mergeStyle(TextFormatting.RED);
+          ItemStack slotStack = this.container.getSlot(i + INPUT_SLOT).getStack();
+          if (requirement.asItem() != slotStack.getItem()) {
+            textComponent.mergeStyle(TextFormatting.RED);
+          }
+          textComponent.append(new TranslationTextComponent(requirement.asItem().getTranslationKey())).appendString("\n");
+
+          text.append(textComponent);
         }
-        textComponent.append(new TranslationTextComponent(requirement.asItem().getTranslationKey())).appendString("\n");
 
-        text.append(textComponent);
+        this.modifierInfo.setCaption(COMPONENTS_TEXT);
+        this.modifierInfo.setText(text);
       }
-
-      this.modifierInfo.setCaption(COMPONENTS_TEXT);
-      this.modifierInfo.setText(text);
     }
   }
 
@@ -437,7 +442,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     if (this.currentData.isRepair()) {
       this.drawRepairSlotIcons(matrices);
     }
-    else if (this.currentData.getItem() instanceof ToolCore) {
+    else if (this.currentData.getItem() instanceof IModifiable) {
       for (int i = 0; i < this.activeSlots; i++) {
         Slot slot = this.container.getSlot(i + INPUT_SLOT);
         if (slot.getHasStack() || !(slot instanceof TinkerStationInputSlot)) {
@@ -747,8 +752,8 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     // determine the tool definition to display
     ToolDefinition definition = null;
-    if (!currentData.isRepair() && currentData.getItem() instanceof ToolCore) {
-      definition = ((ToolCore) currentData.getItem()).getToolDefinition();
+    if (!currentData.isRepair() && currentData.getItem() instanceof IModifiable) {
+      definition = ((IModifiable) currentData.getItem()).getToolDefinition();
     }
 
     Slot slot = this.container.getSlot(TINKER_SLOT);

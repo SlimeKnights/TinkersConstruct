@@ -18,11 +18,11 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.util.List;
@@ -40,12 +40,17 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   @Override
   public boolean matches(ITinkerStationInventory inv, World world) {
     ItemStack tinkerable = inv.getTinkerableStack();
-    if (tinkerable.isEmpty() || !(tinkerable.getItem() instanceof ToolCore)) {
+    if (tinkerable.isEmpty() || !(tinkerable.getItem() instanceof IModifiable)) {
       return false;
     }
+    // get the list of parts, empty means its not multipart
+    List<IToolPart> parts = ((IModifiable)tinkerable.getItem()).getToolDefinition().getRequiredComponents();
+    if (parts.isEmpty()) {
+      return false;
+    }
+
     // we have two concerns on part swapping:
     // part must be valid in the tool, and only up to one part can be swapped at once
-    List<IToolPart> parts = ((ToolCore)tinkerable.getItem()).getToolDefinition().getRequiredComponents();
     boolean foundItem = false;
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.item;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.Item;
@@ -11,14 +11,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.materials.MaterialRegistryExtension;
+import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 @ExtendWith(MaterialRegistryExtension.class)
-public abstract class ToolCoreTest extends BaseMcTest {
+public abstract class ToolItemTest extends BaseMcTest {
 
-  protected static TestToolCore tool;
+  protected static TestToolItem tool;
   protected ItemStack testItemStack;
 
   @BeforeAll
@@ -27,7 +27,7 @@ public abstract class ToolCoreTest extends BaseMcTest {
       Item.Properties properties = new Item.Properties()
         .addToolType(ToolType.PICKAXE, 1)
         .maxStackSize(1);
-      tool = new TestToolCore(properties, ToolDefinitionFixture.getStandardToolDefinition());
+      tool = new TestToolItem(properties, ToolDefinitionFixture.getStandardToolDefinition());
       tool.setRegistryName("test:toolcore");
       ForgeRegistries.ITEMS.register(tool);
     }
@@ -38,14 +38,14 @@ public abstract class ToolCoreTest extends BaseMcTest {
     testItemStack = buildTestTool(tool);
   }
 
-  protected ItemStack buildTestTool(ToolCore tool) {
+  protected ItemStack buildTestTool(IModifiable tool) {
     return ToolBuildHandler.buildItemFromMaterials(
       tool,
       ImmutableList.of(
         MaterialFixture.MATERIAL_WITH_HEAD,
         MaterialFixture.MATERIAL_WITH_HANDLE,
         MaterialFixture.MATERIAL_WITH_EXTRA)
-    );
+																									);
   }
 
   /** Checks if the test item is broken */

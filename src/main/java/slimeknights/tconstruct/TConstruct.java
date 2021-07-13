@@ -287,4 +287,15 @@ public class TConstruct {
   public static IFormattableTextComponent makeTranslation(String base, String name) {
     return new TranslationTextComponent(makeTranslationKey(base, name));
   }
+
+  /**
+   * Makes a translation text component for the given name
+   * @param base       Base name, such as "block" or "gui"
+   * @param name       Object name
+   * @param arguments  Additional arguments to the translation
+   * @return  Translation key
+   */
+  public static IFormattableTextComponent makeTranslation(String base, String name, Object... arguments) {
+    return new TranslationTextComponent(makeTranslationKey(base, name), arguments);
+  }
 }

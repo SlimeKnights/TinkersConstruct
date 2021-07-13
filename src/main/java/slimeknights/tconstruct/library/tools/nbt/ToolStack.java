@@ -15,10 +15,10 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -100,10 +100,9 @@ public class ToolStack implements IModifierToolStack {
    */
   private static ToolStack from(ItemStack stack, boolean copyNbt) {
     Item item = stack.getItem();
-    ToolDefinition definition = ToolDefinition.EMPTY;
-    if (item instanceof ToolCore) {
-      definition = ((ToolCore)item).getToolDefinition();
-    }
+    ToolDefinition definition = item instanceof IModifiable
+                                ? ((IModifiable)item).getToolDefinition()
+                                : ToolDefinition.EMPTY;
     CompoundNBT nbt = stack.getTag();
     if (nbt == null) {
       nbt = new CompoundNBT();

@@ -11,9 +11,9 @@ import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
-import slimeknights.tconstruct.library.tools.ToolCoreTest;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.item.ToolItemTest;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.item.small.HarvestTool;
 
@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ToolHarvestLogicTest extends ToolCoreTest {
+class ToolHarvestLogicTest extends ToolItemTest {
 
   private final HarvestTool pickaxeTool = new HarvestTool(
     new Item.Properties().addToolType(ToolType.PICKAXE, 1),
@@ -75,7 +75,7 @@ class ToolHarvestLogicTest extends ToolCoreTest {
     method.invoke(null);
 
     float modifier = 2f;
-    ToolCore toolWithMiningModifier = new HarvestTool(
+    IModifiable toolWithMiningModifier = new HarvestTool(
       new Item.Properties().addToolType(ToolType.PICKAXE, 1),
       new ToolDefinition(
         new ToolBaseStatDefinition.Builder().modifier(ToolStats.MINING_SPEED, modifier).build(),

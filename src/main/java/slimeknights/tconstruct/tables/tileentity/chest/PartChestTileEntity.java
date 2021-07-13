@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tables.tileentity.chest;
 
 import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 public class PartChestTileEntity extends TinkerChestTileEntity {

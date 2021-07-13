@@ -94,7 +94,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.withCriterion("crafted_part", hasTag(TinkerTags.Items.TOOL_PARTS)));
     Advancement tinkerStation = builder(TinkerTables.tinkerStation, resource("tools/tinker_station"), partBuilder, FrameType.TASK, builder ->
       builder.withCriterion("crafted_block", hasItem(TinkerTables.tinkerStation)));
-    Advancement tinkerTool = builder(TinkerTools.pickaxe.get().buildToolForRendering(), resource("tools/tinker_tool"), tinkerStation, FrameType.TASK, builder ->
+    Advancement tinkerTool = builder(TinkerTools.pickaxe.get().getRenderTool(), resource("tools/tinker_tool"), tinkerStation, FrameType.TASK, builder ->
       builder.withCriterion("crafted_tool", hasTag(TinkerTags.Items.MULTIPART_TOOL)));
     builder(TinkerMaterials.manyullyn.getIngot(), resource("tools/material_master"), tinkerTool, FrameType.CHALLENGE, builder -> {
       Consumer<MaterialId> with = id -> builder.withCriterion(id.getPath(), InventoryChangeTrigger.Instance.forItems(ToolPredicate.builder().withMaterial(id).build()));
@@ -122,7 +122,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.hepatizon);
       with.accept(MaterialIds.queensSlime);
     });
-    builder(TinkerTools.pickaxe.get().buildToolForRendering(), resource("tools/tool_smith"), tinkerTool, FrameType.CHALLENGE, builder -> {
+    builder(TinkerTools.pickaxe.get().getRenderTool(), resource("tools/tool_smith"), tinkerTool, FrameType.CHALLENGE, builder -> {
       Consumer<Item> with = item -> builder.withCriterion(Objects.requireNonNull(item.getRegistryName()).getPath(), hasItem(item));
       with.accept(TinkerTools.pickaxe.get());
       with.accept(TinkerTools.mattock.get());
@@ -194,7 +194,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.withCriterion("crafted_nether", hasItem(TinkerTables.scorchedAnvil));
       builder.withRequirementsStrategy(IRequirementsStrategy.OR);
     });
-    builder(TinkerTools.veinHammer.get().buildToolForRendering(), resource("smeltery/tool_forge"), anvil, FrameType.CHALLENGE, builder -> {
+    builder(TinkerTools.veinHammer.get().getRenderTool(), resource("smeltery/tool_forge"), anvil, FrameType.CHALLENGE, builder -> {
       Consumer<Item> with = item -> builder.withCriterion(Objects.requireNonNull(item.getRegistryName()).getPath(), hasItem(item));
       with.accept(TinkerTools.sledgeHammer.get());
       with.accept(TinkerTools.veinHammer.get());

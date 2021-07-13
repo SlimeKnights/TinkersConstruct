@@ -18,13 +18,14 @@ import slimeknights.mantle.client.screen.book.element.ImageElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 public class ContentTool extends TinkerPage {
@@ -46,7 +47,7 @@ public class ContentTool extends TinkerPage {
   public static final transient int[] SLOTS_X_4 = new int[]{3, 21, 3, 21};
   public static final transient int[] SLOTS_Y_4 = new int[]{3, 3, 22, 22};
 
-  private transient ToolCore tool;
+  private transient IModifiableDisplay tool;
   private transient List<ItemStack> parts;
 
   public TextData[] text = new TextData[0];
@@ -58,9 +59,9 @@ public class ContentTool extends TinkerPage {
   public ContentTool() {
   }
 
-  public ContentTool(ToolCore tool) {
+  public ContentTool(IModifiableDisplay tool) {
     this.tool = tool;
-    this.toolName = tool.getRegistryName().toString();
+    this.toolName = Objects.requireNonNull(tool.asItem().getRegistryName()).toString();
   }
 
   @Override
@@ -71,10 +72,11 @@ public class ContentTool extends TinkerPage {
 
     if (this.tool == null) {
       Item tool = ForgeRegistries.ITEMS.getValue(new ResourceLocation(this.toolName));
-      if (!(tool instanceof ToolCore)) {
+      if (!(tool instanceof IModifiableDisplay)) {
+        // TODO: this is a confusing default
         this.tool = TinkerTools.pickaxe.get();
       } else
-        this.tool = (ToolCore) tool;
+        this.tool = (IModifiableDisplay) tool;
     }
 
     if (this.parts == null) {
@@ -131,7 +133,7 @@ public class ContentTool extends TinkerPage {
     list.add(new ImageElement(imgX + (img.width - IMG_TABLE.width) / 2, imgY + 28, -1, -1, IMG_TABLE));
     list.add(new ImageElement(imgX, imgY, -1, -1, img, book.appearance.slotColor));
 
-    ItemStack demo = tool.buildToolForRendering();
+    ItemStack demo = tool.getRenderTool();
 
     TinkerItemElement toolItem = new TinkerItemElement(imgX + (img.width - 16) / 2, imgY - 24, 1f, demo);
     toolItem.noTooltip = true;

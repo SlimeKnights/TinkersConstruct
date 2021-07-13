@@ -7,7 +7,7 @@ import net.minecraft.nbt.ListNBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -75,12 +75,7 @@ public interface IDisplayModifierRecipe {
   }
 
   /** Maps the stream from tool items to applicable tool stacks */
-  Function<Item,ItemStack> MAP_TOOL_FOR_RENDERING = item -> {
-    if (item instanceof ToolCore) {
-      return ((ToolCore)item).buildToolForRendering();
-    }
-    return new ItemStack(item);
-  };
+  Function<Item,ItemStack> MAP_TOOL_FOR_RENDERING = IModifiableDisplay::getDisplayStack;
 
   /* Gets a copy of the stack with the given modifiers */
   static ItemStack withModifiers(ItemStack stack, @Nullable ModifierMatch match, @Nullable ModifierEntry newModifier) {

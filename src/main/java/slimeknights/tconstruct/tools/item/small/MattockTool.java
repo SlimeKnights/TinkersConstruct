@@ -8,14 +8,14 @@ import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.VeiningAOEHarvestLogic;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.ToolItem;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.Set;
 
-public class MattockTool extends ToolCore {
+public class MattockTool extends ToolItem {
   private static final Set<Material> EXTRA_MATERIALS = Sets.newHashSet(Material.ORGANIC, Material.WOOD, Material.NETHER_WOOD, Material.BAMBOO, Material.GOURD);
   public static final VeiningAOEHarvestLogic HARVEST_LOGIC = new VeiningAOEHarvestLogic(0) {
     @Override

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tinkering;
+package slimeknights.tconstruct.library.tools.part;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;

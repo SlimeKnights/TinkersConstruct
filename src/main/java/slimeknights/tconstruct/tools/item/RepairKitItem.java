@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.item;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.tools.part.MaterialItem;
 
 public class RepairKitItem extends MaterialItem {
   public RepairKitItem(Properties properties) {

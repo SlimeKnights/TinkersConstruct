@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tables.inventory.table.tinkerstation;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
+import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
 
 /** Slot holding the tool in the tinker station */
 public class TinkerableSlot extends TinkerStationSlot {

@@ -7,16 +7,20 @@ import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Logic to help in creating new tools
+ */
 public final class ToolBuildHandler {
   public static final String KEY_DISPLAY_TOOL = "tic_display_tool";
   private static final List<MaterialId> RENDER_MATERIALS = Arrays.asList(
@@ -33,7 +37,7 @@ public final class ToolBuildHandler {
    * @param stacks Items to build with. Have to be in the correct order and contain material items.
    * @return The built item or null if invalid input.
    */
-  public static ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks, ToolCore tool) {
+  public static ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks, IModifiable tool) {
     if (!canToolBeBuilt(stacks, tool)) {
       return ItemStack.EMPTY;
     }
@@ -52,8 +56,8 @@ public final class ToolBuildHandler {
    * @param materials  Material list
    * @return  Item stack with materials
    */
-  public static ItemStack buildItemFromMaterials(ToolCore tool, List<IMaterial> materials) {
-    return ToolStack.createTool(tool, tool.getToolDefinition(), materials).createStack();
+  public static ItemStack buildItemFromMaterials(IModifiable tool, List<IMaterial> materials) {
+    return ToolStack.createTool(tool.asItem(), tool.getToolDefinition(), materials).createStack();
   }
 
   /**
@@ -91,7 +95,7 @@ public final class ToolBuildHandler {
    * @param tool the tool
    * @return if the given tool can be built from the items
    */
-  public static boolean canToolBeBuilt(NonNullList<ItemStack> stacks, ToolCore tool) {
+  public static boolean canToolBeBuilt(NonNullList<ItemStack> stacks, IModifiable tool) {
     List<IToolPart> requiredComponents = tool.getToolDefinition().getRequiredComponents();
     return stacks.size() == requiredComponents.size() && canBeBuiltFromParts(stacks, requiredComponents);
   }
@@ -107,6 +111,5 @@ public final class ToolBuildHandler {
     return Streams.zip(requiredComponents.stream(), stacks.stream(), (part, stack) -> part.asItem() == stack.getItem() && part.getMaterial(stack) != IMaterial.UNKNOWN).allMatch(Boolean::booleanValue);
   }
 
-  private ToolBuildHandler() {
-  }
+  private ToolBuildHandler() {}
 }

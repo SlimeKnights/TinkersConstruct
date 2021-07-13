@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.item;
 
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -6,7 +6,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ToolCoreDurabilityTest extends ToolCoreTest {
+public class ToolItemDurabilityTest extends ToolItemTest {
 
   @Test
   void testNewToolDurability() {

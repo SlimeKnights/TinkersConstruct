@@ -1136,6 +1136,8 @@
   "block.tconstruct.bloodshroom_wall_sign":      "Bloodshroom Sign",
 
 
+  "material.tconstruct.unknown": "Unknown",
+
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "Wood",
   "material.tconstruct.wood.format": "Wooden %s",

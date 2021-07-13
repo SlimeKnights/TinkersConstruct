@@ -10,11 +10,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.ToolItem;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 /** Tool with sword harvest and creative block breaking prevention */
-public class SwordTool extends ToolCore {
+public class SwordTool extends ToolItem {
   public static final ToolType TOOL_TYPE = ToolType.get("sword");
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS = ImmutableSet.of(Material.WEB, Material.TALL_PLANTS, Material.CORAL, Material.GOURD, Material.LEAVES);
   public static final ToolHarvestLogic HARVEST_LOGIC = new HarvestLogic();

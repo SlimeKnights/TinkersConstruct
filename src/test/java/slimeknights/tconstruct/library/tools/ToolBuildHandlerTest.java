@@ -8,7 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.library.materials.MaterialRegistryExtension;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.item.TestToolItem;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +19,7 @@ class ToolBuildHandlerTest extends BaseMcTest {
 
   private final Lazy<ItemStack> materialItem1 = Lazy.of(() -> MaterialItemFixture.MATERIAL_ITEM.withMaterial(MaterialFixture.MATERIAL_1));
   private final Lazy<ItemStack> materialItem2 = Lazy.of(() -> MaterialItemFixture.MATERIAL_ITEM_2.withMaterial(MaterialFixture.MATERIAL_2));
-  private final Lazy<ToolCore> testToolCore = Lazy.of(TestToolCore::new);
+  private final Lazy<IModifiable> testToolCore = Lazy.of(TestToolItem::new);
 
   @Test
   void testBuildTool_correctItems() {

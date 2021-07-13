@@ -9,7 +9,7 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
 
 @RequiredArgsConstructor
@@ -39,8 +39,8 @@ public class TinkerStationSelectionPacket implements IThreadsafePacket {
       Container container = sender.openContainer;
       if (container instanceof TinkerStationContainer) {
         ToolDefinition filter = null;
-        if (toolFilter instanceof ToolCore) {
-          filter = ((ToolCore) toolFilter).getToolDefinition();
+        if (toolFilter instanceof IModifiable) {
+          filter = ((IModifiable) toolFilter).getToolDefinition();
         }
         ((TinkerStationContainer) container).setToolSelection(this.activeSlots, this.tinkerSlotHidden, filter);
       }

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -7,13 +7,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.tinkering.TooltipType;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
 
 import java.util.List;
 
-public class TestToolCore extends ToolCore {
+public class TestToolItem extends ToolItem {
 
-  public TestToolCore(Properties properties, ToolDefinition toolDefinition) {
+  public TestToolItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 
@@ -22,7 +22,7 @@ public class TestToolCore extends ToolCore {
     return state.getBlock() == Blocks.DIRT;
   }
 
-  public TestToolCore() {
+  public TestToolItem() {
     this(new Item.Properties(), ToolDefinitionFixture.getTestToolDefinition());
   }
 

@@ -7,8 +7,8 @@ import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRe
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -25,9 +25,9 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
    * @param tool     Tool
    * @param folder   Folder for recipe
    */
-  default void toolBuilding(Consumer<IFinishedRecipe> consumer, ToolCore tool, String folder) {
+  default void toolBuilding(Consumer<IFinishedRecipe> consumer, IModifiable tool, String folder) {
     ToolBuildingRecipeBuilder.toolBuildingRecipe(tool)
-                             .build(consumer, modResource(folder + Objects.requireNonNull(tool.getRegistryName()).getPath()));
+                             .build(consumer, modResource(folder + Objects.requireNonNull(tool.asItem().getRegistryName()).getPath()));
   }
 
   /**
@@ -36,7 +36,7 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
    * @param tool     Tool supplier
    * @param folder   Folder for recipe
    */
-  default void toolBuilding(Consumer<IFinishedRecipe> consumer, Supplier<? extends ToolCore> tool, String folder) {
+  default void toolBuilding(Consumer<IFinishedRecipe> consumer, Supplier<? extends IModifiable> tool, String folder) {
     toolBuilding(consumer, tool.get(), folder);
   }
 

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools.item;
+package slimeknights.tconstruct.library.tools.part;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -19,8 +19,7 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -68,7 +67,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
         } else {
           // info tooltip for detailed and component info
           tooltip.add(StringTextComponent.EMPTY);
-          tooltip.add(ToolCore.TOOLTIP_HOLD_SHIFT);
+          tooltip.add(IModifiableDisplay.TOOLTIP_HOLD_SHIFT);
         }
       }
       // and finally, mod

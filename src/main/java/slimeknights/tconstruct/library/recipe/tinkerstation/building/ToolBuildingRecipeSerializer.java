@@ -6,7 +6,7 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 
 import javax.annotation.Nullable;
 
@@ -16,7 +16,7 @@ public class ToolBuildingRecipeSerializer extends LoggingRecipeSerializer<ToolBu
   public ToolBuildingRecipe read(ResourceLocation recipeId, JsonObject json) {
     String group = JSONUtils.getString(json, "group", "");
     // output fetch as a toolcore item, its an error if it does not implement that interface
-    ToolCore item = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", ToolCore.class);
+    IModifiable item = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", IModifiable.class);
     return new ToolBuildingRecipe(recipeId, group, item);
   }
 
@@ -24,7 +24,7 @@ public class ToolBuildingRecipeSerializer extends LoggingRecipeSerializer<ToolBu
   @Override
   protected ToolBuildingRecipe readSafe(ResourceLocation recipeId, PacketBuffer buffer) {
     String group = buffer.readString(Short.MAX_VALUE);
-    ToolCore result = RecipeHelper.readItem(buffer, ToolCore.class);
+    IModifiable result = RecipeHelper.readItem(buffer, IModifiable.class);
     return new ToolBuildingRecipe(recipeId, group, result);
   }
 

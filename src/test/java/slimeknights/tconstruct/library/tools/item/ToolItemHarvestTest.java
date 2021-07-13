@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.item;
 
 import net.minecraftforge.common.ToolType;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 //import static org.mockito.Mockito.verify;
 
-public class ToolCoreHarvestTest extends ToolCoreTest {
+public class ToolItemHarvestTest extends ToolItemTest {
 
   //private PlayerEntity player = spy(new TestPlayerEntity(TestServerWorld.getTestServerWorld()));
 

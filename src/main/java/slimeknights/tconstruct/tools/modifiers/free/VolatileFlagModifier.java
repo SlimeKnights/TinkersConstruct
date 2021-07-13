@@ -4,7 +4,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -28,7 +28,7 @@ public class VolatileFlagModifier extends SingleUseModifier {
   @Override
   public void addVolatileData(ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, int level, ModDataNBT volatileData) {
     if (rarity != Rarity.COMMON) {
-      ToolCore.setRarity(volatileData, rarity);
+      IModifiable.setRarity(volatileData, rarity);
     }
     volatileData.putBoolean(flag, true);
   }

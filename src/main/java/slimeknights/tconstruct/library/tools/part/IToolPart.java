@@ -1,7 +1,6 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.part;
 
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 /**
  * Any Class that's used as a tool part needs to implement this.

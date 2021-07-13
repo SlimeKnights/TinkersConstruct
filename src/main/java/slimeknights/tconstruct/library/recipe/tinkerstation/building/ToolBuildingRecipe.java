@@ -9,10 +9,10 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
-import slimeknights.tconstruct.library.tools.item.ToolCore;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected final ResourceLocation id;
   @Getter
   protected final String group;
-  protected final ToolCore output;
+  protected final IModifiable output;
 
   @Override
   public IRecipeSerializer<?> getSerializer() {

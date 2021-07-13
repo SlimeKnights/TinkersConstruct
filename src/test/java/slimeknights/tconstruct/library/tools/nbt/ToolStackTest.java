@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
-import slimeknights.tconstruct.library.tools.ToolCoreTest;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.item.ToolItemTest;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.Arrays;
@@ -20,7 +20,7 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class ToolStackTest extends ToolCoreTest {
+class ToolStackTest extends ToolItemTest {
   private final StatsNBT testStatsNBT = StatsNBT.builder()
                                                 .set(ToolStats.DURABILITY, 100)
                                                 .set(ToolStats.HARVEST_LEVEL, 2)

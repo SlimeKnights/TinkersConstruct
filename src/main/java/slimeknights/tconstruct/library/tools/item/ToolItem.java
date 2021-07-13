@@ -28,7 +28,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
@@ -44,7 +43,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -52,25 +50,21 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.capability.ToolCapabilityProvider;
-import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tinkering.TooltipBuilder;
 import slimeknights.tconstruct.library.tinkering.TooltipType;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestContext;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -80,30 +74,11 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
- * An indestructible item constructed from different parts.
- * This class handles how all the data for items made out of different
- * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
+ * A modifiable item for both melee and harvest constructed from different parts.
+ * This class handles how all the modifier hooks and display data for items made out of different materials
  */
-public class ToolCore extends Item implements ITinkerStationDisplay, IModifiableWeapon, IModifiableHarvest {
+public class ToolItem extends Item implements IModifiableDisplay, IModifiableWeapon, IModifiableHarvest {
   protected static final UUID REACH_MODIFIER = UUID.fromString("9b26fa32-5774-4b4e-afc3-b4055ecb1f6a");
-  /** Modifier key to make a tool spawn an indestructable entity */
-  public static final ResourceLocation INDESTRUCTIBLE_ENTITY = TConstruct.getResource("indestructible");
-  /** Modifier key to make a tool spawn an indestructable entity */
-  public static final ResourceLocation SHINY = TConstruct.getResource("shiny");
-  /** Modifier key to make a tool spawn an indestructable entity */
-  public static final ResourceLocation RARITY = TConstruct.getResource("rarity");
-  /** Modifier key to defer tool interaction to the offhand if present */
-  public static final ResourceLocation DEFER_OFFHAND = TConstruct.getResource("defer_offhand");
-
-  protected static final ITextComponent TOOLTIP_HOLD_SHIFT;
-  private static final ITextComponent TOOLTIP_HOLD_CTRL;
-  static {
-    ITextComponent shift = TConstruct.makeTranslation("key", "shift").mergeStyle(TextFormatting.YELLOW, TextFormatting.ITALIC);
-    TOOLTIP_HOLD_SHIFT = new TranslationTextComponent(TConstruct.makeTranslationKey("tooltip", "hold_shift"), shift);
-    ITextComponent ctrl = TConstruct.makeTranslation("key", "ctrl").mergeStyle(TextFormatting.AQUA, TextFormatting.ITALIC);
-    TOOLTIP_HOLD_CTRL = new TranslationTextComponent(TConstruct.makeTranslationKey("tooltip", "hold_ctrl"), ctrl);
-  }
-
 
   /** Tool definition for the given tool */
   @Getter
@@ -112,7 +87,7 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
   /** Cached tool for rendering on UIs */
   private ItemStack toolForRendering;
 
-  protected ToolCore(Properties properties, ToolDefinition toolDefinition) {
+  protected ToolItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties);
     this.toolDefinition = toolDefinition;
   }
@@ -128,18 +103,6 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
   public Rarity getRarity(ItemStack stack) {
     int rarity = ToolStack.from(stack).getVolatileData().getInt(RARITY);
     return Rarity.values()[MathHelper.clamp(rarity, 0, 3)];
-  }
-
-  /**
-   * Sets the rarity of the stack
-   * @param volatileData     NBT
-   * @param rarity  Rarity, only supports vanilla values
-   */
-  public static void setRarity(ModDataNBT volatileData, Rarity rarity) {
-    int current = volatileData.getInt(RARITY);
-    if (rarity.ordinal() > current) {
-      volatileData.putInt(RARITY, rarity.ordinal());
-    }
   }
 
   @Override
@@ -749,55 +712,11 @@ public class ToolCore extends Item implements ITinkerStationDisplay, IModifiable
       }
     }
 
-    return ToolCore.getCombinedItemName(super.getDisplayName(stack), nameMaterials);
+    return ITinkerStationDisplay.getCombinedItemName(super.getDisplayName(stack), nameMaterials);
   }
 
-  /**
-   * Combines the given display name with the material names to form the new given name
-   *
-   * @param itemName the standard display name
-   * @param materials the list of materials
-   * @return the combined item name
-   */
-  public static ITextComponent getCombinedItemName(ITextComponent itemName, Collection<IMaterial> materials) {
-    if (materials.isEmpty() || materials.stream().allMatch(IMaterial.UNKNOWN::equals)) {
-      return itemName;
-    }
-
-    if (materials.size() == 1) {
-      IMaterial material = materials.iterator().next();
-
-      if (Util.canTranslate(material.getTranslationKey() + ".format")) {
-        return new TranslationTextComponent(material.getTranslationKey() + ".format", itemName);
-      }
-
-      return new TranslationTextComponent(materials.iterator().next().getTranslationKey()).append(new StringTextComponent(" ")).append(itemName);
-    }
-
-    // multiple materials. we'll have to combine
-    StringTextComponent name = new StringTextComponent("");
-
-    Iterator<IMaterial> iter = materials.iterator();
-
-    IMaterial material = iter.next();
-    name.append(new TranslationTextComponent(material.getTranslationKey()));
-
-    while (iter.hasNext()) {
-      material = iter.next();
-      name.appendString("-").append(new TranslationTextComponent(material.getTranslationKey()));
-    }
-
-    name.appendString(" ").append(itemName);
-
-    return name;
-  }
-
-  /**
-   * Builds a tool meant for rendering in a screen
-   *
-   * @return the tool to use for rendering
-   */
-  public ItemStack buildToolForRendering() {
+  @Override
+  public ItemStack getRenderTool() {
     if (toolForRendering == null) {
       toolForRendering = ToolBuildHandler.buildToolForRendering(this, this.getToolDefinition());
     }
