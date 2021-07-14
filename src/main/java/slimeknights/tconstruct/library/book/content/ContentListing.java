@@ -68,7 +68,7 @@ public class ContentListing extends TinkerPage {
     int x = 0;
     int y = 0;
     for (TextData data : this.entries) {
-      int height = this.parent.parent.parent.fontRenderer.getWordWrappedHeight(data.text, w) * lineHeight / 9;
+      int height = this.parent.parent.parent.fontRenderer.getWordWrappedHeight("- " + data.text, w) * lineHeight / 9;
       list.add(this.createListingElement(y + yOff, x, w, height, data));
       y += height;
       if (y >= columnHeight) {
