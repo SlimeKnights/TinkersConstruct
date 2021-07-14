@@ -177,6 +177,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> ONE_HANDED = tag("modifiable/one_handed");
     /** Modifiable items that prevent usage of the offhand */
     public static final IOptionalNamedTag<Item> TWO_HANDED = tag("modifiable/two_handed");
+    /** Tools that use durability and can be repaired */
+    public static final IOptionalNamedTag<Item> DURABILITY = tag("modifiable/durability");
 
     /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
     public static final IOptionalNamedTag<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");

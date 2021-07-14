@@ -112,12 +112,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setInput(TinkerModifiers.ironReinforcement, 1, 24)
                          .setMaxLevel(5) // max 83% resistant to damage
                          .setUpgradeSlots(1)
+                         .setTools(TinkerTags.Items.DURABILITY)
                          .build(consumer, prefix(TinkerModifiers.reinforced, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.overforced.get())
                                     .setInput(TinkerModifiers.slimesteelReinforcement, 1, 24)
                                     .setMaxLevel(5) // +250 capacity
                                     .setUpgradeSlots(1)
+                                    .setTools(TinkerTags.Items.DURABILITY)
                                     .build(consumer, prefix(TinkerModifiers.overforced, upgradeFolder));
+    // gems are special, I'd like them to be useful on all types of tools
     ModifierRecipeBuilder.modifier(TinkerModifiers.emerald.get())
                          .addInput(Tags.Items.GEMS_EMERALD)
                          .setMaxLevel(1)
@@ -512,7 +515,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setAbilitySlots(1)
                          .setTools(new IngredientWithout(new IngredientIntersection(Ingredient.fromTag(TinkerTags.Items.MELEE), Ingredient.fromTag(TinkerTags.Items.ONE_HANDED)), Ingredient.fromItems(TinkerTools.dagger)))
                          .build(consumer, prefix(TinkerModifiers.dualWielding, abilityFolder));
-    
     /*
      * extra modifiers
      */

@@ -49,7 +49,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
   @Override
   public boolean matches(ITinkerStationInventory inv, World world) {
-    if (!TinkerTags.Items.MODIFIABLE.contains(inv.getTinkerableStack().getItem())) {
+    if (!TinkerTags.Items.DURABILITY.contains(inv.getTinkerableStack().getItem())) {
       return false;
     }
     // must find at least one slime, but multiple is fine, as is empty slots
@@ -128,7 +128,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   /** Cache of modifier result, same for all overslime */
   private static final Lazy<ModifierEntry> RESULT = Lazy.of(() -> new ModifierEntry(TinkerModifiers.overslime.get(), 1));
   /** Cache of tools for input, same for all overslime */
-  private static final Lazy<List<ItemStack>> DISPLAY_TOOLS = Lazy.of(() -> IDisplayModifierRecipe.getAllModifiable().map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList()));
+  private static final Lazy<List<ItemStack>> DISPLAY_TOOLS = Lazy.of(() -> TinkerTags.Items.DURABILITY.getAllElements().stream().map(MAP_TOOL_FOR_RENDERING).collect(Collectors.toList()));
 
   private List<ItemStack> toolWithModifier = null;
   /** Cache of display outputs, value depends on recipe */
@@ -150,10 +150,10 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
       OverslimeModifier overslime = TinkerModifiers.overslime.get();
-      toolWithModifier = IDisplayModifierRecipe.getAllModifiable()
-                                               .map(MAP_TOOL_FOR_RENDERING)
-                                               .map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get(), data -> overslime.setOverslime(data, restoreAmount)))
-                                               .collect(Collectors.toList());
+      toolWithModifier = TinkerTags.Items.DURABILITY.getAllElements().stream()
+                                                    .map(MAP_TOOL_FOR_RENDERING)
+                                                    .map(stack -> IDisplayModifierRecipe.withModifiers(stack, null, RESULT.get(), data -> overslime.setOverslime(data, restoreAmount)))
+                                                    .collect(Collectors.toList());
     }
     return toolWithModifier;
   }

@@ -105,8 +105,11 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   public boolean matches(ITinkerStationInventory inv, World world) {
     // must be repairable
     ItemStack tinkerable = inv.getTinkerableStack();
-    // TODO: repairable tag instead?
-    if (tinkerable.isEmpty() || !TinkerTags.Items.MULTIPART_TOOL.contains(tinkerable.getItem())) {
+    // must be repairable and multipart to use this recipe
+    // if its not multipart, different recipe will be used to repair it (as it has a dedicated repair item)
+    if (tinkerable.isEmpty()
+        || !TinkerTags.Items.MULTIPART_TOOL.contains(tinkerable.getItem())
+        || !TinkerTags.Items.DURABILITY.contains(tinkerable.getItem())) {
       return false;
     }
 

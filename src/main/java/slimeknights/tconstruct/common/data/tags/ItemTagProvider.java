@@ -8,7 +8,9 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -27,6 +29,20 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
+
+import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
+import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
+import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_HARVEST;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_PRIMARY;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MODIFIABLE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MULTIPART_TOOL;
+import static slimeknights.tconstruct.common.TinkerTags.Items.ONE_HANDED;
+import static slimeknights.tconstruct.common.TinkerTags.Items.STONE_HARVEST;
+import static slimeknights.tconstruct.common.TinkerTags.Items.SWORD;
+import static slimeknights.tconstruct.common.TinkerTags.Items.TWO_HANDED;
 
 public class ItemTagProvider extends ItemTagsProvider {
 
@@ -144,72 +160,37 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 
   private void addTools() {
-    // harvest
-    // mine blocks
-    this.getOrCreateBuilder(TinkerTags.Items.STONE_HARVEST)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get());
-    this.getOrCreateBuilder(TinkerTags.Items.HARVEST_PRIMARY)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
-             TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-             TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
-             TinkerTools.kama.get(), TinkerTools.scythe.get());
-    this.getOrCreateBuilder(TinkerTags.Items.HARVEST)
-        .addTag(TinkerTags.Items.HARVEST_PRIMARY)
-        .addTag(TinkerTags.Items.STONE_HARVEST)
-        .add(TinkerTools.dagger.get(), TinkerTools.sword.get(), TinkerTools.cleaver.get());
+    // stone
+    addToolTags(TinkerTools.pickaxe,      MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE,         ONE_HANDED, AOE);
+    addToolTags(TinkerTools.sledgeHammer, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE_PRIMARY, TWO_HANDED, AOE);
+    addToolTags(TinkerTools.veinHammer,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE,         TWO_HANDED, AOE);
+    // dirt
+    addToolTags(TinkerTools.mattock,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, ONE_HANDED, AOE);
+    addToolTags(TinkerTools.excavator, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, TWO_HANDED, AOE);
+    // wood
+    addToolTags(TinkerTools.handAxe,  MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, ONE_HANDED, AOE);
+    addToolTags(TinkerTools.broadAxe, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, TWO_HANDED, AOE);
+    // plants
+    addToolTags(TinkerTools.kama,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE,         ONE_HANDED, AOE);
+    addToolTags(TinkerTools.scythe, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, TWO_HANDED, AOE);
+    // sword
+    addToolTags(TinkerTools.dagger,  MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED);
+    addToolTags(TinkerTools.sword,   MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, AOE);
+    addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, TWO_HANDED, SWORD, AOE);
 
-    // weapon
-    // can receive sweeping and a few other special sword modifiers
-    this.getOrCreateBuilder(TinkerTags.Items.SWORD)
-        .add(TinkerTools.sword.get(), TinkerTools.cleaver.get());
-    // support all weapon modifiers
-    this.getOrCreateBuilder(TinkerTags.Items.MELEE_PRIMARY)
-        .add(TinkerTools.dagger.get(), TinkerTools.sword.get(), TinkerTools.cleaver.get(),
-             TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
-             TinkerTools.sledgeHammer.get(), TinkerTools.scythe.get());
-    // can receive damage boosts
-    this.getOrCreateBuilder(TinkerTags.Items.MELEE)
-        .addTag(TinkerTags.Items.MELEE_PRIMARY)
-        .addTag(TinkerTags.Items.SWORD)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.veinHammer.get(),
-             TinkerTools.kama.get(), TinkerTools.scythe.get(),
-             TinkerTools.mattock.get(), TinkerTools.excavator.get());
-
-    // supports modifiers
-    this.getOrCreateBuilder(TinkerTags.Items.MELEE_OR_HARVEST)
-        .addTag(TinkerTags.Items.MELEE)
-        .addTag(TinkerTags.Items.HARVEST);
-
-    // special
-    // support expanders
-    this.getOrCreateBuilder(TinkerTags.Items.AOE)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
-						 TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-						 TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
-						 TinkerTools.kama.get(), TinkerTools.scythe.get(),
-						 TinkerTools.sword.get(), TinkerTools.cleaver.get());
-    this.getOrCreateBuilder(TinkerTags.Items.ONE_HANDED)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.mattock.get(),
-             TinkerTools.handAxe.get(), TinkerTools.kama.get(),
-             TinkerTools.dagger.get(), TinkerTools.sword.get());
-    this.getOrCreateBuilder(TinkerTags.Items.TWO_HANDED)
-        .add(TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
-             TinkerTools.excavator.get(), TinkerTools.broadAxe.get(),
-             TinkerTools.scythe.get(), TinkerTools.cleaver.get());
-    // multipart is basically all our tools right now, but future armor/shields won't be
-    // required for part swapping and a few other things
-    this.getOrCreateBuilder(TinkerTags.Items.MULTIPART_TOOL)
-        .add(TinkerTools.pickaxe.get(), TinkerTools.sledgeHammer.get(), TinkerTools.veinHammer.get(),
-             TinkerTools.mattock.get(), TinkerTools.excavator.get(),
-             TinkerTools.handAxe.get(), TinkerTools.broadAxe.get(),
-             TinkerTools.kama.get(), TinkerTools.scythe.get(),
-             TinkerTools.dagger.get(), TinkerTools.sword.get(), TinkerTools.cleaver.get());
+    // add tags to other tags
+    // harvest primary and stone harvest are both automatically harvest
+    this.getOrCreateBuilder(TinkerTags.Items.HARVEST).addTag(HARVEST_PRIMARY).addTag(STONE_HARVEST);
+    // melee primary and swords
+    this.getOrCreateBuilder(MELEE).addTag(MELEE_PRIMARY).addTag(SWORD);
+    // modifier helper tag
+    this.getOrCreateBuilder(MELEE_OR_HARVEST).addTag(MELEE).addTag(HARVEST);
 
     // general
-    this.getOrCreateBuilder(TinkerTags.Items.MODIFIABLE)
-        .addTag(TinkerTags.Items.MULTIPART_TOOL)
-        .addTag(TinkerTags.Items.MELEE_OR_HARVEST)
-        .addTag(TinkerTags.Items.AOE);
+    this.getOrCreateBuilder(MODIFIABLE)
+        .addTag(MULTIPART_TOOL).addTag(DURABILITY)
+        .addTag(MELEE_OR_HARVEST).addTag(AOE)
+        .addTag(ONE_HANDED).addTag(TWO_HANDED);
     this.getOrCreateBuilder(MantleTags.Items.OFFHAND_COOLDOWN).addTag(TinkerTags.Items.MELEE);
 
     // kamas are a shear type, when broken we don't pass it to loot tables
@@ -315,5 +296,13 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(metal.getNuggetTag()).add(metal.getNugget());
     this.getOrCreateBuilder(Tags.Items.NUGGETS).addTag(metal.getNuggetTag());
     this.copy(metal.getBlockTag(), metal.getBlockItemTag());
+  }
+
+  @SafeVarargs
+  private final void addToolTags(IItemProvider tool, INamedTag<Item>... tags) {
+    Item item = tool.asItem();
+    for (INamedTag<Item> tag : tags) {
+      this.getOrCreateBuilder(tag).add(item);
+    }
   }
 }

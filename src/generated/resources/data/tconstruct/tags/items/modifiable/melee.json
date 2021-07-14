@@ -1,13 +1,12 @@
 {
   "replace": false,
   "values": [
-    "#tconstruct:modifiable/melee/primary",
-    "#tconstruct:modifiable/melee/sword",
     "tconstruct:pickaxe",
     "tconstruct:vein_hammer",
-    "tconstruct:kama",
-    "tconstruct:scythe",
     "tconstruct:mattock",
-    "tconstruct:excavator"
+    "tconstruct:excavator",
+    "tconstruct:kama",
+    "#tconstruct:modifiable/melee/primary",
+    "#tconstruct:modifiable/melee/sword"
   ]
 }

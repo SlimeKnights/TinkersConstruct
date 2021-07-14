@@ -6,7 +6,7 @@
   "amount_per_item": 1,
   "needed_per_level": 24,
   "tools": {
-    "tag": "tconstruct:modifiable"
+    "tag": "tconstruct:modifiable/durability"
   },
   "result": {
     "name": "tconstruct:overforced",
