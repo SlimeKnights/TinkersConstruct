@@ -5,6 +5,7 @@
       "text": "Replaces mined blocks with the block held in the offhand."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Maximum of 1 level",
     "Requires 1 ability slot"

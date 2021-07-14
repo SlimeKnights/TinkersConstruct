@@ -5,6 +5,7 @@
       "text": "Grants +5 mining speed per level."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Can apply levels incrementally",
     "Maximum of 5 levels",

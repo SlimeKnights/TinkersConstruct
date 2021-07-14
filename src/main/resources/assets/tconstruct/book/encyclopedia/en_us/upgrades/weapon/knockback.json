@@ -5,6 +5,7 @@
       "text": "Grants 0.5 knockback per level"
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Maximum of 5 levels",
     "Requires 1 upgrade slot per level"

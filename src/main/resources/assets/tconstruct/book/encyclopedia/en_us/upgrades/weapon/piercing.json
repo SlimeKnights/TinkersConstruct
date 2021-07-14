@@ -5,6 +5,7 @@
       "text": "Adds +0.5 damage per level, multiplied by the tools attack multiplier. The additional damage pierces armor."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Can apply levels incrementally",
     "Maximum of 5 levels",

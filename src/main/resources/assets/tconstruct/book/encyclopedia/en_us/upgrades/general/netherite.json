@@ -5,6 +5,7 @@
       "text": "Grants +20% durability, +10% attack damage, and +10% mining speed. Increases the mining level to netherite, and makes the tool invulnerable when dropped."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Maximum of 1 level",
     "Requires Diamond or Emerald to be applied",

@@ -35,11 +35,8 @@ import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
 public class ContentModifier extends TinkerPage {
-
   public static final transient String ID = "modifier";
-
   public static final transient int TEX_SIZE = 256;
-
   public static final ResourceLocation BOOK_MODIFY = TConstruct.getResource("textures/gui/book/modify.png");
 
   public static final transient ImageData IMG_SLOT_1 = new ImageData(BOOK_MODIFY, 0, 75, 22, 22, TEX_SIZE, TEX_SIZE);
@@ -47,9 +44,7 @@ public class ContentModifier extends TinkerPage {
   public static final transient ImageData IMG_SLOT_3 = new ImageData(BOOK_MODIFY, 0, 119, 58, 22, TEX_SIZE, TEX_SIZE);
   public static final transient ImageData IMG_SLOT_4 = new ImageData(BOOK_MODIFY, 0, 141, 40, 40, TEX_SIZE, TEX_SIZE);
   public static final transient ImageData IMG_SLOT_5 = new ImageData(BOOK_MODIFY, 0, 181, 58, 41, TEX_SIZE, TEX_SIZE);
-
   public static final transient ImageData IMG_TABLE = new ImageData(BOOK_MODIFY, 214, 0, 42, 46, TEX_SIZE, TEX_SIZE);
-
   public static final transient ImageData[] IMG_SLOTS = new ImageData[]{IMG_SLOT_1, IMG_SLOT_2, IMG_SLOT_3, IMG_SLOT_4, IMG_SLOT_5};
 
   public static final transient int[] SLOTS_X = new int[]{3, 21, 39, 12, 30};
@@ -65,6 +60,7 @@ public class ContentModifier extends TinkerPage {
 
   public TextData[] text;
   public String[] effects;
+  public boolean more_text_space = false;
 
   @SerializedName("modifier_id")
   public String modifierID;
@@ -95,7 +91,7 @@ public class ContentModifier extends TinkerPage {
     this.addTitle(list, this.modifier.getDisplayName().getString(), true, this.modifier.getColor());
 
     // description
-    int h = BookScreen.PAGE_HEIGHT * 2 / 5;
+    int h = more_text_space ? BookScreen.PAGE_HEIGHT * 2 / 5 : BookScreen.PAGE_HEIGHT * 2 / 7;
     list.add(new TextElement(5, 16, BookScreen.PAGE_WIDTH - 10, h, text));
 
     if (this.effects.length > 0) {

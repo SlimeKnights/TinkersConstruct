@@ -5,6 +5,7 @@
       "text": "Prevents using the main hand's interaction ability if the offhand is occupied. For example, an axe will not strip wood if a shield is in the offhand. On two handed tools, this effectively makes it one handed, allowing the use of the offhand again."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Maximum of 1 level",
     "Requires 1 upgrade slot"

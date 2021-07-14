@@ -5,6 +5,7 @@
       "text": "Increases the maximum distance from the player this tool can mine by 1 block per level."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "No max level",
     "Requires 1 ability slot per level"

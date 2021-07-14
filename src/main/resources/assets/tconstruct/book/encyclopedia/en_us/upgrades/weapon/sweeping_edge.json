@@ -5,6 +5,7 @@
       "text": "Increases the amount of damage dealt by the swords sweep attack. Causes the tool to deal 50% of the main attack's damage at level 1, 67% of the damage at level 2, 75% at level 3, and 80% at level 4."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Can apply levels incrementally",
     "Maximum of 4 levels",

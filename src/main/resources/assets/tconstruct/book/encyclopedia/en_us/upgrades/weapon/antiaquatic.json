@@ -5,6 +5,7 @@
       "text": "Grants +2.5 damage per level against aquatic mobs."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Can apply levels incrementally",
     "Maximum of 5 levels",

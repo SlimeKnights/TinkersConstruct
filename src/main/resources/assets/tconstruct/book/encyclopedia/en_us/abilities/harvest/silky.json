@@ -5,6 +5,7 @@
       "text": "Causes mined blocks to drop themselves unmodified. Additionally allows shearing mobs for swords, cleavers, scythes, and daggers."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Maximum of 1 level",
     "Requires 1 ability slot"

@@ -5,6 +5,7 @@
       "text": "Grants +1 damage per level, multiplied by the tools attack multiplier."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Can apply levels incrementally",
     "Maximum of 5 levels",

@@ -5,6 +5,7 @@
       "text": "Grants +1 mining speed per level at light levels of 5, +3 mining speed per level at light levels of 10, and +9 mining speed per level at light levels of 15."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Can apply levels incrementally",
     "Maximum of 5 levels",

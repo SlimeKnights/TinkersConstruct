@@ -5,6 +5,7 @@
       "text": "Grants +500 durability, +1 attack damage, and +1 mining speed. Additionally boosts the tools harvest level to diamond."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Maximum of 1 level",
     "Requires 1 upgrade slot"

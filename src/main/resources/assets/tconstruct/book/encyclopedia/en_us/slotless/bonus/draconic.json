@@ -5,6 +5,7 @@
       "text": "Grants +1 ability slot."
     }
   ],
+  "more_text_space": true,
   "effects": [
 	  "Single use",
     "Slotless"

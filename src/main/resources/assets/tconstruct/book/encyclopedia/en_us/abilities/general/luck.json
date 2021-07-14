@@ -5,6 +5,7 @@
       "text": "Increases drop rates from both blocks and monsters. Note that unlike other modifiers which have multiple recipes, luck requires a different recipe for each level, and the recipes must be applied in order."
     }
   ],
+  "more_text_space": true,
   "effects": [
     "Maximum of 3 levels",
     "First level requires 1 ability slot",
