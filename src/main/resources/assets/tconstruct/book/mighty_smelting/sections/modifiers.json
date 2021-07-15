@@ -1,0 +1,82 @@
+[
+ 
+  {
+    "name": "general",
+    "type": "text",
+    "data": "modifiers/general.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/dual_wielding.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/draconic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/gilded.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/luck.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/melting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/unbreakable.json"
+  },
+  {
+    "name": "harvest",
+    "type": "text",
+    "data": "modifiers/harvest.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/autosmelt.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/exchanging.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/expanded.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/reach.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/silky.json"
+  },
+  {
+    "name": "interact",
+    "type": "text",
+    "data": "modifiers/interact.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/bucketing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/glowing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/pathing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/stripping.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/tilling.json"
+  }
+]

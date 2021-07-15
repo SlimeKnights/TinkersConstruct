@@ -1,16 +1,59 @@
 // Sections
+Mighty Smelting
 intro=Introduction
 materials=Tool materials
-bowmaterials=Bow materials
 tools=Tools
-modifiers=Modifiers
+modifiers=Abilities
 smeltery=Smeltery
-seared_furnace=Seared Furnace
-tinker_tank=Tinker Tank
+alloying=Alloying
+
+repairing=Repairing
+offhand=Offhand Harvesting
+
+modifier.effect=Effects:
+tool.properties=Properties:
+entity_melting=Entity Melting
 tier_three_materials=Tier 3 Materials
-tier_four_materials=Tier 4 Materials
+molten_blaze=Molten Blaze
+tools=Broad Tools
+
+bonus_upgrades=§1§lUpgrades++§r
+general=§1§lGeneral§r
+harvest=§1§lHarvest§r
+weapon=§1§lWeapon§r
+slotless=§1§lSlotless§r
+ability=§1§lAbility§r
+further_reading=Further Reading
+terminology=Terminology
+interact=§1§lInteract§r
+
+controller=Controller
+structure=Structure
+seared_tanks=Seared Tanks
+seared_blocks=Seared Blocks
+seared_ladder=Seared Ladder
+seared_glass=Seared Glass
+seared_drain=Seared Drain
+seared_duct=Seared Duct
+seared_chute=Seared Chute
+sgui1=Smeltery GUI Image
+sgui2=Smeltery GUI Explanation
+features=Features
+structurereq=The Structure Requirements
+
 
 modifier.effect=Effects:
 tool.properties=Properties:
 
-material.tconstruct.nahuatl.book=An ancient material made from casting molten obsidian on wooden parts
+material.craft_partbuilder=Can be crafted in the Part Builder
+material.craft_casting=Can be cast from
+
+material.tconstruct.slimesteel.book=You must steal the slime to get slimesteel.
+material.tconstruct.bronze.book=Not to be confused with Tinker's Bronze.
+material.tconstruct.tinkers_bronze.book=Not to be confused with Bronze.
+material.tconstruct.nahuatl.book=This is not an obsidian part, if it was it would say "Obsidian."
+material.tconstruct.pig_iron.book=The absolute best material, no debates.
+material.tconstruct.rose_gold.book=Disclaimer: Not actually made with roses.
+material.tconstruct.constantan.book=Constantantantantantantan... Sorry it's fun to add more "tans."
+material.tconstruct.electrum.book=Good for electronic components.
+material.tconstruct.cobalt.book=Coblat. The material of the Red Army.

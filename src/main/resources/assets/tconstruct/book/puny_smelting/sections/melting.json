@@ -1,0 +1,22 @@
+[
+  {
+    "name": "melter",
+    "type": "image with text below",
+    "data": "melting/melter.json"
+  },
+  {
+    "name": "features",
+    "type": "text",
+    "data": "melting/features.json"
+  },
+  {
+    "name": "meltergui",
+    "type": "imageText2",
+    "data": "melting/meltergui.json"
+  },
+  {
+    "name": "meltergui2",
+    "type": "text",
+    "data": "melting/meltergui2.json"
+  }
+]

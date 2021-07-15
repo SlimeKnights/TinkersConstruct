@@ -13,5 +13,10 @@
     "name": "tinkergadgetry_craft",
     "type": "crafting",
     "data": "furtherreading/gadget_craft.json"
+  },
+  {
+    "name": "fantasticfoundry_craft",
+    "type": "crafting",
+    "data": "furtherreading/fantastic_foundry_craft.json"
   }
 ]

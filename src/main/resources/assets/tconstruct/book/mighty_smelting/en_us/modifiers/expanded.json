@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "Bigger is always better right?"
+    }
+  ],
+  "effects": [
+    "Increases mining width & height",
+	"Range is different on every tool",
+    "Multiple levels, each level increases width & height by one",
+    "Requires 1 Ability slot per level"
+  ]
+}

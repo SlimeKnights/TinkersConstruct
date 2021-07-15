@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:dagger",
+  "text": [
+    {
+      "text": "The dagger is a versatile weapon for the quick warrior. It has low damage with higher speed allowing for quick fast attacks. The dagger is also able to be used in your off-hand for double the daggers."
+    },
+    {
+      "text": "\n"
+    }
+  ],
+  "properties": [
+    "Low Damage",
+	"High Speed",
+    "Able to use in off-hand"
+  ]
+}

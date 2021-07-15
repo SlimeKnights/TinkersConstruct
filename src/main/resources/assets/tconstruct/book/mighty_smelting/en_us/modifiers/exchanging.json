@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:exchanging",
+  "text": [
+    {
+      "text": "Using this may or may not make a giant boulder start chasing you since you can't exchange things right."
+    }
+  ],
+  "effects": [
+     "Blocks broken are replaced by blocks in the offhand",
+    "Single Level",
+    "Requires 1 Ability Slot"
+  ]
+}

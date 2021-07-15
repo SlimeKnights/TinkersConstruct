@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:autosmelt",
+  "text": [
+    {
+      "text": "The fires of hell are useful for turning up the heat."
+    }
+  ],
+  "effects": [
+    "Drops from all blocks are smelted if possible",
+    "Single Level",
+    "Requires 1 Ability Slot"
+  ]
+}

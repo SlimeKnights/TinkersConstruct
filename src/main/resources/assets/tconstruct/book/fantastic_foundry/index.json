@@ -8,12 +8,30 @@
       }
     }
   },
-  {
-    "name": "molten_blaze",
-    "data": "sections/molten_blaze.json",
+   {
+    "name": "alloyer",
+    "data": "sections/alloyer.json",
     "icon": {
       "item": {
-        "id": "tconstruct:molten_blaze_bucket"
+        "id": "tconstruct:scorched_alloyer"
+      }
+    }
+  },
+  {
+    "name": "foundry",
+    "data": "sections/foundry.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:foundry_controller"
+      }
+    }
+  },
+  {
+    "name": "blazing_blood",
+    "data": "sections/blazing_blood.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:blazing_blood_bucket"
       }
     }
   },

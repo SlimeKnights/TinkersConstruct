@@ -1,0 +1,41 @@
+[
+  {
+	"name": "sless",
+    "type": "text",
+    "data": "slotless/slotless.json"
+  },
+   {
+    "type": "modifier",
+    "data": "slotless/overslime.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/shiny.json"
+  },
+   {
+    "type": "modifier",
+    "data": "slotless/worldbound.json"
+  },
+    {
+	"name": "bonus_upgrades",
+    "type": "text",
+    "data": "slotless/bonus_upgrades.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/harmonious.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/recapitated.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/resurrected.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/writable.json"
+  }
+  
+]

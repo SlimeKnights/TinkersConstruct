@@ -1,19 +1,40 @@
 // Sections
+Puny Smelting
 intro=Introduction
 materials=Tool materials
-bowmaterials=Bow materials
 tools=Tools
-modifiers=Modifiers
-smeltery=Smeltery
-seared_furnace=Seared Furnace
-tinker_tank=Tinker Tank
-tier_two_materials=Tier 2 Materials
+modifiers=Upgrades
+melter=Melter
 
-repairing=Repairing
-offhand=Offhand Harvesting
-bolt_core=Bolt Crafting
+bonus_upgrades=§1§lUpgrades++§r
+general=§1§lGeneral§r
+harvest=§1§lHarvest§r
+weapon=§1§lWeapon§r
+ability=§1§lAbility§r
+further_reading=Further Reading
+terminology=Terminology
+slotless=Slotless Modifier
+sless=§1§lSlotless§r
 
 modifier.effect=Effects:
 tool.properties=Properties:
 
-material.tconstruct.slimewood.book=Casting liquid earth slime on wood parts produces a durable, regenerative material!
+tier_two_materials=Tier 2 Materials
+casting=Casting
+channels=Channels
+moving_fluids=Moving Fluids
+
+
+modifier.effect=Effects:
+tool.properties=Properties:
+
+material.craft_partbuilder=Can be crafted in the Part Builder
+material.craft_casting=Can be cast from
+
+material.tconstruct.iron.book=Ironic. He could save others from death, but not himself.
+material.tconstruct.copper.book=Don't let this tarnish your day.
+material.tconstruct.seared_stone.book=Hotter Grout.
+material.tconstruct.scorched_stone.book=Founders edition bonus.
+material.tconstruct.slimewood.book=Is this the wood of a slime or slime that's been infused with wood?
+material.tconstruct.lead.book=Could try and make a sandwhich out of this.
+material.tconstruct.silver.book=You know, this tool isn't going to look so shiny in a few days.

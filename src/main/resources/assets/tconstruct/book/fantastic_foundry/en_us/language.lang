@@ -1,19 +1,50 @@
 // Sections
+Fantastic Foundry
+
 intro=Introduction
 materials=Tool materials
-bowmaterials=Bow materials
 tools=Tools
 modifiers=Modifiers
 smeltery=Smeltery
-seared_furnace=Seared Furnace
-tinker_tank=Tinker Tank
-tier_three_materials=Tier 3 Materials
 tier_four_materials=Tier 4 Materials
 
-molten_blaze=Molten Blaze
+bonus_upgrades=§1§lUpgrades++§r
+general=§1§lGeneral§r
+harvest=§1§lHarvest§r
+weapon=§1§lWeapon§r
+slotless=§1§lSlotless§r
+ability=§1§lAbility§r
+further_reading=Further Reading
+terminology=Terminology
+
+foundry=Foundry
+controller=Controller
+structure=Structure
+scorched_tanks=Scorched Tanks
+scorched_blocks=Scorched Blocks
+scorched_ladder=Scorched Ladder
+scorched_glass=Scorched Glass
+scorched_drain=Scorched Drain
+scorched_duct=Scorched Duct
+scorched_chute=Scorched Chute
+fgui1=Foundry GUI Image
+fgui2=Foundry GUI Explination
+features=Features
+structurereq=The Structure Requirements 
+alloyer=Alloyer
+
+modifier.effect=Effects:
+tool.properties=Properties:
+
+blazing_blood=Blazing Blood
+byproducts=Byproducts
 
 modifier.effect=Effects:
 tool.properties=Properties:
 
 material.craft_partbuilder=Can be crafted in the Part Builder
 material.craft_casting=Can be cast from
+
+material.tconstruct.queens_slime.book=Princesses are evil, get yourself a Queen.
+material.tconstruct.hepatizon.book=He-pa-ti-zon
+material.tconstruct.manyullyn.book=The metal that most Tinkers will never pronounce right. Also known as a star cutting material.

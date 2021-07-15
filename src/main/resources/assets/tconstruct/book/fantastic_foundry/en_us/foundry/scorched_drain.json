@@ -1,0 +1,16 @@
+{
+  "title": "Scorched Drain",
+  "item": {
+    "id": "tconstruct:scorched_drain"
+  },
+ "text": [
+    {
+      "text": "The drain is your input/output of the smeltery when it comes to fluids. You can use faucets or pipes from your favorite mod on the drain to pour out fluids. Buckets, copper cans, and channels may be used on the drain to input or take out fluids.",
+      "paragraph": true
+    },
+	{
+      "text": "The fluid rendered in the middle of the drain will be the next one to pour out.",
+      "paragraph": true
+    }
+  ]
+}

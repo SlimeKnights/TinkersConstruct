@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:luck",
+  "text": [
+    {
+      "text": "In my experience, there's no such thing as luck."
+    }
+  ],
+  "effects": [
+    "Increases mob drops and block drops",
+    "Single Level, Tier can be increased with other recipes",
+    "Requires 1 Ability Slot for the first tier only, following tiers do not need another slot"
+  ]
+}

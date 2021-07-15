@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:cooling",
+  "text": [
+    {
+      "text": "The best way to beat the fires of nether is to freeze them, extinguishing their eternal flame."
+    }
+  ],
+  "effects": [
+    "Increases damage to fire based creatures",
+	"Multiple levels, each level increases damage further",
+    "Requires 1 Upgrade Slot per level"
+  ]
+}
