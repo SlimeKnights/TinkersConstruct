@@ -36,6 +36,8 @@ import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ModList;
@@ -44,6 +46,7 @@ import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.events.MaterialsLoadedEvent;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -92,6 +95,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
@@ -105,7 +109,7 @@ public class JEIPlugin implements IModPlugin {
   private final MaterialReloadListener materialReloader;
   public JEIPlugin() {
     this.materialReloader = new MaterialReloadListener();
-    MaterialRegistry.addMaterialsLoadedListener(this.materialReloader);
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, MaterialsLoadedEvent.class, this.materialReloader);
   }
 
   @Override
@@ -375,7 +379,7 @@ public class JEIPlugin implements IModPlugin {
   }
 
   /** Logic to run when the material registry reloads */
-  private static class MaterialReloadListener implements Runnable {
+  private static class MaterialReloadListener implements Consumer<MaterialsLoadedEvent> {
     private IIngredientManager manager;
 
     /** Run on the main thread when ready */
@@ -392,12 +396,17 @@ public class JEIPlugin implements IModPlugin {
       }
     }
 
-    @Override
+    /** Runs the listener */
     public void run() {
       // note this does not remove old tool parts from the previous materials list, though that is only an issue if the reload command is used
       if (manager != null && !MaterialRegistry.getMaterials().isEmpty()) {
         Minecraft.getInstance().execute(this::deferredRun);
       }
+    }
+
+    @Override
+    public void accept(MaterialsLoadedEvent event) {
+      run();
     }
   }
 }

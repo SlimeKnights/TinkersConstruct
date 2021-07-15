@@ -14,6 +14,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.PacketDistributor.PacketTarget;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.events.MaterialsLoadedEvent;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
@@ -29,9 +30,7 @@ import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public final class MaterialRegistry {
   protected static MaterialRegistry INSTANCE;
@@ -47,7 +46,6 @@ public final class MaterialRegistry {
   private static boolean traitsLoaded = false;
   /** True if the material registry is fully loaded on the client */
   private static boolean fullyLoaded = false;
-  private static final List<Runnable> onMaterialReload = new ArrayList<>();
 
   public static IMaterialRegistry getInstance() {
     return INSTANCE.registry;
@@ -163,14 +161,6 @@ public final class MaterialRegistry {
 
   /* Loading */
 
-  /**
-   * Adds a runnable called when materials are all reloaded
-   * @param listener  Runnable to call
-   */
-  public static void addMaterialsLoadedListener(Runnable listener) {
-    onMaterialReload.add(listener);
-  }
-
   /** Checks if all three material types have loaded, running callbacks if they have */
   private static void checkAllLoaded() {
     if (materialsLoaded && statsLoaded && traitsLoaded) {
@@ -178,7 +168,7 @@ public final class MaterialRegistry {
       statsLoaded = false;
       traitsLoaded = false;
       fullyLoaded = true;
-      onMaterialReload.forEach(Runnable::run);
+      MinecraftForge.EVENT_BUS.post(new MaterialsLoadedEvent());
     } else {
       fullyLoaded = false;
     }
@@ -206,7 +196,7 @@ public final class MaterialRegistry {
     // when a client is connecting to a dedicated server, this event does not fire at all client side
     if (FMLEnvironment.dist == Dist.CLIENT) {
       fullyLoaded = true;
-      onMaterialReload.forEach(Runnable::run);
+      MinecraftForge.EVENT_BUS.post(new MaterialsLoadedEvent());
     } else if (player instanceof ServerPlayerEntity) {
       ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
       TinkerNetwork network = TinkerNetwork.getInstance();

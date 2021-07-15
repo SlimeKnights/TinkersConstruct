@@ -22,7 +22,7 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.tools.events.TinkerToolEvent.ToolHarvestEvent;
+import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;

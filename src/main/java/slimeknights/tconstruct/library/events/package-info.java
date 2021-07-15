@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.tools.events;
+package slimeknights.tconstruct.library.events;
 
 import mcp.MethodsReturnNonnullByDefault;
 

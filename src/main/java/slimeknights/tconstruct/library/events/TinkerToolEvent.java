@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools.events;
+package slimeknights.tconstruct.library.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
