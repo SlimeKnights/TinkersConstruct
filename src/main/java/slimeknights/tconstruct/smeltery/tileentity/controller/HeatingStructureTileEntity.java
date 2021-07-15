@@ -69,8 +69,8 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   /** Position of the block causing the structure to not form */
   @Nullable @Getter
   private BlockPos errorPos;
-  /** World tick time when the error position becomes invisible without holding the book */
-  private long errorVisibleUntil = 0L;
+  /** Number of ticks the error will remain visible for */
+  private int errorVisibleFor = 0;
 
   /* Saved data, written to NBT */
   /** Current structure contents */
@@ -151,6 +151,9 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
   @Override
   public void tick() {
     if (world == null || world.isRemote) {
+      if (errorVisibleFor > 0) {
+        errorVisibleFor--;
+      }
       return;
     }
     // invalid state, just a safety check in case its air somehow
@@ -460,13 +463,13 @@ public abstract class HeatingStructureTileEntity extends NamableTileEntity imple
     this.errorPos = errorPos;
     if (errorPos != null && this.world != null) {
       // 10 seconds after its set
-      this.errorVisibleUntil = this.world.getGameTime() + 200;
+      this.errorVisibleFor = 200;
     }
   }
 
   /** If true, the error position should be visible */
   public boolean isHighlightError() {
-    return this.world != null && this.world.getGameTime() < this.errorVisibleUntil;
+    return errorVisibleFor > 0;
   }
 
 
