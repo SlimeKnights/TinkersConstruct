@@ -1,0 +1,82 @@
+[
+ 
+  {
+    "name": "general",
+    "type": "tinkers_text",
+    "data": "abilities/general.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/general/dual_wielding.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/general/draconic.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/general/gilded.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/general/luck.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/general/melting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/general/unbreakable.json"
+  },
+  {
+    "name": "harvest",
+    "type": "tinkers_text",
+    "data": "abilities/harvest.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/harvest/autosmelt.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/harvest/exchanging.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/harvest/expanded.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/harvest/reach.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/harvest/silky.json"
+  },
+  {
+    "name": "interact",
+    "type": "tinkers_text",
+    "data": "abilities/interact.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/interact/bucketing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/interact/glowing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/interact/pathing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/interact/stripping.json"
+  },
+  {
+    "type": "modifier",
+    "data": "abilities/interact/tilling.json"
+  }
+]

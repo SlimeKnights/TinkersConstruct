@@ -1,41 +1,40 @@
 [
   {
-	"name": "sless",
-    "type": "text",
+	"name": "slotless",
+    "type": "tinkers_text",
     "data": "slotless/slotless.json"
-  },
-   {
-    "type": "modifier",
-    "data": "slotless/overslime.json"
   },
   {
     "type": "modifier",
-    "data": "slotless/shiny.json"
+    "data": "slotless/general/overslime.json"
+  },
+  {
+    "type": "modifier",
+    "data": "slotless/general/shiny.json"
   },
    {
     "type": "modifier",
-    "data": "slotless/worldbound.json"
+    "data": "slotless/general/worldbound.json"
   },
-    {
-	"name": "bonus_upgrades",
-    "type": "text",
+  {
+    "name": "bonus_upgrades",
+    "type": "tinkers_text",
     "data": "slotless/bonus_upgrades.json"
   },
   {
     "type": "modifier",
-    "data": "slotless/harmonious.json"
+    "data": "slotless/bonus/harmonious.json"
   },
   {
     "type": "modifier",
-    "data": "slotless/recapitated.json"
+    "data": "slotless/bonus/recapitated.json"
   },
   {
     "type": "modifier",
-    "data": "slotless/resurrected.json"
+    "data": "slotless/bonus/resurrected.json"
   },
   {
     "type": "modifier",
-    "data": "slotless/writable.json"
+    "data": "slotless/bonus/writable.json"
   }
-  
 ]

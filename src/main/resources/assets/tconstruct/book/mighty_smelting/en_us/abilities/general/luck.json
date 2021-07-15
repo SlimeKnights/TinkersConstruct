@@ -7,7 +7,7 @@
   ],
   "effects": [
     "Increases mob drops and block drops",
-    "Single Level, Tier can be increased with other recipes",
-    "Requires 1 Ability Slot for the first tier only, following tiers do not need another slot"
+    "Maximum of 3 levels, different recipe for each level",
+    "Requires 1 Ability Slot for the first level, following levels do not need another slot"
   ]
 }

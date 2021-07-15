@@ -4,17 +4,17 @@
     {
       "text": "Since my foundry can't alloy I have created a solution for you that is simple to use."
     },
-	{
+    {
       "text": "\n"
     },
-	{
-      "text": "• The fuel tank can be replaced with a heater"
+    {
+      "text": "• Requires a fuel tank or a heater, better fuel allows making better alloys"
     },
-	{
+    {
       "text": "\n"
     },
-	{
-      "text": "• Adding more tanks around the alloyer gives you more metals to alloy with at once"
+    {
+      "text": "• Takes input from tanks around the alloyer, adding more tanks gives you more metals to alloy with at once"
     }
     
   ]

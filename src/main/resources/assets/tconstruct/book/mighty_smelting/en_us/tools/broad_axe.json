@@ -12,9 +12,8 @@
     }
   ],
   "properties": [
-    "Requires a Tinker's Anvil",
     "Advanced chopping tool",
     "Able to destroy a whole tree in one chop",
-	"Able to strip a whole tree in one interaction"
+    "Able to strip a whole tree in one interaction"
   ]
 }

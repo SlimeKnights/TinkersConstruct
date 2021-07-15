@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -38,6 +39,7 @@ public class ContentModifier extends TinkerPage {
   public static final transient String ID = "modifier";
   public static final transient int TEX_SIZE = 256;
   public static final ResourceLocation BOOK_MODIFY = TConstruct.getResource("textures/gui/book/modify.png");
+  private static final transient String KEY_EFFECTS = TConstruct.makeTranslationKey("book", "modifiers.effect");
 
   public static final transient ImageData IMG_SLOT_1 = new ImageData(BOOK_MODIFY, 0, 75, 22, 22, TEX_SIZE, TEX_SIZE);
   public static final transient ImageData IMG_SLOT_2 = new ImageData(BOOK_MODIFY, 0, 97, 40, 22, TEX_SIZE, TEX_SIZE);
@@ -95,7 +97,7 @@ public class ContentModifier extends TinkerPage {
     list.add(new TextElement(5, 16, BookScreen.PAGE_WIDTH - 10, h, text));
 
     if (this.effects.length > 0) {
-      TextData head = new TextData(this.parent.translate("modifier.effect"));
+      TextData head = new TextData(I18n.format(KEY_EFFECTS));
       head.underlined = true;
 
       list.add(new TextElement(5, 16 + h, BookScreen.PAGE_WIDTH / 2 - 5, BookScreen.PAGE_HEIGHT - h - 20, head));

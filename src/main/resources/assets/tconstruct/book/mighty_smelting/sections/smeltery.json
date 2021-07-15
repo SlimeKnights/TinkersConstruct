@@ -10,14 +10,13 @@
     "data": "smeltery/features.json"
   },
   {
-    "name": "alloying",
-    "type": "text",
-    "data": "smeltery/alloying.json"
-  },
-  {
     "name": "controller",
     "type": "image with text below",
     "data": "smeltery/controller.json"
+  },
+  {
+    "name": "hidden",
+    "type": "right_padding"
   },
   {
     "name": "structure",
@@ -28,6 +27,11 @@
     "name": "structurereq",
     "type": "text",
     "data": "smeltery/structurerequirements.json"
+  },
+  {
+    "name": "alloying",
+    "type": "text",
+    "data": "smeltery/alloying.json"
   },
   {
     "name": "seared_tanks",
@@ -63,6 +67,10 @@
     "name": "seared_chute",
     "type": "showcase",
     "data": "smeltery/seared_chute.json"
+  },
+  {
+    "name": "hidden",
+    "type": "right_padding"
   },
   {
     "name": "sgui1",

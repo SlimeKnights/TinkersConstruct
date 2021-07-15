@@ -1,35 +1,18 @@
-// Sections
-Puny Smelting
+// Sections - Puny Smelting
 intro=Introduction
-materials=Tool materials
-tools=Tools
-modifiers=Upgrades
 melter=Melter
-
-bonus_upgrades=§1§lUpgrades++§r
-general=§1§lGeneral§r
-harvest=§1§lHarvest§r
-weapon=§1§lWeapon§r
-ability=§1§lAbility§r
-further_reading=Further Reading
-terminology=Terminology
-slotless=Slotless Modifier
-sless=§1§lSlotless§r
-
-modifier.effect=Effects:
-tool.properties=Properties:
-
-tier_two_materials=Tier 2 Materials
-casting=Casting
-channels=Channels
 moving_fluids=Moving Fluids
+casting=Casting
+tier_two_materials=Tier 2 Materials
 
+upgrades=Upgrades
+upgrades.general=§1§lGeneral§r
+upgrades.harvest=§1§lHarvest§r
+upgrades.weapon=§1§lWeapon§r
 
-modifier.effect=Effects:
-tool.properties=Properties:
-
-material.craft_partbuilder=Can be crafted in the Part Builder
-material.craft_casting=Can be cast from
+slotless=Slotless Modifier
+slotless.slotless=§1§lSlotless§r
+slotless.bonus_upgrades=§1§lUpgrades++§r
 
 material.tconstruct.iron.book=Ironic. He could save others from death, but not himself.
 material.tconstruct.copper.book=Don't let this tarnish your day.

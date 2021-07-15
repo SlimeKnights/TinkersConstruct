@@ -53,10 +53,5 @@
     "name": "modifierchest_craft",
     "type": "crafting",
     "data": "intro/modifierchest_craft.json"
-  },
-  {
-    "name": "terminology",
-    "type": "text",
-    "data": "intro/terminology.json"
   }
 ]

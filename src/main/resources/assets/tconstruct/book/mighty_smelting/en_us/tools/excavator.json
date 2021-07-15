@@ -12,11 +12,10 @@
     }
   ],
   "properties": [
-    "Requires a Tinker's Anvil",
     "Advanced digging tool",
     "3x3 AoE Digging",
     "Effective on dirt, sand and gravel",
     "Can create path",
-	"Starts with Knockback II"
+    "Starts with Knockback II"
   ]
 }

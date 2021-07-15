@@ -1,7 +1,7 @@
 [
   {
     "name": "intro",
-    "data": "sections/intro_tmp.json",
+    "data": "sections/intro.json",
     "icon": {
       "item": {
         "id": "tconstruct:ichor_slime_ball"

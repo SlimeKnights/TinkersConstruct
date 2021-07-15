@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -16,6 +17,7 @@ import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ImageElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -32,6 +34,7 @@ import java.util.Objects;
 public class ContentTool extends TinkerPage {
 
   public static final transient String ID = "tool";
+  private static final transient String KEY_PROPERTIES = TConstruct.makeTranslationKey("book", "tool.properties");
 
   public static final transient ImageData IMG_SLOT_1 = ContentModifier.IMG_SLOT_1;
   public static final transient ImageData IMG_SLOT_2 = ContentModifier.IMG_SLOT_2;
@@ -123,7 +126,7 @@ public class ContentTool extends TinkerPage {
     imgY = imgY + 20 - img.height / 2;
 
     if (properties.length > 0) {
-      TextData head = new TextData(parent.translate("tool.properties"));
+      TextData head = new TextData(I18n.format(KEY_PROPERTIES));
       head.underlined = true;
       list.add(new TextElement(padding, 30 + h, 86 - padding, BookScreen.PAGE_HEIGHT - h - 20, head));
 

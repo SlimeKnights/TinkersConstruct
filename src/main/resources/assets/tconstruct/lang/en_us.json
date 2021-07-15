@@ -1629,6 +1629,8 @@
   "book.tconstruct.material.part_builder": "Can be made in the part builder",
   "book.tconstruct.material.cast_from": "Can be casted from %s in casts",
   "book.tconstruct.material.composite_from": "Can be casted from %s on %s parts",
+  "book.tconstruct.modifiers.effect": "Effects:",
+  "book.tconstruct.tool.properties": "Properties:",
 
 
   "_comment": "JEI Strings",

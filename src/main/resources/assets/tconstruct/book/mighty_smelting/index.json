@@ -57,8 +57,8 @@
     }
   },
   {
-    "name": "modifiers",
-    "data": "sections/modifiers.json",
+    "name": "abilities",
+    "data": "sections/abilities.json",
     "icon": {
       "item": {
         "id": "tconstruct:creative_ability"

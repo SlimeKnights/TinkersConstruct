@@ -1,49 +1,28 @@
-// Sections
-Fantastic Foundry
-
+// Sections - Fantastic Foundry
 intro=Introduction
-materials=Tool materials
-tools=Tools
-modifiers=Modifiers
-smeltery=Smeltery
+alloyer=Alloyer
 tier_four_materials=Tier 4 Materials
 
-bonus_upgrades=§1§lUpgrades++§r
-general=§1§lGeneral§r
-harvest=§1§lHarvest§r
-weapon=§1§lWeapon§r
-slotless=§1§lSlotless§r
-ability=§1§lAbility§r
-further_reading=Further Reading
-terminology=Terminology
-
 foundry=Foundry
-controller=Controller
-structure=Structure
-scorched_tanks=Scorched Tanks
-scorched_blocks=Scorched Blocks
-scorched_ladder=Scorched Ladder
-scorched_glass=Scorched Glass
-scorched_drain=Scorched Drain
-scorched_duct=Scorched Duct
-scorched_chute=Scorched Chute
-fgui1=Foundry GUI Image
-fgui2=Foundry GUI Explination
-features=Features
-structurereq=The Structure Requirements 
-alloyer=Alloyer
-
-modifier.effect=Effects:
-tool.properties=Properties:
+foundry.features=Features
+foundry.byproducts=Byproducts
+foundry.controller=Controller
+foundry.structure=Structure
+foundry.structurereq=Structure Requirements
+foundry.scorched_tanks=Scorched Tanks
+foundry.scorched_blocks=Scorched Blocks
+foundry.scorched_ladder=Scorched Ladder
+foundry.scorched_glass=Scorched Glass
+foundry.scorched_drain=Scorched Drain
+foundry.scorched_duct=Scorched Duct
+foundry.scorched_chute=Scorched Chute
+foundry.fgui1=Foundry GUI
+foundry.fgui2=Foundry GUI Explination
 
 blazing_blood=Blazing Blood
-byproducts=Byproducts
-
-modifier.effect=Effects:
-tool.properties=Properties:
-
-material.craft_partbuilder=Can be crafted in the Part Builder
-material.craft_casting=Can be cast from
+blazing_blood.carry=Carrying
+blazing_blood.foundry=Foundry
+blazing_blood.melting=Melting
 
 material.tconstruct.queens_slime.book=Princesses are evil, get yourself a Queen.
 material.tconstruct.hepatizon.book=He-pa-ti-zon

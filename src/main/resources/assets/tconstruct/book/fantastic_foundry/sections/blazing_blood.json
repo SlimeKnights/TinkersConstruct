@@ -20,9 +20,9 @@
     "data": "blazing_blood/piggy_backpack_craft.json"
   },
   {
-    "name": "smeltery",
+    "name": "foundry",
     "type": "imageText2",
-    "data": "blazing_blood/smeltery.json"
+    "data": "blazing_blood/foundry.json"
   },
   {
     "name": "melting",

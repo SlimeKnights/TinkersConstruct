@@ -1,52 +1,31 @@
-// Sections
-Mighty Smelting
+// Sections - Mighty Smelting
 intro=Introduction
-materials=Tool materials
-tools=Tools
-modifiers=Abilities
-smeltery=Smeltery
-alloying=Alloying
-
-repairing=Repairing
-offhand=Offhand Harvesting
-
-modifier.effect=Effects:
-tool.properties=Properties:
 entity_melting=Entity Melting
 tier_three_materials=Tier 3 Materials
-molten_blaze=Molten Blaze
 tools=Broad Tools
+tools.subtext=Broad tools all require the use of a tinker's anvil to create
 
-bonus_upgrades=§1§lUpgrades++§r
-general=§1§lGeneral§r
-harvest=§1§lHarvest§r
-weapon=§1§lWeapon§r
-slotless=§1§lSlotless§r
-ability=§1§lAbility§r
-further_reading=Further Reading
-terminology=Terminology
-interact=§1§lInteract§r
+smeltery=Smeltery
+smeltery.features=Features
+smeltery.alloying=Alloying
+smeltery.controller=Controller
+smeltery.structure=Structure
+smeltery.structurereq=Structure
+smeltery.seared_tanks=Seared Tanks
+smeltery.seared_blocks=Seared Blocks
+smeltery.seared_ladder=Seared Ladder
+smeltery.seared_glass=Seared Glass
+smeltery.seared_drain=Seared Drain
+smeltery.seared_duct=Seared Duct
+smeltery.seared_chute=Seared Chute
+smeltery.sgui1=Smeltery GUI
+smeltery.sgui2=Smeltery GUI Explanation
 
-controller=Controller
-structure=Structure
-seared_tanks=Seared Tanks
-seared_blocks=Seared Blocks
-seared_ladder=Seared Ladder
-seared_glass=Seared Glass
-seared_drain=Seared Drain
-seared_duct=Seared Duct
-seared_chute=Seared Chute
-sgui1=Smeltery GUI Image
-sgui2=Smeltery GUI Explanation
-features=Features
-structurereq=The Structure Requirements
-
-
-modifier.effect=Effects:
-tool.properties=Properties:
-
-material.craft_partbuilder=Can be crafted in the Part Builder
-material.craft_casting=Can be cast from
+abilities=Abilities
+abilities.general=§1§lGeneral§r
+abilities.harvest=§1§lHarvest§r
+abilities.weapon=§1§lWeapon§r
+abilities.interact=§1§lInteract§r
 
 material.tconstruct.slimesteel.book=You must steal the slime to get slimesteel.
 material.tconstruct.bronze.book=Not to be confused with Tinker's Bronze.

@@ -27,7 +27,7 @@
     }
   },
   {
-    "name": "Casting",
+    "name": "casting",
     "data": "sections/casting.json",
     "icon": {
       "item": {
@@ -44,8 +44,8 @@
     }
   },
   {
-    "name": "modifiers",
-    "data": "sections/modifiers.json",
+    "name": "upgrades",
+    "data": "sections/upgrades.json",
     "icon": {
       "item": {
         "id": "tconstruct:creative_upgrade"
