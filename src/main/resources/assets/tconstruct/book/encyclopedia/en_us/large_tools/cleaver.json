@@ -6,10 +6,10 @@
   ],
   "properties": [
     "+3.5 Attack Damage",
-    "150% Attack Damage",
+    "150% Attack Modifier",
     "0.9 Attack Speed",
-	"+1 Reach",
-	"350% Durability",
-	"Beheading II"
+    "+1 Reach",
+    "350% Durability Modifier",
+    "Beheading II"
   ]
 }

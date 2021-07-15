@@ -1,5 +1,10 @@
 [
   {
+    "name": "info",
+    "type": "text",
+    "data": "large_tools/info.json"
+  },
+  {
     "name": "cleaver",
     "type": "tool",
     "data": "large_tools/cleaver.json"

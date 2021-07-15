@@ -2,7 +2,9 @@
 intro=Introduction
 
 small_tools=Small Tools
+small_tools.info=Tool Information
 large_tools=Broad Tools
+large_tools.info=Tool Information
 
 tier_one_materials=Tier 1 Materials
 tier_two_materials=Tier 2 Materials

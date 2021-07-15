@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:piercing",
   "text": [
     {
-      "text": "Adds +0.5 damage per level, multiplied by the tools attack multiplier. The additional damage pierces armor."
+      "text": "Adds +0.5 damage per level. The additional damage pierces armor."
     }
   ],
   "more_text_space": true,

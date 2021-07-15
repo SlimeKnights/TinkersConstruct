@@ -7,10 +7,10 @@
   "properties": [
     "+1 Attack Damage",
     "0.8 Attack Speed",
-    "45% Mining Speed",
-    "250% Durability",
+    "45% Mining Modifier",
+    "250% Durability Modifier",
     "AOE Attack",
     "Tills dirt",
-	"Harvest plants"
+    "Harvest plants"
   ]
 }

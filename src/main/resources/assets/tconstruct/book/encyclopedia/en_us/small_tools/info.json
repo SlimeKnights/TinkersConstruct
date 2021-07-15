@@ -1,0 +1,7 @@
+{
+  "title": "Tool Information",
+  "text": [
+    { "text": "All small tools can be created in either the Tinker Station or the Tinker's Anvil. They require between 2 to 3 parts, granting 2 to 3 traits. Most small tools start with 1 ability slot and 3 upgrade slots as well." },
+    { "text": "Most tools have an attack damage bonus, which is added to the head stats and multiplied by the handle stats. In addition, some tools have an attack modifier, which multiplies attack damage from all sources on the tool, including modifiers. Some tools also start with tool traits, which are applied to fully built tools similarly to material traits.", "paragraph": true }
+  ]
+}

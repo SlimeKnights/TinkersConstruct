@@ -1,5 +1,10 @@
 [
   {
+    "name": "info",
+    "type": "text",
+    "data": "small_tools/info.json"
+  },
+  {
     "name": "sword",
     "type": "tool",
     "data": "small_tools/sword.json"
