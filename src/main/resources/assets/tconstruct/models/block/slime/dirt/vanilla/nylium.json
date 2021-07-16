@@ -1,0 +1,10 @@
+{
+    "parent": "block/grass_block",
+    "textures": {
+        "top":      "tconstruct:block/slime/dirt/nylium_top",
+        "overlay":  "tconstruct:block/slime/dirt/nylium_overlay",
+        "particle": "tconstruct:block/slime/dirt/earth",
+        "bottom":   "tconstruct:block/slime/dirt/earth",
+        "side":     "tconstruct:block/slime/dirt/earth"
+    }
+}

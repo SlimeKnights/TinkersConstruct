@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/ender_slime"
+            "model": "tconstruct:block/slime/sticky/ender"
         }
     }
 }

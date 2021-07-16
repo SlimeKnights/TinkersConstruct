@@ -22,6 +22,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -34,7 +35,9 @@ import slimeknights.tconstruct.world.worldgen.islands.EnderSlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.SkySlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandPiece;
 import slimeknights.tconstruct.world.worldgen.trees.SupplierBlockStateProvider;
+import slimeknights.tconstruct.world.worldgen.trees.config.SlimeFungusConfig;
 import slimeknights.tconstruct.world.worldgen.trees.config.SlimeTreeConfig;
+import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeFungusFeature;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
 
 import java.util.Map;
@@ -59,17 +62,33 @@ public final class TinkerStructures extends TinkerModule {
   /*
    * Features
    */
-  public static final RegistryObject<Feature<SlimeTreeConfig>> SLIME_TREE = FEATURES.register("slime_tree", () -> new SlimeTreeFeature(SlimeTreeConfig.CODEC));
-  public static ConfiguredFeature<SlimeTreeConfig, ?> EARTH_SLIME_TREE;
+  /** Overworld variant of slimy trees */
+  public static final RegistryObject<SlimeTreeFeature> SLIME_TREE = FEATURES.register("slime_tree", () -> new SlimeTreeFeature(SlimeTreeConfig.CODEC));
+  /** Nether variant of slimy trees */
+  public static final RegistryObject<SlimeFungusFeature> SLIME_FUNGUS = FEATURES.register("slime_fungus", () -> new SlimeFungusFeature(SlimeFungusConfig.CODEC));
 
+  /** Greenheart tree variant */
+  public static ConfiguredFeature<SlimeTreeConfig, ?> EARTH_SLIME_TREE;
+  /** Greenheart tree variant on islands */
+  public static ConfiguredFeature<SlimeTreeConfig, ?> EARTH_SLIME_ISLAND_TREE;
+
+  /** Skyroot tree variant */
   public static ConfiguredFeature<SlimeTreeConfig, ?> SKY_SLIME_TREE;
+  /** Skyroot tree variant on islands */
   public static ConfiguredFeature<SlimeTreeConfig, ?> SKY_SLIME_ISLAND_TREE;
 
+  /** Enderslime island tree variant */
   public static ConfiguredFeature<SlimeTreeConfig, ?> ENDER_SLIME_TREE;
+  /** Enderslime island tree variant on islands */
   public static ConfiguredFeature<SlimeTreeConfig, ?> ENDER_SLIME_ISLAND_TREE;
 
-  public static ConfiguredFeature<HugeFungusConfig, ?> BLOOD_SLIME_TREE;
-  public static ConfiguredFeature<SlimeTreeConfig, ?> ICHOR_SLIME_TREE;
+  /** Bloodshroom tree variant */
+  public static ConfiguredFeature<HugeFungusConfig, ?> BLOOD_SLIME_FUNGUS;
+  /** Bloodshroom island tree variant */
+  public static ConfiguredFeature<HugeFungusConfig, ?> BLOOD_SLIME_ISLAND_FUNGUS;
+
+  /* Deprecated ichor tree */
+  public static ConfiguredFeature<HugeFungusConfig, ?> ICHOR_SLIME_FUNGUS;
 
   /*
    * Structures
@@ -181,6 +200,15 @@ public final class TinkerStructures extends TinkerModule {
         WorldGenRegistries.CONFIGURED_FEATURE, resource("earth_slime_tree"),
         SLIME_TREE.get().withConfiguration((
           new SlimeTreeConfig.Builder()
+            .planted()
+            .trunk(() -> TinkerWorld.greenheart.getLog().getDefaultState())
+            .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.EARTH).getDefaultState())
+            .baseHeight(4).randomHeight(3)
+            .build())));
+      EARTH_SLIME_ISLAND_TREE = Registry.register(
+        WorldGenRegistries.CONFIGURED_FEATURE, resource("earth_slime_tree"),
+        SLIME_TREE.get().withConfiguration((
+          new SlimeTreeConfig.Builder()
             .trunk(() -> TinkerWorld.greenheart.getLog().getDefaultState())
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.EARTH).getDefaultState())
             .baseHeight(4).randomHeight(3)
@@ -190,6 +218,7 @@ public final class TinkerStructures extends TinkerModule {
         WorldGenRegistries.CONFIGURED_FEATURE, resource("sky_slime_tree"),
         SLIME_TREE.get().withConfiguration((
           new SlimeTreeConfig.Builder()
+            .planted().canDoubleHeight()
             .trunk(() -> TinkerWorld.skyroot.getLog().getDefaultState())
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.SKY).getDefaultState())
             .build())));
@@ -197,6 +226,7 @@ public final class TinkerStructures extends TinkerModule {
         WorldGenRegistries.CONFIGURED_FEATURE, resource("sky_slime_island_tree"),
         SLIME_TREE.get().withConfiguration((
           new SlimeTreeConfig.Builder()
+            .canDoubleHeight()
             .trunk(() -> TinkerWorld.skyroot.getLog().getDefaultState())
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.SKY).getDefaultState())
             .vines(() -> TinkerWorld.skySlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE))
@@ -206,6 +236,7 @@ public final class TinkerStructures extends TinkerModule {
         WorldGenRegistries.CONFIGURED_FEATURE, resource("ender_slime_tree"),
         SLIME_TREE.get().withConfiguration((
           new SlimeTreeConfig.Builder()
+            .planted()
             .trunk(() -> TinkerWorld.greenheart.getLog().getDefaultState()) // TODO: temporary until we have proper green trees and ender shrooms
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.ENDER).getDefaultState())
             .build())));
@@ -218,21 +249,31 @@ public final class TinkerStructures extends TinkerModule {
             .vines(() -> TinkerWorld.enderSlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE))
             .build())));
 
-      BLOOD_SLIME_TREE = Registry.register(
-        WorldGenRegistries.CONFIGURED_FEATURE, resource("blood_slime_tree"),
-        SLIME_TREE.get().withConfiguration((
-          new SlimeTreeConfig.Builder()
-            .trunk(() -> TinkerWorld.bloodshroom.getLog().getDefaultState())
-            .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.BLOOD).getDefaultState())
-            .baseHeight(7)
-            .build())));
-      ICHOR_SLIME_TREE = Registry.register(
-        WorldGenRegistries.CONFIGURED_FEATURE, resource("ichor_slime_tree"),
-        SLIME_TREE.get().withConfiguration((
-          new SlimeTreeConfig.Builder()
-            .trunk(() -> TinkerWorld.bloodshroom.getLog().getDefaultState())
-            .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.ICHOR).getDefaultState())
-            .build())));
+      BLOOD_SLIME_FUNGUS = Registry.register(
+        WorldGenRegistries.CONFIGURED_FEATURE, resource("blood_slime_fungus"),
+        SLIME_FUNGUS.get().withConfiguration(new SlimeFungusConfig(
+          TinkerTags.Blocks.SLIMY_SOIL,
+          TinkerWorld.bloodshroom.getLog().getDefaultState(),
+          TinkerWorld.slimeLeaves.get(SlimeType.BLOOD).getDefaultState(),
+          TinkerWorld.congealedSlime.get(SlimeType.ICHOR).getDefaultState(),
+          true)));
+      BLOOD_SLIME_ISLAND_FUNGUS = Registry.register(
+        WorldGenRegistries.CONFIGURED_FEATURE, resource("blood_slime_island_fungus"),
+        SLIME_FUNGUS.get().withConfiguration(new SlimeFungusConfig(
+          TinkerTags.Blocks.SLIMY_NYLIUM,
+          TinkerWorld.bloodshroom.getLog().getDefaultState(),
+          TinkerWorld.slimeLeaves.get(SlimeType.BLOOD).getDefaultState(),
+          TinkerWorld.congealedSlime.get(SlimeType.ICHOR).getDefaultState(),
+          false)));
+      ICHOR_SLIME_FUNGUS = Registry.register(
+        WorldGenRegistries.CONFIGURED_FEATURE, resource("ichor_slime_fungus"),
+        SLIME_FUNGUS.get().withConfiguration(
+          new SlimeFungusConfig(
+            TinkerTags.Blocks.SLIMY_SOIL,
+            TinkerWorld.bloodshroom.getLog().getDefaultState(),
+            TinkerWorld.slimeLeaves.get(SlimeType.ICHOR).getDefaultState(),
+            TinkerWorld.congealedSlime.get(SlimeType.ICHOR).getDefaultState(),
+            false)));
     });
   }
 }

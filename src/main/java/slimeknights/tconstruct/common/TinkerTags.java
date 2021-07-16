@@ -41,9 +41,11 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SLIMY_TREE_TRUNKS = tag("slimy_tree_trunks");
     public static final IOptionalNamedTag<Block> SLIMY_LEAVES = tag("slimy_leaves");
     public static final IOptionalNamedTag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
-    /** Blocks that are slime foilage on top of dirt */
+    /** Blocks that are slime gr on top of dirt */
     public static final IOptionalNamedTag<Block> SLIMY_GRASS = tag("slimy_grass");
-    /** Slime grass or slime dirt */
+    /** Blocks that are slime fungus on top of dirt */
+    public static final IOptionalNamedTag<Block> SLIMY_NYLIUM = tag("slimy_nylium");
+    /** Slime grass, slime fungus, or slime dirt */
     public static final IOptionalNamedTag<Block> SLIMY_SOIL = tag("slimy_soil");
 
     public static final IOptionalNamedTag<Block> ORES_COBALT = forgeTag("ores/cobalt");

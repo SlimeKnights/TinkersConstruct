@@ -1,0 +1,6 @@
+{
+    "parent": "block/tinted_cross",
+    "textures": {
+        "cross": "tconstruct:block/slime/foliage/nether_grass"
+    }
+}

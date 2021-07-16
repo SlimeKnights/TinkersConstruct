@@ -1,6 +1,0 @@
-{
-    "parent": "block/leaves",
-    "textures": {
-        "all": "tconstruct:block/slime/slime_leaves"
-    }
-}

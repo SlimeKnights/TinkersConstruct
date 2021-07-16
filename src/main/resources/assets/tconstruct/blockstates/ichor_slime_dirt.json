@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/ichor_slime_dirt"
+            "model": "tconstruct:block/slime/dirt/ichor/dirt"
         }
     }
 }

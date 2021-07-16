@@ -122,53 +122,63 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 
   private void addWorld() {
-    TagsProvider.Builder<Block> slimeBlockBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIME_BLOCK);
-    TagsProvider.Builder<Block> congealedBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.CONGEALED_SLIME);
-    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LOGS)
-        .addTag(TinkerWorld.greenheart.getLogBlockTag())
-        .addTag(TinkerWorld.skyroot.getLogBlockTag())
-        .addTag(TinkerWorld.bloodshroom.getLogBlockTag());
-    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_PLANKS)
-        .add(TinkerWorld.greenheart.get(), TinkerWorld.skyroot.get(), TinkerWorld.bloodshroom.get());
-    TagsProvider.Builder<Block> treeTrunkBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_TREE_TRUNKS)
-                                                       .addTag(TinkerTags.Blocks.SLIMY_LOGS);
-    for (SlimeType type : SlimeType.values()) {
-      slimeBlockBuilder.add(TinkerWorld.slime.get(type));
-      Block congealed = TinkerWorld.congealedSlime.get(type);
-      congealedBuilder.add(congealed);
-      treeTrunkBuilder.add(congealed); // for old worlds
-    }
-
-    TagsProvider.Builder<Block> leavesBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LEAVES);
-    TagsProvider.Builder<Block> saplingBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS);
-    for (SlimeType type : SlimeType.values()) {
-      leavesBuilder.add(TinkerWorld.slimeLeaves.get(type));
-      saplingBuilder.add(TinkerWorld.slimeSapling.get(type));
-    }
-    this.getOrCreateBuilder(BlockTags.LEAVES).addTag(TinkerTags.Blocks.SLIMY_LEAVES);
-    this.getOrCreateBuilder(BlockTags.SAPLINGS).addTag(TinkerTags.Blocks.SLIMY_SAPLINGS);
-
+    // ores
+    this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
+    this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
     this.getOrCreateBuilder(Tags.Blocks.ORES)
         .addTag(TinkerTags.Blocks.ORES_COBALT)
         .addTag(TinkerTags.Blocks.ORES_COPPER);
-    this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
-    this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
-    Builder<Block> slimyGrass = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_GRASS);
-    TinkerWorld.slimeGrass.forEach((slimeType, blockObj) -> blockObj.forEach(slimyGrass::addItemEntry));
-    Builder<Block> slimySoil = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SOIL).addTag(TinkerTags.Blocks.SLIMY_GRASS);
-    TinkerWorld.slimeDirt.forEach(slimySoil::addItemEntry);
 
     // allow the enderman to hold more blocks
     TagsProvider.Builder<Block> endermanHoldable = this.getOrCreateBuilder(BlockTags.ENDERMAN_HOLDABLE);
     endermanHoldable.addTag(TinkerTags.Blocks.CONGEALED_SLIME).add(TinkerSmeltery.grout.get());
-    TinkerWorld.slimeDirt.forEach(endermanHoldable::addItemEntry);
-    TinkerWorld.slimeGrass.forEach((key, type) -> type.forEach(endermanHoldable::addItemEntry));
 
+    // wood
+    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LOGS)
+        .addTag(TinkerWorld.greenheart.getLogBlockTag())
+        .addTag(TinkerWorld.skyroot.getLogBlockTag())
+        .addTag(TinkerWorld.bloodshroom.getLogBlockTag());
+    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_PLANKS).add(TinkerWorld.greenheart.get(), TinkerWorld.skyroot.get(), TinkerWorld.bloodshroom.get());
     this.getOrCreateBuilder(BlockTags.PLANKS).addTag(TinkerTags.Blocks.SLIMY_PLANKS);
     this.getOrCreateBuilder(BlockTags.LOGS).addTag(TinkerTags.Blocks.SLIMY_LOGS);
-    addWoodTags(TinkerWorld.greenheart, true);
-    addWoodTags(TinkerWorld.skyroot, true);
-    addWoodTags(TinkerWorld.bloodshroom, false);
+    this.addWoodTags(TinkerWorld.greenheart, true);
+    this.addWoodTags(TinkerWorld.skyroot, true);
+    this.addWoodTags(TinkerWorld.bloodshroom, false);
+
+    // slime blocks
+    TagsProvider.Builder<Block> slimeBlockBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIME_BLOCK);
+    TagsProvider.Builder<Block> congealedBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.CONGEALED_SLIME);
+    for (SlimeType type : SlimeType.values()) {
+      slimeBlockBuilder.add(TinkerWorld.slime.get(type));
+      congealedBuilder.add(TinkerWorld.congealedSlime.get(type));
+    }
+    // old world compat, make congealed support leaves
+    this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_TREE_TRUNKS).addTag(TinkerTags.Blocks.SLIMY_LOGS).addTag(TinkerTags.Blocks.CONGEALED_SLIME);
+
+    // foliage
+    TagsProvider.Builder<Block> leavesBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_LEAVES);
+    TagsProvider.Builder<Block> wartBuilder = this.getOrCreateBuilder(BlockTags.WART_BLOCKS);
+    TagsProvider.Builder<Block> saplingBuilder = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS);
+    for (SlimeType type : SlimeType.values()) {
+      if (type.isNether()) {
+        wartBuilder.add(TinkerWorld.slimeLeaves.get(type));
+        endermanHoldable.add(TinkerWorld.slimeSapling.get(type));
+      } else {
+        leavesBuilder.add(TinkerWorld.slimeLeaves.get(type));
+        saplingBuilder.add(TinkerWorld.slimeSapling.get(type));
+      }
+    }
+    this.getOrCreateBuilder(BlockTags.LEAVES).addTag(TinkerTags.Blocks.SLIMY_LEAVES);
+    this.getOrCreateBuilder(BlockTags.SAPLINGS).addTag(TinkerTags.Blocks.SLIMY_SAPLINGS);
+
+    Builder<Block> slimyGrass = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_GRASS);
+    Builder<Block> slimyNylium = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_NYLIUM);
+    TinkerWorld.slimeGrass.forEach((slimeType, blockObj) -> blockObj.forEach((type, block) -> (type.isNether() ? slimyNylium : slimyGrass).add(block)));
+    Builder<Block> slimySoil = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SOIL)
+                                   .addTag(TinkerTags.Blocks.SLIMY_GRASS)
+                                   .addTag(TinkerTags.Blocks.SLIMY_NYLIUM);
+    TinkerWorld.slimeDirt.forEach(slimySoil::addItemEntry);
+    endermanHoldable.addTag(TinkerTags.Blocks.SLIMY_SOIL);
   }
 
   private void addSmeltery() {

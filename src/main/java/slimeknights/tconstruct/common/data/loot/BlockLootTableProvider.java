@@ -128,33 +128,43 @@ public class BlockLootTableProvider extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerWorld.cobaltOre.get());
     this.registerDropSelfLootTable(TinkerWorld.copperOre.get());
 
-    // Only make loot table for our modded slime blocks
-    for (SlimeType slime : SlimeType.TINKER) {
-      this.registerDropSelfLootTable(TinkerWorld.slime.get(slime));
-    }
-    // congealed slime drops like clay blocks
-    for (SlimeType slime : SlimeType.values()) {
-      this.registerLootTable(TinkerWorld.congealedSlime.get(slime), block -> droppingWithSilkTouchOrRandomly(block, TinkerCommons.slimeball.get(slime), ConstantRange.of(4)));
-    }
-    for (SlimeType type : SlimeType.TRUE_SLIME) {
-      this.registerDropSelfLootTable(TinkerWorld.slimeDirt.get(type));
-    }
+    // slime blocks
+    TinkerWorld.slime.forEach((type, block) -> {
+      if (type != SlimeType.EARTH) {
+        this.registerDropSelfLootTable(block);
+      }
+    });
+    TinkerWorld.congealedSlime.forEach((slime, block) -> this.registerLootTable(block, droppingWithSilkTouchOrRandomly(block, TinkerCommons.slimeball.get(slime), ConstantRange.of(4))));
 
-    for (SlimeType type : SlimeType.values()) {
-      this.registerLootTable(TinkerWorld.vanillaSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, Blocks.DIRT));
-      this.registerLootTable(TinkerWorld.earthSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.EARTH)));
-      this.registerLootTable(TinkerWorld.skySlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.SKY)));
-      this.registerLootTable(TinkerWorld.enderSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.ENDER)));
-      this.registerLootTable(TinkerWorld.ichorSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.ICHOR)));
-      this.registerLootTable(TinkerWorld.slimeLeaves.get(type), (block) -> randomDropSlimeBallOrSapling(type, block, TinkerWorld.slimeSapling.get(type), DEFAULT_SAPLING_DROP_RATES));
+    // slime dirt and grass
+    TinkerWorld.slimeDirt.forEach(this::registerDropSelfLootTable);
+    TinkerWorld.vanillaSlimeGrass.forEach(block -> this.registerLootTable(block, droppingWithSilkTouch(block, Blocks.DIRT)));
+    TinkerWorld.earthSlimeGrass.forEach(block -> this.registerLootTable(block, droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.EARTH))));
+    TinkerWorld.skySlimeGrass.forEach(block -> this.registerLootTable(block, droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.SKY))));
+    TinkerWorld.enderSlimeGrass.forEach(block -> this.registerLootTable(block, droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.ENDER))));
+    TinkerWorld.ichorSlimeGrass.forEach(block -> this.registerLootTable(block, droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.ICHOR))));
+
+    // saplings
+    TinkerWorld.slimeSapling.forEach(this::registerDropSelfLootTable);
+
+    // foliage
+    TinkerWorld.slimeTallGrass.forEach(block -> this.registerLootTable(block, BlockLootTableProvider::onlyShearsTag));
+    for (SlimeType type : SlimeType.OVERWORLD) {
+      // overworld leaves, drops with leaves and slimeballs
+      this.registerLootTable(TinkerWorld.slimeLeaves.get(type), block -> randomDropSlimeBallOrSapling(type, block, TinkerWorld.slimeSapling.get(type), DEFAULT_SAPLING_DROP_RATES));
       this.registerLootTable(TinkerWorld.slimeFern.get(type), BlockLootTableProvider::onlyShearsTag);
-      this.registerLootTable(TinkerWorld.slimeTallGrass.get(type), BlockLootTableProvider::onlyShearsTag);
-      this.registerDropSelfLootTable(TinkerWorld.slimeSapling.get(type));
+    }
+    for (SlimeType type : SlimeType.NETHER) {
+      // nether leaves drop self
+      this.registerDropSelfLootTable(TinkerWorld.slimeLeaves.get(type));
+      this.registerDropSelfLootTable(TinkerWorld.slimeFern.get(type));
     }
 
+    // vines
     this.registerLootTable(TinkerWorld.skySlimeVine.get(), BlockLootTableProvider::onlyShearsTag);
     this.registerLootTable(TinkerWorld.enderSlimeVine.get(), BlockLootTableProvider::onlyShearsTag);
 
+    // wood
     this.registerWoodLootTables(TinkerWorld.greenheart);
     this.registerWoodLootTables(TinkerWorld.skyroot);
     this.registerWoodLootTables(TinkerWorld.bloodshroom);
@@ -259,15 +269,11 @@ public class BlockLootTableProvider extends BlockLootTables {
   }
 
   private static LootTable.Builder randomDropSlimeBallOrSapling(SlimeType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
-    SlimeType slime = foliageType;
-    if (foliageType == SlimeType.BLOOD) {
-      slime = SlimeType.ICHOR;
-    }
     return dropSapling(blockIn, sapling, fortuneIn)
       .addLootPool(LootPool.builder()
                            .rolls(ConstantRange.of(1))
                            .acceptCondition(NOT_SILK_TOUCH_OR_SHEARS)
-                           .addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(slime)))
+                           .addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(foliageType)))
                                        .acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 1/50f, 1/45f, 1/40f, 1/30f, 1/20f))));
 
   }

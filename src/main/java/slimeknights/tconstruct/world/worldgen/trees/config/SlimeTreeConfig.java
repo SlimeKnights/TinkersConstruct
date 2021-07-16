@@ -16,13 +16,14 @@ import java.util.function.Supplier;
 public class SlimeTreeConfig implements IFeatureConfig {
 
   public static final Codec<SlimeTreeConfig> CODEC = RecordCodecBuilder.create((treeConfig) -> treeConfig.group(
-    BlockStateProvider.CODEC.fieldOf("trunk_provider").forGetter((object) -> object.trunkProvider),
-    BlockStateProvider.CODEC.fieldOf("leaves_provider").forGetter((instance) -> instance.leavesProvider),
-    BlockStateProvider.CODEC.fieldOf("vines_provider").forGetter((instance) -> instance.vinesProvider),
-    Codec.INT.fieldOf("base_height").orElse(0).forGetter((instance) -> instance.baseHeight),
-    Codec.INT.fieldOf("random_height").orElse(0).forGetter((instance) -> instance.randomHeight),
-    Codec.BOOL.fieldOf("has_vines").orElse(false).forGetter((instance) -> instance.hasVines),
-    Codec.BOOL.fieldOf("planted").orElse(false).forGetter((instance) -> instance.planted)
+    BlockStateProvider.CODEC.fieldOf("trunk_provider").forGetter(instance -> instance.trunkProvider),
+    BlockStateProvider.CODEC.fieldOf("leaves_provider").forGetter(instance -> instance.leavesProvider),
+    BlockStateProvider.CODEC.fieldOf("vines_provider").forGetter(instance -> instance.vinesProvider),
+    Codec.INT.fieldOf("base_height").orElse(0).forGetter(instance -> instance.baseHeight),
+    Codec.INT.fieldOf("random_height").orElse(0).forGetter(instance -> instance.randomHeight),
+    Codec.BOOL.fieldOf("can_double_height").orElse(false).forGetter(instance -> instance.canDoubleHeight),
+    Codec.BOOL.fieldOf("has_vines").orElse(false).forGetter(instance -> instance.hasVines),
+    Codec.BOOL.fieldOf("planted").orElse(false).forGetter(instance -> instance.planted)
   ).apply(treeConfig, SlimeTreeConfig::new));
 
   public final BlockStateProvider trunkProvider;
@@ -30,15 +31,17 @@ public class SlimeTreeConfig implements IFeatureConfig {
   public final BlockStateProvider vinesProvider;
   public final int baseHeight;
   public final int randomHeight;
+  public final boolean canDoubleHeight;
   public final boolean hasVines;
   public final boolean planted;
 
-  public SlimeTreeConfig(BlockStateProvider trunkProvider, BlockStateProvider leavesProvider, BlockStateProvider vinesProvider, int baseHeight, int randomHeight, boolean hasVines, boolean planted) {
+  public SlimeTreeConfig(BlockStateProvider trunkProvider, BlockStateProvider leavesProvider, BlockStateProvider vinesProvider, int baseHeight, int randomHeight, boolean canDoubleHeight, boolean hasVines, boolean planted) {
     this.trunkProvider = trunkProvider;
     this.leavesProvider = leavesProvider;
     this.vinesProvider = vinesProvider;
     this.baseHeight = baseHeight;
     this.randomHeight = randomHeight;
+    this.canDoubleHeight = canDoubleHeight;
     this.hasVines = hasVines;
     this.planted = planted;
   }
@@ -57,8 +60,15 @@ public class SlimeTreeConfig implements IFeatureConfig {
     private int baseHeight = 5;
     @Setter
     private int randomHeight = 4;
+    private boolean canDoubleHeight = false;
     private boolean hasVines = false;
     private boolean planted = false;
+
+    /** Sets the tree as a planted tree */
+    public Builder canDoubleHeight() {
+      this.canDoubleHeight = true;
+      return this;
+    }
 
     /** Sets the trunk */
     public Builder trunk(Supplier<BlockState> supplier) {
@@ -90,7 +100,7 @@ public class SlimeTreeConfig implements IFeatureConfig {
 
     /** Builds the config */
     public SlimeTreeConfig build() {
-      return new SlimeTreeConfig(this.trunkProvider, this.leavesProvider, this.vinesProvider, this.baseHeight, this.randomHeight, this.hasVines, this.planted);
+      return new SlimeTreeConfig(this.trunkProvider, this.leavesProvider, this.vinesProvider, this.baseHeight, this.randomHeight, this.canDoubleHeight, this.hasVines, this.planted);
     }
   }
 }

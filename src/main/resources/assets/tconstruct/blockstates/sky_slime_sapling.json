@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/sky_slime_sapling"
+            "model": "tconstruct:block/slime/sapling/sky"
         }
     }
 }

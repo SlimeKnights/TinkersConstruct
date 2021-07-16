@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/slime_tall_grass"
+            "model": "tconstruct:block/slime/tall_grass"
         }
     }
 }

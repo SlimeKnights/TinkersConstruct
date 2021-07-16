@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/earth_slime_dirt"
+            "model": "tconstruct:block/slime/dirt/earth/dirt"
         }
     }
 }

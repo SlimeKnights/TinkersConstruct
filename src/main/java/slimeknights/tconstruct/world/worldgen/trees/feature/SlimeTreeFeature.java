@@ -24,6 +24,7 @@ import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraftforge.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.world.worldgen.trees.config.SlimeTreeConfig;
 
 import java.util.List;
@@ -54,10 +55,13 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
   }
 
   private boolean place(IWorldGenerationReader generationReader, Random rand, BlockPos positionIn, Set<BlockPos> trunkBlockPosSet, Set<BlockPos> foliagePositions, MutableBoundingBox boundingBoxIn, SlimeTreeConfig configIn) {
-    int height = rand.nextInt(configIn.randomHeight) + configIn.baseHeight;
-
     if (!(generationReader instanceof IWorld)) {
       return false;
+    }
+    // determine tree height
+    int height = rand.nextInt(configIn.randomHeight) + configIn.baseHeight;
+    if (configIn.canDoubleHeight && rand.nextInt(10) == 0) {
+      height *= 2;
     }
 
 //    BlockPos blockpos;
@@ -70,21 +74,13 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
 //      blockpos = positionIn;
 //    }
 
-    if (positionIn.getY() >= 1 && positionIn.getY() + height + 1 <= 256) {
-      if (!isDirtOrFarmlandAt(generationReader, positionIn.down())) {
-        return false;
-      }
-      else {
-        this.setDirtAt(generationReader, positionIn.down(), positionIn);
-        this.placeTrunk(generationReader, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
-        this.placeCanopy(generationReader, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
-
-        return true;
-      }
+    if (positionIn.getY() >= 1 && positionIn.getY() + height + 1 <= 256 && isSlimySoilAt(generationReader, positionIn.down())) {
+      this.setDirtAt(generationReader, positionIn.down(), positionIn);
+      this.placeTrunk(generationReader, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
+      this.placeCanopy(generationReader, rand, height, positionIn, trunkBlockPosSet, boundingBoxIn, configIn);
+      return true;
     }
-    else {
-      return false;
-    }
+    return false;
   }
 
   protected void setDirtAt(IWorldGenerationReader reader, BlockPos pos, BlockPos origin) {
@@ -272,11 +268,8 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
     return reader.hasBlockState(blockPos, state -> state.isAir() || state.isIn(BlockTags.LEAVES));
   }
 
-  private static boolean isDirtOrFarmlandAt(IWorldGenerationBaseReader p_236418_0_, BlockPos blockPos) {
-    return p_236418_0_.hasBlockState(blockPos, (p_236409_0_) -> {
-      Block block = p_236409_0_.getBlock();
-      return (TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.earthSlimeGrass.contains(block) || TinkerWorld.skySlimeGrass.contains(block) || TinkerWorld.enderSlimeGrass.contains(block) || TinkerWorld.ichorSlimeGrass.contains(block));
-    });
+  private static boolean isSlimySoilAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {
+    return reader.hasBlockState(blockPos, state -> TinkerTags.Blocks.SLIMY_SOIL.contains(state.getBlock()));
   }
 
   private static boolean isTallPlantAt(IWorldGenerationBaseReader reader, BlockPos blockPos) {

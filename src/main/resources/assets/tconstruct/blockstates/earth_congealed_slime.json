@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "tconstruct:block/congealed/earth_slime"
+            "model": "tconstruct:block/slime/congealed/earth"
         }
     }
 }

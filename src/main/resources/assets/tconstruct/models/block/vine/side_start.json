@@ -1,6 +1,0 @@
-{
-  "parent": "tconstruct:block/vine/side",
-  "textures": {
-    "vine": "tconstruct:block/slime/slime_vine"
-  }
-}

@@ -1,0 +1,18 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "tconstruct:block/slime/foliage/vine_end",
+    "vine": "tconstruct:block/slime/foliage/vine_end"
+  },
+  "elements": [
+    {
+      "from": [ 0, 15.2, 0 ],
+      "to": [ 16, 15.2, 16 ],
+      "shade": false,
+      "faces": {
+        "down": { "uv": [ 0, 0, 16, 16 ], "texture": "#vine", "tintindex": 0 },
+        "up":   { "uv": [ 0, 0, 16, 16 ], "texture": "#vine", "tintindex": 0 }
+      }
+    }
+  ]
+}

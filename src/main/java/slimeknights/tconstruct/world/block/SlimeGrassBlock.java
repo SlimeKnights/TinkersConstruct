@@ -10,6 +10,7 @@ import net.minecraft.block.SnowyDirtBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -33,6 +34,13 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
     this.foliageType = foliageType;
   }
 
+  @Override
+  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+    if (this.foliageType != SlimeType.ICHOR) {
+      super.fillItemGroup(group, items);
+    }
+  }
+
   /* Bonemeal interactions */
 
   @Override
@@ -45,8 +53,17 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
     return true;
   }
 
-  @Override
-  public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
+  /**
+   * Shared logic to grow slimy grass from bonemeal
+   * @param world            World instance
+   * @param rand             Random instnace
+   * @param pos              Position to grow
+   * @param validBase        Tag of valid base blocks to grow on
+   * @param foliageType      Foliage type to grow
+   * @param includeSapling   If true, sapling may be grown
+   * @param spread           If true, spreads foliage to relevant dirt blocks
+   */
+  public static void growGrass(ServerWorld world, Random rand, BlockPos pos, ITag<Block> validBase, SlimeType foliageType, boolean includeSapling, boolean spread) {
     // based on vanilla logic, reimplemented to switch plant types
     BlockPos up = pos.up();
     mainLoop:
@@ -55,24 +72,46 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
       BlockPos target = up;
       for (int j = 0; j < i / 16; j++) {
         target = target.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
-        if (!world.getBlockState(target.down()).isIn(TinkerTags.Blocks.SLIMY_GRASS) || world.getBlockState(target).hasOpaqueCollisionShape(world, pos)) {
+        BlockPos below = target.down();
+        BlockState belowState = world.getBlockState(below);
+        // stop if opaque above
+        if (world.getBlockState(target).hasOpaqueCollisionShape(world, target)) {
+          continue mainLoop;
+        }
+        // spread if requested
+        if (spread && TinkerWorld.allDirt.contains(belowState.getBlock())) {
+          BlockState grassState = getStateFromDirt(belowState, foliageType);
+          if (grassState != null) {
+            world.setBlockState(below, grassState);
+          }
+          continue mainLoop;
+        }
+        // stop if not a valid base block
+        if (!belowState.isIn(validBase)) {
           continue mainLoop;
         }
       }
       // grow the plants if empty
       if (world.isAirBlock(target)) {
         BlockState plantState;
-        if (rand.nextInt(8) == 0) {
-          plantState = TinkerWorld.slimeFern.get(this.foliageType).getDefaultState();
+        int plant = rand.nextInt(32);
+        if (plant == 0 && includeSapling) {
+          plantState = TinkerWorld.slimeSapling.get(foliageType).getDefaultState();
+        } else if (plant < 6) {
+          plantState = TinkerWorld.slimeFern.get(foliageType).getDefaultState();
         } else {
-          plantState = TinkerWorld.slimeTallGrass.get(this.foliageType).getDefaultState();
+          plantState = TinkerWorld.slimeTallGrass.get(foliageType).getDefaultState();
         }
-
         if (plantState.isValidPosition(world, target)) {
           world.setBlockState(target, plantState, 3);
         }
       }
     }
+  }
+
+  @Override
+  public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
+    growGrass(world, rand, pos, TinkerTags.Blocks.SLIMY_GRASS, foliageType, false, false);
   }
 
   /* Spreading */
@@ -92,7 +131,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
       // otherwise, attempt spreading
       for (int i = 0; i < 4; ++i) {
         BlockPos newGrass = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-        BlockState newState = this.getStateFromDirt(world.getBlockState(newGrass));
+        BlockState newState = getStateFromDirt(world.getBlockState(newGrass), foliageType);
         if (newState != null && canSpread(newState, world, newGrass)) {
           world.setBlockState(newGrass, newState.with(SNOWY, world.getBlockState(newGrass.up()).matchesBlock(Blocks.SNOW)));
         }
@@ -147,20 +186,13 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
    * @return Grass state, null if cannot spread there
    */
   @Nullable
-  private BlockState getStateFromDirt(BlockState dirtState) {
+  public static BlockState getStateFromDirt(BlockState dirtState, SlimeType foliageType) {
     Block block = dirtState.getBlock();
     for (SlimeType type : SlimeType.values()) {
       if (TinkerWorld.allDirt.get(type) == block) {
-        return TinkerWorld.slimeGrass.get(type).get(this.foliageType).getDefaultState();
+        return TinkerWorld.slimeGrass.get(type).get(foliageType).getDefaultState();
       }
     }
     return null;
-  }
-
-  @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.foliageType != SlimeType.ICHOR) {
-      super.fillItemGroup(group, items);
-    }
   }
 }

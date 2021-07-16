@@ -46,7 +46,7 @@ public class BloodSlimeIslandVariant extends AbstractSlimeIslandVariant {
   @Nullable
   @Override
   public ConfiguredFeature<?,?> getTreeFeature(Random random) {
-    return TinkerStructures.BLOOD_SLIME_TREE;
+    return TinkerStructures.BLOOD_SLIME_ISLAND_FUNGUS;
   }
 
   @Override
