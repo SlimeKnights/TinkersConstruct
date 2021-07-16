@@ -5,13 +5,13 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please fill in the following template to report your issue.
-        
         Please note that 1.16 versions of the mod are in alpha, so are subject to change. Before submitting an issue, please search the following links to make sure your issue is not covered:
         
         * **[Roadmap](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-Roadmap)**: Discusses unimplemented features and planned new changes
         * **[What's New](/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3)**: Discusses many of the major changes in the 1.16 alphas
         * **[FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ)**: Answers to many frequently asked questions about the 1.16 versions
+        
+        Please fill in the following template to report your issue.
         
   - type: markdown
     attributes:
@@ -92,4 +92,3 @@ body:
         - label: "Confirm you have checked the roadmap, what's new, and the FAQ for your issue"
           required: true
         - label: "Confirm you are not using performance enhancers, such as optifine"
-          required: true
