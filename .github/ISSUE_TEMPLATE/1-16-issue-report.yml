@@ -2,7 +2,17 @@ name: 1.16 Issue Report
 description: Report an issue with the 1.16 alphas of Minecraft
 labels: [1.16, Bug, Unreviewed]
 body:
-  
+  - type: markdown
+    attributes:
+      value: |
+        Please fill in the following template to report your issue.
+        
+        Please note that 1.16 versions of the mod are in alpha, so are subject to change. Before submitting an issue, please search the following links to make sure your issue is not covered:
+        
+        * **Roadmap**: Discusses unimplemented features and planned new changes
+        * **What's New**: Discusses many of the major changes in the 1.16 alphas
+        * **FAQ**: Answers to many frequently asked questions about the 1.16 versions
+        
   - type: markdown
     attributes:
       value: "## Versions"
@@ -73,3 +83,13 @@ body:
       description: If you answered "No" above, list other mods required to reproduce this. Should be less than 10 mods.
     validations:
       required: false
+  
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      description: "Confirm the following:"
+      options:
+        - label: "Confirm you have checked the roadmap, what's new, and the FAQ for your issue"
+          required: true
+        - label: "Confirm you are not using performance enhancers, such as optifine"
+          required: true
