@@ -1,0 +1,75 @@
+name: 1.16 Issue Report
+description: Report an issue with the 1.16 alphas of Minecraft
+labels: [1.16, Bug, Unreviewed]
+body:
+  
+  - type: markdown
+    attributes:
+      value: "## Versions"
+  
+  - type: input
+    id: minecraft-version
+    attributes:
+      label: Minecraft Version
+      value: 1.16.5
+    validations:
+      required: true
+  - type: input
+    id: forge-version
+    attributes:
+      label: Forge Version
+      placeholder: "Ex: 36.1.0"
+    validations:
+      required: true
+  - type: input
+    id: mantle-version
+    attributes:
+      label: Mantle Version
+    validations:
+      required: true
+  - type: input
+    id: tinkers-version
+    attributes:
+      label: "Tinkers' Construct Version"
+      description: "'Latest' is not a valid answer, write an exact version number"
+    validations:
+      required: true
+  
+  
+  - type: markdown
+    attributes:
+      value: "## Issue Description"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe your issue
+    validations:
+      required: true
+  
+  - type: input
+    id: crash-report
+    attributes:
+      label: Crash Report
+      description: Paste a link to the crash report, if present
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: tinkers-only
+    attributes:
+      label: "Reproduced with only Tinkers' Construct?"
+      description: "We expect you to test with just Tinkers' Construct and Mantle, answering 'Yes' means you have tested and confirmed the issue with no other mods."
+      options:
+        - 'No'
+        - 'Yes'
+    validations:
+      required: true
+      
+  - type: textarea
+    id: required-mods
+    attributes:
+      label: Other mods required
+      description: If you answered "No" above, list other mods required to reproduce this. Should be less than 10 mods.
+    validations:
+      required: false
