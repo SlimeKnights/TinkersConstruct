@@ -35,7 +35,7 @@ body:
     id: tinkers-version
     attributes:
       label: "Tinkers' Construct Version"
-      description: "\'Latest' is not a valid answer, write an exact version number"
+      description: "'Latest' is not a valid answer, write an exact version number"
     validations:
       required: true
   
@@ -65,8 +65,8 @@ body:
       label: "Reproduced with only Tinkers' Construct?"
       description: "We expect you to test with just Tinkers' Construct and Mantle, answering 'Yes' means you have tested and confirmed the issue with no other mods."
       options:
-        - No
-        - Yes
+        - 'No'
+        - 'Yes'
     validations:
       required: true
       
