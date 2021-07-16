@@ -29,6 +29,6 @@ public class SweepingEdgeModifier extends IncrementalModifier {
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     float amount = 1 - 1f / (getScaledLevel(tool, level) + 1);
-    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_FORMAT.format(amount)).appendString(" ").append(SWEEPING_BONUS)));
+    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_FORMAT.format(amount)).appendString(" ").appendSibling(SWEEPING_BONUS)));
   }
 }

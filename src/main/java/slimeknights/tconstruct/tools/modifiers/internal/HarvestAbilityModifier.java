@@ -20,9 +20,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
-import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic.AOEMatchType;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
@@ -143,7 +143,7 @@ public class HarvestAbilityModifier extends SingleUseModifier {
     // crop is fully grown, get loot context
     LootContext.Builder lootContext = new LootContext.Builder(world)
       .withRandom(world.rand)
-      .withParameter(LootParameters.field_237457_g_, Vector3d.copyCentered(pos))
+      .withParameter(LootParameters.ORIGIN, Vector3d.copyCentered(pos))
       .withParameter(LootParameters.TOOL, ItemStack.EMPTY)
       .withNullableParameter(LootParameters.BLOCK_ENTITY, world.getTileEntity(pos));
     // find drops

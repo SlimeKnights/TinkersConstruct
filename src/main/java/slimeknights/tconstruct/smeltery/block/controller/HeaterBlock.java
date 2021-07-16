@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.smeltery.tileentity.HeaterTileEntity;
 
 import java.util.Random;
@@ -35,7 +35,7 @@ public class HeaterBlock extends ControllerBlock {
   public BlockState getStateForPlacement(BlockItemUseContext context) {
     BlockState state = super.getStateForPlacement(context);
     if (state != null) {
-      return state.with(IN_STRUCTURE, context.getWorld().getBlockState(context.getPos().up()).isIn(TinkerSmeltery.searedMelter.get()));
+      return state.with(IN_STRUCTURE, context.getWorld().getBlockState(context.getPos().up()).isIn(TinkerTags.Blocks.HEATER_CONTROLLERS));
     }
     return null;
   }
@@ -43,7 +43,7 @@ public class HeaterBlock extends ControllerBlock {
   @Override
   public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
     if (facing == Direction.UP) {
-      return state.with(IN_STRUCTURE, facingState.isIn(TinkerSmeltery.searedMelter.get()));
+      return state.with(IN_STRUCTURE, facingState.isIn(TinkerTags.Blocks.HEATER_CONTROLLERS));
     }
     return state;
   }

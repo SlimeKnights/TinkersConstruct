@@ -52,7 +52,7 @@ public interface ITinkerStationDisplay {
         return new TranslationTextComponent(material.getTranslationKey() + ".format", itemName);
       }
 
-      return new TranslationTextComponent(materials.iterator().next().getTranslationKey()).append(new StringTextComponent(" ")).append(itemName);
+      return new TranslationTextComponent(materials.iterator().next().getTranslationKey()).appendSibling(new StringTextComponent(" ")).appendSibling(itemName);
     }
 
     // multiple materials. we'll have to combine
@@ -61,14 +61,14 @@ public interface ITinkerStationDisplay {
     Iterator<IMaterial> iter = materials.iterator();
 
     IMaterial material = iter.next();
-    name.append(new TranslationTextComponent(material.getTranslationKey()));
+    name.appendSibling(new TranslationTextComponent(material.getTranslationKey()));
 
     while (iter.hasNext()) {
       material = iter.next();
-      name.appendString("-").append(new TranslationTextComponent(material.getTranslationKey()));
+      name.appendString("-").appendSibling(new TranslationTextComponent(material.getTranslationKey()));
     }
 
-    name.appendString(" ").append(itemName);
+    name.appendString(" ").appendSibling(itemName);
 
     return name;
   }

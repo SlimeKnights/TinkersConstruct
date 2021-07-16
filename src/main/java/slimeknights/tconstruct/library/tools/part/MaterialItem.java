@@ -110,7 +110,7 @@ public class MaterialItem extends Item implements IMaterialItem {
       return new TranslationTextComponent(materialPrefix, new TranslationTextComponent(key));
     }
     // format as "<material> <item name>"
-    return new TranslationTextComponent(materialKey).appendString(" ").append(new TranslationTextComponent(key));
+    return new TranslationTextComponent(materialKey).appendString(" ").appendSibling(new TranslationTextComponent(key));
   }
 
   @Override

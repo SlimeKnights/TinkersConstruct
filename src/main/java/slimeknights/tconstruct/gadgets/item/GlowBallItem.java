@@ -38,7 +38,7 @@ public class GlowBallItem extends SnowballItem {
     if (!worldIn.isRemote) {
       GlowballEntity glowballEntity = new GlowballEntity(worldIn, playerIn);
       glowballEntity.setItem(itemstack);
-      glowballEntity.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+      glowballEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
       worldIn.addEntity(glowballEntity);
     }
 

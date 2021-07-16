@@ -44,7 +44,7 @@ public class SearedDuctBlock extends InventoryBlock {
   @Override
   @Deprecated
   public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (!newState.isIn(this)) {
+    if (!newState.matchesBlock(this)) {
       TileEntityHelper.getTile(SmelteryComponentTileEntity.class, worldIn, pos).ifPresent(te -> te.notifyMasterOfChange(pos, newState));
     }
     super.onReplaced(state, worldIn, pos, newState, isMoving);

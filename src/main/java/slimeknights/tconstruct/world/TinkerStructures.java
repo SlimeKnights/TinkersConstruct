@@ -9,6 +9,7 @@ import net.minecraft.world.gen.DimensionSettings;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.HugeFungusConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
@@ -33,9 +34,10 @@ import slimeknights.tconstruct.world.worldgen.islands.EnderSlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.SkySlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandPiece;
 import slimeknights.tconstruct.world.worldgen.trees.SupplierBlockStateProvider;
-import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
+import slimeknights.tconstruct.world.worldgen.trees.config.SlimeTreeConfig;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -57,17 +59,17 @@ public final class TinkerStructures extends TinkerModule {
   /*
    * Features
    */
-  public static final RegistryObject<Feature<BaseSlimeTreeFeatureConfig>> SLIME_TREE = FEATURES.register("slime_tree", () -> new SlimeTreeFeature(BaseSlimeTreeFeatureConfig.CODEC));
-  public static ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> EARTH_SLIME_TREE;
+  public static final RegistryObject<Feature<SlimeTreeConfig>> SLIME_TREE = FEATURES.register("slime_tree", () -> new SlimeTreeFeature(SlimeTreeConfig.CODEC));
+  public static ConfiguredFeature<SlimeTreeConfig, ?> EARTH_SLIME_TREE;
 
-  public static ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> SKY_SLIME_TREE;
-  public static ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> SKY_SLIME_ISLAND_TREE;
+  public static ConfiguredFeature<SlimeTreeConfig, ?> SKY_SLIME_TREE;
+  public static ConfiguredFeature<SlimeTreeConfig, ?> SKY_SLIME_ISLAND_TREE;
 
-  public static ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> ENDER_SLIME_TREE;
-  public static ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> ENDER_SLIME_ISLAND_TREE;
+  public static ConfiguredFeature<SlimeTreeConfig, ?> ENDER_SLIME_TREE;
+  public static ConfiguredFeature<SlimeTreeConfig, ?> ENDER_SLIME_ISLAND_TREE;
 
-  public static ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> BLOOD_SLIME_TREE;
-  public static ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> ICHOR_SLIME_TREE;
+  public static ConfiguredFeature<HugeFungusConfig, ?> BLOOD_SLIME_TREE;
+  public static ConfiguredFeature<SlimeTreeConfig, ?> ICHOR_SLIME_TREE;
 
   /*
    * Structures
@@ -112,25 +114,26 @@ public final class TinkerStructures extends TinkerModule {
     }
     // add each structure to all relevant dimensions, note this may not allow changing after first world load as everything is serialized
     StructureSeparationSettings earthSettings = new StructureSeparationSettings(Config.COMMON.earthSlimeIslandSeparation.get(), 5, 25988585);
-    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(earthSlimeIsland.get(), earthSettings);
-    addStructureSettings(DimensionSettings.field_242735_d, earthSlimeIsland.get(), earthSettings);
-    addStructureSettings(DimensionSettings.field_242739_h, earthSlimeIsland.get(), earthSettings);
+    Map<Structure<?>, StructureSeparationSettings> defaultStructures = DimensionSettings.getDefaultDimensionSettings().getStructures().func_236195_a_();
+    defaultStructures.put(earthSlimeIsland.get(), earthSettings);
+    addStructureSettings(DimensionSettings.AMPLIFIED, earthSlimeIsland.get(), earthSettings);
+    addStructureSettings(DimensionSettings.FLOATING_ISLANDS, earthSlimeIsland.get(), earthSettings);
 
     StructureSeparationSettings skySettings = new StructureSeparationSettings(Config.COMMON.skySlimeIslandSeparation.get(), 5, 14357800);
-    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(skySlimeIsland.get(), skySettings);
-    addStructureSettings(DimensionSettings.field_242735_d, skySlimeIsland.get(), skySettings);
-    addStructureSettings(DimensionSettings.field_242739_h, skySlimeIsland.get(), skySettings);
+    defaultStructures.put(skySlimeIsland.get(), skySettings);
+    addStructureSettings(DimensionSettings.AMPLIFIED, skySlimeIsland.get(), skySettings);
+    addStructureSettings(DimensionSettings.FLOATING_ISLANDS, skySlimeIsland.get(), skySettings);
 
     StructureSeparationSettings claySettings = new StructureSeparationSettings(Config.COMMON.clayIslandSeparation.get(), 5, 162976988);
-    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(clayIsland.get(), claySettings);
-    addStructureSettings(DimensionSettings.field_242735_d, clayIsland.get(), claySettings);
-    addStructureSettings(DimensionSettings.field_242739_h, clayIsland.get(), claySettings);
+    defaultStructures.put(clayIsland.get(), claySettings);
+    addStructureSettings(DimensionSettings.AMPLIFIED, clayIsland.get(), claySettings);
+    addStructureSettings(DimensionSettings.FLOATING_ISLANDS, clayIsland.get(), claySettings);
 
     StructureSeparationSettings netherSettings = new StructureSeparationSettings(Config.COMMON.bloodIslandSeparation.get(), 5, 65245622);
-    addStructureSettings(DimensionSettings.field_242736_e, bloodSlimeIsland.get(), netherSettings);
+    addStructureSettings(DimensionSettings.NETHER, bloodSlimeIsland.get(), netherSettings);
 
     StructureSeparationSettings endSettings = new StructureSeparationSettings(Config.COMMON.endSlimeIslandSeparation.get(), 5, 368963602);
-    addStructureSettings(DimensionSettings.field_242737_f, endSlimeIsland.get(), endSettings);
+    addStructureSettings(DimensionSettings.END, endSlimeIsland.get(), endSettings);
 
     // add to the default for anyone creating dimension settings later, hopefully its soon enough
     ImmutableMap.Builder<Structure<?>, StructureSeparationSettings> builder = ImmutableMap.builder();
@@ -167,17 +170,17 @@ public final class TinkerStructures extends TinkerModule {
     event.enqueueWork(TinkerStructures::addStructureSeparation);
 
     event.enqueueWork(() -> {
-      EARTH_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("earth_slime_island"), earthSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-      SKY_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("sky_slime_island"), skySlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-      CLAY_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("clay_island"), clayIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-      BLOOD_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("blood_slime_island"), bloodSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
-      END_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("end_slime_island"), endSlimeIsland.get().withConfiguration(NoFeatureConfig.field_236559_b_));
+      EARTH_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("earth_slime_island"), earthSlimeIsland.get().withConfiguration(NoFeatureConfig.INSTANCE));
+      SKY_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("sky_slime_island"), skySlimeIsland.get().withConfiguration(NoFeatureConfig.INSTANCE));
+      CLAY_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("clay_island"), clayIsland.get().withConfiguration(NoFeatureConfig.INSTANCE));
+      BLOOD_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("blood_slime_island"), bloodSlimeIsland.get().withConfiguration(NoFeatureConfig.INSTANCE));
+      END_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, resource("end_slime_island"), endSlimeIsland.get().withConfiguration(NoFeatureConfig.INSTANCE));
 
       // trees
       EARTH_SLIME_TREE = Registry.register(
         WorldGenRegistries.CONFIGURED_FEATURE, resource("earth_slime_tree"),
         SLIME_TREE.get().withConfiguration((
-          new BaseSlimeTreeFeatureConfig.Builder()
+          new SlimeTreeConfig.Builder()
             .trunk(() -> TinkerWorld.greenheart.getLog().getDefaultState())
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.EARTH).getDefaultState())
             .baseHeight(4).randomHeight(3)
@@ -186,14 +189,14 @@ public final class TinkerStructures extends TinkerModule {
       SKY_SLIME_TREE = Registry.register(
         WorldGenRegistries.CONFIGURED_FEATURE, resource("sky_slime_tree"),
         SLIME_TREE.get().withConfiguration((
-          new BaseSlimeTreeFeatureConfig.Builder()
+          new SlimeTreeConfig.Builder()
             .trunk(() -> TinkerWorld.skyroot.getLog().getDefaultState())
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.SKY).getDefaultState())
             .build())));
       SKY_SLIME_ISLAND_TREE = Registry.register(
         WorldGenRegistries.CONFIGURED_FEATURE, resource("sky_slime_island_tree"),
         SLIME_TREE.get().withConfiguration((
-          new BaseSlimeTreeFeatureConfig.Builder()
+          new SlimeTreeConfig.Builder()
             .trunk(() -> TinkerWorld.skyroot.getLog().getDefaultState())
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.SKY).getDefaultState())
             .vines(() -> TinkerWorld.skySlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE))
@@ -202,14 +205,14 @@ public final class TinkerStructures extends TinkerModule {
       ENDER_SLIME_TREE = Registry.register(
         WorldGenRegistries.CONFIGURED_FEATURE, resource("ender_slime_tree"),
         SLIME_TREE.get().withConfiguration((
-          new BaseSlimeTreeFeatureConfig.Builder()
+          new SlimeTreeConfig.Builder()
             .trunk(() -> TinkerWorld.greenheart.getLog().getDefaultState()) // TODO: temporary until we have proper green trees and ender shrooms
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.ENDER).getDefaultState())
             .build())));
       ENDER_SLIME_ISLAND_TREE = Registry.register(
         WorldGenRegistries.CONFIGURED_FEATURE, resource("ender_slime_island_tree"),
         SLIME_TREE.get().withConfiguration((
-          new BaseSlimeTreeFeatureConfig.Builder()
+          new SlimeTreeConfig.Builder()
             .trunk(() -> TinkerWorld.greenheart.getLog().getDefaultState()) // TODO: temporary until we have proper green trees and ender shrooms
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.ENDER).getDefaultState())
             .vines(() -> TinkerWorld.enderSlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE))
@@ -218,7 +221,7 @@ public final class TinkerStructures extends TinkerModule {
       BLOOD_SLIME_TREE = Registry.register(
         WorldGenRegistries.CONFIGURED_FEATURE, resource("blood_slime_tree"),
         SLIME_TREE.get().withConfiguration((
-          new BaseSlimeTreeFeatureConfig.Builder()
+          new SlimeTreeConfig.Builder()
             .trunk(() -> TinkerWorld.bloodshroom.getLog().getDefaultState())
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.BLOOD).getDefaultState())
             .baseHeight(7)
@@ -226,7 +229,7 @@ public final class TinkerStructures extends TinkerModule {
       ICHOR_SLIME_TREE = Registry.register(
         WorldGenRegistries.CONFIGURED_FEATURE, resource("ichor_slime_tree"),
         SLIME_TREE.get().withConfiguration((
-          new BaseSlimeTreeFeatureConfig.Builder()
+          new SlimeTreeConfig.Builder()
             .trunk(() -> TinkerWorld.bloodshroom.getLog().getDefaultState())
             .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.ICHOR).getDefaultState())
             .build())));

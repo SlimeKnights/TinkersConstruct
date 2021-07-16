@@ -34,9 +34,9 @@ public class HeatingStructureTileEntityRenderer extends TileEntityRenderer<Heati
     "lines", DefaultVertexFormats.POSITION_COLOR, 1, 256,
     RenderType.State.getBuilder()
                     .line(new LineState(OptionalDouble.empty()))
-                    .layer(RenderState.field_239235_M_)
+                    .layer(RenderState.VIEW_OFFSET_Z_LAYERING)
                     .transparency(RenderState.TRANSLUCENT_TRANSPARENCY)
-                    .target(RenderState.field_241712_U_)
+                    .target(RenderState.ITEM_ENTITY_TARGET)
                     .writeMask(RenderState.COLOR_DEPTH_WRITE)
                     .depthTest(RenderState.DEPTH_ALWAYS)
                     .build(false));

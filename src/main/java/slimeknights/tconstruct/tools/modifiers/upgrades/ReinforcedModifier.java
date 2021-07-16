@@ -39,6 +39,6 @@ public class ReinforcedModifier extends IncrementalModifier {
     } else {
       reinforced = 1 - 1f / (getScaledLevel(tool, level) + 1);
     }
-    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_FORMAT.format(reinforced)).appendString(" ").append(makeDisplayName())));
+    tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_FORMAT.format(reinforced)).appendString(" ").appendSibling(makeDisplayName())));
   }
 }

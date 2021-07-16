@@ -39,7 +39,7 @@ public class EflnBallItem extends SnowballItem {
     if (!worldIn.isRemote) {
       EflnBallEntity eflnBallEntity = new EflnBallEntity(worldIn, playerIn);
       eflnBallEntity.setItem(itemstack);
-      eflnBallEntity.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+      eflnBallEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
       worldIn.addEntity(eflnBallEntity);
     }
 

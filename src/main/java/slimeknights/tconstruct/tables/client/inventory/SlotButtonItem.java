@@ -53,7 +53,7 @@ public class SlotButtonItem extends Button {
   }
 
   @Override
-  public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float partialTicks) {
+  public void renderWidget(MatrixStack matrices, int mouseX, int mouseY, float partialTicks) {
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     Minecraft.getInstance().getTextureManager().bindTexture(this.backgroundLocation);
 

@@ -207,7 +207,7 @@ public class ChannelBlock extends Block {
 		ChannelConnection connection = ChannelConnection.NONE;
     BlockPos placedOn = pos.offset(side.getOpposite());
     // on another channel means in or out
-    if (world.getBlockState(placedOn).isIn(this)) {
+    if (world.getBlockState(placedOn).matchesBlock(this)) {
       PlayerEntity player = context.getPlayer();
       connection = player != null && player.isSneaking() ? ChannelConnection.IN : ChannelConnection.OUT;
     } else if (isFluidHandler(world, side, placedOn)) {
@@ -338,7 +338,7 @@ public class ChannelBlock extends Block {
 	@Deprecated
 	@OnlyIn(Dist.CLIENT)
 	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-		return side.getAxis().isHorizontal() && adjacentBlockState.isIn(this) && state.get(DIRECTION_MAP.get(side)).canFlow() && adjacentBlockState.get(DIRECTION_MAP.get(side.getOpposite())).canFlow();
+		return side.getAxis().isHorizontal() && adjacentBlockState.matchesBlock(this) && state.get(DIRECTION_MAP.get(side)).canFlow() && adjacentBlockState.get(DIRECTION_MAP.get(side.getOpposite())).canFlow();
 	}
 
   @Override

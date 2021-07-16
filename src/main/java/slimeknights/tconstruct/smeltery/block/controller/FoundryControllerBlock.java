@@ -35,7 +35,7 @@ public class FoundryControllerBlock extends HeatingControllerBlock {
   @Override
   @Deprecated
   public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (!newState.isIn(this)) {
+    if (!newState.matchesBlock(this)) {
       TileEntityHelper.getTile(FoundryTileEntity.class, worldIn, pos).ifPresent(FoundryTileEntity::invalidateStructure);
     }
     super.onReplaced(state, worldIn, pos, newState, isMoving);

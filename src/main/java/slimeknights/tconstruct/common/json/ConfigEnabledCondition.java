@@ -50,7 +50,7 @@ public class ConfigEnabledCondition implements ICondition, ILootCondition {
   }
 
   @Override
-  public LootConditionType func_230419_b_() {
+  public LootConditionType getConditionType() {
     return TinkerCommons.lootConfig;
   }
 

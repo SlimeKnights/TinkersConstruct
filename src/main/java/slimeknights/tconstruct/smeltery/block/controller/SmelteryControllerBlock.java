@@ -34,7 +34,7 @@ public class SmelteryControllerBlock extends HeatingControllerBlock {
   @Override
   @Deprecated
   public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (!newState.isIn(this)) {
+    if (!newState.matchesBlock(this)) {
       TileEntityHelper.getTile(SmelteryTileEntity.class, worldIn, pos).ifPresent(SmelteryTileEntity::invalidateStructure);
     }
     super.onReplaced(state, worldIn, pos, newState, isMoving);

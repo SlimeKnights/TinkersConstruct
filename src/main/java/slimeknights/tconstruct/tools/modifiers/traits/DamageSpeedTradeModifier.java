@@ -53,7 +53,7 @@ public class DamageSpeedTradeModifier extends Modifier {
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     double boost = getMultiplier(tool, level);
     if (boost != 0 && tool.hasTag(TinkerTags.Items.HARVEST)) {
-      tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(-boost)).appendString(" ").append(MINING_SPEED)));
+      tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(-boost)).appendString(" ").appendSibling(MINING_SPEED)));
     }
   }
 

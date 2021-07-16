@@ -40,7 +40,7 @@ public class TooltipBuilder {
   /** Formatted broken string */
   private static final ITextComponent TOOLTIP_BROKEN = TConstruct.makeTranslation("tooltip", "tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED);
   /** Prefixed broken string */
-  private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = ToolStats.DURABILITY.getPrefix().append(TOOLTIP_BROKEN);
+  private static final ITextComponent TOOLTIP_BROKEN_PREFIXED = ToolStats.DURABILITY.getPrefix().appendSibling(TOOLTIP_BROKEN);
 
   private final ToolStack tool;
   @Getter
@@ -79,7 +79,7 @@ public class TooltipBuilder {
     if (textIfBroken && durability == 0) {
       return TOOLTIP_BROKEN_PREFIXED;
     }
-    return ToolStats.DURABILITY.getPrefix().append(formatPartialAmount(durability, ref));
+    return ToolStats.DURABILITY.getPrefix().appendSibling(formatPartialAmount(durability, ref));
   }
 
   /**
@@ -104,8 +104,8 @@ public class TooltipBuilder {
   public static ITextComponent formatPartialAmount(int value, int max) {
     return new StringTextComponent(Util.COMMA_FORMAT.format(value))
       .modifyStyle(style -> style.setColor(valueToColor(value, max)))
-      .append(new StringTextComponent(" / ").mergeStyle(TextFormatting.GRAY))
-      .append(new StringTextComponent(Util.COMMA_FORMAT.format(max)).modifyStyle(APPLY_MAX));
+      .appendSibling(new StringTextComponent(" / ").mergeStyle(TextFormatting.GRAY))
+      .appendSibling(new StringTextComponent(Util.COMMA_FORMAT.format(max)).modifyStyle(APPLY_MAX));
   }
 
   /**

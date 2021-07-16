@@ -20,7 +20,7 @@ import java.util.Random;
 public abstract class AbstractIslandStructure extends Structure<NoFeatureConfig> {
   protected static final String[] SIZES = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
   public AbstractIslandStructure() {
-    super(NoFeatureConfig.field_236558_a_);
+    super(NoFeatureConfig.CODEC);
   }
 
   @Override

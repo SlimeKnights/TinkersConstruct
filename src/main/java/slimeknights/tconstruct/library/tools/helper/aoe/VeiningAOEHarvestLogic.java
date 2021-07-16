@@ -88,7 +88,7 @@ public class VeiningAOEHarvestLogic extends ToolHarvestLogic {
         DistancePos distancePos = queue.remove();
         BlockPos pos = distancePos.getPos();
         // must be a valid block
-        if (world.getBlockState(pos).isIn(target)) {
+        if (world.getBlockState(pos).matchesBlock(target)) {
           // if not at max distance yet, add blocks on all sides
           int distance = distancePos.getDistance();
           if (distance < maxDistance) {

@@ -53,7 +53,7 @@ public class MomentumModifier extends Modifier {
     if (tool.hasTag(TinkerTags.Items.HARVEST)) {
       tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(0.25 * level))
                                .appendString(" ")
-                               .append(new TranslationTextComponent(getTranslationKey() + ".mining_speed"))));
+                               .appendSibling(new TranslationTextComponent(getTranslationKey() + ".mining_speed"))));
     }
   }
 }

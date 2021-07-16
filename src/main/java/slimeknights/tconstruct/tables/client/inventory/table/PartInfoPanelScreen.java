@@ -138,7 +138,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.getStringPropertyWidth(this.caption) / 2;
 
-      this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE).func_241878_f(), (float) this.guiLeft + x2, y, color);
+      this.font.drawTextWithShadow(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE).func_241878_f(), (float) this.guiLeft + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
@@ -147,7 +147,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.getStringPropertyWidth(this.patternCost) / 2;
 
-      this.font.func_238407_a_(matrices, this.patternCost.func_241878_f(), (float) this.guiLeft + x2, y, color);
+      this.font.drawTextWithShadow(matrices, this.patternCost.func_241878_f(), (float) this.guiLeft + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
@@ -156,7 +156,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.getStringPropertyWidth(this.materialValue) / 2;
 
-      this.font.func_238407_a_(matrices, this.materialValue.func_241878_f(), (float) this.guiLeft + x2, y, color);
+      this.font.drawTextWithShadow(matrices, this.materialValue.func_241878_f(), (float) this.guiLeft + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
@@ -179,7 +179,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       }
 
       IReorderingProcessor line = iter.next();
-      this.font.func_238407_a_(matrices, line, x, y, color);
+      this.font.drawTextWithShadow(matrices, line, x, y, color);
       y += textHeight;
     }
 

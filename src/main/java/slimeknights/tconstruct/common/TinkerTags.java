@@ -41,7 +41,10 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SLIMY_TREE_TRUNKS = tag("slimy_tree_trunks");
     public static final IOptionalNamedTag<Block> SLIMY_LEAVES = tag("slimy_leaves");
     public static final IOptionalNamedTag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
+    /** Blocks that are slime foilage on top of dirt */
     public static final IOptionalNamedTag<Block> SLIMY_GRASS = tag("slimy_grass");
+    /** Slime grass or slime dirt */
+    public static final IOptionalNamedTag<Block> SLIMY_SOIL = tag("slimy_soil");
 
     public static final IOptionalNamedTag<Block> ORES_COBALT = forgeTag("ores/cobalt");
     public static final IOptionalNamedTag<Block> ORES_COPPER = forgeTag("ores/copper");
@@ -54,6 +57,8 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SCORCHED_TANKS = tag("scorched_tanks");
 
 
+    /** Blocks which make a heater part of a structure, when placed above a heater */
+    public static final IOptionalNamedTag<Block> HEATER_CONTROLLERS = tag("heater_controllers");
     /** Blocks valid as a fuel tank for the melter or alloyer, should be item handlers with 1 slot or fluid handlers with 1 fluid */
     public static final IOptionalNamedTag<Block> FUEL_TANKS = tag("fuel_tanks");
     /** Tanks that serve as a valid input for the alloyer, should be fluid handlers with 1 fluid */

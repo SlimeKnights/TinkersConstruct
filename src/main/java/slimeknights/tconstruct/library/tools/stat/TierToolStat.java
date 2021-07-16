@@ -51,7 +51,7 @@ public class TierToolStat implements IToolStat<TierBuilder> {
 
   @Override
   public ITextComponent formatValue(float number) {
-    return new TranslationTextComponent(Util.makeTranslationKey("tool_stat", getName())).append(displayName.apply((int) number));
+    return new TranslationTextComponent(Util.makeTranslationKey("tool_stat", getName())).appendSibling(displayName.apply((int) number));
   }
 
   @Override

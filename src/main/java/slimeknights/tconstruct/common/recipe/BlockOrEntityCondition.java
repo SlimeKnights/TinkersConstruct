@@ -20,7 +20,7 @@ public class BlockOrEntityCondition implements ILootCondition {
   public static final Serializer SERIALIZER = new Serializer();
 
   @Override
-  public LootConditionType func_230419_b_() {
+  public LootConditionType getConditionType() {
     return TinkerCommons.lootBlockOrEntity;
   }
 

@@ -94,12 +94,12 @@ public class SlimeVineBlock extends VineBlock {
         VineStage stage = state.get(STAGE);
         for (; i < 3; i++) {
           BlockState above = worldIn.getBlockState(pos.up(i));
-          if (!above.isIn(this) || above.get(STAGE) != stage) {
+          if (!above.matchesBlock(this) || above.get(STAGE) != stage) {
             break;
           }
         }
         if (i > 2 || random.nextInt(2) == 0) {
-          state = state.func_235896_a_(STAGE);
+          state = state.cycleValue(STAGE);
         }
       }
       // place new vine at position
@@ -133,7 +133,7 @@ public class SlimeVineBlock extends VineBlock {
     World world = context.getWorld();
     BlockPos pos = context.getPos();
     BlockState currState = world.getBlockState(pos);
-    boolean isVine = currState.isIn(this);
+    boolean isVine = currState.matchesBlock(this);
     BlockState vineState = isVine ? currState : this.getDefaultState();
 
     // try each direction, see if we can place on that side
@@ -244,7 +244,7 @@ public class SlimeVineBlock extends VineBlock {
       return true;
     }
     // otherwise, if not up try a supporting vine (must not be end to support)
-    return side != Direction.UP && (upState.isIn(this) && upState.get(FACING_TO_PROPERTY_MAP.get(side)) && upState.get(STAGE) != VineStage.END);
+    return side != Direction.UP && (upState.matchesBlock(this) && upState.get(FACING_TO_PROPERTY_MAP.get(side)) && upState.get(STAGE) != VineStage.END);
   }
 
   /** Stages of the vine, cycles through them as it grows */

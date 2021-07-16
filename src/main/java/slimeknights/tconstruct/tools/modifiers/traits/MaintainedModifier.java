@@ -81,7 +81,7 @@ public class MaintainedModifier extends Modifier {
     if (tool.hasTag(TinkerTags.Items.HARVEST)) {
       double boost = getTotalBoost(tool, level);
       if (boost != 0) {
-        tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(boost)).appendString(" ").append(MINING_SPEED)));
+        tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(boost)).appendString(" ").appendSibling(MINING_SPEED)));
       }
     }
   }

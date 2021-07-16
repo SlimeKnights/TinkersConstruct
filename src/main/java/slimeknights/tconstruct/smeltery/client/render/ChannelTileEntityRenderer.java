@@ -80,7 +80,7 @@ public class ChannelTileEntityRenderer extends TileEntityRenderer<ChannelTileEnt
 						}
 					}
 					// render the extra edge against other blocks
-					if (!world.getBlockState(pos.offset(direction)).isIn(state.getBlock())) {
+					if (!world.getBlockState(pos.offset(direction)).matchesBlock(state.getBlock())) {
 						FluidRenderer.renderCuboid(matrices, builder, model.getSideEdge(), 0, still, flowing, color, light, false);
 					}
 				} else {

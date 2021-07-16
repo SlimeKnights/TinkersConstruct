@@ -94,7 +94,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
         BlockPos newGrass = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
         BlockState newState = this.getStateFromDirt(world.getBlockState(newGrass));
         if (newState != null && canSpread(newState, world, newGrass)) {
-          world.setBlockState(newGrass, newState.with(SNOWY, world.getBlockState(newGrass.up()).isIn(Blocks.SNOW)));
+          world.setBlockState(newGrass, newState.with(SNOWY, world.getBlockState(newGrass.up()).matchesBlock(Blocks.SNOW)));
         }
       }
     }
@@ -105,7 +105,7 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements IGrowable {
     BlockPos above = pos.up();
     BlockState aboveState = world.getBlockState(above);
     // under snow is fine
-    if (aboveState.isIn(Blocks.SNOW) && aboveState.get(SnowBlock.LAYERS) == 1) {
+    if (aboveState.matchesBlock(Blocks.SNOW) && aboveState.get(SnowBlock.LAYERS) == 1) {
       return true;
     }
     // under liquid is not fine

@@ -13,51 +13,52 @@ import slimeknights.tconstruct.world.worldgen.trees.SupplierBlockStateProvider;
 
 import java.util.function.Supplier;
 
-public class BaseSlimeTreeFeatureConfig implements IFeatureConfig {
+public class SlimeTreeConfig implements IFeatureConfig {
 
-  public static final Codec<BaseSlimeTreeFeatureConfig> CODEC = RecordCodecBuilder.create((treeConfig) -> treeConfig.group(BlockStateProvider.CODEC.fieldOf("trunk_provider").forGetter((object) -> object.trunkProvider),
+  public static final Codec<SlimeTreeConfig> CODEC = RecordCodecBuilder.create((treeConfig) -> treeConfig.group(
+    BlockStateProvider.CODEC.fieldOf("trunk_provider").forGetter((object) -> object.trunkProvider),
     BlockStateProvider.CODEC.fieldOf("leaves_provider").forGetter((instance) -> instance.leavesProvider),
     BlockStateProvider.CODEC.fieldOf("vines_provider").forGetter((instance) -> instance.vinesProvider),
     Codec.INT.fieldOf("base_height").orElse(0).forGetter((instance) -> instance.baseHeight),
     Codec.INT.fieldOf("random_height").orElse(0).forGetter((instance) -> instance.randomHeight),
-    Codec.BOOL.fieldOf("has_vines").orElse(false).forGetter((instance) -> instance.hasVines)
-  ).apply(treeConfig, BaseSlimeTreeFeatureConfig::new));
+    Codec.BOOL.fieldOf("has_vines").orElse(false).forGetter((instance) -> instance.hasVines),
+    Codec.BOOL.fieldOf("planted").orElse(false).forGetter((instance) -> instance.planted)
+  ).apply(treeConfig, SlimeTreeConfig::new));
 
   public final BlockStateProvider trunkProvider;
   public final BlockStateProvider leavesProvider;
   public final BlockStateProvider vinesProvider;
-  public transient boolean forcePlacement;
   public final int baseHeight;
   public final int randomHeight;
   public final boolean hasVines;
+  public final boolean planted;
 
-  public BaseSlimeTreeFeatureConfig(BlockStateProvider trunkProvider, BlockStateProvider leavesProvider, BlockStateProvider vinesProvider, int baseHeight, int randomHeight, boolean hasVines) {
+  public SlimeTreeConfig(BlockStateProvider trunkProvider, BlockStateProvider leavesProvider, BlockStateProvider vinesProvider, int baseHeight, int randomHeight, boolean hasVines, boolean planted) {
     this.trunkProvider = trunkProvider;
     this.leavesProvider = leavesProvider;
     this.vinesProvider = vinesProvider;
     this.baseHeight = baseHeight;
     this.randomHeight = randomHeight;
     this.hasVines = hasVines;
-  }
-
-  public void forcePlacement() {
-    this.forcePlacement = true;
+    this.planted = planted;
   }
 
   @NoArgsConstructor
+  @Accessors(fluent = true)
   public static class Builder {
     private static final SupplierBlockStateProvider AIR_PROVIDER = new SupplierBlockStateProvider(Blocks.AIR::getDefaultState);
 
-    @Setter @Accessors(fluent = true)
+    @Setter
     private BlockStateProvider trunkProvider = AIR_PROVIDER;
-    @Setter @Accessors(fluent = true)
+    @Setter
     private BlockStateProvider leavesProvider = AIR_PROVIDER;
     private BlockStateProvider vinesProvider = AIR_PROVIDER;
-    @Setter @Accessors(fluent = true)
+    @Setter
     private int baseHeight = 5;
-    @Setter @Accessors(fluent = true)
+    @Setter
     private int randomHeight = 4;
     private boolean hasVines = false;
+    private boolean planted = false;
 
     /** Sets the trunk */
     public Builder trunk(Supplier<BlockState> supplier) {
@@ -81,9 +82,15 @@ public class BaseSlimeTreeFeatureConfig implements IFeatureConfig {
       return vinesProvider(new SupplierBlockStateProvider(supplier));
     }
 
+    /** Sets the tree as a planted tree */
+    public Builder planted() {
+      this.planted = true;
+      return this;
+    }
+
     /** Builds the config */
-    public BaseSlimeTreeFeatureConfig build() {
-      return new BaseSlimeTreeFeatureConfig(this.trunkProvider, this.leavesProvider, this.vinesProvider, this.baseHeight, this.randomHeight, this.hasVines);
+    public SlimeTreeConfig build() {
+      return new SlimeTreeConfig(this.trunkProvider, this.leavesProvider, this.vinesProvider, this.baseHeight, this.randomHeight, this.hasVines, this.planted);
     }
   }
 }

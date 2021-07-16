@@ -190,7 +190,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public ITextComponent getDisplayName(int level) {
     return applyStyle(new TranslationTextComponent(getTranslationKey())
                         .appendString(" ")
-                        .append(new TranslationTextComponent(KEY_LEVEL + level)));
+                        .appendSibling(new TranslationTextComponent(KEY_LEVEL + level)));
   }
 
   /**
@@ -233,7 +233,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public final ITextComponent getDescription() {
     if (description == null) {
       description = getDescriptionList().stream()
-                                        .reduce((c1, c2) -> new StringTextComponent("").append(c1).appendString("\n").append(c2))
+                                        .reduce((c1, c2) -> new StringTextComponent("").appendSibling(c1).appendString("\n").appendSibling(c2))
                                         .orElse(StringTextComponent.EMPTY);
     }
     return description;
@@ -785,7 +785,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     if (tool.hasTag(condition)) {
       tooltip.add(applyStyle(new StringTextComponent("+" + slimeknights.tconstruct.library.utils.Util.COMMA_FORMAT.format(amount * tool.getModifier(stat)))
                                .appendString(" ")
-                               .append(new TranslationTextComponent(getTranslationKey() + "." + stat.getName().getPath()))));
+                               .appendSibling(new TranslationTextComponent(getTranslationKey() + "." + stat.getName().getPath()))));
     }
   }
 

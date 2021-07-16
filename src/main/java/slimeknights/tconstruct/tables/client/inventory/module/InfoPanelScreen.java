@@ -10,7 +10,6 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -108,7 +107,7 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   public void setCaption(ITextComponent caption) {
-    this.caption = (IFormattableTextComponent) caption;
+    this.caption = caption;
     this.updateSliderParameters();
   }
 
@@ -331,6 +330,7 @@ public class InfoPanelScreen extends ModuleScreen {
 
   @Override
   protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+    assert this.minecraft != null;
     this.minecraft.getTextureManager().bindTexture(BACKGROUND_IMAGE);
 
     this.border.draw(matrices);
@@ -351,7 +351,7 @@ public class InfoPanelScreen extends ModuleScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.getStringPropertyWidth(this.caption) / 2;
 
-      this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE).func_241878_f(), (float) this.guiLeft + x2, y, color);
+      this.font.drawTextWithShadow(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE).func_241878_f(), (float) this.guiLeft + x2, y, color);
       y += scaledFontHeight + 3;
     }
 
@@ -374,7 +374,7 @@ public class InfoPanelScreen extends ModuleScreen {
       }
 
       IReorderingProcessor line = iter.next();
-      this.font.func_238407_a_(matrices, line, x, y, color);
+      this.font.drawTextWithShadow(matrices, line, x, y, color);
       y += textHeight;
     }
 

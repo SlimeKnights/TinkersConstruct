@@ -155,6 +155,8 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
     Builder<Block> slimyGrass = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_GRASS);
     TinkerWorld.slimeGrass.forEach((slimeType, blockObj) -> blockObj.forEach(slimyGrass::addItemEntry));
+    Builder<Block> slimySoil = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SOIL).addTag(TinkerTags.Blocks.SLIMY_GRASS);
+    TinkerWorld.slimeDirt.forEach(slimySoil::addItemEntry);
 
     // allow the enderman to hold more blocks
     TagsProvider.Builder<Block> endermanHoldable = this.getOrCreateBuilder(BlockTags.ENDERMAN_HOLDABLE);
@@ -201,6 +203,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // structure tags
     // melter supports the heater as a tank
+    this.getOrCreateBuilder(TinkerTags.Blocks.HEATER_CONTROLLERS)
+        .add(TinkerSmeltery.searedMelter.get(), TinkerSmeltery.scorchedAlloyer.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.FUEL_TANKS)
         .add(TinkerSmeltery.searedHeater.get())
         .addTag(TinkerTags.Blocks.SEARED_TANKS)
