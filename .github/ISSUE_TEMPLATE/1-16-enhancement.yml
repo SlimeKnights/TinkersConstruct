@@ -18,8 +18,9 @@ body:
       value: "## Versions"
       
   - type: markdown
-    attributes: |
-      List the last version of the mod you played before making this suggestion, to ensure you are not missing new features.
+    attributes:
+      value: |
+        List the last version of the mod you played before making this suggestion, to ensure you are not missing new features.
   
   - type: input
     id: minecraft-version
@@ -85,3 +86,11 @@ body:
       description: "If there is any additional context needed, such as screenshots, include them here"
     validations:
       required: false
+  
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      description: "Confirm the following:"
+      options:
+        - label: "Confirm you have checked the roadmap, what's new, and the FAQ for your issue"
+          required: true
