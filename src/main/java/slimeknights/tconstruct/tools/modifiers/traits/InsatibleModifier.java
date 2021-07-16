@@ -35,6 +35,6 @@ public class InsatibleModifier extends Modifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    addDamageTooltip(tool, level * 3 * tool.getModifier(ToolStats.ATTACK_DAMAGE), tooltip);
+    addDamageTooltip(tool, level * 3, tooltip);
   }
 }
