@@ -83,13 +83,3 @@ body:
       description: If you answered "No" above, list other mods required to reproduce this. Should be less than 10 mods.
     validations:
       required: false
-  
-  - type: checkboxes
-    id: confirmations
-    attributes:
-      description: "Confirm the following:"
-      options:
-        - label: "Confirm you have checked the roadmap, what's new, and the FAQ for your issue"
-          required: true
-        - label: "Confirm you are not using performance enhancers, such as optifine"
-          required: true

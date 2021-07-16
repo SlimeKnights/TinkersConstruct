@@ -85,11 +85,3 @@ body:
       description: "If there is any additional context needed, such as screenshots, include them here"
     validations:
       required: false
-  
-  - type: checkboxes
-    id: confirmations
-    attributes:
-      description: "Confirm the following:"
-      options:
-        - label: "Confirm you have checked the roadmap, what's new, and the FAQ for your issue"
-          required: true
