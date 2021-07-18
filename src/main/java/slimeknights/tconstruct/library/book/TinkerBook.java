@@ -59,18 +59,15 @@ public class TinkerBook extends BookData {
     ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("large_tools"));
 
     // material tier transformers
-    TieredMaterialSectionTransformer tier1 = new TieredMaterialSectionTransformer("tier_one_materials", 1);
-    TieredMaterialSectionTransformer tier2 = new TieredMaterialSectionTransformer("tier_two_materials", 2);
-    TieredMaterialSectionTransformer tier3 = new TieredMaterialSectionTransformer("tier_three_materials", 3);
-    TieredMaterialSectionTransformer tier4 = new TieredMaterialSectionTransformer("tier_four_materials", 4);
-    MATERIALS_AND_YOU.addTransformer(tier1);
-    PUNY_SMELTING.addTransformer(tier2);
-    MIGHTY_SMELTING.addTransformer(tier3);
-    FANTASTIC_FOUNDRY.addTransformer(tier4);
-    ENCYCLOPEDIA.addTransformer(tier1);
-    ENCYCLOPEDIA.addTransformer(tier2);
-    ENCYCLOPEDIA.addTransformer(tier3);
-    ENCYCLOPEDIA.addTransformer(tier4);
+    MATERIALS_AND_YOU.addTransformer(new TieredMaterialSectionTransformer("tier_one_materials", 1, false));
+    PUNY_SMELTING.addTransformer(new TieredMaterialSectionTransformer("tier_two_materials", 2, false));
+    MIGHTY_SMELTING.addTransformer(new TieredMaterialSectionTransformer("tier_three_materials", 3, false));
+    FANTASTIC_FOUNDRY.addTransformer(new TieredMaterialSectionTransformer("tier_four_materials", 4, false));
+    // detailed transformers
+    ENCYCLOPEDIA.addTransformer(new TieredMaterialSectionTransformer("tier_one_materials", 1, true));
+    ENCYCLOPEDIA.addTransformer(new TieredMaterialSectionTransformer("tier_two_materials", 2, true));
+    ENCYCLOPEDIA.addTransformer(new TieredMaterialSectionTransformer("tier_three_materials", 3, true));
+    ENCYCLOPEDIA.addTransformer(new TieredMaterialSectionTransformer("tier_four_materials", 4, true));
 
     // modifier transformers
     ModifierSectionTransformer upgrades = new ModifierSectionTransformer("upgrades");

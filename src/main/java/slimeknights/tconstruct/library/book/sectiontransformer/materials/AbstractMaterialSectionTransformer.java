@@ -14,10 +14,10 @@ import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.book.content.ContentPageIconList;
 import slimeknights.tconstruct.library.book.sectiontransformer.SectionTransformer;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -31,13 +31,28 @@ import java.util.stream.Collectors;
 @OnlyIn(Dist.CLIENT)
 public abstract class AbstractMaterialSectionTransformer extends SectionTransformer {
 
-  public AbstractMaterialSectionTransformer(String sectionName) {
+  private final boolean detailed;
+  public AbstractMaterialSectionTransformer(String sectionName, boolean detailed) {
     super(sectionName);
+    this.detailed = detailed;
   }
 
+  /**
+   * Determines if a material should show in this book
+   * @param material  Material to check
+   * @return  True if it should show
+   */
   protected abstract boolean isValidMaterial(IMaterial material);
 
-  protected abstract PageContent getPageContent(IMaterial material, List<ItemStack> displayStacks);
+  /**
+   * Gets the page for the given material, can override if you use a different page type
+   * @param material       Material to display
+   * @param displayStacks  List of display item stacks
+   * @return  Material page
+   */
+  protected PageContent getPageContent(IMaterial material, List<ItemStack> displayStacks) {
+    return new ContentMaterial(material, displayStacks, detailed);
+  }
 
   @Override
   public void transform(BookData book, SectionData sectionData) {

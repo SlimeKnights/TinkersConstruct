@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -12,6 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
 import slimeknights.mantle.client.book.data.element.TextData;
@@ -59,11 +61,13 @@ public class ContentMaterial extends TinkerPage {
   private transient List<ItemStack> displayStacks;
   @SerializedName("material")
   public String materialName;
+  public boolean detailed;
 
-  public ContentMaterial(IMaterial material, List<ItemStack> displayStacks) {
+  public ContentMaterial(IMaterial material, List<ItemStack> displayStacks, boolean detailed) {
     this.material = Lazy.of(() -> material);
     this.materialName = material.getIdentifier().toString();
     this.displayStacks = displayStacks;
+    this.detailed = detailed;
   }
 
   @Override
@@ -99,12 +103,17 @@ public class ContentMaterial extends TinkerPage {
     y+= 65;
     this.addStatsDisplay(x, y + 10 * headTraits, w, list, material, ExtraMaterialStats.ID);
 
-    // inspirational quote
+    // inspirational quote, or boring description text
     MaterialId id = material.getIdentifier();
-    String flavor = parent.parent.parent.strings.get(String.format("material.%s.%s.book", id.getNamespace(), id.getPath()));
-    if (flavor != null) {
-      TextData flavourData = new TextData("\"" + flavor + "\"");
-      flavourData.italic = true;
+    String textKey = String.format(detailed ? "material.%s.%s.encyclopedia" : "material.%s.%s.flavor", id.getNamespace(), id.getPath());
+    if (I18n.hasKey(textKey)) {
+      // using forge instead of I18n.format as that prevents % from being interpreted as a format key
+      String translated = ForgeI18n.getPattern(textKey);
+      if (!detailed) {
+        translated = '"' + translated + '"';
+      }
+      TextData flavourData = new TextData(translated);
+      flavourData.italic = !detailed;
       list.add(new TextElement(x + w - 16, y + 10 * handleTraits, w, 60, flavourData));
     }
   }

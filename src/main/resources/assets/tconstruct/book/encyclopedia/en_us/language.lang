@@ -32,36 +32,6 @@ modifier.effect=Effects:
 tool.properties=Properties:
 
 tier_one_materials.subtext=These materials are easy to find, and can be placed in the part builder to create tool parts
-material.tconstruct.wood.book=Makes repairs 50% more effective per part
-material.tconstruct.stone.book=Causes the tool to mine faster by the square root of lost durability
-material.tconstruct.flint.book=Increases damage by the square root of the lost durability
-material.tconstruct.bone.book=Adds an extra 0.75 damage per part
-material.tconstruct.necrotic_bone.book=Heals up to 5% of damage dealt per level
-
 tier_two_materials.subtext=These materials require melting and casting to create, and may be a bit more rare
-material.tconstruct.iron.book=Gives an extra 10% durability per part
-material.tconstruct.copper.book=Grants more mining speed at lower depths, up to +10% per level
-material.tconstruct.slimewood.book=Gives a 5% chance per level of regenerating overslime each second
-material.tconstruct.seared_stone.book=Gives +2.5 damage per level in heat, or -2.5 in cold areas
-material.tconstruct.scorched_stone.book=Gives +2 damage per level against burning targets
-
-material.tconstruct.lead.book=Grants +10% attack and -10% movement speed per level
-material.tconstruct.silver.book=Gives +2.5 damage against undead per level
-
 tier_three_materials.subtext=These materials require alloying, either through an alloyer or a smeltery
-material.tconstruct.slimesteel.book=Grants 25 extra overslime, +50% of the total per level
-material.tconstruct.tinkers_bronze.book=Grants +10% to +15% mining speed per level at full durability
-material.tconstruct.nahuatl.book=Has a 50% chance of doing up to 5 damage over time, more damage at higher levels
-material.tconstruct.rose_gold.book=Grants 1 extra upgrade slot per part
-material.tconstruct.pig_iron.book=Can be eaten to restore 1 hunger and 0.1 saturation per level
-material.tconstruct.cobalt.book=Boosts mining and attack speed by 7% per level
-
-material.tconstruct.electrum.book=Grants +50% XP per level from blocks and monsters
-material.tconstruct.bronze.book=Grants +12.5% mining speed per level at full durability
-material.tconstruct.steel.book=Grants +4% durability, damage, and speed per level
-material.tconstruct.constantan.book=Grants +12.5% mining speed in extreme heat or cold
-
 tier_four_materials.subtext=These materials cannot be found without traveling to the Nether
-material.tconstruct.queens_slime.book=Reduces durability by 15% per level, 66% of that going towards overslime
-material.tconstruct.hepatizon.book=Boosts mining speed by 25% per level after mining 32 consecutive blocks
-material.tconstruct.manyullyn.book=Grants +3 damage per level after 16 consecutive hits

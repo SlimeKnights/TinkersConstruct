@@ -636,7 +636,7 @@
   "item.tconstruct.quartz_shuriken.tooltip": "A throwable weapon with higher damage",
   "item.tconstruct.flint_shuriken": "Flint Shuriken",
   "item.tconstruct.flint_shuriken.tooltip": "A throwable weapon with high knockback",
-  
+
   "block.tconstruct.earth_cake": "Earthslime Cake",
   "block.tconstruct.sky_cake":   "Skyslime Cake",
   "block.tconstruct.ichor_cake": "Ichor Cake",
@@ -748,7 +748,7 @@
   "item.tconstruct.sword.description": "The Sword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
   "item.tconstruct.cleaver.description": "The Cleaver is a weapon for a smeltery master. High range attacks keep cut though the toughest of foes.",
 
- 
+
   "_comment": "Smeltery shared",
 
   "block.tconstruct.tank.fluid": "Liquid %s",
@@ -1141,31 +1141,88 @@
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "Wood",
   "material.tconstruct.wood.format": "Wooden %s",
+  "material.tconstruct.wood.flavor": "How much wood could a woodchuck chuck if a woodchuck could chuck wood?",
+  "material.tconstruct.wood.encyclopedia": "Makes repairs 50% more effective per part",
+
   "material.tconstruct.stone": "Stone",
+  "material.tconstruct.stone.flavor": "Rock solid",
+  "material.tconstruct.stone.encyclopedia": "Causes the tool to mine faster by the square root of lost durability",
+
   "material.tconstruct.flint": "Flint",
+  "material.tconstruct.flint.flavor": "This will spark the flames of a Tinker's heart!",
+  "material.tconstruct.flint.encyclopedia": "Increases damage by the square root of the lost durability",
+
   "material.tconstruct.bone": "Bone",
+  "material.tconstruct.bone.flavor": "I am the bone of my sword",
+  "material.tconstruct.bone.encyclopedia": "Adds an extra 0.75 damage per part",
+
   "material.tconstruct.necrotic_bone": "Necrotic Bone",
+  "material.tconstruct.necrotic_bone.flavor": "Do you have a bone to pick with me?",
+  "material.tconstruct.necrotic_bone.encyclopedia": "Heals up to 5% of damage dealt per level",
+
 
   "__comment": "Tier 2 Materials",
   "material.tconstruct.iron": "Iron",
+  "material.tconstruct.iron.flavor": "Ironic. He could save others from death, but not himself.",
+  "material.tconstruct.iron.encyclopedia": "Gives an extra 10% durability per part",
+
   "material.tconstruct.seared_stone": "Seared Stone",
+  "material.tconstruct.seared_stone.flavor": "Hotter Grout.",
+  "material.tconstruct.seared_stone.encyclopedia": "Gives +2.5 damage per level in heat, or -2.5 in cold areas",
+
   "material.tconstruct.scorched_stone": "Scorched Stone",
+  "material.tconstruct.scorched_stone.flavor": "Founders edition bonus.",
+  "material.tconstruct.scorched_stone.encyclopedia": "Gives +2 damage per level against burning targets",
+
   "material.tconstruct.copper": "Copper",
+  "material.tconstruct.copper.flavor": "Don't let this tarnish your day.",
+  "material.tconstruct.copper.encyclopedia": "Grants more mining speed at lower depths, up to +10% per level",
+
   "material.tconstruct.slimewood": "Slimewood",
+  "material.tconstruct.slimewood.flavor": "Is this the wood of a slime or slime that's been infused with wood?",
+  "material.tconstruct.slimewood.encyclopedia": "Gives a 5% chance per level of regenerating overslime each second",
+
   "material.tconstruct.rose_gold": "Rose Gold",
+  "material.tconstruct.rose_gold.flavor": "Disclaimer: Not actually made with roses.",
+  "material.tconstruct.rose_gold.encyclopedia": "Grants 1 extra upgrade slot per part",
+
 
   "__comment": "Tier 3 Materials",
   "material.tconstruct.slimesteel": "Slimesteel",
+  "material.tconstruct.slimesteel.flavor": "You must steal the slime to get slimesteel.",
+  "material.tconstruct.slimesteel.encyclopedia": "Grants 25 extra overslime, +50% of the total per level",
+
   "material.tconstruct.nahuatl": "Nahuatl",
+  "material.tconstruct.nahuatl.flavor": "This is not an obsidian part, if it was it would say \"Obsidian.\"",
+  "material.tconstruct.nahuatl.encyclopedia": "Has a 50% chance of doing up to 5 damage over time, more damage at higher levels",
+
   "material.tconstruct.tinkers_bronze": "Tinker's Bronze",
+  "material.tconstruct.tinkers_bronze.flavor": "Not to be confused with Bronze.",
+  "material.tconstruct.tinkers_bronze.encyclopedia": "Grants +10% to +15% mining speed per level at full durability, based on other modifiers",
+
   "material.tconstruct.pig_iron": "Pig Iron",
+  "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
+  "material.tconstruct.pig_iron.encyclopedia": "Can be eaten to restore 1 hunger and 0.1 saturation per level",
+
 
 
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "Cobalt",
+  "material.tconstruct.cobalt.flavor": "Coblat. The material of the Red Army.",
+  "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 7% per level",
+
   "material.tconstruct.manyullyn": "Manyullyn",
+  "material.tconstruct.manyullyn.flavor": "The metal that most Tinkers will never pronounce right. Also known as a star cutting material.",
+  "material.tconstruct.manyullyn.encyclopedia": "Grants +3 damage per level after 16 consecutive hits",
+
   "material.tconstruct.hepatizon": "Hepatizon",
+  "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - boil it, mash it, put it in a stew.",
+  "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by 25% per level after mining 32 consecutive blocks",
+
   "material.tconstruct.queens_slime": "Queen's Slime",
+  "material.tconstruct.queens_slime.flavor": "Princesses are evil, get yourself a Queen.",
+  "material.tconstruct.queens_slime.encyclopedia": "Reduces durability by 15% per level, 66% of that going towards overslime",
+
   "material.tconstruct.soulsteel": "Soulsteel",
 
 
@@ -1176,13 +1233,31 @@
 
   "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.lead": "Lead",
+  "material.tconstruct.lead.flavor": "Could try and make a sandwhich out of this.",
+  "material.tconstruct.lead.encyclopedia": "Grants +10% attack and -10% movement speed per level",
+
   "material.tconstruct.silver": "Silver",
+  "material.tconstruct.silver.flavor": "You know, this tool isn't going to look so shiny in a few days.",
+  "material.tconstruct.silver.encyclopedia": "Gives +2.5 damage against undead per level",
+
   "material.tconstruct.electrum": "Electrum",
+  "material.tconstruct.electrum.flavor": "Good for electronic components.",
+  "material.tconstruct.electrum.encyclopedia": "Grants +50% XP per level from blocks and monsters",
+
 
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.bronze": "Bronze",
+  "material.tconstruct.bronze.flavor": "Not to be confused with Tinker's Bronze.",
+  "material.tconstruct.bronze.encyclopedia": "Grants +12.5% mining speed per level at full durability",
+
   "material.tconstruct.steel": "Steel",
+  "material.tconstruct.steel.flavor": "Basically 90% of material science",
+  "material.tconstruct.steel.encyclopedia": "Grants +4% durability, damage, and speed per level",
+
   "material.tconstruct.constantan": "Constantan",
+  "material.tconstruct.constantan.flavor": "Constantantantantantantan... Sorry it's fun to add more \"tans.\"",
+  "material.tconstruct.constantan.encyclopedia": "Grants +12.5% mining speed in extreme heat or cold",
+
 
 
   "_comment": "Modifiers",
