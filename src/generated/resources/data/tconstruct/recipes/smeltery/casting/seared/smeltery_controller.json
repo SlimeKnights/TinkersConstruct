@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "name": "tconstruct:molten_copper",
+    "tag": "tconstruct:molten_copper",
     "amount": 576
   },
   "result": "tconstruct:smeltery_controller",

@@ -342,22 +342,27 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .build(consumer, modResource(castingFolder + "stone/block_from_seared"));
     this.ingotCasting(consumer, TinkerFluids.searedStone, TinkerSmeltery.searedBrick, castingFolder + "brick");
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.searedGlass)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.searedStone.get(), FluidValues.METAL_BRICK))
+                            .setFluidAndTime(TinkerFluids.searedStone, FluidValues.METAL_BRICK)
                             .setCast(Tags.Items.GLASS_COLORLESS, true)
                             .build(consumer, modResource(castingFolder + "glass"));
     // discount for casting panes
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.searedGlassPane)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.searedStone.get(), FluidValues.INGOT))
+                            .setFluidAndTime(TinkerFluids.searedStone, FluidValues.INGOT)
                             .setCast(Tags.Items.GLASS_PANES_COLORLESS, true)
                             .build(consumer, modResource(castingFolder + "glass_pane"));
 
     // smeltery controller
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.smelteryController)
                             .setCast(TinkerSmeltery.searedHeater, true)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenCopper.get(), FluidValues.INGOT * 4))
+                            .setFluidAndTime(TinkerFluids.moltenCopper, FluidValues.INGOT * 4)
                             .build(consumer, prefix(TinkerSmeltery.smelteryController, castingFolder));
 
     // craft seared stone from clay and stone
+    // button is the closest we have to a single stone brick, just go with it, better than not having the recipe
+    ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.searedBrick)
+                            .setFluidAndTime(TinkerFluids.moltenClay, FluidValues.SLIMEBALL / 2)
+                            .setCast(Items.STONE_BUTTON, true)
+                            .build(consumer, modResource(castingFolder + "brick_composite"));
     // cobble
     searedCasting(consumer, TinkerSmeltery.searedCobble, CompoundIngredient.from(Ingredient.fromTag(Tags.Items.COBBLESTONE), Ingredient.fromItems(Blocks.GRAVEL)), castingFolder + "cobble/block");
     searedSlabCasting(consumer, TinkerSmeltery.searedCobble.getSlab(), Ingredient.fromItems(Blocks.COBBLESTONE_SLAB), castingFolder + "cobble/slab");
@@ -658,7 +663,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .build(consumer, modResource(castingFolder + "stone_from_scorched"));
     this.ingotCasting(consumer, TinkerFluids.scorchedStone, TinkerSmeltery.scorchedBrick, castingFolder + "brick");
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.scorchedGlass)
-                            .setFluidAndTime(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM))
+                            .setFluidAndTime(TinkerFluids.moltenQuartz, FluidValues.GEM)
                             .setCast(TinkerSmeltery.scorchedBricks, true)
                             .build(consumer, modResource(castingFolder + "glass"));
     // discount for casting panes
@@ -667,6 +672,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(TinkerSmeltery.scorchedBrick, true)
                             .build(consumer, modResource(castingFolder + "glass_pane"));
     // craft scorched stone from magma and basalt
+    // flint is almost a brick
+    ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.scorchedBrick)
+                            .setFluidAndTime(TinkerFluids.magma, FluidValues.SLIMEBALL / 2)
+                            .setCast(Items.FLINT, true)
+                            .build(consumer, modResource(castingFolder + "brick_composite"));
     scorchedCasting(consumer, TinkerSmeltery.scorchedStone, Ingredient.fromItems(Blocks.BASALT , Blocks.GRAVEL), castingFolder + "stone_from_magma");
     scorchedCasting(consumer, TinkerSmeltery.polishedScorchedStone, Ingredient.fromItems(Blocks.POLISHED_BASALT), castingFolder + "polished_from_magma");
     // foundry controller
