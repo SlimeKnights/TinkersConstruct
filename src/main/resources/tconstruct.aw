@@ -119,3 +119,6 @@ accessible  field   net/minecraft/client/render/VertexFormat   offsets   Lit/uni
 accessible  method  net/minecraft/client/render/model/BasicBakedModel$Builder  <init>   (ZZZLnet/minecraft/client/render/model/json/ModelTransformation;Lnet/minecraft/client/render/model/json/ModelOverrideList;)V
 
 accessible  field   net/minecraft/client/render/model/json/JsonUnbakedModel    GSON   Lcom/google/gson/Gson;
+
+accessible  field   net/minecraft/world/World   thread  Ljava/lang/Thread;
+accessible  field   net/minecraft/block/entity/ChestBlockEntity inventory   Lnet/minecraft/util/collection/DefaultedList;

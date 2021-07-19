@@ -115,7 +115,7 @@ public class CraftingStationTileEntity extends RetexturedTableTileEntity impleme
     // update all slots in the inventory
     // remove remaining items
     //throw new RuntimeException("CRAB!");
-    //TODO: PORT
+    //TODO: PORT, Does it even need to be ported?
 //    ForgeHooks.setCraftingPlayer(player);
     DefaultedList<ItemStack> remaining = this.lastRecipe.getRemainingStacks(craftingInventory);
 //    ForgeHooks.setCraftingPlayer(null);

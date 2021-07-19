@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.tables.inventory;
 
 import lombok.Getter;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.inventory.BaseContainer;
@@ -9,11 +11,16 @@ import slimeknights.tconstruct.smeltery.tileentity.SmelteryTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Direction;
 
 public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContainer<TILE> {
@@ -28,6 +35,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
     this(containerType, windowId, inv, tile, null, x, y, columns);
   }
 
+  //TODO this is all wrong
   public SideInventoryContainer(ScreenHandlerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
     super(containerType, windowId, inv, tile);
 
@@ -36,7 +44,12 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
     } else if(tile instanceof CraftingStationTileEntity) {
       this.itemHandler = ((CraftingStationTileEntity) tile).craftingInventory;
     } else {
-      this.itemHandler = new SimpleInventory();
+      if (tile.getWorld().getBlockEntity(tile.getPos()) instanceof ChestBlockEntity) {
+        ChestBlockEntity chest = (ChestBlockEntity) tile.getWorld().getBlockEntity(tile.getPos());
+        this.itemHandler = new SimpleInventory(chest.inventory.toArray(new ItemStack[0]));
+      } else {
+        this.itemHandler = new SimpleInventory();
+      }
     }
 
     // slot properties
@@ -49,25 +62,14 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
 
     // add slots
     int index = 0;
-    for (int r = 0; r < rows; r++) {
-      for (int c = 0; c < columns; c++) {
+    for (int row = 0; row < rows; row++) {
+      for (int column = 0; column < columns; column++) {
         if (index >= this.slotCount) {
           break;
         }
-
-        //This is cursed but it should be temporary
-        if(this.slotCount > 18 && this.slotCount <= 27) {
-          this.addSlot(this.createSlot(itemHandler, index, x + c * 22 + 12, y + r * 18));
-        }else if(this.slotCount > 9 && this.slotCount <= 18) {
-          this.addSlot(this.createSlot(itemHandler, index, x + c * 22 + 34, y + r * 18));
-        }else if(this.slotCount > 4 && this.slotCount <= 9) {
-          this.addSlot(this.createSlot(itemHandler, index, x + c * 22 + 56, y + r * 18));
-        }else if(this.slotCount <= 4) {
-          this.addSlot(this.createSlot(itemHandler, index, x + c * 22 + 78, y + r * 18));
-        }else {
-          this.addSlot(this.createSlot(itemHandler, index, x + c * 22, y + r * 18));
-        }
-
+        if(index == 0)
+          LogManager.getLogger().info(x + column * 18);
+        this.addSlot(this.createSlot(itemHandler, index, x + column * 18, y + row * 18));
         index++;
       }
     }

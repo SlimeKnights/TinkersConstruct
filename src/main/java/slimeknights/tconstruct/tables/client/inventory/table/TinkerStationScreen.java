@@ -18,9 +18,12 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import org.apache.logging.log4j.LogManager;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
@@ -56,6 +59,8 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   private static final Text COMPONENTS_TEXT = Util.makeTranslation("gui", "tinker_station.components");
 
   private static final Text MODIFIERS_TEXT = Util.makeTranslation("gui", "tinker_station.modifiers");
+  private static final Text UPGRADES_TEXT = Util.makeTranslation("gui", "tinker_station.upgrades");
+  private static final Text TRAITS_TEXT = Util.makeTranslation("gui", "tinker_station.traits");
   private static final Text REPAIR_TEXT = Util.makeTranslation("gui", "tinker_station.repair");
   private static final Text ASCII_ANVIL = new LiteralText("\n\n")
     .append("       .\n")
@@ -411,6 +416,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     y = this.cornerY;
     // draw the beams at the top
     x += this.leftBeam.draw(matrices, x, y);
+    RenderSystem.color4f(0,1,1,1);
     x += this.centerBeam.drawScaledX(matrices, x, y, this.buttonsScreen.backgroundWidth);
     this.rightBeam.draw(matrices, x, y);
 
@@ -418,7 +424,6 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     x += this.leftBeam.draw(matrices, x, y);
     x += this.centerBeam.drawScaledX(matrices, x, y, this.tinkerInfo.backgroundWidth);
     this.rightBeam.draw(matrices, x, y);
-
     // draw the decoration for the buttons
     for (AbstractButtonWidget widget : this.buttonsScreen.getButtons()) {
       if(widget instanceof SlotButtonItem) {

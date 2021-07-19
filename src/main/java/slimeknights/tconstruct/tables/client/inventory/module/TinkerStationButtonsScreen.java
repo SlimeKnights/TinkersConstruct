@@ -8,6 +8,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+
+import org.apache.logging.log4j.LogManager;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
@@ -55,8 +57,9 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
         TinkerStationButtonsScreen.this.parent.onToolSelection(slotInformationButton.data);
       }
     };
-
+    LogManager.getLogger().info("TESTSF");
     for (SlotInformation slotInformation : SlotInformationLoader.getSlotInformationList()) {
+      LogManager.getLogger().info(slotInformation);
       SlotButtonItem slotButtonItem = null;
       if (slotInformation.isRepair()) {
         // there are multiple repair slots, one for each relevant size

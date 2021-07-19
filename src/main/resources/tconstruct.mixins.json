@@ -10,13 +10,16 @@
     "LivingEntityMixin",
     "MagmaCubeEntityMixin",
     "PlayerEntityMixin",
-    "ServerResourceManagerMixin",
-    "client.ClientPlayNetworkHandlerMixin",
-    "client.ItemRendererMixin",
-    "client.ModelLoaderMixin"
+    "MixinWorld"
+
+
   ],
   "client": [
-    "client.ParticleManagerMixin"
+    "client.ModelLoaderMixin",
+    "client.ParticleManagerMixin",
+    "ServerResourceManagerMixin",
+    "client.ClientPlayNetworkHandlerMixin",
+    "client.ItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

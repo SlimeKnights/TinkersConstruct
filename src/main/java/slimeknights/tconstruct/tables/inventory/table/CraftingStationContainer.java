@@ -12,7 +12,10 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
 import slimeknights.tconstruct.common.config.TConfig;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTileEntity;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -51,42 +54,47 @@ public class CraftingStationContainer extends BaseStationContainer<CraftingStati
       // add result slot, will fetch result cache
       this.addSlot(resultSlot = new LazyResultSlot(tile.getCraftingResult(), 124, 35));
 
-      // detect side inventory
-      BlockEntity inventoryTE = null;
-      Direction accessDir = null;
+      World world = tile.getWorld();
+      if (world != null) {
+        // detect side inventory
+        BlockEntity inventoryTE = null;
+        Direction accessDir = null;
 
-      BlockPos pos = tile.getPos();
-      horizontals: for (Direction dir : Direction.Type.HORIZONTAL) {
-        // skip any tables in this multiblock
-        BlockPos neighbor = pos.offset(dir);
-        for (Pair<BlockPos, BlockState> tinkerPos : this.stationBlocks) {
-          if (tinkerPos.getLeft().equals(neighbor)) {
-            continue horizontals;
+        BlockPos pos = tile.getPos();
+        horizontals:
+        for (Direction dir : Direction.Type.HORIZONTAL) {
+          // skip any tables in this multiblock
+          BlockPos neighbor = pos.offset(dir);
+          for (Pair<BlockPos, BlockState> tinkerPos : this.stationBlocks) {
+            if (tinkerPos.getLeft().equals(neighbor)) {
+              continue horizontals;
+            }
+          }
+
+          // fetch tile entity
+          BlockEntity te = Objects.requireNonNull(tile.getWorld()).getBlockEntity(neighbor);
+          if (te != null && isUsable(te, inv.player)) {
+            // try internal access first
+            if (hasItemHandler(te, null)) {
+              inventoryTE = te;
+              accessDir = null;
+              break;
+            }
+
+            // try sided access next
+            Direction side = dir.getOpposite();
+            if (hasItemHandler(te, side)) {
+              inventoryTE = te;
+              accessDir = side;
+              break;
+            }
           }
         }
 
-        // fetch tile entity
-        BlockEntity te = Objects.requireNonNull(tile.getWorld()).getBlockEntity(neighbor);
-        if (te != null && isUsable(te, inv.player)) {
-          // try internal access first
-          if (hasItemHandler(te, null)) {
-            inventoryTE = te;
-            accessDir = null;
-            break;
-          }
-
-          // try sided access next
-          Direction side = dir.getOpposite();
-          if (hasItemHandler(te, side)) {
-            inventoryTE = te;
-            accessDir = side;
-            break;
-          }
-        }
+        // if we found something, add the side inventory
+        if (inventoryTE != null)
+          this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer, id, inv, inventoryTE, accessDir, -6 - 18 * 6, 18, 6), false);
       }
-
-      // if we found something, add the side inventory
-      this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer, id, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
     } else {
       // requirement for final variable
       resultSlot = null;

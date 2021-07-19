@@ -11,10 +11,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.tconstruct.library.Util;
@@ -98,8 +103,9 @@ public class BaseStationScreen<TILE extends BlockEntity & Inventory, CONTAINER e
     if (state.getBlock() instanceof ITinkerStationBlock) {
       BlockEntity te = this.tile.getWorld().getBlockEntity(pos);
       //((ITinkerStationBlock) state.getBlock()).openGui(MinecraftClient.getInstance().player, MinecraftClient.getInstance().player.getEntityWorld(), pos);
-      TinkerNetwork.getInstance().sendToServer(new StationTabPacket(pos));
-
+      //TinkerNetwork.getInstance().sendToServer(new StationTabPacket(pos));
+      //Do this instead for now because station tab packet is broken because of a thread issue
+      MinecraftClient.getInstance().interactionManager.interactBlock(MinecraftClient.getInstance().player,MinecraftClient.getInstance().player.clientWorld,Hand.MAIN_HAND,new BlockHitResult(MinecraftClient.getInstance().player.getPos(), Direction.UP,pos, false));
       // sound!
       assert this.client != null;
       this.client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
