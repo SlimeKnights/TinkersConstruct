@@ -416,7 +416,6 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     y = this.cornerY;
     // draw the beams at the top
     x += this.leftBeam.draw(matrices, x, y);
-    RenderSystem.color4f(0,1,1,1);
     x += this.centerBeam.drawScaledX(matrices, x, y, this.buttonsScreen.backgroundWidth);
     this.rightBeam.draw(matrices, x, y);
 

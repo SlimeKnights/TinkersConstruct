@@ -57,7 +57,6 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
         TinkerStationButtonsScreen.this.parent.onToolSelection(slotInformationButton.data);
       }
     };
-    LogManager.getLogger().info("TESTSF");
     for (SlotInformation slotInformation : SlotInformationLoader.getSlotInformationList()) {
       LogManager.getLogger().info(slotInformation);
       SlotButtonItem slotButtonItem = null;
