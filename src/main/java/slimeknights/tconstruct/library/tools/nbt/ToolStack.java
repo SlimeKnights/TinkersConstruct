@@ -14,7 +14,6 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -504,14 +503,13 @@ public class ToolStack implements IModifierToolStack {
     }
     // next, ensure modifiers validate
     ValidatedResult result;
-    List<ModifierEntry> mods = getModifierList();
-    for (ModifierEntry entry : mods) {
+    for (ModifierEntry entry : getModifierList()) {
       result = entry.getModifier().validate(this, entry.getLevel());
       if (result.hasError()) {
         return result;
       }
     }
-    return ModifierRecipeLookup.checkRequirements(getUpgrades().getModifiers(), mods);
+    return ValidatedResult.PASS;
   }
 
   /**

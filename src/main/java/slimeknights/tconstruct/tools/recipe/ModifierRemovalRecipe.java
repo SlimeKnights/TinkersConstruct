@@ -107,7 +107,12 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
         return validated;
       }
     }
-
+    // check the modifier requirements
+    validated = ModifierRecipeLookup.checkRequirements(tool.getUpgrades().getModifiers(), tool.getModifierList());
+    if (validated.hasError()) {
+      return validated;
+    }
+    
     // successfully removed
     return ValidatedResult.success(tool.createStack());
   }

@@ -99,7 +99,9 @@ public class ModifierRecipeLookup {
    * @param modifier  Modifier
    * @param match     Requirement
    * @param error     Translation key for error message
+   * @deprecated  This will likely be removed in a later build, switching to a less automatic method of modifier requirement checks
    */
+  @Deprecated
   public static void addRequirement(Modifier modifier, ModifierMatch match, String error) {
     LISTENER.checkClear();
 
@@ -118,7 +120,9 @@ public class ModifierRecipeLookup {
    * @param upgrades   List to validate
    * @param modifiers  total list of modifiers
    * @return  Validated result. Pass if no error, failure if error
+   * @deprecated  Currently not used, as this solution ended up being super inflexible. It was intended for validating modifier removals, which will probably need to be validated in the recipe
    */
+  @Deprecated
   public static ValidatedResult checkRequirements(List<ModifierEntry> upgrades, List<ModifierEntry> modifiers) {
     for (ModifierEntry entry : upgrades) {
       Pair<ModifierMatch,String> pair = REQUIREMENTS.get(entry.getModifier());
@@ -164,12 +168,20 @@ public class ModifierRecipeLookup {
 
   /* Slots */
 
-  /** Gets the number of upgrade slots needed for the given modifier */
+  /**
+   * Gets the number of upgrade slots needed for the given modifier
+   * @deprecated this ended up a very inflexible way to deal with slot restoring, a better way is coming in the future
+   */
+  @Deprecated
   public static int getUpgradeSlots(Modifier modifier) {
     return UPGRADE_SLOTS.getOrDefault(modifier, -1);
   }
 
-  /** Gets the number of ability slots needed for the given modifier */
+  /**
+   * Gets the number of ability slots needed for the given modifier
+   * @deprecated this ended up a very inflexible way to deal with slot restoring, a better way is coming in the future
+   */
+  @Deprecated
   public static int getAbilitySlots(Modifier modifier) {
     return ABILITY_SLOTS.getOrDefault(modifier, -1);
   }
@@ -178,7 +190,9 @@ public class ModifierRecipeLookup {
    * Sets the number of upgrade slots needed for this modifier
    * @param modifier  Modifier
    * @param slots     Upgrade slots needed
+   * @deprecated  Currently not used, as this solution ended up being super inflexible. It was intended for validating modifier removals, which will probably need to be validated in the recipe
    */
+  @Deprecated
   public static void setUpgradeSlots(Modifier modifier, int slots) {
     if (!UPGRADE_SLOTS.containsKey(modifier) || UPGRADE_SLOTS.getInt(modifier) > slots) {
       UPGRADE_SLOTS.put(modifier, slots);
@@ -189,7 +203,9 @@ public class ModifierRecipeLookup {
    * Sets the number of upgrade slots needed for this modifier
    * @param modifier  Modifier
    * @param slots     Upgrade slots needed
+   * @deprecated  Currently not used, as this solution ended up being super inflexible. It was intended for validating modifier removals, which will probably need to be validated in the recipe
    */
+  @Deprecated
   public static void setAbilitySlots(Modifier modifier, int slots) {
     if (!ABILITY_SLOTS.containsKey(modifier) || ABILITY_SLOTS.getInt(modifier) > slots) {
       ABILITY_SLOTS.put(modifier, slots);
