@@ -28,6 +28,11 @@ public class OffhandAttackModifier extends SingleUseModifier {
   }
 
   @Override
+  public int getPriority() {
+    return 90;
+  }
+
+  @Override
   public boolean shouldDisplay(boolean advanced) {
     return false;
   }

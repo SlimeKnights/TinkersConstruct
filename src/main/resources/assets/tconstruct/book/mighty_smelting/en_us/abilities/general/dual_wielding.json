@@ -6,8 +6,8 @@
     }
   ],
   "effects": [
-     "Allows you to duel wield your tools",
-	 "Duel wielding needs a dual wieldable tool in both hands",
+    "Allows you to duel wield your tools",
+    "Requires offhanded for two-handed tools",
     "Single Level",
     "Requires 1 Ability Slot"
   ]
