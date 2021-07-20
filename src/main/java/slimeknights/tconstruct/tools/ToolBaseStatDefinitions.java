@@ -77,8 +77,7 @@ public final class ToolBaseStatDefinitions {
     .bonus(ToolStats.ATTACK_DAMAGE, 3f)
     .modifier(ToolStats.ATTACK_SPEED, 1.6f)
     .modifier(ToolStats.MINING_SPEED, 0.5f)
-    .modifier(ToolStats.DURABILITY, 1.1f)
-    .setDefaultUpgrades(2).setDefaultAbilities(2).build();
+    .modifier(ToolStats.DURABILITY, 1.1f).build();
   static final ToolBaseStatDefinition CLEAVER = new ToolBaseStatDefinition.Builder()
     .bonus(ToolStats.ATTACK_DAMAGE, 3.5f)
     .modifier(ToolStats.ATTACK_DAMAGE, 1.5f)
