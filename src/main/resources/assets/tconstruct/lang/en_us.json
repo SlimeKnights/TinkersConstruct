@@ -1392,6 +1392,7 @@
   "modifier.tconstruct.dual_wielding": "Dual Wielding",
   "modifier.tconstruct.dual_wielding.flavor": "Double action!",
   "modifier.tconstruct.dual_wielding.description": "Can attack from the offhand, provided the main hand can also dual wield. Tools attack slower in the offhand",
+  "recipe.tconstruct.modifier.two_handed_dual_wielding": "Two handed tools require offhanded to gain dual wielding.",
 
   "_comment": "Loot",
   "modifier.tconstruct.silky": "Silky",

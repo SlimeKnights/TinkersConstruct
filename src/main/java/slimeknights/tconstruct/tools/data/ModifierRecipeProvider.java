@@ -145,7 +145,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .setUpgradeSlots(1)
                          .setRequirements(ModifierMatch.list(1, ModifierMatch.entry(TinkerModifiers.diamond.get()), ModifierMatch.entry(TinkerModifiers.emerald.get())))
-                         .setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.netherite_requirements"))
+                         .setRequirementsError(makeRequirementsError("netherite_requirements"))
                          .build(consumer, prefix(TinkerModifiers.netherite, upgradeFolder));
 
     // overslime
@@ -367,7 +367,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.ENDER_PEARLS)
                          .addInput(Tags.Items.ENDER_PEARLS)
                          .setRequirements(ModifierMatch.entry(TinkerModifiers.luck.get(), 1))
-                         .setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.luck.level_2"))
+                         .setRequirementsError(makeRequirementsError("luck.level_2"))
                          .setMaxLevel(2)
                          .build(consumer, wrap(TinkerModifiers.luck, abilityFolder, "_level_2"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.luck.get())
@@ -378,7 +378,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.GEMS_DIAMOND)
                          .addInput(Items.NAME_TAG)
                          .setRequirements(ModifierMatch.entry(TinkerModifiers.luck.get(), 2))
-                         .setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.luck.level_3"))
+                         .setRequirementsError(makeRequirementsError("luck.level_3"))
                          .setMaxLevel(3)
                          .build(consumer, wrap(TinkerModifiers.luck, abilityFolder, "_level_3"));
     // silky: all the cloth
@@ -502,7 +502,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
                          .setRequirements(ModifierMatch.list(2, ModifierMatch.entry(TinkerModifiers.netherite.get(), 1), ModifierMatch.entry(TinkerModifiers.reinforced.get(), 5)))
-                         .setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.unbreakable_requirements"))
+                         .setRequirementsError(makeRequirementsError("unbreakable_requirements"))
                          .build(consumer, prefix(TinkerModifiers.unbreakable, abilityFolder));
     // weapon
     ModifierRecipeBuilder.modifier(TinkerModifiers.dualWielding.get())
@@ -514,7 +514,19 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
                          .setTools(new IngredientWithout(new IngredientIntersection(Ingredient.fromTag(TinkerTags.Items.MELEE), Ingredient.fromTag(TinkerTags.Items.ONE_HANDED)), Ingredient.fromItems(TinkerTools.dagger)))
-                         .build(consumer, prefix(TinkerModifiers.dualWielding, abilityFolder));
+                         .build(consumer, wrap(TinkerModifiers.dualWielding, abilityFolder, "_one_handed"));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.dualWielding.get())
+                         .addInput(TinkerMaterials.manyullyn.getIngotTag())
+                         .addInput(Items.NAUTILUS_SHELL)
+                         .addInput(TinkerMaterials.manyullyn.getIngotTag())
+                         .addInput(TinkerTags.Items.SKY_SLIMEBALL)
+                         .addInput(TinkerTags.Items.SKY_SLIMEBALL)
+                         .setMaxLevel(1)
+                         .setAbilitySlots(1)
+                         .setRequirements(ModifierMatch.entry(TinkerModifiers.offhanded.get()))
+                         .setRequirementsError(makeRequirementsError("two_handed_dual_wielding"))
+                         .setTools(new IngredientIntersection(Ingredient.fromTag(TinkerTags.Items.MELEE), Ingredient.fromTag(TinkerTags.Items.TWO_HANDED)))
+                         .build(consumer, wrap(TinkerModifiers.dualWielding, abilityFolder, "_two_handed"));
     /*
      * extra modifiers
      */
@@ -629,5 +641,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, modResource(folder + "turtle_shell"));
     // befleecing
     CustomRecipeBuilder.customRecipe(TinkerModifiers.sheepShearing.get()).build(consumer, modPrefix(folder + "sheep_wool"));
+  }
+
+  /** Just a helper for consistency of requirements errors */
+  private static String makeRequirementsError(String recipe) {
+    return TConstruct.makeTranslationKey("recipe", "modifier." + recipe);
   }
 }
