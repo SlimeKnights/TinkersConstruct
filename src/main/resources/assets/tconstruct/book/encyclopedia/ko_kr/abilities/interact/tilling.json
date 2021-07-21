@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "도구를 사용하여 카마나 낫과 같이 흙을 경작할 수 있습니다. 이때, 도구의 효과 범위만큼 영향을 줍니다."
+    },
+    {
+      "text": "길 파기나 나무 벗기기가 있다면, 적용할 수 없습니다.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 1등급",
+    "1개의 능력 슬롯 사용"
+  ]
+}

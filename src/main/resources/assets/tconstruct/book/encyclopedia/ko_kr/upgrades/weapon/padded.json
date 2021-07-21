@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:padded",
+  "text": [
+    {
+      "text": "등급당 도구의 밀치기가 50%만큼 감소합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 3등급",
+    "등급당 1개의 강화 슬롯 사용"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "내구도가 500만큼 증가하고, 공격 피해와 채굴 속도가 1만큼 증가합니다. 채굴 등급이 다이아몬드로 증가합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 1등급",
+    "1개의 강화 슬롯 사용"
+  ]
+}

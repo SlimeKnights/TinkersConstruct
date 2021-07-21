@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "몬스터를 죽이고, 블록을 부수면서 얻는 경험치가 등급당 50%만큼 증가합니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "최대 5등급",
+    "등급당 1개의 강화 슬롯 사용"
+  ]
+}
