@@ -1,0 +1,38 @@
+// 섹션 - 복잡한 제련
+intro=소개
+entity_melting=생명체 용해
+tier_three_materials=3등급 재료
+tools=넓은 도구
+tools.subtext=넓은 도구는 팅커스 모루를 사용하여 제작할 수 있습니다
+
+smeltery=제련소
+smeltery.features=특징
+smeltery.alloying=합금
+smeltery.controller=관리기
+smeltery.structure=구조물
+smeltery.structurereq=구조물 조건
+smeltery.seared_tanks=그을린 탱크
+smeltery.seared_blocks=그을린 블록
+smeltery.seared_ladder=그을린 사다리
+smeltery.seared_glass=그을린 유리
+smeltery.seared_drain=그을린 배출구
+smeltery.seared_duct=그을린 송출구
+smeltery.seared_chute=그을린 전송구
+smeltery.sgui1=제련소 GUI
+smeltery.sgui2=제련소 GUI 설명
+
+abilities=능력
+abilities.general=§1§l일반§r
+abilities.harvest=§1§l수확§r
+abilities.weapon=§1§l무기§r
+abilities.interact=§1§l상호작용§r
+
+material.tconstruct.slimesteel.book=슬라임을 강탈하면, 슬라임강철이 만들어 집니다
+material.tconstruct.bronze.book=팅커스 청동과 혼동하지 마세요
+material.tconstruct.tinkers_bronze.book=청동과 혼동하지 마세요
+material.tconstruct.nahuatl.book=만약 "흑요석"이라고 적혀있다면, 그건 흑요석 부품이 아닙니다
+material.tconstruct.pig_iron.book=완전 최고의 재료죠, 논쟁도 없고요
+material.tconstruct.rose_gold.book=부인서: 사실 장미로 만들어진 것이 아닙니다
+material.tconstruct.constantan.book=콘스탄탄탄탄탄탄탄... 죄송합니다. "탄"을 붙이는 게 생각보다 재미있네요
+material.tconstruct.electrum.book=호박빛으로 빛나는 금입니다
+material.tconstruct.cobalt.book=코발트, 주로 합금으로 사용합니다
