@@ -1,0 +1,12 @@
+{
+  "title": "타오른 사다리",
+  "item": {
+    "id": "tconstruct:scorched_ladder"
+  },
+  "text": [
+    {
+      "text": "타오른 사다리는 용해소를 쉽게 오르거나 빠져나갈 수 있어 나중에 더 크게 만들 계획이 있다면, 유용합니다!",
+      "paragraph": true
+    }
+  ]
+}

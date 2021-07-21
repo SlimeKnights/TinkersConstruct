@@ -1,0 +1,29 @@
+// 섹션 - 환상적인 용해소
+intro=소개
+alloyer=합금기
+tier_four_materials=4등급 재료
+
+foundry=용해소
+foundry.features=특징
+foundry.byproducts=부산물
+foundry.controller=관리기
+foundry.structure=구조물
+foundry.structurereq=구조물 조건
+foundry.scorched_tanks=타오른 탱크
+foundry.scorched_blocks=타오른 블록
+foundry.scorched_ladder=타오른 사다리
+foundry.scorched_glass=타오른 유리
+foundry.scorched_drain=타오른 배출구
+foundry.scorched_duct=타오른 송출구
+foundry.scorched_chute=타오른 전송구
+foundry.fgui1=용해소 GUI
+foundry.fgui2=용해소 GUI 설명
+
+blazing_blood=블레이즈 피
+blazing_blood.carry=운반
+blazing_blood.foundry=용해소
+blazing_blood.melting=용해
+
+material.tconstruct.queens_slime.book=공주들은 사악하니, 직접 여왕이 되세요
+material.tconstruct.hepatizon.book=헤-파-티-존
+material.tconstruct.manyullyn.book=별 절단 물질이라고도 합니다
