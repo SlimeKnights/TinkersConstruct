@@ -1,0 +1,21 @@
+// 섹션 - 팅커스 장치
+intro=소개
+materials=도구 재료
+bowmaterials=활 재료
+tools=재료
+remove_modifiers=수식어 제거
+damage_tools=도구 손상
+modifiers=수식어
+smeltery=제련소
+seared_furnace=그을린 화로
+tinker_tank=팅커 탱크
+
+repairing=수리
+offhand=Offhand Harvesting
+bolt_core=Bolt Crafting
+
+modifier.effect=효과:
+tool.properties=특성:
+
+wood.flavour=나무 도끼로 나무를 나무낼 수 있다면 나무 도끼로 얼마나 많은 나무를 나무낼 수 있을까?
+stone.flavour=바위처럼 단단한
