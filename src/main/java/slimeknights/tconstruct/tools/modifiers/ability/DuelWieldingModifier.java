@@ -12,7 +12,7 @@ import java.util.List;
 public class DuelWieldingModifier extends OffhandAttackModifier {
   private final ITextComponent debuffTooltip;
   public DuelWieldingModifier() {
-    super(0xA6846A, 30);
+    super(0xA6846A, 25);
     this.debuffTooltip = applyStyle(TConstruct.makeTranslation("modifier", "dual_wielding.debuff"));
   }
 
@@ -24,7 +24,7 @@ public class DuelWieldingModifier extends OffhandAttackModifier {
   @Override
   public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     if (context.getHand() == Hand.OFF_HAND) {
-      return damage * 2f / 3f;
+      return damage * 0.8f;
     }
     return damage;
   }
