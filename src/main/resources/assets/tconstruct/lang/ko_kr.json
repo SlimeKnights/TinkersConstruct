@@ -1,6 +1,6 @@
 {
 "_comment": "팅커스 기타 아이템",
-  
+
   "block.tconstruct.sky_slime": "하늘슬라임 블록",
   "block.tconstruct.sky_slime.tooltip": "슬라임 블록과 꿀 블록에 달라붙습니다.",
   "block.tconstruct.ichor_slime": "이코르 블록",
@@ -9,7 +9,7 @@
   "block.tconstruct.ender_slime.tooltip": "밀었을 때 블록에 달라붙습니다. 달라붙는 블록에는 달라붙지 않습니다.",
   "block.tconstruct.blood_slime": "피 블록",
   "block.tconstruct.blood_slime.tooltip": "튕기지만, 달라붙지는 않습니다.",
-  
+
   "block.tconstruct.earth_congealed_slime": "굳은 슬라임 블록",
   "block.tconstruct.earth_congealed_slime.tooltip": "정말 높이 뛸 수 있게 해줍니다.",
   "block.tconstruct.sky_congealed_slime": "굳은 하늘슬라임 블록",
@@ -35,9 +35,9 @@
 
   "block.tconstruct.clear_glass": "투명한 유리",
   "block.tconstruct.clear_glass_pane": "투명한 유리판",
-  
+
   "block.tconstruct.obsidian_pane": "흑요석 판",
-  
+
   "block.tconstruct.white_clear_stained_glass": "투명한 하얀색 색유리",
   "block.tconstruct.orange_clear_stained_glass": "투명한 주황색 색유리",
   "block.tconstruct.magenta_clear_stained_glass": "투명한 자홍색 색유리",
@@ -71,12 +71,12 @@
   "block.tconstruct.green_clear_stained_glass_pane": "투명한 초록색 색유리 판",
   "block.tconstruct.red_clear_stained_glass_pane": "투명한 빨간색 색유리 판",
   "block.tconstruct.black_clear_stained_glass_pane": "투명한 검은색 색유리 판",
-  
+
   "block.tconstruct.soul_glass": "영혼 유리",
   "block.tconstruct.soul_glass_pane": "영혼 유리판",
-  
+
   "block.tconstruct.glow": "발광",
-  "block.tconstruct.silky_jewel_block": "부드러운 보석 블록",
+  "block.tconstruct.silky_jewel_block": "비단결 보석 블록",
   "block.tconstruct.silky_jewel_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
 
 
@@ -107,10 +107,10 @@
   "item.tconstruct.tinkers_bronze_ingot": "팅커스 청동괴",
   "item.tconstruct.tinkers_bronze_nugget": "팅커스 청동 조각",
 
-  "block.tconstruct.rose_gold_block": "유색 황금 블록",
+  "block.tconstruct.rose_gold_block": "장밋빛 황금 블록",
   "block.tconstruct.rose_gold_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
-  "item.tconstruct.rose_gold_ingot": "유색 금괴",
-  "item.tconstruct.rose_gold_nugget": "유색 황금 조각",
+  "item.tconstruct.rose_gold_ingot": "장밋빛 금괴",
+  "item.tconstruct.rose_gold_nugget": "장밋빛 황금 조각",
 
   "block.tconstruct.pig_iron_block": "저선철 블록",
   "block.tconstruct.pig_iron_block.tooltip": "신호기의 받침 블록으로 사용할 수 있습니다.",
@@ -155,9 +155,9 @@
 
   "item.tconstruct.materials_and_you": "당신을 위한 재료 길잡이",
   "item.tconstruct.materials_and_you.tooltip": "모든 팅커의 필독서\n저자: 셀레나",
-    "item.tconstruct.encyclopedia": "재료 백과사전",
+  "item.tconstruct.encyclopedia": "팅커 백과사전",
   "item.tconstruct.encyclopedia.tooltip": "모든 팅커에게 필요한 참고서\n저자: 셀레나",
-  
+
   "item.tconstruct.tinkers_gadgetry": "팅커스 장치",
   "item.tconstruct.tinkers_gadgetry.tooltip": "슬라임의 사용법\n저자: 멜빈",
 
@@ -175,36 +175,6 @@
   "item.tconstruct.ichor_slime_ball": "이코르 볼",
 
   "item.tconstruct.bacon": "베이컨",
-  "item.tconstruct.beef_jerky": "돼지고기 육포",
-  "item.tconstruct.beef_jerky.tooltip": "배불러!",
-  "item.tconstruct.chicken_jerky": "닭고기 육포",
-  "item.tconstruct.chicken_jerky.tooltip": "배불러!",
-  "item.tconstruct.pork_jerky": "베이컨 육포",
-  "item.tconstruct.pork_jerky.tooltip": "배불러!",
-  "item.tconstruct.mutton_jerky": "양고기 육포",
-  "item.tconstruct.mutton_jerky.tooltip": "배불러!",
-  "item.tconstruct.rabbit_jerky": "토끼고기 육포",
-  "item.tconstruct.rabbit_jerky.tooltip": "배불러!",
-  "item.tconstruct.fish_jerky": "대구 육포",
-  "item.tconstruct.fish_jerky.tooltip": "배불러!",
-  "item.tconstruct.salmon_jerky": "연어 육포",
-  "item.tconstruct.salmon_jerky.tooltip": "배불러!",
-  "item.tconstruct.clownfish_jerky": "열대어 육포",
-  "item.tconstruct.clownfish_jerky.tooltip": "다채로워!",
-  "item.tconstruct.pufferfish_jerky": "복어 육포",
-  "item.tconstruct.pufferfish_jerky.tooltip": "안심하고 드세요!",
-  "item.tconstruct.monster_jerky": "몬스터 육포",
-  "item.tconstruct.monster_jerky.tooltip": "안심하고 드세요!",
-
-  "item.tconstruct.earth_slime_drop": "말랑말랑한 슬라임 방울",
-  "item.tconstruct.sky_slime_drop": "말랑말랑한 하늘슬라임 방울",
-  "item.tconstruct.ichor_slime_drop": "말랑말랑한 이코르 방울",
-  "item.tconstruct.ender_slime_drop": "말랑말랑한 엔더슬라임 방울",
-  "item.tconstruct.blood_slime_drop": "굳은 핏방울",
-
-  "item.tconstruct.mud_brick": "진흙 벽돌",
-  "item.tconstruct.mud_brick.tooltip": "크고 작은 것을 건설할 수 있는 건축 블록입니다.",
-  "item.tconstruct.dried_brick": "마른 벽돌",
 
   "item.tconstruct.earth_slime_crystal": "슬라임 수정",
   "item.tconstruct.earth_slime_crystal.tooltip": "슬라임 도구를 제작하는데 사용할 수 있습니다.",
@@ -219,18 +189,18 @@
   "item.tconstruct.iron_reinforcement.tooltip": "도구의 내구도가 닳을 확률이 감소합니다.",
   "item.tconstruct.slimesteel_reinforcement": "보강용 슬라임강철판",
   "item.tconstruct.slimesteel_reinforcement.tooltip": "슬라임 막의 용량이 증가합니다.",
-  "item.tconstruct.silky_cloth": "부드러운 천",
+  "item.tconstruct.silky_cloth": "비단결 천",
   "item.tconstruct.silky_cloth.tooltip": "도구가 블록을 훼손하지 않고 블록을 그대로 회수할 수 있게 됩니다.",
-  "item.tconstruct.silky_jewel": "부드러운 보석",
+  "item.tconstruct.silky_jewel": "비단결 보석",
   "item.tconstruct.silky_jewel.tooltip": "도구가 블록을 훼손하지 않고 블록을 그대로 회수할 수 있게 됩니다.",
   "item.tconstruct.necrotic_bone": "죽음의 뼈",
+  "item.tconstruct.necrotic_bone.tooltip": "위더 스켈레톤의 뼈입니다.",
+  "item.tconstruct.dragon_scale": "드래곤의 비늘",
+  "item.tconstruct.dragon_scale.tooltip": "폭발에 의해 떨어진 엔더 드래곤의 비늘입니다.",
   "item.tconstruct.creative_upgrade": "크리에이티브 강화",
   "item.tconstruct.creative_upgrade.tooltip": "도구에 추가적인 강화 슬롯을 추가합니다.",
   "item.tconstruct.creative_ability": "크리에이티브 능력 ",
   "item.tconstruct.creative_ability.tooltip": "도구에 추가적인 능력 슬롯을 추가합니다.",
-  "item.tconstruct.ancient_shovel_head": "고대 삽 머리",
-  "item.tconstruct.ancient_axe_head": "고대 도끼 머리",
-  "item.tconstruct.ancient_hoe_head": "고대 카마 머리",
 
   "item.tconstruct.copper_can": "구리 깡통",
   "item.tconstruct.copper_can.tooltip": "주괴 1개만큼의 액체를 넣을 수 있습니다.",
@@ -384,7 +354,7 @@
 
 
   "_comment": "팅커스 액체",
-  
+
   "block.tconstruct.blazing_blood_fluid": "블레이즈 피",
   "fluid.tconstruct.blazing_blood": "블레이즈 피",
   "fluid.tconstruct.flowing_blazing_blood": "흐르는 블레이즈 피",
@@ -513,10 +483,10 @@
   "fluid.tconstruct.flowing_molten_tinkers_bronze": "흐르는 녹은 팅커스 청동",
   "item.tconstruct.molten_tinkers_bronze_bucket": "녹은 팅커스 청동 양동이",
 
-  "block.tconstruct.molten_rose_gold_fluid": "녹은 유색 황금",
-  "fluid.tconstruct.molten_rose_gold": "녹은 유색 황금",
-  "fluid.tconstruct.flowing_molten_rose_gold": "흐르는 녹은 유색 황금",
-  "item.tconstruct.molten_rose_gold_bucket": "녹은 유색 황금 양동이",
+  "block.tconstruct.molten_rose_gold_fluid": "녹은 장밋빛 황금",
+  "fluid.tconstruct.molten_rose_gold": "녹은 장밋빛 황금",
+  "fluid.tconstruct.flowing_molten_rose_gold": "흐르는 녹은 장밋빛 황금",
+  "item.tconstruct.molten_rose_gold_bucket": "녹은 장밋빛 황금 양동이",
 
   "block.tconstruct.molten_pig_iron_fluid": "녹은 저선철",
   "fluid.tconstruct.molten_pig_iron": "녹은 저선철",
@@ -647,24 +617,8 @@
 
   "_comment": "팅커스 장치",
 
-  "block.tconstruct.stone_torch": "돌 횃불",
-  "block.tconstruct.stone_ladder": "돌 사다리",
-
   "block.tconstruct.punji": "죽창",
   "block.tconstruct.punji.tooltip": "매우 뾰족합니다! 벽에도 붙일 수 있습니다.",
-
-  "block.tconstruct.wooden_rail": "나무 레일",
-  "block.tconstruct.wooden_dropper_rail": "나무 탐지 레일",
-  "block.tconstruct.wooden_dropper_rail.tooltip": "호퍼가 실린 광산 수레가 지나가면, 아래에\n있는 블록에 아이템을 놓습니다.",
-
-  "block.tconstruct.dried_clay": "마른 점토",
-  "block.tconstruct.dried_clay_bricks": "마른 벽돌",
-  "block.tconstruct.dried_clay_slab": "마른 점토 반 블록",
-  "block.tconstruct.dried_clay_bricks_slab": "마른 벽돌 반 블록",
-  "block.tconstruct.dried_clay_stairs": "마른 점토 계단",
-  "block.tconstruct.dried_clay_bricks_stairs": "마른 벽돌 계단",
-
-  "item.tconstruct.stone_stick": "돌 막대기",
 
   "item.tconstruct.jewel_item_frame": "장식된 아이템 액자",
   "item.tconstruct.aluminum_brass_item_frame": "알루미늄 황동 아이템 액자",
@@ -682,6 +636,13 @@
   "item.tconstruct.quartz_shuriken.tooltip": "적에게 피해를 줄 수 있는 투척용 무기입니다.",
   "item.tconstruct.flint_shuriken": "부싯돌 수리검",
   "item.tconstruct.flint_shuriken.tooltip": "적에게 피해를 줄 수 있는 투척용 무기입니다.",
+
+  "block.tconstruct.earth_cake": "땅슬라임 케이크",
+  "block.tconstruct.sky_cake":   "하늘슬라임 케이크",
+  "block.tconstruct.ichor_cake": "이코르 케이크",
+  "block.tconstruct.ender_cake": "엔더슬라임 케이크",
+  "block.tconstruct.blood_cake": "피 케이크",
+  "block.tconstruct.magma_cake": "마크마 케이크",
 
   "item.tconstruct.earth_slime_sling": "슬라임 새총",
   "item.tconstruct.earth_slime_sling.tooltip": "충전하고, 바닥이나 벽에 쏘면, 반대 방향으로 날아갑니다!\n목숨을 소중히 여긴다면, 슬라임 부츠와 같이 사용하세요!",
@@ -707,12 +668,6 @@
   "item.tconstruct.piggy_backpack.tooltip": "생명체를 운반할 수 있습니다.",
   "effect.tconstruct.carry": "운반",
 
-  "item.tconstruct.hard_spaghetti": "엄청나게 단단한 밀 막대기",
-  "item.tconstruct.hard_spaghetti.tooltip": "엄청나게 단단한, 밀가루로 만든 막대기입니다.\n물에 불려볼까?",
-  "item.tconstruct.soggy_spaghetti": "축축한 국수",
-  "item.tconstruct.soggy_spaghetti.tooltip": "전부 다 젖어, 면이 손으로도 구부려집니다.\n다시 말려보자.",
-  "item.tconstruct.cold_spaghetti": "차갑게 건조된 국수",
-  "item.tconstruct.cold_spaghetti.tooltip": "나아지기는 했는데, 그래도 맛이 역겹습니다.\n익히면 먹을 만은 해질 것 같습니다.",
 
   "_comment": "팅커스 작업대",
 
@@ -721,14 +676,14 @@
   "block.tconstruct.tinker_station": "팅커 작업대",
   "block.tconstruct.tinkers_anvil": "팅커스 모루",
   "block.tconstruct.scorched_anvil": "팅커스 모루",
-  
+
   "block.tconstruct.part_builder": "부품 제작대",
 
   "block.tconstruct.part_chest": "부품 상자",
   "block.tconstruct.part_chest.tooltip": "최대 256종류의 다양한 도구의 부품을 넣을 수 있습니다.",
 
   "block.tconstruct.modifier_chest": "수식어 상자",
-  "block.tconstruct.modifier_chest.tooltip": "최대 64세트의 수식어를 부여하는 아이템을 넣을 수 있습니다.",
+  "block.tconstruct.modifier_chest.tooltip": "최대 64종류의 수식어를 적용하는 아이템을 넣을 수 있습니다.",
 
   "block.tconstruct.cast_chest": "금형 상자",
   "block.tconstruct.cast_chest.tooltip": "모든 금형을 넣을 수 있습니다.",
@@ -750,6 +705,7 @@
   "item.tconstruct.kama": "카마",
   "item.tconstruct.scythe": "낫",
 
+  "item.tconstruct.dagger": "단검",
   "item.tconstruct.sword": "검",
   "item.tconstruct.cleaver": "클리버",
 
@@ -785,9 +741,10 @@
   "item.tconstruct.hand_axe.description": "손도끼는 나무를 자르고 나뭇잎을 다듬을 수 있습니다. 또한, 무기로도 사용할 수 있습니다.\n벌목, 벌목!",
   "item.tconstruct.broad_axe.description": "넓은면 도끼는 작은 나무들을 단번에 쓰러뜨리고, 큰 나무들을 재빨리 벌목할 수 있습니다. 또한, 강력한 중무기로도 사용할 수 있습니다.",
 
-  "item.tconstruct.kama.description": "카마는 정밀한 수확 도구입니다. 농작물을 수확하고, 동물들의 털을 깎을 수 있습니다. \n오른쪽 버튼: 작물을 수확하고 그 작물의 씨앗을 심습니다",
-  "item.tconstruct.scythe.description": "낫은 광범위한 수확 도구입니다. 넓은 범위의 농작물을 수확할 수 있습니다.\n오른쪽 버튼: 작물을 수확하고 그 작물의 씨앗을 심습니다",
+  "item.tconstruct.kama.description": "카마는 정밀한 수확 도구입니다. 농작물을 수확하고, 동물들의 털을 깎을 수 있습니다. \n오른쪽 버튼: 작물을 수확하고 그 작물의 씨앗을 심습니다.",
+  "item.tconstruct.scythe.description": "낫은 광범위한 수확 도구입니다. 넓은 범위의 농작물을 수확할 수 있습니다.\n오른쪽 버튼: 작물을 수확하고 그 작물의 씨앗을 심습니다.",
 
+  "item.tconstruct.dagger.description": "단검은 양손으로 적을 빠르게 공격할 수 있는 가벼운 무기입니다.",
   "item.tconstruct.sword.description": "검은 다재다능한 무기입니다. 적에게 준수한 피해를 주고, 휩쓸기 공격을 통해 한 번에 여러 적을 쓰러뜨릴 수 있습니다.\n또한, 거미줄을 쉽게 파괴할 수 있습니다!",
   "item.tconstruct.cleaver.description": "클리버는 팅커의 무기입니다. 높은 사거리를 가지고 있어, 강력한 적을 상대할 때 효과적입니다.",
 
@@ -822,6 +779,21 @@
   "gui.tconstruct.melting.fuel.invalid": "잘못된 연료입니다!",
 
   "gui.tconstruct.duct": "송출구",
+
+  "multiblock.tconstruct.generic.no_attempt": "구조물이 발견되지 않았습니다. 대부분 모드의 버그로 인해 발생하는 문제입니다",
+  "multiblock.tconstruct.generic.not_loaded": "구조물이 불러와진 영역 밖에 있습니다. 대부분 모드의 버그로 인해 발생하는 문제입니다",
+  "multiblock.tconstruct.generic.too_high": "구조물이 세계의 위보다 더 높은 곳에 블록을 필요로 합니다",
+  "multiblock.tconstruct.generic.too_large": "구조물 내부가 너무 큽니다. 현재: %s×%s, 최대: %s×%s, ",
+
+  "multiblock.tconstruct.generic.invalid_inner_block": "구조물 내부의 블록이 잘못되었습니다",
+  "multiblock.tconstruct.generic.invalid_wall_block": "벽의 블록이 잘못되었습니다",
+  "multiblock.tconstruct.generic.invalid_floor_block": "바닥의 블록이 잘못되었습니다",
+  "multiblock.tconstruct.generic.invalid_ceiling_block": "천장의 블록이 잘못되었습니다",
+  "multiblock.tconstruct.generic.invalid_wall_frame": "벽 테두리의 블록이 잘못되었습니다",
+  "multiblock.tconstruct.generic.invalid_floor_frame": "바닥 테두리의 블록이 잘못되었습니다",
+  "multiblock.tconstruct.generic.invalid_ceiling_frame": "천장 테두리의 블록이 잘못되었습니다",
+
+  "multiblock.tconstruct.tiny.no_fuel_tank": "작동하려면 연료 탱크나 가열기 위에 설치해야 합니다",
 
 
   "_comment": "팅커스 제련소",
@@ -865,7 +837,7 @@
   "block.tconstruct.seared_glass_pane.tooltip": "제련소의 일부로 사용할 수 없습니다.",
 
   "block.tconstruct.seared_ladder": "그을린 사다리",
-  "block.tconstruct.seared_ladder.tooltip": "타고 오를 수 있는 제련소 블록입니다.",
+  "block.tconstruct.seared_ladder.tooltip": "타고 오를 수 있는 그을린 블록입니다.",
 
   "block.tconstruct.seared_fuel_tank": "그을린 연료 탱크",
   "block.tconstruct.seared_fuel_tank.tooltip": "제련소의 심장입니다.\n파괴되어도 들어가 있는 액체를 유지합니다.",
@@ -884,10 +856,10 @@
   "block.tconstruct.seared_basin.tooltip": "제련소의 녹은 금속을 사용할 수 있습니다.",
   "block.tconstruct.seared_table": "그을린 주조대",
   "block.tconstruct.seared_table.tooltip": "제련소의 녹은 금속을 사용할 수 있습니다.",
-   
-  "block.tconstruct.seared_channel": "그을린 수로",
+
+  "block.tconstruct.seared_channel": "그을린 액체로",
   "block.tconstruct.seared_channel.tooltip": "주조용 꼭지에서 쏟아지는 액체를 분배할 수 있습니다.",
-  
+
   "block.tconstruct.seared_melter": "그을린 용해기",
   "block.tconstruct.seared_melter.tooltip": "작은 제련소입니다.\n연료 탱크나 가열기 위에 놓으면 사용할 수 있습니다.",
   "gui.tconstruct.melter": "용해기",
@@ -904,11 +876,11 @@
   "gui.tconstruct.smeltery": "제련소",
 
   "block.tconstruct.seared_drain": "그을린 배출구",
-  "block.tconstruct.seared_drain.tooltip": "제련소의 액체를 넣거나 빼낼 수 있습니다.",
+  "block.tconstruct.seared_drain.tooltip": "제련소에 액체를 넣거나 빼낼 수 있습니다.",
   "block.tconstruct.seared_duct": "그을린 송출구",
-  "block.tconstruct.seared_duct.tooltip": "구리 깡통이나 양동이를 사용하여 제련소의 액체를 넣거나 빼낼 수 있습니다.",
-  "block.tconstruct.seared_chute": "그을린 전달구",
-  "block.tconstruct.seared_chute.tooltip": "제련소의 아이템을 넣거나 빼낼 수 있습니다.",
+  "block.tconstruct.seared_duct.tooltip": "구리 깡통이나 양동이를 이용하여 제련소에 특정 액체를 넣거나 빼낼 수 있습니다.",
+  "block.tconstruct.seared_chute": "그을린 전송구",
+  "block.tconstruct.seared_chute.tooltip": "제련소에 아이템을 넣거나 빼낼 수 있습니다.",
 
 
   "_comment": "팅커스 용해소",
@@ -942,7 +914,7 @@
   "block.tconstruct.scorched_glass_pane.tooltip": "용해소의 일부로 사용할 수 없습니다.",
 
   "block.tconstruct.scorched_ladder": "타오른 사다리",
-  "block.tconstruct.scorched_ladder.tooltip": "타고 오를 수 있는 용해소 블록입니다.",
+  "block.tconstruct.scorched_ladder.tooltip": "타고 오를 수 있는 타오른 블록입니다.",
 
   "block.tconstruct.scorched_fuel_tank": "타오른 연료 탱크",
   "block.tconstruct.scorched_fuel_tank.tooltip": "용해소의 심장입니다.\n파괴되어도 들어가 있는 액체를 유지합니다",
@@ -962,7 +934,7 @@
   "block.tconstruct.scorched_table": "타오른 주조대",
   "block.tconstruct.scorched_table.tooltip": "용해소의 녹은 금속을 사용할 수 있습니다",
 
-  "block.tconstruct.scorched_channel": "타오른 수로",
+  "block.tconstruct.scorched_channel": "타오른 액체로",
   "block.tconstruct.scorched_channel.tooltip": "주조용 꼭지에서 쏟아지는 액체를 분배할 수 있습니다.",
 
   "block.tconstruct.scorched_alloyer": "타오른 합금기",
@@ -974,13 +946,13 @@
   "gui.tconstruct.foundry": "용해소",
 
   "block.tconstruct.scorched_drain": "타오른 배출구",
-  "block.tconstruct.scorched_drain.tooltip": "용해소의 액체를 넣거나 빼낼 수 있습니다.",
+  "block.tconstruct.scorched_drain.tooltip": "용해소에 액체를 넣거나 빼낼 수 있습니다.",
   "block.tconstruct.scorched_duct": "타오른 송출구",
-  "block.tconstruct.scorched_duct.tooltip": "구리 깡통이나 양동이를 사용하여 용해소의 액체를 넣거나 빼낼 수 있습니다.",
-  "block.tconstruct.scorched_chute": "타오른 전달구",
-  "block.tconstruct.scorched_chute.tooltip": "용해소의 아이템을 넣거나 빼낼 수 있습니다.",
-  
-  
+  "block.tconstruct.scorched_duct.tooltip": "구구리 깡통이나 양동이를 이용하여 용해소에 특정 액체를 넣거나 빼낼 수 있습니다.",
+  "block.tconstruct.scorched_chute": "타오른 전송구",
+  "block.tconstruct.scorched_chute.tooltip": "용해소에 아이템을 넣거나 빼낼 수 있습니다.",
+
+
   "gui.tconstruct.fluid.kilobucket": "%s 킬로양동이",
   "gui.tconstruct.fluid.bucket": "%s 양동이",
   "gui.tconstruct.fluid.millibucket": "%s 밀리양동이",
@@ -1130,7 +1102,7 @@
   "block.tconstruct.greenheart_wall_sign":"녹심목 표지판",
 
   "block.tconstruct.skyroot_planks":  "하늘뿌리 판자",
-  "block.tconstruct.skyroot_planks_slab":   "하늘뿌리  반 블록",
+  "block.tconstruct.skyroot_planks_slab":   "하늘뿌리 반 블록",
   "block.tconstruct.skyroot_planks_stairs": "하늘뿌리 계단",
   "block.tconstruct.skyroot_log": "하늘뿌리 원목",
   "block.tconstruct.stripped_skyroot_log":  "껍질 벗긴 하늘뿌리 원목",
@@ -1147,7 +1119,7 @@
   "block.tconstruct.skyroot_wall_sign":"하늘뿌리 표지판",
 
   "block.tconstruct.bloodshroom_planks":  "핏빛 균 판자",
-  "block.tconstruct.bloodshroom_planks_slab":   "핏빛 균  반 블록",
+  "block.tconstruct.bloodshroom_planks_slab":   "핏빛 균 반 블록",
   "block.tconstruct.bloodshroom_planks_stairs": "핏빛 균 계단",
   "block.tconstruct.bloodshroom_log": "핏빛 균 자루",
   "block.tconstruct.stripped_bloodshroom_log":  "껍질 벗긴 핏빛 균 자루",
@@ -1164,6 +1136,8 @@
   "block.tconstruct.bloodshroom_wall_sign":"핏빛 균 표지판",
 
 
+  "material.tconstruct.unknown": "알 수 없음",
+
   "__comment": "1등급 재료",
   "material.tconstruct.wood": "나무",
   "material.tconstruct.wood.format": "나무 %s",
@@ -1178,7 +1152,7 @@
   "material.tconstruct.scorched_stone": "타오른 돌",
   "material.tconstruct.copper": "구리",
   "material.tconstruct.slimewood": "슬라임나무",
-  "material.tconstruct.rose_gold": "유색 황금",
+  "material.tconstruct.rose_gold": "장밋빛 황금",
 
   "__comment": "3등급 재료",
   "material.tconstruct.slimesteel": "슬라임강철",
@@ -1220,6 +1194,9 @@
   "modifier.tconstruct.shiny": "빛깔",
   "modifier.tconstruct.shiny.flavor": "마법의 힘이 흐릅니다!",
   "modifier.tconstruct.shiny.description": "도구가 마법 부여의 반짝임으로 빛납니다",
+  "modifier.tconstruct.offhanded": "방지",
+  "modifier.tconstruct.offhanded.flavor": "번거롭게 생각하지 마세요",
+  "modifier.tconstruct.offhanded.description": "주로 사용하지 않는 손에 사용할 수 있는 아이템을 들고 있다면, 도구의 상호작용이 비활성화됩니다",
 
   "_comment": "내구성",
   "modifier.tconstruct.reinforced": "보강",
@@ -1231,6 +1208,7 @@
   "modifier.tconstruct.emerald": "에메랄드",
   "modifier.tconstruct.emerald.flavor": "환상적입니다!",
   "modifier.tconstruct.emerald.description": "내구도가 기본 내구도에 따라 증가합니다. \n우민이 질투합니다!",
+  "modifier.tconstruct.emerald.attack_damage": "우민 피해",
   "modifier.tconstruct.diamond": "다이아몬드",
   "modifier.tconstruct.diamond.flavor": "비싼 보석!",
   "modifier.tconstruct.diamond.description": "내구도와 능력치가 증가합니다!",
@@ -1244,8 +1222,7 @@
   "modifier.tconstruct.netherite.flavor": "제련!",
   "modifier.tconstruct.netherite.description": "고대 금속의 힘을 사용하여, 도구가 더 강력해지고 불이나 용암에 타서 사라지지 않게 됩니다",
   "recipe.tconstruct.modifier.netherite_requirements": "다이아몬드 수식어나 에메랄드 수식어가 적용된 도구에만 적용할 수 있습니다",
-  
-  
+
   "modifier.tconstruct.overslime": "슬라임 막",
   "modifier.tconstruct.overslime.flavor": "끈적끈적합니다!",
   "modifier.tconstruct.overslime.description": "도구가 내구도 대신에 슬라임 막을 소모합니다! 슬라임 막이 소진되면 내구도를 소모합니다. \n슬라임이 없는 도구와는 잘 맞지 않습니다",
@@ -1270,17 +1247,23 @@
   "modifier.tconstruct.blasting": "폭파",
   "modifier.tconstruct.blasting.flavor": "터져라!",
   "modifier.tconstruct.blasting.description": "도구가 폭발에 약한 광석 같은 블록을 더 빠르게 채굴합니다! \n실제로 폭발하지는 않습니다!",
+  "modifier.tconstruct.blasting.mining_speed": "폭파 속도",
   "modifier.tconstruct.hydraulic": "수력",
   "modifier.tconstruct.hydraulic.flavor": "강력한 물의 힘을 이용하세요!",
-  "modifier.tconstruct.hydraulic.description": "빗속이나 물속에서 블록을 부수는 속도가 빨라집니다!",
-  "modifier.tconstruct.lightspeed": "빛의 속도",
+  "modifier.tconstruct.hydraulic.description": "빗속이나 물 속에서 블록을 부수는 속도가 빨라집니다!",
+  "modifier.tconstruct.hydraulic.mining_speed": "물 속 채굴 속도",
+  "modifier.tconstruct.lightspeed": "광속",
   "modifier.tconstruct.lightspeed.flavor": "빛은 속도다!",
   "modifier.tconstruct.lightspeed.description": "주위가 밝을수록 블록을 부수는 속도가 빨라집니다!",
+  "modifier.tconstruct.lightspeed.mining_speed": "빛 속 채굴 속도",
 
   "_comment": "무기",
   "modifier.tconstruct.knockback": "밀치기",
   "modifier.tconstruct.knockback.flavor": "저리 가!",
   "modifier.tconstruct.knockback.description": "적을 더 멀리 밀쳐냅니다!",
+  "modifier.tconstruct.padded": "푹신함",
+  "modifier.tconstruct.padded.flavor": "복실복실해!",
+  "modifier.tconstruct.padded.description": "도구의 밀치기를 줄여, 적이 도망치기 어렵게 만듭니다",
   "modifier.tconstruct.severing": "절단",
   "modifier.tconstruct.severing.flavor": "머리뿐만 아니라, 발과 깃털까지!",
   "modifier.tconstruct.severing.description": "가끔 적의 머리나 어떤 부위를 절단합니다!",
@@ -1295,28 +1278,28 @@
   "modifier.tconstruct.piercing": "꿰뚫기",
   "modifier.tconstruct.piercing.flavor": "선인장!",
   "modifier.tconstruct.piercing.description": "적에게 갑옷을 관통하는 추가 피해를 줍니다!",
-  "modifier.tconstruct.piercing.damage": "관통 피해",
+  "modifier.tconstruct.piercing.attack_damage": "관통 피해",
   "modifier.tconstruct.smite": "강타",
   "modifier.tconstruct.smite.flavor": "죽어라, 더러운 몬스터!",
   "modifier.tconstruct.smite.description": "언데드는 수박의 힘을 두려워합니다",
-  "modifier.tconstruct.smite.damage": "언데드 피해",
+  "modifier.tconstruct.smite.attack_damage": "언데드 피해",
   "modifier.tconstruct.bane_of_sssss": "살... ㄱ거미!",
   "modifier.tconstruct.bane_of_sssss.flavor": "징그러워!",
   "modifier.tconstruct.bane_of_sssss.description": "거미와 절지동물에게 추가 피해를 줍니다!",
-  "modifier.tconstruct.bane_of_sssss.damage": "거미 피해",
+  "modifier.tconstruct.bane_of_sssss.attack_damage": "거미 피해",
   "modifier.tconstruct.antiaquatic": "반수생",
   "modifier.tconstruct.antiaquatic.flavor": "낚였어!",
   "modifier.tconstruct.antiaquatic.description": "수생 생물에게 추가 피해를 줍니다!",
-  "modifier.tconstruct.antiaquatic.damage": "수생 피해",
+  "modifier.tconstruct.antiaquatic.attack_damage": "수생 피해",
   "modifier.tconstruct.cooling": "냉각",
   "modifier.tconstruct.cooling.flavor": "차가워!",
   "modifier.tconstruct.cooling.description": "불을 기반으로 한 생명체에게 추가 피해를 줍니다!",
-  "modifier.tconstruct.cooling.damage": "추위 피해",
+  "modifier.tconstruct.cooling.attack_damage": "추위 피해",
   "modifier.tconstruct.sweeping_edge": "휩쓸기",
   "modifier.tconstruct.sweeping_edge.flavor": "사무라이!",
-  "modifier.tconstruct.sweeping_edge.description": "휩쓸기 공격이 더 많은 피해를 줍니다",
-  "modifier.tconstruct.sweeping_edge.damage": "휩쓸기 피해",
-  
+  "modifier.tconstruct.sweeping_edge.description": "휩쓸기 공격이 공격 피해에 비례하여, 더 많은 피해를 줍니다",
+  "modifier.tconstruct.sweeping_edge.attack_damage": "휩쓸기 피해",
+
   "modifier.tconstruct.sharpness": "날카로움",
   "modifier.tconstruct.sharpness.1": "뾰족함 (I)",
   "modifier.tconstruct.sharpness.2": "예리함 (II)",
@@ -1329,10 +1312,14 @@
   "_comment": "능력",
   "modifier.tconstruct.unbreakable": "견고",
   "modifier.tconstruct.unbreakable.flavor": "내구도 정지!",
-  "modifier.tconstruct.unbreakable.description": "도구의 내구도가 닳지 않습니다",
+  "modifier.tconstruct.unbreakable.description": "도구의 내구도가 일반적인 경우에는 닳지 않습니다",
   "recipe.tconstruct.modifier.unbreakable_requirements": "네더라이트 수식어와 보강 V 수식어가 적용된 도구에만 적용할 수 있습니다",
-  "_comment": "아이템",
-  "modifier.tconstruct.silky": "부드러움",
+  "modifier.tconstruct.dual_wielding": "이중 사용",
+  "modifier.tconstruct.dual_wielding.flavor": "이중 동작!",
+  "modifier.tconstruct.dual_wielding.description": "들고 있는 아이템 양쪽에 이중 사용이 적용되어 있다면, 주로 사용하지 않는 손에 있는 아이템으로 공격할 수 있습니다. 주로 사용하지 않는 손의 도구는 공격 속도가 감소합니다",
+
+ "_comment": "아이템",
+  "modifier.tconstruct.silky": "비단결",
   "modifier.tconstruct.silky.flavor": "비단 같은!",
   "modifier.tconstruct.silky.description": "도구가 블록을 훼손하지 않고 블록을 그대로 회수할 수 있게 됩니다",
   "modifier.tconstruct.autosmelt": "자동제련",
@@ -1352,7 +1339,7 @@
   "modifier.tconstruct.looting": "약탈",
   "modifier.tconstruct.looting.flavor": "몬스터의 운!",
   "modifier.tconstruct.looting.description": "몬스터를 죽일 때 더 멋진 아이템을 얻을 수 있게 됩니다!",
-  
+
   "_comment": "확장",
   "modifier.tconstruct.expanded": "확장",
   "modifier.tconstruct.expanded.flavor": "하체 단련!",
@@ -1372,7 +1359,7 @@
   "modifier.tconstruct.tilling.description": "도구로 흙을 경작할 수 있습니다",
   "modifier.tconstruct.glowing": "발광",
   "modifier.tconstruct.glowing.flavor": "밝게 빛나길!",
-  "modifier.tconstruct.glowing.description": "웅크리고 오른쪽 버튼을 누르면, 많은 내구도를 소모하고 발광구를 배치합니다",
+  "modifier.tconstruct.glowing.description": "웅크리고 오른쪽 버튼을 누르면, 많은 내구도를 소모하고 블록을 밝힘니다",
   "modifier.tconstruct.exchanging": "교환",
   "modifier.tconstruct.exchanging.flavor": "새것으로!",
   "modifier.tconstruct.exchanging.description": "파괴한 블록을 주로 사용하지 않는 손에 들고 있는 블록으로 대체합니다",
@@ -1414,8 +1401,8 @@
   "modifier.tconstruct.gilded.flavor": "등가 교환!",
   "modifier.tconstruct.gilded.description": "능력 슬롯 하나를 2개의 강화 슬롯으로 변경합니다!",
   "modifier.tconstruct.draconic": "드래곤",
-  "modifier.tconstruct.draconic.flavor": "엔드 정복!",
-  "modifier.tconstruct.draconic.description": "위대한 드래곤의 머리로 도구의 두 번째 능력 슬롯을 추가합니다!",
+  "modifier.tconstruct.draconic.flavor": "엔드의 정복자!",
+  "modifier.tconstruct.draconic.description": "위대한 드래곤의 힘으로 도구의 두 번째 능력 슬롯을 추가합니다!",
 
   "__comment": "모드팩의 강화 슬롯 +1 수식어",
   "modifier.tconstruct.red_extra_upgrade": "빨간 추가 강화",
@@ -1443,7 +1430,7 @@
   "modifier.tconstruct.stonebound.description": "내구도가 닳으면 채굴 속도가 증가하지만, 공격 피해가 감소합니다",
   "modifier.tconstruct.fractured": "골절",
   "modifier.tconstruct.fractured.flavor": "뼈가 부러졌네!",
-  "modifier.tconstruct.fractured.description": "부러진 뼛조각으로 인해 공구가 매우 날카롭습니다",
+  "modifier.tconstruct.fractured.description": "부러진 뼛조각으로 인해 공구가 매우 날카로워집니다",
 
   "__comment": "2등급 특성",
   "modifier.tconstruct.sturdy": "튼튼함",
@@ -1451,10 +1438,12 @@
   "modifier.tconstruct.sturdy.description": "가장 강한 철로 만들었습니다",
   "modifier.tconstruct.searing": "그을림",
   "modifier.tconstruct.searing.flavor": "제련소의 동력!",
-  "modifier.tconstruct.searing.description": "더운 지역에서는 공격 피해가 증가하지만, 추운 지역에서는 공격 피해가 감소합니다",
+  "modifier.tconstruct.searing.description": "더운 지역에서는 적에게 추가 화염 피해를 주지만, 추운 지역에서는 공격 피해가 감소합니다",
+  "modifier.tconstruct.searing.attack_damage": "더움 피해",
   "modifier.tconstruct.scorching": "타오름",
   "modifier.tconstruct.scorching.flavor": "용해소의 동력!",
   "modifier.tconstruct.scorching.description": "불이 붙은 적에게 추가 피해를 줍니다",
+  "modifier.tconstruct.scorching.attack_damage": "불 붙은 적 피해",
   "modifier.tconstruct.dwarven": "드워프",
   "modifier.tconstruct.dwarven.flavor": "광부의 친구!",
   "modifier.tconstruct.dwarven.description": "깊게 들어갈수록 채굴 속도가 빨라집니다, 너무 깊게 생각하지 마세요",
@@ -1463,8 +1452,8 @@
   "modifier.tconstruct.overgrowth.description": "슬라임 막이 천천히 재생됩니다",
 
   "modifier.tconstruct.enhanced": "향상",
-  "modifier.tconstruct.enhanced.flavor": "눈부셔!",
-  "modifier.tconstruct.enhanced.description": "유색 황금은 강화 슬롯과 잘 어울립니다!",
+  "modifier.tconstruct.enhanced.flavor": "화려해!",
+  "modifier.tconstruct.enhanced.description": "장밋빛 황금은 강화 슬롯과 잘 어울립니다!",
 
   "__comment": "3등급 특성",
   "modifier.tconstruct.overcast": "과주조",
@@ -1493,9 +1482,11 @@
   "modifier.tconstruct.momentum": "가속도",
   "modifier.tconstruct.momentum.flavor": "더 빠르게, 더 빠르게!",
   "modifier.tconstruct.momentum.description": "채굴 중에, 블록을 채굴하면 채굴할수록 채굴 속도가 증가합니다",
+  "modifier.tconstruct.momentum.mining_speed": "가속 속도",
   "modifier.tconstruct.insatiable": "갈망",
   "modifier.tconstruct.insatiable.flavor": "피의 맛!",
   "modifier.tconstruct.insatiable.description": "전투 중에, 적을 공격하면 공격할수록 공격 피해가 증가합니다",
+  "modifier.tconstruct.insatiable.attack_damage": "가속 속도",
 
   "__comment": "호환되는 모드의 2등급 재료 특성",
   "modifier.tconstruct.heavy": "무거움",
@@ -1527,7 +1518,7 @@
   "tool_stat.tconstruct.attack_speed": "공격 속도: ",
   "tool_stat.tconstruct.attack_speed.description": "공격 속도 계산을 위한 기본값입니다.\n십자선 밑이나 단축바 옆에 있는 표식이 얼마나 빨리 차는지에 대한 값입니다.",
   "tool_stat.tconstruct.durability": "내구도: ",
-  "tool_stat.tconstruct.durability.description": "내구성 계산을 위한 기본값입니다.\n일반적으로 도구의 전반적인 내구성에 대한 값입니다.",
+  "tool_stat.tconstruct.durability.description": "내구도 계산을 위한 기본값입니다.\n일반적으로 도구의 전반적인 내구성에 대한 값입니다.",
 
   "stat.tconstruct.head": "머리",
   "tool_stat.tconstruct.mining_speed": "채굴 속도: ",
@@ -1597,11 +1588,13 @@
   "gui.tconstruct.tinker_station": "팅커 작업대",
   "gui.tconstruct.tinker_station.repair": "수리 & 수식어",
   "gui.tconstruct.tinker_station.modifiers": "수식어",
+  "gui.tconstruct.tinker_station.upgrades": "강화 & 능력",
+  "gui.tconstruct.tinker_station.traits": "특성",
   "gui.tconstruct.tinker_station.components": "구성 요소",
   "gui.tconstruct.tinker_station.info": "도구를 수리하거나 변경할 수 있습니다. \n도구를 중앙에 놓고 왼쪽에 재료를 배치하면 수리하거나, 수식어를 넣을 수 있습니다.",
   "gui.tconstruct.tinker_station.no_traits": "없음 :[",
 
-  "gui.tconstruct.manual.cycle.recipes": "다른 제작법",
+  "gui.tconstruct.manual.cycle.recipes": "다른 아이템",
 
   "recipe.tconstruct.tool_repair.fully_repaired": "도구가 아직 손상되지 않았습니다",
   "recipe.tconstruct.damaging.broken": "도구가 파괴되어 있습니다",
@@ -1614,7 +1607,7 @@
   "recipe.tconstruct.modifier.not_enough_abilities": "이 수식어를 추가하려면 능력 슬롯이 %s개 이상 필요합니다",
   "recipe.tconstruct.modifier.validate_upgrades": "변경하게 되면 강화 슬롯이 너무 적어져, 변경할 수 없습니다",
   "recipe.tconstruct.modifier.validate_abilities": "변경하게 되면 능력 슬롯이 적어져, 변경할 수 없습니다",
-  "recipe.tconstruct.modifier.max_level": "%s 수식어는 최대 %s등급까지만 부여할 수 있습니다",
+  "recipe.tconstruct.modifier.max_level": "%s 수식어는 최대 %s등급까지만 적용할 수 있습니다",
   "recipe.tconstruct.modifier.requirements_error": "수식어가 잘못되었습니다. 모드팩 제작자에게 문의하여 주세요.",
 
 
@@ -1624,11 +1617,21 @@
   "gui.tconstruct.error": "오류",
   "gui.tconstruct.warning": "경고",
   "gui.tconstruct.general.hover": "자세한 내용을 확인하려면 항목 위로 마우스를 가져가세요",
-  "gui.tconstruct.error.invalid_pattern": "틀에 올바른 도구 부품이 없습니다.!",
+  "gui.tconstruct.error.invalid_pattern": "틀에 올바른 도구 부품이 없습니다!",
   "gui.tconstruct.error.invalid_recipe": "잘못된 제작법!",
   "gui.tconstruct.error.unknown_material": "알 수 없는 재료",
   "gui.tconstruct.error.useless_tool_part": "이 부품을 사용하여 도구를 만들 수 없습니다! \n\n재료 %s에 대한 정보가 없거나 도구가 %s을(를) 제작에 사용하지 않습니다",
-  "gui.tconstruct.error.not_enough_durability": "내구성이 부족하여 부품을 교체할 수 없습니다! \n%d 이상의 내구성 필요합니다",
+  "gui.tconstruct.error.not_enough_durability": "내구도가 부족하여 부품을 교체할 수 없습니다! \n%d 이상의 내구도가 필요합니다",
+
+
+  "_comment": "책 줄",
+
+  "book.tconstruct.material.part_builder": "부품 제작대에서 제작할 수 있습니다",
+  "book.tconstruct.material.cast_from": "%s을(를) 주조하여 만들 수 있습니다",
+  "book.tconstruct.material.composite_from": "%s을(를) %s 부품에다 주조하여 만들 수 있습니다",
+  "book.tconstruct.modifiers.effect": "효과:",
+  "book.tconstruct.tool.properties": "특성:",
+
 
   "_comment": "JEI",
   "jei.tconstruct.time": "%s s",
@@ -1637,7 +1640,7 @@
   "jei.tconstruct.casting.basin": "쇳물받이",
   "jei.tconstruct.casting.table": "주조대",
   "jei.tconstruct.casting.cast_kept": "이 금형은 재사용할 수 있습니다.",
-  "jei.tconstruct.casting.cast_consumed": "이 거푸집은 주조할 때 소모됩니다",
+  "jei.tconstruct.casting.cast_consumed": "이 아이템은 주조할 때 소모됩니다",
 
   "jei.tconstruct.molding.title": "주형",
   "jei.tconstruct.molding.pattern_consumed": "이 틀이 제작에 사용됩니다",
@@ -1666,11 +1669,11 @@
   "jei.tconstruct.modifiers.max": "최대: ",
 
   "jei.tconstruct.severing.title": "절단",
-   
+
   "jei.tconstruct.part_builder.title": "부품 제작대",
   "jei.tconstruct.part_builder.cost": "사용하는 양: %s",
-  
-  
+
+
   "_comment": "도구 발전 과제",
   "advancements.tconstruct.tools.materials_and_you.title": "팅커의 훈련",
   "advancements.tconstruct.tools.materials_and_you.description": "팅커스 컨스트럭트를 소개하는 안내서, 당신을 위한 재료 길잡이를 얻으세요",
@@ -1684,13 +1687,13 @@
   "advancements.tconstruct.tools.tinker_tool.description": "팅커 도구를 제작하세요",
   "advancements.tconstruct.tools.modified.title": "수식어",
   "advancements.tconstruct.tools.modified.description": "팅커 도구에 수식어를 적용하세요",
-  "advancements.tconstruct.tools.abilities.title": "수식어의 대가",
-  "advancements.tconstruct.tools.abilities.description": "도구에 모든 단일 기본 능력 수식어를 한 번 이상 적용하세요",
+  "advancements.tconstruct.tools.abilities.title": "모든 강화",
+  "advancements.tconstruct.tools.abilities.description": "도구에 모든 기본 강화 수식어를 한 번 이상 적용하세요",
   "advancements.tconstruct.tools.glass_cannon.title": "유리 대포",
   "advancements.tconstruct.tools.glass_cannon.description": "공격 피해가 20보다 높고 내구도가 100 이하인 도구를 제작하세요",
   "advancements.tconstruct.tools.tool_smith.title": "도구 대장장이",
-  "advancements.tconstruct.tools.tool_smith.description": "모든 기본적인 도구를 한 번 이상 제작하세요",
-  "advancements.tconstruct.tools.material_master.title": "재료의 대가",
+  "advancements.tconstruct.tools.tool_smith.description": "모든 작은 도구를 한 번 이상 제작하세요",
+  "advancements.tconstruct.tools.material_master.title": "재료 통달",
   "advancements.tconstruct.tools.material_master.description": "모든 기본적인 재료를 한 번 이상 사용하세요",
 
   "_comment": "제련소 발전 과제",
@@ -1708,6 +1711,12 @@
   "advancements.tconstruct.smeltery.mighty_smelting.description": "제련소에 대한 안내서, 복잡한 제련을 제작하세요",
   "advancements.tconstruct.smeltery.structure.title": "강력한 제련소",
   "advancements.tconstruct.smeltery.structure.description": "녹은 구리를 주조하여 제련소 관리기를 제작하고, 제련소를 건설하여 제련소 UI를 여세요",
+  "advancements.tconstruct.smeltery.tinkers_anvil.title": "고급 도구 제작",
+  "advancements.tconstruct.smeltery.tinkers_anvil.description": "제련소의 합금을 사용하여 팅커스 모루를 제작하세요!",
+  "advancements.tconstruct.smeltery.tool_forge.title": "도구 대장간",
+  "advancements.tconstruct.smeltery.tool_forge.description": "모루로 넓은 도구를 제작하세요",
+  "advancements.tconstruct.smeltery.abilities.title": "능력 통달",
+  "advancements.tconstruct.smeltery.abilities.description": "모든 기본 능력 수식어를 한 번 이상 적용하세요",
 
   "_comment": "용해소 발전 과제",
   "advancements.tconstruct.foundry.fantastic_foundry.title": "네더 제련",
@@ -1720,6 +1729,8 @@
   "advancements.tconstruct.foundry.blaze.description": "탱크를 블레이즈 피로 채우세요",
   "advancements.tconstruct.foundry.manyullyn_lanterns.title": "값비싼 조명",
   "advancements.tconstruct.foundry.manyullyn_lanterns.description": "랜턴을 녹은 마뉼린으로 채우세요",
+  "advancements.tconstruct.foundry.encyclopedia.title": "백과사전",
+  "advancements.tconstruct.foundry.encyclopedia.description": "탐험에서 얻은 지식으로 팅커 백과사전을 제작하세요",
 
   "_comment": "장치 발전 과제",
   "advancements.tconstruct.world.tinkers_gadgetry.title": "팅커스 장치",
@@ -1739,9 +1750,7 @@
   "advancements.tconstruct.world.slime_sling.title": "새총 전문가",
   "advancements.tconstruct.world.slime_sling.description": "4종류의 슬라임 새총을 충분히 사용하세요",
   "advancements.tconstruct.world.piggybackpack.title": "돼지 운반용 배낭",
-  "advancements.tconstruct.world.piggybackpack.description": "돼지 배낭으로 돼지를 들어 올리세요",
-  "advancements.tconstruct.world.encyclopedia.title": "백과사전",
-  "advancements.tconstruct.world.encyclopedia.description": "탐험에서 얻은 지식으로 재료 백과사전을 제작하세요"
+  "advancements.tconstruct.world.piggybackpack.description": "돼지 배낭으로 돼지를 들어 올리세요"
 
 }
 
