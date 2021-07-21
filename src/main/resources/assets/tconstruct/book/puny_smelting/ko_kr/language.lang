@@ -1,0 +1,23 @@
+// 섹션 - 간단한 제련
+intro=소개
+melter=용해기
+moving_fluids=액체 이동
+casting=주조
+tier_two_materials=2등급 재료
+
+upgrades=강화
+upgrades.general=§1§l일반§r
+upgrades.harvest=§1§l수확§r
+upgrades.weapon=§1§l무기§r
+
+slotless=슬롯리스 수식어
+slotless.slotless=§1§l슬롯리스§r
+slotless.bonus_upgrades=§1§l강화++§r
+
+material.tconstruct.iron.book=철 지날 일 없는 단단한 금속입니다
+material.tconstruct.copper.book=일상까지는 변색되지 않도록 하세요
+material.tconstruct.seared_stone.book=뜨거운 그라우트
+material.tconstruct.scorched_stone.book=용해소 에디션 보너스
+material.tconstruct.slimewood.book=이건 슬라임의 나무인가요? 아니면, 슬라임이 채워진 나무인가요?
+material.tconstruct.lead.book=무겁고 연한
+material.tconstruct.silver.book=며칠만 지나면, 이렇게까지 반짝거리지는 않을 거예요
