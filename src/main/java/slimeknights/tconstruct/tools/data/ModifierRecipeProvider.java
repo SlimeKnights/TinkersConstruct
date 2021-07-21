@@ -110,7 +110,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      */
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.reinforced.get())
                          .setInput(TinkerModifiers.ironReinforcement, 1, 24)
-                         .setMaxLevel(5) // max 83% resistant to damage
+                         .setMaxLevel(5) // max 75% resistant to damage
                          .setUpgradeSlots(1)
                          .setTools(TinkerTags.Items.DURABILITY)
                          .build(consumer, prefix(TinkerModifiers.reinforced, upgradeFolder));
@@ -337,7 +337,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sweeping.get())
                                     .setTools(TinkerTags.Items.SWORD)
                                     .setInput(Blocks.CHAIN, 1, 18) // every 9 is 11 ingots, so this is 22 ingots
-                                    .setMaxLevel(4) // goes 50%, 67%, 75%, 80%, level 5 at 83% is not really worthwhile
+                                    .setMaxLevel(4) // goes 25%, 50%, 75%, 100%
                                     .setUpgradeSlots(1)
                                     .build(consumer, prefix(TinkerModifiers.sweeping, upgradeFolder));
 

@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.utils.Util;
 import java.util.List;
 
 public class SweepingEdgeModifier extends IncrementalModifier {
-  private static final ITextComponent SWEEPING_BONUS = TConstruct.makeTranslation("modifier", "sweeping_edge.damage");
+  private static final ITextComponent SWEEPING_BONUS = TConstruct.makeTranslation("modifier", "sweeping_edge.attack_damage");
 
   public SweepingEdgeModifier() {
     super(0x888888);
@@ -20,15 +20,18 @@ public class SweepingEdgeModifier extends IncrementalModifier {
   public float getSweepingDamage(IModifierToolStack toolStack, float baseDamage) {
     int level = toolStack.getModifierLevel(this);
     float sweepingDamage = 1;
-    if (level > 0) {
-      sweepingDamage += (1 - 1f / (getScaledLevel(toolStack, level) + 1)) * baseDamage;
+    if (level > 4) {
+      sweepingDamage += baseDamage;
+    } else if (level > 0) {
+      // gives 25% per level
+      sweepingDamage += getScaledLevel(toolStack, level) * 0.25f * baseDamage;
     }
     return sweepingDamage;
   }
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    float amount = 1 - 1f / (getScaledLevel(tool, level) + 1);
+    float amount = getScaledLevel(tool, level) * 0.25f;
     tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_FORMAT.format(amount)).appendString(" ").appendSibling(SWEEPING_BONUS)));
   }
 }
