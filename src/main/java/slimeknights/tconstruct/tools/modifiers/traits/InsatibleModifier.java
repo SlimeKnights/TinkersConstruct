@@ -17,9 +17,9 @@ public class InsatibleModifier extends Modifier {
 
   @Override
   public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
-    // gives +3 damage per level at max
+    // gives +2 damage per level at max
     int effectLevel = TinkerModifiers.insatiableEffect.get().getLevel(context.getAttacker()) + 1;
-    return damage + (level * effectLevel / 3f * tool.getModifier(ToolStats.ATTACK_DAMAGE));
+    return damage + (level * effectLevel / 2f * tool.getModifier(ToolStats.ATTACK_DAMAGE));
   }
 
   @Override
@@ -35,6 +35,6 @@ public class InsatibleModifier extends Modifier {
 
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    addDamageTooltip(tool, level * 3, tooltip);
+    addDamageTooltip(tool, level * 2, tooltip);
   }
 }
