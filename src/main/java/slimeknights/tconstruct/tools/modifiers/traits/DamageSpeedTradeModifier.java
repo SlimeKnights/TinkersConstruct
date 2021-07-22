@@ -62,7 +62,8 @@ public class DamageSpeedTradeModifier extends Modifier {
     if (slot == EquipmentSlotType.MAINHAND) {
       double boost = getMultiplier(tool, level);
       if (boost != 0) {
-        consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid.get(), attributeName.get(), boost, Operation.MULTIPLY_TOTAL));
+        // half boost for attack speed, its
+        consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid.get(), attributeName.get(), boost / 2, Operation.MULTIPLY_TOTAL));
       }
     }
   }

@@ -1146,11 +1146,11 @@
 
   "material.tconstruct.stone": "Stone",
   "material.tconstruct.stone.flavor": "Rock solid",
-  "material.tconstruct.stone.encyclopedia": "Causes the tool to mine faster by the square root of lost durability",
+  "material.tconstruct.stone.encyclopedia": "Causes the tool to mine faster by half of the square root of lost durability",
 
   "material.tconstruct.flint": "Flint",
   "material.tconstruct.flint.flavor": "This will spark the flames of a Tinker's heart!",
-  "material.tconstruct.flint.encyclopedia": "Increases damage by the square root of the lost durability",
+  "material.tconstruct.flint.encyclopedia": "Increases damage by a quarter of the square root of the lost durability",
 
   "material.tconstruct.bone": "Bone",
   "material.tconstruct.bone.flavor": "I am the bone of my sword",
