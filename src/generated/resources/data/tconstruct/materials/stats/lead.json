@@ -4,7 +4,7 @@
     "tconstruct:handle": {
       "durability": 1.0,
       "miningSpeed": 1.0,
-      "attackSpeed": 0.7,
+      "attackSpeed": 0.8,
       "attackDamage": 1.2
     },
     "tconstruct:head": {
