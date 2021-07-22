@@ -29,9 +29,9 @@ import java.util.Optional;
  * Extension of {@link MaterialItem} which adds stats to the tooltip and has a set stat type
  */
 public class ToolPartItem extends MaterialItem implements IToolPart {
-  private static final ITextComponent MISSING_INFO = TConstruct.makeTranslation("item", "part.missing_info");
-  private static final String MISSING_MATERIAL_KEY = TConstruct.makeTranslationKey("item", "part.missing_material");
-  private static final String MISSING_STATS_KEY = TConstruct.makeTranslationKey("item", "part.missing_stats");
+  private static final ITextComponent MISSING_INFO = TConstruct.makeTranslation("tooltip", "part.missing_info");
+  private static final String MISSING_MATERIAL_KEY = TConstruct.makeTranslationKey("tooltip", "part.missing_material");
+  private static final String MISSING_STATS_KEY = TConstruct.makeTranslationKey("tooltip", "part.missing_stats");
 
   public final MaterialStatsId materialStatId;
 
@@ -101,7 +101,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   protected boolean checkMissingMaterialTooltip(ItemStack stack, IMaterial material, List<ITextComponent> tooltip) {
     if (material == IMaterial.UNKNOWN) {
       Optional<MaterialId> materialId = getMaterialId(stack);
-      materialId.ifPresent(id -> tooltip.add(new TranslationTextComponent(MISSING_MATERIAL_KEY, id)));
+      materialId.ifPresent(id -> tooltip.add(new TranslationTextComponent(TConstruct.makeTranslationKey("tooltip", "part.missing_material"), id)));
       return true;
     }
     else if (!canUseMaterial(material)) {

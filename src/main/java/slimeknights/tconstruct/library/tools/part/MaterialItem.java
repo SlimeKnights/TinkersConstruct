@@ -14,6 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -30,6 +31,7 @@ import java.util.Optional;
  * itemstack of this item has.
  */
 public class MaterialItem extends Item implements IMaterialItem {
+  private static final String ADDED_BY = TConstruct.makeTranslationKey("tooltip", "part.added_by");
 
   public MaterialItem(Properties properties) {
     super(properties);
@@ -129,7 +131,7 @@ public class MaterialItem extends Item implements IMaterialItem {
       for (ModInfo modInfo : ModList.get().getMods()) {
         if (modInfo.getModId().equalsIgnoreCase(material.getIdentifier().getNamespace())) {
           tooltip.add(new StringTextComponent(""));
-          tooltip.add(new TranslationTextComponent("tooltip.part.material_added_by", modInfo.getDisplayName()));
+          tooltip.add(new TranslationTextComponent(ADDED_BY, modInfo.getDisplayName()));
           break;
         }
       }
