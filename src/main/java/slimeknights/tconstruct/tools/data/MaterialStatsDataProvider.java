@@ -142,11 +142,11 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      HandleMaterialStats.DEFAULT.withDurability(1.35f).withMiningSpeed(0.9f).withAttackSpeed(0.95f).withAttackDamage(0.95f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.hepatizon,
-                     new HeadMaterialStats(975, 10f, NETHERITE, 3f),
+                     new HeadMaterialStats(975, 10f, NETHERITE, 2.5f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(1.2f).withAttackDamage(0.9f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.manyullyn,
-                     new HeadMaterialStats(1250, 8f, NETHERITE, 4f),
+                     new HeadMaterialStats(1250, 8f, NETHERITE, 3.5f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.3f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.blazingBone,
