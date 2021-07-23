@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import slimeknights.tconstruct.TConstruct;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ConductingModifier extends Modifier {
   private static final ITextComponent ATTACK_DAMAGE = TConstruct.makeTranslation("modifier", "conducting.attack_damage");
   private static final int MAX_BONUS_TICKS = 15 * 20; // time from lava
-  private static final float PERCENT_PER_LEVEL = 0.2f; // 20% bonus when in lava essentially
+  private static final float PERCENT_PER_LEVEL = 0.15f; // 15% bonus when in lava essentially
   public ConductingModifier() {
     super(0xDBCC0B);
   }
@@ -32,10 +33,15 @@ public class ConductingModifier extends Modifier {
     int fire = attacker.getFireTimer();
     if (fire > 0) {
       float bonus = PERCENT_PER_LEVEL * level;
+      // if less than 15 seconds of fire, smaller boost
       if (fire < MAX_BONUS_TICKS) {
         bonus *= (float)(fire) / MAX_BONUS_TICKS;
       }
-      // percentage boost
+      // half boost if not on fire
+      if (attacker.isPotionActive(Effects.FIRE_RESISTANCE)) {
+        bonus /= 2;
+      }
+      // finally, apply percentage
       if (bonus > 0) {
         damage *= 1 + bonus;
       }
@@ -46,7 +52,7 @@ public class ConductingModifier extends Modifier {
   @Override
   public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
     if (tool.hasTag(TinkerTags.Items.MELEE)) {
-      tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(PERCENT_PER_LEVEL)).appendString(" ").appendSibling(ATTACK_DAMAGE)));
+      tooltip.add(applyStyle(new StringTextComponent(Util.PERCENT_BOOST_FORMAT.format(PERCENT_PER_LEVEL * level)).appendString(" ").appendSibling(ATTACK_DAMAGE)));
     }
   }
 }
