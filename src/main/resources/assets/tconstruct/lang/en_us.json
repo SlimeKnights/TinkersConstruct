@@ -1656,7 +1656,7 @@
   "tooltip.tconstruct.hold_shift": "Hold %s for stats",
   "tooltip.tconstruct.hold_ctrl": "Hold %s for more",
 
-  "tooltip.tconstruct.part.material_added_by": "Material added by %s",
+  "tooltip.tconstruct.part.added_by": "Material added by %s",
   "tooltip.tconstruct.part.missing_material": "Missing material: %s",
   "tooltip.tconstruct.part.missing_stats": "Material is missing the required stats:\n{0}",
   "tooltip.tconstruct.part.missing_info": "Part has no data",
