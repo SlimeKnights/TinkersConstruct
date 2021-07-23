@@ -6,7 +6,9 @@ import net.minecraft.data.DirectoryCache;
 import net.minecraft.util.text.Color;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
+import net.minecraftforge.common.crafting.conditions.OrCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.Material;
@@ -96,8 +98,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
 
   /** Creates a new compat material */
   protected void addCompatMetalMaterial(MaterialId location, int tier, int order, int color) {
-    // all our addon materials use ingot value right now, so not much need to make a constructor parameter - option is mainly for addons
-    ICondition condition = new NotCondition(new TagEmptyCondition("forge", "ingots/" + location.getPath()));
+    ICondition condition = new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, new NotCondition(new TagEmptyCondition("forge", "ingots/" + location.getPath())));
     addMaterial(location, tier, order, false, color & 0xFFFFFF, false, condition);
   }
 

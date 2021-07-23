@@ -54,8 +54,10 @@ public class Config {
 
     public final ConfigValue<String> showOnlyToolMaterial;
     public final ConfigValue<String> showOnlyPartMaterial;
-    public final ForgeConfigSpec.BooleanValue showAllTableVariants;
-    public final ForgeConfigSpec.BooleanValue showAllAnvilVariants;
+    public final BooleanValue showAllTableVariants;
+    public final BooleanValue showAllAnvilVariants;
+
+    public final BooleanValue forceIntegrationMaterials;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -217,6 +219,14 @@ public class Config {
         .defineInRange("separation", 25, 10, 500);
       builder.pop(2);
 
+      builder.pop();
+
+      builder.comment("Features to use in debugging gameplay and mechanics, generally should not be enabled in packs").push("debug");
+      this.forceIntegrationMaterials = builder
+        .comment("If true, forces integration materials to be enabled, even if the relevant metal is missing. Useful for testing material balance.",
+                 "Does not provide recipes for any of them, they will only be available to cheat in creative.")
+        .worldRestart()
+        .define("forceIntegrationMaterials", false);
       builder.pop();
     }
   }

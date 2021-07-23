@@ -1,10 +1,19 @@
 {
   "condition": {
-    "value": {
-      "tag": "forge:ingots/lead",
-      "type": "forge:tag_empty"
-    },
-    "type": "forge:not"
+    "values": [
+      {
+        "prop": "force_integration_materials",
+        "type": "tconstruct:config"
+      },
+      {
+        "value": {
+          "tag": "forge:ingots/lead",
+          "type": "forge:tag_empty"
+        },
+        "type": "forge:not"
+      }
+    ],
+    "type": "forge:or"
   },
   "craftable": false,
   "tier": 2,
