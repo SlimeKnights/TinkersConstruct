@@ -924,7 +924,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(new IngredientIntersection(Ingredient.fromTag(ItemTags.PLANKS), Ingredient.fromTag(ItemTags.NON_FLAMMABLE_WOOD)), true)
                             .build(consumer, prefix(TinkerCommons.blazewood, folder));
 
-
     // cast molten blaze into blaze rods
     castingWithCast(consumer, TinkerFluids.blazingBlood, FluidAttributes.BUCKET_VOLUME / 10, TinkerSmeltery.rodCast, Items.BLAZE_ROD, folder + "blaze/rod");
 
@@ -982,6 +981,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setFluidAndTime(TinkerFluids.moltenObsidian, FluidValues.GLASS_BLOCK * 8)
                             .setCast(Items.ENDER_EYE, true)
                             .build(consumer, modResource(folder + "obsidian/chest"));
+    ItemCastingRecipeBuilder.basinRecipe(TinkerMaterials.nahuatl)
+                            .setFluidAndTime(TinkerFluids.moltenObsidian, FluidAttributes.BUCKET_VOLUME)
+                            .setCast(ItemTags.PLANKS, true)
+                            .build(consumer, modResource(folder + "obsidian/nahuatl"));
     // overworld stones from quartz
     ItemCastingRecipeBuilder.basinRecipe(Blocks.DIORITE)
                             .setFluidAndTime(TinkerFluids.moltenQuartz, FluidValues.GEM)

@@ -607,7 +607,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // deboning
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.SKELETON, EntityType.SKELETON_HORSE, EntityType.STRAY), ItemOutput.fromStack(new ItemStack(Items.BONE, 2)))
                          .build(consumer, modResource(folder + "skeleton_bone"));
-    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.WITHER_SKELETON), ItemOutput.fromStack(new ItemStack(TinkerModifiers.necroticBone, 2)))
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.WITHER_SKELETON), ItemOutput.fromStack(new ItemStack(TinkerMaterials.necroticBone, 2)))
                          .build(consumer, modResource(folder + "wither_skeleton_bone"));
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.BLAZE), ItemOutput.fromStack(new ItemStack(Items.BLAZE_ROD, 2)))
                          .build(consumer, modResource(folder + "blaze_rod"));

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "tconstruct:block/wood/nahuatl/slab"
+    },
+    "type=double": {
+      "model": "tconstruct:block/wood/nahuatl/planks"
+    },
+    "type=top": {
+      "model": "tconstruct:block/wood/nahuatl/slab_top"
+    }
+  }
+}

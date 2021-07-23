@@ -111,7 +111,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     metalMaterialRecipe(consumer, MaterialIds.roseGold, folder, "rose_gold", false);
     // tier 3
     metalMaterialRecipe(consumer, MaterialIds.slimesteel, folder, "slimesteel", false);
-    materialRecipe(consumer, MaterialIds.nahuatl, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, folder + "nahuatl");
+    materialRecipe(consumer, MaterialIds.nahuatl, Ingredient.fromItems(TinkerMaterials.nahuatl), 1, 1, folder + "nahuatl");
     metalMaterialRecipe(consumer, MaterialIds.tinkersBronze, folder, "silicon_bronze", false);
     metalMaterialRecipe(consumer, MaterialIds.pigIron, folder, "pig_iron", false);
     materialRecipe(consumer, MaterialIds.pigIron, Ingredient.fromItems(TinkerCommons.bacon), 1, 4, folder + "pig_iron/bacon");

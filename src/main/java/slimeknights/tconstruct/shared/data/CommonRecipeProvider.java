@@ -50,6 +50,14 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     slabStairsCrafting(consumer, TinkerCommons.blazewood, folder, false);
     slabStairsCrafting(consumer, TinkerCommons.lavawood, folder, false);
 
+    // nahuatl
+    slabStairsCrafting(consumer, TinkerMaterials.nahuatl, folder, false);
+    ShapedRecipeBuilder.shapedRecipe(TinkerMaterials.nahuatl.getFence(), 6)
+                       .patternLine("WWW").patternLine("WWW")
+                       .key('W', TinkerMaterials.nahuatl)
+                       .addCriterion("has_planks", hasItem(TinkerMaterials.nahuatl))
+                       .build(consumer, modResource(folder + "nahuatl_fence"));
+
     // mud bricks
     slabStairsCrafting(consumer, TinkerCommons.mudBricks, "common/", false);
 

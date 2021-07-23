@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -122,6 +123,14 @@ public abstract class TinkerModule {
   protected static Block.Properties builder(Material material, @Nullable ToolType toolType, SoundType soundType) {
     //noinspection ConstantConditions
     return Block.Properties.create(material).harvestTool(toolType).sound(soundType);
+  }
+
+  /**
+   * Same as above, but with a color
+   */
+  protected static Block.Properties builder(Material material, MaterialColor color, @Nullable ToolType toolType, SoundType soundType) {
+    //noinspection ConstantConditions
+    return Block.Properties.create(material, color).harvestTool(toolType).sound(soundType);
   }
 
   /**

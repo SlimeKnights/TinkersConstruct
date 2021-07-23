@@ -3,16 +3,19 @@ package slimeknights.tconstruct.shared;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import slimeknights.mantle.registration.object.FenceBuildingBlockObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.block.OrientableBlock;
 import slimeknights.tconstruct.shared.block.SlimesteelBlock;
 
@@ -40,6 +43,10 @@ public final class TinkerMaterials extends TinkerModule {
   public static final ItemObject<Item> debrisNugget = ITEMS.register("debris_nugget", TOOLTIP_ITEM);
   // tier 5
   public static final MetalItemObject knightslime = BLOCKS.registerMetal("knightslime", GENERIC_METAL_BLOCK, HIDDEN_BLOCK_ITEM, HIDDEN_PROPS);
+
+  // non-metal
+  public static final ItemObject<Item> necroticBone = ITEMS.register("necrotic_bone", TOOLTIP_ITEM);
+  public static final FenceBuildingBlockObject nahuatl = BLOCKS.registerFenceBuilding("nahuatl", builder(Material.WOOD, MaterialColor.OBSIDIAN, ToolType.AXE, SoundType.WOOD).harvestLevel(HarvestLevels.DIAMOND).setRequiresTool().hardnessAndResistance(25f, 300f), GENERAL_BLOCK_ITEM);
 
   /*
    * Serializers

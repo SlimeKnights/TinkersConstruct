@@ -199,7 +199,7 @@ public class BlockTagProvider extends BlockTagsProvider {
       TinkerSmeltery.scorchedBricks.get(),
       TinkerSmeltery.scorchedRoad.get(),
       TinkerSmeltery.chiseledScorchedBricks.get());
-    this.getOrCreateBuilder(BlockTags.FENCES).add(TinkerSmeltery.scorchedBricks.getFence());
+    this.getOrCreateBuilder(BlockTags.FENCES).add(TinkerSmeltery.scorchedBricks.getFence(), TinkerMaterials.nahuatl.getFence());
 
     this.getOrCreateBuilder(TinkerTags.Blocks.CISTERN_CONNECTIONS)
         // cannot add channels as it requires a block state property to properly detect, look into a way to fix this later
