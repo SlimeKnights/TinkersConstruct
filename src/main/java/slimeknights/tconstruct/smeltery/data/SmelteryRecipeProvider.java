@@ -791,6 +791,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // Slime
     String slimeFolder = folder + "slime/";
     this.slimeCasting(consumer, TinkerFluids.blood, false, SlimeType.BLOOD, slimeFolder);
+    ItemCastingRecipeBuilder.tableRecipe(TinkerMaterials.bloodbone)
+                            .setFluidAndTime(TinkerFluids.blazingBlood, FluidValues.SLIMEBALL)
+                            .setCast(Tags.Items.BONES, true)
+                            .build(consumer, modResource(slimeFolder + "blood/bone"));
     this.slimeCasting(consumer, TinkerFluids.earthSlime, true, SlimeType.EARTH, slimeFolder);
     this.slimeCasting(consumer, TinkerFluids.skySlime, false, SlimeType.SKY, slimeFolder);
     this.slimeCasting(consumer, TinkerFluids.enderSlime, false, SlimeType.ENDER, slimeFolder);
@@ -926,6 +930,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // cast molten blaze into blaze rods
     castingWithCast(consumer, TinkerFluids.blazingBlood, FluidAttributes.BUCKET_VOLUME / 10, TinkerSmeltery.rodCast, Items.BLAZE_ROD, folder + "blaze/rod");
+    ItemCastingRecipeBuilder.tableRecipe(TinkerMaterials.blazingBone)
+                            .setFluidAndTime(TinkerFluids.blazingBlood, FluidAttributes.BUCKET_VOLUME / 5)
+                            .setCast(TinkerTags.Items.WITHER_BONES, true)
+                            .build(consumer, modResource(folder + "blaze/bone"));
 
     // Cast recipes
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.blankCast)

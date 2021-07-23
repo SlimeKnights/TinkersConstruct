@@ -71,8 +71,12 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      HandleMaterialStats.DEFAULT.withDurability(0.8f).withAttackSpeed(1.05f).withAttackDamage(1.1f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.slimewood,
-                     new HeadMaterialStats(375, 4, IRON, 1f),
+                     new HeadMaterialStats(375, 4f, IRON, 1f),
                      HandleMaterialStats.DEFAULT.withDurability(1.3f).withMiningSpeed(0.85f).withAttackDamage(0.85f),
+                     ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.bloodbone,
+                     new HeadMaterialStats(195, 5f, IRON, 2f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(1.1f).withAttackDamage(1.05f),
                      ExtraMaterialStats.DEFAULT);
 
     // tier 2 (mod integration)
@@ -144,6 +148,10 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.manyullyn,
                      new HeadMaterialStats(1250, 8f, NETHERITE, 4f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.3f),
+                     ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.blazingBone,
+                     new HeadMaterialStats(530, 6f, IRON, 3f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.85f).withMiningSpeed(1.05f).withAttackSpeed(1.2f),
                      ExtraMaterialStats.DEFAULT);
     //    addMaterialStats(MaterialIds.soulsteel,
     //                     new HeadMaterialStats(1120, 7.5f, NETHERITE, 3f),

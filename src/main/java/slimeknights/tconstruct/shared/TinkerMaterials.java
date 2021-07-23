@@ -46,6 +46,8 @@ public final class TinkerMaterials extends TinkerModule {
 
   // non-metal
   public static final ItemObject<Item> necroticBone = ITEMS.register("necrotic_bone", TOOLTIP_ITEM);
+  public static final ItemObject<Item> bloodbone = ITEMS.register("bloodbone", TOOLTIP_ITEM);
+  public static final ItemObject<Item> blazingBone = ITEMS.register("blazing_bone", TOOLTIP_ITEM);
   public static final FenceBuildingBlockObject nahuatl = BLOCKS.registerFenceBuilding("nahuatl", builder(Material.WOOD, MaterialColor.OBSIDIAN, ToolType.AXE, SoundType.WOOD).harvestLevel(HarvestLevels.DIAMOND).setRequiresTool().hardnessAndResistance(25f, 300f), GENERAL_BLOCK_ITEM);
 
   /*

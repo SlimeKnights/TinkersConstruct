@@ -200,6 +200,8 @@
   "item.tconstruct.silky_jewel.tooltip": "Prevents a tool from damaging block drops",
   "item.tconstruct.necrotic_bone": "Necrotic Bone",
   "item.tconstruct.necrotic_bone.tooltip": "Dropped from wither skeletons",
+  "item.tconstruct.bloodbone": "Bloodbone",
+  "item.tconstruct.blazing_bone": "Blazing Bone",
   "item.tconstruct.dragon_scale": "Dragon Scale",
   "item.tconstruct.dragon_scale.tooltip": "Blasted off an ender dragon",
   "item.tconstruct.creative_upgrade": "Creative Upgrade",
@@ -1187,6 +1189,10 @@
   "material.tconstruct.slimewood.flavor": "Is this the wood of a slime or slime that's been infused with wood?",
   "material.tconstruct.slimewood.encyclopedia": "Gives a 5% chance per level of regenerating overslime each second",
 
+  "material.tconstruct.bloodbone": "Bloodbone",
+  "material.tconstruct.bloodbone.flavor": "Isn't the blood supposed to be inside the bone?",
+  "material.tconstruct.bloodbone.encyclopedia": "Boosts damage at low health, up to +4 damage per level at 1 heart",
+
   "material.tconstruct.rose_gold": "Rose Gold",
   "material.tconstruct.rose_gold.flavor": "Disclaimer: Not actually made with roses.",
   "material.tconstruct.rose_gold.encyclopedia": "Grants 1 extra upgrade slot per part",
@@ -1227,6 +1233,10 @@
   "material.tconstruct.queens_slime": "Queen's Slime",
   "material.tconstruct.queens_slime.flavor": "Princesses are evil, get yourself a Queen.",
   "material.tconstruct.queens_slime.encyclopedia": "Reduces durability by 15% per level, 66% of that going towards overslime",
+
+  "material.tconstruct.blazing_bone": "Blazing Bone",
+  "material.tconstruct.blazing_bone.flavor": "Harness the full power of the Nether Fortress - bone and blaze",
+  "material.tconstruct.blazing_bone.encyclopedia": "Boosts damage based on amount of fire on the player, with 20% from fire from lava, and 10% from fire blocks",
 
   "material.tconstruct.soulsteel": "Soulsteel",
 
@@ -1532,6 +1542,10 @@
   "modifier.tconstruct.overgrowth": "Overgrowth",
   "modifier.tconstruct.overgrowth.flavor": "Fungal!",
   "modifier.tconstruct.overgrowth.description": "Tool slowly grows overslime",
+  "modifier.tconstruct.raging": "Raging",
+  "modifier.tconstruct.raging.flavor": "A desperate solution!",
+  "modifier.tconstruct.raging.description": "Tool does more damage when the holder's health is low",
+  "modifier.tconstruct.raging.attack_damage": "Damage at Low Health",
 
   "modifier.tconstruct.enhanced": "Enhanced",
   "modifier.tconstruct.enhanced.flavor": "Flashy!",
@@ -1569,6 +1583,10 @@
   "modifier.tconstruct.insatiable.flavor": "Taste For Blood!",
   "modifier.tconstruct.insatiable.description": "During combat you deal more and more damage every time you hit an enemy",
   "modifier.tconstruct.insatiable.attack_damage": "Momentum Damage",
+  "modifier.tconstruct.conducting": "Conducting",
+  "modifier.tconstruct.conducting.flavor": "Thermodynamic!",
+  "modifier.tconstruct.conducting.description": "Tool deals multiplied damage when you are on fire",
+  "modifier.tconstruct.conducting.attack_damage": "Max Damage on Fire",
 
   "__comment": "Tier 2 Mod Compat Traits",
   "modifier.tconstruct.heavy": "Heavy",

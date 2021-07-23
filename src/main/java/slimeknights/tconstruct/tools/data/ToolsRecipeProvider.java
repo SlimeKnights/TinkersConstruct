@@ -8,6 +8,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.recipe.data.CompoundIngredient;
@@ -20,6 +21,7 @@ import slimeknights.tconstruct.library.data.recipe.IToolRecipeHelper;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -108,6 +110,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     materialRecipe(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerWorld.greenheart.getLogItemTag()),  4, 1, ItemOutput.fromItem(TinkerWorld.greenheart),  folder + "slimewood/greenheart_logs");
     materialRecipe(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerWorld.skyroot.getLogItemTag()),     4, 1, ItemOutput.fromItem(TinkerWorld.skyroot),     folder + "slimewood/skyroot_logs");
     materialRecipe(consumer, MaterialIds.slimewood, Ingredient.fromTag(TinkerWorld.bloodshroom.getLogItemTag()), 4, 1, ItemOutput.fromItem(TinkerWorld.bloodshroom), folder + "slimewood/bloodshroom_logs");
+    materialRecipe(consumer, MaterialIds.bloodbone, Ingredient.fromItems(TinkerMaterials.bloodbone), 1, 1, folder + "bloodbone");
     metalMaterialRecipe(consumer, MaterialIds.roseGold, folder, "rose_gold", false);
     // tier 3
     metalMaterialRecipe(consumer, MaterialIds.slimesteel, folder, "slimesteel", false);
@@ -123,6 +126,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     metalMaterialRecipe(consumer, MaterialIds.queensSlime, folder, "queens_slime", false);
     metalMaterialRecipe(consumer, MaterialIds.manyullyn, folder, "manyullyn", false);
     metalMaterialRecipe(consumer, MaterialIds.hepatizon, folder, "hepatizon", false);
+    materialRecipe(consumer, MaterialIds.blazingBone, Ingredient.fromItems(TinkerMaterials.blazingBone), 1, 1, folder + "blazing_bone");
     //registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel",    false);
 
     // tier 2 (mod compat)
@@ -148,6 +152,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     materialComposite(consumer, MaterialIds.stone, MaterialIds.searedStone, TinkerFluids.moltenClay, FluidValues.SLIMEBALL, false, folder);
     materialComposite(consumer, MaterialIds.wood, MaterialIds.slimewood, TinkerFluids.earthSlime, FluidValues.SLIMEBALL, true, folder);
     materialComposite(consumer, MaterialIds.flint, MaterialIds.scorchedStone, TinkerFluids.magma, FluidValues.SLIMEBALL, true, folder);
+    materialComposite(consumer, MaterialIds.bone, MaterialIds.bloodbone, TinkerFluids.blood, FluidValues.SLIMEBALL, false, folder);
 
     // tier 3
     materialMeltingCasting(consumer, MaterialIds.slimesteel, TinkerFluids.moltenSlimesteel, folder);
@@ -163,6 +168,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     materialMeltingCasting(consumer, MaterialIds.queensSlime, TinkerFluids.moltenQueensSlime, folder);
     materialMeltingCasting(consumer, MaterialIds.hepatizon, TinkerFluids.moltenHepatizon, folder);
     materialMeltingCasting(consumer, MaterialIds.manyullyn, TinkerFluids.moltenManyullyn, folder);
+    materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, FluidAttributes.BUCKET_VOLUME / 5, false, folder);
 
     // tier 2 compat
     materialMeltingCasting(consumer, MaterialIds.lead, TinkerFluids.moltenLead, folder);

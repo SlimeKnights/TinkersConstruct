@@ -56,6 +56,7 @@ import slimeknights.tconstruct.tools.modifiers.internal.TwoHandedAbilityModifier
 import slimeknights.tconstruct.tools.modifiers.shared.ExperiencedModifier;
 import slimeknights.tconstruct.tools.modifiers.shared.LevelDamageModifier;
 import slimeknights.tconstruct.tools.modifiers.shared.NecroticModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.ConductingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DuctileModifier;
@@ -70,6 +71,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.MomentumModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvercastModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OvergrowthModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.OverlordModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.RagingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.ScorchingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SearingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.SturdyModifier;
@@ -241,6 +243,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ScorchingModifier> scorching = MODIFIERS.register("scorching", ScorchingModifier::new);
   public static final RegistryObject<DwarvenModifier> dwarven = MODIFIERS.register("dwarven", DwarvenModifier::new);
   public static final RegistryObject<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
+  public static final RegistryObject<RagingModifier> raging = MODIFIERS.register("raging", RagingModifier::new);
   // traits - tier 3
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
   public static final RegistryObject<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
@@ -253,6 +256,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<OverlordModifier> overlord = MODIFIERS.register("overlord", OverlordModifier::new);
   public static final RegistryObject<MomentumModifier> momentum = MODIFIERS.register("momentum", MomentumModifier::new);
   public static final RegistryObject<InsatibleModifier> insatiable = MODIFIERS.register("insatiable", InsatibleModifier::new);
+  public static final RegistryObject<ConductingModifier> conducting = MODIFIERS.register("conducting", ConductingModifier::new);
 
   // traits - mod compat tier 2
   public static final RegistryObject<HeavyModifier> heavy = MODIFIERS.register("heavy", HeavyModifier::new);

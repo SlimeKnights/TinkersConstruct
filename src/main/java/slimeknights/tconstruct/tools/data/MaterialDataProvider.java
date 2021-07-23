@@ -28,6 +28,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.copper,      2, ORDER_HARVEST, true,  0xF98648);
     addMaterial(MaterialIds.searedStone, 2, ORDER_WEAPON,  false, 0x4F4A47);
     addMaterial(MaterialIds.slimewood,   2, ORDER_SPECIAL, true,  0x82c873);
+    addMaterial(MaterialIds.bloodbone,   2, ORDER_SPECIAL, false, 0xB30000);
     // tier 2 - nether
     addMaterial(MaterialIds.scorchedStone, 2, ORDER_NETHER, false, 0x5B4C43);
 
@@ -44,6 +45,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.queensSlime, 4, ORDER_GENERAL, false, 0x236c45);
     addMaterial(MaterialIds.hepatizon,   4, ORDER_HARVEST, false, 0x60496b);
     addMaterial(MaterialIds.manyullyn,   4, ORDER_WEAPON,  false, 0x9261cc);
+    addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, false, 0xDBCC0B);
     //addMetalMaterial(MaterialIds.soulsteel, 4, ORDER_SPECIAL, false, 0x6a5244);
 
     // tier 2 (end)

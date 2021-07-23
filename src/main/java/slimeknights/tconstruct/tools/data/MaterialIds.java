@@ -20,6 +20,7 @@ public final class MaterialIds {
   public static final MaterialId scorchedStone = id("scorched_stone");
   public static final MaterialId copper = id("copper");
   public static final MaterialId slimewood = id("slimewood");
+  public static final MaterialId bloodbone = id("bloodbone");
   // tier 2.5 - its an alloy but its not a higher mining level
   public static final MaterialId roseGold = id("rose_gold");
   // tier 3
@@ -38,6 +39,7 @@ public final class MaterialIds {
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
   public static final MaterialId queensSlime = id("queens_slime");
+  public static final MaterialId blazingBone = id("blazing_bone");
   //public static final MaterialId soulsteel = id("soulsteel");
 
   // tier 2 (end)

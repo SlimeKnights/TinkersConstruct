@@ -30,6 +30,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven.get());
     addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing.get());
     addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth.get(), TinkerModifiers.overslime.get());
+    addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging.get());
     // tier 2 - nether
     addDefaultTraits(MaterialIds.scorchedStone, TinkerModifiers.scorching.get());
 
@@ -46,6 +47,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.queensSlime, TinkerModifiers.overlord.get(), TinkerModifiers.overslime.get());
     addDefaultTraits(MaterialIds.hepatizon, TinkerModifiers.momentum.get());
     addDefaultTraits(MaterialIds.manyullyn, TinkerModifiers.insatiable.get());
+    addDefaultTraits(MaterialIds.blazingBone, TinkerModifiers.conducting.get());
 
     // tier 2 - mod compat
     addDefaultTraits(MaterialIds.lead, TinkerModifiers.heavy.get());
