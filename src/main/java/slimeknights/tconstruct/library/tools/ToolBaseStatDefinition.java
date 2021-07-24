@@ -93,7 +93,7 @@ public final class ToolBaseStatDefinition {
     }
 
     /**
-     * Sets the stat to a particular value.
+     * Sets the stat to a particular value, replacing the default value.
      * Internally, sets the bonus to the passed value minus the default value, as the default will be added down the line
      * @param stat   Stat to apply
      * @param value  Value to set
