@@ -64,9 +64,7 @@ public final class ToolBaseStatDefinition {
    * @param builder  Tool stats builder
    */
   public void buildStats(ModifierStatsBuilder builder) {
-    modifiers.forEach((stat, value) -> {
-      stat.multiply(builder, value);
-    });
+    modifiers.forEach((stat, value) -> stat.globalMultiply(builder, value));
   }
 
   /** Tool stat builder */
@@ -89,6 +87,18 @@ public final class ToolBaseStatDefinition {
      */
     public Builder bonus(FloatToolStat stat, float bonus) {
       bonuses.put(stat, bonus);
+      return this;
+    }
+
+    /**
+     * Sets the stat to a particular value.
+     * Internally, sets the bonus to the passed value minus the default value, as the default will be added down the line
+     * @param stat   Stat to apply
+     * @param value  Value to set
+     * @return  Builder
+     */
+    public Builder set(FloatToolStat stat, float value) {
+      bonuses.put(stat, value - stat.getDefaultValue());
       return this;
     }
 

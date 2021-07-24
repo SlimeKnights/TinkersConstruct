@@ -89,7 +89,7 @@ public final class MeleeHarvestToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds attack speed for the tool */
   public float buildAttackSpeed() {
-    float baseSpeed = 1 + baseStats.getBonus(ToolStats.ATTACK_SPEED);
+    float baseSpeed = ToolStats.ATTACK_SPEED.getDefaultValue() + baseStats.getBonus(ToolStats.ATTACK_SPEED);
     double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getAttackSpeed, 1);
     return (float)Math.max(0, baseSpeed * averageHandleModifier);
   }
