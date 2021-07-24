@@ -58,7 +58,12 @@ repositories {
         name 'BlameJared Maven'
         url 'https://maven.blamejared.com'
     }
-
+//    maven {
+//        url "https://www.cursemaven.com"
+//        content {
+//            includeGroup "curse.maven"
+//        }
+//    }
 }
 
 group = 'slimeknights.tconstruct'
@@ -205,6 +210,7 @@ dependencies {
     compile fg.deobf("mcjty.theoneprobe:TheOneProbe-${minecraft_base_version}:${minecraft_base_version}-${probe_version}")
 
     compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${crt_version}")
+    //runtimeOnly fg.deobf("curse.maven:MmmMmmMmmMmm-225738:3279930")
 
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 
