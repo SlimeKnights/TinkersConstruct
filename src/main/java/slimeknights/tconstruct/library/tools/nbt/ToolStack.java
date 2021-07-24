@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
+import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -34,10 +35,12 @@ public class ToolStack implements IModifierToolStack {
   private static final ValidatedResult VALIDATE_ABILITIES = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "modifier.validate_abilities"));
 
   /** Volatile mod data key for the durability before modifiers */
+  @Deprecated
   public static final ResourceLocation ORIGINAL_DURABILITY_KEY = TConstruct.getResource("durability");
 
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
+  protected static final String TAG_MULTIPLIERS = "tic_multipliers";
   public static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_data";
   public static final String TAG_VOLATILE_MOD_DATA = "tic_volatile_data";
   public static final String TAG_UPGRADES = "tic_upgrades";
@@ -46,10 +49,6 @@ public class ToolStack implements IModifierToolStack {
   // vanilla tags
   protected static final String TAG_DAMAGE = "Damage";
   public static final String TAG_UNBREAKABLE = "Unbreakable";
-  // modifier values
-  private static final String TAG_ID = "id";
-  private static final String TAG_LEVEL = "lvl";
-
   /** Item representing this tool */
   @Getter
   private final Item item;
@@ -85,6 +84,9 @@ public class ToolStack implements IModifierToolStack {
   /** Data object containing the original tool stats */
   @Nullable
   private StatsNBT stats;
+  /** Data object containing stat multipliers for each stat */
+  @Nullable
+  private StatsNBT multipliers;
   /** Data object containing modifier data that is recreated when the modifier list changes */
   @Nullable
   private IModDataReadOnly volatileModData;
@@ -312,7 +314,7 @@ public class ToolStack implements IModifierToolStack {
   }
 
   /**
-   * Gets the tool stats if parsed, or parses if not yet parsed
+   * Sets the tool stats, and stores it in NBT
    * @param stats  Stats instance
    */
   protected void setStats(StatsNBT stats) {
@@ -325,6 +327,34 @@ public class ToolStack implements IModifierToolStack {
     }
   }
 
+  /**
+   * Gets the tool stats if parsed, or parses from NBT if not yet parsed
+   * @return stats
+   */
+  protected StatsNBT getMultipliers() {
+    if (multipliers == null) {
+      multipliers = StatsNBT.readFromNBT(nbt.get(TAG_MULTIPLIERS));
+    }
+    return multipliers;
+  }
+
+  /**
+   * Sets the tool multipliers, and stores it in NBT
+   * @param multipliers  Stats instance
+   */
+  protected void setMultipliers(StatsNBT multipliers) {
+    this.multipliers = multipliers;
+    nbt.put(TAG_MULTIPLIERS, multipliers.serializeToNBT());
+  }
+
+  @Override
+  public float getModifier(FloatToolStat stat) {
+    StatsNBT multipliers = getMultipliers();
+    if (multipliers.hasStat(stat)) {
+      return multipliers.getFloat(stat);
+    }
+    return 1.0f;
+  }
 
   /* Materials */
 
@@ -562,5 +592,6 @@ public class ToolStack implements IModifierToolStack {
     }
     // build stats from the tool stats
     setStats(statBuilder.build(stats));
+    setMultipliers(statBuilder.buildMultipliers());
   }
 }

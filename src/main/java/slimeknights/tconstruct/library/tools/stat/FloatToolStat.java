@@ -60,6 +60,19 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
     builder.updateStat(this, b -> b.multiply *= factor);
   }
 
+  /**
+   * Multiplies the stat by the given value, both among current stats and all future modifiers.
+   * Note that this can have an extreme effect on stats, so use very carefully.
+   * @param builder  Builder instance
+   * @param factor   Amount to multiply
+   */
+  public void multiplyAll(ModifierStatsBuilder builder, double factor) {
+    builder.updateStat(this, b -> {
+      b.multiply *= factor;
+      b.modifierMultiplier *= factor;
+    });
+  }
+
   @Override
   public float build(FloatBuilder builder, float value) {
     return (value + builder.add) * builder.multiply;
@@ -82,5 +95,7 @@ public class FloatToolStat implements IToolStat<FloatBuilder> {
     private float add = 0;
     /** Value multiplied by the sum, applies second */
     private float multiply = 1;
+    /** Value to multiply all modifier values by */
+    protected float modifierMultiplier = 1;
   }
 }

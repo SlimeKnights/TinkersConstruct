@@ -2,9 +2,11 @@ package slimeknights.tconstruct.library.tools.stat;
 
 import lombok.NoArgsConstructor;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.stat.FloatToolStat.FloatBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -65,6 +67,24 @@ public class ModifierStatsBuilder {
       }
     }
 
+    return builder.build();
+  }
+
+  /**
+   * Builds the stat multiplier object for global stat multipliers
+   * @return  Multipliers stats
+   */
+  public StatsNBT buildMultipliers() {
+    StatsNBT.Builder builder = StatsNBT.builder();
+    for (Entry<IToolStat<?>,Object> entry : map.entrySet()) {
+      // yeah I know, super hardcoded, if we need something less hardcoded just request and I'll make it an interface
+      if (entry.getValue() instanceof FloatToolStat.FloatBuilder) {
+        float multiplier = ((FloatBuilder) entry.getValue()).modifierMultiplier;
+        if (multiplier != 1.0f) {
+          builder.set(entry.getKey(), multiplier);
+        }
+      }
+    }
     return builder.build();
   }
 }

@@ -53,7 +53,9 @@ public final class ToolBaseStatDefinition {
   }
 
   /**
-   * Gets the stat multiplier for this tool, used by modifiers and during modifier application
+   * Gets the stat multiplier for this tool, used by modifiers and during modifier application.
+   *
+   * In most cases, its better to use {@link slimeknights.tconstruct.library.tools.nbt.IModifierToolStack#getModifier(FloatToolStat)} as that takes the modifier multiplier into account
    */
   public float getModifier(FloatToolStat stat) {
     return modifiers.getOrDefault(stat, 1f);
@@ -64,7 +66,7 @@ public final class ToolBaseStatDefinition {
    * @param builder  Tool stats builder
    */
   public void buildStats(ModifierStatsBuilder builder) {
-    modifiers.forEach((stat, value) -> stat.globalMultiply(builder, value));
+    modifiers.forEach((stat, value) -> stat.multiplyAll(builder, value));
   }
 
   /** Tool stat builder */

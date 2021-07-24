@@ -44,6 +44,15 @@ public class StatsNBT {
   }
 
   /**
+   * Checks if the NBT contains the given stat
+   * @param stat  Stat to check for
+   * @return  True if the stat is contained
+   */
+  public boolean hasStat(IToolStat<?> stat) {
+    return stats.containsKey(stat);
+  }
+
+  /**
    * Gets the given tool stat as a float
    * @param stat  Stat
    * @return  Value, or default if the stat is missing
