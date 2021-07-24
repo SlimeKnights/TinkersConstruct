@@ -1451,7 +1451,7 @@
   "modifier.tconstruct.tilling.description": "Tool can till dirt",
   "modifier.tconstruct.glowing": "Glowing",
   "modifier.tconstruct.glowing.flavor": "Shine bright!",
-  "modifier.tconstruct.glowing.description": "Tool can place glow balls while crouching, consuming durability",
+  "modifier.tconstruct.glowing.description": "Tool can place glow balls, consuming durability",
   "modifier.tconstruct.exchanging": "Exchanging",
   "modifier.tconstruct.exchanging.flavor": "The Ole Switcheroo!",
   "modifier.tconstruct.exchanging.description": "Blocks broken by this tool are replaced by the block in the offhand if possible",
