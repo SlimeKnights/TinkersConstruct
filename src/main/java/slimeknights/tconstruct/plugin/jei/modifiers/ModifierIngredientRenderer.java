@@ -22,7 +22,7 @@ public class ModifierIngredientRenderer implements IIngredientRenderer<ModifierE
       ITextComponent name = entry.getModifier().getDisplayName(entry.getLevel());
       FontRenderer fontRenderer = getFontRenderer(Minecraft.getInstance(), entry);
       x += (width - fontRenderer.getStringPropertyWidth(name)) / 2;
-      fontRenderer.drawText(matrices, name, x, y + 1, -1);
+      fontRenderer.drawTextWithShadow(matrices, name, x, y + 1, -1);
     }
   }
 
