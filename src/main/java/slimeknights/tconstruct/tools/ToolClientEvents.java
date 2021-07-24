@@ -41,14 +41,13 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.Mod
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
-import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
+import slimeknights.tconstruct.tools.client.RainbowModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 
@@ -77,6 +76,7 @@ public class ToolClientEvents extends ClientEventBase {
     event.registerModel(TConstruct.getResource("normal"), NormalModifierModel.UNBAKED_INSTANCE);
     event.registerModel(TConstruct.getResource("breakable"), BreakableModifierModel.UNBAKED_INSTANCE);
     event.registerModel(TConstruct.getResource("overslime"), OverslimeModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(TConstruct.getResource("rainbow"), RainbowModifierModel.UNBAKED_INSTANCE);
     event.registerModel(TConstruct.getResource("fluid"), FluidModifierModel.UNBAKED_INSTANCE);
     event.registerModel(TConstruct.getResource("tank"), TankModifierModel.UNBAKED_INSTANCE);
   }
@@ -198,18 +198,6 @@ public class ToolClientEvents extends ClientEventBase {
       .orElse(-1);
   };
 
-  /** Color handler instance for ToolCore */
-  private static final IItemColor toolColorHandler = (stack, index) -> {
-    MaterialId material = MaterialIdNBT.from(stack).getMaterial(index);
-    if (!IMaterial.UNKNOWN_ID.equals(material)) {
-      return MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material)
-                                              .map(MaterialRenderInfo::getVertexColor)
-                                              .orElse(-1);
-    }
-    return -1;
-
-  };
-
   /**
    * Registers an item color handler for a part item, TODO: move to API class
    * @param colors  Item colors instance
@@ -225,6 +213,6 @@ public class ToolClientEvents extends ClientEventBase {
    * @param item    Material item
    */
   public static void registerToolItemColors(ItemColors colors, Supplier<? extends IModifiable> item) {
-    colors.register(toolColorHandler, item.get());
+    colors.register(ToolModel.COLOR_HANDLER, item.get());
   }
 }

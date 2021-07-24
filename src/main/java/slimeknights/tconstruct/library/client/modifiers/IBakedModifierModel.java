@@ -27,11 +27,40 @@ public interface IBakedModifierModel {
     return modifier.getModifier();
   }
 
+  /** @deprecated Use {@link #getQuads(IModifierToolStack, ModifierEntry, Function, TransformationMatrix, boolean, int)} */
+  @Deprecated
+  ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry modifier, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge);
+
   /**
    * Gets quads for the given model. Its a good idea to cache these quads. When doing so, you can assume the transformation matrix will be the same for a given state of isLarge
-   * @param spriteGetter  Function to convert render materials into sprites
-   * @param transforms    Transforms to apply
+   * @param tool             Tool instance for modifier sensitive models
+   * @param modifier         Modifier being rendered
+   * @param spriteGetter     Function to fetch sprites
+   * @param transforms       Transforms
+   * @param isLarge          If true, use the large sprites and quads
+   * @param startTintIndex   First tint index that can be used for this model. Use with {@link #getTintIndexes()} and {@link #getTint(IModifierToolStack, ModifierEntry, int)}, if neither is used this index will not work
    * @return  List of baked quads
    */
-  ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry modifier, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge);
+  default ImmutableList<BakedQuad> getQuads(IModifierToolStack tool, ModifierEntry modifier, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, TransformationMatrix transforms, boolean isLarge, int startTintIndex) {
+    return getQuads(tool, modifier, spriteGetter, transforms, isLarge);
+  }
+
+  /**
+   * Gets the number of tint indexes used by this model
+   * @return  Number of tint indexes used by this model
+   */
+  default int getTintIndexes() {
+    return 0;
+  }
+
+  /**
+   *
+   * @param tool   Tool stack instance
+   * @param entry  Modifier entry representing the relevant modifier
+   * @param index  Localized tint index for this modifier, starting from 0. Only considers tint indexes this model handles as per {@link #getTintIndexes()}
+   * @return  Color for this quad
+   */
+  default int getTint(IModifierToolStack tool, ModifierEntry entry, int index) {
+    return -1;
+  }
 }
