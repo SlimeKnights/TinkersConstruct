@@ -124,10 +124,12 @@ public class MeltingModifier extends TankModifier {
           output = EntityMeltingModule.getDefaultFluid();
           damagePerOutput = 2;
         }
-        // recipe amount determines how much we get per hit, only scale (downwards) if we did not reach the damage threshold
-        int fluidAmount = output.getAmount();
-        if (damageDealt < damagePerOutput) {
-          fluidAmount = (int)(fluidAmount * damageDealt / damagePerOutput);
+        // recipe amount determines how much we get per hit, up to twice the recipe damage
+        int fluidAmount;
+        if (damageDealt < damagePerOutput * 2) {
+          fluidAmount = (int)(output.getAmount() * damageDealt / damagePerOutput);
+        } else {
+          fluidAmount = output.getAmount() * 2;
         }
 
         // fluid must match that which is stored in the tank
