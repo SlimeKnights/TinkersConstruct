@@ -1,36 +1,34 @@
 package slimeknights.tconstruct.tools.modifiers.ability;
 
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import net.minecraft.item.Item;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.modifiers.internal.OffhandAttackModifier;
 
-import java.util.List;
-
 public class DuelWieldingModifier extends OffhandAttackModifier {
-  private final ITextComponent debuffTooltip;
   public DuelWieldingModifier() {
-    super(0xA6846A, 25);
-    this.debuffTooltip = applyStyle(TConstruct.makeTranslation("modifier", "dual_wielding.debuff"));
+    super(0xA6846A);
+  }
+
+  @Override
+  public void addToolStats(Item item, ToolDefinition toolDefinition, StatsNBT baseStats, IModDataReadOnly persistentData, IModDataReadOnly volatileData, int level, ModifierStatsBuilder builder) {
+    // on two handed tools, take a larger hit to attack damage, smaller to attack speed
+    if (item.isIn(TinkerTags.Items.TWO_HANDED)) {
+      ToolStats.ATTACK_DAMAGE.multiplyAll(builder, 0.7);
+      ToolStats.ATTACK_SPEED.multiplyAll(builder, 0.9);
+    } else {
+      // on one handed tools, 80% on both
+      ToolStats.ATTACK_DAMAGE.multiplyAll(builder, 0.8);
+      ToolStats.ATTACK_SPEED.multiplyAll(builder, 0.8);
+    }
   }
 
   @Override
   public boolean shouldDisplay(boolean advanced) {
     return true;
-  }
-
-  @Override
-  public float getEntityDamage(IModifierToolStack tool, int level, ToolAttackContext context, float baseDamage, float damage) {
-    if (context.getHand() == Hand.OFF_HAND) {
-      return damage * 0.8f;
-    }
-    return damage;
-  }
-
-  @Override
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {
-    tooltip.add(debuffTooltip);
   }
 }

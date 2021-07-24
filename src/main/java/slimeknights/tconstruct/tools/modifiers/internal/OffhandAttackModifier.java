@@ -20,11 +20,8 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 public class OffhandAttackModifier extends SingleUseModifier {
   public static final ResourceLocation DUEL_WIELDING = TConstruct.getResource("duel_wielding");
-  private final int cooldownTime;
-  public OffhandAttackModifier(int color, int cooldownTime) {
+  public OffhandAttackModifier(int color) {
     super(color);
-    // vanilla is 20 / attackSpeed, making it 25 / attackSpeed makes the offhand only 80% of the speed
-    this.cooldownTime = cooldownTime;
   }
 
   @Override
@@ -53,7 +50,7 @@ public class OffhandAttackModifier extends SingleUseModifier {
       if (!player.world.isRemote()) {
         ToolAttackUtil.attackEntity((IModifiableWeapon)tool.getItem(), tool, player, Hand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, Hand.OFF_HAND), false);
       }
-      OffhandCooldownTracker.applyCooldown(player, tool.getStats().getFloat(ToolStats.ATTACK_SPEED), cooldownTime);
+      OffhandCooldownTracker.applyCooldown(player, tool.getStats().getFloat(ToolStats.ATTACK_SPEED), 20);
       // we handle swinging the arm, return consume to prevent resetting cooldown
       OffhandCooldownTracker.swingHand(player, Hand.OFF_HAND, false);
       return ActionResultType.CONSUME;
@@ -65,7 +62,7 @@ public class OffhandAttackModifier extends SingleUseModifier {
   public ActionResultType onToolUse(IModifierToolStack tool, int level, World world, PlayerEntity player, Hand hand) {
     if (canAttack(tool, player, hand)) {
       // target done in onEntityInteract, this is just for cooldown cause you missed
-      OffhandCooldownTracker.applyCooldown(player, tool.getStats().getFloat(ToolStats.ATTACK_SPEED), cooldownTime);
+      OffhandCooldownTracker.applyCooldown(player, tool.getStats().getFloat(ToolStats.ATTACK_SPEED), 20);
       // we handle swinging the arm, return consume to prevent resetting cooldown
       OffhandCooldownTracker.swingHand(player, Hand.OFF_HAND, false);
       return ActionResultType.CONSUME;

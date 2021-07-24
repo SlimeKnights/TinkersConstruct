@@ -1406,9 +1406,8 @@
   "recipe.tconstruct.modifier.unbreakable_requirements": "Unbreakable requires Netherite and Reinforced V to apply",
   "modifier.tconstruct.dual_wielding": "Dual Wielding",
   "modifier.tconstruct.dual_wielding.flavor": "Double action!",
-  "modifier.tconstruct.dual_wielding.description": "Can attack from the offhand, provided the main hand can also dual wield. Tools attack slower in the offhand",
-  "modifier.tconstruct.dual_wielding.debuff": "66% Stats in Offhand",
-  "recipe.tconstruct.modifier.two_handed_dual_wielding": "Two handed tools require offhanded to gain dual wielding.",
+  "modifier.tconstruct.dual_wielding.description": "Can attack from the offhand, provided the main hand can also dual wield. Tools with dual wielding have reduced stats",
+  "recipe.tconstruct.modifier.two_handed_dual_wielding": "Two handed tools require Offhanded to gain dual wielding.",
 
   "_comment": "Loot",
   "modifier.tconstruct.silky": "Silky",
