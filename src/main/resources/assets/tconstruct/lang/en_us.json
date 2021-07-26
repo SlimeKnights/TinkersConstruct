@@ -1236,7 +1236,7 @@
 
   "material.tconstruct.blazing_bone": "Blazing Bone",
   "material.tconstruct.blazing_bone.flavor": "Harness the full power of the Nether Fortress - bone and blaze",
-  "material.tconstruct.blazing_bone.encyclopedia": "Boosts damage based on amount of fire on the player, with 20% from fire from lava, and 10% from fire blocks",
+  "material.tconstruct.blazing_bone.encyclopedia": "Boosts damage based on amount of fire on the player, granting +1% per second of fire, up to +15% from lava's 15 seconds",
 
   "material.tconstruct.soulsteel": "Soulsteel",
 
