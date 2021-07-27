@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -125,13 +126,8 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         tool = tool.copy();
         tool.replaceMaterial(index, partMaterial);
 
-        // ensure no modifier problems after removing
-        ValidatedResult toolValidation = ModifierUtil.validateRemovedModifiers(tool, MaterialRegistry.getInstance().getTraits(toolMaterial.getIdentifier(), part.getStatType()));
-        if (toolValidation.hasError()) {
-          return toolValidation;
-        }
-
         // if swapping in a new head, repair the tool (assuming the give stats type can repair)
+        // ideally we would validate before repairing, but don't want to create the stack before repairing
         IMaterialStats stats = MaterialRegistry.getInstance().getMaterialStats(partMaterial.getIdentifier(), part.getStatType()).orElse(null);
         if (stats instanceof IRepairableMaterialStats) {
           // must have a registered recipe
@@ -151,7 +147,17 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
           }
         }
 
-        return ValidatedResult.success(tool.createStack());
+        // ensure no modifier problems after removing
+        ItemStack result = tool.createStack();
+        ValidatedResult toolValidation = ModifierRecipeLookup.checkRequirements(result, tool);
+        if (toolValidation.hasError()) {
+          return toolValidation;
+        }
+        toolValidation = ModifierUtil.validateRemovedModifiers(tool, MaterialRegistry.getInstance().getTraits(toolMaterial.getIdentifier(), part.getStatType()));
+        if (toolValidation.hasError()) {
+          return toolValidation;
+        }
+        return ValidatedResult.success(result);
       }
     }
     // no item found, should never happen

@@ -108,13 +108,14 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
       }
     }
     // check the modifier requirements
-    validated = ModifierRecipeLookup.checkRequirements(tool.getUpgrades().getModifiers(), tool.getModifierList());
+    ItemStack resultStack = tool.createStack(); // creating a stack to make it as accurate as possible, though the old stack should be sufficient
+    validated = ModifierRecipeLookup.checkRequirements(resultStack, tool);
     if (validated.hasError()) {
       return validated;
     }
     
     // successfully removed
-    return ValidatedResult.success(tool.createStack());
+    return ValidatedResult.success(resultStack);
   }
 
   @Override

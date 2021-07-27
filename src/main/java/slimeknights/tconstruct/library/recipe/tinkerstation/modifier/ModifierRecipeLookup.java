@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
-import com.mojang.datafixers.util.Pair;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.item.Item;
@@ -13,23 +14,25 @@ import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedLis
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.tools.TinkerTools;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /** Logic to check various modifier recipe based properties */
 public class ModifierRecipeLookup {
   /** Key of default error message, in case an error message for a modifier requirement is missing */
   public static final String DEFAULT_ERROR_KEY = TConstruct.makeTranslationKey("recipe", "modifier.requirements_error");
+  /** Default requirements error, for if a proper error is missing */
+  public static final ValidatedResult DEFAULT_ERROR = ValidatedResult.failure(ModifierRecipeLookup.DEFAULT_ERROR_KEY);
 
   /** Set of all modifier input items for the chest */
   private static final Set<Item> MODIFIERS = new HashSet<>();
 
   /** Map of requirements for each modifier */
-  private static final Map<Modifier,Pair<ModifierMatch,String>> REQUIREMENTS = new HashMap<>();
+  private static final Multimap<Modifier,ModifierRequirements> REQUIREMENTS = HashMultimap.create();
   /** Map of the number needed for each incremental modifier */
   private static final Object2IntMap<Modifier> INCREMENTAL_PER_LEVEL = new Object2IntOpenHashMap<>();
   /** Map of the number of slots needed for each upgrade */
@@ -94,40 +97,71 @@ public class ModifierRecipeLookup {
 
   /* Requirements */
 
-  /**
-   * Adds a modifier requirement. Typically called by the recipe
-   * @param modifier  Modifier
-   * @param match     Requirement
-   * @param error     Translation key for error message
-   * @deprecated  This will likely be removed in a later build, switching to a less automatic method of modifier requirement checks
-   */
+  /** @deprecated  Adds a modifier requirement using a wildcard ingredient and at level 1. Maintained just as backwards compatability. Use {@link #addRequirements(Ingredient, ModifierEntry, ModifierMatch, String)} */
   @Deprecated
   public static void addRequirement(Modifier modifier, ModifierMatch match, String error) {
-    LISTENER.checkClear();
-
-    // if this recipe depends on the same modifier as the output, may cause inconsistencies in the requirements check
-    // main reason this is true is when each level of a modifier requires a different item, in that case the requirement is just for internal calculations
-    if (match != ModifierMatch.ALWAYS && match.getMinLevel(modifier) == 0) {
-      if (error.isEmpty()) {
-        error = DEFAULT_ERROR_KEY;
-      }
-      REQUIREMENTS.put(modifier, Pair.of(match, error));
-    }
+    addRequirements(Ingredient.EMPTY, new ModifierEntry(modifier, 1), match, error);
   }
 
   /**
-   * Validates the given list of upgrades
-   * @param upgrades   List to validate
-   * @param modifiers  total list of modifiers
-   * @return  Validated result. Pass if no error, failure if error
-   * @deprecated  Currently not used, as this solution ended up being super inflexible. It was intended for validating modifier removals, which will probably need to be validated in the recipe
+   * Adds a modifier requirement, typically called by the recipe
+   * @param requirements  Requirements object
    */
+  public static void addRequirements(ModifierRequirements requirements) {
+    LISTENER.checkClear();
+    REQUIREMENTS.put(requirements.getModifier(), requirements);
+  }
+
+  /**
+   * Adds a modifier requirement, typically called by the recipe
+   * @param ingredient    Ingredient that must match the tool for this to be attempted
+   * @param modifier      Modifier to check, level must be equal or greater for this to be attempted
+   * @param requirements  Actual requirements to attempt
+   * @param errorMessage  Error to display if the requirements fail
+   */
+  public static void addRequirements(Ingredient ingredient, ModifierEntry modifier, ModifierMatch requirements, String errorMessage) {
+    if (requirements != ModifierMatch.ALWAYS) {
+      // if the key is empty, use the default
+      ValidatedResult error;
+      if (errorMessage.isEmpty()) {
+        error = DEFAULT_ERROR;
+      } else {
+        error = ValidatedResult.failure(errorMessage);
+      }
+      addRequirements(new ModifierRequirements(ingredient, modifier, requirements, error));
+    }
+  }
+
+  /** @deprecated  Old requirements check maintained to prevent a breaking change. Will work poorly. Use {@link #checkRequirements(ItemStack, IModifierToolStack)} */
   @Deprecated
   public static ValidatedResult checkRequirements(List<ModifierEntry> upgrades, List<ModifierEntry> modifiers) {
+    // pickaxe seems like a logical choice that should match most modifiers
+    ItemStack fakeStack = new ItemStack(TinkerTools.pickaxe);
     for (ModifierEntry entry : upgrades) {
-      Pair<ModifierMatch,String> pair = REQUIREMENTS.get(entry.getModifier());
-      if (pair != null && !pair.getFirst().test(modifiers)) {
-        return ValidatedResult.failure(pair.getSecond());
+      for (ModifierRequirements requirements : REQUIREMENTS.get(entry.getModifier())) {
+        ValidatedResult result = requirements.check(fakeStack, entry.getLevel(), modifiers);
+        if (result.hasError()) {
+          return result;
+        }
+      }
+    }
+    return ValidatedResult.PASS;
+  }
+
+  /**
+   * Validates that the tool meets all requirements. Typically called when modifiers are removed, but should be able to be called at any time after modifiers change.
+   * @param stack  ItemStack containing the tool. Most of the time its just a tag check, so the correct item with any NBT is valid.
+   *               However, if addons do really hacky things the actual stack corresponding to {@code tool} might matter.
+   * @param tool   Tool instance to check
+   */
+  public static ValidatedResult checkRequirements(ItemStack stack, IModifierToolStack tool) {
+    List<ModifierEntry> modifiers = tool.getModifierList();
+    for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
+      for (ModifierRequirements requirements : REQUIREMENTS.get(entry.getModifier())) {
+        ValidatedResult result = requirements.check(stack, entry.getLevel(), modifiers);
+        if (result.hasError()) {
+          return result;
+        }
       }
     }
     return ValidatedResult.PASS;

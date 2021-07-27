@@ -36,7 +36,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Error for when the tool has too few ability slots */
   protected static final String KEY_NOT_ENOUGH_ABILITIES = TConstruct.makeTranslationKey("recipe", "modifier.not_enough_abilities");
   /** Generic requirements error, for if a proper error is missing */
-  protected static final ValidatedResult REQUIREMENTS_ERROR = ValidatedResult.failure(ModifierRecipeLookup.DEFAULT_ERROR_KEY);
+  protected static final ValidatedResult REQUIREMENTS_ERROR = ModifierRecipeLookup.DEFAULT_ERROR;
 
   @Getter
   private final ResourceLocation id;
@@ -68,7 +68,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     this.maxLevel = maxLevel;
     this.upgradeSlots = upgradeSlots;
     this.abilitySlots = abilitySlots;
-    ModifierRecipeLookup.addRequirement(result.getModifier(), requirements, requirementsError);
+    ModifierRecipeLookup.addRequirements(toolRequirement, result, requirements, requirementsError);
     if (abilitySlots > 0) {
       ModifierRecipeLookup.setAbilitySlots(result.getModifier(), abilitySlots / result.getLevel());
     } else {
