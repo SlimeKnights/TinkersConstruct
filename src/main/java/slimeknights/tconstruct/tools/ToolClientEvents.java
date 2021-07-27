@@ -47,7 +47,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
-import slimeknights.tconstruct.tools.client.RainbowModifierModel;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 
@@ -76,7 +75,6 @@ public class ToolClientEvents extends ClientEventBase {
     event.registerModel(TConstruct.getResource("normal"), NormalModifierModel.UNBAKED_INSTANCE);
     event.registerModel(TConstruct.getResource("breakable"), BreakableModifierModel.UNBAKED_INSTANCE);
     event.registerModel(TConstruct.getResource("overslime"), OverslimeModifierModel.UNBAKED_INSTANCE);
-    event.registerModel(TConstruct.getResource("rainbow"), RainbowModifierModel.UNBAKED_INSTANCE);
     event.registerModel(TConstruct.getResource("fluid"), FluidModifierModel.UNBAKED_INSTANCE);
     event.registerModel(TConstruct.getResource("tank"), TankModifierModel.UNBAKED_INSTANCE);
   }
