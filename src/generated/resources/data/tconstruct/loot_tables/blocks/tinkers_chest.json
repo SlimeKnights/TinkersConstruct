@@ -6,6 +6,23 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_name",
+              "source": "block_entity"
+            },
+            {
+              "function": "minecraft:copy_nbt",
+              "source": "block_entity",
+              "ops": [
+                {
+                  "source": "color",
+                  "target": "display.color",
+                  "op": "replace"
+                }
+              ]
+            }
+          ],
           "name": "tconstruct:tinkers_chest"
         }
       ],

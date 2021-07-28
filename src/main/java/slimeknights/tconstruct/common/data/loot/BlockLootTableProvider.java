@@ -36,6 +36,7 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -108,12 +109,18 @@ public class BlockLootTableProvider extends BlockLootTables {
 
   private void addTools() {
     // chests
-    Function<Block, LootTable.Builder> addChestKeepInventory = block -> droppingWithFunctions(block, (builder) ->
+    // tinker chest - name and color
+    this.registerLootTable(TinkerTables.tinkersChest.get(), block -> droppingWithFunctions(block, builder ->
       builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
-                    .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items")));
-    this.registerDropSelfLootTable(TinkerTables.tinkersChest.get());
-    this.registerDropSelfLootTable(TinkerTables.partChest.get());
-    this.registerLootTable(TinkerTables.castChest.get(), addChestKeepInventory);
+             .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation(TinkersChestTileEntity.TAG_CHEST_COLOR, "display.color"))));
+    // part chest - just name
+    this.registerLootTable(TinkerTables.partChest.get(), block ->
+      droppingWithFunctions(block, builder ->
+        builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))));
+    // cast chest - name and inventory
+    this.registerLootTable(TinkerTables.castChest.get(), block -> droppingWithFunctions(block, builder ->
+      builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
+             .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items"))));
 
     // tables with legs
     Function<Block, LootTable.Builder> addTable = block -> droppingWithFunctions(block, (builder) ->

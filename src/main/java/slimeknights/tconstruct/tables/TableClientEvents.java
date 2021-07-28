@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.tables;
 
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,6 +23,7 @@ import slimeknights.tconstruct.tables.client.inventory.TinkerChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.CraftingStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
+import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
@@ -48,5 +52,23 @@ public class TableClientEvents extends ClientEventBase {
     ClientRegistry.bindTileEntityRenderer(TinkerTables.craftingStationTile.get(), TableTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerTables.partBuilderTile.get(), TableTileEntityRenderer::new);
+  }
+
+  @SubscribeEvent
+  static void registerBlockColors(final ColorHandlerEvent.Block event) {
+    event.getBlockColors().register((state, world, pos, index) -> {
+      if (world != null && pos != null) {
+        TileEntity te = world.getTileEntity(pos);
+        if (te instanceof TinkersChestTileEntity) {
+          return ((TinkersChestTileEntity)te).getColor();
+        }
+      }
+      return -1;
+    }, TinkerTables.tinkersChest.get());
+  }
+
+  @SubscribeEvent
+  static void registerItemColors(final ColorHandlerEvent.Item event) {
+    event.getItemColors().register((stack, index) -> ((IDyeableArmorItem)stack.getItem()).getColor(stack), TinkerTables.tinkersChest.asItem());
   }
 }

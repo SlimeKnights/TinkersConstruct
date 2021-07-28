@@ -1,5 +1,5 @@
 {
-    "parent": "tconstruct:block/table/chest/chest",
+    "parent": "tconstruct:block/table/chest/tintable_chest",
     "textures": {
         "side": "tconstruct:block/chest/tinkers/side",
         "front": "tconstruct:block/chest/tinkers/front",

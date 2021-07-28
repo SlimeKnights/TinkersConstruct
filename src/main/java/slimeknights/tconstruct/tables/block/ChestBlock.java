@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class TinkerChestBlock extends TinkerTableBlock {
+public class ChestBlock extends TinkerTableBlock {
   private static final VoxelShape SHAPE = VoxelShapes.or(
     Block.makeCuboidShape(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D), //top
     Block.makeCuboidShape(1.0D, 3.0D, 1.0D, 15.0D, 16.0D, 15.0D), //middle
@@ -38,7 +38,7 @@ public class TinkerChestBlock extends TinkerTableBlock {
 
   private final Supplier<? extends TileEntity> te;
   private final boolean dropsItems;
-  public TinkerChestBlock(Properties builder, Supplier<? extends TileEntity> te, boolean dropsItems) {
+  public ChestBlock(Properties builder, Supplier<? extends TileEntity> te, boolean dropsItems) {
     super(builder);
     this.te = te;
     this.dropsItems = dropsItems;
