@@ -53,31 +53,40 @@ public abstract class ChestTileEntity extends InventoryTileEntity {
 
     // recalculate actual size from inventory:
     // decrease until it matches
-    while (this.actualSize > 0 && this.getStackInSlot(this.actualSize - 1).isEmpty()) {
-      this.actualSize--;
+    if (this.getStackInSlot(this.actualSize - 1).isEmpty()) {
+      while (this.actualSize > 1 && this.getStackInSlot(this.actualSize - 2).isEmpty()) {
+        this.actualSize--;
+      }
     }
-
-    this.actualSize++; // add empty slot
   }
 
   @Override
   public void setInventorySlotContents(int slot, ItemStack itemstack) {
-    // adjustment from possible external stuff (looking at you there, hoppers >:()
-    if (slot > this.actualSize && !itemstack.isEmpty()) {
+    int max = getSizeInventory();
+    // if the slot is too large, don't insert
+    if (slot >= max) {
+      return;
+    }
+    // catch for slots far past the current one
+    if (slot >= this.actualSize && !itemstack.isEmpty()) {
       this.actualSize = slot + 1;
     }
 
-    // non-empty and gets put into the last slot?
-    if (slot == this.actualSize - 1 && !itemstack.isEmpty()) {
+    // space to expand and the index too large? expand the visual size
+    if (this.actualSize < max && slot >= this.actualSize - 1 && !itemstack.isEmpty()) {
       // expand slots until the last visible slot is empty (could be something was in there through faulty state)
       do {
         this.actualSize++;
-      } while (!this.getStackInSlot(this.actualSize - 1).isEmpty());
+      } while (this.actualSize < max && !this.getStackInSlot(this.actualSize - 1).isEmpty());
     }
-    // empty, gets taken from the slot before the last visible slot?
-    else if (slot >= this.actualSize - 2 && itemstack.isEmpty()) {
+
+    // actually put the thing in/out
+    super.setInventorySlotContents(slot, itemstack);
+
+    // empty, and gets taken from one of the last two slots
+    if (this.actualSize > 1 && slot >= this.actualSize - 2 && itemstack.isEmpty() && this.getStackInSlot(this.actualSize - 1).isEmpty()) {
       // decrease inventory size so that 1 free slot after the last non-empty slot is left
-      while (this.actualSize - 2 >= 0 && this.getStackInSlot(this.actualSize - 2).isEmpty()) {
+      while (this.actualSize > 1 && this.getStackInSlot(this.actualSize - 2).isEmpty()) {
         this.actualSize--;
       }
     }

@@ -82,7 +82,7 @@ public class DynInventoryScreen extends ModuleScreen {
 
     if (this.sliderActive) {
       this.slider.show();
-      max = this.slotCount / this.columns - this.rows + 1; // the assumption here is that for an active slider this always is >0
+      max = (this.slotCount - 1) / this.columns - this.rows + 1; // the assumption here is that for an active slider this always is >0
     } else {
       slider.hide();
     }
