@@ -50,8 +50,6 @@ public class Config {
     public final BooleanValue generateEndSlimeIslands;
     public final IntValue endSlimeIslandSeparation;
 
-    // public final BooleanValue chestsKeepInventory;
-
     public final ConfigValue<String> showOnlyToolMaterial;
     public final ConfigValue<String> showOnlyPartMaterial;
     public final BooleanValue showAllTableVariants;

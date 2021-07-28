@@ -17,6 +17,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
@@ -36,9 +37,11 @@ public class TinkerChestBlock extends TinkerTableBlock {
                                                         );
 
   private final Supplier<? extends TileEntity> te;
-  public TinkerChestBlock(Properties builder, Supplier<? extends TileEntity> te) {
+  private final boolean dropsItems;
+  public TinkerChestBlock(Properties builder, Supplier<? extends TileEntity> te, boolean dropsItems) {
     super(builder);
     this.te = te;
+    this.dropsItems = dropsItems;
   }
 
   @Nonnull
@@ -87,5 +90,12 @@ public class TinkerChestBlock extends TinkerTableBlock {
     }
 
     return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+  }
+
+  @Override
+  protected void dropInventoryItems(BlockState state, World worldIn, BlockPos pos, IItemHandler inventory) {
+    if (dropsItems) {
+      dropInventoryItems(worldIn, pos, inventory);
+    }
   }
 }

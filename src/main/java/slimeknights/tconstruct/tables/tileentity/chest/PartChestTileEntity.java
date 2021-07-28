@@ -9,7 +9,7 @@ public class PartChestTileEntity extends TinkerChestTileEntity {
 
   public PartChestTileEntity() {
     // limit of 4 parts per slot
-    super(TinkerTables.partChestTile.get(), TConstruct.makeTranslationKey("gui", "part_chest"), DEFAULT_MAX, 16);
+    super(TinkerTables.partChestTile.get(), TConstruct.makeTranslationKey("gui", "part_chest"), DEFAULT_MAX, 8);
   }
 
   @Override
