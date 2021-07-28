@@ -12,7 +12,13 @@ public class TinkersChestTileEntity extends ChestTileEntity {
 
   @Override
   public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
-    // no duplicate limit, the limit to 64 stacks handles that
+    // no duplicate limit, this chest just limits total slots
     return true;
+  }
+
+  @Override
+  public int getVisualSize() {
+    // always show all slots
+    return getSizeInventory();
   }
 }

@@ -9,18 +9,13 @@ import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.inventory.BaseContainer;
 
-public class ScalingChestScreen<T extends TileEntity & IInventory> extends DynInventoryScreen {
+public class ScalingChestScreen<T extends TileEntity & IInventory & IScalingInventory> extends DynInventoryScreen {
 
-  protected final IInventory inventory;
-
+  protected final T inventory;
   public ScalingChestScreen(MultiModuleScreen<?> parent, BaseContainer<T> container, PlayerInventory playerInventory, ITextComponent title) {
     super(parent, container, playerInventory, title);
-
     this.inventory = container.getTile();
-    if (this.inventory != null)
-      this.slotCount = this.inventory.getSizeInventory();
-    else
-      this.slotCount = 0;
+    this.slotCount = this.inventory != null ? this.inventory.getVisualSize() : 0;
     this.sliderActive = true;
   }
 
@@ -47,33 +42,20 @@ public class ScalingChestScreen<T extends TileEntity & IInventory> extends DynIn
 
   @Override
   public void update(int mouseX, int mouseY) {
-    if (this.inventory == null) {
-      this.slotCount = 0;
-    } else {
-      this.slotCount = this.inventory.getSizeInventory();
-    }
+    this.slotCount = this.inventory != null ? this.inventory.getVisualSize() : 0;
     super.update(mouseX, mouseY);
-
     this.updateSlider();
-    this.slider.show();
     this.updateSlots();
   }
 
   @Override
   public boolean shouldDrawSlot(Slot slot) {
-    if (this.inventory == null) {
+    if (this.inventory == null || slot.getSlotIndex() >= this.inventory.getVisualSize()) {
       return false;
     }
-
-    if (slot.getSlotIndex() >= this.inventory.getSizeInventory()) {
-      return false;
-    }
-
     return super.shouldDrawSlot(slot);
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
-  }
-
+  protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {}
 }
