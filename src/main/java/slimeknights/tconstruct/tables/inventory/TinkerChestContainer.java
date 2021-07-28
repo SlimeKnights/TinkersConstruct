@@ -8,13 +8,13 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
+import slimeknights.tconstruct.tables.tileentity.chest.ChestTileEntity;
 
 import javax.annotation.Nullable;
 
-public class TinkerChestContainer extends BaseStationContainer<TinkerChestTileEntity> {
-  protected SideInventoryContainer<TinkerChestTileEntity> inventory;
-  public TinkerChestContainer(int id, PlayerInventory inv, @Nullable TinkerChestTileEntity tileEntity) {
+public class TinkerChestContainer extends BaseStationContainer<ChestTileEntity> {
+  protected SideInventoryContainer<ChestTileEntity> inventory;
+  public TinkerChestContainer(int id, PlayerInventory inv, @Nullable ChestTileEntity tileEntity) {
     super(TinkerTables.tinkerChestContainer.get(), id, inv, tileEntity);
     // columns don't matter since they get set by gui
     if (this.tile != null) {
@@ -25,12 +25,12 @@ public class TinkerChestContainer extends BaseStationContainer<TinkerChestTileEn
   }
 
   public TinkerChestContainer(int id, PlayerInventory inv, PacketBuffer buf) {
-    this(id, inv, getTileEntityFromBuf(buf, TinkerChestTileEntity.class));
+    this(id, inv, getTileEntityFromBuf(buf, ChestTileEntity.class));
   }
 
   /** Resizable inventory */
-  public static class DynamicChestInventory extends SideInventoryContainer<TinkerChestTileEntity> {
-    public DynamicChestInventory(ContainerType<?> containerType, int windowId, PlayerInventory inv, TinkerChestTileEntity tile, int x, int y, int columns) {
+  public static class DynamicChestInventory extends SideInventoryContainer<ChestTileEntity> {
+    public DynamicChestInventory(ContainerType<?> containerType, int windowId, PlayerInventory inv, ChestTileEntity tile, int x, int y, int columns) {
       super(containerType, windowId, inv, tile, x, y, columns);
       // add the theoretically possible slots
       while (this.inventorySlots.size() < tile.getMaxInventory()) {
@@ -49,8 +49,8 @@ public class TinkerChestContainer extends BaseStationContainer<TinkerChestTileEn
 
   /** Slot to filter chest contents */
   public static class ChestSlot extends Slot {
-    public final TinkerChestTileEntity chest;
-    public ChestSlot(TinkerChestTileEntity tileEntity, int index, int xPosition, int yPosition) {
+    public final ChestTileEntity chest;
+    public ChestSlot(ChestTileEntity tileEntity, int index, int xPosition, int yPosition) {
       super(tileEntity, index, xPosition, yPosition);
       this.chest = tileEntity;
     }

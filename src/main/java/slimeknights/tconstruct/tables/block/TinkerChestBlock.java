@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
+import slimeknights.tconstruct.tables.tileentity.chest.ChestTileEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -59,8 +59,8 @@ public class TinkerChestBlock extends TinkerTableBlock {
     if (tag != null && tag.contains("TinkerData", NBT.TAG_COMPOUND)) {
       CompoundNBT tinkerData = tag.getCompound("TinkerData");
       TileEntity te = worldIn.getTileEntity(pos);
-      if (te instanceof TinkerChestTileEntity) {
-        ((TinkerChestTileEntity)te).readInventoryFromNBT(tinkerData);
+      if (te instanceof ChestTileEntity) {
+        ((ChestTileEntity)te).readInventoryFromNBT(tinkerData);
       }
     }
   }
@@ -79,8 +79,8 @@ public class TinkerChestBlock extends TinkerTableBlock {
     TileEntity te = worldIn.getTileEntity(pos);
     ItemStack heldItem = player.inventory.getCurrentItem();
 
-    if (!heldItem.isEmpty() && te instanceof TinkerChestTileEntity) {
-      IItemHandlerModifiable itemHandler = ((TinkerChestTileEntity) te).getItemHandler();
+    if (!heldItem.isEmpty() && te instanceof ChestTileEntity) {
+      IItemHandlerModifiable itemHandler = ((ChestTileEntity) te).getItemHandler();
       ItemStack rest = ItemHandlerHelper.insertItem(itemHandler, heldItem, false);
 
       if (rest.isEmpty() || rest.getCount() < heldItem.getCount()) {

@@ -12,17 +12,17 @@ import slimeknights.tconstruct.tables.inventory.TinkerChestContainer;
 
 import javax.annotation.Nullable;
 
-public abstract class TinkerChestTileEntity extends InventoryTileEntity {
+public abstract class ChestTileEntity extends InventoryTileEntity {
   /** Default maximum size */
   protected static final int DEFAULT_MAX = 256;
   /** Current visual size of the inventory */
   private int actualSize = 1;
 
-  public TinkerChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name) {
+  public ChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name) {
     this(tileEntityTypeIn, name, DEFAULT_MAX, 64);
   }
 
-  public TinkerChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name, int inventorySize, int maxStackSize) {
+  public ChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name, int inventorySize, int maxStackSize) {
     super(tileEntityTypeIn, new TranslationTextComponent(name), inventorySize, maxStackSize);
   }
 

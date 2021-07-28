@@ -40,8 +40,8 @@ import slimeknights.tconstruct.tables.recipe.TinkerStationDamagingRecipe;
 import slimeknights.tconstruct.tables.recipe.TinkerStationPartSwapping;
 import slimeknights.tconstruct.tables.recipe.TinkerStationRepairRecipe;
 import slimeknights.tconstruct.tables.tileentity.chest.CastChestTileEntity;
-import slimeknights.tconstruct.tables.tileentity.chest.ModifierChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;
+import slimeknights.tconstruct.tables.tileentity.chest.TinkersChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.TinkerStationTileEntity;
@@ -65,7 +65,7 @@ public final class TinkerTables extends TinkerModule {
   public static final ItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(WOOD_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.LOGS, Config.COMMON.showAllTableVariants::get));
   public static final ItemObject<TableBlock> tinkerStation = BLOCKS.register("tinker_station", () -> new TinkerStationBlock(WOOD_TABLE, 4), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS, Config.COMMON.showAllTableVariants::get));
   public static final ItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(WOOD_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS, Config.COMMON.showAllTableVariants::get));
-  public static final ItemObject<TableBlock> modifierChest = BLOCKS.register("modifier_chest", () -> new TinkerChestBlock(WOOD_TABLE, TinkerChestTileEntity::new, true), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> tinkersChest = BLOCKS.register("tinkers_chest", () -> new TinkerChestBlock(WOOD_TABLE, TinkersChestTileEntity::new, true), GENERAL_BLOCK_ITEM);
   public static final ItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new TinkerChestBlock(WOOD_TABLE, PartChestTileEntity::new, true), GENERAL_BLOCK_ITEM);
 
   private static final Block.Properties METAL_TABLE = builder(Material.ANVIL, ToolType.PICKAXE, SoundType.ANVIL).setRequiresTool().hardnessAndResistance(5.0F, 1200.0F).notSolid();
@@ -87,7 +87,8 @@ public final class TinkerTables extends TinkerModule {
     builder.add(tinkerStation.get(), tinkersAnvil.get(), scorchedAnvil.get());
   });
   public static final RegistryObject<TileEntityType<PartBuilderTileEntity>> partBuilderTile = TILE_ENTITIES.register("part_builder", PartBuilderTileEntity::new, partBuilder);
-  public static final RegistryObject<TileEntityType<ModifierChestTileEntity>> modifierChestTile = TILE_ENTITIES.register("modifier_chest", ModifierChestTileEntity::new, modifierChest);
+  // legacy name as tile entities cannot be remapped
+  public static final RegistryObject<TileEntityType<TinkersChestTileEntity>> tinkersChestTile = TILE_ENTITIES.register("modifier_chest", TinkersChestTileEntity::new, tinkersChest);
   public static final RegistryObject<TileEntityType<PartChestTileEntity>> partChestTile = TILE_ENTITIES.register("part_chest", PartChestTileEntity::new, partChest);
   public static final RegistryObject<TileEntityType<CastChestTileEntity>> castChestTile = TILE_ENTITIES.register("cast_chest", CastChestTileEntity::new, castChest);
 

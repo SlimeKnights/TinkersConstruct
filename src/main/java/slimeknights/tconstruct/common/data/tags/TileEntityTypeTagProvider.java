@@ -23,8 +23,8 @@ public class TileEntityTypeTagProvider extends TagsProvider<TileEntityType<?>> {
   protected void registerTags() {
     this.getOrCreateBuilder(TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST)
         .add(TinkerTables.craftingStationTile.get(), TinkerTables.tinkerStationTile.get(), TinkerTables.partBuilderTile.get(),
-             TinkerTables.partChestTile.get(), TinkerTables.modifierChestTile.get(), TinkerTables.castChestTile.get(),
-             TinkerSmeltery.basin.get(), TinkerSmeltery.table.get(), TinkerSmeltery.smeltery.get());
+						 TinkerTables.partChestTile.get(), TinkerTables.tinkersChestTile.get(), TinkerTables.castChestTile.get(),
+						 TinkerSmeltery.basin.get(), TinkerSmeltery.table.get(), TinkerSmeltery.smeltery.get());
 
   }
 

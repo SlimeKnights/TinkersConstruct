@@ -115,7 +115,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                        .addCriterion("has_item", hasItem(TinkerTables.pattern))
                        .build(consumer, prefix(TinkerTables.partChest, folder));
     // modifier chest
-    ShapedRecipeBuilder.shapedRecipe(TinkerTables.modifierChest)
+    ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkersChest)
                        .key('p', TinkerTables.pattern)
                        .key('w', ItemTags.PLANKS)
                        .key('l', Tags.Items.GEMS_LAPIS)
@@ -124,7 +124,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                        .patternLine("lCl")
                        .patternLine("lwl")
                        .addCriterion("has_item", hasItem(TinkerTables.pattern))
-                       .build(consumer, prefix(TinkerTables.modifierChest, folder));
+                       .build(consumer, prefix(TinkerTables.tinkersChest, folder));
     // cast chest
     ShapedRecipeBuilder.shapedRecipe(TinkerTables.castChest)
                        .key('c', TinkerSmeltery.blankCast)

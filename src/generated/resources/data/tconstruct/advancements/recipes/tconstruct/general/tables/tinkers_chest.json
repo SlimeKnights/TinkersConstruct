@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:tables/modifier_chest"
+      "tconstruct:tables/tinkers_chest"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:tables/modifier_chest"
+        "recipe": "tconstruct:tables/tinkers_chest"
       }
     }
   },

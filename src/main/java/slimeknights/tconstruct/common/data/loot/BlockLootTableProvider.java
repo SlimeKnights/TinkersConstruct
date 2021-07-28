@@ -111,7 +111,7 @@ public class BlockLootTableProvider extends BlockLootTables {
     Function<Block, LootTable.Builder> addChestKeepInventory = block -> droppingWithFunctions(block, (builder) ->
       builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
                     .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items")));
-    this.registerDropSelfLootTable(TinkerTables.modifierChest.get());
+    this.registerDropSelfLootTable(TinkerTables.tinkersChest.get());
     this.registerDropSelfLootTable(TinkerTables.partChest.get());
     this.registerLootTable(TinkerTables.castChest.get(), addChestKeepInventory);
 

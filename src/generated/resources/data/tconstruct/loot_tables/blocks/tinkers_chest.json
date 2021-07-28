@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tconstruct:modifier_chest"
+          "name": "tconstruct:tinkers_chest"
         }
       ],
       "conditions": [

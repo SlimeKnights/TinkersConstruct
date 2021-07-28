@@ -5,7 +5,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-public class PartChestTileEntity extends TinkerChestTileEntity {
+public class PartChestTileEntity extends ChestTileEntity {
 
   public PartChestTileEntity() {
     // limit of 4 parts per slot

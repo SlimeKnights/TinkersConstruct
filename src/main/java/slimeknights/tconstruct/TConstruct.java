@@ -163,6 +163,8 @@ public class TConstruct {
       case "dried_clay_bricks": return Blocks.BRICKS;
       case "dried_clay_slab": case "dried_clay_bricks_slab": return Blocks.BRICK_SLAB;
       case "dried_clay_stairs": case "dried_clay_bricks_stairs": return Blocks.BRICK_STAIRS;
+      // chest rename
+      case "modifier_chest": return TinkerTables.tinkersChest.get();
     }
     return null;
   }

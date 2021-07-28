@@ -689,8 +689,8 @@
   "block.tconstruct.part_chest": "Part Chest",
   "block.tconstruct.part_chest.tooltip": "Holds up to 256 different tool parts",
 
-  "block.tconstruct.modifier_chest": "Modifier Chest",
-  "block.tconstruct.modifier_chest.tooltip": "Holds up to 64 stacks of modifiers",
+  "block.tconstruct.tinkers_chest": "Tinker's Chest",
+  "block.tconstruct.tinkers_chest.tooltip": "Holds up to 64 stacks of 16 items",
 
   "block.tconstruct.cast_chest": "Cast Chest",
   "block.tconstruct.cast_chest.tooltip": "Holds all relevant casts",
@@ -1680,7 +1680,7 @@
   "gui.tconstruct.part_builder.uncraftable": "Cannot shape",
   "gui.tconstruct.part_builder.uncraftable.tooltip": "Material cannot be shaped in the part builder. Other methods such as casting are required.",
 
-  "gui.tconstruct.modifier_chest": "Modifier Chest",
+  "gui.tconstruct.tinkers_chest": "Tinker's Chest",
   "gui.tconstruct.cast_chest": "Cast Chest",
   "gui.tconstruct.part_chest": "Part Chest",
 

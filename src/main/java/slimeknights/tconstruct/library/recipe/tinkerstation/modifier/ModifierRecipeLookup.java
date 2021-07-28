@@ -89,7 +89,9 @@ public class ModifierRecipeLookup {
    * Checks if an item is a modifier
    * @param item  Item to check
    * @return  True if its a modifier
+   * @deprecated  No longer needed in base tinkers. If you have a use of this method, justify it and this will be kept
    */
+  @Deprecated
   public static boolean isModifier(Item item) {
     return MODIFIERS.contains(item);
   }

@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "tconstruct:block/table/chest/tinkers"
+        },
+        "facing=south": {
+            "model": "tconstruct:block/table/chest/tinkers",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "tconstruct:block/table/chest/tinkers",
+            "y": 270
+        },
+        "facing=east": {
+            "model": "tconstruct:block/table/chest/tinkers",
+            "y": 90
+        }
+    }
+}
