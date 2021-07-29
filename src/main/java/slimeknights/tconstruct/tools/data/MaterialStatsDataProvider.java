@@ -92,7 +92,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     // tier 3
     // vanilla diamond: 1561, 8f, DIAMOND, 3f
     addMaterialStats(MaterialIds.slimesteel,
-                     new HeadMaterialStats(1040, 6.5f, DIAMOND, 2.5f),
+                     new HeadMaterialStats(1040, 6f, DIAMOND, 2.5f),
                      HandleMaterialStats.DEFAULT.withDurability(1.2f).withAttackSpeed(0.95f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.tinkersBronze,
@@ -109,12 +109,12 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
     // vanilla gold: 32, 12f, WOOD, 0f
     addMaterialStats(MaterialIds.roseGold,
-                     new HeadMaterialStats(175, 12f, IRON, 1f), // tier 2 mining level and durability despite being tier 3
+                     new HeadMaterialStats(175, 10f, IRON, 1f), // tier 2 mining level and durability despite being tier 3
                      HandleMaterialStats.DEFAULT.withDurability(0.6f).withMiningSpeed(1.25f).withAttackSpeed(1.25f),
                      ExtraMaterialStats.DEFAULT);
     // tier 3 (nether)
     addMaterialStats(MaterialIds.cobalt,
-                     new HeadMaterialStats(800, 8f, DIAMOND, 2.5f),
+                     new HeadMaterialStats(800, 7.5f, DIAMOND, 2.5f),
                      HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.05f).withAttackSpeed(1.05f),
                      ExtraMaterialStats.DEFAULT);
 
@@ -132,21 +132,21 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      HandleMaterialStats.DEFAULT.withDurability(0.95f).withMiningSpeed(1.15f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.electrum,
-                     new HeadMaterialStats(225, 11f, IRON, 1.5f),
+                     new HeadMaterialStats(225, 9f, IRON, 1.5f),
                      HandleMaterialStats.DEFAULT.withDurability(0.8f).withAttackSpeed(1.15f).withMiningSpeed(1.15f),
                      ExtraMaterialStats.DEFAULT);
     // tier 4
     // vanilla netherite: 2031, 9f, NETHERITE, 4f
     addMaterialStats(MaterialIds.queensSlime,
-                     new HeadMaterialStats(1650, 7f, NETHERITE, 2f),
+                     new HeadMaterialStats(1650, 6f, NETHERITE, 2f),
                      HandleMaterialStats.DEFAULT.withDurability(1.35f).withMiningSpeed(0.9f).withAttackSpeed(0.95f).withAttackDamage(0.95f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.hepatizon,
-                     new HeadMaterialStats(975, 10f, NETHERITE, 2.5f),
+                     new HeadMaterialStats(975, 8f, NETHERITE, 2.5f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(1.2f).withAttackDamage(0.9f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.manyullyn,
-                     new HeadMaterialStats(1250, 8f, NETHERITE, 3.5f),
+                     new HeadMaterialStats(1250, 6.5f, NETHERITE, 3.5f),
                      HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.3f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.blazingBone,
