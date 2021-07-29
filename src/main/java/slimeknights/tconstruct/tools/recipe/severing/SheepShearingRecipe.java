@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
-import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 
 import java.util.Map;
 

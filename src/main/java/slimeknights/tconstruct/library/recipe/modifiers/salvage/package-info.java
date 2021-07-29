@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier.salvage;
+package slimeknights.tconstruct.library.recipe.modifiers.salvage;
 
 import mcp.MethodsReturnNonnullByDefault;
 

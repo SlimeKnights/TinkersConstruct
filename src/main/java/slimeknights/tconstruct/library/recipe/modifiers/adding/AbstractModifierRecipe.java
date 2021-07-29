@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
+package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
@@ -14,6 +14,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.LoggingRecipeSerializer;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -69,11 +71,6 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     this.upgradeSlots = upgradeSlots;
     this.abilitySlots = abilitySlots;
     ModifierRecipeLookup.addRequirements(toolRequirement, result, requirements, requirementsError);
-    if (abilitySlots > 0) {
-      ModifierRecipeLookup.setAbilitySlots(result.getModifier(), abilitySlots / result.getLevel());
-    } else {
-      ModifierRecipeLookup.setUpgradeSlots(result.getModifier(), upgradeSlots / result.getLevel());
-    }
   }
 
   @Override

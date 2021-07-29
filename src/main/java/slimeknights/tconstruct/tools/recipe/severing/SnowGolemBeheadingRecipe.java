@@ -10,7 +10,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
-import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** Beheading recipe to drop pumpkins only if equipped */

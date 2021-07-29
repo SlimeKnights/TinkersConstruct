@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
+package slimeknights.tconstruct.library.recipe.modifiers;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;

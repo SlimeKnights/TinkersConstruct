@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
+package slimeknights.tconstruct.library.recipe.modifiers;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -13,10 +13,9 @@ import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.modifiers.salvage.AbstractModifierSalvage;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.salvage.AbstractModifierSalvage;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
@@ -37,10 +36,6 @@ public class ModifierRecipeLookup {
   private static final Multimap<Modifier,ModifierRequirements> REQUIREMENTS = HashMultimap.create();
   /** Map of the number needed for each incremental modifier */
   private static final Object2IntMap<Modifier> INCREMENTAL_PER_LEVEL = new Object2IntOpenHashMap<>();
-  /** Map of the number of slots needed for each upgrade */
-  private static final Object2IntMap<Modifier> UPGRADE_SLOTS = new Object2IntOpenHashMap<>();
-  /** Map of the number of slots needed for each ability */
-  private static final Object2IntMap<Modifier> ABILITY_SLOTS = new Object2IntOpenHashMap<>();
   /** Map of salvage recipes for each modifier */
   private static final Multimap<Modifier, AbstractModifierSalvage> SALVAGE = HashMultimap.create();
 
@@ -49,8 +44,6 @@ public class ModifierRecipeLookup {
     MODIFIERS.clear();
     REQUIREMENTS.clear();
     INCREMENTAL_PER_LEVEL.clear();
-    UPGRADE_SLOTS.clear();
-    ABILITY_SLOTS.clear();
     SALVAGE.clear();
   });
 
@@ -104,12 +97,6 @@ public class ModifierRecipeLookup {
 
   /* Requirements */
 
-  /** @deprecated  Adds a modifier requirement using a wildcard ingredient and at level 1. Maintained just as backwards compatability. Use {@link #addRequirements(Ingredient, ModifierEntry, ModifierMatch, String)} */
-  @Deprecated
-  public static void addRequirement(Modifier modifier, ModifierMatch match, String error) {
-    addRequirements(Ingredient.EMPTY, new ModifierEntry(modifier, 1), match, error);
-  }
-
   /**
    * Adds a modifier requirement, typically called by the recipe
    * @param requirements  Requirements object
@@ -138,22 +125,6 @@ public class ModifierRecipeLookup {
       Modifier modifier = entry.getModifier();
       addRequirements(new ModifierRequirements(ingredient, modifier, requirements.getMinLevel(modifier) + entry.getLevel(), requirements, error));
     }
-  }
-
-  /** @deprecated  Old requirements check maintained to prevent a breaking change. Will work poorly. Use {@link #checkRequirements(ItemStack, IModifierToolStack)} */
-  @Deprecated
-  public static ValidatedResult checkRequirements(List<ModifierEntry> upgrades, List<ModifierEntry> modifiers) {
-    // pickaxe seems like a logical choice that should match most modifiers
-    ItemStack fakeStack = new ItemStack(TinkerTools.pickaxe);
-    for (ModifierEntry entry : upgrades) {
-      for (ModifierRequirements requirements : REQUIREMENTS.get(entry.getModifier())) {
-        ValidatedResult result = requirements.check(fakeStack, entry.getLevel(), modifiers);
-        if (result.hasError()) {
-          return result;
-        }
-      }
-    }
-    return ValidatedResult.PASS;
   }
 
   /**
@@ -205,53 +176,6 @@ public class ModifierRecipeLookup {
    */
   public static int getNeededPerLevel(Modifier modifier) {
     return INCREMENTAL_PER_LEVEL.getOrDefault(modifier, 0);
-  }
-
-
-  /* Slots */
-
-  /**
-   * Gets the number of upgrade slots needed for the given modifier
-   * @deprecated this ended up a very inflexible way to deal with slot restoring, a better way is coming in the future
-   */
-  @Deprecated
-  public static int getUpgradeSlots(Modifier modifier) {
-    return UPGRADE_SLOTS.getOrDefault(modifier, -1);
-  }
-
-  /**
-   * Gets the number of ability slots needed for the given modifier
-   * @deprecated this ended up a very inflexible way to deal with slot restoring, a better way is coming in the future
-   */
-  @Deprecated
-  public static int getAbilitySlots(Modifier modifier) {
-    return ABILITY_SLOTS.getOrDefault(modifier, -1);
-  }
-
-  /**
-   * Sets the number of upgrade slots needed for this modifier
-   * @param modifier  Modifier
-   * @param slots     Upgrade slots needed
-   * @deprecated  Currently not used, as this solution ended up being super inflexible. It was intended for validating modifier removals, which will probably need to be validated in the recipe
-   */
-  @Deprecated
-  public static void setUpgradeSlots(Modifier modifier, int slots) {
-    if (!UPGRADE_SLOTS.containsKey(modifier) || UPGRADE_SLOTS.getInt(modifier) > slots) {
-      UPGRADE_SLOTS.put(modifier, slots);
-    }
-  }
-
-  /**
-   * Sets the number of upgrade slots needed for this modifier
-   * @param modifier  Modifier
-   * @param slots     Upgrade slots needed
-   * @deprecated  Currently not used, as this solution ended up being super inflexible. It was intended for validating modifier removals, which will probably need to be validated in the recipe
-   */
-  @Deprecated
-  public static void setAbilitySlots(Modifier modifier, int slots) {
-    if (!ABILITY_SLOTS.containsKey(modifier) || ABILITY_SLOTS.getInt(modifier) > slots) {
-      ABILITY_SLOTS.put(modifier, slots);
-    }
   }
 
 

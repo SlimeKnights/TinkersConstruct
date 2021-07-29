@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
+package slimeknights.tconstruct.library.recipe.modifiers.severing;
 
 import mcp.MethodsReturnNonnullByDefault;
 

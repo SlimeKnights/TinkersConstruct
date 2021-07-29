@@ -9,7 +9,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
-import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 
 /**
  * Recipe to deshroom a mooshroom, taking brown into account

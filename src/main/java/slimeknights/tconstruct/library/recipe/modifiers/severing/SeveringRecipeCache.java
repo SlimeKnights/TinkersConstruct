@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.modifiers;
+package slimeknights.tconstruct.library.recipe.modifiers.severing;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

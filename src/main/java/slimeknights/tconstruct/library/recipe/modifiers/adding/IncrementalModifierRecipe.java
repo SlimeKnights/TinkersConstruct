@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
+package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,6 +17,8 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;

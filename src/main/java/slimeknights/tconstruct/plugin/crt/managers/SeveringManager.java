@@ -14,7 +14,7 @@ import org.openzen.zencode.java.ZenCodeType;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
 
 @ZenRegister

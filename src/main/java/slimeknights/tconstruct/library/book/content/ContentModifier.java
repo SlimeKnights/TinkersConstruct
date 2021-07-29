@@ -26,7 +26,7 @@ import slimeknights.tconstruct.library.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IDisplayModifierRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 
 import javax.annotation.Nullable;

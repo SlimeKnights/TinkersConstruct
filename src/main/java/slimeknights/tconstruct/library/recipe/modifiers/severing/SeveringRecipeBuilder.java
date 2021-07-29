@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.modifiers;
+package slimeknights.tconstruct.library.recipe.modifiers.severing;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;

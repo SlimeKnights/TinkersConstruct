@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier.salvage;
+package slimeknights.tconstruct.library.recipe.modifiers.salvage;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.RandomItem;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 

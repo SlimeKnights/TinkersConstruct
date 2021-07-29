@@ -7,8 +7,8 @@ import net.minecraft.loot.LootParameters;
 import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipeCache;
+import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeCache;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
 import java.util.List;

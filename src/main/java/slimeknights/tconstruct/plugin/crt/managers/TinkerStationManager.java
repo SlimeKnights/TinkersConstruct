@@ -17,12 +17,12 @@ import slimeknights.tconstruct.library.modifiers.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IDisplayModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.IncrementalModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierMatch;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.OverslimeModifierRecipe;
 import slimeknights.tconstruct.plugin.crt.CRTHelper;
 
 import java.util.Arrays;

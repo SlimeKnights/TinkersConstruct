@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.modifiers;
 
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.util.Constants.NBT;
-import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.ModifierRecipeLookup;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;

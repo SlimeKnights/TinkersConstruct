@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier.salvage;
+package slimeknights.tconstruct.library.recipe.modifiers.salvage;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
+package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

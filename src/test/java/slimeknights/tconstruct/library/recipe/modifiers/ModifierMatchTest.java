@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
+package slimeknights.tconstruct.library.recipe.modifiers;
 
 import com.google.gson.JsonObject;
 import io.netty.buffer.Unpooled;

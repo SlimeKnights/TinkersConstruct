@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
+package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
@@ -12,6 +12,7 @@ import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;

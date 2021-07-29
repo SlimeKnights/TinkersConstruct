@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.EntityIngredient;
 import slimeknights.mantle.recipe.ItemOutput;
-import slimeknights.tconstruct.library.recipe.modifiers.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** Beheading recipe that sets player skin */
