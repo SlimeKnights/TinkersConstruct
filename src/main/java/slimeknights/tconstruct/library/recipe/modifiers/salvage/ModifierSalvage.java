@@ -60,7 +60,8 @@ public class ModifierSalvage extends AbstractModifierSalvage {
     @Override
     protected ModifierSalvage read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, int upgradeSlots, int abilitySlots) {
       ImmutableList.Builder<RandomItem> result = ImmutableList.builder();
-      for (int i = 0; i < buffer.readVarInt(); i++) {
+      int count = buffer.readVarInt();
+      for (int i = 0; i < count; i++) {
         result.add(RandomItem.read(buffer));
       }
       return new ModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result.build(), upgradeSlots, abilitySlots);

@@ -97,7 +97,7 @@ public abstract class RandomItem {
     if (object.has("min")) {
       return range(result, JSONUtils.getInt(object, "min"));
     }
-    // percent chanace
+    // percent chance
     if (object.has("chance")) {
       return chance(result, JSONUtils.getFloat(object, "chance"));
     }
@@ -110,12 +110,14 @@ public abstract class RandomItem {
     ItemOutput result = ItemOutput.read(buffer);
     RandomType type = buffer.readEnumValue(RandomType.class);
     switch (type) {
-      case RANGE:
+      case RANGE: {
         int min = buffer.readVarInt();
         return range(result, min);
-      case CHANCE:
+      }
+      case CHANCE: {
         float chance = buffer.readFloat();
         return chance(result, chance);
+      }
     }
     throw new DecoderException("Invalid random type " + type + " for RandomItem");
   }
@@ -211,5 +213,5 @@ public abstract class RandomItem {
   }
 
   /** Enum of types for packet writing */
-  private enum RandomType {  RANGE, CHANCE }
+  private enum RandomType { RANGE, CHANCE }
 }
