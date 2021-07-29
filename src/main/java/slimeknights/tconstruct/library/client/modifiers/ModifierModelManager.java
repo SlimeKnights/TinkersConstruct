@@ -19,7 +19,6 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.lifecycle.IModBusEvent;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistries;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
@@ -41,6 +40,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Class handling the loading of modifier models
@@ -48,8 +48,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Log4j2
 public class ModifierModelManager implements IEarlySafeManagerReloadListener {
-  /** Modifier file to load, merges for all lower packs */
-  private static final ResourceLocation VISIBLE_MODIFIERS = TConstruct.getResource("models/modifiers.json");
+  /** Modifier file to load, has merging behavior but forge prevents multiple mods from loading the same file */
+  private static final String VISIBLE_MODIFIERS = "models/tconstruct_modifiers.json";
   /** Instance of this manager */
   public static final ModifierModelManager INSTANCE = new ModifierModelManager();
 
@@ -99,60 +99,67 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
       eventFired = true;
     }
 
-    try {
-      Map<Modifier,IUnbakedModifierModel> models = new HashMap<>();
-      List<JsonObject> jsonFiles = manager.getAllResources(VISIBLE_MODIFIERS).stream()
-                                          .map(ModifierModelManager::getJson)
-                                          .filter(Objects::nonNull)
-                                          .collect(Collectors.toList());
-      // first object is bottom most pack, so upper resource packs will replace it
-      for (int i = jsonFiles.size() - 1; i >= 0; i--) {
-        JsonObject json = jsonFiles.get(i);
-        // right now just do simply key value pairs
-        for (Entry<String,JsonElement> entry : json.entrySet()) {
-          // get a valid name
-          String key = entry.getKey();
-          ResourceLocation name = ResourceLocation.tryCreate(key);
-          if (name == null) {
-            log.error("Skipping invalid modifier key " + key + " as it is not a valid resource location");
-          } else {
-            // ensure its a valid modifier and not already parsed
-            Modifier modifier = TinkerRegistries.MODIFIERS.getValue(name);
-            if (modifier == null || modifier == TinkerModifiers.empty.get()) {
-              log.error("Skipping unknown modifier " + key);
-            } else if (!models.containsKey(modifier)) {
-              // get a valid element, remove if null, error if not primitive
-              JsonElement element = entry.getValue();
-              if (element.isJsonNull()) {
-                models.remove(modifier);
-              } else if (!element.isJsonPrimitive()) {
-                log.error("Skipping key " + key + " as the value is not a string");
+    // start building the model map
+    Map<Modifier,IUnbakedModifierModel> models = new HashMap<>();
+
+    // get a list of files from all namespaces
+    List<JsonObject> jsonFiles = manager.getResourceNamespaces().stream()
+                                        .flatMap(namespace -> {
+                                          ResourceLocation location = new ResourceLocation(namespace, VISIBLE_MODIFIERS);
+                                          try {
+                                            return manager.getAllResources(location).stream();
+                                          } catch (IOException e) {
+                                            log.error("Failed to load modifier models from {}", location, e);
+                                            return Stream.empty();
+                                          }
+                                        })
+                                        .map(ModifierModelManager::getJson)
+                                        .filter(Objects::nonNull)
+                                        .collect(Collectors.toList());
+    // first object is bottom most pack, so upper resource packs will replace it
+    for (int i = jsonFiles.size() - 1; i >= 0; i--) {
+      JsonObject json = jsonFiles.get(i);
+      // right now just do simply key value pairs
+      for (Entry<String,JsonElement> entry : json.entrySet()) {
+        // get a valid name
+        String key = entry.getKey();
+        ResourceLocation name = ResourceLocation.tryCreate(key);
+        if (name == null) {
+          log.error("Skipping invalid modifier key " + key + " as it is not a valid resource location");
+        } else {
+          // ensure its a valid modifier and not already parsed
+          Modifier modifier = TinkerRegistries.MODIFIERS.getValue(name);
+          if (modifier == null || modifier == TinkerModifiers.empty.get()) {
+            log.error("Skipping unknown modifier " + key);
+          } else if (!models.containsKey(modifier)) {
+            // get a valid element, remove if null, error if not primitive
+            JsonElement element = entry.getValue();
+            if (element.isJsonNull()) {
+              models.remove(modifier);
+            } else if (!element.isJsonPrimitive()) {
+              log.error("Skipping key " + key + " as the value is not a string");
+            } else {
+              // find a model name
+              ResourceLocation loader = ResourceLocation.tryCreate(element.getAsString());
+              if (loader == null) {
+                log.error("Skipping modifier " + key + " as the texture " + element.getAsString() + " is an invalid texture path");
               } else {
-                // find a model name
-                ResourceLocation loader = ResourceLocation.tryCreate(element.getAsString());
-                if (loader == null) {
-                  log.error("Skipping modifier " + key + " as the texture " + element.getAsString() + " is an invalid texture path");
+                // find a model
+                IUnbakedModifierModel model = MODIFIER_MODEL_OPTIONS.get(loader);
+                if (model == null) {
+                  log.error("Skipping modifier " + key + " as the loader " + loader + " is unknown");
                 } else {
-                  // find a model
-                  IUnbakedModifierModel model = MODIFIER_MODEL_OPTIONS.get(loader);
-                  if (model == null) {
-                    log.error("Skipping modifier " + key + " as the loader " + loader + " is unknown");
-                  } else {
-                    // finally save it
-                    models.put(modifier, model);
-                  }
+                  // finally save it
+                  models.put(modifier, model);
                 }
               }
             }
           }
         }
       }
-      // replace the map
-      modifierModels = models;
-    } catch(IOException e) {
-      log.error("Failed to load modifier models", e);
-      modifierModels = Collections.emptyMap();
     }
+    // replace the map
+    modifierModels = models;
   }
 
   /**
