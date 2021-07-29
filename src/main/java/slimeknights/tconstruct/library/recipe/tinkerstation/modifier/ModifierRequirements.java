@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.modifier;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -15,15 +16,14 @@ public class ModifierRequirements {
   /** Ingredient that must match the tool for this to be attempted. {@link Ingredient#EMPTY} acts as wildcard */
   private final Ingredient ingredient;
   /** Modifier to check, level must be equal or greater for this to be attempted */
-  private final ModifierEntry modifier;
+  @Getter
+  private final Modifier modifier;
+  /** The minimum level for which this requirement applies */
+  private final int minLevel;
   /** Actual requirements to attempt */
   private final ModifierMatch requirements;
   /** Error to display if the requirements fail */
   private final ValidatedResult errorMessage;
-
-  public Modifier getModifier() {
-    return modifier.getModifier();
-  }
 
   /**
    * Checks if the tool matches the requirements. Does not validate that the tool actually has the relevant modifier
@@ -35,7 +35,7 @@ public class ModifierRequirements {
   public ValidatedResult check(ItemStack stack, int modifierLevel, List<ModifierEntry> modifiers) {
     // if the level is too small, don't care
     // example: luck in higher levels requires lower levels of modifiers, this allows it to also require another modifier to reach level 2
-    if (modifierLevel < modifier.getLevel()) {
+    if (modifierLevel < minLevel) {
       return ValidatedResult.PASS;
     }
     // if the item does not match, don't care

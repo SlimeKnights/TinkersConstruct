@@ -122,11 +122,11 @@ public class ModifierRecipeLookup {
   /**
    * Adds a modifier requirement, typically called by the recipe
    * @param ingredient    Ingredient that must match the tool for this to be attempted
-   * @param modifier      Modifier to check, level must be equal or greater for this to be attempted
+   * @param entry         Modifier to check, level determines amount added per level
    * @param requirements  Actual requirements to attempt
    * @param errorMessage  Error to display if the requirements fail
    */
-  public static void addRequirements(Ingredient ingredient, ModifierEntry modifier, ModifierMatch requirements, String errorMessage) {
+  public static void addRequirements(Ingredient ingredient, ModifierEntry entry, ModifierMatch requirements, String errorMessage) {
     if (requirements != ModifierMatch.ALWAYS) {
       // if the key is empty, use the default
       ValidatedResult error;
@@ -135,7 +135,8 @@ public class ModifierRecipeLookup {
       } else {
         error = ValidatedResult.failure(errorMessage);
       }
-      addRequirements(new ModifierRequirements(ingredient, modifier, requirements, error));
+      Modifier modifier = entry.getModifier();
+      addRequirements(new ModifierRequirements(ingredient, modifier, requirements.getMinLevel(modifier) + entry.getLevel(), requirements, error));
     }
   }
 
