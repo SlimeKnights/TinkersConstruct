@@ -14,9 +14,11 @@ import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedLis
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifier.salvage.AbstractModifierSalvage;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
 
+import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,6 +41,8 @@ public class ModifierRecipeLookup {
   private static final Object2IntMap<Modifier> UPGRADE_SLOTS = new Object2IntOpenHashMap<>();
   /** Map of the number of slots needed for each ability */
   private static final Object2IntMap<Modifier> ABILITY_SLOTS = new Object2IntOpenHashMap<>();
+  /** Map of salvage recipes for each modifier */
+  private static final Multimap<Modifier, AbstractModifierSalvage> SALVAGE = HashMultimap.create();
 
   /** Listener for clearing the caches on recipe reload */
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
@@ -47,6 +51,7 @@ public class ModifierRecipeLookup {
     INCREMENTAL_PER_LEVEL.clear();
     UPGRADE_SLOTS.clear();
     ABILITY_SLOTS.clear();
+    SALVAGE.clear();
   });
 
 
@@ -246,5 +251,34 @@ public class ModifierRecipeLookup {
     if (!ABILITY_SLOTS.containsKey(modifier) || ABILITY_SLOTS.getInt(modifier) > slots) {
       ABILITY_SLOTS.put(modifier, slots);
     }
+  }
+
+
+  /* Salvage */
+
+  /**
+   * Stores a salvage recipe
+   * @param salvage  Salvage recipe
+   */
+  public static void addSalvage(AbstractModifierSalvage salvage) {
+    LISTENER.checkClear();
+    SALVAGE.put(salvage.getModifier(), salvage);
+  }
+
+  /**
+   * Gets a salvage recipe
+   * @param tool            Tool stack, primarily used for tag checks, but may do weird things
+   * @param modifier        Modifier instance
+   * @param modifierLevel   Modifier level
+   * @return  Salvage recipe, or null if no salvage is found
+   */
+  @Nullable
+  public static AbstractModifierSalvage getSalvage(ItemStack stack, IModifierToolStack tool, Modifier modifier, int modifierLevel) {
+    for (AbstractModifierSalvage salvage : SALVAGE.get(modifier)) {
+      if (salvage.matches(stack, tool, modifierLevel)) {
+        return salvage;
+      }
+    }
+    return null;
   }
 }

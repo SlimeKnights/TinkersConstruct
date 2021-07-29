@@ -3,5 +3,10 @@
     "name": "damage_tools",
     "type": "imageText2",
     "data": "tools/damage_tools.json"
+  },
+  {
+    "name": "remove_modifiers",
+    "type": "imageText2",
+    "data": "tools/remove_modifiers.json"
   }
 ]

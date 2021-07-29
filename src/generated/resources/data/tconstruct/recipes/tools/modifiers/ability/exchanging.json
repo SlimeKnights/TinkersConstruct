@@ -11,10 +11,10 @@
       "item": "minecraft:sticky_piston"
     },
     {
-      "item": "minecraft:ender_pearl"
+      "tag": "forge:ender_pearls"
     },
     {
-      "item": "minecraft:ender_pearl"
+      "tag": "forge:ender_pearls"
     }
   ],
   "tools": {

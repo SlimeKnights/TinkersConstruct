@@ -22,13 +22,17 @@ import java.util.function.Consumer;
 public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRecipeBuilder<T>> extends AbstractRecipeBuilder<T> {
   protected static final Lazy<Ingredient> DEFAULT_TOOL = Lazy.of(() -> Ingredient.fromTag(TinkerTags.Items.MODIFIABLE));
 
-  private final ModifierEntry result;
-  private Ingredient tools = Ingredient.EMPTY;
-  private ModifierMatch requirements = ModifierMatch.ALWAYS;
-  private String requirementsError = null;
-  private int maxLevel = 0;
-  private int upgradeSlots = 0;
-  private int abilitySlots = 0;
+  // shared
+  protected final ModifierEntry result;
+  protected Ingredient tools = Ingredient.EMPTY;
+  protected int upgradeSlots = 0;
+  protected int abilitySlots = 0;
+  protected int maxLevel = 0;
+  // modifier recipe
+  protected ModifierMatch requirements = ModifierMatch.ALWAYS;
+  protected String requirementsError = null;
+  // salvage recipe
+  protected int minLevel = 1;
 
   /**
    * Sets the list of tools this modifier can be applied to
@@ -70,13 +74,26 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   }
 
   /**
-   * Sets the max level for this modifier
+   * Sets the min level for the salvage recipe
+   * @param level  Min level
+   * @return  Builder instance
+   */
+  public T setMinSalvageLevel(int level) {
+    if (level < 1) {
+      throw new IllegalArgumentException("Min level must be greater than 0");
+    }
+    this.minLevel = level;
+    return (T) this;
+  }
+
+  /**
+   * Sets the max level for this modifier, affects both the recipe and the salvage
    * @param level  Max level
    * @return  Builder instance
    */
   public T setMaxLevel(int level) {
-    if (level < 0) {
-      throw new IllegalArgumentException("Level must be non-negative");
+    if (level < 1) {
+      throw new IllegalArgumentException("Max level must be greater than 0");
     }
     this.maxLevel = level;
     return (T) this;
@@ -122,6 +139,13 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     build(consumer, result.getModifier().getId());
   }
 
+  /**
+   * Builds a salvage recipe from this recipe builder
+   * @param consumer  Consumer instance
+   * @param id        Recipe ID
+   */
+  public abstract T buildSalvage(Consumer<IFinishedRecipe> consumer, ResourceLocation id);
+
   /** Base logic to write all relevant builder fields to JSON */
   protected abstract class ModifierFinishedRecipe extends AbstractFinishedRecipe {
     public ModifierFinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
@@ -141,6 +165,33 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
         json.add("requirements", reqJson);
       }
       json.add("result", result.toJson());
+      if (maxLevel != 0) {
+        json.addProperty("max_level", maxLevel);
+      }
+      if (upgradeSlots != 0) {
+        json.addProperty("upgrade_slots", upgradeSlots);
+      }
+      if (abilitySlots != 0) {
+        json.addProperty("ability_slots", abilitySlots);
+      }
+    }
+  }
+
+  /** Base logic to write all relevant builder fields to JSON */
+  protected abstract class SalvageFinishedRecipe extends AbstractFinishedRecipe {
+    public SalvageFinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
+
+    @Override
+    public void serialize(JsonObject json) {
+      if (tools == Ingredient.EMPTY) {
+        json.add("tools", DEFAULT_TOOL.get().serialize());
+      } else {
+        json.add("tools", tools.serialize());
+      }
+      json.addProperty("modifier", result.getModifier().getId().toString());
+      json.addProperty("min_level", minLevel);
       if (maxLevel != 0) {
         json.addProperty("max_level", maxLevel);
       }

@@ -19,6 +19,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
 import java.util.List;
@@ -51,9 +52,13 @@ public class TastyModifier extends Modifier {
 
   @Override
   public boolean onFinishUsing(IModifierToolStack tool, int level, World world, LivingEntity entity) {
-    if (!tool.isBroken() && tool.getPersistentData().getBoolean(IS_EATING) && entity instanceof PlayerEntity) {
+    // remove is eating tag to prevent from messing with other modifiers
+    ModDataNBT persistentData = tool.getPersistentData();
+    boolean wasEating = persistentData.getBoolean(IS_EATING);
+    persistentData.remove(IS_EATING);
+
+    if (!tool.isBroken() && wasEating && entity instanceof PlayerEntity) {
       // clear eating marker
-      tool.getPersistentData().remove(IS_EATING);
       PlayerEntity player = (PlayerEntity) entity;
       if (player.canEat(false)) {
         // eat the food
@@ -66,11 +71,9 @@ public class TastyModifier extends Modifier {
         if (ToolDamageUtil.directDamage(tool, 15 * level, player, player.getActiveItemStack())) {
           player.sendBreakAnimation(player.getActiveHand());
         }
-
         return true;
       }
     }
-    tool.getPersistentData().remove(IS_EATING);
     return false;
   }
 

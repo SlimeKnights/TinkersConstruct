@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,22 +107,31 @@ public final class ModifierUtil {
    * @return  Validated result, either pass or an error
    */
   public static ValidatedResult validateRemovedModifiers(ToolStack tool, List<ModifierEntry> modifiersToCheck) {
-    // first try validating the tool
+    // allow the modifiers to remove NBT if needed first
+    List<Modifier> removed = new ArrayList<>();
+    for (ModifierEntry entry : modifiersToCheck) {
+      Modifier modifier = entry.getModifier();
+      if (tool.getModifierLevel(modifier) == 0) {
+        removed.add(modifier);
+        modifier.onRemoved(tool);
+      }
+    }
+
+    // next, try validating the tool
     ValidatedResult toolResult = tool.validate();
     if (toolResult.hasError()) {
       return toolResult;
     }
 
-    // validate all removed traits
-    for (ModifierEntry entry : modifiersToCheck) {
-      Modifier modifier = entry.getModifier();
-      if (tool.getModifierLevel(modifier) == 0) {
-        ValidatedResult result = modifier.validate(tool, 0);
-        if (result.hasError()) {
-          return result;
-        }
+    // next, validate any modifiers that were entirely removed
+    for (Modifier modifier : removed) {
+      ValidatedResult result = modifier.validate(tool, 0);
+      if (result.hasError()) {
+        return result;
       }
     }
+
+    // nothing went wrong, so pass
     return ValidatedResult.PASS;
   }
 

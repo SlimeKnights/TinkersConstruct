@@ -28,6 +28,12 @@ public class IncrementalModifier extends Modifier {
     return name;
   }
 
+  @Override
+  public void onRemoved(IModifierToolStack tool) {
+    // remove current progress in incremental modifiers
+    tool.getPersistentData().remove(getId());
+  }
+
   /* Helpers */
 
   /**

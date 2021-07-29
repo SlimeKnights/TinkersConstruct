@@ -13,6 +13,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -25,6 +26,7 @@ import java.util.function.Consumer;
 @Accessors(chain = true)
 public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuilder<IncrementalModifierRecipeBuilder> {
   private Ingredient input = Ingredient.EMPTY;
+  private ItemOutput salvage = null;
   private int amountPerItem;
   private int neededPerLevel;
   @Setter
@@ -50,6 +52,7 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
   public static IncrementalModifierRecipeBuilder modifier(Modifier modifier) {
     return modifier(new ModifierEntry(modifier, 1));
   }
+
 
   /* Inputs */
 
@@ -95,6 +98,68 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
     return setInput(Ingredient.fromTag(tag), amountPerItem, neededPerLevel);
   }
 
+
+  /* Salvage */
+
+  /**
+   * Sets the salvage to the given ItemOutput
+   * @param salvage  Salvage object
+   * @return  Builder instance
+   */
+  public IncrementalModifierRecipeBuilder setSalvage(ItemOutput salvage) {
+    this.salvage = salvage;
+    return this;
+  }
+
+  /**
+   * Sets the salvage to the given item
+   * @param item           Item
+   * @param amountPerItem  Amount of item per level
+   * @return  Builder instance
+   */
+  public IncrementalModifierRecipeBuilder setSalvage(IItemProvider item, int amountPerItem) {
+    setSalvage(ItemOutput.fromStack(new ItemStack(item, amountPerItem)));
+    return this;
+  }
+
+  /**
+   * Sets the salvage to the given item
+   * @param item  Item
+   * @return  Builder instance
+   */
+  public IncrementalModifierRecipeBuilder setSalvage(IItemProvider item) {
+    return setSalvage(item, 1);
+  }
+
+  /**
+   * Adds an input to the recipe and sets the salvage item
+   * @param item           Item input
+   * @param amountPerItem  Amount each item matches and size of salvage
+   * @param neededPerLevel Total number needed for this modifier
+   * @return  Builder instance
+   */
+  public IncrementalModifierRecipeBuilder setInputSalvage(IItemProvider item, int amountPerItem, int neededPerLevel) {
+    setInput(item, amountPerItem, neededPerLevel);
+    setSalvage(item, amountPerItem);
+    return this;
+  }
+
+  /**
+   * Adds an input to the recipe and sets the salvage item
+   * @param tag            Tag input
+   * @param amountPerItem  Amount each item matches and size of salvage
+   * @param neededPerLevel Total number needed for this modifier
+   * @return  Builder instance
+   */
+  public IncrementalModifierRecipeBuilder setInputSalvage(ITag<Item> tag, int amountPerItem, int neededPerLevel) {
+    setInput(tag, amountPerItem, neededPerLevel);
+    setSalvage(ItemOutput.fromTag(tag, amountPerItem));
+    return this;
+  }
+
+
+  /* Building */
+
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
     if (input == Ingredient.EMPTY) {
@@ -102,6 +167,16 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
     consumer.accept(new FinishedRecipe(id, advancementId));
+  }
+
+  @Override
+  public IncrementalModifierRecipeBuilder buildSalvage(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+    if (maxLevel != 0 && maxLevel < minLevel) {
+      throw new IllegalStateException("Max level must be greater than min level");
+    }
+    ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
+    consumer.accept(new FinishedSalvage(id, advancementId));
+    return this;
   }
 
   /**
@@ -145,6 +220,26 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
     @Override
     public IRecipeSerializer<?> getSerializer() {
       return TinkerModifiers.incrementalModifierSerializer.get();
+    }
+  }
+
+  private class FinishedSalvage extends SalvageFinishedRecipe {
+    public FinishedSalvage(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
+      super(ID, advancementID);
+    }
+
+    @Override
+    public void serialize(JsonObject json) {
+      super.serialize(json);
+      if (salvage != null) {
+        json.add("salvage", salvage.serialize());
+      }
+    }
+
+    @Override
+    public IRecipeSerializer<?> getSerializer() {
+      // incremental serializer does not support no salvage, but regular one does
+      return salvage == null ? TinkerModifiers.modifierSalvageSerializer.get() : TinkerModifiers.incrementalModifierSalvageSerializer.get();
     }
   }
 }

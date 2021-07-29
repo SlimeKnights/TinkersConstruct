@@ -53,11 +53,19 @@ public class OverslimeModifier extends SingleUseModifier {
   @Override
   public ValidatedResult validate(IModifierToolStack tool, int level) {
     // clear excess overslime
-    int cap = getCapacity(tool);
-    if (getOverslime(tool) > cap) {
-      setOverslime(tool, cap);
+    if (level > 0) {
+      int cap = getCapacity(tool);
+      if (getOverslime(tool) > cap) {
+        setOverslime(tool, cap);
+      }
     }
     return ValidatedResult.PASS;
+  }
+
+  @Override
+  public void onRemoved(IModifierToolStack tool) {
+    // remove all overslime on removal
+    tool.getPersistentData().remove(getId());
   }
 
 

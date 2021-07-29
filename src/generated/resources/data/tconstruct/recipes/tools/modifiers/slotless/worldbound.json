@@ -2,7 +2,7 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:netherite_scrap"
+      "tag": "forge:ingots/netherite_scrap"
     }
   ],
   "tools": {

@@ -8,6 +8,7 @@ import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability.IFluidModifier;
@@ -76,6 +77,31 @@ public class TankModifier extends Modifier {
     }
   }
 
+  @Override
+  public ValidatedResult validate(IModifierToolStack tool, int level) {
+    // ensure we don't have too much fluid if the capacity changed, if level is 0 there will be a new owner
+    if (level > 0 && isOwner(tool)) {
+      FluidStack fluidStack = getFluid(tool);
+      if (!fluidStack.isEmpty()) {
+        int capacity = getCapacity(tool);
+        if (fluidStack.getAmount() > capacity) {
+          fluidStack.setAmount(capacity);
+          setFluid(tool, fluidStack);
+        }
+      }
+    }
+
+    return ValidatedResult.PASS;
+  }
+
+  @Override
+  public void onRemoved(IModifierToolStack tool) {
+    ModDataNBT persistentData = tool.getPersistentData();
+    // if no one claims the tank, it either belonged to us or another removed modifier, so clean up data
+    if (!persistentData.contains(OWNER, NBT.TAG_STRING)) {
+      persistentData.remove(FLUID);
+    }
+  }
 
   /* Resource location keys */
 

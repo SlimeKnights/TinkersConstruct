@@ -121,8 +121,8 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
 
   @Override
   public void giveItem(ItemStack stack) {
-    if (player != null && !player.inventory.addItemStackToInventory(stack)) {
-      player.dropItem(stack, false);
+    if (player != null) {
+      player.inventory.placeItemBackInInventory(player.getEntityWorld(), stack);
     }
   }
 

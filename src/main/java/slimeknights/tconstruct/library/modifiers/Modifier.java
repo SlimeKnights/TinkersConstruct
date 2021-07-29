@@ -305,6 +305,11 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /**
    * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
    * Do not validate max level here, simply ignore levels over max if needed.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onRemoved(IModifierToolStack)}: Called when the last level of a modifier is removed after validation is finished</li>
+   * </ul>
    * @param tool   Current tool instance
    * @param level  Modifier level, may be 0 if the modifier is removed.
    * @return  PASS result if success, failure if there was an error.
@@ -312,6 +317,18 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public ValidatedResult validate(IModifierToolStack tool, int level) {
     return ValidatedResult.PASS;
   }
+
+  /**
+   * Called when this modifier is removed to clean up persistent data
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #validate(IModifierToolStack, int)}: Called when the tool still has levels and allows rejecting the new tool state</li>
+   * </ul>
+   * @param tool  Tool instance
+   */
+  public void onRemoved(IModifierToolStack tool) {}
+
 
   /* Hooks */
 

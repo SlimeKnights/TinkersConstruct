@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "type": "mantle:without",
+    "base": {
+      "tag": "tconstruct:modifiable/melee"
+    },
+    "without": {
+      "item": "tconstruct:dagger"
+    }
+  },
+  "modifier": "tconstruct:dual_wielding",
+  "min_level": 1,
+  "max_level": 1,
+  "ability_slots": 1,
+  "salvage": [
+    {
+      "item": "minecraft:nautilus_shell",
+      "chance": 0.95
+    },
+    {
+      "tag": "forge:ingots/manyullyn",
+      "min": 2,
+      "max": 2
+    }
+  ]
+}

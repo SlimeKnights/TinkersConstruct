@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/melee_or_harvest"
+  },
+  "modifier": "tconstruct:magnetic",
+  "min_level": 1,
+  "max_level": 5,
+  "upgrade_slots": 1,
+  "salvage": [
+    {
+      "item": "minecraft:compass",
+      "chance": 0.5
+    }
+  ]
+}
