@@ -117,6 +117,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     copy(TinkerTags.Blocks.WORKBENCHES, TinkerTags.Items.WORKBENCHES);
     copy(TinkerTags.Blocks.TABLES, TinkerTags.Items.TABLES);
     copy(TinkerTags.Blocks.ANVIL_METAL, TinkerTags.Items.ANVIL_METAL);
+    copy(TinkerTags.Blocks.PLANKLIKE, TinkerTags.Items.PLANKLIKE);
   }
 
   private void addWorld() {

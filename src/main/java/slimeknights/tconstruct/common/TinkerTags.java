@@ -30,6 +30,9 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> WORKBENCHES = forgeTag("workbenches");
     public static final IOptionalNamedTag<Block> TABLES = tag("tables");
 
+    /** Materials that can be used to craft wooden tool tables */
+    public static final IOptionalNamedTag<Block> PLANKLIKE = tag("planklike");
+    /** Metals that can be used to craft the anvil */
     public static final IOptionalNamedTag<Block> ANVIL_METAL = tag("anvil_metal");
 
     public static final IOptionalNamedTag<Block> SLIME_BLOCK = tag("slime_block");
@@ -112,6 +115,9 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> WORKBENCHES = forgeTag("workbenches");
     public static final IOptionalNamedTag<Item> TABLES = tag("tables");
 
+    /** Materials that can be used to craft wooden tool tables */
+    public static final IOptionalNamedTag<Item> PLANKLIKE = tag("planklike");
+    /** Metals that can be used to craft the anvil */
     public static final IOptionalNamedTag<Item> ANVIL_METAL = tag("anvil_metal");
 
     public static final IOptionalNamedTag<Item> SLIME_BLOCK = tag("slime_block");

@@ -82,11 +82,11 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.partBuilder)
         .key('p', TinkerTables.pattern)
-        .key('w', ItemTags.PLANKS)
+        .key('w', TinkerTags.Items.PLANKLIKE)
         .patternLine("pp")
         .patternLine("ww")
         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
-      .setSource(ItemTags.PLANKS)
+      .setSource(TinkerTags.Items.PLANKLIKE)
       .setMatchAll()
       .build(consumer, prefix(TinkerTables.partBuilder, folder));
 
@@ -94,12 +94,12 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkerStation)
         .key('p', TinkerTables.pattern)
-        .key('w', ItemTags.PLANKS)
+        .key('w', TinkerTags.Items.PLANKLIKE)
         .patternLine("ppp")
         .patternLine("w w")
         .patternLine("w w")
         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
-      .setSource(ItemTags.PLANKS)
+      .setSource(TinkerTags.Items.PLANKLIKE)
       .setMatchAll()
       .build(consumer, prefix(TinkerTables.tinkerStation, folder));
 

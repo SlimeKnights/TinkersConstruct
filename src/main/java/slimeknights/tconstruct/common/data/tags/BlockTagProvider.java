@@ -88,6 +88,11 @@ public class BlockTagProvider extends BlockTagsProvider {
         builder.addOptionalTag(new ResourceLocation("forge", "storage_blocks/" + compat.getName()));
       }
     }
+
+    // allow using wood variants to make tables
+    this.getOrCreateBuilder(TinkerTags.Blocks.PLANKLIKE)
+        .addTag(BlockTags.PLANKS)
+        .add(TinkerCommons.lavawood.get(), TinkerCommons.blazewood.get(), TinkerMaterials.nahuatl.get());
   }
 
   private void addTools() {
