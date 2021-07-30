@@ -21,7 +21,7 @@ public final class ToolDefinitions {
   public static final ToolDefinition PICKAXE = ToolDefinition
     .builder(ToolBaseStatDefinitions.PICKAXE)
     .addPart(pickaxeHead).addPart(toolHandle).addPart(toolBinding)
-    .addModifier(TinkerModifiers.piercing, 2)
+    .addModifier(TinkerModifiers.piercing, 1)
     .build();
   public static final ToolDefinition SLEDGE_HAMMER = ToolDefinition
     .builder(ToolBaseStatDefinitions.SLEDGE_HAMMER)

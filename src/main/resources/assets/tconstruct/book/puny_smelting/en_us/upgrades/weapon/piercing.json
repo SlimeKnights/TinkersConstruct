@@ -7,6 +7,7 @@
   ],
   "effects": [
     "Adds extra damage that pierces armor",
+    "Converts a bit of regular damage into piercing",
     "Multiple levels, each level increases damage further",
     "Requires 1 Upgrade Slot per level"
   ]

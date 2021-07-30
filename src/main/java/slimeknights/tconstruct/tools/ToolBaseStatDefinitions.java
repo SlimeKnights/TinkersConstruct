@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 public final class ToolBaseStatDefinitions {
   // pickaxes
   static final ToolBaseStatDefinition PICKAXE = new ToolBaseStatDefinition.Builder()
-    .bonus(ToolStats.ATTACK_DAMAGE, 0f) // gains +1 damage from tool piercing, hence being lower than vanilla
+    .bonus(ToolStats.ATTACK_DAMAGE, 0.5f) // gains +0.5 damage from tool piercing, hence being lower than vanilla
     .set(ToolStats.ATTACK_SPEED, 1.2f)
     .build();
   static final ToolBaseStatDefinition SLEDGE_HAMMER = new ToolBaseStatDefinition.Builder()

@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:piercing",
   "text": [
     {
-      "text": "Adds +0.5 damage per level. The additional damage pierces armor."
+      "text": "Adds +1 piercing damage per level, at the cost of -0.5 regular damage per level. Overall gain of +0.5 damage per level."
     }
   ],
   "more_text_space": true,
