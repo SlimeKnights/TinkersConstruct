@@ -149,6 +149,17 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
                                  .build(consumer, prefix(TinkerTables.tinkersAnvil, folder));
     ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkersAnvil)
+                         .key('m', TinkerTags.Items.ANVIL_METAL)
+                         .key('s', TinkerTags.Items.SEARED_BLOCKS)
+                         .key('t', TinkerTables.tinkerStation)
+                         .patternLine("mmm")
+                         .patternLine("tst")
+                         .patternLine("sss")
+                         .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
+                                 .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .build(consumer, modResource(folder + "tinkers_forge"));
+    ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.scorchedAnvil)
                          .key('m', TinkerTags.Items.ANVIL_METAL)
                          .key('s', TinkerTags.Items.SCORCHED_BLOCKS)
@@ -158,6 +169,17 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
                                  .build(consumer, prefix(TinkerTables.scorchedAnvil, folder));
+    ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.scorchedAnvil)
+                         .key('m', TinkerTags.Items.ANVIL_METAL)
+                         .key('s', TinkerTags.Items.SCORCHED_BLOCKS)
+                         .key('t', TinkerTables.tinkerStation)
+                         .patternLine("mmm")
+                         .patternLine("tst")
+                         .patternLine("sss")
+                         .addCriterion("has_item", hasItem(TinkerTags.Items.ANVIL_METAL)))
+                                 .setSource(TinkerTags.Items.ANVIL_METAL)
+                                 .build(consumer, modResource(folder + "scorched_forge"));
 
     // tool repair recipe
     CustomRecipeBuilder.customRecipe(TinkerTables.tinkerStationRepairSerializer.get())
