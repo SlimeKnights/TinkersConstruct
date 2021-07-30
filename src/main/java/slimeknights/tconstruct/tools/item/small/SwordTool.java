@@ -45,8 +45,12 @@ public class SwordTool extends ToolItem {
     public float getDestroySpeed(ItemStack stack, BlockState state) {
       // webs are slow
       float speed = super.getDestroySpeed(stack, state);
-      if (state.getMaterial() == Material.WEB) {
+      Material material = state.getMaterial();
+      if (material == Material.WEB) {
         speed *= 7.5f;
+      }
+      if (material == Material.BAMBOO || material == Material.BAMBOO_SAPLING) {
+        speed *= 100;
       }
       return speed;
     }
