@@ -11,7 +11,6 @@
   },
   "modifier": "tconstruct:dual_wielding",
   "min_level": 1,
-  "max_level": 1,
   "ability_slots": 1,
   "salvage": [
     {

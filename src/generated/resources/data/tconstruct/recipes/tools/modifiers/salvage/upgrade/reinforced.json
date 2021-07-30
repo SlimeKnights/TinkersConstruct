@@ -5,7 +5,6 @@
   },
   "modifier": "tconstruct:reinforced",
   "min_level": 1,
-  "max_level": 5,
   "upgrade_slots": 1,
   "salvage": "tconstruct:iron_reinforcement"
 }

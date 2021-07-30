@@ -5,7 +5,6 @@
   },
   "modifier": "tconstruct:bane_of_sssss",
   "min_level": 1,
-  "max_level": 5,
   "upgrade_slots": 1,
   "salvage": "minecraft:fermented_spider_eye"
 }

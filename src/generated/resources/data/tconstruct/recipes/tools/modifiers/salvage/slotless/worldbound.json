@@ -5,7 +5,6 @@
   },
   "modifier": "tconstruct:worldbound",
   "min_level": 1,
-  "max_level": 1,
   "salvage": [
     {
       "item": "minecraft:netherite_scrap",

@@ -5,7 +5,6 @@
   },
   "modifier": "tconstruct:sweeping_edge",
   "min_level": 1,
-  "max_level": 4,
   "upgrade_slots": 1,
   "salvage": "minecraft:chain"
 }

@@ -137,7 +137,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
    * @return  Builder instance
    */
   public ModifierRecipeBuilder addSalvage(IItemProvider item, int maxAmount) {
-    return addSalvage(item, minLevel, maxAmount);
+    return addSalvage(item, 0, maxAmount);
   }
 
 
@@ -236,7 +236,7 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
 
   @Override
   public ModifierRecipeBuilder buildSalvage(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    if (maxLevel != 0 && maxLevel < minLevel) {
+    if (salvageMaxLevel != 0 && salvageMaxLevel < salvageMinLevel) {
       throw new IllegalStateException("Max level must be greater than min level");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");

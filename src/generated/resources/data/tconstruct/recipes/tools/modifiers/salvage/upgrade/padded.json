@@ -5,12 +5,11 @@
   },
   "modifier": "tconstruct:padded",
   "min_level": 1,
-  "max_level": 3,
   "upgrade_slots": 1,
   "salvage": [
     {
       "item": "minecraft:leather",
-      "min": 1,
+      "min": 0,
       "max": 2
     }
   ]

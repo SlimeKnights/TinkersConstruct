@@ -33,7 +33,8 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   protected ModifierMatch requirements = ModifierMatch.ALWAYS;
   protected String requirementsError = null;
   // salvage recipe
-  protected int minLevel = 1;
+  protected int salvageMinLevel = 1;
+  protected int salvageMaxLevel = 0;
 
   /**
    * Sets the list of tools this modifier can be applied to
@@ -83,7 +84,22 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     if (level < 1) {
       throw new IllegalArgumentException("Min level must be greater than 0");
     }
-    this.minLevel = level;
+    this.salvageMinLevel = level;
+    return (T) this;
+  }
+
+  /**
+   * Sets the min level for the salvage recipe
+   * @param minLevel  Min level for salvage
+   * @param maxLevel  Max level for salvage
+   * @return  Builder instance
+   */
+  public T setSalvageLevelRange(int minLevel, int maxLevel) {
+    setMinSalvageLevel(minLevel);
+    if (maxLevel < minLevel) {
+      throw new IllegalArgumentException("Max level must be grater than or equal to min level");
+    }
+    this.salvageMaxLevel = maxLevel;
     return (T) this;
   }
 
@@ -192,9 +208,9 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
         json.add("tools", tools.serialize());
       }
       json.addProperty("modifier", result.getModifier().getId().toString());
-      json.addProperty("min_level", minLevel);
-      if (maxLevel != 0) {
-        json.addProperty("max_level", maxLevel);
+      json.addProperty("min_level", salvageMinLevel);
+      if (salvageMaxLevel != 0) {
+        json.addProperty("max_level", salvageMaxLevel);
       }
       if (upgradeSlots != 0) {
         json.addProperty("upgrade_slots", upgradeSlots);

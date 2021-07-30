@@ -5,7 +5,6 @@
   },
   "modifier": "tconstruct:severing",
   "min_level": 1,
-  "max_level": 5,
   "upgrade_slots": 1,
   "salvage": [
     {
@@ -13,7 +12,7 @@
     },
     {
       "item": "tconstruct:necrotic_bone",
-      "min": 1,
+      "min": 0,
       "max": 2
     }
   ]

@@ -171,7 +171,7 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
 
   @Override
   public IncrementalModifierRecipeBuilder buildSalvage(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    if (maxLevel != 0 && maxLevel < minLevel) {
+    if (salvageMaxLevel != 0 && salvageMaxLevel < salvageMinLevel) {
       throw new IllegalStateException("Max level must be greater than min level");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");

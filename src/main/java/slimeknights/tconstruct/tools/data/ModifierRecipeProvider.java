@@ -404,7 +404,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
                          .addSalvage(TinkerMaterials.copper.getIngotTag(), 2, 2)
                          .addSalvage(Items.LAPIS_LAZULI, 3, 18)
-                         .setMinSalvageLevel(1)
+                         .setSalvageLevelRange(1, 1)
                          .setMaxLevel(1)
                          .setAbilitySlots(1)
                          .buildSalvage(consumer, wrap(TinkerModifiers.luck, abilitySalvage, "_level_1"))
@@ -422,7 +422,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addSalvage(Items.ENDER_PEARL, 2)
                          .setRequirements(ModifierMatch.entry(TinkerModifiers.luck.get(), 1))
                          .setRequirementsError(makeRequirementsError("luck.level_2"))
-                         .setMinSalvageLevel(2)
+                         .setSalvageLevelRange(2, 2)
                          .setMaxLevel(2)
                          .buildSalvage(consumer, wrap(TinkerModifiers.luck, abilitySalvage, "_level_2"))
                          .build(consumer, wrap(TinkerModifiers.luck, abilityFolder, "_level_2"));
@@ -437,7 +437,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addSalvage(TinkerMaterials.roseGold.getIngotTag(), 2, 2)
                          .setRequirements(ModifierMatch.entry(TinkerModifiers.luck.get(), 2))
                          .setRequirementsError(makeRequirementsError("luck.level_3"))
-                         .setMinSalvageLevel(3)
+                         .setSalvageLevelRange(3, 3)
                          .setMaxLevel(3)
                          .buildSalvage(consumer, wrap(TinkerModifiers.luck, abilitySalvage, "_level_3"))
                          .build(consumer, wrap(TinkerModifiers.luck, abilityFolder, "_level_3"));
