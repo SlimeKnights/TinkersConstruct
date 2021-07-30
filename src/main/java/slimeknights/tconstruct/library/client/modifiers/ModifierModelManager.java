@@ -28,6 +28,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -108,10 +109,12 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
                                           ResourceLocation location = new ResourceLocation(namespace, VISIBLE_MODIFIERS);
                                           try {
                                             return manager.getAllResources(location).stream();
+                                          } catch (FileNotFoundException e) {
+                                            // suppress, the above method throws instead of returning empty
                                           } catch (IOException e) {
                                             log.error("Failed to load modifier models from {}", location, e);
-                                            return Stream.empty();
                                           }
+                                          return Stream.empty();
                                         })
                                         .map(ModifierModelManager::getJson)
                                         .filter(Objects::nonNull)
