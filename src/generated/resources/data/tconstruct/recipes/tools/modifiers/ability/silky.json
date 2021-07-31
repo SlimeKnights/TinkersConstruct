@@ -20,10 +20,12 @@
   "tools": {
     "tag": "tconstruct:modifiable/harvest"
   },
+  "slots": {
+    "abilities": 1
+  },
   "result": {
     "name": "tconstruct:silky",
     "level": 1
   },
-  "max_level": 1,
-  "ability_slots": 1
+  "max_level": 1
 }

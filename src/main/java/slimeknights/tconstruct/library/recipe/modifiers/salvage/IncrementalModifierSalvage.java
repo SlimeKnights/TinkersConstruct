@@ -12,9 +12,11 @@ import slimeknights.mantle.recipe.ItemOutput;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
+import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.function.Consumer;
 
@@ -23,8 +25,8 @@ import java.util.function.Consumer;
  */
 public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   private final ItemOutput result;
-  public IncrementalModifierSalvage(ResourceLocation id, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, ItemOutput result, int upgradeSlots, int abilitySlots) {
-    super(id, toolIngredient, modifier, minLevel, maxLevel, upgradeSlots, abilitySlots);
+  public IncrementalModifierSalvage(ResourceLocation id, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, ItemOutput result, @Nullable SlotCount slots) {
+    super(id, toolIngredient, modifier, minLevel, maxLevel, slots);
     this.result = result;
     ModifierRecipeLookup.addSalvage(this);
   }
@@ -64,15 +66,15 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   /** Serializer instance */
   public static class Serializer extends AbstractModifierSalvage.AbstractSerializer<IncrementalModifierSalvage> {
     @Override
-    protected IncrementalModifierSalvage read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, int upgradeSlots, int abilitySlots) {
+    protected IncrementalModifierSalvage read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       ItemOutput result = ItemOutput.fromJson(JsonHelper.getElement(json, "salvage"));
-      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, upgradeSlots, abilitySlots);
+      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, slots);
     }
 
     @Override
-    protected IncrementalModifierSalvage read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, int upgradeSlots, int abilitySlots) {
+    protected IncrementalModifierSalvage read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       ItemOutput result = ItemOutput.read(buffer);
-      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, upgradeSlots, abilitySlots);
+      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, slots);
     }
 
     @Override

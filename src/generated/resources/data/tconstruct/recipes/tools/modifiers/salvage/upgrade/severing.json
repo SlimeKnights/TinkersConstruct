@@ -3,9 +3,11 @@
   "tools": {
     "tag": "tconstruct:modifiable/melee"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "modifier": "tconstruct:severing",
   "min_level": 1,
-  "upgrade_slots": 1,
   "salvage": [
     {
       "tag": "forge:ingots/copper"

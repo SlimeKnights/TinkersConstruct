@@ -8,10 +8,12 @@
   "tools": {
     "tag": "tconstruct:modifiable/durability"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "result": {
     "name": "tconstruct:overforced",
     "level": 1
   },
-  "max_level": 5,
-  "upgrade_slots": 1
+  "max_level": 5
 }

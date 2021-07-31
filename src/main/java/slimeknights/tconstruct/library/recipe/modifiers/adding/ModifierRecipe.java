@@ -17,10 +17,12 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
 import java.util.function.Consumer;
@@ -36,10 +38,20 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    */
   private final List<SizedIngredient> inputs;
 
+  /** @deprecated use {@link #ModifierRecipe(ResourceLocation, List, Ingredient, ModifierMatch, String, ModifierEntry, int, SlotCount)} */
+  @Deprecated
   public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
     super(id, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
     this.inputs = inputs;
+    // add all inputs to the modifier listing
+    for (SizedIngredient ingredient : inputs) {
+      ModifierRecipeLookup.addIngredient(ingredient);
+    }
+  }
 
+  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+    super(id, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+    this.inputs = inputs;
     // add all inputs to the modifier listing
     for (SizedIngredient ingredient : inputs) {
       ModifierRecipeLookup.addIngredient(ingredient);
@@ -118,7 +130,6 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    */
   @Override
   public ValidatedResult getValidatedResult(ITinkerStationInventory inv) {
-    // TODO: this only works for tool core, generalize
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
 
     // common errors
@@ -130,8 +141,10 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     // consume slots
     tool = tool.copy();
     ModDataNBT persistentData = tool.getPersistentData();
-    persistentData.addUpgrades(-getUpgradeSlots());
-    persistentData.addAbilities(-getAbilitySlots());
+    SlotCount slots = getSlots();
+    if (slots != null) {
+      persistentData.addSlots(slots.getType(), -slots.getCount());
+    }
 
     // add modifier
     tool.addModifier(result.getModifier(), result.getLevel());
@@ -184,20 +197,32 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   public static class Serializer extends AbstractModifierRecipe.Serializer<ModifierRecipe> {
     @Override
     public ModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
-                               String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
+                               String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      return new ModifierRecipe(id, ingredients, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+      return new ModifierRecipe(id, ingredients, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
     }
 
     @Override
     public ModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
-                               String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
+                               String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       int size = buffer.readVarInt();
       ImmutableList.Builder<SizedIngredient> builder = ImmutableList.builder();
       for (int i = 0; i < size; i++) {
         builder.add(SizedIngredient.read(buffer));
       }
-      return new ModifierRecipe(id, builder.build(), toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+      return new ModifierRecipe(id, builder.build(), toolRequirement, requirements, requirementsError, result, maxLevel, slots);
+    }
+
+    @Override
+    public ModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+                               String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+                               String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
+      throw new UnsupportedOperationException();
     }
 
     @Override

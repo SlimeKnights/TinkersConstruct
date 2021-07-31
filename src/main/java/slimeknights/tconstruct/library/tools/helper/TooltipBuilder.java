@@ -14,6 +14,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -31,12 +32,7 @@ import static java.awt.Color.HSBtoRGB;
 public class TooltipBuilder {
   private static final Color MAX = valueToColor(1, 1);
   private static final UnaryOperator<Style> APPLY_MAX = style -> style.setColor(MAX);
-  /** Key for free modifiers localization */
-  private final static String KEY_FREE_UPGRADES = TConstruct.makeTranslationKey("tooltip", "tool.upgrades");
-  private final static String KEY_FREE_ABILITIES = TConstruct.makeTranslationKey("tooltip", "tool.abilities");
 
-  private final static Color UPGRADE_COLOR = Color.fromInt(0xFFCCBA47);
-  private final static Color ABILITY_COLOR = Color.fromInt(0xFFB8A0FF);
   /** Formatted broken string */
   private static final ITextComponent TOOLTIP_BROKEN = TConstruct.makeTranslation("tooltip", "tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED);
   /** Prefixed broken string */
@@ -138,16 +134,15 @@ public class TooltipBuilder {
   }
 
   /**
-   * Adds the current free modifiers to the tooltip
-   *
+   * Adds the specific free slot to the tooltip
+   * @param slotType  Type of slot to add
    * @return the tooltip builder
    */
-  public TooltipBuilder addFreeUpgrades() {
-    int modifiers = tool.getFreeUpgrades();
-    if (modifiers > 0) {
-      this.tooltips.add(IToolStat.formatNumber(KEY_FREE_UPGRADES, UPGRADE_COLOR, modifiers));
+  public TooltipBuilder addFreeSlots(SlotType slotType) {
+    int slots = tool.getFreeSlots(slotType);
+    if (slots > 0) {
+      this.tooltips.add(IToolStat.formatNumber(slotType.getPrefix(), slotType.getColor(), slots));
     }
-
     return this;
   }
 
@@ -156,12 +151,10 @@ public class TooltipBuilder {
    *
    * @return the tooltip builder
    */
-  public TooltipBuilder addFreeAbilities() {
-    int abilities = tool.getFreeAbilities();
-    if (abilities > 0) {
-      this.tooltips.add(IToolStat.formatNumber(KEY_FREE_ABILITIES, ABILITY_COLOR, abilities));
+  public TooltipBuilder addAllFreeSlots() {
+    for (SlotType slotType : SlotType.getAllSlotTypes()) {
+      addFreeSlots(slotType);
     }
-
     return this;
   }
 
@@ -177,5 +170,20 @@ public class TooltipBuilder {
       }
     }
     return this;
+  }
+
+
+  /* Deprecated */
+
+  /** @deprecated use {@link #addFreeSlots(SlotType)} or {@link #addAllFreeSlots()} */
+  @Deprecated
+  public TooltipBuilder addFreeUpgrades() {
+    return addFreeSlots(SlotType.UPGRADE);
+  }
+
+  /** @deprecated use {@link #addFreeSlots(SlotType)} or {@link #addAllFreeSlots()} */
+  @Deprecated
+  public TooltipBuilder addFreeAbilities() {
+    return addFreeSlots(SlotType.ABILITY);
   }
 }

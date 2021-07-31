@@ -601,8 +601,7 @@ public class ToolItem extends Item implements IModifiableDisplay, IModifiableWea
       builder.add(ToolStats.MINING_SPEED);
     }
 
-    builder.addFreeUpgrades();
-    builder.addFreeAbilities();
+    builder.addAllFreeSlots();
 
     for (ModifierEntry entry : tool.getModifierList()) {
       entry.getModifier().addInformation(tool, entry.getLevel(), tooltip, isAdvanced, detailed);

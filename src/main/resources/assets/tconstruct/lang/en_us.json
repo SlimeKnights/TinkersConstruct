@@ -204,6 +204,15 @@
   "item.tconstruct.blazing_bone": "Blazing Bone",
   "item.tconstruct.dragon_scale": "Dragon Scale",
   "item.tconstruct.dragon_scale.tooltip": "Blasted off an ender dragon",
+
+  "item.tconstruct.creative_slot": "Creative Slot",
+  "item.tconstruct.creative_slot.upgrades": "Creative Upgrade",
+  "item.tconstruct.creative_slot.abilities": "Creative Ability",
+  "item.tconstruct.creative_slot.traits": "Creative Trait Slot",
+  "item.tconstruct.creative_slot.armor": "Creative Armor Slot",
+  "item.tconstruct.creative_slot.missing": "Missing or invalid NBT defining the slot type",
+  "item.tconstruct.creative_slot.tooltip": "Adds an additional %s slot to a tool",
+
   "item.tconstruct.creative_upgrade": "Creative Upgrade",
   "item.tconstruct.creative_upgrade.tooltip": "Adds an additional upgrade slot to a tool",
   "item.tconstruct.creative_ability": "Creative Ability",
@@ -1642,14 +1651,22 @@
   "stat.tconstruct.mining_level.diamond": "Diamond",
   "stat.tconstruct.mining_level.netherite": "Netherite",
 
+  "stat.tconstruct.slot.prefix.upgrades": "Upgrades: ",
+  "stat.tconstruct.slot.prefix.abilities": "Abilities: ",
+  "stat.tconstruct.slot.prefix.traits": "Trait Slots: ",
+  "stat.tconstruct.slot.prefix.armor": "Armor Slots: ",
+
+  "stat.tconstruct.slot.display.upgrades": "upgrade",
+  "stat.tconstruct.slot.display.abilities": "ability",
+  "stat.tconstruct.slot.display.traits": "trait",
+  "stat.tconstruct.slot.display.armor": "armor",
+
 
   "_comment": "Tooltips",
 
   "key.tconstruct.shift": "Shift",
   "key.tconstruct.ctrl": "Ctrl",
 
-  "tooltip.tconstruct.tool.upgrades": "Upgrades: ",
-  "tooltip.tconstruct.tool.abilities": "Abilities: ",
   "tooltip.tconstruct.tool.broken": "Broken",
   "tooltip.tconstruct.tool.empty": "Empty",
   "tooltip.tconstruct.hold_shift": "Hold %s for stats",
@@ -1702,10 +1719,9 @@
 
   "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
 
-  "recipe.tconstruct.modifier.not_enough_upgrades": "Need at least %s upgrade slots to add this modifier",
-  "recipe.tconstruct.modifier.not_enough_abilities": "Need at least %s ability slots to add this modifier",
-  "recipe.tconstruct.modifier.validate_upgrades": "This change leaves the tool with too few upgrade slots",
-  "recipe.tconstruct.modifier.validate_abilities": "This change leaves the tool with too few ability slots",
+  "recipe.tconstruct.modifier.not_enough_slot": "Need at least 1 %s slot to add this modifier",
+  "recipe.tconstruct.modifier.not_enough_slots": "Need at least %s %s slots to add this modifier",
+  "recipe.tconstruct.modifier.validate_slots": "This change leaves the tool with too few %s slots",
   "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
   "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
 
@@ -1759,10 +1775,8 @@
   "jei.tconstruct.alloy.title": "Alloying",
 
   "jei.tconstruct.modifiers.title": "Modifiers",
-  "jei.tconstruct.modifiers.ability": "Modifier requires 1 ability slot to apply",
-  "jei.tconstruct.modifiers.abilities": "Modifier requires %s ability slots to apply",
-  "jei.tconstruct.modifiers.upgrade": "Modifier requires 1 upgrade slot to apply",
-  "jei.tconstruct.modifiers.upgrades": "Modifier requires %s upgrade slots to apply",
+  "jei.tconstruct.modifiers.slot": "Modifier requires 1 %s slot to apply",
+  "jei.tconstruct.modifiers.slots": "Modifier requires %s %s slots to apply",
   "jei.tconstruct.modifiers.free": "No modifier slots are required to apply",
   "jei.tconstruct.modifiers.incremental": "Recipe is incremental, you can apply part of the input for a partial effect",
   "jei.tconstruct.modifiers.max": "Max: ",

@@ -13,6 +13,13 @@ import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ModelManager;
+import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.renderer.texture.MissingTextureSprite;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -22,15 +29,21 @@ import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.GuiUtil;
+import slimeknights.tconstruct.library.client.model.NBTKeyModel;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
+import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.plugin.jei.JEIPlugin;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
@@ -38,11 +51,9 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
 
   // translation
   private static final List<ITextComponent> TEXT_FREE = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.free"));
-  private static final List<ITextComponent> TEXT_SINGLE_UPGRADE = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.upgrade"));
   private static final List<ITextComponent> TEXT_INCREMENTAL = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.incremental"));
-  private static final String KEY_UPGRADES = TConstruct.makeTranslationKey("jei", "modifiers.upgrades");
-  private static final List<ITextComponent> TEXT_SINGLE_ABILITY = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.ability"));
-  private static final String KEY_ABILITIES = TConstruct.makeTranslationKey("jei", "modifiers.abilities");
+  private static final String KEY_SLOT = TConstruct.makeTranslationKey("jei", "modifiers.slot");
+  private static final String KEY_SLOTS = TConstruct.makeTranslationKey("jei", "modifiers.slots");
   private static final String KEY_MAX = TConstruct.makeTranslationKey("jei", "modifiers.max");
 
   private final ModifierIngredientRenderer modifierRenderer = new ModifierIngredientRenderer(124);
@@ -56,7 +67,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   private final String maxPrefix;
   private final IDrawable requirements, incremental;
   private final IDrawable[] slotIcons;
-  private final IDrawable slotUpgrade, slotAbility, slotFree;
+  private final Map<SlotType,TextureAtlasSprite> slotTypeSprites = new HashMap<>();
   public ModifierRecipeCategory(IGuiHelper helper) {
     this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.maxPrefix = ForgeI18n.getPattern(KEY_MAX);
@@ -68,9 +79,6 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     }
     this.requirements = helper.createDrawable(BACKGROUND_LOC, 128, 17, 16, 16);
     this.incremental = helper.createDrawable(BACKGROUND_LOC, 128, 33, 16, 16);
-    this.slotUpgrade = helper.createDrawable(BACKGROUND_LOC, 144, 17, 8, 8);
-    this.slotAbility = helper.createDrawable(BACKGROUND_LOC, 152, 17, 8, 8);
-    this.slotFree    = helper.createDrawable(BACKGROUND_LOC, 160, 17, 8, 8);
   }
 
   @Override
@@ -95,6 +103,29 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
       // -1 as the item list includes the output slot, we skip that
       slotIcons[slot - 1].draw(matrices, x + 1, y + 1);
     }
+  }
+
+  /** Draws the icon for the given slot type */
+  private void drawSlotType(MatrixStack matrices, @Nullable SlotType slotType, int x, int y) {
+    Minecraft minecraft = Minecraft.getInstance();
+    TextureAtlasSprite sprite;
+    if (false && slotTypeSprites.containsKey(slotType)) {
+      sprite = slotTypeSprites.get(slotType);
+    } else {
+      ModelManager modelManager = minecraft.getModelManager();
+      // gets the model for the item, its a sepcial one that gives us texture info
+      IBakedModel model = minecraft.getItemRenderer().getItemModelMesher().getItemModel(TinkerModifiers.creativeSlotItem.get());
+      if (model != null && model.getOverrides() instanceof NBTKeyModel.Overrides) {
+        RenderMaterial material = ((NBTKeyModel.Overrides)model.getOverrides()).getTexture(slotType == null ? "default" : slotType.getName());
+        sprite = modelManager.getAtlasTexture(material.getAtlasLocation()).getSprite(material.getTextureLocation());
+      } else {
+        // failed to use the model, use missing texture
+        sprite = modelManager.getAtlasTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE).getSprite(MissingTextureSprite.getLocation());
+      }
+      slotTypeSprites.put(slotType, sprite);
+    }
+    minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+    Screen.blit(matrices, x, y, 0, 16, 16, sprite);
   }
 
   @Override
@@ -122,25 +153,14 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     }
 
     // draw slot cost
-    int upgrades = recipe.getUpgradeSlots();
-    int abilities = recipe.getAbilitySlots();
-    IDrawable icon;
-    String text = null;
-    // ability takes precedence, not that both is ever set
-    if (abilities > 0) {
-      icon = slotAbility;
-      text = Integer.toString(abilities);
-    } else if (upgrades > 0) {
-      icon = slotUpgrade;
-      text = Integer.toString(upgrades);
+    SlotCount slots = recipe.getSlots();
+    if (slots == null) {
+      drawSlotType(matrices, null, 110, 58);
     } else {
-      icon = slotFree;
-    }
-    // draw number for quick info, free has no number
-    icon.draw(matrices, 114, 61);
-    if (text != null) {
-      int x = 112 - fontRenderer.getStringWidth(text);
-      fontRenderer.drawString(matrices, text, x, 62, Color.GRAY.getRGB());
+      drawSlotType(matrices, slots.getType(), 110, 58);
+      String text = Integer.toString(slots.getCount());
+      int x = 111 - fontRenderer.getStringWidth(text);
+      fontRenderer.drawString(matrices, text, x, 63, Color.GRAY.getRGB());
     }
   }
 
@@ -152,15 +172,16 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
       return Collections.singletonList(new TranslationTextComponent(recipe.getRequirementsError()));
     } else if (recipe.isIncremental() && GuiUtil.isHovered(checkX, checkY, 83, 59, 16, 16)) {
       return TEXT_INCREMENTAL;
-    } else if (GuiUtil.isHovered(checkX, checkY, 98, 61, 24, 8)) {
+    } else if (GuiUtil.isHovered(checkX, checkY, 98, 58, 24, 16)) {
       // slot tooltip over icon
-      int upgrades = recipe.getUpgradeSlots();
-      int abilities = recipe.getAbilitySlots();
-      // ability take precedence again, not that both can be set
-      if (abilities > 0) {
-        return abilities == 1 ? TEXT_SINGLE_ABILITY : Collections.singletonList(new TranslationTextComponent(KEY_ABILITIES, abilities));
-      } else if (upgrades > 0) {
-        return upgrades == 1 ? TEXT_SINGLE_UPGRADE : Collections.singletonList(new TranslationTextComponent(KEY_UPGRADES, upgrades));
+      SlotCount slots = recipe.getSlots();
+      if (slots != null) {
+        int count = slots.getCount();
+        if (count == 1) {
+          return Collections.singletonList(new TranslationTextComponent(KEY_SLOT, slots.getType().getDisplayName()));
+        } else if (count > 1) {
+          return Collections.singletonList(new TranslationTextComponent(KEY_SLOTS, slots, slots.getType().getDisplayName()));
+        }
       } else {
         return TEXT_FREE;
       }

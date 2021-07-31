@@ -27,10 +27,12 @@
       }
     ]
   },
+  "slots": {
+    "abilities": 1
+  },
   "result": {
     "name": "tconstruct:stripping",
     "level": 1
   },
-  "max_level": 1,
-  "ability_slots": 1
+  "max_level": 1
 }

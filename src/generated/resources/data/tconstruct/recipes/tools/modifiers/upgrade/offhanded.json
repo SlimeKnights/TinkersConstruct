@@ -14,10 +14,12 @@
   "tools": {
     "tag": "tconstruct:modifiable"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "result": {
     "name": "tconstruct:offhanded",
     "level": 1
   },
-  "max_level": 1,
-  "upgrade_slots": 1
+  "max_level": 1
 }

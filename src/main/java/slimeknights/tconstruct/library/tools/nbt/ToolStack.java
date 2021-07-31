@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
+import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
@@ -31,8 +31,7 @@ import java.util.List;
 @RequiredArgsConstructor(staticName = "from")
 public class ToolStack implements IModifierToolStack {
   /** Error messages for when there are not enough remaining modifiers */
-  private static final ValidatedResult VALIDATE_UPGRADES = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "modifier.validate_upgrades"));
-  private static final ValidatedResult VALIDATE_ABILITIES = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "modifier.validate_abilities"));
+  private static final String KEY_VALIDATE_SLOTS = TConstruct.makeTranslationKey("recipe", "modifier.validate_slots");
 
   /** Volatile mod data key for the durability before modifiers */
   @Deprecated
@@ -179,11 +178,7 @@ public class ToolStack implements IModifierToolStack {
     // update the materials
     tool.setMaterials(materials);
     // update modifier data
-    ToolBaseStatDefinition baseStats = definition.getBaseStatDefinition();
-    ModDataNBT data = tool.getPersistentData();
-    data.setUpgrades(baseStats.getDefaultUpgrades());
-    data.setAbilities(baseStats.getDefaultAbilities());
-    data.setTraits(baseStats.getDefaultTraits());
+    definition.getBaseStatDefinition().buildSlots(tool.getPersistentData());
     return tool;
   }
 
@@ -525,11 +520,10 @@ public class ToolStack implements IModifierToolStack {
    */
   public ValidatedResult validate() {
     // first check slot counts
-    if (getFreeUpgrades() < 0) {
-      return VALIDATE_UPGRADES;
-    }
-    if (getFreeAbilities() < 0) {
-      return VALIDATE_ABILITIES;
+    for (SlotType slotType : SlotType.getAllSlotTypes()) {
+      if (getFreeSlots(slotType) < 0) {
+        return ValidatedResult.failure(KEY_VALIDATE_SLOTS, slotType.getDisplayName());
+      }
     }
     // next, ensure modifiers validate
     ValidatedResult result;

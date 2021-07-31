@@ -9,9 +9,11 @@
       "item": "tconstruct:dagger"
     }
   },
+  "slots": {
+    "abilities": 1
+  },
   "modifier": "tconstruct:dual_wielding",
   "min_level": 1,
-  "ability_slots": 1,
   "salvage": [
     {
       "item": "minecraft:nautilus_shell",

@@ -8,10 +8,12 @@
   "tools": {
     "tag": "tconstruct:modifiable/melee/sword"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "result": {
     "name": "tconstruct:sweeping_edge",
     "level": 1
   },
-  "max_level": 4,
-  "upgrade_slots": 1
+  "max_level": 4
 }

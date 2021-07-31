@@ -17,7 +17,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.modifiers.ExtraModifier;
-import slimeknights.tconstruct.library.modifiers.ExtraModifier.ExtraType;
 import slimeknights.tconstruct.library.modifiers.ExtraModifier.ModifierSource;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
@@ -29,8 +28,10 @@ import slimeknights.tconstruct.library.recipe.modifiers.salvage.IncrementalModif
 import slimeknights.tconstruct.library.recipe.modifiers.salvage.ModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
+import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 import slimeknights.tconstruct.tools.item.DragonScaleItem;
 import slimeknights.tconstruct.tools.modifiers.EmptyModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
@@ -133,6 +134,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ItemObject<Item> ironReinforcement = ITEMS.register("iron_reinforcement", GENERAL_PROPS);
   public static final ItemObject<Item> slimesteelReinforcement = ITEMS.register("slimesteel_reinforcement", GENERAL_PROPS);
   // creative
+  public static final ItemObject<Item> creativeSlotItem = ITEMS.register("creative_slot", () -> new CreativeSlotItem(GENERAL_PROPS));
   public static final ItemObject<Item> creativeUpgradeItem = ITEMS.register("creative_upgrade", TOOLTIP_ITEM);
   public static final ItemObject<Item> creativeAbilityItem = ITEMS.register("creative_ability", TOOLTIP_ITEM);
   public static final EnumObject<SlimeType, Item> slimeCrystal = ITEMS.registerEnum(SlimeType.TRUE_SLIME, "slime_crystal", (type) -> new Item(GENERAL_PROPS));
@@ -222,15 +224,15 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ExtraModifier> recapitated = MODIFIERS.register("recapitated", () -> new ExtraModifier(0x67d755));
   public static final RegistryObject<ExtraModifier> harmonious = MODIFIERS.register("harmonious", () -> new ExtraModifier(0xffd800));
   public static final RegistryObject<ExtraModifier> resurrected = MODIFIERS.register("resurrected", () -> new ExtraModifier(0xbe95d4));
-  public static final RegistryObject<ExtraModifier> gilded = MODIFIERS.register("gilded", () -> new ExtraModifier(0xeccb45, ExtraType.UPGRADE, ModifierSource.MULTI_LEVEL, 2));
-  public static final RegistryObject<ExtraModifier> draconic = MODIFIERS.register("draconic", () -> new ExtraModifier(0x707070, ExtraType.ABILITY, ModifierSource.SINGLE_LEVEL));
+  public static final RegistryObject<ExtraModifier> gilded = MODIFIERS.register("gilded", () -> new ExtraModifier(0xeccb45, SlotType.UPGRADE, ModifierSource.MULTI_LEVEL, 2));
+  public static final RegistryObject<ExtraModifier> draconic = MODIFIERS.register("draconic", () -> new ExtraModifier(0x707070, SlotType.ABILITY, ModifierSource.SINGLE_LEVEL));
   // extra modifier slots for modpacks
   public static final RegistryObject<ExtraModifier> redExtraUpgrade = MODIFIERS.register("red_extra_upgrade", () -> new ExtraModifier(0xff0000));
   public static final RegistryObject<ExtraModifier> greenExtraUpgrade = MODIFIERS.register("green_extra_upgrade", () -> new ExtraModifier(0x00ff00));
   public static final RegistryObject<ExtraModifier> blueExtraUpgrade = MODIFIERS.register("blue_extra_upgrade", () -> new ExtraModifier(0x0000ff));
   // creative
-  public static final RegistryObject<ExtraModifier> creativeUpgrade = MODIFIERS.register("creative_upgrade", () -> new ExtraModifier(0xCCBA47, ExtraType.UPGRADE, ModifierSource.MULTI_LEVEL));
-  public static final RegistryObject<ExtraModifier> creativeAbility = MODIFIERS.register("creative_ability", () -> new ExtraModifier(0xB8A0FF, ExtraType.ABILITY, ModifierSource.MULTI_LEVEL));
+  public static final RegistryObject<ExtraModifier> creativeUpgrade = MODIFIERS.register("creative_upgrade", () -> new ExtraModifier(0xCCBA47, SlotType.UPGRADE, ModifierSource.MULTI_LEVEL));
+  public static final RegistryObject<ExtraModifier> creativeAbility = MODIFIERS.register("creative_ability", () -> new ExtraModifier(0xB8A0FF, SlotType.ABILITY, ModifierSource.MULTI_LEVEL));
 
   // traits - tier 1
   public static final RegistryObject<CultivatedModifier> cultivated = MODIFIERS.register("cultivated", CultivatedModifier::new);
@@ -250,7 +252,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
   public static final RegistryObject<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
   public static final RegistryObject<MaintainedModifier> wellMaintained = MODIFIERS.register("maintained", MaintainedModifier::new);
-  public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(0xF7CDBB, ExtraType.UPGRADE, ModifierSource.TRAIT));
+  public static final RegistryObject<ExtraModifier> enhanced = MODIFIERS.register("enhanced", () -> new ExtraModifier(0xF7CDBB, SlotType.UPGRADE, ModifierSource.TRAIT));
   public static final RegistryObject<TastyModifier> tasty = MODIFIERS.register("tasty", TastyModifier::new);
   // traits - tier 3 nether
   public static final RegistryObject<LightweightModifier> lightweight = MODIFIERS.register("lightweight", LightweightModifier::new);

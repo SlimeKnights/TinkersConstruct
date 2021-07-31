@@ -7,6 +7,7 @@ import lombok.Getter;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
+import slimeknights.tconstruct.library.tools.SlotType;
 
 import java.util.function.BiFunction;
 
@@ -18,67 +19,39 @@ import java.util.function.BiFunction;
 @EqualsAndHashCode
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ModDataNBT implements IModDataReadOnly {
-  protected static final String TAG_UPGRADES = "upgrades";
-  protected static final String TAG_ABILITIES = "abilities";
-  protected static final String TAG_TRAITS = "traits";
-
   /** Compound representing modifier data */
   @Getter(AccessLevel.PROTECTED)
   private final CompoundNBT data;
-
-  /** Upgrades remaining in this data */
-  @Getter
-  private int upgrades;
-  /** Abilities remaining in this data */
-  @Getter
-  private int abilities;
-  /** Trait remaining in this data, for use in the soul forge */
-  @Getter
-  private int traits;
 
   /**
    * Creates a new mod data containing empty data
    */
   public ModDataNBT() {
-    this(new CompoundNBT(), 0, 0, 0);
+    this(new CompoundNBT());
   }
 
-  /** Updates the upgrade slots */
-  public void setUpgrades(int value) {
-    this.upgrades = value;
-    data.putInt(TAG_UPGRADES, value);
+  @Override
+  public int getSlots(SlotType type) {
+    return data.getInt(type.getName());
   }
 
-  /** Adds the given number of upgrades, use negative to remove */
-  public void addUpgrades(int add) {
+  /**
+   * Sets the slots for the given type
+   * @param type   Slot type
+   * @param value  New value
+   */
+  public void setSlots(SlotType type, int value) {
+    data.putInt(type.getName(), value);
+  }
+
+  /**
+   * Adds the given number of slots
+   * @param type   Slot type
+   * @param add    Value to add, use negative to remove
+   */
+  public void addSlots(SlotType type, int add) {
     if (add != 0) {
-      setUpgrades(upgrades + add);
-    }
-  }
-
-  /** Updates the ability slots */
-  public void setAbilities(int value) {
-    this.abilities = value;
-    data.putInt(TAG_ABILITIES, value);
-  }
-
-  /** Adds the given number of ability slots, use negative to remove */
-  public void addAbilities(int add) {
-    if (add != 0) {
-      setAbilities(abilities + add);
-    }
-  }
-
-  /** Updates the bonus trait slots, used in the soul forge */
-  public void setTraits(int value) {
-    this.traits = value;
-    data.putInt(TAG_TRAITS, value);
-  }
-
-  /** Adds the given number of trait slots, use negative to remove */
-  public void addTraits(int add) {
-    if (add != 0) {
-      setTraits(traits + add);
+      setSlots(type, getSlots(type) + add);
     }
   }
 
@@ -151,9 +124,51 @@ public class ModDataNBT implements IModDataReadOnly {
    * @return  Parsed mod data
    */
   public static ModDataNBT readFromNBT(CompoundNBT data) {
-    int upgrades = data.getInt(TAG_UPGRADES);
-    int abilities = data.getInt(TAG_ABILITIES);
-    int traits = data.getInt(TAG_TRAITS);
-    return new ModDataNBT(data, upgrades, abilities, traits);
+    return new ModDataNBT(data);
+  }
+
+
+  /* Deprecated, to remove */
+
+  /** @deprecated Use {@link #setSlots(SlotType, int)} */
+  @Deprecated
+  public void setUpgrades(int value) {
+    setSlots(SlotType.UPGRADE, value);
+  }
+
+  /** @deprecated Use {@link #addSlots(SlotType, int)} (SlotType, int)} */
+  @Deprecated
+  public void addUpgrades(int add) {
+    addSlots(SlotType.UPGRADE, add);
+  }
+
+  /** @deprecated Use {@link #setSlots(SlotType, int)} */
+  @Deprecated
+  public void setAbilities(int value) {
+    setSlots(SlotType.ABILITY, value);
+  }
+
+  /** @deprecated Use {@link #addSlots(SlotType, int)} (SlotType, int)} */
+  @Deprecated
+  public void addAbilities(int add) {
+    addSlots(SlotType.ABILITY, add);
+  }
+
+  /** @deprecated Use {@link #setSlots(SlotType, int)} */
+  @Deprecated
+  public void setTraits(int value) {
+    setSlots(SlotType.TRAIT, value);
+  }
+
+  /** @deprecated Use {@link #addSlots(SlotType, int)} (SlotType, int)} */
+  @Deprecated
+  public void addTraits(int add) {
+    addSlots(SlotType.TRAIT, add);
+  }
+
+  /** @deprecated Use {@link #getSlots(SlotType)} */
+  @Deprecated
+  public int getTraits() {
+    return getSlots(SlotType.TRAIT);
   }
 }

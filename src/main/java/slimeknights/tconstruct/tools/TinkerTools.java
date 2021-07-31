@@ -18,6 +18,7 @@ import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
+import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
@@ -47,6 +48,7 @@ import java.util.function.Supplier;
  */
 public final class TinkerTools extends TinkerModule {
   public TinkerTools() {
+    SlotType.init();
     BlockSideHitListener.init();
     ModifierLootingHandler.init();
   }

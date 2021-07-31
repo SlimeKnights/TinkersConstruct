@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.ModifierFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
+import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ToolItemTest;
@@ -369,7 +370,7 @@ class ToolStackTest extends ToolItemTest {
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_PERSISTENT_MOD_DATA)).isFalse();
 
     ModDataNBT modData = toolStack.getPersistentData();
-    modData.setUpgrades(1);
+    modData.setSlots(SlotType.UPGRADE, 1);
 
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_PERSISTENT_MOD_DATA)).isTrue();
     assertThat(toolStack.getNbt().getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA)).isEqualTo(modData.getData());
@@ -378,7 +379,7 @@ class ToolStackTest extends ToolItemTest {
   @Test
   void persistentModData_deserialize() {
     ModDataNBT modData = new ModDataNBT();
-    modData.setUpgrades(1);
+    modData.setSlots(SlotType.UPGRADE, 1);
     testItemStack.getOrCreateTag().put(ToolStack.TAG_PERSISTENT_MOD_DATA, modData.getData());
 
     ToolStack toolStack = ToolStack.from(testItemStack);
@@ -389,7 +390,7 @@ class ToolStackTest extends ToolItemTest {
   void volatileModData_serialize() {
     ToolStack toolStack = ToolStack.from(Items.DIAMOND_PICKAXE, ToolDefinition.EMPTY, new CompoundNBT());
     ModDataNBT modData = new ModDataNBT();
-    modData.setUpgrades(1);
+    modData.setSlots(SlotType.UPGRADE, 1);
     toolStack.setVolatileModData(modData);
 
     assertThat(toolStack.getNbt().contains(ToolStack.TAG_VOLATILE_MOD_DATA)).isTrue();
@@ -399,7 +400,7 @@ class ToolStackTest extends ToolItemTest {
   @Test
   void volatileModData_deserialize() {
     ModDataNBT modData = new ModDataNBT();
-    modData.setUpgrades(1);
+    modData.setSlots(SlotType.UPGRADE, 1);
     testItemStack.getOrCreateTag().put(ToolStack.TAG_VOLATILE_MOD_DATA, modData.getData());
 
     ToolStack toolStack = ToolStack.from(testItemStack);
@@ -426,7 +427,7 @@ class ToolStackTest extends ToolItemTest {
     toolStack.setMaterialsRaw(new MaterialNBT(Arrays.asList(MaterialFixture.MATERIAL_WITH_HEAD, MaterialFixture.MATERIAL_WITH_HANDLE, MaterialFixture.MATERIAL_WITH_EXTRA)));
     // set some data that will get cleared out
     ModDataNBT volatileData = new ModDataNBT();
-    volatileData.setUpgrades(4);
+    volatileData.setSlots(SlotType.UPGRADE, 4);
     toolStack.setVolatileModData(volatileData);
     assertThat(toolStack.getModifiers()).isEqualTo(ModifierNBT.EMPTY);
 

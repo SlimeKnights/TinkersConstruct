@@ -14,10 +14,12 @@
   "tools": {
     "tag": "tconstruct:modifiable/melee"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "result": {
     "name": "tconstruct:padded",
     "level": 1
   },
-  "max_level": 3,
-  "upgrade_slots": 1
+  "max_level": 3
 }

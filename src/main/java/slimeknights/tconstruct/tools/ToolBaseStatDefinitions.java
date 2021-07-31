@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -18,14 +19,14 @@ public final class ToolBaseStatDefinitions {
     .modifier(ToolStats.ATTACK_DAMAGE, 1.35f)
     .modifier(ToolStats.MINING_SPEED, 0.4f)
     .modifier(ToolStats.DURABILITY, 4f)
-    .setPrimaryHeadWeight(2).setDefaultUpgrades(2).build();
+    .setPrimaryHeadWeight(2).startingSlots(SlotType.UPGRADE, 2).build();
   static final ToolBaseStatDefinition VEIN_HAMMER = new ToolBaseStatDefinition.Builder()
     .bonus(ToolStats.ATTACK_DAMAGE, 3f) // gains +1.25 damage from piercing
     .set(ToolStats.ATTACK_SPEED, 1.1f)
     .modifier(ToolStats.ATTACK_DAMAGE, 1.25f)
     .modifier(ToolStats.MINING_SPEED, 0.3f)
     .modifier(ToolStats.DURABILITY, 5.0f)
-    .setPrimaryHeadWeight(2).setDefaultUpgrades(2).build();
+    .setPrimaryHeadWeight(2).startingSlots(SlotType.UPGRADE, 2).build();
 
   // shovels
   static final ToolBaseStatDefinition MATTOCK = new ToolBaseStatDefinition.Builder()
@@ -38,7 +39,7 @@ public final class ToolBaseStatDefinitions {
     .modifier(ToolStats.ATTACK_DAMAGE, 1.2f)
     .modifier(ToolStats.MINING_SPEED, 0.3f)
     .modifier(ToolStats.DURABILITY, 3.75f)
-    .setDefaultUpgrades(2).build();
+    .startingSlots(SlotType.UPGRADE, 2).build();
 
   // axes
   static final ToolBaseStatDefinition HAND_AXE = new ToolBaseStatDefinition.Builder()
@@ -51,7 +52,7 @@ public final class ToolBaseStatDefinitions {
     .modifier(ToolStats.ATTACK_DAMAGE, 1.5f)
     .modifier(ToolStats.MINING_SPEED, 0.3f)
     .modifier(ToolStats.DURABILITY, 4.25f)
-    .setPrimaryHeadWeight(2).setDefaultUpgrades(2).build();
+    .setPrimaryHeadWeight(2).startingSlots(SlotType.UPGRADE, 2).build();
 
   // scythes
   static final ToolBaseStatDefinition KAMA = new ToolBaseStatDefinition.Builder()
@@ -64,7 +65,7 @@ public final class ToolBaseStatDefinitions {
     .set(ToolStats.ATTACK_SPEED, 0.8f)
     .modifier(ToolStats.MINING_SPEED, 0.45f)
     .modifier(ToolStats.DURABILITY, 2.5f)
-    .setDefaultUpgrades(2).build();
+    .startingSlots(SlotType.UPGRADE, 2).build();
 
   // swords
   static final ToolBaseStatDefinition DAGGER = new ToolBaseStatDefinition.Builder()
@@ -85,5 +86,5 @@ public final class ToolBaseStatDefinitions {
     .modifier(ToolStats.MINING_SPEED, 0.25f)
     .bonus(ToolStats.REACH, 1f)
     .modifier(ToolStats.DURABILITY, 3.5f)
-    .setPrimaryHeadWeight(2).setDefaultUpgrades(2).build();
+    .setPrimaryHeadWeight(2).startingSlots(SlotType.UPGRADE, 2).build();
 }

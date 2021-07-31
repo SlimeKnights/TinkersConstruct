@@ -9,10 +9,12 @@
   "tools": {
     "tag": "tconstruct:modifiable/harvest"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "result": {
     "name": "tconstruct:lightspeed",
     "level": 1
   },
-  "max_level": 5,
-  "upgrade_slots": 1
+  "max_level": 5
 }

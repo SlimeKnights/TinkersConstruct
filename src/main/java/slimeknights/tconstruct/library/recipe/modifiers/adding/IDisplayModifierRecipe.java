@@ -7,6 +7,8 @@ import net.minecraft.nbt.ListNBT;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
+import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -42,14 +44,10 @@ public interface IDisplayModifierRecipe {
     return 0;
   }
 
-  /** Gets the number of upgrade slots required for this modifier */
-  default int getUpgradeSlots() {
-    return 0;
-  }
-
-  /** Gets the number of ability slots required for this modifier */
-  default int getAbilitySlots() {
-    return 0;
+  /** Gets the slot type used by this modifier */
+  @Nullable
+  default SlotCount getSlots() {
+    return null;
   }
 
   /** If true, this recipe has additional requirements */
@@ -65,6 +63,19 @@ public interface IDisplayModifierRecipe {
   /** If true, this recipe can be applied incrementally */
   default boolean isIncremental() {
     return false;
+  }
+
+
+  /* Deprecated */
+
+  /** @deprecated Use {@link #getSlots()} */
+  default int getUpgradeSlots() {
+    return SlotCount.get(getSlots(), SlotType.UPGRADE);
+  }
+
+  /** @deprecated Use {@link #getSlots()} */
+  default int getAbilitySlots() {
+    return SlotCount.get(getSlots(), SlotType.ABILITY);
   }
 
 
@@ -108,7 +119,7 @@ public interface IDisplayModifierRecipe {
     ModDataNBT volatileData = ModDataNBT.readFromNBT(volatileNBT);
     persistentDataConsumer.accept(persistentData);
     for (ModifierEntry entry : modifiers.getModifiers()) {
-      entry.getModifier().addVolatileData(ToolDefinition.EMPTY, StatsNBT.EMPTY, persistentData, entry.getLevel(), volatileData);
+      entry.getModifier().addVolatileData(stack.getItem(), ToolDefinition.EMPTY, StatsNBT.EMPTY, persistentData, entry.getLevel(), volatileData);
     }
     nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
     nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);

@@ -3,9 +3,11 @@
   "tools": {
     "tag": "tconstruct:modifiable"
   },
+  "slots": {
+    "abilities": 1
+  },
   "modifier": "tconstruct:glowing",
   "min_level": 1,
-  "ability_slots": 1,
   "salvage": [
     {
       "item": "minecraft:daylight_detector",

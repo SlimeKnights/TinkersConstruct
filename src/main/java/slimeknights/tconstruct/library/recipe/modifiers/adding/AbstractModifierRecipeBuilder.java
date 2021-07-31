@@ -13,6 +13,7 @@ import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
+import slimeknights.tconstruct.library.tools.SlotType;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -26,8 +27,8 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   // shared
   protected final ModifierEntry result;
   protected Ingredient tools = Ingredient.EMPTY;
-  protected int upgradeSlots = 0;
-  protected int abilitySlots = 0;
+  protected SlotType slotType;
+  protected int slots;
   protected int maxLevel = 0;
   // modifier recipe
   protected ModifierMatch requirements = ModifierMatch.ALWAYS;
@@ -120,35 +121,29 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   /* Slots */
 
   /**
-   * Sets the number of upgrade slots required by this recipe
-   * @param slots  Upgrade slot count
+   * Sets the number of slots required by this recipe
+   * @param slotType  Slot type
+   * @param slots     Slot count
    * @return  Builder instance
    */
-  public T setUpgradeSlots(int slots) {
+  public T setSlots(SlotType slotType, int slots) {
     if (slots < 0) {
       throw new IllegalArgumentException("Slots must be positive");
     }
-    if (abilitySlots != 0) {
-      throw new IllegalStateException("Cannot set both upgrade and ability slots");
-    }
-    this.upgradeSlots = slots;
+    this.slotType = slotType;
+    this.slots = slots;
     return (T) this;
   }
 
-  /**
-   * Sets the number of ability slots required by this recipe
-   * @param slots  Ability slot count
-   * @return  Builder instance
-   */
+  /** @deprecated use {@link #setSlots(SlotType, int)} */
+  @Deprecated
+  public T setUpgradeSlots(int slots) {
+    return setSlots(SlotType.UPGRADE, slots);
+  }
+
+  /** @deprecated use {@link #setSlots(SlotType, int)} */
   public T setAbilitySlots(int slots) {
-    if (slots < 0) {
-      throw new IllegalArgumentException("Slots must be positive");
-    }
-    if (upgradeSlots != 0) {
-      throw new IllegalStateException("Cannot set both upgrade and ability slots");
-    }
-    this.abilitySlots = slots;
-    return (T) this;
+    return setSlots(SlotType.ABILITY, slots);
   }
 
   @Override
@@ -163,6 +158,20 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
    */
   public abstract T buildSalvage(Consumer<IFinishedRecipe> consumer, ResourceLocation id);
 
+  /** Writes common JSON components between the two types */
+  private void writeCommon(JsonObject json) {
+    if (tools == Ingredient.EMPTY) {
+      json.add("tools", DEFAULT_TOOL.get().serialize());
+    } else {
+      json.add("tools", tools.serialize());
+    }
+    if (slotType != null && slots > 0) {
+      JsonObject slotJson = new JsonObject();
+      slotJson.addProperty(slotType.getName(), slots);
+      json.add("slots", slotJson);
+    }
+  }
+
   /** Base logic to write all relevant builder fields to JSON */
   protected abstract class ModifierFinishedRecipe extends AbstractFinishedRecipe {
     public ModifierFinishedRecipe(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
@@ -171,11 +180,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
 
     @Override
     public void serialize(JsonObject json) {
-      if (tools == Ingredient.EMPTY) {
-        json.add("tools", DEFAULT_TOOL.get().serialize());
-      } else {
-        json.add("tools", tools.serialize());
-      }
+      writeCommon(json);
       if (requirements != ModifierMatch.ALWAYS) {
         JsonObject reqJson = requirements.serialize();
         reqJson.addProperty("error", requirementsError);
@@ -184,12 +189,6 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
       json.add("result", result.toJson());
       if (maxLevel != 0) {
         json.addProperty("max_level", maxLevel);
-      }
-      if (upgradeSlots != 0) {
-        json.addProperty("upgrade_slots", upgradeSlots);
-      }
-      if (abilitySlots != 0) {
-        json.addProperty("ability_slots", abilitySlots);
       }
     }
   }
@@ -202,21 +201,11 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
 
     @Override
     public void serialize(JsonObject json) {
-      if (tools == Ingredient.EMPTY) {
-        json.add("tools", DEFAULT_TOOL.get().serialize());
-      } else {
-        json.add("tools", tools.serialize());
-      }
+      writeCommon(json);
       json.addProperty("modifier", result.getModifier().getId().toString());
       json.addProperty("min_level", salvageMinLevel);
       if (salvageMaxLevel != 0) {
         json.addProperty("max_level", salvageMaxLevel);
-      }
-      if (upgradeSlots != 0) {
-        json.addProperty("upgrade_slots", upgradeSlots);
-      }
-      if (abilitySlots != 0) {
-        json.addProperty("ability_slots", abilitySlots);
       }
     }
   }

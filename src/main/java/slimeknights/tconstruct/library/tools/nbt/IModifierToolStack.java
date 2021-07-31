@@ -8,6 +8,7 @@ import net.minecraft.tags.ITag;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
@@ -131,15 +132,19 @@ public interface IModifierToolStack {
    * Gets the free upgrade slots remaining on the tool
    * @return  Free upgrade slots
    */
-  default int getFreeUpgrades() {
-    return getPersistentData().getUpgrades() + getVolatileData().getUpgrades();
+  default int getFreeSlots(SlotType type) {
+    return getPersistentData().getSlots(type) + getVolatileData().getSlots(type);
   }
 
-  /**
-   * Gets the free ability slots remaining on the tool
-   * @return  Free abilities
-   */
+  /** @deprecated Use {@link #getFreeSlots(SlotType)} */
+  @Deprecated
+  default int getFreeUpgrades() {
+    return getPersistentData().getSlots(SlotType.UPGRADE) + getVolatileData().getSlots(SlotType.UPGRADE);
+  }
+
+  /** @deprecated Use {@link #getFreeSlots(SlotType)} */
+  @Deprecated
   default int getFreeAbilities() {
-    return getPersistentData().getAbilities() + getVolatileData().getAbilities();
+    return getPersistentData().getSlots(SlotType.ABILITY) + getVolatileData().getSlots(SlotType.ABILITY);
   }
 }

@@ -3,7 +3,9 @@
   "tools": {
     "tag": "tconstruct:modifiable/melee_or_harvest"
   },
+  "slots": {
+    "upgrades": 1
+  },
   "modifier": "tconstruct:tank",
-  "min_level": 1,
-  "upgrade_slots": 1
+  "min_level": 1
 }

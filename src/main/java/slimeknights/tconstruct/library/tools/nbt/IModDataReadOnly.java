@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.tools.nbt;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
+import slimeknights.tconstruct.library.tools.SlotType;
 
 import java.util.function.BiFunction;
 
@@ -13,12 +14,7 @@ public interface IModDataReadOnly {
   /** Empty variant of mod data */
   IModDataReadOnly EMPTY = new IModDataReadOnly() {
     @Override
-    public int getUpgrades() {
-      return 0;
-    }
-
-    @Override
-    public int getAbilities() {
+    public int getSlots(SlotType type) {
       return 0;
     }
 
@@ -33,12 +29,12 @@ public interface IModDataReadOnly {
     }
   };
 
-  /** Gets the number of modifiers provided by this data */
-  int getUpgrades();
-
-  /** Gets the number of ability slots provided by this data */
-  int getAbilities();
-
+  /**
+   * Gets the number of slots provided by this data
+   * @param type  Type of slot to get
+   * @return  Number of slots
+   */
+  int getSlots(SlotType type);
 
   /**
    * Gets a namespaced key from NBT
@@ -112,5 +108,20 @@ public interface IModDataReadOnly {
    */
   default CompoundNBT getCompound(ResourceLocation name) {
     return get(name, CompoundNBT::getCompound);
+  }
+
+
+  /* Deprecated, to remove */
+
+  /** @deprecated Use {@link #getSlots(SlotType)} */
+  @Deprecated
+  default int getUpgrades() {
+    return getSlots(SlotType.UPGRADE);
+  }
+
+  /** @deprecated Use {@link #getSlots(SlotType)} */
+  @Deprecated
+  default int getAbilities() {
+    return getSlots(SlotType.ABILITY);
   }
 }

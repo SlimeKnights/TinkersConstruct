@@ -22,10 +22,12 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -41,8 +43,20 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   /** Item stack to use when a partial amount is leftover */
   private final ItemStack leftover;
 
+  /** @deprecated use {@link #IncrementalModifierRecipe(ResourceLocation, Ingredient, int, int, Ingredient, ModifierMatch, String, ModifierEntry, int, SlotCount, ItemStack)} */
+  @Deprecated
   public IncrementalModifierRecipe(ResourceLocation id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots, ItemStack leftover) {
     super(id, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+    this.input = input;
+    this.amountPerInput = amountPerInput;
+    this.neededPerLevel = neededPerLevel;
+    this.leftover = leftover;
+    ModifierRecipeLookup.addIngredient(input);
+    ModifierRecipeLookup.setNeededPerLevel(result.getModifier(), neededPerLevel);
+  }
+
+  public IncrementalModifierRecipe(ResourceLocation id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, ItemStack leftover) {
+    super(id, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
     this.input = input;
     this.amountPerInput = amountPerInput;
     this.neededPerLevel = neededPerLevel;
@@ -89,8 +103,10 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     ModDataNBT persistentData = tool.getPersistentData();
     if (current >= neededPerLevel) {
       // consume slots as we are adding a new level
-      persistentData.addUpgrades(-getUpgradeSlots());
-      persistentData.addAbilities(-getAbilitySlots());
+      SlotCount slots = getSlots();
+      if (slots != null) {
+        persistentData.addSlots(slots.getType(), -slots.getCount());
+      }
 
       // add up to 1 level of this to the tool
       IncrementalModifier.setAmount(persistentData, modifier, Math.min(available + current - neededPerLevel, neededPerLevel));
@@ -269,7 +285,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   public static class Serializer extends AbstractModifierRecipe.Serializer<IncrementalModifierRecipe> {
     @Override
     public IncrementalModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
-                                          String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
+                                          String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       Ingredient input = Ingredient.deserialize(JsonHelper.getElement(json, "input"));
       int amountPerInput = JSONUtils.getInt(json, "amount_per_item", 1);
       if (amountPerInput < 1) {
@@ -283,17 +299,29 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       if (amountPerInput > 1 && json.has("leftover")) {
         leftover = deseralizeResultItem(json, "leftover");
       }
-      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots, leftover);
+      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, requirements, requirementsError, result, maxLevel, slots, leftover);
+    }
+
+    @Override
+    public IncrementalModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+                                          String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+      Ingredient input = Ingredient.read(buffer);
+      int amountPerInput = buffer.readVarInt();
+      int neededPerLevel = buffer.readVarInt();
+      ItemStack leftover = buffer.readItemStack();
+      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, requirements, requirementsError, result, maxLevel, slots, leftover);
+    }
+
+    @Override
+    public IncrementalModifierRecipe read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+                                          String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
+      throw new UnsupportedOperationException();
     }
 
     @Override
     public IncrementalModifierRecipe read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
                                           String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
-      Ingredient input = Ingredient.read(buffer);
-      int amountPerInput = buffer.readVarInt();
-      int neededPerLevel = buffer.readVarInt();
-      ItemStack leftover = buffer.readItemStack();
-      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots, leftover);
+      throw new UnsupportedOperationException();
     }
 
     @Override

@@ -6,10 +6,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -24,21 +26,23 @@ public final class ToolBaseStatDefinition {
   @Getter
   private final int primaryHeadWeight;
 
-  /** Number of upgrades new tools start with */
-  @Getter
-  private final int defaultUpgrades;
-  /** Number of abilities new tools start with */
-  @Getter
-  private final int defaultAbilities;
-  /** Number of trait slots for the tool forge the tool starts with */
-  @Getter
-  private final int defaultTraits;
+  /** Map of all starting slot amounts */
+  private final Map<SlotType,Integer> startingSlots;
 
   /** Bonuses to include as part of tool stat building */
   private final Map<FloatToolStat, Float> bonuses;
 
   /** Multipliers to include during modifier building */
   private final Map<FloatToolStat, Float> modifiers;
+
+  /**
+   * Gets the default number of slots for the given type
+   * @param type  Type
+   * @return  Number of starting slots on new tools
+   */
+  public int getStartingSlots(SlotType type) {
+    return startingSlots.getOrDefault(type, 0);
+  }
 
   /** Gets a set of bonuses applied to this tool, for stat building */
   public Set<FloatToolStat> getAllBonuses() {
@@ -69,17 +73,64 @@ public final class ToolBaseStatDefinition {
     modifiers.forEach((stat, value) -> stat.multiplyAll(builder, value));
   }
 
+  /**
+   * Adds the starting slots to the given mod data
+   * @param persistentModData  Mod data
+   */
+  public void buildSlots(ModDataNBT persistentModData) {
+    for (Entry<SlotType,Integer> entry : startingSlots.entrySet()) {
+      persistentModData.setSlots(entry.getKey(), entry.getValue());
+    }
+  }
+
+
+  /* Deprecated */
+
+  /** @deprecated Use {@link #getStartingSlots(SlotType)} */
+  @Deprecated
+  public int getDefaultUpgrades() {
+    return getStartingSlots(SlotType.UPGRADE);
+  }
+
+  /** @deprecated Use {@link #getStartingSlots(SlotType)} */
+  @Deprecated
+  public int getDefaultAbilities() {
+    return getStartingSlots(SlotType.ABILITY);
+  }
+
+  /** @deprecated Use {@link #getStartingSlots(SlotType)} */
+  @Deprecated
+  public int getDefaultTraits() {
+    return getStartingSlots(SlotType.TRAIT);
+  }
+
   /** Tool stat builder */
-  @Setter @Accessors(chain = true)
   public static class Builder {
+    private boolean setUpgrades = false;
+    private boolean setAbilities = false;
     // general
+    @Setter @Accessors(chain = true)
     private int primaryHeadWeight = 1;
-    private int defaultUpgrades = 3;
-    private int defaultAbilities = 1;
-    private int defaultTraits = 0;
+    private final ImmutableMap.Builder<SlotType,Integer> startingSlots = ImmutableMap.builder();
     // stats
     private final ImmutableMap.Builder<FloatToolStat,Float> bonuses = ImmutableMap.builder();
     private final ImmutableMap.Builder<FloatToolStat,Float> modifiers = ImmutableMap.builder();
+
+    /**
+     * Sets the starting slot count for the given slot
+     * @param type   Slot type
+     * @param value  Value
+     * @return  Builder
+     */
+    public Builder startingSlots(SlotType type, int value) {
+      startingSlots.put(type, value);
+      if (type == SlotType.UPGRADE) {
+        setUpgrades = true;
+      } else if (type == SlotType.ABILITY) {
+        setAbilities = true;
+      }
+      return this;
+    }
 
     /**
      * Adds a bonus to the builder, applied during tool stat creation
@@ -115,9 +166,39 @@ public final class ToolBaseStatDefinition {
       return this;
     }
 
+
+    /* Deprecated */
+
+    /** @deprecated Use {@link #startingSlots(SlotType, int)} */
+    @Deprecated
+    public Builder setDefaultUpgrades(int value) {
+      startingSlots(SlotType.UPGRADE, value);
+      return this;
+    }
+
+    /** @deprecated Use {@link #startingSlots(SlotType, int)} */
+    @Deprecated
+    public Builder setDefaultAbilities(int value) {
+      startingSlots(SlotType.ABILITY, value);
+      return this;
+    }
+
+    /** @deprecated Use {@link #startingSlots(SlotType, int)} */
+    @Deprecated
+    public Builder setDefaultTraits(int value) {
+      startingSlots(SlotType.TRAIT, value);
+      return this;
+    }
+
     /** Creates the tool stat definition */
     public ToolBaseStatDefinition build() {
-      return new ToolBaseStatDefinition(primaryHeadWeight, defaultUpgrades, defaultAbilities, defaultTraits, bonuses.build(), modifiers.build());
+      if (!setUpgrades) {
+        startingSlots.put(SlotType.UPGRADE, 3);
+      }
+      if (!setAbilities) {
+        startingSlots.put(SlotType.ABILITY, 1);
+      }
+      return new ToolBaseStatDefinition(primaryHeadWeight, startingSlots.build(), bonuses.build(), modifiers.build());
     }
   }
 }

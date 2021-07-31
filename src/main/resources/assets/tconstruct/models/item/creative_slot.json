@@ -1,0 +1,13 @@
+{
+  "loader": "tconstruct:nbt_key",
+  "parent": "forge:item/default",
+  "textures": {
+     "default": "tconstruct:item/slotless_icon",
+     "upgrades": "tconstruct:item/creative_upgrade",
+     "abilities": "tconstruct:item/creative_ability",
+     "traits": "tconstruct:item/materials/hollow_gem",
+     "armor": "tconstruct:item/creative_armor"
+  },
+  "nbt_key": "slot",
+  "extra_textures_key": "tconstruct:creative_slot"
+}

@@ -3,9 +3,11 @@
   "tools": {
     "tag": "tconstruct:modifiable/harvest/primary"
   },
+  "slots": {
+    "abilities": 1
+  },
   "modifier": "tconstruct:autosmelt",
   "min_level": 1,
-  "ability_slots": 1,
   "salvage": [
     {
       "item": "minecraft:magma_block",

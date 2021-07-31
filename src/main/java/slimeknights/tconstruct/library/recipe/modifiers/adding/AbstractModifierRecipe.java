@@ -19,9 +19,12 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -34,9 +37,9 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Error for when the tool is at the max modifier level */
   protected static final String KEY_MAX_LEVEL = TConstruct.makeTranslationKey("recipe", "modifier.max_level");
   /** Error for when the tool has too few upgrade slots */
-  protected static final String KEY_NOT_ENOUGH_UPGRADES = TConstruct.makeTranslationKey("recipe", "modifier.not_enough_upgrades");
-  /** Error for when the tool has too few ability slots */
-  protected static final String KEY_NOT_ENOUGH_ABILITIES = TConstruct.makeTranslationKey("recipe", "modifier.not_enough_abilities");
+  protected static final String KEY_NOT_ENOUGH_SLOTS = TConstruct.makeTranslationKey("recipe", "modifier.not_enough_slots");
+  /** Error for when the tool has too few upgrade slots from a single slot */
+  protected static final String KEY_NOT_ENOUGH_SLOT = TConstruct.makeTranslationKey("recipe", "modifier.not_enough_slot");
   /** Generic requirements error, for if a proper error is missing */
   protected static final ValidatedResult REQUIREMENTS_ERROR = ModifierRecipeLookup.DEFAULT_ERROR;
 
@@ -53,13 +56,13 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Maximum level of this modifier allowed */
   @Getter
   private final int maxLevel;
-  /** Required ability slots to add this modifier */
+  /** Gets the slots required by this recipe. If null, no slots required */
   @Getter
-  private final int upgradeSlots;
-  /** Required ability slots to add this modifier */
-  @Getter
-  private final int abilitySlots;
+  @Nullable
+  private final SlotCount slots;
 
+  /** @deprecated Use {@link #AbstractModifierRecipe(ResourceLocation, Ingredient, ModifierMatch, String, ModifierEntry, int, SlotCount)} */
+  @Deprecated
   protected AbstractModifierRecipe(ResourceLocation id, Ingredient toolRequirement, ModifierMatch requirements,
                                    String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots) {
     this.id = id;
@@ -68,8 +71,25 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     this.requirementsError = requirementsError;
     this.result = result;
     this.maxLevel = maxLevel;
-    this.upgradeSlots = upgradeSlots;
-    this.abilitySlots = abilitySlots;
+    if (abilitySlots > 0) {
+      this.slots = new SlotCount(SlotType.ABILITY, upgradeSlots);
+    } else if (upgradeSlots > 0) {
+      this.slots = new SlotCount(SlotType.UPGRADE, upgradeSlots);
+    } else {
+      this.slots = null;
+    }
+    ModifierRecipeLookup.addRequirements(toolRequirement, result, requirements, requirementsError);
+  }
+
+  protected AbstractModifierRecipe(ResourceLocation id, Ingredient toolRequirement, ModifierMatch requirements,
+                                   String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+    this.id = id;
+    this.toolRequirement = toolRequirement;
+    this.requirements = requirements;
+    this.requirementsError = requirementsError;
+    this.result = result;
+    this.maxLevel = maxLevel;
+    this.slots = slots;
     ModifierRecipeLookup.addRequirements(toolRequirement, result, requirements, requirementsError);
   }
 
@@ -206,11 +226,15 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       return ValidatedResult.failure(KEY_MAX_LEVEL, result.getModifier().getDisplayName(), maxLevel);
     }
     // ensure we have enough slots
-    if (tool.getFreeUpgrades() < upgradeSlots) {
-      return ValidatedResult.failure(KEY_NOT_ENOUGH_UPGRADES, upgradeSlots);
-    }
-    if (tool.getFreeAbilities() < abilitySlots) {
-      return ValidatedResult.failure(KEY_NOT_ENOUGH_ABILITIES, abilitySlots);
+    if (slots != null) {
+      int count = slots.getCount();
+      if (tool.getFreeSlots(slots.getType()) < count) {
+        if (count == 1) {
+          return ValidatedResult.failure(KEY_NOT_ENOUGH_SLOT, slots.getType().getDisplayName());
+        } else {
+          return ValidatedResult.failure(KEY_NOT_ENOUGH_SLOTS, count, slots.getType().getDisplayName());
+        }
+      }
     }
     return ValidatedResult.PASS;
   }
@@ -221,13 +245,31 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
      */
-    public abstract T read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
-                           String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots);
+    public T read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+                           String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+      int upgradeSlots = SlotCount.get(slots, SlotType.UPGRADE);
+      int abilitySlots = SlotCount.get(slots, SlotType.ABILITY);
+      return read(id, json, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+    }
 
     /**
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
      */
+    public T read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
+                  String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+      int upgradeSlots = SlotCount.get(slots, SlotType.UPGRADE);
+      int abilitySlots = SlotCount.get(slots, SlotType.ABILITY);
+      return read(id, buffer, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+    }
+
+    /** @deprecated use {@link #read(ResourceLocation, JsonObject, Ingredient, ModifierMatch, String, ModifierEntry, int, SlotCount)} */
+    @Deprecated
+    public abstract T read(ResourceLocation id, JsonObject json, Ingredient toolRequirement, ModifierMatch requirements,
+                           String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots);
+
+    /** @deprecated use {@link #read(ResourceLocation, PacketBuffer, Ingredient, ModifierMatch, String, ModifierEntry, int, SlotCount)} */
+    @Deprecated
     public abstract T read(ResourceLocation id, PacketBuffer buffer, Ingredient toolRequirement, ModifierMatch requirements,
                            String requirementsError, ModifierEntry result, int maxLevel, int upgradeSlots, int abilitySlots);
 
@@ -246,18 +288,23 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       if (maxLevel < 0) {
         throw new JsonSyntaxException("max must be non-negative");
       }
-      int upgradeSlots = JSONUtils.getInt(json, "upgrade_slots", 0);
-      if (upgradeSlots < 0) {
-        throw new JsonSyntaxException("upgrade_slots must be non-negative");
+      SlotCount slots = null;
+      if (json.has("slots")) {
+        slots = SlotCount.fromJson(JSONUtils.getJsonObject(json, "slots"));
+      } else {
+        // legacy support
+        if (json.has("upgrade_slots") && json.has("ability_slots")) {
+          throw new JsonSyntaxException("Cannot set both upgrade_slots and ability_slots");
+        }
+        if (json.has("upgrade_slots")) {
+          slots = new SlotCount(SlotType.UPGRADE, JsonUtils.getIntMin(json, "upgrade_slots", 0));
+          TConstruct.LOG.warn("Using deprecated modifier recipe key upgrade_slots for recipe " + id);
+        } else if (json.has("ability_slots")) {
+          slots = new SlotCount(SlotType.ABILITY, JsonUtils.getIntMin(json, "ability_slots", 0));
+          TConstruct.LOG.warn("Using deprecated modifier recipe key ability_slots for recipe " + id);
+        }
       }
-      int abilitySlots = JSONUtils.getInt(json, "ability_slots", 0);
-      if (abilitySlots < 0) {
-        throw new JsonSyntaxException("ability_slots must be non-negative");
-      }
-      if (upgradeSlots > 0 && abilitySlots > 0) {
-        throw new JsonSyntaxException("Cannot set both upgrade_slots and ability_slots");
-      }
-      return read(id, json, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+      return read(id, json, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
     }
 
     @Override
@@ -267,9 +314,8 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       String requirementsError = buffer.readString(Short.MAX_VALUE);
       ModifierEntry result = ModifierEntry.read(buffer);
       int maxLevel = buffer.readVarInt();
-      int upgradeSlots = buffer.readVarInt();
-      int abilitySlots = buffer.readVarInt();
-      return read(id, buffer, toolRequirement, requirements, requirementsError, result, maxLevel, upgradeSlots, abilitySlots);
+      SlotCount slots = SlotCount.read(buffer);
+      return read(id, buffer, toolRequirement, requirements, requirementsError, result, maxLevel, slots);
     }
 
     /** Writes relevant packet data. When overriding, call super first for consistency with {@link #read(ResourceLocation, PacketBuffer)} */
@@ -280,8 +326,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       buffer.writeString(recipe.requirementsError);
       recipe.result.write(buffer);
       buffer.writeVarInt(recipe.getMaxLevel());
-      buffer.writeVarInt(recipe.getUpgradeSlots());
-      buffer.writeVarInt(recipe.getAbilitySlots());
+      SlotCount.write(recipe.getSlots(), buffer);
     }
   }
 }

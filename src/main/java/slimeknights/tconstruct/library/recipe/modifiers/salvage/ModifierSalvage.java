@@ -11,9 +11,11 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.recipe.RandomItem;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
+import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -25,8 +27,8 @@ public class ModifierSalvage extends AbstractModifierSalvage {
   /** List of random items that may be returned by this */
   private final List<RandomItem> result;
 
-  public ModifierSalvage(ResourceLocation id, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, List<RandomItem> result, int upgradeSlots, int abilitySlots) {
-    super(id, toolIngredient, modifier, minLevel, maxLevel, upgradeSlots, abilitySlots);
+  public ModifierSalvage(ResourceLocation id, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, List<RandomItem> result, @Nullable SlotCount slots) {
+    super(id, toolIngredient, modifier, minLevel, maxLevel, slots);
     this.result = result;
     ModifierRecipeLookup.addSalvage(this);
   }
@@ -49,22 +51,22 @@ public class ModifierSalvage extends AbstractModifierSalvage {
   /** Serializer instance */
   public static class Serializer extends AbstractModifierSalvage.AbstractSerializer<ModifierSalvage> {
     @Override
-    protected ModifierSalvage read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, int upgradeSlots, int abilitySlots) {
+    protected ModifierSalvage read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       List<RandomItem> result = ImmutableList.of();
       if (json.has("salvage")) {
         result = JsonHelper.parseList(json, "salvage", RandomItem::fromJson);
       }
-      return new ModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, upgradeSlots, abilitySlots);
+      return new ModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, slots);
     }
 
     @Override
-    protected ModifierSalvage read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, int upgradeSlots, int abilitySlots) {
+    protected ModifierSalvage read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       ImmutableList.Builder<RandomItem> result = ImmutableList.builder();
       int count = buffer.readVarInt();
       for (int i = 0; i < count; i++) {
         result.add(RandomItem.read(buffer));
       }
-      return new ModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result.build(), upgradeSlots, abilitySlots);
+      return new ModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result.build(), slots);
     }
 
     @Override

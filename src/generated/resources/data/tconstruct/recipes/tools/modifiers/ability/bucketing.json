@@ -34,10 +34,12 @@
   "tools": {
     "tag": "tconstruct:modifiable/melee_or_harvest"
   },
+  "slots": {
+    "abilities": 1
+  },
   "result": {
     "name": "tconstruct:bucketing",
     "level": 1
   },
-  "max_level": 1,
-  "ability_slots": 1
+  "max_level": 1
 }

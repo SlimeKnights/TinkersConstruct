@@ -63,6 +63,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
@@ -91,6 +92,8 @@ import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -264,6 +267,10 @@ public class JEIPlugin implements IModPlugin {
     }
 
     registry.registerSubtypeInterpreter(TinkerSmeltery.copperCan.get(), CopperCanItem::getSubtype);
+    registry.registerSubtypeInterpreter(TinkerModifiers.creativeSlotItem.get(), stack -> {
+      SlotType slotType = CreativeSlotItem.getSlot(stack);
+      return slotType != null ? slotType.getName() : "";
+    });
   }
 
   @Override
