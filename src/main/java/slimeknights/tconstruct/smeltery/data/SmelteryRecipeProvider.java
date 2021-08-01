@@ -992,9 +992,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(ItemTags.PLANKS, true)
                             .build(consumer, modResource(folder + "obsidian/nahuatl"));
     // overworld stones from quartz
-    ItemCastingRecipeBuilder.basinRecipe(Blocks.DIORITE)
-                            .setFluidAndTime(TinkerFluids.moltenQuartz, FluidValues.GEM)
+    ItemCastingRecipeBuilder.basinRecipe(Blocks.ANDESITE)
+                            .setFluidAndTime(TinkerFluids.moltenQuartz, FluidValues.GEM / 2)
                             .setCast(Tags.Items.COBBLESTONE, true)
+                            .build(consumer, prefix(Blocks.ANDESITE, folder + "quartz/"));
+    ItemCastingRecipeBuilder.basinRecipe(Blocks.DIORITE)
+                            .setFluidAndTime(TinkerFluids.moltenQuartz, FluidValues.GEM / 2)
+                            .setCast(Blocks.ANDESITE, true)
                             .build(consumer, prefix(Blocks.DIORITE, folder + "quartz/"));
     ItemCastingRecipeBuilder.basinRecipe(Blocks.GRANITE)
                             .setFluidAndTime(TinkerFluids.moltenQuartz, FluidValues.GEM)
@@ -1348,7 +1352,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .build(consumer, modResource(folder + "netherite/shovel"));
 
     // quartz
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.OBSERVER, Blocks.COMPARATOR, TinkerGadgets.quartzShuriken), TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 3)
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.OBSERVER, Blocks.COMPARATOR, TinkerGadgets.quartzShuriken), TinkerFluids.moltenQuartz.get(), FluidValues.GEM)
                         .build(consumer, modResource(folder + "quartz/gem_1"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Blocks.DAYLIGHT_DETECTOR), TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 3)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK * 3))
@@ -1399,8 +1403,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .build(consumer, modResource(slimeFolder + "sky/sapling"));
     MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerWorld.slimeSapling.get(SlimeType.ENDER)), TinkerFluids.enderSlime.get(), FluidValues.SLIMEBALL)
                         .build(consumer, modResource(slimeFolder + "ender/sapling"));
-    MeltingRecipeBuilder.melting(Ingredient.fromItems(TinkerWorld.slimeSapling.get(SlimeType.BLOOD)), TinkerFluids.blood.get(), FluidValues.SLIMEBALL)
-                        .build(consumer, modResource(slimeFolder + "blood/sapling"));
 
     // fuels
     MeltingFuelBuilder.fuel(new FluidStack(Fluids.LAVA, 50), 100)
