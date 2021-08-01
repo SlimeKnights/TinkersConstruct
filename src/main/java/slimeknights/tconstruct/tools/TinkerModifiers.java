@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
@@ -124,7 +125,7 @@ public final class TinkerModifiers extends TinkerModule {
    * Blocks
    */
   // material
-  public static final ItemObject<Block> silkyJewelBlock = BLOCKS.register("silky_jewel_block", GENERIC_GEM_BLOCK, HIDDEN_BLOCK_ITEM);
+  public static final ItemObject<Block> silkyJewelBlock = BLOCKS.register("silky_jewel_block", metalBuilder(MaterialColor.GOLD), HIDDEN_BLOCK_ITEM);
 
   /*
    * Items

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
@@ -61,14 +62,6 @@ public abstract class TinkerModule {
   protected static final DeferredRegister<Modifier> MODIFIERS = DeferredRegister.create(Modifier.class, TConstruct.MOD_ID);
   protected static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, TConstruct.MOD_ID);
 
-  // base block properties
-  protected static final Block.Properties GENERIC_SAND_BLOCK = builder(Material.SAND, ToolType.SHOVEL, SoundType.SAND).hardnessAndResistance(3.0f).slipperiness(0.8F);
-  protected static final Block.Properties GENERIC_METAL_BLOCK = builder(Material.IRON, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(5.0f);
-  protected static final Block.Properties GENERIC_GEM_BLOCK = GENERIC_METAL_BLOCK;
-  protected static final Block.Properties GENERIC_GLASS_BLOCK = builder(Material.GLASS, ToolType.PICKAXE, SoundType.GLASS)
-    .setRequiresTool().hardnessAndResistance(0.3F).notSolid().setAllowsSpawn(Blocks::neverAllowSpawn)
-    .setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
-
   /** Creative tab for items that do not fit in another tab */
   @SuppressWarnings("WeakerAccess")
   public static final ItemGroup TAB_GENERAL = new SupplierItemGroup(TConstruct.MOD_ID, "general", () -> new ItemStack(TinkerCommons.slimeball.get(SlimeType.SKY)));
@@ -120,17 +113,32 @@ public abstract class TinkerModule {
    * It may be a bit less clear at first, since the actual builder methods tell you what each value means,
    * but as long as we don't statically import the enums it should be just as readable.
    */
-  protected static Block.Properties builder(Material material, @Nullable ToolType toolType, SoundType soundType) {
+  protected static AbstractBlock.Properties builder(Material material, @Nullable ToolType toolType, SoundType soundType) {
     //noinspection ConstantConditions
     return Block.Properties.create(material).harvestTool(toolType).sound(soundType);
   }
 
-  /**
-   * Same as above, but with a color
-   */
-  protected static Block.Properties builder(Material material, MaterialColor color, @Nullable ToolType toolType, SoundType soundType) {
+  /** Same as above, but with a color */
+  protected static AbstractBlock.Properties builder(Material material, MaterialColor color, @Nullable ToolType toolType, SoundType soundType) {
     //noinspection ConstantConditions
     return Block.Properties.create(material, color).harvestTool(toolType).sound(soundType);
+  }
+
+  /** Builder that pre-supplies metal properties */
+  protected static AbstractBlock.Properties metalBuilder(MaterialColor color) {
+    return builder(Material.IRON, color, ToolType.PICKAXE, SoundType.METAL).setRequiresTool().hardnessAndResistance(5.0f);
+  }
+
+  /** Builder that pre-supplies glass properties */
+  protected static AbstractBlock.Properties glassBuilder(MaterialColor color) {
+    return builder(Material.GLASS, ToolType.PICKAXE, SoundType.GLASS)
+      .setRequiresTool().hardnessAndResistance(0.3F).notSolid().setAllowsSpawn(Blocks::neverAllowSpawn)
+      .setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
+  }
+
+  /** Builder that pre-supplies glass properties */
+  protected static AbstractBlock.Properties woodBuilder(MaterialColor color) {
+    return builder(Material.WOOD, color, ToolType.AXE, SoundType.WOOD).setRequiresTool().hardnessAndResistance(2.0F, 7.0F);
   }
 
   /**

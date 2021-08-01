@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class Util {
@@ -65,6 +66,13 @@ public class Util {
    */
   public static String makeTranslationKey(String base, ResourceLocation name) {
     return net.minecraft.util.Util.makeTranslationKey(base, name);
+  }
+
+  /**
+   * Same as {@link net.minecraft.util.Util#make(Supplier)}
+   */
+  public static <T> T make(Supplier<T> supplier) {
+    return supplier.get();
   }
 
   /**

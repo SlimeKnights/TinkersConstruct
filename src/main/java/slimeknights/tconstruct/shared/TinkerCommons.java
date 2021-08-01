@@ -57,18 +57,17 @@ public final class TinkerCommons extends TinkerModule {
   public static final RegistryObject<GlowBlock> glow = BLOCKS.registerNoItem("glow", () -> new GlowBlock(builder(GLOW, NO_TOOL, SoundType.CLOTH).hardnessAndResistance(0.0F).setLightLevel(s -> 14).notSolid()));
   public static final BuildingBlockObject mudBricks = BLOCKS.registerBuilding("mud_bricks", builder(Material.EARTH, ToolType.SHOVEL, SoundType.GROUND).setRequiresTool().hardnessAndResistance(2.0F), GENERAL_BLOCK_ITEM);
   // glass
-  public static final ItemObject<GlassBlock> clearGlass = BLOCKS.register("clear_glass", () -> new GlassBlock(GENERIC_GLASS_BLOCK), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<ClearGlassPaneBlock> clearGlassPane = BLOCKS.register("clear_glass_pane", () -> new ClearGlassPaneBlock(GENERIC_GLASS_BLOCK), GENERAL_BLOCK_ITEM);
-  public static final EnumObject<GlassColor,ClearStainedGlassBlock> clearStainedGlass = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(GENERIC_GLASS_BLOCK, color), GENERAL_BLOCK_ITEM);
-  public static final EnumObject<GlassColor,ClearStainedGlassPaneBlock> clearStainedGlassPane = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass_pane", (color) -> new ClearStainedGlassPaneBlock(GENERIC_GLASS_BLOCK, color), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<GlassBlock> soulGlass = BLOCKS.register("soul_glass", () -> new GlassBlock(GENERIC_GLASS_BLOCK), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<ClearGlassPaneBlock> soulGlassPane = BLOCKS.register("soul_glass_pane", () -> new ClearGlassPaneBlock(GENERIC_GLASS_BLOCK), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<GlassBlock> clearGlass = BLOCKS.register("clear_glass", () -> new GlassBlock(glassBuilder(MaterialColor.AIR)), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<ClearGlassPaneBlock> clearGlassPane = BLOCKS.register("clear_glass_pane", () -> new ClearGlassPaneBlock(glassBuilder(MaterialColor.AIR)), GENERAL_BLOCK_ITEM);
+  public static final EnumObject<GlassColor,ClearStainedGlassBlock> clearStainedGlass = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(glassBuilder(color.getDye().getMapColor()), color), GENERAL_BLOCK_ITEM);
+  public static final EnumObject<GlassColor,ClearStainedGlassPaneBlock> clearStainedGlassPane = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass_pane", (color) -> new ClearStainedGlassPaneBlock(glassBuilder(color.getDye().getMapColor()), color), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<GlassBlock> soulGlass = BLOCKS.register("soul_glass", () -> new GlassBlock(glassBuilder(MaterialColor.BROWN)), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<ClearGlassPaneBlock> soulGlassPane = BLOCKS.register("soul_glass_pane", () -> new ClearGlassPaneBlock(glassBuilder(MaterialColor.BROWN)), GENERAL_BLOCK_ITEM);
   // wood
-  private static final Block.Properties WOOD = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).setRequiresTool().hardnessAndResistance(2.0F, 7.0F).setLightLevel(s -> 7);
-  public static final BuildingBlockObject lavawood = BLOCKS.registerBuilding("lavawood", WOOD, GENERAL_BLOCK_ITEM);
-  public static final BuildingBlockObject blazewood = BLOCKS.registerBuilding("blazewood", WOOD, GENERAL_BLOCK_ITEM);
+  public static final BuildingBlockObject lavawood = BLOCKS.registerBuilding("lavawood", woodBuilder(MaterialColor.ADOBE).setLightLevel(s -> 7), GENERAL_BLOCK_ITEM);
+  public static final BuildingBlockObject blazewood = BLOCKS.registerBuilding("blazewood", woodBuilder(MaterialColor.RED_TERRACOTTA).setLightLevel(s -> 7), GENERAL_BLOCK_ITEM);
 
-  public static final ItemObject<Block> obsidianPane = BLOCKS.register("obsidian_pane", () -> new BetterPaneBlock(builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).setRequiresTool().notSolid().hardnessAndResistance(25.0F, 400.0F)), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<Block> obsidianPane = BLOCKS.register("obsidian_pane", () -> new BetterPaneBlock(builder(Material.ROCK, MaterialColor.OBSIDIAN, ToolType.PICKAXE, SoundType.STONE).setRequiresTool().notSolid().hardnessAndResistance(25.0F, 400.0F)), GENERAL_BLOCK_ITEM);
 
   /*
    * Items

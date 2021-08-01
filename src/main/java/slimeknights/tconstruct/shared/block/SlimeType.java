@@ -2,6 +2,7 @@ package slimeknights.tconstruct.shared.block;
 
 import lombok.Getter;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
@@ -11,11 +12,11 @@ import java.util.Locale;
 
 @Getter
 public enum SlimeType implements IStringSerializable {
-  EARTH(0x01cd4e, 0x8CD782, false),
-  SKY(0x01cbcd, 0x00F4DA, false),
-  ICHOR(0xff970d, 0xd09800, true, 10),
-  ENDER(0xaf4cf6, 0xa92dff, false),
-  BLOOD(0xb50101, 0xb80000, true);
+  EARTH(0x01cd4e, 0x8CD782, MaterialColor.GRASS, false),
+  SKY(0x01cbcd, 0x00F4DA, MaterialColor.DIAMOND, false),
+  ICHOR(0xff970d, 0xd09800, MaterialColor.ADOBE, true, 10),
+  ENDER(0xaf4cf6, 0xa92dff, MaterialColor.PURPLE, false),
+  BLOOD(0xb50101, 0xb80000, MaterialColor.RED, true);
 
   /** Slime types added by the mod */
   public static final SlimeType[] TINKER = {SKY, ENDER, BLOOD, ICHOR};
@@ -32,6 +33,8 @@ public enum SlimeType implements IStringSerializable {
   private final int color;
   /** Default color for this foliage, used in inventory */
   private final int defaultFoliageColor;
+
+  private final MaterialColor mapColor;
   /** If true, this block type has fungus foliage instead of grass */
   private final boolean nether;
   /** Light level of slime blocks of this type */
@@ -45,9 +48,10 @@ public enum SlimeType implements IStringSerializable {
   /** Tag for slime balls of this type */
   private final IOptionalNamedTag<Item> slimeballTag;
 
-  SlimeType(int color, int defaultFoliageColor, boolean nether, int lightLevel) {
+  SlimeType(int color, int defaultFoliageColor, MaterialColor mapColor, boolean nether, int lightLevel) {
     this.color = color;
     this.defaultFoliageColor = defaultFoliageColor;
+    this.mapColor = mapColor;
     this.nether = nether;
     this.lightLevel = lightLevel;
     // tags
@@ -57,8 +61,8 @@ public enum SlimeType implements IStringSerializable {
     slimeballTag = TinkerTags.Items.forgeTag("slimeball/" + name);
   }
 
-  SlimeType(int color, int defaultFoliageColor, boolean nether) {
-    this(color, defaultFoliageColor, nether, 0);
+  SlimeType(int color, int defaultFoliageColor, MaterialColor mapColor, boolean nether) {
+    this(color, defaultFoliageColor, mapColor, nether, 0);
   }
 
   @Override
