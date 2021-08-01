@@ -662,16 +662,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .buildSalvage(consumer, prefix(TinkerModifiers.draconic, slotlessSalvage))
                          .build(consumer, wrap(TinkerModifiers.draconic, slotlessFolder, "_from_scales"));
     // creative
-    // I am not adding a recipe for creative modifiers, nope. don't want the gift from the server admin to be abused as a upgrade source
-    ModifierRecipeBuilder.modifier(TinkerModifiers.creativeUpgrade.get())
-                         .addInput(TinkerModifiers.creativeUpgradeItem)
-                         .build(consumer, prefix(TinkerModifiers.creativeUpgrade, slotlessFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.creativeAbility.get())
-                         .addInput(TinkerModifiers.creativeAbilityItem)
-                         .build(consumer, prefix(TinkerModifiers.creativeAbility, slotlessFolder));
+    // no salvage. I am not adding a recipe for creative modifiers, nope. don't want the gift from the server admin to be abused as a upgrade source
+    CustomRecipeBuilder.customRecipe(TinkerModifiers.creativeSlotSerializer.get()).build(consumer, slotlessFolder + "creative_slot");
 
     // removal
-    // temporary removal recipe until a proper table is aadded
+    // temporary removal recipe until a proper table is added
     ModifierRemovalRecipe.Builder.removal(Ingredient.fromItems(Blocks.WET_SPONGE), new ItemStack(Blocks.SPONGE))
                                  .build(consumer, modResource(slotlessFolder + "remove_modifier"));
   }

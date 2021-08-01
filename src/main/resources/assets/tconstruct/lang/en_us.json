@@ -213,11 +213,6 @@
   "item.tconstruct.creative_slot.missing": "Missing or invalid NBT defining the slot type",
   "item.tconstruct.creative_slot.tooltip": "Adds an additional %s slot to a tool",
 
-  "item.tconstruct.creative_upgrade": "Creative Upgrade",
-  "item.tconstruct.creative_upgrade.tooltip": "Adds an additional upgrade slot to a tool",
-  "item.tconstruct.creative_ability": "Creative Ability",
-  "item.tconstruct.creative_ability.tooltip": "Adds an additional ability slot to a tool",
-
   "item.tconstruct.copper_can": "Copper Can",
   "item.tconstruct.copper_can.tooltip": "Stackable container holding 1 ingot of fluid",
   "item.tconstruct.copper_can.contents": "Contains: 1 ingot %s",
@@ -1477,12 +1472,10 @@
   "modifier.tconstruct.bucketing.description": "Tool can pickup liquid, or place it when crouching",
 
   "_comment": "Bonus modifier slots",
-  "modifier.tconstruct.creative_upgrade": "Creative Upgrade",
-  "modifier.tconstruct.creative_upgrade.flavor": "Dirty Cheater!",
-  "modifier.tconstruct.creative_upgrade.description": "Cheated in additional upgrade slots",
-  "modifier.tconstruct.creative_ability": "Creative Ability",
-  "modifier.tconstruct.creative_ability.flavor": "Throne of Lies!",
-  "modifier.tconstruct.creative_ability.description": "Tool sits on unearned extra ability slots",
+  "modifier.tconstruct.creative_slot": "Creative Slot",
+  "modifier.tconstruct.creative_slot.prefix": "Creative: ",
+  "modifier.tconstruct.creative_slot.flavor": "Dirty Cheater!",
+  "modifier.tconstruct.creative_slot.description": "Cheated in additional modifier slots",
 
   "__comment": "Free Modifiers",
   "modifier.tconstruct.writable": "Writable",
@@ -1514,6 +1507,9 @@
   "modifier.tconstruct.blue_extra_upgrade": "Blue Extra Upgrade",
   "modifier.tconstruct.blue_extra_upgrade.flavor": "For modpacks!",
   "modifier.tconstruct.blue_extra_upgrade.description": "Ask your modpack maker to provide a resource pack giving this better lore",
+  "modifier.tconstruct.extra_ability": "Extra Ability",
+  "modifier.tconstruct.extra_ability.flavor": "For modpacks!",
+  "modifier.tconstruct.extra_ability.description": "Ask your modpack maker to provide a resource pack giving this better lore",
 
 
   "__comment": "Tier 1 Traits",

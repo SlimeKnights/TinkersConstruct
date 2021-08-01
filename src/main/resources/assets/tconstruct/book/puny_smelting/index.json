@@ -48,7 +48,10 @@
     "data": "sections/upgrades.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_upgrade"
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "upgrades"
+        }
       }
     }
   },
@@ -57,7 +60,7 @@
     "data": "sections/slotless.json",
     "icon": {
       "item": {
-        "id": "tconstruct:sky_slime_crystal"
+        "id": "tconstruct:creative_slot"
       }
     }
   }

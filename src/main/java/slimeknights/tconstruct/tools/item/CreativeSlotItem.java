@@ -39,7 +39,7 @@ public class CreativeSlotItem extends Item {
   }
 
   /** Makes an item stack with the given slot type */
-  private static ItemStack withSlot(ItemStack stack, SlotType type) {
+  public static ItemStack withSlot(ItemStack stack, SlotType type) {
     stack.getOrCreateTag().putString(NBT_KEY, type.getName());
     return stack;
   }

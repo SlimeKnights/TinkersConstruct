@@ -75,7 +75,10 @@
     "data": "sections/upgrades.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_upgrade"
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "upgrades"
+        }
       }
     }
   },
@@ -84,7 +87,7 @@
     "data": "sections/slotless.json",
     "icon": {
       "item": {
-        "id": "tconstruct:earth_slime_crystal"
+        "id": "tconstruct:creative_slot"
       }
     }
   },
@@ -93,7 +96,10 @@
     "data": "sections/abilities.json",
     "icon": {
       "item": {
-        "id": "tconstruct:creative_ability"
+        "id": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "abilities"
+        }
       }
     }
   }

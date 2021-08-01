@@ -204,6 +204,8 @@ public class TConstruct {
         case "dried_brick": return Items.BRICK;
         // removed ancient heads, use netherite directly
         case "ancient_axe_head": case "ancient_shovel_head": case "ancient_hoe_head": return Items.NETHERITE_SCRAP;
+        // creative slot revamp
+        case "creative_upgrade": case "creative_ability": return TinkerModifiers.creativeSlotItem.get();
       }
       IItemProvider block = missingBlock(name);
       return block == null ? null : block.asItem();
@@ -237,6 +239,9 @@ public class TConstruct {
         case "beheading": return TinkerModifiers.severing.get();
         case "bane_of_arthropods": return TinkerModifiers.baneOfSssss.get();
         case "duel_wielding": return TinkerModifiers.dualWielding.get();
+        // creative modifier remake
+        case "creative_upgrade": return TinkerModifiers.redExtraUpgrade.get();
+        case "creative_ability": return TinkerModifiers.extraAbility.get();
       }
       return null;
     });

@@ -37,6 +37,7 @@ import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.plugin.jei.JEIPlugin;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 
 import javax.annotation.Nullable;
 import java.awt.Color;
@@ -72,7 +73,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     this.title = ForgeI18n.getPattern(KEY_TITLE);
     this.maxPrefix = ForgeI18n.getPattern(KEY_MAX);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 128, 77);
-    this.icon = helper.createDrawableIngredient(new ItemStack(TinkerModifiers.creativeUpgradeItem));
+    this.icon = helper.createDrawableIngredient(CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE));
     this.slotIcons = new IDrawable[6];
     for (int i = 0; i < 6; i++) {
       slotIcons[i] = helper.createDrawable(BACKGROUND_LOC, 128 + i * 16, 0, 16, 16);
