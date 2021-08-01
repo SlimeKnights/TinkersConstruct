@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.SlimeRenderer;
+import net.minecraft.item.Items;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
@@ -22,6 +23,7 @@ import slimeknights.tconstruct.library.client.particle.SlimeParticle;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.client.SlimeColorReloadListener;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
+import slimeknights.tconstruct.world.client.TerracubeRenderer;
 import slimeknights.tconstruct.world.client.TinkerSlimeRenderer;
 
 import javax.annotation.Nullable;
@@ -42,6 +44,7 @@ public class WorldClientEvents extends ClientEventBase {
   static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
     Minecraft.getInstance().particles.registerFactory(TinkerWorld.skySlimeParticle.get(), new SlimeParticle.Factory(SlimeType.SKY));
     Minecraft.getInstance().particles.registerFactory(TinkerWorld.enderSlimeParticle.get(), new SlimeParticle.Factory(SlimeType.ENDER));
+    Minecraft.getInstance().particles.registerFactory(TinkerWorld.terracubeParticle.get(), new SlimeParticle.Factory(Items.CLAY_BALL));
   }
 
   @SubscribeEvent
@@ -49,6 +52,7 @@ public class WorldClientEvents extends ClientEventBase {
     RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.earthSlimeEntity.get(), SlimeRenderer::new);
     RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.skySlimeEntity.get(), TinkerSlimeRenderer.SKY_SLIME_FACTORY);
     RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.enderSlimeEntity.get(), TinkerSlimeRenderer.ENDER_SLIME_FACTORY);
+    RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.terracubeEntity.get(), TerracubeRenderer.TERRACUBE_RENDERER);
 
     RenderType cutout = RenderType.getCutout();
     RenderType cutoutMipped = RenderType.getCutoutMipped();

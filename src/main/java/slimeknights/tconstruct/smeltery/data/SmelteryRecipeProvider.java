@@ -1558,6 +1558,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                               .build(consumer, prefix(TinkerWorld.skySlimeEntity, folder));
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(TinkerWorld.enderSlimeEntity.get()), new FluidStack(TinkerFluids.enderSlime.get(), FluidValues.SLIMEBALL / 10))
                               .build(consumer, prefix(TinkerWorld.enderSlimeEntity, folder));
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(TinkerWorld.terracubeEntity.get()), new FluidStack(TinkerFluids.moltenClay.get(), FluidValues.SLIMEBALL / 10))
+                              .build(consumer, prefix(TinkerWorld.terracubeEntity, folder));
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.MAGMA_CUBE), new FluidStack(TinkerFluids.magma.get(), FluidValues.SLIMEBALL / 10))
                               .build(consumer, prefix(EntityType.MAGMA_CUBE, folder));
 

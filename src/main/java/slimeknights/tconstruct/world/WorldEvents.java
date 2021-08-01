@@ -8,7 +8,6 @@ import net.minecraft.loot.RandomValueRange;
 import net.minecraft.loot.functions.SetCount;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.MobSpawnInfo;
@@ -42,7 +41,8 @@ public class WorldEvents {
   static void onBiomeLoad(BiomeLoadingEvent event) {
     BiomeGenerationSettingsBuilder generation = event.getGeneration();
 
-    if (event.getCategory() == Biome.Category.NETHER) {
+    Category category = event.getCategory();
+    if (category == Category.NETHER) {
       if (Config.COMMON.generateBloodIslands.get()) {
         generation.withStructure(TinkerStructures.BLOOD_SLIME_ISLAND);
       }
@@ -52,17 +52,17 @@ public class WorldEvents {
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, TinkerWorld.COBALT_ORE_FEATURE_LARGE);
       }
     }
-    else if (event.getCategory() != Biome.Category.THEEND) {
+    else if (category != Category.THEEND) {
       // normal sky islands
       if (Config.COMMON.generateSkySlimeIslands.get()) {
         generation.withStructure(TinkerStructures.SKY_SLIME_ISLAND);
         event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 15, 2, 4));
       }
-      if (Config.COMMON.generateSkySlimeIslands.get()) {
+      if (Config.COMMON.generateClayIslands.get() && category != Category.TAIGA && category != Category.JUNGLE && category != Category.FOREST && category != Category.OCEAN && category != Category.SWAMP) {
         generation.withStructure(TinkerStructures.CLAY_ISLAND);
       }
       // ocean islands
-      if (event.getCategory() == Category.OCEAN && Config.COMMON.generateEarthSlimeIslands.get()) {
+      if (category == Category.OCEAN && Config.COMMON.generateEarthSlimeIslands.get()) {
         generation.withStructure(TinkerStructures.EARTH_SLIME_ISLAND);
         event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.earthSlimeEntity.get(), 15, 2, 4));
       }
@@ -71,7 +71,7 @@ public class WorldEvents {
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, TinkerWorld.COPPER_ORE_FEATURE);
       }
     }
-    else if (event.getCategory() == Biome.Category.THEEND && !doesNameMatchBiomes(event.getName(), Biomes.THE_END, Biomes.THE_VOID)) {
+    else if (!doesNameMatchBiomes(event.getName(), Biomes.THE_END, Biomes.THE_VOID)) {
       if (Config.COMMON.generateEndSlimeIslands.get()) {
         generation.withStructure(TinkerStructures.END_SLIME_ISLAND);
         event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.enderSlimeEntity.get(), 15, 2, 4));

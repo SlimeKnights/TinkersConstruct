@@ -7,6 +7,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraft.util.IItemProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -28,11 +29,16 @@ public class SlimeParticle extends BreakingParticle {
 
   @RequiredArgsConstructor
   public static class Factory implements IParticleFactory<BasicParticleType> {
-    private final SlimeType type;
+    private final IItemProvider slime;
+
+    public Factory(SlimeType type) {
+      this.slime = TinkerCommons.slimeball.get(type);
+    }
+
     @Nullable
     @Override
     public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-      return new SlimeParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, new ItemStack(TinkerCommons.slimeball.get(type)));
+      return new SlimeParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, new ItemStack(slime));
     }
   }
 }

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common.data.loot;
 
 import net.minecraft.data.loot.EntityLootTables;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.Items;
 import net.minecraft.loot.ConstantRange;
 import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootPool;
@@ -32,6 +33,12 @@ public class EntityLootTableProvider extends EntityLootTables {
     this.registerLootTable(TinkerWorld.earthSlimeEntity.get(), dropSlimeballs(SlimeType.EARTH));
     this.registerLootTable(TinkerWorld.skySlimeEntity.get(), dropSlimeballs(SlimeType.SKY));
     this.registerLootTable(TinkerWorld.enderSlimeEntity.get(), dropSlimeballs(SlimeType.ENDER));
+    this.registerLootTable(TinkerWorld.terracubeEntity.get(),
+                           LootTable.builder().addLootPool(LootPool.builder()
+                                                                   .rolls(ConstantRange.of(1))
+                                                                   .addEntry(ItemLootEntry.builder(Items.CLAY_BALL)
+                                                                                          .acceptFunction(SetCount.builder(RandomValueRange.of(-2.0F, 1.0F)))
+                                                                                          .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
   }
 
   private static LootTable.Builder dropSlimeballs(SlimeType type) {

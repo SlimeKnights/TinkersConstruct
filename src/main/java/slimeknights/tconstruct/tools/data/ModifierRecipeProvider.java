@@ -717,6 +717,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, modResource(folder + "skyslime_ball"));
     SeveringRecipeBuilder.severing(EntityIngredient.of(TinkerWorld.enderSlimeEntity.get()), TinkerCommons.slimeball.get(SlimeType.ENDER))
                          .build(consumer, modResource(folder + "enderslime_ball"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(TinkerWorld.terracubeEntity.get()), Items.CLAY_BALL)
+                         .build(consumer, modResource(folder + "terracube_clay"));
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.MAGMA_CUBE), Items.MAGMA_CREAM)
                          .build(consumer, modResource(folder + "magma_cream"));
     // descaling? I don't know what to call those

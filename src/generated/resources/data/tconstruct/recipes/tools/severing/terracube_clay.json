@@ -1,0 +1,7 @@
+{
+  "type": "tconstruct:severing",
+  "entity": {
+    "type": "tconstruct:terracube"
+  },
+  "result": "minecraft:clay_ball"
+}
