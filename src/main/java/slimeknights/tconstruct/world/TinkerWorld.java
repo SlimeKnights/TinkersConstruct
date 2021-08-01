@@ -64,6 +64,7 @@ import slimeknights.tconstruct.world.block.StickySlimeBlock;
 import slimeknights.tconstruct.world.data.WorldRecipeProvider;
 import slimeknights.tconstruct.world.entity.EnderSlimeEntity;
 import slimeknights.tconstruct.world.entity.SkySlimeEntity;
+import slimeknights.tconstruct.world.entity.SlimePlacementPredicate;
 import slimeknights.tconstruct.world.entity.TerracubeEntity;
 import slimeknights.tconstruct.world.item.SlimeGrassSeedItem;
 import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
@@ -251,9 +252,9 @@ public final class TinkerWorld extends TinkerModule {
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
-    EntitySpawnPlacementRegistry.register(earthSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, SkySlimeEntity::canSpawnHere);
-    EntitySpawnPlacementRegistry.register(skySlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, SkySlimeEntity::canSpawnHere);
-    EntitySpawnPlacementRegistry.register(enderSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, SkySlimeEntity::canSpawnHere);
+    EntitySpawnPlacementRegistry.register(earthSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, new SlimePlacementPredicate<>(SlimeType.EARTH));
+    EntitySpawnPlacementRegistry.register(skySlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, new SlimePlacementPredicate<>(SlimeType.SKY));
+    EntitySpawnPlacementRegistry.register(enderSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, new SlimePlacementPredicate<>(SlimeType.ENDER));
     EntitySpawnPlacementRegistry.register(terracubeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, TerracubeEntity::canSpawnHere);
 
     // compostables

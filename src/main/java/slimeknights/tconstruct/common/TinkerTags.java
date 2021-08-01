@@ -101,7 +101,8 @@ public class TinkerTags {
     // ceramics compat
     public static final IOptionalNamedTag<Block> CISTERN_CONNECTIONS = BlockTags.createOptional(new ResourceLocation("ceramics", "cistern_connections"));
 
-    private static IOptionalNamedTag<Block> tag(String name) {
+    /** Makes a tag in the tinkers domain */
+    public static IOptionalNamedTag<Block> tag(String name) {
       return BlockTags.createOptional(TConstruct.getResource(name));
     }
 
@@ -133,12 +134,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Item> SEARED_BRICKS = tag("seared_bricks");
     public static final IOptionalNamedTag<Item> SCORCHED_BLOCKS = tag("scorched_blocks");
-
-    public static final IOptionalNamedTag<Item> EARTH_SLIMEBALL = forgeTag("slimeball/green");
-    public static final IOptionalNamedTag<Item> SKY_SLIMEBALL = forgeTag("slimeball/sky");
-    public static final IOptionalNamedTag<Item> ICHOR_SLIMEBALL = forgeTag("slimeball/ichor");
-    public static final IOptionalNamedTag<Item> ENDER_SLIMEBALL = forgeTag("slimeball/ender");
-    public static final IOptionalNamedTag<Item> BLOOD_SLIMEBALL = forgeTag("slimeball/blood");
 
     public static final IOptionalNamedTag<Item> NUGGETS_NETHERITE = forgeTag("nuggets/netherite");
     public static final IOptionalNamedTag<Item> INGOTS_NETHERITE_SCRAP = forgeTag("ingots/netherite_scrap");
@@ -215,12 +210,13 @@ public class TinkerTags {
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final IOptionalNamedTag<Item> SCYTHES = forgeTag("tools/scythe");
 
-
+    /** Makes a tag in the tinkers domain */
     private static IOptionalNamedTag<Item> tag(String name) {
       return ItemTags.createOptional(TConstruct.getResource(name));
     }
 
-    private static IOptionalNamedTag<Item> forgeTag(String name) {
+    /** Makes a tag in the forge domain */
+    public static IOptionalNamedTag<Item> forgeTag(String name) {
       return ItemTags.createOptional(new ResourceLocation("forge", name));
     }
   }

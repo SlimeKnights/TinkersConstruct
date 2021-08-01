@@ -31,10 +31,10 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
     // Add recipe for all slimeball <-> congealed and slimeblock <-> slimeball
     // only earth slime recipe we need here slime
     ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(SlimeType.EARTH))
-                       .key('#', SlimeType.EARTH.getSlimeBallTag())
+                       .key('#', SlimeType.EARTH.getSlimeballTag())
                        .patternLine("##")
                        .patternLine("##")
-                       .addCriterion("has_item", hasItem(SlimeType.EARTH.getSlimeBallTag()))
+                       .addCriterion("has_item", hasItem(SlimeType.EARTH.getSlimeballTag()))
                        .setGroup("tconstruct:congealed_slime")
                        .build(consumer, modResource("common/slime/earth/congealed"));
 
@@ -42,19 +42,19 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
     for (SlimeType slimeType : SlimeType.TINKER) {
       ResourceLocation name = modResource("common/slime/" + slimeType.getString() + "/congealed");
       ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(slimeType))
-                         .key('#', slimeType.getSlimeBallTag())
+                         .key('#', slimeType.getSlimeballTag())
                          .patternLine("##")
                          .patternLine("##")
-                         .addCriterion("has_item", hasItem(slimeType.getSlimeBallTag()))
+                         .addCriterion("has_item", hasItem(slimeType.getSlimeballTag()))
                          .setGroup("tconstruct:congealed_slime")
                          .build(consumer, name);
       ResourceLocation blockName = modResource("common/slime/" + slimeType.getString() + "/slimeblock");
       ShapedRecipeBuilder.shapedRecipe(TinkerWorld.slime.get(slimeType))
-                         .key('#', slimeType.getSlimeBallTag())
+                         .key('#', slimeType.getSlimeballTag())
                          .patternLine("###")
                          .patternLine("###")
                          .patternLine("###")
-                         .addCriterion("has_item", hasItem(slimeType.getSlimeBallTag()))
+                         .addCriterion("has_item", hasItem(slimeType.getSlimeballTag()))
                          .setGroup("slime_blocks")
                          .build(consumer, blockName);
       // green already can craft into slime balls

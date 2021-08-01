@@ -67,16 +67,11 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.BOOKS).addTag(TinkerTags.Items.GUIDEBOOKS);
     this.getOrCreateBuilder(TinkerTags.Items.STRUCTURE_DEBUG).addTag(TinkerTags.Items.TINKERS_GUIDES);
 
-    this.getOrCreateBuilder(Tags.Items.SLIMEBALLS)
-        .addTag(TinkerTags.Items.SKY_SLIMEBALL)
-        .addTag(TinkerTags.Items.ENDER_SLIMEBALL)
-        .addTag(TinkerTags.Items.BLOOD_SLIMEBALL)
-        .addTag(TinkerTags.Items.ICHOR_SLIMEBALL);
-    this.getOrCreateBuilder(TinkerTags.Items.EARTH_SLIMEBALL).add(Items.SLIME_BALL);
-    this.getOrCreateBuilder(TinkerTags.Items.SKY_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.SKY));
-    this.getOrCreateBuilder(TinkerTags.Items.ENDER_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ENDER));
-    this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.BLOOD));
-    this.getOrCreateBuilder(TinkerTags.Items.ICHOR_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeType.ICHOR));
+    Builder<Item> slimeballs = this.getOrCreateBuilder(Tags.Items.SLIMEBALLS);
+    for (SlimeType type : SlimeType.values()) {
+      slimeballs.addTag(type.getSlimeballTag());
+    }
+    TinkerCommons.slimeball.forEach((type, ball) -> this.getOrCreateBuilder(type.getSlimeballTag()).add(ball));
 
     this.getOrCreateBuilder(Tags.Items.INGOTS).add(TinkerSmeltery.searedBrick.get(), TinkerSmeltery.scorchedBrick.get());
     this.getOrCreateBuilder(TinkerTags.Items.WITHER_BONES).add(TinkerMaterials.necroticBone.get());

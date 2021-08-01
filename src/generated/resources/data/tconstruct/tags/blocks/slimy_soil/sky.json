@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:earth_sky_slime_grass",
+    "tconstruct:sky_sky_slime_grass",
+    "tconstruct:ichor_sky_slime_grass",
+    "tconstruct:ender_sky_slime_grass",
+    "tconstruct:blood_sky_slime_grass",
+    "tconstruct:sky_slime_dirt"
+  ]
+}

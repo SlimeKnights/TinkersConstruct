@@ -11,13 +11,11 @@ import net.minecraft.data.SingleItemRecipeBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -1113,10 +1111,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // slime
     String slimeFolder = folder + "slime/";
-    slimeMelting(consumer, TinkerFluids.earthSlime, SlimeType.EARTH, TinkerTags.Items.EARTH_SLIMEBALL, slimeFolder);
-    slimeMelting(consumer, TinkerFluids.skySlime, SlimeType.SKY, TinkerTags.Items.SKY_SLIMEBALL, slimeFolder);
-    slimeMelting(consumer, TinkerFluids.enderSlime, SlimeType.ENDER, TinkerTags.Items.ENDER_SLIMEBALL, slimeFolder);
-    slimeMelting(consumer, TinkerFluids.blood, SlimeType.BLOOD, TinkerTags.Items.BLOOD_SLIMEBALL, slimeFolder);
+    slimeMelting(consumer, TinkerFluids.earthSlime, SlimeType.EARTH, slimeFolder);
+    slimeMelting(consumer, TinkerFluids.skySlime, SlimeType.SKY, slimeFolder);
+    slimeMelting(consumer, TinkerFluids.enderSlime, SlimeType.ENDER, slimeFolder);
+    slimeMelting(consumer, TinkerFluids.blood, SlimeType.BLOOD, slimeFolder);
     // magma cream
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.MAGMA_CREAM), TinkerFluids.magma.get(), FluidValues.SLIMEBALL, 1.0f)
                         .build(consumer, modResource(slimeFolder + "magma/ball"));
@@ -1901,9 +1899,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
    * @param tag            Slime ball tag
    * @param folder         Output folder
    */
-  private void slimeMelting(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluidSupplier, SlimeType type, ITag<Item> tag, String folder) {
+  private void slimeMelting(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluidSupplier, SlimeType type, String folder) {
     String slimeFolder = folder + type.getString() + "/";
-    MeltingRecipeBuilder.melting(Ingredient.fromTag(tag), fluidSupplier.get(), FluidValues.SLIMEBALL, 1.0f)
+    MeltingRecipeBuilder.melting(Ingredient.fromTag(type.getSlimeballTag()), fluidSupplier.get(), FluidValues.SLIMEBALL, 1.0f)
                         .build(consumer, modResource(slimeFolder + "ball"));
     IItemProvider item = TinkerWorld.congealedSlime.get(type);
     MeltingRecipeBuilder.melting(Ingredient.fromItems(item), fluidSupplier.get(), FluidValues.SLIME_CONGEALED, 2.0f)

@@ -1,23 +1,21 @@
 package slimeknights.tconstruct.shared.block;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.tags.ITag;
 import net.minecraft.util.IStringSerializable;
+import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import slimeknights.tconstruct.common.TinkerTags;
 
 import java.util.Locale;
 
 @Getter
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum SlimeType implements IStringSerializable {
-  EARTH(0x01cd4e, 0x8CD782, TinkerTags.Items.EARTH_SLIMEBALL, false),
-  SKY(0x01cbcd, 0x00F4DA, TinkerTags.Items.SKY_SLIMEBALL, false),
-  ICHOR(0xff970d, 0xd09800, TinkerTags.Items.ICHOR_SLIMEBALL, true, 10),
-  ENDER(0xaf4cf6, 0xa92dff, TinkerTags.Items.ENDER_SLIMEBALL, false),
-  BLOOD(0xb50101, 0xb80000, TinkerTags.Items.BLOOD_SLIMEBALL, true);
+  EARTH(0x01cd4e, 0x8CD782, false),
+  SKY(0x01cbcd, 0x00F4DA, false),
+  ICHOR(0xff970d, 0xd09800, true, 10),
+  ENDER(0xaf4cf6, 0xa92dff, false),
+  BLOOD(0xb50101, 0xb80000, true);
 
   /** Slime types added by the mod */
   public static final SlimeType[] TINKER = {SKY, ENDER, BLOOD, ICHOR};
@@ -34,15 +32,33 @@ public enum SlimeType implements IStringSerializable {
   private final int color;
   /** Default color for this foliage, used in inventory */
   private final int defaultFoliageColor;
-  /** Tag for slime balls of this type */
-  private final ITag<Item> slimeBallTag;
   /** If true, this block type has fungus foliage instead of grass */
   private final boolean nether;
   /** Light level of slime blocks of this type */
   private final int lightLevel;
 
-  SlimeType(int color, int defaultFoliageColor, ITag<Item> slimeBallTag, boolean nether) {
-    this(color, defaultFoliageColor, slimeBallTag, nether, 0);
+  /* Tags */
+  /** Tag for dirt blocks of this type, including blocks with grass on top */
+  private final IOptionalNamedTag<Block> dirtBlockTag;
+  /** Tag for grass blocks with this foliage type */
+  private final IOptionalNamedTag<Block> grassBlockTag;
+  /** Tag for slime balls of this type */
+  private final IOptionalNamedTag<Item> slimeballTag;
+
+  SlimeType(int color, int defaultFoliageColor, boolean nether, int lightLevel) {
+    this.color = color;
+    this.defaultFoliageColor = defaultFoliageColor;
+    this.nether = nether;
+    this.lightLevel = lightLevel;
+    // tags
+    String name = this.getString();
+    grassBlockTag = TinkerTags.Blocks.tag((nether ? "slimy_nylium/" : "slimy_grass/") + name);
+    dirtBlockTag = TinkerTags.Blocks.tag("slimy_soil/" + ("blood".equals(name) ? "vanilla" : name));
+    slimeballTag = TinkerTags.Items.forgeTag("slimeball/" + name);
+  }
+
+  SlimeType(int color, int defaultFoliageColor, boolean nether) {
+    this(color, defaultFoliageColor, nether, 0);
   }
 
   @Override

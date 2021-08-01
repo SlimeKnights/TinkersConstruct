@@ -178,11 +178,16 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     Builder<Block> slimyGrass = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_GRASS);
     Builder<Block> slimyNylium = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_NYLIUM);
-    TinkerWorld.slimeGrass.forEach((slimeType, blockObj) -> blockObj.forEach((type, block) -> (type.isNether() ? slimyNylium : slimyGrass).add(block)));
-    Builder<Block> slimySoil = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SOIL)
-                                   .addTag(TinkerTags.Blocks.SLIMY_GRASS)
-                                   .addTag(TinkerTags.Blocks.SLIMY_NYLIUM);
-    TinkerWorld.slimeDirt.forEach(slimySoil::addItemEntry);
+    Builder<Block> slimySoil = this.getOrCreateBuilder(TinkerTags.Blocks.SLIMY_SOIL);
+    for (SlimeType type : SlimeType.values()) {
+      (type.isNether() ? slimyNylium : slimyGrass).addTag(type.getGrassBlockTag());
+      slimySoil.addTag(type.getDirtBlockTag());
+    }
+    TinkerWorld.slimeGrass.forEach((dirtType, blockObj) -> blockObj.forEach((grassType, block) -> {
+      this.getOrCreateBuilder(grassType.getGrassBlockTag()).add(block);
+      this.getOrCreateBuilder(dirtType.getDirtBlockTag()).add(block);
+    }));
+    TinkerWorld.slimeDirt.forEach((type, block) -> this.getOrCreateBuilder(type.getDirtBlockTag()).add(block));
     endermanHoldable.addTag(TinkerTags.Blocks.SLIMY_SOIL);
   }
 

@@ -12,7 +12,6 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -22,6 +21,7 @@ import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -69,8 +69,8 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                           .build(consumer, prefix(TinkerCommons.materialsAndYou, "common/"));
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.tinkersGadgetry)
                           .addIngredient(Items.BOOK)
-                          .addIngredient(TinkerTags.Items.SKY_SLIMEBALL)
-                          .addCriterion("has_item", hasItem(TinkerTags.Items.SKY_SLIMEBALL))
+                          .addIngredient(SlimeType.SKY.getSlimeballTag())
+                          .addCriterion("has_item", hasItem(SlimeType.SKY.getSlimeballTag()))
                           .build(consumer, prefix(TinkerCommons.tinkersGadgetry, "common/"));
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.punySmelting)
                           .addIngredient(Items.BOOK)

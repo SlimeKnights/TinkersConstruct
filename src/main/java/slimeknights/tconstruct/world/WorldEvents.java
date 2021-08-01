@@ -53,28 +53,30 @@ public class WorldEvents {
       }
     }
     else if (category != Category.THEEND) {
-      // normal sky islands
+      // slime spawns anywhere, uses the grass and liquid
+      event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.earthSlimeEntity.get(), 100, 2, 4));
+      event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 100, 2, 4));
+      // normal sky islands - anywhere
       if (Config.COMMON.generateSkySlimeIslands.get()) {
         generation.withStructure(TinkerStructures.SKY_SLIME_ISLAND);
-        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.skySlimeEntity.get(), 15, 2, 4));
       }
+      // clay islands - no forest like biomes
       if (Config.COMMON.generateClayIslands.get() && category != Category.TAIGA && category != Category.JUNGLE && category != Category.FOREST && category != Category.OCEAN && category != Category.SWAMP) {
         generation.withStructure(TinkerStructures.CLAY_ISLAND);
       }
-      // ocean islands
+      // ocean islands - ocean
       if (category == Category.OCEAN && Config.COMMON.generateEarthSlimeIslands.get()) {
         generation.withStructure(TinkerStructures.EARTH_SLIME_ISLAND);
-        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.earthSlimeEntity.get(), 15, 2, 4));
       }
-
       if (Config.COMMON.generateCopper.get()) {
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, TinkerWorld.COPPER_ORE_FEATURE);
       }
     }
     else if (!doesNameMatchBiomes(event.getName(), Biomes.THE_END, Biomes.THE_VOID)) {
+      // slime spawns anywhere, uses the grass and liquid
+      event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4));
       if (Config.COMMON.generateEndSlimeIslands.get()) {
         generation.withStructure(TinkerStructures.END_SLIME_ISLAND);
-        event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(TinkerWorld.enderSlimeEntity.get(), 15, 2, 4));
       }
     }
   }

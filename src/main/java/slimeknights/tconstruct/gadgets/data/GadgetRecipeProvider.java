@@ -43,10 +43,10 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(slime))
                          .setGroup("tconstruct:slime_boots")
                          .key('#', TinkerWorld.congealedSlime.get(slime))
-                         .key('X', slime.getSlimeBallTag())
+                         .key('X', slime.getSlimeballTag())
                          .patternLine("X X")
                          .patternLine("# #")
-                         .addCriterion("has_item", hasItem(slime.getSlimeBallTag()))
+                         .addCriterion("has_item", hasItem(slime.getSlimeballTag()))
                          .build(consumer, name);
     }
 
@@ -57,11 +57,11 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                          .setGroup("tconstruct:slimesling")
                          .key('#', Items.STRING)
                          .key('X', TinkerWorld.congealedSlime.get(slime))
-                         .key('L', slime.getSlimeBallTag())
+                         .key('L', slime.getSlimeballTag())
                          .patternLine("#X#")
                          .patternLine("L L")
                          .patternLine(" L ")
-                         .addCriterion("has_item", hasItem(slime.getSlimeBallTag()))
+                         .addCriterion("has_item", hasItem(slime.getSlimeballTag()))
                          .build(consumer, name);
     }
 

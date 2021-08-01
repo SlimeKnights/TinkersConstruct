@@ -1,20 +1,8 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:earth_earth_slime_grass",
-    "tconstruct:sky_earth_slime_grass",
-    "tconstruct:ender_earth_slime_grass",
-    "tconstruct:earth_sky_slime_grass",
-    "tconstruct:sky_sky_slime_grass",
-    "tconstruct:ender_sky_slime_grass",
-    "tconstruct:earth_ichor_slime_grass",
-    "tconstruct:sky_ichor_slime_grass",
-    "tconstruct:ender_ichor_slime_grass",
-    "tconstruct:earth_ender_slime_grass",
-    "tconstruct:sky_ender_slime_grass",
-    "tconstruct:ender_ender_slime_grass",
-    "tconstruct:earth_vanilla_slime_grass",
-    "tconstruct:sky_vanilla_slime_grass",
-    "tconstruct:ender_vanilla_slime_grass"
+    "#tconstruct:slimy_grass/earth",
+    "#tconstruct:slimy_grass/sky",
+    "#tconstruct:slimy_grass/ender"
   ]
 }

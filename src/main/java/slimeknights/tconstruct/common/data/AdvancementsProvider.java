@@ -278,7 +278,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.withCriterion("found_island", PositionTrigger.Instance.forLocation(LocationPredicate.forFeature(TinkerStructures.clayIsland.get()))));
     Advancement slimes = builder(TinkerCommons.slimeball.get(SlimeType.ICHOR), resource("world/slime_collector"), tinkersGadgetry, FrameType.TASK, builder -> {
       for (SlimeType type : SlimeType.values()) {
-        builder.withCriterion(type.getString(), hasTag(type.getSlimeBallTag()));
+        builder.withCriterion(type.getString(), hasTag(type.getSlimeballTag()));
       }
       builder.withCriterion("magma_cream", hasItem(Items.MAGMA_CREAM));
     });
