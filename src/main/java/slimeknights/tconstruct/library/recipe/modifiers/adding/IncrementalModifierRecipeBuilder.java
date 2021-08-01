@@ -31,6 +31,8 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
   private int neededPerLevel;
   @Setter
   private ItemStack leftover = ItemStack.EMPTY;
+  private boolean fullSalvage = false;
+
   protected IncrementalModifierRecipeBuilder(ModifierEntry result) {
     super(result);
   }
@@ -103,11 +105,13 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
 
   /**
    * Sets the salvage to the given ItemOutput
-   * @param salvage  Salvage object
+   * @param salvage     Salvage object
+   * @param fullOutput  If true, salvaging returns the full item amount. If false, salvaging grants between 0 and the full amount
    * @return  Builder instance
    */
-  public IncrementalModifierRecipeBuilder setSalvage(ItemOutput salvage) {
+  public IncrementalModifierRecipeBuilder setSalvage(ItemOutput salvage, boolean fullOutput) {
     this.salvage = salvage;
+    this.fullSalvage = fullOutput;
     return this;
   }
 
@@ -115,20 +119,22 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
    * Sets the salvage to the given item
    * @param item           Item
    * @param amountPerItem  Amount of item per level
+   * @param fullOutput  If true, salvaging returns the full item amount. If false, salvaging grants between 0 and the full amount
    * @return  Builder instance
    */
-  public IncrementalModifierRecipeBuilder setSalvage(IItemProvider item, int amountPerItem) {
-    setSalvage(ItemOutput.fromStack(new ItemStack(item, amountPerItem)));
+  public IncrementalModifierRecipeBuilder setSalvage(IItemProvider item, int amountPerItem, boolean fullOutput) {
+    setSalvage(ItemOutput.fromStack(new ItemStack(item, amountPerItem)), fullOutput);
     return this;
   }
 
   /**
    * Sets the salvage to the given item
    * @param item  Item
+   * @param fullOutput  If true, salvaging returns the full item amount. If false, salvaging grants between 0 and the full amount
    * @return  Builder instance
    */
-  public IncrementalModifierRecipeBuilder setSalvage(IItemProvider item) {
-    return setSalvage(item, 1);
+  public IncrementalModifierRecipeBuilder setSalvage(IItemProvider item, boolean fullOutput) {
+    return setSalvage(item, 1, fullOutput);
   }
 
   /**
@@ -136,11 +142,12 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
    * @param item           Item input
    * @param amountPerItem  Amount each item matches and size of salvage
    * @param neededPerLevel Total number needed for this modifier
+   * @param fullOutput  If true, salvaging returns the full item amount. If false, salvaging grants between 0 and the full amount
    * @return  Builder instance
    */
-  public IncrementalModifierRecipeBuilder setInputSalvage(IItemProvider item, int amountPerItem, int neededPerLevel) {
+  public IncrementalModifierRecipeBuilder setInputSalvage(IItemProvider item, int amountPerItem, int neededPerLevel, boolean fullOutput) {
     setInput(item, amountPerItem, neededPerLevel);
-    setSalvage(item, amountPerItem);
+    setSalvage(item, amountPerItem, fullOutput);
     return this;
   }
 
@@ -149,11 +156,12 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
    * @param tag            Tag input
    * @param amountPerItem  Amount each item matches and size of salvage
    * @param neededPerLevel Total number needed for this modifier
+   * @param fullOutput  If true, salvaging returns the full item amount. If false, salvaging grants between 0 and the full amount
    * @return  Builder instance
    */
-  public IncrementalModifierRecipeBuilder setInputSalvage(ITag<Item> tag, int amountPerItem, int neededPerLevel) {
+  public IncrementalModifierRecipeBuilder setInputSalvage(ITag<Item> tag, int amountPerItem, int neededPerLevel, boolean fullOutput) {
     setInput(tag, amountPerItem, neededPerLevel);
-    setSalvage(ItemOutput.fromTag(tag, amountPerItem));
+    setSalvage(ItemOutput.fromTag(tag, amountPerItem), fullOutput);
     return this;
   }
 
@@ -232,7 +240,16 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
     public void serialize(JsonObject json) {
       super.serialize(json);
       if (salvage != null) {
-        json.add("salvage", salvage.serialize());
+        JsonElement salvageElement = salvage.serialize();
+        JsonObject salvageObject;
+        if (salvageElement.isJsonObject()) {
+          salvageObject = salvageElement.getAsJsonObject();
+        } else {
+          salvageObject = new JsonObject();
+          salvageObject.add("item", salvageElement);
+          salvageObject.addProperty("full", fullSalvage);
+        }
+        json.add("salvage", salvageObject);
       }
     }
 

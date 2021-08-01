@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:overforced",
   "min_level": 1,
-  "salvage": "tconstruct:slimesteel_reinforcement"
+  "salvage": {
+    "item": "tconstruct:slimesteel_reinforcement",
+    "full": false
+  }
 }

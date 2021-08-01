@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:lightspeed",
   "min_level": 1,
-  "salvage": "minecraft:glowstone_dust"
+  "salvage": {
+    "item": "minecraft:glowstone_dust",
+    "full": false
+  }
 }

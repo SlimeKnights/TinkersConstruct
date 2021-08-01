@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:hydraulic",
   "min_level": 1,
-  "salvage": "minecraft:prismarine_shard"
+  "salvage": {
+    "item": "minecraft:prismarine_shard",
+    "full": false
+  }
 }

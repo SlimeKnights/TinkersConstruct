@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:haste",
   "min_level": 1,
-  "salvage": "minecraft:redstone"
+  "salvage": {
+    "item": "minecraft:redstone",
+    "full": false
+  }
 }

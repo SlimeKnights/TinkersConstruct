@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:sharpness",
   "min_level": 1,
-  "salvage": "minecraft:quartz"
+  "salvage": {
+    "item": "minecraft:quartz",
+    "full": false
+  }
 }

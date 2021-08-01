@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:blasting",
   "min_level": 1,
-  "salvage": "minecraft:gunpowder"
+  "salvage": {
+    "item": "minecraft:gunpowder",
+    "full": false
+  }
 }

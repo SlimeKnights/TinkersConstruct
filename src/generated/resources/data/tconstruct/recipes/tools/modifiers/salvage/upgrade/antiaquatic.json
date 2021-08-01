@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:antiaquatic",
   "min_level": 1,
-  "salvage": "minecraft:pufferfish"
+  "salvage": {
+    "item": "minecraft:pufferfish",
+    "full": false
+  }
 }

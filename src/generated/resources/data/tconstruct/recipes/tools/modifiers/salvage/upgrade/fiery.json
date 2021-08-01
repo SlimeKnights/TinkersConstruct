@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:fiery",
   "min_level": 1,
-  "salvage": "minecraft:blaze_powder"
+  "salvage": {
+    "item": "minecraft:blaze_powder",
+    "full": false
+  }
 }

@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:sweeping_edge",
   "min_level": 1,
-  "salvage": "minecraft:chain"
+  "salvage": {
+    "item": "minecraft:chain",
+    "full": true
+  }
 }

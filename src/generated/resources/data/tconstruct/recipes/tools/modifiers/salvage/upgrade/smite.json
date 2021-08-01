@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:smite",
   "min_level": 1,
-  "salvage": "minecraft:glistering_melon_slice"
+  "salvage": {
+    "item": "minecraft:glistering_melon_slice",
+    "full": false
+  }
 }

@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:cooling",
   "min_level": 1,
-  "salvage": "minecraft:prismarine_crystals"
+  "salvage": {
+    "item": "minecraft:prismarine_crystals",
+    "full": false
+  }
 }

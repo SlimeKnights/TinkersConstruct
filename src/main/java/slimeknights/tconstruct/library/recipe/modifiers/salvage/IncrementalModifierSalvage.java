@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.library.recipe.modifiers.salvage;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -25,9 +27,11 @@ import java.util.function.Consumer;
  */
 public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   private final ItemOutput result;
-  public IncrementalModifierSalvage(ResourceLocation id, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, ItemOutput result, @Nullable SlotCount slots) {
+  private final boolean fullSalvage;
+  public IncrementalModifierSalvage(ResourceLocation id, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, ItemOutput result, boolean fullSalvage, @Nullable SlotCount slots) {
     super(id, toolIngredient, modifier, minLevel, maxLevel, slots);
     this.result = result;
+    this.fullSalvage = fullSalvage;
     ModifierRecipeLookup.addSalvage(this);
   }
 
@@ -50,7 +54,7 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
     }
     // add the items returned
     if (maxValue > 0) {
-      int amount = random.nextInt(maxValue);
+      int amount = fullSalvage ? maxValue : random.nextInt(maxValue);
       if (amount > 0) {
         ItemStack result = this.result.get();
         stackConsumer.accept(ItemHandlerHelper.copyStackWithSize(result, amount * result.getCount()));
@@ -67,20 +71,27 @@ public class IncrementalModifierSalvage extends AbstractModifierSalvage {
   public static class Serializer extends AbstractModifierSalvage.AbstractSerializer<IncrementalModifierSalvage> {
     @Override
     protected IncrementalModifierSalvage read(ResourceLocation id, JsonObject json, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
-      ItemOutput result = ItemOutput.fromJson(JsonHelper.getElement(json, "salvage"));
-      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, slots);
+      JsonElement salvageElement = JsonHelper.getElement(json, "salvage");
+      ItemOutput result = ItemOutput.fromJson(salvageElement);
+      boolean fullSalvage = false;
+      if (salvageElement.isJsonObject()) {
+        fullSalvage = JSONUtils.getBoolean(salvageElement.getAsJsonObject(), "full", false);
+      }
+      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, fullSalvage, slots);
     }
 
     @Override
     protected IncrementalModifierSalvage read(ResourceLocation id, PacketBuffer buffer, Ingredient toolIngredient, Modifier modifier, int minLevel, int maxLevel, @Nullable SlotCount slots) {
       ItemOutput result = ItemOutput.read(buffer);
-      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, slots);
+      boolean fullSalvage = buffer.readBoolean();
+      return new IncrementalModifierSalvage(id, toolIngredient, modifier, minLevel, maxLevel, result, fullSalvage, slots);
     }
 
     @Override
     protected void writeSafe(PacketBuffer buffer, IncrementalModifierSalvage recipe) {
       super.writeSafe(buffer, recipe);
       recipe.result.write(buffer);
+      buffer.writeBoolean(recipe.fullSalvage);
     }
   }
 }

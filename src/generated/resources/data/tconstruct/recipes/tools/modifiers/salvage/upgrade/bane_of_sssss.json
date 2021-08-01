@@ -8,5 +8,8 @@
   },
   "modifier": "tconstruct:bane_of_sssss",
   "min_level": 1,
-  "salvage": "minecraft:fermented_spider_eye"
+  "salvage": {
+    "item": "minecraft:fermented_spider_eye",
+    "full": false
+  }
 }
