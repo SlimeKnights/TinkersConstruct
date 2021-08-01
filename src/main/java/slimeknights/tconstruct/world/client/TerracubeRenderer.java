@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.model.MagmaCubeModel;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import slimeknights.tconstruct.TConstruct;
@@ -22,14 +21,6 @@ public class TerracubeRenderer extends MobRenderer<SlimeEntity,MagmaCubeModel<Sl
     this.texture = texture;
   }
 
-  @Override
-  protected int getBlockLight(SlimeEntity entityIn, BlockPos pos) {
-    return 15;
-  }
-
-  /**
-   * Returns the location of an entity's texture.
-   */
   @Override
   public ResourceLocation getEntityTexture(SlimeEntity entity) {
     return texture;
