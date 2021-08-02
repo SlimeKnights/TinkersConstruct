@@ -222,7 +222,7 @@ public class ChannelBlock extends Block {
 	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
 		// down only cares about connected or not
 		if (facing == Direction.DOWN) {
-			if (state.get(DOWN) && !canConnect(world, facing, facingState, facingPos)) {
+			if (state.get(DOWN) && facingState.isAir(world, facingPos)) {
 				state = state.with(DOWN, false);
 			}
 			return state;
@@ -232,12 +232,12 @@ public class ChannelBlock extends Block {
 		if (facing != Direction.UP) {
 			// if the change was from another channel, copy, but invert its connection
 			EnumProperty<ChannelConnection> prop = DIRECTION_MAP.get(facing);
-			if (facingState.getBlock() == this) {
+			if (facingState.matchesBlock(this)) {
 				state = state.with(prop, facingState.get(DIRECTION_MAP.get(facing.getOpposite())).getOpposite());
 			} else {
 				// out is only valid if facing a fluid handler
 				ChannelConnection connection = state.get(prop);
-				if (connection == ChannelConnection.OUT && !isFluidHandler(world, facing.getOpposite(), facingPos)) {
+				if (connection != ChannelConnection.NONE && facingState.isAir(world, facingPos)) {
 					state = state.with(prop, ChannelConnection.NONE);
 				}
 			}

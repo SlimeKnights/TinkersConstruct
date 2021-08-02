@@ -22,8 +22,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
-import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
@@ -91,15 +91,6 @@ public class ChannelTileEntity extends MantleTileEntity implements ITickableTile
 		if (!this.isRemoved()) {
 			if (neighborTanks.get(side) == capability) {
 				neighborTanks.remove(side);
-				// update the block state to no longer be pointing in that direction
-				if (world != null) {
-					BlockState currentState = getBlockState();
-					if (side == Direction.DOWN) {
-						world.setBlockState(pos, currentState.with(ChannelBlock.DOWN, false));
-					} else {
-						world.setBlockState(pos, currentState.with(ChannelBlock.DIRECTION_MAP.get(side), ChannelConnection.NONE));
-					}
-				}
 			}
 		}
 	}
@@ -372,6 +363,7 @@ public class ChannelTileEntity extends MantleTileEntity implements ITickableTile
 		}
 
 		// get the handler on the side, try filling
+    // TODO: handle the case of no fluid handler on the side that may later become a handler
 		return getNeighborHandler(side).filter(handler -> fill(side, handler, flowRate))
 																	 .isPresent();
 	}
