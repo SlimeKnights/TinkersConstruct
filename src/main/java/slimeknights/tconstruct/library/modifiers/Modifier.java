@@ -50,6 +50,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -68,7 +69,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /** Modifier random instance, use for chance based effects */
   protected static Random RANDOM = new Random();
 
-  protected static final String KEY_LEVEL = "enchantment.level.";
+  /** Priority of modfiers by default */
   public static final int DEFAULT_PRIORITY = 100;
 
   /** Display color for all text for this modifier */
@@ -190,7 +191,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public ITextComponent getDisplayName(int level) {
     return applyStyle(new TranslationTextComponent(getTranslationKey())
                         .appendString(" ")
-                        .appendSibling(new TranslationTextComponent(KEY_LEVEL + level)));
+                        .appendSibling(RomanNumeralHelper.getNumeral(level)));
   }
 
   /**
