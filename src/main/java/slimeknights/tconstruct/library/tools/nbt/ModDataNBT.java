@@ -157,18 +157,18 @@ public class ModDataNBT implements IModDataReadOnly {
   /** @deprecated Use {@link #setSlots(SlotType, int)} */
   @Deprecated
   public void setTraits(int value) {
-    setSlots(SlotType.TRAIT, value);
+    setSlots(SlotType.SOUL, value);
   }
 
   /** @deprecated Use {@link #addSlots(SlotType, int)} (SlotType, int)} */
   @Deprecated
   public void addTraits(int add) {
-    addSlots(SlotType.TRAIT, add);
+    addSlots(SlotType.SOUL, add);
   }
 
   /** @deprecated Use {@link #getSlots(SlotType)} */
   @Deprecated
   public int getTraits() {
-    return getSlots(SlotType.TRAIT);
+    return getSlots(SlotType.SOUL);
   }
 }

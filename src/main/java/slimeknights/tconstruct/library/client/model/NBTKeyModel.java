@@ -60,7 +60,7 @@ public class NBTKeyModel implements IModelGeometry<NBTKeyModel> {
   /**
    * Registers an extra variant texture for the model with the given key. Note that resource packs can override the extra texture
    * @param key          Model key, should be defined in the model JSON if supported
-   * @param textureName  Name of the texture defined, cooresponds to a possible value of the NBT key
+   * @param textureName  Name of the texture defined, corresponds to a possible value of the NBT key
    * @param texture      Texture to use, same format as in resource packs
    */
   public static void registerExtraTexture(ResourceLocation key, String textureName, ResourceLocation texture) {

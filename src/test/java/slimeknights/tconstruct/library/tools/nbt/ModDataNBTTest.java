@@ -40,14 +40,14 @@ class ModDataNBTTest extends BaseMcTest {
     ModDataNBT modData = new ModDataNBT();
     modData.setSlots(SlotType.UPGRADE, 2);
     modData.setSlots(SlotType.ABILITY, 3);
-    modData.setSlots(SlotType.TRAIT, 4);
+    modData.setSlots(SlotType.SOUL, 4);
     modData.putInt(testKey, 1);
     modData.put(testKey2, new CompoundNBT());
 
     CompoundNBT nbt = modData.getData();
     assertThat(nbt.getInt(SlotType.UPGRADE.getName())).isEqualTo(2);
     assertThat(nbt.getInt(SlotType.ABILITY.getName())).isEqualTo(3);
-    assertThat(nbt.getInt(SlotType.TRAIT.getName())).isEqualTo(4);
+    assertThat(nbt.getInt(SlotType.SOUL.getName())).isEqualTo(4);
     assertThat(nbt.getInt(testKey.toString())).isEqualTo(1);
     assertThat(nbt.contains(testKey2.toString(), NBT.TAG_COMPOUND)).isTrue();
   }
@@ -57,7 +57,7 @@ class ModDataNBTTest extends BaseMcTest {
     CompoundNBT nbt = new CompoundNBT();
     nbt.putInt(SlotType.UPGRADE.getName(), 4);
     nbt.putInt(SlotType.ABILITY.getName(), 5);
-    nbt.putInt(SlotType.TRAIT.getName(), 6);
+    nbt.putInt(SlotType.SOUL.getName(), 6);
     nbt.putString(testKey.toString(), "Not sure why you need strings");
     CompoundNBT tag = new CompoundNBT();
     tag.putInt("test", 1);
@@ -66,7 +66,7 @@ class ModDataNBTTest extends BaseMcTest {
     ModDataNBT modData = ModDataNBT.readFromNBT(nbt);
     assertThat(modData.getSlots(SlotType.UPGRADE)).isEqualTo(4);
     assertThat(modData.getSlots(SlotType.ABILITY)).isEqualTo(5);
-    assertThat(modData.getSlots(SlotType.TRAIT)).isEqualTo(6);
+    assertThat(modData.getSlots(SlotType.SOUL)).isEqualTo(6);
     assertThat(modData.getString(testKey)).isEqualTo("Not sure why you need strings");
 
     tag = modData.getCompound(testKey2);
@@ -83,12 +83,12 @@ class ModDataNBTTest extends BaseMcTest {
     nbt.setTraits(3);
     assertThat(nbt.getSlots(SlotType.UPGRADE)).isEqualTo(1);
     assertThat(nbt.getSlots(SlotType.ABILITY)).isEqualTo(2);
-    assertThat(nbt.getSlots(SlotType.TRAIT)).isEqualTo(3);
+    assertThat(nbt.getSlots(SlotType.SOUL)).isEqualTo(3);
 
     nbt = new ModDataNBT();
     nbt.setSlots(SlotType.UPGRADE, 4);
     nbt.setSlots(SlotType.ABILITY, 5);
-    nbt.setSlots(SlotType.TRAIT, 6);
+    nbt.setSlots(SlotType.SOUL, 6);
     assertThat(nbt.getUpgrades()).isEqualTo(4);
     assertThat(nbt.getAbilities()).isEqualTo(5);
     assertThat(nbt.getTraits()).isEqualTo(6);
@@ -98,6 +98,6 @@ class ModDataNBTTest extends BaseMcTest {
     nbt.addTraits(9);
     assertThat(nbt.getSlots(SlotType.UPGRADE)).isEqualTo(11);
     assertThat(nbt.getSlots(SlotType.ABILITY)).isEqualTo(13);
-    assertThat(nbt.getSlots(SlotType.TRAIT)).isEqualTo(15);
+    assertThat(nbt.getSlots(SlotType.SOUL)).isEqualTo(15);
   }
 }

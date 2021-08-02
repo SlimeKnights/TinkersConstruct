@@ -101,7 +101,7 @@ public final class ToolBaseStatDefinition {
   /** @deprecated Use {@link #getStartingSlots(SlotType)} */
   @Deprecated
   public int getDefaultTraits() {
-    return getStartingSlots(SlotType.TRAIT);
+    return getStartingSlots(SlotType.SOUL);
   }
 
   /** Tool stat builder */
@@ -186,7 +186,7 @@ public final class ToolBaseStatDefinition {
     /** @deprecated Use {@link #startingSlots(SlotType, int)} */
     @Deprecated
     public Builder setDefaultTraits(int value) {
-      startingSlots(SlotType.TRAIT, value);
+      startingSlots(SlotType.SOUL, value);
       return this;
     }
 

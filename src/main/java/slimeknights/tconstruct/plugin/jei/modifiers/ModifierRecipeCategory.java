@@ -110,14 +110,14 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   private void drawSlotType(MatrixStack matrices, @Nullable SlotType slotType, int x, int y) {
     Minecraft minecraft = Minecraft.getInstance();
     TextureAtlasSprite sprite;
-    if (false && slotTypeSprites.containsKey(slotType)) {
+    if (slotTypeSprites.containsKey(slotType)) {
       sprite = slotTypeSprites.get(slotType);
     } else {
       ModelManager modelManager = minecraft.getModelManager();
       // gets the model for the item, its a sepcial one that gives us texture info
       IBakedModel model = minecraft.getItemRenderer().getItemModelMesher().getItemModel(TinkerModifiers.creativeSlotItem.get());
       if (model != null && model.getOverrides() instanceof NBTKeyModel.Overrides) {
-        RenderMaterial material = ((NBTKeyModel.Overrides)model.getOverrides()).getTexture(slotType == null ? "default" : slotType.getName());
+        RenderMaterial material = ((NBTKeyModel.Overrides)model.getOverrides()).getTexture(slotType == null ? "slotless" : slotType.getName());
         sprite = modelManager.getAtlasTexture(material.getAtlasLocation()).getSprite(material.getTextureLocation());
       } else {
         // failed to use the model, use missing texture

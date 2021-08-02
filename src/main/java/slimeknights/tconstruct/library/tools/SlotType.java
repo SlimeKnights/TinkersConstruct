@@ -45,8 +45,8 @@ public final class SlotType {
   public static final SlotType UPGRADE = create("upgrades", 0xFFCCBA47);
   /** Rare slot type for powerful and rather exclusive modifiers */
   public static final SlotType ABILITY = create("abilities", 0xFFB8A0FF);
-  /** Slot type allowing the addition of extra traits */
-  public static final SlotType TRAIT = create("traits", -1);
+  /** Slot type used in the soul forge */
+  public static final SlotType SOUL = create("souls", -1);
   /** Slot type for protection based modifiers on armor */
   public static final SlotType ARMOR = create("armor", 0xFFA8FFA0);
 

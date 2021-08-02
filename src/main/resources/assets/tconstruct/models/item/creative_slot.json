@@ -2,11 +2,12 @@
   "loader": "tconstruct:nbt_key",
   "parent": "forge:item/default",
   "textures": {
-     "default": "tconstruct:item/slotless_icon",
-     "upgrades": "tconstruct:item/creative_upgrade",
-     "abilities": "tconstruct:item/creative_ability",
-     "traits": "tconstruct:item/materials/hollow_gem",
-     "armor": "tconstruct:item/creative_armor"
+    "default": "tconstruct:item/slot/default",
+    "slotless": "tconstruct:item/slot/slotless",
+    "upgrades": "tconstruct:item/slot/upgrade",
+    "abilities": "tconstruct:item/slot/ability",
+    "souls": "tconstruct:item/materials/hollow_gem",
+    "armor": "tconstruct:item/slot/armor"
   },
   "nbt_key": "slot",
   "extra_textures_key": "tconstruct:creative_slot"

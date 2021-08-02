@@ -97,7 +97,7 @@ public class ExtraModifier extends Modifier {
     /** Boosts ability slots */
     ABILITY(SlotType.ABILITY),
     /** Boosts trait slots in the soul forge */
-    TRAIT(SlotType.TRAIT);
+    TRAIT(SlotType.SOUL);
 
     @Getter
     private final SlotType slotType;
