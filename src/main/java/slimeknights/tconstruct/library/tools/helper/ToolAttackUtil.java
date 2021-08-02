@@ -127,7 +127,8 @@ public class ToolAttackUtil {
   }
 
   /**
-   * Base attack logic, used by normal attacks, projectils, and extra attacks
+   * Base attack logic, used by normal attacks, projectiles, and extra attacks.
+   * Based on {@link PlayerEntity#attackTargetEntityWithCurrentItem(Entity)}
    */
   public static boolean attackEntity(IModifiableWeapon weapon, IModifierToolStack tool, LivingEntity attackerLiving, Hand hand,
                                      Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack) {
@@ -167,7 +168,6 @@ public class ToolAttackUtil {
     float cooldown = (float)cooldownFunction.getAsDouble();
     boolean fullyCharged = cooldown > 0.9f;
 
-
     // calculate if it's a critical hit
     // that is, in the air, not blind, targeting living, and not sprinting
     boolean isCritical = !isExtraAttack && fullyCharged && attackerLiving.fallDistance > 0.0F && !attackerLiving.isOnGround() && !attackerLiving.isOnLadder()
@@ -190,8 +190,13 @@ public class ToolAttackUtil {
       return !isExtraAttack;
     }
 
+    // forge patches in the knockback attribute for use on players
+    float knockback = (float)attackerLiving.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+    // vanilla applies 0.4 knockback to living via the attack hook
+    if (targetLiving != null) {
+      knockback += 0.4f;
+    }
     // if sprinting, deal bonus knockback
-    float knockback = targetLiving != null ? 0.4f : 0; // vanilla applies 0.4 knockback to living via the attack hook
     SoundEvent sound;
     if (attackerLiving.isSprinting() && fullyCharged) {
       sound = SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK;
