@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:blaze_head",
+    "tconstruct:enderman_head",
+    "tconstruct:stray_head",
+    "tconstruct:husk_head",
+    "tconstruct:drowned_head",
+    "tconstruct:spider_head",
+    "tconstruct:cave_spider_head"
+  ]
+}

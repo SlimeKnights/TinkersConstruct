@@ -1,10 +1,7 @@
 {
   "type": "tconstruct:severing",
   "entity": {
-    "types": [
-      "minecraft:skeleton",
-      "minecraft:stray"
-    ]
+    "type": "minecraft:skeleton"
   },
   "result": "minecraft:skeleton_skull"
 }

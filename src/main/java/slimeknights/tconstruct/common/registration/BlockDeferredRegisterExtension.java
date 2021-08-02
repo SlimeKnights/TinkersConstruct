@@ -4,8 +4,10 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.fml.RegistryObject;
 import slimeknights.mantle.registration.deferred.BlockDeferredRegister;
+import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 
 import java.util.function.Function;
@@ -68,5 +70,18 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    */
   public MetalItemObject registerMetal(String name, AbstractBlock.Properties blockProps, Function<Block,? extends BlockItem> blockItem, Item.Properties itemProps) {
     return registerMetal(name, name, blockProps, blockItem, itemProps);
+  }
+
+  /**
+   * Registers a block with enum variants, but no item form
+   * @param values  Enum value list
+   * @param name    Suffix after value name
+   * @param mapper  Function to map types to blocks
+   * @param <T>  Type of enum
+   * @param <B>  Type of block
+   * @return  Enum object
+   */
+  public <T extends Enum<T> & IStringSerializable, B extends Block> EnumObject<T, B> registerEnumNoItem(T[] values, String name, Function<T, ? extends B> mapper) {
+    return registerEnum(values, name, (fullName, value) -> this.registerNoItem(fullName, () -> mapper.apply(value)));
   }
 }

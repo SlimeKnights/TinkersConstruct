@@ -19,6 +19,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.common.registration.MetalItemObject;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -52,6 +53,7 @@ public class ItemTagProvider extends ItemTagsProvider {
   @Override
   protected void registerTags() {
     this.addCommon();
+    this.addGadgets();
     this.addWorld();
     this.addSmeltery();
     this.addTools();
@@ -113,6 +115,11 @@ public class ItemTagProvider extends ItemTagsProvider {
     copy(TinkerTags.Blocks.TABLES, TinkerTags.Items.TABLES);
     copy(TinkerTags.Blocks.ANVIL_METAL, TinkerTags.Items.ANVIL_METAL);
     copy(TinkerTags.Blocks.PLANKLIKE, TinkerTags.Items.PLANKLIKE);
+  }
+
+  private void addGadgets() {
+    TagsProvider.Builder<Item> heads = this.getOrCreateBuilder(Tags.Items.HEADS);
+    TinkerGadgets.heads.forEach(head -> heads.add(head.asItem()));
   }
 
   private void addWorld() {

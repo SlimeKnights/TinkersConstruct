@@ -678,6 +678,14 @@
   "item.tconstruct.piggy_backpack": "Piggybackpack",
   "item.tconstruct.piggy_backpack.tooltip": "Use on a mob to pick it up",
   "effect.tconstruct.carry": "Carrying",
+  
+  "block.tconstruct.blaze_head":       "Blaze Head",
+  "block.tconstruct.enderman_head":    "Enderman Head",
+  "block.tconstruct.stray_head":       "Stray Skull",
+  "block.tconstruct.husk_head":        "Husk Head",
+  "block.tconstruct.drowned_head":     "Drowned Head",
+  "block.tconstruct.spider_head":      "Spider Head",
+  "block.tconstruct.cave_spider_head": "Cave Spider Head",
 
 
   "_comment": "Tinkers Tables",

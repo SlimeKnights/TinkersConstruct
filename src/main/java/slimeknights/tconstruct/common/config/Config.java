@@ -10,7 +10,11 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.gadgets.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerStructures;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 public class Config {
   /**
@@ -25,6 +29,7 @@ public class Config {
     public final BooleanValue cheaperNetheriteAlloy;
     public final BooleanValue witherBoneDrop;
     public final BooleanValue witherBoneConversion;
+    public final Map<TinkerHeadType,BooleanValue> headDrops;
 
     public final ConfigValue<Integer> melterNuggetsPerOre;
     public final ConfigValue<Integer> smelteryNuggetsPerOre;
@@ -135,7 +140,15 @@ public class Config {
         .translation("tconstruct.configgui.foundryNuggetsPerOre")
         .defineInRange("foundryNuggetsPerOre", 15, 1, 45);
 
-      builder.pop();
+      builder.comment("Entity head drops when killed by a charged creeper").push("heads");
+      headDrops = new EnumMap<>(TinkerHeadType.class);
+      for (TinkerHeadType headType : TinkerHeadType.values()) {
+        headDrops.put(headType, builder
+          .translation("tconstruct.configgui.heads." + headType.getString())
+          .define(headType.getString(), true));
+      }
+
+      builder.pop(2);
 
       builder.comment("Everything to do with world generation").push("worldgen");
 
