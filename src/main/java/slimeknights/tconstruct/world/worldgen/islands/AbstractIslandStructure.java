@@ -69,7 +69,8 @@ public abstract class AbstractIslandStructure extends Structure<NoFeatureConfig>
     int minXMaxZ = generator.getNoiseHeightMinusOne(x, z + yOffset, Heightmap.Type.WORLD_SURFACE_WG);
     int maxXMinZ = generator.getNoiseHeightMinusOne(x + xOffset, z, Heightmap.Type.WORLD_SURFACE_WG);
     int maxXMaxZ = generator.getNoiseHeightMinusOne(x + xOffset, z + yOffset, Heightmap.Type.WORLD_SURFACE_WG);
-    return Math.min(Math.min(minXMinZ, minXMaxZ), Math.min(maxXMinZ, maxXMaxZ)) + 50 + random.nextInt(50) + 11;
+    // from the smallest of the 4 positions, add 60 plus another random 50, limit to 20 blocks below world height (tallest island is 13 blocks, 7 blocks for trees)
+    return Math.min(Math.min(Math.min(minXMinZ, minXMaxZ), Math.min(maxXMinZ, maxXMaxZ)) + 60 + random.nextInt(50), generator.getMaxBuildHeight() - 20);
   }
 
   public class DefaultStart extends StructureStart<NoFeatureConfig> {
