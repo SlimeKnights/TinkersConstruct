@@ -154,16 +154,14 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     this.playCraftSound(player);
 
     // run the recipe, will shrink inputs
-    // only run on serverside as there may be randomness
-    if (!world.isRemote) {
-      this.inventoryWrapper.setPlayer(player);
-      this.lastRecipe.updateInputs(result, inventoryWrapper);
-      this.inventoryWrapper.setPlayer(null);
+    // run both sides for the sake of shift clicking
+    this.inventoryWrapper.setPlayer(player);
+    this.lastRecipe.updateInputs(result, inventoryWrapper, !world.isRemote);
+    this.inventoryWrapper.setPlayer(null);
 
-      // remove the center slot item, just clear it entirely (if you want shrinking you should use the outer slots or ask nicely for a shrink amount hook)
-      if (this.isStackInSlot(TINKER_SLOT)) {
-        this.setInventorySlotContents(TINKER_SLOT, ItemStack.EMPTY);
-      }
+    // remove the center slot item, just clear it entirely (if you want shrinking you should use the outer slots or ask nicely for a shrink amount hook)
+    if (this.isStackInSlot(TINKER_SLOT)) {
+      this.setInventorySlotContents(TINKER_SLOT, ItemStack.EMPTY);
     }
 
     return result;

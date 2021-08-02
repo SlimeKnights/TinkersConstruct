@@ -133,15 +133,17 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv) {
+  public void updateInputs(ItemStack result, IMutableTinkerStationInventory inv, boolean isServer) {
     // return salvage items for modifier, using the original tool as that still has the modifier
-    ItemStack toolStack = inv.getTinkerableStack();
-    ToolStack tool = ToolStack.from(toolStack);
-    ModifierEntry toRemove = getModifierToRemove(inv, tool.getUpgrades().getModifiers());
-    if (toRemove != null) {
-      AbstractModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, toRemove.getModifier(), toRemove.getLevel());
-      if (salvage != null) {
-        salvage.acceptItems(tool, inv::giveItem, TConstruct.RANDOM);
+    if (isServer) {
+      ItemStack toolStack = inv.getTinkerableStack();
+      ToolStack tool = ToolStack.from(toolStack);
+      ModifierEntry toRemove = getModifierToRemove(inv, tool.getUpgrades().getModifiers());
+      if (toRemove != null) {
+        AbstractModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, toRemove.getModifier(), toRemove.getLevel());
+        if (salvage != null) {
+          salvage.acceptItems(tool, inv::giveItem, TConstruct.RANDOM);
+        }
       }
     }
 
