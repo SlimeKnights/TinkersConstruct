@@ -1,32 +1,51 @@
 package slimeknights.tconstruct.tables.tileentity.chest;
 
 import lombok.Getter;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.mantle.tileentity.InventoryTileEntity;
-import slimeknights.tconstruct.tables.client.inventory.library.IScalingInventory;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import slimeknights.mantle.tileentity.NamableTileEntity;
 import slimeknights.tconstruct.tables.inventory.TinkerChestContainer;
 
 import javax.annotation.Nullable;
 
-public abstract class ChestTileEntity extends InventoryTileEntity implements IScalingInventory {
-  /** Default maximum size */
-  protected static final int DEFAULT_MAX = 256;
-  /** Current visual size of the inventory, used in UIs but not the number given to automation */
-  @Getter
-  private int visualSize = 1;
+/** Shared base logic for all Tinkers' chest tile entities */
+public abstract class ChestTileEntity extends NamableTileEntity {
+  private static final String KEY_ITEMS = "Items";
 
-  public ChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name) {
-    this(tileEntityTypeIn, name, DEFAULT_MAX, 64);
+  @Getter
+  private final ItemStackHandler itemHandler;
+  private final LazyOptional<IItemHandler> capability;
+  protected ChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name, ItemStackHandler itemHandler) {
+    super(tileEntityTypeIn, new TranslationTextComponent(name));
+    this.itemHandler = itemHandler;
+    this.capability = LazyOptional.of(() -> itemHandler);
   }
 
-  public ChestTileEntity(TileEntityType<?> tileEntityTypeIn, String name, int inventorySize, int maxStackSize) {
-    super(tileEntityTypeIn, new TranslationTextComponent(name), inventorySize, maxStackSize);
+  @Override
+  public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
+    if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+      return capability.cast();
+    }
+    return super.getCapability(cap, side);
+  }
+
+  @Override
+  protected void invalidateCaps() {
+    super.invalidateCaps();
+    capability.invalidate();
   }
 
   @Nullable
@@ -35,53 +54,37 @@ public abstract class ChestTileEntity extends InventoryTileEntity implements ISc
     return new TinkerChestContainer(menuId, playerInventory, this);
   }
 
-  @Override
-  public abstract boolean isItemValidForSlot(int slot, ItemStack itemstack);
-
-  @Override
-  public void readInventoryFromNBT(CompoundNBT tag) {
-    // we need to set it to max because the loading code uses getSizeInventory and we want to load all stacks
-    this.visualSize = getSizeInventory();
-    super.readInventoryFromNBT(tag);
-
-    // recalculate actual size from inventory:
-    // decrease until it matches
-    if (this.getStackInSlot(this.visualSize - 1).isEmpty()) {
-      while (this.visualSize > 1 && this.getStackInSlot(this.visualSize - 2).isEmpty()) {
-        this.visualSize--;
-      }
-    }
+  /**
+   * Checks if the given item should be inserted into the chest on interact
+   * @param player    Player inserting
+   * @param heldItem  Stack to insert
+   * @return  Return true
+   */
+  public boolean canInsert(PlayerEntity player, ItemStack heldItem) {
+    return true;
   }
 
   @Override
-  public void setInventorySlotContents(int slot, ItemStack itemstack) {
-    int max = getSizeInventory();
-    // if the slot is too large, don't insert
-    if (slot >= max) {
-      return;
-    }
-    // catch for slots far past the current one, mainly happens when reading weird arrangements from NBT
-    if (slot >= this.visualSize && !itemstack.isEmpty()) {
-      this.visualSize = slot + 1;
-    }
+  public CompoundNBT write(CompoundNBT tags) {
+    tags = super.write(tags);
+    // move the items from the serialized result
+    // we don't care about the size and need it here for compat with old worlds
+    CompoundNBT handlerNBT = itemHandler.serializeNBT();
+    tags.put(KEY_ITEMS, handlerNBT.getList(KEY_ITEMS, NBT.TAG_COMPOUND));
+    return tags;
+  }
 
-    // space to expand and the index too large? expand the visual size
-    if (this.visualSize < max && slot >= this.visualSize - 1 && !itemstack.isEmpty()) {
-      // expand slots until the last visible slot is empty (could be something was in there through faulty state)
-      do {
-        this.visualSize++;
-      } while (this.visualSize < max && !this.getStackInSlot(this.visualSize - 1).isEmpty());
-    }
+  /** Reads the inventory from NBT */
+  public void readInventory(CompoundNBT tags) {
+    // copy in just the items key for deserializing, don't want to change the size
+    CompoundNBT handlerNBT = new CompoundNBT();
+    handlerNBT.put(KEY_ITEMS, tags.getList(KEY_ITEMS, NBT.TAG_COMPOUND));
+    itemHandler.deserializeNBT(handlerNBT);
+  }
 
-    // actually put the thing in/out
-    super.setInventorySlotContents(slot, itemstack);
-
-    // empty, and gets taken from one of the last two slots
-    if (this.visualSize > 1 && slot >= this.visualSize - 2 && itemstack.isEmpty() && this.getStackInSlot(this.visualSize - 1).isEmpty()) {
-      // decrease inventory size so that 1 free slot after the last non-empty slot is left
-      while (this.visualSize > 1 && this.getStackInSlot(this.visualSize - 2).isEmpty()) {
-        this.visualSize--;
-      }
-    }
+  @Override
+  public void read(BlockState blockState, CompoundNBT tags) {
+    super.read(blockState, tags);
+    readInventory(tags);
   }
 }

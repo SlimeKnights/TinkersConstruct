@@ -5,23 +5,31 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+/**
+ * Chest that holds parts, up to 8 of a given material and type
+ */
 public class PartChestTileEntity extends ChestTileEntity {
-
   public PartChestTileEntity() {
-    // limit of 4 parts per slot
-    super(TinkerTables.partChestTile.get(), TConstruct.makeTranslationKey("gui", "part_chest"), DEFAULT_MAX, 8);
+    super(TinkerTables.partChestTile.get(), TConstruct.makeTranslationKey("gui", "part_chest"), new PartChestItemHandler());
   }
 
-  @Override
-  public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
-    // check if there is no other slot containing that item
-    for (int i = 0; i < this.getSizeInventory(); i++) {
-      // don't compare count
-      if (ItemStack.areItemsEqual(itemstack, this.getStackInSlot(i))
-        && ItemStack.areItemStackTagsEqual(itemstack, this.getStackInSlot(i))) {
-        return i == slot; // only allowed in the same slot
-      }
+  /** Item handler for part chests */
+  public static class PartChestItemHandler extends ScalingChestItemHandler {
+    @Override
+    public int getSlotLimit(int slot) {
+      return 8;
     }
-    return itemstack.getItem() instanceof IMaterialItem;
+
+    @Override
+    public boolean isItemValid(int slot, ItemStack stack) {
+      // check if there is no other slot containing that item
+      for (int i = 0; i < this.getSlots(); i++) {
+        // don't compare count
+        if (ItemStack.areItemsEqual(stack, this.getStackInSlot(i)) && ItemStack.areItemStackTagsEqual(stack, this.getStackInSlot(i))) {
+          return i == slot; // only allowed in the same slot
+        }
+      }
+      return stack.getItem() instanceof IMaterialItem;
+    }
   }
 }

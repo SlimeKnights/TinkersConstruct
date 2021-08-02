@@ -4,7 +4,6 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
@@ -28,7 +27,7 @@ import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.network.StationTabPacket;
 
-public class BaseStationScreen<TILE extends TileEntity & IInventory, CONTAINER extends BaseStationContainer<TILE>> extends MultiModuleScreen<CONTAINER> {
+public class BaseStationScreen<TILE extends TileEntity, CONTAINER extends BaseStationContainer<TILE>> extends MultiModuleScreen<CONTAINER> {
   protected static final ITextComponent COMPONENT_WARNING = TConstruct.makeTranslation("gui", "warning");
   protected static final ITextComponent COMPONENT_ERROR = TConstruct.makeTranslation("gui", "error");
 

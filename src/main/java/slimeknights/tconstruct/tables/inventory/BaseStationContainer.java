@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-public class BaseStationContainer<TILE extends TileEntity & IInventory> extends TriggeringMultiModuleContainer<TILE> {
+public class BaseStationContainer<TILE extends TileEntity> extends TriggeringMultiModuleContainer<TILE> {
   private static final TinkerBlockComp COMPARATOR = new TinkerBlockComp();
   public final List<Pair<BlockPos, BlockState>> stationBlocks;
 

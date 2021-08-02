@@ -26,6 +26,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
+/**
+ * Shared block logic for all chest types
+ */
 public class ChestBlock extends TinkerTableBlock {
   private static final VoxelShape SHAPE = VoxelShapes.or(
     Block.makeCuboidShape(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D), //top
@@ -60,7 +63,7 @@ public class ChestBlock extends TinkerTableBlock {
       CompoundNBT tinkerData = tag.getCompound("TinkerData");
       TileEntity te = worldIn.getTileEntity(pos);
       if (te instanceof ChestTileEntity) {
-        ((ChestTileEntity)te).readInventoryFromNBT(tinkerData);
+        ((ChestTileEntity)te).readInventory(tinkerData);
       }
     }
   }
@@ -80,12 +83,14 @@ public class ChestBlock extends TinkerTableBlock {
     ItemStack heldItem = player.inventory.getCurrentItem();
 
     if (!heldItem.isEmpty() && te instanceof ChestTileEntity) {
-      IItemHandlerModifiable itemHandler = ((ChestTileEntity) te).getItemHandler();
-      ItemStack rest = ItemHandlerHelper.insertItem(itemHandler, heldItem, false);
-
-      if (rest.isEmpty() || rest.getCount() < heldItem.getCount()) {
-        player.inventory.mainInventory.set(player.inventory.currentItem, rest);
-        return ActionResultType.SUCCESS;
+      ChestTileEntity chest = (ChestTileEntity) te;
+      if (chest.canInsert(player, heldItem)) {
+        IItemHandlerModifiable itemHandler = chest.getItemHandler();
+        ItemStack rest = ItemHandlerHelper.insertItem(itemHandler, heldItem, false);
+        if (rest.isEmpty() || rest.getCount() < heldItem.getCount()) {
+          player.inventory.mainInventory.set(player.inventory.currentItem, rest);
+          return ActionResultType.SUCCESS;
+        }
       }
     }
 
