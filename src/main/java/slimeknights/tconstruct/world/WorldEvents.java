@@ -1,11 +1,21 @@
 package slimeknights.tconstruct.world;
 
+import net.minecraft.block.SkullBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootEntry;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.RandomValueRange;
 import net.minecraft.loot.functions.SetCount;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome.Category;
@@ -14,6 +24,8 @@ import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -172,5 +184,44 @@ public class WorldEvents {
                () -> ItemLootEntry.builder(TinkerSmeltery.scorchedLantern).weight(20)
                                   .acceptFunction(SetFluidLootFunction.builder(new FluidStack(TinkerFluids.blazingBlood.get(), FluidAttributes.BUCKET_VOLUME / 10)))
                                   .build());
+  }
+
+
+  /* Heads */
+
+  @SubscribeEvent
+  public void livingVisibility(LivingVisibilityEvent event) {
+    Entity lookingEntity = event.getLookingEntity();
+    if (lookingEntity == null) {
+      return;
+    }
+    LivingEntity entity = event.getEntityLiving();
+    Item helmet = entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem();
+    Item item = helmet.getItem();
+    if (item != Items.AIR && TinkerWorld.headItems.contains(item)) {
+      if (lookingEntity.getType() == ((TinkerHeadType)((SkullBlock)((BlockItem)item).getBlock()).skullType).getType()) {
+        event.modifyVisibility(0.5f);
+      }
+      EntityType<?> lookingType = lookingEntity.getType();
+    }
+  }
+
+  @SubscribeEvent
+  public void creeperKill(LivingDropsEvent event) {
+    DamageSource source = event.getSource();
+    if (source != null) {
+      Entity entity = source.getTrueSource();
+      if (entity instanceof CreeperEntity) {
+        CreeperEntity creeper = (CreeperEntity)entity;
+        if (creeper.ableToCauseSkullDrop()) {
+          LivingEntity dying = event.getEntityLiving();
+          TinkerHeadType headType = TinkerHeadType.fromEntityType(dying.getType());
+          if (headType != null && Config.COMMON.headDrops.get(headType).get()) {
+            creeper.incrementDroppedSkulls();
+            event.getDrops().add(dying.entityDropItem(TinkerWorld.heads.get(headType)));
+          }
+        }
+      }
+    }
   }
 }

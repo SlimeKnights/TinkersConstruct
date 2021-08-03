@@ -1,31 +1,18 @@
 package slimeknights.tconstruct.gadgets;
 
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.SkullBlock;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.WallSkullBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.dispenser.IDispenseItemBehavior;
-import net.minecraft.dispenser.OptionalDispenseBehavior;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.FireworkRocketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Properties;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Rarity;
-import net.minecraft.item.WallOrFloorItem;
-import net.minecraft.item.crafting.FireworkStarRecipe;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -79,7 +66,6 @@ public final class TinkerGadgets extends TinkerModule {
    * Block base properties
    */
   private static final Item.Properties GADGET_PROPS = new Item.Properties().group(TAB_GADGETS);
-  private static final Item.Properties HEAD_PROPS = new Item.Properties().group(TAB_GADGETS).rarity(Rarity.UNCOMMON);
   private static final Item.Properties UNSTACKABLE_PROPS = new Item.Properties().group(TAB_GADGETS).maxStackSize(1);
   private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GADGET_PROPS);
   private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GADGET_PROPS);
@@ -113,11 +99,6 @@ public final class TinkerGadgets extends TinkerModule {
   private static final AbstractBlock.Properties CAKE = builder(Material.CAKE, NO_TOOL, SoundType.CLOTH).hardnessAndResistance(0.5F);
   public static final EnumObject<SlimeType,FoodCakeBlock> cake = BLOCKS.registerEnum(SlimeType.LIQUID, "cake", type -> new FoodCakeBlock(CAKE, TinkerFood.getCake(type)), UNSTACKABLE_BLOCK_ITEM);
   public static final ItemObject<FoodCakeBlock> magmaCake = BLOCKS.register("magma_cake", () -> new FoodCakeBlock(CAKE, TinkerFood.MAGMA_CAKE), UNSTACKABLE_BLOCK_ITEM);
-
-  // heads
-  public static final EnumObject<TinkerHeadType,SkullBlock>     heads     = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "head", type -> new SkullBlock(type, AbstractBlock.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F)));
-  public static final EnumObject<TinkerHeadType,WallSkullBlock> wallHeads = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "wall_head", type -> new WallSkullBlock(type, AbstractBlock.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F).lootFrom(() -> heads.get(type))));
-  public static final EnumObject<TinkerHeadType,WallOrFloorItem> headItems = ITEMS.registerEnum(TinkerHeadType.values(), "head", type -> new WallOrFloorItem(heads.get(type), wallHeads.get(type), HEAD_PROPS));
 
   // Shurikens
   private static final Item.Properties THROWABLE_PROPS = new Item.Properties().maxStackSize(16).group(TAB_GADGETS);
@@ -184,28 +165,6 @@ public final class TinkerGadgets extends TinkerModule {
     event.enqueueWork(() -> {
       cake.forEach(block -> ComposterBlock.registerCompostable(1.0f, block));
       ComposterBlock.registerCompostable(1.0f, magmaCake.get());
-
-      // head equipping
-      IDispenseItemBehavior dispenseArmor = new OptionalDispenseBehavior() {
-        @Override
-        protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-          this.setSuccessful(ArmorItem.func_226626_a_(source, stack));
-          return stack;
-        }
-      };
-      heads.forEach(head -> DispenserBlock.registerDispenseBehavior(head, dispenseArmor));
-      // heads in firework stars
-      heads.forEach(head -> FireworkStarRecipe.ITEM_SHAPE_MAP.put(head.asItem(), FireworkRocketItem.Shape.CREEPER));
-      // inject heads into the tile entity type
-      event.enqueueWork(() -> {
-        ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
-        builder.addAll(TileEntityType.SKULL.validBlocks);
-        //noinspection Convert2MethodRef
-        heads.forEach(head -> builder.add(head));
-        //noinspection Convert2MethodRef
-        wallHeads.forEach(head -> builder.add(head));
-        TileEntityType.SKULL.validBlocks = builder.build();
-      });
     });
   }
 

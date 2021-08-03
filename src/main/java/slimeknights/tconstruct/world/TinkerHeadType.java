@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.gadgets;
+package slimeknights.tconstruct.world;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.block.SkullBlock.ISkullType;

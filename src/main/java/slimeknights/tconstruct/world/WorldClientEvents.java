@@ -6,8 +6,11 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.SlimeRenderer;
+import net.minecraft.client.renderer.entity.model.GenericHeadModel;
+import net.minecraft.client.renderer.tileentity.SkullTileEntityRenderer;
 import net.minecraft.item.Items;
 import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -19,6 +22,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.gadgets.client.HeadWithOverlayModel;
 import slimeknights.tconstruct.library.client.particle.SlimeParticle;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.client.SlimeColorReloadListener;
@@ -87,6 +91,27 @@ public class WorldClientEvents extends ClientEventBase {
     RenderTypeLookup.setRenderLayer(TinkerWorld.skyroot.getTrapdoor(), cutout);
     RenderTypeLookup.setRenderLayer(TinkerWorld.bloodshroom.getDoor(), cutout);
     RenderTypeLookup.setRenderLayer(TinkerWorld.bloodshroom.getTrapdoor(), cutout);
+
+    // skull rendering
+    GenericHeadModel normalHead = new GenericHeadModel(0, 0, 64, 32);
+    GenericHeadModel tinkersOverlayHead = new HeadWithOverlayModel(0, 0, 0, 16, 32, 32);
+    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.BLAZE, normalHead);
+    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.ENDERMAN, new GenericHeadModel(0, 0, 32, 16));
+    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.STRAY, tinkersOverlayHead);
+    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.BLAZE, new ResourceLocation("textures/entity/blaze.png"));
+    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.ENDERMAN, TConstruct.getResource("textures/entity/skull/enderman.png"));
+    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.STRAY, TConstruct.getResource("textures/entity/skull/stray.png"));
+    // zombies
+    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.HUSK, new GenericHeadModel(0, 0, 64, 64));
+    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.DROWNED, tinkersOverlayHead);
+    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.HUSK, new ResourceLocation("textures/entity/zombie/husk.png"));
+    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.DROWNED, TConstruct.getResource("textures/entity/skull/drowned.png"));
+    // spider
+    GenericHeadModel spiderHead = new GenericHeadModel(32, 4, 64, 32);
+    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.SPIDER, spiderHead);
+    SkullTileEntityRenderer.MODELS.put(TinkerHeadType.CAVE_SPIDER, spiderHead);
+    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.SPIDER, new ResourceLocation("textures/entity/spider/spider.png"));
+    SkullTileEntityRenderer.SKINS.put(TinkerHeadType.CAVE_SPIDER, new ResourceLocation("textures/entity/spider/cave_spider.png"));
   }
 
   @SubscribeEvent

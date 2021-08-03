@@ -10,7 +10,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.gadgets.TinkerHeadType;
+import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerStructures;
 
 import java.util.EnumMap;

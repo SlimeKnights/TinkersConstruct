@@ -135,6 +135,7 @@ public class BlockLootTableProvider extends BlockLootTables {
   private void addWorld() {
     this.registerDropSelfLootTable(TinkerWorld.cobaltOre.get());
     this.registerDropSelfLootTable(TinkerWorld.copperOre.get());
+    TinkerWorld.heads.forEach(this::registerDropSelfLootTable);
 
     // slime blocks
     TinkerWorld.slime.forEach((type, block) -> {
@@ -182,7 +183,6 @@ public class BlockLootTableProvider extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerGadgets.punji.get());
     TinkerGadgets.cake.forEach(block -> this.registerLootTable(block, blockNoDrop()));
     this.registerLootTable(TinkerGadgets.magmaCake.get(), blockNoDrop());
-    TinkerGadgets.heads.forEach(this::registerDropSelfLootTable);
   }
 
   private void addSmeltery() {

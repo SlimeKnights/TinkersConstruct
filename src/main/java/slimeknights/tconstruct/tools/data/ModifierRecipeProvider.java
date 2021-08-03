@@ -25,7 +25,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
@@ -709,10 +708,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, modResource(folder + "iron_golem_head"));
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.ENDER_DRAGON), Items.DRAGON_HEAD)
                          .build(consumer, modResource(folder + "ender_dragon_head"));
-    TinkerGadgets.headItems.forEach((type, head) ->
+    TinkerWorld.headItems.forEach((type, head) ->
       SeveringRecipeBuilder.severing(EntityIngredient.of(type.getType()), head)
                            .build(consumer, modResource(folder + type.getString() + "_head"))
-    );
+																 );
 
     // other body parts
     // hostile

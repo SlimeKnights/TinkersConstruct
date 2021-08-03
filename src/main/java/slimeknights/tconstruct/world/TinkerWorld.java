@@ -1,25 +1,38 @@
 package slimeknights.tconstruct.world;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.FireBlock;
+import net.minecraft.block.SkullBlock;
 import net.minecraft.block.SlimeBlock;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.WallSkullBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.dispenser.IDispenseItemBehavior;
+import net.minecraft.dispenser.OptionalDispenseBehavior;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.FireworkRocketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Rarity;
+import net.minecraft.item.WallOrFloorItem;
+import net.minecraft.item.crafting.FireworkStarRecipe;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.Heightmap;
@@ -84,7 +97,7 @@ public final class TinkerWorld extends TinkerModule {
   /** Tab for anything generated in the world */
   @SuppressWarnings("WeakerAccess")
   public static final ItemGroup TAB_WORLD = new SupplierItemGroup(TConstruct.MOD_ID, "world", () -> new ItemStack(TinkerWorld.cobaltOre));
-  static final Logger log = Util.getLogger("tinker_world");
+	static final Logger log = Util.getLogger("tinker_world");
 
   public static final PlantType SLIME_PLANT_TYPE = PlantType.get("slime");
 
@@ -94,6 +107,7 @@ public final class TinkerWorld extends TinkerModule {
   private static final Item.Properties WORLD_PROPS = new Item.Properties().group(TAB_WORLD);
   private static final Function<Block, ? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, WORLD_PROPS);
   private static final Function<Block, ? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, WORLD_PROPS);
+  private static final Item.Properties HEAD_PROPS = new Item.Properties().group(TAB_WORLD).rarity(Rarity.UNCOMMON);
 
   /** Flamable variant of clay, as in flamable shoveling material */
   public static final Material SLIME_WOOD = new Material.Builder(MaterialColor.CLAY).flammable().build();
@@ -142,7 +156,8 @@ public final class TinkerWorld extends TinkerModule {
   public static final EnumObject<SlimeType, Block> vanillaSlimeGrass, earthSlimeGrass, skySlimeGrass, enderSlimeGrass, ichorSlimeGrass;
   /** Map of dirt type to slime grass type. Each slime grass is a map from foliage to grass type */
   public static final Map<SlimeType, EnumObject<SlimeType, Block>> slimeGrass = new EnumMap<>(SlimeType.class);
-  static {
+
+	static {
     Function<SlimeType,AbstractBlock.Properties> slimeGrassProps = type -> builder(Material.ORGANIC, type.getMapColor(), ToolType.SHOVEL, SoundType.SLIME).hardnessAndResistance(0.65F).tickRandomly();
     Function<SlimeType, Block> slimeGrassRegister = type -> type.isNether() ? new SlimeNyliumBlock(slimeGrassProps.apply(type), type) : new SlimeGrassBlock(slimeGrassProps.apply(type), type);
     // blood is not an exact match for vanilla, but close enough
@@ -203,6 +218,11 @@ public final class TinkerWorld extends TinkerModule {
     skySlimeVine = BLOCKS.register("sky_slime_vine", () -> new SlimeVineBlock(props.apply(SlimeType.SKY), SlimeType.SKY), DEFAULT_BLOCK_ITEM);
     enderSlimeVine = BLOCKS.register("ender_slime_vine", () -> new SlimeVineBlock(props.apply(SlimeType.ENDER), SlimeType.ENDER), DEFAULT_BLOCK_ITEM);
   }
+
+  // heads
+  public static final EnumObject<TinkerHeadType,SkullBlock>     heads     = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "head", type -> new SkullBlock(type, AbstractBlock.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F)));
+  public static final EnumObject<TinkerHeadType,WallSkullBlock> wallHeads = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "wall_head", type -> new WallSkullBlock(type, AbstractBlock.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F).lootFrom(() -> heads.get(type))));
+  public static final EnumObject<TinkerHeadType,WallOrFloorItem> headItems = ITEMS.registerEnum(TinkerHeadType.values(), "head", type -> new WallOrFloorItem(heads.get(type), wallHeads.get(type), HEAD_PROPS));
 
   /*
    * Entities
@@ -294,6 +314,28 @@ public final class TinkerWorld extends TinkerModule {
       slimeGrassSeeds.forEach(block -> ComposterBlock.registerCompostable(0.35F, block));
       ComposterBlock.registerCompostable(0.5f, skySlimeVine);
       ComposterBlock.registerCompostable(0.5f, enderSlimeVine);
+
+      // head equipping
+      IDispenseItemBehavior dispenseArmor = new OptionalDispenseBehavior() {
+        @Override
+        protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+          this.setSuccessful(ArmorItem.func_226626_a_(source, stack));
+          return stack;
+        }
+      };
+      TinkerWorld.heads.forEach(head -> DispenserBlock.registerDispenseBehavior(head, dispenseArmor));
+      // heads in firework stars
+      TinkerWorld.heads.forEach(head -> FireworkStarRecipe.ITEM_SHAPE_MAP.put(head.asItem(), FireworkRocketItem.Shape.CREEPER));
+      // inject heads into the tile entity type
+      event.enqueueWork(() -> {
+        ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
+        builder.addAll(TileEntityType.SKULL.validBlocks);
+        //noinspection Convert2MethodRef
+        TinkerWorld.heads.forEach(head -> builder.add(head));
+        //noinspection Convert2MethodRef
+        TinkerWorld.wallHeads.forEach(head -> builder.add(head));
+        TileEntityType.SKULL.validBlocks = builder.build();
+      });
     });
 
     // flammability
