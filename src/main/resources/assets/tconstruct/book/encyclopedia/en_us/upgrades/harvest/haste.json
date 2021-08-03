@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:haste",
   "text": [
     {
-      "text": "Grants +5 mining speed per level."
+      "text": "Grants +5 mining speed and +5% attack speed per level."
     }
   ],
   "more_text_space": true,
