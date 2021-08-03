@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.aoe.CircleAOEHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
@@ -43,6 +44,6 @@ public class HandAxeTool extends HarvestTool {
 
   @Override
   public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
-    return true;
+    return !ToolDamageUtil.isBroken(stack);
   }
 }
