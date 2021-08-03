@@ -65,6 +65,10 @@
   },
   {
     "type": "modifier",
+    "data": "abilities/interact/firestarter.json"
+  },
+  {
+    "type": "modifier",
     "data": "abilities/interact/glowing.json"
   },
   {

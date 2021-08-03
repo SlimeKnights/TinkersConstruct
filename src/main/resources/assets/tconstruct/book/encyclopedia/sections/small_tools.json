@@ -33,5 +33,10 @@
     "name": "pickaxe",
     "type": "tool",
     "data": "small_tools/pickaxe.json"
+  },
+  {
+    "name": "flint_and_bronze",
+    "type": "tool",
+    "data": "small_tools/flint_and_bronze.json"
   }
 ]

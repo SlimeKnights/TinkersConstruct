@@ -29,5 +29,10 @@
     "name": "vein_hammer",
     "type": "tool",
     "data": "tools/vein_hammer.json"
+  },
+  {
+    "name": "flint_and_bronze",
+    "type": "tool",
+    "data": "tools/flint_and_bronze.json"
   }
 ]

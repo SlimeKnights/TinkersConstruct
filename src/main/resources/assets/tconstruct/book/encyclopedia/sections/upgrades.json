@@ -14,6 +14,10 @@
   },
   {
     "type": "modifier",
+    "data": "upgrades/general/fireprimer.json"
+  },
+  {
+    "type": "modifier",
     "data": "upgrades/general/experienced.json"
   },
   {
