@@ -26,7 +26,7 @@ import java.util.List;
 /** Helper functions for adding tooltips to tools */
 public class TooltipUtil {
   /** Tool tag to set that makes a tool a display tool */
-  public static final String KEY_DISPLAY_TOOL = "tic_display_tool";
+  public static final String KEY_DISPLAY = "tic_display";
 
   private TooltipUtil() {}
 
@@ -38,23 +38,31 @@ public class TooltipUtil {
   private static final ITextComponent NO_DATA = TConstruct.makeTranslation("tooltip", "missing_data").mergeStyle(TextFormatting.GRAY);
 
   /**
+   * If true, this stack was created for display, so some of the tooltip is suppressed
+   * @param stack  Stack to check
+   * @return  True if marked display
+   */
+  public static boolean isDisplay(ItemStack stack) {
+    CompoundNBT nbt = stack.getTag();
+    return nbt != null && nbt.getBoolean(KEY_DISPLAY);
+  }
+
+  /**
    * Full logic for adding tooltip information
    */
   public static void addInformation(IModifiableDisplay item, ItemStack stack, List<ITextComponent> tooltip, TooltipKey tooltipKey, boolean isAdvanced) {
-    CompoundNBT tag = stack.getTag();
-    if (tag == null || !ToolStack.isInitialized(stack)) {
-      if (item.getToolDefinition().isMultipart()) {
-        tooltip.add(NO_DATA);
-      }
-      return;
-    }
-    // if the display tag is set or no data, hide material info
-    if (tag.getBoolean(KEY_DISPLAY_TOOL)) {
+    // if the display tag is set, just show modifiers
+    if (isDisplay(stack)) {
       ToolStack tool = ToolStack.from(stack);
       for (ModifierEntry entry : tool.getModifierList()) {
         if (entry.getModifier().shouldDisplay(false)) {
           tooltip.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
         }
+      }
+      // if not initialized, show no data tooltip on non-standard items
+    } else if (!ToolStack.isInitialized(stack)) {
+      if (item.getToolDefinition().isMultipart()) {
+        tooltip.add(NO_DATA);
       }
     } else {
       switch (tooltipKey) {

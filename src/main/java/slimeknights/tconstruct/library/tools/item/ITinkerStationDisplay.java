@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.library.tools.item;
 
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.Util;
@@ -15,11 +17,13 @@ import java.util.List;
 /**
  * Interface to implement for tools that also display in the tinker station
  */
-public interface ITinkerStationDisplay {
+public interface ITinkerStationDisplay extends IItemProvider {
   /**
    * The "title" displayed in the GUI
    */
-  ITextComponent getLocalizedName();
+  default ITextComponent getLocalizedName() {
+    return new TranslationTextComponent(asItem().getTranslationKey());
+  }
 
   /**
    * Returns the tool stat information for this tool
@@ -27,7 +31,9 @@ public interface ITinkerStationDisplay {
    * @param tooltips     List of tooltips for display
    * @param tooltipFlag  Determines the type of tooltip to display
    */
-  List<ITextComponent> getStatInformation(IModifierToolStack tool, List<ITextComponent> tooltips, TooltipFlag tooltipFlag);
+  default List<ITextComponent> getStatInformation(IModifierToolStack tool, List<ITextComponent> tooltips, TooltipFlag tooltipFlag) {
+    return TooltipUtil.getDefaultStats(tool, tooltips, tooltipFlag);
+  }
 
   /**
    * Combines the given display name with the material names to form the new given name

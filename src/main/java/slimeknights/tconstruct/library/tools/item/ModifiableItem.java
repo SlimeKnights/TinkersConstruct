@@ -29,7 +29,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -45,12 +44,10 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
-import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
@@ -281,7 +278,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
     CompoundNBT nbt = stack.getTag();
-    if (nbt == null || nbt.getBoolean(TooltipUtil.KEY_DISPLAY_TOOL)) {
+    if (nbt == null || nbt.getBoolean(TooltipUtil.KEY_DISPLAY)) {
       return ImmutableMultimap.of();
     }
 
@@ -449,11 +446,6 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   /* Display names */
 
   @Override
-  public ITextComponent getLocalizedName() {
-    return new TranslationTextComponent(this.getTranslationKey());
-  }
-
-  @Override
   public ITextComponent getDisplayName(ItemStack stack) {
     List<IToolPart> components = getToolDefinition().getRequiredComponents();
     if (components.isEmpty()) {
@@ -483,11 +475,6 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     TooltipUtil.addInformation(this, stack, tooltip, TooltipKey.fromScreen(), flagIn == TooltipFlags.ADVANCED);
-  }
-
-  @Override
-  public List<ITextComponent> getStatInformation(IModifierToolStack tool, List<ITextComponent> tooltip, TooltipFlag flag) {
-    return TooltipUtil.getDefaultStats(tool, tooltip, flag);
   }
 
 

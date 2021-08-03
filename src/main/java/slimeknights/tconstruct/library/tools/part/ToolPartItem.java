@@ -16,14 +16,12 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Extension of {@link MaterialItem} which adds stats to the tooltip and has a set stat type
@@ -100,8 +98,9 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
    */
   protected boolean checkMissingMaterialTooltip(ItemStack stack, IMaterial material, List<ITextComponent> tooltip) {
     if (material == IMaterial.UNKNOWN) {
-      Optional<MaterialId> materialId = getMaterialId(stack);
-      materialId.ifPresent(id -> tooltip.add(new TranslationTextComponent(TConstruct.makeTranslationKey("tooltip", "part.missing_material"), id)));
+      if (!TooltipUtil.isDisplay(stack)) {
+        getMaterialId(stack).ifPresent(id -> tooltip.add(new TranslationTextComponent(TConstruct.makeTranslationKey("tooltip", "part.missing_material"), id)));
+      }
       return true;
     }
     else if (!canUseMaterial(material)) {

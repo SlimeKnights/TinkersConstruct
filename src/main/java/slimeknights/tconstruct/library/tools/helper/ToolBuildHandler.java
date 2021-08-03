@@ -71,7 +71,7 @@ public final class ToolBuildHandler {
       }
       stack = new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(item));
     }
-    stack.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY_TOOL, true);
+    stack.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
     return stack;
   }
 
