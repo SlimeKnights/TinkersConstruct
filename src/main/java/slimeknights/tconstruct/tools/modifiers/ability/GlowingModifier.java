@@ -25,14 +25,14 @@ public class GlowingModifier extends SingleUseModifier {
   @Override
   public ActionResultType afterBlockUse(IModifierToolStack tool, int level, ItemUseContext context) {
     PlayerEntity player = context.getPlayer();
-    if (tool.getCurrentDurability() >= 5) {
+    if (tool.getCurrentDurability() >= 10) {
       if (!context.getWorld().isRemote) {
         World world = context.getWorld();
         Direction face = context.getFace();
         BlockPos pos = context.getPos().offset(face);
         if (TinkerCommons.glow.get().addGlow(world, pos, face.getOpposite())) {
           // damage the tool, showing animation if relevant
-          if (ToolDamageUtil.directDamage(tool, 25, player, context.getItem()) && player != null) {
+          if (ToolDamageUtil.directDamage(tool, 10, player, context.getItem()) && player != null) {
             player.sendBreakAnimation(context.getHand());
           }
           world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);

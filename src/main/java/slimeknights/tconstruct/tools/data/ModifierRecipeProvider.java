@@ -571,6 +571,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .build(consumer, prefix(TinkerModifiers.tilling, abilityFolder));
     // glowing
     ModifierRecipeBuilder.modifier(TinkerModifiers.glowing.get())
+                         .setTools(TinkerTags.Items.DURABILITY)
                          .addInput(Items.GLOWSTONE)
                          .addInputSalvage(Items.DAYLIGHT_DETECTOR, 0.9f)
                          .addInputSalvage(Items.SHROOMLIGHT, 0.4f)
