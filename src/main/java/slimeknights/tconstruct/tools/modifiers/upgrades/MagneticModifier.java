@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.math.BlockPos;
@@ -11,10 +12,11 @@ import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.internal.HarvestAbilityModifier.IHarvestModifier;
+import slimeknights.tconstruct.tools.modifiers.internal.ShearsAbilityModifier.IShearModifier;
 
 import javax.annotation.Nullable;
 
-public class MagneticModifier extends Modifier implements IHarvestModifier {
+public class MagneticModifier extends Modifier implements IHarvestModifier, IShearModifier {
   public MagneticModifier() {
     super(0x720000);
   }
@@ -42,11 +44,18 @@ public class MagneticModifier extends Modifier implements IHarvestModifier {
     }
   }
 
+  @Override
+  public void afterShearEntity(IModifierToolStack tool, int level, PlayerEntity player, Entity entity, boolean isTarget) {
+    if (isTarget) {
+      TinkerModifiers.magneticEffect.get().apply(player, 30, level - 1);
+    }
+  }
+
   @SuppressWarnings("unchecked")
   @Nullable
   @Override
   public <T> T getModule(Class<T> type) {
-    if (type == IHarvestModifier.class) {
+    if (type == IHarvestModifier.class || type == IShearModifier.class) {
       return (T) this;
     }
     return null;
