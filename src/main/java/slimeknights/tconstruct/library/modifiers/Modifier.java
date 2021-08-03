@@ -51,6 +51,7 @@ import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
+import slimeknights.tconstruct.library.utils.TooltipFlag;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -204,15 +205,20 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
     return getDisplayName(level);
   }
 
+  /** @deprecated use {@link #addInformation(IModifierToolStack, int, List, TooltipFlag)} */
+  @Deprecated
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {}
+
   /**
    * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
-   * @param tool      Tool instance
-   * @param level     Tool level
-   * @param tooltip   Tooltip
-   * @param isAdvanced  Tooltip flag type
-   * @param detailed  If true, showing detailed view, such as in the tinker station
+   * @param tool         Tool instance
+   * @param level        Tool level
+   * @param tooltip      Tooltip
+   * @param tooltipFlag  Flag determining tooltip type
    */
-  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, boolean isAdvanced, boolean detailed) {}
+  public void addInformation(IModifierToolStack tool, int level, List<ITextComponent> tooltip, TooltipFlag tooltipFlag) {
+    addInformation(tool, level, tooltip, tooltipFlag == TooltipFlag.ADVANCED, tooltipFlag == TooltipFlag.DETAILED);
+  }
 
   /**
    * Gets the description for this modifier

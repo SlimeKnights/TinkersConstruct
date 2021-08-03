@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -67,7 +67,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
         } else {
           // info tooltip for detailed and component info
           tooltip.add(StringTextComponent.EMPTY);
-          tooltip.add(IModifiableDisplay.TOOLTIP_HOLD_SHIFT);
+          tooltip.add(TooltipUtil.TOOLTIP_HOLD_SHIFT);
         }
       }
       // and finally, mod

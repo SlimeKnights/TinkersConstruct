@@ -36,6 +36,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
+import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
@@ -262,11 +263,12 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     }
 
     if (TinkerTags.Items.MODIFIABLE.contains(toolStack.getItem())) {
+      ToolStack tool = ToolStack.from(toolStack);
       if (toolStack.getItem() instanceof ITinkerStationDisplay) {
-        ITinkerStationDisplay tool = (ITinkerStationDisplay) toolStack.getItem();
-        this.tinkerInfo.setCaption(tool.getLocalizedName());
-        // TODO: tooltips
-        this.tinkerInfo.setText(tool.getInformation(toolStack));
+        ITinkerStationDisplay display = (ITinkerStationDisplay) toolStack.getItem();
+        this.tinkerInfo.setCaption(display.getLocalizedName());
+        // TODO: tooltips on these?
+        this.tinkerInfo.setText(display.getStatInformation(tool, new ArrayList<>(), TooltipFlag.DETAILED));
       }
       else {
         this.tinkerInfo.setCaption(toolStack.getDisplayName());
@@ -274,7 +276,6 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       }
 
       // TODO: generalize to all modifiable tools
-      ToolStack tool = ToolStack.from(toolStack);
       List<ITextComponent> modifierNames = new ArrayList<>();
       List<ITextComponent> modifierInfo = new ArrayList<>();
       ITextComponent title;

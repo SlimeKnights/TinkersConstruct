@@ -175,10 +175,10 @@ public class ToolStack implements IModifierToolStack {
     tool.damage = 0;
     tool.broken = false;
     tool.upgrades = ModifierNBT.EMPTY;
+    // add slots
+    definition.getBaseStatDefinition().buildSlots(tool.getPersistentData());
     // update the materials
     tool.setMaterials(materials);
-    // update modifier data
-    definition.getBaseStatDefinition().buildSlots(tool.getPersistentData());
     return tool;
   }
 

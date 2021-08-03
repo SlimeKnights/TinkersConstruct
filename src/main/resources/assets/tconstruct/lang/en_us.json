@@ -1699,6 +1699,7 @@
   "tooltip.tconstruct.tool.empty": "Empty",
   "tooltip.tconstruct.hold_shift": "Hold %s for stats",
   "tooltip.tconstruct.hold_ctrl": "Hold %s for more",
+  "tooltip.tconstruct.missing_data": "Missing tool data",
 
   "tooltip.tconstruct.part.added_by": "Material added by %s",
   "tooltip.tconstruct.part.missing_material": "Missing material: %s",

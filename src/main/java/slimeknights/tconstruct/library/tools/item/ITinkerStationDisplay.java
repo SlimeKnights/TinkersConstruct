@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.library.tools.item;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
+import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Collection;
@@ -17,21 +16,18 @@ import java.util.List;
  * Interface to implement for tools that also display in the tinker station
  */
 public interface ITinkerStationDisplay {
-  /** Tooltip telling the player to hold shift for more info */
-  ITextComponent TOOLTIP_HOLD_SHIFT = TConstruct.makeTranslation("tooltip", "hold_shift", TConstruct.makeTranslation("key", "shift").mergeStyle(TextFormatting.YELLOW, TextFormatting.ITALIC));
-  /** Tooltip telling the player to hold control for part info */
-  ITextComponent TOOLTIP_HOLD_CTRL = TConstruct.makeTranslation("tooltip", "hold_ctrl", TConstruct.makeTranslation("key", "ctrl").mergeStyle(TextFormatting.AQUA, TextFormatting.ITALIC));
-
   /**
    * The "title" displayed in the GUI
    */
   ITextComponent getLocalizedName();
 
   /**
-   * Returns an List of ITextComponent, where each Text Component represents an information about the tool. Used to display
-   * Information about the item in the GUI
+   * Returns the tool stat information for this tool
+   * @param tool         Tool to display
+   * @param tooltips     List of tooltips for display
+   * @param tooltipFlag  Determines the type of tooltip to display
    */
-  List<ITextComponent> getInformation(ItemStack stack);
+  List<ITextComponent> getStatInformation(IModifierToolStack tool, List<ITextComponent> tooltips, TooltipFlag tooltipFlag);
 
   /**
    * Combines the given display name with the material names to form the new given name

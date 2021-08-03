@@ -27,7 +27,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.TankModifier;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.library.tools.item.ToolItem;
+import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IModDataReadOnly;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -146,7 +146,7 @@ public class BucketingModifier extends TankModifier {
       return ActionResultType.PASS;
     }
     // have to trace again to find the fluid, ensure we can edit the position
-    BlockRayTraceResult trace = ToolItem.blockRayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+    BlockRayTraceResult trace = ModifiableItem.blockRayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
     if (trace.getType() != Type.BLOCK) {
       return ActionResultType.PASS;
     }
