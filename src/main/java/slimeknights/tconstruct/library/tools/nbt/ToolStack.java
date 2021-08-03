@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
+import com.google.common.collect.ImmutableSet;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +17,17 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Class handling parsing all tool related NBT
@@ -37,6 +41,7 @@ public class ToolStack implements IModifierToolStack {
   @Deprecated
   public static final ResourceLocation ORIGINAL_DURABILITY_KEY = TConstruct.getResource("durability");
 
+  // tinkers tags
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
   protected static final String TAG_MULTIPLIERS = "tic_multipliers";
@@ -48,6 +53,10 @@ public class ToolStack implements IModifierToolStack {
   // vanilla tags
   protected static final String TAG_DAMAGE = "Damage";
   public static final String TAG_UNBREAKABLE = "Unbreakable";
+
+  /** List of tags to disallow editing for the relevant modifier hooks, disallows all tags we touch. Ignores unbreakable as we only look at that tag for vanilla compat */
+  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, ModifierUtil.TAG_ENCHANTMENTS, ModifierUtil.TAG_HIDE_FLAGS);
+
   /** Item representing this tool */
   @Getter
   private final Item item;
@@ -57,6 +66,8 @@ public class ToolStack implements IModifierToolStack {
   /** Original tool NBT */
   @Getter(AccessLevel.PROTECTED)
   private final CompoundNBT nbt;
+  /** Public view of the internal NBT, to give to modifier hooks */
+  private RestrictedCompoundTag restrictedNBT;
 
   // durability
   /** Current damage of the tool, -1 means unloaded */
@@ -134,6 +145,25 @@ public class ToolStack implements IModifierToolStack {
   }
 
   /**
+   * Creates a new tool stack for a completely new tool
+   * @param item        Item
+   * @param definition  Tool definition
+   * @return  Tool stack
+   */
+  public static ToolStack createTool(Item item, ToolDefinition definition, List<IMaterial> materials) {
+    ToolStack tool = from(item, definition, new CompoundNBT());
+    // set cached to empty, saves a NBT lookup or two
+    tool.damage = 0;
+    tool.broken = false;
+    tool.upgrades = ModifierNBT.EMPTY;
+    // add slots
+    definition.getBaseStatDefinition().buildSlots(tool.getPersistentData());
+    // update the materials
+    tool.setMaterials(materials);
+    return tool;
+  }
+
+  /**
    * Checks if the given tool stats have been initialized, used as a marker to indicate slots are not yet applied
    * @param stack  Stack to check
    * @return  True if initialized
@@ -169,27 +199,9 @@ public class ToolStack implements IModifierToolStack {
     this.upgrades = null;
     this.modifiers = null;
     this.stats = null;
+    this.multipliers = null;
     this.volatileModData = null;
     this.persistentModData = null;
-  }
-
-  /**
-   * Creates a new tool stack for a completely new tool
-   * @param item        Item
-   * @param definition  Tool definition
-   * @return  Tool stack
-   */
-  public static ToolStack createTool(Item item, ToolDefinition definition, List<IMaterial> materials) {
-    ToolStack tool = from(item, definition, new CompoundNBT());
-    // set cached to empty, saves a NBT lookup or two
-    tool.damage = 0;
-    tool.broken = false;
-    tool.upgrades = ModifierNBT.EMPTY;
-    // add slots
-    definition.getBaseStatDefinition().buildSlots(tool.getPersistentData());
-    // update the materials
-    tool.setMaterials(materials);
-    return tool;
   }
 
   /** Creates an item stack from this tool stack */
@@ -212,6 +224,16 @@ public class ToolStack implements IModifierToolStack {
     return stack;
   }
 
+  /**
+   * Gets a restricted view of the tools NBT
+   * @return  Tool NBT without access to internal tags
+   */
+  public RestrictedCompoundTag getRestrictedNBT() {
+    if (restrictedNBT == null) {
+      restrictedNBT = new RestrictedCompoundTag(nbt, RESTRICTED_TAGS);
+    }
+    return restrictedNBT;
+  }
 
   /* Damaging */
 
@@ -601,5 +623,10 @@ public class ToolStack implements IModifierToolStack {
     // build stats from the tool stats
     setStats(statBuilder.build(stats));
     setMultipliers(statBuilder.buildMultipliers());
+
+    // finally, update raw data, called last to make the parameters more convenient mostly, plus no other hooks should be responding to this data
+    for (ModifierEntry entry : modifierList) {
+      entry.getModifier().addRawData(this, entry.getLevel(), getRestrictedNBT());
+    }
   }
 }

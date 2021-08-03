@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -20,14 +21,17 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Recipe that replaces a tool part with another
@@ -125,7 +129,42 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
 
         // actual update
         tool = tool.copy();
+
+        // determine which modifiers are going to be removed
+        Map<Modifier,Integer> removedTraits = new HashMap<>();
+        // start with a map of all modifiers on the old part
+        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(toolMaterial.getIdentifier(), part.getStatType())) {
+          removedTraits.put(entry.getModifier(), entry.getLevel());
+        }
+        // subtract any modifiers on the new part
+        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(partMaterial.getIdentifier(), part.getStatType())) {
+          Modifier modifier = entry.getModifier();
+          if (removedTraits.containsKey(modifier)) {
+            int value = removedTraits.get(modifier) - entry.getLevel();
+            if (value <= 0) {
+              removedTraits.remove(modifier);
+            } else {
+              removedTraits.put(modifier, value);
+            }
+          }
+        }
+        // for the remainder, fill a list as we have 2 more hooks to call with them
+        List<Modifier> actuallyRemoved = new ArrayList<>();
+        for (Entry<Modifier,Integer> entry : removedTraits.entrySet()) {
+          Modifier modifier = entry.getKey();
+          if (tool.getModifierLevel(modifier) <= entry.getValue()) {
+            modifier.beforeRemoved(tool, tool.getRestrictedNBT());
+            actuallyRemoved.add(modifier);
+          }
+        }
+
+        // do the actual part replacement
         tool.replaceMaterial(index, partMaterial);
+
+        // allow modifiers to remove any extra NBT based on the new state
+        for (Modifier modifier : actuallyRemoved) {
+          modifier.onRemoved(tool);
+        }
 
         // if swapping in a new head, repair the tool (assuming the give stats type can repair)
         // ideally we would validate before repairing, but don't want to create the stack before repairing
@@ -149,15 +188,25 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         }
 
         // ensure no modifier problems after removing
+        // first check tool requirements
         ItemStack result = tool.createStack();
         ValidatedResult toolValidation = ModifierRecipeLookup.checkRequirements(result, tool);
         if (toolValidation.hasError()) {
           return toolValidation;
         }
-        toolValidation = ModifierUtil.validateRemovedModifiers(tool, MaterialRegistry.getInstance().getTraits(toolMaterial.getIdentifier(), part.getStatType()));
+        // next, modifier validation
+        toolValidation = tool.validate();
         if (toolValidation.hasError()) {
           return toolValidation;
         }
+        // finally, validate removed modifiers
+        for (Modifier modifier : actuallyRemoved) {
+          toolValidation = modifier.validate(tool, 0);
+          if (toolValidation.hasError()) {
+            return toolValidation;
+          }
+        }
+        // everything worked, so good to go
         return ValidatedResult.success(result);
       }
     }

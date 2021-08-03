@@ -50,6 +50,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 import slimeknights.tconstruct.library.utils.TooltipFlag;
 
@@ -259,6 +260,7 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
    * Alternatives:
    * <ul>
    *   <li>Persistent mod data (accessed via {@link IModifierToolStack}): Can be written to freely, but will not automatically remove if the modifier is removed.</li>
+   *   <li>{@link #addRawData(IModifierToolStack, int, RestrictedCompoundTag)}: Allows modifying a restricted view of the tools main data, might help with other mod compat, but not modifier compat</li>
    * </ul>
    * @param item            Item in the stack
    * @param toolDefinition  Tool definition, will be empty for non-multitools
@@ -310,12 +312,27 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   public void addAttributes(IModifierToolStack tool, int level, EquipmentSlotType slot, BiConsumer<Attribute,AttributeModifier> consumer) {}
 
   /**
+   * Allows editing a restricted view of the tools raw NBT. You are responsible for cleaning up that data on removal via {@link #beforeRemoved(IModifierToolStack, RestrictedCompoundTag)}.
+   * In most cases volatile data via {@link #addVolatileData(Item, ToolDefinition, StatsNBT, IModDataReadOnly, int, ModDataNBT)} is a much better choice, only use this hook if you have no other choice.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #addVolatileData(Item, ToolDefinition, StatsNBT, IModDataReadOnly, int, ModDataNBT)}: Modifier data that automatically cleans up when the modifier is removed.11</li>
+   * </ul>
+   * @param tool   Tool stack instance
+   * @param level  Level of the modifier
+   * @param tag    Mutable tag, will not allow modifiying any important tool stat
+   */
+  public void addRawData(IModifierToolStack tool, int level, RestrictedCompoundTag tag) {}
+
+  /**
    * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
    * Do not validate max level here, simply ignore levels over max if needed.
    * <br>
    * Alternatives:
    * <ul>
    *   <li>{@link #onRemoved(IModifierToolStack)}: Called when the last level of a modifier is removed after validation is finished</li>
+   *   <li>{@link #beforeRemoved(IModifierToolStack, RestrictedCompoundTag)}: Called before the modifier is actually removed</li>
    * </ul>
    * @param tool   Current tool instance
    * @param level  Modifier level, may be 0 if the modifier is removed.
@@ -326,11 +343,27 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   }
 
   /**
-   * Called when this modifier is removed to clean up persistent data
+   * Called when this modifier is about to be removed. At this time stats are not yet rebuild and the modifier is still on the tool.
+   * Mainly exists to work with the raw tool NBT, as its a lot more difficult for multiple modifiers to collaborate on that.
+   * <br>
+   * Alternatives:
+   * <ul>
+   *   <li>{@link #onRemoved(IModifierToolStack)}: Called after the modifier is removed and stat are rebuilt without it. Typically a better choice for working with persistent NBT</li>
+   *   <li>{@link #addVolatileData(Item, ToolDefinition, StatsNBT, IModDataReadOnly, int, ModDataNBT)}: Adds NBT that is automatically removed</li>
+   *   <li>{@link #validate(IModifierToolStack, int)}: Allows marking a new state invalid</li>
+   * </ul>
+   * @param tool  Tool instance
+   */
+  public void beforeRemoved(IModifierToolStack tool, RestrictedCompoundTag tag) {}
+
+  /**
+   * Called after this modifier is removed (and after stats are rebuilt) to clean up persistent data.
    * <br>
    * Alternatives:
    * <ul>
    *   <li>{@link #validate(IModifierToolStack, int)}: Called when the tool still has levels and allows rejecting the new tool state</li>
+   *   <li>{@link #beforeRemoved(IModifierToolStack, RestrictedCompoundTag)}: Grants access to the tools raw NBT, but called before tool stats are rebuilt</li>
+   *   <li>{@link #addVolatileData(Item, ToolDefinition, StatsNBT, IModDataReadOnly, int, ModDataNBT)}: Adds NBT that is automatically removed</li>
    * </ul>
    * @param tool  Tool instance
    */

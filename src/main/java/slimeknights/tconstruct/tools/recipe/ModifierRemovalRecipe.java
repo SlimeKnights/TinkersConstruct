@@ -99,12 +99,17 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
       salvage.updateTool(tool);
     }
 
+    // first remove hook, primarily for removing raw NBT which is highly discouraged using
+    int newLevel = tool.getModifierLevel(modifier) - 1;
+    if (newLevel <= 0) {
+      modifier.beforeRemoved(tool, tool.getRestrictedNBT());
+    }
+
     // remove the actual modifier
     tool.removeModifier(modifier, 1);
 
-    // allow the modifier to clean up NBT if its the last level
-    int newLevel = tool.getModifierLevel(modifier); // want to check both upgrades and traits
-    if (newLevel == 0) {
+    // second remove hook, useful for removing modifier specific state data
+    if (newLevel <= 0) {
       modifier.onRemoved(tool);
     }
 
@@ -114,7 +119,7 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
       return validated;
     }
     // if this was the last level, validate the tool is still valid without it
-    if (newLevel == 0) {
+    if (newLevel <= 0) {
       validated = modifier.validate(tool, 0);
       if (validated.hasError()) {
         return validated;

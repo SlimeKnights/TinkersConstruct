@@ -13,17 +13,13 @@ import net.minecraft.item.ItemStack.TooltipDisplayFlags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.function.BiConsumer;
@@ -31,8 +27,10 @@ import java.util.function.BiConsumer;
 /** Generic modifier hooks that don't quite fit elsewhere */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ModifierUtil {
-  private static final String TAG_ENCHANTMENTS = "Enchantments";
-  private static final String TAG_HIDE_FLAGS = "HideFlags";
+  /** Vanilla enchantments tag */
+  public static final String TAG_ENCHANTMENTS = "Enchantments";
+  /** Vanilla tag to hide certain tooltips */
+  public static final String TAG_HIDE_FLAGS = "HideFlags";
 
   /**
    * Adds all enchantments from tools. Separate method as tools don't have enchants all the time.
@@ -97,42 +95,6 @@ public final class ModifierUtil {
       looting = entry.getModifier().getLootingValue(tool, entry.getLevel(), holder, target, damageSource, looting);
     }
     return looting;
-  }
-
-  /**
-   * Validates that the tool is still valid after removing the given modifiers.
-   * Alternative to calling {@link ToolStack#validate()} when a list of modifiers are being removed.
-   * @param tool              Tool
-   * @param modifiersToCheck  List of modifiers to check, only runs validate on any modifiers not currently on the tool
-   * @return  Validated result, either pass or an error
-   */
-  public static ValidatedResult validateRemovedModifiers(ToolStack tool, List<ModifierEntry> modifiersToCheck) {
-    // allow the modifiers to remove NBT if needed first
-    List<Modifier> removed = new ArrayList<>();
-    for (ModifierEntry entry : modifiersToCheck) {
-      Modifier modifier = entry.getModifier();
-      if (tool.getModifierLevel(modifier) == 0) {
-        removed.add(modifier);
-        modifier.onRemoved(tool);
-      }
-    }
-
-    // next, try validating the tool
-    ValidatedResult toolResult = tool.validate();
-    if (toolResult.hasError()) {
-      return toolResult;
-    }
-
-    // next, validate any modifiers that were entirely removed
-    for (Modifier modifier : removed) {
-      ValidatedResult result = modifier.validate(tool, 0);
-      if (result.hasError()) {
-        return result;
-      }
-    }
-
-    // nothing went wrong, so pass
-    return ValidatedResult.PASS;
   }
 
   /** Drops an item at the entity position */
