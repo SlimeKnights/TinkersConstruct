@@ -71,6 +71,10 @@ public class Modifier implements IForgeRegistryEntry<Modifier> {
   /** Modifier random instance, use for chance based effects */
   protected static Random RANDOM = new Random();
 
+  /** @deprecated use {@link RomanNumeralHelper} */
+  @Deprecated
+  protected static final String KEY_LEVEL = "enchantment.level.";
+
   /** Priority of modfiers by default */
   public static final int DEFAULT_PRIORITY = 100;
 
