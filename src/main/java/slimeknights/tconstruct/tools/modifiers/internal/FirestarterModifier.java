@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -99,6 +100,13 @@ public class FirestarterModifier extends SingleUseModifier {
     BlockState state = world.getBlockState(pos);
     ItemStack stack = context.getItem();
 
+    // if targeting fire, offset to behind the fire
+    boolean targetingFire = false;
+    if (state.isIn(BlockTags.FIRE)) {
+      pos = pos.offset(sideHit.getOpposite());
+      targetingFire = true;
+    }
+
     // AOE selection logic, get boosted from both fireprimer (unique modifer) and expanded
     int range = tool.getModifierLevel(TinkerModifiers.fireprimer.get()) + tool.getModifierLevel(TinkerModifiers.expanded.get());
     Iterable<BlockPos> targets = Collections.emptyList();
@@ -109,24 +117,29 @@ public class FirestarterModifier extends SingleUseModifier {
     // burn it all in AOE
     Hand hand = context.getHand();
     Direction horizontalFacing = context.getPlacementHorizontalFacing();
-    if (ignite(tool, world, pos, state, sideHit, horizontalFacing, player)) {
-      if (ToolDamageUtil.damage(tool, 1, player, stack)) {
+    // first burn the center, unless we already know its fire
+    boolean didIgnite = false;
+    if (!targetingFire) {
+      didIgnite = ignite(tool, world, pos, state, sideHit, horizontalFacing, player);
+      if (didIgnite && ToolDamageUtil.damage(tool, 1, player, stack)) {
         if (player != null) {
           player.sendBreakAnimation(hand);
         }
-      } else {
-        for (BlockPos target : targets) {
-          ignite(tool, world, target, world.getBlockState(target), sideHit, horizontalFacing, player);
-          if (ToolDamageUtil.damage(tool, 1, player, stack)) {
-            if (player != null) {
-              player.sendBreakAnimation(hand);
-            }
-            break;
+        return ActionResultType.func_233537_a_(world.isRemote);
+      }
+    }
+    // ignite the edges, if any worked return success
+    for (BlockPos target : targets) {
+      if (ignite(tool, world, target, world.getBlockState(target), sideHit, horizontalFacing, player)) {
+        didIgnite = true;
+        if (ToolDamageUtil.damage(tool, 1, player, stack)) {
+          if (player != null) {
+            player.sendBreakAnimation(hand);
           }
+          break;
         }
       }
-      return ActionResultType.func_233537_a_(world.isRemote);
     }
-    return ActionResultType.PASS;
+    return didIgnite ? ActionResultType.func_233537_a_(world.isRemote) : ActionResultType.PASS;
   }
 }

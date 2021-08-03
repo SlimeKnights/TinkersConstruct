@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "forge:item/default",
   "textures": {
     "tool":   "tconstruct:item/tool/flint_and_bronze/tool",
     "broken": "tconstruct:item/tool/flint_and_bronze/broken"
