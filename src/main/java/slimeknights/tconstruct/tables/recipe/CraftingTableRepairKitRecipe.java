@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tables.recipe;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
@@ -14,6 +15,7 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -28,12 +30,22 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
   }
 
   /**
+   * Checks if the tool is valid for this recipe
+   * @param stack  Tool to check
+   * @return  True if valid
+   */
+  protected boolean toolMatches(ItemStack stack) {
+    Item item = stack.getItem();
+    return TinkerTags.Items.MULTIPART_TOOL.contains(item) && TinkerTags.Items.DURABILITY.contains(item);
+  }
+
+  /**
    * Gets the tool stack and the repair kit material from the crafting grid
    * @param inv  Crafting inventory
-   * @return  Relavant inputs, or null if invalid
+   * @return  Relevant inputs, or null if invalid
    */
   @Nullable
-  private Pair<ToolStack, IMaterial> getRelevantInputs(CraftingInventory inv) {
+  protected Pair<ToolStack, IMaterial> getRelevantInputs(CraftingInventory inv) {
     ToolStack tool = null;
     IMaterial material = null;
     for (int i = 0; i < inv.getSizeInventory(); i++) {
@@ -53,7 +65,7 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
           return null;
         }
         material = inputMaterial;
-      } else if (TinkerTags.Items.MULTIPART_TOOL.contains(stack.getItem())) {
+      } else if (toolMatches(stack)) {
         // cannot repair multiple tools
         if (tool != null) {
           return null;
@@ -80,6 +92,17 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
     return inputs != null && TinkerStationRepairRecipe.getRepairIndex(inputs.getFirst(), inputs.getSecond()) >= 0;
   }
 
+  /** Gets the amount to repair for the given material */
+  protected float getRepairAmount(IModifierToolStack tool, IMaterial repairMaterial) {
+    MaterialStatsId repairStats = TinkerStationRepairRecipe.getDefaultStatsId(tool, repairMaterial);
+    IMaterial primaryMaterial = tool.getMaterial(tool.getDefinition().getRepairParts()[0]);
+    float repairAmount = MaterialRecipe.getRepairDurability(repairMaterial.getIdentifier(), repairStats) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
+    if (repairAmount > 0 && repairMaterial != primaryMaterial) {
+      repairAmount /= tool.getDefinition().getBaseStatDefinition().getPrimaryHeadWeight();
+    }
+    return repairAmount;
+  }
+
   @Override
   public ItemStack getCraftingResult(CraftingInventory inv) {
     Pair<ToolStack, IMaterial> inputs = getRelevantInputs(inv);
@@ -88,18 +111,11 @@ public class CraftingTableRepairKitRecipe extends SpecialRecipe {
       return ItemStack.EMPTY;
     }
 
-    // first identify materials and durablity
+    // first identify materials and durability
     ToolStack tool = inputs.getFirst().copy();
-    IMaterial repairMaterial = inputs.getSecond();
-    MaterialStatsId repairStats = TinkerStationRepairRecipe.getDefaultStatsId(tool, repairMaterial);
-    IMaterial primaryMaterial = tool.getMaterial( tool.getDefinition().getRepairParts()[0]);
     // vanilla says 25% durability per ingot, repair kits are worth 2 ingots
-    float repairAmount = MaterialRecipe.getRepairDurability(repairMaterial.getIdentifier(), repairStats) / 2f;
+    float repairAmount = getRepairAmount(tool, inputs.getSecond());
     if (repairAmount > 0) {
-      if (repairMaterial != primaryMaterial) {
-        repairAmount /= tool.getDefinition().getBaseStatDefinition().getPrimaryHeadWeight();
-      }
-
       // adjust the factor based on modifiers
       // main example is wood, +25% per level
       for (ModifierEntry entry : tool.getModifierList()) {

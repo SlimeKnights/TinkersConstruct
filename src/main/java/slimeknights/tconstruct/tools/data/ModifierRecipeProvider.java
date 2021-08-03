@@ -580,6 +580,25 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .buildSalvage(consumer, prefix(TinkerModifiers.glowing, abilitySalvage))
                          .build(consumer, prefix(TinkerModifiers.glowing, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.firestarter.get())
+                         .setTools(new IngredientWithout(Ingredient.fromTag(TinkerTags.Items.DURABILITY), Ingredient.fromItems(TinkerTools.flintAndBronze)))
+                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .addInputSalvage(Items.FLINT, 0.2f)
+                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.firestarter, abilitySalvage))
+                         .build(consumer, prefix(TinkerModifiers.firestarter, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.fireprimer.get())
+                         .setTools(Ingredient.fromItems(TinkerTools.flintAndBronze))
+                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+                         .addInputSalvage(Items.FLINT, 0.2f)
+                         .addSalvage(Items.NETHERITE_SCRAP, 0.35f)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .buildSalvage(consumer, prefix(TinkerModifiers.fireprimer, upgradeSalvage))
+                         .build(consumer, prefix(TinkerModifiers.fireprimer, upgradeFolder));
+
     // unbreakable
     ModifierRecipeBuilder.modifier(TinkerModifiers.unbreakable.get())
                          .addInput(Items.SHULKER_SHELL)

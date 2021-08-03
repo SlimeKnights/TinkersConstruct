@@ -728,6 +728,8 @@
   "item.tconstruct.sword": "Sword",
   "item.tconstruct.cleaver": "Cleaver",
 
+  "item.tconstruct.flint_and_bronze": "Flint and Bronze",
+
 
   "_comment": "Tinkers Tool Parts",
 
@@ -1468,6 +1470,12 @@
   "modifier.tconstruct.exchanging": "Exchanging",
   "modifier.tconstruct.exchanging.flavor": "The Ole Switcheroo!",
   "modifier.tconstruct.exchanging.description": "Blocks broken by this tool are replaced by the block in the offhand if possible",
+  "modifier.tconstruct.firestarter": "Firestarter",
+  "modifier.tconstruct.firestarter.flavor": "Fire burning in my heart!",
+  "modifier.tconstruct.firestarter.description": "Tool can create fire on usage",
+  "modifier.tconstruct.fireprimer": "Fireprimer",
+  "modifier.tconstruct.fireprimer.flavor": "Fanning the flames!",
+  "modifier.tconstruct.fireprimer.description": "Increases the area of fire of the tool",
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "Melting",
   "modifier.tconstruct.melting.flavor": "The power of a Melter on a stick!",

@@ -101,4 +101,11 @@ public final class ToolDefinitions {
     .addModifier(TinkerModifiers.aoeSilkyShears)
     .addModifier(TinkerModifiers.twoHanded)
     .build();
+
+  // special
+  public static final ToolDefinition FLINT_AND_BRONZE = ToolDefinition
+    .builder(ToolBaseStatDefinitions.FLINT_AND_BRONZE)
+    .addModifier(TinkerModifiers.firestarterHidden)
+    .addModifier(TinkerModifiers.fiery)
+    .build();
 }

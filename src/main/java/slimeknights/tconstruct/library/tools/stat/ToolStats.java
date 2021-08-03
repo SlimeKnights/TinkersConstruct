@@ -19,7 +19,7 @@ public class ToolStats {
   /** Tools durability, determines how long it lasts */
   public static final FloatToolStat DURABILITY = register(new FloatToolStat(name("durability"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE));
   /** Tools attack damage for melee */
-  public static final FloatToolStat ATTACK_DAMAGE = register(new FloatToolStat(name("attack_damage"), 0xFFD76464, 1, 0, 2048f));
+  public static final FloatToolStat ATTACK_DAMAGE = register(new FloatToolStat(name("attack_damage"), 0xFFD76464, 0, 0, 2048f));
   /**
    * Equivalent to the vanilla attack speed. 4 is equal to any standard item.
    */

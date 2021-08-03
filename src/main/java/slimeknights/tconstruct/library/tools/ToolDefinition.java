@@ -97,6 +97,11 @@ public class ToolDefinition {
     return this.requiredComponents.get();
   }
 
+  /** Checks if the tool uses multipart stats, equivelent to checking the required components are not empty */
+  public boolean isMultipart() {
+    return !getRequiredComponents().isEmpty();
+  }
+
   /**
    * Builds the stats for this tool definition
    * @param materials  Materials list

@@ -137,7 +137,7 @@ public class ToolClientEvents extends ClientEventBase {
   private static void onTooltipEvent(ItemTooltipEvent event) {
     if (event.getItemStack().getItem() instanceof IModifiableDisplay) {
       boolean isShift = Screen.hasShiftDown();
-      boolean isCtrl = !isShift && Screen.hasControlDown();
+      boolean isCtrl = !isShift && ((IModifiableDisplay) event.getItemStack().getItem()).getToolDefinition().isMultipart() && Screen.hasControlDown();
       MutableInt removedWhenIn = new MutableInt(0);
       event.getToolTip().removeIf(text -> {
         // its hard to find the blank line before attributes, so shift just removes all of them

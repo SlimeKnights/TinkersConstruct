@@ -134,6 +134,16 @@ public class ToolStack implements IModifierToolStack {
   }
 
   /**
+   * Checks if the given tool stats have been initialized, used as a marker to indicate slots are not yet applied
+   * @param stack  Stack to check
+   * @return  True if initialized
+   */
+  public static boolean isInitialized(ItemStack stack) {
+    CompoundNBT nbt = stack.getTag();
+    return nbt != null && nbt.contains(TAG_STATS, NBT.TAG_COMPOUND);
+  }
+
+  /**
    * Creates a copy of this tool to prevent modifications to the original.
    * Will copy over cached parsed NBT when possible, making this more efficient than calling {@link #copyFrom(ItemStack)}.
    * @return  Copy of this tool
@@ -355,7 +365,7 @@ public class ToolStack implements IModifierToolStack {
 
   @Override
   public MaterialNBT getMaterials() {
-    if (getDefinition().getRequiredComponents().isEmpty()) {
+    if (!getDefinition().isMultipart()) {
       return MaterialNBT.EMPTY;
     }
     if (materials == null) {
@@ -370,7 +380,11 @@ public class ToolStack implements IModifierToolStack {
    */
   protected void setMaterialsRaw(MaterialNBT materials) {
     this.materials = materials;
-    this.nbt.put(TAG_MATERIALS, materials.serializeToNBT());
+    if (materials == MaterialNBT.EMPTY) {
+      this.nbt.remove(TAG_MATERIALS);
+    } else {
+      this.nbt.put(TAG_MATERIALS, materials.serializeToNBT());
+    }
   }
 
   /**
@@ -387,7 +401,7 @@ public class ToolStack implements IModifierToolStack {
    * @param materials  New materials NBT
    */
   public void setMaterials(List<IMaterial> materials) {
-    setMaterials(new MaterialNBT(materials));
+    setMaterials(materials.isEmpty() ? MaterialNBT.EMPTY : new MaterialNBT(materials));
   }
 
   /**

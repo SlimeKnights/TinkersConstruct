@@ -24,7 +24,7 @@ import java.util.Set;
  * Extension of a modifiable tool that also is capable of harvesting blocks
  */
 public class ToolItem extends ModifiableItem implements IModifiableHarvest {
-  protected ToolItem(Properties properties, ToolDefinition toolDefinition) {
+  public ToolItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
 

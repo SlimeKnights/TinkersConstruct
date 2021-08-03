@@ -155,6 +155,7 @@ public class ToolDamageUtil {
    * @param amount  Amount of damage
    * @param entity  Entity for animation
    * @param hand    Hand containing the stack
+   * @return true if the tool broke when damaging
    */
   public static boolean damageAnimated(IModifierToolStack tool, int amount, LivingEntity entity, Hand hand) {
     if (damage(tool, amount, entity, entity.getHeldItem(hand))) {

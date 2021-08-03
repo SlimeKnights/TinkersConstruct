@@ -54,7 +54,6 @@ import slimeknights.tconstruct.library.utils.TooltipFlag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -76,7 +75,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   /** Cached tool for rendering on UIs */
   private ItemStack toolForRendering;
 
-  protected ModifiableItem(Properties properties, ToolDefinition toolDefinition) {
+  public ModifiableItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties);
     this.toolDefinition = toolDefinition;
   }
@@ -116,6 +115,15 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
     return true;
   }
 
+  @Override
+  public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
+    if (!getToolDefinition().isMultipart() && !ToolStack.isInitialized(stack)) {
+      ToolStack tool = ToolStack.from(stack);
+      // TODO: might want a hook to call on initialization
+      getToolDefinition().getBaseStatDefinition().buildSlots(tool.getPersistentData());
+      tool.rebuildStats();
+    }
+  }
 
   /* Display */
 

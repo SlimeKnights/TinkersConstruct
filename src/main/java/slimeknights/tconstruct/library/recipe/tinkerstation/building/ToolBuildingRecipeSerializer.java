@@ -18,7 +18,7 @@ public class ToolBuildingRecipeSerializer extends LoggingRecipeSerializer<ToolBu
     String group = JSONUtils.getString(json, "group", "");
     // output fetch as a modifiable item, its an error if it does not implement that interface or does not have parts
     IModifiable item = RecipeHelper.deserializeItem(JSONUtils.getString(json, "result"), "result", IModifiable.class);
-    if (item.getToolDefinition().getRequiredComponents().isEmpty()) {
+    if (!item.getToolDefinition().isMultipart()) {
       throw new JsonSyntaxException("Modifiable item must have tool parts to get a tool building recipe");
     }
     return new ToolBuildingRecipe(recipeId, group, item);

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.data;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -20,6 +21,7 @@ import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.data.recipe.IToolRecipeHelper;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -49,6 +51,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
 
   private void addToolBuildingRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "tools/building/";
+    String repairFolder = "tools/repair/";
     // stone
     toolBuilding(consumer, TinkerTools.pickaxe, folder);
     toolBuilding(consumer, TinkerTools.sledgeHammer, folder);
@@ -66,6 +69,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     toolBuilding(consumer, TinkerTools.dagger, folder);
     toolBuilding(consumer, TinkerTools.sword, folder);
     toolBuilding(consumer, TinkerTools.cleaver, folder);
+
+    // specialized
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerTools.flintAndBronze)
+                          .addIngredient(Items.FLINT)
+                          .addIngredient(TinkerMaterials.tinkersBronze.getIngotTag())
+                          .addCriterion("has_bronze", hasItem(TinkerMaterials.tinkersBronze.getIngotTag()))
+                          .build(consumer, prefix(TinkerTools.flintAndBronze, folder));
+    SpecializedRepairRecipeBuilder.repair(TinkerTools.flintAndBronze, MaterialIds.tinkersBronze)
+                                  .buildRepairKit(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_repair_kit"))
+                                  .build(consumer, wrap(TinkerTools.flintAndBronze, repairFolder, "_station"));
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {

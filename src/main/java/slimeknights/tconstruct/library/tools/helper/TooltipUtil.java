@@ -42,8 +42,14 @@ public class TooltipUtil {
    */
   public static void addInformation(IModifiableDisplay item, ItemStack stack, List<ITextComponent> tooltip, TooltipKey tooltipKey, boolean isAdvanced) {
     CompoundNBT tag = stack.getTag();
-    // if the display tag is set, hide material info
-    if (tag != null && tag.getBoolean(KEY_DISPLAY_TOOL)) {
+    if (tag == null || !ToolStack.isInitialized(stack)) {
+      if (item.getToolDefinition().isMultipart()) {
+        tooltip.add(NO_DATA);
+      }
+      return;
+    }
+    // if the display tag is set or no data, hide material info
+    if (tag.getBoolean(KEY_DISPLAY_TOOL)) {
       ToolStack tool = ToolStack.from(stack);
       for (ModifierEntry entry : tool.getModifierList()) {
         if (entry.getModifier().shouldDisplay(false)) {
@@ -56,7 +62,7 @@ public class TooltipUtil {
           item.getStatInformation(ToolStack.from(stack), tooltip, isAdvanced ? TooltipFlag.ADVANCED : TooltipFlag.NORMAL);
           break;
         case CONTROL:
-          if (!item.getToolDefinition().getRequiredComponents().isEmpty()) {
+          if (item.getToolDefinition().isMultipart()) {
             TooltipUtil.getComponents(item, stack, tooltip);
             break;
           }
@@ -87,7 +93,7 @@ public class TooltipUtil {
     }
     tooltips.add(StringTextComponent.EMPTY);
     tooltips.add(TOOLTIP_HOLD_SHIFT);
-    if (!tool.getDefinition().getRequiredComponents().isEmpty()) {
+    if (tool.getDefinition().isMultipart()) {
       tooltips.add(TOOLTIP_HOLD_CTRL);
     }
   }

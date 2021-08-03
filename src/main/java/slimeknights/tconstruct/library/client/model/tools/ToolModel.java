@@ -41,6 +41,7 @@ import net.minecraftforge.client.model.BakedItemModel;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
+import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
@@ -137,15 +138,28 @@ public class ToolModel implements IModelGeometry<ToolModel> {
   @Override
   public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
     Set<RenderMaterial> allTextures = Sets.newHashSet();
-    for (ToolPart part : toolParts) {
-      MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, false), null);
-      if (part.hasBroken()) {
-        MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, false), null);
+    if (toolParts.isEmpty()) {
+      allTextures.add(owner.resolveTexture("tool"));
+      if (owner.isTexturePresent("broken")) {
+        allTextures.add(owner.resolveTexture("broken"));
       }
       if (isLarge) {
-        MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, true), null);
+        allTextures.add(owner.resolveTexture("tool_large"));
+        if (owner.isTexturePresent("broken_large")) {
+          allTextures.add(owner.resolveTexture("broken_large"));
+        }
+      }
+    } else {
+      for (ToolPart part : toolParts) {
+        MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, false), null);
         if (part.hasBroken()) {
-          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, true), null);
+          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, false), null);
+        }
+        if (isLarge) {
+          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false, true), null);
+          if (part.hasBroken()) {
+            MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true, true), null);
+          }
         }
       }
     }
@@ -214,19 +228,26 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     }
 
     // add quads for all parts
-    for (ToolPart part : parts) {
-      int index = part.getIndex();
-      MaterialId material = null;
-      if (index < materials.size()) {
-        material = materials.get(index);
-      }
-      // add needed quads
-      particle = MaterialModel.getPartQuads(smallConsumer, owner, spriteGetter, TransformationMatrix.identity(), part.getName(isBroken, false), index, material);
+    if (parts.isEmpty()) {
+      particle = spriteGetter.apply(owner.resolveTexture(isBroken && owner.isTexturePresent("broken") ? "broken" : "tool"));
+      smallConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, particle, TransformationMatrix.identity()));
       if (largeTransforms != null) {
-        MaterialModel.getPartQuads(largeConsumer, owner, spriteGetter, largeTransforms, part.getName(isBroken, true), index, material);
+        largeConsumer.accept(ItemLayerModel.getQuadsForSprite(-1, spriteGetter.apply(owner.resolveTexture(isBroken && owner.isTexturePresent("broken_large") ? "broken_large" : "tool_large")), largeTransforms));
+      }
+    } else {
+      for (ToolPart part : parts) {
+        int index = part.getIndex();
+        MaterialId material = null;
+        if (index < materials.size()) {
+          material = materials.get(index);
+        }
+        // add needed quads
+        particle = MaterialModel.getPartQuads(smallConsumer, owner, spriteGetter, TransformationMatrix.identity(), part.getName(isBroken, false), index, material);
+        if (largeTransforms != null) {
+          MaterialModel.getPartQuads(largeConsumer, owner, spriteGetter, largeTransforms, part.getName(isBroken, true), index, material);
+        }
       }
     }
-    assert particle != null;
 
     // add quads for all modifiers
     if (tool != null && !modifierModels.isEmpty()) {
@@ -474,7 +495,10 @@ public class ToolModel implements IModelGeometry<ToolModel> {
 
     @Override
     public ToolModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
-      List<ToolPart> parts = JsonHelper.parseList(modelContents, "parts", ToolPart::read);
+      List<ToolPart> parts = Collections.emptyList();
+      if (modelContents.has("parts")) {
+        parts = JsonHelper.parseList(modelContents, "parts", ToolPart::read);
+      }
       boolean isLarge = JSONUtils.getBoolean(modelContents, "large", false);
       Vector2f offset = Vector2f.ZERO;
       if (modelContents.has("large_offset")) {

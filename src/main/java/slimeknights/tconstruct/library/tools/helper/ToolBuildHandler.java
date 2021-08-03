@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -59,15 +60,17 @@ public final class ToolBuildHandler {
   public static ItemStack buildToolForRendering(Item item, ToolDefinition definition) {
     List<IToolPart> requirements = definition.getRequiredComponents();
     int size = requirements.size();
-    // if no parts, nothing to do
+    // if no parts, just return the item directly with the display tag
+    ItemStack stack;
     if (size == 0) {
-      return new ItemStack(item);
+      stack = new ItemStack(item);
+    } else {
+      List<MaterialId> toolMaterials = new ArrayList<>(size);
+      for (int i = 0; i < size; i++) {
+        toolMaterials.add(i, getRenderMaterial(i));
+      }
+      stack = new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(item));
     }
-    List<MaterialId> toolMaterials = new ArrayList<>(size);
-    for (int i = 0; i < requirements.size(); i++) {
-      toolMaterials.add(i, getRenderMaterial(i));
-    }
-    ItemStack stack = new MaterialIdNBT(toolMaterials).updateStack(new ItemStack(item));
     stack.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY_TOOL, true);
     return stack;
   }
@@ -83,8 +86,8 @@ public final class ToolBuildHandler {
    */
   public static void addDefaultSubItems(IModifiable item, List<ItemStack> itemList, IMaterial... fixedMaterials) {
     // no parts? just add this item
-    if (item.getToolDefinition().getRequiredComponents().isEmpty()) {
-      itemList.add(new ItemStack(item));
+    if (!item.getToolDefinition().isMultipart()) {
+      itemList.add(buildItemFromMaterials(item, Collections.emptyList()));
     } else if (MaterialRegistry.isFullyLoaded()) {
       // if a specific material is set, show just that
       String showOnlyId = Config.COMMON.showOnlyToolMaterial.get();

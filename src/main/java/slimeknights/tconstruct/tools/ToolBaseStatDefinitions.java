@@ -87,4 +87,11 @@ public final class ToolBaseStatDefinitions {
     .bonus(ToolStats.REACH, 1f)
     .modifier(ToolStats.DURABILITY, 3.5f)
     .setPrimaryHeadWeight(2).startingSlots(SlotType.UPGRADE, 2).build();
+
+  // special items
+  static final ToolBaseStatDefinition FLINT_AND_BRONZE = new ToolBaseStatDefinition.Builder()
+    .set(ToolStats.DURABILITY, 100)
+    .startingSlots(SlotType.UPGRADE, 1)
+    .startingSlots(SlotType.ABILITY, 0)
+    .build();
 }

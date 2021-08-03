@@ -179,6 +179,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.dagger,  MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED);
     addToolTags(TinkerTools.sword,   MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, AOE);
     addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, TWO_HANDED, SWORD, AOE);
+    // specialized
+    addToolTags(TinkerTools.flintAndBronze, DURABILITY, MELEE, ONE_HANDED, AOE);
 
     // add tags to other tags
     // harvest primary and stone harvest are both automatically harvest
