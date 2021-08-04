@@ -64,7 +64,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.searedStone,
                      new HeadMaterialStats(150, 5f, IRON, 2.25f),
-                     HandleMaterialStats.DEFAULT.withDurability(0.8f).withAttackDamage(1.2f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.85f).withAttackDamage(1.15f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.scorchedStone,
                      new HeadMaterialStats(120, 4.5f, IRON, 2.5f),
@@ -101,7 +101,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.nahuatl,
                      new HeadMaterialStats(350, 4.5f, DIAMOND, 3f),
-                     HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackDamage(1.25f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.30f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.pigIron,
                      new HeadMaterialStats(580, 6f, DIAMOND, 2.5f),
@@ -147,7 +147,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.manyullyn,
                      new HeadMaterialStats(1250, 6.5f, NETHERITE, 3.5f),
-                     HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.3f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(0.9f).withAttackSpeed(0.95f).withAttackDamage(1.25f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.blazingBone,
                      new HeadMaterialStats(530, 6f, IRON, 3f),
