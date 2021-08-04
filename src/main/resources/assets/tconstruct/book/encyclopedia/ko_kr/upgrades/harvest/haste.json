@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:haste",
   "text": [
     {
-      "text": "채굴 속도가 5만큼 증가합니다."
+      "text": "등급당 채굴 속도가 5만큼 증가하고, 공격 속도가 5%만큼 증가합니다."
     }
   ],
   "more_text_space": true,
