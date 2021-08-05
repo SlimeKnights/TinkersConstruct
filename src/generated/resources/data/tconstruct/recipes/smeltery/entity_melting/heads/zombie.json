@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": [
+    {
+      "item": "minecraft:zombie_head"
+    },
+    {
+      "item": "tconstruct:husk_head"
+    },
+    {
+      "item": "tconstruct:spider_head"
+    },
+    {
+      "item": "tconstruct:cave_spider_head"
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:blood",
+    "amount": 500
+  },
+  "temperature": 36,
+  "time": 56
+}
