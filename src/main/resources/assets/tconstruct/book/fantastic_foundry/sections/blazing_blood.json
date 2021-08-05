@@ -25,8 +25,18 @@
     "data": "blazing_blood/foundry.json"
   },
   {
+    "name": "head",
+    "type": "showcase",
+    "data": "blazing_blood/head.json"
+  },
+  {
     "name": "melting",
     "type": "modifier",
     "data": "blazing_blood/melting.json"
+  },
+  {
+    "name": "piglin_bartering",
+    "type": "imageText2",
+    "data": "blazing_blood/piglin_bartering.json"
   }
 ]
