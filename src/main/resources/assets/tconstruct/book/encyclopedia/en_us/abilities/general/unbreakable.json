@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:unbreakable",
   "text": [
     {
-      "text": "Prevents the tool from taking damage, except from special damage sources such as tasty or glowing."
+      "text": "Prevents the tool from taking damage, except from special damage sources such as tasty."
     }
   ],
   "more_text_space": true,

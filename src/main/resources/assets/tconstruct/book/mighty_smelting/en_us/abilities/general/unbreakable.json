@@ -9,6 +9,6 @@
      "Your tool is now unbreakable",
     "Single Level",
     "Requires 1 Ability Slot, Reinforced 5, Netherite",
-	"Some modifiers are not affected by unbreaking, examples include tasty, and glowing"
+    "Not effective if you try to eat your tool"
   ]
 }

@@ -32,7 +32,7 @@ public class GlowingModifier extends SingleUseModifier {
         BlockPos pos = context.getPos().offset(face);
         if (TinkerCommons.glow.get().addGlow(world, pos, face.getOpposite())) {
           // damage the tool, showing animation if relevant
-          if (ToolDamageUtil.directDamage(tool, 10, player, context.getItem()) && player != null) {
+          if (ToolDamageUtil.damage(tool, 10, player, context.getItem()) && player != null) {
             player.sendBreakAnimation(context.getHand());
           }
           world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
