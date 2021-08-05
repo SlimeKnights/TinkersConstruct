@@ -16,7 +16,7 @@
   "tools": {
     "type": "mantle:without",
     "base": {
-      "tag": "tconstruct:modifiable/harvest/primary"
+      "tag": "tconstruct:modifiable/durability"
     },
     "without": [
       {

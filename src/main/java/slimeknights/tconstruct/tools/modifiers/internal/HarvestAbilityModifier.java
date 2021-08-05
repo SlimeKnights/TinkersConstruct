@@ -235,57 +235,55 @@ public class HarvestAbilityModifier extends SingleUseModifier {
       return ActionResultType.PASS;
     }
 
-    ItemStack stack = context.getItem();
-    Item item = stack.getItem();
-    if (item instanceof IModifiableHarvest) {
-      IModifiableHarvest toolCore = (IModifiableHarvest) item;
-      PlayerEntity player = context.getPlayer();
-      if (player != null && player.isSneaking()) {
-        return ActionResultType.PASS;
-      }
-  
-      // try harvest first
-      World world = context.getWorld();
-      BlockPos pos = context.getPos();
-      BlockState state = world.getBlockState(pos);
-      if (TinkerTags.Blocks.HARVESTABLE.contains(state.getBlock())) {
-        if (world instanceof ServerWorld) {
-          boolean survival = player == null || !player.isCreative();
-          ServerWorld server = (ServerWorld)world;
-  
-          // try harvesting the crop, if successful and survival, damage the tool
-          boolean didHarvest = false;
-          boolean broken = false;
-          if (harvest(context, stack, tool, server, state, pos, player)) {
-            didHarvest = true;
-            broken = survival && ToolDamageUtil.damage(tool, 1, player, stack);
-          }
-  
-          // if we have a player, try doing AOE harvest
-          if (!broken && player != null) {
-            for (BlockPos newPos : toolCore.getToolHarvestLogic().getAOEBlocks(tool, stack, player, state, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
-              // try harvesting the crop, if successful and survival, damage the tool
-              if (harvest(context, stack, tool, server, world.getBlockState(newPos), newPos, player)) {
-                didHarvest = true;
-                if (survival && ToolDamageUtil.damage(tool, 1, player, stack)) {
-                  broken = true;
-                  break;
-                }
+    // skip if sneaking
+    PlayerEntity player = context.getPlayer();
+    if (player != null && player.isSneaking()) {
+      return ActionResultType.PASS;
+    }
+
+    // try harvest first
+    World world = context.getWorld();
+    BlockPos pos = context.getPos();
+    BlockState state = world.getBlockState(pos);
+    if (TinkerTags.Blocks.HARVESTABLE.contains(state.getBlock())) {
+      if (world instanceof ServerWorld) {
+        boolean survival = player == null || !player.isCreative();
+        ServerWorld server = (ServerWorld)world;
+
+        // try harvesting the crop, if successful and survival, damage the tool
+        boolean didHarvest = false;
+        boolean broken = false;
+        ItemStack stack = context.getItem();
+        if (harvest(context, stack, tool, server, state, pos, player)) {
+          didHarvest = true;
+          broken = survival && ToolDamageUtil.damage(tool, 1, player, stack);
+        }
+
+        // if we have a player and harvest logic, try doing AOE harvest
+        Item item = stack.getItem();
+        if (!broken && player != null && item instanceof IModifiableHarvest) {
+          for (BlockPos newPos : ((IModifiableHarvest)item).getToolHarvestLogic().getAOEBlocks(tool, stack, player, state, world, pos, context.getFace(), AOEMatchType.TRANSFORM)) {
+            // try harvesting the crop, if successful and survival, damage the tool
+            if (harvest(context, stack, tool, server, world.getBlockState(newPos), newPos, player)) {
+              didHarvest = true;
+              if (survival && ToolDamageUtil.damage(tool, 1, player, stack)) {
+                broken = true;
+                break;
               }
             }
           }
-          // animations
-          if (player != null) {
-            if (didHarvest) {
-              player.spawnSweepParticles();
-            }
-            if (broken) {
-              player.sendBreakAnimation(context.getHand());
-            }
+        }
+        // animations
+        if (player != null) {
+          if (didHarvest) {
+            player.spawnSweepParticles();
+          }
+          if (broken) {
+            player.sendBreakAnimation(context.getHand());
           }
         }
-        return ActionResultType.SUCCESS;
       }
+      return ActionResultType.SUCCESS;
     }
     return ActionResultType.PASS;
   }

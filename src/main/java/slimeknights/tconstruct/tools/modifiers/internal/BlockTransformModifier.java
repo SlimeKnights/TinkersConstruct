@@ -6,6 +6,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.modifiers.SingleUseModifier;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.IModifiableHarvest;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
 
@@ -41,10 +42,12 @@ public class BlockTransformModifier extends SingleUseModifier {
     }
 
     Item item = tool.getItem();
+    ToolHarvestLogic harvestLogic;
     if (item instanceof IModifiableHarvest) {
-      IModifiableHarvest toolCore = (IModifiableHarvest) item;
-      return toolCore.getToolHarvestLogic().transformBlocks(tool, context, toolType, sound, requireGround);
+      harvestLogic = ((IModifiableHarvest)item).getToolHarvestLogic();
+    } else {
+      harvestLogic = ToolHarvestLogic.DEFAULT;
     }
-    return ActionResultType.PASS;
+    return harvestLogic.transformBlocks(tool, context, toolType, sound, requireGround);
   }
 }
