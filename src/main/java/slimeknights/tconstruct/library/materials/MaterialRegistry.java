@@ -10,7 +10,6 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.PacketDistributor.PacketTarget;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -193,17 +192,20 @@ public final class MaterialRegistry {
     // on a dedicated server, the client is running a separate game instance, this is where we send packets, plus fully loaded should already be true
     // this event is not fired when connecting to a server
 
-    // when a client is connecting to a dedicated server, this event does not fire at all client side
-    if (FMLEnvironment.dist == Dist.CLIENT) {
-      fullyLoaded = true;
-      MinecraftForge.EVENT_BUS.post(new MaterialsLoadedEvent());
-    } else if (player instanceof ServerPlayerEntity) {
+    if (player instanceof ServerPlayerEntity) {
+      // if the packet is being sent to ourself, skip sending, prevents reloading the material registry a second time on dedicated servers
+      // note it will still send the packet if another client connects in LAN
       ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
-      TinkerNetwork network = TinkerNetwork.getInstance();
-      PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
-      network.send(target, materialManager.getUpdatePacket());
-      network.send(target, materialStatsManager.getUpdatePacket());
-      network.send(target, materialTraitsManager.getUpdatePacket());
+      if (serverPlayer.connection.getNetworkManager().isLocalChannel()) {
+        fullyLoaded = true;
+        MinecraftForge.EVENT_BUS.post(new MaterialsLoadedEvent());
+      } else {
+        TinkerNetwork network = TinkerNetwork.getInstance();
+        PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
+        network.send(target, materialManager.getUpdatePacket());
+        network.send(target, materialStatsManager.getUpdatePacket());
+        network.send(target, materialTraitsManager.getUpdatePacket());
+      }
     }
   }
 }
