@@ -1806,6 +1806,13 @@
   "tool_stat.tconstruct.attack_damage": "Attack Damage: ",
   "tool_stat.tconstruct.attack_damage.description": "Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.",
 
+  "tool_stat.tconstruct.armor": "Armor: ",
+  "tool_stat.tconstruct.armor.description": "How much this protects you when worn.",
+  "tool_stat.tconstruct.armor_toughness": "Armor Toughness: ",
+  "tool_stat.tconstruct.armor_toughness.description": "How much this armor resists high damage blows.",
+  "tool_stat.tconstruct.knockback_resistance": "Knockback Resistance: ",
+  "tool_stat.tconstruct.knockback_resistance.description": "How much this armor reduces knockback.",
+
   "stat.tconstruct.handle": "Handle",
   "tool_stat.tconstruct.handle.durability.description": "The total durability of the tool will be multiplied by this.",
   "tool_stat.tconstruct.handle.attack_damage.description": "The total attack damage of the tool will be multiplied by this.",
@@ -1931,6 +1938,8 @@
   "subtitles.tconstruct.slimy_bounce": "Slimy bouncing",
 
   "subtitles.tconstruct.equip.slime": "Slimy armor jiggles",
+  "subtitles.tconstruct.equip.travelers": "Travelers armor rustles",
+  "subtitles.tconstruct.equip.plate": "Plate armor clanks",
 
 
   "_comment": "Book Strings",
