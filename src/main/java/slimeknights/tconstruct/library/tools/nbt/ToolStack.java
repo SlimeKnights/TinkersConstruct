@@ -4,10 +4,12 @@ import com.google.common.collect.ImmutableSet;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -161,16 +163,6 @@ public class ToolStack implements IModifierToolStack {
     // update the materials
     tool.setMaterials(materials);
     return tool;
-  }
-
-  /**
-   * Checks if the given tool stats have been initialized, used as a marker to indicate slots are not yet applied
-   * @param stack  Stack to check
-   * @return  True if initialized
-   */
-  public static boolean isInitialized(ItemStack stack) {
-    CompoundNBT nbt = stack.getTag();
-    return nbt != null && nbt.contains(TAG_STATS, NBT.TAG_COMPOUND);
   }
 
   /**
@@ -627,6 +619,45 @@ public class ToolStack implements IModifierToolStack {
     // finally, update raw data, called last to make the parameters more convenient mostly, plus no other hooks should be responding to this data
     for (ModifierEntry entry : modifierList) {
       entry.getModifier().addRawData(this, entry.getLevel(), getRestrictedNBT());
+    }
+  }
+
+
+  /* Static helpers */
+
+  /**
+   * Checks if the given tool stats have been initialized, used as a marker to indicate slots are not yet applied
+   * @param stack  Stack to check
+   * @return  True if initialized
+   */
+  public static boolean isInitialized(ItemStack stack) {
+    CompoundNBT nbt = stack.getTag();
+    return nbt != null && nbt.contains(TAG_STATS, NBT.TAG_COMPOUND);
+  }
+
+  /**
+   * Checks if the given tool stats have been initialized, used as a marker to indicate slots are not yet applied
+   * @param stack  Stack to check
+   * @return  True if initialized
+   */
+  public static boolean hasMaterials(ItemStack stack) {
+    CompoundNBT nbt = stack.getTag();
+    return nbt != null && nbt.contains(TAG_MATERIALS, NBT.TAG_LIST);
+  }
+
+  /**
+   * Ensures the given item stack is initialized. Intended to be called in {@link Item#onCreated(ItemStack, World, PlayerEntity)}
+   * @param stack           ItemStack to initialize
+   * @param toolDefinition  Tool definition
+   */
+  public static void ensureInitialized(ItemStack stack, ToolDefinition toolDefinition) {
+    if (!ToolStack.isInitialized(stack)) {
+      // if the tool is multipart, do nothing without materials
+      if (!toolDefinition.isMultipart() || ToolStack.hasMaterials(stack)) {
+        ToolStack tool = ToolStack.from(stack);
+        toolDefinition.getBaseStatDefinition().buildSlots(tool.getPersistentData());
+        tool.rebuildStats();
+      }
     }
   }
 }

@@ -95,6 +95,9 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
     return false;
   }
 
+
+  /* Loading */
+
   @Nullable
   @Override
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
@@ -105,22 +108,16 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   public boolean updateItemStackNBT(CompoundNBT nbt) {
     // when the itemstack is loaded from NBT we recalculate all the data
     // stops things from being wrong if modifiers or materials change
-    ToolStack tool = ToolStack.from(this, getToolDefinition(), nbt.getCompound("tag"));
-    tool.rebuildStats();
-
+    ToolStack.from(this, getToolDefinition(), nbt.getCompound("tag")).rebuildStats();
     // return value shouldn't matter since it's never checked
     return true;
   }
 
   @Override
   public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
-    if (!getToolDefinition().isMultipart() && !ToolStack.isInitialized(stack)) {
-      ToolStack tool = ToolStack.from(stack);
-      // TODO: might want a hook to call on initialization
-      getToolDefinition().getBaseStatDefinition().buildSlots(tool.getPersistentData());
-      tool.rebuildStats();
-    }
+    ToolStack.ensureInitialized(stack, getToolDefinition());
   }
+
 
   /* Display */
 
