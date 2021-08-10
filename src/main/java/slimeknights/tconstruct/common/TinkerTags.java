@@ -220,6 +220,9 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> HARVEST_PRIMARY = tag("modifiable/harvest/primary");
     /** Modifiable items that can break stone blocks */
     public static final IOptionalNamedTag<Item> STONE_HARVEST = tag("modifiable/harvest/stone");
+
+    /** Modifiable items that are worn as armor */
+    public static final IOptionalNamedTag<Item> ARMOR = tag("modifiable/armor");
     // /** Modifiable items that support ranged attacks, such as bows */
     // public static final IOptionalNamedTag<Item> RANGED = tag("modifiable/ranged");
 

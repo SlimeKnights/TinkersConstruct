@@ -9,7 +9,11 @@ import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
+
+import javax.annotation.Nullable;
 
 /** Item entity that will never die */
 public class IndestructibleItemEntity extends ItemEntity {
@@ -58,5 +62,27 @@ public class IndestructibleItemEntity extends ItemEntity {
   public boolean attackEntityFrom(DamageSource source, float amount) {
     // prevent any damage besides out of world
     return source.getDamageType().equals(DamageSource.OUT_OF_WORLD.damageType);
+  }
+
+  /** Checks if the given stack has a custom entity */
+  public static boolean hasCustomEntity(ItemStack stack) {
+    return ToolStack.from(stack).getVolatileData().getBoolean(IModifiable.INDESTRUCTIBLE_ENTITY);
+  }
+
+  /**
+   * Creates an indestructible item entity from the given item stack (if needed). Intended to be called in {@link net.minecraftforge.common.extensions.IForgeItem#createEntity(World, Entity, ItemStack)}
+   * @param world     World instance
+   * @param original  Original entity
+   * @param stack     Stack to drop
+   * @return  indestructible entity, or null if the stack is not marked indestructible
+   */
+  @Nullable
+  public static Entity createFrom(World world, Entity original, ItemStack stack) {
+    if (ToolStack.from(stack).getVolatileData().getBoolean(IModifiable.INDESTRUCTIBLE_ENTITY)) {
+      IndestructibleItemEntity entity = new IndestructibleItemEntity(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
+      entity.setPickupDelayFrom(original);
+      return entity;
+    }
+    return null;
   }
 }

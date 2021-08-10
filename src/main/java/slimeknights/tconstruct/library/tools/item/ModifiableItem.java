@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.tools.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
 import lombok.Getter;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
@@ -34,13 +33,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.Constants.NBT;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
-import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -54,7 +50,6 @@ import slimeknights.tconstruct.library.utils.TooltipKey;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -150,22 +145,18 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
 
-  /* Indestructable items */
+  /* Indestructible items */
 
   @Override
   public boolean hasCustomEntity(ItemStack stack) {
-    return ToolStack.from(stack).getVolatileData().getBoolean(INDESTRUCTIBLE_ENTITY);
+    return IndestructibleItemEntity.hasCustomEntity(stack);
   }
 
   @Override
   public Entity createEntity(World world, Entity original, ItemStack stack) {
-    if (ToolStack.from(stack).getVolatileData().getBoolean(INDESTRUCTIBLE_ENTITY)) {
-      IndestructibleItemEntity entity = new IndestructibleItemEntity(world, original.getPosX(), original.getPosY(), original.getPosZ(), stack);
-      entity.setPickupDelayFrom(original);
-      return entity;
-    }
-    return null;
+    return IndestructibleItemEntity.createFrom(world, original, stack);
   }
+
 
   /* Damage/Durability */
 
@@ -222,61 +213,17 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
 
   @Override
   public boolean showDurabilityBar(ItemStack stack) {
-    if (!isDamageable()) {
-      return false;
-    }
-    ToolStack tool = ToolStack.from(stack);
-    // if any modifier wishes to show when undamaged, let them
-    for (ModifierEntry entry : tool.getModifierList()) {
-      Boolean show = entry.getModifier().showDurabilityBar(tool, entry.getLevel());
-      if (show != null) {
-        return show;
-      }
-    }
-    return tool.getDamage() > 0;
-  }
-
-  /**
-   * Helper to avoid unneeded tool stack parsing
-   * @param tool  Tool stack
-   * @return  Durability for display
-   */
-  private double getDamagePercentage(ToolStack tool) {
-    // first modifier who wishs to handle it wins
-    for (ModifierEntry entry : tool.getModifierList()) {
-      double display = entry.getModifier().getDamagePercentage(tool, entry.getLevel());
-      if (!Double.isNaN(display)) {
-        return display;
-      }
-    }
-
-    // no one took it? just use regular durability
-    return (double) tool.getDamage() / tool.getStats().getInt(ToolStats.DURABILITY);
+    return ToolDamageUtil.showDurabilityBar(stack);
   }
 
   @Override
   public double getDurabilityForDisplay(ItemStack stack) {
-    ToolStack tool = ToolStack.from(stack);
-    if (tool.isBroken()) {
-      return 1;
-    }
-    // always show at least 5% when not broken
-    return 0.95 * getDamagePercentage(tool);
+    return ToolDamageUtil.getDamageForDisplay(stack);
   }
 
   @Override
   public int getRGBDurabilityForDisplay(ItemStack stack) {
-    ToolStack tool = ToolStack.from(stack);
-
-    // first modifier who wishs to handle it wins
-    for (ModifierEntry entry : tool.getModifierList()) {
-      int rgb = entry.getModifier().getDurabilityRGB(tool, entry.getLevel());
-      // not a problem to check against -1, the top 16 bits are unused
-      if (rgb != -1) {
-        return rgb;
-      }
-    }
-    return MathHelper.hsvToRGB(Math.max(0.0f, (float) (1.0f - getDamagePercentage(tool))) / 3.0f, 1.0f, 1.0f);
+    return ToolDamageUtil.getRGBDurabilityForDisplay(stack);
   }
 
 
@@ -450,33 +397,12 @@ public class ModifiableItem extends Item implements IModifiableDisplay, IModifia
   }
 
 
-  /* Display names */
+  /* Tooltips */
 
   @Override
   public ITextComponent getDisplayName(ItemStack stack) {
-    List<PartRequirement> components = getToolDefinition().getData().getParts();
-    if (components.isEmpty()) {
-      return super.getDisplayName(stack);
-    }
-
-    // if the tool is not named we use the repair tools for a prefix like thing
-    List<IMaterial> materials = ToolStack.from(stack).getMaterialsList();
-    // we save all the ones for the name in a set so we don't have the same material in it twice
-    Set<IMaterial> nameMaterials = Sets.newLinkedHashSet();
-
-    if (materials.size() == components.size()) {
-      for (int i = 0; i < components.size(); i++) {
-        if (i < materials.size() && MaterialRegistry.getInstance().canRepair(components.get(i).getStatType())) {
-          nameMaterials.add(materials.get(i));
-        }
-      }
-    }
-
-    return ITinkerStationDisplay.getCombinedItemName(super.getDisplayName(stack), nameMaterials);
+    return TooltipUtil.getDisplayName(stack, getToolDefinition());
   }
-
-
-  /* Tooltips */
 
   @Override
   @OnlyIn(Dist.CLIENT)
