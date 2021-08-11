@@ -19,7 +19,6 @@ class StatsNBTTest extends BaseMcTest {
                                                 .set(ToolStats.ATTACK_DAMAGE, 3)
                                                 .set(ToolStats.MINING_SPEED, 4)
                                                 .set(ToolStats.ATTACK_SPEED, 5)
-                                                .set(ToolStats.REACH, 6)
                                                 .build();
 
   @Test
@@ -31,7 +30,6 @@ class StatsNBTTest extends BaseMcTest {
     assertThat(nbt.getFloat(ToolStats.ATTACK_DAMAGE.getName().toString())).isEqualTo(3);
     assertThat(nbt.getFloat(ToolStats.MINING_SPEED.getName().toString())).isEqualTo(4);
     assertThat(nbt.getFloat(ToolStats.ATTACK_SPEED.getName().toString())).isEqualTo(5);
-    assertThat(nbt.getFloat(ToolStats.REACH.getName().toString())).isEqualTo(6);
   }
 
   @Test
@@ -49,7 +47,6 @@ class StatsNBTTest extends BaseMcTest {
     nbt.putFloat(ToolStats.ATTACK_DAMAGE.getName().toString(), 4);
     nbt.putFloat(ToolStats.MINING_SPEED.getName().toString(), 3.5f);
     nbt.putFloat(ToolStats.ATTACK_SPEED.getName().toString(), 2);
-    nbt.putFloat(ToolStats.REACH.getName().toString(), 1);
 
     StatsNBT statsNBT = StatsNBT.readFromNBT(nbt);
 
@@ -58,7 +55,6 @@ class StatsNBTTest extends BaseMcTest {
     assertThat(statsNBT.getFloat(ToolStats.ATTACK_DAMAGE)).isEqualTo(4);
     assertThat(statsNBT.getFloat(ToolStats.MINING_SPEED)).isEqualTo(3.5f);
     assertThat(statsNBT.getFloat(ToolStats.ATTACK_SPEED)).isEqualTo(2);
-    assertThat(statsNBT.getFloat(ToolStats.REACH)).isEqualTo(1);
   }
 
   @Test
@@ -85,8 +81,7 @@ class StatsNBTTest extends BaseMcTest {
                                        .set(ToolStats.DURABILITY, 1)
                                        .set(ToolStats.HARVEST_LEVEL, 2)
                                        .set(ToolStats.ATTACK_DAMAGE, 3)
-                                       .set(ToolStats.MINING_SPEED, 4)
                                        .build();
-    assertThat(partialStatsNBT.getFloat(ToolStats.REACH)).isEqualTo(ToolStats.REACH.getDefaultValue());
+    assertThat(partialStatsNBT.getFloat(ToolStats.MINING_SPEED)).isEqualTo(ToolStats.MINING_SPEED.getDefaultValue());
   }
 }

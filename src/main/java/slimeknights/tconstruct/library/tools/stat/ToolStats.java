@@ -18,18 +18,18 @@ public class ToolStats {
 
   /** Tools durability, determines how long it lasts */
   public static final FloatToolStat DURABILITY = register(new FloatToolStat(name("durability"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE));
+
+  // melee
   /** Tools attack damage for melee */
   public static final FloatToolStat ATTACK_DAMAGE = register(new FloatToolStat(name("attack_damage"), 0xFFD76464, 0, 0, 2048f));
-  /**
-   * Equivalent to the vanilla attack speed. 4 is equal to any standard item.
-   */
+  /** Equivalent to the vanilla attack speed. 4 is equal to any standard item */
   public static final FloatToolStat ATTACK_SPEED = register(new FloatToolStat(name("attack_speed"), 0xFF8547CC, 1, 0, 1024f));
+
+  // harvest
   /** How fast the tool breaks blocks */
   public static final FloatToolStat MINING_SPEED = register(new FloatToolStat(name("mining_speed"), 0xFF78A0CD, 1, 0, 2048f));
   /** Mining level for breaking blocks */
   public static final TierToolStat HARVEST_LEVEL = register(new TierToolStat(name("harvest_level"), HarvestLevels.WOOD, HarvestLevels::getHarvestLevelName));
-  /** How far the tool can reach */
-  public static final FloatToolStat REACH = register(new FloatToolStat(name("reach"), 0xFF2200CC, 5, 0, 1024f));
 
   /**
    * Gets the tool stat for the given name

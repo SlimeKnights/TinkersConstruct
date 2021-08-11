@@ -84,7 +84,6 @@ public final class ToolBaseStatDefinitions {
     .set(ToolStats.ATTACK_SPEED, 0.9f)
     .modifier(ToolStats.ATTACK_DAMAGE, 1.5f)
     .modifier(ToolStats.MINING_SPEED, 0.25f)
-    .bonus(ToolStats.REACH, 1f)
     .modifier(ToolStats.DURABILITY, 3.5f)
     .setPrimaryHeadWeight(2).startingSlots(SlotType.UPGRADE, 2).build();
 

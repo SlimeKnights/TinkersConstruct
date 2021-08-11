@@ -100,6 +100,7 @@ public final class ToolDefinitions {
     .addModifier(TinkerModifiers.severing, 2)
     .addModifier(TinkerModifiers.aoeSilkyShears)
     .addModifier(TinkerModifiers.twoHanded)
+    //.addModifier(TinkerModifiers.reach, 1) TODO - attack reach
     .build();
 
   // special

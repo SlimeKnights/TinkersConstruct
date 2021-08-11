@@ -28,7 +28,6 @@ class ToolStackTest extends ToolItemTest {
                                                 .set(ToolStats.ATTACK_DAMAGE, 2f)
                                                 .set(ToolStats.MINING_SPEED, 3f)
                                                 .set(ToolStats.ATTACK_SPEED, 5f)
-                                                .set(ToolStats.REACH, 6f)
                                                 .build();
 
   @BeforeAll
