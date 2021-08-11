@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.data.MantleTags;
+import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
@@ -31,6 +32,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import java.util.function.Consumer;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
@@ -181,6 +183,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, TWO_HANDED, SWORD, AOE);
     // specialized
     addToolTags(TinkerTools.flintAndBronze, DURABILITY, MELEE, ONE_HANDED, AOE);
+
+    // armor
+    addToolTags(TinkerTools.travelersGear, DURABILITY, ARMOR);
 
     // add tags to other tags
     // harvest primary and stone harvest are both automatically harvest
@@ -336,5 +341,14 @@ public class ItemTagProvider extends ItemTagsProvider {
     for (INamedTag<Item> tag : tags) {
       this.getOrCreateBuilder(tag).add(item);
     }
+  }
+
+  @SafeVarargs
+  private final void addToolTags(EnumObject<?,? extends Item> enumObject, INamedTag<Item>... tags) {
+    enumObject.forEach(item -> {
+      for (INamedTag<Item> tag : tags) {
+        this.getOrCreateBuilder(tag).add(item);
+      }
+    });
   }
 }

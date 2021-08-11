@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:specialized_repair_kit",
+  "tool": [
+    {
+      "item": "tconstruct:travelers_boots"
+    },
+    {
+      "item": "tconstruct:travelers_leggings"
+    },
+    {
+      "item": "tconstruct:travelers_chestplate"
+    },
+    {
+      "item": "tconstruct:travelers_helmet"
+    }
+  ],
+  "repair_material": "tconstruct:copper"
+}

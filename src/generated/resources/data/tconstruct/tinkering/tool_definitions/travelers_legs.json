@@ -1,7 +1,7 @@
 {
   "stats": {
     "base": {
-      "tconstruct:durability": 75.0,
+      "tconstruct:durability": 150.0,
       "tconstruct:armor": 4.0
     }
   },

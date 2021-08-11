@@ -239,7 +239,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
 
     // travelers armor
     defineArmor(ArmorDefinitions.TRAVELERS)
-      .durabilityFactor(5)
+      .durabilityFactor(10)
       .stat(ToolStats.ARMOR, 1, 4, 5, 1)
       .startingSlots(SlotType.UPGRADE, 3)
       .startingSlots(SlotType.ARMOR, 2)

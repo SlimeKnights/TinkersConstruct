@@ -13,6 +13,10 @@
     "tconstruct:dagger",
     "tconstruct:sword",
     "tconstruct:cleaver",
-    "tconstruct:flint_and_bronze"
+    "tconstruct:flint_and_bronze",
+    "tconstruct:travelers_boots",
+    "tconstruct:travelers_leggings",
+    "tconstruct:travelers_chestplate",
+    "tconstruct:travelers_helmet"
   ]
 }
